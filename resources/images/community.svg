@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="300px" height="300px" viewBox="0 0 200.206 109.645" enable-background="new 0 0 200.206 109.645"
+	 xml:space="preserve">
+<g id="MESSAGEBALLOONS">
+	<path id="BLUEBALLOON" fill="#26A9E0" d="M89.064,78.036c0,5.567,4.512,10.082,10.079,10.082h36.674l15.657,18.839l1.584-18.839
+		c5.566,0,10.078-4.515,10.078-10.082l4.321-35.523c0-5.568-4.512-10.081-10.081-10.081H93.383c-5.567,0-10.079,4.513-10.079,10.081
+		L89.064,78.036z"/>
+	<path id="YELLOWBALLOON" fill="#FFD100" d="M84.413,78.445l-1.019-6.344h-7.732L60.101,90.823l-1.568-18.722h-3.427
+		c-5.135,0-9.315-4.178-9.315-9.315l-5.586-46.164c0.109-5.042,4.246-9.109,9.312-9.109h82.789c5.049,0,9.166,4.031,9.312,9.042
+		l-1.818,11.22h7.551l1.679-10.349l0.047-0.597c0-9.248-7.522-16.769-16.77-16.769H49.516c-9.246,0-16.768,7.521-16.768,16.769
+		l5.593,46.198c0.109,7.955,5.79,14.587,13.308,16.168l2.547,30.389l24.963-30.029h5.339C84.46,79.188,84.421,78.82,84.413,78.445z"
+		/>
+	<rect x="53.999" y="17.083" fill="#404C51" width="70.366" height="5.783"/>
+	<rect x="53.999" y="26.747" fill="#FFD100" width="29.305" height="5.783"/>
+	<rect x="53.999" y="36.601" fill="#CFD7D8" width="22.517" height="5.783"/>
+	<rect x="53.999" y="46.645" fill="#26A9E0" width="26.622" height="5.782"/>
+	<rect x="96.224" y="43.753" fill="#404C51" width="58.304" height="5.782"/>
+	<rect x="109.362" y="52.786" fill="#FFD100" width="45.165" height="5.782"/>
+	<rect x="103.614" y="61.819" fill="#CFD7D8" width="50.913" height="5.782"/>
+</g>
+</svg>
