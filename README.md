@@ -1,5 +1,5 @@
 # PrimeNG
-UI Components for AngularJS2
+UI Components for AngularJS 2
 
 ![alt text](http://www.primefaces.org/images/primeng.png "PrimeNG")
 
