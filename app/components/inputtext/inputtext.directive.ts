@@ -8,10 +8,7 @@ export class InputTextDirective extends UIComponent {
 
     constructor(private el: ElementRef, private renderer: Renderer) {
         super();
-        this.addClass(this.el.nativeElement, 'pui-inputtext');
-        this.addClass(this.el.nativeElement, 'ui-widget');
-        this.addClass(this.el.nativeElement, 'ui-state-default');
-        this.addClass(this.el.nativeElement, 'ui-corner-all');
+        this.addClasses(this.el.nativeElement, 'pui-inputtext ui-widget ui-state-default ui-corner-all');
     }
 
     @HostListener('mouseover')

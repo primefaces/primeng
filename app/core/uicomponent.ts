@@ -1,5 +1,12 @@
 export class UIComponent {
 
+    addClasses(element: any, classNames: string) {
+        var tokens: string[] = classNames.split(' ');
+        for (var i = 0; i < tokens.length; i++) {
+            this.addClass(element, tokens[i]);
+        }
+    }
+
     addClass(element: any, className: string) {
         if (element.classList)
             element.classList.add(className);
