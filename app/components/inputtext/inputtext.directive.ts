@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Renderer, Input, HostListener} from 'angular2/core';
+import {Directive, ElementRef, Renderer, Input, HostListener, HostBinding} from 'angular2/core';
 import {UIComponent} from '../../core/uicomponent';
 
 @Directive({
@@ -10,6 +10,8 @@ export class InputTextDirective extends UIComponent {
         super();
         this.addClasses(this.el.nativeElement, 'pui-inputtext ui-widget ui-state-default ui-corner-all');
     }
+
+    @HostBinding('class.ui-state-disabled') private get isDisabled(){return this.el.nativeElement.disabled;}
 
     @HostListener('mouseover')
     onMouseOver() {
