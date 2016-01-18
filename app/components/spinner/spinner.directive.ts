@@ -1,14 +1,11 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
-import {Directive, ElementRef, OnInit, OnDestroy, HostBinding,Input} from 'angular2/core';
+import {Directive, ElementRef, OnInit, OnDestroy, HostBinding,Input,OnChanges,SimpleChange} from 'angular2/core';
 
 @Directive({
     selector: '[pSpinner]'
 })
-export class SpinnerDirective implements OnInit, OnDestroy {
-
-    @HostBinding('class.ui-state-disabled')
-    private get isDisabled() {return this.el.nativeElement.disabled;}
+export class SpinnerDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('step') step;
 
@@ -20,6 +17,10 @@ export class SpinnerDirective implements OnInit, OnDestroy {
 
     @Input('suffix') suffix;
 
+    @Input('disabled') disabled;
+
+    initialized = false;
+
     constructor(private el: ElementRef) {}
 
     ngOnInit() {
@@ -30,9 +31,22 @@ export class SpinnerDirective implements OnInit, OnDestroy {
             prefix: this.prefix,
             suffix: this.suffix
         });
+
+        this.initialized = true;
+    }
+
+    ngOnChanges(changes: {[key: string]: SimpleChange}) {
+        if (this.initialized) {
+            for (var key in changes) {
+               jQuery(this.el.nativeElement).puispinner('option', key, changes[key].currentValue);
+            }
+        }
+            
     }
 
     ngOnDestroy() {
         jQuery(this.el.nativeElement).puispinner('destroy');
+
+        this.initialized = false;
     }
 }
