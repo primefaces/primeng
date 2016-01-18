@@ -40,8 +40,7 @@ export class SpinnerDirective implements OnInit, OnDestroy, OnChanges {
             for (var key in changes) {
                jQuery(this.el.nativeElement).puispinner('option', key, changes[key].currentValue);
             }
-        }
-            
+        }   
     }
 
     ngOnDestroy() {
@@ -49,4 +48,5 @@ export class SpinnerDirective implements OnInit, OnDestroy, OnChanges {
 
         this.initialized = false;
     }
+    
 }
