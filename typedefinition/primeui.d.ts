@@ -4,27 +4,17 @@
 
 declare module PrimeUI {
 
-    //InputText
-    interface InputTextOptions extends InputTextEvents {
+    //puiinputtext
+    interface InputTextOptions {
     }
 
-    interface InputTextEvents {
-    }
-
-    interface InputText extends JQueryUI.Widget, InputTextOptions {
-    }
-
-    //Button
+    //puibutton
     interface ButtonOptions {
         value?: string;
         icon?: string;
         iconPos?: string;
-        click?: (event?: Event) => void;
+        click?: (event?: Event): void;
     }
-
-    interface Button extends JQueryUI.Widget, ButtonOptions {
-    }
-
 }
 
 interface JQuery {
