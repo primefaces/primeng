@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../inputtext.directive'], function(exports_1) {
+System.register(['angular2/core', '../inputtext.directive', '../../button/button.directive'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', '../inputtext.directive'], function(exports_1)
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, inputtext_directive_1;
+    var core_1, inputtext_directive_1, button_directive_1;
     var InputTextDemoComponent;
     return {
         setters:[
@@ -17,6 +17,9 @@ System.register(['angular2/core', '../inputtext.directive'], function(exports_1)
             },
             function (inputtext_directive_1_1) {
                 inputtext_directive_1 = inputtext_directive_1_1;
+            },
+            function (button_directive_1_1) {
+                button_directive_1 = button_directive_1_1;
             }],
         execute: function() {
             InputTextDemoComponent = (function () {
@@ -28,8 +31,8 @@ System.register(['angular2/core', '../inputtext.directive'], function(exports_1)
                 };
                 InputTextDemoComponent = __decorate([
                     core_1.Component({
-                        template: "\n        <div class=\"ContentSideSections\">\n            <div class=\"Content100 overHidden TextShadow\">\n                <span class=\"fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock\">Inputtext</span>\n                <span class=\"defaultText dispTable\">InputText is an extension to standard input element with skinning capabilities.</span>\n            </div>\n        </div>\n\n        <div class=\"ContentSideSections Implementation\">\n            <h3 class=\"first\">Basic</h3>\n            <input id=\"in\" type=\"text\" size=\"30\" pInputText [icon]=\"something\" [(ngModel)]=\"text\" [disabled]=\"disabled\"/>\n\n            {{text}}\n\n            <button type=\"text\" (click)=\"toggleDisabled()\">Toggle</button>\n        </div>\n    ",
-                        directives: [inputtext_directive_1.InputTextDirective]
+                        template: "\n        <div class=\"ContentSideSections\">\n            <div class=\"Content100 overHidden TextShadow\">\n                <span class=\"fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock\">Inputtext</span>\n                <span class=\"defaultText dispTable\">InputText is an extension to standard input element with skinning capabilities.</span>\n            </div>\n        </div>\n\n        <div class=\"ContentSideSections Implementation\">\n            <h3 class=\"first\">Basic</h3>\n            <input id=\"in\" type=\"text\" size=\"30\" pInputText [(ngModel)]=\"text\" [disabled]=\"disabled\"/>\n\n            {{text}}\n\n            <button type=\"text\" (click)=\"toggleDisabled()\" pButton>Toggle</button>\n        </div>\n    ",
+                        directives: [inputtext_directive_1.InputTextDirective, button_directive_1.ButtonDirective]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], InputTextDemoComponent);

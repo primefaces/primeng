@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {InputTextDirective} from '../inputtext.directive';
+import {ButtonDirective} from '../../button/button.directive';
 
 @Component({
     template: `
@@ -12,14 +13,14 @@ import {InputTextDirective} from '../inputtext.directive';
 
         <div class="ContentSideSections Implementation">
             <h3 class="first">Basic</h3>
-            <input id="in" type="text" size="30" pInputText [icon]="something" [(ngModel)]="text" [disabled]="disabled"/>
+            <input id="in" type="text" size="30" pInputText [(ngModel)]="text" [disabled]="disabled"/>
 
             {{text}}
 
-            <button type="text" (click)="toggleDisabled()">Toggle</button>
+            <button type="text" (click)="toggleDisabled()" pButton>Toggle</button>
         </div>
     `,
-    directives: [InputTextDirective]
+    directives: [InputTextDirective, ButtonDirective]
 })
 export class InputTextDemoComponent {
 
