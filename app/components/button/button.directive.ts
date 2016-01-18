@@ -1,29 +1,42 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
-import {Directive, ElementRef, OnInit, OnDestroy, HostBinding, Input} from 'angular2/core';
+import {Directive, ElementRef, OnInit, OnDestroy, HostBinding, Input, SimpleChange} from 'angular2/core';
 
 @Directive({
     selector: '[pButton]'
 })
 export class ButtonDirective implements OnInit, OnDestroy {
 
-    @HostBinding('class.ui-state-disabled')
-    private get isDisabled() {return this.el.nativeElement.disabled;}
+    @Input('icon') icon: string;
 
-    @Input('icon') icon;
+    @Input('iconPos') iconPos: string;
 
-    @Input('iconPos') iconPos;
+    @Input('disabled') disabled: boolean;
 
-    constructor(private el: ElementRef) {}
+    initialized: boolean;
+
+    constructor(private el: ElementRef) {
+        this.initialized = false;
+    }
 
     ngOnInit() {
         jQuery(this.el.nativeElement).puibutton({
             icon: this.icon,
             iconPos: this.iconPos
         });
+        this.initialized = true;
+    }
+
+    ngOnChanges(changes: {[key: string]: SimpleChange}) {
+        if (this.initialized) {
+            for (var key in changes) {
+                jQuery(this.el.nativeElement).puibutton('option', key, changes[key].currentValue);
+            }
+        }
     }
 
     ngOnDestroy() {
         jQuery(this.el.nativeElement).puibutton('destroy');
+        this.initialized = false;
     }
 }

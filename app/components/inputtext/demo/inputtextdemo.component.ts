@@ -7,7 +7,7 @@ import {ButtonDirective} from '../../button/button.directive';
         <div class="ContentSideSections">
             <div class="Content100 overHidden TextShadow">
                 <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Inputtext</span>
-                <span class="defaultText dispTable">InputText is an extension to standard input element with skinning capabilities.</span>
+                <span class="defaultText dispTable">InputText is an extension to standard input element with theming.</span>
             </div>
         </div>
 

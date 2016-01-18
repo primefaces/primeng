@@ -1,27 +1,29 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
-import {Directive, ElementRef, OnInit, OnDestroy, HostBinding,Input,OnChanges,SimpleChange} from 'angular2/core';
+import {Directive, ElementRef, OnInit, OnDestroy, HostBinding, Input, OnChanges, SimpleChange} from 'angular2/core';
 
 @Directive({
     selector: '[pSpinner]'
 })
 export class SpinnerDirective implements OnInit, OnDestroy, OnChanges {
 
-    @Input('step') step;
+    @Input('step') step: number;
 
-    @Input('min') min;
+    @Input('min') min: number;
 
-    @Input('max') max;
+    @Input('max') max: number;
 
-    @Input('prefix') prefix;
+    @Input('prefix') prefix: string;
 
-    @Input('suffix') suffix;
+    @Input('suffix') suffix: string;
 
-    @Input('disabled') disabled;
+    @Input('disabled') disabled: boolean;
 
-    initialized = false;
+    initialized: boolean;
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef) {
+        this.initialized = false;
+    } 
 
     ngOnInit() {
         jQuery(this.el.nativeElement).puispinner({
@@ -31,7 +33,6 @@ export class SpinnerDirective implements OnInit, OnDestroy, OnChanges {
             prefix: this.prefix,
             suffix: this.suffix
         });
-
         this.initialized = true;
     }
 
@@ -45,8 +46,7 @@ export class SpinnerDirective implements OnInit, OnDestroy, OnChanges {
 
     ngOnDestroy() {
         jQuery(this.el.nativeElement).puispinner('destroy');
-
         this.initialized = false;
     }
-    
+
 }
