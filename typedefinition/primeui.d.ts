@@ -13,16 +13,16 @@ declare module PrimeUI {
         value?: string;
         icon?: string;
         iconPos?: string;
-        click?: (event?: Event): void;
+        click?: (event?: Event) => void;
     }
+
     //Spinner
     interface SpinnerOptions {
-        max?: any;
-        min?: any;
-        step?: any;
-        prefix?: any;
-        suffix?: any;
-        click?: (event?: Event) => void;
+        max?: number;
+        min?: number;
+        step?: number;
+        prefix?: string;
+        suffix?: string;
     }
 }
 
