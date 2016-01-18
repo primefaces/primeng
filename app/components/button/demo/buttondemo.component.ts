@@ -6,7 +6,7 @@ import {ButtonDirective} from '../button.directive';
         <div class="ContentSideSections">
             <div class="Content100 overHidden TextShadow">
                 <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Button</span>
-                <span class="defaultText dispTable">Button is an extension to standard input element with skinning capabilities.</span>
+                <span class="defaultText dispTable">Button is an extension to standard input element with icons and theming.</span>
             </div>
         </div>
 

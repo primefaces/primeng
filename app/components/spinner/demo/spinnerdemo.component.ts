@@ -7,7 +7,7 @@ import {ButtonDirective} from '../../button/button.directive';
         <div class="ContentSideSections">
             <div class="Content100 overHidden TextShadow">
                 <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Spinner</span>
-                <span class="defaultText dispTable">Spinner is an input component to provide a numerical input via increment and decrement buttons.</span>
+                <span class="defaultText dispTable">Spinner is an input component to provide a numerical input.</span>
             </div>
         </div>
 
