@@ -10,7 +10,7 @@ declare module PrimeUI {
     interface InputTextEvents {
     }
 
-    interface InputText extends Widget, InputTextOptions {
+    interface InputText extends JQueryUI.Widget, InputTextOptions {
     }
 }
 
@@ -20,5 +20,6 @@ interface JQuery {
     puiinputtext(methodName: 'destroy'): void;
     puiinputtext(methodName: 'disable'): void;
     puiinputtext(methodName: 'enable'): void;
+    puiinputtext(methodName: string): void;
 
 }

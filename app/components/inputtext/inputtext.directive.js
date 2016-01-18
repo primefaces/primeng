@@ -18,16 +18,29 @@ System.register(['angular2/core'], function(exports_1) {
             }],
         execute: function() {
             InputTextDirective = (function () {
-                function InputTextDirective(el, renderer) {
+                function InputTextDirective(el) {
                     this.el = el;
-                    this.renderer = renderer;
-                    jQuery(this.el.nativeElement).puiinputtext();
                 }
+                Object.defineProperty(InputTextDirective.prototype, "isDisabled", {
+                    get: function () { return this.el.nativeElement.disabled; },
+                    enumerable: true,
+                    configurable: true
+                });
+                InputTextDirective.prototype.ngOnInit = function () {
+                    jQuery(this.el.nativeElement).puiinputtext();
+                };
+                InputTextDirective.prototype.ngOnDestroy = function () {
+                    jQuery(this.el.nativeElement).puiinputtext('destroy');
+                };
+                __decorate([
+                    core_1.HostBinding('class.ui-state-disabled'), 
+                    __metadata('design:type', Object)
+                ], InputTextDirective.prototype, "isDisabled", null);
                 InputTextDirective = __decorate([
                     core_1.Directive({
                         selector: '[pInputText]'
                     }), 
-                    __metadata('design:paramtypes', [core_1.ElementRef, core_1.Renderer])
+                    __metadata('design:paramtypes', [core_1.ElementRef])
                 ], InputTextDirective);
                 return InputTextDirective;
             })();

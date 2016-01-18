@@ -12,9 +12,11 @@ import {InputTextDirective} from '../inputtext.directive';
 
         <div class="ContentSideSections Implementation">
             <h3 class="first">Basic</h3>
-            <input id="in" type="text" size="30" pInputText [(ngModel)]="text" />
+            <input id="in" type="text" size="30" pInputText [icon]="something" [(ngModel)]="text" [disabled]="disabled"/>
 
             {{text}}
+
+            <button type="text" (click)="toggleDisabled()">Toggle</button>
         </div>
     `,
     directives: [InputTextDirective]
@@ -22,4 +24,10 @@ import {InputTextDirective} from '../inputtext.directive';
 export class InputTextDemoComponent {
 
     text: string;
+
+    disabled: boolean = false;
+
+    toggleDisabled() {
+        this.disabled = !this.disabled;
+    }
 }

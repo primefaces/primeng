@@ -21,10 +21,14 @@ System.register(['angular2/core', '../inputtext.directive'], function(exports_1)
         execute: function() {
             InputTextDemoComponent = (function () {
                 function InputTextDemoComponent() {
+                    this.disabled = false;
                 }
+                InputTextDemoComponent.prototype.toggleDisabled = function () {
+                    this.disabled = !this.disabled;
+                };
                 InputTextDemoComponent = __decorate([
                     core_1.Component({
-                        template: "\n        <div class=\"ContentSideSections\">\n            <div class=\"Content100 overHidden TextShadow\">\n                <span class=\"fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock\">Inputtext</span>\n                <span class=\"defaultText dispTable\">InputText is an extension to standard input element with skinning capabilities.</span>\n            </div>\n        </div>\n\n        <div class=\"ContentSideSections Implementation\">\n            <h3 class=\"first\">Basic</h3>\n            <input id=\"in\" type=\"text\" size=\"30\" pInputText [(ngModel)]=\"text\" />\n\n            {{text}}\n        </div>\n    ",
+                        template: "\n        <div class=\"ContentSideSections\">\n            <div class=\"Content100 overHidden TextShadow\">\n                <span class=\"fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock\">Inputtext</span>\n                <span class=\"defaultText dispTable\">InputText is an extension to standard input element with skinning capabilities.</span>\n            </div>\n        </div>\n\n        <div class=\"ContentSideSections Implementation\">\n            <h3 class=\"first\">Basic</h3>\n            <input id=\"in\" type=\"text\" size=\"30\" pInputText [icon]=\"something\" [(ngModel)]=\"text\" [disabled]=\"disabled\"/>\n\n            {{text}}\n\n            <button type=\"text\" (click)=\"toggleDisabled()\">Toggle</button>\n        </div>\n    ",
                         directives: [inputtext_directive_1.InputTextDirective]
                     }), 
                     __metadata('design:paramtypes', [])
