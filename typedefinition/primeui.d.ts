@@ -24,6 +24,12 @@ declare module PrimeUI {
         prefix?: string;
         suffix?: string;
     }
+
+    //Panel
+    interface PanelOptions {
+        toggleable?: boolean;
+        title?: string;
+    }
 }
 
 interface JQuery {
@@ -63,4 +69,16 @@ interface JQuery {
     puispinner(optionLiteral: string, optionName: string): any;
     puispinner(optionLiteral: string, options: PrimeUI.SpinnerOptions): any;
     puispinner(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puipanel(): JQuery;
+    puipanel(methodName: 'destroy'): void;
+    puipanel(methodName: 'disable'): void;
+    puipanel(methodName: 'enable'): void;
+    puipanel(methodName: 'refresh'): void;
+    puipanel(methodName: 'widget'): JQuery;
+    puipanel(methodName: string): JQuery;
+    puipanel(options: PrimeUI.PanelOptions): JQuery;
+    puipanel(optionLiteral: string, optionName: string): any;
+    puipanel(optionLiteral: string, options: PrimeUI.PanelOptions): any;
+    puipanel(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
