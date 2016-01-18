@@ -1,0 +1,4 @@
+node_modules
+app/**/*.js
+*.map
+*.log
