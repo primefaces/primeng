@@ -15,6 +15,18 @@ declare module PrimeUI {
         iconPos?: string;
         click?: (event?: Event): void;
     }
+    //Spinner
+    interface SpinnerOptions {
+        max?: any; // number or string
+        min?: any; // number or string
+        step?: any; // number or string
+        prefix?: any;
+        suffix?: any;
+        click?: (event?: Event) => void;
+    }
+
+    interface Spinner extends JQueryUI.Widget, SpinnerOptions {
+    }
 }
 
 interface JQuery {
@@ -42,4 +54,16 @@ interface JQuery {
     puibutton(optionLiteral: string, optionName: string): any;
     puibutton(optionLiteral: string, options: PrimeUI.ButtonOptions): any;
     puibutton(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puispinner(): JQuery;
+    puispinner(methodName: 'destroy'): void;
+    puispinner(methodName: 'disable'): void;
+    puispinner(methodName: 'enable'): void;
+    puispinner(methodName: 'refresh'): void;
+    puispinner(methodName: 'widget'): JQuery;
+    puispinner(methodName: string): JQuery;
+    puispinner(options: PrimeUI.SpinnerOptions): JQuery;
+    puispinner(optionLiteral: string, optionName: string): any;
+    puispinner(optionLiteral: string, options: PrimeUI.SpinnerOptions): any;
+    puispinner(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

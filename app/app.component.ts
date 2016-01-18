@@ -14,7 +14,7 @@ import {SpinnerDemoComponent} from './components/spinner/demo/spinnerdemo.compon
     {path: '/', name: 'HomePage', component: HomePageComponent},
     {path: '/inputtext', name: 'InputTextDemo', component: InputTextDemoComponent},
     {path: '/button', name: 'ButtonDemo', component: ButtonDemoComponent},
-    { path: '/spinner', name: 'SpinnerDemo', component: SpinnerDemoComponent }
+    {path: '/spinner', name: 'SpinnerDemo', component: SpinnerDemoComponent}
 ])
 export class AppComponent {
 
