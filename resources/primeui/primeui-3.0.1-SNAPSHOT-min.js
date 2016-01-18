@@ -1,5 +1,5 @@
 /*
- * PrimeUI 3.0.0
+ * PrimeUI 3.0.1-SNAPSHOT
  * 
  * Copyright 2009-2015 PrimeTek.
  *
@@ -293,6 +293,9 @@ return this
 this.element.attr({disabled:"disabled","aria-disabled":true}).addClass("ui-state-disabled")
 },enable:function(){if(this.element.prop("disabled")){this._bindEvents();
 this.element.removeAttr("disabled").attr("aria-disabled",false).removeClass("ui-state-disabled")
+}},_setOption:function(a,b){if(a==="disabled"){if(b){this.disable()
+}else{this.enable()
+}}else{$.Widget.prototype._setOption.apply(this,arguments)
 }}})
 })();(function(){$.widget("primeui.puicarousel",{options:{datasource:null,numVisible:3,firstVisible:0,headerText:null,effectDuration:500,circular:false,breakpoint:560,itemContent:null,responsive:true,autoplayInterval:0,easing:"easeInOutCirc",pageLinks:3,styleClass:null,template:null},_create:function(){this.id=this.element.attr("id");
 if(!this.id){this.id=this.element.uniqueId().attr("id")
@@ -1416,9 +1419,10 @@ if(this.options.editable){this.customInput=false
 }}if(!b){this.focusElement.trigger("focus.puidropdown")
 }if(this.panel.is(":visible")){this._hide()
 }},_highlightItem:function(a){this.items.filter(".ui-state-highlight").removeClass("ui-state-highlight");
-a.addClass("ui-state-highlight");
+if(a.length){a.addClass("ui-state-highlight");
 this._setLabel(a.data("label"))
-},_triggerChange:function(a){this.changed=false;
+}else{this._setLabel("&nbsp;")
+}},_triggerChange:function(a){this.changed=false;
 if(this.options.change){this._trigger("change")
 }if(!a){this.value=this.choices.filter(":selected").val()
 }},_resolveItemIndex:function(a){if(this.optGroupsSize===0){return a.index()
@@ -1474,7 +1478,12 @@ if(c.text().indexOf(d)===0){return this.items.eq(b)
 },getSelectedLabel:function(){return this.choices.filter(":selected").text()
 },selectValue:function(b){var a=this.choices.filter('[value="'+b+'"]');
 this._selectItem(this.items.eq(a.index()),true)
-},addOption:function(c){var f=(c.value!==undefined||c.value!==null)?c.value:c,b=(c.label!==undefined||c.label!==null)?c.label:c,e=this.options.content?this.options.content.call(this,c):b,d=$('<li data-label="'+b+'" class="pui-dropdown-item pui-dropdown-list-item ui-corner-all">'+e+"</li>"),a=$('<option value="'+f+'">'+b+"</option>");
+},addOption:function(c,g){var f,b;
+if(g!==undefined&&g!==null){f=g;
+b=c
+}else{f=(c.value!==undefined&&c.value!==null)?c.value:c;
+b=(c.label!==undefined&&c.label!==null)?c.label:c
+}var e=this.options.content?this.options.content.call(this,c):b,d=$('<li data-label="'+b+'" class="pui-dropdown-item pui-dropdown-list-item ui-corner-all">'+e+"</li>"),a=$('<option value="'+f+'">'+b+"</option>");
 a.appendTo(this.element);
 this._bindItemEvents(d);
 d.appendTo(this.itemsContainer);
@@ -1658,7 +1667,10 @@ this._disableMouseEffects()
 this.element.attr("aria-disabled",false);
 this.element.removeClass("ui-state-disabled");
 this._enableMouseEffects()
-}})
+},_setOption:function(a,b){if(a==="disabled"){if(b){this.disable()
+}else{this.enable()
+}}else{$.Widget.prototype._setOption.apply(this,arguments)
+}}})
 })();(function(){$.widget("primeui.puiinputtextarea",{options:{autoResize:false,autoComplete:false,maxlength:null,counter:null,counterTemplate:"{0}",minQueryLength:3,queryDelay:700,completeSource:null},_create:function(){var a=this;
 this.id=this.element.attr("id");
 if(!this.id){this.id=this.element.uniqueId().attr("id")
@@ -2713,7 +2725,7 @@ b++){a.selectItem(h.children("li.ui-picklist-item").eq(b))
 }}else{a.selectItem(k);
 a.cursorItem=k
 }}}).on("dblclick.pickList",function(){var b=$(this);
-if($(this).closest(".pui-picklist-listwrapper").hasClass("pui-picklist-source")){a._transfer(b,a.sourceList,a.targetList,"dblclick")
+if($(this).closest(".pui-picklist-listwrapper").hasClass("pui-picklist-source-wrapper")){a._transfer(b,a.sourceList,a.targetList,"dblclick")
 }else{a._transfer(b,a.targetList,a.sourceList,"dblclick")
 }PUI.clearSelection()
 });
@@ -3063,7 +3075,10 @@ this._bindEvents()
 },disable:function(){this.wrapper.addClass("ui-state-disabled");
 this.element.puiinputtext("disable");
 this._unbindEvents()
-}})
+},_setOption:function(a,b){if(a==="disabled"){if(b){this.disable()
+}else{this.enable()
+}}else{$.Widget.prototype._setOption.apply(this,arguments)
+}}})
 })();(function(){$.widget("primeui.puisplitbutton",{options:{icon:null,iconPos:"left",items:null},_create:function(){this.element.wrap('<div class="pui-splitbutton pui-buttonset ui-widget"></div>');
 this.container=this.element.parent().uniqueId();
 this.menuButton=this.container.append('<button class="pui-splitbutton-menubutton" type="button"></button>').children(".pui-splitbutton-menubutton");
