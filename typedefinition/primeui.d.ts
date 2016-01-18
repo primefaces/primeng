@@ -17,15 +17,12 @@ declare module PrimeUI {
     }
     //Spinner
     interface SpinnerOptions {
-        max?: any; // number or string
-        min?: any; // number or string
-        step?: any; // number or string
+        max?: any;
+        min?: any;
+        step?: any;
         prefix?: any;
         suffix?: any;
         click?: (event?: Event) => void;
-    }
-
-    interface Spinner extends JQueryUI.Widget, SpinnerOptions {
     }
 }
 
