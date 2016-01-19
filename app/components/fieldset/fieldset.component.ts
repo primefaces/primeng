@@ -12,11 +12,11 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, Input, SimpleChange
 })
 export class FieldsetComponent implements OnInit, OnDestroy, OnChanges {
 
-    @Input('toggleable') toggleable: boolean;
+    @Input() toggleable: boolean;
 
-    @Input('toggleDuration') toggleDuration: string;
+    @Input() toggleDuration: any;
 
-    @Input('collapsed') collapsed: boolean;
+    @Input() collapsed: boolean;
 
     initialized: boolean;
 
