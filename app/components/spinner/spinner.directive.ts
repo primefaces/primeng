@@ -7,17 +7,17 @@ import {Directive, ElementRef, OnInit, OnDestroy, HostBinding, Input, OnChanges,
 })
 export class SpinnerDirective implements OnInit, OnDestroy, OnChanges {
 
-    @Input('step') step: number;
+    @Input() step: number;
 
-    @Input('min') min: number;
+    @Input() min: number;
 
-    @Input('max') max: number;
+    @Input() max: number;
 
-    @Input('prefix') prefix: string;
+    @Input() prefix: string;
 
-    @Input('suffix') suffix: string;
+    @Input() suffix: string;
 
-    @Input('disabled') disabled: boolean;
+    @Input() disabled: boolean;
 
     initialized: boolean;
 

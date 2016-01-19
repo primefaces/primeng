@@ -7,7 +7,7 @@ import {Directive, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
 })
 export class InputTextDirective implements OnInit, OnDestroy {
 
-    @Input('disabled') disabled: boolean;
+    @Input() disabled: boolean;
 
     initialized: boolean;
 

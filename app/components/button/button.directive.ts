@@ -7,11 +7,11 @@ import {Directive, ElementRef, OnInit, OnDestroy, HostBinding, Input, SimpleChan
 })
 export class ButtonDirective implements OnInit, OnDestroy {
 
-    @Input('icon') icon: string;
+    @Input() icon: string;
 
-    @Input('iconPos') iconPos: string;
+    @Input() iconPos: string;
 
-    @Input('disabled') disabled: boolean;
+    @Input() disabled: boolean;
 
     initialized: boolean;
 
