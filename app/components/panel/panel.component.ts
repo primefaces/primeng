@@ -33,7 +33,7 @@ export class PanelComponent implements OnInit, OnDestroy, OnChanges {
     ngOnChanges(changes: {[key: string]: SimpleChange}) {
         if (this.initialized) {
             for (var key in changes) {
-                jQuery(this.el.nativeElement.children[0]).puispinner('option', key, changes[key].currentValue);
+                jQuery(this.el.nativeElement.children[0]).puipanel('option', key, changes[key].currentValue);
             }
         }   
     }
