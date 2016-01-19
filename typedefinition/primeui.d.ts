@@ -30,6 +30,13 @@ declare module PrimeUI {
         toggleable?: boolean;
         title?: string;
     }
+
+    //Fieldset
+    interface ButtonOptions {
+        toggleable?: boolean;
+        toggleDuration?: string;
+        collapsed?: boolean;
+    }
 }
 
 interface JQuery {
@@ -81,4 +88,16 @@ interface JQuery {
     puipanel(optionLiteral: string, optionName: string): any;
     puipanel(optionLiteral: string, options: PrimeUI.PanelOptions): any;
     puipanel(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puifieldset(): JQuery;
+    puifieldset(methodName: 'destroy'): void;
+    puifieldset(methodName: 'disable'): void;
+    puifieldset(methodName: 'enable'): void;
+    puifieldset(methodName: 'refresh'): void;
+    puifieldset(methodName: 'widget'): JQuery;
+    puifieldset(methodName: string): JQuery;
+    puifieldset(options: PrimeUI.FieldsetOptions): JQuery;
+    puifieldset(optionLiteral: string, optionName: string): any;
+    puifieldset(optionLiteral: string, options: PrimeUI.FieldsetOptions): any;
+    puifieldset(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

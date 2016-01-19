@@ -5,6 +5,8 @@ import {InputTextDemoComponent} from './components/inputtext/demo/inputtextdemo.
 import {ButtonDemoComponent} from './components/button/demo/buttondemo.component';
 import {SpinnerDemoComponent} from './components/spinner/demo/spinnerdemo.component';
 import {PanelDemoComponent} from './components/panel/demo/paneldemo.component';
+import {FieldsetDemoComponent} from './components/fieldset/demo/fieldsetdemo.component';
+
 
 @Component({
     selector: 'my-app',
@@ -16,7 +18,8 @@ import {PanelDemoComponent} from './components/panel/demo/paneldemo.component';
     {path: '/inputtext', name: 'InputTextDemo', component: InputTextDemoComponent},
     {path: '/button', name: 'ButtonDemo', component: ButtonDemoComponent},
     {path: '/spinner', name: 'SpinnerDemo', component: SpinnerDemoComponent},
-    {path: '/panel', name: 'PanelDemo', component: PanelDemoComponent}
+    {path: '/panel', name: 'PanelDemo', component: PanelDemoComponent},
+    {path: '/fieldset', name: 'FieldsetDemo', component: FieldsetDemoComponent}
 ])
 export class AppComponent {
 
