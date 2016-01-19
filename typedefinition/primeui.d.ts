@@ -28,7 +28,18 @@ declare module PrimeUI {
     //Panel
     interface PanelOptions {
         toggleable?: boolean;
+        toggleDuration?: any;
+        toggleOrientation?: string;
+        collapsed?: boolean;
+        closable?: boolean;
+        closeDuration: any;
         title?: string;
+        beforeCollapse: (event?: Event) => void;
+        afterCollapse: (event?: Event) => void;
+        beforeExpand: (event?: Event) => void;
+        afterExpand: (event?: Event) => void;
+        beforeClose: (event?: Event) => void;
+        afterClose: (event?: Event) => void;
     }
 
     //Fieldset
