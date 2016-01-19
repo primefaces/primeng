@@ -32,7 +32,7 @@ declare module PrimeUI {
     }
 
     //Fieldset
-    interface ButtonOptions {
+    interface FieldsetOptions {
         toggleable?: boolean;
         toggleDuration?: string;
         collapsed?: boolean;
