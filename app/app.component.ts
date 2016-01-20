@@ -7,6 +7,7 @@ import {SpinnerDemoComponent} from './components/spinner/demo/spinnerdemo.compon
 import {PanelDemoComponent} from './components/panel/demo/paneldemo.component';
 import {FieldsetDemoComponent} from './components/fieldset/demo/fieldsetdemo.component';
 import {RatingDemoComponent} from './components/rating/demo/ratingdemo.component';
+import {PasswordDemoComponent} from './components/password/demo/passworddemo.component';
 
 @Component({
     selector: 'my-app',
@@ -20,7 +21,8 @@ import {RatingDemoComponent} from './components/rating/demo/ratingdemo.component
     {path: '/spinner', name: 'SpinnerDemo', component: SpinnerDemoComponent},
     {path: '/panel', name: 'PanelDemo', component: PanelDemoComponent},
     {path: '/fieldset', name: 'FieldsetDemo', component: FieldsetDemoComponent},
-    {path: '/rating', name: 'RatingDemo', component: RatingDemoComponent}
+    {path: '/rating', name: 'RatingDemo', component: RatingDemoComponent},
+    {path: '/password', name: 'PasswordDemo', component: PasswordDemoComponent}
 ])
 export class AppComponent {
 

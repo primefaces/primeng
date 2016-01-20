@@ -61,6 +61,15 @@ declare module PrimeUI {
         readonly?: boolean;
         value?: number;
     }
+
+    //Password
+    interface PasswordOptions {
+        tpromptLabel?: string;
+        weakLabel?: string;
+        goodLabel?: string;
+        strongLabel?: string;
+        inline?: boolean;
+    }
 }
 
 interface JQuery {
@@ -136,4 +145,16 @@ interface JQuery {
     puirating(optionLiteral: string, optionName: string): any;
     puirating(optionLiteral: string, options: PrimeUI.RatingOptions): any;
     puirating(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puipassword(): JQuery;
+    puipassword(methodName: 'destroy'): void;
+    puipassword(methodName: 'disable'): void;
+    puipassword(methodName: 'enable'): void;
+    puipassword(methodName: 'refresh'): void;
+    puipassword(methodName: 'widget'): JQuery;
+    puipassword(methodName: string): JQuery;
+    puipassword(options: PrimeUI.PasswordOptions): JQuery;
+    puipassword(optionLiteral: string, optionName: string): any;
+    puipassword(optionLiteral: string, options: PrimeUI.PasswordOptions): any;
+    puipassword(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
