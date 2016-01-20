@@ -1,6 +1,5 @@
 import {Component} from 'angular2/core';
 import {RatingComponent} from '../rating.component';
-import {ButtonDirective} from '../../button/button.directive';
 
 @Component({
     template: `
@@ -33,7 +32,7 @@ import {ButtonDirective} from '../../button/button.directive';
             <br />
         </div>
     `,
-    directives: [RatingComponent, ButtonDirective]
+    directives: [RatingComponent]
 })
 export class RatingDemoComponent {
 
