@@ -1,11 +1,11 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
-import {Directive, ElementRef, OnInit, OnDestroy, HostBinding, Input, SimpleChange} from 'angular2/core';
+import {Directive, ElementRef, OnInit, OnDestroy, OnChanges, HostBinding, Input, SimpleChange} from 'angular2/core';
 
 @Directive({
     selector: '[pPassword]'
 })
-export class PasswordDirective implements OnInit, OnDestroy {
+export class PasswordDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input() promptLabel: string;
 
