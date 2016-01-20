@@ -70,6 +70,12 @@ declare module PrimeUI {
         strongLabel?: string;
         inline?: boolean;
     }
+
+    //Dialog
+    interface DialogOptions {
+        title?: string;
+        visible?: boolean;
+    }
 }
 
 interface JQuery {
@@ -157,4 +163,16 @@ interface JQuery {
     puipassword(optionLiteral: string, optionName: string): any;
     puipassword(optionLiteral: string, options: PrimeUI.PasswordOptions): any;
     puipassword(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puidialog(): JQuery;
+    puidialog(methodName: 'destroy'): void;
+    puidialog(methodName: 'disable'): void;
+    puidialog(methodName: 'enable'): void;
+    puidialog(methodName: 'refresh'): void;
+    puidialog(methodName: 'widget'): JQuery;
+    puidialog(methodName: string): JQuery;
+    puidialog(options: PrimeUI.DialogOptions): JQuery;
+    puidialog(optionLiteral: string, optionName: string): any;
+    puidialog(optionLiteral: string, options: PrimeUI.DialogOptions): any;
+    puidialog(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

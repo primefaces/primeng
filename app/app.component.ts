@@ -8,6 +8,7 @@ import {PanelDemoComponent} from './components/panel/demo/paneldemo.component';
 import {FieldsetDemoComponent} from './components/fieldset/demo/fieldsetdemo.component';
 import {RatingDemoComponent} from './components/rating/demo/ratingdemo.component';
 import {PasswordDemoComponent} from './components/password/demo/passworddemo.component';
+import {DialogDemoComponent} from './components/dialog/demo/dialogdemo.component';
 
 @Component({
     selector: 'my-app',
@@ -22,7 +23,8 @@ import {PasswordDemoComponent} from './components/password/demo/passworddemo.com
     {path: '/panel', name: 'PanelDemo', component: PanelDemoComponent},
     {path: '/fieldset', name: 'FieldsetDemo', component: FieldsetDemoComponent},
     {path: '/rating', name: 'RatingDemo', component: RatingDemoComponent},
-    {path: '/password', name: 'PasswordDemo', component: PasswordDemoComponent}
+    {path: '/password', name: 'PasswordDemo', component: PasswordDemoComponent},
+    {path: '/dialog', name: 'DialogDemo', component: DialogDemoComponent}
 ])
 export class AppComponent {
 
