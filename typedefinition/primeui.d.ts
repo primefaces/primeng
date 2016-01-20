@@ -47,6 +47,8 @@ declare module PrimeUI {
         toggleable?: boolean;
         toggleDuration?: any;
         collapsed?: boolean;
+        beforeToggle: (event?: Event) => void;
+        afterToggle: (event?: Event) => void;
     }
 }
 

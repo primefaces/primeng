@@ -1,6 +1,6 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
-import {Component, ElementRef, OnInit, OnDestroy, OnChanges, Input, SimpleChange} from 'angular2/core';
+import {Component, ElementRef, OnInit, OnDestroy, OnChanges, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
 
 @Component({
     selector: 'p-fieldset',
@@ -18,6 +18,10 @@ export class FieldsetComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input() collapsed: boolean;
 
+    @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
+
+    @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
+
     initialized: boolean;
 
     constructor(private el: ElementRef) {
@@ -28,7 +32,9 @@ export class FieldsetComponent implements OnInit, OnDestroy, OnChanges {
         jQuery(this.el.nativeElement.children[0]).puifieldset({
             toggleable: this.toggleable,
             toggleDuration: this.toggleDuration,
-            collapsed: this.collapsed
+            collapsed: this.collapsed,
+            beforeToggle: this.onBeforeToggle ? (event: Event) => { this.onBeforeToggle.next(event); } : null,
+            afterToggle: this.onAfterToggle ? (event: Event) => { this.onAfterToggle.next(event); } : null
         });
         this.initialized = true;
     }
@@ -45,5 +51,4 @@ export class FieldsetComponent implements OnInit, OnDestroy, OnChanges {
         jQuery(this.el.nativeElement.children[0]).puifieldset('destroy');
         this.initialized = false;
     }
-
 }
