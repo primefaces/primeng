@@ -6,7 +6,7 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
     selector: 'p-rating',
     template: '<input type="hidden" />'
 })
-export class RatingComponent implements OnInit, OnDestroy {
+export class RatingComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input() value: number;
 
