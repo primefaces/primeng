@@ -50,6 +50,17 @@ declare module PrimeUI {
         beforeToggle: (event?: Event) => void;
         afterToggle: (event?: Event) => void;
     }
+
+    //Rating
+    interface RatingOptions {
+        stars?: number;
+        cancel?: boolean;
+        rate?: (event?: Event, value?: number) => void;
+        oncancel?: (event?: Event) => void;
+        disabled?: boolean;
+        readonly?: boolean;
+        value?: number;
+    }
 }
 
 interface JQuery {
@@ -113,4 +124,16 @@ interface JQuery {
     puifieldset(optionLiteral: string, optionName: string): any;
     puifieldset(optionLiteral: string, options: PrimeUI.FieldsetOptions): any;
     puifieldset(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puirating(): JQuery;
+    puirating(methodName: 'destroy'): void;
+    puirating(methodName: 'disable'): void;
+    puirating(methodName: 'enable'): void;
+    puirating(methodName: 'refresh'): void;
+    puirating(methodName: 'widget'): JQuery;
+    puirating(methodName: string): JQuery;
+    puirating(options: PrimeUI.RatingOptions): JQuery;
+    puirating(optionLiteral: string, optionName: string): any;
+    puirating(optionLiteral: string, options: PrimeUI.RatingOptions): any;
+    puirating(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
