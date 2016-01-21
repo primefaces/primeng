@@ -110,8 +110,20 @@ declare module PrimeUI {
         offLabel?: string;
         onIcon?: string;
         offIcon?: string;
-        change?: (event?: Event, checked?: ToggleButtonEventParams) => void;
+        change?: (event?: Event, ui?: ToggleButtonEventParams) => void;
         checked?: boolean;
+    }
+
+    //TabView
+    interface TabViewEventParams {
+        index?: number;
+    }
+
+    interface TabViewOptions {
+        activeIndex?: number;
+        orientation?: string;
+        change?: (event?: Event, ui?: TabViewEventParams) => void;
+        close?: (event?: Event, ui?: TabViewEventParams) => void;
     }
 }
 
@@ -224,4 +236,16 @@ interface JQuery {
     puitogglebutton(optionLiteral: string, optionName: string): any;
     puitogglebutton(optionLiteral: string, options: PrimeUI.ToggleButtonOptions): any;
     puitogglebutton(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puitabview(): JQuery;
+    puitabview(methodName: 'destroy'): void;
+    puitabview(methodName: 'disable'): void;
+    puitabview(methodName: 'enable'): void;
+    puitabview(methodName: 'refresh'): void;
+    puitabview(methodName: 'widget'): JQuery;
+    puitabview(methodName: string): JQuery;
+    puitabview(options: PrimeUI.TabViewOptions): JQuery;
+    puitabview(optionLiteral: string, optionName: string): any;
+    puitabview(optionLiteral: string, options: PrimeUI.TabViewOptions): any;
+    puitabview(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

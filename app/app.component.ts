@@ -11,6 +11,7 @@ import {PasswordDemoComponent} from './components/password/demo/passworddemo.com
 import {DialogDemoComponent} from './components/dialog/demo/dialogdemo.component';
 import {ToggleButtonDemoComponent} from './components/togglebutton/demo/togglebuttondemo.component';
 import {GridDemoComponent} from './components/grid/demo/griddemo.component';
+import {TabViewDemoComponent} from './components/tabview/demo/tabviewdemo.component';
 
 @Component({
     selector: 'my-app',
@@ -28,7 +29,8 @@ import {GridDemoComponent} from './components/grid/demo/griddemo.component';
     {path: '/password', name: 'PasswordDemo', component: PasswordDemoComponent},
     {path: '/dialog', name: 'DialogDemo', component: DialogDemoComponent},
     {path: '/togglebutton', name: 'ToggleButtonDemo', component: ToggleButtonDemoComponent},
-    {path: '/grid', name: 'GridDemo', component: GridDemoComponent}
+    {path: '/grid', name: 'GridDemo', component: GridDemoComponent},
+    {path: '/tabview', name: 'TabViewDemo', component: TabViewDemoComponent}
 ])
 export class AppComponent {
 
