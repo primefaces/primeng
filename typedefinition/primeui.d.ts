@@ -101,12 +101,16 @@ declare module PrimeUI {
     }
 
     //Togglebutton
-    interface TogglebuttonOptions {
+    interface ToggleButtonEventParams {
+        checked?: boolean;
+    }
+
+    interface ToggleButtonOptions {
         onLabel?: string;
         offLabel?: string;
         onIcon?: string;
         offIcon?: string;
-        change?: (event?: Event, checked?: boolean) => void;
+        change?: (event?: Event, checked?: ToggleButtonEventParams) => void;
         checked?: boolean;
     }
 }
@@ -216,8 +220,8 @@ interface JQuery {
     puitogglebutton(methodName: 'refresh'): void;
     puitogglebutton(methodName: 'widget'): JQuery;
     puitogglebutton(methodName: string): JQuery;
-    puitogglebutton(options: PrimeUI.TogglebuttonOptions): JQuery;
+    puitogglebutton(options: PrimeUI.ToggleButtonOptions): JQuery;
     puitogglebutton(optionLiteral: string, optionName: string): any;
-    puitogglebutton(optionLiteral: string, options: PrimeUI.TogglebuttonOptions): any;
+    puitogglebutton(optionLiteral: string, options: PrimeUI.ToggleButtonOptions): any;
     puitogglebutton(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

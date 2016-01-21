@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {TogglebuttonComponent} from '../togglebutton.component';
+import {ToggleButtonComponent} from '../togglebutton.component';
 
 @Component({
     template: `
@@ -11,19 +11,18 @@ import {TogglebuttonComponent} from '../togglebutton.component';
         </div>
 
         <div class="ContentSideSections Implementation">
-            <h3>Basic</h3>
-            <p-togglebutton> </p-togglebutton>
-            <br/>
-            <h3>Icons {{checked1}}</h3>
-            <p-togglebutton onLabel="I confirm" offLabel="I reject" onIcon="fa-check-square" offIcon="fa-square" [(checked)]="checked1" (onChange) = "handleChange($event)"> </p-togglebutton>
+            <h3 class="first">Basic - ({{checked1}})</h3>
+            <p-togglebutton [(checked)]="checked1"></p-togglebutton>
+
+            <h3>Customized - ({{checked2}})</h3>
+            <p-togglebutton onLabel="I confirm" offLabel="I reject" onIcon="fa-check-square" offIcon="fa-square" [(checked)]="checked2"></p-togglebutton>
         </div>
     `,
-    directives: [TogglebuttonComponent]
+    directives: [ToggleButtonComponent]
 })
-export class TogglebuttonDemoComponent {
+export class ToggleButtonDemoComponent {
+    
     checked1: boolean = false;
 
-    handleChange() {
-        console.log(event);
-    }
+    checked2: boolean = true;
 }

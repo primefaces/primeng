@@ -10080,11 +10080,9 @@ PUI.resolveUserAgent();/**
             this.icon = this.container.children('.pui-icon');
             
             //initial state
-            if(this.element.prop('checked')) {
-                this.options.checked = true;
+            if(this.element.prop('checked')||this.options.checked) {
                 this.check(true);
             } else {
-                this.options.checked = !this.options.checked;
                 this.uncheck(true);
             }
             
@@ -10140,8 +10138,6 @@ PUI.resolveUserAgent();/**
                 this.uncheck();
             else
                 this.check();
-            
-            this._trigger('change', null, this.element.prop('checked'));
         },
 
         check: function(silent) {
@@ -10154,7 +10150,7 @@ PUI.resolveUserAgent();/**
             }
 
             if(!silent) {
-                this.element.trigger('change');
+                this._trigger('change', null, {checked: true});
             }
         },
 
@@ -10168,7 +10164,7 @@ PUI.resolveUserAgent();/**
             }
 
             if(!silent) {
-                this.element.trigger('change');
+                this._trigger('change', null, {checked: false});
             }
         },
         
@@ -10188,6 +10184,18 @@ PUI.resolveUserAgent();/**
         
         isChecked: function() {
             return this.element.prop('checked');
+        },
+
+        _setOption: function(key, value) {
+            if(key === 'checked') {
+                if(value)
+                    this.check(true);
+                else
+                    this.uncheck(true);
+            }
+            else {
+                $.Widget.prototype._setOption.apply(this, arguments);
+            }
         }
         
     });

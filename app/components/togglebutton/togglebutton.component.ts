@@ -6,7 +6,7 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, Input, Output, Simp
     selector: 'p-togglebutton',
     template:'<input type="checkbox" />'
 })
-export class TogglebuttonComponent implements OnInit, OnDestroy, OnChanges {
+export class ToggleButtonComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input() onLabel: string;
 
@@ -37,12 +37,11 @@ export class TogglebuttonComponent implements OnInit, OnDestroy, OnChanges {
             onIcon: this.onIcon,
             offIcon: this.offIcon,
             checked: this.checked,
-            change: (event: Event, checked: boolean) => {
+            change: (event: Event, ui: PrimeUI.ToggleButtonEventParams) => {
                 this.stopNgOnChangesPropagation = true;
-                this.checkedChange.next(checked);
-                console.log(checked);
+                this.checkedChange.next(ui.checked);
                 if (this.onChange) {
-                    this.onChange.next({ originalEvent: event, checked: checked });
+                    this.onChange.next({originalEvent: event, checked: ui.checked});
                 }
             }
         });
@@ -57,13 +56,13 @@ export class TogglebuttonComponent implements OnInit, OnDestroy, OnChanges {
 
         if (this.initialized) {
             for (var key in changes) {
-                jQuery(this.el.nativeElement.children[0]).puitogglebutton('option', key, changes[key].currentValue);
+                jQuery(this.el.nativeElement.children[0].children[0]).puitogglebutton('option', key, changes[key].currentValue);
             }
         }
     }
 
     ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0]).puitogglebutton('destroy');
+        jQuery(this.el.nativeElement.children[0].children[0]).puitogglebutton('destroy');
         this.initialized = false;
     }
 }
