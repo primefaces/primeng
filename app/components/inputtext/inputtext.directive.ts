@@ -5,7 +5,7 @@ import {Directive, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
 @Directive({
     selector: '[pInputText]'
 })
-export class InputTextDirective implements OnInit, OnDestroy {
+export class InputTextDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input() disabled: boolean;
 
