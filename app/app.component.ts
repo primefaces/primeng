@@ -9,6 +9,7 @@ import {FieldsetDemoComponent} from './components/fieldset/demo/fieldsetdemo.com
 import {RatingDemoComponent} from './components/rating/demo/ratingdemo.component';
 import {PasswordDemoComponent} from './components/password/demo/passworddemo.component';
 import {DialogDemoComponent} from './components/dialog/demo/dialogdemo.component';
+import {TogglebuttonDemoComponent} from './components/togglebutton/demo/togglebuttondemo.component';
 
 @Component({
     selector: 'my-app',
@@ -24,7 +25,8 @@ import {DialogDemoComponent} from './components/dialog/demo/dialogdemo.component
     {path: '/fieldset', name: 'FieldsetDemo', component: FieldsetDemoComponent},
     {path: '/rating', name: 'RatingDemo', component: RatingDemoComponent},
     {path: '/password', name: 'PasswordDemo', component: PasswordDemoComponent},
-    {path: '/dialog', name: 'DialogDemo', component: DialogDemoComponent}
+    {path: '/dialog', name: 'DialogDemo', component: DialogDemoComponent},
+    {path: '/togglebutton', name: 'TogglebuttonDemo', component: TogglebuttonDemoComponent}
 ])
 export class AppComponent {
 

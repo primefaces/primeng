@@ -64,7 +64,7 @@ declare module PrimeUI {
 
     //Password
     interface PasswordOptions {
-        tpromptLabel?: string;
+        promptLabel?: string;
         weakLabel?: string;
         goodLabel?: string;
         strongLabel?: string;
@@ -98,6 +98,16 @@ declare module PrimeUI {
         afterHide?: (event?: Event) => void;
         minimize?: (event?: Event) => void;
         maximize?: (event?: Event) => void;
+    }
+
+    //Togglebutton
+    interface TogglebuttonOptions {
+        onLabel?: string;
+        offLabel?: string;
+        onIcon?: string;
+        offIcon?: string;
+        change?: (event?: Event, checked?: boolean) => void;
+        checked?: boolean;
     }
 }
 
@@ -198,4 +208,16 @@ interface JQuery {
     puidialog(optionLiteral: string, optionName: string): any;
     puidialog(optionLiteral: string, options: PrimeUI.DialogOptions): any;
     puidialog(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puitogglebutton(): JQuery;
+    puitogglebutton(methodName: 'destroy'): void;
+    puitogglebutton(methodName: 'disable'): void;
+    puitogglebutton(methodName: 'enable'): void;
+    puitogglebutton(methodName: 'refresh'): void;
+    puitogglebutton(methodName: 'widget'): JQuery;
+    puitogglebutton(methodName: string): JQuery;
+    puitogglebutton(options: PrimeUI.TogglebuttonOptions): JQuery;
+    puitogglebutton(optionLiteral: string, optionName: string): any;
+    puitogglebutton(optionLiteral: string, options: PrimeUI.TogglebuttonOptions): any;
+    puitogglebutton(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

@@ -10050,7 +10050,8 @@ PUI.resolveUserAgent();/**
             onLabel: 'Yes',
             offLabel: 'No',
             onIcon: null,
-            offIcon: null
+            offIcon: null,
+            checked: false
         },
        
         _create: function() {
@@ -10080,8 +10081,10 @@ PUI.resolveUserAgent();/**
             
             //initial state
             if(this.element.prop('checked')) {
+                this.options.checked = true;
                 this.check(true);
             } else {
+                this.options.checked = !this.options.checked;
                 this.uncheck(true);
             }
             
