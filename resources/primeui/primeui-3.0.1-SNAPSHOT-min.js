@@ -9807,21 +9807,20 @@ PUI.resolveUserAgent();/**
         
         _create: function() {
             var element = this.element;
+            this.navContainer = element.children('ul');
+            this.tabHeaders = this.navContainer.children('li');
+            this.panelContainer = element.children('div');
+            this.panels = this._findPanels();
+
+            element.addClass('pui-tabview ui-widget ui-widget-content ui-corner-all ui-hidden-container pui-tabview-' + this.options.orientation);
+            this.navContainer.addClass('pui-tabview-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all')
+            this.tabHeaders.addClass('ui-state-default ui-corner-top');
+            this.panelContainer.addClass('pui-tabview-panels')
+            this.panels.addClass('pui-tabview-panel ui-widget-content ui-corner-bottom');
+
+            this.tabHeaders.eq(this.options.activeIndex).addClass('pui-tabview-selected ui-state-active');
+            this.panels.filter(':not(:eq(' + this.options.activeIndex + '))').addClass('ui-helper-hidden');
             
-            element.addClass('pui-tabview ui-widget ui-widget-content ui-corner-all ui-hidden-container')
-                .children('ul').addClass('pui-tabview-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all')
-                .children('li').addClass('ui-state-default ui-corner-top');
-                
-            element.addClass('pui-tabview-' + this.options.orientation);
-
-            element.children('div').addClass('pui-tabview-panels').children().addClass('pui-tabview-panel ui-widget-content ui-corner-bottom');
-
-            element.find('> ul.pui-tabview-nav > li').eq(this.options.activeIndex).addClass('pui-tabview-selected ui-state-active');
-            element.find('> div.pui-tabview-panels > div.pui-tabview-panel:not(:eq(' + this.options.activeIndex + '))').addClass('ui-helper-hidden');
-            
-            this.navContainer = element.children('.pui-tabview-nav');
-            this.panelContainer = element.children('.pui-tabview-panels');
-
             this._bindEvents();
         },
         
@@ -9829,8 +9828,7 @@ PUI.resolveUserAgent();/**
             var $this = this;
 
             //Tab header events
-            this.navContainer.children('li')
-                    .on('mouseover.tabview', function(e) {
+            this.tabHeaders.on('mouseover.tabview', function(e) {
                         var element = $(this);
                         if(!element.hasClass('ui-state-disabled')&&!element.hasClass('ui-state-active')) {
                             element.addClass('ui-state-hover');
@@ -9870,11 +9868,10 @@ PUI.resolveUserAgent();/**
         select: function(index) {
            this.options.selected = index;
 
-           var newPanel = this.panelContainer.children().eq(index),
-           headers = this.navContainer.children(),
-           oldHeader = headers.filter('.ui-state-active'),
-           newHeader = headers.eq(newPanel.index()),
-           oldPanel = this.panelContainer.children('.pui-tabview-panel:visible'),
+           var newPanel = this.panels.eq(index),
+           oldHeader = this.tabHeaders.filter('.ui-state-active'),
+           newHeader = this._getHeaderOfPanel(newPanel),
+           oldPanel = this.panels.filter('.pui-tabview-panel:visible'),
            $this = this;
 
            //aria
@@ -9905,8 +9902,8 @@ PUI.resolveUserAgent();/**
        },
 
        remove: function(index) {    
-           var header = this.navContainer.children().eq(index),
-           panel = this.panelContainer.children().eq(index);
+           var header = this.tabHeaders.eq(index),
+           panel = this.panels.eq(index);
 
            this._trigger('close', null, {'index':index});
 
@@ -9921,7 +9918,7 @@ PUI.resolveUserAgent();/**
        },
 
        getLength: function() {
-           return this.navContainer.children().length;
+           return this.tabHeaders.length;
        },
 
        getActiveIndex: function() {
@@ -9937,11 +9934,33 @@ PUI.resolveUserAgent();/**
        },
 
        disable: function(index) {
-           this.navContainer.children().eq(index).addClass('ui-state-disabled');
+           this.tabHeaders.eq(index).addClass('ui-state-disabled');
        },
 
        enable: function(index) {
-           this.navContainer.children().eq(index).removeClass('ui-state-disabled');
+           this.tabHeaders.eq(index).removeClass('ui-state-disabled');
+       },
+
+       _findPanels: function() {
+            var containers = this.panelContainer.children();
+
+            //primeui
+            if(containers.is('div')) {
+                this.panelMode = 'native';
+                return containers;
+            }
+            //primeng
+            else {
+                this.panelMode = 'wrapped';
+                return containers.find(':first-child');
+            }
+       },
+
+       _getHeaderOfPanel: function(panel) {
+            if(this.panelMode === 'native')
+                return this.tabHeaders.eq(panel.index());
+            else if(this.panelMode === 'wrapped')
+                return this.tabHeaders.eq(panel.parent().index());
        }
 
     });

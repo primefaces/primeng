@@ -13,7 +13,7 @@ import {TabPanelComponent} from '../tabpanel.component';
 
         <div class="ContentSideSections Implementation">
             <h3 class="first">Default</h3>
-            <p-tabView activeIndex="1">
+            <p-tabView>
                 <p-tabPanel header="Godfather I">
                     The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
                 </p-tabPanel>

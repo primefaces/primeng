@@ -20,7 +20,7 @@ import {TabPanelComponent} from './tabpanel.component';
 })
 export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
 
-    @Input() activeIndex: number;
+    @Input() activeIndex: number = 0;
 
     @Input() orientation: string;
 
@@ -38,10 +38,9 @@ export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        var $this = this;
-        jQuery($this.el.nativeElement.children[0]).puitabview({
-            activeIndex: $this.activeIndex,
-            orientation: $this.orientation
+        jQuery(this.el.nativeElement.children[0]).puitabview({
+            activeIndex: this.activeIndex,
+            orientation: this.orientation
         });
         this.initialized = true;
     }
