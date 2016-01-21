@@ -47,7 +47,7 @@ export class RatingComponent implements OnInit, OnDestroy, OnChanges {
                     this.onRate.next({ originalEvent: event, value: value });
                 }
             },
-            oncancel: this.onCancel ? (event: Event) => { this.onCancel.next(event); } : null,
+            oncancel: this.onCancel ? (event: Event) => { this.onCancel.next(event); } : null
         });
         this.initialized = true;
     }
