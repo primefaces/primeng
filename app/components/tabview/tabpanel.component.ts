@@ -15,6 +15,8 @@ export class TabPanelComponent {
 
     @Input() header: string;
 
+    @Input() closable: boolean;
+
     initialized: boolean;
 
     constructor(tabview: TabViewComponent) {

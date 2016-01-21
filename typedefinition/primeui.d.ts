@@ -119,9 +119,15 @@ declare module PrimeUI {
         index?: number;
     }
 
+    interface TabViewEffectOptions {
+        name?: string;
+        duration?: any;
+    }
+
     interface TabViewOptions {
         activeIndex?: number;
         orientation?: string;
+        effect?: TabViewEffectOptions;
         change?: (event?: Event, ui?: TabViewEventParams) => void;
         close?: (event?: Event, ui?: TabViewEventParams) => void;
     }

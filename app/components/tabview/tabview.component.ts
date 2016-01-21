@@ -9,7 +9,7 @@ import {TabPanelComponent} from './tabpanel.component';
         <div>
             <ul>
                 <li *ngFor="#tab of tabPanels">
-                    <a href="#">{{tab.header}}</a>
+                    <a href="#">{{tab.header}}</a><span *ngIf="tab.closable"class="fa fa-close"></span>
                 </li>
             </ul>
             <div>
@@ -23,6 +23,10 @@ export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
     @Input() activeIndex: number = 0;
 
     @Input() orientation: string;
+
+    @Input() effect: string;
+
+    @Input() effectDuration: any = 'fast';
 
     initialized: boolean;
 
@@ -40,7 +44,8 @@ export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
     ngAfterViewInit() {
         jQuery(this.el.nativeElement.children[0]).puitabview({
             activeIndex: this.activeIndex,
-            orientation: this.orientation
+            orientation: this.orientation,
+            effect: this.effect ? {name: this.effect, duration:this.effectDuration} : null
         });
         this.initialized = true;
     }
