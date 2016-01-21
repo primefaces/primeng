@@ -28,9 +28,17 @@ export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
 
     @Input() effectDuration: any = 'fast';
 
+    @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClose: EventEmitter<any> = new EventEmitter();
+
+    @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
+
     initialized: boolean;
 
     tabPanels: TabPanelComponent[];
+
+    stopNgOnChangesPropagation: boolean;
 
     constructor(private el: ElementRef) {
         this.tabPanels = [];
@@ -45,12 +53,26 @@ export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
         jQuery(this.el.nativeElement.children[0]).puitabview({
             activeIndex: this.activeIndex,
             orientation: this.orientation,
-            effect: this.effect ? {name: this.effect, duration:this.effectDuration} : null
+            effect: this.effect ? {name: this.effect, duration: this.effectDuration} : null,
+            change: (event: Event, ui: TabViewEventParams) => {
+                this.stopNgOnChangesPropagation = true;
+                this.activeIndexChange.next(ui.index);
+
+                if (this.onChange) {
+                    this.onChange.next({originalEvent: event, index: ui.index});
+                }
+            },
+            close: this.onClose ? (event: Event, ui: TabViewEventParams) => { this.onClose.next({original Event: event, index: ui.index})}: null
         });
         this.initialized = true;
     }
 
     ngOnChanges(changes: { [key: string]: SimpleChange }) {
+        if (this.stopNgOnChangesPropagation) {
+            this.stopNgOnChangesPropagation = false;
+            return;
+        }
+
         if (this.initialized) {
             for (var key in changes) {
                 jQuery(this.el.nativeElement.children[0]).puitabview('option', key, changes[key].currentValue);
