@@ -9961,7 +9961,16 @@ PUI.resolveUserAgent();/**
                 return this.tabHeaders.eq(panel.index());
             else if(this.panelMode === 'wrapped')
                 return this.tabHeaders.eq(panel.parent().index());
-       }
+       },
+
+       _setOption: function(key, value) {
+            if(key === 'activeIndex') {
+                this.select(value);
+            }
+            else {
+                $.Widget.prototype._setOption.apply(this, arguments);
+            }
+        }
 
     });
 })();/**
