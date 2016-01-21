@@ -4011,6 +4011,18 @@ PUI.resolveUserAgent();/**
 
         _unbindResizeListener: function() {
             $(window).off(this.resizeNS);
+        },
+
+        _setOption: function(key, value) {
+            if(key === 'visible') {
+                if(value)
+                    this.show();
+                else
+                    this.hide();
+            }
+            else {
+                $.Widget.prototype._setOption.apply(this, arguments);
+            }
         }
     });
 })();/**

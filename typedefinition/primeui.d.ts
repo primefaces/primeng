@@ -74,7 +74,30 @@ declare module PrimeUI {
     //Dialog
     interface DialogOptions {
         title?: string;
+        draggable?: boolean;
+        resizable?: boolean;
+        location?: string;
+        minWidth?: number;
+        minHeight?: number;
+        height?: any;
+        width?: any;
         visible?: boolean;
+        modal?: boolean;
+        showEffect?: string;
+        hideEffect?: string;
+        effectSpeed?: any;
+        closeOnEscape?: boolean;
+        rtl?: boolean;
+        closable?: boolean;
+        minimizable?: boolean;
+        maximizable?: boolean;
+        responsive?: boolean;
+        beforeShow?: (event?: Event) => void;
+        afterShow?: (event?: Event) => void;
+        beforeHide?: (event?: Event) => void;
+        afterHide?: (event?: Event) => void;
+        minimize?: (event?: Event) => void;
+        maximize?: (event?: Event) => void;
     }
 }
 
