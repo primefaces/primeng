@@ -40,4 +40,5 @@ import {InputTextareaDemoComponent} from './components/inputtextarea/demo/inputt
 ])
 export class AppComponent {
 
+    activeMenuId: string;
 }
