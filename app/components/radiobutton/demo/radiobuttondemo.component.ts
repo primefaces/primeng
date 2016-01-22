@@ -23,15 +23,15 @@ import {GridDemoComponent} from '../../grid/demo/griddemo.component';
             <h3 class="first">Basic</h3>
             <div class="pui-grid pui-grid-responsive" style="width:250px">
                 <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-radio #op1 name="test" value="Option 1" [(model)]="selectedOption"></p-radio></div>
+                    <div class="pui-grid-col-1"><p-radio name="test" value="Option 1" [(model)]="selectedOption"></p-radio></div>
                     <div class="pui-grid-col-11"><label for="rd1_1" class="ui-widget">Option 1</label></div>
                 </div>
                 <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-radio #op2 name="test" value="Option 2" [(model)]="selectedOption"></p-radio></div>
+                    <div class="pui-grid-col-1"><p-radio name="test" value="Option 2" [(model)]="selectedOption"></p-radio></div>
                     <div class="pui-grid-col-11"><label for="rd1_2" class="ui-widget">Option 2</label></div>
                 </div>
                 <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-radio #op3 name="test" value="Option 3" [(model)]="selectedOption"></p-radio></div>
+                    <div class="pui-grid-col-1"><p-radio name="test" value="Option 3" [(model)]="selectedOption"></p-radio></div>
                     <div class="pui-grid-col-11"><label for="rd1_3" class="ui-widget">Option 3</label></div>
                 </div>
                 <br/>
