@@ -136,6 +136,17 @@ declare module PrimeUI {
     interface RadioButtonOptions {
         value?: any;
     }
+
+    //Accordion
+    interface AccordionEventParams {
+        index?: number;
+    }
+
+    interface AccordionOptions {
+        activeIndex?: any;
+        multiple?: boolean;
+        change?: (event?: Event, ui?: AccordionEventParams) => void;
+    }
 }
 
 interface JQuery {
@@ -271,4 +282,16 @@ interface JQuery {
     puiradiobutton(optionLiteral: string, optionName: string): any;
     puiradiobutton(optionLiteral: string, options: PrimeUI.RadioButtonOptions): any;
     puiradiobutton(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puiaccordion(): JQuery;
+    puiaccordion(methodName: 'destroy'): void;
+    puiaccordion(methodName: 'disable'): void;
+    puiaccordion(methodName: 'enable'): void;
+    puiaccordion(methodName: 'refresh'): void;
+    puiaccordion(methodName: 'widget'): JQuery;
+    puiaccordion(methodName: string): JQuery;
+    puiaccordion(options: PrimeUI.AccordionOptions): JQuery;
+    puiaccordion(optionLiteral: string, optionName: string): any;
+    puiaccordion(optionLiteral: string, options: PrimeUI.AccordionOptions): any;
+    puiaccordion(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

@@ -13,6 +13,7 @@ import {ToggleButtonDemoComponent} from './components/togglebutton/demo/togglebu
 import {GridDemoComponent} from './components/grid/demo/griddemo.component';
 import {TabViewDemoComponent} from './components/tabview/demo/tabviewdemo.component';
 import {RadioButtonDemoComponent} from './components/radiobutton/demo/radiobuttondemo.component';
+import {AccordionDemoComponent} from './components/accordion/demo/accordiondemo.component';
 
 @Component({
     selector: 'my-app',
@@ -32,7 +33,8 @@ import {RadioButtonDemoComponent} from './components/radiobutton/demo/radiobutto
     {path: '/togglebutton', name: 'ToggleButtonDemo', component: ToggleButtonDemoComponent},
     {path: '/grid', name: 'GridDemo', component: GridDemoComponent},
     {path: '/tabview', name: 'TabViewDemo', component: TabViewDemoComponent},
-    {path: '/radiobutton', name: 'RadioButtonDemo', component: RadioButtonDemoComponent }
+    {path: '/radiobutton', name: 'RadioButtonDemo', component: RadioButtonDemoComponent},
+    {path: '/accordion', name: 'AccordionDemo', component: AccordionDemoComponent}
 ])
 export class AppComponent {
 
