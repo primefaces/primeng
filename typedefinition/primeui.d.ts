@@ -40,6 +40,7 @@ declare module PrimeUI {
         afterExpand: (event?: Event) => void;
         beforeClose: (event?: Event) => void;
         afterClose: (event?: Event) => void;
+        enhanced?: boolean;
     }
 
     //Fieldset

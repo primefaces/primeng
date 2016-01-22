@@ -1,20 +1,29 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
-import {Component, ElementRef, OnInit, OnDestroy, OnChanges, Input, SimpleChange, Output, EventEmitter} from 'angular2/core';
+import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, SimpleChange, Output, EventEmitter} from 'angular2/core';
 
 @Component({
     selector: 'p-panel',
     template: `
-        <div>
-            <ng-content></ng-content>
+        <div class="pui-panel ui-widget ui-widget-content ui-corner-all">
+            <div class="pui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+                <span class="pui-panel-title">{{header}}</span>
+                <a *ngIf="closable" class="pui-panel-titlebar-icon pui-panel-titlebar-closer ui-corner-all ui-state-default" href="#"><span class="pui-icon fa fa-fw fa-close"></span></a>
+                <a *ngIf="toggleable" class="pui-panel-titlebar-icon pui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"><span class="pui-icon fa fa-fw"></span></a>
+            </div>
+            <div class="pui-panel-content ui-widget-content">
+                <ng-content></ng-content>
+            </div>
         </div>
     `
 })
-export class PanelComponent implements OnInit, OnDestroy, OnChanges {
+export class PanelComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() toggleable: boolean;
 
     @Input() toggleDuration: any;
+
+    @Input() toggleOrientation: any;
 
     @Input() header: string;
 
@@ -39,10 +48,12 @@ export class PanelComponent implements OnInit, OnDestroy, OnChanges {
     initialized: boolean;
 
     constructor(private el: ElementRef) {
+console.log('constructor');
         this.initialized = false;
     }
     
-    ngOnInit() {
+    ngAfterViewInit() {
+        console.log('init');
         jQuery(this.el.nativeElement.children[0]).puipanel({
             title: this.header,
             toggleable: this.toggleable,
@@ -56,7 +67,8 @@ export class PanelComponent implements OnInit, OnDestroy, OnChanges {
             beforeExpand: this.onBeforeExpand ? (event: Event) => { this.onBeforeExpand.next(event); } : null,
             afterExpand: this.onAfterExpand ? (event: Event) => { this.onAfterExpand.next(event); } : null,
             beforeClose: this.onBeforeClose ? (event: Event) => { this.onBeforeClose.next(event); } : null,
-            afterClose: this.onAfterClose ? (event: Event) => { this.onAfterClose.next(event); } : null
+            afterClose: this.onAfterClose ? (event: Event) => { this.onAfterClose.next(event); } : null,
+            enhanced: true
         });
         this.initialized = true;
     }
@@ -70,6 +82,7 @@ export class PanelComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnDestroy() {
+        console.log('destroy');
         jQuery(this.el.nativeElement.children[0]).puipanel('destroy');
         this.initialized = false;
     }

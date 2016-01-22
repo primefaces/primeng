@@ -7831,19 +7831,22 @@ PUI.resolveUserAgent();/**
             collapsed: false,
             closable: false,
             closeDuration: 'slow',
-            title: null
+            title: null,
+            enhanced: false
         },
         
         _create: function() {
-            this.element.addClass('pui-panel ui-widget ui-widget-content ui-corner-all')
-                .contents().wrapAll('<div class="pui-panel-content ui-widget-content" />');
-                
-            var title = this.element.attr('title')||this.options.title;
-            if(title) {
-                this.element.prepend('<div class="pui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">' +
-                        title + "</span></div>").removeAttr('title');
+            if(!this.options.enhanced) {
+                this.element.addClass('pui-panel ui-widget ui-widget-content ui-corner-all')
+                    .contents().wrapAll('<div class="pui-panel-content ui-widget-content" />');
+
+                var title = this.element.attr('title')||this.options.title;
+                if(title) {
+                    this.element.prepend('<div class="pui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">' +
+                            title + "</span></div>").removeAttr('title');
+                }
             }
-            
+                
             this.header = this.element.children('div.pui-panel-titlebar');
             this.title = this.header.children('span.ui-panel-title');
             this.content = this.element.children('div.pui-panel-content');
@@ -7851,23 +7854,36 @@ PUI.resolveUserAgent();/**
             var $this = this;
             
             if(this.options.closable) {
-                this.closer = $('<a class="pui-panel-titlebar-icon ui-corner-all ui-state-default" href="#"><span class="pui-icon fa fa-fw fa-close"></span></a>')
-                                .appendTo(this.header)
-                                .on('click.puipanel', function(e) {
-                                    $this.close();
-                                    e.preventDefault();
-                                });
+                if(!this.options.enhanced) {
+                    this.closer = $('<a class="pui-panel-titlebar-icon pui-panel-titlebar-closer ui-corner-all ui-state-default" href="#"><span class="pui-icon fa fa-fw fa-close"></span></a>')
+                                .appendTo(this.header);
+                }
+                else {
+                    this.closer = this.header.children('.pui-panel-titlebar-closer');
+                }
+
+                this.closer.on('click.puipanel', function(e) {
+                    $this.close();
+                    e.preventDefault();
+                });
             }
             
             if(this.options.toggleable) {
                 var icon = this.options.collapsed ? 'fa-plus' : 'fa-minus';
                 
-                this.toggler = $('<a class="pui-panel-titlebar-icon ui-corner-all ui-state-default" href="#"><span class="pui-icon fa fa-fw ' + icon + '"></span></a>')
-                                .appendTo(this.header)
-                                .on('click.puipanel', function(e) {
-                                    $this.toggle();
-                                    e.preventDefault();
-                                });
+                if(!this.options.enhanced) {
+                    this.toggler = $('<a class="pui-panel-titlebar-icon pui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"><span class="pui-icon fa fa-fw ' + icon + '"></span></a>')
+                                .appendTo(this.header);
+                }
+                else {
+                    this.toggler = this.header.children('.pui-panel-titlebar-toggler');
+                    this.toggler.children('.pui-icon').addClass(icon);
+                }
+                
+                this.toggler.on('click.puipanel', function(e) {
+                    $this.toggle();
+                    e.preventDefault();
+                });
                                 
                 if(this.options.collapsed) {
                     this.content.hide();
@@ -7878,12 +7894,16 @@ PUI.resolveUserAgent();/**
         },
 
         _bindEvents: function() {
-            this.header.find('a.pui-panel-titlebar-icon').on('mouseenter.puipanel', function() {
+            this.header.children('a.pui-panel-titlebar-icon').on('mouseenter.puipanel', function() {
                 $(this).addClass('ui-state-hover');
             })
             .on('mouseleave.puipanel', function() {
                 $(this).removeClass('ui-state-hover');
             });
+        },
+
+        _unbindEvents: function() {
+            this.header.children('a.pui-panel-titlebar-icon').off();
         },
         
         close: function() {
@@ -7989,6 +8009,13 @@ PUI.resolveUserAgent();/**
                     'height': 'auto'
                 });
             });
+        },
+
+        _destroy: function() {
+            this._unbindEvents();
+            if(this.toggler) {
+                this.toggler.children('.pui-icon').removeClass('fa-minus fa-plus');
+            }
         }
     });
 })();/**
