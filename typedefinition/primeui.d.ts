@@ -147,6 +147,18 @@ declare module PrimeUI {
         multiple?: boolean;
         change?: (event?: Event, ui?: AccordionEventParams) => void;
     }
+
+    //InputTextarea
+    interface InputTextareaOptions {
+        autoResize?: boolean;
+        autoComplete?: boolean;
+        maxlength?: number;
+        counter?: number;
+        counterTemplate?: string;
+        minQueryLength?: number;
+        queryDelay?: number;
+        completeSource?: Function;
+    }
 }
 
 interface JQuery {
@@ -294,4 +306,16 @@ interface JQuery {
     puiaccordion(optionLiteral: string, optionName: string): any;
     puiaccordion(optionLiteral: string, options: PrimeUI.AccordionOptions): any;
     puiaccordion(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puiinputtextarea(): JQuery;
+    puiinputtextarea(methodName: 'destroy'): void;
+    puiinputtextarea(methodName: 'disable'): void;
+    puiinputtextarea(methodName: 'enable'): void;
+    puiinputtextarea(methodName: 'refresh'): void;
+    puiinputtextarea(methodName: 'widget'): JQuery;
+    puiinputtextarea(methodName: string): JQuery;
+    puiinputtextarea(options: PrimeUI.InputTextareaOptions): JQuery;
+    puiinputtextarea(optionLiteral: string, optionName: string): any;
+    puiinputtextarea(optionLiteral: string, options: PrimeUI.InputTextareaOptions): any;
+    puiinputtextarea(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

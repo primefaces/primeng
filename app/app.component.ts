@@ -14,6 +14,7 @@ import {GridDemoComponent} from './components/grid/demo/griddemo.component';
 import {TabViewDemoComponent} from './components/tabview/demo/tabviewdemo.component';
 import {RadioButtonDemoComponent} from './components/radiobutton/demo/radiobuttondemo.component';
 import {AccordionDemoComponent} from './components/accordion/demo/accordiondemo.component';
+import {InputTextareaDemoComponent} from './components/inputtextarea/demo/inputtextareademo.component';
 
 @Component({
     selector: 'my-app',
@@ -34,7 +35,8 @@ import {AccordionDemoComponent} from './components/accordion/demo/accordiondemo.
     {path: '/grid', name: 'GridDemo', component: GridDemoComponent},
     {path: '/tabview', name: 'TabViewDemo', component: TabViewDemoComponent},
     {path: '/radiobutton', name: 'RadioButtonDemo', component: RadioButtonDemoComponent},
-    {path: '/accordion', name: 'AccordionDemo', component: AccordionDemoComponent}
+    {path: '/accordion', name: 'AccordionDemo', component: AccordionDemoComponent},
+    {path: '/inputtextarea', name: 'InputTextareaDemo', component: InputTextareaDemoComponent}
 ])
 export class AppComponent {
 
