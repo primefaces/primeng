@@ -12,6 +12,7 @@ import {DialogDemoComponent} from './components/dialog/demo/dialogdemo.component
 import {ToggleButtonDemoComponent} from './components/togglebutton/demo/togglebuttondemo.component';
 import {GridDemoComponent} from './components/grid/demo/griddemo.component';
 import {TabViewDemoComponent} from './components/tabview/demo/tabviewdemo.component';
+import {RadioButtonDemoComponent} from './components/radiobutton/demo/radiobuttondemo.component';
 
 @Component({
     selector: 'my-app',
@@ -30,7 +31,8 @@ import {TabViewDemoComponent} from './components/tabview/demo/tabviewdemo.compon
     {path: '/dialog', name: 'DialogDemo', component: DialogDemoComponent},
     {path: '/togglebutton', name: 'ToggleButtonDemo', component: ToggleButtonDemoComponent},
     {path: '/grid', name: 'GridDemo', component: GridDemoComponent},
-    {path: '/tabview', name: 'TabViewDemo', component: TabViewDemoComponent}
+    {path: '/tabview', name: 'TabViewDemo', component: TabViewDemoComponent},
+    {path: '/radiobutton', name: 'RadioButtonDemo', component: RadioButtonDemoComponent }
 ])
 export class AppComponent {
 

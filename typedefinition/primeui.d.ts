@@ -131,6 +131,11 @@ declare module PrimeUI {
         change?: (event?: Event, ui?: TabViewEventParams) => void;
         close?: (event?: Event, ui?: TabViewEventParams) => void;
     }
+
+    //RadioButton
+    interface RadioButtonOptions {
+        value?: any;
+    }
 }
 
 interface JQuery {
@@ -254,4 +259,16 @@ interface JQuery {
     puitabview(optionLiteral: string, optionName: string): any;
     puitabview(optionLiteral: string, options: PrimeUI.TabViewOptions): any;
     puitabview(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puiradiobutton(): JQuery;
+    puiradiobutton(methodName: 'destroy'): void;
+    puiradiobutton(methodName: 'disable'): void;
+    puiradiobutton(methodName: 'enable'): void;
+    puiradiobutton(methodName: 'refresh'): void;
+    puiradiobutton(methodName: 'widget'): JQuery;
+    puiradiobutton(methodName: string): JQuery;
+    puiradiobutton(options: PrimeUI.RadioButtonOptions): JQuery;
+    puiradiobutton(optionLiteral: string, optionName: string): any;
+    puiradiobutton(optionLiteral: string, options: PrimeUI.RadioButtonOptions): any;
+    puiradiobutton(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
