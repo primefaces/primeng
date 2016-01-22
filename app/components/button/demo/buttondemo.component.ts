@@ -11,7 +11,7 @@ import {ButtonDirective} from '../button.directive';
         </div>
 
         <div class="ContentSideSections Implementation">
-            <button type="text" pButton (click)="count()" [icon]="'fa-check'">Toggle</button>
+            <button type="text" pButton (click)="count()" [icon]="'fa-check'">Click</button>
 
             <br /><br />
             Number of clicks: {{clicks}}
