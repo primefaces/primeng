@@ -9059,6 +9059,13 @@ PUI.resolveUserAgent();/**
             else {
                 $.Widget.prototype._setOption.apply(this, arguments);
             }
+        },
+
+        _destroy: function() {
+            this._unbindEvents();
+            this.stars.remove();
+            this.container.children('.pui-rating-cancel').remove();
+            this.element.unwrap();
         }
     });
     
