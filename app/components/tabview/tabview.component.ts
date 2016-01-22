@@ -54,7 +54,7 @@ export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
             activeIndex: this.activeIndex,
             orientation: this.orientation,
             effect: this.effect ? {name: this.effect, duration: this.effectDuration} : null,
-            change: (event: Event, ui: TabViewEventParams) => {
+            change: (event: Event, ui: any) => {
                 this.stopNgOnChangesPropagation = true;
                 this.activeIndexChange.next(ui.index);
 
@@ -62,7 +62,7 @@ export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
                     this.onChange.next({originalEvent: event, index: ui.index});
                 }
             },
-            close: this.onClose ? (event: Event, ui: TabViewEventParams) => { this.onClose.next({original Event: event, index: ui.index})}: null
+            close: this.onClose ? (event: Event, ui: any) => { this.onClose.next({originalEvent: event, index: ui.index})}: null
         });
         this.initialized = true;
     }
