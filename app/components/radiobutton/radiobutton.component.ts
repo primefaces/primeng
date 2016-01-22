@@ -7,7 +7,7 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
     template: `
         <div class="pui-radiobutton ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input #rb type="radio" name="{{name}}" value="{{value}}" [checked]="checked"/>
+                <input #rb type="radio" name="{{name}}" value="{{value}}" [checked]="model == value"/>
             </div>
             <div class="pui-radiobutton-box ui-widget pui-radiobutton-relative ui-state-default" (click)="onclick(rb)"
                         (mouseover)="hover = true" (mouseout)="hover = false" [ngClass]="{'ui-state-hover':hover,'ui-state-active':rb.checked,'ui-state-disabled':disabled}">
@@ -26,12 +26,17 @@ export class RadioButtonComponent {
 
     @Input() checked: any;
 
+    @Input() model: any;
+
     @Output() click: EventEmitter<any> = new EventEmitter();
+
+    @Output() modelChange: EventEmitter<any> = new EventEmitter();
 
     hover: boolean;
 
     onclick(input) {
         input.checked = true;
         this.click.next(null);
+        this.modelChange.next(input.value);
     }
 }
