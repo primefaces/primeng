@@ -9,8 +9,8 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
                 <span class="defaultText dispTable">PrimeNG is a collection of rich UI components for AngularJS2. PrimeNG is a sibling of the popular JavaServer Faces Component Suite, <a href="http://www.primefaces.org">PrimeFaces</a>.</span>
                 <br />
                 <span class="defaultText dispTable">All widgets are open source and free to use under Apache License 2.0, a commercial friendly license.</span>
-                <a href="https://github.com/primefaces/primeui/releases" class="BigButton TextShadowNone YellowBtn"> <span class="floatLeft">Download</span> <img src="resources/images/btnArrow.svg" style="float:right"/></a>
-                <a href="https://github.com/primefaces/primeui" class="BigButton TextShadowNone OrangeBtn"> <span class="floatLeft">View on GitHub</span> <img src="resources/images/btnDocumenticon.svg" style="float:right"/></a>
+                <a href="https://github.com/primefaces/primeng/releases" class="BigButton TextShadowNone YellowBtn"> <span class="floatLeft">Download</span> <img src="resources/images/btnArrow.svg" style="float:right"/></a>
+                <a href="https://github.com/primefaces/primeng" class="BigButton TextShadowNone OrangeBtn"> <span class="floatLeft">View on GitHub</span> <img src="resources/images/btnDocumenticon.svg" style="float:right"/></a>
             </div>
             <div class="Content66 floatRight overHidden">
                 <div class="PropertyBox TextShadow">
@@ -41,7 +41,7 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
                 <div class="PropertyBox TextShadow">
                     <img src="resources/images/themeswitcher.svg" />
                     <span class="PropertyTopic boldFont">THEMES</span>
-                    <span class="PropertyText mediumFont">35+ Available Themes<br />Premium Themes<br />Theme Creator Tool<br /></span>
+                    <span class="PropertyText mediumFont">35+ Free Themes<br />Premium Themes<br />Theme Creator Tool<br /></span>
                 </div>
             </div>
         </div>
