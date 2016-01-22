@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {RadioButtonDirective} from '../radiobutton.directive';
+import {RadioButtonComponent} from '../radiobutton.component';
 import {ButtonDirective} from '../../button/button.directive';
 import {GridDemoComponent} from '../../grid/demo/griddemo.component';
 
@@ -23,33 +23,31 @@ import {GridDemoComponent} from '../../grid/demo/griddemo.component';
             <h3 class="first">Basic</h3>
             <div class="pui-grid pui-grid-responsive" style="width:250px">
                 <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><input type="radio" name="rd1" #rd1 value="1" pRadioButton (click)="value = rd1.value"/></div>
+                    <div class="pui-grid-col-1"><p-radio #op1 name="test" value="Option 1" (click)="selectedOption=op1.value"></p-radio></div>
                     <div class="pui-grid-col-11"><label for="rd1_1" class="ui-widget">Option 1</label></div>
                 </div>
                 <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><input type="radio" name="rd1" #rd2 value="2" pRadioButton (click)="value = rd2.value"/></div>
+                    <div class="pui-grid-col-1"><p-radio #op2 name="test" value="Option 2" (click)="selectedOption=op2.value"></p-radio></div>
                     <div class="pui-grid-col-11"><label for="rd1_2" class="ui-widget">Option 2</label></div>
                 </div>
                 <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><input type="radio" name="rd1" #rd3 value="3" pRadioButton (click)="value = rd3.value"/></div>
+                    <div class="pui-grid-col-1"><p-radio #op3 name="test" value="Option 3" (click)="selectedOption=op3.value"></p-radio></div>
                     <div class="pui-grid-col-11"><label for="rd1_3" class="ui-widget">Option 3</label></div>
                 </div>
                 <br/>
-                Value = {{value}}
+                Selected Option = {{selectedOption}}
             </div>
-            <br/>
-            <button type="text" (click)="toggleDisabled()" pButton>Toggle</button>
         </div>
     `,
-    directives: [RadioButtonDirective, ButtonDirective]
+    styles: [`
+        .pui-grid label {
+            display: inline-block;
+            margin: 3px 0;
+        }
+    `],
+    directives: [RadioButtonComponent, ButtonDirective]
 })
 export class RadioButtonDemoComponent {
 
-    value: any ;
-
-    disabled: boolean = false;
-
-    toggleDisabled() {
-        this.disabled = !this.disabled;
-    }
+    selectedOption: string;
 }
