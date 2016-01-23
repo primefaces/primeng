@@ -5,13 +5,6 @@ import {GridDemoComponent} from '../../grid/demo/griddemo.component';
 
 @Component({
     template: `
-    <style type="text/css">
-        .pui-grid label {
-            display: inline-block;
-            margin: 2px 0;
-        }
-    </style>
-
         <div class="ContentSideSections">
             <div class="Content100 overHidden TextShadow">
                 <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">RadioButton</span>
@@ -21,7 +14,7 @@ import {GridDemoComponent} from '../../grid/demo/griddemo.component';
 
         <div class="ContentSideSections Implementation">
             <h3 class="first">Basic</h3>
-            <div class="pui-grid pui-grid-responsive" style="width:250px">
+            <div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px">
                 <div class="pui-grid-row">
                     <div class="pui-grid-col-1"><p-radio name="group1" value="Option 1" [(model)]="val1"></p-radio></div>
                     <div class="pui-grid-col-11"><label class="ui-widget">Option 1</label></div>
@@ -38,7 +31,7 @@ import {GridDemoComponent} from '../../grid/demo/griddemo.component';
             Value 1 = {{val1}}
 
             <h3>Preselection</h3>
-            <div class="pui-grid pui-grid-responsive" style="width:250px">
+            <div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px">
                 <div class="pui-grid-row">
                     <div class="pui-grid-col-1"><p-radio name="group1" value="Option 1" [(model)]="val2"></p-radio></div>
                     <div class="pui-grid-col-11"><label class="ui-widget">Option 1</label></div>
