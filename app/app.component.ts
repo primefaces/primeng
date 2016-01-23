@@ -16,6 +16,7 @@ import {RadioButtonDemoComponent} from './components/radiobutton/demo/radiobutto
 import {AccordionDemoComponent} from './components/accordion/demo/accordiondemo.component';
 import {InputTextareaDemoComponent} from './components/inputtextarea/demo/inputtextareademo.component';
 import {GalleriaDemoComponent} from './components/galleria/demo/galleriademo.component';
+import {CheckboxDemoComponent} from './components/checkbox/demo/checkboxdemo.component';
 
 @Component({
     selector: 'my-app',
@@ -38,7 +39,8 @@ import {GalleriaDemoComponent} from './components/galleria/demo/galleriademo.com
     {path: '/radiobutton', name: 'RadioButtonDemo', component: RadioButtonDemoComponent},
     {path: '/accordion', name: 'AccordionDemo', component: AccordionDemoComponent},
     {path: '/inputtextarea', name: 'InputTextareaDemo', component: InputTextareaDemoComponent},
-    {path: '/galleria', name: 'GalleriaDemo', component: GalleriaDemoComponent}
+    {path: '/galleria', name: 'GalleriaDemo', component: GalleriaDemoComponent},
+    {path: '/checkbox', name: 'CheckboxDemo', component: CheckboxDemoComponent}
 ])
 export class AppComponent {
 
