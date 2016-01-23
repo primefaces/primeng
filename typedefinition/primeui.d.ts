@@ -50,6 +50,7 @@ declare module PrimeUI {
         collapsed?: boolean;
         beforeToggle: (event?: Event) => void;
         afterToggle: (event?: Event) => void;
+        enhanced?: boolean;
     }
 
     //Rating
