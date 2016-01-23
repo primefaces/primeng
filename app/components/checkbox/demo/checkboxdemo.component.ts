@@ -23,7 +23,7 @@ import {GridDemoComponent} from '../../grid/demo/griddemo.component';
             <h3 class="first">Basic</h3>
             <div class="pui-grid pui-grid-responsive" style="width:250px">
                 <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-checkbox name="group1" value="Option 1" [(model)]="val1" [checked] ="false"></p-checkbox></div>
+                    <div class="pui-grid-col-1"><p-checkbox name="group1" value="Option 1" [(model)]="val1"></p-checkbox></div>
                     <div class="pui-grid-col-11"><label class="ui-widget">Option 1</label></div>
                 </div>
                 <div class="pui-grid-row">
