@@ -15,6 +15,7 @@ import {TabViewDemoComponent} from './components/tabview/demo/tabviewdemo.compon
 import {RadioButtonDemoComponent} from './components/radiobutton/demo/radiobuttondemo.component';
 import {AccordionDemoComponent} from './components/accordion/demo/accordiondemo.component';
 import {InputTextareaDemoComponent} from './components/inputtextarea/demo/inputtextareademo.component';
+import {GalleriaDemoComponent} from './components/galleria/demo/galleriademo.component';
 
 @Component({
     selector: 'my-app',
@@ -36,7 +37,8 @@ import {InputTextareaDemoComponent} from './components/inputtextarea/demo/inputt
     {path: '/tabview', name: 'TabViewDemo', component: TabViewDemoComponent},
     {path: '/radiobutton', name: 'RadioButtonDemo', component: RadioButtonDemoComponent},
     {path: '/accordion', name: 'AccordionDemo', component: AccordionDemoComponent},
-    {path: '/inputtextarea', name: 'InputTextareaDemo', component: InputTextareaDemoComponent}
+    {path: '/inputtextarea', name: 'InputTextareaDemo', component: InputTextareaDemoComponent},
+    {path: '/galleria', name: 'GalleriaDemo', component: GalleriaDemoComponent}
 ])
 export class AppComponent {
 

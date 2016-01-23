@@ -160,6 +160,21 @@ declare module PrimeUI {
         queryDelay?: number;
         completeSource?: Function;
     }
+
+    //Galleria
+    interface GalleriaOptions {
+        panelWidth?: number;
+        panelHeight?: number;
+        frameWidth?: number;
+        activeIndex?: number;
+        showFilmstrip?: boolean;
+        autoPlay?: boolean;
+        transitionInterval?: number;
+        effect?: string;
+        effectSpeed?: any;
+        showCaption?: boolean;
+        customContent?: boolean;
+    }
 }
 
 interface JQuery {
@@ -319,4 +334,16 @@ interface JQuery {
     puiinputtextarea(optionLiteral: string, optionName: string): any;
     puiinputtextarea(optionLiteral: string, options: PrimeUI.InputTextareaOptions): any;
     puiinputtextarea(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puigalleria(): JQuery;
+    puigalleria(methodName: 'destroy'): void;
+    puigalleria(methodName: 'disable'): void;
+    puigalleria(methodName: 'enable'): void;
+    puigalleria(methodName: 'refresh'): void;
+    puigalleria(methodName: 'widget'): JQuery;
+    puigalleria(methodName: string): JQuery;
+    puigalleria(options: PrimeUI.GalleriaOptions): JQuery;
+    puigalleria(optionLiteral: string, optionName: string): any;
+    puigalleria(optionLiteral: string, options: PrimeUI.GalleriaOptions): any;
+    puigalleria(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

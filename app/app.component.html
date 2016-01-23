@@ -33,6 +33,15 @@
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['DialogDemo']">&#9679; Dialog</a>
             </div>
+
+            <span id="menu_multimedia" #multimediamenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="multimediamenutitle.id == activeMenuId" 
+                    (click)="activeMenuId = multimediamenutitle.id"><img src="resources/images/mono/multimedia.svg">
+                    <img class="hiddenIcons" src="resources/images/mono/multimediaBlue.svg" style="opacity: 0;">
+                    <span class="MainLinkText">Multimedia</span>
+            </span>
+            <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (multimediamenutitle.id == activeMenuId), 'submenuhide': (multimediamenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['GalleriaDemo']">&#9679; Galleria</a>
+            </div>
         </div>
     </div>
 
