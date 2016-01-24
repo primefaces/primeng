@@ -16,7 +16,9 @@ export class InputTextDirective implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnInit() {
-        jQuery(this.el.nativeElement).puiinputtext();
+        jQuery(this.el.nativeElement).puiinputtext({
+            disabled: this.disabled
+        });
         this.initialized = true;
     }
 
