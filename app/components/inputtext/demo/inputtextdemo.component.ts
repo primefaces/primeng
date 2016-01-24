@@ -13,9 +13,10 @@ import {ButtonDirective} from '../../button/button.directive';
 
         <div class="ContentSideSections Implementation">
             <h3 class="first">Basic</h3>
-            <input id="in" type="text" size="30" pInputText [(ngModel)]="text" [disabled]="disabled"/>
+            <input id="in" type="text" size="30" pInputText [(ngModel)]="text" />
 
-            {{text}}
+            <h3>Disabled</h3>
+            <input id="in" type="text" size="30" pInputText [disabled]="disabled" />
 
             <button type="text" (click)="toggleDisabled()" pButton>Toggle</button>
         </div>
@@ -26,7 +27,7 @@ export class InputTextDemoComponent {
 
     text: string;
 
-    disabled: boolean = false;
+    disabled: boolean = true;
 
     toggleDisabled() {
         this.disabled = !this.disabled;
