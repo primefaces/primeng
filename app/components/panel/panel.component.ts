@@ -48,12 +48,10 @@ export class PanelComponent implements AfterViewInit, OnDestroy, OnChanges {
     initialized: boolean;
 
     constructor(private el: ElementRef) {
-console.log('constructor');
         this.initialized = false;
     }
     
     ngAfterViewInit() {
-        console.log('init');
         jQuery(this.el.nativeElement.children[0]).puipanel({
             title: this.header,
             toggleable: this.toggleable,
@@ -82,7 +80,6 @@ console.log('constructor');
     }
 
     ngOnDestroy() {
-        console.log('destroy');
         jQuery(this.el.nativeElement.children[0]).puipanel('destroy');
         this.initialized = false;
     }
