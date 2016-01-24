@@ -1,16 +1,30 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
-import {Component, ElementRef, OnInit, OnDestroy, HostBinding, Input, Output, OnChanges, SimpleChange, EventEmitter} from 'angular2/core';
+import {Component, ElementRef, AfterViewInit, OnDestroy, HostBinding, Input, Output, OnChanges, SimpleChange, EventEmitter} from 'angular2/core';
 
 @Component({
     selector: 'p-dialog',
     template: `
-        <div>
-            <ng-content></ng-content>
+        <div class="pui-dialog ui-widget ui-widget-content ui-helper-hidden ui-corner-all pui-shadow" [ngClass]="{'pui-dialog-rtl':rtl}">
+            <div class="pui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
+                <span class="pui-dialog-title">{{header}}</span>
+                <a class="pui-dialog-titlebar-icon pui-dialog-titlebar-close ui-corner-all" href="#" role="button" *ngIf="closable">
+                    <span class="pui-icon fa fa-fw fa-close"></span>
+                </a>
+                <a class="pui-dialog-titlebar-icon pui-dialog-titlebar-maximize ui-corner-all" href="#" role="button" *ngIf="maximizable">
+                    <span class="pui-icon fa fa-fw fa-sort"></span>
+                </a>
+                <a class="pui-dialog-titlebar-icon pui-dialog-titlebar-minimize ui-corner-all" href="#" role="button" *ngIf="minimizable">
+                    <span class="pui-icon fa fa-fw fa-minus"></span>
+                </a>
+            </div>
+            <div class="pui-dialog-content ui-widget-content">
+                <ng-content></ng-content>
+            </div>
         </div>
     `
 })
-export class DialogComponent implements OnInit, OnDestroy, OnChanges {
+export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() header: string;
 
@@ -72,7 +86,7 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
         this.initialized = false;
     } 
 
-    ngOnInit() {
+    ngAfterViewInit() {
         jQuery(this.el.nativeElement.children[0]).puidialog({
             title: this.header,
             draggable: this.draggable,
@@ -102,7 +116,8 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
                 this.onAfterHide.next(event); 
             } : null,
             minimize: this.onMinimize ? (event: Event) => { this.onMinimize.next(event); } : null,
-            maximize: this.onMaximize ? (event: Event) => { this.onMaximize.next(event); } : null
+            maximize: this.onMaximize ? (event: Event) => { this.onMaximize.next(event); } : null,
+            enhanced: true
         });
         this.initialized = true;
     }
