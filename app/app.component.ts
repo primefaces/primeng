@@ -45,4 +45,6 @@ import {CheckboxDemoComponent} from './components/checkbox/demo/checkboxdemo.com
 export class AppComponent {
 
     activeMenuId: string;
+
+    themesVisible: boolean = false;
 }

@@ -131,7 +131,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 /** ThemeSwitcher **/
 .navOverlay{width:200px; max-height:400px; overflow-y:auto; background-color:#eff3f6; border:solid 1px #bcc7cf; z-index:99999999999; position: absolute; 
             border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px; -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2); -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2); 
-            box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2); margin-left:-60px; display: none;}
+            box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2); margin-left:-60px;}
 .navOverlay a{display:block; padding:10px; border-bottom:solid 1px #bcc7cf; text-align:left; color:#87939B; overflow:hidden;}
 .navOverlay a:hover{ color:#fdd106;}
 .navOverlay a span.ui-theme{width:30px; height:27px; float:left; border:solid 1px #D7DCE0; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;}
