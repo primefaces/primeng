@@ -12,7 +12,7 @@ import {ButtonDirective} from '../../button/button.directive';
         </div>
 
         <div class="ContentSideSections Implementation">
-            <p-dialog id="dlgelement" header="Godfather I" [(visible)]="display" modal="modal" minimizable="minimizable" maximizable="maximizable">
+            <p-dialog id="dlgelement" header="Godfather I" [(visible)]="display" modal="modal" minimizable="minimizable" maximizable="maximizable" showEffect="fade" hideEffect="fade">
                 <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
                    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
                    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
