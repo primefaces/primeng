@@ -50,7 +50,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() hideEffect: string;
 
-    @Input() effectSpeed: any;
+    @Input() effectDuration: any;
 
     @Input() closeOnEscape: boolean = true;
 
@@ -100,7 +100,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             modal: this.modal,
             showEffect: this.showEffect,
             hideEffect: this.hideEffect,
-            effectSpeed: this.effectSpeed,
+            effectSpeed: this.effectDuration,
             closeOnEscape: this.closeOnEscape,
             rtl: this.rtl,
             closable: this.closable,
