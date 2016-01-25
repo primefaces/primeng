@@ -1,0 +1,301 @@
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Dialog</span>
+        <span class="defaultText dispTable">Dialog is a container widget featuring modality, minimize, maximize and animations.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-dialog id="dlgelement" header="Godfather I" [(visible)]="display" modal="modal" minimizable="minimizable" maximizable="maximizable" showEffect="fade" hideEffect="fade">
+        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+           kind and benevolent to those who give respect, 
+           but given to ruthless violence whenever anything stands against the good of the family.</p>
+    </p-dialog>
+
+    <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square">Show</button>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Getting Started</h3>
+            <p>Dialog is used as a container and visibility is controlled with visible property.</p>
+                    
+<pre>
+&lt;p-dialog header="Title" [(visible)]="display"&gt;
+    Content
+&lt;/p-dialog&gt;
+
+&lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square"&gt;Show&lt;/button&gt;
+</pre>
+
+<pre>
+export class ModelComponent {
+
+    visible: boolean;
+
+    showDialog() {
+        this.visible = true;
+    }
+
+}
+</pre>
+
+            <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
+            two-way binding, hiding the dialog with close button updates the visible state as false.</p>
+
+            <h3>Attributes</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Title text of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>draggable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Enables dragging to change the position using header.</td>
+                        </tr>
+                        <tr>
+                            <td>resizable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Enables resizing of the content.</td>
+                        </tr>
+                        <tr>
+                            <td>location</td>
+                            <td>string</td>
+                            <td>center</td>
+                            <td>Defines the position of the dialog in window, valid values are combination of "left", "right", "top", "bottom" like "left right"
+                                or absolute coordinates like "50,150".</td>
+                        </tr>
+                        <tr>
+                            <td>minWidth</td>
+                            <td>number</td>
+                            <td>150</td>
+                            <td>Minimum width of a resizable dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>minHeight</td>
+                            <td>number</td>
+                            <td>25</td>
+                            <td>Minimum width of a resizable dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>width</td>
+                            <td>int</td>
+                            <td>300</td>
+                            <td>Width of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>height</td>
+                            <td>int</td>
+                            <td>auto</td>
+                            <td>Height of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>visible</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifies the visibility of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>modal</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if background should be blocked when dialog is hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>showEffect</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Effect to use when showing the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>hideEffect</td>
+                            <td>string</td>
+                            <td>false</td>
+                            <td>Effect to use hiding the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>effectDuration</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Duration of the effect in milliseconds or pre-defined values like "slow","normal" and "fast".</td>
+                        </tr>
+                        <tr>
+                            <td>closeOnEscape</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Specifices if pressing escape key should hide the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>rtl</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled dialog is displayed in RTL direction.</td>
+                        </tr>
+                        <tr>
+                            <td>closable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Adds a close icon to the header to hide the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>minimizable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Adds a toggle icon to the header to minimize the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>maximizable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Adds a toggle icon to the header to maximize the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>responsive</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>In responsive mode, dialog adjusts itself to screen width.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onBeforeShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke before dialog is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>onAfterShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke after dialog is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>onBeforeHide</td>
+                            <td>-</td>
+                            <td>Callback to invoke before dialog is hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>onAfterHide/td>
+                            <td>-</td>
+                            <td>Callback to invoke after dialog is hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>onMinimize/td>
+                            <td>-</td>
+                            <td>Callback to invoke when dialog is minimized.</td>
+                        </tr>
+                        <tr>
+                            <td>onMaximize</td>
+                            <td>-</td>
+                            <td>Callback to invoke when dialog is maximized.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>pui-dialog</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dialog-titlebar</td>
+                            <td>Container of header.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dialog-title</td>
+                            <td>Header element.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dialog-titlebar-icon</td>
+                            <td>Icon container inside header.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dialog-titlebar-close</td>
+                            <td>Close icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dialog-titlebar-minimize</td>
+                            <td>Minimize icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dialog-titlebar-maximize</td>
+                            <td>Maximize icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dialog-content</td>
+                            <td>Content element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <h3>Template</h3>
+<pre>
+&lt;p-dialog id="dlgelement" header="Godfather I" [(visible)]="display" modal="modal" minimizable="minimizable" maximizable="maximizable" showEffect="fade" hideEffect="fade"&gt;
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+       His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+       Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+       kind and benevolent to those who give respect, 
+       but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
+&lt;/p-dialog&gt;
+
+&lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square"&gt;Show&lt;/button&gt;
+</pre>
+
+            <h3>DialogDemoComponent</h3>
+<pre>
+export class DialogDemoComponent {
+
+    display: boolean = false;
+
+    showDialog() {
+        this.display = true;
+    }
+
+}
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
