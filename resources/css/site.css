@@ -561,3 +561,7 @@ pre {
     color: #FFFFFF;
     margin-top:10px 0px;
 }
+
+.pui-tabview-left > .pui-tabview-nav {
+    height: 150px;
+}
