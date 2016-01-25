@@ -1,21 +1,12 @@
 import {Component} from 'angular2/core';
 import {InputTextareaDirective} from '../inputtextarea.directive';
+import {TabViewComponent} from '../../tabview/tabview.component';
+import {TabPanelComponent} from '../../tabview/tabpanel.component';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
-    template: `
-        <div class="ContentSideSections">
-            <div class="Content100 overHidden TextShadow">
-                <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">InputTextarea</span>
-                <span class="defaultText dispTable">Inputtextarea provides autoComplete, autoResize, remaining characters counter features.</span>
-            </div>
-        </div>
-
-        <div class="ContentSideSections Implementation">
-            <h3 class="first">Default</h3>
-            <textarea id="basic" rows="5" cols="30" pInputTextarea></textarea>
-        </div>
-    `,
-    directives: [InputTextareaDirective]
+    templateUrl: 'app/components/inputtextarea/demo/inputtextareademo.component.html',
+    directives: [InputTextareaDirective,TabPanelComponent,TabViewComponent,ROUTER_DIRECTIVES]
 })
 export class InputTextareaDemoComponent {
 

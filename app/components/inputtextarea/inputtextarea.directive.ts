@@ -9,19 +9,7 @@ export class InputTextareaDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input() autoResize: boolean;
 
-    @Input() autoComplete: boolean;
-
-    @Input() maxlength: number;
-
-    @Input() counter: number;
-
-    @Input() counterTemplate: string;
-
-    @Input() minQueryLength: number;
-
-    @Input() queryDelay: number;
-
-    @Input() completeSource: Function;
+    @Input() disabled: boolean;
 
     initialized: boolean;
 
@@ -31,14 +19,7 @@ export class InputTextareaDirective implements OnInit, OnDestroy, OnChanges {
 
     ngOnInit() {
         jQuery(this.el.nativeElement).puiinputtextarea({
-            autoResize: this.autoResize,
-            autoComplete: this.autoComplete,
-            maxlength: this.maxlength,
-            counter: this.counter,
-            counterTemplate: this.counterTemplate,
-            minQueryLength: this.minQueryLength,
-            queryDelay: this.queryDelay,
-            completeSource: this.completeSource
+            autoResize: this.autoResize
         });
         this.initialized = true;
     }
