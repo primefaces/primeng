@@ -4794,12 +4794,12 @@ PUI.resolveUserAgent();/**
         },
         
         _create: function() {
-            if(!this.options.enhanced) {
+            if(this.options.enhanced) {
                 this.element.addClass('pui-fieldset ui-widget ui-widget-content ui-corner-all').
                     children('legend').addClass('pui-fieldset-legend ui-corner-all ui-state-default');
-
+                    
                 this.element.contents().wrapAll('<div class="pui-fieldset-content" />'); 
-                this.legend = this.content.children('legend.pui-fieldset-legend');
+                this.legend = this.element.children().children('legend');
                 this.legend.prependTo(this.element);
             }
             else {
@@ -4810,7 +4810,7 @@ PUI.resolveUserAgent();/**
             
             if(this.options.toggleable) {
                 if(this.options.enhanced) {
-                    this.toggler = this.legend.children('.pui-fieldset-toggler');
+                    this.toggler = $('<span class="pui-fieldset-toggler fa fa-fw" />').prependTo(this.legend);
                 }
                 else {
                     this.element.addClass('pui-fieldset-toggleable');
