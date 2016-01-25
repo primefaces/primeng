@@ -1,30 +1,21 @@
 import {Component} from 'angular2/core';
 import {SpinnerDirective} from '../spinner.directive';
 import {ButtonDirective} from '../../button/button.directive';
+import {TabViewComponent} from '../../tabview/tabview.component';
+import {TabPanelComponent} from '../../tabview/tabpanel.component';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
-    template: `
-        <div class="ContentSideSections">
-            <div class="Content100 overHidden TextShadow">
-                <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Spinner</span>
-                <span class="defaultText dispTable">Spinner is an input component to provide a numerical input.</span>
-            </div>
-        </div>
-
-        <div class="ContentSideSections Implementation">
-            <h3 class="first">Basic</h3>
-            <input id="in" type="text" size="30" pSpinner [(ngModel)]="text" [disabled]="disabled"/>
-
-            <button type="text" (click)="toggleDisabled()" pButton>Toggle</button>
-        </div>
-    `,
-    directives: [SpinnerDirective, ButtonDirective]
+    templateUrl: 'app/components/spinner/demo/spinnerdemo.component.html',
+    directives: [SpinnerDirective,ButtonDirective,TabViewComponent,TabPanelComponent,ROUTER_DIRECTIVES]
 })
 export class SpinnerDemoComponent {
 
-    disabled: boolean = false;
+    val1: number;
 
-    toggleDisabled() {
-        this.disabled = !this.disabled;
-    }
+    val2: number;
+
+    val3: number;
+
+   val4: number = 100;
 }
