@@ -314,12 +314,12 @@ PUI.resolveUserAgent();/**
                 if(!element.hasClass('ui-state-active')&&!element.hasClass('ui-state-disabled')) {
                     element.addClass('ui-state-hover');
                 }
-            }).mouseout('mouseout.puiaccordion', function() {
+            }).on('mouseout.puiaccordion', function() {
                 var element = $(this);
                 if(!element.hasClass('ui-state-active')&&!element.hasClass('ui-state-disabled')) {
                     element.removeClass('ui-state-hover');
                 }
-            }).click('click.puiaccordion', function(e) {
+            }).on('click.puiaccordion', function(e) {
                 var element = $(this);
                 if(!element.hasClass('ui-state-disabled')) {
                     var tabIndex = ($this.panelMode === 'native') ? element.index() / 2 : element.parent().index();
