@@ -547,3 +547,19 @@ input.searchInput {
     transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
     max-height: 500px;
 }
+
+/* Code Styles */
+pre {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    font-family: Courier, 'New Courier', monospace;
+    font-size: 12px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 1em;
+    background-color: #488096;
+    color: #EDF1F3;
+}
