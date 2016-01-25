@@ -100,6 +100,7 @@ declare module PrimeUI {
         afterHide?: (event?: Event) => void;
         minimize?: (event?: Event) => void;
         maximize?: (event?: Event) => void;
+        enhanced?: boolean;
     }
 
     //Togglebutton
