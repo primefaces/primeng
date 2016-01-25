@@ -71,7 +71,7 @@
             <p>ActiveIndex property supports two-way binding, changes to the model updates the selected tab and changing
             the tab with user interaction updates the value at model. In default single selectiode, activeIndex should be a number
             and in multiple mode it should be an array of numbers as multiple tabs can be chosen.</p>
-<pre>
+<pre style="margin-bottom:10px">
 &lt;p-accordion [(activeIndex)]]="index"&gt;
     &lt;p-accordionTab header="Header 1"&gt;
        Content 1
@@ -108,52 +108,56 @@ export class ModelComponent {
 </pre>
 
             <h3>Attributes</h3>
-            <table class="doc-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Default</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>activeIndex</td>
-                        <td>any</td>
-                        <td>0</td>
-                        <td>Index of the active tab as number or array of numbers in multiple mode.</td>
-                    </tr>
-                    <tr>
-                        <td>multiple</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>When enabled, multiple tabs can be activated at the same time.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>activeIndex</td>
+                            <td>any</td>
+                            <td>0</td>
+                            <td>Index of the active tab as number or array of numbers in multiple mode.</td>
+                        </tr>
+                        <tr>
+                            <td>multiple</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, multiple tabs can be activated at the same time.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <h3>Events</h3>
-            <table class="doc-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Parameters</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>onChange</td>
-                        <td>
-                            originalEvent: Browser event <br>
-                            index: Index of the selected tab
-                        </td>
-                        <td>Callback to invoke on tab change.</td>
-                    </tr>
-                </tbody>
-            </table>
-<pre>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onChange</td>
+                            <td>
+                                originalEvent: Browser event <br>
+                                index: Index of the selected tab
+                            </td>
+                            <td>Callback to invoke on tab change.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<pre style="margin-bottom:10px">
 &lt;p-accordion (onChange)="handleChange($event)"&gt;
 </pre>
  <pre>
@@ -168,28 +172,30 @@ export class ModelComponent {
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
 
-            <table class="doc-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Element</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>pui-accordion</td>
-                        <td>Container element</td>
-                    </tr>
-                    <tr>
-                        <td>pui-accordion-header</td>
-                        <td>Header of a tab.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-accordion-content</td>
-                        <td>Content of a tab.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>pui-accordion</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>pui-accordion-header</td>
+                            <td>Header of a tab.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-accordion-content</td>
+                            <td>Content of a tab.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
         </p-tabPanel>
 

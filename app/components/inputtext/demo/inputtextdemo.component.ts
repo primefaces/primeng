@@ -41,41 +41,45 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 </pre>
 
                     <h3>Attributes</h3>
-                    <table class="doc-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Default</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>disabled</td>
-                                <td>boolean</td>
-                                <td>false</td>
-                                <td>When present, it specifies that the element should be disabled.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="doc-tablewrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>disabled</td>
+                                    <td>boolean</td>
+                                    <td>false</td>
+                                    <td>When present, it specifies that the element should be disabled.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <h3>Styling</h3>
                     <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
-                    <table class="doc-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Element</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>pui-inputtext</td>
-                                <td>Input element</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="doc-tablewrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Element</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>pui-inputtext</td>
+                                    <td>Input element</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <h3>Template</h3>

@@ -276,11 +276,18 @@ input.searchInput {
 }
 
 .Source h3 {
-    margin-top: 0px;
+    margin-top: 25px;
+    margin-bottom: 0px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .Source p {
     font-size: 16px;
+    margin: 10px 0;
+}
+.Source .doc-tablewrapper {
+    margin: 10px 0;
 }
 
 .Source a {
@@ -316,10 +323,6 @@ input.searchInput {
 
 .doc-table tbody tr:nth-child(odd){
     background-color: #F3F6F9;
-}
-
-.Source h3 {
-    margin-top: 20px;
 }
 
 /* Tabs Source */
@@ -370,11 +373,6 @@ input.searchInput {
 .Source .pui-tabview .pui-tabview-panels {
     border-top: 1px solid #BCC7CF;
     color: #5C666A !important;
-}
-
-.Source .pui-tabview-panels h3 {
-    font-size: 24px;
-    font-weight: normal;
 }
 
 /** Responsive **/
@@ -562,4 +560,5 @@ pre {
     padding: 1em;
     background-color: #AFCAD7;
     color: #FFFFFF;
+    margin:0px;
 }
