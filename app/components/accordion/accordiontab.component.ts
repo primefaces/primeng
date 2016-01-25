@@ -16,8 +16,6 @@ export class AccordionTabComponent {
 
     @Input() header: string;
 
-    @Input() closable: boolean;
-
     initialized: boolean;
 
     constructor(tabview: AccordionComponent) {
