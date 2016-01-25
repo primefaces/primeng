@@ -24,8 +24,6 @@ export class RadioButtonComponent {
 
     @Input() disabled: boolean;
 
-    @Input() checked: any;
-
     @Input() model: any;
 
     @Output() click: EventEmitter<any> = new EventEmitter();
