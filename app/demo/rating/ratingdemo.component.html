@@ -1,0 +1,211 @@
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Rating</span>
+        <span class="defaultText dispTable">Rating components is a star based selection input.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <h3 class="first">Basic {{value1}}</h3> 
+    <p-rating [(value)]="value1"></p-rating>
+    <br />
+
+    <h3>Callback {{value2}}</h3>
+    <p-rating [(value)]="value2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"></p-rating> <span *ngIf="msg" style="margin-left:10px">{{msg}}</span>
+    <br />
+
+    <h3>No Cancel {{value3}}</h3> 
+    <p-rating [(value)]="value3" [cancel]="false"></p-rating>
+    <br />
+
+    <h3>ReadOnly</h3> 
+    <p-rating value="5" readonly="true" stars="10" [cancel]="false"></p-rating>
+    <br />
+
+    <h3>Disabled</h3> 
+    <p-rating [value]="val4" disabled="true" stars="10"></p-rating>
+    <br />
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Getting Started</h3>
+            <p>Rating is defined using p-rating element and the value property supports two-way binding to manage the model.</p>
+                    
+<pre>
+&lt;p-rating [(value)]="val"&gt;&lt;/p-rating&gt;
+</pre>
+
+<pre>
+export class ModelComponent {
+
+    val: number;
+
+}
+</pre>
+
+                    <p>As value is two-way binding enabled, defining a default value is enough to render the initial number of selected stars based on it.</p>
+<pre>
+export class ModelComponent {
+
+    val: number = 3;
+
+}
+</pre>
+
+                    <h3>Attributes</h3>
+                    <div class="doc-tablewrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>number</td>
+                                    <td>null</td>
+                                    <td>Number of selected stars.</td>
+                                </tr>
+                                <tr>
+                                    <td>stars</td>
+                                    <td>number</td>
+                                    <td>5</td>
+                                    <td>Number of stars.</td>
+                                </tr>
+                                <tr>
+                                    <td>cancel</td>
+                                    <td>boolean</td>
+                                    <td>true</td>
+                                    <td>When specified a cancel icon is displayed to allow removing the value.</td>
+                                </tr>
+                                <tr>
+                                    <td>disabled</td>
+                                    <td>boolean</td>
+                                    <td>false</td>
+                                    <td>When present, it specifies that the element should be disabled.</td>
+                                </tr>
+                                <tr>
+                                    <td>readonly</td>
+                                    <td>Boolean</td>
+                                    <td>true</td>
+                                    <td>When present, changing the value is not possible.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Events</h3>
+                    <div class="doc-tablewrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Parameters</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>onRate</td>
+                                    <td>originalEvent: Event <br>
+                                        value: Selected value
+                                    </td>
+                                    <td>Callback to invoke on rate change.</td>
+                                </tr>
+                                <tr>
+                                    <td>onCancel</td>
+                                    <td>event: Event</td>
+                                    <td>Callback to invoke when value is removed.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Styling</h3>
+                    <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+                    <div class="doc-tablewrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Element</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>pui-rating</td>
+                                    <td>Container element</td>
+                                </tr>
+                                <tr>
+                                    <td>pui-rating-star</td>
+                                    <td>Star element</td>
+                                </tr>
+                                <tr>
+                                    <td>pui-rating-star-on</td>
+                                    <td>Selected star element.</td>
+                                </tr>
+                                <tr>
+                                    <td>pui-rating-cancel</td>
+                                    <td>Cancel icon.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="Source">
+<h3>Template</h3>
+<pre>
+&lt;h3 class="first"&gt;Basic <span>{</span><span>{</span>value1<span>}</span><span>}</span>&lt;/h3&gt; 
+&lt;p-rating [(value)]="value1"&gt;&lt;/p-rating&gt;
+&lt;br /&gt;
+
+&lt;h3&gt;Callback <span>{</span><span>{</span>value2<span>}</span><span>}</span>&lt;/h3&gt;
+&lt;p-rating [(value)]="value2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"&gt;&lt;/p-rating&gt; &lt;span *ngIf="msg" style="margin-left:10px"&gt;<span>{</span><span>{</span>msg<span>}</span><span>}</span>&lt;/span&gt;
+&lt;br /&gt;
+
+&lt;h3&gt;No Cancel <span>{</span><span>{</span>value3<span>}</span><span>}</span>&lt;/h3&gt; 
+&lt;p-rating [(value)]="value3" [cancel]="false"&gt;&lt;/p-rating&gt;
+&lt;br /&gt;
+
+&lt;h3&gt;ReadOnly&lt;/h3&gt; 
+&lt;p-rating value="5" readonly="true" stars="10" [cancel]="false"&gt;&lt;/p-rating&gt;
+&lt;br /&gt;
+
+&lt;h3&gt;Disabled&lt;/h3&gt; 
+&lt;p-rating [value]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
+&lt;br /&gt;
+</pre>
+
+<h3>RatingDemoComponent</h3>
+<pre>
+export class RatingDemoComponent {
+
+    val1: number;
+
+    val2: number = 5;
+
+    val3: number;
+
+    val4: number = 5;
+
+    msg: string;
+
+    handleRate(event) {
+        this.msg = "You have rated " + event.value;
+    }
+
+    handleCancel(event) {
+        this.msg = "Rating Cancelled";
+    }
+}
+</pre>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
