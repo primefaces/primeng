@@ -3,7 +3,7 @@
 import {Component, ElementRef, OnInit, OnDestroy, OnChanges, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
 
 @Component({
-    selector: 'p-togglebutton',
+    selector: 'p-toggleButton',
     template:'<input type="checkbox" />'
 })
 export class ToggleButtonComponent implements OnInit, OnDestroy, OnChanges {
@@ -17,6 +17,12 @@ export class ToggleButtonComponent implements OnInit, OnDestroy, OnChanges {
     @Input() offIcon: string;
 
     @Input() checked: boolean;
+
+    @Input() disabled: boolean;
+
+    @Input() style: string;
+
+    @Input() styleClass: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -37,6 +43,9 @@ export class ToggleButtonComponent implements OnInit, OnDestroy, OnChanges {
             onIcon: this.onIcon,
             offIcon: this.offIcon,
             checked: this.checked,
+            disabled: this.disabled,
+            style: this.style,
+            styleClass: this.styleClass,
             change: (event: Event, ui: PrimeUI.ToggleButtonEventParams) => {
                 this.stopNgOnChangesPropagation = true;
                 this.checkedChange.next(ui.checked);

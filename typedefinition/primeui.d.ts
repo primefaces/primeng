@@ -115,6 +115,9 @@ declare module PrimeUI {
         offIcon?: string;
         change?: (event?: Event, ui?: ToggleButtonEventParams) => void;
         checked?: boolean;
+        disabled?: boolean;
+        style?: string;
+        styleClass?: string;
     }
 
     //TabView
