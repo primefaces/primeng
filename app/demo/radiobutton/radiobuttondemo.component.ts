@@ -202,7 +202,7 @@ Value 1 = <span>{</span><span>{</span>val1<span>}</span><span>}</span>
 Value 2 = <span>{</span><span>{</span>val2<span>}</span><span>}</span>
 </pre>
 
-<h3>CheckboxDemoComponent</h3>
+<h3>RadioButtonDemoComponent</h3>
 <pre>
 export class RadioButtonDemoComponent {
 

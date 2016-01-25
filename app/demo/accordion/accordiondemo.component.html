@@ -200,6 +200,7 @@ export class ModelComponent {
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+        <h3>Template</h3>
 <pre>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-accordion&gt;
@@ -241,6 +242,24 @@ export class ModelComponent {
         After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
+</pre>
+
+        <h3>AccordionDemoComponent</h3>
+<pre>
+export class AccordionDemoComponent {
+
+    activeTabIndex: number = 1; 
+
+    changeTab() {
+        var index = this.activeTabIndex;
+        index++;
+        if(index > 2) {
+            index = 0;
+        }
+
+        this.activeTabIndex = index;
+    }
+}
 </pre>
         </p-tabPanel>
     </p-tabView>
