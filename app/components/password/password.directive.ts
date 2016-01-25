@@ -17,6 +17,8 @@ export class PasswordDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input() inline: boolean;
 
+    @Input() disabled: boolean;
+
     initialized: boolean;
 
     constructor(private el: ElementRef) {

@@ -1,20 +1,12 @@
 import {Component} from 'angular2/core';
 import {PasswordDirective} from '../password.directive';
+import {TabViewComponent} from '../../tabview/tabview.component';
+import {TabPanelComponent} from '../../tabview/tabpanel.component';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
-    template: `
-        <div class="ContentSideSections">
-            <div class="Content100 overHidden TextShadow">
-                <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Password</span>
-                <span class="defaultText dispTable">Password displays strength indicator for password fields.</span>
-            </div>
-        </div>
-
-        <div class="ContentSideSections Implementation">
-            <input id="default" pPassword type="password"/>
-        </div>
-    `,
-    directives: [PasswordDirective]
+    templateUrl: 'app/components/password/demo/passworddemo.component.html',
+    directives: [PasswordDirective,TabViewComponent,TabPanelComponent,ROUTER_DIRECTIVES]
 })
 export class PasswordDemoComponent {
 
