@@ -10462,6 +10462,22 @@ PUI.resolveUserAgent();/**
             else {
                 $.Widget.prototype._setOption.apply(this, arguments);
             }
+        },
+
+        _destroy: function() {
+            this._unbindEvents();
+            if(this.options.onIcon || this.options.offIcon) {
+                this.element.parent().removeClass('pui-button pui-togglebutton ui-widget ui-state-default ui-corner-all pui-button-text-icon-left');
+                this.element.unwrap();
+                this.element.next().removeClass('pui-button-icon-left pui-icon fa fa-fw fa-square').remove();
+                this.element.next().removeClass('pui-button-text').remove();
+            }
+            else {
+                this.element.parent().removeClass('pui-button pui-togglebutton ui-widget ui-state-default ui-corner-all');
+                this.element.unwrap();
+                this.container.removeClass('pui-button-text-only');
+                this.element.next().removeClass('pui-button-text').remove();
+            }
         }
         
     });
