@@ -30,15 +30,15 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                     <h3>Getting Started</h3>
                     <p>InputText is applied to an input field with pInputText directive.</p>
                     
-                    <pre>
+<pre>
 &lt;input type="text" pInputText /&gt;
-                    </pre>
+</pre>
 
                     <h3>Model Binding</h3>
                     <p>A model can be bound using ngModel regularly.</p>
-                    <pre>
+<pre>
 &lt;input type="text" pInputText [(ngModel)]="property"/&gt;
-                    </pre>
+</pre>
 
                     <h3>Attributes</h3>
                     <table class="doc-table">
@@ -78,7 +78,30 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                     </table>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
-                    
+<h3>Template</h3>
+<pre>
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt; &nbsp; \{\{text\}\}
+
+&lt;h3&gt;Disabled&lt;/h3&gt;
+&lt;input id="in" type="text" size="30" pInputText [disabled]="disabled" /&gt;
+
+&lt;button type="text" (click)="toggleDisabled()" pButton&gt;Toggle&lt;/button&gt;
+</pre>
+
+<h3>InputTextDemoComponent</h3>
+<pre>
+export class InputTextDemoComponent {
+
+    text: string;
+
+    disabled: boolean = true;
+
+    toggleDisabled() {
+        this.disabled = !this.disabled;
+    }
+}
+</pre>
                 </p-tabPanel>
             </p-tabView>
         </div>
