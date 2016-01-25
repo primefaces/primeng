@@ -25,7 +25,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
         </div>
 
         <div class="ContentSideSections Source">
-            <p-tabView>
+            <p-tabView effect="fade">
                 <p-tabPanel header="Documentation">
                     <h3>Getting Started</h3>
                     <p>InputText is applied to an input field with pInputText directive.</p>
