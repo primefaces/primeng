@@ -85,7 +85,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 <h3>Template</h3>
 <pre>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt; &nbsp; \{\{text\}\}
+&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt; &amp;nbsp; <span>{</span><span>{</span>text<span>}</span><span>}</span>
 
 &lt;h3&gt;Disabled&lt;/h3&gt;
 &lt;input id="in" type="text" size="30" pInputText [disabled]="disabled" /&gt;

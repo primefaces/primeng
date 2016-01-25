@@ -120,7 +120,7 @@ export class Model {
 <pre>
 &lt;button type="text" pButton (click)="count()" [icon]="'fa-check'"&gt;Click&lt;/button&gt;
 
-Number of clicks: \{\{clicks\}\}
+Number of clicks: <span>{</span><span>{</span>clicks<span>}</span><span>}</span>
 </pre>
 
                 <h3>ButtonDemoComponent</h3>
