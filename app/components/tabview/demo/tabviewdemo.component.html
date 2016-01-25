@@ -78,7 +78,7 @@
             <h3>Getting Started</h3>
             <p>Tabview element consists of one or more p-tabPanel elements. Header of the tab is defined using header attribute.</p>
                     
-            <pre>
+<pre>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -90,12 +90,12 @@
         Content 3    
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
-            </pre>
+</pre>
 
             <h3>ActiveIndex</h3>
             <p>ActiveIndex property supports two-way binding, changes to the model changes the selected tab and changing
             the tab with user interaction updates the value at model.</p>
-            <pre>
+<pre>
 &lt;p-tabView [(activeIndex)]="index"&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -107,45 +107,45 @@
         Content 3    
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
-            </pre>
-            <pre>
+</pre>
+<pre>
 export class ModelComponent {
     index: number: 0;
 }
-            </pre>
+</pre>
 
             <h3>Disabled Tabs</h3>
             <p>TabPanel component has a disabled property, when specified tab header is not clickable.</p>
-            <pre>
+<pre>
 &lt;p-tabPanel header="Header Text" disabled="disabled"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
-            </pre>
+</pre>
 
             <h3>Closable Tabs</h3>
             <p>When closable attribute is enabled, an icon is displayed to close the tab. onClose event is fired
             when a tab is closed.</p>
-            <pre>
+<pre>
 &lt;p-tabPanel header="Header Text" closable="closable"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
-            </pre>
+</pre>
 
             <h3>Effects</h3>
             <p>An animation can be used when switching between tabs, valid values are "blind","bounce","clip","drop",
             "explode","fade","fold","highlight","puff","pulsate","scale","shake","size","slide","transfer". Duration
             of the effect is customized with effectDuration attributes using number values as milliseconds or pre-defined values
             such as "slow","normal" and "fast".</p>
-            <pre>
+<pre>
 &lt;p-tabView effect="fade" effectDuration="fast"&gt;
-            </pre>
+</pre>
 
             <h3>Orientation</h3>
             <p>TabView has four different orientations; "top", "bottom", "left" and "right". Top is the default one
             and this can be changed using orientation attribute.</p>
-            <pre>
-    &lt;p-tabView orientation="left"&gt;
-            </pre>
+<pre>
+&lt;p-tabView orientation="left"&gt;
+</pre>
 
             <h3>Attributes</h3>
             <table class="doc-table">
@@ -225,17 +225,17 @@ export class ModelComponent {
                     </tr>
                 </tbody>
             </table>
-            <pre>
+<pre>
 &lt;p-tabView (onChange)="handleChange($event)"&gt;
-            </pre>
-            <pre>
+</pre>
+ <pre>
 export class ModelComponent {
     
     handleChange(e) {
         var index = e.index;
     }
 }
-            </pre>
+</pre>
 
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
@@ -273,7 +273,7 @@ export class ModelComponent {
         </p-tabPanel>
         
         <p-tabPanel header="Source">
-            <pre>
+<pre>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Godfather I"&gt;
@@ -338,7 +338,14 @@ export class ModelComponent {
         After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
-            </pre>
+</pre>
+
+<pre>
+export class TabViewDemoComponent {
+
+    activeTabIndex: number = 1;
+}
+</pre>
         </p-tabPanel>
     </p-tabView>
 </div>
