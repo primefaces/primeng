@@ -9,7 +9,6 @@
         url("../fonts/exo-semibold-webfont.svg#exosemibold") format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
@@ -558,7 +557,7 @@ pre {
     -webkit-border-radius: 5px;
     padding: 1em;
     background-color: #AFCAD7;
-    color: #FFFFFF;
+    color: #222222;
     margin-top:10px 0px;
 }
 
