@@ -2,22 +2,22 @@ import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {HomePageComponent} from './homepage.component';
 import {ThemingComponent} from './theming.component';
-import {InputTextDemoComponent} from './components/inputtext/demo/inputtextdemo.component';
-import {ButtonDemoComponent} from './components/button/demo/buttondemo.component';
-import {SpinnerDemoComponent} from './components/spinner/demo/spinnerdemo.component';
-import {PanelDemoComponent} from './components/panel/demo/paneldemo.component';
-import {FieldsetDemoComponent} from './components/fieldset/demo/fieldsetdemo.component';
-import {RatingDemoComponent} from './components/rating/demo/ratingdemo.component';
-import {PasswordDemoComponent} from './components/password/demo/passworddemo.component';
-import {DialogDemoComponent} from './components/dialog/demo/dialogdemo.component';
-import {ToggleButtonDemoComponent} from './components/togglebutton/demo/togglebuttondemo.component';
-import {GridDemoComponent} from './components/grid/demo/griddemo.component';
-import {TabViewDemoComponent} from './components/tabview/demo/tabviewdemo.component';
-import {RadioButtonDemoComponent} from './components/radiobutton/demo/radiobuttondemo.component';
-import {AccordionDemoComponent} from './components/accordion/demo/accordiondemo.component';
-import {InputTextareaDemoComponent} from './components/inputtextarea/demo/inputtextareademo.component';
-import {GalleriaDemoComponent} from './components/galleria/demo/galleriademo.component';
-import {CheckboxDemoComponent} from './components/checkbox/demo/checkboxdemo.component';
+import {InputTextDemoComponent} from './demo/inputtext/inputtextdemo.component';
+import {ButtonDemoComponent} from './demo/button/buttondemo.component';
+import {SpinnerDemoComponent} from './demo/spinner/spinnerdemo.component';
+import {PanelDemoComponent} from './demo/panel/paneldemo.component';
+import {FieldsetDemoComponent} from './demo/fieldset/fieldsetdemo.component';
+import {RatingDemoComponent} from './demo/rating/ratingdemo.component';
+import {PasswordDemoComponent} from './demo/password/passworddemo.component';
+import {DialogDemoComponent} from './demo/dialog/dialogdemo.component';
+import {ToggleButtonDemoComponent} from './demo/togglebutton/togglebuttondemo.component';
+import {GridDemoComponent} from './demo/grid/griddemo.component';
+import {TabViewDemoComponent} from './demo/tabview/tabviewdemo.component';
+import {RadioButtonDemoComponent} from './demo/radiobutton/radiobuttondemo.component';
+import {AccordionDemoComponent} from './demo/accordion/accordiondemo.component';
+import {InputTextareaDemoComponent} from './demo/inputtextarea/inputtextareademo.component';
+import {GalleriaDemoComponent} from './demo/galleria/galleriademo.component';
+import {CheckboxDemoComponent} from './demo/checkbox/checkboxdemo.component';
 
 @Component({
     selector: 'my-app',
