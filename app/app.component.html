@@ -7,14 +7,14 @@
             </span>
             <span id="menu_input" #inputmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id"><img src="resources/images/mono/input.svg" /><img class="hiddenIcons" src="resources/images/mono/inputBlue.svg" /><span class="MainLinkText">Input</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['CheckboxDemo']">&#9679; Checkbox</a>
                 <a class="SubMenuLink" [routerLink]="['InputTextDemo']">&#9679; InputText</a>
                 <a class="SubMenuLink" [routerLink]="['InputTextareaDemo']">&#9679; InputTextArea</a>
+                <a class="SubMenuLink" [routerLink]="['PasswordDemo']">&#9679; Password</a>
+                <a class="SubMenuLink" [routerLink]="['RadioButtonDemo']">&#9679; RadioButton</a>
                 <a class="SubMenuLink" [routerLink]="['RatingDemo']">&#9679; Rating</a>
                 <a class="SubMenuLink" [routerLink]="['SpinnerDemo']">&#9679; Spinner</a>
-                <a class="SubMenuLink" [routerLink]="['PasswordDemo']">&#9679; Password</a>
                 <a class="SubMenuLink" [routerLink]="['ToggleButtonDemo']">&#9679; ToggleButton</a>
-                <a class="SubMenuLink" [routerLink]="['RadioButtonDemo']">&#9679; RadioButton</a>
-                <a class="SubMenuLink" [routerLink]="['CheckboxDemo']">&#9679; Checkbox</a>
             </div>
 
             <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="resources/images/mono/button.svg" /><img class="hiddenIcons" src="resources/images/mono/buttonBlue.svg" /><span class="MainLinkText">Button</span></span>
@@ -25,8 +25,8 @@
             <span id="menu_panel" #panelmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = panelmenutitle.id"><img src="resources/images/mono/panel.svg" /><img class="hiddenIcons" src="resources/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (panelmenutitle.id == activeMenuId), 'submenuhide': (panelmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['AccordionDemo']">&#9679; Accordion</a>
-                <a class="SubMenuLink" [routerLink]="['PanelDemo']">&#9679; Panel</a>
                 <a class="SubMenuLink" [routerLink]="['FieldsetDemo']">&#9679; Fieldset</a>
+                <a class="SubMenuLink" [routerLink]="['PanelDemo']">&#9679; Panel</a>
                 <a class="SubMenuLink" [routerLink]="['GridDemo']">&#9679; Grid</a>
                 <a class="SubMenuLink" [routerLink]="['TabViewDemo']">&#9679; TabView</a>
             </div> 
