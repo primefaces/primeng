@@ -71,7 +71,7 @@
             <p>ActiveIndex property supports two-way binding, changes to the model updates the selected tab and changing
             the tab with user interaction updates the value at model. In default single selectiode, activeIndex should be a number
             and in multiple mode it should be an array of numbers as multiple tabs can be chosen.</p>
-<pre style="margin-bottom:10px">
+<pre>
 &lt;p-accordion [(activeIndex)]]="index"&gt;
     &lt;p-accordionTab header="Header 1"&gt;
        Content 1
@@ -157,7 +157,7 @@ export class ModelComponent {
                     </tbody>
                 </table>
             </div>
-<pre style="margin-bottom:10px">
+<pre>
 &lt;p-accordion (onChange)="handleChange($event)"&gt;
 </pre>
  <pre>

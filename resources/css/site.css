@@ -21,7 +21,6 @@
         url("../fonts/exo-bolditalic-webfont.svg#exobolditalic") format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
@@ -279,7 +278,7 @@ input.searchInput {
     margin-top: 25px;
     margin-bottom: 0px;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .Source p {
@@ -560,5 +559,5 @@ pre {
     padding: 1em;
     background-color: #AFCAD7;
     color: #FFFFFF;
-    margin:0px;
+    margin-top:10px 0px;
 }
