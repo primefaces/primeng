@@ -34,7 +34,7 @@ export class CheckboxComponent {
 
     onClick(input) {
         input.checked = !input.checked;
-        this.onChange.next(null);
+        this.onChange.next(input.checked);
 
         if (input.checked)
             this.addValue(input.value);
