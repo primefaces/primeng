@@ -279,10 +279,17 @@ input.searchInput {
     margin-top: 0px;
 }
 
+.Source p {
+    font-size: 16px;
+}
+
+.Source a {
+    color: #0273D4;
+}
+
 /* Docs Table */
 .doc-table {
     border-collapse: collapse;
-    font-size: 16px;
     width: 100%;
     text-shadow: none;
     font-family: 'exoregular', "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -293,12 +300,14 @@ input.searchInput {
     color: #72828B;
     border: solid 1px #C1D5DF;
     padding: 5px;
+    font-size: 16px;
 }
 
 .doc-table tbody td {
     color: #72828B;
     padding: 4px 10px;
     border: 1px solid #E5EBF0;
+    font-size: 16px;
 }
 
 .doc-table tbody tr:nth-child(even) {
