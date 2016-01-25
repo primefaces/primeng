@@ -1,9 +1,7 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    template: `
-        TODO
-    `
+    templateUrl: 'app/theming.component.html'
 })
 export class ThemingComponent {
 
