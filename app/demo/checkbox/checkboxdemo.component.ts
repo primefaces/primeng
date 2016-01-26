@@ -170,6 +170,9 @@ export class ModelComponent {
                             </tbody>
                         </table>
                     </div>
+
+                    <h3>Dependencies</h3>
+                    <p>None.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <h3>Template</h3>

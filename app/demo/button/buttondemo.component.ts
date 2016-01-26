@@ -114,6 +114,9 @@ export class Model {
                             </tbody>
                         </table>
                     </div>
+
+                    <h3>Dependencies</h3>
+                    <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Button.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
                 <h3>Template</h3>
