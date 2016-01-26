@@ -38,8 +38,12 @@ export class Fieldset implements AfterViewInit, OnDestroy, OnChanges {
             toggleable: this.toggleable,
             toggleDuration: this.toggleDuration,
             collapsed: this.collapsed,
-            beforeToggle: this.onBeforeToggle ? (event: Event) => { this.onBeforeToggle.next(event); } : null,
-            afterToggle: this.onAfterToggle ? (event: Event) => { this.onAfterToggle.next(event); } : null,
+            beforeToggle: this.onBeforeToggle ? (event: Event, collapsed: boolean) => { 
+                this.onBeforeToggle.next({'originalEvent': event, 'collapsed': collapsed}); 
+            } : null,
+            afterToggle: this.onAfterToggle ? (event: Event, collapsed: boolean) => {
+                this.onAfterToggle.next({'originalEvent': event, 'collapsed': collapsed} ); 
+            } : null,
             enhanced: true
         });
         this.initialized = true;
