@@ -10,7 +10,7 @@
     <p-galleria panelWidth="500" panelHeight="313">
         <ul>
             <li *ngFor="#image of images;#i = index;">
-                <img src="resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/>
+                <img src="showcase/resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/>
             </li>
         </ul>
     </p-galleria>
@@ -19,7 +19,7 @@
     <p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false">
         <ul>
             <li *ngFor="#image of images;#i = index;">
-                <img src="resources/demo/images/galleria/{{image}}" />
+                <img src="showcase/resources/demo/images/galleria/{{image}}" />
                 <div>
                     <h2>Content For Item {{i}}</h2>
                 </div>
@@ -37,9 +37,9 @@
 <pre>
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;
-        &lt;li&gt;&lt;img src="resources/demo/images/galleria/galleria1.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src="resources/demo/images/galleria/galleria2.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src="resources/demo/images/galleria/galleria3.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="showcase/resources/demo/images/galleria/galleria1.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="showcaseresources/demo/images/galleria/galleria2.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="showcaseresources/demo/images/galleria/galleria3.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-galleria&gt;
 </pre>
@@ -223,7 +223,7 @@ export class Model {
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#image of images;#i = index;"&gt;
-            &lt;img src="resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/&gt;
+            &lt;img src="showcase/resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-galleria&gt;
@@ -232,7 +232,7 @@ export class Model {
 &lt;p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#image of images;#i = index;"&gt;
-            &lt;img src="resources/demo/images/galleria/{{image}}" /&gt;
+            &lt;img src="showcase/resources/demo/images/galleria/{{image}}" /&gt;
             &lt;div&gt;
                 &lt;h2&gt;Content For Item {{i}}&lt;/h2&gt;
             &lt;/div&gt;
