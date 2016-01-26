@@ -25,14 +25,18 @@
         
         <script>
           System.config({
-            packages: {        
-              app: {
+            packages: {
+              "showcase": {
+                format: 'register',
+                defaultExtension: 'js'
+              },
+              "components": {
                 format: 'register',
                 defaultExtension: 'js'
               }
             }
           });
-          System.import('app/boot').then(null, console.error.bind(console));
+          System.import('showcase/boot').then(null, console.error.bind(console));
         </script>
     </head>
 
