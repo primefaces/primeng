@@ -1340,27 +1340,27 @@ PUI.resolveUserAgent();/**
                 $this.toggle();
             });
             
-            this.element.focus(function() {
+            this.element.on('focus.puicheckbox', function() {
                 if($this.isChecked()) {
                     $this.box.removeClass('ui-state-active');
                 }
 
                 $this.box.addClass('ui-state-focus');
             })
-            .blur(function() {
+            .on('blur.puicheckbox', function() {
                 if($this.isChecked()) {
                     $this.box.addClass('ui-state-active');
                 }
 
                 $this.box.removeClass('ui-state-focus');
             })
-            .keydown(function(e) {
+            .on('keydown.puicheckbox', function(e) {
                 var keyCode = $.ui.keyCode;
                 if(e.which == keyCode.SPACE) {
                     e.preventDefault();
                 }
             })
-            .keyup(function(e) {
+            .on('keyup.puicheckbox', function(e) {
                 var keyCode = $.ui.keyCode;
                 if(e.which == keyCode.SPACE) {
                     $this.toggle(true);
@@ -1415,14 +1415,16 @@ PUI.resolveUserAgent();/**
         },
 
         _unbindEvents: function() {
-            this.box.off();
-            this.element.off('focus blur keydown keyup');
-            this.label.off();
+            this.box.off('mouseover.puicheckbox mouseout.puicheckbox click.puicheckbox');
+            this.element.off('focus.puicheckbox blur.puicheckbox keydown.puicheckbox keyup.puicheckbox');
+            
+            if (this.label.length) {
+                this.label.off('click.puicheckbox');
+            }
         },
 
         disable: function() {
             this.box.prop('disabled', true);
-
             this.box.attr('aria-disabled', true);
             this.box.addClass('ui-state-disabled').removeClass('ui-state-hover');
             this._unbindEvents();
@@ -1434,14 +1436,14 @@ PUI.resolveUserAgent();/**
             this.box.removeClass('ui-state-disabled');
             this._bindEvents();
         },
+
         _destroy: function() {
             this._unbindEvents();
-            this.box.parent().removeClass('pui-chkbox ui-widget');
-            this.box.removeClass('pui-chkbox-box ui-widget ui-corner-all ui-state-default');
-            this.icon.removeClass('pui-chkbox-icon pui-c');
+            this.container.removeClass('pui-chkbox ui-widget');
+            this.box.remove();
             this.element.unwrap().unwrap();
-            this.icon.unwrap().remove();
         }
+
     });
     
 })();/**
@@ -8000,7 +8002,7 @@ PUI.resolveUserAgent();/**
             toggleOrientation : 'vertical',
             collapsed: false,
             closable: false,
-            closeDuration: 'slow',
+            closeDuration: 'normal',
             title: null,
             enhanced: false
         },
@@ -8378,6 +8380,7 @@ PUI.resolveUserAgent();/**
                 $.Widget.prototype._setOption.apply(this, arguments);
             }
         }
+
     });
     
 })();/**
@@ -9098,21 +9101,21 @@ PUI.resolveUserAgent();/**
                 });
             }
             
-            this.element.focus(function() {
+            this.element.on('focus.puiradiobutton', function() {
                 if($this._isChecked()) {
                     $this.box.removeClass('ui-state-active');
                 }
 
                 $this.box.addClass('ui-state-focus');
             })
-            .blur(function() {
+            .on('blur.puiradiobutton', function() {
                 if($this._isChecked()) {
                     $this.box.addClass('ui-state-active');
                 }
 
                 $this.box.removeClass('ui-state-focus');
             })
-            .change(function(e) {
+            .on('change.puiradiobutton', function(e) {
                 var name = $this.element.attr('name');
                 if(checkedRadios[name]) {
                     checkedRadios[name].removeClass('ui-state-active ui-state-focus ui-state-hover').children('.pui-radiobutton-icon').removeClass('fa fa-fw fa-circle');
@@ -9134,10 +9137,11 @@ PUI.resolveUserAgent();/**
         },
 
         _unbindEvents: function () {
-            this.box.off();
+            this.box.off('mouseover.puiradiobutton mouseout.puiradiobutton click.puiradiobutton');
+            this.element.off('focus.puiradiobutton blur.puiradiobutton change.puiradiobutton');
 
-            if (this.label.length > 0) {
-                this.label.off();
+            if (this.label.length) {
+                this.label.off('click.puiradiobutton');
             }
         },
 
@@ -9153,10 +9157,9 @@ PUI.resolveUserAgent();/**
 
         _destroy: function () {
             this._unbindEvents();
+            this.container.removeClass('pui-radiobutton ui-widget');
+            this.box.remove();
             this.element.unwrap().unwrap();
-            this.element.parent().removeClass('pui-radiobutton ui-widget');
-            this.box.removeClass('pui-radiobutton-box ui-widget pui-radiobutton-relative ui-state-default');
-            this.icon.removeClass('pui-radiobutton-icon pui-icon').unwrap().remove();
         }
     });
     
@@ -10386,31 +10389,31 @@ PUI.resolveUserAgent();/**
         _bindEvents: function() {
             var $this = this;
             
-            this.container.on('mouseover', function() {
+            this.container.on('mouseover.puitogglebutton', function() {
                 if(!$this.container.hasClass('ui-state-active')) {
                     $this.container.addClass('ui-state-hover');
                 }
-            }).on('mouseout', function() {
+            }).on('mouseout.puitogglebutton', function() {
                 $this.container.removeClass('ui-state-hover');
             })
-            .on('click', function() {
+            .on('click.puitogglebutton', function() {
                 $this.toggle();
                 $this.element.trigger('focus');
             });
             
-            this.element.on('focus', function() {            
+            this.element.on('focus.puitogglebutton', function() {            
                 $this.container.addClass('ui-state-focus');
             })
-            .on('blur', function() {            
+            .on('blur.puitogglebutton', function() {            
                 $this.container.removeClass('ui-state-focus');
             })
-            .on('keydown', function(e) {
+            .on('keydown.puitogglebutton', function(e) {
                 var keyCode = $.ui.keyCode;
                 if(e.which === keyCode.SPACE) {
                     e.preventDefault();
                 }
             })
-            .on('keyup', function(e) {
+            .on('keyup.puitogglebutton', function(e) {
                 var keyCode = $.ui.keyCode;
                 if(e.which === keyCode.SPACE) {
                     $this.toggle();
@@ -10421,8 +10424,8 @@ PUI.resolveUserAgent();/**
         },
         
         _unbindEvents: function() {
-            this.container.off('mouseover mouseout click');
-            this.element.off('focus blur keydown keyup');
+            this.container.off('mouseover.puitogglebutton mouseout.puitogglebutton click.puitogglebutton');
+            this.element.off('focus.puitogglebutton blur.puitogglebutton keydown.puitogglebutton keyup.puitogglebutton');
         },
         
         toggle: function() {
@@ -10486,6 +10489,12 @@ PUI.resolveUserAgent();/**
                 else
                     this.uncheck(true);
             }
+            else if(key === 'disabled') {
+                if(value)
+                    this.disable();
+                else
+                    this.enable();
+            }
             else {
                 $.Widget.prototype._setOption.apply(this, arguments);
             }
@@ -10493,18 +10502,8 @@ PUI.resolveUserAgent();/**
 
         _destroy: function() {
             this._unbindEvents();
-            if(this.options.onIcon || this.options.offIcon) {
-                this.element.parent().removeClass('pui-button pui-togglebutton ui-widget ui-state-default ui-corner-all pui-button-text-icon-left');
-                this.element.unwrap();
-                this.element.next().removeClass('pui-button-icon-left pui-icon fa fa-fw fa-square').remove();
-                this.element.next().removeClass('pui-button-text').remove();
-            }
-            else {
-                this.element.parent().removeClass('pui-button pui-togglebutton ui-widget ui-state-default ui-corner-all');
-                this.element.unwrap();
-                this.container.removeClass('pui-button-text-only');
-                this.element.next().removeClass('pui-button-text').remove();
-            }
+            this.container.children('span').remove();
+            this.element.removeClass('ui-helper-hidden-accessible').unwrap();
         }
         
     });
