@@ -1433,6 +1433,14 @@ PUI.resolveUserAgent();/**
             this.box.attr('aria-disabled', false);
             this.box.removeClass('ui-state-disabled');
             this._bindEvents();
+        },
+        _destroy: function() {
+            this._unbindEvents();
+            this.box.parent().removeClass('pui-chkbox ui-widget');
+            this.box.removeClass('pui-chkbox-box ui-widget ui-corner-all ui-state-default');
+            this.icon.removeClass('pui-chkbox-icon pui-c');
+            this.element.unwrap().unwrap();
+            this.icon.unwrap().remove();
         }
     });
     
@@ -4794,23 +4802,22 @@ PUI.resolveUserAgent();/**
         },
         
         _create: function() {
-            if(this.options.enhanced) {
+            if(!this.options.enhanced) {
                 this.element.addClass('pui-fieldset ui-widget ui-widget-content ui-corner-all').
                     children('legend').addClass('pui-fieldset-legend ui-corner-all ui-state-default');
-                    
-                this.element.contents().wrapAll('<div class="pui-fieldset-content" />'); 
-                this.legend = this.element.children().children('legend');
-                this.legend.prependTo(this.element);
+
+                this.element.contents().wrapAll('<div class="pui-fieldset-content" />');
+                this.content = this.element.children('div.pui-fieldset-content');
+                this.legend = this.content.children('legend.pui-fieldset-legend').prependTo(this.element);
             }
             else {
                 this.legend = this.element.children('legend');
+                this.content = this.element.children('div.pui-fieldset-content');
             }
-
-            this.content = this.element.children('div.pui-fieldset-content');
             
             if(this.options.toggleable) {
                 if(this.options.enhanced) {
-                    this.toggler = $('<span class="pui-fieldset-toggler fa fa-fw" />').prependTo(this.legend);
+                    this.toggler = this.legend.children('.pui-fieldset-toggler');
                 }
                 else {
                     this.element.addClass('pui-fieldset-toggleable');
@@ -4846,7 +4853,7 @@ PUI.resolveUserAgent();/**
         toggle: function(e) {
             var $this = this;
 
-            this._trigger('beforeToggle', e);
+            this._trigger('beforeToggle', e, this.options.collapsed);
 
             if(this.options.collapsed) {
                 this.toggler.removeClass('fa-plus').addClass('fa-minus');
@@ -4856,8 +4863,8 @@ PUI.resolveUserAgent();/**
             }
 
             this.content.slideToggle(this.options.toggleSpeed, 'easeInOutCirc', function() {
-                $this._trigger('afterToggle', e);
                 $this.options.collapsed = !$this.options.collapsed;
+                $this._trigger('afterToggle', e, $this.options.collapsed);
             });
         },
 
@@ -5243,7 +5250,7 @@ PUI.resolveUserAgent();/**
 (function() {
 
     $.widget("primeui.puiinputtext", {
-
+       
         options: {
             disabled: false
         },
@@ -9130,6 +9137,14 @@ PUI.resolveUserAgent();/**
         disable: function () {
             this._unbindEvents();
             this.box.addClass('ui-state-disabled');
+        },
+
+        _destroy: function () {
+            this._unbindEvents();
+            this.element.unwrap().unwrap();
+            this.element.parent().removeClass('pui-radiobutton ui-widget');
+            this.box.removeClass('pui-radiobutton-box ui-widget pui-radiobutton-relative ui-state-default');
+            this.icon.removeClass('pui-radiobutton-icon pui-icon').unwrap().remove();
         }
     });
     
@@ -10023,7 +10038,7 @@ PUI.resolveUserAgent();/**
     $.widget("primeui.puitabview", {
        
         options: {
-            activeIndex:0,
+            activeIndex: 0,
             orientation:'top'
         },
         
@@ -10078,7 +10093,7 @@ PUI.resolveUserAgent();/**
                         if($(e.target).is(':not(.fa-close)')) {
                             var index = element.index();
 
-                            if(!element.hasClass('ui-state-disabled') && index != $this.options.selected) {
+                            if(!element.hasClass('ui-state-disabled') && !element.hasClass('ui-state-active')) {
                                 $this.select(index);
                             }
                         }
@@ -10103,7 +10118,7 @@ PUI.resolveUserAgent();/**
         },
         
         select: function(index) {
-           this.options.selected = index;
+           this.options.activeIndex = index;
 
            var newPanel = this.panels.eq(index),
            oldHeader = this.tabHeaders.filter('.ui-state-active'),
@@ -10148,8 +10163,8 @@ PUI.resolveUserAgent();/**
            panel.remove();
 
            //active next tab if active tab is removed
-           if(index == this.options.selected) {
-               var newIndex = this.options.selected == this.getLength() ? this.options.selected - 1: this.options.selected;
+           if(index == this.options.activeIndex) {
+               var newIndex = (this.options.activeIndex == this.getLength()) ? this.options.activeIndex - 1: this.options.activeIndex;
                this.select(newIndex);
            }
        },
@@ -10159,7 +10174,7 @@ PUI.resolveUserAgent();/**
        },
 
        getActiveIndex: function() {
-           return this.options.selected;
+           return this.options.activeIndex;
        },
 
        _markAsLoaded: function(panel) {
