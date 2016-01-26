@@ -6,10 +6,23 @@
 </div>
 
 <div class="ContentSideSections Implementation">
+    <h3 class="first">Basic</h3>
     <p-galleria panelWidth="500" panelHeight="313">
         <ul>
             <li *ngFor="#image of images;#i = index;">
                 <img src="resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/>
+            </li>
+        </ul>
+    </p-galleria>
+
+    <h3>Custom Content</h3>
+    <p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false">
+        <ul>
+            <li *ngFor="#image of images;#i = index;">
+                <img src="resources/demo/images/galleria/{{image}}" />
+                <div>
+                    <h2>Content For Item {{i}}</h2>
+                </div>
             </li>
         </ul>
     </p-galleria>
@@ -48,6 +61,24 @@ export class Model {
 }
     
 </pre>
+
+            <h3>Custom Content</h3>
+            <p>Galleria supports custom content display instead of images, in this case enable customContent option
+                and place your content inside a div element next to the image.</p>
+<pre>
+&lt;p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false"&gt;
+    &lt;ul&gt;
+        &lt;li *ngFor="#image of images;#i = index;"&gt;
+            &lt;img src="resources/demo/images/galleria/{{image}}" /&gt;
+            &lt;div&gt;
+                &lt;!-- Content Here --&gt;
+                &lt;h2&gt;Content For Item {{i}}&lt;/h2&gt;
+            &lt;/div&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/p-galleria&gt;
+</pre>
+
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -185,10 +216,23 @@ export class Model {
         <p-tabPanel header="Source">
             <h3>Template</h3>
 <pre>
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#image of images;#i = index;"&gt;
             &lt;img src="resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/p-galleria&gt;
+
+&lt;h3&gt;Custom Content&lt;/h3&gt;
+&lt;p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false"&gt;
+    &lt;ul&gt;
+        &lt;li *ngFor="#image of images;#i = index;"&gt;
+            &lt;img src="resources/demo/images/galleria/{{image}}" /&gt;
+            &lt;div&gt;
+                &lt;h2&gt;Content For Item {{i}}&lt;/h2&gt;
+            &lt;/div&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-galleria&gt;
