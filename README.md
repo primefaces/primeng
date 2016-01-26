@@ -6,5 +6,6 @@ UI Components for AngularJS 2
 Execute the following command to run the showcase. A browser window pops up with http:\\\\localhost:3000 address.
 
 ```
+npm install
 npm start
 ```
