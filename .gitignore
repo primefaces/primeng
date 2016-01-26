@@ -5,4 +5,7 @@ components/**/*.map
 showcase/**/*.js
 showcase/**/*.d.ts
 showcase/**/*.map
+components.d.ts
+components.js
+components.js.map
 *.log

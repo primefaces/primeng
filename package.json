@@ -1,6 +1,6 @@
 {
-  "name": "angular2-quickstart",
-  "version": "1.0.0",
+  "name": "primeng",
+  "version": "v0.1.0",
   "scripts": {
     "tsc": "tsc",
     "tsc:w": "tsc -w",
