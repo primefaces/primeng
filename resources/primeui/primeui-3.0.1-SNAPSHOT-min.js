@@ -8365,6 +8365,18 @@ PUI.resolveUserAgent();/**
         enable: function () {
             this.element.puiinputtext('enable');
             this._bindEvents();
+        },
+
+        _setOption: function(key, value) {
+            if(key === 'disabled') {
+                if(value)
+                    this.disable();
+                else
+                    this.enable();
+            }
+            else {
+                $.Widget.prototype._setOption.apply(this, arguments);
+            }
         }
     });
     
