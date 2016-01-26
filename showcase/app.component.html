@@ -2,10 +2,10 @@
     <div id="MENUSIDE">
         <div id="MENUSIDEindent">
             <span id="LOGO" class="bordersOfMenuSide">
-                <img alt="logo" src="resources/images/primeng.png" />
-                <img id="BlueLogo" alt="logo" src="resources/images/primeng.png" class="hiddenLogo"/>
+                <img alt="logo" src="showcase/resources/images/primeng.png" />
+                <img id="BlueLogo" alt="logo" src="showcase/resources/images/primeng.png" class="hiddenLogo"/>
             </span>
-            <span id="menu_input" #inputmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id"><img src="resources/images/mono/input.svg" /><img class="hiddenIcons" src="resources/images/mono/inputBlue.svg" /><span class="MainLinkText">Input</span></span>
+            <span id="menu_input" #inputmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id"><img src="showcase/resources/images/mono/input.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/inputBlue.svg" /><span class="MainLinkText">Input</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['CheckboxDemo']">&#9679; Checkbox</a>
                 <a class="SubMenuLink" [routerLink]="['InputTextDemo']">&#9679; InputText</a>
@@ -17,12 +17,12 @@
                 <a class="SubMenuLink" [routerLink]="['ToggleButtonDemo']">&#9679; ToggleButton</a>
             </div>
 
-            <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="resources/images/mono/button.svg" /><img class="hiddenIcons" src="resources/images/mono/buttonBlue.svg" /><span class="MainLinkText">Button</span></span>
+            <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="showcase/resources/images/mono/button.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/buttonBlue.svg" /><span class="MainLinkText">Button</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (buttonmenutitle.id == activeMenuId), 'submenuhide': (buttonmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['ButtonDemo']">&#9679; Button</a>
             </div> 
 
-            <span id="menu_panel" #panelmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = panelmenutitle.id"><img src="resources/images/mono/panel.svg" /><img class="hiddenIcons" src="resources/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></span>
+            <span id="menu_panel" #panelmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = panelmenutitle.id"><img src="showcase/resources/images/mono/panel.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (panelmenutitle.id == activeMenuId), 'submenuhide': (panelmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['AccordionDemo']">&#9679; Accordion</a>
                 <a class="SubMenuLink" [routerLink]="['FieldsetDemo']">&#9679; Fieldset</a>
@@ -30,22 +30,22 @@
                 <a class="SubMenuLink" [routerLink]="['GridDemo']">&#9679; Grid</a>
                 <a class="SubMenuLink" [routerLink]="['TabViewDemo']">&#9679; TabView</a>
             </div> 
-            <span id="menu_overlay" #overlaymenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id"><img src="resources/images/mono/overlay.svg" /><img class="hiddenIcons" src="resources/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></span>
+            <span id="menu_overlay" #overlaymenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id"><img src="showcase/resources/images/mono/overlay.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['DialogDemo']">&#9679; Dialog</a>
             </div>
 
             <span id="menu_multimedia" #multimediamenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="multimediamenutitle.id == activeMenuId" 
-                    (click)="activeMenuId = multimediamenutitle.id"><img src="resources/images/mono/multimedia.svg">
-                    <img class="hiddenIcons" src="resources/images/mono/multimediaBlue.svg" style="opacity: 0;">
+                    (click)="activeMenuId = multimediamenutitle.id"><img src="showcase/resources/images/mono/multimedia.svg">
+                    <img class="hiddenIcons" src="showcase/resources/images/mono/multimediaBlue.svg" style="opacity: 0;">
                     <span class="MainLinkText">Multimedia</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (multimediamenutitle.id == activeMenuId), 'submenuhide': (multimediamenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['GalleriaDemo']">&#9679; Galleria</a>
             </div>
             <span id="menu_misc" #misctitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="misctitle.id == activeMenuId" 
-                    (click)="activeMenuId = misctitle.id"><img src="resources/images/mono/misc.svg">
-                    <img class="hiddenIcons" src="resources/images/mono/miscBlue.svg" style="opacity: 0;">
+                    (click)="activeMenuId = misctitle.id"><img src="showcase/resources/images/mono/misc.svg">
+                    <img class="hiddenIcons" src="showcase/resources/images/mono/miscBlue.svg" style="opacity: 0;">
                     <span class="MainLinkText">Misc</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (misctitle.id == activeMenuId), 'submenuhide': (misctitle.id != activeMenuId)}">
@@ -64,10 +64,10 @@
                     <span class="dispBlock logoBlueText fontSize30 mediumFont">SHOWCASE</span>
                 </a>
 
-                <a href="http://forum.primefaces.org/viewforum.php?f=35" class="PFTopLinks floatRight boldFont"><img alt="mockosx" src="resources/images/community.svg" /><span class="PFDarkText">Forum</span></a>
+                <a href="http://forum.primefaces.org/viewforum.php?f=35" class="PFTopLinks floatRight boldFont"><img alt="mockosx" src="showcase/resources/images/community.svg" /><span class="PFDarkText">Forum</span></a>
 
                 <span class="PFTopLinks floatRight boldFont cursorPointer" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
-                    <img src="resources/images/themeswitcher.svg" /><span class="PFDarkText">Free Themes</span>
+                    <img src="showcase/resources/images/themeswitcher.svg" /><span class="PFDarkText">Free Themes</span>
                     <div id="GlobalThemeSwitcher" class="navOverlay" [hidden]="!themesVisible">
                         <a href="#" data-theme="afterdark"  onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afterdark"></span><span class="ui-text">Afterdark</span></a>
                         <a href="#" data-theme="afternoon" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afternoon"></span><span class="ui-text">Afternoon</span></a>
@@ -108,11 +108,11 @@
                     </div>
                 </span>
                
-                <a href="https://github.com/primefaces/primeng/releases" class="PFTopLinks floatRight boldFont hashed"><img alt="mockosx" src="resources/images/download.svg" /><span class="PFDarkText">Download</span></a>
-                <a href="setup.html" class="PFTopLinks floatRight boldFont hashed"><img alt="mockosx" src="resources/images/setup.svg" /><span class="PFDarkText">QuickStart</span></a>
+                <a href="https://github.com/primefaces/primeng/releases" class="PFTopLinks floatRight boldFont hashed"><img alt="mockosx" src="showcase/resources/images/download.svg" /><span class="PFDarkText">Download</span></a>
+                <a href="setup.html" class="PFTopLinks floatRight boldFont hashed"><img alt="mockosx" src="showcase/resources/images/setup.svg" /><span class="PFDarkText">QuickStart</span></a>
 
                 <div class="mobileLogoCover">
-                    <img src="resources/images/logoDark.svg" style="height:30px;" class="floatLeft marginRight10" />
+                    <img src="showcase/resources/images/logoDark.svg" style="height:30px;" class="floatLeft marginRight10" />
                     <span class="dispBlock logoDarkText fontSize14 floatLeft">PrimeNG <span class="dispBlock logoBlueText fontSize14 mediumFont">SHOWCASE</span></span> 
                 </div>
             </div>

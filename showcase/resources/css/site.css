@@ -111,7 +111,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .MOBILE .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:12px;}
 .MOBILE .PropertyBox .PropertyText{display:block; color:#8c9aa5; font-size:11px;}
 
-.widgetsLink{width:90%; height:auto; background-image:url(resources/images/widgetIconCover.svg); background-position:top; background-repeat:no-repeat; background-size:contain; display:table;
+.widgetsLink{width:90%; height:auto; background-image:url(../images/widgetIconCover.svg); background-position:top; background-repeat:no-repeat; background-size:contain; display:table;
              text-align:center; padding:5%;}
 .widgetsLink img{width:40%; height:auto; margin-top:5%;}
 .widgetsLink span{ width:100%; margin-top:10px; overflow:hidden; height:50px; display:table; font-size:14px;}
