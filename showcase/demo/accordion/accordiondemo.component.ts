@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Accordion} from '../../../components/accordion/accordion';
-import {AccordionTab} from '../../../components/accordion/accordiontab'
+import {AccordionTab} from '../../../components/accordion/accordiontab';
 import {Button} from '../../../components/button/button';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';

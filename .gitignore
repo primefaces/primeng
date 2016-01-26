@@ -5,7 +5,7 @@ components/**/*.map
 showcase/**/*.js
 showcase/**/*.d.ts
 showcase/**/*.map
-components.d.ts
-components.js
-components.js.map
+primeng.d.ts
+primeng.js
+primeng.js.map
 *.log
