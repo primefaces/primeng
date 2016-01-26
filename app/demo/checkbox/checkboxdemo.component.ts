@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
-import {CheckboxComponent} from '../../components/checkbox/checkbox.component';
-import {TabViewComponent} from '../../components/tabview/tabview.component';
-import {TabPanelComponent} from '../../components/tabview/tabpanel.component';
+import {Checkbox} from '../../components/checkbox/checkbox';
+import {TabView} from '../../components/tabview/tabview';
+import {TabPanel} from '../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
@@ -239,7 +239,7 @@ export class CheckboxDemoComponent {
             margin: 3px 0px 0px 4px;
         }
     `],
-    directives: [CheckboxComponent,TabPanelComponent,TabViewComponent,ROUTER_DIRECTIVES]
+    directives: [Checkbox,TabPanel,TabView,ROUTER_DIRECTIVES]
 })
 export class CheckboxDemoComponent {
 

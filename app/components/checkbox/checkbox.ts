@@ -16,7 +16,7 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
         </div>
     `
 })
-export class CheckboxComponent {
+export class Checkbox {
 
     @Input() value: any;
 

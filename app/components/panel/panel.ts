@@ -17,7 +17,7 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, Simpl
         </div>
     `
 })
-export class PanelComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class Panel implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() toggleable: boolean;
 

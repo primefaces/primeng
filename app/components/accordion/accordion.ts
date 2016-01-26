@@ -1,7 +1,7 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
 import {Component, ElementRef, OnInit, OnDestroy, OnChanges, AfterViewInit, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
-import {AccordionTabComponent} from './accordiontab.component';
+import {AccordionTab} from './accordiontab';
 
 @Component({
     selector: 'p-accordion',
@@ -11,7 +11,7 @@ import {AccordionTabComponent} from './accordiontab.component';
         </div>
     `,
 })
-export class AccordionComponent implements OnDestroy, OnChanges, AfterViewInit {
+export class Accordion implements OnDestroy, OnChanges, AfterViewInit {
 
     @Input() activeIndex: number = 0;
 
@@ -23,7 +23,7 @@ export class AccordionComponent implements OnDestroy, OnChanges, AfterViewInit {
 
     initialized: boolean;
 
-    tabPanels: AccordionTabComponent[];
+    tabPanels: AccordionTab[];
 
     stopNgOnChangesPropagation: boolean;
 
@@ -32,7 +32,7 @@ export class AccordionComponent implements OnDestroy, OnChanges, AfterViewInit {
         this.initialized = false;
     }
 
-    addTab(tab: AccordionTabComponent) {
+    addTab(tab: AccordionTab) {
         this.tabPanels.push(tab);
     }
 

@@ -3,11 +3,13 @@
 import {Directive, ElementRef, OnInit, OnDestroy, OnChanges, HostBinding, Input, SimpleChange} from 'angular2/core';
 
 @Directive({
-    selector: '[pInputTextarea]'
+    selector: '[pButton]'
 })
-export class InputTextareaDirective implements OnInit, OnDestroy, OnChanges {
+export class Button implements OnInit, OnDestroy, OnChanges {
 
-    @Input() autoResize: boolean;
+    @Input() icon: string;
+
+    @Input() iconPos: string;
 
     @Input() disabled: boolean;
 
@@ -18,22 +20,23 @@ export class InputTextareaDirective implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnInit() {
-        jQuery(this.el.nativeElement).puiinputtextarea({
-            autoResize: this.autoResize
+        jQuery(this.el.nativeElement).puibutton({
+            icon: this.icon,
+            iconPos: this.iconPos
         });
         this.initialized = true;
     }
 
-    ngOnChanges(changes: { [key: string]: SimpleChange }) {
+    ngOnChanges(changes: {[key: string]: SimpleChange}) {
         if (this.initialized) {
             for (var key in changes) {
-                jQuery(this.el.nativeElement).puiinputtextarea('option', key, changes[key].currentValue);
+                jQuery(this.el.nativeElement).puibutton('option', key, changes[key].currentValue);
             }
         }
     }
 
     ngOnDestroy() {
-        jQuery(this.el.nativeElement).puiinputtextarea('destroy');
+        jQuery(this.el.nativeElement).puibutton('destroy');
         this.initialized = false;
     }
 }

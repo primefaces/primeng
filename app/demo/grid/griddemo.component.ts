@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
-import {TabViewComponent} from '../../components/tabview/tabview.component';
-import {TabPanelComponent} from '../../components/tabview/tabpanel.component';
+import {TabView} from '../../components/tabview/tabview';
+import {TabPanel} from '../../components/tabview/tabpanel';
 
 @Component ({
     styles:[`
@@ -16,7 +16,7 @@ import {TabPanelComponent} from '../../components/tabview/tabpanel.component';
         }
     `],
     templateUrl: 'app/demo/grid/griddemo.component.html',
-    directives: [TabViewComponent,TabPanelComponent]
+    directives: [TabView,TabPanel]
 })
 export class GridDemoComponent {
 

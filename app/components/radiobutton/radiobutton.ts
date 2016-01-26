@@ -16,7 +16,7 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
         </div>
     `
 })
-export class RadioButtonComponent {
+export class RadioButton {
 
     @Input() value: any;
 

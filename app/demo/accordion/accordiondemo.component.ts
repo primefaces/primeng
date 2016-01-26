@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core';
-import {AccordionComponent} from '../../components/accordion/accordion.component';
-import {AccordionTabComponent} from '../../components/accordion/accordiontab.component'
-import {ButtonDirective} from '../../components/button/button.directive';
-import {TabViewComponent} from '../../components/tabview/tabview.component';
-import {TabPanelComponent} from '../../components/tabview/tabpanel.component';
+import {Accordion} from '../../components/accordion/accordion';
+import {AccordionTab} from '../../components/accordion/accordiontab'
+import {Button} from '../../components/button/button';
+import {TabView} from '../../components/tabview/tabview';
+import {TabPanel} from '../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'app/demo/accordion/accordiondemo.component.html',
-    directives: [AccordionComponent,AccordionTabComponent,ButtonDirective,TabViewComponent,TabPanelComponent,ROUTER_DIRECTIVES]
+    directives: [Accordion,AccordionTab,Button,TabView,TabPanel,ROUTER_DIRECTIVES]
 })
 export class AccordionDemoComponent {
 

@@ -1,12 +1,12 @@
 import {Component} from 'angular2/core';
-import {RatingComponent} from '../../components/rating/rating.component';
-import {TabViewComponent} from '../../components/tabview/tabview.component';
-import {TabPanelComponent} from '../../components/tabview/tabpanel.component';
+import {Rating} from '../../components/rating/rating';
+import {TabView} from '../../components/tabview/tabview';
+import {TabPanel} from '../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'app/demo/rating/ratingdemo.component.html',
-    directives: [RatingComponent,TabViewComponent,TabPanelComponent,ROUTER_DIRECTIVES]
+    directives: [Rating,TabView,TabPanel,ROUTER_DIRECTIVES]
 })
 export class RatingDemoComponent {
 

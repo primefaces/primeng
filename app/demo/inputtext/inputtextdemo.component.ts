@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core';
-import {InputTextDirective} from '../../components/inputtext/inputtext.directive';
-import {ButtonDirective} from '../../components/button/button.directive';
-import {TabViewComponent} from '../../components/tabview/tabview.component';
-import {TabPanelComponent} from '../../components/tabview/tabpanel.component';
+import {InputText} from '../../components/inputtext/inputtext';
+import {Button} from '../../components/button/button';
+import {TabView} from '../../components/tabview/tabview';
+import {TabPanel} from '../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
@@ -110,7 +110,7 @@ export class InputTextDemoComponent {
             </p-tabView>
         </div>
     `,
-    directives: [InputTextDirective, ButtonDirective, TabViewComponent, TabPanelComponent, ROUTER_DIRECTIVES]
+    directives: [InputText,Button,TabView,TabPanel,ROUTER_DIRECTIVES]
 })
 export class InputTextDemoComponent {
 

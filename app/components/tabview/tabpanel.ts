@@ -1,7 +1,7 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
 import {Component,Input} from 'angular2/core';
-import {TabViewComponent} from './tabview.component';
+import {TabView} from './tabview';
 
 @Component({
     selector: 'p-tabPanel',
@@ -11,7 +11,7 @@ import {TabViewComponent} from './tabview.component';
         </div>
     `,
 })
-export class TabPanelComponent {
+export class TabPanel {
 
     @Input() header: string;
 
@@ -19,7 +19,7 @@ export class TabPanelComponent {
 
     initialized: boolean;
 
-    constructor(tabview: TabViewComponent) {
+    constructor(tabview: TabView) {
         tabview.addTab(this);
     }
 }

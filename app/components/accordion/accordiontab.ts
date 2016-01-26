@@ -1,7 +1,7 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
 import {Component,Input} from 'angular2/core';
-import {AccordionComponent} from './accordion.component';
+import {Accordion} from './accordion';
 
 @Component({
     selector: 'p-accordionTab',
@@ -12,13 +12,13 @@ import {AccordionComponent} from './accordion.component';
         </div>
     `,
 })
-export class AccordionTabComponent {
+export class AccordionTab {
 
     @Input() header: string;
 
     initialized: boolean;
 
-    constructor(tabview: AccordionComponent) {
+    constructor(tabview: Accordion) {
         tabview.addTab(this);
     }
 }

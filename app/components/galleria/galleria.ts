@@ -10,7 +10,7 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, Simpl
         </div>
     `
 })
-export class GalleriaComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class Galleria implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() panelWidth: number;
 

@@ -6,7 +6,7 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, Input, Output, Simp
     selector: 'p-toggleButton',
     template:'<input type="checkbox" />'
 })
-export class ToggleButtonComponent implements OnInit, OnDestroy, OnChanges {
+export class ToggleButton implements OnInit, OnDestroy, OnChanges {
 
     @Input() onLabel: string;
 

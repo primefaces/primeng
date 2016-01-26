@@ -1,13 +1,13 @@
 import {Component} from 'angular2/core';
-import {DialogComponent} from '../../components/dialog/dialog.component';
-import {ButtonDirective} from '../../components/button/button.directive';
-import {TabViewComponent} from '../../components/tabview/tabview.component';
-import {TabPanelComponent} from '../../components/tabview/tabpanel.component';
+import {Dialog} from '../../components/dialog/dialog';
+import {Button} from '../../components/button/button';
+import {TabView} from '../../components/tabview/tabview';
+import {TabPanel} from '../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'app/demo/dialog/dialogdemo.component.html',
-    directives: [DialogComponent, ButtonDirective,TabPanelComponent,TabViewComponent,ROUTER_DIRECTIVES]
+    directives: [Dialog,Button,TabPanel,TabView,ROUTER_DIRECTIVES]
 })
 export class DialogDemoComponent {
 

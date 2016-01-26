@@ -5,7 +5,7 @@ import {Directive, ElementRef, OnInit, OnDestroy, HostBinding, Input, OnChanges,
 @Directive({
     selector: '[pSpinner]'
 })
-export class SpinnerDirective implements OnInit, OnDestroy, OnChanges {
+export class Spinner implements OnInit, OnDestroy, OnChanges {
 
     @Input() step: number;
 

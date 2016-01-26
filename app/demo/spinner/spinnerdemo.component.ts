@@ -1,13 +1,13 @@
 import {Component} from 'angular2/core';
-import {SpinnerDirective} from '../../components/spinner/spinner.directive';
-import {ButtonDirective} from '../../components/button/button.directive';
-import {TabViewComponent} from '../../components/tabview/tabview.component';
-import {TabPanelComponent} from '../../components/tabview/tabpanel.component';
+import {Spinner} from '../../components/spinner/spinner';
+import {Button} from '../../components/button/button';
+import {TabView} from '../../components/tabview/tabview';
+import {TabPanel} from '../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'app/demo/spinner/spinnerdemo.component.html',
-    directives: [SpinnerDirective,ButtonDirective,TabViewComponent,TabPanelComponent,ROUTER_DIRECTIVES]
+    directives: [Spinner,Button,TabView,TabPanel,ROUTER_DIRECTIVES]
 })
 export class SpinnerDemoComponent {
 

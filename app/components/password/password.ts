@@ -5,7 +5,7 @@ import {Directive, ElementRef, OnInit, OnDestroy, OnChanges, HostBinding, Input,
 @Directive({
     selector: '[pPassword]'
 })
-export class PasswordDirective implements OnInit, OnDestroy, OnChanges {
+export class Password implements OnInit, OnDestroy, OnChanges {
 
     @Input() promptLabel: string;
 

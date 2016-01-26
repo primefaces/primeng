@@ -24,7 +24,7 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, HostBinding, Input, Out
         </div>
     `
 })
-export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class Dialog implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() header: string;
 

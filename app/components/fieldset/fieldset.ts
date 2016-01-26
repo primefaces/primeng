@@ -13,7 +13,7 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, Outpu
         </fieldset>
     `,
 })
-export class FieldsetComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class Fieldset implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() legend: string;
 

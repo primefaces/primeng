@@ -1,7 +1,7 @@
 /// <reference path="../../../typedefinition/primeui.d.ts" />
 
 import {Component, ElementRef, OnInit, OnDestroy, OnChanges, AfterViewInit, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
-import {TabPanelComponent} from './tabpanel.component';
+import {TabPanel} from './tabpanel';
 
 @Component({
     selector: 'p-tabView',
@@ -18,7 +18,7 @@ import {TabPanelComponent} from './tabpanel.component';
         </div>
     `,
 })
-export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
+export class TabView implements OnDestroy, OnChanges, AfterViewInit {
 
     @Input() activeIndex: number = 0;
 
@@ -36,7 +36,7 @@ export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
 
     initialized: boolean;
 
-    tabPanels: TabPanelComponent[];
+    tabPanels: TabPanel[];
 
     stopNgOnChangesPropagation: boolean;
 
@@ -45,7 +45,7 @@ export class TabViewComponent implements OnDestroy, OnChanges, AfterViewInit {
         this.initialized = false;
     }
 
-    addTab(tab: TabPanelComponent) {
+    addTab(tab: TabPanel) {
         this.tabPanels.push(tab);
     }
 

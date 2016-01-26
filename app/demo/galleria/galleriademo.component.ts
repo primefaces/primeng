@@ -1,12 +1,12 @@
 import {Component} from 'angular2/core';
-import {GalleriaComponent} from '../../components/galleria/galleria.component';
-import {TabViewComponent} from '../../components/tabview/tabview.component';
-import {TabPanelComponent} from '../../components/tabview/tabpanel.component';
+import {Galleria} from '../../components/galleria/galleria';
+import {TabView} from '../../components/tabview/tabview';
+import {TabPanel} from '../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: '/app/demo/galleria/galleriademo.component.html',
-    directives: [GalleriaComponent,TabViewComponent,TabPanelComponent,ROUTER_DIRECTIVES]
+    directives: [Galleria,TabView,TabPanel,ROUTER_DIRECTIVES]
 })
 export class GalleriaDemoComponent {
 
