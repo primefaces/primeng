@@ -1,5 +1,8 @@
 node_modules
-app/**/*.js
-app/**/*.d.ts
-*.map
+components/**/*.js
+components/**/*.d.ts
+components/**/*.map
+showcase/**/*.js
+showcase/**/*.d.ts
+showcase/**/*.map
 *.log
