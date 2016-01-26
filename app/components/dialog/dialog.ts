@@ -32,8 +32,6 @@ export class Dialog implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() resizable: boolean = true;
 
-    @Input() location: string;
-
     @Input() minWidth: number;
 
     @Input() minHeight: number;
@@ -91,7 +89,6 @@ export class Dialog implements AfterViewInit, OnDestroy, OnChanges {
             title: this.header,
             draggable: this.draggable,
             resizable: this.resizable,
-            location: this.location,
             minWidth: this.minWidth,
             minHeight: this.minHeight,
             width: this.width,
