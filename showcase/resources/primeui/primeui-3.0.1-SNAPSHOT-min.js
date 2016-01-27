@@ -10065,6 +10065,7 @@ PUI.resolveUserAgent();/**
             this.navContainer = element.children('ul');
             this.tabHeaders = this.navContainer.children('li');
             this.panelContainer = element.children('div');
+            this._resolvePanelMode();
             this.panels = this._findPanels();
 
             element.addClass('pui-tabview ui-widget ui-widget-content ui-corner-all ui-hidden-container pui-tabview-' + this.options.orientation);
@@ -10187,8 +10188,12 @@ PUI.resolveUserAgent();/**
                 this.options.activeIndex--;
            }
            else if(index == this.options.activeIndex) {
-               var newIndex = (this.options.activeIndex == this.getLength()) ? this.options.activeIndex - 1: this.options.activeIndex;
-               this.select(newIndex);
+               var newIndex = (this.options.activeIndex == this.getLength()) ? this.options.activeIndex - 1: this.options.activeIndex,
+               newHeader = this.tabHeaders.eq(newIndex),
+               newPanel = this.panels.eq(newIndex);
+               
+               newHeader.removeClass('ui-state-hover').addClass('pui-tabview-selected ui-state-active');
+               newPanel.show(); 
            }
        },
 
@@ -10220,15 +10225,18 @@ PUI.resolveUserAgent();/**
             var containers = this.panelContainer.children();
 
             //primeui
-            if(containers.is('div')) {
-                this.panelMode = 'native';
+            if(this.panelMode === 'native') {
                 return containers;
             }
             //primeng
-            else {
-                this.panelMode = 'wrapped';
+            else if(this.panelMode === 'wrapped') {
                 return containers.children(':first-child');
             }
+       },
+
+       _resolvePanelMode: function() {
+            var containers = this.panelContainer.children();
+            this.panelMode = containers.is('div') ? 'native' : 'wrapped';
        },
 
        _getHeaderOfPanel: function(panel) {
