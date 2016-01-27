@@ -10180,8 +10180,13 @@ PUI.resolveUserAgent();/**
            header.remove();
            panel.remove();
 
-           //active next tab if active tab is removed
-           if(index == this.options.activeIndex) {
+           this.tabHeaders = this.navContainer.children('li');
+           this.panels = this._findPanels();
+
+           if(index < this.options.activeIndex) {
+                this.options.activeIndex--;
+           }
+           else if(index == this.options.activeIndex) {
                var newIndex = (this.options.activeIndex == this.getLength()) ? this.options.activeIndex - 1: this.options.activeIndex;
                this.select(newIndex);
            }
