@@ -5,3 +5,4 @@ index.html
 *.log
 *.ts
 !*.d.ts
+tsconfig.json
