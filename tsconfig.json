@@ -11,10 +11,9 @@
         "declaration": true
     },
     "files": [
-        "primeng.ts"
+        "./primeng.ts"
     ],
     "exclude": [
         "node_modules"
-    ],
-    "typings": "'/primeui.d.ts"
+    ]
 }
