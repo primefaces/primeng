@@ -5,4 +5,3 @@ node_modules
 *.d.ts
 !showcase/resources/**/*.js
 !typedefinition/*.d.ts
-!primeng.d.ts
