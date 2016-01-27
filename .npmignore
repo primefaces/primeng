@@ -1,6 +1,6 @@
 node_modules
 showcase
-type_definition
+typedefinition
 index.html
 *.log
 *.ts
