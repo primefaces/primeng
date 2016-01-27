@@ -4926,7 +4926,7 @@ PUI.resolveUserAgent();/**
             }
             
             if(this.options.customContent) {
-                this.panels.children('img').remove();
+                this.panels.children('img').hide();
                 this.panels.children('div').addClass('pui-galleria-panel-content');
             }
             
@@ -4953,7 +4953,10 @@ PUI.resolveUserAgent();/**
             this.strip.remove();
             this.stripWrapper.remove();
             this.element.children('.fa').remove();
-            this.caption.remove();
+            if(this.options.showCaption) {
+                this.caption.remove();
+            }
+            this.panels.children('img').show();
         },
         
         _renderStrip: function() {
