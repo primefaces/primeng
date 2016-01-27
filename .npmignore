@@ -1,4 +1,7 @@
 node_modules
+showcase
+type_definition
+index.html
 *.log
 *.ts
 !*.d.ts
