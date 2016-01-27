@@ -5,6 +5,7 @@ components/**/*.map
 showcase/**/*.js
 showcase/**/*.d.ts
 showcase/**/*.map
+!showcase/resources/**/*.js
 primeng.d.ts
 primeng.js
 primeng.js.map
