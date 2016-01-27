@@ -1,12 +1,7 @@
 node_modules
-components/**/*.js
-components/**/*.d.ts
-components/**/*.map
-showcase/**/*.js
-showcase/**/*.d.ts
-showcase/**/*.map
-!showcase/resources/**/*.js
-primeng.d.ts
-primeng.js
-primeng.js.map
+*.js
 *.log
+*.map
+*.d.ts
+!showcase/resources/**/*.js
+!typedefinition/*.d.ts
