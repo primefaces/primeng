@@ -5,3 +5,4 @@ node_modules
 *.d.ts
 !showcase/resources/**/*.js
 !typedefinition/*.d.ts
+.idea/

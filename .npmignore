@@ -6,3 +6,4 @@ index.html
 *.ts
 !*.d.ts
 tsconfig.json
+.idea/
