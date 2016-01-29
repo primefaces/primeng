@@ -353,12 +353,14 @@ input.searchInput {
 }
 
 .Source .pui-tabview .pui-tabview-nav li.ui-state-default a {
-    color: #fff;
+    color: #fff !important;
+    font-weight:normal !important;
     text-shadow: none;
 }
 
 .Source .pui-tabview .pui-tabview-nav li.ui-state-active a {
-    color:#5C666A;
+    color:#5C666A  !important;
+    font-weight:normal !important;
 }
 
 .Source .pui-tabview .pui-tabview-nav li.ui-state-hover {
