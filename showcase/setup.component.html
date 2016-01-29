@@ -1,7 +1,7 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Setup</span>
-        <span class="defaultText dispTable">PrimeNG setup consists of two steps; install and import.</span>
+        <span class="defaultText dispTable">PrimeNG setup consists of three steps; download, load and import.</span>
     </div>
 </div>
 
@@ -27,13 +27,18 @@ npm install primeng --save
 </pre>
 
     <h3>Import</h3>
-    <p>Components are imported from 'primeng/primeng'.</p>
+    <p>Components are imported from 'primeng/primeng' in your application code.</p>
 <pre>
 import {Accordion} from 'primeng/primeng';
 </pre>
 
     <h3>Dependencies</h3>
     <p>PrimeNG is built on top of <a href="http://www.primefaces.org/primeui">PrimeUI</a> so you need to install it as a dependency. Visit <a href="http://www.primefaces.org/primeui/#setup">PrimeUI setup page</a> for details.</p>
+
+    <h4>jQuery</h4>
+    <p>In an Angular2 application, you don't need to use jQuery directly however some of the PrimeNG components are based on existing jQuery plugins in PrimeUI and others are native components.
+        jQuery based ones are optimized for PrimeNG integration using a technique called enhanced mode where plugin assumes dom is already created by PrimeNG component. As a result, jQuery plugin does not manipulate dom, only
+        adds lightweight behaviors and low level requirements such as positioning. Changes as a result of one or two way binding are properly reflected between the UI and model. In addition components are destroyed whenever page is navigated away via router. </p>
 
     <h3>Quickstart</h3>
     <p>An example starter application based on angular2-quickstart is available at <a href="https://github.com/primefaces/primeng-quickstart">GitHub</a>.</p>
@@ -48,7 +53,6 @@ import {Accordion} from 'primeng/primeng';
     &lt;!-- CSS for PrimeUI --&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/delta/theme.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
-    &lt;link rel="stylesheet" type="text/css" href="app/resources/jquery-ui.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/primeui-3.0.1-SNAPSHOT-min.css" /&gt;
 
     &lt;!-- 1. Load libraries --&gt;
