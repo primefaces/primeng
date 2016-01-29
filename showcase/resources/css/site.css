@@ -67,7 +67,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 /* content side style*/
 #CONTENTSIDE{width:auto; overflow:hidden; z-index:1; margin-left:300px; background-color:#FFFFFF;}
 #CONTENTSIDEindent{width:100%; height:auto;}
-.ContentSideSections{display:block; border-bottom:solid 1px #CFD8DC; padding:30px;}
+.ContentSideSections{display:block; border-bottom:solid 1px #bcc7cf; padding:30px;}
 .MOBILE .ContentSideSections{padding:14px 24px;}
 #PFTopLinksCover{background-color:#1976D2;}
 #PFMobileTopLinksCover{ position:inherit;}
@@ -229,7 +229,7 @@ input.searchInput {
 }
 
 .Implementation {
-    background-color: #ECEFF1;
+    background-color:#dfe4e6;
 }
 
 .Implementation h3 {
@@ -315,7 +315,7 @@ input.searchInput {
     background-color: #F3F6F9;
 }
 
-/* Source */
+/* Tabs Source */
 .Source .pui-tabview {
     background: none;
     border: 0 none;
@@ -328,7 +328,7 @@ input.searchInput {
 }
 
 .Source .pui-tabview .pui-tabview-nav {
-    background:#1976D2 ;
+    background:#1976D2;
     margin-bottom: -1px;
     padding:3px 3px 0px 3px !important;
     border-top-right-radius: 4px !important;
@@ -360,21 +360,12 @@ input.searchInput {
 
 .Source .pui-tabview .pui-tabview-nav li.ui-state-default a {
     color: #fff !important;
-<<<<<<< HEAD
     font-weight:normal !important; 
     text-shadow: none; 
 }
 
 .Source .pui-tabview .pui-tabview-nav li.ui-state-active a {
     color:#5C666A !important;
-=======
-    font-weight:normal !important;
-    text-shadow: none;
-}
-
-.Source .pui-tabview .pui-tabview-nav li.ui-state-active a {
-    color:#5C666A  !important;
->>>>>>> origin/master
     font-weight:normal !important;
 }
 
@@ -591,9 +582,9 @@ pre {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 1em;
-    background-color: #CFD8DC;
+    background-color: #AFCAD7;
     color: #404C51;
-    margin: 10px 0px;
+    margin-top:10px 0px;
 }
 
 .pui-tabview-left > .pui-tabview-nav {
