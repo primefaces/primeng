@@ -316,14 +316,6 @@ input.searchInput {
 }
 
 /* Source */
-.Source {
-    background: none;
-    border: 0 none;
-    color: #5C666A;
-    font-family: 'RobotoLight', Arial, Helvetica, sans-serif;
-    font-weight:lighter;
-}
-
 .Source .pui-tabview {
     background: none;
     border: 0 none;
