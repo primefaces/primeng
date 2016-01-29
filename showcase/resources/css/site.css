@@ -328,9 +328,11 @@ input.searchInput {
 }
 
 .Source .pui-tabview .pui-tabview-nav {
-    background:#1976D2;
+    background:#1976D2 ;
     margin-bottom: -1px;
     padding:3px 3px 0px 3px !important;
+    border-top-right-radius: 4px !important;
+    border-top-left-radius: 4px !important;
     border-bottom-right-radius:0px;
     border-bottom-left-radius:0px;
 }
