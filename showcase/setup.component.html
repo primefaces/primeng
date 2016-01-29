@@ -1,0 +1,117 @@
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Setup</span>
+        <span class="defaultText dispTable">PrimeNG setup consists of two steps; install and import.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Source">
+    <h3 style="margin-top:0px">Download</h3>
+    <p>PrimeNG is available at npm, run the following command to download the module to your project.</p>
+<pre>
+npm install primeng --save
+</pre>
+
+    <h3>Loader</h3>
+    <p>PrimeNG supports System.JS loader, a configuration is necessary in your application to load PrimeNG.</p>
+<pre>
+ System.config({
+    defaultJSExtensions: true,
+    packages: {
+        "/angular2": {"defaultExtension": false}
+    },
+    map: {
+        "/primeng": "node_modules/primeng"
+    }
+});
+</pre>
+
+    <h3>Import</h3>
+    <p>Components are imported from 'primeng/primeng'.</p>
+<pre>
+import {Accordion} from 'primeng/primeng';
+</pre>
+
+    <h3>Dependencies</h3>
+    <p>PrimeNG is built on top of <a href="http://www.primefaces.org/primeui">PrimeUI</a> so you need to install it as a dependency. Visit <a href="http://www.primefaces.org/primeui/#setup">PrimeUI setup page</a> for details.</p>
+
+    <h3>Quickstart</h3>
+    <p>An example starter application based on angular2-quickstart is available at <a href="https://github.com/primefaces/primeng-quickstart">GitHub</a>.</p>
+
+    <h4>index.html</h4>
+<pre>
+&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;PrimeNG QuickStart&lt;/title&gt;
+
+    &lt;!-- CSS for PrimeUI --&gt;
+    &lt;link rel="stylesheet" type="text/css" href="app/resources/delta/theme.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="app/resources/jquery-ui.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="app/resources/primeui-3.0.1-SNAPSHOT-min.css" /&gt;
+
+    &lt;!-- 1. Load libraries --&gt;
+    &lt;script src="node_modules/angular2/bundles/angular2-polyfills.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/systemjs/dist/system.src.js"&gt;&lt;/script&gt;
+
+    &lt;!-- JS for PrimeUI --&gt;
+    &lt;script src="app/resources/jquery.js"&gt;&lt;/script&gt;
+    &lt;script src="app/resources/jquery-ui.js"&gt;&lt;/script&gt;
+    &lt;script src="app/resources/primeui-3.0.1-min.js"&gt;&lt;/script&gt;
+
+    &lt;!-- 2. Configure SystemJS --&gt;
+    &lt;script&gt;
+        System.config({
+            defaultJSExtensions: true,
+            packages: {
+                "/angular2": {"defaultExtension": false}
+            },
+            map: {
+                'primeng': 'node_modules/primeng'
+            }
+        });
+        System.import('app/boot').then(null, console.error.bind(console));
+    &lt;/script&gt;
+
+    &lt;script src="node_modules/rxjs/bundles/Rx.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/angular2/bundles/angular2.dev.js"&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+
+&lt;!-- 3. Display the application --&gt;
+&lt;body&gt;
+&lt;my-app&gt;Loading...&lt;/my-app&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</pre>
+
+    <h4>boot.ts</h4>
+<pre>
+import {bootstrap}    from 'angular2/platform/browser';
+import {AppComponent} from './app.component';
+
+bootstrap(AppComponent);
+</pre>
+
+    <h4>app.component.ts</h4>
+    <p>Sample app component uses PrimeNG InputText.</p>
+<pre>
+import {Component} from 'angular2/core';
+import {InputText} from 'primeng/primeng';
+
+@Component({
+	selector: 'my-app',
+	template: `
+        &lt;h1&gt;My First PrimeNG App&lt;/h1&gt;
+        &lt;input type="text" pInputText/&gt;
+    `,
+    directives: [InputText]
+})
+export class AppComponent {
+
+}
+</pre>
+
+</div>

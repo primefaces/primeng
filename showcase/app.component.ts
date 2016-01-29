@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {SetupComponent} from './setup.component';
 import {HomePageComponent} from './homepage.component';
 import {ThemingComponent} from './theming.component';
 import {InputTextDemoComponent} from './demo/inputtext/inputtextdemo.component';
@@ -26,6 +27,7 @@ import {CheckboxDemoComponent} from './demo/checkbox/checkboxdemo.component';
 })
 @RouteConfig([
     {path: '/', name: 'HomePage', component: HomePageComponent},
+    {path: '/setup', name: 'Setup', component: SetupComponent},
     {path: '/theming', name: 'Theming', component: ThemingComponent},
     {path: '/inputtext', name: 'InputTextDemo', component: InputTextDemoComponent},
     {path: '/button', name: 'ButtonDemo', component: ButtonDemoComponent},
