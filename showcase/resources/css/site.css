@@ -374,7 +374,7 @@ input.searchInput {
     background: #F5F6F7;
 }
 
-.pui-tabview.pui-tabview-top > .pui-tabview-nav li{top:0px !important;}
+.Source .pui-tabview.pui-tabview-top > .pui-tabview-nav li{top:0px !important;}
 
 /** Responsive **/
 @media (min-width: 961px) {
@@ -526,10 +526,6 @@ input.searchInput {
 .ui-theme.ui-theme-ui-darkness{ background-position: -80px -691px; width: 30px; height: 27px; }
 .ui-theme.ui-theme-ui-lightness{ background-position: -80px -768px; width: 30px; height: 27px; }
 .ui-theme.ui-theme-vader{ background-position: -80px -845px; width: 30px; height: 27px; }
-
-.pui-tabview .tab-primeelement {
-    float: right !important;
-}
 
 .PFLayouts .Content33 {
     box-sizing: border-box;
