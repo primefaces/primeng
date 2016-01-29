@@ -20,7 +20,7 @@ import {GalleriaDemoComponent} from './demo/galleria/galleriademo.component';
 import {CheckboxDemoComponent} from './demo/checkbox/checkboxdemo.component';
 
 @Component({
-    selector: 'my-app',
+    selector: 'primeng-app',
     templateUrl: 'showcase/app.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
