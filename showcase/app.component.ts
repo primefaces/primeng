@@ -49,4 +49,6 @@ export class AppComponent {
     activeMenuId: string;
 
     themesVisible: boolean = false;
+
+    mobileMenuActive: boolean = false;
 }

@@ -1,5 +1,5 @@
 <div class="PC">
-    <div id="MENUSIDE">
+    <div id="MENUSIDE" [ngClass]="{'active':mobileMenuActive}">
         <div id="MENUSIDEindent">
             <span id="LOGO" class="">
                 <img alt="logo" src="showcase/resources/images/primeng.svg" />
@@ -61,11 +61,11 @@
             <!-- header bar start-->
             <div class="ContentSideSections" id="PFTopLinksCover" style="height:30px;">
                 <a id="LOGOTEXTSIDE" [routerLink]="['HomePage']">
-                    <img id="BlueLogo" alt="logo" src="showcase/resources/images/primengfull.svg"/>
+                    <img alt="logo" src="showcase/resources/images/primengfull.svg"/>
                 </a>
 
-                <a href="#" id="openMenuBtn">
-                    <img id="BlueLogo" alt="logo" src="showcase/resources/images/menuicon.svg"/>
+                <a href="#" id="openMenuBtn" (click)="mobileMenuActive = !mobileMenuActive" [ngClass]="{'active':mobileMenuActive}">
+                    <img alt="logo" src="showcase/resources/images/menuicon.svg"/>
                 </a>
 
                 <a href="http://forum.primefaces.org/viewforum.php?f=35" class="PFTopLinks floatRight boldFont"><img alt="mockosx" src="showcase/resources/images/community.svg" /><span class="PFDarkText">Forum</span></a>
