@@ -67,7 +67,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 /* content side style*/
 #CONTENTSIDE{width:auto; overflow:hidden; z-index:1; margin-left:300px; background-color:#FFFFFF;}
 #CONTENTSIDEindent{width:100%; height:auto;}
-.ContentSideSections{display:block; border-bottom:solid 1px #bcc7cf; padding:30px;}
+.ContentSideSections{display:block; border-bottom:solid 1px #CFD8DC; padding:30px;}
 .MOBILE .ContentSideSections{padding:14px 24px;}
 #PFTopLinksCover{background-color:#1976D2;}
 #PFMobileTopLinksCover{ position:inherit;}
@@ -229,7 +229,7 @@ input.searchInput {
 }
 
 .Implementation {
-    background-color:#dfe4e6;
+    background-color:#ECEFF1;
 }
 
 .Implementation h3 {
@@ -582,9 +582,9 @@ pre {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 1em;
-    background-color: #AFCAD7;
+    background-color: #CFD8DC;
     color: #404C51;
-    margin-top:10px 0px;
+    margin: 10px 0px;
 }
 
 .pui-tabview-left > .pui-tabview-nav {
