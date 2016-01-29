@@ -27,6 +27,11 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
         <div class="ContentSideSections Source">
             <p-tabView effect="fade">
                 <p-tabPanel header="Documentation">
+                    <h3>Import</h3>
+<pre>
+import {InputText} from 'primeng/primeng';
+</pre>
+
                     <h3>Getting Started</h3>
                     <p>InputText is applied to an input field with pInputText directive.</p>
                     

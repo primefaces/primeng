@@ -52,6 +52,11 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
         <div class="ContentSideSections Source">
             <p-tabView effect="fade">
                 <p-tabPanel header="Documentation">
+                    <h3>Import</h3>
+<pre>
+import {RadioButton} from 'primeng/primeng';
+</pre>
+
                     <h3>Getting Started</h3>
                     <p>RadioButton is defined using p-radio element and value is bound to model property that supports two-way binding.</p>
                     

@@ -58,6 +58,11 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
         <div class="ContentSideSections Source">
             <p-tabView effect="fade">
                 <p-tabPanel header="Documentation">
+                    <h3>Import</h3>
+<pre>
+import {Checkbox} from 'primeng/primeng';
+</pre>
+
                     <h3>Getting Started</h3>
                     <p>Checkbox is defined using p-checkbox element and value is an array defined with model property that supports two-way binding.</p>
                     
