@@ -315,7 +315,15 @@ input.searchInput {
     background-color: #F3F6F9;
 }
 
-/* Tabs Source */
+/* Source */
+.Source {
+    background: none;
+    border: 0 none;
+    color: #5C666A;
+    font-family: 'RobotoLight', Arial, Helvetica, sans-serif;
+    font-weight:lighter;
+}
+
 .Source,
 .Source .pui-tabview {
     background: none;
