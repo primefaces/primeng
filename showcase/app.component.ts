@@ -51,4 +51,9 @@ export class AppComponent {
     themesVisible: boolean = false;
 
     mobileMenuActive: boolean = false;
+
+    toggleMenu(e) {
+        this.mobileMenuActive = !this.mobileMenuActive;
+        e.preventDefault();
+    }
 }
