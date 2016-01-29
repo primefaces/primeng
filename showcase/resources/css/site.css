@@ -316,6 +316,7 @@ input.searchInput {
 }
 
 /* Tabs Source */
+.Source,
 .Source .pui-tabview {
     background: none;
     border: 0 none;
