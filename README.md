@@ -9,3 +9,5 @@ Execute the following commands to run the showcase. A browser window pops up wit
 npm install
 npm start
 ```
+
+For project plan, visit [roadmap](https://github.com/primefaces/primeng/wiki/Roadmap).
