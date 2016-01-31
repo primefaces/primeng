@@ -1,9 +1,11 @@
 # PrimeNG
 UI Components for AngularJS 2
 
+See  [PrimeNG homepage](https://www.google.com) for live showcase and documentation.
+
 ![alt text](http://www.primefaces.org/images/primeng.png "PrimeNG")
 
-Execute the following commands to run the showcase. A browser window pops up with http:\\\\localhost:3000 address.
+Execute the following commands to run the showcase in your local environment. A browser window pops up with http:\\\\localhost:3000 address.
 
 ```
 npm install
