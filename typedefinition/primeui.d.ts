@@ -180,6 +180,25 @@ declare module PrimeUI {
         showCaption?: boolean;
         customContent?: boolean;
     }
+
+    //Listbox
+    interface ListboxEventParams {
+        value?: any;
+        index?: any;
+    }
+
+    interface ListboxOptions {
+        value?: any;
+        scrollHeight?: number;
+        content?: any;
+        data?: any;
+        template?: any;
+        style?: string;
+        styleClass?: string;
+        multiple?: boolean;
+        enhanced?: boolean;
+        change?: (event?: Event, ui?: ListboxEventParams) => void;
+    }
 }
 
 interface JQuery {
@@ -351,4 +370,16 @@ interface JQuery {
     puigalleria(optionLiteral: string, optionName: string): any;
     puigalleria(optionLiteral: string, options: PrimeUI.GalleriaOptions): any;
     puigalleria(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puilistbox(): JQuery;
+    puilistbox(methodName: 'destroy'): void;
+    puilistbox(methodName: 'disable'): void;
+    puilistbox(methodName: 'enable'): void;
+    puilistbox(methodName: 'refresh'): void;
+    puilistbox(methodName: 'widget'): JQuery;
+    puilistbox(methodName: string): JQuery;
+    puilistbox(options: PrimeUI.ListboxOptions): JQuery;
+    puilistbox(optionLiteral: string, optionName: string): any;
+    puilistbox(optionLiteral: string, options: PrimeUI.ListboxOptions): any;
+    puilistbox(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

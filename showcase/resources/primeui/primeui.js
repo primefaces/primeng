@@ -9404,6 +9404,9 @@ PUI.resolveUserAgent();/**
                         '</span></div>');
                 }
             }
+            else {
+
+            }
 
             //cornering
             this.buttons = this.element.children('div.pui-button');
