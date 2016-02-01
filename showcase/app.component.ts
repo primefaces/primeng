@@ -19,6 +19,8 @@ import {AccordionDemoComponent} from './demo/accordion/accordiondemo.component';
 import {InputTextareaDemoComponent} from './demo/inputtextarea/inputtextareademo.component';
 import {GalleriaDemoComponent} from './demo/galleria/galleriademo.component';
 import {CheckboxDemoComponent} from './demo/checkbox/checkboxdemo.component';
+import {ListboxDemoComponent} from './demo/listbox/listboxdemo.component';
+import {MessagesDemoComponent} from './demo/messages/messagesdemo.component';
 
 @Component({
     selector: 'primeng-showcase',
@@ -44,7 +46,9 @@ import {CheckboxDemoComponent} from './demo/checkbox/checkboxdemo.component';
     {path: '/accordion', name: 'AccordionDemo', component: AccordionDemoComponent},
     {path: '/inputtextarea', name: 'InputTextareaDemo', component: InputTextareaDemoComponent},
     {path: '/galleria', name: 'GalleriaDemo', component: GalleriaDemoComponent},
-    {path: '/checkbox', name: 'CheckboxDemo', component: CheckboxDemoComponent}
+    {path: '/checkbox', name: 'CheckboxDemo', component: CheckboxDemoComponent},
+    {path: '/listbox', name: 'ListboxDemo', component: ListboxDemoComponent},
+    {path: '/messages', name: 'MessagesDemo', component: MessagesDemoComponent}
 ])
 export class AppComponent {
 

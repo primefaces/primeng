@@ -11,6 +11,7 @@
                 <a class="SubMenuLink" [routerLink]="['CheckboxDemo']" (click)="mobileMenuActive = false">&#9679; Checkbox</a>
                 <a class="SubMenuLink" [routerLink]="['InputTextDemo']" (click)="mobileMenuActive = false">&#9679; InputText</a>
                 <a class="SubMenuLink" [routerLink]="['InputTextareaDemo']" (click)="mobileMenuActive = false">&#9679; InputTextArea</a>
+                <a class="SubMenuLink" [routerLink]="['ListboxDemo']" (click)="mobileMenuActive = false">&#9679; Listbox</a>
                 <a class="SubMenuLink" [routerLink]="['PasswordDemo']" (click)="mobileMenuActive = false">&#9679; Password</a>
                 <a class="SubMenuLink" [routerLink]="['RadioButtonDemo']" (click)="mobileMenuActive = false">&#9679; RadioButton</a>
                 <a class="SubMenuLink" [routerLink]="['RatingDemo']" (click)="mobileMenuActive = false">&#9679; Rating</a>
@@ -31,9 +32,19 @@
                 <a class="SubMenuLink" [routerLink]="['GridDemo']" (click)="mobileMenuActive = false">&#9679; Grid</a>
                 <a class="SubMenuLink" [routerLink]="['TabViewDemo']" (click)="mobileMenuActive = false">&#9679; TabView</a>
             </div>
+
             <span id="menu_overlay" #overlaymenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id"><img src="showcase/resources/images/mono/overlay.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['DialogDemo']" (click)="mobileMenuActive = false">&#9679; Dialog</a>
+            </div>
+
+            <span id="menu_messages" #messagesmenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="messagesmenutitle.id == activeMenuId"
+                              (click)="activeMenuId = messagesmenutitle.id"><img src="showcase/resources/images/mono/message.svg">
+                    <img class="hiddenIcons" src="showcase/resources/images/mono/messageBlue.svg">
+                    <span class="MainLinkText">Messages</span>
+            </span>
+            <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (messagesmenutitle.id == activeMenuId), 'submenuhide': (messagesmenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['MessagesDemo']" (click)="mobileMenuActive = false">&#9679; Messages</a>
             </div>
 
             <span id="menu_multimedia" #multimediamenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="multimediamenutitle.id == activeMenuId"
