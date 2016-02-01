@@ -206,6 +206,10 @@ declare module PrimeUI {
         life?: number;
         appendTo?: any;
     }
+
+    //Carousel
+    interface CarouselOptions {
+    }
 }
 
 interface JQuery {
@@ -401,4 +405,16 @@ interface JQuery {
     puigrowl(optionLiteral: string, optionName: string): any;
     puigrowl(optionLiteral: string, options: PrimeUI.GrowlOptions): any;
     puigrowl(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puicarousel(): JQuery;
+    puicarousel(methodName: 'destroy'): void;
+    puicarousel(methodName: 'disable'): void;
+    puicarousel(methodName: 'enable'): void;
+    puicarousel(methodName: 'refresh'): void;
+    puicarousel(methodName: 'widget'): JQuery;
+    puicarousel(methodName: string): JQuery;
+    puicarousel(options: PrimeUI.CarouselOptions): JQuery;
+    puicarousel(optionLiteral: string, optionName: string): any;
+    puicarousel(optionLiteral: string, options: PrimeUI.CarouselOptions): any;
+    puicarousel(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

@@ -26,6 +26,11 @@
                 <a class="SubMenuLink" [routerLink]="['ButtonDemo']" (click)="mobileMenuActive = false">&#9679; Button</a>
             </div>
 
+            <span id="data_menutitle" #datamenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="datamenutitle.id == activeMenuId" (click)="activeMenuId = datamenutitle.id"><img src="showcase/resources/images/mono/data.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/dataBlue.svg" /><span class="MainLinkText">Data</span></span>
+            <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (datamenutitle.id == activeMenuId), 'submenuhide': (datamenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['CarouselDemo']" (click)="mobileMenuActive = false">&#9679; Carousel</a>
+            </div>
+
             <span id="menu_panel" #panelmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = panelmenutitle.id"><img src="showcase/resources/images/mono/panel.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (panelmenutitle.id == activeMenuId), 'submenuhide': (panelmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['AccordionDemo']" (click)="mobileMenuActive = false">&#9679; Accordion</a>
