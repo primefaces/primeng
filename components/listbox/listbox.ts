@@ -74,7 +74,6 @@ export class Listbox {
     ngOnChanges(changes: { [key: string]: SimpleChange}) {
         if (this.initialized) {
             for (var key in changes) {
-                console.log(key);
                 jQuery(this.el.nativeElement.children[0].children[0].children[0]).puilistbox('option', key, changes[key].currentValue);
             }
         }
