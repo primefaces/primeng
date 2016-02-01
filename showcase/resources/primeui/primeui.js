@@ -6380,7 +6380,7 @@ PUI.resolveUserAgent();/**
 
         _updateSelection: function(value) {
             this.choices.prop('selected', false);
-            this.items.removeClass('ui-state-highlight')
+            this.items.removeClass('ui-state-highlight');
 
             for(var i = 0; i < this.choices.length; i++) {
                 var choice = this.choices.eq(i);
