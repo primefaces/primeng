@@ -170,7 +170,7 @@ export class ModelComponent {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>None.</p>
+                    <p>PrimeUI radiobutton widget css.</p>
                     
                 </p-tabPanel>
 

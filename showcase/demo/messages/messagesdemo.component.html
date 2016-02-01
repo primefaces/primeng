@@ -8,14 +8,13 @@
 <div class="ContentSideSections Implementation">
     <p-messages [(value)]="msgs"></p-messages>
 
-    <div style>
+    <div>
         <button type="button" pButton (click)="showInfo()">Info</button>
         <button type="button" pButton (click)="showWarn()">Warn</button>
         <button type="button" pButton (click)="showError()">Error</button>
         <button type="button" pButton (click)="showMultiple()">Multiple</button>
         <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right">Clear</button>
     </div>
-    
 </div>
 
 <div class="ContentSideSections Source">
@@ -23,24 +22,44 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-import {Panel} from 'primeng/primeng';
+import {Messages} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Panel is defined with p-panel element.</p>
+            <p>A single message is specified by Message interface in PrimeNG that defines the severity, summary and detail properties.
+                Messages to display are defined using the value property which should an array of Message instances.</p>
 <pre>
-&lt;p-panel header="Title"&gt;
-    Content
-&lt;/p-panel&gt;
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 </pre>
-            <h3>Toggleable</h3>
-            <p>Content of the panel can be expanded and collapsed using toggleable option. Duration of the toggle effect
-                is customized with toggleDuration and default state is defined with collapsed option. Orientation is "vertical" by default
-                and other possible value is "horizontal".</p>
+            <h3>Showing Messages</h3>
+            <p>Adding messages to the array is enough to display them . Similary removing a message from the array is also removed from the UI.</p>
 <pre>
-&lt;p-panel header="Title" toggleable="true"&gt;
-    Content
-&lt;/p-panel&gt;
+&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
+
+&lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
+&lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
+</pre>
+
+<pre>
+show() {
+    this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
+}
+
+hide() {
+    this.msgs = [];
+}
+</pre>
+
+            <h3>Closable</h3>
+            <p>Messages are closable by default, a close icon is displayed on top right corner. If you use two-way binding, clicking this icon also
+            clears the messages array at your component.</p>
+<pre>
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+</pre>
+
+            <p>In order to disable closable messages, set closable to false.</p>
+<pre>
+&lt;p-messages [value]="msgs" [closable]="false"&gt;&lt;/p-messages&gt;
 </pre>
 
             <h3>Attributes</h3>
@@ -147,17 +166,53 @@ import {Panel} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Panel.</p>
+            <p>PrimeUI messages widget css.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
-&lt;p-panel header="Godfather I" toggleable="true"&gt;
-    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-    kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-&lt;/p-panel&gt;
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+
+&lt;div&gt;
+    &lt;button type="button" pButton (click)="showInfo()"&gt;Info&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showWarn()"&gt;Warn&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showError()"&gt;Error&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showMultiple()"&gt;Multiple&lt;/button&gt;
+    &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right"&gt;Clear&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+
+<pre>
+export class MessagesDemoComponent {
+
+    msgs: Message[] = [];
+
+    showInfo() {
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
+    }
+
+    showWarn() {
+        this.msgs = [];
+        this.msgs.push({severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'});
+    }
+
+    showError() {
+        this.msgs = [];
+        this.msgs.push({severity:'error', summary:'Error Message', detail:'Validation failed'});
+    }
+
+    showMultiple() {
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'Message 1', detail:'PrimeNG rocks'});
+        this.msgs.push({severity:'info', summary:'Message 2', detail:'PrimeUI rocks'});
+        this.msgs.push({severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'});
+    }
+
+    clear() {
+        this.msgs = [];
+    }
+}
 </pre>
         </p-tabPanel>
     </p-tabView>
