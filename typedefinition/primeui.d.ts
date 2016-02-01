@@ -199,6 +199,13 @@ declare module PrimeUI {
         enhanced?: boolean;
         change?: (event?: Event, ui?: ListboxEventParams) => void;
     }
+
+    //Growl
+    interface GrowlOptions {
+        sticky?: boolean;
+        life?: number;
+        appendTo?: any;
+    }
 }
 
 interface JQuery {
@@ -382,4 +389,16 @@ interface JQuery {
     puilistbox(optionLiteral: string, optionName: string): any;
     puilistbox(optionLiteral: string, options: PrimeUI.ListboxOptions): any;
     puilistbox(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puigrowl(): JQuery;
+    puigrowl(methodName: 'destroy'): void;
+    puigrowl(methodName: 'disable'): void;
+    puigrowl(methodName: 'enable'): void;
+    puigrowl(methodName: 'refresh'): void;
+    puigrowl(methodName: 'widget'): JQuery;
+    puigrowl(methodName: string): JQuery;
+    puigrowl(options: PrimeUI.GrowlOptions): JQuery;
+    puigrowl(optionLiteral: string, optionName: string): any;
+    puigrowl(optionLiteral: string, options: PrimeUI.GrowlOptions): any;
+    puigrowl(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

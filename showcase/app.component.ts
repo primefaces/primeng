@@ -21,6 +21,7 @@ import {GalleriaDemoComponent} from './demo/galleria/galleriademo.component';
 import {CheckboxDemoComponent} from './demo/checkbox/checkboxdemo.component';
 import {ListboxDemoComponent} from './demo/listbox/listboxdemo.component';
 import {MessagesDemoComponent} from './demo/messages/messagesdemo.component';
+import {GrowlDemoComponent} from './demo/growl/growldemo.component';
 
 @Component({
     selector: 'primeng-showcase',
@@ -48,7 +49,8 @@ import {MessagesDemoComponent} from './demo/messages/messagesdemo.component';
     {path: '/galleria', name: 'GalleriaDemo', component: GalleriaDemoComponent},
     {path: '/checkbox', name: 'CheckboxDemo', component: CheckboxDemoComponent},
     {path: '/listbox', name: 'ListboxDemo', component: ListboxDemoComponent},
-    {path: '/messages', name: 'MessagesDemo', component: MessagesDemoComponent}
+    {path: '/messages', name: 'MessagesDemo', component: MessagesDemoComponent},
+    {path: '/growl', name: 'GrowlDemo', component: GrowlDemoComponent}
 ])
 export class AppComponent {
 

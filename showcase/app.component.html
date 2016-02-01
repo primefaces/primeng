@@ -45,6 +45,7 @@
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (messagesmenutitle.id == activeMenuId), 'submenuhide': (messagesmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['MessagesDemo']" (click)="mobileMenuActive = false">&#9679; Messages</a>
+                <a class="SubMenuLink" [routerLink]="['GrowlDemo']" (click)="mobileMenuActive = false">&#9679; Growl</a>
             </div>
 
             <span id="menu_multimedia" #multimediamenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="multimediamenutitle.id == activeMenuId"

@@ -5168,13 +5168,24 @@ PUI.resolveUserAgent();/**
 
         options: {
             sticky: false,
-            life: 3000
+            life: 3000,
+            messages: null,
+            appendTo: document.body
         },
 
         _create: function() {
             var container = this.element;
+            this.originalParent = this.element.parent();
 
-            container.addClass("pui-growl ui-widget").appendTo(document.body);
+            container.addClass("pui-growl ui-widget");
+
+            if(this.options.appendTo) {
+                container.appendTo(this.options.appendTo);
+            }
+
+            if(this.options.messages) {
+                this.show(this.options.messages);
+            }
         },
 
         show: function(msgs) {
@@ -5184,13 +5195,20 @@ PUI.resolveUserAgent();/**
 
             this.clear();
 
-            $.each(msgs, function(i, msg) {
-                $this._renderMessage(msg);
-            });
+            if(msgs && msgs.length) {
+                $.each(msgs, function(i, msg) {
+                    $this._renderMessage(msg);
+                });
+            }
         },
 
         clear: function() {
-            this.element.children('div.pui-growl-item-container').remove();
+            var messageElements = this.element.children('div.pui-growl-item-container');
+            for(var i = 0; i < messageElements.length; i++) {
+                this._unbindMessageEvents(messageElements.eq(i));
+            }
+
+            messageElements.remove();
         },
 
         _renderMessage: function(msg) {
@@ -5246,6 +5264,20 @@ PUI.resolveUserAgent();/**
             }
         },
 
+        _unbindMessageEvents: function(message) {
+            var $this = this,
+            sticky = this.options.sticky;
+
+            message.off('mouseover.puigrowl mouseout.puigrowl');
+            message.find('div.pui-growl-icon-close').off('click.puigrowl');
+            if(!sticky) {
+                var timeout = message.data('timeout');
+                if(timeout) {
+                    window.clearTimeout(timeout);
+                }
+            }
+        },
+
         _setRemovalTimeout: function(message) {
             var $this = this;
 
@@ -5273,6 +5305,24 @@ PUI.resolveUserAgent();/**
                 default:
                     return 'fa-info-circle';
                     break;
+            }
+        },
+
+        _setOption: function(key, value) {
+            if(key === 'value' || key === 'messages') {
+                this.show(value);
+            }
+            else {
+                $.Widget.prototype._setOption.apply(this, arguments);
+            }
+        },
+
+        _destroy: function() {
+            this.clear();
+            this.element.removeClass("pui-growl ui-widget");
+
+            if(this.options.appendTo) {
+                this.element.appendTo(this.originalParent);
             }
         }
     });
