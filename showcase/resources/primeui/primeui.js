@@ -1,5 +1,5 @@
 /*
- * PrimeUI 3.0.1
+ * PrimeUI 3.0.2-SNAPSHOT
  *
  * Copyright 2009-2015 PrimeTek.
  *
@@ -6104,19 +6104,36 @@ PUI.resolveUserAgent();/**
     $.widget("primeui.puilistbox", {
 
         options: {
+            value: null,
             scrollHeight: 200,
             content: null,
             data: null,
             template: null,
             style: null,
-            styleClass: null
+            styleClass: null,
+            multiple: false,
+            enhanced: false,
+            change: null
         },
 
         _create: function() {
-            this.element.wrap('<div class="pui-listbox pui-inputtext ui-widget ui-widget-content ui-corner-all"><div class="ui-helper-hidden-accessible"></div></div>');
-            this.container = this.element.parent().parent();
-            this.listContainer = $('<ul class="pui-listbox-list"></ul>').appendTo(this.container);
-            this.options.multiple = this.element.prop("multiple");
+            if(!this.options.enhanced) {
+                this.element.wrap('<div class="pui-listbox pui-inputtext ui-widget ui-widget-content ui-corner-all"><div class="ui-helper-hidden-accessible"></div></div>');
+                this.container = this.element.parent().parent();
+                this.listContainer = $('<ul class="pui-listbox-list"></ul>').appendTo(this.container);
+
+                if(this.options.data) {
+                    this._populateInputFromData();
+                }
+
+                this._populateContainerFromOptions();
+            }
+            else {
+                this.container = this.element.parent().parent();
+                this.listContainer = this.container.children('ul').addClass('pui-listbox-list');
+                this.items = this.listContainer.children('li').addClass('pui-listbox-item ui-corner-all');
+                this.choices = this.element.children('option');
+            }
 
             if(this.options.style) {
                 this.container.attr('style', this.options.style);
@@ -6126,14 +6143,17 @@ PUI.resolveUserAgent();/**
                 this.container.addClass(this.options.styleClass);
             }
 
-            if(this.options.data) {
-                this._populateInputFromData();
+            if(this.options.multiple)
+                this.element.prop('multiple', true);
+            else
+                this.options.multiple = this.element.prop('multiple');
+
+            //preselection
+            if(this.options.value) {
+                this._updateSelection(this.options.value);
             }
 
-            this._populateContainerFromOptions();
-
             this._restrictHeight();
-
             this._bindEvents();
         },
 
@@ -6187,8 +6207,6 @@ PUI.resolveUserAgent();/**
                         $this._clickMultiple(e, $(this));
                     else
                         $this._clickSingle(e, $(this));
-
-
                 });
 
             //input
@@ -6208,7 +6226,10 @@ PUI.resolveUserAgent();/**
                 }
 
                 this.selectItem(item);
-                this.element.trigger('change');
+                this._trigger('change', event, {
+                    value: this.choices.eq(item.index()).attr('value'),
+                    index: item.index()
+                });
             }
 
             this.element.trigger('click');
@@ -6257,7 +6278,19 @@ PUI.resolveUserAgent();/**
             }
 
             if(!unchanged) {
-                this.element.trigger('change');
+                var values = [],
+                    indexes = [];
+                for(var i = 0; i < this.choices.length; i++) {
+                    if(this.choices.eq(i).prop('selected')) {
+                        values.push(this.choices.eq(i).attr('value'));
+                        indexes.push(i);
+                    }
+                }
+
+                this._trigger('change', event, {
+                    value: values,
+                    index: indexes
+                })
             }
 
             this.element.trigger('click');
@@ -6299,7 +6332,6 @@ PUI.resolveUserAgent();/**
         },
 
         _setOption: function (key, value) {
-            $.Widget.prototype._setOption.apply(this, arguments);
             if (key === 'data') {
                 this.element.empty();
                 this.listContainer.empty();
@@ -6309,6 +6341,12 @@ PUI.resolveUserAgent();/**
 
                 this._restrictHeight();
                 this._bindEvents();
+            }
+            else if (key === 'value') {
+                this._updateSelection(value);
+            }
+            else {
+                $.Widget.prototype._setOption.apply(this, arguments);
             }
         },
 
@@ -6337,6 +6375,19 @@ PUI.resolveUserAgent();/**
             }
             else {
                 return choice.label;
+            }
+        },
+
+        _updateSelection: function(value) {
+            this.choices.prop('selected', false);
+            this.items.removeClass('ui-state-highlight')
+
+            for(var i = 0; i < this.choices.length; i++) {
+                var choice = this.choices.eq(i);
+                if(choice.attr('value') == value) {
+                    choice.prop('selected', true);
+                    this.items.eq(i).addClass('ui-state-highlight');
+                }
             }
         }
     });
