@@ -42,6 +42,8 @@ export class Listbox {
 
     @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
+    @Output() onChange: EventEmitter<any> = new EventEmitter();
+
     constructor(private el: ElementRef) {
         this.initialized = false;
     }
@@ -55,6 +57,7 @@ export class Listbox {
             style: this.style,
             styleClass: this.styleClass,
             change: (event: Event, ui: PrimeUI.ListboxEventParams) => {
+                this.onChange.next({originalEvent: event, value: ui.value});
                 if(this.multiple) {
                     var values:any = [];
                     for(var i = 0; i < ui.index.length;i++) {
