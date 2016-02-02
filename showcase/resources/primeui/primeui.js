@@ -9590,9 +9590,7 @@ PUI.resolveUserAgent();/**
                 this.element.removeClass('pui-selectbutton pui-buttonset ui-widget ui-corner-all').removeAttr('tabindex');
             }
             else {
-                this.buttons.removeClass('ui-state-focus ui-state-hover ui-state-active');
-                this.buttons.filter(':first-child').removeClass('ui-corner-left');
-                this.buttons.filter(':last-child').removeClass('ui-corner-right');
+                this.buttons.removeClass('ui-state-focus ui-state-hover ui-state-active ui-corner-left ui-corner-right');
             }
             this.input.remove();
         },
