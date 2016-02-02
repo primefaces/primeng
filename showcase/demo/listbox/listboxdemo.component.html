@@ -13,7 +13,7 @@
 
     <h3>Multiple</h3>
     <p-listbox [options]="cities" [(value)]="selectedCities" multiple="multiple"></p-listbox>
-    <p>Select Cities: <span *ngFor="#c of selectedCities">{{c}} &nbsp;</span></p>
+    <p>Selected Cities: <span *ngFor="#c of selectedCities">{{c}} &nbsp;</span></p>
 
     <h3>Content</h3>
     <p-listbox [options]="cars" [(value)]="selectedCar" customContent="true" style="width:190px">
@@ -24,7 +24,7 @@
             </li>
         </ul>
     </p-listbox>
-    <p>Select Car: {{selectedCar}}</p>
+    <p>Selected Car: {{selectedCar}}</p>
 
     <button type="button" (click)="selectedCar=null" pButton icon="fa-close">Clear Selected Car</button>
 </div>
@@ -248,7 +248,7 @@ export class MyModel {
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p-listbox [options]="cities" [(value)]="selectedCities" multiple="multiple"&gt;&lt;/p-listbox&gt;
-&lt;p&gt;Select Cities: &lt;span *ngFor="#c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Selected Cities: &lt;span *ngFor="#c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Content&lt;/h3&gt;
 &lt;p-listbox [options]="cars" [(value)]="selectedCar" customContent="true" style="width:190px"&gt;
@@ -259,7 +259,7 @@ export class MyModel {
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-listbox&gt;
-&lt;p&gt;Select Car: {{selectedCar}}&lt;/p&gt;
+&lt;p&gt;Selected Car: {{selectedCar}}&lt;/p&gt;
 
 &lt;button type="button" (click)="selectedCar=null" pButton icon="fa-close"&gt;Clear Selected Car&lt;/button&gt;
 </pre>
