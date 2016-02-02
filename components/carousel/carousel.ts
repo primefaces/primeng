@@ -5,7 +5,11 @@ import {Component,ElementRef,AfterContentInit,OnDestroy,OnChanges,Input,Output,S
 @Component({
     selector: 'p-carousel',
     template: `
-        <ng-content></ng-content>
+        <div class="pui-carousel ui-widget-content ui-corner-all">
+            <div class="pui-carousel-viewport">
+                <ng-content></ng-content>
+            </div>
+        </div>
     `
 })
 export class Carousel {
@@ -43,7 +47,7 @@ export class Carousel {
     }
 
     ngAfterContentInit() {
-        this.carouselElement = jQuery(this.el.nativeElement.children[0]);
+        this.carouselElement = jQuery(this.el.nativeElement).find('> .pui-carousel > .pui-carousel-viewport > ul');
         this.carouselElement.puicarousel({
             numVisible: this.numVisible,
             firstVisible: this.firstVisible,
@@ -56,7 +60,8 @@ export class Carousel {
             easing: this.easing,
             pageLinks: this.pageLinks,
             style: this.style,
-            styleClass: this.styleClass
+            styleClass: this.styleClass,
+            enhanced: true
         });
         this.initialized = true;
     }
