@@ -10113,7 +10113,10 @@ PUI.resolveUserAgent();/**
 
     });
 
-})();(function() {
+})();/**
+ * PrimeUI Switch Widget
+ */
+(function() {
 
     $.widget("primeui.puiswitch", {
 
@@ -10294,9 +10297,7 @@ PUI.resolveUserAgent();/**
         },
     });
 
-})();
-
-/**
+})();/**
  * PrimeUI tabview widget
  */
 (function() {
