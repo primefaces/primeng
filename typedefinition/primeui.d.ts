@@ -205,6 +205,7 @@ declare module PrimeUI {
         sticky?: boolean;
         life?: number;
         appendTo?: any;
+        messages?: any;
     }
 
     //Carousel
