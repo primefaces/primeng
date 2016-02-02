@@ -6241,7 +6241,7 @@ PUI.resolveUserAgent();/**
                 this.options.multiple = this.element.prop('multiple');
 
             //preselection
-            if(this.options.value) {
+            if(this.options.value !== null && this.options.value !== undefined) {
                 this._updateSelection(this.options.value);
             }
 
@@ -6481,10 +6481,20 @@ PUI.resolveUserAgent();/**
 
             for(var i = 0; i < this.choices.length; i++) {
                 var choice = this.choices.eq(i);
-                if(choice.attr('value') == value) {
-                    choice.prop('selected', true);
-                    this.items.eq(i).addClass('ui-state-highlight');
+                if(this.options.multiple) {
+                    if($.inArray(choice.attr('value'), value) >= 0) {
+                        choice.prop('selected', true);
+                        this.items.eq(i).addClass('ui-state-highlight');
+                    }
                 }
+                else {
+                    if(choice.attr('value') == value) {
+                        choice.prop('selected', true);
+                        this.items.eq(i).addClass('ui-state-highlight');
+                        break;
+                    }
+                }
+
             }
         },
 
@@ -9500,7 +9510,10 @@ PUI.resolveUserAgent();/**
         }
     });
 
-})();(function() {
+})();/**
+ * PrimeUI SelectButton Widget
+ */
+(function() {
 
     $.widget("primeui.puiselectbutton", {
 
@@ -9534,8 +9547,8 @@ PUI.resolveUserAgent();/**
 
                 this.element.children('.pui-button').each(function() {
                     var btn = $(this),
-                    value = btn.attr('data-value'),
-                    label = btn.children('span').text();
+                        value = btn.attr('data-value'),
+                        label = btn.children('span').text();
                     $this.options.choices.push({'label': label, 'value': value});
                 });
             }
@@ -9563,7 +9576,7 @@ PUI.resolveUserAgent();/**
             }
 
             //preselection
-            if(this.options.value) {
+            if(this.options.value !== null && this.options.value !== undefined) {
                 this._updateSelection(this.options.value);
             }
 
@@ -9587,7 +9600,7 @@ PUI.resolveUserAgent();/**
 
             if(this.options.multiple) {
                 var values = [],
-                indexes = [];
+                    indexes = [];
                 for(var i = 0; i < $this.buttons.length; i++) {
                     var btn = $this.buttons.eq(i);
                     if(btn.hasClass('ui-state-active')) {
@@ -9630,7 +9643,6 @@ PUI.resolveUserAgent();/**
                 })
                 .on('click.puiselectbutton', function(e) {
                     var btn = $(this);
-                    console.log('click');
 
                     if($(this).hasClass("ui-state-active")) {
                         $this.unselectOption(btn);
@@ -9716,7 +9728,6 @@ PUI.resolveUserAgent();/**
                     }
                 }
                 else {
-                    console.log(buttonValue + ' , ' + value);
                     if(buttonValue == value) {
                         button.addClass('ui-state-active');
                         break;
@@ -9724,12 +9735,10 @@ PUI.resolveUserAgent();/**
                 }
             }
         }
-        
+
     });
 
-})();
-
-/**
+})();/**
  * PrimeUI spinner widget
  */
 (function() {
