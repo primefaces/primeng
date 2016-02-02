@@ -669,3 +669,11 @@ button.ui-button span {
     padding: 0px !important;
     border-radius: 0px !important;
 }
+
+/* Toggle Buttons */
+.pui-selectbutton .pui-button.ui-state-active,
+.pui-togglebutton.pui-button.ui-state-active{
+	border: 1px solid #14A4FF;
+	background: #14A4FF;
+	color: #FFFFFF;
+}
