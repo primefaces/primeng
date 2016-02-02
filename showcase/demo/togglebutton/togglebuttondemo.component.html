@@ -22,7 +22,7 @@ import {ToggleButton} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>ToggleButton is defined using p-toggleButton element and value is bound to checked property that supports two-way binding to retrieve and assign value.</p>
+            <p>ToggleButton is defined using p-toggleButton element. Checked property supports two-way binding to retrieve and assign the model.</p>
                     
 <pre>
 &lt;p-toggleButton [(checked)]="checked"&gt;&lt;/p-toggleButton&gt;
@@ -123,7 +123,7 @@ export class ModelComponent {
                     <tbody>
                         <tr>
                             <td>onChange</td>
-                            <td>event: Event <br>
+                            <td>originalEvent: Event <br>
                                 checked: Boolean value to represent checked state.</td>
                             <td>Callback to invoke on state change.</td>
                         </tr>
@@ -174,7 +174,6 @@ export class ModelComponent {
         </p-tabPanel>
 
         <p-tabPanel header="Source">
-            <h3>Template</h3>
 <pre>
 &lt;h3 class="first"&gt;Basic - (<span>{</span><span>{</span>checked1<span>}</span><span>}</span>)&lt;/h3&gt;
 &lt;p-toggleButton [(checked)]="checked1" style="width:150px"&gt;&lt;/p-toggleButton&gt;
@@ -183,7 +182,6 @@ export class ModelComponent {
 &lt;p-toggleButton onLabel="I confirm" offLabel="I reject" onIcon="fa-check-square" offIcon="fa-square" [(checked)]="checked2" style="width:150px"&gt;&lt;/p-toggleButton&gt;
 </pre>
 
-<h3>ToggleButtonDemoComponent</h3>
 <pre>
 export class ToggleButtonDemoComponent {
     
