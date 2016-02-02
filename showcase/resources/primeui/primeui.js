@@ -9591,6 +9591,8 @@ PUI.resolveUserAgent();/**
             }
             else {
                 this.buttons.removeClass('ui-state-focus ui-state-hover ui-state-active');
+                this.buttons.filter(':first-child').removeClass('ui-corner-left');
+                this.buttons.filter(':last-child').removeClass('ui-corner-right');
             }
             this.input.remove();
         },
