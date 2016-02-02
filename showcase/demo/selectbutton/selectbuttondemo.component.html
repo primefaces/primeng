@@ -7,20 +7,15 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Single</h3>
-    <p-selectButton [choices]="teams" [(value)]="selectedTeam"></p-selectButton>
+    <p-selectButton [choices]="types" [(value)]="selectedType"></p-selectButton>
 
-    <p>Selected Team: {{selectedTeam}}</p>
+    <p>Selected Type: {{selectedType}}</p>
 
     <h3>Multiple</h3>
-    <p-selectButton [choices]="teams" [(value)]="selectedTeams" multiple="multiple"></p-selectButton>
+    <p-selectButton [choices]="types" [(value)]="selectedTypes" multiple="multiple"></p-selectButton>
+    <p>Selected Types: {{selectedTypes}}</p>
 
-    <p>Selected Teams: {{selectedTeams}} </p>
-
-    <h3>Preselect</h3>
-    <p-selectButton [choices]="cars" [(value)]="selectedCar" style="width:190px"></p-selectButton>
-    <p>Select Car: {{selectedCar}}</p>
-
-    <button type="button" (click)="selectedCar=null" pButton icon="fa-close">Clear Selected Car</button>
+    <button type="button" (click)="selectedTypes=null" pButton icon="fa-close">Clear</button>
 </div>
 
 <div class="ContentSideSections Source">

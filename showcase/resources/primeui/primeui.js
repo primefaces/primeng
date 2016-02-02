@@ -9704,12 +9704,23 @@ PUI.resolveUserAgent();/**
         },
 
         _updateSelection: function(value) {
-            this.buttons.removeClass('ui-state-active')
+            this.buttons.removeClass('ui-state-active');
 
             for(var i = 0; i < this.buttons.length; i++) {
-                var button = this.buttons.eq(i);
-                if(button.attr('data-value') == value) {
-                    button.addClass('ui-state-active');
+                var button = this.buttons.eq(i),
+                    buttonValue = button.attr('data-value');
+
+                if(this.options.multiple) {
+                    if($.inArray(buttonValue, value) >= 0) {
+                        button.addClass('ui-state-active');
+                    }
+                }
+                else {
+                    console.log(buttonValue + ' , ' + value);
+                    if(buttonValue == value) {
+                        button.addClass('ui-state-active');
+                        break;
+                    }
                 }
             }
         }

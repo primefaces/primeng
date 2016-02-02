@@ -12,32 +12,16 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 })
 export class SelectbuttonDemoComponent {
 
-    teams: SelectItem[];
+    types: SelectItem[];
 
-    selectedTeam: string;
+    selectedType: string;
 
-    selectedTeams: string[];
-
-    cars: SelectItem[];
-
-    selectedCar: string = 'BMW';
+    selectedTypes: string[] = ['Apartment','Studio'];
 
     constructor() {
-        this.teams = [];
-        this.teams.push({label: 'Barcelona', value: 'Barcelona'});
-        this.teams.push({label: 'Real Madrid', value: 'Real Madrid'});
-        this.teams.push({label: 'Bayern Munich', value: 'Bayern Munich'});
-
-        this.cars = [];
-        this.cars.push({ label: 'Audi', value: 'Audi' });
-        this.cars.push({ label: 'BMW', value: 'BMW' });
-        this.cars.push({ label: 'Fiat', value: 'Fiat' });
-        this.cars.push({ label: 'Ford', value: 'Ford' });
-        this.cars.push({ label: 'Honda', value: 'Honda' });
-        this.cars.push({ label: 'Jaguar', value: 'Jaguar' });
-        this.cars.push({ label: 'Mercedes', value: 'Mercedes' });
-        this.cars.push({ label: 'Renault', value: 'Renault' });
-        this.cars.push({ label: 'Volkswagen', value: 'Volkswagen' });
-        this.cars.push({ label: 'Volvo', value: 'Volvo' });
+        this.types = [];
+        this.types.push({label: 'Apartment', value: 'Apartment'});
+        this.types.push({label: 'House', value: 'House'});
+        this.types.push({label: 'Studio', value: 'Studio'});
     }
 }
