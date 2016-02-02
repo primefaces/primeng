@@ -7,17 +7,17 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Single</h3>
-    <p-selectbutton [choices]="teams" [(value)]="selectedTeam"></p-selectbutton>
+    <p-selectButton [choices]="teams" [(value)]="selectedTeam"></p-selectButton>
 
     <p>Selected Team: {{selectedTeam}}</p>
 
     <h3>Multiple</h3>
-    <p-selectbutton [choices]="teams" [(value)]="selectedTeams" multiple="multiple"></p-selectbutton>
+    <p-selectButton [choices]="teams" [(value)]="selectedTeams" multiple="multiple"></p-selectButton>
 
     <p>Selected Teams: {{selectedTeams}} </p>
 
     <h3>Preselect</h3>
-    <p-selectbutton [choices]="cars" [(value)]="selectedCar" style="width:190px"></p-selectbutton>
+    <p-selectButton [choices]="cars" [(value)]="selectedCar" style="width:190px"></p-selectButton>
     <p>Select Car: {{selectedCar}}</p>
 
     <button type="button" (click)="selectedCar=null" pButton icon="fa-close">Clear Selected Car</button>

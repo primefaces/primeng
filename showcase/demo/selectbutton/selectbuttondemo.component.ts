@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {Selectbutton} from '../../../components/selectbutton/selectbutton';
+import {SelectButton} from '../../../components/selectbutton/selectbutton';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
@@ -8,7 +8,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'showcase/demo/selectbutton/selectbuttondemo.component.html',
-    directives: [Selectbutton, TabPanel, TabView, Button, ROUTER_DIRECTIVES]
+    directives: [SelectButton, TabPanel, TabView, Button, ROUTER_DIRECTIVES]
 })
 export class SelectbuttonDemoComponent {
 

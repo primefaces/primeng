@@ -235,12 +235,12 @@ declare module PrimeUI {
     }
 
     //SelectButton
-    interface SelectbuttonEventParams {
+    interface SelectButtonEventParams {
         value?: any;
         index?: any;
     }
 
-    interface SelectbuttonOptions {
+    interface SelectButtonOptions {
         value?: any;
         formfield?: string;
         unselectable?: boolean;
@@ -478,8 +478,8 @@ interface JQuery {
     puiselectbutton(methodName: 'refresh'): void;
     puiselectbutton(methodName: 'widget'): JQuery;
     puiselectbutton(methodName: string): JQuery;
-    puiselectbutton(options: PrimeUI.CarouselOptions): JQuery;
+    puiselectbutton(options: PrimeUI.SelectButtonOptions): JQuery;
     puiselectbutton(optionLiteral: string, optionName: string): any;
-    puiselectbutton(optionLiteral: string, options: PrimeUI.SelectbuttonOptions): any;
+    puiselectbutton(optionLiteral: string, options: PrimeUI.SelectButtonEventParams): any;
     puiselectbutton(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

@@ -9508,17 +9508,15 @@ PUI.resolveUserAgent();/**
             value: null,
             choices: null,
             formfield: null,
-            unselectable: false,
             tabindex: '0',
             multiple: false,
             enhanced: false
         },
 
         _create: function() {
-            this.element.addClass('pui-selectbutton pui-buttonset ui-widget ui-corner-all').attr('tabindex');
-
-            //create buttons
             if(!this.options.enhanced) {
+                this.element.addClass('pui-selectbutton pui-buttonset ui-widget ui-corner-all').attr('tabindex');
+
                 if(this.options.choices) {
                     this.element.addClass('pui-buttonset-' + this.options.choices.length);
                     for(var i = 0; i < this.options.choices.length; i++) {
@@ -9531,24 +9529,25 @@ PUI.resolveUserAgent();/**
                 }
             }
             else {
-                var $this = this,
-                buttons = this.element.children('div.pui-button');
+                var $this = this;
                 this.options.choices = [];
-                $('div.pui-button').each(function(buttons) {
-                    var value = $(this).attr('data-value'),
-                        label = $(this).children('span').html();
-                    $this.options.choices.push({value,label});
+
+                this.element.children('.pui-button').each(function() {
+                    var btn = $(this),
+                    value = btn.attr('data-value'),
+                    label = btn.children('span').text();
+                    $this.options.choices.push({'label': label, 'value': value});
                 });
             }
 
             //cornering
             this.buttons = this.element.children('div.pui-button');
+
             this.buttons.filter(':first-child').addClass('ui-corner-left');
             this.buttons.filter(':last-child').addClass('ui-corner-right');
 
-            //Single Select Button Or Multiple Select Button Decision
             if(!this.options.multiple)  {
-                this.input = $('<input type="hidden"></input>').appendTo(this.element);
+                this.input = $('<input type="hidden" />').appendTo(this.element);
             }
             else {
                 this.input = $('<select class="ui-helper-hidden-accessible" multiple></select>').appendTo(this.element);
@@ -9570,79 +9569,101 @@ PUI.resolveUserAgent();/**
 
             this._bindEvents();
         },
-        fireEvent : function() {
-            var $this = this,
-                values = [],
+
+        _destroy: function() {
+            this._unbindEvents();
+            if(!this.options.enhanced) {
+                this.buttons.remove();
+                this.element.removeClass('pui-selectbutton pui-buttonset ui-widget ui-corner-all').removeAttr('tabindex');
+            }
+            else {
+                this.buttons.removeClass('ui-state-focus ui-state-hover ui-state-active');
+            }
+            this.input.remove();
+        },
+
+        _triggerChangeEvent: function() {
+            var $this = this;
+
+            if(this.options.multiple) {
+                var values = [],
                 indexes = [];
-            for(var i = 0; i < $this.buttons.length; i++) {
-                if($this.selectOptions.eq(i).prop('selected')) {
-                    values.push($this.buttons.eq(i).attr('data-value'));
-                    indexes.push(i);
+                for(var i = 0; i < $this.buttons.length; i++) {
+                    var btn = $this.buttons.eq(i);
+                    if(btn.hasClass('ui-state-active')) {
+                        values.push(btn.data('value'));
+                        indexes.push(i);
+                    }
+                }
+
+                $this._trigger('change', event, {
+                    value: values,
+                    index: indexes
+                });
+            }
+            else {
+                for(var i = 0; i < $this.buttons.length; i++) {
+                    var btn = $this.buttons.eq(i);
+                    if(btn.hasClass('ui-state-active')) {
+                        $this._trigger('change', event, {
+                            value: btn.data('value'),
+                            index: i
+                        });
+
+                        break;
+                    }
                 }
             }
-
-            $this._trigger('change', event, {
-                value: values,
-                index: indexes
-            })
         },
 
         _bindEvents: function() {
             var $this = this;
 
-            this.buttons.on('mouseover', function() {
+            this.buttons.on('mouseover.puiselectbutton', function() {
                     var btn = $(this);
                     if(!btn.hasClass('ui-state-active')) {
                         btn.addClass('ui-state-hover');
                     }
                 })
-                .on('mouseout', function() {
+                .on('mouseout.puiselectbutton', function() {
                     $(this).removeClass('ui-state-hover');
                 })
-                .on('click', function(e) {
+                .on('click.puiselectbutton', function(e) {
                     var btn = $(this);
+                    console.log('click');
+
                     if($(this).hasClass("ui-state-active")) {
-                        if($this.options.unselectable) {
-                            $this.unselectOption(btn);
-                            $this.fireEvent();
-                        }
+                        $this.unselectOption(btn);
                     }
                     else {
                         if($this.options.multiple) {
                             $this.selectOption(btn);
-                            $this.fireEvent();
                         }
                         else {
                             $this.unselectOption(btn.siblings('.ui-state-active'));
                             $this.selectOption(btn);
                         }
-
-                        $this._trigger('change', e, {
-                            value: $this.buttons.eq(btn.index()).attr('data-value'),
-                            index: btn.index()
-                        });
                     }
+
+                    $this._triggerChangeEvent();
                 })
-                .on('focus', function() {
+                .on('focus.puiselectbutton', function() {
                     $(this).addClass('ui-state-focus');
                 })
-                .on('blur', function() {
+                .on('blur.puiselectbutton', function() {
                     $(this).removeClass('ui-state-focus');
                 })
-                .on('keydown', function(e) {
-                    var keyCode = $.ui.keyCode;
-                    if(e.which === keyCode.ENTER) {
-                        $this.element.trigger('click');
-                        e.preventDefault();
-                    }
-                })
-                .on('keydown', function(e) {
+                .on('keydown.puiselectbutton', function(e) {
                     var keyCode = $.ui.keyCode;
                     if(e.which === keyCode.SPACE||e.which === keyCode.ENTER||e.which === keyCode.NUMPAD_ENTER) {
                         $(this).trigger('click');
                         e.preventDefault();
                     }
                 });
+        },
+
+        _unbindEvents: function() {
+            this.buttons.off('mouseover.puiselectbutton mouseout.puiselectbutton focus.puiselectbutton blur.puiselectbutton keydown.puiselectbutton click.puiselectbutton');
         },
 
         selectOption: function(value) {
@@ -9668,6 +9689,7 @@ PUI.resolveUserAgent();/**
             btn.removeClass('ui-state-active');
             btn.removeClass('ui-state-focus');
         },
+
         _setOption: function (key, value) {
             if (key === 'data') {
                 this.element.empty();
@@ -9680,15 +9702,14 @@ PUI.resolveUserAgent();/**
                 $.Widget.prototype._setOption.apply(this, arguments);
             }
         },
+
         _updateSelection: function(value) {
-            this.buttons.prop('selected', false);
-            this.buttons.removeClass('ui-state-highlight')
+            this.buttons.removeClass('ui-state-active')
 
             for(var i = 0; i < this.buttons.length; i++) {
                 var button = this.buttons.eq(i);
                 if(button.attr('data-value') == value) {
-                    button.prop('selected', true);
-                    this.buttons.eq(i).addClass('ui-state-highlight');
+                    button.addClass('ui-state-active');
                 }
             }
         }
