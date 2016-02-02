@@ -233,6 +233,24 @@ declare module PrimeUI {
         offLabel?: string;
         change?: (event?: Event, ui?: InputSwitchEventParams) => void;
     }
+
+    //SelectButton
+    interface SelectbuttonEventParams {
+        value?: any;
+        index?: any;
+    }
+
+    interface SelectbuttonOptions {
+        value?: any;
+        formfield?: string;
+        unselectable?: boolean;
+        tabindex?: number;
+        style?: string;
+        styleClass?: string;
+        multiple?: boolean;
+        enhanced?: boolean;
+        change?: (event?: Event, ui?: ListboxEventParams) => void;
+    }
 }
 
 interface JQuery {
@@ -452,4 +470,16 @@ interface JQuery {
     puiswitch(optionLiteral: string, optionName: string): any;
     puiswitch(optionLiteral: string, options: PrimeUI.InputSwichOptions): any;
     puiswitch(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puiselectbutton(): JQuery;
+    puiselectbutton(methodName: 'destroy'): void;
+    puiselectbutton(methodName: 'disable'): void;
+    puiselectbutton(methodName: 'enable'): void;
+    puiselectbutton(methodName: 'refresh'): void;
+    puiselectbutton(methodName: 'widget'): JQuery;
+    puiselectbutton(methodName: string): JQuery;
+    puiselectbutton(options: PrimeUI.CarouselOptions): JQuery;
+    puiselectbutton(optionLiteral: string, optionName: string): any;
+    puiselectbutton(optionLiteral: string, options: PrimeUI.SelectbuttonOptions): any;
+    puiselectbutton(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

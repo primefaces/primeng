@@ -9505,26 +9505,40 @@ PUI.resolveUserAgent();/**
     $.widget("primeui.puiselectbutton", {
 
         options: {
+            value: null,
             choices: null,
             formfield: null,
             unselectable: false,
             tabindex: '0',
-            multiple: false
+            multiple: false,
+            enhanced: false
         },
 
         _create: function() {
             this.element.addClass('pui-selectbutton pui-buttonset ui-widget ui-corner-all').attr('tabindex');
 
             //create buttons
-            if(this.options.choices) {
-                this.element.addClass('pui-buttonset-' + this.options.choices.length);
-                for(var i = 0; i < this.options.choices.length; i++) {
-                    this.element.append('<div class="pui-button ui-widget ui-state-default pui-button-text-only" tabindex="' + this.options.tabindex + '" data-value="'
-                        + this.options.choices[i].value + '">' +
-                        '<span class="pui-button-text ui-c">' +
-                        this.options.choices[i].label +
-                        '</span></div>');
+            if(!this.options.enhanced) {
+                if(this.options.choices) {
+                    this.element.addClass('pui-buttonset-' + this.options.choices.length);
+                    for(var i = 0; i < this.options.choices.length; i++) {
+                        this.element.append('<div class="pui-button ui-widget ui-state-default pui-button-text-only" tabindex="' + this.options.tabindex + '" data-value="'
+                            + this.options.choices[i].value + '">' +
+                            '<span class="pui-button-text ui-c">' +
+                            this.options.choices[i].label +
+                            '</span></div>');
+                    }
                 }
+            }
+            else {
+                var $this = this,
+                buttons = this.element.children('div.pui-button');
+                this.options.choices = [];
+                $('div.pui-button').each(function(buttons) {
+                    var value = $(this).attr('data-value'),
+                        label = $(this).children('span').html();
+                    $this.options.choices.push({value,label});
+                });
             }
 
             //cornering
@@ -9549,7 +9563,28 @@ PUI.resolveUserAgent();/**
                 this.input.attr('name', this.options.formfield);
             }
 
+            //preselection
+            if(this.options.value) {
+                this._updateSelection(this.options.value);
+            }
+
             this._bindEvents();
+        },
+        fireEvent : function() {
+            var $this = this,
+                values = [],
+                indexes = [];
+            for(var i = 0; i < $this.buttons.length; i++) {
+                if($this.selectOptions.eq(i).prop('selected')) {
+                    values.push($this.buttons.eq(i).attr('data-value'));
+                    indexes.push(i);
+                }
+            }
+
+            $this._trigger('change', event, {
+                value: values,
+                index: indexes
+            })
         },
 
         _bindEvents: function() {
@@ -9569,19 +9604,23 @@ PUI.resolveUserAgent();/**
                     if($(this).hasClass("ui-state-active")) {
                         if($this.options.unselectable) {
                             $this.unselectOption(btn);
-                            $this._trigger('change', e);
+                            $this.fireEvent();
                         }
                     }
                     else {
                         if($this.options.multiple) {
                             $this.selectOption(btn);
+                            $this.fireEvent();
                         }
                         else {
                             $this.unselectOption(btn.siblings('.ui-state-active'));
                             $this.selectOption(btn);
                         }
 
-                        $this._trigger('change', e);
+                        $this._trigger('change', e, {
+                            value: $this.buttons.eq(btn.index()).attr('data-value'),
+                            index: btn.index()
+                        });
                     }
                 })
                 .on('focus', function() {
@@ -9609,8 +9648,9 @@ PUI.resolveUserAgent();/**
         selectOption: function(value) {
             var btn = $.isNumeric(value) ? this.element.children('.pui-button').eq(value) : value;
 
-            if(this.options.multiple)
+            if(this.options.multiple) {
                 this.selectOptions.eq(btn.index()).prop('selected',true);
+            }
             else
                 this.input.val(btn.data('value'));
 
@@ -9627,8 +9667,32 @@ PUI.resolveUserAgent();/**
 
             btn.removeClass('ui-state-active');
             btn.removeClass('ui-state-focus');
-        }
+        },
+        _setOption: function (key, value) {
+            if (key === 'data') {
+                this.element.empty();
+                this._bindEvents();
+            }
+            else if (key === 'value') {
+                this._updateSelection(value);
+            }
+            else {
+                $.Widget.prototype._setOption.apply(this, arguments);
+            }
+        },
+        _updateSelection: function(value) {
+            this.buttons.prop('selected', false);
+            this.buttons.removeClass('ui-state-highlight')
 
+            for(var i = 0; i < this.buttons.length; i++) {
+                var button = this.buttons.eq(i);
+                if(button.attr('data-value') == value) {
+                    button.prop('selected', true);
+                    this.buttons.eq(i).addClass('ui-state-highlight');
+                }
+            }
+        }
+        
     });
 
 })();
