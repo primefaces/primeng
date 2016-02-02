@@ -1002,16 +1002,12 @@ PUI.resolveUserAgent();/**
                 this.id = this.element.uniqueId().attr('id');
             }
 
-            //create elements
             if(!this.options.enhanced) {
                 this.element.wrap('<div class="pui-carousel ui-widget ui-widget-content ui-corner-all"><div class="pui-carousel-viewport"></div></div>');
-                this.container = this.element.parent().parent();
-                this.element.addClass('pui-carousel-items');
-            }
-            else {
-                this.container = this.element.parent().parent();
             }
 
+            this.container = this.element.parent().parent();
+            this.element.addClass('pui-carousel-items');
             this.viewport = this.element.parent();
             this.container.prepend('<div class="pui-carousel-header ui-widget-header"><div class="pui-carousel-header-title"></div></div>');
             this.header = this.container.children('.pui-carousel-header');
@@ -1039,10 +1035,11 @@ PUI.resolveUserAgent();/**
         _destroy: function() {
             this._unbindEvents();
             this.header.remove();
+            this.items.removeClass('pui-carousel-item ui-widget-content ui-corner-all');
+            this.element.removeClass('pui-carousel-items')
 
             if(!this.options.enhanced) {
-                this.items.removeClass('pui-carousel-item ui-widget-content ui-corner-all');
-                this.element.removeClass('pui-carousel-items').removeAttr('style').unwrap().unwrap();
+                this.element.removeAttr('style').unwrap().unwrap();
             }
 
             if(this.options.datasource) {
