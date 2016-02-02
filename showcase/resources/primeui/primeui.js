@@ -6188,7 +6188,9 @@ PUI.resolveUserAgent();/**
             this.show();
         }
     });
-})();/**
+})();
+
+/**
  * PrimeUI listvox widget
  */
 (function() {
@@ -6279,6 +6281,18 @@ PUI.resolveUserAgent();/**
             var $this = this;
 
             //items
+            this._bindItemEvents();
+
+            //input
+            this.element.on('focus.puilistbox', function() {
+                $this.container.addClass('ui-state-focus');
+            }).on('blur.puilistbox', function() {
+                $this.container.removeClass('ui-state-focus');
+            });
+        },
+
+        _bindItemEvents: function() {
+            var $this = this;
             this.items.on('mouseover.puilistbox', function() {
                     var item = $(this);
                     if(!item.hasClass('ui-state-highlight')) {
@@ -6300,18 +6314,15 @@ PUI.resolveUserAgent();/**
                     else
                         $this._clickSingle(e, $(this));
                 });
-
-            //input
-            this.element.on('focus.puilistbox', function() {
-                $this.container.addClass('ui-state-focus');
-            }).on('blur.puilistbox', function() {
-                $this.container.removeClass('ui-state-focus');
-            });
         },
 
         _unbindEvents: function() {
-            this.items.off('mouseover.puilistbox mouseout.puilistbox dblclick.puilistbox click.puilistbox');
+            this._unbindItemEvents();
             this.element.off('focus.puilistbox blur.puilistbox');
+        },
+
+        _unbindItemEvents: function() {
+            this.items.off('mouseover.puilistbox mouseout.puilistbox dblclick.puilistbox click.puilistbox');
         },
 
         _clickSingle: function(event, item) {
@@ -6442,13 +6453,12 @@ PUI.resolveUserAgent();/**
             else if (key === 'value') {
                 this._updateSelection(value);
             }
+            else if (key === 'options') {
+                this._updateOptions(value);
+            }
             else {
                 $.Widget.prototype._setOption.apply(this, arguments);
             }
-        },
-
-        _unbindEvents: function() {
-            this.items.off('mouseover.puilistbox click.puilistbox dblclick.puilistbox');
         },
 
         disable: function () {
@@ -6498,6 +6508,17 @@ PUI.resolveUserAgent();/**
             }
         },
 
+        //primeng
+        _updateOptions: function(options) {
+            var $this = this;
+            setTimeout(function() {
+                $this.items = $this.listContainer.children('li').addClass('pui-listbox-item ui-corner-all');
+                $this.choices = $this.element.children('option');
+                $this._unbindItemEvents();
+                $this._bindItemEvents();
+            }, 50);
+        },
+
         _destroy: function() {
             this._unbindEvents();
 
@@ -6524,7 +6545,9 @@ PUI.resolveUserAgent();/**
         }
     });
 
-})();/**
+})();
+
+/**
  * PrimeUI BaseMenu widget
  */
 (function() {
