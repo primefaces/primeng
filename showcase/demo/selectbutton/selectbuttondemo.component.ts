@@ -24,4 +24,9 @@ export class SelectbuttonDemoComponent {
         this.types.push({label: 'House', value: 'House'});
         this.types.push({label: 'Studio', value: 'Studio'});
     }
+
+    clear() {
+        this.selectedType = null;
+        this.selectedTypes = [];
+    }
 }
