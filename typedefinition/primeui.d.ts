@@ -222,6 +222,17 @@ declare module PrimeUI {
         style?: string;
         styleClass?: string;
     }
+
+    //InputSwitch
+    interface InputSwitchEventParams {
+        checked?: boolean;
+    }
+
+    interface InputSwichOptions {
+        onLabel?: string;
+        offLabel?: string;
+        change?: (event?: Event, ui?: InputSwitchEventParams) => void;
+    }
 }
 
 interface JQuery {
@@ -429,4 +440,16 @@ interface JQuery {
     puicarousel(optionLiteral: string, optionName: string): any;
     puicarousel(optionLiteral: string, options: PrimeUI.CarouselOptions): any;
     puicarousel(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puiswitch(): JQuery;
+    puiswitch(methodName: 'destroy'): void;
+    puiswitch(methodName: 'disable'): void;
+    puiswitch(methodName: 'enable'): void;
+    puiswitch(methodName: 'refresh'): void;
+    puiswitch(methodName: 'widget'): JQuery;
+    puiswitch(methodName: string): JQuery;
+    puiswitch(options: PrimeUI.InputSwichOptions): JQuery;
+    puiswitch(optionLiteral: string, optionName: string): any;
+    puiswitch(optionLiteral: string, options: PrimeUI.InputSwichOptions): any;
+    puiswitch(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

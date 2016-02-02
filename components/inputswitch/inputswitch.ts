@@ -1,0 +1,80 @@
+/// <reference path="../../typedefinition/primeui.d.ts" />
+
+import {Component, ElementRef, AfterContentInit, OnDestroy, OnChanges, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
+
+@Component({
+    selector: 'p-inputSwitch',
+    template: `
+        <div class="pui-inputswitch ui-widget ui-widget-content ui-corner-all">
+            <div class="pui-inputswitch-off">
+                <span>{{offLabel}}</span>
+            </div>
+            <div class="pui-inputswitch-on">
+                <span>{{onLabel}}</span>
+            </div>
+            <div class="pui-inputswitch-handle ui-state-default"></div>
+            <div class="ui-helper-hidden-accessible">
+                <input type="checkbox" />
+            </div>
+        </div>
+    `
+})
+export class InputSwitch implements AfterContentInit, OnDestroy, OnChanges {
+
+    @Input() onLabel: string = 'On';
+
+    @Input() offLabel: string = 'Off';
+
+    @Input() checked: boolean;
+
+    @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() checkedChange: EventEmitter<any> = new EventEmitter();
+
+    initialized: boolean;
+
+    stopNgOnChangesPropagation: boolean;
+
+    inputSwitchElement: any;
+
+    constructor(private el: ElementRef) {
+        this.initialized = false;
+    }
+
+    ngAfterContentInit() {
+        setTimeout(() => {
+            this.inputSwitchElement = jQuery(this.el.nativeElement.children[0]).find('> .ui-helper-hidden-accessible > input');
+            this.inputSwitchElement.puiswitch({
+                checked: this.checked,
+                enhanced: true,
+                change: (event: Event, ui: PrimeUI.InputSwitchEventParams) => {
+                    this.stopNgOnChangesPropagation = true;
+                    this.checkedChange.next(ui.checked);
+                    if (this.onChange) {
+                        this.onChange.next({originalEvent: event, checked: ui.checked});
+                    }
+                }
+            });
+            this.initialized = true;
+        }, 10);
+    }
+
+    ngOnChanges(changes: { [key: string]: SimpleChange }) {
+        if (this.initialized) {
+            for (var key in changes) {
+                if (key == 'checked' && this.stopNgOnChangesPropagation) {
+                    this.stopNgOnChangesPropagation = false;
+                    continue;
+                }
+
+                this.inputSwitchElement.puiswitch('option', key, changes[key].currentValue);
+            }
+        }
+    }
+
+    ngOnDestroy() {
+        this.inputSwitchElement.puiswitch('destroy');
+        this.initialized = false;
+        this.inputSwitchElement = null;
+    }
+}

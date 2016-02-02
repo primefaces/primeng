@@ -1,0 +1,170 @@
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">InputSwitch</span>
+        <span class="defaultText dispTable">InputSwitch is used to select a boolean value.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <h3 class="first">Basic - {{checked1}}</h3>
+    <p-inputSwitch [(checked)]="checked1"></p-inputSwitch>
+
+    <h3>Labels - {{checked2}}</h3>
+    <p-inputSwitch onLabel="Yes" offLabel="No" [(checked)]="checked2"></p-inputSwitch>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+import {InputSwitch} from 'primeng/primeng';
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>InputSwitch is defined using p-inputSwitch element. Checked property supports two-way binding to retrieve and assign the model.</p>
+
+<pre>
+&lt;p-inputSwitch [(checked)]="checked"&gt;&lt;/p-inputSwitch&gt;
+</pre>
+
+<pre>
+export class ModelComponent {
+
+    checked: boolean;
+
+}
+</pre>
+
+            <p>As model is two-way binding enabled, setting the bound value as true displays the state as checked by default.</p>
+<pre>
+export class ModelComponent {
+
+   checked: boolean = true;
+
+}
+</pre>
+
+            <h3>Customization</h3>
+            <p>Labels can be customized using onLabel and offLabel properties.</p>
+            <pre>
+&lt;p-inputSwitch onLabel="I confirm" offLabel="I reject" [(checked)]="val"&gt;&lt;/p-inputSwitch&gt;
+</pre>
+
+            <h3>Attributes</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>checked</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Checked state of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>onLabel</td>
+                            <td>string</td>
+                            <td>On</td>
+                            <td>Label for the on state.</td>
+                        </tr>
+                        <tr>
+                            <td>offLabel</td>
+                            <td>string</td>
+                            <td>Off</td>
+                            <td>Label for the off state.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>onChange</td>
+                        <td>originalEvent: Event<br>
+                            checked: Boolean value to represent checked state.</td>
+                        <td>Callback to invoke on state change.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+<pre>
+&lt;p-inputSwitch (onChange)="handleChange($event)" [(checked)]="val"&gt;
+</pre>
+ <pre>
+export class ModelComponent {
+
+    handleChange(e) {
+        var isChecked = e.checked;
+    }
+}
+</pre>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>pui-inputswitch</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>pui-inputswitch-on</td>
+                            <td>Checked state element.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-inputswitch-off</td>
+                            <td>Unchecked state element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Switch.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+<pre>
+&lt;h3 class="first"&gt;Basic - <span>{</span><span>{</span>checked1<span>}</span><span>}</span>&lt;/h3&gt;
+&lt;p-inputSwitch [(checked)]="checked1"&gt;&lt;/p-inputSwitch&gt;
+
+&lt;h3&gt;Labels - &lt;span&gt; <span>{</span><span>{</span>checked2<span>}</span><span>}</span>&lt;/h3&gt;
+&lt;p-inputSwitch onLabel="Yes" offLabel="No" [(checked)]="checked2"&gt;&lt;/p-inputSwitch&gt;
+</pre>
+
+<pre>
+export class InputSwitchDemoComponent {
+
+    checked1: boolean = false;
+
+    checked2: boolean = true;
+}
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
