@@ -44,6 +44,8 @@ export class Listbox {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
+    stopNgOnChangesPropagation: boolean;
+
     constructor(private el: ElementRef) {
         this.initialized = false;
     }
@@ -57,6 +59,7 @@ export class Listbox {
             style: this.style,
             styleClass: this.styleClass,
             change: (event: Event, ui: PrimeUI.ListboxEventParams) => {
+                this.stopNgOnChangesPropagation = true;
                 this.onChange.next({originalEvent: event, value: ui.value});
                 if(this.multiple) {
                     var values:any = [];
@@ -75,6 +78,11 @@ export class Listbox {
     }
 
     ngOnChanges(changes: { [key: string]: SimpleChange}) {
+        if(this.stopNgOnChangesPropagation) {
+            this.stopNgOnChangesPropagation = false;
+            return;
+        }
+
         if (this.initialized) {
             for (var key in changes) {
                 jQuery(this.el.nativeElement.children[0].children[0].children[0]).puilistbox('option', key, changes[key].currentValue);
