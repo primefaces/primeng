@@ -3,13 +3,14 @@ import {Carousel} from '../../../components/carousel/carousel';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
-import {SelectItem} from '../../../components/api/selectitem';
+import {Growl} from '../../../components/growl/growl';
+import {Message} from '../../../components/api/message';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {Car} from '../common/car';
 
 @Component({
     templateUrl: 'showcase/demo/carousel/carouseldemo.component.html',
-    directives: [Carousel,TabPanel,TabView,Button,ROUTER_DIRECTIVES],
+    directives: [Carousel,TabPanel,TabView,Button,Growl,ROUTER_DIRECTIVES],
     styles: [`
         .pui-grid-row {
             text-align: center;
@@ -28,7 +29,10 @@ export class CarouselDemoComponent {
 
     cars: Car[];
 
+    msgs: Message[];
+
     constructor() {
+        this.msgs = [];
         this.cars = [];
         this.cars.push(new Car('r3278r2',2010,'Audi', 'Black'));
         this.cars.push(new Car('jhto2g2',2015,'BMW', 'White'));
@@ -39,5 +43,10 @@ export class CarouselDemoComponent {
         this.cars.push(new Car('ybw5fsd',1999,'Jaguar', 'Gray'));
         this.cars.push(new Car('45665e5',1996,'Mercedes', 'Black'));
         this.cars.push(new Car('he6sb5v',2012,'Ford', 'Blue'));
+    }
+
+    selectCar(car: Car) {
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'Car Selected', detail: 'Vin:' + car.vin});
     }
 }

@@ -209,6 +209,18 @@ declare module PrimeUI {
 
     //Carousel
     interface CarouselOptions {
+        numVisible?: number;
+        firstVisible?: number;
+        headerText?: string;
+        effectDuration?: any;
+        circular?: boolean;
+        breakpoint?: boolean;
+        responsive?: boolean;
+        autoplayInterval?: number;
+        easing?: string;
+        pageLinks?: number;
+        style?: string;
+        styleClass?: string;
     }
 }
 
