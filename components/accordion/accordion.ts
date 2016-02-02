@@ -50,13 +50,13 @@ export class Accordion implements OnDestroy, OnChanges, AfterViewInit {
     }
 
     ngOnChanges(changes: { [key: string]: SimpleChange }) {
-        if (this.stopNgOnChangesPropagation) {
-            this.stopNgOnChangesPropagation = false;
-            return;
-        }
-
         if (this.initialized) {
             for (var key in changes) {
+                if (key == 'activeIndex' && this.stopNgOnChangesPropagation) {
+                    this.stopNgOnChangesPropagation = false;
+                    continue;
+                }
+
                 jQuery(this.el.nativeElement.children[0]).puiaccordion('option', key, changes[key].currentValue);
             }
         }

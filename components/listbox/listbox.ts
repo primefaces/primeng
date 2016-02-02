@@ -78,13 +78,13 @@ export class Listbox {
     }
 
     ngOnChanges(changes: { [key: string]: SimpleChange}) {
-        if(this.stopNgOnChangesPropagation) {
-            this.stopNgOnChangesPropagation = false;
-            return;
-        }
-
         if (this.initialized) {
             for (var key in changes) {
+                if (key == 'value' && this.stopNgOnChangesPropagation) {
+                    this.stopNgOnChangesPropagation = false;
+                    continue;
+                }
+
                 jQuery(this.el.nativeElement.children[0].children[0].children[0]).puilistbox('option', key, changes[key].currentValue);
             }
         }

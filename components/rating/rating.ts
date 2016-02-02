@@ -53,13 +53,13 @@ export class Rating implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: {[key: string]: SimpleChange}) {
-        if (this.stopNgOnChangesPropagation) {
-            this.stopNgOnChangesPropagation = false;
-            return;
-        }
-
         if (this.initialized) {
             for (var key in changes) {
+                if (key == 'value' && this.stopNgOnChangesPropagation) {
+                    this.stopNgOnChangesPropagation = false;
+                    continue;
+                }
+
                 jQuery(this.el.nativeElement.children[0].children[0]).puirating('option', key, changes[key].currentValue);
             }
         }

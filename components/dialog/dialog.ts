@@ -120,13 +120,13 @@ export class Dialog implements AfterViewInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: { [key: string]: SimpleChange}) {
-        if (this.stopNgOnChangesPropagation) {
-            this.stopNgOnChangesPropagation = false;
-            return;
-        }
-
         if (this.initialized) {
             for (var key in changes) {
+                if (key == 'visible' && this.stopNgOnChangesPropagation) {
+                    this.stopNgOnChangesPropagation = false;
+                    continue;
+                }
+
                 jQuery(this.el.nativeElement.children[0]).puidialog('option', key, changes[key].currentValue);
             }
         }   
