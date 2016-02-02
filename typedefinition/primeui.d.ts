@@ -243,10 +243,7 @@ declare module PrimeUI {
     interface SelectButtonOptions {
         value?: any;
         formfield?: string;
-        unselectable?: boolean;
         tabindex?: number;
-        style?: string;
-        styleClass?: string;
         multiple?: boolean;
         enhanced?: boolean;
         change?: (event?: Event, ui?: ListboxEventParams) => void;

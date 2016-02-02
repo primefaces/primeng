@@ -7,8 +7,8 @@ import {SelectItem} from '../api/selectitem';
     selector: 'p-selectButton',
     template: `
         <div class="pui-selectbutton pui-buttonset ui-widget ui-corner-all">
-            <div *ngFor="#choice of choices;" class="pui-button ui-widget ui-state-default pui-button-text-only" [attr.data-value]="choice.value">
-                <span class="pui-button-text ui-c">{{choice.label}}</span>
+            <div *ngFor="#option of options;" class="pui-button ui-widget ui-state-default pui-button-text-only" [attr.data-value]="option.value">
+                <span class="pui-button-text pui-c">{{option.label}}</span>
             </div>
         </div>
     `
@@ -17,17 +17,11 @@ export class SelectButton {
 
     initialized: boolean;
 
-    @Input() choices: SelectItem[];
-
-    @Input() unselectable: boolean;
+    @Input() options: SelectItem[];
 
     @Input() tabindex: number;
 
     @Input() multiple: boolean;
-
-    @Input() style: string;
-
-    @Input() styleClass: string;
 
     @Input() value: any;
 
@@ -44,24 +38,21 @@ export class SelectButton {
     ngAfterViewInit() {
         jQuery(this.el.nativeElement.children[0]).puiselectbutton({
             value: this.value,
-            unselectable: this.unselectable,
             tabindex : this.tabindex,
             multiple: this.multiple,
             enhanced: true,
-            style: this.style,
-            styleClass: this.styleClass,
             change: (event: Event, ui: PrimeUI.SelectButtonEventParams) => {
                 this.stopNgOnChangesPropagation = true;
                 this.onChange.next({ originalEvent: event, value: ui.value });
                 if (this.multiple) {
                     var values: any = [];
                     for (var i = 0; i < ui.index.length; i++) {
-                        values.push(this.choices[ui.index[i]].value);
+                        values.push(this.options[ui.index[i]].value);
                     }
                     this.valueChange.next(values);
                 }
                 else {
-                    this.valueChange.next(this.choices[ui.index].value);
+                    this.valueChange.next(this.options[ui.index].value);
                 }
             }
         });

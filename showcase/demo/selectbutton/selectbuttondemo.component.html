@@ -7,12 +7,12 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Single</h3>
-    <p-selectButton [choices]="types" [(value)]="selectedType"></p-selectButton>
+    <p-selectButton [options]="types" [(value)]="selectedType"></p-selectButton>
 
     <p>Selected Type: {{selectedType}}</p>
 
     <h3>Multiple</h3>
-    <p-selectButton [choices]="types" [(value)]="selectedTypes" multiple="multiple"></p-selectButton>
+    <p-selectButton [options]="types" [(value)]="selectedTypes" multiple="multiple"></p-selectButton>
     <p>Selected Types: {{selectedTypes}}</p>
 
     <hr />
@@ -25,24 +25,61 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-import {Panel} from 'primeng/primeng';
+import {SelectButton} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Panel is defined with p-panel element.</p>
+            <p>SelectButton requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
 <pre>
-&lt;p-panel header="Title"&gt;
-    Content
-&lt;/p-panel&gt;
+&lt;p-selectButton [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-selectButton&gt;
 </pre>
-            <h3>Toggleable</h3>
-            <p>Content of the panel can be expanded and collapsed using toggleable option. Duration of the toggle effect
-                is customized with toggleDuration and default state is defined with collapsed option. Orientation is "vertical" by default
-                and other possible value is "horizontal".</p>
+
 <pre>
-&lt;p-panel header="Title" toggleable="true"&gt;
-    Content
-&lt;/p-panel&gt;
+import {SelectItem} from 'primeng/primeng';
+
+export class MyModel {
+
+    cities: SelectItem[];
+
+    selectedCity: string;
+
+    constructor() {
+        this.cities = [];
+        this.cities.push({label:'New York', value:'New York'});
+        this.cities.push({label:'Rome', value:'Rome'});
+        this.cities.push({label:'London', value:'London'});
+        this.cities.push({label:'Istanbul', value:'Istanbul'});
+        this.cities.push({label:'Paris', value:'Paris'});
+    }
+
+}
+</pre>
+
+            <h3>Multiple</h3>
+            <p>SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. In multiple case, model property should be an array.</p>
+<pre>
+&lt;p-selectButton [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-selectButton&gt;
+</pre>
+
+<pre>
+import {SelectItem} from 'primeng/primeng';
+
+export class MyModel {
+
+    cities: SelectItem[];
+
+    selectedCities: string[];
+
+    constructor() {
+        this.cities = [];
+        this.cities.push({label:'New York', value:'New York'});
+        this.cities.push({label:'Rome', value:'Rome'});
+        this.cities.push({label:'London', value:'London'});
+        this.cities.push({label:'Istanbul', value:'Istanbul'});
+        this.cities.push({label:'Paris', value:'Paris'});
+    }
+
+}
 </pre>
 
             <h3>Attributes</h3>
@@ -57,48 +94,30 @@ import {Panel} from 'primeng/primeng';
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>header</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Header text of the panel.</td>
-                    </tr>
-                    <tr>
-                        <td>toggleable</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>Defines if content of panel can be expanded and collapsed.</td>
-                    </tr>
-                    <tr>
-                        <td>toggleDuration</td>
-                        <td>any</td>
-                        <td>normal</td>
-                        <td>Duration of the effect in milliseconds or pre-defined values like "slow","normal" and "fast".</td>
-                    </tr>
-                    <tr>
-                        <td>toggleOrientation</td>
-                        <td>string</td>
-                        <td>vertical</td>
-                        <td>Defines orientation of toggle direction, valid values are "vertical" and "horizontal".</td>
-                    </tr>
-                    <tr>
-                        <td>collapsed</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>When specified, displays the panel as collapsed initially.</td>
-                    </tr>
-                    <tr>
-                        <td>closable</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>Defines if panel can be hidden using close option.</td>
-                    </tr>
-                    <tr>
-                        <td>closeDuration</td>
-                        <td>any</td>
-                        <td>normal</td>
-                        <td>Duration of the effect in milliseconds or pre-defined values like "slow","normal" and "fast".</td>
-                    </tr>
+                        <tr>
+                            <td>options</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of selectitems to display as the available options.</td>
+                        </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>any</td>
+                            <td>false</td>
+                            <td>Value of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>multiple</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specified, allows selecting multiple values.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the element in tabbing order.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -115,51 +134,57 @@ import {Panel} from 'primeng/primeng';
                     </thead>
                     <tbody>
                     <tr>
-                        <td>onBeforeCollapse</td>
-                        <td>event: Toggle event</td>
-                        <td>Callback to invoke before content is collapsed.</td>
-                    </tr>
-                    <tr>
-                        <td>onAfterCollapse</td>
-                        <td>event: Toggle event</td>
-                        <td>Callback to invoke  after content is collapsed.</td>
-                    </tr>
-                    <tr>
-                        <td>onBeforeExpand</td>
-                        <td>event: Toggle event</td>
-                        <td>Callback to invoke before content is expanded.</td>
-                    </tr>
-                    <tr>
-                        <td>onAfterExpand</td>
-                        <td>event: Toggle event</td>
-                        <td>Callback to invoke after content is expanded.</td>
-                    </tr>
-                    <tr>
-                        <td>onBeforeClose</td>
-                        <td>event: Toggle event</td>
-                        <td>Callback to invoke before panel is closed.</td>
-                    </tr>
-                    <tr>
-                        <td>onAfterClose</td>
-                        <td>event: Toggle event</td>
-                        <td>Callback to invoke after panel is closed.</td>
+                        <td>onChange</td>
+                        <td>originalEventevent<br />
+                            value: Single value or an array of values that are selected
+                        </td>
+                        <td>Callback to invoke when value changes.</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Panel.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI SelectButton.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
-&lt;p-panel header="Godfather I" toggleable="true"&gt;
-    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
-    kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-&lt;/p-panel&gt;
+&lt;h3 class="first"&gt;Single&lt;/h3&gt;
+&lt;p-selectButton [options]="types" [(value)]="selectedType"&gt;&lt;/p-selectButton&gt;
+
+&lt;p&gt;Selected Type: <span>{</span><span>{</span>selectedType<span>}</span><span>}</span>&lt;/p&gt;
+
+&lt;h3&gt;Multiple&lt;/h3&gt;
+&lt;p-selectButton [options]="types" [(value)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
+&lt;p&gt;Selected Types: <span>{</span><span>{</span>selectedTypes<span>}</span><span>}</span>&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;button type="button" (click)="clear()" pButton icon="fa-close"&gt;Clear&lt;/button&gt;
+</pre>
+
+<pre>
+export class SelectbuttonDemoComponent {
+
+    types: SelectItem[];
+
+    selectedType: string;
+
+    selectedTypes: string[] = ['Apartment','Studio'];
+
+    constructor() {
+        this.types = [];
+        this.types.push({label: 'Apartment', value: 'Apartment'});
+        this.types.push({label: 'House', value: 'House'});
+        this.types.push({label: 'Studio', value: 'Studio'});
+    }
+
+    clear() {
+        this.selectedType = null;
+        this.selectedTypes = [];
+    }
+}
 </pre>
         </p-tabPanel>
     </p-tabView>
