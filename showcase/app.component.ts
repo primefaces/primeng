@@ -25,6 +25,7 @@ import {GrowlDemoComponent} from './demo/growl/growldemo.component';
 import {CarouselDemoComponent} from './demo/carousel/carouseldemo.component';
 import {InputSwitchDemoComponent} from './demo/inputswitch/inputswitchdemo.component';
 import {SelectbuttonDemoComponent} from './demo/selectbutton/selectbuttondemo.component';
+import {CalendarDemoComponent} from './demo/calendar/calendardemo.component';
 
 @Component({
     selector: 'primeng-showcase',
@@ -56,7 +57,8 @@ import {SelectbuttonDemoComponent} from './demo/selectbutton/selectbuttondemo.co
     {path: '/growl', name: 'GrowlDemo', component: GrowlDemoComponent},
     {path: '/carousel', name: 'CarouselDemo', component: CarouselDemoComponent},
     {path: '/inputswitch', name: 'InputSwitchDemo', component: InputSwitchDemoComponent},
-    {path: '/selectbutton', name: 'SelectbuttonDemo', component: SelectbuttonDemoComponent}
+    {path: '/selectbutton', name: 'SelectbuttonDemo', component: SelectbuttonDemoComponent},
+    {path: '/calendar', name: 'CalendarDemo', component: CalendarDemoComponent}
 ])
 export class AppComponent {
 
