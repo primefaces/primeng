@@ -686,3 +686,8 @@ button.ui-button span {
 	background: #14A4FF;
 	color: #FFFFFF;
 }
+
+.pui-inputswitch-on {
+	background: #14A4FF !important;
+	color: #ffffff;
+}
