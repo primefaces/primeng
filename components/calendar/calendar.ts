@@ -57,6 +57,8 @@ export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
 
     @Input() disabled: any;
 
+    @Output() onSelect: EventEmitter<any> = new EventEmitter();
+
     hovered: boolean;
 
     focused: boolean;
@@ -86,6 +88,7 @@ export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
                 maxDate: this.maxDate,
                 onSelect: (dateText: string) => {
                     this.stopNgOnChangesPropagation = true;
+                    this.onSelect.next(dateText);
                     this.valueChange.next(dateText);
                 }
             });
