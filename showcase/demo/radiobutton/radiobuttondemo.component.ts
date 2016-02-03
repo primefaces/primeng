@@ -175,7 +175,6 @@ export class ModelComponent {
                 </p-tabPanel>
 
                 <p-tabPanel header="Source">
-<h3>Template</h3>
 <pre>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
@@ -212,7 +211,6 @@ Value 1 = <span>{</span><span>{</span>val1<span>}</span><span>}</span>
 Value 2 = <span>{</span><span>{</span>val2<span>}</span><span>}</span>
 </pre>
 
-<h3>RadioButtonDemoComponent</h3>
 <pre>
 export class RadioButtonDemoComponent {
 

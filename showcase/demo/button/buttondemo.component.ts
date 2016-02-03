@@ -124,7 +124,6 @@ export class Model {
                     <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Button.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
-                <h3>Template</h3>
 <pre>
 &lt;button type="text" pButton (click)="count()" [icon]="'fa-check'"&gt;Click&lt;/button&gt;
 

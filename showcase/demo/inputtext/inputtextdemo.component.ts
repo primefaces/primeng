@@ -90,7 +90,6 @@ import {InputText} from 'primeng/primeng';
                     <p>jQuery, jQuery UI WidgetFactory API, PrimeUI InputText.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
-<h3>Template</h3>
 <pre>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt; &amp;nbsp; <span>{</span><span>{</span>text<span>}</span><span>}</span>
@@ -101,7 +100,6 @@ import {InputText} from 'primeng/primeng';
 &lt;button type="text" (click)="toggleDisabled()" pButton&gt;Toggle&lt;/button&gt;
 </pre>
 
-<h3>InputTextDemoComponent</h3>
 <pre>
 export class InputTextDemoComponent {
 

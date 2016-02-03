@@ -180,7 +180,6 @@ export class ModelComponent {
                     <p>PrimeUI checkbox widget css.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
-<h3>Template</h3>
 <pre>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
@@ -223,7 +222,6 @@ Selected Cities: &lt;span *ngFor="#city of selectedCities"&gt; <span>{</span><sp
 Selected Categories: &lt;span *ngFor="#cat of selectedCategories"&gt; <span>{</span><span>{</span>cat<span>}</span><span>}</span> &amp;nbsp;&amp;nbsp;&lt;/span&gt;
 </pre>
 
-<h3>CheckboxDemoComponent</h3>
 <pre>
 export class CheckboxDemoComponent {
 
