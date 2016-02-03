@@ -467,6 +467,12 @@ td.ui-datepicker-unselectable {
 .ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
 .ui-datepicker-row-break { clear:both; width:100%; font-size:0em; }
 
+#ui-datepicker-div {
+	-moz-box-shadow: 0px 2px 5px rgba(0,0,0,0.8);
+	-webkit-box-shadow: 0px 2px 5px rgba(0,0,0,0.8);
+	box-shadow: 0px 2px 5px rgba(0,0,0,0.8);
+}
+
 /*
  * jQuery UI Progressbar 1.8.16
  *

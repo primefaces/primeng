@@ -242,17 +242,65 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI InputTextarea.</p>
+            <p>jQuery, jQuery UI Datepicker.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
-            <h3>Template</h3>
 <pre>
-&lt;h3 class="first"&gt;Default&lt;/h3&gt;
-&lt;textarea rows="5" cols="30" pInputTextarea&gt;&lt;/textarea&gt;
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-calendar [(value)]="date1"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date1<span>}</span><span>}</span>
 
-&lt;h3&gt;AutoResize&lt;/h3&gt;
-&lt;textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"&gt;&lt;/textarea&gt;
+&lt;h3&gt;DateFormat&lt;/h3&gt;
+&lt;p-calendar [(value)]="date2" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date2<span>}</span><span>}</span>
+
+&lt;h3&gt;ShowAnim&lt;/h3&gt;
+&lt;p-calendar [(value)]="date3" showAnim="blind"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date3<span>}</span><span>}</span>
+
+&lt;h3&gt;ButtonPanel&lt;/h3&gt;
+&lt;p-calendar [(value)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date4<span>}</span><span>}</span>
+
+&lt;h3&gt;Navigators&lt;/h3&gt;
+&lt;p-calendar [(value)]="date5" [monthNavigator]="true" [yearNavigator]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date5<span>}</span><span>}</span>
+
+&lt;h3&gt;Multiple Months&lt;/h3&gt;
+&lt;p-calendar [(value)]="date6" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date1<span>6</span><span>}</span>
+
+&lt;h3&gt;Show Week and Months&lt;/h3&gt;
+&lt;p-calendar [(value)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date7<span>}</span><span>}</span>
+
+&lt;h3&gt;Restrict&lt;/h3&gt;
+&lt;p-calendar [(value)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date8<span>}</span><span>}</span>
+
+&lt;h3&gt;Default Date&lt;/h3&gt;
+&lt;p-calendar [(value)]="date9" defaultDate="+1m +7d"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date9<span>}</span><span>}</span>
+
+&lt;h3&gt;Inline&lt;/h3&gt;
+&lt;p-calendar [(value)]="date2" [inline]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date10<span>}</span><span>}</span>
+</pre>
+
+<pre>
+export class CalendarDemoComponent {
+
+    date1: string;
+
+    date2: string;
+
+    date3: string;
+
+    date4: string;
+
+    date5: string;
+
+    date6: string;
+
+    date7: string;
+
+    date8: string;
+
+    date9: string;
+
+    date10: string;
+}
 </pre>
         </p-tabPanel>
     </p-tabView>
