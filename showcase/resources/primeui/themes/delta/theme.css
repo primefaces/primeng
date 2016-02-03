@@ -425,7 +425,7 @@
 .ui-datepicker-current-day a {
 	background: #20a8fe !important;
 	filter: none !important;
-	color: #FFF;
+	color: #FFFFFF !important;
 }
 
 .ui-datepicker-today a.ui-state-highlight {
