@@ -15,7 +15,7 @@
         <ul>
             <li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/>
-                <div style="font-size:14px;float:right;margin:2px 0 0 50px">{{car.label}}</div>
+                <div style="font-size:14px;float:right;margin-top:2px">{{car.label}}</div>
             </li>
         </ul>
     </p-dropdown>
@@ -253,7 +253,7 @@ export class MyModel {
     &lt;ul&gt;
         &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
             &lt;img src="showcase/resources/demo/images/car/<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin:2px 0 0 50px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
+            &lt;div style="font-size:14px;float:right;margin-top:2px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-dropdown&gt;
