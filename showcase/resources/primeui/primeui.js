@@ -4233,60 +4233,94 @@ PUI.resolveUserAgent();/**
             content: null,
             scrollHeight: 200,
             appendTo: 'body',
-            editable:false
+            editable: false,
+            value: null
         },
 
         _create: function() {
-            if(this.options.data) {
-                for(var i = 0; i < this.options.data.length; i++) {
-                    var choice = this.options.data[i];
-                    if(choice.label)
-                        this.element.append('<option value="' + choice.value + '">' + choice.label + '</option>');
-                    else
-                        this.element.append('<option value="' + choice + '">' + choice + '</option>');
+            this.id = this.element.attr('id');
+            if(!this.id) {
+                this.id = this.element.uniqueId().attr('id');
+            }
+
+            if(!this.options.enhanced) {
+                if(this.options.data) {
+                    for(var i = 0; i < this.options.data.length; i++) {
+                        var choice = this.options.data[i];
+                        if(choice.label)
+                            this.element.append('<option value="' + choice.value + '">' + choice.label + '</option>');
+                        else
+                            this.element.append('<option value="' + choice + '">' + choice + '</option>');
+                    }
+                }
+
+                this.element.wrap('<div class="pui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix" />')
+                    .wrap('<div class="ui-helper-hidden-accessible" />');
+
+                this.container = this.element.closest('.pui-dropdown');
+                this.focusElementContainer = $('<div class="ui-helper-hidden-accessible"><input type="text" /></div>').appendTo(this.container);
+                this.focusElement = this.focusElementContainer.children('input');
+                this.label = this.options.editable ? $('<input type="text" class="pui-dropdown-label pui-inputtext ui-corner-all"">')
+                    : $('<label class="pui-dropdown-label pui-inputtext ui-corner-all"/>');
+                this.label.appendTo(this.container);
+                this.menuIcon = $('<div class="pui-dropdown-trigger ui-state-default ui-corner-right"><span class="pui-icon fa fa-fw fa-caret-down"></span></div>')
+                    .appendTo(this.container);
+
+                //panel
+                this.panel = $('<div class="pui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden pui-shadow" />');
+                this.itemsWrapper = $('<div class="pui-dropdown-items-wrapper" />').appendTo(this.panel);
+                this.itemsContainer = $('<ul class="pui-dropdown-items pui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"></ul>')
+                    .appendTo(this.itemsWrapper);
+
+                this.optGroupsSize = this.itemsContainer.children('li.puiselectonemenu-item-group').length;
+
+                if(this.options.filter) {
+                    this.filterContainer = $('<div class="pui-dropdown-filter-container" />').prependTo(this.panel);
+                    this.filterInput = $('<input type="text" autocomplete="off" class="pui-dropdown-filter pui-inputtext ui-widget ui-state-default ui-corner-all" />')
+                        .appendTo(this.filterContainer);
+                    this.filterContainer.append('<span class="pui-icon fa fa-search"></span>');
+                }
+
+                this._generateItems();
+            }
+            else {
+                this.container = this.element.closest('.pui-dropdown');
+                this.focusElementContainer = this.container.children('.ui-helper-hidden-accessible:last');
+                this.focusElement = this.focusElementContainer.children('input');
+                this.label = this.container.children('.pui-dropdown-label');
+                this.menuIcon = this.container.children('.pui-dropdown-trigger');
+                this.panel = this.container.children('.pui-dropdown-panel');
+                this.itemsWrapper = this.panel.children('.pui-dropdown-items-wrapper');
+                this.itemsContainer = this.itemsWrapper.children('ul');
+                this.itemsContainer.addClass('pui-dropdown-items pui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset');
+                this.items = this.itemsContainer.children('li').addClass('pui-dropdown-item pui-dropdown-list-item ui-corner-all');
+
+                if(this.options.filter) {
+                    this.filterContainer = this.panel.children('.pui-dropdown-filter-container');
+                    this.filterInput = this.filterContainer.children('input');
                 }
             }
 
-            this.element.wrap('<div class="pui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix" />')
-                .wrap('<div class="ui-helper-hidden-accessible" />');
-            this.container = this.element.closest('.pui-dropdown');
-            this.focusElementContainer = $('<div class="ui-helper-hidden-accessible"><input type="text" /></div>').appendTo(this.container);
-            this.focusElement = this.focusElementContainer.children('input');
-            this.label = this.options.editable ? $('<input type="text" class="pui-dropdown-label pui-inputtext ui-corner-all"">')
-                : $('<label class="pui-dropdown-label pui-inputtext ui-corner-all"/>');
-            this.label.appendTo(this.container);
-            this.menuIcon = $('<div class="pui-dropdown-trigger ui-state-default ui-corner-right"><span class="pui-icon fa fa-fw fa-caret-down"></span></div>')
-                .appendTo(this.container);
-            //panel
-            this.panel = $('<div class="pui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden pui-shadow" />');
+            this.disabled = this.element.prop('disabled')||this.options.disabled;
+            this.choices = this.element.children('option');
+
             if(this.options.appendTo === 'self')
                 this.panel.appendTo(this.container);
             else
                 this.panel.appendTo(this.options.appendTo);
 
-            this.itemsWrapper = $('<div class="pui-dropdown-items-wrapper" />').appendTo(this.panel);
-            this.itemsContainer = $('<ul class="pui-dropdown-items pui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"></ul>')
-                .appendTo(this.itemsWrapper);
-
-            this.disabled = this.element.prop('disabled');
-            this.choices = this.element.children('option');
-            this.optGroupsSize = this.itemsContainer.children('li.puiselectonemenu-item-group').length;
-
-            if(this.options.filter) {
-                this.filterContainer = $('<div class="pui-dropdown-filter-container" />').prependTo(this.panel);
-                this.filterInput = $('<input type="text" autocomplete="off" class="pui-dropdown-filter pui-inputtext ui-widget ui-state-default ui-corner-all" />')
-                    .appendTo(this.filterContainer);
-                this.filterContainer.append('<span class="pui-icon fa fa-search"></span>');
-            }
-
-            this._generateItems();
-
             if(this.options.scrollHeight && this.panel.outerHeight() > this.options.scrollHeight) {
                 this.itemsWrapper.height(this.options.scrollHeight);
             }
 
-            var $this = this,
-                selectedOption = this.choices.filter(':selected');
+            var $this = this;
+
+            //preselection via value option
+            if(this.options.value) {
+                this.choices.filter('[value="'+this.options.value+'"]').prop('selected', true);
+            }
+
+            var selectedOption = this.choices.filter(':selected');
 
             //disable options
             this.choices.filter(':disabled').each(function() {
@@ -4418,7 +4452,7 @@ PUI.resolveUserAgent();/**
         _bindConstantEvents: function() {
             var $this = this;
 
-            $(document.body).bind('mousedown.pui-dropdown', function (e) {
+            $(document.body).on('mousedown.pui-dropdown-' + this.id, function (e) {
                 if($this.panel.is(":hidden")) {
                     return;
                 }
@@ -4448,7 +4482,7 @@ PUI.resolveUserAgent();/**
         _bindKeyEvents: function() {
             var $this = this;
 
-            this.focusElement.on('keydown.puiselectonemenu', function(e) {
+            this.focusElement.on('keydown.puidropdown', function(e) {
                 var keyCode = $.ui.keyCode,
                     key = e.which,
                     activeItem;
@@ -4545,6 +4579,23 @@ PUI.resolveUserAgent();/**
             });
         },
 
+        _unbindEvents: function() {
+            this.items.off('mouseover.puidropdown mouseout.puidropdown click.puidropdown');
+            this.triggers.off('mouseenter.puidropdown mouseleave.puidropdown click.puidropdown');
+            this.focusElement.off('keydown.puidropdown focus.puidropdown blur.puidropdown');
+
+            if(this.options.editable) {
+                this.label.off('change.puidropdown');
+            }
+
+            if(this.options.filter) {
+                this.filterInput.off('keyup.pui-dropdown');
+            }
+
+            $(document.body).off('mousedown.pui-dropdown-' + this.id);
+            this._unbindResize();
+        },
+
         _selectItem: function(item, silent) {
             var selectedOption = this.choices.eq(this._resolveItemIndex(item)),
                 currentOption = this.choices.filter(':selected'),
@@ -4593,9 +4644,13 @@ PUI.resolveUserAgent();/**
 
         _triggerChange: function(edited) {
             this.changed = false;
+            var selectedOption = this.choices.filter(':selected');
 
             if(this.options.change) {
-                this._trigger('change');
+                this._trigger('change', null, {
+                    value: selectedOption.val(),
+                    index: selectedOption.index()
+                });
             }
 
             if(!edited) {
@@ -4638,12 +4693,6 @@ PUI.resolveUserAgent();/**
 
         _unbindResize: function() {
             $(window).unbind(this.resizeNS);
-        },
-
-        _unbindEvents: function() {
-            this.items.off();
-            this.triggers.off();
-            this.label.off();
         },
 
         _alignPanelWidth: function() {
@@ -4827,8 +4876,8 @@ PUI.resolveUserAgent();/**
         },
 
         _setOption: function (key, value) {
-            $.Widget.prototype._setOption.apply(this, arguments);
             if (key === 'data') {
+                this.options.data = value;
                 this.removeAllOptions();
 
                 for(var i = 0; i < this.options.data.length; i++) {
@@ -4838,6 +4887,18 @@ PUI.resolveUserAgent();/**
                 if(this.options.scrollHeight && this.panel.outerHeight() > this.options.scrollHeight) {
                     this.itemsWrapper.height(this.options.scrollHeight);
                 }
+            }
+            else if(key === 'value') {
+                this.options.value = value;
+                this.choices.prop('selected', false);
+                var selectedOption = this.choices.filter('[value="'+this.options.value+'"]');
+                if(selectedOption.length) {
+                    selectedOption.prop('selected', true);
+                    this._highlightItem(this.items.eq(selectedOption.index()));
+                }
+            }
+            else {
+                $.Widget.prototype._setOption.apply(this, arguments);
             }
         },
 
@@ -4855,6 +4916,22 @@ PUI.resolveUserAgent();/**
 
         getEditableText: function() {
             return this.label.val();
+        },
+
+        _destroy: function() {
+            this._unbindEvents();
+            if(!this.options.enhanced) {
+                this.panel.remove();
+                this.label.remove();
+                this.menuIcon.remove();
+                this.focusElementContainer.remove();
+                this.element.unwrap().unwrap();
+            }
+            else {
+                if(this.options.appendTo == 'body') {
+                    this.panel.appendTo(this.container);
+                }
+            }
         }
     });
 
@@ -6188,9 +6265,7 @@ PUI.resolveUserAgent();/**
             this.show();
         }
     });
-})();
-
-/**
+})();/**
  * PrimeUI listvox widget
  */
 (function() {
@@ -6545,9 +6620,7 @@ PUI.resolveUserAgent();/**
         }
     });
 
-})();
-
-/**
+})();/**
  * PrimeUI BaseMenu widget
  */
 (function() {

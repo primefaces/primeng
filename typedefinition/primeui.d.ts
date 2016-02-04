@@ -249,6 +249,27 @@ declare module PrimeUI {
         enhanced?: boolean;
         change?: (event?: Event, ui?: ListboxEventParams) => void;
     }
+
+    //Dropdown
+    interface DropdownEventParams {
+        value?: any;
+        index?: any;
+    }
+
+    interface DropdownOptions {
+        effect?: string;
+        effectSpeed?: any;
+        filter?: boolean;
+        filterMatchMode?: string;
+        caseSensitiveFilter?: boolean;
+        filterFunction?: any;
+        data?: any;
+        content?: any;
+        scrollHeight?: number;
+        appendTo?: any;
+        editable?: boolean;
+        change?: (event?: Event, ui?: DropdownEventParams) => void;
+    }
 }
 
 interface JQuery {
@@ -480,4 +501,16 @@ interface JQuery {
     puiselectbutton(optionLiteral: string, optionName: string): any;
     puiselectbutton(optionLiteral: string, options: PrimeUI.SelectButtonEventParams): any;
     puiselectbutton(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puidropdown(): JQuery;
+    puidropdown(methodName: 'destroy'): void;
+    puidropdown(methodName: 'disable'): void;
+    puidropdown(methodName: 'enable'): void;
+    puidropdown(methodName: 'refresh'): void;
+    puidropdown(methodName: 'widget'): JQuery;
+    puidropdown(methodName: string): JQuery;
+    puidropdown(options: PrimeUI.DropdownOptions): JQuery;
+    puidropdown(optionLiteral: string, optionName: string): any;
+    puidropdown(optionLiteral: string, options: PrimeUI.DropdownOptions): any;
+    puidropdown(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
