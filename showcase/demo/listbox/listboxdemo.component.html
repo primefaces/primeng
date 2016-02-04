@@ -40,7 +40,7 @@ import {Listbox} from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Listbox requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
 <pre>
-&lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
+&lt;p-listbox&gt; [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
 </pre>
 
 <pre>
@@ -91,7 +91,7 @@ export class MyModel {
 </pre>
 
             <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unorder list.</p>
+            <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unordered list.</p>
 <pre>
 &lt;p-listbox [options]="cars" [(value)]="selectedCar" customContent="true" style="width:190px"&gt;
     &lt;ul&gt;

@@ -53,6 +53,10 @@ export class Dropdown {
 
     @Input() filterMatchMode: string;
 
+    @Input() style: string;
+
+    @Input() styleClass: string;
+
     initialized: boolean;
 
     selectElement: JQuery;
@@ -68,6 +72,8 @@ export class Dropdown {
             value: this.value,
             filter: this.filter,
             filterMatchMode: this.filterMatchMode,
+            style: this.style,
+            styleClass: this.styleClass,
             change: (event: Event, ui: DropdownEventParams) => {
                 var selectedValue = this.options[ui.index].value;
                 this.onChange.emit({originalEvent:event, value: selectedValue});

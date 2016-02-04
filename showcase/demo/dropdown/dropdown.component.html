@@ -1,17 +1,17 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Dropdown</span>
-        <span class="defaultText dispTable">Dropdown is used to select an item from a collection of options.</span>
+        <span class="defaultText dispTable">Dropdown is used to select an item from a collection of options. Custom content support and filtering are the notable features.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Single</h3>
-    <p-dropdown [options]="cities" [(value)]="selectedCity"></p-dropdown>
-    <p>Selected City: {{selectedCity}}</p>
+    <p-dropdown [options]="cities" [(value)]="selectedCity" style="width:100px"></p-dropdown>
+    <p>Selected City: {{selectedCity||'none'}}</p>
 
     <h3>Content with Filter</h3>
-    <p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true">
+    <p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true" style="width:100px">
         <ul>
             <li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/>
@@ -19,7 +19,7 @@
             </li>
         </ul>
     </p-dropdown>
-    <p>Selected Car: {{selectedCar}}</p>
+    <p>Selected Car: {{selectedCar||'none'}}</p>
 </div>
 
 <div class="ContentSideSections Source">
@@ -27,13 +27,13 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-import {Listbox} from 'primeng/primeng';
+import {Dropdown} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Listbox requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
+            <p>Dropdown requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
 <pre>
-&lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
+&lt;p-dropdown/gt; [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-dropdown&gt;
 </pre>
 
 <pre>
@@ -56,44 +56,24 @@ export class MyModel {
 
 }
 </pre>
-            <h3>Multiple</h3>
-            <p>Listbox allows selecting only one item, setting multiple option enables choosing more than one item. In multiple case, model property should be an array.</p>
+            <h3>Filtering</h3>
+            <p>Options can be filtered using an input field in the overlay, there are 3 different filtering modes defined with filterMatchMode; "startsWith" (default), "contains" and "endsWith".</p>
 <pre>
-&lt;p-listbox [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-listbox&gt;
-</pre>
-
-<pre>
-import {SelectItem} from 'primeng/primeng';
-
-export class MyModel {
-
-    cities: SelectItem[];
-
-    selectedCities: string[];
-
-    constructor() {
-        this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
-    }
-
-}
+&lt;p-listbox [options]="cities" [(value)]="selectedCities" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-listbox&gt;
 </pre>
 
             <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unorder list.</p>
+            <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unordered list.
+             The label of an item should be provided explicity with data-label attribute on li element.</p>
 <pre>
-&lt;p-listbox [options]="cars" [(value)]="selectedCar" customContent="true" style="width:190px"&gt;
+&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true"&gt;
     &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/<span>{</span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;<span>{</span><span>{</span>car.value<span>}</span><span>}</span>&lt;/div&gt;
+        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
+            &lt;img src="showcase/resources/demo/images/car/<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin:2px 0 0 50px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
-&lt;/p-listbox&gt;
+&lt;/p-dropdown&gt;
 </pre>
 
 <pre>
@@ -125,56 +105,62 @@ export class MyModel {
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Default</th>
-                        <th>Description</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>options</td>
-                        <td>array</td>
-                        <td>null</td>
-                        <td>An array of selectitems to display as the available options.</td>
-                    </tr>
-                    <tr>
-                        <td>value</td>
-                        <td>any</td>
-                        <td>false</td>
-                        <td>Value of the listbox.</td>
-                    </tr>
-                    <tr>
-                        <td>multiple</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>When specified, allows selecting multiple values.</td>
-                    </tr>
-                    <tr>
-                        <td>scrollHeight</td>
-                        <td>number</td>
-                        <td>200</td>
-                        <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
-                    </tr>
-                    <tr>
-                        <td>customContent</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>Used to display customized content inside the listbox.</td>
-                    </tr>
-                    <tr>
-                        <td>style</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Inline style of the element.</td>
-                    </tr>
-                    <tr>
-                        <td>styleClass</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Style class of the element.</td>
-                    </tr>
+                        <tr>
+                            <td>options</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of selectitems to display as the available options.</td>
+                        </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>any</td>
+                            <td>false</td>
+                            <td>Value of the dropdown.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollHeight</td>
+                            <td>number</td>
+                            <td>200</td>
+                            <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
+                        </tr>
+                        <tr>
+                            <td>customContent</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Used to display customized content inside the listbox.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>filter</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specified, displays an input field to filter the items on keyup.</td>
+                        </tr>
+                        <tr>
+                            <td>filterMatchMode</td>
+                            <td>string</td>
+                            <td>startsWith</td>
+                            <td>Filter algorithm, valid values are startsWith, contains and endsWith.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -195,7 +181,7 @@ export class MyModel {
                         <td>originalEvent: event<br />
                             value: Single value or an array of values that are selected
                         </td>
-                        <td>Callback to invoke when value of listbox changes.</td>
+                        <td>Callback to invoke when value of dropdown changes.</td>
                     </tr>
                     </tbody>
                 </table>
@@ -206,24 +192,48 @@ export class MyModel {
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Element</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>pui-listbox</td>
-                        <td>Container element.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-listbox-list</td>
-                        <td>List container.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-listbox-item</td>
-                        <td>An item in the list.</td>
-                    </tr>
+                        <tr>
+                            <td>pui-dropdown</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dropdown-label</td>
+                            <td>Element to display label of selected option.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dropdown-trigger</td>
+                            <td>Icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dropdown-panel</td>
+                            <td>Icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dropdown-items-wrapper</td>
+                            <td>Wrapper element of items list.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dropdown-items</td>
+                            <td>List element of items.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dropdown-item</td>
+                            <td>An item in the list.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dropdown-filter-container</td>
+                            <td>Container of filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>pui-dropdown-filter</td>
+                            <td>Filter element.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -235,36 +245,27 @@ export class MyModel {
         <p-tabPanel header="Source">
 <pre>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
+&lt;p-dropdown [options]="cities" [(value)]="selectedCity" style="width:100px"&gt;&lt;/p-dropdown&gt;
+&lt;p&gt;Selected City: {{selectedCity||'none'}}&lt;/p&gt;
 
-&lt;p&gt;Selected City: {{selectedCity}}&lt;/p&gt;
-
-&lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(value)]="selectedCities" multiple="multiple"&gt;&lt;/p-listbox&gt;
-&lt;p&gt;Selected Cities: &lt;span *ngFor="#c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h3&gt;Content&lt;/h3&gt;
-&lt;p-listbox [options]="cars" [(value)]="selectedCar" customContent="true" style="width:190px"&gt;
+&lt;h3&gt;Content with Filter&lt;/h3&gt;
+&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true" style="width:100px"&gt;
     &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/<span>{</span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;<span>{</span><span>{</span>car.value<span>}</span><span>}</span>&lt;/div&gt;
+        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
+            &lt;img src="showcase/resources/demo/images/car/<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin:2px 0 0 50px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
-&lt;/p-listbox&gt;
-&lt;p&gt;Selected Car: {{selectedCar}}&lt;/p&gt;
-
-&lt;button type="button" (click)="selectedCar=null" pButton icon="fa-close"&gt;Clear Selected Car&lt;/button&gt;
+&lt;/p-dropdown&gt;
+&lt;p&gt;Selected Car: {{selectedCar||'none'}}&lt;/p&gt;
 </pre>
 
 <pre>
-export class ListboxDemoComponent {
+export class DropdownDemoComponent {
 
     cities: SelectItem[];
 
     selectedCity: string;
-
-    selectedCities: string[];
 
     cars: SelectItem[];
 
@@ -272,6 +273,7 @@ export class ListboxDemoComponent {
 
     constructor() {
         this.cities = [];
+        this.cities.push({label:'Select City', value:''});
         this.cities.push({label:'New York', value:'New York'});
         this.cities.push({label:'Rome', value:'Rome'});
         this.cities.push({label:'London', value:'London'});
@@ -290,6 +292,7 @@ export class ListboxDemoComponent {
         this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
         this.cars.push({label: 'Volvo', value: 'Volvo'});
     }
+
 }
 </pre>
         </p-tabPanel>
