@@ -2191,6 +2191,13 @@ button.pui-button::-moz-focus-inner {
     display: none;
 }
 
+.pui-progressbar .pui-progressbar-value-animate {
+    -webkit-transition: width 1s ease-in-out;
+    -moz-transition: width 1s ease-in-out;
+    -o-transition: width 1s ease-in-out;
+    transition: width 1s ease-in-out;
+}
+
 .pui-progressbar .pui-progressbar-label {
     text-align: center;
     height: 100%;
