@@ -268,6 +268,8 @@ declare module PrimeUI {
         scrollHeight?: number;
         appendTo?: any;
         editable?: boolean;
+        style?: string;
+        styleClass?: string;
         change?: (event?: Event, ui?: DropdownEventParams) => void;
     }
 }
