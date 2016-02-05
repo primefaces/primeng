@@ -28,6 +28,7 @@ import {SelectbuttonDemoComponent} from './demo/selectbutton/selectbuttondemo.co
 import {CalendarDemoComponent} from './demo/calendar/calendardemo.component';
 import {DropdownDemoComponent} from './demo/dropdown/dropdowndemo.component';
 import {ProgressBarDemoComponent} from './demo/progressbar/progressbardemo.component';
+import {PieChartDemoComponent} from './demo/chart/piechartdemo.component';
 
 @Component({
     selector: 'primeng-showcase',
@@ -62,7 +63,8 @@ import {ProgressBarDemoComponent} from './demo/progressbar/progressbardemo.compo
     {path: '/selectbutton', name: 'SelectbuttonDemo', component: SelectbuttonDemoComponent},
     {path: '/calendar', name: 'CalendarDemo', component: CalendarDemoComponent},
     {path: '/dropdown', name: 'DropdownDemo', component: DropdownDemoComponent},
-    {path: '/progressbar', name: 'ProgressBarDemo', component: ProgressBarDemoComponent}
+    {path: '/progressbar', name: 'ProgressBarDemo', component: ProgressBarDemoComponent},
+    {path: '/piechart', name: 'PieChartDemo', component: PieChartDemoComponent}
 ])
 export class AppComponent {
 
