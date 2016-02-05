@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core';
-import {PieChart} from '../../../components/chart/piechart/piechart';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Growl} from '../../../components/growl/growl';
-import {Button} from '../../../components/button/button';
-import {Message} from '../../../components/api/message';
+import {PieChart} from '../../../../components/chart/piechart/piechart';
+import {TabView} from '../../../../components/tabview/tabview';
+import {TabPanel} from '../../../../components/tabview/tabpanel';
+import {Growl} from '../../../../components/growl/growl';
+import {Button} from '../../../../components/button/button';
+import {Message} from '../../../../components/api/message';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
-    templateUrl: 'showcase/demo/chart/piechartdemo.component.html',
+    templateUrl: 'showcase/demo/chart/piechart/piechartdemo.component.html',
     directives: [PieChart,Button,Growl,TabPanel,TabView,ROUTER_DIRECTIVES]
 })
 export class PieChartDemoComponent {

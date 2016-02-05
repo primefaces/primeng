@@ -51,6 +51,7 @@
 
             <span id="menu_chart" #chartmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = chartmenutitle.id"><img src="showcase/resources/images/mono/charts.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/chartsBlue.svg" /><span class="MainLinkText">Charts</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (chartmenutitle.id == activeMenuId), 'submenuhide': (chartmenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['DoughnutChartDemo']" (click)="mobileMenuActive = false">&#9679; Doughnut</a>
                 <a class="SubMenuLink" [routerLink]="['PieChartDemo']" (click)="mobileMenuActive = false">&#9679; Pie</a>
             </div>
 
