@@ -34,7 +34,7 @@ export class PieChart implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() legendTemplate: string = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>";
 
-    @Output() click: EventEmitter<any> = new EventEmitter();
+    @Output() onSegmentSelect: EventEmitter<any> = new EventEmitter();
 
     initialized: boolean;
 
@@ -45,6 +45,37 @@ export class PieChart implements AfterViewInit, OnDestroy, OnChanges {
     }
 
     ngAfterViewInit() {
+        this.initChart();
+
+        this.el.nativeElement.children[0].onclick = (event) => {
+            let segs = this.chart.getSegmentsAtEvent(event);
+            if(segs && segs[0]) {
+                this.onSegmentSelect.next({originalEvent: event, segment: segs[0]});
+            }
+            else {
+                console.log('no seg');
+            }
+        };
+    }
+
+    ngOnChanges(changes: {[key: string]: SimpleChange}) {
+        if (this.chart) {
+            for (var key in changes) {
+                if(key === 'value') {
+                    this.chart.destroy();
+                    this.initChart();
+                }
+            }
+        }
+    }
+
+    ngOnDestroy() {
+        if(this.chart) {
+            this.chart.destroy();
+        }
+    }
+
+    initChart() {
         this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).Pie(this.value, {
             segmentShowStroke: this.segmentShowStroke,
             segmentStrokeColor: this.segmentStrokeColor,
@@ -56,26 +87,5 @@ export class PieChart implements AfterViewInit, OnDestroy, OnChanges {
             animateScale: this.animateScale,
             legendTemplate: this.legendTemplate
         });
-
-        this.el.nativeElement.children[0].onclick = (event) => {
-            let segs = this.chart.getSegmentsAtEvent(event);
-            if(segs && segs[0]) {
-                this.click.next({originalEvent: event, segment: segs[0]});
-            }
-        };
-    }
-
-    ngOnChanges(changes: {[key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-
-            }
-        }
-    }
-
-    ngOnDestroy() {
-        if(this.chart) {
-            this.chart.clear();
-        }
     }
 }

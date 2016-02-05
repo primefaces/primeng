@@ -3,12 +3,13 @@ import {PieChart} from '../../../components/chart/piechart/piechart';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Growl} from '../../../components/growl/growl';
+import {Button} from '../../../components/button/button';
 import {Message} from '../../../components/api/message';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'showcase/demo/chart/piechartdemo.component.html',
-    directives: [PieChart,Growl,TabPanel,TabView,ROUTER_DIRECTIVES]
+    directives: [PieChart,Button,Growl,TabPanel,TabView,ROUTER_DIRECTIVES]
 })
 export class PieChartDemoComponent {
 
@@ -17,6 +18,8 @@ export class PieChartDemoComponent {
     data2: any[];
 
     msgs: Message[];
+
+    updated: boolean;
 
     constructor() {
         this.data1 = [{
@@ -71,13 +74,29 @@ export class PieChartDemoComponent {
     }
 
     onSegmentClick(event) {
-        console.log('Segment: ' + event.segment);
         if(event.segment) {
-            this.msgs = [];
-            this.msgs.push({severity: 'info', summary: 'Segment Selected', 'detail': event.segment.label});
+            this.msgs = [{severity: 'info', summary: 'Segment Selected', 'detail': event.segment.label}];
         }
-        else {
-            console.log('null');
-        }
+    }
+
+    updateData() {
+        this.data1 = [{
+                value: 200,
+                color: '#F7464A',
+                highlight: '#FF5A5E',
+                label: 'Red'
+            },
+            {
+                value: 300,
+                color: '#46BFBD',
+                highlight: '#5AD3D1',
+                label: 'Green'
+            },
+            {
+                value: 50,
+                color: '#FDB45C',
+                highlight: '#FFC870',
+                label: 'Yellow'
+            }];
     }
 }

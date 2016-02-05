@@ -8,7 +8,7 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
 
-    <div class="pui-grid pui-grid-responsive">
+    <div class="pui-grid pui-grid-responsive" style="margin-bottom:10px">
         <div class="pui-grid-row">
             <div class="pui-grid-col-6">
                 <h3 class="first">Basic</h3>
@@ -16,11 +16,12 @@
             </div>
             <div class="pui-grid-col-6">
                 <h3 class="first">Customized with Click Event</h3>
-                <p-pieChart [value]="data2" width="300" height="300" (click)="onSegmentClick($event)"
+                <p-pieChart [value]="data2" width="300" height="300" (onSegmentSelect)="onSegmentClick($event)"
                             [segmentShowStroke]="false" [animationSteps]="50" animationEasing="easeInOutQuint" [animateScale]="true"></p-pieChart>
             </div>
         </div>
     </div>
+    <button type="button" (click)="updateData()" pButton icon="fa-refresh" style="width:300px" *ngIf="!updated">Update Data</button>
 </div>
 
 <div class="ContentSideSections Source">
