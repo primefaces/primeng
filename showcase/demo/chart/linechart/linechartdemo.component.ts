@@ -54,8 +54,4 @@ export class LineChartDemoComponent {
 
         }
     }
-
-    removeYellow() {
-
-    }
 }
