@@ -68,11 +68,22 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
     }
 
     ngDoCheck() {
-        /*var changes = this.differ.diff(this.value);
-        if (changes && this.chart) {
-            this.chart.destroy();
+        let changes = null;
+        try {
+            changes = this.differ.diff(this.value);
+        } catch (e) {
+            if(this.value) {
+                changes = this.differ.diff(this.value.datasets);
+            }
+        }
+
+        if(changes) {
+            if (this.chart) {
+                this.chart.destroy();
+            }
+
             this.initChart();
-        }*/
+        }
     }
 
     ngOnDestroy() {
@@ -82,21 +93,24 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
     }
 
     initChart() {
-        this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).Line(this.value, {
-            scaleShowGridLines: this.scaleShowGridLines,
-            scaleGridLineColor: this.scaleGridLineColor,
-            scaleGridLineWidth: this.scaleGridLineWidth,
-            scaleShowHorizontalLines: this.scaleShowHorizontalLines,
-            scaleShowVerticalLines: this.scaleShowVerticalLines,
-            bezierCurve: this.bezierCurve,
-            bezierCurveTension: this.bezierCurveTension,
-            pointDot: this.pointDot,
-            pointDotRadius: this.pointDotRadius,
-            pointDotStrokeWidth: this.pointDotStrokeWidth,
-            pointHitDetectionRadius: this.pointHitDetectionRadius,
-            datasetStroke: this.datasetStroke,
-            datasetStrokeWidth: this.datasetStrokeWidth,
-            datasetFill: this.datasetFill
-        });
+        if(this.value) {
+            this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).Line(this.value, {
+                scaleShowGridLines: this.scaleShowGridLines,
+                scaleGridLineColor: this.scaleGridLineColor,
+                scaleGridLineWidth: this.scaleGridLineWidth,
+                scaleShowHorizontalLines: this.scaleShowHorizontalLines,
+                scaleShowVerticalLines: this.scaleShowVerticalLines,
+                bezierCurve: this.bezierCurve,
+                bezierCurveTension: this.bezierCurveTension,
+                pointDot: this.pointDot,
+                pointDotRadius: this.pointDotRadius,
+                pointDotStrokeWidth: this.pointDotStrokeWidth,
+                pointHitDetectionRadius: this.pointHitDetectionRadius,
+                datasetStroke: this.datasetStroke,
+                datasetStrokeWidth: this.datasetStrokeWidth,
+                datasetFill: this.datasetFill
+            });
+        }
+
     }
 }
