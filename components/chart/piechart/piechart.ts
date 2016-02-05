@@ -5,7 +5,7 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, DoCheck, SimpleChange, 
 @Component({
     selector: 'p-pieChart',
     template: `
-        <canvas [attr.width]="width" [attr.height]="height"></canvas>
+        <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
     `
 })
 export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
@@ -43,30 +43,21 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
     differ: any;
 
     constructor(private el: ElementRef, differs: IterableDiffers) {
-        this.initialized = false;
         this.differ = differs.find([]).create(null);
     }
 
     ngAfterViewInit() {
         this.initChart();
-
-        this.el.nativeElement.children[0].onclick = (event) => {
-            let segs = this.chart.getSegmentsAtEvent(event);
-            if(segs && segs[0]) {
-                this.onSegmentSelect.next({originalEvent: event, segment: segs[0]});
-            }
-            else {
-                console.log('no seg');
-            }
-        };
+        this.initialized = true;
     }
 
     ngDoCheck() {
         var changes = this.differ.diff(this.value);
-        if (changes) {
+        if (changes && this.initialized) {
             if(this.chart) {
                 this.chart.destroy();
             }
+
             this.initChart();
         }
     }
@@ -74,6 +65,17 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
     ngOnDestroy() {
         if(this.chart) {
             this.chart.destroy();
+            this.initialized = false;
+            this.chart = null;
+        }
+    }
+
+    onCanvasClick(event) {
+        if(this.chart) {
+            let segs = this.chart.getSegmentsAtEvent(event);
+            if(segs && segs[0]) {
+                this.onSegmentSelect.next({originalEvent: event, segment: segs[0]});
+            }
         }
     }
 

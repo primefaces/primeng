@@ -5,7 +5,7 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, DoCheck, SimpleChange, 
 @Component({
     selector: 'p-lineChart',
     template: `
-        <canvas [attr.width]="width" [attr.height]="height"></canvas>
+        <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
     `
 })
 export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
@@ -48,6 +48,8 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Output() onActivePointsSelect: EventEmitter<any> = new EventEmitter();
 
+    initialized: boolean;
+
     chart: any;
 
     differ: any;
@@ -58,13 +60,7 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
 
     ngAfterViewInit() {
         this.initChart();
-
-        this.el.nativeElement.children[0].onclick = (event) => {
-            let activePoints = this.chart.getPointsAtEvent(event);
-            if(activePoints) {
-                this.onActivePointsSelect.next({originalEvent: event, activePoints: activePoints});
-            }
-        };
+        this.initialized = true;
     }
 
     ngDoCheck() {
@@ -77,7 +73,7 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
             }
         }
 
-        if(changes) {
+        if(changes && this.initialized) {
             if (this.chart) {
                 this.chart.destroy();
             }
@@ -89,6 +85,17 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
     ngOnDestroy() {
         if(this.chart) {
             this.chart.destroy();
+            this.initialized = false;
+            this.chart = null;
+        }
+    }
+
+    onCanvasClick(event) {
+        if(this.chart) {
+            let activePoints = this.chart.getPointsAtEvent(event);
+            if(activePoints) {
+                this.onActivePointsSelect.next({originalEvent: event, activePoints: activePoints});
+            }
         }
     }
 
