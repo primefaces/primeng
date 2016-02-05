@@ -16,6 +16,7 @@ export * from './components/listbox/listbox';
 export * from './components/messages/messages';
 export * from './components/panel/panel';
 export * from './components/password/password';
+export * from './components/progressbar/progressbar';
 export * from './components/radiobutton/radiobutton';
 export * from './components/rating/rating';
 export * from './components/selectbutton/selectbutton';

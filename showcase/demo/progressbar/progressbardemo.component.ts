@@ -19,7 +19,6 @@ export class ProgressBarDemoComponent {
     msgs: Message[];
 
     ngOnInit() {
-        console.log('init');
         let interval = setInterval(() => {
             this.value = this.value + Math.floor(Math.random() * 10) + 1;
             console.log(this.value);
