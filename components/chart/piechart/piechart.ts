@@ -1,6 +1,6 @@
 /// <reference path="../../../typedefinition/chart.d.ts" />
 
-import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, SimpleChange, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, ElementRef, AfterViewInit, OnDestroy, DoCheck, SimpleChange, Input, Output, EventEmitter, IterableDiffers} from 'angular2/core';
 
 @Component({
     selector: 'p-pieChart',
@@ -8,7 +8,7 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, SimpleChange
         <canvas [attr.width]="width" [attr.height]="height"></canvas>
     `
 })
-export class PieChart implements AfterViewInit, OnDestroy, OnChanges {
+export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() value: CircularChartData[];
 
@@ -40,8 +40,11 @@ export class PieChart implements AfterViewInit, OnDestroy, OnChanges {
 
     chart: any;
 
-    constructor(private el: ElementRef) {
+    differ: any;
+
+    constructor(private el: ElementRef, differs: IterableDiffers) {
         this.initialized = false;
+        this.differ = differs.find([]).create(null);
     }
 
     ngAfterViewInit() {
@@ -58,14 +61,12 @@ export class PieChart implements AfterViewInit, OnDestroy, OnChanges {
         };
     }
 
-    ngOnChanges(changes: {[key: string]: SimpleChange}) {
-        if (this.chart) {
-            for (var key in changes) {
-                if(key === 'value') {
-                    this.chart.destroy();
-                    this.initChart();
-                }
-            }
+    ngDoCheck() {
+        var changes = this.differ.diff(this.value);
+        if (changes && this.chart) {
+            console.log('repaint');
+            this.chart.destroy();
+            this.initChart();
         }
     }
 

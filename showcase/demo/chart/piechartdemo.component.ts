@@ -79,24 +79,8 @@ export class PieChartDemoComponent {
         }
     }
 
-    updateData() {
-        this.data1 = [{
-                value: 200,
-                color: '#F7464A',
-                highlight: '#FF5A5E',
-                label: 'Red'
-            },
-            {
-                value: 300,
-                color: '#46BFBD',
-                highlight: '#5AD3D1',
-                label: 'Green'
-            },
-            {
-                value: 50,
-                color: '#FDB45C',
-                highlight: '#FFC870',
-                label: 'Yellow'
-            }];
+    removeYellow() {
+        this.data1.pop();
+        this.updated = true;
     }
 }
