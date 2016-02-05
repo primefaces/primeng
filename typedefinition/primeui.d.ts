@@ -271,6 +271,8 @@ declare module PrimeUI {
         style?: string;
         styleClass?: string;
         change?: (event?: Event, ui?: DropdownEventParams) => void;
+        enhanced?: boolean;
+        value?: any;
     }
 }
 
