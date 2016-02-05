@@ -63,8 +63,10 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
 
     ngDoCheck() {
         var changes = this.differ.diff(this.value);
-        if (changes && this.chart) {
-            this.chart.destroy();
+        if (changes) {
+            if(this.chart) {
+                this.chart.destroy();
+            }
             this.initChart();
         }
     }
@@ -76,16 +78,18 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
     }
 
     initChart() {
-        this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).Pie(this.value, {
-            segmentShowStroke: this.segmentShowStroke,
-            segmentStrokeColor: this.segmentStrokeColor,
-            segmentStrokeWidth: this.segmentStrokeWidth,
-            percentageInnerCutout: this.percentageInnerCutout,
-            animationSteps: this.animationSteps,
-            animationEasing: this.animationEasing,
-            animateRotate: this.animateRotate,
-            animateScale: this.animateScale,
-            legendTemplate: this.legendTemplate
-        });
+        if(this.value) {
+            this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).Pie(this.value, {
+                segmentShowStroke: this.segmentShowStroke,
+                segmentStrokeColor: this.segmentStrokeColor,
+                segmentStrokeWidth: this.segmentStrokeWidth,
+                percentageInnerCutout: this.percentageInnerCutout,
+                animationSteps: this.animationSteps,
+                animationEasing: this.animationEasing,
+                animateRotate: this.animateRotate,
+                animateScale: this.animateScale,
+                legendTemplate: this.legendTemplate
+            });
+        }
     }
 }
