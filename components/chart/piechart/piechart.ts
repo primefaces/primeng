@@ -64,7 +64,6 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
     ngDoCheck() {
         var changes = this.differ.diff(this.value);
         if (changes && this.chart) {
-            console.log('repaint');
             this.chart.destroy();
             this.initChart();
         }
