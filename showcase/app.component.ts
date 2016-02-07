@@ -31,6 +31,7 @@ import {ProgressBarDemoComponent} from './demo/progressbar/progressbardemo.compo
 import {PieChartDemoComponent} from './demo/chart/piechart/piechartdemo.component';
 import {DoughnutChartDemoComponent} from './demo/chart/doughnutchart/doughnutchartdemo.component';
 import {LineChartDemoComponent} from './demo/chart/linechart/linechartdemo.component';
+import {BarChartDemoComponent} from './demo/chart/barchart/barchartdemo.component';
 
 @Component({
     selector: 'primeng-showcase',
@@ -68,7 +69,8 @@ import {LineChartDemoComponent} from './demo/chart/linechart/linechartdemo.compo
     {path: '/progressbar', name: 'ProgressBarDemo', component: ProgressBarDemoComponent},
     {path: '/piechart', name: 'PieChartDemo', component: PieChartDemoComponent},
     {path: '/doughnutchart', name: 'DoughnutChartDemo', component: DoughnutChartDemoComponent},
-    {path: '/linechart', name: 'LineChartDemo', component: LineChartDemoComponent}
+    {path: '/linechart', name: 'LineChartDemo', component: LineChartDemoComponent},
+    {path: '/barchart', name: 'BarChartDemo', component: BarChartDemoComponent}
 ])
 export class AppComponent {
 
