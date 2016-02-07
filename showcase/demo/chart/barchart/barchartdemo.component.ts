@@ -23,13 +23,13 @@ export class BarChartDemoComponent {
             datasets: [
                 {
                     label: 'My First dataset',
-                    fillColor: '#90CAF9',
+                    fillColor: '#42A5F5',
                     strokeColor: '#1E88E5',
                     data: [65, 59, 80, 81, 56, 55, 40]
                 },
                 {
                     label: 'My Second dataset',
-                    fillColor: '#C5E1A5',
+                    fillColor: '#9CCC65',
                     strokeColor: '#7CB342',
                     data: [28, 48, 40, 19, 86, 27, 90]
                 }
