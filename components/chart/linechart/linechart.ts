@@ -46,7 +46,7 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>";
 
-    @Output() onActivePointsSelect: EventEmitter<any> = new EventEmitter();
+    @Output() onPointsSelect: EventEmitter<any> = new EventEmitter();
 
     initialized: boolean;
 
@@ -94,7 +94,7 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
         if(this.chart) {
             let activePoints = this.chart.getPointsAtEvent(event);
             if(activePoints) {
-                this.onActivePointsSelect.next({originalEvent: event, activePoints: activePoints});
+                this.onPointsSelect.next({originalEvent: event, points: activePoints});
             }
         }
     }

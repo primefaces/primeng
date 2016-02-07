@@ -46,10 +46,10 @@ export class LineChartDemoComponent {
     }
 
     onSelect(event) {
-        if(event.activePoints) {
+        if(event.points) {
             this.msgs = [];
-            for(var i = 0; i < event.activePoints.length; i++) {
-                this.msgs.push({severity: 'info', summary: 'Points Selected', 'detail': event.activePoints[i].value});
+            for(var i = 0; i < event.points.length; i++) {
+                this.msgs.push({severity: 'info', summary: 'Points Selected', 'detail': event.points[i].value});
             }
 
         }
