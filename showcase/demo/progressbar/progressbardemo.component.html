@@ -111,7 +111,6 @@ export class ProgressBarDemoComponent {
     ngOnInit() {
         let interval = setInterval(() => {
             this.value = this.value + Math.floor(Math.random() * 10) + 1;
-            console.log(this.value);
             if(this.value >= 100) {
                 this.value = 100;
                 this.msgs = [{severity: 'info', summary: 'Success', detail: 'Process Completed'}];
