@@ -32,6 +32,7 @@ import {PieChartDemoComponent} from './demo/chart/piechart/piechartdemo.componen
 import {DoughnutChartDemoComponent} from './demo/chart/doughnutchart/doughnutchartdemo.component';
 import {LineChartDemoComponent} from './demo/chart/linechart/linechartdemo.component';
 import {BarChartDemoComponent} from './demo/chart/barchart/barchartdemo.component';
+import {RadarChartDemoComponent} from './demo/chart/radarchart/radarchartdemo.component';
 
 @Component({
     selector: 'primeng-showcase',
@@ -70,7 +71,8 @@ import {BarChartDemoComponent} from './demo/chart/barchart/barchartdemo.componen
     {path: '/piechart', name: 'PieChartDemo', component: PieChartDemoComponent},
     {path: '/doughnutchart', name: 'DoughnutChartDemo', component: DoughnutChartDemoComponent},
     {path: '/linechart', name: 'LineChartDemo', component: LineChartDemoComponent},
-    {path: '/barchart', name: 'BarChartDemo', component: BarChartDemoComponent}
+    {path: '/barchart', name: 'BarChartDemo', component: BarChartDemoComponent},
+    {path: '/radarchart', name: 'RadarChartDemo', component: RadarChartDemoComponent}
 ])
 export class AppComponent {
 
