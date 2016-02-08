@@ -33,6 +33,7 @@ import {DoughnutChartDemoComponent} from './demo/chart/doughnutchart/doughnutcha
 import {LineChartDemoComponent} from './demo/chart/linechart/linechartdemo.component';
 import {BarChartDemoComponent} from './demo/chart/barchart/barchartdemo.component';
 import {RadarChartDemoComponent} from './demo/chart/radarchart/radarchartdemo.component';
+import {PolarAreaChartDemoComponent} from './demo/chart/polarareachart/polarareachartdemo.component';
 
 @Component({
     selector: 'primeng-showcase',
@@ -72,7 +73,8 @@ import {RadarChartDemoComponent} from './demo/chart/radarchart/radarchartdemo.co
     {path: '/doughnutchart', name: 'DoughnutChartDemo', component: DoughnutChartDemoComponent},
     {path: '/linechart', name: 'LineChartDemo', component: LineChartDemoComponent},
     {path: '/barchart', name: 'BarChartDemo', component: BarChartDemoComponent},
-    {path: '/radarchart', name: 'RadarChartDemo', component: RadarChartDemoComponent}
+    {path: '/radarchart', name: 'RadarChartDemo', component: RadarChartDemoComponent},
+    {path: '/polarareachart', name: 'PolarAreaChartDemo', component: PolarAreaChartDemoComponent}
 ])
 export class AppComponent {
 

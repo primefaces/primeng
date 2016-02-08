@@ -3,12 +3,12 @@
 import {Component, ElementRef, AfterViewInit, OnDestroy, DoCheck, SimpleChange, Input, Output, EventEmitter, IterableDiffers} from 'angular2/core';
 
 @Component({
-    selector: 'p-pieChart',
+    selector: 'p-polarAreaChart',
     template: `
         <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
     `
 })
-export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
+export class PolarAreaChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() value: CircularChartData[];
 
@@ -16,17 +16,27 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() height: string;
 
+    @Input() scaleShowLabelBackdrop: boolean = true;
+
+    @Input() scaleBackdropColor: string = "rgba(255,255,255,0.75)";
+
+    @Input() scaleBeginAtZero: boolean = true;
+
+    @Input() scaleBackdropPaddingY: number = 2;
+
+    @Input() scaleBackdropPaddingX: number = 2;
+
+    @Input() scaleShowLine: boolean = true;
+
     @Input() segmentShowStroke: boolean = true;
 
-    @Input() segmentStrokeColor: string = '#fff';
+    @Input() segmentStrokeColor: string = "#fff";
 
     @Input() segmentStrokeWidth: number = 2;
 
-    @Input() percentageInnerCutout: number = 0;
-
     @Input() animationSteps: number = 100;
 
-    @Input() animationEasing: string = 'easeOutBounce';
+    @Input() animationEasing: string = "easeOutBounce";
 
     @Input() animateRotate: boolean = true;
 
@@ -81,16 +91,20 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
 
     initChart() {
         if(this.value) {
-            this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).Pie(this.value, {
+            this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).PolarArea(this.value, {
+                scaleShowLabelBackdrop: this.scaleShowLabelBackdrop,
+                scaleBackdropColor: this.scaleBackdropColor,
+                scaleBeginAtZero: this.scaleBeginAtZero,
+                scaleBackdropPaddingY: this.scaleBackdropPaddingY,
+                scaleBackdropPaddingX: this.scaleBackdropPaddingX,
+                scaleShowLine: this.scaleShowLine,
                 segmentShowStroke: this.segmentShowStroke,
                 segmentStrokeColor: this.segmentStrokeColor,
                 segmentStrokeWidth: this.segmentStrokeWidth,
-                percentageInnerCutout: this.percentageInnerCutout,
                 animationSteps: this.animationSteps,
                 animationEasing: this.animationEasing,
                 animateRotate: this.animateRotate,
-                animateScale: this.animateScale,
-                legendTemplate: this.legendTemplate
+                animateScale: this.animateScale
             });
         }
     }
