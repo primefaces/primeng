@@ -28,6 +28,12 @@ import {SelectbuttonDemoComponent} from './demo/selectbutton/selectbuttondemo.co
 import {CalendarDemoComponent} from './demo/calendar/calendardemo.component';
 import {DropdownDemoComponent} from './demo/dropdown/dropdowndemo.component';
 import {ProgressBarDemoComponent} from './demo/progressbar/progressbardemo.component';
+import {PieChartDemoComponent} from './demo/chart/piechart/piechartdemo.component';
+import {DoughnutChartDemoComponent} from './demo/chart/doughnutchart/doughnutchartdemo.component';
+import {LineChartDemoComponent} from './demo/chart/linechart/linechartdemo.component';
+import {BarChartDemoComponent} from './demo/chart/barchart/barchartdemo.component';
+import {RadarChartDemoComponent} from './demo/chart/radarchart/radarchartdemo.component';
+import {PolarAreaChartDemoComponent} from './demo/chart/polarareachart/polarareachartdemo.component';
 
 @Component({
     selector: 'primeng-showcase',
@@ -62,7 +68,13 @@ import {ProgressBarDemoComponent} from './demo/progressbar/progressbardemo.compo
     {path: '/selectbutton', name: 'SelectbuttonDemo', component: SelectbuttonDemoComponent},
     {path: '/calendar', name: 'CalendarDemo', component: CalendarDemoComponent},
     {path: '/dropdown', name: 'DropdownDemo', component: DropdownDemoComponent},
-    {path: '/progressbar', name: 'ProgressBarDemo', component: ProgressBarDemoComponent}
+    {path: '/progressbar', name: 'ProgressBarDemo', component: ProgressBarDemoComponent},
+    {path: '/piechart', name: 'PieChartDemo', component: PieChartDemoComponent},
+    {path: '/doughnutchart', name: 'DoughnutChartDemo', component: DoughnutChartDemoComponent},
+    {path: '/linechart', name: 'LineChartDemo', component: LineChartDemoComponent},
+    {path: '/barchart', name: 'BarChartDemo', component: BarChartDemoComponent},
+    {path: '/radarchart', name: 'RadarChartDemo', component: RadarChartDemoComponent},
+    {path: '/polarareachart', name: 'PolarAreaChartDemo', component: PolarAreaChartDemoComponent}
 ])
 export class AppComponent {
 
