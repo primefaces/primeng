@@ -74,8 +74,8 @@ export class PieChartDemoComponent {
     }
 
     onSegmentClick(event) {
-        if(event.segment) {
-            this.msgs = [{severity: 'info', summary: 'Segment Selected', 'detail': event.segment.label}];
+        if(event.segments) {
+            this.msgs = [{severity: 'info', summary: 'Segment Selected', 'detail': event.segments[0].label}];
         }
     }
 
