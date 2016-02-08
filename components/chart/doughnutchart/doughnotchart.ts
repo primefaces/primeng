@@ -73,8 +73,8 @@ export class DoughnutChart implements AfterViewInit, OnDestroy, DoCheck {
     onCanvasClick(event) {
         if(this.chart) {
             let segs = this.chart.getSegmentsAtEvent(event);
-            if(segs && segs[0]) {
-                this.onSegmentSelect.next({originalEvent: event, segment: segs[0]});
+            if(segs) {
+                this.onSegmentSelect.next({originalEvent: event, segments: segs});
             }
         }
     }
