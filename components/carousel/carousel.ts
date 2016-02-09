@@ -5,8 +5,8 @@ import {Component,ElementRef,AfterContentInit,OnDestroy,OnChanges,Input,Output,S
 @Component({
     selector: 'p-carousel',
     template: `
-        <div class="pui-carousel ui-widget-content ui-corner-all">
-            <div class="pui-carousel-viewport">
+        <div class="ui-carousel ui-widget-content ui-corner-all">
+            <div class="ui-carousel-viewport">
                 <ng-content></ng-content>
             </div>
         </div>
@@ -47,7 +47,7 @@ export class Carousel {
     }
 
     ngAfterContentInit() {
-        this.carouselElement = jQuery(this.el.nativeElement).find('> .pui-carousel > .pui-carousel-viewport > ul');
+        this.carouselElement = jQuery(this.el.nativeElement).find('> .ui-carousel > .ui-carousel-viewport > ul');
         this.carouselElement.puicarousel({
             numVisible: this.numVisible,
             firstVisible: this.firstVisible,

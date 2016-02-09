@@ -56,7 +56,7 @@ a {
     color: #4f4f4f;
 }
 
-.pui-datatable-odd {
+.ui-datatable-odd {
     background: none repeat scroll 0 0 #F2F5F9;
 }
 
@@ -1110,25 +1110,25 @@ a {
     background: #85b2cb -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0)); /*   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF);     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF)"; */
 }
 
-.pui-tabview .pui-tabview-nav li {
+.ui-tabview .ui-tabview-nav li {
     border: 1px solid #a8a8a8;
 }
 
-.pui-tabview .pui-tabview-nav li.pui-tabview-selected {
+.ui-tabview .ui-tabview-nav li.ui-tabview-selected {
     border: 1px solid #a8a8a8;
 }
 
-.pui-tabview.pui-tabview-top .pui-tabview-nav li.pui-tabview-selected {
+.ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-tabview-selected {
     border-bottom: 0;
 }
 
-.pui-tabview .pui-tabview-panel {
+.ui-tabview .ui-tabview-panel {
     border-width: 0;
     padding: 1em 1.4em;
     background: none;
 }
 
-.pui-tabview .pui-tabview-nav {
+.ui-tabview .ui-tabview-nav {
     background: #e3e3e3;
     background: #e3e3e3 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
     background: #e3e3e3 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
@@ -1138,7 +1138,7 @@ a {
     border-radius: 0;
 }
 
-.pui-tabview .pui-tabview-nav .pui-tabview-selected {
+.ui-tabview .ui-tabview-nav .ui-tabview-selected {
     background: #fff;
     border-bottom: none;
     -moz-box-shadow: none;
@@ -1196,13 +1196,13 @@ a {
     -moz-box-shadow: none;
 }
 
-.pui-progressbar {
+.ui-progressbar {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
 
-.pui-progressbar .ui-widget-header {
+.ui-progressbar .ui-widget-header {
     background: #85b2cb;
     background: #85b2cb linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
     background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
@@ -1215,7 +1215,7 @@ a {
 }
 
 /* PrimeFaces Extensions */
-.pui-inputtext, .ui-widget-content .pui-inputtext, .ui-widget-header .pui-inputtext {
+.ui-inputtext, .ui-widget-content .ui-inputtext, .ui-widget-header .ui-inputtext {
     background: #ffffff;
     -moz-box-shadow: inset 0 2px 2px #8f8f8f;
     -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
@@ -1223,28 +1223,28 @@ a {
     color: #313131;
 }
 
-.pui-inputtext.ui-state-focus, .ui-widget-content .pui-inputtext.ui-state-focus, .ui-widget-header .pui-inputtext.ui-state-focus {
+.ui-inputtext.ui-state-focus, .ui-widget-content .ui-inputtext.ui-state-focus, .ui-widget-header .ui-inputtext.ui-state-focus {
     -moz-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
     -webkit-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
     box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
 }
 
-.pui-menu, .pui-menu .pui-menu-child {
+.ui-menu, .ui-menu .ui-menu-child {
     background: #c4c4c4 url(ui-bg_highlight-hard_80_c4c4c4_1x100.png) top repeat-x;
     background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
     background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
     background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
 }
 
-*html .pui-menu .pui-menu-list {
+*html .ui-menu .ui-menu-list {
     background: none;
 }
 
-*html .pui-menubar .pui-menu-child {
+*html .ui-menubar .ui-menu-child {
     background: #ffffff;
 }
 
-*html .pui-menu .pui-menuitem-link {
+*html .ui-menu .ui-menuitem-link {
     border-color: #c4c4c4;
     filter: chroma(color=#c4c4c4);
 }

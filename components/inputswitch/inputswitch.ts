@@ -5,14 +5,14 @@ import {Component, ElementRef, AfterContentInit, OnDestroy, OnChanges, Input, Ou
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div class="pui-inputswitch ui-widget ui-widget-content ui-corner-all">
-            <div class="pui-inputswitch-off">
+        <div class="ui-inputswitch ui-widget ui-widget-content ui-corner-all">
+            <div class="ui-inputswitch-off">
                 <span>{{offLabel}}</span>
             </div>
-            <div class="pui-inputswitch-on">
+            <div class="ui-inputswitch-on">
                 <span>{{onLabel}}</span>
             </div>
-            <div class="pui-inputswitch-handle ui-state-default"></div>
+            <div class="ui-inputswitch-handle ui-state-default"></div>
             <div class="ui-helper-hidden-accessible">
                 <input type="checkbox" />
             </div>

@@ -4,11 +4,11 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 
 @Component ({
     styles:[`
-        .pui-grid {
+        .ui-grid {
             margin-bottom: 10px;
         }
 
-        .pui-grid .pui-grid-row div {
+        .ui-grid .ui-grid-row div {
             background-color: #cccccc;
             text-align: center;
             border: 1px solid #dddddd;

@@ -349,7 +349,7 @@
 .ui-widget-shadow { margin: -7px 0 0 -7px; padding: 7px; background: #000000; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }
 
 /* PrimeFaces Extensions */
-.pui-inputtext, .ui-widget-content .pui-inputtext, .ui-widget-header .pui-inputtext {
+.ui-inputtext, .ui-widget-content .ui-inputtext, .ui-widget-header .ui-inputtext {
     cursor: text;
     background: none #ffffff;
     border: 1px solid #cccccc;
@@ -366,7 +366,7 @@
             transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 
-.pui-inputtext.ui-state-focus, .ui-widget-content .pui-inputtext.ui-state-focus, .ui-widget-header .pui-inputtext.ui-state-focus {
+.ui-inputtext.ui-state-focus, .ui-widget-content .ui-inputtext.ui-state-focus, .ui-widget-header .ui-inputtext.ui-state-focus {
     border-color: rgba(82, 168, 236, 0.8);
     outline: 0;
     outline: thin dotted \9;
@@ -377,24 +377,24 @@
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
 
-.pui-inputtext.ui-state-error, .ui-widget-header .pui-inputtext.ui-state-error, .ui-widget-content .pui-inputtext.ui-state-error {
+.ui-inputtext.ui-state-error, .ui-widget-header .ui-inputtext.ui-state-error, .ui-widget-content .ui-inputtext.ui-state-error {
     color: #333333;
     border: 1px solid #eed3d7;
 }
 
 /** TabView **/
-.pui-tabview.ui-widget-content {
+.ui-tabview.ui-widget-content {
     background: transparent none;
     border: 0;
     border-radius: 0;
 }
 
-.pui-tabview .pui-tabview-nav.ui-widget-header {
+.ui-tabview .ui-tabview-nav.ui-widget-header {
     background: transparent none;
     border-radius: 0;
 }
 
-.pui-tabview .pui-tabview-nav.ui-widget-header li {
+.ui-tabview .ui-tabview-nav.ui-widget-header li {
     line-height: 18px;
     background: transparent none;
     border: 1px solid #DDDDDD;
@@ -402,7 +402,7 @@
     border-radius: 0;
 }
 
-.pui-tabview .pui-tabview-nav.ui-widget-header li a {
+.ui-tabview .ui-tabview-nav.ui-widget-header li a {
     line-height: 18px;
     padding-bottom: 8px;
     padding-top: 8px;
@@ -411,14 +411,14 @@
     border: 0px none;
 }
 
-.pui-tabview .pui-tabview-nav.ui-widget-header li.ui-state-hover {
+.ui-tabview .ui-tabview-nav.ui-widget-header li.ui-state-hover {
     text-decoration: none;
     background-color: #eeeeee;
     border-color: #eeeeee #eeeeee #dddddd;
     color: #005580;
 }
 
-.pui-tabview .pui-tabview-nav.ui-widget-header li.ui-state-active {
+.ui-tabview .ui-tabview-nav.ui-widget-header li.ui-state-active {
     background-color: #FFFFFF;
     border-style: solid;
     border-width: 1px;
@@ -426,124 +426,124 @@
     cursor: default;
 }
 
-.pui-tabview .pui-tabview-nav li .ui-icon {
+.ui-tabview .ui-tabview-nav li .ui-icon {
     margin: 0.6em 0.2em 0 0 !important;
 }
 
-.pui-tabview.pui-tabview-top .pui-tabview-nav.ui-widget-header {
+.ui-tabview.ui-tabview-top .ui-tabview-nav.ui-widget-header {
     border-bottom: 1px solid #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-top {
+.ui-tabview.ui-tabview-top {
     border-bottom: 1px solid #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-top .pui-tabview-nav.ui-widget-header li.ui-state-active {
+.ui-tabview.ui-tabview-top .ui-tabview-nav.ui-widget-header li.ui-state-active {
     border-color: #DDDDDD #DDDDDD transparent #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-top .pui-tabview-nav.ui-widget-header li {
+.ui-tabview.ui-tabview-top .ui-tabview-nav.ui-widget-header li {
     border-radius: 4px 4px 0 0;
 }
 
-.pui-tabview.pui-tabview-top .pui-tabview-nav.ui-widget-header li.ui-state-active {
+.ui-tabview.ui-tabview-top .ui-tabview-nav.ui-widget-header li.ui-state-active {
     margin-bottom: -1px;
 }
 
-.pui-tabview.pui-tabview-bottom .pui-tabview-nav.ui-widget-header {
+.ui-tabview.ui-tabview-bottom .ui-tabview-nav.ui-widget-header {
     border-top: 1px solid #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-bottom {
+.ui-tabview.ui-tabview-bottom {
     border-top: 1px solid #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-bottom .pui-tabview-nav.ui-widget-header li.ui-state-active {
+.ui-tabview.ui-tabview-bottom .ui-tabview-nav.ui-widget-header li.ui-state-active {
     border-color: transparent #DDDDDD #DDDDDD #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-bottom .pui-tabview-nav.ui-widget-header li {
+.ui-tabview.ui-tabview-bottom .ui-tabview-nav.ui-widget-header li {
     border-radius: 0 0 4px 4px;
 }
 
-.pui-tabview.pui-tabview-bottom .pui-tabview-nav.ui-widget-header li.ui-state-active {
+.ui-tabview.ui-tabview-bottom .ui-tabview-nav.ui-widget-header li.ui-state-active {
     margin-top: -1px;
 }
 
-.pui-tabview.pui-tabview-left .pui-tabview-nav.ui-widget-header {
+.ui-tabview.ui-tabview-left .ui-tabview-nav.ui-widget-header {
     border-right: 1px solid #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-left {
+.ui-tabview.ui-tabview-left {
     border-right: 1px solid #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-left .pui-tabview-nav.ui-widget-header li.ui-state-active {
+.ui-tabview.ui-tabview-left .ui-tabview-nav.ui-widget-header li.ui-state-active {
     border-color: #DDDDDD transparent #DDDDDD #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-left .pui-tabview-nav.ui-widget-header li {
+.ui-tabview.ui-tabview-left .ui-tabview-nav.ui-widget-header li {
     border-radius: 4px 0 0 4px;
 }
 
-.pui-tabview.pui-tabview-left .pui-tabview-nav.ui-widget-header li.ui-state-active {
+.ui-tabview.ui-tabview-left .ui-tabview-nav.ui-widget-header li.ui-state-active {
     margin-right: -1px;
 }
 
-.pui-tabview.pui-tabview-right .pui-tabview-nav.ui-widget-header {
+.ui-tabview.ui-tabview-right .ui-tabview-nav.ui-widget-header {
     border-left: 1px solid #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-right {
+.ui-tabview.ui-tabview-right {
     border-left: 1px solid #DDDDDD;
 }
 
-.pui-tabview.pui-tabview-right .pui-tabview-nav.ui-widget-header li.ui-state-active {
+.ui-tabview.ui-tabview-right .ui-tabview-nav.ui-widget-header li.ui-state-active {
     border-color: #DDDDDD #DDDDDD #DDDDDD transparent;
 }
 
-.pui-tabview.pui-tabview-right .pui-tabview-nav.ui-widget-header li {
+.ui-tabview.ui-tabview-right .ui-tabview-nav.ui-widget-header li {
     border-radius: 0 4px 4px 0;
 }
 
-.pui-tabview.pui-tabview-right .pui-tabview-nav.ui-widget-header li.ui-state-active {
+.ui-tabview.ui-tabview-right .ui-tabview-nav.ui-widget-header li.ui-state-active {
     margin-left: -1px;
 }
 
 /** AccordionPanel **/
-.pui-accordion .pui-accordion-header {
+.ui-accordion .ui-accordion-header {
     background:transparent;
     box-shadow: none;
 }
 
-.pui-accordion .pui-accordion-header.ui-state-default {
+.ui-accordion .ui-accordion-header.ui-state-default {
     margin-bottom: 2px;
     border: 1px solid #E5E5E5;
 }
 
-.pui-accordion .pui-accordion-header.ui-state-active {
+.ui-accordion .ui-accordion-header.ui-state-active {
     margin-bottom: 1px;
 }
 
-.pui-accordion .pui-accordion-header .pui-icon {
+.ui-accordion .ui-accordion-header .ui-icon {
     display: none;
 }
 
-.pui-accordion .pui-accordion-header.ui-state-default a {
+.ui-accordion .ui-accordion-header.ui-state-default a {
     padding: 8px 15px;
     color: #0088CC; 
 }
 
-.pui-accordion .pui-accordion-header a:hover {
+.ui-accordion .ui-accordion-header a:hover {
     color: #005580;
 }
 
-.pui-accordion .pui-accordion-content.ui-widget-content {
+.ui-accordion .ui-accordion-content.ui-widget-content {
     padding: 9px 15px;
 }
 
 /* Breadcrumb */
-.pui-breadcrumb {
+.ui-breadcrumb {
   padding: 7px 14px;
   margin: 0 0 18px;
   list-style: none;
@@ -565,25 +565,25 @@
           box-shadow: inset 0 1px 0 #ffffff;
 }
 
-.pui-breadcrumb li {
+.ui-breadcrumb li {
   display: inline-block;
   *display: inline;
   text-shadow: 0 1px 0 #ffffff;
   *zoom: 1;
 }
 
-.pui-breadcrumb .divider {
+.ui-breadcrumb .divider {
   padding: 0 5px;
   color: #999999;
 }
 
-.pui-breadcrumb a {
+.ui-breadcrumb a {
   color: #0088CC;
   font-weight: normal;
 }
 
 /* ProgressBar */
-.pui-progressbar.ui-widget-content {
+.ui-progressbar.ui-widget-content {
   height: 18px;
   margin-bottom: 18px;
   overflow: hidden;
@@ -604,7 +604,7 @@
           box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.pui-progressbar .pui-progressbar-value.ui-widget-header {
+.ui-progressbar .ui-progressbar-value.ui-widget-header {
   height: 18px;
   font-size: 12px;
   color: #ffffff;
@@ -765,7 +765,7 @@
 }
 
 /** Menu **/
-.pui-menu.ui-widget {
+.ui-menu.ui-widget {
   min-width: 160px;
   padding: 5px 0;
   background-color: #ffffff;
@@ -781,7 +781,7 @@
           background-clip: padding-box;
 }
 
-.pui-menu.ui-widget a {
+.ui-menu.ui-widget a {
   display: block;
   clear: both;
   font-weight: normal;
@@ -789,29 +789,29 @@
   white-space: nowrap;
 }
 
-.pui-menu.ui-widget li.ui-corner-all,
-.pui-menu.ui-widget a.ui-corner-all {
+.ui-menu.ui-widget li.ui-corner-all,
+.ui-menu.ui-widget a.ui-corner-all {
     -webkit-border-radius: 0;
      -moz-border-radius: 0;
           border-radius: 0;
 }
 
-.pui-menu.ui-widget .pui-menu-list {
+.ui-menu.ui-widget .ui-menu-list {
     
 }
 
-.pui-menu.ui-widget li > .pui-menuitem-link {
+.ui-menu.ui-widget li > .ui-menuitem-link {
     padding: 0.3em 0;
     width: 100%;
     border-width: 1px 0px;
 }
 
-.pui-menu.ui-widget .pui-menu-list .ui-widget-header {
+.ui-menu.ui-widget .ui-menu-list .ui-widget-header {
     border-width: 1px 0px;
     width: 100%;
 }
 
-.pui-menu.ui-widget li > .pui-menuitem-link.ui-state-hover {
+.ui-menu.ui-widget li > .ui-menuitem-link.ui-state-hover {
   color: #ffffff;
   text-decoration: none;
   background-color: #0088cc;
@@ -826,11 +826,11 @@
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
 }
 
-.pui-menu.ui-widget li > .pui-menuitem-link.ui-state-hover .ui-icon {
+.ui-menu.ui-widget li > .ui-menuitem-link.ui-state-hover .ui-icon {
     background-image: url(images/ui-icons_ffffff_256x240.png);
 }
 
-.pui-menu.ui-widget .ui-separator {
+.ui-menu.ui-widget .ui-separator {
   height: 1px;
   overflow: hidden;
   background-color: #e5e5e5;
@@ -844,10 +844,10 @@
       border-radius: 0;
 }
 
-.pui-menu.ui-widget .pui-menuitem-link .pui-menuitem-icon {
+.ui-menu.ui-widget .ui-menuitem-link .ui-menuitem-icon {
     margin-left: 0.3em;
 } 
-.pui-menu.ui-widget .pui-menuitem-link .pui-menuitem-text {
+.ui-menu.ui-widget .ui-menuitem-link .ui-menuitem-text {
     margin-left: 0.4em;
 }
 
@@ -857,19 +857,19 @@
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
-.pui-menu.ui-slidemenu .ui-shadow {
+.ui-menu.ui-slidemenu .ui-shadow {
     -webkit-box-shadow: none !important;
      -moz-box-shadow: none !important;
           box-shadow: none !important;
 }
 
-.pui-buttonset .ui-state-default {
+.ui-buttonset .ui-state-default {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
       border-radius: 0;
 }
 
-.pui-buttonset .ui-corner-left.ui-state-default {
+.ui-buttonset .ui-corner-left.ui-state-default {
     -moz-border-radius-topleft: 4px; 
     -webkit-border-top-left-radius: 4px; 
     border-top-left-radius: 4px; 
@@ -878,7 +878,7 @@
     border-bottom-left-radius: 4px;
 }
 
-.pui-buttonset .ui-corner-right.ui-state-default {
+.ui-buttonset .ui-corner-right.ui-state-default {
     -moz-border-radius-topright: 4px; 
     -webkit-border-top-right-radius: 4px; 
     border-top-right-radius: 4px; 
@@ -888,7 +888,7 @@
 }
 
 /** MenuBar **/
-.pui-menu.pui-menubar {
+.ui-menu.ui-menubar {
   padding-right: 20px;
   padding-left: 10px;
   background-color: #fafafa;
@@ -908,12 +908,12 @@
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
 }
 
-.pui-menu.pui-menubar .pui-menu-parent .pui-menu-child {
+.ui-menu.ui-menubar .ui-menu-parent .ui-menu-child {
       padding: 5px 0;
 }
 
 /** Panel **/
-.pui-panel.ui-widget {
+.ui-panel.ui-widget {
     margin-bottom: 20px;
     background-color: #fff;
     border: 1px solid transparent;
@@ -925,7 +925,7 @@
     border-color: #ddd;
 }
 
-.pui-panel .pui-panel-titlebar.ui-widget-header {
+.ui-panel .ui-panel-titlebar.ui-widget-header {
     padding: 10px 15px;
     border: 0px none;
     border-bottom: 1px solid transparent;
@@ -937,6 +937,6 @@
     border-radius: 0px;
 }
 
-.pui-panel .pui-panel-content.ui-widget-content {
+.ui-panel .ui-panel-content.ui-widget-content {
     padding: 15px;
 }

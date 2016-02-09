@@ -79,7 +79,7 @@ import {InputText} from 'primeng/primeng';
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>pui-inputtext</td>
+                                    <td>ui-inputtext</td>
                                     <td>Input element</td>
                                 </tr>
                             </tbody>

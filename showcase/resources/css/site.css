@@ -263,7 +263,7 @@ input.searchInput {
     color: #fdd106
 }
 
-.Source .pui-tabview-panel {
+.Source .ui-tabview-panel {
     color: #404C51 !important;
 }
 
@@ -316,7 +316,7 @@ input.searchInput {
 }
 
 /* Tabs Source */
-.Source .pui-tabview {
+.Source .ui-tabview {
     background: none;
     border: 0 none;
     color: #5C666A;
@@ -327,7 +327,7 @@ input.searchInput {
     border-radius: 4px !important;
 }
 
-.Source .pui-tabview .pui-tabview-nav {
+.Source .ui-tabview .ui-tabview-nav {
     background:#1976D2;
     margin-bottom: -1px;
     padding:3px 3px 0px 3px !important;
@@ -337,7 +337,7 @@ input.searchInput {
     border-bottom-left-radius:0px;
 }
 
-.Source .pui-tabview .pui-tabview-nav li {
+.Source .ui-tabview .ui-tabview-nav li {
     border:0px none !important;
     background:#3F94E9;
     border-color:#3F94E9;
@@ -346,45 +346,45 @@ input.searchInput {
     border-top-left-radius: 4px !important;
 }
 
-.Source .pui-tabview .pui-tabview-nav li a{
+.Source .ui-tabview .ui-tabview-nav li a{
     padding: .5em 1em !important;
 }
 
-.Source .pui-tabview .pui-tabview-nav li.tab-doc {
+.Source .ui-tabview .ui-tabview-nav li.tab-doc {
     margin-right: 0;
 }
 
-.Source .pui-tabview .pui-tabview-nav li.ui-state-hover.ui-state-default a {
+.Source .ui-tabview .ui-tabview-nav li.ui-state-hover.ui-state-default a {
     color: #fff;
 }
 
-.Source .pui-tabview .pui-tabview-nav li.ui-state-default a {
+.Source .ui-tabview .ui-tabview-nav li.ui-state-default a {
     color: #fff !important;
     font-weight:normal !important; 
     text-shadow: none; 
 }
 
-.Source .pui-tabview .pui-tabview-nav li.ui-state-active a {
+.Source .ui-tabview .ui-tabview-nav li.ui-state-active a {
     color:#5C666A !important;
     font-weight:normal !important;
 }
 
-.Source .pui-tabview .pui-tabview-nav li.ui-state-hover {
+.Source .ui-tabview .ui-tabview-nav li.ui-state-hover {
     box-shadow: none;
 }
 
-.Source .pui-tabview .pui-tabview-nav li.pui-tabview-selected {
+.Source .ui-tabview .ui-tabview-nav li.ui-tabview-selected {
     background:#F5F6F7;
 }
 
-.Source .pui-tabview .pui-tabview-panels {
+.Source .ui-tabview .ui-tabview-panels {
     border-top: 1px solid #F5F6F7;
     color: #5C666A !important;
     background: #F5F6F7;
 }
 
-.Source .pui-tabview.pui-tabview-top > .pui-tabview-nav li{top:0px !important;}
-.Source .pui-tabview.pui-tabview-top .pui-tabview-nav.ui-widget-header{border-bottom:0px none !important;}
+.Source .ui-tabview.ui-tabview-top > .ui-tabview-nav li{top:0px !important;}
+.Source .ui-tabview.ui-tabview-top .ui-tabview-nav.ui-widget-header{border-bottom:0px none !important;}
 
 /** Responsive **/
 @media (min-width: 961px) {
@@ -477,7 +477,7 @@ input.searchInput {
         width: 100%;
     }
 
-    .pui-tabview.pui-tabview-top > .pui-tabview-nav li {
+    .ui-tabview.ui-tabview-top > .ui-tabview-nav li {
         width: 100%;
     }
 
@@ -587,7 +587,7 @@ pre {
     margin: 10px 0px;
 }
 
-.pui-tabview-left > .pui-tabview-nav {
+.ui-tabview-left > .ui-tabview-nav {
     height: 150px;
 }
 

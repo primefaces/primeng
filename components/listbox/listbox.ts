@@ -6,14 +6,14 @@ import {SelectItem} from '../api/selectitem';
 @Component({
     selector: 'p-listbox',
     template: `
-        <div class="pui-listbox pui-inputtext ui-widget ui-widget-content ui-corner-all">
+        <div class="ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all">
             <div class="ui-helper-hidden-accessible">
                 <select>
                     <option *ngFor="#option of options;" [value]="option.value">{{option.label}}</option>
                 </select>
             </div>
-            <ul class="pui-listbox-list" *ngIf="!customContent">
-                <li *ngFor="#option of options" class="pui-listbox-item ui-corner-all">
+            <ul class="ui-listbox-list" *ngIf="!customContent">
+                <li *ngFor="#option of options" class="ui-listbox-item ui-corner-all">
                     {{option.label}}
                 </li>
 

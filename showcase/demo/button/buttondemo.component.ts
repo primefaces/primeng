@@ -105,15 +105,15 @@ export class Model {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>pui-button</td>
+                                    <td>ui-button</td>
                                     <td>Button element</td>
                                 </tr>
                                 <tr>
-                                    <td>pui-button-icon</td>
+                                    <td>ui-button-icon</td>
                                     <td>Icon element</td>
                                 </tr>
                                 <tr>
-                                    <td>pui-button-text</td>
+                                    <td>ui-button-text</td>
                                     <td>Label element of the button</td>
                                 </tr>
                             </tbody>

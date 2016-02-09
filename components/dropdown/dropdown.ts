@@ -7,7 +7,7 @@ import DropdownEventParams = PrimeUI.DropdownEventParams;
 @Component({
     selector: 'p-dropdown',
     template: `
-        <div class="pui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix">
+        <div class="ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix">
             <div class="ui-helper-hidden-accessible">
                 <select>
                     <option *ngFor="#option of options" [value]="option.value">{{option.label}}</option>
@@ -16,18 +16,18 @@ import DropdownEventParams = PrimeUI.DropdownEventParams;
             <div class="ui-helper-hidden-accessible">
                 <input type="text">
             </div>
-            <label class="pui-dropdown-label pui-inputtext ui-corner-all"></label>
-            <div class="pui-dropdown-trigger ui-state-default ui-corner-right">
-                <span class="pui-icon fa fa-fw fa-caret-down"></span>
+            <label class="ui-dropdown-label ui-inputtext ui-corner-all"></label>
+            <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
+                <span class="ui-icon fa fa-fw fa-caret-down"></span>
             </div>
-            <div class="pui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden pui-shadow">
-                <div *ngIf="filter" class="pui-dropdown-filter-container">
-                    <input type="text" autocomplete="off" class="pui-dropdown-filter pui-inputtext ui-widget ui-state-default ui-corner-all">
-                    <span class="pui-icon fa fa-search"></span>
+            <div class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow">
+                <div *ngIf="filter" class="ui-dropdown-filter-container">
+                    <input type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
+                    <span class="ui-icon fa fa-search"></span>
                 </div>
-                <div class="pui-dropdown-items-wrapper">
-                    <ul *ngIf="!customContent" class="pui-dropdown-items pui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                        <li *ngFor="#option of options" [attr.data-label]="option.label" class="pui-dropdown-item pui-dropdown-list-item ui-corner-all">{{option.label}}</li>
+                <div class="ui-dropdown-items-wrapper">
+                    <ul *ngIf="!customContent" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
+                        <li *ngFor="#option of options" [attr.data-label]="option.label" class="ui-dropdown-item ui-dropdown-list-item ui-corner-all">{{option.label}}</li>
                     </ul>
                     <ng-content *ngIf="customContent"></ng-content>
                 </div>
@@ -66,7 +66,7 @@ export class Dropdown {
     }
 
     ngAfterViewInit() {
-        this.selectElement = jQuery(this.el.nativeElement).find(' > .pui-dropdown > div > select');
+        this.selectElement = jQuery(this.el.nativeElement).find(' > .ui-dropdown > div > select');
         this.selectElement.puidropdown({
             enhanced: true,
             value: this.value,

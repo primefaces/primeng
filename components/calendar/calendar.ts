@@ -8,7 +8,7 @@ import Datepicker = JQueryUI.Datepicker;
     template:  `
         <input *ngIf="!inline" type="text" [attr.style]="style" [attr.placeholder]="placeholder"
                 [value]="value||''" (input)="valueChange.next($event.target.value)" [readonly]="readonlyInput"
-                class="pui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled"
+                class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled"
                 (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="focused=false"
                 [ngClass]="{'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}"/>
 

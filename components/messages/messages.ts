@@ -6,16 +6,16 @@ import {Message} from '../api/message';
 @Component({
     selector: 'p-messages',
     template: `
-        <div *ngIf="hasMessages()" class="pui-messages ui-widget ui-corner-all" style="display:block"
-                    [ngClass]="{'pui-messages-info':(value[0].severity === 'info'),'pui-messages-warn':(value[0].severity === 'warn'),'pui-messages-error':(value[0].severity === 'error')}">
-            <a href="#" class="pui-messages-close" (click)="clear($event)" *ngIf="closable">
+        <div *ngIf="hasMessages()" class="ui-messages ui-widget ui-corner-all" style="display:block"
+                    [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),'ui-messages-warn':(value[0].severity === 'warn'),'ui-messages-error':(value[0].severity === 'error')}">
+            <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
                 <i class="fa fa-close"></i>
             </a>
-            <span class="pui-messages-icon fa fa-2x fa-info-circle"></span>
+            <span class="ui-messages-icon fa fa-2x fa-info-circle"></span>
             <ul>
                 <li *ngFor="#msg of value">
-                    <span class="pui-messages-summary">{{msg.summary}}</span>
-                    <span class="pui-messages-detail">{{msg.detail}}</span>
+                    <span class="ui-messages-summary">{{msg.summary}}</span>
+                    <span class="ui-messages-detail">{{msg.detail}}</span>
                 </li>
             </ul>
         </div>

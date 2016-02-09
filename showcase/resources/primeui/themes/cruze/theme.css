@@ -247,7 +247,7 @@
 .ui-widget-shadow { margin: -7px 0 0 -7px; padding: 7px; background: #cccccc url(images/ui-bg_flat_30_cccccc_40x100.png) 50% 50% repeat-x; opacity: .60;filter:Alpha(Opacity=60); -moz-border-radius: 8px; -khtml-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }
 
 /* PrimeFaces Extensions */
-.pui-inputtext, .ui-widget-content .pui-inputtext, .ui-widget-header .pui-inputtext {
+.ui-inputtext, .ui-widget-content .ui-inputtext, .ui-widget-header .ui-inputtext {
     background: #ffffff;
     -moz-box-shadow: inset 0 2px 2px #8f8f8f;
     -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
@@ -255,14 +255,14 @@
     color: #222222;
 }
 
-.pui-inputtext.ui-state-focus, .ui-widget-content .pui-inputtext.ui-state-focus, .ui-widget-header .pui-inputtext.ui-state-focus {
+.ui-inputtext.ui-state-focus, .ui-widget-content .ui-inputtext.ui-state-focus, .ui-widget-header .ui-inputtext.ui-state-focus {
     -moz-box-shadow: 0px 0px 5px #0099E0, inset 0 2px 2px #8f8f8f;
     -webkit-box-shadow: 0px 0px 5px #0099E0, inset 0 2px 2px #8f8f8f;
     box-shadow: 0px 0px 5px #0099E0, inset 0 2px 2px #8f8f8f;
 }
 
-.pui-inputtext.ui-state-focus, .ui-widget-content .pui-inputtext.ui-state-focus, .ui-widget-header .pui-inputtext.ui-state-focus,
-.pui-inputtext.ui-state-hover, .ui-widget-content .pui-inputtext.ui-state-hover, .ui-widget-header .pui-inputtext.ui-state-hover {
+.ui-inputtext.ui-state-focus, .ui-widget-content .ui-inputtext.ui-state-focus, .ui-widget-header .ui-inputtext.ui-state-focus,
+.ui-inputtext.ui-state-hover, .ui-widget-content .ui-inputtext.ui-state-hover, .ui-widget-header .ui-inputtext.ui-state-hover {
     border-color: #0099E0;
 }
 

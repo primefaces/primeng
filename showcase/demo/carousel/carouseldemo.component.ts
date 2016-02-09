@@ -12,15 +12,15 @@ import {Car} from '../common/car';
     templateUrl: 'showcase/demo/carousel/carouseldemo.component.html',
     directives: [Carousel,TabPanel,TabView,Button,Growl,ROUTER_DIRECTIVES],
     styles: [`
-        .pui-grid-row {
+        .ui-grid-row {
             text-align: center;
         }
 
-        .pui-grid {
+        .ui-grid {
             margin: 10px 0px;
         }
 
-        .pui-grid-row > div {
+        .ui-grid-row > div {
             padding: 4px 10px;
         }
     `]

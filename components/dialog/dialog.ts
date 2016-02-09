@@ -5,20 +5,20 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, HostBinding, Input, Out
 @Component({
     selector: 'p-dialog',
     template: `
-        <div class="pui-dialog ui-widget ui-widget-content ui-helper-hidden ui-corner-all pui-shadow" [ngClass]="{'pui-dialog-rtl':rtl}">
-            <div class="pui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
-                <span class="pui-dialog-title">{{header}}</span>
-                <a class="pui-dialog-titlebar-icon pui-dialog-titlebar-close ui-corner-all" href="#" role="button" *ngIf="closable">
-                    <span class="pui-icon fa fa-fw fa-close"></span>
+        <div class="ui-dialog ui-widget ui-widget-content ui-helper-hidden ui-corner-all ui-shadow" [ngClass]="{'ui-dialog-rtl':rtl}">
+            <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
+                <span class="ui-dialog-title">{{header}}</span>
+                <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" href="#" role="button" *ngIf="closable">
+                    <span class="ui-icon fa fa-fw fa-close"></span>
                 </a>
-                <a class="pui-dialog-titlebar-icon pui-dialog-titlebar-maximize ui-corner-all" href="#" role="button" *ngIf="maximizable">
-                    <span class="pui-icon fa fa-fw fa-sort"></span>
+                <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all" href="#" role="button" *ngIf="maximizable">
+                    <span class="ui-icon fa fa-fw fa-sort"></span>
                 </a>
-                <a class="pui-dialog-titlebar-icon pui-dialog-titlebar-minimize ui-corner-all" href="#" role="button" *ngIf="minimizable">
-                    <span class="pui-icon fa fa-fw fa-minus"></span>
+                <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-minimize ui-corner-all" href="#" role="button" *ngIf="minimizable">
+                    <span class="ui-icon fa fa-fw fa-minus"></span>
                 </a>
             </div>
-            <div class="pui-dialog-content ui-widget-content">
+            <div class="ui-dialog-content ui-widget-content">
                 <ng-content></ng-content>
             </div>
         </div>

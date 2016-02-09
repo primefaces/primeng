@@ -5,9 +5,9 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, Outpu
 @Component({
     selector: 'p-fieldset',
     template: `
-        <fieldset class="pui-fieldset ui-widget ui-widget-content ui-corner-all" [ngClass]="{'pui-fieldset-toggleable': toggleable}">
-            <legend class="pui-fieldset-legend ui-corner-all ui-state-default"><span class="pui-fieldset-toggler fa fa-w" *ngIf="toggleable"></span>{{legend}}</legend>
-            <div class="pui-fieldset-content">
+        <fieldset class="ui-fieldset ui-widget ui-widget-content ui-corner-all" [ngClass]="{'ui-fieldset-toggleable': toggleable}">
+            <legend class="ui-fieldset-legend ui-corner-all ui-state-default"><span class="ui-fieldset-toggler fa fa-w" *ngIf="toggleable"></span>{{legend}}</legend>
+            <div class="ui-fieldset-content">
                 <ng-content></ng-content>
             </div>
         </fieldset>

@@ -5,13 +5,13 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, Simpl
 @Component({
     selector: 'p-panel',
     template: `
-        <div class="pui-panel ui-widget ui-widget-content ui-corner-all">
-            <div class="pui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
-                <span class="pui-panel-title">{{header}}</span>
-                <a *ngIf="closable" class="pui-panel-titlebar-icon pui-panel-titlebar-closer ui-corner-all ui-state-default" href="#"><span class="pui-icon fa fa-fw fa-close"></span></a>
-                <a *ngIf="toggleable" class="pui-panel-titlebar-icon pui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"><span class="pui-icon fa fa-fw"></span></a>
+        <div class="ui-panel ui-widget ui-widget-content ui-corner-all">
+            <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+                <span class="ui-panel-title">{{header}}</span>
+                <a *ngIf="closable" class="ui-panel-titlebar-icon ui-panel-titlebar-closer ui-corner-all ui-state-default" href="#"><span class="ui-icon fa fa-fw fa-close"></span></a>
+                <a *ngIf="toggleable" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"><span class="ui-icon fa fa-fw"></span></a>
             </div>
-            <div class="pui-panel-content ui-widget-content">
+            <div class="ui-panel-content ui-widget-content">
                 <ng-content></ng-content>
             </div>
         </div>

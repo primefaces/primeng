@@ -6,9 +6,9 @@ import {SelectItem} from '../api/selectitem';
 @Component({
     selector: 'p-selectButton',
     template: `
-        <div class="pui-selectbutton pui-buttonset ui-widget ui-corner-all">
-            <div *ngFor="#option of options;" class="pui-button ui-widget ui-state-default pui-button-text-only" [attr.data-value]="option.value">
-                <span class="pui-button-text pui-c">{{option.label}}</span>
+        <div class="ui-selectbutton ui-buttonset ui-widget ui-corner-all">
+            <div *ngFor="#option of options;" class="ui-button ui-widget ui-state-default ui-button-text-only" [attr.data-value]="option.value">
+                <span class="ui-button-text ui-c">{{option.label}}</span>
             </div>
         </div>
     `

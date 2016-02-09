@@ -15,40 +15,40 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 
         <div class="ContentSideSections Implementation">
             <h3 class="first">Basic</h3>
-            <div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px">
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-checkbox name="group1" value="New York" [(model)]="selectedCities"></p-checkbox></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">New York</label></div>
+            <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-checkbox name="group1" value="New York" [(model)]="selectedCities"></p-checkbox></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">New York</label></div>
                 </div>
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-checkbox name="group1" value="San Francisco" [(model)]="selectedCities"></p-checkbox></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">San Francisco</label></div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-checkbox name="group1" value="San Francisco" [(model)]="selectedCities"></p-checkbox></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">San Francisco</label></div>
                 </div>
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-checkbox name="group1" value="Los Angeles" [(model)]="selectedCities"></p-checkbox></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Los Angeles</label></div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-checkbox name="group1" value="Los Angeles" [(model)]="selectedCities"></p-checkbox></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Los Angeles</label></div>
                 </div>
             </div>
 
             Selected Cities: <span *ngFor="#city of selectedCities">{{city}} &nbsp;&nbsp;</span>
 
             <h3>Preselection</h3>
-            <div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px">
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-checkbox name="group2" value="Technology" [(model)]="selectedCategories"></p-checkbox></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Technology</label></div>
+            <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-checkbox name="group2" value="Technology" [(model)]="selectedCategories"></p-checkbox></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Technology</label></div>
                 </div>
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-checkbox name="group2" value="Finance" [(model)]="selectedCategories"></p-checkbox></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Finance</label></div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-checkbox name="group2" value="Finance" [(model)]="selectedCategories"></p-checkbox></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Finance</label></div>
                 </div>
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-checkbox name="group2" value="Sports" [(model)]="selectedCategories"></p-checkbox></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Sports</label></div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-checkbox name="group2" value="Sports" [(model)]="selectedCategories"></p-checkbox></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Sports</label></div>
                 </div>
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-checkbox name="group2" value="Entertainment" [(model)]="selectedCategories"></p-checkbox></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Entertainment</label></div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-checkbox name="group2" value="Entertainment" [(model)]="selectedCategories"></p-checkbox></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Entertainment</label></div>
                 </div>
             </div>
 
@@ -161,15 +161,15 @@ export class ModelComponent {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>pui-chkbox</td>
+                                    <td>ui-chkbox</td>
                                     <td>Container element</td>
                                 </tr>
                                 <tr>
-                                    <td>pui-chkbox-box</td>
+                                    <td>ui-chkbox-box</td>
                                     <td>Container of icon.</td>
                                 </tr>
                                 <tr>
-                                    <td>pui-chkbox-icon</td>
+                                    <td>ui-chkbox-icon</td>
                                     <td>Icon element.</td>
                                 </tr>
                             </tbody>
@@ -182,40 +182,40 @@ export class ModelComponent {
                 <p-tabPanel header="Source">
 <pre>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="New York" [(model)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;New York&lt;/label&gt;&lt;/div&gt;
+&lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="New York" [(model)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;New York&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="San Francisco" [(model)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;San Francisco&lt;/label&gt;&lt;/div&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="San Francisco" [(model)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;San Francisco&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="Los Angeles" [(model)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Los Angeles&lt;/label&gt;&lt;/div&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="Los Angeles" [(model)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Los Angeles&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
 Selected Cities: &lt;span *ngFor="#city of selectedCities"&gt; <span>{</span><span>{</span>cat<span>}</span><span>}</span> &amp;nbsp;&amp;nbsp;&lt;/span&gt;
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
-&lt;div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Technology" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Technology&lt;/label&gt;&lt;/div&gt;
+&lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Technology" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Technology&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Finance" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Finance&lt;/label&gt;&lt;/div&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Finance" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Finance&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Sports" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Sports&lt;/label&gt;&lt;/div&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Sports" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Sports&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
      &lt;div class="pu i-grid-row"&gt;
-         &lt;div class="pui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Entertainment" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Entertainment&lt;/label&gt;&lt;/div&gt;
+         &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Entertainment" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Entertainment&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
@@ -235,12 +235,12 @@ export class CheckboxDemoComponent {
         </div>
     `,
     styles: [`
-        .pui-grid .pui-grid-col-1,
-        .pui-grid .pui-grid-col-11 {
+        .ui-grid .ui-grid-col-1,
+        .ui-grid .ui-grid-col-11 {
             padding: 4px 10px;
         }
 
-        .pui-grid label {
+        .ui-grid label {
             display: inline-block;
             margin: 3px 0px 0px 4px;
         }

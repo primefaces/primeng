@@ -410,7 +410,7 @@
 }
 
 /* PrimeFaces Extensions */
-.pui-inputtext, .ui-widget-content .pui-inputtext, .ui-widget-header .pui-inputtext {
+.ui-inputtext, .ui-widget-content .ui-inputtext, .ui-widget-header .ui-inputtext {
     background: #ffffff;
     -moz-box-shadow: inset 0 2px 2px #8f8f8f;
     -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
@@ -419,11 +419,11 @@
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 
-.pui-inputtext.ui-state-hover, .ui-widget-content .pui-inputtext.ui-state-hover, .ui-widget-header .pui-inputtext.ui-state-hover {
+.ui-inputtext.ui-state-hover, .ui-widget-content .ui-inputtext.ui-state-hover, .ui-widget-header .ui-inputtext.ui-state-hover {
     border-color: #778877;
 }
 
-.pui-inputtext.ui-state-focus, .ui-widget-content .pui-inputtext.ui-state-focus, .ui-widget-header .pui-inputtext.ui-state-focus {
+.ui-inputtext.ui-state-focus, .ui-widget-content .ui-inputtext.ui-state-focus, .ui-widget-header .ui-inputtext.ui-state-focus {
     -moz-box-shadow: 0px 0px 5px #8B798B, inset 0 2px 2px #8f8f8f;
     -webkit-box-shadow: 0px 0px 5px #8B798B, inset 0 2px 2px #8f8f8f;
     box-shadow: 0px 0px 5px #8B798B, inset 0 2px 2px #8f8f8f;

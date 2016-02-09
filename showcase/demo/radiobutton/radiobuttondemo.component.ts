@@ -15,35 +15,35 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 
         <div class="ContentSideSections Implementation">
             <h3 class="first">Basic</h3>
-            <div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px">
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-radio name="group1" value="Option 1" [(model)]="val1"></p-radio></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Option 1</label></div>
+            <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-radio name="group1" value="Option 1" [(model)]="val1"></p-radio></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Option 1</label></div>
                 </div>
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-radio name="group1" value="Option 2" [(model)]="val1"></p-radio></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Option 2</label></div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-radio name="group1" value="Option 2" [(model)]="val1"></p-radio></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Option 2</label></div>
                 </div>
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-radio name="group1" value="Option 3" [(model)]="val1"></p-radio></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Option 3</label></div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-radio name="group1" value="Option 3" [(model)]="val1"></p-radio></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Option 3</label></div>
                 </div>
             </div>
             Value 1 = {{val1}}
 
             <h3>Preselection</h3>
-            <div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px">
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-radio name="group1" value="Option 1" [(model)]="val2"></p-radio></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Option 1</label></div>
+            <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-radio name="group1" value="Option 1" [(model)]="val2"></p-radio></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Option 1</label></div>
                 </div>
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-radio name="group2" value="Option 2" [(model)]="val2"></p-radio></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Option 2</label></div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-radio name="group2" value="Option 2" [(model)]="val2"></p-radio></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Option 2</label></div>
                 </div>
-                <div class="pui-grid-row">
-                    <div class="pui-grid-col-1"><p-radio name="group2" value="Option 3" [(model)]="val2"></p-radio></div>
-                    <div class="pui-grid-col-11"><label class="ui-widget">Option 3</label></div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1"><p-radio name="group2" value="Option 3" [(model)]="val2"></p-radio></div>
+                    <div class="ui-grid-col-11"><label class="ui-widget">Option 3</label></div>
                 </div>
             </div>
             Value 2 = {{val2}}
@@ -154,15 +154,15 @@ export class ModelComponent {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>pui-radiobutton</td>
+                                    <td>ui-radiobutton</td>
                                     <td>Container element</td>
                                 </tr>
                                 <tr>
-                                    <td>pui-radiobutton-box</td>
+                                    <td>ui-radiobutton-box</td>
                                     <td>Container of icon.</td>
                                 </tr>
                                 <tr>
-                                    <td>pui-radiobutton-icon</td>
+                                    <td>ui-radiobutton-icon</td>
                                     <td>Icon element.</td>
                                 </tr>
                             </tbody>
@@ -177,35 +177,35 @@ export class ModelComponent {
                 <p-tabPanel header="Source">
 <pre>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 1" [(model)]="val1"&gt;&lt;/p-radio&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
+&lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 1" [(model)]="val1"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 2" [(model)]="val1"&gt;&lt;/p-radio&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 2" [(model)]="val1"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 3" [(model)]="val1"&gt;&lt;/p-radio&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 3" [(model)]="val1"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 Value 1 = <span>{</span><span>{</span>val1<span>}</span><span>}</span>
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
-&lt;div class="pui-grid pui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 1" [(model)]="val2"&gt;&lt;/p-radio&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
+&lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 1" [(model)]="val2"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="pui-grid-row"&gt;
-        &lt;div class="pui-grid-col-1"&gt;&lt;p-radio name="group2" value="Option 2" [(model)]="val2"&gt;&lt;/p-radio&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group2" value="Option 2" [(model)]="val2"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="pui-grid-r ow"&gt;
-         &lt;div class ="pui-grid-col-1"&gt;&lt;p-radio name="group2" value="Option 3" [(model)]="val2"&gt;&lt;/p-radio&gt;&lt;/div&gt;
-        &lt;div class="pui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
+    &lt;div class="ui-grid-r ow"&gt;
+         &lt;div class ="ui-grid-col-1"&gt;&lt;p-radio name="group2" value="Option 3" [(model)]="val2"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 Value 2 = <span>{</span><span>{</span>val2<span>}</span><span>}</span>
@@ -224,12 +224,12 @@ export class RadioButtonDemoComponent {
         </div>
     `,
     styles: [`
-        .pui-grid .pui-grid-col-1,
-        .pui-grid .pui-grid-col-11 {
+        .ui-grid .ui-grid-col-1,
+        .ui-grid .ui-grid-col-11 {
             padding: 4px 10px;
         }
 
-        .pui-grid label {
+        .ui-grid label {
             display: inline-block;
             margin: 3px 0px 0px 4px;
         }
