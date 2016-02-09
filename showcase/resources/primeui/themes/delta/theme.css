@@ -479,7 +479,7 @@ td.ui-datepicker-unselectable {
  *
  * http://docs.jquery.com/UI/Progressbar#theming
  */
-.ui-progressbar { height: 10px; text-align: left; border: 0 none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; background: #333; -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.35) inset, 0 1px 0 rgba(255,255,255,0.15); -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.35) inset, 0 1px 0 rgba(255,255,255,0.15); box-shadow: 0 1px 3px rgba(0,0,0,0.35) inset, 0 1px 0 rgba(255,255,255,0.15); }
+.ui-progressbar { height: 10px; text-align: left; border: 0 none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; background: #ffffff; -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.35) inset, 0 1px 0 rgba(255,255,255,0.15); -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.35) inset, 0 1px 0 rgba(255,255,255,0.15); box-shadow: 0 1px 3px rgba(0,0,0,0.35) inset, 0 1px 0 rgba(255,255,255,0.15); }
 .ui-progressbar .ui-progressbar-value { margin: 0px !important; height:100%; border: 0 none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
 .ui-progressbar .ui-progressbar-value {
 	background: #27abff; /* Old browsers */
@@ -492,7 +492,7 @@ td.ui-datepicker-unselectable {
 }
 
 .ui-progressbar .ui-progressbar-label {
-	color: #ffffff;
+	color: #000000;
 }
 
 .ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
@@ -599,9 +599,4 @@ button.ui-button span {
 .ui-inputswitch-on {
 	background: #14A4FF !important;
 	color: #ffffff;
-}
-
-/* ProgressBar */
-.ui-progressbar-value {
-	background: #14A4FF !important;
 }
