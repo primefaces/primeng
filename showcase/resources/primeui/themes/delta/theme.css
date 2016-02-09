@@ -587,14 +587,6 @@ button.ui-button span {
 	box-shadow: 0px 0px 5px #A6A6AC, inset 0 2px 2px #8f8f8f;
 }
 
-/* Toggle Buttons */
-.ui-selectbutton .ui-button.ui-state-active,
-.ui-togglebutton.ui-button.ui-state-active{
-	border: 1px solid #14A4FF;
-	background: #14A4FF;
-	color: #FFFFFF;
-}
-
 /* InputSwitch */
 .ui-inputswitch-on {
 	background: #14A4FF !important;
