@@ -8,13 +8,13 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
 
-    <div class="pui-grid pui-grid-responsive" style="margin-bottom:10px">
-        <div class="pui-grid-row">
-            <div class="pui-grid-col-6">
+    <div class="ui-grid pui-grid-responsive" style="margin-bottom:10px">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-6">
                 <h3 class="first">Basic</h3>
                 <p-pieChart [value]="data1" width="300" height="300"></p-pieChart>
             </div>
-            <div class="pui-grid-col-6">
+            <div class="ui-grid-col-6">
                 <h3 class="first">Interactive and Customized</h3>
                 <p-pieChart [value]="data2" width="300" height="300" (onSegmentSelect)="onSegmentClick($event)"
                             [segmentShowStroke]="false" [animationSteps]="50" animationEasing="easeInOutQuint" [animateScale]="true"></p-pieChart>
@@ -33,73 +33,54 @@ import {PieChart} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Dropdown requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
+            <p>For a pie chart, you must pass in an array of objects with a value and an optional color property.
+                The value attribute should be a number, Chart.js will total all of the numbers and calculate the relative proportion of each.
+                The color attribute should be a string. Similar to CSS, for this string you can use HEX notation, RGB, RGBA or HSL.</p>
 <pre>
-&lt;p-dropdown [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-dropdown&gt;
+&lt;p-pieChart [value]="data" width="300" height="300"&gt;&lt;/p-pieChart&gt;
 </pre>
 
 <pre>
-import {SelectItem} from 'primeng/primeng';
-
 export class MyModel {
 
-    cities: SelectItem[];
-
-    selectedCity: string;
+    data1: any[];
 
     constructor() {
-        this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
+        this.data = [{
+                value: 300,
+                color: '#F7464A',
+                highlight: '#FF5A5E',
+                label: 'Red'
+            },
+            {
+                value: 50,
+                color: '#46BFBD',
+                highlight: '#5AD3D1',
+                label: 'Green'
+            },
+            {
+                value: 100,
+                color: '#FDB45C',
+                highlight: '#FFC870',
+                label: 'Yellow'
+            }];
     }
 
 }
 </pre>
-            <h3>Filtering</h3>
-            <p>Options can be filtered using an input field in the overlay, there are 3 different filtering modes defined with filterMatchMode; "startsWith" (default), "contains" and "endsWith".</p>
+            <h3>Event</h3>
+            <p>onSegmentSelect event is triggered by passing the available selected segments when a user clicks on the chart.</p>
 <pre>
-&lt;p-listbox [options]="cities" [(value)]="selectedCities" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-listbox&gt;
+&lt;p-pieChart [value]="data" width="300" height="300" (onSegmentSelect)="onSegmentClick($event)"&gt;&lt;/p-pieChart&gt;
 </pre>
-
-            <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unordered list.
-                The label of an item should be provided explicity with data-label attribute on li element.</p>
 <pre>
-&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
-            &lt;img src="showcase/resources/demo/images/car/<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin:2px 0 0 50px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-dropdown&gt;
-</pre>
-
-<pre>
-import {SelectItem} from 'primeng/primeng'
-
 export class MyModel {
 
-    cars: SelectItem[];
-
-    selectedCar: string;
-
-    constructor() {
-        this.cars = [];
-        this.cars.push({label: 'Audi', value: 'Audi'});
-        this.cars.push({label: 'BMW', value: 'BMW'});
-        this.cars.push({label: 'Fiat', value: 'Fiat'});
-        this.cars.push({label: 'Ford', value: 'Ford'});
-        this.cars.push({label: 'Honda', value: 'Honda'});
-        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
-        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
-        this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
-        this.cars.push({label: 'Volvo', value: 'Volvo'});
+    onSegmentClick(event) {
+        //event.originalEvent = click event
+        //event.segments = array of selected segments
     }
+
 }
 </pre>
 
@@ -115,54 +96,78 @@ export class MyModel {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>options</td>
-                        <td>array</td>
-                        <td>null</td>
-                        <td>An array of selectitems to display as the available options.</td>
-                    </tr>
-                    <tr>
-                        <td>value</td>
-                        <td>any</td>
-                        <td>false</td>
-                        <td>Value of the dropdown.</td>
-                    </tr>
-                    <tr>
-                        <td>scrollHeight</td>
-                        <td>number</td>
-                        <td>200</td>
-                        <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
-                    </tr>
-                    <tr>
-                        <td>customContent</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>Used to display customized content inside the listbox.</td>
-                    </tr>
-                    <tr>
-                        <td>style</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Inline style of the element.</td>
-                    </tr>
-                    <tr>
-                        <td>styleClass</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Style class of the element.</td>
-                    </tr>
-                    <tr>
-                        <td>filter</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>When specified, displays an input field to filter the items on keyup.</td>
-                    </tr>
-                    <tr>
-                        <td>filterMatchMode</td>
-                        <td>string</td>
-                        <td>startsWith</td>
-                        <td>Filter algorithm, valid values are startsWith, contains and endsWith.</td>
-                    </tr>
+                        <tr>
+                            <td>data</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of data to define segments.</td>
+                        </tr>
+                        <tr>
+                            <td>width</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Width of canvas in pixels.</td>
+                        </tr>
+                        <tr>
+                            <td>height</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of canvas in pixels.</td>
+                        </tr>
+                        <tr>
+                            <td>segmentShowStroke</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether we should show a stroke on each segment</td>
+                        </tr>
+                        <tr>
+                            <td>segmentStrokeColor</td>
+                            <td>string</td>
+                            <td>#fff</td>
+                            <td>The colour of each segment stroke</td>
+                        </tr>
+                        <tr>
+                            <td>segmentStrokeWidth</td>
+                            <td>number</td>
+                            <td>2</td>
+                            <td>The width of each segment stroke</td>
+                        </tr>
+                        <tr>
+                            <td>percentageInnerCutout</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>The percentage of the chart that we cut out of the middle</td>
+                        </tr>
+                        <tr>
+                            <td>animationSteps</td>
+                            <td>number</td>
+                            <td>100</td>
+                            <td>Amount of animation steps</td>
+                        </tr>
+                        <tr>
+                            <td>animationEasing</td>
+                            <td>string</td>
+                            <td>easeOutBounce</td>
+                            <td>Animation easing effect</td>
+                        </tr>
+                        <tr>
+                            <td>animateRotate</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether we animate the rotation of the Doughnut</td>
+                        </tr>
+                        <tr>
+                            <td>animateScale</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether we animate scaling the Doughnut from the centre</td>
+                        </tr>
+                        <tr>
+                            <td>legendTemplate</td>
+                            <td>string</td>
+                            <td>Template for legend content.</td>
+                            <td>A legend template</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -246,55 +251,97 @@ export class MyModel {
 
         <p-tabPanel header="Source">
 <pre>
-&lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-dropdown [options]="cities" [(value)]="selectedCity" style="width:100px"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected City: {{selectedCity||'none'}}&lt;/p&gt;
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;h3&gt;Content with Filter&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true" style="width:100px"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
-            &lt;img src="showcase/resources/demo/images/car/<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin-top:2px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: {{selectedCar||'none'}}&lt;/p&gt;
+&lt;div class="ui-grid pui-grid-responsive" style="margin-bottom:10px"&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-6"&gt;
+            &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+            &lt;p-pieChart [value]="data1" width="300" height="300"&gt;&lt;/p-pieChart&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-col-6"&gt;
+            &lt;h3 class="first"&gt;Interactive and Customized&lt;/h3&gt;
+            &lt;p-pieChart [value]="data2" width="300" height="300" (onSegmentSelect)="onSegmentClick($event)"
+                        [segmentShowStroke]="false" [animationSteps]="50" animationEasing="easeInOutQuint" [animateScale]="true"&gt;&lt;/p-pieChart&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;button type="button" (click)="removeYellow()" pButton icon="fa-minus" style="width:300px" *ngIf="!updated"&gt;Remove Yellow&lt;/button&gt;
 </pre>
 
 <pre>
-export class DropdownDemoComponent {
+export class PieChartDemoComponent {
 
-    cities: SelectItem[];
+    data1: any[];
 
-    selectedCity: string;
+    data2: any[];
 
-    cars: SelectItem[];
+    msgs: Message[];
 
-    selectedCar: string = 'BMW';
+    updated: boolean;
 
     constructor() {
-        this.cities = [];
-        this.cities.push({label:'Select City', value:''});
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
+        this.data1 = [{
+                        value: 300,
+                        color: '#F7464A',
+                        highlight: '#FF5A5E',
+                        label: 'Red'
+                    },
+                    {
+                        value: 50,
+                        color: '#46BFBD',
+                        highlight: '#5AD3D1',
+                        label: 'Green'
+                    },
+                    {
+                        value: 100,
+                        color: '#FDB45C',
+                        highlight: '#FFC870',
+                        label: 'Yellow'
+                    }];
 
-        this.cars = [];
-        this.cars.push({label: 'Audi', value: 'Audi'});
-        this.cars.push({label: 'BMW', value: 'BMW'});
-        this.cars.push({label: 'Fiat', value: 'Fiat'});
-        this.cars.push({label: 'Ford', value: 'Ford'});
-        this.cars.push({label: 'Honda', value: 'Honda'});
-        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
-        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
-        this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
-        this.cars.push({label: 'Volvo', value: 'Volvo'});
+        this.data2 = [{
+                        value: 125,
+                        color: '#2196F3',
+                        highlight: '#64B5F6',
+                        label: 'Comedy'
+                    },
+                    {
+                        value: 50,
+                        color: '#673AB7',
+                        highlight: '#9575CD',
+                        label: 'Drama'
+                    },
+                    {
+                        value: 75,
+                        color: '#00897B',
+                        highlight: '#26A69A',
+                        label: 'Action'
+                    },
+                    {
+                        value: 22,
+                        color: '#FF9800',
+                        highlight: '#FFB74D',
+                        label: 'Romance'
+                    },
+                    {
+                        value: 100,
+                        color: '#FF5722',
+                        highlight: '#FF8A65',
+                        label: 'Sci-fi'
+                    }];
     }
 
+    onSegmentClick(event) {
+        if(event.segments) {
+            this.msgs = [{severity: 'info', summary: 'Segment Selected', 'detail': event.segments[0].label}];
+        }
+    }
+
+    removeYellow() {
+        this.data1.pop();
+        this.updated = true;
+    }
 }
 </pre>
         </p-tabPanel>
