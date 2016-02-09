@@ -8,19 +8,19 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
 
-    <div class="pui-grid pui-grid-responsive" style="margin-bottom:10px">
-        <div class="pui-grid-row">
-            <div class="pui-grid-col-6">
+    <div class="ui-grid ui-grid-responsive" style="margin-bottom:10px">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-6">
                 <h3 class="first">Basic</h3>
                 <p-doughnutChart [value]="data1" width="300" height="300"></p-doughnutChart>
-                <button type="button" (click)="removeYellow()" pButton icon="fa-minus" style="width:300px;margin:10px 0px" *ngIf="!updated">Remove Yellow</button>
             </div>
-            <div class="pui-grid-col-6">
+            <div class="ui-grid-col-6">
                 <h3 class="first">Interactive and Customized</h3>
                 <p-doughnutChart [value]="data2" width="300" height="300" (onSegmentSelect)="onSegmentClick($event)"
                             [segmentShowStroke]="false" [animationSteps]="50" animationEasing="easeInOutQuint" [animateScale]="true"></p-doughnutChart>
             </div>
         </div>
+        <button type="button" (click)="removeYellow()" pButton icon="fa-minus" style="width:300px;margin:10px 0px" *ngIf="!updated">Remove Yellow</button>
     </div>
 </div>
 
@@ -29,77 +29,87 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-import {PieChart} from 'primeng/primeng';
+import {DoughnutChart} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Dropdown requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
+            <p>For a doughnut chart, you must pass in an array of objects with a value and an optional color property. The value attribute should be a number, Chart.js will total all of the numbers and calculate the relative proportion of each. The color attribute should be a string. Similar to CSS, for this string you can use HEX notation, RGB, RGBA or HSL.</p>
 <pre>
-&lt;p-dropdown [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-dropdown&gt;
+&lt;p-doughnutChart [value]="data1" width="300" height="300"&gt;&lt;/p-doughnutChart&gt;
 </pre>
 
 <pre>
-import {SelectItem} from 'primeng/primeng';
-
 export class MyModel {
 
-    cities: SelectItem[];
-
-    selectedCity: string;
+    data1: any[];
 
     constructor() {
-        this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
+        this.data1 = [{
+            value: 300,
+            color: '#F7464A',
+            highlight: '#FF5A5E',
+            label: 'Red'
+        },
+            {
+                value: 50,
+                color: '#46BFBD',
+                highlight: '#5AD3D1',
+                label: 'Green'
+            },
+            {
+                value: 100,
+                color: '#FDB45C',
+                highlight: '#FFC870',
+                label: 'Yellow'
+            }];
+
+        this.data2 = [{
+            value: 125,
+            color: '#2196F3',
+            highlight: '#64B5F6',
+            label: 'Comedy'
+        },
+            {
+                value: 50,
+                color: '#673AB7',
+                highlight: '#9575CD',
+                label: 'Drama'
+            },
+            {
+                value: 75,
+                color: '#00897B',
+                highlight: '#26A69A',
+                label: 'Action'
+            },
+            {
+                value: 22,
+                color: '#FF9800',
+                highlight: '#FFB74D',
+                label: 'Romance'
+            },
+            {
+                value: 100,
+                color: '#FF5722',
+                highlight: '#FF8A65',
+                label: 'Sci-fi'
+            }];
     }
 
 }
 </pre>
-            <h3>Filtering</h3>
-            <p>Options can be filtered using an input field in the overlay, there are 3 different filtering modes defined with filterMatchMode; "startsWith" (default), "contains" and "endsWith".</p>
+            <h3>Event</h3>
+            <p>onSegmentSelect event is triggered by passing the available selected segments when a user clicks on the chart.</p>
 <pre>
-&lt;p-listbox [options]="cities" [(value)]="selectedCities" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-listbox&gt;
+&lt;p-doughnutChart [value]="data" width="300" height="300" (onSegmentSelect)="onSegmentClick($event)"&gt;&lt;/p-doughnutChart&gt;
 </pre>
-
-            <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unordered list.
-                The label of an item should be provided explicity with data-label attribute on li element.</p>
 <pre>
-&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
-            &lt;img src="showcase/resources/demo/images/car/<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin:2px 0 0 50px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-dropdown&gt;
-</pre>
-
-<pre>
-import {SelectItem} from 'primeng/primeng'
-
 export class MyModel {
 
-    cars: SelectItem[];
-
-    selectedCar: string;
-
-    constructor() {
-        this.cars = [];
-        this.cars.push({label: 'Audi', value: 'Audi'});
-        this.cars.push({label: 'BMW', value: 'BMW'});
-        this.cars.push({label: 'Fiat', value: 'Fiat'});
-        this.cars.push({label: 'Ford', value: 'Ford'});
-        this.cars.push({label: 'Honda', value: 'Honda'});
-        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
-        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
-        this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
-        this.cars.push({label: 'Volvo', value: 'Volvo'});
+    onSegmentClick(event) {
+        //event.originalEvent = click event
+        //event.segments = array of selected segments
     }
+
 }
 </pre>
 
@@ -115,54 +125,288 @@ export class MyModel {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>options</td>
-                        <td>array</td>
-                        <td>null</td>
-                        <td>An array of selectitems to display as the available options.</td>
-                    </tr>
-                    <tr>
-                        <td>value</td>
-                        <td>any</td>
-                        <td>false</td>
-                        <td>Value of the dropdown.</td>
-                    </tr>
-                    <tr>
-                        <td>scrollHeight</td>
-                        <td>number</td>
-                        <td>200</td>
-                        <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
-                    </tr>
-                    <tr>
-                        <td>customContent</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>Used to display customized content inside the listbox.</td>
-                    </tr>
-                    <tr>
-                        <td>style</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Inline style of the element.</td>
-                    </tr>
-                    <tr>
-                        <td>styleClass</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Style class of the element.</td>
-                    </tr>
-                    <tr>
-                        <td>filter</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>When specified, displays an input field to filter the items on keyup.</td>
-                    </tr>
-                    <tr>
-                        <td>filterMatchMode</td>
-                        <td>string</td>
-                        <td>startsWith</td>
-                        <td>Filter algorithm, valid values are startsWith, contains and endsWith.</td>
-                    </tr>
+                        <tr>
+                            <td>animation</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to animate the chart</td>
+                        </tr>
+                        <tr>
+                            <td>showScale</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>If we should show the scale at all</td>
+                        </tr>
+                        <tr>
+                            <td>scaleOverride</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>If we want to override with a hard coded scale</td>
+                        </tr>
+                        <tr>
+                            <td>scaleSteps</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>The number of steps in a hard coded scale</td>
+                        </tr>
+                        <tr>
+                            <td>scaleStepWidth</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>scaleStartValue</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>The scale starting value</td>
+                        </tr>
+                        <tr>
+                            <td>scaleLineColor</td>
+                            <td>string</td>
+                            <td>'rgba(0,0,0,.1)'</td>
+                            <td>Colour of the scale line</td>
+                        </tr>
+                        <tr>
+                            <td>scaleLineWidth</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Pixel width of the scale line</td>
+                        </tr>
+                        <tr>
+                            <td>scaleShowLabels</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show labels on the scale</td>
+                        </tr>
+                        <tr>
+                            <td>scaleLabel</td>
+                            <td>string</td>
+                            <td>'<%=value%>'</td>
+                            <td>Interpolated JS string - can access value</td>
+                        </tr>
+                        <tr>
+                            <td>scaleIntegersOnly</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>hether the scale should stick to integers, not floats even if drawing space is there</td>
+                        </tr>
+                        <tr>
+                            <td>scaleBeginAtZero</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether the scale should start at zero, or an order of magnitude down from the lowest value</td>
+                        </tr>
+                        <tr>
+                            <td>scaleFontFamily</td>
+                            <td>string</td>
+                            <td>"'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"</td>
+                            <td>Scale label font declaration for the scale label</td>
+                        </tr>
+                        <tr>
+                            <td>scaleFontSize</td>
+                            <td>number</td>
+                            <td>12</td>
+                            <td>Scale label font size in pixels</td>
+                        </tr>
+                        <tr>
+                            <td>scaleFontStyle</td>
+                            <td>string</td>
+                            <td>'normal'</td>
+                            <td>Scale label font weight style</td>
+                        </tr>
+                        <tr>
+                            <td>scaleFontColor</td>
+                            <td>string</td>
+                            <td>'#666'</td>
+                            <td>Scale label font colour</td>
+                        </tr>
+                        <tr>
+                            <td>responsive</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>whether or not the chart should be responsive and resize when the browser does.</td>
+                        </tr>
+                        <tr>
+                            <td>maintainAspectRatio</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container</td>
+                        </tr>
+                        <tr>
+                            <td>showTooltips</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Determines whether to draw tooltips on the canvas or not</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipFillColor</td>
+                            <td>string</td>
+                            <td>'rgba(0,0,0,0.8)'</td>
+                            <td>Tooltip background colour</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipFontFamily</td>
+                            <td>string</td>
+                            <td>"'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"</td>
+                            <td>Tooltip label font declaration for the scale label</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipFontSize</td>
+                            <td>number</td>
+                            <td>14</td>
+                            <td>Tooltip label font size in pixels</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipFontStyle</td>
+                            <td>string</td>
+                            <td>'normal'</td>
+                            <td>Tooltip font weight style</td>
+                        </tr>
+                         <tr>
+                            <td>tooltipFontColor</td>
+                            <td>string</td>
+                            <td>'#fff'</td>
+                            <td>Tooltip label font colour</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipTitleFontFamily</td>
+                            <td>string</td>
+                            <td>"'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"</td>
+                            <td>Tooltip title font declaration for the scale label</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipTitleFontSize</td>
+                            <td>number</td>
+                            <td>14</td>
+                            <td>Tooltip title font size in pixels</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipTitleFontStyle</td>
+                            <td>string</td>
+                            <td>'bold'</td>
+                            <td>Tooltip title font weight style</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipTitleFontColor</td>
+                            <td>string</td>
+                            <td>'#fff'</td>
+                            <td>Tooltip title font colour</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipYPadding</td>
+                            <td>number</td>
+                            <td>6</td>
+                            <td>pixel width of padding around tooltip text</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipXPadding</td>
+                            <td>number</td>
+                            <td>6</td>
+                            <td>pixel width of padding around tooltip text</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipCaretSize</td>
+                            <td>number</td>
+                            <td>6</td>
+                            <td>Size of the caret on the tooltip</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipCornerRadius</td>
+                            <td>number</td>
+                            <td>6</td>
+                            <td>Pixel radius of the tooltip border</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipXOffset</td>
+                            <td>number</td>
+                            <td>10</td>
+                            <td>Pixel offset from point x to tooltip edge</td>
+                        </tr>
+                        <tr>
+                            <td>tooltipTemplate</td>
+                            <td>string</td>
+                            <td>"<%if (label){%><%=label%>: <%}%><%= value %>"</td>
+                            <td>Template string for single tooltips</td>
+                        </tr>
+                        <tr>
+                            <td>multiTooltipTemplate</td>
+                            <td>string</td>
+                            <td>"<%= value %>"</td>
+                            <td>emplate string for multiple tooltips</td>
+                        </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of data to define segments.</td>
+                        </tr>
+                        <tr>
+                            <td>width</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Width of canvas in pixels.</td>
+                        </tr>
+                        <tr>
+                            <td>height</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of canvas in pixels.</td>
+                        </tr>
+                        <tr>
+                            <td>segmentShowStroke</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>hether we should show a stroke on each segment</td>
+                        </tr>
+                        <tr>
+                            <td>segmentStrokeColor</td>
+                            <td>string</td>
+                            <td>"#fff"</td>
+                            <td>The colour of each segment stroke</td>
+                        </tr>
+                        <tr>
+                            <td>segmentStrokeWidth </td>
+                            <td>number</td>
+                            <td>2</td>
+                            <td>The width of each segment stroke</td>
+                        </tr>
+                        <tr>
+                            <td>percentageInnerCutout </td>
+                            <td>number</td>
+                            <td>50</td>
+                            <td>The percentage of the chart that we cut out of the middle</td>
+                        </tr>
+                        <tr>
+                            <td>animationSteps </td>
+                            <td>number  </td>
+                            <td>100</td>
+                            <td>Amount of animation steps</td>
+                        </tr>
+                        <tr>
+                            <td>animationEasing</td>
+                            <td>string</td>
+                            <td>'easeOutBounce'</td>
+                            <td>Whether the line is curved between points</td>
+                        </tr>
+                        <tr>
+                            <td>animateRotate  </td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether we animate the rotation of the Doughnut</td>
+                        </tr>
+                        <tr>
+                            <td>animateScale  </td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether we animate scaling the Doughnut from the centre</td>
+                        </tr>
+                        <tr>
+                            <td>legendTemplate</td>
+                            <td>string</td>
+                            <td>Template for legend content.</td>
+                            <td>A legend template</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -179,122 +423,113 @@ export class MyModel {
                     </thead>
                     <tbody>
                     <tr>
-                        <td>onChange</td>
+                        <td>onSegmentSelect</td>
                         <td>originalEvent: event<br />
-                            value: Single value or an array of values that are selected
+                            segments: segs 
                         </td>
-                        <td>Callback to invoke when value of dropdown changes.</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3>Styling</h3>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Element</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>pui-dropdown</td>
-                        <td>Container element.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-dropdown-label</td>
-                        <td>Element to display label of selected option.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-dropdown-trigger</td>
-                        <td>Icon element.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-dropdown-panel</td>
-                        <td>Icon element.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-dropdown-items-wrapper</td>
-                        <td>Wrapper element of items list.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-dropdown-items</td>
-                        <td>List element of items.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-dropdown-item</td>
-                        <td>An item in the list.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-dropdown-filter-container</td>
-                        <td>Container of filter input.</td>
-                    </tr>
-                    <tr>
-                        <td>pui-dropdown-filter</td>
-                        <td>Filter element.</td>
+                        <td>Callback to invoke when value of doughnutchart changes.</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Listbox.</p>
+            <p>Chart.js</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
-&lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-dropdown [options]="cities" [(value)]="selectedCity" style="width:100px"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected City: {{selectedCity||'none'}}&lt;/p&gt;
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;h3&gt;Content with Filter&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true" style="width:100px"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
-            &lt;img src="showcase/resources/demo/images/car/<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin-top:2px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: {{selectedCar||'none'}}&lt;/p&gt;
+&lt;div class="ui-grid ui-grid-responsive" style="margin-bottom:10px"&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-6"&gt;
+            &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+            &lt;p-doughnutChart [value]="data1" width="300" height="300"&gt;&lt;/p-doughnutChart&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-col-6"&gt;
+            &lt;h3 class="first"&gt;Interactive and Customized&lt;/h3&gt;
+            &lt;p-doughnutChart [value]="data2" width="300" height="300" (onSegmentSelect)="onSegmentClick($event)"
+                        [segmentShowStroke]="false" [animationSteps]="50" animationEasing="easeInOutQuint" [animateScale]="true"&gt;&lt;/p-doughnutChart&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;button type="button" (click)="removeYellow()" pButton icon="fa-minus" style="width:300px" *ngIf="!updated"&gt;Remove Yellow&lt;/button&gt;
 </pre>
 
 <pre>
-export class DropdownDemoComponent {
+export class DoughnutChartDemoComponent {
 
-    cities: SelectItem[];
+    data1: any[];
 
-    selectedCity: string;
+    data2: any[];
 
-    cars: SelectItem[];
+    msgs: Message[];
 
-    selectedCar: string = 'BMW';
+    updated: boolean;
 
     constructor() {
-        this.cities = [];
-        this.cities.push({label:'Select City', value:''});
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
+        this.data1 = [{
+            value: 300,
+            color: '#F7464A',
+            highlight: '#FF5A5E',
+            label: 'Red'
+        },
+            {
+                value: 50,
+                color: '#46BFBD',
+                highlight: '#5AD3D1',
+                label: 'Green'
+            },
+            {
+                value: 100,
+                color: '#FDB45C',
+                highlight: '#FFC870',
+                label: 'Yellow'
+            }];
 
-        this.cars = [];
-        this.cars.push({label: 'Audi', value: 'Audi'});
-        this.cars.push({label: 'BMW', value: 'BMW'});
-        this.cars.push({label: 'Fiat', value: 'Fiat'});
-        this.cars.push({label: 'Ford', value: 'Ford'});
-        this.cars.push({label: 'Honda', value: 'Honda'});
-        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
-        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
-        this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
-        this.cars.push({label: 'Volvo', value: 'Volvo'});
+        this.data2 = [{
+            value: 125,
+            color: '#2196F3',
+            highlight: '#64B5F6',
+            label: 'Comedy'
+        },
+            {
+                value: 50,
+                color: '#673AB7',
+                highlight: '#9575CD',
+                label: 'Drama'
+            },
+            {
+                value: 75,
+                color: '#00897B',
+                highlight: '#26A69A',
+                label: 'Action'
+            },
+            {
+                value: 22,
+                color: '#FF9800',
+                highlight: '#FFB74D',
+                label: 'Romance'
+            },
+            {
+                value: 100,
+                color: '#FF5722',
+                highlight: '#FF8A65',
+                label: 'Sci-fi'
+            }];
     }
 
+    onSegmentClick(event) {
+        if(event.segments) {
+            this.msgs = [{severity: 'info', summary: 'Segment Selected', 'detail': event.segments[0].label}];
+        }
+    }
+
+    removeYellow() {
+        this.data1.pop();
+        this.updated = true;
+    }
 }
 </pre>
         </p-tabPanel>
