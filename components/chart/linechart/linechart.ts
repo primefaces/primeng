@@ -10,6 +10,80 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, DoCheck, SimpleChange, 
 })
 export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
 
+    @Input() animation: boolean = true;
+
+    @Input() animationSteps: number = 60;
+
+    @Input() animationEasing: string = "easeOutQuart";
+
+    @Input() showScale: boolean = true;
+
+    @Input() scaleOverride: boolean = false;
+
+    @Input() scaleSteps: number = null;
+
+    @Input() scaleStepWidth: number = null;
+
+    @Input() scaleStartValue: number = null;
+
+    @Input() scaleLineColor: string = 'rgba(0,0,0,.1)';
+
+    @Input() scaleLineWidth: number = 1;
+
+    @Input() scaleShowLabels: boolean = true;
+
+    @Input() scaleLabel: string = '<%=value%>';
+
+    @Input() scaleIntegersOnly: boolean = true;
+
+    @Input() scaleBeginAtZero: boolean = true;
+
+    @Input() scaleFontFamily: string = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+
+    @Input() scaleFontSize: number = 12;
+
+    @Input() scaleFontStyle: string = 'normal';
+
+    @Input() scaleFontColor: string = '#666';
+
+    @Input() responsive: boolean = false;
+
+    @Input() maintainAspectRatio: boolean = true;
+
+    @Input() showTooltips: boolean = true;
+
+    @Input() tooltipFillColor: string = 'rgba(0,0,0,0.8)';
+
+    @Input() tooltipFontFamily: string = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+
+    @Input() tooltipFontSize: number = 14;
+
+    @Input() tooltipFontStyle: string = 'normal';
+
+    @Input() tooltipFontColor: string = '#fff';
+
+    @Input() tooltipTitleFontFamily: string = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+
+    @Input() tooltipTitleFontSize: number = 14;
+
+    @Input() tooltipTitleFontStyle: string = 'bold';
+
+    @Input() tooltipTitleFontColor: string = '#fff';
+
+    @Input() tooltipYPadding: number = 6;
+
+    @Input() tooltipXPadding: number = 6;
+
+    @Input() tooltipCaretSize: number = 8;
+
+    @Input() tooltipCornerRadius: number = 6;
+
+    @Input() tooltipXOffset: number = 10;
+
+    @Input() tooltipTemplate: string = "<%if (label){%><%=label%>: <%}%><%= value %>";
+
+    @Input() multiTooltipTemplate: string = "<%= value %>";
+
     @Input() value: LinearChartData;
 
     @Input() width: string;
