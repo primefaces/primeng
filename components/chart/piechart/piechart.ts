@@ -80,10 +80,6 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() multiTooltipTemplate: string = "<%= value %>";
 
-    /////@Output() onAnimationProgress: EventEmitter<any> = new EventEmitter();
-
-    /////@Output() onAnimationComplete: EventEmitter<any> = new EventEmitter();
-
     @Input() value: CircularChartData[];
 
     @Input() width: string;
