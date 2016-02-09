@@ -120,7 +120,7 @@ export class RadarChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() datasetFill: boolean = true;
 
-    @Input() legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>";
+    @Input() legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>";
 
     @Output() onPointsSelect: EventEmitter<any> = new EventEmitter();
 
