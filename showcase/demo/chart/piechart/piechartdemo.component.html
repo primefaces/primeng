@@ -8,7 +8,7 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
 
-    <div class="ui-grid pui-grid-responsive" style="margin-bottom:10px">
+    <div class="ui-grid ui-grid-responsive" style="margin-bottom:10px">
         <div class="ui-grid-row">
             <div class="ui-grid-col-6">
                 <h3 class="first">Basic</h3>
@@ -96,78 +96,6 @@ export class MyModel {
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>data</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>An array of data to define segments.</td>
-                        </tr>
-                        <tr>
-                            <td>width</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Width of canvas in pixels.</td>
-                        </tr>
-                        <tr>
-                            <td>height</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Height of canvas in pixels.</td>
-                        </tr>
-                        <tr>
-                            <td>segmentShowStroke</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Whether we should show a stroke on each segment</td>
-                        </tr>
-                        <tr>
-                            <td>segmentStrokeColor</td>
-                            <td>string</td>
-                            <td>#fff</td>
-                            <td>The colour of each segment stroke</td>
-                        </tr>
-                        <tr>
-                            <td>segmentStrokeWidth</td>
-                            <td>number</td>
-                            <td>2</td>
-                            <td>The width of each segment stroke</td>
-                        </tr>
-                        <tr>
-                            <td>percentageInnerCutout</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>The percentage of the chart that we cut out of the middle</td>
-                        </tr>
-                        <tr>
-                            <td>animationSteps</td>
-                            <td>number</td>
-                            <td>100</td>
-                            <td>Amount of animation steps</td>
-                        </tr>
-                        <tr>
-                            <td>animationEasing</td>
-                            <td>string</td>
-                            <td>easeOutBounce</td>
-                            <td>Animation easing effect</td>
-                        </tr>
-                        <tr>
-                            <td>animateRotate</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Whether we animate the rotation of the Doughnut</td>
-                        </tr>
-                        <tr>
-                            <td>animateScale</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Whether we animate scaling the Doughnut from the centre</td>
-                        </tr>
-                        <tr>
-                            <td>legendTemplate</td>
-                            <td>string</td>
-                            <td>Template for legend content.</td>
-                            <td>A legend template</td>
-                        </tr>
                         <tr>
                             <td>animation</td>
                             <td>boolean</td>
@@ -378,6 +306,78 @@ export class MyModel {
                             <td>"<%= value %>"</td>
                             <td>emplate string for multiple tooltips</td>
                         </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of data to define segments.</td>
+                        </tr>
+                        <tr>
+                            <td>width</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Width of canvas in pixels.</td>
+                        </tr>
+                        <tr>
+                            <td>height</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Height of canvas in pixels.</td>
+                        </tr>
+                        <tr>
+                            <td>segmentShowStroke</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether we should show a stroke on each segment</td>
+                        </tr>
+                        <tr>
+                            <td>segmentStrokeColor</td>
+                            <td>string</td>
+                            <td>#fff</td>
+                            <td>The colour of each segment stroke</td>
+                        </tr>
+                        <tr>
+                            <td>segmentStrokeWidth</td>
+                            <td>number</td>
+                            <td>2</td>
+                            <td>The width of each segment stroke</td>
+                        </tr>
+                        <tr>
+                            <td>percentageInnerCutout</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>The percentage of the chart that we cut out of the middle</td>
+                        </tr>
+                        <tr>
+                            <td>animationSteps</td>
+                            <td>number</td>
+                            <td>100</td>
+                            <td>Amount of animation steps</td>
+                        </tr>
+                        <tr>
+                            <td>animationEasing</td>
+                            <td>string</td>
+                            <td>easeOutBounce</td>
+                            <td>Animation easing effect</td>
+                        </tr>
+                        <tr>
+                            <td>animateRotate</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether we animate the rotation of the Doughnut</td>
+                        </tr>
+                        <tr>
+                            <td>animateScale</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether we animate scaling the Doughnut from the centre</td>
+                        </tr>
+                        <tr>
+                            <td>legendTemplate</td>
+                            <td>string</td>
+                            <td>Template for legend content.</td>
+                            <td>A legend template</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -405,14 +405,14 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Listbox.</p>
+            <p>Chart.js</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;div class="ui-grid pui-grid-responsive" style="margin-bottom:10px"&gt;
+&lt;div class="ui-grid ui-grid-responsive" style="margin-bottom:10px"&gt;
     &lt;div class="ui-grid-row"&gt;
         &lt;div class="ui-grid-col-6"&gt;
             &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
