@@ -667,10 +667,6 @@
     font-size: 14px;
 }
 
-.ui-dialog.ui-widget-content .ui-dialog-titlebar-close {
-    margin-top: 10px;
-}
-
 .ui-dialog.ui-widget-content .ui-dialog-titlebar-close:hover, 
 .ui-dialog.ui-widget-content .ui-dialog-titlebar-close:focus, 
 .ui-dialog.ui-widget-content .ui-dialog-titlebar-minimize:hover, 
