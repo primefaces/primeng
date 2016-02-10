@@ -102,6 +102,8 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() animateScale: boolean = false;
 
+    @Input() legend: any;
+
     @Input() legendTemplate: string = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>";
 
     @Output() onSegmentsSelect: EventEmitter<any> = new EventEmitter();
@@ -162,6 +164,10 @@ export class PieChart implements AfterViewInit, OnDestroy, DoCheck {
                 animateScale: this.animateScale,
                 legendTemplate: this.legendTemplate
             });
+
+            if(this.legend) {
+                this.legend.innerHTML = this.chart.generateLegend();
+            }
         }
     }
 }

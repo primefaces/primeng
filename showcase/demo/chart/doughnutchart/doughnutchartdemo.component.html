@@ -45,58 +45,74 @@ export class MyModel {
 
     constructor() {
         this.data1 = [{
-                value: 300,
-                color: '#F7464A',
-                highlight: '#FF5A5E',
-                label: 'Red'
-            },
-            {
-                value: 50,
-                color: '#46BFBD',
-                highlight: '#5AD3D1',
-                label: 'Green'
-            },
-            {
-                value: 100,
-                color: '#FDB45C',
-                highlight: '#FFC870',
-                label: 'Yellow'
-            }];
+            value: 300,
+            color: '#F7464A',
+            highlight: '#FF5A5E',
+            label: 'Red'
+        },
+        {
+            value: 50,
+            color: '#46BFBD',
+            highlight: '#5AD3D1',
+            label: 'Green'
+        },
+        {
+            value: 100,
+            color: '#FDB45C',
+            highlight: '#FFC870',
+            label: 'Yellow'
+        }];
 
         this.data2 = [{
-                value: 125,
-                color: '#2196F3',
-                highlight: '#64B5F6',
-                label: 'Comedy'
-            },
-            {
-                value: 50,
-                color: '#673AB7',
-                highlight: '#9575CD',
-                label: 'Drama'
-            },
-            {
-                value: 75,
-                color: '#00897B',
-                highlight: '#26A69A',
-                label: 'Action'
-            },
-            {
-                value: 22,
-                color: '#FF9800',
-                highlight: '#FFB74D',
-                label: 'Romance'
-            },
-            {
-                value: 100,
-                color: '#FF5722',
-                highlight: '#FF8A65',
-                label: 'Sci-fi'
-            }];
+            value: 125,
+            color: '#2196F3',
+            highlight: '#64B5F6',
+            label: 'Comedy'
+        },
+        {
+            value: 50,
+            color: '#673AB7',
+            highlight: '#9575CD',
+            label: 'Drama'
+        },
+        {
+            value: 75,
+            color: '#00897B',
+            highlight: '#26A69A',
+            label: 'Action'
+        },
+        {
+            value: 22,
+            color: '#FF9800',
+            highlight: '#FFB74D',
+            label: 'Romance'
+        },
+        {
+            value: 100,
+            color: '#FF5722',
+            highlight: '#FF8A65',
+            label: 'Sci-fi'
+        }];
     }
 
 }
 </pre>
+
+            <h3>Legend</h3>
+            <p>To display a legend, pass an element as a local template variable where legend content would be generated.</p>
+<pre>
+&lt;p-barChart [value]="data" width="640" height="320" [legend]="lgnd"&gt;&lt;/p-barChart&gt;
+&lt;div #lgnd&gt;&lt;/div&gt;
+</pre>
+
+            <p>Content of legend can be customized with legendTemplate attribute that defaults to;</p>
+<pre>
+"&lt;ul class=\"&lt;%=name.toLowerCase()%&gt;-legend\"&gt;
+    &lt;% for (var i=0; i&lt;datasets.length; i++){%&gt;
+        &lt;li&gt;&lt;span style=\"background-color:&lt;%=datasets[i].strokeColor%&gt;\"&gt;&lt;/span&gt;&lt;%if(datasets[i].label){%&gt;&lt;%=datasets[i].label%&gt;&lt;%}%&gt;&lt;/li&gt;
+    &lt;%}%&gt;
+&lt;/ul&gt;"</pre>
+
             <h3>Event</h3>
             <p>onSegmentSelect event is triggered by passing the available selected segments when a user clicks on the chart.</p>
 <pre>
@@ -402,6 +418,12 @@ export class MyModel {
                             <td>Whether we animate scaling the Doughnut from the centre</td>
                         </tr>
                         <tr>
+                            <td>legend</td>
+                            <td>element</td>
+                            <td>Element as a local template variable.</td>
+                            <td>Container of legend</td>
+                        </tr>
+                        <tr>
                             <td>legendTemplate</td>
                             <td>string</td>
                             <td>Template for legend content.</td>
@@ -470,54 +492,54 @@ export class DoughnutChartDemoComponent {
 
     constructor() {
         this.data1 = [{
-                value: 300,
-                color: '#F7464A',
-                highlight: '#FF5A5E',
-                label: 'Red'
-            },
-            {
-                value: 50,
-                color: '#46BFBD',
-                highlight: '#5AD3D1',
-                label: 'Green'
-            },
-            {
-                value: 100,
-                color: '#FDB45C',
-                highlight: '#FFC870',
-                label: 'Yellow'
-            }];
+            value: 300,
+            color: '#F7464A',
+            highlight: '#FF5A5E',
+            label: 'Red'
+        },
+        {
+            value: 50,
+            color: '#46BFBD',
+            highlight: '#5AD3D1',
+            label: 'Green'
+        },
+        {
+            value: 100,
+            color: '#FDB45C',
+            highlight: '#FFC870',
+            label: 'Yellow'
+        }];
 
         this.data2 = [{
-                value: 125,
-                color: '#2196F3',
-                highlight: '#64B5F6',
-                label: 'Comedy'
-            },
-            {
-                value: 50,
-                color: '#673AB7',
-                highlight: '#9575CD',
-                label: 'Drama'
-            },
-            {
-                value: 75,
-                color: '#00897B',
-                highlight: '#26A69A',
-                label: 'Action'
-            },
-            {
-                value: 22,
-                color: '#FF9800',
-                highlight: '#FFB74D',
-                label: 'Romance'
-            },
-            {
-                value: 100,
-                color: '#FF5722',
-                highlight: '#FF8A65',
-                label: 'Sci-fi'
-            }];
+            value: 125,
+            color: '#2196F3',
+            highlight: '#64B5F6',
+            label: 'Comedy'
+        },
+        {
+            value: 50,
+            color: '#673AB7',
+            highlight: '#9575CD',
+            label: 'Drama'
+        },
+        {
+            value: 75,
+            color: '#00897B',
+            highlight: '#26A69A',
+            label: 'Action'
+        },
+        {
+            value: 22,
+            color: '#FF9800',
+            highlight: '#FFB74D',
+            label: 'Romance'
+        },
+        {
+            value: 100,
+            color: '#FF5722',
+            highlight: '#FF8A65',
+            label: 'Sci-fi'
+        }];
     }
 
     onSegmentClick(event) {

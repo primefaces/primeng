@@ -108,6 +108,8 @@ export class BarChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() barDatasetSpacing: number  = 1;
 
+    @Input() legend: any;
+
     @Input() legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>";
 
     @Output() onBarsSelect: EventEmitter<any> = new EventEmitter();
@@ -177,6 +179,10 @@ export class BarChart implements AfterViewInit, OnDestroy, DoCheck {
                 barValueSpacing: this.barValueSpacing,
                 barDatasetSpacing: this.barDatasetSpacing
             });
+
+            if(this.legend) {
+                this.legend.innerHTML = this.chart.generateLegend();
+            }
         }
 
     }
