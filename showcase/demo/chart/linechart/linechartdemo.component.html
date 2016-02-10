@@ -110,7 +110,7 @@ export class MyModel {
                         <tr>
                             <td>animationEasing</td>
                             <td>string</td>
-                            <td>"easeOutQuart"</td>
+                            <td>easeOutQuart</td>
                             <td>Animation easing effect</td>
                         </tr>
                         <tr>
@@ -135,7 +135,7 @@ export class MyModel {
                             <td>scaleStepWidth</td>
                             <td>number</td>
                             <td>null</td>
-                            <td></td>
+                            <td>The value jump in the hard coded scale</td>
                         </tr>
                         <tr>
                             <td>scaleStartValue</td>
@@ -146,7 +146,7 @@ export class MyModel {
                         <tr>
                             <td>scaleLineColor</td>
                             <td>string</td>
-                            <td>'rgba(0,0,0,.1)'</td>
+                            <td>rgba(0,0,0,.1)</td>
                             <td>Colour of the scale line</td>
                         </tr>
                         <tr>
@@ -164,7 +164,7 @@ export class MyModel {
                         <tr>
                             <td>scaleLabel</td>
                             <td>string</td>
-                            <td>'<%=value%>'</td>
+                            <td><%=value%></td>
                             <td>Interpolated JS string - can access value</td>
                         </tr>
                         <tr>
@@ -182,7 +182,7 @@ export class MyModel {
                         <tr>
                             <td>scaleFontFamily</td>
                             <td>string</td>
-                            <td>"'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"</td>
+                            <td>'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'</td>
                             <td>Scale label font declaration for the scale label</td>
                         </tr>
                         <tr>
@@ -194,13 +194,13 @@ export class MyModel {
                         <tr>
                             <td>scaleFontStyle</td>
                             <td>string</td>
-                            <td>'normal'</td>
+                            <td>normal</td>
                             <td>Scale label font weight style</td>
                         </tr>
                         <tr>
                             <td>scaleFontColor</td>
                             <td>string</td>
-                            <td>'#666'</td>
+                            <td>#666</td>
                             <td>Scale label font colour</td>
                         </tr>
                         <tr>
@@ -224,13 +224,13 @@ export class MyModel {
                         <tr>
                             <td>tooltipFillColor</td>
                             <td>string</td>
-                            <td>'rgba(0,0,0,0.8)'</td>
+                            <td>rgba(0,0,0,0.8)</td>
                             <td>Tooltip background colour</td>
                         </tr>
                         <tr>
                             <td>tooltipFontFamily</td>
                             <td>string</td>
-                            <td>"'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"</td>
+                            <td>'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'</td>
                             <td>Tooltip label font declaration for the scale label</td>
                         </tr>
                         <tr>
@@ -242,19 +242,19 @@ export class MyModel {
                         <tr>
                             <td>tooltipFontStyle</td>
                             <td>string</td>
-                            <td>'normal'</td>
+                            <td>normal</td>
                             <td>Tooltip font weight style</td>
                         </tr>
                          <tr>
                             <td>tooltipFontColor</td>
                             <td>string</td>
-                            <td>'#fff'</td>
+                            <td>#fff</td>
                             <td>Tooltip label font colour</td>
                         </tr>
                         <tr>
                             <td>tooltipTitleFontFamily</td>
                             <td>string</td>
-                            <td>"'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"</td>
+                            <td>'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'</td>
                             <td>Tooltip title font declaration for the scale label</td>
                         </tr>
                         <tr>
@@ -266,13 +266,13 @@ export class MyModel {
                         <tr>
                             <td>tooltipTitleFontStyle</td>
                             <td>string</td>
-                            <td>'bold'</td>
+                            <td>bold</td>
                             <td>Tooltip title font weight style</td>
                         </tr>
                         <tr>
                             <td>tooltipTitleFontColor</td>
                             <td>string</td>
-                            <td>'#fff'</td>
+                            <td>#fff</td>
                             <td>Tooltip title font colour</td>
                         </tr>
                         <tr>
@@ -308,13 +308,13 @@ export class MyModel {
                         <tr>
                             <td>tooltipTemplate</td>
                             <td>string</td>
-                            <td>"<%if (label){%><%=label%>: <%}%><%= value %>"</td>
+                            <td><%if (label){%><%=label%>: <%}%><%= value %></td>
                             <td>Template string for single tooltips</td>
                         </tr>
                         <tr>
                             <td>multiTooltipTemplate</td>
                             <td>string</td>
-                            <td>"<%= value %>"</td>
+                            <td><%= value %></td>
                             <td>emplate string for multiple tooltips</td>
                         </tr>
                         <tr>
@@ -344,7 +344,7 @@ export class MyModel {
                         <tr>
                             <td>scaleGridLineColor</td>
                             <td>string</td>
-                            <td>"rgba(0,0,0,.05)"</td>
+                            <td>rgba(0,0,0,.05)</td>
                             <td>Colour of the grid lines</td>
                         </tr>
                         <tr>
@@ -442,8 +442,8 @@ export class MyModel {
                     <tbody>
                     <tr>
                         <td>onPointsSelect</td>
-                        <td>originalEvent: event<br />
-                            points: activePoints 
+                        <td>event.originalEvent: click event<br />
+                            event.points: selected points
                         </td>
                         <td>Callback to invoke when value of linechart changes.</td>
                     </tr>
@@ -459,11 +459,11 @@ export class MyModel {
 <pre>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-    &lt;h3 class="first">Basic&lt;/h3&gt;
-    &lt;p-lineChart [value]="data" width="640" height="320"&gt;&lt;/p-lineChart&gt;
+&lt;h3 class="first">Basic&lt;/h3&gt;
+&lt;p-lineChart [value]="data" width="640" height="320"&gt;&lt;/p-lineChart&gt;
 
-    &lt;h3&gt;Interactive and Customized&lt;/h3&gt;
-    &lt;p-lineChart [value]="data" width="640" height="320" [bezierCurve]="false" [datasetFill]="false" (onPointsSelect)="onSelect($event)"&gt;&lt;/p-lineChart&gt;
+&lt;h3&gt;Interactive and Customized&lt;/h3&gt;
+&lt;p-lineChart [value]="data" width="640" height="320" [bezierCurve]="false" [datasetFill]="false" (onPointsSelect)="onSelect($event)"&gt;&lt;/p-lineChart&gt;
 </pre>
 
 <pre>
