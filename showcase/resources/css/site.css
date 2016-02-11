@@ -35,7 +35,7 @@
 body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#20272a; font-family: 'RobotoRegular', "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:normal;color:#404C51}
 
 #LOGOTEXTSIDE{display:block;width:290px; float:left; height:auto; z-index:999; margin:-23px 0px 0px 0px; padding-top:25px; line-height:30px;}
-#LOGOTEXTSIDE img{width:300px;}
+#LOGOTEXTSIDE img{width:260px;}
 .logoDarkText{color:#FDFDFD;}
 .logoBlueText{color:#25aae1;}
 
@@ -67,7 +67,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 /* content side style*/
 #CONTENTSIDE{width:auto; overflow:hidden; z-index:1; margin-left:300px; background-color:#FFFFFF;}
 #CONTENTSIDEindent{width:100%; height:auto;}
-.ContentSideSections{display:block; border-bottom:solid 1px #CFD8DC; padding:30px;}
+.ContentSideSections{display:block; border-bottom:solid 1px #CFD8DC; padding:30px; overflow:hidden;}
 .MOBILE .ContentSideSections{padding:14px 24px;}
 #PFTopLinksCover{background-color:#1976D2;}
 #PFMobileTopLinksCover{ position:inherit;}
@@ -360,8 +360,8 @@ input.searchInput {
 
 .Source .ui-tabview .ui-tabview-nav li.ui-state-default a {
     color: #fff !important;
-    font-weight:normal !important; 
-    text-shadow: none; 
+    font-weight:normal !important;
+    text-shadow: none;
 }
 
 .Source .ui-tabview .ui-tabview-nav li.ui-state-active a {
@@ -590,6 +590,5 @@ pre {
 .ui-tabview-left > .ui-tabview-nav {
     height: 150px;
 }
-
 
 
