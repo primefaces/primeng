@@ -6,12 +6,19 @@
 </div>
 
 <div class="ContentSideSections Implementation">
+    {{display}}
     <p-dialog id="dlgelement" header="Godfather I" [(visible)]="display" modal="modal" minimizable="minimizable" maximizable="maximizable" showEffect="fade" hideEffect="fade">
         <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
-           kind and benevolent to those who give respect, 
+           kind and benevolent to those who give respect,
            but given to ruthless violence whenever anything stands against the good of the family.</p>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="button" pButton icon="fa-close">No</button>
+                <button type="button" pButton icon="fa-check">Yes</button>
+            </div>
+        </footer>
     </p-dialog>
 
     <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square">Show</button>
@@ -50,6 +57,17 @@ export class ModelComponent {
 
             <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
             two-way binding, hiding the dialog with close button updates the visible state as false.</p>
+
+            <h3>Footer</h3>
+            <p>Footer area is defined using the footer element.</p>
+<pre>
+&lt;p-dialog header="Title" [(visible)]="display"&gt;
+    Content
+    &lt;footer&gt;
+        Footer content here
+    &lt;/footer&gt;
+&lt;/p-dialog&gt;
+</pre>
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -286,6 +304,12 @@ export class ModelComponent {
        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
        kind and benevolent to those who give respect, 
        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
+        &lt;footer&gt;
+            &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
+                &lt;button type="button" pButton icon="fa-close"&gt;No&lt;/button&gt;
+                &lt;button type="button" pButton icon="fa-check"&gt;Yes&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/footer&gt;
 &lt;/p-dialog&gt;
 
 &lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square"&gt;Show&lt;/button&gt;

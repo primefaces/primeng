@@ -17,4 +17,8 @@ export class DialogDemoComponent {
         this.display = true;
     }
 
+    hideDialog() {
+        this.display = false;
+    }
+
 }

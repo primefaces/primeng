@@ -163,7 +163,7 @@ button.ui-button::-moz-focus-inner{border:0;padding:0;}
 .ui-dialog .ui-dialog-content{position:relative;border:0;padding:.5em 1em;background:none;overflow:auto;zoom:1;}
 .ui-dialog .ui-dialog-buttonpane{text-align:left;border-width:1px 0 0 0;background-image:none;margin:.5em 0 0 0;padding:.3em 1em .5em .4em;}
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset{float:right;}
-.ui-dialog .ui-dialog-buttonpane button{margin:.5em .4em .5em 0;cursor:pointer;}
+.ui-dialog .ui-dialog-buttonpane button{margin:.5em .4em .5em 0;cursor:pointer;float:right}
 .ui-dialog .ui-resizable-se{width:14px;height:14px;right:3px;bottom:3px;}
 .ui-draggable .ui-dialog-titlebar{cursor:move;}
 .ui-dialog .ui-dialog-titlebar-close,.ui-dialog .ui-dialog-titlebar-minimize,.ui-dialog .ui-dialog-titlebar-maximize{float:right;margin-top:2px;top:0;padding:1px;cursor:pointer;height:16px;}

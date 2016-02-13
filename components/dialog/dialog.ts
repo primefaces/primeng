@@ -21,6 +21,7 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, HostBinding, Input, Out
             <div class="ui-dialog-content ui-widget-content">
                 <ng-content></ng-content>
             </div>
+            <ng-content select="footer"></ng-content>
         </div>
     `
 })
