@@ -230,6 +230,7 @@ input.searchInput {
 
 .Implementation {
     background-color:#ECEFF1;
+    overflow: visible;
 }
 
 .Implementation h3 {
