@@ -35,7 +35,7 @@
 body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#20272a; font-family: 'RobotoRegular', "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:normal;color:#404C51}
 
 #LOGOTEXTSIDE{display:block;width:290px; float:left; height:auto; z-index:999; margin:-23px 0px 0px 0px; padding-top:25px; line-height:30px;}
-#LOGOTEXTSIDE img{width:260px;}
+#LOGOTEXTSIDE img{width:245px;}
 .logoDarkText{color:#FDFDFD;}
 .logoBlueText{color:#25aae1;}
 
