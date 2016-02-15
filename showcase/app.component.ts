@@ -34,6 +34,14 @@ import {LineChartDemoComponent} from './demo/chart/linechart/linechartdemo.compo
 import {BarChartDemoComponent} from './demo/chart/barchart/barchartdemo.component';
 import {RadarChartDemoComponent} from './demo/chart/radarchart/radarchartdemo.component';
 import {PolarAreaChartDemoComponent} from './demo/chart/polarareachart/polarareachartdemo.component';
+import {MenuDemoComponent} from './demo/menu/menudemo.component';
+import {TieredMenuDemoComponent} from './demo/tieredmenu/tieredmenudemo.component';
+import {MenubarDemoComponent} from './demo/menubar/menubardemo.component';
+import {SlideMenuDemoComponent} from './demo/slidemenu/slidemenudemo.component';
+import {BreadcrumbDemoComponent} from './demo/breadcrumb/breadcrumbdemo.component';
+import {SliderDemoComponent} from "./demo/slider/sliderdemo.component";
+import {LightboxDemoComponent} from "./demo/lightbox/lightboxdemo.component";
+import {PaginatorDemoComponent} from "./demo/paginator/paginatordemo.component";
 
 @Component({
     selector: 'primeng-showcase',
@@ -74,7 +82,15 @@ import {PolarAreaChartDemoComponent} from './demo/chart/polarareachart/polararea
     {path: '/linechart', name: 'LineChartDemo', component: LineChartDemoComponent},
     {path: '/barchart', name: 'BarChartDemo', component: BarChartDemoComponent},
     {path: '/radarchart', name: 'RadarChartDemo', component: RadarChartDemoComponent},
-    {path: '/polarareachart', name: 'PolarAreaChartDemo', component: PolarAreaChartDemoComponent}
+    {path: '/polarareachart', name: 'PolarAreaChartDemo', component: PolarAreaChartDemoComponent},
+    {path: '/menu', name: 'MenuDemo', component: MenuDemoComponent},
+    {path: '/tieredmenu', name: 'TieredMenuDemo', component: TieredMenuDemoComponent},
+    {path: '/menubar', name: 'MenubarDemo', component: MenubarDemoComponent},
+    {path: '/slidemenu', name: 'SlideMenuDemo', component: SlideMenuDemoComponent},
+    {path: '/breadcrumb', name: 'BreadcrumbDemo', component: BreadcrumbDemoComponent},
+    {path: '/slider', name: 'SliderDemo', component: SliderDemoComponent},
+    {path: '/lightbox', name: 'LightboxDemo', component: LightboxDemoComponent},
+    {path: '/paginator', name: 'PaginatorDemo', component: PaginatorDemoComponent}
 ])
 export class AppComponent {
 

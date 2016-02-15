@@ -20,6 +20,7 @@
                 <a class="SubMenuLink" [routerLink]="['PasswordDemo']" (click)="mobileMenuActive = false">&#9679; Password</a>
                 <a class="SubMenuLink" [routerLink]="['RadioButtonDemo']" (click)="mobileMenuActive = false">&#9679; RadioButton</a>
                 <a class="SubMenuLink" [routerLink]="['RatingDemo']" (click)="mobileMenuActive = false">&#9679; Rating</a>
+                <a class="SubMenuLink" [routerLink]="['SliderDemo']" (click)="mobileMenuActive = false">&#9679; Slider</a>
                 <a class="SubMenuLink" [routerLink]="['SpinnerDemo']" (click)="mobileMenuActive = false">&#9679; Spinner</a>
                 <a class="SubMenuLink" [routerLink]="['SelectbuttonDemo']" (click)="mobileMenuActive = false">&#9679; SelectButton</a>
                 <a class="SubMenuLink" [routerLink]="['ToggleButtonDemo']" (click)="mobileMenuActive = false">&#9679; ToggleButton</a>
@@ -33,6 +34,7 @@
             <span id="data_menutitle" #datamenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="datamenutitle.id == activeMenuId" (click)="activeMenuId = datamenutitle.id"><img src="showcase/resources/images/mono/data.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/dataBlue.svg" /><span class="MainLinkText">Data</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (datamenutitle.id == activeMenuId), 'submenuhide': (datamenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['CarouselDemo']" (click)="mobileMenuActive = false">&#9679; Carousel</a>
+                <a class="SubMenuLink" [routerLink]="['PaginatorDemo']" (click)="mobileMenuActive = false">&#9679; Paginator</a>
             </div>
 
             <span id="menu_panel" #panelmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = panelmenutitle.id"><img src="showcase/resources/images/mono/panel.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></span>
@@ -47,6 +49,16 @@
             <span id="menu_overlay" #overlaymenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id"><img src="showcase/resources/images/mono/overlay.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['DialogDemo']" (click)="mobileMenuActive = false">&#9679; Dialog</a>
+                <a class="SubMenuLink" [routerLink]="['LightboxDemo']" (click)="mobileMenuActive = false">&#9679; Lightbox</a>
+            </div>
+
+            <span id="menu_menu" #menumenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="menumenutitle.id == activeMenuId" (click)="activeMenuId = menumenutitle.id"><img src="showcase/resources/images/mono/menu.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/menuBlue.svg" /><span class="MainLinkText">Menu</span></span>
+            <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (menumenutitle.id == activeMenuId), 'submenuhide': (menumenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['BreadcrumbDemo']" (click)="mobileMenuActive = false">&#9679; Breadcrumb</a>
+                <a class="SubMenuLink" [routerLink]="['MenuDemo']" (click)="mobileMenuActive = false">&#9679; Menu</a>
+                <a class="SubMenuLink" [routerLink]="['MenubarDemo']" (click)="mobileMenuActive = false">&#9679; Menubar</a>
+                <a class="SubMenuLink" [routerLink]="['SlideMenuDemo']" (click)="mobileMenuActive = false">&#9679; SlideMenu</a>
+                <a class="SubMenuLink" [routerLink]="['TieredMenuDemo']" (click)="mobileMenuActive = false">&#9679; TieredMenu</a>
             </div>
 
             <span id="menu_chart" #chartmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = chartmenutitle.id"><img src="showcase/resources/images/mono/charts.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/chartsBlue.svg" /><span class="MainLinkText">Charts</span></span>

@@ -1,0 +1,264 @@
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Slider</span>
+        <span class="defaultText dispTable">Slider is a component to provide input using dragging of a handle.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <h3 class="first">Basic: {{val1}}</h3>
+    <p-slider [(value)]="val1" style="width:200px"></p-slider>
+
+    <h3>Input: {{val2}}</h3>
+    <input type="text" pInputText [(ngModel)]="val2" style="width:200px"/>
+    <p-slider [(value)]="val2" style="width:200px"></p-slider>
+
+    <h3>Animate: {{val3}}</h3>
+    <p-slider [(value)]="val3" style="width:200px" [animate]="true"></p-slider>
+
+    <h3>Step: {{val4}}</h3>
+    <p-slider [(value)]="val4" style="width:200px" [step]="10"></p-slider>
+
+    <h3>Range: {{rangeValues}}</h3>
+    <p-slider [(values)]="rangeValues" style="width:200px" [range]="true"></p-slider>
+
+    <h3>Vertical: {{val5}}</h3>
+    <p-slider [(value)]="val5" style="height:200px" orientation="vertical"></p-slider>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+import {Slider} from 'primeng/primeng';
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Slider is defined using p-slider element and requires a value binding.</p>
+<pre>
+&lt;p-slider [(value)]="val" &gt;&lt;/p-slider&gt;
+</pre>
+
+<pre>
+export class MyModel {
+
+    val: number;
+
+}
+</pre>
+
+            <h3>Min-Max</h3>
+            <p>Boundaries are specified with min and max attributes.</p>
+<pre>
+&lt;p-slider [(value)]="val" [min]="0" [max]="100"&gt;&lt;/p-slider&gt;
+</pre>
+
+            <h3>Step</h3>
+            <p>Step factor is 1 by default and can be customized with step option.</p>
+<pre>
+&lt;p-slider [(value)]="val" [step]="10"&gt;&lt;/p-slider&gt;
+</pre>
+
+            <h3>Range</h3>
+            <p>Range slider provides two handles to define two values. In this case, use the values property that binds to an array.</p>
+<pre>
+&lt;p-slider [(values)]="vals" [range]="true"&gt;&lt;/p-slider&gt;
+</pre>
+
+<pre>
+export class MyModel {
+
+    rangeValues: number[];
+
+}
+</pre>
+
+            <h3>Orientation</h3>
+            <p>Sliders supports two orientations, horizontal is the default and other alternative is vertical.</p>
+<pre>
+&lt;p-slider [(value)]="val" orientation="vertical"&gt;&lt;/p-slider&gt;
+</pre>
+
+            <h3>Attributes</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>value</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Value of the slider.</td>
+                        </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>Values of the slider as an array in range mode.</td>
+                        </tr>
+                        <tr>
+                            <td>animate</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, displays an animation on click of the slider bar.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the element should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>min</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Mininum boundary value.</td>
+                        </tr>
+                        <tr>
+                            <td>max</td>
+                            <td>number</td>
+                            <td>100</td>
+                            <td>Maximum boundary value.</td>
+                        </tr>
+                        <tr>
+                            <td>orientation</td>
+                            <td>string</td>
+                            <td>horizontal</td>
+                            <td>Orientation of the slider, valid values are horizontal and vertical.</td>
+                        </tr>
+                        <tr>
+                            <td>step</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Step factor to increment/decrement the value.</td>
+                        </tr>
+                        <tr>
+                            <td>range</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When speficed, allows two boundary values to be picked.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onChange</td>
+                            <td>
+                                value: New value <br />
+                                values: Array of values in range mode
+                            </td>
+                            <td>Callback to invoke on value change via slide.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<pre>
+&lt;p-slider [(value)]="val" (onChange)="handleChange(#newval)"&gt;&lt;/p-slider&gt;
+</pre>
+
+<pre>
+handleChange(val) {
+    //val is the new value
+}
+</pre>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-slider</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-slider-handle</td>
+                            <td>Handle element</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>jQuery UI Slider.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+<pre>
+&lt;h3 class="first"&gt;Basic: {{val1}}&lt;/h3&gt;
+&lt;p-slider [(value)]="val1" style="width:200px"&gt;&lt;/p-slider&gt;
+
+&lt;h3&gt;Input: {{val2}}&lt;/h3&gt;
+&lt;input type="text" pInputText [(ngModel)]="val2" style="width:200px"/&gt;
+&lt;p-slider [(value)]="val2" style="width:200px"&gt;&lt;/p-slider&gt;
+
+&lt;h3&gt;Animate: {{val3}}&lt;/h3&gt;
+&lt;p-slider [(value)]="val3" style="width:200px" [animate]="true"&gt;&lt;/p-slider&gt;
+
+&lt;h3&gt;Step: {{val4}}&lt;/h3&gt;
+&lt;p-slider [(value)]="val4" style="width:200px" [step]="10"&gt;&lt;/p-slider&gt;
+
+&lt;h3&gt;Range: {{rangeValues}}&lt;/h3&gt;
+&lt;p-slider [(values)]="rangeValues" style="width:200px" [range]="true"&gt;&lt;/p-slider&gt;
+
+&lt;h3&gt;Vertical: {{val5}}&lt;/h3&gt;
+&lt;p-slider [(value)]="val5" style="height:200px" orientation="vertical"&gt;&lt;/p-slider&gt;
+</pre>
+
+<pre>
+export class SliderDemoComponent {
+
+    val1: number;
+
+    val2: number = 50;
+
+    val3: number;
+
+    val4: number;
+
+    val5: number;
+
+    rangeValues: number[] = [20,80];
+}
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
