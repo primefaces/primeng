@@ -7650,6 +7650,7 @@ PUI.resolveUserAgent();/**
             var $this = this;
             this._unbindEvents();
             if(!this.options.enhanced) {
+                this.element.children('.ui-helper-hidden-accessible').remove();
                 this.element.removeClass('ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-megamenu-vertical');
             }
 
