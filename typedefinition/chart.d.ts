@@ -128,6 +128,8 @@ interface LineChartOptions extends ChartOptions {
     datasetStroke?: boolean;
     datasetStrokeWidth?: number;
     datasetFill?: boolean;
+    scaleShowHorizontalLines?: boolean;
+    scaleShowVerticalLines?: boolean;
 }
 
 interface BarChartOptions extends ChartOptions {

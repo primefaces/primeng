@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {DoughnutChart} from '../../../../components/chart/doughnutchart/doughnotchart'
+import {DoughnutChart} from '../../../../components/chart/doughnutchart/doughnutchart'
 import {TabView} from '../../../../components/tabview/tabview';
 import {TabPanel} from '../../../../components/tabview/tabpanel';
 import {Growl} from '../../../../components/growl/growl';
