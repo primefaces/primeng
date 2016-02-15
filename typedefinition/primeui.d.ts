@@ -312,6 +312,14 @@ declare module PrimeUI {
         iframeHeight?: number;
         iframe?: boolean;
     }
+
+
+    interface MegaMenuOptions {
+        autoDisplay?: boolean;
+        orientation?: string;
+        style?: string;
+        styleClass?: string;
+    }
 }
 
 interface JQuery {
@@ -627,4 +635,16 @@ interface JQuery {
     puilightbox(optionLiteral: string, optionName: string): any;
     puilightbox(optionLiteral: string, options: PrimeUI.LightboxOptions): any;
     puilightbox(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puimegamenu(): JQuery;
+    puimegamenu(methodName: 'destroy'): void;
+    puimegamenu(methodName: 'disable'): void;
+    puimegamenu(methodName: 'enable'): void;
+    puimegamenu(methodName: 'refresh'): void;
+    puimegamenu(methodName: 'widget'): JQuery;
+    puimegamenu(methodName: string): JQuery;
+    puimegamenu(options: PrimeUI.MegaMenuOptions): JQuery;
+    puimegamenu(optionLiteral: string, optionName: string): any;
+    puimegamenu(optionLiteral: string, options: PrimeUI.MegaMenuOptions): any;
+    puimegamenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

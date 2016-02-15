@@ -7579,7 +7579,8 @@ PUI.resolveUserAgent();/**
 
         options: {
             autoDisplay: true,
-            orientation:'horizontal'
+            orientation:'horizontal',
+            enhanced: false
         },
 
         _create: function() {
@@ -7600,18 +7601,27 @@ PUI.resolveUserAgent();/**
 
         _render: function() {
             var $this = this;
-            this.element.addClass('ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix');
-            if(this._isVertical()) {
-                this.element.addClass('ui-megamenu-vertical');
+
+            if(!this.options.enhanced) {
+                this.element.addClass('ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix');
+                if(this._isVertical()) {
+                    this.element.addClass('ui-megamenu-vertical');
+                }
             }
+
             this.element.children('ul').addClass('ui-menu-list ui-helper-reset');
 
             this.element.find('li').each(function(){
                 var listItem = $(this),
-                    menuitemLink = listItem.children('a'),
-                    icon = menuitemLink.data('icon');
+                menuitemLink = listItem.children('a'),
+                icon = menuitemLink.data('icon');
 
-                menuitemLink.addClass('ui-menuitem-link ui-corner-all').contents().wrap('<span class="ui-menuitem-text" />');
+                menuitemLink.addClass('ui-menuitem-link ui-corner-all');
+
+                if($this.options.enhanced)
+                    menuitemLink.children('span').addClass('ui-menuitem-text');
+                else
+                    menuitemLink.contents().wrap('<span class="ui-menuitem-text" />');
 
                 if(icon) {
                     menuitemLink.prepend('<span class="ui-menuitem-icon fa fa-fw ' + icon + '"></span>');
@@ -7625,24 +7635,53 @@ PUI.resolveUserAgent();/**
                     listItem.removeClass('ui-widget ui-menuitem');
                 }
                 else if(listItem.children('div').length) {
-                    var submenuIcon;
-                    if(!$this._isVertical()) {
-                        submenuIcon = 'fa-caret-down';
-                    }
-                    else {
-                        submenuIcon = 'fa-caret-right'
-                    }
+                    var submenuIcon = $this._isVertical() ? 'fa-caret-right' : 'fa-caret-down';
                     listItem.addClass('ui-menu-parent');
                     listItem.children('div').addClass('ui-megamenu-panel ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow');
                     menuitemLink.addClass('.ui-submenu-link').prepend('<span class="ui-submenu-icon fa fa-fw ' + submenuIcon + '"></span>');
                 }
-            })
+            });
+        },
+
+        _destroy: function() {
+            var $this = this;
+            this._unbindEvents();
+            if(!this.options.enhanced) {
+                this.element.removeClass('ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-megamenu-vertical');
+            }
+
+            this.element.find('li').each(function(){
+                var listItem = $(this),
+                menuitemLink = listItem.children('a');
+
+                menuitemLink.removeClass('ui-menuitem-link ui-corner-all');
+
+                if($this.options.enhanced)
+                    menuitemLink.children('span').removeClass('ui-menuitem-text');
+                else
+                    menuitemLink.contents().unwrap();
+
+                menuitemLink.children('.ui-menuitem-icon').remove();
+
+                listItem.removeClass('ui-menuitem ui-widget ui-corner-all')
+                            .parent().removeClass('ui-menu-list ui-helper-reset');
+
+                if(listItem.children('h3').length) {
+                    listItem.removeClass('ui-widget-header ui-corner-all');
+                }
+                else if(listItem.children('div').length) {
+                    var submenuIcon = $this._isVertical() ? 'fa-caret-right' : 'fa-caret-down';
+                    listItem.removeClass('ui-menu-parent');
+                    listItem.children('div').removeClass('ui-megamenu-panel ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow');
+                    menuitemLink.removeClass('.ui-submenu-link').children('.ui-submenu-icon').remove();
+                }
+            });
         },
 
         _bindEvents: function() {
             var $this = this;
 
-            this.rootLinks.on('mouseenter', function(e) {
+            this.rootLinks.on('mouseenter.ui-megamenu', function(e) {
                     var link = $(this),
                         menuitem = link.parent();
 
@@ -7661,7 +7700,7 @@ PUI.resolveUserAgent();/**
                         $this._highlight(menuitem);
                     }
                 })
-                .on('click', function(e) {
+                .on('click.ui-megamenu', function(e) {
                     var link = $(this),
                         menuitem = link.parent(),
                         submenu = link.next();
@@ -7680,8 +7719,7 @@ PUI.resolveUserAgent();/**
                     e.preventDefault();
                 });
 
-
-            this.subLinks.mouseenter(function() {
+            this.subLinks.on('mousenter.ui-megamenu', function() {
                     if($this.activeitem && !$this.isRootLink($this.activeitem)) {
                         $this._deactivate($this.activeitem);
                     }
@@ -7697,12 +7735,18 @@ PUI.resolveUserAgent();/**
                     $(this).closest('div.ui-megamenu-panel').hide();
                 });
 
-            this.rootList.mouseleave(function(e) {
+            this.rootList.on('mouseleave.ui-megamenu', function(e) {
                 var activeitem = $this.rootList.children('.ui-menuitem-active');
                 if(activeitem.length === 1) {
                     $this._deactivate(activeitem, false);
                 }
             });
+        },
+
+        _unbindEvents: function() {
+            this.rootLinks.off('mouseenter.ui-megamenu click.ui-megamenu');
+            this.subLinks.off('mousenter.ui-megamenu');
+            this.rootList.off('mouseleave.ui-megamenu');
         },
 
         _isVertical: function () {

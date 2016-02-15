@@ -55,6 +55,7 @@
             <span id="menu_menu" #menumenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="menumenutitle.id == activeMenuId" (click)="activeMenuId = menumenutitle.id"><img src="showcase/resources/images/mono/menu.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/menuBlue.svg" /><span class="MainLinkText">Menu</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (menumenutitle.id == activeMenuId), 'submenuhide': (menumenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['BreadcrumbDemo']" (click)="mobileMenuActive = false">&#9679; Breadcrumb</a>
+                <a class="SubMenuLink" [routerLink]="['MegaMenuDemo']" (click)="mobileMenuActive = false">&#9679; MegaMenu</a>
                 <a class="SubMenuLink" [routerLink]="['MenuDemo']" (click)="mobileMenuActive = false">&#9679; Menu</a>
                 <a class="SubMenuLink" [routerLink]="['MenubarDemo']" (click)="mobileMenuActive = false">&#9679; Menubar</a>
                 <a class="SubMenuLink" [routerLink]="['SlideMenuDemo']" (click)="mobileMenuActive = false">&#9679; SlideMenu</a>
