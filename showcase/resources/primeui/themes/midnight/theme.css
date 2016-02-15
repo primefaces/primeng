@@ -14,7 +14,7 @@
 
 /* Component containers
 ----------------------------------*/
-.ui-widget { font-family: Georgia, "Times New Roman", Times, serif; font-size: 1.2em; }
+.ui-widget { font-family: Georgia, "Times New Roman", Times, serif; font-size: 1em; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Georgia, "Times New Roman", Times, serif; font-size: 1em; }
 .ui-widget-content { border: 1px solid #18181f; background: #18181f url(images/ui-bg_flat_100_18181f_40x100.png) 50% 50% repeat-x; color: #dfdfe3; }

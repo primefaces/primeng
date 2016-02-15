@@ -13,7 +13,7 @@
 
 /* Component containers
 ----------------------------------*/
-.ui-widget { font-family: Segoe UI, Arial, sans-serif; font-size: 1.1em; }
+.ui-widget { font-family: Segoe UI, Arial, sans-serif; font-size: 1em; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Segoe UI, Arial, sans-serif; font-size: 1em; }
 .ui-widget-content { border: 1px solid #666666; background: #575757 url(images/ui-bg_flat_50_575757_40x100.png) 50% 50% repeat-x; color: #eeeeee; }

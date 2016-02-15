@@ -575,3 +575,9 @@ button.ui-button span {
 	background: #14A4FF !important;
 	color: #ffffff;
 }
+
+.ui-paginator .ui-paginator-page.ui-state-active {
+	background: #27abff;
+	color: #ffffff;
+	border-color: #168dd9;
+}

@@ -13,7 +13,7 @@
 
 /* Component containers
 ----------------------------------*/
-.ui-widget { font-family: Arial, Helvetica, sans-serif; font-size: 1.2em; }
+.ui-widget { font-family: Arial, Helvetica, sans-serif; font-size: 1em; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Arial, Helvetica, sans-serif; font-size: 1em; }
 .ui-widget-content { border: 1px solid #e3e3e3; background: #f1f1f1 url(images/ui-bg_flat_100_f1f1f1_40x100.png) 50% 50% repeat-x; color: #404040; }
