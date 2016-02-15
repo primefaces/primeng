@@ -274,6 +274,44 @@ declare module PrimeUI {
         enhanced?: boolean;
         value?: any;
     }
+
+    interface BaseMenuOptions {
+        enhanced?: boolean;
+        popup?: boolean;
+        trigger?: any;
+        my?: string;
+        at?: string;
+        triggerEvent?: string;
+    }
+
+    interface MenuOptions extends BaseMenuOptions {
+        enhanced?: boolean;
+    }
+
+    interface TieredMenuOptions extends BaseMenuOptions {
+        enhanced?: boolean;
+        autoDisplay?: boolean;
+    }
+
+    interface MenubarOptions extends BaseMenuOptions {
+        enhanced?: boolean;
+        autoDisplay?: boolean;
+    }
+
+    interface SlideMenuOptions extends BaseMenuOptions {
+        enhanced?: boolean;
+        backLabel?: string;
+    }
+
+    interface BreadcrumbOptions {
+        enhanced?: boolean;
+    }
+
+    interface LightboxOptions {
+        iframeWidth?: number;
+        iframeHeight?: number;
+        iframe?: boolean;
+    }
 }
 
 interface JQuery {
@@ -517,4 +555,76 @@ interface JQuery {
     puidropdown(optionLiteral: string, optionName: string): any;
     puidropdown(optionLiteral: string, options: PrimeUI.DropdownOptions): any;
     puidropdown(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puibreadcrumb(): JQuery;
+    puibreadcrumb(methodName: 'destroy'): void;
+    puibreadcrumb(methodName: 'disable'): void;
+    puibreadcrumb(methodName: 'enable'): void;
+    puibreadcrumb(methodName: 'refresh'): void;
+    puibreadcrumb(methodName: 'widget'): JQuery;
+    puibreadcrumb(methodName: string): JQuery;
+    puibreadcrumb(options: PrimeUI.BreadcrumbOptions): JQuery;
+    puibreadcrumb(optionLiteral: string, optionName: string): any;
+    puibreadcrumb(optionLiteral: string, options: PrimeUI.BreadcrumbOptions): any;
+    puibreadcrumb(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puimenu(): JQuery;
+    puimenu(methodName: 'destroy'): void;
+    puimenu(methodName: 'disable'): void;
+    puimenu(methodName: 'enable'): void;
+    puimenu(methodName: 'refresh'): void;
+    puimenu(methodName: 'widget'): JQuery;
+    puimenu(methodName: string): JQuery;
+    puimenu(options: PrimeUI.MenuOptions): JQuery;
+    puimenu(optionLiteral: string, optionName: string): any;
+    puimenu(optionLiteral: string, options: PrimeUI.MenuOptions): any;
+    puimenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puitieredmenu(): JQuery;
+    puitieredmenu(methodName: 'destroy'): void;
+    puitieredmenu(methodName: 'disable'): void;
+    puitieredmenu(methodName: 'enable'): void;
+    puitieredmenu(methodName: 'refresh'): void;
+    puitieredmenu(methodName: 'widget'): JQuery;
+    puitieredmenu(methodName: string): JQuery;
+    puitieredmenu(options: PrimeUI.TieredMenuOptions): JQuery;
+    puitieredmenu(optionLiteral: string, optionName: string): any;
+    puitieredmenu(optionLiteral: string, options: PrimeUI.TieredMenuOptions): any;
+    puitieredmenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puimenubar(): JQuery;
+    puimenubar(methodName: 'destroy'): void;
+    puimenubar(methodName: 'disable'): void;
+    puimenubar(methodName: 'enable'): void;
+    puimenubar(methodName: 'refresh'): void;
+    puimenubar(methodName: 'widget'): JQuery;
+    puimenubar(methodName: string): JQuery;
+    puimenubar(options: PrimeUI.MenubarOptions): JQuery;
+    puimenubar(optionLiteral: string, optionName: string): any;
+    puimenubar(optionLiteral: string, options: PrimeUI.MenubarOptions): any;
+    puimenubar(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puislidemenu(): JQuery;
+    puislidemenu(methodName: 'destroy'): void;
+    puislidemenu(methodName: 'disable'): void;
+    puislidemenu(methodName: 'enable'): void;
+    puislidemenu(methodName: 'refresh'): void;
+    puislidemenu(methodName: 'widget'): JQuery;
+    puislidemenu(methodName: string): JQuery;
+    puislidemenu(options: PrimeUI.SlideMenuOptions): JQuery;
+    puislidemenu(optionLiteral: string, optionName: string): any;
+    puislidemenu(optionLiteral: string, options: PrimeUI.SlideMenuOptions): any;
+    puislidemenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puilightbox(): JQuery;
+    puilightbox(methodName: 'destroy'): void;
+    puilightbox(methodName: 'disable'): void;
+    puilightbox(methodName: 'enable'): void;
+    puilightbox(methodName: 'refresh'): void;
+    puilightbox(methodName: 'widget'): JQuery;
+    puilightbox(methodName: string): JQuery;
+    puilightbox(options: PrimeUI.LightboxOptions): JQuery;
+    puilightbox(optionLiteral: string, optionName: string): any;
+    puilightbox(optionLiteral: string, options: PrimeUI.LightboxOptions): any;
+    puilightbox(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }
