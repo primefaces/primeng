@@ -85,7 +85,17 @@
 .ui-icon.fa {
     background: none repeat scroll 0 0 transparent !important;
     text-indent: 0px !important;
-}.ui-accordion {
+}
+
+.ui-unselectable-text {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.ui-accordion {
      width: 100%;
  }
 
