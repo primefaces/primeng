@@ -3,7 +3,7 @@ import {Component,ElementRef,OnInit,OnDestroy,OnChanges,Input,Output,SimpleChang
 @Component({
     selector: 'p-paginator',
     template: `
-        <div class="ui-paginator ui-widget-header">
+        <div class="ui-paginator ui-widget-header ui-unselectable-text">
             <span #firstlink class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all" (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null"
                         (click)="changePageToFirst()" [ngClass]="{'ui-state-disabled':isFirstPage(),'ui-state-hover':(firstlink === hoveredItem && !isFirstPage())}">
                 <span class="fa fa-step-backward"></span>
