@@ -223,23 +223,23 @@ handleChange(val) {
 
         <p-tabPanel header="Source">
 <pre>
-&lt;h3 class="first"&gt;Basic: {{val1}}&lt;/h3&gt;
+&lt;h3 class="first"&gt;Basic: <span>{</span><span>{</span>val1<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;p-slider [(value)]="val1" style="width:200px"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Input: {{val2}}&lt;/h3&gt;
+&lt;h3&gt;Input: <span>{</span><span>{</span>val2<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;input type="text" pInputText [(ngModel)]="val2" style="width:200px"/&gt;
 &lt;p-slider [(value)]="val2" style="width:200px"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Animate: {{val3}}&lt;/h3&gt;
+&lt;h3&gt;Animate: <span>{</span><span>{</span>val3<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;p-slider [(value)]="val3" style="width:200px" [animate]="true"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Step: {{val4}}&lt;/h3&gt;
+&lt;h3&gt;Step: <span>{</span><span>{</span>val4<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;p-slider [(value)]="val4" style="width:200px" [step]="10"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Range: {{rangeValues}}&lt;/h3&gt;
+&lt;h3&gt;Range: <span>{</span><span>{</span>rangeValues<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;p-slider [(values)]="rangeValues" style="width:200px" [range]="true"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Vertical: {{val5}}&lt;/h3&gt;
+&lt;h3&gt;Vertical: <span>{</span><span>{</span>val5<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;p-slider [(value)]="val5" style="height:200px" orientation="vertical"&gt;&lt;/p-slider&gt;
 </pre>
 
