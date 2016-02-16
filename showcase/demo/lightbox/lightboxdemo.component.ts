@@ -5,7 +5,7 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
-    templateUrl: 'showcase/demo/Lightbox/Lightboxdemo.component.html',
+    templateUrl: 'showcase/demo/lightbox/lightboxdemo.component.html',
     directives: [Lightbox,TabView,TabPanel,ROUTER_DIRECTIVES]
 })
 export class LightboxDemoComponent {
