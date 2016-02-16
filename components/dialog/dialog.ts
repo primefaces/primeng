@@ -9,13 +9,13 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, HostBinding, Input, Out
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title">{{header}}</span>
                 <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" href="#" role="button" *ngIf="closable">
-                    <span class="ui-icon fa fa-fw fa-close"></span>
+                    <span class="fa fa-fw fa-close"></span>
                 </a>
                 <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all" href="#" role="button" *ngIf="maximizable">
-                    <span class="ui-icon fa fa-fw fa-sort"></span>
+                    <span class="fa fa-fw fa-sort"></span>
                 </a>
                 <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-minimize ui-corner-all" href="#" role="button" *ngIf="minimizable">
-                    <span class="ui-icon fa fa-fw fa-minus"></span>
+                    <span class="fa fa-fw fa-minus"></span>
                 </a>
             </div>
             <div class="ui-dialog-content ui-widget-content">

@@ -18,12 +18,12 @@ import DropdownEventParams = PrimeUI.DropdownEventParams;
             </div>
             <label class="ui-dropdown-label ui-inputtext ui-corner-all"></label>
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
-                <span class="ui-icon fa fa-fw fa-caret-down"></span>
+                <span class="fa fa-fw fa-caret-down"></span>
             </div>
             <div class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow">
                 <div *ngIf="filter" class="ui-dropdown-filter-container">
                     <input type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
-                    <span class="ui-icon fa fa-search"></span>
+                    <span class="fa fa-search"></span>
                 </div>
                 <div class="ui-dropdown-items-wrapper">
                     <ul *ngIf="!customContent" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">

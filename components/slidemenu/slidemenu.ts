@@ -11,7 +11,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
                     <ng-content></ng-content>
                 </div>
                 <div class="ui-slidemenu-backward ui-widget-header ui-corner-all">
-                    <span class="ui-icon fa fa-fw fa-caret-left"></span>{{backLabel}}
+                    <span class="fa fa-fw fa-caret-left"></span>{{backLabel}}
                 </div>
             </div>
         </div>
