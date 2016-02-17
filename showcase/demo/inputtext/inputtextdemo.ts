@@ -101,7 +101,7 @@ import {InputText} from 'primeng/primeng';
 </pre>
 
 <pre>
-export class InputTextDemoComponent {
+export class InputTextDemo {
 
     text: string;
 

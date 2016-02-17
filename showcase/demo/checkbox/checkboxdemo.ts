@@ -223,7 +223,7 @@ Selected Categories: &lt;span *ngFor="#cat of selectedCategories"&gt; <span>{</s
 </pre>
 
 <pre>
-export class CheckboxDemoComponent {
+export class CheckboxDemo {
 
     selectedCities: string[] = [];
 

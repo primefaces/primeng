@@ -212,7 +212,7 @@ Value 2 = <span>{</span><span>{</span>val2<span>}</span><span>}</span>
 </pre>
 
 <pre>
-export class RadioButtonDemoComponent {
+export class RadioButtonDemo {
 
     val1: string;
 

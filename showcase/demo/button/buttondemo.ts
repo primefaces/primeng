@@ -130,9 +130,9 @@ export class Model {
 Number of clicks: <span>{</span><span>{</span>clicks<span>}</span><span>}</span>
 </pre>
 
-                <h3>ButtonDemoComponent</h3>
+                <h3>ButtonDemo</h3>
 <pre>
-export class ButtonDemoComponent {
+export class ButtonDemo {
 
     clicks: number = 0;
 

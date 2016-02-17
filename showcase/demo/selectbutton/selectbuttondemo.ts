@@ -10,7 +10,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
     templateUrl: 'showcase/demo/selectbutton/selectbuttondemo.html',
     directives: [SelectButton, TabPanel, TabView, Button, ROUTER_DIRECTIVES]
 })
-export class SelectbuttonDemo {
+export class SelectButtonDemo {
 
     types: SelectItem[];
 

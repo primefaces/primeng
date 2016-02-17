@@ -24,7 +24,7 @@ import {MessagesDemo} from './demo/messages/messagesdemo';
 import {GrowlDemo} from './demo/growl/growldemo';
 import {CarouselDemo} from './demo/carousel/carouseldemo';
 import {InputSwitchDemo} from './demo/inputswitch/inputswitchdemo';
-import {SelectbuttonDemo} from './demo/selectbutton/selectbuttondemo';
+import {SelectButtonDemo} from './demo/selectbutton/selectbuttondemo';
 import {CalendarDemo} from './demo/calendar/calendardemo';
 import {DropdownDemo} from './demo/dropdown/dropdowndemo';
 import {ProgressBarDemo} from './demo/progressbar/progressbardemo';
@@ -74,7 +74,7 @@ import {MegaMenuDemo} from "./demo/megamenu/megamenudemo";
     {path: '/growl', name: 'GrowlDemo', component: GrowlDemo},
     {path: '/carousel', name: 'CarouselDemo', component: CarouselDemo},
     {path: '/inputswitch', name: 'InputSwitchDemo', component: InputSwitchDemo},
-    {path: '/selectbutton', name: 'SelectbuttonDemo', component: SelectbuttonDemo},
+    {path: '/selectbutton', name: 'SelectButtonDemo', component: SelectButtonDemo},
     {path: '/calendar', name: 'CalendarDemo', component: CalendarDemo},
     {path: '/dropdown', name: 'DropdownDemo', component: DropdownDemo},
     {path: '/progressbar', name: 'ProgressBarDemo', component: ProgressBarDemo},
