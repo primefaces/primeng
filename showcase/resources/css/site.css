@@ -40,7 +40,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .logoBlueText{color:#25aae1;}
 
 /* menu side style*/
-#MENUSIDE{width:85px; float:left; background-color:#313b3f; border-right:solid 1px #151d21; overflow:hidden; width: 299px; position: fixed;}
+#MENUSIDE{width:85px; float:left; background-color:#313b3f; border-right:solid 1px #151d21; overflow:hidden; width: 299px;}
 #MENUSIDEindent{width:100%; height:auto;}
 #LOGO{height:65px; display:block; padding:20px 0 5px 0px; z-index:997; background-color:#313b3f; text-align:center;}
 #LOGO img{width:120px; height:auto;}
