@@ -319,6 +319,7 @@ declare module PrimeUI {
         orientation?: string;
         style?: string;
         styleClass?: string;
+        enhanced?: boolean;
     }
 }
 
