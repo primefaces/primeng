@@ -3,46 +3,46 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {SetupComponent} from './setup.component';
 import {HomePageComponent} from './homepage.component';
 import {ThemingComponent} from './theming.component';
-import {InputTextDemoComponent} from './demo/inputtext/inputtextdemo.component';
-import {ButtonDemoComponent} from './demo/button/buttondemo.component';
-import {SpinnerDemoComponent} from './demo/spinner/spinnerdemo.component';
-import {PanelDemoComponent} from './demo/panel/paneldemo.component';
-import {FieldsetDemoComponent} from './demo/fieldset/fieldsetdemo.component';
-import {RatingDemoComponent} from './demo/rating/ratingdemo.component';
-import {PasswordDemoComponent} from './demo/password/passworddemo.component';
-import {DialogDemoComponent} from './demo/dialog/dialogdemo.component';
-import {ToggleButtonDemoComponent} from './demo/togglebutton/togglebuttondemo.component';
-import {GridDemoComponent} from './demo/grid/griddemo.component';
-import {TabViewDemoComponent} from './demo/tabview/tabviewdemo.component';
-import {RadioButtonDemoComponent} from './demo/radiobutton/radiobuttondemo.component';
-import {AccordionDemoComponent} from './demo/accordion/accordiondemo.component';
-import {InputTextareaDemoComponent} from './demo/inputtextarea/inputtextareademo.component';
-import {GalleriaDemoComponent} from './demo/galleria/galleriademo.component';
-import {CheckboxDemoComponent} from './demo/checkbox/checkboxdemo.component';
-import {ListboxDemoComponent} from './demo/listbox/listboxdemo.component';
-import {MessagesDemoComponent} from './demo/messages/messagesdemo.component';
-import {GrowlDemoComponent} from './demo/growl/growldemo.component';
-import {CarouselDemoComponent} from './demo/carousel/carouseldemo.component';
-import {InputSwitchDemoComponent} from './demo/inputswitch/inputswitchdemo.component';
-import {SelectbuttonDemoComponent} from './demo/selectbutton/selectbuttondemo.component';
-import {CalendarDemoComponent} from './demo/calendar/calendardemo.component';
-import {DropdownDemoComponent} from './demo/dropdown/dropdowndemo.component';
-import {ProgressBarDemoComponent} from './demo/progressbar/progressbardemo.component';
-import {PieChartDemoComponent} from './demo/chart/piechart/piechartdemo.component';
-import {DoughnutChartDemoComponent} from './demo/chart/doughnutchart/doughnutchartdemo.component';
-import {LineChartDemoComponent} from './demo/chart/linechart/linechartdemo.component';
-import {BarChartDemoComponent} from './demo/chart/barchart/barchartdemo.component';
-import {RadarChartDemoComponent} from './demo/chart/radarchart/radarchartdemo.component';
-import {PolarAreaChartDemoComponent} from './demo/chart/polarareachart/polarareachartdemo.component';
-import {MenuDemoComponent} from './demo/menu/menudemo.component';
-import {TieredMenuDemoComponent} from './demo/tieredmenu/tieredmenudemo.component';
-import {MenubarDemoComponent} from './demo/menubar/menubardemo.component';
-import {SlideMenuDemoComponent} from './demo/slidemenu/slidemenudemo.component';
-import {BreadcrumbDemoComponent} from './demo/breadcrumb/breadcrumbdemo.component';
-import {SliderDemoComponent} from "./demo/slider/sliderdemo.component";
-import {LightboxDemoComponent} from "./demo/lightbox/lightboxdemo.component";
-import {PaginatorDemoComponent} from "./demo/paginator/paginatordemo.component";
-import {MegaMenuDemoComponent} from "./demo/megamenu/megamenudemo.component";
+import {InputTextDemo} from './demo/inputtext/inputtextdemo';
+import {ButtonDemo} from './demo/button/buttondemo';
+import {SpinnerDemo} from './demo/spinner/spinnerdemo';
+import {PanelDemo} from './demo/panel/paneldemo';
+import {FieldsetDemo} from './demo/fieldset/fieldsetdemo';
+import {RatingDemo} from './demo/rating/ratingdemo';
+import {PasswordDemo} from './demo/password/passworddemo';
+import {DialogDemo} from './demo/dialog/dialogdemo';
+import {ToggleButtonDemo} from './demo/togglebutton/togglebuttondemo';
+import {GridDemo} from './demo/grid/griddemo';
+import {TabViewDemo} from './demo/tabview/tabviewdemo';
+import {RadioButtonDemo} from './demo/radiobutton/radiobuttondemo';
+import {AccordionDemo} from './demo/accordion/accordiondemo';
+import {InputTextareaDemo} from './demo/inputtextarea/inputtextareademo';
+import {GalleriaDemo} from './demo/galleria/galleriademo';
+import {CheckboxDemo} from './demo/checkbox/checkboxdemo';
+import {ListboxDemo} from './demo/listbox/listboxdemo';
+import {MessagesDemo} from './demo/messages/messagesdemo';
+import {GrowlDemo} from './demo/growl/growldemo';
+import {CarouselDemo} from './demo/carousel/carouseldemo';
+import {InputSwitchDemo} from './demo/inputswitch/inputswitchdemo';
+import {SelectbuttonDemo} from './demo/selectbutton/selectbuttondemo';
+import {CalendarDemo} from './demo/calendar/calendardemo';
+import {DropdownDemo} from './demo/dropdown/dropdowndemo';
+import {ProgressBarDemo} from './demo/progressbar/progressbardemo';
+import {PieChartDemo} from './demo/chart/piechart/piechartdemo';
+import {DoughnutChartDemo} from './demo/chart/doughnutchart/doughnutchartdemo';
+import {LineChartDemo} from './demo/chart/linechart/linechartdemo';
+import {BarChartDemo} from './demo/chart/barchart/barchartdemo';
+import {RadarChartDemo} from './demo/chart/radarchart/radarchartdemo';
+import {PolarAreaChartDemo} from './demo/chart/polarareachart/polarareachartdemo';
+import {MenuDemo} from './demo/menu/menudemo';
+import {TieredMenuDemo} from './demo/tieredmenu/tieredmenudemo';
+import {MenubarDemo} from './demo/menubar/menubardemo';
+import {SlideMenuDemo} from './demo/slidemenu/slidemenudemo';
+import {BreadcrumbDemo} from './demo/breadcrumb/breadcrumbdemo';
+import {SliderDemo} from "./demo/slider/sliderdemo";
+import {LightboxDemo} from "./demo/lightbox/lightboxdemo";
+import {PaginatorDemo} from "./demo/paginator/paginatordemo";
+import {MegaMenuDemo} from "./demo/megamenu/megamenudemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -53,46 +53,46 @@ import {MegaMenuDemoComponent} from "./demo/megamenu/megamenudemo.component";
     {path: '/', name: 'HomePage', component: HomePageComponent},
     {path: '/setup', name: 'Setup', component: SetupComponent},
     {path: '/theming', name: 'Theming', component: ThemingComponent},
-    {path: '/inputtext', name: 'InputTextDemo', component: InputTextDemoComponent},
-    {path: '/button', name: 'ButtonDemo', component: ButtonDemoComponent},
-    {path: '/spinner', name: 'SpinnerDemo', component: SpinnerDemoComponent},
-    {path: '/panel', name: 'PanelDemo', component: PanelDemoComponent},
-    {path: '/fieldset', name: 'FieldsetDemo', component: FieldsetDemoComponent},
-    {path: '/rating', name: 'RatingDemo', component: RatingDemoComponent},
-    {path: '/password', name: 'PasswordDemo', component: PasswordDemoComponent},
-    {path: '/dialog', name: 'DialogDemo', component: DialogDemoComponent},
-    {path: '/togglebutton', name: 'ToggleButtonDemo', component: ToggleButtonDemoComponent},
-    {path: '/grid', name: 'GridDemo', component: GridDemoComponent},
-    {path: '/tabview', name: 'TabViewDemo', component: TabViewDemoComponent},
-    {path: '/radiobutton', name: 'RadioButtonDemo', component: RadioButtonDemoComponent},
-    {path: '/accordion', name: 'AccordionDemo', component: AccordionDemoComponent},
-    {path: '/inputtextarea', name: 'InputTextareaDemo', component: InputTextareaDemoComponent},
-    {path: '/galleria', name: 'GalleriaDemo', component: GalleriaDemoComponent},
-    {path: '/checkbox', name: 'CheckboxDemo', component: CheckboxDemoComponent},
-    {path: '/listbox', name: 'ListboxDemo', component: ListboxDemoComponent},
-    {path: '/messages', name: 'MessagesDemo', component: MessagesDemoComponent},
-    {path: '/growl', name: 'GrowlDemo', component: GrowlDemoComponent},
-    {path: '/carousel', name: 'CarouselDemo', component: CarouselDemoComponent},
-    {path: '/inputswitch', name: 'InputSwitchDemo', component: InputSwitchDemoComponent},
-    {path: '/selectbutton', name: 'SelectbuttonDemo', component: SelectbuttonDemoComponent},
-    {path: '/calendar', name: 'CalendarDemo', component: CalendarDemoComponent},
-    {path: '/dropdown', name: 'DropdownDemo', component: DropdownDemoComponent},
-    {path: '/progressbar', name: 'ProgressBarDemo', component: ProgressBarDemoComponent},
-    {path: '/piechart', name: 'PieChartDemo', component: PieChartDemoComponent},
-    {path: '/doughnutchart', name: 'DoughnutChartDemo', component: DoughnutChartDemoComponent},
-    {path: '/linechart', name: 'LineChartDemo', component: LineChartDemoComponent},
-    {path: '/barchart', name: 'BarChartDemo', component: BarChartDemoComponent},
-    {path: '/radarchart', name: 'RadarChartDemo', component: RadarChartDemoComponent},
-    {path: '/polarareachart', name: 'PolarAreaChartDemo', component: PolarAreaChartDemoComponent},
-    {path: '/menu', name: 'MenuDemo', component: MenuDemoComponent},
-    {path: '/tieredmenu', name: 'TieredMenuDemo', component: TieredMenuDemoComponent},
-    {path: '/menubar', name: 'MenubarDemo', component: MenubarDemoComponent},
-    {path: '/slidemenu', name: 'SlideMenuDemo', component: SlideMenuDemoComponent},
-    {path: '/breadcrumb', name: 'BreadcrumbDemo', component: BreadcrumbDemoComponent},
-    {path: '/slider', name: 'SliderDemo', component: SliderDemoComponent},
-    {path: '/lightbox', name: 'LightboxDemo', component: LightboxDemoComponent},
-    {path: '/paginator', name: 'PaginatorDemo', component: PaginatorDemoComponent},
-    {path: '/megamenu', name: 'MegaMenuDemo', component: MegaMenuDemoComponent}
+    {path: '/inputtext', name: 'InputTextDemo', component: InputTextDemo},
+    {path: '/button', name: 'ButtonDemo', component: ButtonDemo},
+    {path: '/spinner', name: 'SpinnerDemo', component: SpinnerDemo},
+    {path: '/panel', name: 'PanelDemo', component: PanelDemo},
+    {path: '/fieldset', name: 'FieldsetDemo', component: FieldsetDemo},
+    {path: '/rating', name: 'RatingDemo', component: RatingDemo},
+    {path: '/password', name: 'PasswordDemo', component: PasswordDemo},
+    {path: '/dialog', name: 'DialogDemo', component: DialogDemo},
+    {path: '/togglebutton', name: 'ToggleButtonDemo', component: ToggleButtonDemo},
+    {path: '/grid', name: 'GridDemo', component: GridDemo},
+    {path: '/tabview', name: 'TabViewDemo', component: TabViewDemo},
+    {path: '/radiobutton', name: 'RadioButtonDemo', component: RadioButtonDemo},
+    {path: '/accordion', name: 'AccordionDemo', component: AccordionDemo},
+    {path: '/inputtextarea', name: 'InputTextareaDemo', component: InputTextareaDemo},
+    {path: '/galleria', name: 'GalleriaDemo', component: GalleriaDemo},
+    {path: '/checkbox', name: 'CheckboxDemo', component: CheckboxDemo},
+    {path: '/listbox', name: 'ListboxDemo', component: ListboxDemo},
+    {path: '/messages', name: 'MessagesDemo', component: MessagesDemo},
+    {path: '/growl', name: 'GrowlDemo', component: GrowlDemo},
+    {path: '/carousel', name: 'CarouselDemo', component: CarouselDemo},
+    {path: '/inputswitch', name: 'InputSwitchDemo', component: InputSwitchDemo},
+    {path: '/selectbutton', name: 'SelectbuttonDemo', component: SelectbuttonDemo},
+    {path: '/calendar', name: 'CalendarDemo', component: CalendarDemo},
+    {path: '/dropdown', name: 'DropdownDemo', component: DropdownDemo},
+    {path: '/progressbar', name: 'ProgressBarDemo', component: ProgressBarDemo},
+    {path: '/piechart', name: 'PieChartDemo', component: PieChartDemo},
+    {path: '/doughnutchart', name: 'DoughnutChartDemo', component: DoughnutChartDemo},
+    {path: '/linechart', name: 'LineChartDemo', component: LineChartDemo},
+    {path: '/barchart', name: 'BarChartDemo', component: BarChartDemo},
+    {path: '/radarchart', name: 'RadarChartDemo', component: RadarChartDemo},
+    {path: '/polarareachart', name: 'PolarAreaChartDemo', component: PolarAreaChartDemo},
+    {path: '/menu', name: 'MenuDemo', component: MenuDemo},
+    {path: '/tieredmenu', name: 'TieredMenuDemo', component: TieredMenuDemo},
+    {path: '/menubar', name: 'MenubarDemo', component: MenubarDemo},
+    {path: '/slidemenu', name: 'SlideMenuDemo', component: SlideMenuDemo},
+    {path: '/breadcrumb', name: 'BreadcrumbDemo', component: BreadcrumbDemo},
+    {path: '/slider', name: 'SliderDemo', component: SliderDemo},
+    {path: '/lightbox', name: 'LightboxDemo', component: LightboxDemo},
+    {path: '/paginator', name: 'PaginatorDemo', component: PaginatorDemo},
+    {path: '/megamenu', name: 'MegaMenuDemo', component: MegaMenuDemo}
 ])
 export class AppComponent {
 
