@@ -2,11 +2,13 @@
   "name": "primeng",
   "version": "v0.4.0-SNAPSHOT",
   "scripts": {
+    "postinstall": "npm run typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
     "prepublish": "tsc",
-    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" "
+    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
+    "typings" : "typings"
   },
   "license": "ISC",
   "dependencies": {
@@ -20,7 +22,8 @@
   },
   "devDependencies": {
     "concurrently": "^1.0.0",
-    "lite-server": "^1.3.1",
-    "typescript": "^1.7.3"
+    "lite-server": "^2.0.1",
+    "typescript": "^1.7.5",
+    "typings":"^0.6.8"
   }
 }
