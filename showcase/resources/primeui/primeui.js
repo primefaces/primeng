@@ -9299,7 +9299,6 @@ PUI.resolveUserAgent();/**
     $.widget("primeui.puipanelmenu", $.primeui.puibasemenu, {
 
         options: {
-            autoDisplay: true,
             stateful: false,
             enhanced: false
         },
