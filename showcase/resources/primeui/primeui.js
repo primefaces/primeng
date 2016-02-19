@@ -9329,6 +9329,8 @@ PUI.resolveUserAgent();/**
         },
 
         _render: function() {
+            var $this = this;
+
             if(!this.options.enhanced) {
                 this.element.addClass('ui-panelmenu ui-widget');
             }
@@ -9339,7 +9341,12 @@ PUI.resolveUserAgent();/**
                     menuitemLink = listItem.children('a'),
                     icon = menuitemLink.data('icon');
 
-                menuitemLink.addClass('ui-menuitem-link ui-corner-all').contents().wrap('<span class="ui-menuitem-text" />');
+                menuitemLink.addClass('ui-menuitem-link ui-corner-all')
+
+                if($this.options.enhanced)
+                    menuitemLink.children('span').addClass('ui-menuitem-text');
+                else
+                    menuitemLink.contents().wrap('<span class="ui-menuitem-text" />');
 
                 if(icon) {
                     menuitemLink.prepend('<span class="ui-menuitem-icon fa fa-fw ' + icon + '"></span>');
@@ -9376,10 +9383,51 @@ PUI.resolveUserAgent();/**
             this.panels.children(':last-child').attr('tabindex', '0').addClass('ui-panelmenu-content ui-widget-content ui-helper-hidden');
         },
 
+        _destroy: function() {
+            var $this = this;
+            this._unbindEvents();
+
+            if(!this.options.enhanced) {
+                this.element.removeClass('ui-panelmenu ui-widget');
+            }
+
+            this.panels.removeClass('ui-panelmenu-panel');
+            this.headers.removeClass('ui-widget ui-panelmenu-header ui-state-default ui-state-hover ui-state-active ui-corner-all ui-corner-top').removeAttr('tabindex');
+            this.contents.removeClass('ui-panelmenu-content ui-widget-content ui-helper-hidden').removeAttr('tabindex')
+            this.contents.find('ul').removeClass('ui-menu-list ui-helper-reset ui-helper-hidden');
+
+            this.headers.each(function () {
+                var header = $(this),
+                    headerLink = header.children('a');
+
+                header.children('.fa').remove();
+                headerLink.removeClass('ui-panelmenu-headerlink-hasicon');
+                headerLink.children('.fa').remove();
+            });
+
+            this.element.find('li').each(function(){
+                var listItem = $(this),
+                menuitemLink = listItem.children('a');
+
+                menuitemLink.removeClass('ui-menuitem-link ui-corner-all ui-menuitem-link-hasicon');
+
+                if($this.options.enhanced)
+                    menuitemLink.children('span').removeClass('ui-menuitem-text');
+                else
+                    menuitemLink.contents().unwrap();
+
+                menuitemLink.children('.fa').remove();
+
+                listItem.removeClass('ui-menuitem ui-widget ui-corner-all ui-menu-parent')
+                    .parent().removeClass('ui-menu-list ui-helper-reset ui-helper-hidden ');
+            });
+        },
+
         _unbindEvents: function() {
             this.headers.off('mouseover.ui-panelmenu mouseout.ui-panelmenu click.ui-panelmenu');
             this.menuitemLinks.off('mouseover.ui-panelmenu mouseout.ui-panelmenu click.ui-panelmenu');
             this.treeLinks.off('click.ui-panelmenu');
+            this._unbindKeyEvents();
         },
 
         _bindEvents: function() {
@@ -9482,9 +9530,7 @@ PUI.resolveUserAgent();/**
                         $this.focusCheck = false;
                     }
                 }
-            });
-
-            this.contents.off('keydown.panelmenu blur.panelmenu').on('keydown.panelmenu', function(e) {
+            }).on('keydown.panelmenu', function(e) {
                 if(!$this.focusedItem) {
                     return;
                 }
@@ -9599,6 +9645,12 @@ PUI.resolveUserAgent();/**
                     $this._removeFocusedItem();
                 }
             });
+        },
+
+        _unbindKeyEvents: function() {
+            this.headers.off('focus.panelmenu blur.panelmenu keydown.panelmenu');
+            this.contents.off('mousedown.panelmenu focus.panelmenu keydown.panelmenu blur.panelmenu');
+            $(document.body).off('click.' + this.id);
         },
 
         _isExpanded: function(item) {
@@ -9778,66 +9830,6 @@ PUI.resolveUserAgent();/**
             if(this.options.stateful) {
                 PUI.deleteCookie(this.stateKey, {path:'/'});
             }
-        },
-
-        _destroy: function() {
-            var $this = this;
-            this._unbindEvents();
-            if(!this.options.enhanced) {
-                this.element.removeClass('ui-panelmenu ui-widget');
-            }
-
-            this.panels.removeClass('ui-panelmenu-panel');
-            this.element.find('li').each(function(){
-                var listItem = $(this),
-                    menuitemLink = listItem.children('a');
-
-                menuitemLink.removeClass('ui-menuitem-link ui-corner-all');
-                listItem.removeClass('ui-menu-parent');
-
-                if($this.options.enhanced)
-                    menuitemLink.children('span').removeClass('ui-menuitem-text');
-                else
-                    menuitemLink.contents().unwrap();
-
-                menuitemLink.children('.ui-menuitem-icon').remove();
-
-                listItem.removeClass('ui-menuitem ui-widget ui-corner-all')
-                    .parent().removeClass('ui-menu-list ui-helper-reset');
-
-            });
-
-            //headers
-            this.panels.children(':first-child').attr('tabindex', '0').each(function () {
-                var header = $(this),
-                    headerLink = header.children('a'),
-                    icon = headerLink.data('icon');
-
-                if(icon) {
-                    headerLink.removeClass('ui-panelmenu-headerlink-hasicon');
-                }
-
-                headerLink.children('span').removeClass('ui-menuitem-icon');
-                header.removeClass('ui-widget ui-panelmenu-header ui-state-default ui-corner-all');
-                header.children('span').removeClass('ui-panelmenu-icon');
-            });
-
-            //contents
-            this.panels.children(':last-child').removeClass('ui-panelmenu-content ui-widget-content ui-helper-hidden');
-
-            this.panels.children(':last-child').children('ul').each(function () {
-                var content = $(this),
-                    contentSpan = content.children('li').children('span'),
-                    icon = contentSpan.data('icon');
-
-                contentSpan.removeClass('ui-panelmenu-icon').removeClass('ui-menuitem-icon').removeClass('ui-menuitem-text');
-
-                if(content.children('ul')) {
-                    content.children('li').children('ul').removeClass('ui-helper-hidden');
-                    content.children('li').children('ul').children('li').children('span').
-                    removeClass('ui-panelmenu-icon').removeClass('ui-menuitem-icon').removeClass('ui-menuitem-text');
-                }
-            });
         }
 
     });
