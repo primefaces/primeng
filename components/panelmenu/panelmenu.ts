@@ -12,8 +12,6 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 })
 export class PanelMenu {
 
-    @Input() autoDisplay: boolean;
-
     @Input() stateful: boolean;
 
     @Input() style: string;
@@ -32,7 +30,6 @@ export class PanelMenu {
         this.menuElement = jQuery(this.el.nativeElement).children('div');
         this.menuElement.puipanelmenu({
             enhanced: true,
-            autoDisplay: this.autoDisplay,
             stateful: this.stateful
         });
         this.initialized = true;
