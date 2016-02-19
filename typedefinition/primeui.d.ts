@@ -321,6 +321,14 @@ declare module PrimeUI {
         styleClass?: string;
         enhanced?: boolean;
     }
+
+    interface PanelMenuOptions {
+        autoDisplay?: boolean;
+        stateful?: boolean;
+        style?: string;
+        styleClass?: string;
+        enhanced?: boolean;
+    }
 }
 
 interface JQuery {
@@ -648,4 +656,16 @@ interface JQuery {
     puimegamenu(optionLiteral: string, optionName: string): any;
     puimegamenu(optionLiteral: string, options: PrimeUI.MegaMenuOptions): any;
     puimegamenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puipanelmenu(): JQuery;
+    puipanelmenu(methodName: 'destroy'): void;
+    puipanelmenu(methodName: 'disable'): void;
+    puipanelmenu(methodName: 'enable'): void;
+    puipanelmenu(methodName: 'refresh'): void;
+    puipanelmenu(methodName: 'widget'): JQuery;
+    puipanelmenu(methodName: string): JQuery;
+    puipanelmenu(options: PrimeUI.PanelMenuOptions): JQuery;
+    puipanelmenu(optionLiteral: string, optionName: string): any;
+    puipanelmenu(optionLiteral: string, options: PrimeUI.PanelMenuOptions): any;
+    puipanelmenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

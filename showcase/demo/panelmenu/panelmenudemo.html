@@ -1,0 +1,266 @@
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Menu - PanelMenu</span>
+        <span class="defaultText dispTable">PanelMenu is a hybrid of accordion-tree components.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-panelMenu style="width:300px">
+        <div>
+            <div><a data-icon="fa-file-o"><span>File</span></a></div>
+            <div>
+                <ul>
+                    <li><a data-icon="fa-plus"><span>New</span></a>
+                        <ul>
+                            <li><a><span>Project</span></a></li>
+                            <li><a><span>Other</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a><span>Open</span></a></li>
+                    <li><a><span>Quit</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div><a data-icon="fa-edit"><span>Edit</span></a></div>
+            <div>
+                <ul>
+                    <li><a data-icon="fa-mail-forward"><span>Undo</span></a></li>
+                    <li><a data-icon="fa-mail-reply"><span>Redo</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div><a data-icon="fa-question"><span>Help</span></a></div>
+            <div>
+                <ul>
+                    <li><a><span>Contents</span></a></li>
+                    <li><a data-icon="fa-search"><span>Search</span></a>
+                        <ul>
+                            <li><a><span>Text</span></a>
+                                <ul>
+                                    <li><a><span>Workspace</span></a></li>
+                                </ul>
+                            </li>
+                            <li><a><span>File</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div><a data-icon="fa-gear"><span>Actions</span></a></div>
+            <div>
+                <ul>
+                    <li><a data-icon="fa-pencil"><span>Edit</span></a>
+                        <ul>
+                            <li><a data-icon="fa-save"><span>Save</span></a></li>
+                            <li><a data-icon="fa-save"><span>Update</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a data-icon="fa-phone"><span>Other</span></a>
+                        <ul>
+                            <li><a data-icon="fa-minus"><span>Delete</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </p-panelMenu>
+
+</div>
+
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+import {PanelMenu} from 'primeng/primeng';
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>PanelMenu is a hybrid of accordion-tree components.</p>
+<pre>
+&lt;p-panelMenu style="width:300px"&gt;
+    &lt;div&gt;
+        &lt;div&gt;&lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Project&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;p-panelMenu&gt;
+</pre>
+
+            <h3>AutoDisplay</h3>
+            <p>PanelMenu submenus are displayed on hover by default, enable autoDisplay property to require a click to open a submenu initially. In this mode, until outside of menubar is clicked,
+                menu goes in activated mode and submenus can be displayed using mouseover.</p>
+
+            <h3>Icons</h3>
+            <p>An icon of a menuitem is defined using data-icon attribute.</p>
+<pre>
+&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
+</pre>
+
+
+            <h3>Attributes</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>style</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Inline style of the component.</td>
+                    </tr>
+                    <tr>
+                        <td>styleClass</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Style class of the component.</td>
+                    </tr>
+                    <tr>
+                        <td>autoDisplay</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Displays submenus with mouseover, set to false to require a click to activate the menu.</td>
+                    </tr>
+                    <tr>
+                        <td>stateful</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Saves the last state of panel menu..</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Element</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>ui-panelmenu</td>
+                        <td>Container element.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-menu-list</td>
+                        <td>List element.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-menuitem</td>
+                        <td>Menuitem element.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-menuitem-text</td>
+                        <td>Label of a menuitem.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-menuitem-icon</td>
+                        <td>Icon of a menuitem.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-submenu-icon</td>
+                        <td>Arrow icon of a submenu.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>PrimeUI PanelMenu.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+<pre>
+&lt;p-panelMenu style="width:300px"&gt;
+    &lt;div&gt;
+        &lt;div&gt;&lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Project&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;div&gt;&lt;a data-icon="fa-edit"&gt;&lt;span&gt;Edit&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a data-icon="fa-mail-forward"&gt;&lt;span&gt;Undo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a data-icon="fa-mail-reply"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;div&gt;&lt;a data-icon="fa-question"&gt;&lt;span&gt;Help&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a&gt;&lt;span&gt;Contents&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a data-icon="fa-search"&gt;&lt;span&gt;Search&lt;/span&gt;&lt;/a&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Text&lt;/span&gt;&lt;/a&gt;
+                            &lt;ul&gt;
+                                &lt;li&gt;&lt;a&gt;&lt;span&gt;Workspace&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;&lt;a&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;div&gt;&lt;a data-icon="fa-gear"&gt;&lt;span&gt;Actions&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a data-icon="fa-pencil"&gt;&lt;span&gt;Edit&lt;/span&gt;&lt;/a&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Save&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Update&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a data-icon="fa-phone"&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;a data-icon="fa-minus"&gt;&lt;span&gt;Delete&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/p-panelMenu&gt;
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

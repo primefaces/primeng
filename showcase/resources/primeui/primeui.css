@@ -2651,3 +2651,108 @@ button.ui-button::-moz-focus-inner {
     height: 16px;
     float: left;
 }
+
+/** PanelMenu **/
+.ui-panelmenu {
+    width: auto;
+}
+
+.ui-panelmenu .ui-panelmenu-panel {
+    padding: 0;
+    margin: 0;
+}
+
+.ui-panelmenu .ui-panelmenu-header {
+    cursor: pointer;
+    position: relative;
+    margin: 0;
+    zoom: 1;
+}
+
+.ui-panelmenu .ui-panelmenu-header a {
+    display: block;
+    padding: .5em .5em .5em 2.2em;
+}
+
+.ui-panelmenu .ui-panelmenu-header .fa {
+    position: absolute;
+    left: .5em;
+    top: 50%;
+    margin-top: -8px;
+}
+
+.ui-panelmenu .ui-panelmenu-header .ui-menuitem-icon.fa {
+    left: 1.5em;
+}
+
+.ui-panelmenu .ui-panelmenu-content {
+    padding: 0.2em 0;
+    border-top: 0;
+    margin-top: -2px;
+    position: relative;
+    top: 1px;
+    overflow: auto;
+    zoom: 1;
+    outline: none;
+}
+
+.ui-panelmenu .ui-panelmenu-header.ui-state-disabled,
+.ui-panelmenu .ui-panelmenu-header.ui-state-disabled a {
+    cursor: default;
+}
+
+.ui-panelmenu .ui-menu-list {
+    position: static;
+}
+
+.ui-panelmenu .ui-menuitem {
+    margin:1px 0;
+    padding:0;
+}
+
+.ui-panelmenu .ui-menuitem-link {
+    display:block;
+    outline:none;
+    text-decoration:none;
+    font-weight:400;
+    border:solid 1px transparent;
+    line-height:16px;
+    cursor: pointer;
+    position: relative;
+    padding: 0.3em 0.3em 0.3em 2em;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-menuitem-link-hasicon,
+.ui-panelmenu .ui-panelmenu-header a.ui-panelmenu-headerlink-hasicon {
+    padding-left: 2.8em;
+}
+
+.ui-panelmenu .fa {
+    position: absolute;
+    right: auto;
+    top: 4px;
+    bottom: 0;
+    margin: auto 0;
+    left: 0.5em;
+}
+
+.ui-panelmenu .ui-menu-parent > .ui-menuitem-link > .fa {
+    left: 1.5em;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-panelmenu-icon.fa {
+    left: 0.5em;
+}
+
+.ui-panelmenu .ui-menuitem-text {
+    float: none;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-menu-list {
+    margin-left: 20px;
+}
+
+.ui-menuitem-outline {
+    outline: 1px dotted;
+    z-index: 1;
+}

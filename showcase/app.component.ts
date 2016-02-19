@@ -43,6 +43,7 @@ import {SliderDemo} from "./demo/slider/sliderdemo";
 import {LightboxDemo} from "./demo/lightbox/lightboxdemo";
 import {PaginatorDemo} from "./demo/paginator/paginatordemo";
 import {MegaMenuDemo} from "./demo/megamenu/megamenudemo";
+import {PanelMenuDemo} from "./demo/panelmenu/panelmenudemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -92,7 +93,8 @@ import {MegaMenuDemo} from "./demo/megamenu/megamenudemo";
     {path: '/slider', name: 'SliderDemo', component: SliderDemo},
     {path: '/lightbox', name: 'LightboxDemo', component: LightboxDemo},
     {path: '/paginator', name: 'PaginatorDemo', component: PaginatorDemo},
-    {path: '/megamenu', name: 'MegaMenuDemo', component: MegaMenuDemo}
+    {path: '/megamenu', name: 'MegaMenuDemo', component: MegaMenuDemo},
+    {path: '/panelmenu', name: 'PanelMenuDemo', component: PanelMenuDemo}
 ])
 export class AppComponent {
 
