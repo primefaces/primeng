@@ -27,6 +27,7 @@ export * from './components/menubar/menubar';
 export * from './components/messages/messages';
 export * from './components/paginator/paginator';
 export * from './components/panel/panel';
+export * from './components/panelmenu/panelmenu';
 export * from './components/password/password';
 export * from './components/progressbar/progressbar';
 export * from './components/radiobutton/radiobutton';
