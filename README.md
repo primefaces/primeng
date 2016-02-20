@@ -9,6 +9,17 @@ Execute the following commands to run the showcase in your local environment. A 
 
 ```
 npm install
+```
+
+Add the missing options LineChartOptions in chart.d.ts files under typings folder until [this issue](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/8188) is fixed.
+```
+interface LineChartOptions extends ChartOptions {
+    scaleShowVerticalLines?: boolean;
+    scaleShowHorizontalLines?: boolean;
+    ...
+```
+
+```
 npm start
 ```
 
