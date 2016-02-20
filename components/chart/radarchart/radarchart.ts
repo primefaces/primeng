@@ -1,5 +1,3 @@
-/// <reference path="../../../typedefinition/chart.d.ts" />
-
 import {Component, ElementRef, AfterViewInit, OnDestroy, DoCheck, SimpleChange, Input, Output, EventEmitter, IterableDiffers} from 'angular2/core';
 
 @Component({

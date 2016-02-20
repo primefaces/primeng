@@ -1,5 +1,3 @@
-/// <reference path="../../typedefinition/jqueryui.d.ts" />
-
 import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
 import SliderUIParams = JQueryUI.SliderUIParams;
 

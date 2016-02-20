@@ -1,9 +1,10 @@
 node_modules
 showcase
-typedefinition
+typings
 index.html
 *.log
 *.ts
 !*.d.ts
 tsconfig.json
+typings.json
 .idea/

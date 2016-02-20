@@ -1,8 +1,9 @@
 node_modules
+typings
 *.js
 *.log
 *.map
 *.d.ts
 !showcase/resources/**/*.js
-!typedefinition/*.d.ts
+!showcase/resources/primeui/primeui.d.ts
 .idea/

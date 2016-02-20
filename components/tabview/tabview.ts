@@ -1,5 +1,3 @@
-/// <reference path="../../typedefinition/primeui.d.ts" />
-
 import {Component, ElementRef, OnInit, OnDestroy, OnChanges, AfterViewInit, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
 import {TabPanel} from './tabpanel';
 

@@ -1,5 +1,3 @@
-/// <reference path="../../typedefinition/primeui.d.ts" />
-
 import {Component,ElementRef,AfterContentInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
 import Datepicker = JQueryUI.Datepicker;
 

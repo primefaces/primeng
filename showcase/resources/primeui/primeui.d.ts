@@ -1,6 +1,4 @@
-// Type definitions for PrimeUI 3.0
-
-/// <reference path="jqueryui.d.ts"/>
+// Type definitions for PrimeUI
 
 declare module PrimeUI {
 

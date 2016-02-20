@@ -1,5 +1,3 @@
-/// <reference path="../../typedefinition/primeui.d.ts" />
-
 import {Component,Input} from 'angular2/core';
 import {TabView} from './tabview';
 

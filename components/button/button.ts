@@ -1,5 +1,3 @@
-/// <reference path="../../typedefinition/primeui.d.ts" />
-
 import {Directive, ElementRef, OnInit, OnDestroy, OnChanges, HostBinding, Input, SimpleChange} from 'angular2/core';
 
 @Directive({

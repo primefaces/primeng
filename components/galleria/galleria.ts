@@ -1,5 +1,3 @@
-/// <reference path="../../typedefinition/primeui.d.ts" />
-
 import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, SimpleChange, Output, EventEmitter} from 'angular2/core';
 
 @Component({
