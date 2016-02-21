@@ -6,7 +6,6 @@
 node_modules
 showcase
 typings
-typings/**/*.d.ts
 index.html
 tsconfig.json
 typings.json
