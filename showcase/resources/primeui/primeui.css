@@ -1,6 +1,6 @@
 /*
  * PrimeUI 4.1.0-SNAPSHOT
- *
+ * 
  * Copyright 2009-2015 PrimeTek.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -86,54 +86,54 @@
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
-}.ui-accordion {
-     width: 100%;
- }
-
-.ui-accordion .ui-accordion-header {
-    cursor: pointer;
-    position: relative;
-    margin-top: 1px;
-    zoom: 1;
+}.ui-accordion { 
+    width: 100%; 
 }
 
-.ui-accordion .ui-accordion-header a {
-    display: block;
-    font-size: 1em;
-    padding: .5em .5em .5em 2.2em;
+.ui-accordion .ui-accordion-header { 
+    cursor: pointer; 
+    position: relative; 
+    margin-top: 1px; 
+    zoom: 1; 
+}
+
+.ui-accordion .ui-accordion-header a { 
+    display: block; 
+    font-size: 1em; 
+    padding: .5em .5em .5em 2.2em; 
 }
 
 .ui-accordion .ui-accordion-header .fa {
-    position: absolute;
-    left: .5em;
-    top: 50%;
-    margin-top: -8px;
+    position: absolute; 
+    left: .5em; 
+    top: 50%; 
+    margin-top: -8px; 
 }
 
-.ui-accordion .ui-accordion-content {
-    padding: 1em 2.2em;
-    border-top: 0;
-    margin-top: -2px;
-    position: relative;
-    top: 1px;
-    margin-bottom: 2px;
-    overflow: auto;
-    zoom: 1;
+.ui-accordion .ui-accordion-content { 
+    padding: 1em 2.2em; 
+    border-top: 0; 
+    margin-top: -2px; 
+    position: relative; 
+    top: 1px; 
+    margin-bottom: 2px; 
+    overflow: auto; 
+    zoom: 1; 
 }
 
-.ui-accordion .ui-accordion-header.ui-state-disabled,
-.ui-accordion .ui-accordion-header.ui-state-disabled a {
-    cursor: default;
+.ui-accordion .ui-accordion-header.ui-state-disabled, 
+.ui-accordion .ui-accordion-header.ui-state-disabled a { 
+    cursor: default; 
 }.ui-autocomplete {
-     width: auto;
-     zoom: 1;
-     cursor: pointer;
-     -moz-box-shadow: none;
-     -webkit-box-shadow: none;
-     box-shadow: none;
-     position: relative;
-     display: inline-block;
- }
+    width: auto;
+    zoom: 1;
+    cursor: pointer;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    position: relative;
+    display: inline-block;
+}
 
 .ui-autocomplete .ui-autocomplete-dropdown {
     position: absolute;
@@ -263,78 +263,78 @@
 .ui-fluid .ui-autocomplete .ui-autocomplete-dropdown.ui-button {
     width: 2.4em;
 }/* Button */
-.ui-button {
-    display: inline-block;
-    position: relative;
-    padding: 0;
-    margin-right: .1em;
-    text-decoration: none !important;
-    cursor: pointer;
-    text-align: center;
-    zoom: 1;
+.ui-button { 
+    display: inline-block; 
+    position: relative; 
+    padding: 0; 
+    margin-right: .1em; 
+    text-decoration: none !important; 
+    cursor: pointer; 
+    text-align: center; 
+    zoom: 1; 
     overflow: visible; /* the overflow property removes extra width in IE */
-}
+} 
 
-.ui-button-icon-only {
+.ui-button-icon-only { 
     width: 2.4em;
-}
+} 
 
 /*button text element */
-.ui-button .ui-button-text {
-    display: block;
-    line-height: normal;
+.ui-button .ui-button-text { 
+    display: block; 
+    line-height: normal;  
 }
 
-.ui-button-text-only .ui-button-text {
-    padding: .3em 1em;
+.ui-button-text-only .ui-button-text { 
+    padding: .3em 1em; 
 }
 
-.ui-button-icon-only .ui-button-text {
-    padding: .3em;
-    text-indent: -9999999px;
+.ui-button-icon-only .ui-button-text { 
+    padding: .3em; 
+    text-indent: -9999999px; 
 }
 
-.ui-button-text-icon-left .ui-button-text {
-    padding: .3em 1em .3em 2.1em;
+.ui-button-text-icon-left .ui-button-text { 
+    padding: .3em 1em .3em 2.1em; 
 }
 
-.ui-button-text-icon-right .ui-button-text {
-    padding: .3em 2.1em .3em 1em;
+.ui-button-text-icon-right .ui-button-text { 
+    padding: .3em 2.1em .3em 1em; 
 }
 
 /*button icon element(s) */
 .ui-button-icon-only .fa,
 .ui-button-text-icon-left .fa,
 .ui-button-text-icon-right .fa {
-    position: absolute;
+    position: absolute; 
     top: 50%;
-    margin-top: -7px;
+    margin-top: -7px; 
 }
 
 .ui-button-icon-only .fa {
-    left: 50%;
-    margin-left: -8px;
+    left: 50%; 
+    margin-left: -8px; 
 }
 
 .ui-button-icon-left {
-    left: .5em;
+    left: .5em; 
 }
 
 .ui-button-icon-right {
-    right: .5em;
+    right: .5em; 
 }
 
 /*button sets*/
-.ui-buttonset {
-    margin-right: 7px;
+.ui-buttonset { 
+    margin-right: 7px; 
 }
-.ui-buttonset .ui-button {
-    margin-left: 0;
+.ui-buttonset .ui-button { 
+    margin-left: 0; 
     margin-right: 0;
 }
 
 /* workarounds */
-button.ui-button::-moz-focus-inner {
+button.ui-button::-moz-focus-inner { 
     border: 0; padding: 0; /* reset extra padding in Firefox */
 }
 
@@ -368,9 +368,9 @@ button.ui-button::-moz-focus-inner {
         width: 100%;
     }
 }.ui-carousel {
-     position: relative;
-     padding: 1px;
- }
+    position: relative;
+    padding: 1px;
+}
 
 .ui-carousel .ui-carousel-viewport .ui-carousel-items {
     list-style: none outside none;
@@ -443,7 +443,7 @@ button.ui-button::-moz-focus-inner {
     margin: 0 2px;
 }
 
-.ui-carousel .ui-carousel-page-link,
+.ui-carousel .ui-carousel-page-link, 
 .ui-carousel .ui-carousel-button {
     cursor: pointer;
 }
@@ -458,9 +458,9 @@ button.ui-button::-moz-focus-inner {
 .ui-carousel .ui-carousel-mobiledropdown {
     display: none;
 }.ui-chkbox {
-     display: inline-block;
-     cursor: pointer;
- }
+    display: inline-block;
+    cursor: pointer;
+}
 
 .ui-chkbox .ui-chkbox-box {
     float: left;
@@ -487,7 +487,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-datatable table {
-    border-collapse:collapse;
+	border-collapse:collapse;
     width: 100%;
     table-layout: fixed;
 }
@@ -496,13 +496,15 @@ button.ui-button::-moz-focus-inner {
     overflow: auto;
 }
 
+.ui-datatable .ui-datatable-header,
 .ui-datatable .ui-datatable-caption,
 .ui-datatable .ui-datatable-footer {
     text-align: center;
     padding: 4px 10px;
 }
 
-.ui-datatable .ui-datatable-caption {
+.ui-datatable .ui-datatable-caption,
+.ui-datatable .ui-datatable-header {
     border-bottom: 0px none;
 }
 
@@ -522,6 +524,14 @@ button.ui-button::-moz-focus-inner {
     overflow: hidden;
     border-width: 1px;
     border-style: solid;
+}
+
+.ui-datatable thead tr {
+    border-width: 0px;
+}
+
+.ui-datatable thead th {
+    border-color: inherit;
 }
 
 .ui-datatable tbody {
@@ -602,8 +612,8 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-datatable-scrollable-theadclone th span.ui-column-title {
-    display: block;
-    height: 0px;
+  display: block;
+  height: 0px;
 }
 
 .ui-datatable .ui-paginator {
@@ -669,8 +679,9 @@ button.ui-button::-moz-focus-inner {
 /* Filter */
 .ui-datatable .ui-column-filter {
     display: block;
-    width:100px;
     margin:auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Editing */
@@ -685,6 +696,18 @@ button.ui-button::-moz-focus-inner {
     outline: 0;
 }
 
+.ui-datatable .ui-editable-column .ui-cell-editor {
+    display: none;
+}
+
+.ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
+    display: inline;
+}
+
+.ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-data {
+    display: none;
+}
+
 @media ( max-width: 35em ) {
     .ui-datatable-reflow thead th,
     .ui-datatable-reflow tfoot td {
@@ -696,11 +719,11 @@ button.ui-button::-moz-focus-inner {
         display: block;
         border: 0px none;
         width: 100%;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        float: left;
-        clear: left;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		float: left;
+		clear: left;
     }
 
     .ui-datatable-reflow .ui-datatable-data.ui-widget-content {
@@ -718,13 +741,14 @@ button.ui-button::-moz-focus-inner {
         display: inline-block;
         margin: -.4em 1em -.4em -.4em;
     }
-}.ui-datagrid .ui-paginator {
-     text-align: center;
-     border-top: 0px none;
- }
+}
+.ui-datagrid .ui-paginator {
+	text-align: center;
+    border-top: 0px none;
+}
 
 .ui-datagrid-column {
-    padding: 3px;
+	padding: 3px;
 }
 
 .ui-datagrid-content-empty {
@@ -752,7 +776,7 @@ button.ui-button::-moz-focus-inner {
 .ui-datagrid .ui-paginator-bottom {
     border-top: 0px none;
 }.ui-datascroller {
- }
+}
 
 .ui-datascroller .ui-datascroller-header {
     text-align: center;
@@ -769,7 +793,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-datascroller .ui-datascroller-list {
-    list-style-type: none;
+    list-style-type: none; 
     margin: 0;
     padding: 0;
 }
@@ -792,7 +816,7 @@ button.ui-button::-moz-focus-inner {
     display: inline-block;
 }.ui-dialog { position: fixed; padding: 0; overflow: hidden; }
 .ui-dialog .ui-dialog-titlebar { padding: .4em .4em .4em 1em; position: relative; border:0px; }
-.ui-dialog .ui-dialog-title { float: left; margin: .3em 16px .1em 0; }
+.ui-dialog .ui-dialog-title { float: left; margin: .3em 16px .1em 0; } 
 .ui-dialog .ui-dialog-content {position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
 .ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
@@ -832,13 +856,13 @@ button.ui-button::-moz-focus-inner {
 .ui-dialog.ui-dialog-rtl .ui-dialog-footer {
     text-align: right;
 }.ui-dropdown {
-     display: inline-block;
-     position: relative;
-     width: auto;
-     zoom: 1;
-     cursor: pointer;
-     padding-right: 2em;
- }
+    display: inline-block;
+    position: relative;
+    width: auto;
+    zoom: 1;
+    cursor: pointer;
+    padding-right: 2em;
+}
 
 .ui-dropdown .ui-dropdown-trigger {
     border-right: none;
@@ -944,8 +968,8 @@ button.ui-button::-moz-focus-inner {
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
 }.ui-fieldset, .ui-fieldset .ui-fieldset-legend {
-     padding:0.6em 1em;
- }
+    padding:0.6em 1em;
+}
 
 .ui-fieldset-toggleable .ui-fieldset-legend {
     padding: 0.5em 1em 0.5em 0.5em;
@@ -957,11 +981,11 @@ button.ui-button::-moz-focus-inner {
     padding-right: .1em;
     margin-top: 0.1em;
     float:left;
-}.ui-galleria {
-     overflow: hidden;
-     visibility: hidden;
-     position: relative;
- }
+}.ui-galleria { 
+    overflow: hidden; 
+    visibility: hidden; 
+    position: relative;
+}
 
 .ui-galleria-panel-wrapper {
     position: relative;
@@ -983,7 +1007,7 @@ button.ui-button::-moz-focus-inner {
     position: relative;
 }
 
-.ui-galleria-filmstrip {
+.ui-galleria-filmstrip { 
     list-style: none outside none;
     margin: 0;
     padding: 0;
@@ -1010,11 +1034,11 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-galleria-nav-next, .ui-galleria-nav-prev {
-    cursor: pointer;
+	cursor: pointer;
     position: absolute;
 }
 
-.ui-galleria-nav-prev {
+.ui-galleria-nav-prev {	
     left: 5px;
 }
 
@@ -1035,62 +1059,62 @@ button.ui-button::-moz-focus-inner {
     padding: 1em 1.4em;
 }/* ie6 */
 * html .ui-growl {
-    position:absolute;
+	position:absolute; 
 }
 * html .ui-growl-item {
-    padding-bottom:0;
+	padding-bottom:0;
 }
 * html .ui-growl-icon-close {
-    top:7px;
-    right:7px;
+	top:7px;
+	right:7px;
 }
 
 .ui-growl {
-    position:fixed;
-    top:20px;
-    right:20px;
-    width:301px;
+	position:fixed;
+	top:20px;
+	right:20px;
+	width:301px;
 }
 .ui-growl-item-container {
-    position:relative;
-    margin:0 0 10px 0;
-    opacity:0.85;
-    filter:alpha(opacity=85);
+	position:relative;
+	margin:0 0 10px 0;
+	opacity:0.85;
+	filter:alpha(opacity=85);
 }
 .ui-growl-item {
-    display:block;
-    padding:10px 15px;
+	display:block;
+	padding:10px 15px;
 }
 .ui-growl-item p {
-    padding:0;
-    margin:0;
+	padding:0;
+	margin:0;
 }
 .ui-growl-icon-close {
-    position:absolute;
-    top:5px;
-    right:3px;
-    cursor:pointer;
+	position:absolute;
+	top:5px;
+	right:3px;
+	cursor:pointer;
 }
 .ui-growl-title {
-    font-weight:bold;
-    padding:0 0 7px 0;
-    display:block;
+	font-weight:bold;
+	padding:0 0 7px 0;
+	display:block;
 }
 .ui-growl-image {
-    float:left;
+	float:left;
     margin-left: 5px;
     padding:0;
     display: block;
 }
 
 .ui-growl-message {
-    padding:0 0 5px 0;
-    width:220px;
-    float:right;
+	padding:0 0 5px 0;
+	width:220px;
+	float:right;
 }
 
 .ui-growl-message p {
-    font-weight: normal;
+	font-weight: normal;
 }/* Grid CSS */
 .ui-grid {
     clear: both;
@@ -1216,7 +1240,7 @@ button.ui-button::-moz-focus-inner {
     .ui-grid-responsive .ui-grid-row {
         display: block;
     }
-
+    
     .ui-grid-responsive .ui-grid-col-1,
     .ui-grid-responsive .ui-grid-col-2,
     .ui-grid-responsive .ui-grid-col-3,
@@ -1233,11 +1257,11 @@ button.ui-button::-moz-focus-inner {
         float: none;
     }
 }.ui-inputtext {
-     margin: 0;
-     outline: medium none;
-     padding: 4px;
-     font-weight: normal;
- }
+    margin: 0;
+    outline: medium none;
+    padding: 4px;
+    font-weight: normal;
+}
 
 .ui-widget-header .ui-inputtext,
 .ui-widget-content .ui-inputtext {
@@ -1250,15 +1274,15 @@ button.ui-button::-moz-focus-inner {
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
 }.ui-inputtextarea-resizable {
-     overflow: hidden;
-     resize:none;
- }
+    overflow: hidden;
+    resize:none;
+}
 
 .ui-fluid .ui-inputtextarea {
     width: 100%;
 }.ui-lightbox {
-     position: fixed;
- }
+    position: fixed;
+}
 
 .ui-lightbox-content-wrapper {
     position: relative;
@@ -1272,17 +1296,17 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-lightbox-nav-right, .ui-lightbox-nav-left {
-    position: absolute;
-    top:50%;
-    cursor: pointer;
+   position: absolute;
+   top:50%;
+   cursor: pointer;
 }
 
 .ui-lightbox-nav-left {
-    left:0;
+   left:0;
 }
 
 .ui-lightbox-nav-right {
-    right:0;
+   right:0;
 }
 
 .ui-lightbox-loading {
@@ -1308,13 +1332,13 @@ button.ui-button::-moz-focus-inner {
 .ui-lightbox-close.ui-state-hover {
     padding: 0;
 }.ui-listbox {
-     overflow:auto;
-     padding:2px;
-     width:125px;
- }
+    overflow:auto;
+    padding:2px;
+    width:125px;
+}
 
 .ui-listbox .ui-listbox-list {
-    list-style-type: none;
+    list-style-type: none; 
     margin: 0;
     padding: 0;
 }
@@ -1325,10 +1349,10 @@ button.ui-button::-moz-focus-inner {
     cursor: pointer;
     font-weight: normal;
 }.ui-menu {
-     width: 12.5em;
-     padding:0.3em;
-     position:relative;
- }
+    width: 12.5em;
+    padding:0.3em;
+    position:relative;
+}
 
 .ui-menu.ui-menu-dynamic {
     position: absolute;
@@ -1407,11 +1431,11 @@ button.ui-button::-moz-focus-inner {
     width:12.5em;
     padding:0.3em;
     position:absolute;
-    margin:0;
-    outline:0;
-    line-height:1.3;
-    text-decoration:none;
-    font-size:100%;
+    margin:0; 
+    outline:0; 
+    line-height:1.3; 
+    text-decoration:none; 
+    font-size:100%; 
     list-style:none;
 }
 
@@ -1518,7 +1542,7 @@ button.ui-button::-moz-focus-inner {
     display: block;
     position: relative;
     overflow: hidden;
-    float: left;
+    float: left; 
     margin-top:3px;
 }
 
@@ -1530,7 +1554,7 @@ button.ui-button::-moz-focus-inner {
 .ui-breadcrumb-chevron {
     float:left;
 }
-
+           
 /** SlideMenu **/
 .ui-slidemenu .ui-slidemenu-wrapper {
     position: relative;
@@ -1595,13 +1619,118 @@ button.ui-button::-moz-focus-inner {
 .ui-megamenu-vertical .ui-menu-list .ui-menuitem {
     width: 100%;
     box-sizing: border-box;
+}
+
+/** PanelMenu **/
+.ui-panelmenu {
+    width: auto;
+}
+
+.ui-panelmenu .ui-panelmenu-panel {
+    padding: 0;
+    margin: 0;
+}
+
+.ui-panelmenu .ui-panelmenu-header {
+    cursor: pointer;
+    position: relative;
+    margin: 0;
+    zoom: 1;
+}
+
+.ui-panelmenu .ui-panelmenu-header a {
+    display: block;
+    padding: .5em .5em .5em 2.2em;
+}
+
+.ui-panelmenu .ui-panelmenu-header .fa {
+    position: absolute;
+    left: .5em;
+    top: 50%;
+    margin-top: -8px;
+}
+
+.ui-panelmenu .ui-panelmenu-header .ui-menuitem-icon.fa {
+    left: 1.5em;
+}
+
+.ui-panelmenu .ui-panelmenu-content {
+    padding: 0.2em 0;
+    border-top: 0;
+    margin-top: -2px;
+    position: relative;
+    top: 1px;
+    overflow: auto;
+    zoom: 1;
+    outline: none;
+}
+
+.ui-panelmenu .ui-panelmenu-header.ui-state-disabled,
+.ui-panelmenu .ui-panelmenu-header.ui-state-disabled a {
+    cursor: default;
+}
+
+.ui-panelmenu .ui-menu-list {
+    position: static;
+}
+
+.ui-panelmenu .ui-menuitem {
+    margin:1px 0;
+    padding:0;
+}
+
+.ui-panelmenu .ui-menuitem-link {
+    display:block;
+    outline:none;
+    text-decoration:none;
+    font-weight:400;
+    border:solid 1px transparent;
+    line-height:16px;
+    cursor: pointer;
+    position: relative;
+    padding: 0.3em 0.3em 0.3em 2em;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-menuitem-link-hasicon,
+.ui-panelmenu .ui-panelmenu-header a.ui-panelmenu-headerlink-hasicon {
+    padding-left: 2.8em;
+}
+
+.ui-panelmenu .fa {
+    position: absolute;
+    right: auto;
+    top: 4px;
+    bottom: 0;
+    margin: auto 0;
+    left: 0.5em;
+}
+
+.ui-panelmenu .ui-menu-parent > .ui-menuitem-link > .fa {
+    left: 1.5em;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-panelmenu-icon.fa {
+    left: 0.5em;
+}
+
+.ui-panelmenu .ui-menuitem-text {
+    float: none;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-menu-list {
+    margin-left: 20px;
+}
+
+.ui-menuitem-outline {
+    outline: 1px dotted;
+    z-index: 1;
 }.ui-messages {
-     border: 1px solid;
-     margin: 10px 0px;
-     padding: 20px 20px 20px 10px;
-     display: none;
-     position: relative;
- }
+    border: 1px solid;
+    margin: 10px 0px;
+    padding: 20px 20px 20px 10px;
+    display: none;
+    position: relative;
+}
 
 .ui-messages-icon {
     display:block;
@@ -1655,16 +1784,16 @@ button.ui-button::-moz-focus-inner {
     top: 5px;
     right: 5px;
 }.ui-multiselectlistbox-listcontainer {
-     padding: 2px;
-     width: 150px;
- }
+    padding: 2px;
+    width: 150px;
+}
 
 .ui-multiselectlistbox-listcontainer {
     overflow:auto;
 }
 
 .ui-multiselectlistbox .ui-multiselectlistbox-list {
-    list-style-type: none;
+    list-style-type: none; 
     margin: 0;
     padding: 0;
 }
@@ -1694,12 +1823,12 @@ button.ui-button::-moz-focus-inner {
     padding: 2px 10px;
     border-bottom: 0px none;
 }.ui-notify {
-     position: fixed;
-     width: 100%;
-     height: 100px;
-     display: none;
-     padding: 10px;
- }
+	position: fixed;
+	width: 100%;
+	height: 100px;
+	display: none;
+	padding: 10px;
+}
 
 .ui-notify-top {
     top: 0;
@@ -1708,20 +1837,20 @@ button.ui-button::-moz-focus-inner {
 .ui-notify-bottom {
     bottom: 0;
 }
-
+ 
 .ui-notify-close {
-    position: absolute;
-    right: 3em;
-    top: 1em;
-    cursor: pointer;
+	position: absolute;
+	right: 3em;
+	top: 1em;
+	cursor: pointer;
     opacity: 0.5;
 }
 
 .ui-notify-close:hover {
     opacity: 1.0;
 }.ui-orderlist {
-     display: table;
- }
+    display: table;
+}
 
 .ui-orderlist .ui-orderlist-caption {
     width:200px;
@@ -1789,13 +1918,13 @@ button.ui-button::-moz-focus-inner {
 .ui-orderlist.ui-grid-responsive .ui-orderlist-list,
 .ui-orderlist.ui-grid-responsive .ui-orderlist-caption {
     width: 100%;
-}
+}  
 
 .ui-orderlist.ui-grid-responsive .ui-orderlist-controls .ui-button {
     width: 100%;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 640px) { 
     .ui-orderlist.ui-grid-responsive .ui-orderlist-controls {
         text-align: center;
     }
@@ -1805,10 +1934,10 @@ button.ui-button::-moz-focus-inner {
         width: 20%;
     }
 }.ui-paginator {
-     margin:0px;
-     text-align: center;
-     padding:2px;
- }
+    margin:0px;
+    text-align: center;
+    padding:2px;
+}
 
 .ui-paginator .ui-paginator-top {
     border-bottom:0px none;
@@ -1825,13 +1954,13 @@ button.ui-button::-moz-focus-inner {
 .ui-paginator .ui-paginator-first,
 .ui-paginator .ui-paginator-prev,
 .ui-paginator .ui-paginator-current {
-    display: inline-block;
-    padding: 2px 6px;
-    zoom: 1;
-    margin-left: 1px;
-    margin-right: 1px;
-    text-decoration: none;
-    outline: none;
+	display: inline-block;
+	padding: 2px 6px;
+	zoom: 1;
+	margin-left: 1px;
+	margin-right: 1px;
+	text-decoration: none;
+	outline: none;
 }
 
 .ui-paginator .ui-paginator-page,
@@ -1844,8 +1973,8 @@ button.ui-button::-moz-focus-inner {
 
 .ui-paginator .ui-paginator-current,
 .ui-paginator .ui-paginator-rpp-options {
-    margin-left: 1em;
-    margin-right: 1em;
+	margin-left: 1em;
+	margin-right: 1em;
     background-image: none;
 }
 
@@ -1857,41 +1986,41 @@ button.ui-button::-moz-focus-inner {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }.ui-panel {
-     padding: 0.2em;
- }
+	padding: 0.2em;
+}
 
 .ui-panel .ui-panel-titlebar {
-    padding: 0.5em 1em 0.3em;
+	padding: 0.5em 1em 0.3em;
 }
 
 .ui-panel .ui-panel-title {
-    margin: 0.1em 16px 0.2em 0;
+	margin: 0.1em 16px 0.2em 0;
 }
 
 .ui-panel .ui-panel-titlebar-icon {
-    float: right;
+	float: right;
     cursor: pointer;
 }
 
 .ui-panel .ui-panel-titlebar-icon,
 .ui-panel .ui-panel-titlebar-icon:hover,
 .ui-panel .ui-panel-titlebar-icon:focus {
-    margin-left:0.2em;
+	margin-left:0.2em;
     margin-top:-0.1em;
     *margin:-1.5em 0em 0em 0.2em;
 }
 
 .ui-panel .ui-panel-content {
-    border: 0;
+	border: 0;
     background: none;
-    padding: 0.5em 1em;
+	padding: 0.5em 1em;
 }
 
 .ui-panel .ui-panel-footer {
-    border-width:1px 0 0;
-    margin:0.5em 0 0;
-    padding:0.5em 1em;
-    text-align:left;
+	border-width:1px 0 0;
+	margin:0.5em 0 0;
+	padding:0.5em 1em;
+	text-align:left;
 }
 
 .ui-panel-collapsed-h .ui-panel-titlebar-icon,
@@ -1907,27 +2036,27 @@ button.ui-button::-moz-focus-inner {
 .ui-panel.ui-panel-collapsed-h .ui-panel-title {
     display:none;
 }            .ui-password-panel {
-                 padding: 4px 10px;
-                 width: 150px;
-                 margin-top: 2px;
-             }
+    padding: 4px 10px;
+    width: 150px;
+    margin-top: 2px;
+}
 
-.ui-password-panel .ui-password-meter {
-    height: 10px;
-    background:transparent url("./images/password-meter.png") no-repeat left top;
+.ui-password-panel .ui-password-meter { 
+    height: 10px; 
+    background:transparent url("./images/password-meter.png") no-repeat left top; 
     padding: 0;
     margin: 0;
 }
 
-.ui-password-info {
+.ui-password-info { 
     margin-top: 4px;
 }
 
-.ui-password-panel-overlay {
-    position: absolute;
+.ui-password-panel-overlay { 
+    position: absolute; 
 }.ui-picklist > div {
-     float: left;
- }
+    float: left;
+}
 
 .ui-picklist .ui-picklist-buttons {
     height: 200px;
@@ -2069,61 +2198,61 @@ button.ui-button::-moz-focus-inner {
     width: 18px;
     height: 18px;
 }
-
+        
 /* Responsive */
 @media (max-width: 640px) {
     .ui-picklist.ui-picklist-responsive {
         display: block;
     }
-
+    
     .ui-picklist.ui-picklist-responsive > div {
         display: block;
         width: 100% !important;
     }
-
+    
     .ui-picklist.ui-picklist-responsive .ui-picklist-buttons {
         text-align: center;
         height: auto;
         padding: 5px 0px;
     }
-
+    
     .ui-picklist.ui-picklist-responsive .ui-picklist-buttons button {
         display: inline;
         width: 20%;
     }
-
+    
     .ui-picklist.ui-picklist-responsive .ui-picklist-source-controls.ui-picklist-buttons {
         padding-bottom: 5px;
     }
-
+    
     .ui-picklist.ui-picklist-responsive .ui-picklist-target-controls.ui-picklist-buttons {
         padding-top: 5px;
     }
-
+    
     .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-right:before {
         content: "\f107";
     }
-
+    
     .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-double-right:before {
         content: "\f103";
     }
-
+    
     .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-left:before {
         content: "\f106";
     }
-
+    
     .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-double-left:before {
         content: "\f102";
     }
 }
-.ui-progressbar {
-    height: 1.2em;
-    text-align: left;
+.ui-progressbar { 
+    height: 1.2em; 
+    text-align: left; 
     position: relative;
 }
 
 .ui-progressbar .ui-progressbar-value {
-    margin: -1px;
+    margin: -1px; 
     height: 100%;
     width: 0%;
     position: absolute;
@@ -2145,12 +2274,12 @@ button.ui-button::-moz-focus-inner {
     display: none;
     font-weight: bold;
 }.ui-radiobutton {
-     position: relative;
-     width: 16px;
-     margin: 2px 0;
-     line-height: 16px;
-     cursor: pointer;
- }
+    position: relative;
+    width: 16px;
+    margin: 2px 0;
+    line-height: 16px;
+    cursor: pointer;
+}
 
 .ui-radiobutton .ui-radiobutton-box {
     width: 16px;
@@ -2167,7 +2296,7 @@ button.ui-button::-moz-focus-inner {
     margin-left: 2px;
     display: block;
 }
-.ui-rating-star,
+  .ui-rating-star,
 .ui-rating-cancel {
     float: left;
     display: block;
@@ -2202,12 +2331,12 @@ button.ui-button::-moz-focus-inner {
 
 .ui-rating.ui-state-disabled .ui-rating-star,
 .ui-rating.ui-state-disabled .ui-rating-cancel {
-    cursor: default;
+    cursor: default;    
 }.ui-selectbutton{
-     display: inline-block;
-     padding:1px;
- }
-
+    display: inline-block;
+    padding:1px;
+}
+            
 .ui-selectbutton.ui-state-error{
     padding:0px;
 }
@@ -2215,12 +2344,12 @@ button.ui-button::-moz-focus-inner {
 .ui-selectbutton .ui-button.ui-state-focus{
     outline: none;
 }.ui-spinner {
-     display: inline-block;
-     overflow: visible;
-     padding: 0;
-     position: relative;
-     vertical-align: middle;
- }
+    display: inline-block;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    vertical-align: middle;
+}
 .ui-spinner-input {
     vertical-align: middle;
     text-align: right;
@@ -2268,9 +2397,9 @@ button.ui-button::-moz-focus-inner {
 .ui-fluid .ui-spinner .ui-spinner-button .fa {
     left: 6px;
 }.ui-splitbutton {
-     position: relative;
-     padding-right: 2em;
- }
+    position: relative;
+    padding-right: 2em;
+}
 
 .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
     width: 32px;
@@ -2302,137 +2431,137 @@ button.ui-button::-moz-focus-inner {
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
 }.ui-inputswitch {
-     display: inline-block;
-     padding: 0;
-     position: relative;
-     overflow: hidden;
-     cursor: pointer;
-     user-select: none;
-     -moz-user-select: none;
-     -khtml-user-select: none;
-     -webkit-user-select: none;
-     height: 24px;
- }
+	display: inline-block;
+	padding: 0;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    height: 24px;
+}
 
 .ui-inputswitch .ui-inputswitch-on,
 .ui-inputswitch .ui-inputswitch-off {
-    white-space: nowrap;
+	white-space: nowrap;
     display: block;
     position: absolute;
-    top: 0;
+	top: 0;
     width: auto;
     overflow: hidden;
     user-select: none;
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
-    font-weight: bold;
-    height: 20px;
-    padding-top: 4px;
+	font-weight: bold;
+	height: 20px;
+	padding-top: 4px;
 }
 
 .ui-inputswitch .ui-inputswitch-off {
-    right: 0;
-    text-align: right;
+	right: 0;
+	text-align: right;
 }
 
 .ui-inputswitch .ui-inputswitch-off span {
-    display: inline-block;
-    text-align: center;
-    padding-left: 2px;
-    padding-right: 3px;
+	display: inline-block;
+	text-align: center;
+	padding-left: 2px;
+	padding-right: 3px;
 }
 
 .ui-inputswitch .ui-inputswitch-on {
-    left: 0;
-    padding-right: 4px;
+	left: 0;
+	padding-right: 4px;
     border: 0 none;
 }
 
 .ui-inputswitch .ui-inputswitch-on span {
-    display: inline-block;
-    text-align: center;
-    padding-left: 3px;
-    padding-right: 2px;
+	display: inline-block;
+	text-align: center;
+	padding-left: 3px;
+	padding-right: 2px;
 }
 
 .ui-inputswitch .ui-inputswitch-handle {
-    display: block;
-    width: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
+	display: block;
+	width: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
     height: 24px;
     border-top: 0 none;
     border-bottom: 0 none;
 }.ui-tabview {
-     position: relative;
-     padding: .2em;
-     zoom: 1;
- } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+    position: relative; 
+    padding: .2em; 
+    zoom: 1; 
+} /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 
-.ui-tabview .ui-tabview-nav {
+.ui-tabview .ui-tabview-nav { 
     margin: 0;
 }
 
-.ui-tabview .ui-tabview-nav li {
-    list-style: none;
-    float: left;
-    position: relative;
-    margin: 0 .2em 1px 0;
-    padding: 0;
-    white-space: nowrap;
+.ui-tabview .ui-tabview-nav li { 
+    list-style: none; 
+    float: left; 
+    position: relative; 
+    margin: 0 .2em 1px 0;  
+    padding: 0; 
+    white-space: nowrap; 
 }
 
-.ui-tabview .ui-tabview-nav li a {
-    float: left;
-    padding: .5em 1em;
-    text-decoration: none;
+.ui-tabview .ui-tabview-nav li a { 
+    float: left; 
+    padding: .5em 1em; 
+    text-decoration: none; 
 }
 
-.ui-tabview .ui-tabview-nav li.ui-tabview-selected a,
-.ui-tabview .ui-tabview-nav li.ui-state-disabled a,
-.ui-tabview .ui-tabview-nav li.ui-state-processing a {
-    cursor: text;
+.ui-tabview .ui-tabview-nav li.ui-tabview-selected a, 
+.ui-tabview .ui-tabview-nav li.ui-state-disabled a, 
+.ui-tabview .ui-tabview-nav li.ui-state-processing a { 
+    cursor: text; 
 }
 
-.ui-tabview .ui-tabview-nav li a,
-.ui-tabview.ui-tabview-collapsible .ui-tabview-nav li.ui-tabview-selected a {
-    cursor: pointer;
+.ui-tabview .ui-tabview-nav li a, 
+.ui-tabview.ui-tabview-collapsible .ui-tabview-nav li.ui-tabview-selected a { 
+    cursor: pointer; 
 } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
 
-.ui-tabview .ui-tabview-panel {
-    border-width: 0;
-    padding: 1em 1.4em;
-    background: none;
+.ui-tabview .ui-tabview-panel { 
+    border-width: 0; 
+    padding: 1em 1.4em; 
+    background: none; 
 }
 
-.ui-tabview .ui-tabview-nav li {
-    display: block;
+.ui-tabview .ui-tabview-nav li { 
+    display: block; 
 }
 
-.ui-tabview .ui-tabview-nav li .fa {
-    float: left;
-    margin: 0.6em 0.3em 0 0;
-    cursor: pointer;
+.ui-tabview .ui-tabview-nav li .fa { 
+    float: left; 
+    margin: 0.6em 0.3em 0 0; 
+    cursor: pointer; 
 }
 
 /* per orientation settings */
 /* top and bottom */
-.ui-tabview.ui-tabview-top > .ui-tabview-nav li {
+.ui-tabview.ui-tabview-top > .ui-tabview-nav li { 
     border-bottom: 0;
-    top: 1px;
+    top: 1px; 
 }
 
-.ui-tabview.ui-tabview-top > .ui-tabview-nav {
-    padding: .2em .2em 0;
+.ui-tabview.ui-tabview-top > .ui-tabview-nav { 
+    padding: .2em .2em 0; 
 }
 
-.ui-tabview.ui-tabview-bottom > .ui-tabview-nav {
-    padding: 0 .2em .2em;
+.ui-tabview.ui-tabview-bottom > .ui-tabview-nav { 
+    padding: 0 .2em .2em; 
 }
 
-.ui-tabview.ui-tabview-bottom > .ui-tabview-nav li {
+.ui-tabview.ui-tabview-bottom > .ui-tabview-nav li { 
     border-top: 0;
 }
 
@@ -2489,10 +2618,10 @@ button.ui-button::-moz-focus-inner {
     margin:0 0.2em 1px 0;
     border-left:0 none;
 }.ui-terminal {
-     height: 300px;
-     overflow: auto;
-     padding: 3px;
- }
+    height: 300px;
+    overflow: auto;
+    padding: 3px;
+}
 
 .ui-terminal-input {
     border: 0 none;
@@ -2513,13 +2642,13 @@ button.ui-button::-moz-focus-inner {
 .ui-terminal-input::-ms-clear {
     display: none;
 }.ui-tooltip {
-     position:absolute;
-     display:none;
-     padding:3px 5px;
- }.ui-tree {
-      width: 300px;
-  }
-
+    position:absolute;
+    display:none;
+    padding:3px 5px;
+}.ui-tree {
+    width: 300px;
+}
+            
 .ui-tree .ui-tree-container {
     height: 100%;
     margin: 0;
@@ -2545,7 +2674,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-tree .ui-treenode-content {
-
+    
 }
 
 .ui-tree .ui-tree-toggler {
@@ -2594,10 +2723,10 @@ button.ui-button::-moz-focus-inner {
     display: inline-block;
     zoom: 1;
 }.ui-treetable table {
-     border-collapse:collapse;
-     width: 100%;
-     table-layout: fixed;
- }
+	border-collapse:collapse;
+    width: 100%;
+    table-layout: fixed;
+}
 
 .ui-treetable .ui-treetable-header,
 .ui-treetable .ui-treetable-footer {
@@ -2640,7 +2769,7 @@ button.ui-button::-moz-focus-inner {
 .ui-treetable .ui-treetable-data tr.ui-state-hover {
     cursor: pointer;
 }
-
+      
 .ui-treetable .ui-treetable-data tr.ui-state-hover {
     border-color: inherit;
     font-weight: inherit;
@@ -2650,109 +2779,4 @@ button.ui-button::-moz-focus-inner {
     width: 16px;
     height: 16px;
     float: left;
-}
-
-/** PanelMenu **/
-.ui-panelmenu {
-    width: auto;
-}
-
-.ui-panelmenu .ui-panelmenu-panel {
-    padding: 0;
-    margin: 0;
-}
-
-.ui-panelmenu .ui-panelmenu-header {
-    cursor: pointer;
-    position: relative;
-    margin: 0;
-    zoom: 1;
-}
-
-.ui-panelmenu .ui-panelmenu-header a {
-    display: block;
-    padding: .5em .5em .5em 2.2em;
-}
-
-.ui-panelmenu .ui-panelmenu-header .fa {
-    position: absolute;
-    left: .5em;
-    top: 50%;
-    margin-top: -8px;
-}
-
-.ui-panelmenu .ui-panelmenu-header .ui-menuitem-icon.fa {
-    left: 1.5em;
-}
-
-.ui-panelmenu .ui-panelmenu-content {
-    padding: 0.2em 0;
-    border-top: 0;
-    margin-top: -2px;
-    position: relative;
-    top: 1px;
-    overflow: auto;
-    zoom: 1;
-    outline: none;
-}
-
-.ui-panelmenu .ui-panelmenu-header.ui-state-disabled,
-.ui-panelmenu .ui-panelmenu-header.ui-state-disabled a {
-    cursor: default;
-}
-
-.ui-panelmenu .ui-menu-list {
-    position: static;
-}
-
-.ui-panelmenu .ui-menuitem {
-    margin:1px 0;
-    padding:0;
-}
-
-.ui-panelmenu .ui-menuitem-link {
-    display:block;
-    outline:none;
-    text-decoration:none;
-    font-weight:400;
-    border:solid 1px transparent;
-    line-height:16px;
-    cursor: pointer;
-    position: relative;
-    padding: 0.3em 0.3em 0.3em 2em;
-}
-
-.ui-panelmenu .ui-menu-parent .ui-menuitem-link-hasicon,
-.ui-panelmenu .ui-panelmenu-header a.ui-panelmenu-headerlink-hasicon {
-    padding-left: 2.8em;
-}
-
-.ui-panelmenu .fa {
-    position: absolute;
-    right: auto;
-    top: 4px;
-    bottom: 0;
-    margin: auto 0;
-    left: 0.5em;
-}
-
-.ui-panelmenu .ui-menu-parent > .ui-menuitem-link > .fa {
-    left: 1.5em;
-}
-
-.ui-panelmenu .ui-menu-parent .ui-panelmenu-icon.fa {
-    left: 0.5em;
-}
-
-.ui-panelmenu .ui-menuitem-text {
-    float: none;
-}
-
-.ui-panelmenu .ui-menu-parent .ui-menu-list {
-    margin-left: 20px;
-}
-
-.ui-menuitem-outline {
-    outline: 1px dotted;
-    z-index: 1;
 }

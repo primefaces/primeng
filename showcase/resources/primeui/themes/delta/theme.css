@@ -581,3 +581,29 @@ button.ui-button span {
 	color: #ffffff;
 	border-color: #168dd9;
 }
+
+/* PanelMenu */
+.ui-panelmenu .ui-panelmenu-header.ui-state-active,
+.ui-panelmenu .ui-panelmenu-header.ui-state-active a {
+    background: #27abff;
+    color: #ffffff;
+    border-color: #168dd9;
+}
+
+/* DataTable */
+.ui-datatable th {
+    font-weight: bold;
+}
+.ui-datatable th.ui-state-default{
+    background: #ebedf0;
+}
+.ui-datatable th.ui-state-hover{
+    background: #d3d5d8;
+}
+.ui-datatable th.ui-state-active{
+    background: #27abff;
+    color: #ffffff;
+}
+.ui-datatable-odd {
+    background-color: #f9f9fa;
+}
