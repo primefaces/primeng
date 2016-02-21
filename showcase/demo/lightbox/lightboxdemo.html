@@ -38,8 +38,8 @@ import {Lightbox} from 'primeng/primeng';
             clicking on them, opens up the lightbox to display the images collection.</p>
 <pre>
 &lt;p-lightbox&gt;
-    &lt;a *ngFor="#image of images" href="showcase/resources/demo/images/sopranos/{{image}}.jpg"&gt;
-        &lt;img src="showcase/resources/demo/images/sopranos/{{image}}_small.jpg" alt="{{image}}"/&gt;
+    &lt;a *ngFor="#image of images" href="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>.jpg"&gt;
+        &lt;img src="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>_small.jpg" alt="<span>{</span><span>{</span>image<span>}</span><span>}</span>"/&gt;
     &lt;/a&gt;
 &lt;/p-lightbox&gt;
 </pre>
@@ -107,8 +107,8 @@ import {Lightbox} from 'primeng/primeng';
 <pre>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-lightbox&gt;
-    &lt;a *ngFor="#image of images" href="showcase/resources/demo/images/sopranos/{{image}}.jpg"&gt;
-        &lt;img src="showcase/resources/demo/images/sopranos/{{image}}_small.jpg" alt="{{image}}"/&gt;
+    &lt;a *ngFor="#image of images" href="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>.jpg"&gt;
+        &lt;img src="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>_small.jpg" alt="<span>{</span><span>{</span>image<span>}</span><span>}</span>"/&gt;
     &lt;/a&gt;
 &lt;/p-lightbox&gt;
 
@@ -126,4 +126,3 @@ import {Lightbox} from 'primeng/primeng';
         </p-tabPanel>
     </p-tabView>
 </div>
-
