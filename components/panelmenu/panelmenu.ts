@@ -10,8 +10,6 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 })
 export class PanelMenu {
 
-    @Input() stateful: boolean;
-
     @Input() style: string;
 
     @Input() styleClass: string;
@@ -27,8 +25,7 @@ export class PanelMenu {
     ngAfterViewInit() {
         this.menuElement = jQuery(this.el.nativeElement).children('div');
         this.menuElement.puipanelmenu({
-            enhanced: true,
-            stateful: this.stateful
+            enhanced: true
         });
         this.initialized = true;
     }

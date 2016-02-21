@@ -133,12 +133,12 @@ a{ text-decoration:none; outline:none;color: #25AAE1}
 .TextShadow{text-shadow: 0 1px 0 #ffffff}
 .TextShadowNone{text-shadow:none;}
 .underline{ text-decoration:underline;}
-.fontsize34{font-size:34px;}
-.fontsize30{font-size:30px;}
-.fontsize24{font-size:24px;}
-.fontsize21{font-size:21px;}
-.fontsize18{font-size:18px;}
-.fontsize14{font-size:14px;}
+.fontSize34{font-size:34px;}
+.fontSize30{font-size:30px;}
+.fontSize24{font-size:24px;}
+.fontSize21{font-size:21px;}
+.fontSize18{font-size:18px;}
+.fontSize14{font-size:14px;}
 .ContentX{width:95% !important; margin-bottom:30px; text-align:center; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease;
     transition: all 0.5s ease;}
 .ContentX .defaultText{font-size:16px;}
@@ -591,5 +591,3 @@ pre {
 .ui-tabview-left > .ui-tabview-nav {
     height: 150px;
 }
-
-
