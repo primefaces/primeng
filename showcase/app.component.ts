@@ -44,6 +44,18 @@ import {LightboxDemo} from "./demo/lightbox/lightboxdemo";
 import {PaginatorDemo} from "./demo/paginator/paginatordemo";
 import {MegaMenuDemo} from "./demo/megamenu/megamenudemo";
 import {PanelMenuDemo} from "./demo/panelmenu/panelmenudemo";
+import {DataTableDemo} from "./demo/datatable/datatabledemo.component";
+import {DataTableEditableDemo} from "./demo/datatable/datatableeditabledemo";
+import {DataTableFacetsDemo} from "./demo/datatable/datatablefacets.component";
+import {DataTablePaginatorDemo} from "./demo/datatable/datatablepaginator.component";
+import {DataTableSortDemo} from "./demo/datatable/datatablesort.component";
+import {DataTableResponsiveDemo} from "./demo/datatable/datatableresponsive.component";
+import {DataTableSelectionDemo} from "./demo/datatable/datatableselection.component";
+import {DataTableFilterDemo} from "./demo/datatable/datatablefilterdemo";
+import {DataTableColResizeDemo} from "./demo/datatable/datatablecolresizedemo";
+import {DataTableColReorderDemo} from "./demo/datatable/datatablecolreorderdemo";
+import {DataTableScrollDemo} from "./demo/datatable/datatablescrolldemo";
+import {DataTableGroupDemo} from "./demo/datatable/datatablegroupdemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -94,7 +106,19 @@ import {PanelMenuDemo} from "./demo/panelmenu/panelmenudemo";
     {path: '/lightbox', name: 'LightboxDemo', component: LightboxDemo},
     {path: '/paginator', name: 'PaginatorDemo', component: PaginatorDemo},
     {path: '/megamenu', name: 'MegaMenuDemo', component: MegaMenuDemo},
-    {path: '/panelmenu', name: 'PanelMenuDemo', component: PanelMenuDemo}
+    {path: '/panelmenu', name: 'PanelMenuDemo', component: PanelMenuDemo},
+    {path: '/datatable', name: 'DataTableDemo', component: DataTableDemo},
+    {path: '/datatablefacets', name: 'DataTableFacetsDemo', component: DataTableFacetsDemo},
+    {path: '/datatablepaginator', name: 'DataTablePaginatorDemo', component: DataTablePaginatorDemo},
+    {path: '/datatablesort', name: 'DataTableSortDemo', component: DataTableSortDemo},
+    {path: '/datatableresponsive', name: 'DataTableResponsiveDemo', component: DataTableResponsiveDemo},
+    {path: '/datatableselection', name: 'DataTableSelectionDemo', component: DataTableSelectionDemo},
+    {path: '/datatablefilter', name: 'DataTableFilterDemo', component: DataTableFilterDemo},
+    {path: '/datatableeditable', name: 'DataTableEditableDemo', component: DataTableEditableDemo},
+    {path: '/datatablecolresize', name: 'DataTableColResizeDemo', component: DataTableColResizeDemo},
+    {path: '/datatablecolreorder', name: 'DataTableColReorderDemo', component: DataTableColReorderDemo},
+    {path: '/datatablescroll', name: 'DataTableScrollDemo', component: DataTableScrollDemo},
+    {path: '/datatablegroup', name: 'DataTableGroupDemo', component: DataTableGroupDemo}
 ])
 export class AppComponent {
 

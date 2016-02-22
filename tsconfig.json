@@ -10,6 +10,8 @@
         "noImplicitAny": false,
         "declaration": true
     },
+    "compileOnSave": false,
+    "buildOnSave": false,
     "exclude": [
         "node_modules",
         "typings/main",
