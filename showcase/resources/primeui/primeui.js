@@ -30,6 +30,8 @@ var PUI = {
         '6': 'ui-grid-col-2',
         '12': 'ui-grid-col-11'
     },
+    
+    charSet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
         
     /**
      *  Aligns container scrollbar to keep item in container viewport, algorithm copied from jquery-ui menu widget
@@ -48,6 +50,15 @@ var PUI = {
         else if((offset + itemHeight) > elementHeight) {
             container.scrollTop(scroll + offset - elementHeight + itemHeight);
         }
+    },
+    
+    generateRandomId: function() {
+        var id = '';
+        for (var i = 1; i <= 10; i++) {
+            var randPos = Math.floor(Math.random() * this.charSet.length);
+            id += this.charSet[randPos];
+        }
+        return id;
     },
     
     isIE: function(version) {
@@ -6415,7 +6426,7 @@ PUI.resolveUserAgent();/**
             var $this = this;
 
             //items
-            this._bindItemEvents();
+            this._bindItemEvents(this.items);
 
             //input
             this.element.on('focus.puilistbox', function() {
@@ -6425,9 +6436,10 @@ PUI.resolveUserAgent();/**
             });
         },
 
-        _bindItemEvents: function() {
+        _bindItemEvents: function(item) {
             var $this = this;
-            this.items.on('mouseover.puilistbox', function() {
+
+            item.on('mouseover.puilistbox', function() {
                     var item = $(this);
                     if(!item.hasClass('ui-state-highlight')) {
                         item.addClass('ui-state-hover');
@@ -6649,7 +6661,7 @@ PUI.resolveUserAgent();/**
                 $this.items = $this.listContainer.children('li').addClass('ui-listbox-item ui-corner-all');
                 $this.choices = $this.element.children('option');
                 $this._unbindItemEvents();
-                $this._bindItemEvents();
+                $this._bindItemEvents(this.items);
             }, 50);
         },
 
@@ -6676,10 +6688,43 @@ PUI.resolveUserAgent();/**
             if(this.choices) {
                 this.choices.prop('selected', false);
             }
+        },
+
+        removeAllOptions: function() {
+            this.element.empty();
+            this.listContainer.empty();
+            this.container.empty();
+            this.element.val('');
+        },
+
+        addOption: function(value,label) {
+            var newListItem;
+
+            if(this.options.content) {
+                var option = (label) ? {'label':label,'value':value}: {'label':value,'value':value};
+                newListItem = $('<li class="ui-listbox-item ui-corner-all"></li>').append(this.options.content(option)).appendTo(this.listContainer);
+            }
+            else {
+                var listLabel = (label) ? label: value;
+                newListItem = $('<li class="ui-listbox-item ui-corner-all">' + listLabel + '</li>').appendTo(this.listContainer);
+            }
+
+            if(label)
+                this.element.append('<option value="' + value + '">' + label + '</option>');
+            else
+                this.element.append('<option value="' + value + '">' + value + '</option>');
+
+            this._bindItemEvents(newListItem);
+
+            this.choices = this.element.children('option');
+            this.items = this.items.add(newListItem);
+
+
         }
     });
 
-})();/**
+})();
+/**
  * PrimeUI BaseMenu widget
  */
 (function() {
