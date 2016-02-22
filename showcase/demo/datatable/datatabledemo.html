@@ -31,7 +31,7 @@ export class Car {
 }
 </pre>
 
-            <p>The sample datatable has 4 columns and retrieves the data from a service on init.</p>
+            <p>Following sample datatable has 4 columns and retrieves the data from a service on init.</p>
 
 <pre>
 export class DataTableDemo implements OnInit {
@@ -58,6 +58,22 @@ export class DataTableDemo implements OnInit {
         <p>List of cars are bound to the value property and column definitions are configured using columns property.</p>
 <pre>
 &lt;p-dataTable [value]="cars" [columns]="cols"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Column API</h3>
+            <p>Column interface defines various options to specify corresponding features.</p>
+<pre>
+export interface Column {
+    field;              //Property of a row data
+    header?;            //Header text of a column
+    footer?;            //Footer text of a column
+    sortable?;          //Defines if a column is sortable
+    editable?;          //Defines if a column is editable
+    filter?;            //Defines if a column can be filtered
+    filterMatchMode?;   //Defines filterMatchMode; "startsWith", "contains" or "endsWidth"
+    rowspan?;           //RowSpan to be used for grouping
+    colspan?;           //Colspan to be used for grouping
+}
 </pre>
 
             <h3>Facets</h3>
@@ -251,6 +267,120 @@ this.cols = [
                     </thead>
                     <tbody>
                         <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to display.</td>
+                        </tr>
+                        <tr>
+                            <td>columns</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of column definitions.</td>
+                        </tr>
+                        <tr>
+                            <td>headerColumns</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of column definitions for column grouping at header.</td>
+                        </tr>
+                        <tr>
+                            <td>footerColumns</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of column definitions for column grouping at footer.</td>
+                        </tr>
+                        <tr>
+                            <td>rows</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of rows to display per page.</td>
+                        </tr>
+                        <tr>
+                            <td>totalRecords</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of total records, defaults to length of value when not defined.</td>
+                        </tr>
+                        <tr>
+                            <td>pageLinks</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of page links to display in paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>responsive</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if the columns should be stacked in smaller screens.</td>
+                        </tr>
+                        <tr>
+                            <td>selectionMode</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Specifies the selection mode, valid values are "single" and "multiple".</td>
+                        </tr>
+                        <tr>
+                            <td>selection</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Selected row in single mode or an array of values in multiple mode.</td>
+                        </tr>
+                        <tr>
+                            <td>editable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Activates incell editing when enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>filterDelay</td>
+                            <td>number</td>
+                            <td>300</td>
+                            <td>Delay in milliseconds before filtering the data.</td>
+                        </tr>
+                        <tr>
+                            <td>lazy</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                        </tr>
+                        <tr>
+                            <td>resizableColumns</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, columns can be resized using drag and drop.</td>
+                        </tr>
+                        <tr>
+                            <td>columnResizeMode</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines whether the overall table width should change on column resize, valid values are "fit" and "expand".</td>
+                        </tr>
+                        <tr>
+                            <td>reorderableColumns</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, columns can be reordered using drag and drop.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specifies, enables horizontal and/or vertical scrolling.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollHeight</td>
+                            <td>number/string</td>
+                            <td>null</td>
+                            <td>Height of the scroll viewport, can be pixel as a number or a percentage.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollWidth</td>
+                            <td>number/string</td>
+                            <td>null</td>
+                            <td>Width of the scroll viewport, can be pixel as a number or a percentage.</td>
+                        </tr>
+                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -277,32 +407,41 @@ this.cols = [
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>onPageChange</td>
-                        <td>event.first: Index of first record <br >
-                            event.rows: Number of rows to display in new page <br >
-                            event.page: Index of the new page <br >
-                            event.pageCount: Total number of pages <br ></td>
-                        <td>Callback to invoke when page changes, the event object contains information about the new state.</td>
-                    </tr>
+                        <tr>
+                            <td>onRowSelect</td>
+                            <td>event.originalEvent: Browser event <br>
+                                event.data: Selected data </td>
+                            <td>Callback to invoke when a row is selected.</td>
+                        </tr>
+                        <tr>
+                            <td>onRowUnselect</td>
+                            <td>event.originalEvent: Browser event <br>
+                                event.data: Unselected data </td>
+                            <td>Callback to invoke when a row is unselected with metakey.</td>
+                        </tr>
+                        <tr>
+                            <td>onColResize</td>
+                            <td>event.element: Resized column header</td>
+                            <td>Callback to invoke when a column is resized.</td>
+                        </tr>
+                        <tr>
+                            <td>onColReorder</td>
+                            <td>event.dragIndex: Index of the dragged column <br>
+                                event.dropIndex: Index of the dropped column <br>
+                                event.dropSide: -1 for left side and +1 for right side of dropped column</td>
+                            <td>Callback to invoke when a column is reordered.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
 <pre>
-&lt;p-paginator rows="10" totalRecords="100" (onPageChange)="paginate($event)"&gt;&lt;/p-paginator&gt;
+&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="handleRowSelect($event)"&gt;&lt;/p-dataTable>
 </pre>
 
 <pre>
-export class MyComponent {
-
-    paginate(event) {
-        //event.first = Index of the first record
-        //event.rows = Number of rows to display in new page
-        //event.page = Index of the new page
-        //event.pageCount = Total number of pages
-    }
-
+handleRowSelect(event) {
+    //event.data = Selected row data
 }
 </pre>
 
@@ -317,46 +456,89 @@ export class MyComponent {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>ui-paginator</td>
-                        <td>Container element.</td>
-                    </tr>
-                    <tr>
-                        <td>ui-paginator-first</td>
-                        <td>First page element.</td>
-                    </tr>
-                    <tr>
-                        <td>ui-paginator-prev</td>
-                        <td>Previous page element.</td>
-                    </tr>
-                    <tr>
-                        <td>ui-paginator-pages</td>
-                        <td>Container of page links.</td>
-                    </tr>
-                    <tr>
-                        <td>ui-paginator-page</td>
-                        <td>A page link.</td>
-                    </tr>
-                    <tr>
-                        <td>ui-paginator-next</td>
-                        <td>Next pge element.</td>
-                    </tr>
-                    <tr>
-                        <td>ui-paginator-last</td>
-                        <td>Last page element.</td>
-                    </tr>
+                        <tr>
+                            <td>ui-datatable</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datatable-header</td>
+                            <td>Header section.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datatable-footer</td>
+                            <td>Footer section.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-column-title</td>
+                            <td>Title of a column.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sortable-column</td>
+                            <td>Sortable column header.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-column-filter</td>
+                            <td>Filter element in header.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-cell-data</td>
+                            <td>Data cell in body.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-cell-editor</td>
+                            <td>Input element for incell editing.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datatable-scrollable-header</td>
+                            <td>Container of header in a scrollable table.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datatable-scrollable-header</td>
+                            <td>Container of body in a scrollable table.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datatable-scrollable-header</td>
+                            <td>Container of footer in a scrollable table.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datatable-responsive</td>
+                            <td>Container element of a responsive datatable.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires PrimeUI paginator widget css.</p>
+            <p>Native component that only requires PrimeUI DataTable widget css.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
-&lt;p-paginator rows="10" totalRecords="100"&gt;&lt;/p-paginator&gt;
+&lt;p-dataTable [value]="cars" [columns]="cols"&gt;&lt;/p-dataTable&gt;
 </pre>
+<pre>
+export class DataTableDemo implements OnInit {
+
+    cars: Car[];
+
+    cols: Column[];
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.cars = this.carService.getCarsSmall();
+
+        this.cols = [
+            {field: 'vin', headerText: 'Vin'},
+            {field: 'brand', headerText: 'Brand'},
+            {field: 'year', headerText: 'Year'},
+            {field: 'color', headerText: 'Color'}
+        ];
+    }
+}
+</pre>
+
+
         </p-tabPanel>
     </p-tabView>
 </div>
