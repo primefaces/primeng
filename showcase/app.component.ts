@@ -44,7 +44,7 @@ import {LightboxDemo} from "./demo/lightbox/lightboxdemo";
 import {PaginatorDemo} from "./demo/paginator/paginatordemo";
 import {MegaMenuDemo} from "./demo/megamenu/megamenudemo";
 import {PanelMenuDemo} from "./demo/panelmenu/panelmenudemo";
-import {DataTableDemo} from "./demo/datatable/datatabledemo.component";
+import {DataTableDemo} from "./demo/datatable/datatabledemo";
 import {DataTableEditableDemo} from "./demo/datatable/datatableeditabledemo";
 import {DataTableFacetsDemo} from "./demo/datatable/datatablefacets.component";
 import {DataTablePaginatorDemo} from "./demo/datatable/datatablepaginator.component";

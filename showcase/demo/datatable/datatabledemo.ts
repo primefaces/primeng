@@ -9,7 +9,7 @@ import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatabledemo.component.html',
+    templateUrl: 'showcase/demo/datatable/datatabledemo.html',
     directives: [DataTable,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES],
     providers: [CarService]
 })

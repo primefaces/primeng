@@ -1,0 +1,362 @@
+<datatable-demos></datatable-demos>
+
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable</span>
+        <span class="defaultText dispTable">DataTable displays data in tabular format.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-dataTable [value]="cars" [columns]="cols"></p-dataTable>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+import {DataTable} from 'primeng/primeng';
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>DataTable requires a value as an array of objects and a collection of column configurations. Throughout the samples, a car class having
+            vin, brand, year and color properties are used to define an object to be displayed by the datatable.</p>
+<pre>
+export class Car {
+    vin;
+    year;
+    brand;
+    color;
+}
+</pre>
+
+            <p>The sample datatable has 4 columns and retrieves the data from a service on init.</p>
+
+<pre>
+export class DataTableDemo implements OnInit {
+
+    cars: Car[];
+
+    cols: Column[];
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.cars = this.carService.getCars();
+
+        this.cols = [
+            {field: 'vin', headerText: 'Vin'},
+            {field: 'brand', headerText: 'Brand'},
+            {field: 'year', headerText: 'Year'},
+            {field: 'color', headerText: 'Color'}
+        ];
+    }
+}
+</pre>
+
+        <p>List of cars are bound to the value property and column definitions are configured using columns property.</p>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Facets</h3>
+            <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
+<pre>
+import {Header} from 'primeng/primeng';
+import {Footer} from 'primeng/primeng';
+</pre>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols"&gt;
+    &lt;header&gt;List of Cars&lt;/header&gt;
+    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Grouping</h3>
+            <p>Columns can be grouped at header and footer using headerColumns and footerColumns properties that both define an array
+                of columns each having colspan and rowspan.</p>
+<pre>
+&lt;p-dataTable [value]="sales" [columns]="cols" [headerColumns]="headerCols"&gt;&lt;/p-dataTable&gt;
+</pre>
+<pre>
+this.headerCols = [
+    {
+        columns: [
+            {headerText: 'Brand', rowspan: 3},
+            {headerText: 'Sale Rate', colspan: 4}
+        ]
+    },
+    {
+        columns: [
+            {headerText: 'Brand', colspan: 2},
+            {headerText: 'Sale Rate', colspan: 2}
+        ]
+    },
+    {
+        columns: [
+            {headerText: 'Last Year'},
+            {headerText: 'This Year'},
+            {headerText: 'Last Year'},
+            {headerText: 'This Year'}
+        ]
+    }
+];
+</pre>
+
+            <h3>Paginator</h3>
+            <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
+                of page links to display. See <a [routerLink]="['PaginatorDemo']">paginator</a> component for more information.</p>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" [rows]="10" [paginator]="true"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Sorting</h3>
+            <p>Simply enabling sortable property at column object is enough to make a column sortable.</p>
+<pre>
+this.cols = [
+    {field: 'vin', headerText: 'Vin', sortable: true},
+    {field: 'brand', headerText: 'Brand', sortable: true},
+    {field: 'year', headerText: 'Year', sortable: true},
+    {field: 'color', headerText: 'Color', sortable: true}
+];
+</pre>
+
+            <h3>Filtering</h3>
+            <p>Filtering is enabled by setting the filter property as true in column object. Default match mode is "startsWith" and this can be configured
+            using filterMatchMode property of column object that also accepts "contains" and "endsWith".</p>
+<pre>
+this.cols = [
+    {field: 'vin', headerText: 'Vin', filter: true},
+    {field: 'brand', headerText: 'Brand', filter: true, filterMatchMode: 'startsWith'},
+    {field: 'year', headerText: 'Year', filter: true, filterMatchMode: 'contains'},
+    {field: 'color', headerText: 'Color', filter: true, filterMatchMode: 'endsWith'}
+];
+</pre>
+
+            <h3>Selection</h3>
+            <p>DataTable provides single and multiple selection modes on click of a row. Metakey is used to unselect a selected row and also to select
+            multiple rows at the same time in multiple mode. Selected rows are bound to the selection property and onRowSelect-onRowUnselect events
+                    are provided as optional callbacks.</p>
+            <p>In single mode, selection binding is an object reference.</p>
+<pre>
+export class DataTableDemo implements OnInit {
+
+    cars: Car[];
+
+    cols: Column[];
+    
+    selectedCar: Car;
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.cars = this.carService.getCars();
+
+        this.cols = [
+            {field: 'vin', headerText: 'Vin'},
+            {field: 'brand', headerText: 'Brand'},
+            {field: 'year', headerText: 'Year'},
+            {field: 'color', headerText: 'Color'}
+        ];
+    }
+}
+</pre>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+        <p>In multiple mode, selection binding should be an array.</p>
+<pre>
+export class DataTableDemo implements OnInit {
+
+    cars: Car[];
+
+    cols: Column[];
+    
+    selectedCars: Car[];
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.cars = this.carService.getCars();
+
+        this.cols = [
+            {field: 'vin', headerText: 'Vin'},
+            {field: 'brand', headerText: 'Brand'},
+            {field: 'year', headerText: 'Year'},
+            {field: 'color', headerText: 'Color'}
+        ];
+    }
+}
+</pre>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCars"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Editing</h3>
+            <p>Incell editing is enabled by setting editable property true both on datatable and columns, when a cell is clicked edit mode is activated, clicking outside of cell or hitting the enter key 
+            switches back to view mode after updating the value.</p>
+<pre>
+this.cols = [
+    {field: 'vin', headerText: 'Vin', editable: true},
+    {field: 'brand', headerText: 'Brand', editable: true},
+    {field: 'year', headerText: 'Year', editable: true},
+    {field: 'color', headerText: 'Color', editable: true}
+];
+</pre>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" [editable]="true"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Column Resize</h3>
+            <p>Columns can be resized using drag drop by setting the resizableColumns to true. There are two resize modes; "fit" and "expand". Fit is the default one and 
+            the overall table width does not change when a column is resized. In "expand" mode, table width also changes along with the column width. onColumnResize
+            is a callback that passes the resized column header as a parameter.</p>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" [resizableColumns]="true"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Column Reordering</h3>
+            <p>Columns can be reordered using drag drop by setting the reorderableColumns to true. onColReorder is a callback that is invoked when a column is reordered.</p>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" [reorderableColumns]="true"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Scrolling</h3>
+            <p>DataTable supports both horizontal and vertical scrolling by defining scrollWidth and scrollHeight options respectively. The properties can take
+            fixed pixels values or percentages to calculate scroll viewport relative to the parent of the datatable. Sample below uses vertical scrolling where
+            headers are fixed and data is scrollable.</p>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" [scrollable]="true" scrollHeight="200"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Responsive</h3>
+            <p>DataTable columns are displayed as stacked in responsive mode if the screen size becomes smaller than a certain breakpoint value. This feature is enabled
+            by setting responsive to true.</p>
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" [responsive]="true"&gt;&lt;/p-dataTable&gt;
+</pre>
+
+            <h3>Attributes</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>onPageChange</td>
+                        <td>event.first: Index of first record <br >
+                            event.rows: Number of rows to display in new page <br >
+                            event.page: Index of the new page <br >
+                            event.pageCount: Total number of pages <br ></td>
+                        <td>Callback to invoke when page changes, the event object contains information about the new state.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+<pre>
+&lt;p-paginator rows="10" totalRecords="100" (onPageChange)="paginate($event)"&gt;&lt;/p-paginator&gt;
+</pre>
+
+<pre>
+export class MyComponent {
+
+    paginate(event) {
+        //event.first = Index of the first record
+        //event.rows = Number of rows to display in new page
+        //event.page = Index of the new page
+        //event.pageCount = Total number of pages
+    }
+
+}
+</pre>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Element</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>ui-paginator</td>
+                        <td>Container element.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-paginator-first</td>
+                        <td>First page element.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-paginator-prev</td>
+                        <td>Previous page element.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-paginator-pages</td>
+                        <td>Container of page links.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-paginator-page</td>
+                        <td>A page link.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-paginator-next</td>
+                        <td>Next pge element.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-paginator-last</td>
+                        <td>Last page element.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>Native component that requires PrimeUI paginator widget css.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+<pre>
+&lt;p-paginator rows="10" totalRecords="100"&gt;&lt;/p-paginator&gt;
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
