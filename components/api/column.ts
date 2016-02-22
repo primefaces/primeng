@@ -1,6 +1,7 @@
 export interface Column {
     field;
-    headerText?;
+    header?;
+    footer?;
     sortable?;
     editable?;
     filter?;

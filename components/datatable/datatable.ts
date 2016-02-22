@@ -18,7 +18,7 @@ import {InputText} from '../inputtext/inputtext';
                         <tr *ngIf="!headerColumns" class="ui-state-default">
                             <th #headerCell *ngFor="#col of columns" class="ui-state-default ui-unselectable-text" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                 (click)="sort(col)" [ngClass]="{'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': col.field === sortField}">
-                                <span class="ui-column-title">{{col.headerText}}</span>
+                                <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
@@ -28,7 +28,7 @@ import {InputText} from '../inputtext/inputtext';
                             <th #headerCell *ngFor="#col of headerCol.columns" class="ui-state-default ui-unselectable-text" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                 (click)="sort(col)" [ngClass]="{'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': col.field === sortField}"
                                 [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan">
-                                <span class="ui-column-title">{{col.headerText}}</span>
+                                <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
@@ -142,6 +142,8 @@ export class DataTable implements AfterViewInit,OnInit {
     @Input() scrollWidth: any;
 
     @Input() headerColumns: any;
+    
+    @Input() footerColumns: any;
 
     @Input() style: string;
 
