@@ -35,7 +35,7 @@ export class CarouselDemo {
         this.msgs = [];
         this.cars = [
             {vin: 'r3278r2', year: 2010, brand: 'Audi', color: 'Black'},
-            {vin: 'jhto2g2', year: 2015, brand: 'BMN', color: 'White'},
+            {vin: 'jhto2g2', year: 2015, brand: 'BMW', color: 'White'},
             {vin: 'h453w54', year: 2012, brand: 'Honda', color: 'Blue'},
             {vin: 'g43gwwg', year: 1998, brand: 'Renault', color: 'White'},
             {vin: 'gf45wg5', year: 2011, brand: 'Volkswagen', color: 'Red'},
