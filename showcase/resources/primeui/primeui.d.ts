@@ -327,6 +327,30 @@ declare module PrimeUI {
         styleClass?: string;
         enhanced?: boolean;
     }
+    
+    interface ColResizeEventParams {
+        element?: any;
+    }
+
+    interface ColResizeOptions {
+        mode?: string;
+        colResize?: (event?: Event, ui?: ColResizeEventParams) => void;
+    }
+
+    interface ColReorderEventParams {
+        dragIndex?: number;
+        dropIndex?: number;
+        dropSide?: number;
+    }
+
+    interface ColReorderOptions {
+        colReorder?: (event?: Event, ui?: ColReorderEventParams) => void;
+    }
+
+    interface TableScrollOptions {
+        scrollHeight?: any;
+        scrollWidth?: any;
+    }
 }
 
 interface JQuery {
@@ -666,4 +690,40 @@ interface JQuery {
     puipanelmenu(optionLiteral: string, optionName: string): any;
     puipanelmenu(optionLiteral: string, options: PrimeUI.PanelMenuOptions): any;
     puipanelmenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+    
+    puicolresize(): JQuery;
+    puicolresize(methodName: 'destroy'): void;
+    puicolresize(methodName: 'disable'): void;
+    puicolresize(methodName: 'enable'): void;
+    puicolresize(methodName: 'refresh'): void;
+    puicolresize(methodName: 'widget'): JQuery;
+    puicolresize(methodName: string): JQuery;
+    puicolresize(options: PrimeUI.ColResizeOptions): JQuery;
+    puicolresize(optionLiteral: string, optionName: string): any;
+    puicolresize(optionLiteral: string, options: PrimeUI.ColResizeOptions): any;
+    puicolresize(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puicolreorder(): JQuery;
+    puicolreorder(methodName: 'destroy'): void;
+    puicolreorder(methodName: 'disable'): void;
+    puicolreorder(methodName: 'enable'): void;
+    puicolreorder(methodName: 'refresh'): void;
+    puicolreorder(methodName: 'widget'): JQuery;
+    puicolreorder(methodName: string): JQuery;
+    puicolreorder(options: PrimeUI.ColReorderOptions): JQuery;
+    puicolreorder(optionLiteral: string, optionName: string): any;
+    puicolreorder(optionLiteral: string, options: PrimeUI.ColReorderOptions): any;
+    puicolreorder(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    puitablescroll(): JQuery;
+    puitablescroll(methodName: 'destroy'): void;
+    puitablescroll(methodName: 'disable'): void;
+    puitablescroll(methodName: 'enable'): void;
+    puitablescroll(methodName: 'refresh'): void;
+    puitablescroll(methodName: 'widget'): JQuery;
+    puitablescroll(methodName: string): JQuery;
+    puitablescroll(options: PrimeUI.TableScrollOptions): JQuery;
+    puitablescroll(optionLiteral: string, optionName: string): any;
+    puitablescroll(optionLiteral: string, options: PrimeUI.TableScrollOptions): any;
+    puitablescroll(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 }

@@ -4,8 +4,6 @@ import {Header} from '../common/header';
 import {Footer} from '../common/footer';
 import {Paginator} from '../paginator/paginator';
 import {InputText} from '../inputtext/inputtext';
-import ColResizeEventParams = PrimeUI.ColResizeEventParams;
-import ColReorderEventParams = PrimeUI.ColReorderEventParams;
 
 @Component({
     selector: 'p-dataTable',
@@ -464,7 +462,7 @@ export class DataTable implements AfterViewInit,OnInit {
     initResizableColumns() {
         jQuery(this.el.nativeElement.children[0]).puicolresize({
             mode: this.columnResizeMode,
-            colResize: (event: Event, ui: ColResizeEventParams) => {
+            colResize: (event: Event, ui: PrimeUI.ColResizeEventParams) => {
                 this.onColResize.next(ui.element);
             }
         });
@@ -472,7 +470,7 @@ export class DataTable implements AfterViewInit,OnInit {
 
     initColumnReordering() {
         jQuery(this.el.nativeElement.children[0]).puicolreorder({
-            colReorder: (event: Event, ui: ColReorderEventParams) => {
+            colReorder: (event: Event, ui: PrimeUI.ColReorderEventParams) => {
                 //right
                 if(ui.dropSide > 0) {
                     this.columns.splice(ui.dropIndex + 1, 0, this.columns.splice(ui.dragIndex, 1)[0]);
