@@ -16,8 +16,9 @@ import {InputText} from '../inputtext/inputtext';
                 <table>
                     <thead>
                         <tr *ngIf="!headerRows" class="ui-state-default">
-                            <th #headerCell *ngFor="#col of columns" class="ui-state-default ui-unselectable-text" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                (click)="sort(col)" [ngClass]="{'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': (sortField && col.field === sortField)}">
+                            <th #headerCell *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass"
+                                (click)="sort(col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
+                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': (sortField && col.field === sortField)}">
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
@@ -25,11 +26,11 @@ import {InputText} from '../inputtext/inputtext';
                             </th>
                         </tr>
                         <tr *ngFor="#headerRow of headerRows" class="ui-state-default">
-                            <th #headerCell *ngFor="#col of headerRow.columns" class="ui-state-default ui-unselectable-text" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                (click)="sort(col)" [ngClass]="{'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active':  (sortField && col.field === sortField)}"
-                                [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan">
+                            <th #headerCell *ngFor="#col of headerRow.columns" [attr.style]="col.style" [attr.class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
+                                (click)="sort(col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
+                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': (sortField && col.field === sortField)}">
                                 <span class="ui-column-title">{{col.header}}</span>
-                                <span class="ui-sorttable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
+                                <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                             </th>
@@ -37,16 +38,19 @@ import {InputText} from '../inputtext/inputtext';
                     </thead>
                     <tfoot *ngIf="hasFooter()">
                         <tr *ngIf="!footerRows">
-                            <th *ngFor="#col of columns" class="ui-state-default">{{col.footer}}</th>
+                            <th *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</th>
                         </tr>
                         <tr *ngFor="#footerRow of footerRows">
-                            <th *ngFor="#col of footerRow.columns" class="ui-state-default" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan">{{col.footer}}</th>
+                            <th *ngFor="#col of footerRow.columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
+                                [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
+                                [ngClass]="{'ui-state-default':true}">{{col.footer}}</th>
                         </tr>
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                            <td *ngFor="#col of columns" [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target)">
+                            <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
+                                [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.headerText}}</span>
                                 <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)">{{rowData[col.field]}}</span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>

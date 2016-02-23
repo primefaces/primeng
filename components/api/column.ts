@@ -8,4 +8,6 @@ export interface Column {
     filterMatchMode?;
     rowspan?;
     colspan?;
+    style?;
+    styleClass?;
 }
