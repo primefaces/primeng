@@ -52,9 +52,6 @@ import {InputText} from '../inputtext/inputtext';
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
                             </td>
                         </tr>
-                        <tr *ngIf="isEmpty()"class="ui-widget-content">
-                            <td [attr.colspan]="columns.length">{{emptyMessage}}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -94,9 +91,6 @@ import {InputText} from '../inputtext/inputtext';
                                 <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)">{{rowData[col.field]}}</span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
                             </td>
-                        </tr>
-                        <tr *ngIf="isEmpty()"class="ui-widget-content">
-                            <td [attr.colspan]="columns.length">{{emptyMessage}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -163,8 +157,6 @@ export class DataTable implements AfterViewInit {
 
     @Input() styleClass: string;
     
-    @Input() emptyMessage: string;
-
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
