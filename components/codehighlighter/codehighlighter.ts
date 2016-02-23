@@ -1,5 +1,7 @@
 import {Directive, ElementRef, OnInit} from 'angular2/core';
 
+declare var Prism: any;
+
 @Directive({
     selector: '[pCode]'
 })
@@ -18,4 +20,6 @@ export class pCode implements OnInit{
         this.initialized = true;
     }
 }
+
+
 
