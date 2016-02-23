@@ -315,7 +315,7 @@ this.cols = [
             <h3>Scrolling</h3>
             <p>DataTable supports both horizontal and vertical scrolling by defining scrollWidth and scrollHeight options respectively. The properties can take
             fixed pixels values or percentages to calculate scroll viewport relative to the parent of the datatable. Sample below uses vertical scrolling where
-            headers are fixed and data is scrollable.</p>
+            headers are fixed and data is scrollable. In horizontal scrolling, it is important to give fixed widths to columns.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [columns]="cols" [scrollable]="true" scrollHeight="200"&gt;&lt;/p-dataTable&gt;

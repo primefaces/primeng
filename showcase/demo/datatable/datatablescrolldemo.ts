@@ -20,18 +20,27 @@ export class DataTableScrollDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
+    cols1: Column[];
+    
+    cols2: Column[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsLarge().then(cars => this.cars = cars);
 
-        this.cols = [
-            {field: 'vin', header: 'Vin'},
+        this.cols1 = [
+            {field: 'vin', header: 'Vin',},
             {field: 'brand', header: 'Brand'},
             {field: 'year', header: 'Year'},
             {field: 'color', header: 'Color'}
+        ];
+        
+        this.cols2 = [
+            {field: 'vin', header: 'Vin', style: 'width:250px'},
+            {field: 'brand', header: 'Brand', style: 'width:250px'},
+            {field: 'year', header: 'Year', style: 'width:250px'},
+            {field: 'color', header: 'Color', style: 'width:250px'}
         ];
     }
 }
