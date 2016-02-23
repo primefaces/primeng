@@ -134,12 +134,15 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {SlideMenu} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>SlideMenu requires nested list elements.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-slideMenu&gt;
      &lt;ul&gt;
          &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
@@ -162,11 +165,13 @@ import {SlideMenu} from 'primeng/primeng';
          &lt;/li&gt;
      &lt;/ul&gt;
 &lt;/p-slideMenu&gt;
+</code>
 </pre>
 
             <h3>Popup Mode</h3>
             <p>SlideMenu is inline by default, popup mode is also supported by enabling popup property and defining a trigger element.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-slideMenu [popup]="true" [trigger]="btn"&gt;
      &lt;ul&gt;
          &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
@@ -190,10 +195,12 @@ import {SlideMenu} from 'primeng/primeng';
      &lt;/ul&gt;
 &lt;/p-slideMenu&gt;
 &lt;button #btn type="button" pButton icon="fa fa-list"&gt;Show&lt;/button&gt;
+</code>
 </pre>
 
             <p>my, at and triggerEvent attributes provide further customization. Following menu opens at right top position of the button on mouseover event.</p>
-            <pre>
+<pre>
+<code class="language-markup" pCode>
 &lt;p-slideMenu [popup]="true" [trigger]="btn" my="left top" at="right top" triggerEvent="mouseover"&gt;
      &lt;ul&gt;
          &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
@@ -217,12 +224,15 @@ import {SlideMenu} from 'primeng/primeng';
      &lt;/ul&gt;
 &lt;/p-slideMenu&gt;
 &lt;button #btn type="button" pButton icon="fa fa-list"&gt;Show&lt;/button&gt;
+</code>
 </pre>
 
             <h3>Icons</h3>
             <p>An icon of a menuitem is defined using data-icon attribute.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
+</code>
 </pre>
 
 
@@ -344,11 +354,12 @@ import {SlideMenu} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI SlideMenu.</p>
+            <p>Prismjs, PrimeUI SlideMenu.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 <h3 class="first">Default</h3>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-slideMenu&gt;
@@ -472,6 +483,7 @@ import {SlideMenu} from 'primeng/primeng';
     &lt;/ul&gt;
 &lt;/p-slideMenu&gt;
 &lt;button #btn type="button" pButton icon="fa fa-list"&gt;Show&lt;/button&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

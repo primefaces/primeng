@@ -18,6 +18,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatablepaginatordemo.ts">
 <pre>
+<code class="language-typescript" pCode>
 export class DataTablePaginatorDemo implements OnInit {
 
     cars: Car[];
@@ -37,14 +38,17 @@ export class DataTablePaginatorDemo implements OnInit {
         ];
     }
 }
+</code>
 </pre>            
         </p-tabPanel>
 
         <p-tabPanel header="datatablepaginatordemo.html">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [columns]="cols" [rows]="10" [paginator]="true" [pageLinks]="3"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
 &lt;/p-dataTable&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

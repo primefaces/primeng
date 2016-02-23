@@ -18,26 +18,34 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {InputTextarea} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>InputTextarea is applied to an input field with pInputTextarea directive.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;textarea pInputTextarea /&gt;
+</code>
 </pre>
 
             <h3>Model Binding</h3>
             <p>A model can be bound using ngModel regularly.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;textarea pInputTextarea [(ngModel)]="property"/&gt;
+</code>
 </pre>
 
             <h3>AutoResize</h3>
             <p>In auto resize mode, textarea grows instead of displaying a scrollbar.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;textarea pInputTextarea autoResize="autoResize"/&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -88,16 +96,18 @@ import {InputTextarea} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI InputTextarea.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI InputTextarea.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;textarea rows="5" cols="30" pInputTextarea&gt;&lt;/textarea&gt;
 
 &lt;h3&gt;AutoResize&lt;/h3&gt;
 &lt;textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"&gt;&lt;/textarea&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

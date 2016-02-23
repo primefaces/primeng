@@ -14,25 +14,33 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Paginator} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Paginator is defined using p-paginator element.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-paginator&gt;&lt;/p-paginator&gt;
+</code>
 </pre>
             <h3>Rows and TotalRecords</h3>
             <p>Rows and TotalRecords define how many pages the paginator should display. Paginator below will have 10 pages.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-paginator rows="10" totalRecords="100"&gt;&lt;/p-paginator&gt;
+</code>
 </pre>
 
             <h3>PageLinks</h3>
             <p>PageLinks provide shortcuts to jump to a specific page, use pageLinkSize property to define the number of links to display. Default is 5.</p>
 
 <pre>
+<code class="language-markup" pCode>
 &lt;p-paginator rows="10" totalRecords="100" pageLinkSize="3"&gt;&lt;/p-paginator&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -111,10 +119,13 @@ import {Paginator} from 'primeng/primeng';
             </div>
 
 <pre>
+<code class="language-markup" pCode>
 &lt;p-paginator rows="10" totalRecords="100" (onPageChange)="paginate($event)"&gt;&lt;/p-paginator&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class MyComponent {
 
     paginate(event) {
@@ -125,6 +136,7 @@ export class MyComponent {
     }
 
 }
+</code>
 </pre>
 
             <h3>Styling</h3>
@@ -171,12 +183,14 @@ export class MyComponent {
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires PrimeUI paginator widget css.</p>
+            <p>Prismjs, Native component that requires PrimeUI paginator widget css.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-paginator rows="10" totalRecords="100"&gt;&lt;/p-paginator&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

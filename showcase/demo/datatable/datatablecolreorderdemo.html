@@ -15,6 +15,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatablecolreorderdemo.ts">
 <pre>
+<code class="language-typescript" pCode>
 export class DataTableColReorderDemo implements OnInit {
 
     cars: Car[];
@@ -34,12 +35,15 @@ export class DataTableColReorderDemo implements OnInit {
         ];
     }
 }
+</code>
 </pre>            
         </p-tabPanel>
 
         <p-tabPanel header="datatablecolreorderdemo.html">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [columns]="cols" reorderableColumns="true"&gt;&lt;/p-dataTable&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

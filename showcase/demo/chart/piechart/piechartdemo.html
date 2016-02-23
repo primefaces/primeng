@@ -29,7 +29,9 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {PieChart} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
@@ -37,10 +39,13 @@ import {PieChart} from 'primeng/primeng';
                 The value attribute should be a number, Chart.js will total all of the numbers and calculate the relative proportion of each.
                 The color attribute should be a string. Similar to CSS, for this string you can use HEX notation, RGB, RGBA or HSL.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-pieChart [value]="data" width="300" height="300"&gt;&lt;/p-pieChart&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class MyModel {
 
     data1: any[];
@@ -67,30 +72,38 @@ export class MyModel {
     }
 
 }
+</code>
 </pre>
 
             <h3>Legend</h3>
             <p>To display a legend, pass an element as a local template variable where legend content would be generated.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-barChart [value]="data" width="640" height="320" [legend]="lgnd"&gt;&lt;/p-barChart&gt;
 &lt;div #lgnd&gt;&lt;/div&gt;
+</code>
 </pre>
 
             <p>Content of legend can be customized with legendTemplate attribute that defaults to;</p>
 <pre>
+<code class="language-markup" pCode>
 "&lt;ul class=\"&lt;%=name.toLowerCase()%&gt;-legend\"&gt;
     &lt;% for (var i=0; i&lt;datasets.length; i++){%&gt;
         &lt;li&gt;&lt;span style=\"background-color:&lt;%=datasets[i].strokeColor%&gt;\"&gt;&lt;/span&gt;&lt;%if(datasets[i].label){%&gt;&lt;%=datasets[i].label%&gt;&lt;%}%&gt;&lt;/li&gt;
     &lt;%}%&gt;
 &lt;/ul&gt;"
+</code>
 </pre>
 
             <h3>Event</h3>
             <p>onSegmentSelect event is triggered by passing the available selected segments when a user clicks on the chart.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-pieChart [value]="data" width="300" height="300" (onSegmentSelect)="onSegmentClick($event)"&gt;&lt;/p-pieChart&gt;
+</code>
 </pre>
 <pre>
+<code class="language-typescript" pCode>
 export class MyModel {
 
     onSegmentClick(event) {
@@ -99,6 +112,7 @@ export class MyModel {
     }
 
 }
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -428,11 +442,12 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>Chart.js</p>
+            <p>Chart.js, Prismjs</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;div class="ui-grid ui-grid-responsive" style="margin-bottom:10px"&gt;
@@ -449,9 +464,11 @@ export class MyModel {
     &lt;/div&gt;
 &lt;/div&gt;
 &lt;button type="button" (click)="removeYellow()" pButton icon="fa-minus" style="width:300px" *ngIf="!updated"&gt;Remove Yellow&lt;/button&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class PieChartDemo {
 
     data1: any[];
@@ -525,6 +542,7 @@ export class PieChartDemo {
         this.updated = true;
     }
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

@@ -1,6 +1,7 @@
 import {Component,OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {DataTable} from '../../../components/datatable/datatable';
+import {pCode} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Column} from '../../../components/api/column';
@@ -8,7 +9,7 @@ import {DataTableSubmenu} from './datatablesubmenu.component';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablegroupdemo.html',
-    directives: [DataTable,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES]
+    directives: [DataTable,DataTableSubmenu,TabPanel,TabView,pCode,ROUTER_DIRECTIVES]
 })
 export class DataTableGroupDemo implements OnInit {
 

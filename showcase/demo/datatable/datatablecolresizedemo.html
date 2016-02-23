@@ -21,6 +21,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatablecolresizedemo.ts">
 <pre>
+<code class="language-typescript" pCode>
 export class DataTableColResizeDemo implements OnInit {
 
     cars: Car[];
@@ -40,16 +41,19 @@ export class DataTableColResizeDemo implements OnInit {
         ];
     }
 }
+</code>
 </pre>            
         </p-tabPanel>
 
         <p-tabPanel header="datatablecolresizedemo.html">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Fit Mode&lt;/h3&gt;
 &lt;p-dataTable [value]="cars" [columns]="cols" resizableColumns="true"&gt;&lt;/p-dataTable&gt;
 
 &lt;h3&gt;Expand Mode&lt;/h3&gt;
 &lt;p-dataTable [value]="cars" [columns]="cols" resizableColumns="true" columnResizeMode="expand"&gt;&lt;/p-dataTable&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

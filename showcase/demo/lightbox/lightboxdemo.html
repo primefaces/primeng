@@ -30,21 +30,26 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Lightbox} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Lightbox has two modes; image and custom content. In image mode, anchor elements with images are used as the children where
             clicking on them, opens up the lightbox to display the images collection.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-lightbox&gt;
     &lt;a *ngFor="#image of images" href="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>.jpg"&gt;
         &lt;img src="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>_small.jpg" alt="<span>{</span><span>{</span>image<span>}</span><span>}</span>"/&gt;
     &lt;/a&gt;
 &lt;/p-lightbox&gt;
+</code>
 </pre>
             <p>In content mode, the custom content is defined as a hidden sibling of the anchor element.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-lightbox&gt;
     &lt;a class="group" href="#"&gt;
         View Content
@@ -54,6 +59,7 @@ import {Lightbox} from 'primeng/primeng';
         &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
     &lt;/div&gt;
 &lt;/p-lightbox&gt;
+</code>
 </pre>
 
             <h3>Styling</h3>
@@ -100,11 +106,12 @@ import {Lightbox} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI Lightbox.</p>
+            <p>Prismjs, PrimeUI Lightbox.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-lightbox&gt;
     &lt;a *ngFor="#image of images" href="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>.jpg"&gt;
@@ -122,6 +129,7 @@ import {Lightbox} from 'primeng/primeng';
         &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
     &lt;/div&gt;
 &lt;/p-lightbox&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

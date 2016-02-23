@@ -27,16 +27,21 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Dropdown} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Dropdown requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dropdown [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-dropdown&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 import {SelectItem} from 'primeng/primeng';
 
 export class MyModel {
@@ -55,17 +60,21 @@ export class MyModel {
     }
 
 }
+</code>
 </pre>
             <h3>Filtering</h3>
             <p>Options can be filtered using an input field in the overlay, there are 3 different filtering modes defined with filterMatchMode; "startsWith" (default), "contains" and "endsWith".</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-listbox [options]="cities" [(value)]="selectedCities" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-listbox&gt;
+</code>
 </pre>
 
             <h3>Custom Content</h3>
             <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unordered list.
              The label of an item should be provided explicity with data-label attribute on li element.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
@@ -74,9 +83,11 @@ export class MyModel {
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-dropdown&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 import {SelectItem} from 'primeng/primeng'
 
 export class MyModel {
@@ -99,6 +110,7 @@ export class MyModel {
         this.cars.push({label: 'Volvo', value: 'Volvo'});
     }
 }
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -239,7 +251,7 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Listbox.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Listbox.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -261,6 +273,7 @@ export class MyModel {
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class DropdownDemo {
 
     cities: SelectItem[];
@@ -294,6 +307,7 @@ export class DropdownDemo {
     }
 
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

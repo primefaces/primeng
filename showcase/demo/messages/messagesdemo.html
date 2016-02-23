@@ -22,25 +22,32 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Messages} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>A single message is specified by Message interface in PrimeNG that defines the severity, summary and detail properties.
                 Messages to display are defined using the value property which should an array of Message instances.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+</code>
 </pre>
             <h3>Showing Messages</h3>
             <p>Adding messages to the array is enough to display them . Similary removing a message from the array is also removed from the UI.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
 
 &lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
 &lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 show() {
     this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
 }
@@ -48,18 +55,23 @@ show() {
 hide() {
     this.msgs = [];
 }
+</code>
 </pre>
 
             <h3>Closable</h3>
             <p>Messages are closable by default, a close icon is displayed on top right corner. If you use two-way binding, clicking this icon also
             clears the messages array at your component.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+</code>
 </pre>
 
             <p>In order to disable closable messages, set closable to false.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-messages [value]="msgs" [closable]="false"&gt;&lt;/p-messages&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -213,11 +225,12 @@ hide() {
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI messages widget css.</p>
+            <p>Prismjs, PrimeUI messages widget css.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 
 &lt;div&gt;
@@ -227,9 +240,11 @@ hide() {
     &lt;button type="button" pButton (click)="showMultiple()"&gt;Multiple&lt;/button&gt;
     &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right"&gt;Clear&lt;/button&gt;
 &lt;/div&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class MessagesDemo {
 
     msgs: Message[] = [];
@@ -260,6 +275,7 @@ export class MessagesDemo {
         this.msgs = [];
     }
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

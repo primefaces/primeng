@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {Checkbox} from '../../../components/checkbox/checkbox';
+import {pCode} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
@@ -60,33 +61,41 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                 <p-tabPanel header="Documentation">
                     <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Checkbox} from 'primeng/primeng';
+</code>
 </pre>
 
                     <h3>Getting Started</h3>
                     <p>Checkbox is defined using p-checkbox element and value is an array defined with model property that supports two-way binding.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;p-checkbox name="groupname" value="val1" [(model)]="selectedValues"&gt;&lt;/p-checkbox&gt;
 &lt;p-checkbox name="groupname" value="val2" [(model)]="selectedValues"&gt;&lt;/p-checkbox&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     selectedValues: string[] = [];
 
 }
+</code>
 </pre>
 
                     <p>As model is two-way binding enabled, prepopulating the model array with values is enough to display the related
                     checkboxes as checked.</p>
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     selectedValues: string[] = ['val1','val2'];
 
 }
+</code>
 </pre>
 
                     <h3>Attributes</h3>
@@ -177,10 +186,11 @@ export class ModelComponent {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>PrimeUI checkbox widget css.</p>
+                    <p>Prismjs, PrimeUI checkbox widget css.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
     &lt;div class="ui-grid-row"&gt;
@@ -220,15 +230,18 @@ Selected Cities: &lt;span *ngFor="#city of selectedCities"&gt; <span>{</span><sp
 &lt;/div&gt;
 
 Selected Categories: &lt;span *ngFor="#cat of selectedCategories"&gt; <span>{</span><span>{</span>cat<span>}</span><span>}</span> &amp;nbsp;&amp;nbsp;&lt;/span&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class CheckboxDemo {
 
     selectedCities: string[] = [];
 
     selectedCategories: string[] = ['Technology', 'Sports'];
 }
+</code>
 </pre>
                 </p-tabPanel>
             </p-tabView>
@@ -245,7 +258,7 @@ export class CheckboxDemo {
             margin: 3px 0px 0px 4px;
         }
     `],
-    directives: [Checkbox,TabPanel,TabView,ROUTER_DIRECTIVES]
+    directives: [Checkbox,TabPanel,TabView,pCode,ROUTER_DIRECTIVES]
 })
 export class CheckboxDemo {
 

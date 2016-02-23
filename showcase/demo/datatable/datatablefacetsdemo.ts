@@ -2,6 +2,7 @@ import {Component,OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {HTTP_PROVIDERS}    from 'angular2/http';
 import {DataTable} from '../../../components/datatable/datatable';
+import {pCode} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
@@ -13,7 +14,7 @@ import {DataTableSubmenu} from './datatablesubmenu.component';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablefacetsdemo.html',
-    directives: [DataTable,DataTableSubmenu,Header,Footer,TabPanel,TabView,ROUTER_DIRECTIVES],
+    directives: [DataTable,DataTableSubmenu,Header,Footer,TabPanel,TabView,pCode,ROUTER_DIRECTIVES],
     providers: [HTTP_PROVIDERS,CarService]
 })
 export class DataTableFacetsDemo implements OnInit {

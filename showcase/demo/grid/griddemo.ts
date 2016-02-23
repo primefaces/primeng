@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
+import {pCode} from '../../../components/codehighlighter/codehighlighter';
 
 @Component ({
     styles:[`
@@ -16,7 +17,7 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
         }
     `],
     templateUrl: 'showcase/demo/grid/griddemo.html',
-    directives: [TabView,TabPanel]
+    directives: [TabView,TabPanel,pCode]
 })
 export class GridDemo {
 

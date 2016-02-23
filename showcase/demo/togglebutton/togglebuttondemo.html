@@ -18,38 +18,48 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {ToggleButton} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>ToggleButton is defined using p-toggleButton element. Checked property supports two-way binding to retrieve and assign the model.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;p-toggleButton [(checked)]="checked"&gt;&lt;/p-toggleButton&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     checked: boolean;
 
 }
+</code>
 </pre>
 
             <p>As model is two-way binding enabled, setting the bound value as true displays the state as checked.</p>
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
    checked: boolean = true;
 
 }
+</code>
 </pre>
 
             <h3>Customization</h3>
             <p>Icons and Labels can be customized using onLabel, offLabel, onIcon and OffIcon attributes.</p>
-            <pre>
+<pre>
+<code class="language-markup" pCode>
 &lt;p-toggleButton onLabel="I confirm" offLabel="I reject" 
         onIcon="fa-check-square" offIcon="fa-square" [(checked)]="val"&gt;&lt;/p-toggleButton&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -131,15 +141,19 @@ export class ModelComponent {
                 </table>
             </div>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-toggleButton (onChange)="handleChange($event)" [(checked)]="val"&gt;
+</code>
 </pre>
  <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
     
     handleChange(e) {
         var isChecked = e.checked;
     }
 }
+</code>
 </pre>
 
             <h3>Styling</h3>
@@ -170,25 +184,29 @@ export class ModelComponent {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI ToggleButton.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI ToggleButton.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic - (<span>{</span><span>{</span>checked1<span>}</span><span>}</span>)&lt;/h3&gt;
 &lt;p-toggleButton [(checked)]="checked1" style="width:150px"&gt;&lt;/p-toggleButton&gt;
 
 &lt;h3&gt;Customized - (<span>{</span><span>{</span>checked2<span>}</span><span>}</span>)&lt;/h3&gt;
 &lt;p-toggleButton onLabel="I confirm" offLabel="I reject" onIcon="fa-check-square" offIcon="fa-square" [(checked)]="checked2" style="width:150px"&gt;&lt;/p-toggleButton&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ToggleButtonDemo {
     
     checked1: boolean = false;
 
     checked2: boolean = true;
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

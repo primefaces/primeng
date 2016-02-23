@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {InputText} from '../../../components/inputtext/inputtext';
+import {pCode} from '../../../components/codehighlighter/codehighlighter';
 import {Button} from '../../../components/button/button';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
@@ -29,20 +30,26 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                 <p-tabPanel header="Documentation">
                     <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {InputText} from 'primeng/primeng';
+</code>
 </pre>
 
                     <h3>Getting Started</h3>
                     <p>InputText is applied to an input field with pInputText directive.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;input type="text" pInputText /&gt;
+</code>
 </pre>
 
                     <h3>Model Binding</h3>
                     <p>A model can be bound using ngModel regularly.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;input type="text" pInputText [(ngModel)]="property"/&gt;
+</code>
 </pre>
 
                     <h3>Attributes</h3>
@@ -87,10 +94,11 @@ import {InputText} from 'primeng/primeng';
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>jQuery, jQuery UI WidgetFactory API, PrimeUI InputText.</p>
+                    <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI InputText.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt; &amp;nbsp; <span>{</span><span>{</span>text<span>}</span><span>}</span>
 
@@ -98,9 +106,11 @@ import {InputText} from 'primeng/primeng';
 &lt;input id="in" type="text" size="30" pInputText [disabled]="disabled" /&gt;
 
 &lt;button type="text" (click)="toggleDisabled()" pButton&gt;Toggle&lt;/button&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class InputTextDemo {
 
     text: string;
@@ -111,12 +121,13 @@ export class InputTextDemo {
         this.disabled = !this.disabled;
     }
 }
+</code>
 </pre>
                 </p-tabPanel>
             </p-tabView>
         </div>
     `,
-    directives: [InputText,Button,TabView,TabPanel,ROUTER_DIRECTIVES]
+    directives: [InputText,Button,TabView,TabPanel,pCode,ROUTER_DIRECTIVES]
 })
 export class InputTextDemo {
 

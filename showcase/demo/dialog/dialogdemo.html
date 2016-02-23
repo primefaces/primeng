@@ -28,21 +28,26 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Dialog} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Dialog is used as a container and visibility is controlled with visible property.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dialog header="Title" [(visible)]="display"&gt;
     Content
 &lt;/p-dialog&gt;
 
 &lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square"&gt;Show&lt;/button&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     visible: boolean;
@@ -52,6 +57,7 @@ export class ModelComponent {
     }
 
 }
+</code>
 </pre>
 
             <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
@@ -60,12 +66,14 @@ export class ModelComponent {
             <h3>Footer</h3>
             <p>Footer area is defined using the footer element.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dialog header="Title" [(visible)]="display"&gt;
     Content
     &lt;footer&gt;
         Footer content here
     &lt;/footer&gt;
 &lt;/p-dialog&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -292,11 +300,12 @@ export class ModelComponent {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Dialog.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Dialog.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dialog id="dlgelement" header="Godfather I" [(visible)]="display" modal="modal" minimizable="minimizable" maximizable="maximizable" showEffect="fade" hideEffect="fade"&gt;
     &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
@@ -312,9 +321,11 @@ export class ModelComponent {
 &lt;/p-dialog&gt;
 
 &lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square"&gt;Show&lt;/button&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class DialogDemo {
 
     display: boolean = false;
@@ -324,6 +335,7 @@ export class DialogDemo {
     }
 
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>
