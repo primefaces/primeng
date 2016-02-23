@@ -54,7 +54,7 @@ import {Galleria} from 'primeng/primeng';
 </pre>
             <p>If the images are dynamic, ngFor can be used to display the list dynamically.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#image of images;#i = index;"&gt;
@@ -78,7 +78,7 @@ export class Model {
             <p>Galleria supports custom content display instead of images, in this case enable customContent option
                 and place your content inside a div element next to the image.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#image of images;#i = index;"&gt;
@@ -232,7 +232,7 @@ export class Model {
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;

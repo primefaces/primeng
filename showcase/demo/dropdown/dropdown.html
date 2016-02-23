@@ -256,6 +256,7 @@ export class MyModel {
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-dropdown [options]="cities" [(value)]="selectedCity" style="width:100px"&gt;&lt;/p-dropdown&gt;
 &lt;p&gt;Selected City: {{selectedCity||'none'}}&lt;/p&gt;
@@ -264,12 +265,13 @@ export class MyModel {
 &lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true" style="width:100px"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
-            &lt;img src="showcase/resources/demo/images/car/<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin-top:2px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin-top:2px"&gt;{{car.label}}&lt;/div&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-dropdown&gt;
 &lt;p&gt;Selected Car: {{selectedCar||'none'}}&lt;/p&gt;
+</code>
 </pre>
 
 <pre>

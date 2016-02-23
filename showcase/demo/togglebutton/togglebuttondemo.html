@@ -189,11 +189,11 @@ export class ModelComponent {
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
-&lt;h3 class="first"&gt;Basic - (<span>{</span><span>{</span>checked1<span>}</span><span>}</span>)&lt;/h3&gt;
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Basic - ({{checked1}})&lt;/h3&gt;
 &lt;p-toggleButton [(checked)]="checked1" style="width:150px"&gt;&lt;/p-toggleButton&gt;
 
-&lt;h3&gt;Customized - (<span>{</span><span>{</span>checked2<span>}</span><span>}</span>)&lt;/h3&gt;
+&lt;h3&gt;Customized - ({{checked2}})&lt;/h3&gt;
 &lt;p-toggleButton onLabel="I confirm" offLabel="I reject" onIcon="fa-check-square" offIcon="fa-square" [(checked)]="checked2" style="width:150px"&gt;&lt;/p-toggleButton&gt;
 </code>
 </pre>

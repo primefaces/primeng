@@ -160,15 +160,15 @@ export class MyModel {
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(value)]="selectedType"&gt;&lt;/p-selectButton&gt;
 
-&lt;p&gt;Selected Type: <span>{</span><span>{</span>selectedType<span>}</span><span>}</span>&lt;/p&gt;
+&lt;p&gt;Selected Type: {{selectedType}}&lt;/p&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(value)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
-&lt;p&gt;Selected Types: <span>{</span><span>{</span>selectedTypes<span>}</span><span>}</span>&lt;/p&gt;
+&lt;p&gt;Selected Types: {{selectedTypes}}&lt;/p&gt;
 
 &lt;hr /&gt;
 
