@@ -56,6 +56,7 @@ import {DataTableColResizeDemo} from "./demo/datatable/datatablecolresizedemo";
 import {DataTableColReorderDemo} from "./demo/datatable/datatablecolreorderdemo";
 import {DataTableScrollDemo} from "./demo/datatable/datatablescrolldemo";
 import {DataTableGroupDemo} from "./demo/datatable/datatablegroupdemo";
+import {CodeHighlighterDemo} from "./demo/codehighlighter/codehighlighterdemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -118,7 +119,8 @@ import {DataTableGroupDemo} from "./demo/datatable/datatablegroupdemo";
     {path: '/datatablecolresize', name: 'DataTableColResizeDemo', component: DataTableColResizeDemo},
     {path: '/datatablecolreorder', name: 'DataTableColReorderDemo', component: DataTableColReorderDemo},
     {path: '/datatablescroll', name: 'DataTableScrollDemo', component: DataTableScrollDemo},
-    {path: '/datatablegroup', name: 'DataTableGroupDemo', component: DataTableGroupDemo}
+    {path: '/datatablegroup', name: 'DataTableGroupDemo', component: DataTableGroupDemo},
+    {path: '/codehighlighter', name: 'CodeHighlighterDemo', component: CodeHighlighterDemo}
 ])
 export class AppComponent {
 
