@@ -85,14 +85,14 @@ export class DataTableSelectionDemo implements OnInit {
 
         <p-tabPanel header="datatableselectiondemo.html">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p&gt;In single mode, a row is selected on click event of a row, if the metaKey is on and row is already selected then the row gets unselected.&lt;/p&gt;
 &lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar1"&gt;
     &lt;header&gt;Single Selection&lt;/header&gt;
-    &lt;footer&gt;&lt;div style="text-align: left"&gt;Selected Car: <span>{</span><span>{</span>selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'<span>}</span><span>}</span>&lt;/div&gt;&lt;/footer&gt;
+    &lt;footer&gt;&lt;div style="text-align: left"&gt;Selected Car: {{selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'}}&lt;/div&gt;&lt;/footer&gt;
 &lt;/p-dataTable&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
@@ -101,7 +101,7 @@ export class DataTableSelectionDemo implements OnInit {
     &lt;header&gt;Multiple Selection&lt;/header&gt;
     &lt;footer&gt;
         &lt;ul&gt;
-            &lt;li *ngFor="#car of selectedCars" style="text-align: left"&gt;<span>{</span><span>{</span>car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color<span>}</span><span>}</span>&lt;/li&gt;
+            &lt;li *ngFor="#car of selectedCars" style="text-align: left"&gt;{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}&lt;/li&gt;
         &lt;/ul&gt;
     &lt;/footer&gt;
 &lt;/p-dataTable&gt;
