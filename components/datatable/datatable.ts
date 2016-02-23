@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,ContentChild} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,ContentChild} from 'angular2/core';
 import {Column} from '../api/column';
 import {Header} from '../common/header';
 import {Footer} from '../common/footer';
@@ -109,7 +109,7 @@ import {InputText} from '../inputtext/inputtext';
     `,
     directives: [Paginator,InputText]
 })
-export class DataTable implements AfterViewInit,OnInit {
+export class DataTable implements AfterViewInit {
 
     @Input() columns: Column[];
 

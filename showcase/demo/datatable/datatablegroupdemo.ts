@@ -1,17 +1,14 @@
 import {Component,OnInit} from 'angular2/core';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {DataTable} from '../../../components/datatable/datatable';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
-import {Car} from '../domain/car';
 import {Column} from '../../../components/api/column';
 import {DataTableSubmenu} from './datatablesubmenu.component';
-import {CarService} from '../service/carservice';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablegroupdemo.html',
-    directives: [DataTable,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES],
-    providers: [CarService]
+    directives: [DataTable,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES]
 })
 export class DataTableGroupDemo implements OnInit {
 
@@ -22,8 +19,6 @@ export class DataTableGroupDemo implements OnInit {
     headerRows: any[];
     
     footerRows: any[];
-
-    constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.sales = [

@@ -1,8 +1,9 @@
 import {Component,OnInit} from 'angular2/core';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {HTTP_PROVIDERS}    from 'angular2/http';
 import {DataTable} from '../../../components/datatable/datatable';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {Car} from '../domain/car';
 import {Column} from '../../../components/api/column';
 import {Header} from '../../../components/common/header';
@@ -15,7 +16,7 @@ import {Message} from '../../../components/api/message';
 @Component({
     templateUrl: 'showcase/demo/datatable/datatableselectiondemo.html',
     directives: [DataTable,Header,Footer,Growl,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES],
-    providers: [CarService]
+    providers: [HTTP_PROVIDERS,CarService]
 })
 export class DataTableSelectionDemo implements OnInit {
 
@@ -34,7 +35,7 @@ export class DataTableSelectionDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.cars = this.carService.getCarsSmall();
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
 
         this.cols = [
             {field: 'vin', header: 'Vin'},
