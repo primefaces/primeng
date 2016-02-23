@@ -1,4 +1,4 @@
-import {Component,ElementRef,OnInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
 
 @Component({
     selector: 'p-paginator',
@@ -28,9 +28,7 @@ import {Component,ElementRef,OnInit,OnDestroy,OnChanges,Input,Output,SimpleChang
         </div>
     `
 })
-export class Paginator implements OnInit{
-
-    @Input() totalRecords: number = 0;
+export class Paginator {
 
     @Input() rows: number = 0;
 
@@ -46,7 +44,14 @@ export class Paginator implements OnInit{
 
     pageLinks: number[];
 
-    ngOnInit() {
+    _totalRecords: number = 0;
+
+    get totalRecords(): number {
+        return this._totalRecords;
+    }
+
+    @Input() set totalRecords(val:number) {
+        this._totalRecords = val;
         this.updatePageLinks();
     }
 
