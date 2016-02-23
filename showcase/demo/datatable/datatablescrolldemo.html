@@ -22,6 +22,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatablescrolldemo.ts">
 <pre>
+<code class="language-typescript" pCode>
 export class DataTableScrollDemo implements OnInit {
 
     cars: Car[];
@@ -41,11 +42,13 @@ export class DataTableScrollDemo implements OnInit {
         ];
     }
 }
+</code>
 </pre>
         </p-tabPanel>
 
         <p-tabPanel header="datatablescrolldemo.html">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [columns]="cols" scrollable="true"  scrollHeight="200"&gt;
     &lt;header&gt;Vertical&lt;/header&gt;
 &lt;/p-dataTable&gt;
@@ -53,6 +56,7 @@ export class DataTableScrollDemo implements OnInit {
 &lt;p-dataTable [value]="cars" [columns]="cols" scrollable="true"  scrollHeight="200" scrollWidth="75%" style="margin-top:30px"&gt;
     &lt;header&gt;Vertical and Horizontal&lt;/header&gt;
 &lt;/p-dataTable&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

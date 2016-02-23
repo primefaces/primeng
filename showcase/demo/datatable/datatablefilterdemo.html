@@ -18,6 +18,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatablefilterdemo.ts">
 <pre>
+<code class="language-typescript" pCode>
 export class DataTableFilterDemo implements OnInit {
 
     cars: Car[];
@@ -37,14 +38,17 @@ export class DataTableFilterDemo implements OnInit {
         ];
     }
 }
+</code>
 </pre>            
         </p-tabPanel>
 
         <p-tabPanel header="datatablefilterdemo.html">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [columns]="cols" [rows]="10" [paginator]="true"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
 &lt;/p-dataTable&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

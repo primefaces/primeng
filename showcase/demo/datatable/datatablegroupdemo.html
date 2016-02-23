@@ -16,6 +16,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatablegroupdemo.ts">
 <pre>
+<code class="language-typescript" pCode>
 export class DataTableGroupDemo implements OnInit {
 
     sales: any[];
@@ -82,12 +83,15 @@ export class DataTableGroupDemo implements OnInit {
         ];
     }
 }
+</code>
 </pre>            
         </p-tabPanel>
 
         <p-tabPanel header="datatablegroupdemo.html">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-dataTable [value]="sales" [columns]="cols" [headerRows]="headerRows" [footerRows]="footerRows"&gt;&lt;/p-dataTable&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

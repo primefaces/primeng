@@ -41,6 +41,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatableselectiondemo.ts">
 <pre>
+<code class="language-typescript" pCode>
 export class DataTableSelectionDemo implements OnInit {
 
     msgs: Message[];
@@ -78,11 +79,13 @@ export class DataTableSelectionDemo implements OnInit {
         this.msgs.push({severity: 'info', summary: 'Car Unselected', detail: event.data.vin + ' - ' + event.data.brand});
     }
 }
+</code>
 </pre>            
         </p-tabPanel>
 
         <p-tabPanel header="datatableselectiondemo.html">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
@@ -108,6 +111,7 @@ export class DataTableSelectionDemo implements OnInit {
 &lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"&gt;
     &lt;header&gt;Selection with Events&lt;/header&gt;
 &lt;/p-dataTable&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>
