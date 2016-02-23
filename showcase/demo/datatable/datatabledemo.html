@@ -91,13 +91,13 @@ import {Footer} from 'primeng/primeng';
             <p>See the <a [routerLink]="['DataTableFacetsDemo']">live example.</a></p>
 
             <h3>Grouping</h3>
-            <p>Columns can be grouped at header and footer using headerColumns and footerColumns properties that both define an array
+            <p>Columns can be grouped at header and footer using headerRows and footerRows properties that both define an array
                 of columns each having colspan and rowspan.</p>
 <pre>
-&lt;p-dataTable [value]="sales" [columns]="cols" [headerColumns]="headerCols"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="sales" [columns]="cols" [headerRows]="headerRows"&gt;&lt;/p-dataTable&gt;
 </pre>
 <pre>
-this.headerCols = [
+this.headerRows = [
     {
         columns: [
             {headerText: 'Brand', rowspan: 3},
@@ -290,13 +290,13 @@ this.cols = [
                             <td>An array of column definitions.</td>
                         </tr>
                         <tr>
-                            <td>headerColumns</td>
+                            <td>headerRows</td>
                             <td>array</td>
                             <td>null</td>
                             <td>An array of column definitions for column grouping at header.</td>
                         </tr>
                         <tr>
-                            <td>footerColumns</td>
+                            <td>footerRows</td>
                             <td>array</td>
                             <td>null</td>
                             <td>An array of column definitions for column grouping at footer.</td>
