@@ -46,11 +46,11 @@ export class Paginator {
 
     _totalRecords: number = 0;
 
-    get totalRecords(): number {
+    @Input() get totalRecords(): number {
         return this._totalRecords;
     }
 
-    @Input() set totalRecords(val:number) {
+    set totalRecords(val:number) {
         this._totalRecords = val;
         this.updatePageLinks();
     }
