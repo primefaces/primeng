@@ -81,7 +81,10 @@ import {CodeHighlighter} from 'primeng/primeng';
                     
 <pre>
 <code class="language-markup" pCode>
+&lt;code class="language-css" pCode&gt;&lt;/code&gt;
 &lt;code class="language-markup" pCode&gt;&lt;/code&gt;
+&lt;code class="language-typescript" pCode&gt;&lt;/code&gt;
+&lt;code class="language-javascript" pCode&gt;&lt;/code&gt;
 </code>
 </pre>
                     <h3>Dependencies</h3>
