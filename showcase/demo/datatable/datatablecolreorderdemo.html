@@ -3,24 +3,43 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable</span>
-        <span class="defaultText dispTable">Column Reordering.</span>
+        <span class="defaultText dispTable">Columns can be reordered using drag drop by setting the reorderableColumns to true. onColReorder is a callback that is invoked when a column is reordered.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
     <p-dataTable [value]="cars" [columns]="cols" reorderableColumns="true"></p-dataTable>
-
 </div>
 
 <div class="ContentSideSections Source">
     <p-tabView effect="fade">
         <p-tabPanel header="datatablecolreorderdemo.ts">
 <pre>
+export class DataTableColReorderDemo implements OnInit {
+
+    cars: Car[];
+
+    cols: Column[];
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.cars = this.carService.getCarsSmall();
+
+        this.cols = [
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
+        ];
+    }
+}
 </pre>            
         </p-tabPanel>
 
         <p-tabPanel header="datatablecolreorderdemo.html">
 <pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" reorderableColumns="true"&gt;&lt;/p-dataTable&gt;
 </pre>
         </p-tabPanel>
     </p-tabView>

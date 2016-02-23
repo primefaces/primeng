@@ -3,19 +3,111 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable - <span class="subitem">Selection</span></span>
-        <span class="defaultText dispTable">DataTable displays data in tabular format.</span>
+        <span class="defaultText dispTable">DataTable provides single and multiple selection modes on click of a row. Metakey is used to unselect a selected row and also to select
+        multiple rows at the same time in multiple mode. Selected rows are bound to the selection property and onRowSelect-onRowUnselect events
+        are provided as optional callbacks.</span>
     </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-growl [value]="msgs"></p-growl>
+
+    <h3 class="first">Single</h3>
+    <p>In single mode, a row is selected on click event of a row, if the metaKey is on and row is already selected then the row gets unselected.</p>
+    <p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar1">
+        <header>Single Selection</header>
+        <footer><div style="text-align: left">Selected Car: {{selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'}}</div></footer>
+    </p-dataTable>
+
+    <h3>Multiple</h3>
+    <p></p>
+    <p-dataTable [value]="cars" [columns]="cols" selectionMode="multiple" [(selection)]="selectedCars">
+        <header>Multiple Selection</header>
+        <footer>
+            <ul>
+                <li *ngFor="#car of selectedCars" style="text-align: left">{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}</li>
+            </ul>
+        </footer>
+    </p-dataTable>
+
+    <h3>Events</h3>
+    <p>DataTable provides onRowSelect and onRowUnselect as optional callbacks.</p>
+    <p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+        <header>Selection with Events</header>
+    </p-dataTable>
 </div>
 
 <div class="ContentSideSections Source">
     <p-tabView effect="fade">
-        <p-tabPanel header="datatablepaginatordemo.ts">
+        <p-tabPanel header="datatableselectiondemo.ts">
 <pre>
+export class DataTableSelectionDemo implements OnInit {
+
+    msgs: Message[];
+
+    cars: Car[];
+
+    cols: Column[];
+
+    selectedCar1: Car;
+
+    selectedCar2: Car;
+
+    selectedCars: Car[];
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.cars = this.carService.getCarsSmall();
+
+        this.cols = [
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
+        ];
+    }
+
+    onRowSelect(event) {
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'Car Selected', detail: event.data.vin + ' - ' + event.data.brand});
+    }
+
+    onRowUnselect(event) {
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'Car Unselected', detail: event.data.vin + ' - ' + event.data.brand});
+    }
+}
 </pre>            
         </p-tabPanel>
 
-        <p-tabPanel header="datatablepaginatordemo.html">
+        <p-tabPanel header="datatableselectiondemo.html">
 <pre>
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+
+&lt;h3 class="first"&gt;Single&lt;/h3&gt;
+&lt;p&gt;In single mode, a row is selected on click event of a row, if the metaKey is on and row is already selected then the row gets unselected.&lt;/p&gt;
+&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar1"&gt;
+    &lt;header&gt;Single Selection&lt;/header&gt;
+    &lt;footer&gt;&lt;div style="text-align: left"&gt;Selected Car: <span>{</span><span>{</span>selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'<span>}</span><span>}</span>&lt;/div&gt;&lt;/footer&gt;
+&lt;/p-dataTable&gt;
+
+&lt;h3&gt;Multiple&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="multiple" [(selection)]="selectedCars"&gt;
+    &lt;header&gt;Multiple Selection&lt;/header&gt;
+    &lt;footer&gt;
+        &lt;ul&gt;
+            &lt;li *ngFor="#car of selectedCars" style="text-align: left"&gt;<span>{</span><span>{</span>car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color<span>}</span><span>}</span>&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/footer&gt;
+&lt;/p-dataTable&gt;
+
+&lt;h3&gt;Events&lt;/h3&gt;
+&lt;p&gt;DataTable provides onRowSelect and onRowUnselect as optional callbacks.&lt;/p&gt;
+&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"&gt;
+    &lt;header&gt;Selection with Events&lt;/header&gt;
+&lt;/p-dataTable&gt;
 </pre>
         </p-tabPanel>
     </p-tabView>

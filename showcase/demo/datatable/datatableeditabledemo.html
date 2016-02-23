@@ -3,7 +3,8 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable</span>
-        <span class="defaultText dispTable">DataTable displays data in tabular format.</span>
+        <span class="defaultText dispTable">Incell editing is enabled by setting editable property true both on datatable and columns, when a cell is clicked edit mode is activated, clicking outside of cell or hitting the enter key 
+        switches back to view mode after updating the value.</span>
     </div>
 </div>
 
@@ -14,13 +15,33 @@
 
 <div class="ContentSideSections Source">
     <p-tabView effect="fade">
-        <p-tabPanel header="datatablepaginatordemo.ts">
+        <p-tabPanel header="datatableeditabledemo.ts">
 <pre>
+export class DataTableEditableDemo implements OnInit {
+
+    cars: Car[];
+
+    cols: Column[];
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.cars = this.carService.getCarsSmall();
+
+        this.cols = [
+            {field: 'vin', header: 'Vin', editable: true},
+            {field: 'brand', header: 'Brand', editable: true},
+            {field: 'year', header: 'Year', editable: true},
+            {field: 'color', header: 'Color', editable: true}
+        ];
+    }
+}
 </pre>            
         </p-tabPanel>
 
-        <p-tabPanel header="datatablepaginatordemo.html">
+        <p-tabPanel header="datatableeditabledemo.html">
 <pre>
+&lt;p-dataTable [value]="cars" [columns]="cols" editable="true"&gt;&lt;/p-dataTable&gt;
 </pre>
         </p-tabPanel>
     </p-tabView>
