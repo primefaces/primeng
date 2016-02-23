@@ -79,15 +79,6 @@ import {InputText} from '../inputtext/inputtext';
             </div>
             <div class="ui-datatable-scrollable-body" *ngIf="scrollable">
                 <table>
-                    <thead class="ui-datatable-scrollable-theadclone">
-                        <tr>
-                            <th *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-state-default ui-unselectable-text':true}">
-                                <span class="ui-column-title">{{col.headerText}}</span>
-                                <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"></span>
-                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter"/>
-                            </th>
-                        </tr>
-                    </thead>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">

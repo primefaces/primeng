@@ -9,11 +9,11 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [columns]="cols" scrollable="true"  scrollHeight="200">
+    <p-dataTable [value]="cars" [columns]="cols1" scrollable="true"  scrollHeight="200">
         <header>Vertical</header>
     </p-dataTable>
 
-    <p-dataTable [value]="cars" [columns]="cols" scrollable="true"  scrollHeight="200" scrollWidth="75%" style="margin-top:30px">
+    <p-dataTable [value]="cars" [columns]="cols2" scrollable="true"  scrollHeight="200" scrollWidth="75%" style="margin-top:30px">
         <header>Vertical and Horizontal</header>
     </p-dataTable>
 </div>
@@ -26,18 +26,27 @@ export class DataTableScrollDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
+    cols1: Column[];
+    
+    cols2: Column[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        tthis.carService.getCarsLarge().then(cars => this.cars = cars);
+        this.carService.getCarsLarge().then(cars => this.cars = cars);
 
-        this.cols = [
-            {field: 'vin', header: 'Vin'},
+        this.cols1 = [
+            {field: 'vin', header: 'Vin',},
             {field: 'brand', header: 'Brand'},
             {field: 'year', header: 'Year'},
             {field: 'color', header: 'Color'}
+        ];
+        
+        this.cols2 = [
+            {field: 'vin', header: 'Vin', style: 'width:250px'},
+            {field: 'brand', header: 'Brand', style: 'width:250px'},
+            {field: 'year', header: 'Year', style: 'width:250px'},
+            {field: 'color', header: 'Color', style: 'width:250px'}
         ];
     }
 }
@@ -46,11 +55,11 @@ export class DataTableScrollDemo implements OnInit {
 
         <p-tabPanel header="datatablescrolldemo.html">
 <pre>
-&lt;p-dataTable [value]="cars" [columns]="cols" scrollable="true"  scrollHeight="200"&gt;
+&lt;p-dataTable [value]="cars" [columns]="cols1" scrollable="true"  scrollHeight="200"&gt;
     &lt;header&gt;Vertical&lt;/header&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-dataTable [value]="cars" [columns]="cols" scrollable="true"  scrollHeight="200" scrollWidth="75%" style="margin-top:30px"&gt;
+&lt;p-dataTable [value]="cars" [columns]="cols2" scrollable="true"  scrollHeight="200" scrollWidth="75%" style="margin-top:30px"&gt;
     &lt;header&gt;Vertical and Horizontal&lt;/header&gt;
 &lt;/p-dataTable&gt;
 </pre>

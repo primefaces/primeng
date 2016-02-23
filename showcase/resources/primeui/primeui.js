@@ -13438,12 +13438,8 @@ PUI.resolveUserAgent();/**
                 else
                     this.scrollBody.css('max-height', this.options.scrollHeight + 'px');
 
-                if(this.hasVerticalOverflow()) {
-                    this.scrollHeaderBox.css('margin-right', scrollBarWidth);
-                }
+                this.scrollHeaderBox.css('margin-right', scrollBarWidth);
             }
-
-            this.fixColumnWidths();
 
             if(this.options.scrollWidth) {
                 if(this.percentageScrollWidth)
@@ -13508,40 +13504,12 @@ PUI.resolveUserAgent();/**
             this.scrollBody.css('margin-right', 0).width(width);
         },
 
-        alignScrollBody: function() {
-            var marginRight = this.hasVerticalOverflow() ? this.getScrollbarWidth() + 'px' : '0px';
-
-            this.scrollHeaderBox.css('margin-right', marginRight);
-        },
-
         getScrollbarWidth: function() {
             if(!this.scrollbarWidth) {
                 this.scrollbarWidth = PUI.browser.webkit ? '15' : PUI.calculateScrollbarWidth();
             }
 
             return this.scrollbarWidth;
-        },
-
-        hasVerticalOverflow: function() {
-            return (this.options.scrollHeight && this.bodyTable.outerHeight() > this.scrollBody.outerHeight())
-        },
-
-        fixColumnWidths: function() {
-            if(!this.columnWidthsFixed) {
-                this.scrollHeaderBox.find('> table > thead > tr > th').each(function() {
-                    var headerCol = $(this),
-                        width = headerCol.width();
-                    headerCol.width(width);
-                });
-
-                this.scrollBody.find('> table > thead > tr > th').each(function() {
-                    var headerCol = $(this),
-                        width = headerCol.width();
-                    headerCol.width(width);
-                });
-
-                this.columnWidthsFixed = true;
-            }
         }
     });
 })();
