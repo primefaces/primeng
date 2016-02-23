@@ -29,7 +29,7 @@ import {InputText} from '../inputtext/inputtext';
                                 (click)="sort(col)" [ngClass]="{'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active':  (sortField && col.field === sortField)}"
                                 [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan">
                                 <span class="ui-column-title">{{col.header}}</span>
-                                <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
+                                <span class="ui-sorttable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                             </th>
@@ -51,6 +51,9 @@ import {InputText} from '../inputtext/inputtext';
                                 <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)">{{rowData[col.field]}}</span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
                             </td>
+                        </tr>
+                        <tr *ngIf="isEmpty()"class="ui-widget-content">
+                            <td [attr.colspan]="columns.length">{{emptyMessage}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -91,6 +94,9 @@ import {InputText} from '../inputtext/inputtext';
                                 <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)">{{rowData[col.field]}}</span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
                             </td>
+                        </tr>
+                        <tr *ngIf="isEmpty()"class="ui-widget-content">
+                            <td [attr.colspan]="columns.length">{{emptyMessage}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -156,6 +162,8 @@ export class DataTable implements AfterViewInit,OnInit {
     @Input() style: string;
 
     @Input() styleClass: string;
+    
+    @Input() emptyMessage: string = 'No records found.';
 
     @ContentChild(Header) header;
 
@@ -514,6 +522,10 @@ export class DataTable implements AfterViewInit,OnInit {
             }
         }
         return false;
+    }
+    
+    isEmpty() {
+        return !this.dataToRender||(this.dataToRender.length == 0);
     }
 
     ngOnDestroy() {
