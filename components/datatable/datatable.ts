@@ -15,18 +15,18 @@ import {InputText} from '../inputtext/inputtext';
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table>
                     <thead>
-                        <tr *ngIf="!headerColumns" class="ui-state-default">
+                        <tr *ngIf="!headerRows" class="ui-state-default">
                             <th #headerCell *ngFor="#col of columns" class="ui-state-default ui-unselectable-text" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                (click)="sort(col)" [ngClass]="{'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': col.field === sortField}">
+                                (click)="sort(col)" [ngClass]="{'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': (sortField && col.field === sortField)}">
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                             </th>
                         </tr>
-                        <tr *ngFor="#headerCol of headerColumns" class="ui-state-default">
-                            <th #headerCell *ngFor="#col of headerCol.columns" class="ui-state-default ui-unselectable-text" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                (click)="sort(col)" [ngClass]="{'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': col.field === sortField}"
+                        <tr *ngFor="#headerRow of headerRows" class="ui-state-default">
+                            <th #headerCell *ngFor="#col of headerRow.columns" class="ui-state-default ui-unselectable-text" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
+                                (click)="sort(col)" [ngClass]="{'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active':  (sortField && col.field === sortField)}"
                                 [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan">
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
@@ -35,6 +35,14 @@ import {InputText} from '../inputtext/inputtext';
                             </th>
                         </tr>
                     </thead>
+                    <tfoot *ngIf="hasFooter()">
+                        <tr *ngIf="!footerRows">
+                            <th *ngFor="#col of columns" class="ui-state-default">{{col.footer}}</th>
+                        </tr>
+                        <tr *ngFor="#footerRow of footerRows">
+                            <th *ngFor="#col of footerRow.columns" class="ui-state-default" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan">{{col.footer}}</th>
+                        </tr>
+                    </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
@@ -141,9 +149,9 @@ export class DataTable implements AfterViewInit,OnInit {
 
     @Input() scrollWidth: any;
 
-    @Input() headerColumns: any;
+    @Input() headerRows: any;
     
-    @Input() footerColumns: any;
+    @Input() footerRows: any;
 
     @Input() style: string;
 
@@ -492,6 +500,20 @@ export class DataTable implements AfterViewInit,OnInit {
             scrollHeight: this.scrollHeight,
             scrollWidth: this.scrollWidth
         });
+    }
+    
+    hasFooter() {
+        if(this.footerRows) {
+            return true;
+        }
+        else {
+            for(let i = 0; i  < this.columns.length; i++) {
+                if(this.columns[i].footer) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     ngOnDestroy() {

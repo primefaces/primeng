@@ -19,7 +19,9 @@ export class DataTableGroupDemo implements OnInit {
 
     cols: Column[];
 
-    headerCols: any[];
+    headerRows: any[];
+    
+    footerRows: any[];
 
     constructor(private carService: CarService) { }
 
@@ -45,7 +47,7 @@ export class DataTableGroupDemo implements OnInit {
             {field: 'thisYearProfit'}
         ];
 
-        this.headerCols = [
+        this.headerRows = [
             {
                 columns: [
                     {header: 'Brand', rowspan: 3},
@@ -64,6 +66,16 @@ export class DataTableGroupDemo implements OnInit {
                     {header: 'This Year'},
                     {header: 'Last Year'},
                     {header: 'This Year'}
+                ]
+            }
+        ];
+        
+        this.footerRows = [
+            {
+                columns: [
+                    {footer: 'Totals:', colspan: 3},
+                    {footer: '$506,202'},
+                    {footer: '$531,020'}
                 ]
             }
         ];
