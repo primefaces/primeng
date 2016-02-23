@@ -163,7 +163,7 @@ export class DataTable implements AfterViewInit,OnInit {
 
     @Input() styleClass: string;
     
-    @Input() emptyMessage: string = 'No records found.';
+    @Input() emptyMessage: string;
 
     @ContentChild(Header) header;
 
@@ -189,10 +189,6 @@ export class DataTable implements AfterViewInit,OnInit {
 
     }
 
-    ngOnInit() {
-        this.updateDataToRender(this._value);
-    }
-
     ngAfterViewInit() {
         if(this.resizableColumns) {
             this.initResizableColumns();
@@ -214,6 +210,7 @@ export class DataTable implements AfterViewInit,OnInit {
     set value(val:any[]) {
         this._value = val;
         this.totalRecords = this._value ? this._value.length: 0;
+        this.updateDataToRender(this._value);
     }
 
     paginate(event) {

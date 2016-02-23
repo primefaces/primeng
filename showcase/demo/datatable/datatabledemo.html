@@ -20,10 +20,12 @@ import {DataTable} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>DataTable requires a value as an array of objects and a collection of column configurations. Throughout the samples, a car class having
-            vin, brand, year and color properties are used to define an object to be displayed by the datatable.</p>
+            <p>DataTable requires a value as an array of objects and a collection of column configurations. Throughout the samples, a car interface having
+            vin, brand, year and color properties are used to define an object to be displayed by the datatable. Cars are loaded by a CarService that
+            connects to a server to fetch the cars with a Promise.
+            </p>
 <pre>
-export class Car {
+export interface Car {
     vin;
     year;
     brand;
@@ -31,6 +33,24 @@ export class Car {
 }
 </pre>
 
+<pre>
+import {Injectable} from 'angular2/core';
+import {Http, Response} from 'angular2/http';
+import {Car} from '../domain/car';
+    
+@Injectable()
+export class CarService {
+    
+    constructor(private http: Http) {}
+
+    getCarsSmall() {
+        return this.http.get('/showcase/resources/data/cars-small.json')
+                    .toPromise()
+                    .then(res => &lt;Car[]&gt; res.json().data)
+                    .then(data => { return data; });
+    }
+}
+</pre>
             <p>Following sample datatable has 4 columns and retrieves the data from a service on init.</p>
 
 <pre>
@@ -406,7 +426,7 @@ this.cols = [
                         <tr>
                             <td>emptyMessage</td>
                             <td>string</td>
-                            <td>No records found.</td>
+                            <td>null</td>
                             <td>Message to display in an empty datatable.</td>
                         </tr>
                     </tbody>
@@ -543,13 +563,13 @@ export class DataTableDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.cars = this.carService.getCarsSmall();
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
 
         this.cols = [
-            {field: 'vin', headerText: 'Vin'},
-            {field: 'brand', headerText: 'Brand'},
-            {field: 'year', headerText: 'Year'},
-            {field: 'color', headerText: 'Color'}
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
         ];
     }
 }

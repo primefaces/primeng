@@ -1,4 +1,4 @@
-export class Car {
+export interface Car {
     vin;
     year;
     brand;
