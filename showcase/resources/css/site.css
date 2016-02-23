@@ -496,6 +496,13 @@ input.searchInput {
     }
     .PropertyBox{width:44%;}
     .PropertyBox img{width:40%;}
+
+}
+
+@media (max-width: 768px) {
+    .doc-table tbody td {
+        word-break: break-word;
+    }
 }
 
 /* Themes */
