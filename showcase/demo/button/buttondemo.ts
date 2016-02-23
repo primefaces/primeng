@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {TabView} from '../../../components/tabview/tabview';
+import {pCode} from '../../../components/codehighlighter/codehighlighter';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
@@ -25,24 +26,31 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                 <p-tabPanel header="Documentation">
                             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Button} from 'primeng/primeng';
+</code>
 </pre>
 
                     <h3>Getting Started</h3>
                     <p>Button is applied to a button element with pButton directive.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;button type="button" pButton&gt;Click&lt;/button/&gt;
+</code>
 </pre>
 
                     <h3>Events</h3>
                     <p>Events are defined using standard notation.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;button type="button" pButton (click)="onclick()"&gt;Click&lt;/button/&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class Model {
 
     onclick() {
@@ -50,13 +58,16 @@ export class Model {
     }
 
 }
+</code>
 </pre>
 
                     <h3>Icons</h3>
                     <p>Icon on a button is defined with icon attribute and position is customized using iconPos attribute. Default
                     icon position is left.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;button type="button" pButton icon="fa-check'" iconPos="left"&gt;Click&lt;/button/&gt;
+</code>
 </pre>
 
                     <h3>Attributes</h3>
@@ -121,17 +132,20 @@ export class Model {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Button.</p>
+                    <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Button.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;button type="text" pButton (click)="count()" [icon]="'fa-check'"&gt;Click&lt;/button&gt;
 
 Number of clicks: <span>{</span><span>{</span>clicks<span>}</span><span>}</span>
+</code>
 </pre>
 
                 <h3>ButtonDemo</h3>
 <pre>
+<code class="language-typescript" pCode>
 export class ButtonDemo {
 
     clicks: number = 0;
@@ -140,12 +154,13 @@ export class ButtonDemo {
         this.clicks++;
     }
 }
+</code>
 </pre>
                 </ p-tabPanel>
              </p-tabView >
         </div>
     `,
-    directives: [Button,TabPanel,TabView,ROUTER_DIRECTIVES]
+    directives: [pCode,Button,TabPanel,TabView,ROUTER_DIRECTIVES]
 })
 export class ButtonDemo {
 
