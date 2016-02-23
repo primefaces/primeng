@@ -27,7 +27,7 @@ export class DataTableFilterDemo implements OnInit {
     constructor(private carService: CarService) {}
 
     ngOnInit() {
-        this.cars = this.carService.getCarsMedium();
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
 
         this.cols = [
             {field: 'vin', header: 'Vin (startsWith)', filter: true},

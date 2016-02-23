@@ -31,7 +31,7 @@ export class DataTableScrollDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.cars = this.carService.getCarsBig();
+        tthis.carService.getCarsLarge().then(cars => this.cars = cars);
 
         this.cols = [
             {field: 'vin', header: 'Vin'},
