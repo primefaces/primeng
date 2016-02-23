@@ -5,15 +5,16 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {Car} from '../domain/car';
 import {Column} from '../../../components/api/column';
+import {Header} from '../../../components/common/header';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablesort.component.html',
-    directives: [DataTable,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES],
+    templateUrl: 'showcase/demo/datatable/datatablepaginatordemo.html',
+    directives: [DataTable,Header,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES],
     providers: [CarService]
 })
-export class DataTableSortDemo implements OnInit {
+export class DataTablePaginatorDemo implements OnInit {
 
     cars: Car[];
 
@@ -22,13 +23,13 @@ export class DataTableSortDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.cars = this.carService.getCarsSmall();
+        this.cars = this.carService.getCarsMedium();
 
         this.cols = [
-            {field: 'vin', headerText: 'Vin', sortable: true},
-            {field: 'brand', headerText: 'Brand', sortable: true},
-            {field: 'year', headerText: 'Year', sortable: true},
-            {field: 'color', headerText: 'Color', sortable: true}
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
         ];
     }
 }

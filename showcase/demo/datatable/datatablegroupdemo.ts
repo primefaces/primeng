@@ -48,22 +48,22 @@ export class DataTableGroupDemo implements OnInit {
         this.headerCols = [
             {
                 columns: [
-                    {headerText: 'Brand', rowspan: 3},
-                    {headerText: 'Sale Rate', colspan: 4}
+                    {header: 'Brand', rowspan: 3},
+                    {header: 'Sale Rate', colspan: 4}
                 ]
             },
             {
                 columns: [
-                    {headerText: 'Brand', colspan: 2},
-                    {headerText: 'Sale Rate', colspan: 2}
+                    {header: 'Brand', colspan: 2},
+                    {header: 'Sale Rate', colspan: 2}
                 ]
             },
             {
                 columns: [
-                    {headerText: 'Last Year'},
-                    {headerText: 'This Year'},
-                    {headerText: 'Last Year'},
-                    {headerText: 'This Year'}
+                    {header: 'Last Year'},
+                    {header: 'This Year'},
+                    {header: 'Last Year'},
+                    {header: 'This Year'}
                 ]
             }
         ];

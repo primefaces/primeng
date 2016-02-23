@@ -10,11 +10,11 @@ import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablepaginator.component.html',
+    templateUrl: 'showcase/demo/datatable/datatableresponsive.component.html',
     directives: [DataTable,Header,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES],
     providers: [CarService]
 })
-export class DataTablePaginatorDemo implements OnInit {
+export class DataTableResponsiveDemo implements OnInit {
 
     cars: Car[];
 
@@ -26,10 +26,10 @@ export class DataTablePaginatorDemo implements OnInit {
         this.cars = this.carService.getCarsMedium();
 
         this.cols = [
-            {field: 'vin', headerText: 'Vin'},
-            {field: 'brand', headerText: 'Brand'},
-            {field: 'year', headerText: 'Year'},
-            {field: 'color', headerText: 'Color'}
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
         ];
     }
 }

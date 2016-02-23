@@ -9,11 +9,11 @@ import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatableeditabledemo.html',
+    templateUrl: 'showcase/demo/datatable/datatablesortdemo.html',
     directives: [DataTable,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES],
     providers: [CarService]
 })
-export class DataTableEditableDemo implements OnInit {
+export class DataTableSortDemo implements OnInit {
 
     cars: Car[];
 
@@ -25,10 +25,10 @@ export class DataTableEditableDemo implements OnInit {
         this.cars = this.carService.getCarsSmall();
 
         this.cols = [
-            {field: 'vin', header: 'Vin', editable: true},
-            {field: 'brand', header: 'Brand', editable: true},
-            {field: 'year', header: 'Year', editable: true},
-            {field: 'color', header: 'Color', editable: true}
+            {field: 'vin', header: 'Vin', sortable: true},
+            {field: 'brand', header: 'Brand', sortable: true},
+            {field: 'year', header: 'Year', sortable: true},
+            {field: 'color', header: 'Color', sortable: true}
         ];
     }
 }

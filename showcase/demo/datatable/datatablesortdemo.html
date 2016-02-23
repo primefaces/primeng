@@ -1,0 +1,46 @@
+<datatable-demos></datatable-demos>
+
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable - <span class="orange">Sort</span></span>
+        <span class="defaultText dispTable">DataTable displays data in tabular format.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-dataTable [value]="cars" [columns]="cols"></p-dataTable>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablesortdemo.ts">
+<pre>
+export class DataTableSortDemo implements OnInit {
+
+    cars: Car[];
+
+    cols: Column[];
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.cars = this.carService.getCarsSmall();
+
+        this.cols = [
+            {field: 'vin', header: 'Vin', sortable: true},
+            {field: 'brand', header: 'Brand', sortable: true},
+            {field: 'year', header: 'Year', sortable: true},
+            {field: 'color', header: 'Color', sortable: true}
+        ];
+    }
+}
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablesortdemo.html">
+<pre>
+&lt;p-dataTable [value]="cars" [columns]="cols"&gt;&lt;/p-dataTable&gt;
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

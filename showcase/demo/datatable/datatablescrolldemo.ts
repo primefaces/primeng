@@ -26,10 +26,10 @@ export class DataTableScrollDemo implements OnInit {
         this.cars = this.carService.getCarsBig();
 
         this.cols = [
-            {field: 'vin', headerText: 'Vin'},
-            {field: 'brand', headerText: 'Brand'},
-            {field: 'year', headerText: 'Year'},
-            {field: 'color', headerText: 'Color'}
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
         ];
     }
 }

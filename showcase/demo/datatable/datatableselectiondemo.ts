@@ -13,7 +13,7 @@ import {Growl} from '../../../components/growl/growl';
 import {Message} from '../../../components/api/message';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatableselection.component.html',
+    templateUrl: 'showcase/demo/datatable/datatableselectiondemo.html',
     directives: [DataTable,Header,Footer,Growl,DataTableSubmenu,TabPanel,TabView,ROUTER_DIRECTIVES],
     providers: [CarService]
 })
@@ -37,10 +37,10 @@ export class DataTableSelectionDemo implements OnInit {
         this.cars = this.carService.getCarsSmall();
 
         this.cols = [
-            {field: 'vin', headerText: 'Vin'},
-            {field: 'brand', headerText: 'Brand'},
-            {field: 'year', headerText: 'Year'},
-            {field: 'color', headerText: 'Color'}
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
         ];
     }
 

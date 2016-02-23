@@ -26,10 +26,10 @@ export class DataTableFilterDemo implements OnInit {
         this.cars = this.carService.getCarsMedium();
 
         this.cols = [
-            {field: 'vin', headerText: 'Vin (startsWith)', filter: true},
-            {field: 'brand', headerText: 'Brand (contains)', filter: true, filterMatchMode: 'contains'},
-            {field: 'year', headerText: 'Year (startsWith)', filter: true},
-            {field: 'color', headerText: 'Color (endsWith)', filter: true, filterMatchMode: 'endsWith'}
+            {field: 'vin', header: 'Vin (startsWith)', filter: true},
+            {field: 'brand', header: 'Brand (contains)', filter: true, filterMatchMode: 'contains'},
+            {field: 'year', header: 'Year (startsWith)', filter: true},
+            {field: 'color', header: 'Color (endsWith)', filter: true, filterMatchMode: 'endsWith'}
         ];
     }
 }
