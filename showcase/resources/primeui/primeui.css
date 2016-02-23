@@ -679,9 +679,9 @@ button.ui-button::-moz-focus-inner {
 /* Filter */
 .ui-datatable .ui-column-filter {
     display: block;
-    margin:auto;
     width: 100%;
     box-sizing: border-box;
+    margin-top: 4px;
 }
 
 /* Editing */
