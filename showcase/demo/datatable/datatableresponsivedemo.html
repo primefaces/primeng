@@ -18,25 +18,25 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatableresponsivedemo.ts">
 <pre>
-    export class DataTableResponsiveDemo implements OnInit {
+export class DataTableResponsiveDemo implements OnInit {
 
-        cars: Car[];
+    cars: Car[];
 
-        cols: Column[];
+    cols: Column[];
 
-        constructor(private carService: CarService) { }
+    constructor(private carService: CarService) { }
 
-        ngOnInit() {
-            this.cars = this.carService.getCarsMedium();
+    ngOnInit() {
+        this.cars = this.carService.getCarsMedium();
 
-            this.cols = [
-                {field: 'vin', header: 'Vin'},
-                {field: 'brand', header: 'Brand'},
-                {field: 'year', header: 'Year'},
-                {field: 'color', header: 'Color'}
-            ];
-        }
+        this.cols = [
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
+        ];
     }
+}
 </pre>            
         </p-tabPanel>
 

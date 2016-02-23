@@ -258,6 +258,7 @@ input.searchInput {
     list-style: none;
     width: 20%;
     float: left;
+    margin-top: 5px;
 }
 
 .SubSubMenu ul li a:hover {
@@ -490,8 +491,8 @@ input.searchInput {
         margin-left: 0;
     }
 
-    .SubSubMenu {
-        display: none;
+    .SubSubMenu ul li {
+        width: 50%
     }
     .PropertyBox{width:44%;}
     .PropertyBox img{width:40%;}
