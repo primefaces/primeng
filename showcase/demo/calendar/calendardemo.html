@@ -42,48 +42,62 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Calendar} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Calendar is defined with p-calendar element and model binding is done using value property.</p>
 
 <pre>
+<code class="language-markup" pCode>
 &lt;p-calendar [(value)]="dateValue"&gt;&lt;/p-calendar&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class MyModel {
     dateValue:string;
 }
+</code>
 </pre>
 
 
             <h3>Popup and Inline</h3>
             <p>Calendar is displayed in a popup by default, enable inline option for inline display.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-calendar [(value)]="dateValue" [inline]="true"&gt;&lt;/p-calendar&gt;
+</code>
 </pre>
 
             <h3>DateFormat</h3>
             <p>Default date format is mm/dd/yy, to customize this use dateFormat property. See <a href="http://api.jqueryui.com/datepicker/#utility-formatDate">here</a>
             for the date format patterns.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-calendar [(value)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt;
+</code>
 </pre>
 
             <h3>Show Effect</h3>
             <p>Calendar popup can be displayed with various effects. fadeIn is the default and other available options are
                 slideDown, blind, bounce, clip, drop, fold and slide.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-calendar [(value)]="dateValue" showAnim="blind"&gt;&lt;/p-calendar&gt;
+</code>
 </pre>
 
             <h3>Date Restriction</h3>
             <p>To disable entering dates manually, set readonlyInput to true and to restrict selectable dates use minDate
                 and maxDate options. minDate and maxDate allow values such as a string in dateFormat or values like "+1m +7d".</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-calendar [(value)]="dateValue" minDate="-1m" maxDate="+1m" [readonlyInput]="true">&gt;&lt;/p-calendar&gt;
+</code>
 </pre>
 
             <h3>Localization</h3>
@@ -261,11 +275,12 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI Datepicker.</p>
+            <p>jQuery, jQuery UI Datepicker, Prismjs.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-calendar [(value)]="date1"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date1<span>}</span><span>}</span>
 
@@ -295,9 +310,11 @@ export class MyModel {
 
 &lt;h3&gt;Inline&lt;/h3&gt;
 &lt;p-calendar [(value)]="date10" [inline]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date10<span>}</span><span>}</span>
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class CalendarDemo {
 
     date1: string;
@@ -320,6 +337,7 @@ export class CalendarDemo {
 
     date10: string;
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

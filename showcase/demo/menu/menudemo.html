@@ -37,12 +37,15 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Menu} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Menu requires a list element where each item may either define a submenu header or a menitem.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-menu&gt;
     &lt;ul&gt;
         &lt;li&gt;&lt;h3&gt;File&lt;/h3&gt;&lt;/li&gt;
@@ -53,11 +56,13 @@ import {Menu} from 'primeng/primeng';
         &lt;li&gt;&lt;a data-icon="fa-repeat"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-menu&gt;
+</code>
 </pre>
 
             <h3>Popup Mode</h3>
             <p>Menu is inline by default, popup mode is also supported by enabling popup property and defining a trigger element.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-menu [popup]="true" [trigger]="btn"&gt;
     &lt;ul&gt;
         &lt;li&gt;&lt;h3&gt;File&lt;/h3&gt;&lt;/li&gt;
@@ -69,10 +74,12 @@ import {Menu} from 'primeng/primeng';
     &lt;/ul&gt;
 &lt;/p-menu&gt;
 &lt;button #btn type="button" pButton icon="fa fa-list"&gt;Show&lt;/button&gt;
+</code>
 </pre>
 
             <p>my, at and triggerEvent attributes provide further customization. Following menu opens at right top position of the button on mouseover event.</p>
-            <pre>
+<pre>
+<code class="language-markup" pCode>
 &lt;p-menu [popup]="true" [trigger]="btn" my="left top" at="right top" triggerEvent="mouseover"&gt;
     &lt;ul&gt;
         &lt;li&gt;&lt;h3&gt;File&lt;/h3&gt;&lt;/li&gt;
@@ -84,18 +91,23 @@ import {Menu} from 'primeng/primeng';
     &lt;/ul&gt;
 &lt;/p-menu&gt;
 &lt;button #btn type="button" pButton icon="fa fa-list"&gt;Show&lt;/button&gt;
+</code>
 </pre>
 
             <h3>Submenu Header</h3>
             <p>Placing a h3 element instead of an anchors in a list item, defines the item as a submenu header.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;li&gt;&lt;h3&gt;File&lt;/h3&gt;&lt;/li&gt;
+</code>
 </pre>
 
             <h3>Icons</h3>
             <p>An icon of a menuitem is defined using data-icon attribute.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
+</code>
 </pre>
            
 
@@ -195,11 +207,12 @@ import {Menu} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI Menu.</p>
+            <p>Prismjs, PrimeUI Menu.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-menu&gt;
     &lt;ul&gt;
@@ -224,6 +237,7 @@ import {Menu} from 'primeng/primeng';
     &lt;/ul&gt;
 &lt;/p-menu&gt;
 &lt;button #btn type="button" pButton icon="fa fa-list"&gt;Show&lt;/button&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

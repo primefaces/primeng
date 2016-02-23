@@ -45,12 +45,15 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Carousel} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Carousel requires a list of list items as its children.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-carousel&gt;
     &lt;ul&gt;
         &lt;li&gt;
@@ -64,23 +67,28 @@ import {Carousel} from 'primeng/primeng';
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-carousel&gt;
+</code>
 </pre>
 
             <p>A dynamic list can be generated with ngFor.</p>
 
 <pre>
+<code class="language-markup" pCode>
 &lt;p-carousel&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#i of modelValues"&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-carousel&gt;
+</code>
 </pre>
 
             <h3>Limiting Visible Items</h3>
             <p>Default number of visible items is 3, use numVisible option to customize this.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-carousel numVisible="1"&gt;
+</code>
 </pre>
 
             <h3>Effects</h3>
@@ -88,13 +96,17 @@ import {Carousel} from 'primeng/primeng';
             bounceIn, bounceOut, easeBoth, easeBothStrong, easeIn, easeInStrong, easeNone, easeOut, easeInOutCirc,
             easeOutStrong, elasticBoth, elasticIn, elasticOut.</i></p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-carousel easing="easeOutStrong"&gt;
+</code>
 </pre>
 
             <h3>SlideShow</h3>
             <p>Carousel can display the contents in a slideshow, for this purpose autoPlayInterval and circular attributes are used.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-carousel circular="circular" autoplayInterval="3000"&gt;
+</code>
 </pre>
 
             <h3>Responsive</h3>
@@ -248,11 +260,12 @@ import {Carousel} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Carousel.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Carousel.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;p-carousel headerText="Cars"&gt;
@@ -283,9 +296,11 @@ import {Carousel} from 'primeng/primeng';
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-carousel&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class CarouselDemo {
 
     cars: Car[];
@@ -312,6 +327,7 @@ export class CarouselDemo {
         this.msgs.push({severity: 'info', summary: 'Car Selected', detail: 'Vin:' + car.vin});
     }
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

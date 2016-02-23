@@ -325,12 +325,15 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {MegaMenu} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>MegaMenu requires a list element as its children where each list item defines label as an anchor and the content inside a div.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-megaMenu&gt;
     &lt;ul&gt;
         &lt;li&gt;&lt;a data-icon="fa-check"&gt;Submenu Label&lt;/a&gt;
@@ -340,11 +343,13 @@ import {MegaMenu} from 'primeng/primeng';
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-megaMenu&gt;
+</code>
 </pre>
 
             <p>Content can be anything and any list element with list items are treated as submenus.</p>
 
 <pre>
+<code class="language-markup" pCode>
 &lt;p-megaMenu&gt;
     &lt;ul&gt;
         &lt;li&gt;&lt;a data-icon="fa-check"&gt;Submenu Label&lt;/a&gt;
@@ -359,6 +364,7 @@ import {MegaMenu} from 'primeng/primeng';
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-megaMenu&gt;
+</code>
 </pre>
 
             <h3>AutoDisplay</h3>
@@ -368,13 +374,17 @@ import {MegaMenu} from 'primeng/primeng';
             <h3>Icons</h3>
             <p>An icon of a menuitem is defined using data-icon attribute.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
+</code>
 </pre>
 
             <h3>Orientation</h3>
             <p>MegaMenu has two orientation modes, horizontal (default) and vertical.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-megaMenu orientation="vertical"&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -461,11 +471,12 @@ import {MegaMenu} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI MegaMenu.</p>
+            <p>Prismjs, PrimeUI MegaMenu.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-megaMenu&gt;
     &lt;ul&gt;
@@ -776,6 +787,7 @@ import {MegaMenu} from 'primeng/primeng';
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-megaMenu&gt;
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

@@ -31,53 +31,69 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Slider} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Slider is defined using p-slider element and requires a value binding.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-slider [(value)]="val"&gt;&lt;/p-slider&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class MyModel {
 
     val: number;
 
 }
+</code>
 </pre>
 
             <h3>Min-Max</h3>
             <p>Boundaries are specified with min and max attributes.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-slider [(value)]="val" [min]="0" [max]="100"&gt;&lt;/p-slider&gt;
+</code>
 </pre>
 
             <h3>Step</h3>
             <p>Step factor is 1 by default and can be customized with step option.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-slider [(value)]="val" [step]="10"&gt;&lt;/p-slider&gt;
+</code>
 </pre>
 
             <h3>Range</h3>
             <p>Range slider provides two handles to define two values. In this case, use the values property that binds to an array.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-slider [(values)]="vals" [range]="true"&gt;&lt;/p-slider&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class MyModel {
 
     rangeValues: number[];
 
 }
+</code>
 </pre>
 
             <h3>Orientation</h3>
             <p>Sliders supports two orientations, horizontal is the default and other alternative is vertical.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-slider [(value)]="val" orientation="vertical"&gt;&lt;/p-slider&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -185,13 +201,17 @@ export class MyModel {
                 </table>
             </div>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-slider [(value)]="val" (onChange)="handleChange(#newval)"&gt;&lt;/p-slider&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 handleChange(val) {
     //val is the new value
 }
+</code>
 </pre>
 
             <h3>Styling</h3>
@@ -218,11 +238,12 @@ handleChange(val) {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery UI Slider.</p>
+            <p>Prismjs, jQuery UI Slider.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic: <span>{</span><span>{</span>val1<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;p-slider [(value)]="val1" style="width:200px"&gt;&lt;/p-slider&gt;
 
@@ -241,9 +262,11 @@ handleChange(val) {
 
 &lt;h3&gt;Vertical: <span>{</span><span>{</span>val5<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;p-slider [(value)]="val5" style="height:200px" orientation="vertical"&gt;&lt;/p-slider&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class SliderDemo {
 
     val1: number;
@@ -258,6 +281,7 @@ export class SliderDemo {
 
     rangeValues: number[] = [20,80];
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

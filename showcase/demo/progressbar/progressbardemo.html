@@ -20,21 +20,27 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {ProgressBar} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>ProgressBar requires a value between 0 and 100 to display the progress.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-progressBar [value]="value"&gt;&lt;/p-progressBar&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     value: number = 0;
 
 }
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -87,11 +93,12 @@ export class ModelComponent {
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI progressbar widget css.</p>
+            <p>Prismjs, PrimeUI progressbar widget css.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;h3 class="first"&gt;Dynamic&lt;/h3&gt;
@@ -99,9 +106,11 @@ export class ModelComponent {
 
 &lt;h3&gt;Static&lt;/h3&gt;
 &lt;p-progressBar [value]="50"&gt;&lt;/p-progressBar&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ProgressBarDemo {
 
     value: number = 0;
@@ -120,6 +129,7 @@ export class ProgressBarDemo {
     }
 
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

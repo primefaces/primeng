@@ -25,16 +25,21 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {SelectButton} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>SelectButton requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-selectButton [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-selectButton&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 import {SelectItem} from 'primeng/primeng';
 
 export class MyModel {
@@ -53,15 +58,19 @@ export class MyModel {
     }
 
 }
+</code>
 </pre>
 
             <h3>Multiple</h3>
             <p>SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. In multiple case, model property should be an array.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-selectButton [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-selectButton&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 import {SelectItem} from 'primeng/primeng';
 
 export class MyModel {
@@ -80,6 +89,7 @@ export class MyModel {
     }
 
 }
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -145,11 +155,12 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI SelectButton.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI SelectButton.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(value)]="selectedType"&gt;&lt;/p-selectButton&gt;
 
@@ -162,9 +173,11 @@ export class MyModel {
 &lt;hr /&gt;
 
 &lt;button type="button" (click)="clear()" pButton icon="fa-close"&gt;Clear&lt;/button&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class SelectButtonDemo {
 
     types: SelectItem[];
@@ -185,6 +198,7 @@ export class SelectButtonDemo {
         this.selectedTypes = [];
     }
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

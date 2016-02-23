@@ -22,17 +22,22 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Growl} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>A single message is specified by Message interface in PrimeNG that defines the severity, summary and detail properties.
             Messages to display on growl are defined using the value property which should an array of Message instances.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 import {Message} from 'primeng/primeng';
 
 export class MyModel {
@@ -40,19 +45,23 @@ export class MyModel {
     msgs: Message[] = [];
 
 }
+</code>
 </pre>
 
             <h3>Showing Messages</h3>
             <p>Adding messages to the array is enough to display them via growl. Similary removing a message
             from the array is also removed by growl.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
     
 &lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
 &lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 show() {
     this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
 }
@@ -60,6 +69,7 @@ show() {
 hide() {
     this.msgs = [];
 }
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -140,11 +150,12 @@ hide() {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Growl.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Growl.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;div&gt;
@@ -154,9 +165,11 @@ hide() {
     &lt;button type="button" pButton (click)="showMultiple()"&gt;Multiple&lt;/button&gt;
     &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right"&gt;Clear&lt;/button&gt;
 &lt;/div&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 import {Message} from 'primeng/primeng';
 
 export class GrowlDemo {
@@ -189,6 +202,7 @@ export class GrowlDemo {
         this.msgs = [];
     }
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

@@ -33,23 +33,28 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Galleria} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Galleria requires a set of images inside list items as the content. Alt and Title attributes are used
                 in the caption section.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;
         &lt;li&gt;&lt;img src="showcase/resources/demo/images/galleria/galleria1.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src="showcaseresources/demo/images/galleria/galleria2.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src="showcaseresources/demo/images/galleria/galleria3.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="showcase/resources/demo/images/galleria/galleria2.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="showcase/resources/demo/images/galleria/galleria3.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-galleria&gt;
+</code>
 </pre>
             <p>If the images are dynamic, ngFor can be used to display the list dynamically.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#image of images;#i = index;"&gt;
@@ -57,20 +62,23 @@ import {Galleria} from 'primeng/primeng';
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-galleria&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class Model {
     images: string[] = ['galleria1.jpg', 'galleria2.jpg', 'galleria3.jpg', 'galleria4.jpg', 'galleria5.jpg', 'galleria6.jpg', 
                     'galleria7.jpg', 'galleria8.jpg', 'galleria9.jpg', 'galleria10.jpg', 'galleria11.jpg', 'galleria12.jpg'];
 }
-    
+</code>
 </pre>
 
             <h3>Custom Content</h3>
             <p>Galleria supports custom content display instead of images, in this case enable customContent option
                 and place your content inside a div element next to the image.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#image of images;#i = index;"&gt;
@@ -82,6 +90,7 @@ export class Model {
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-galleria&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -218,11 +227,12 @@ export class Model {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Galleria.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Galleria.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;
@@ -243,14 +253,17 @@ export class Model {
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-galleria&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class GalleriaDemo {
 
     images: string[] = ['galleria1.jpg', 'galleria2.jpg', 'galleria3.jpg', 'galleria4.jpg', 'galleria5.jpg', 'galleria6.jpg', 'galleria7.jpg', 'galleria8.jpg',
         'galleria9.jpg', 'galleria10.jpg', 'galleria11.jpg', 'galleria12.jpg'];
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

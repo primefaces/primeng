@@ -24,31 +24,41 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Spinner} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Spinner is applied to an input element using pSpinner directive.</p>     
 <pre>
+<code class="language-markup" pCode>
 &lt;input type="text" pSpinner /&gt;
+</code>
 </pre>
 
             <h3>Min-Max</h3>
             <p>Boundaries are specified with min and max attributes.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;input type="text" pSpinner min="0" max="100"/&gt;
+</code>
 </pre>
 
             <h3>Step</h3>
             <p>Step factor is 1 by default and can be customized with step option.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;input type="text" pSpinner step="0.25"/&gt;
+</code>
 </pre>
 
             <h3>Prefix and Suffix</h3>
             <p>Characters can be inserted before or after the value using prefix and suffix options.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;input type="text" pSpinner prefix="$"/&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -131,11 +141,12 @@ import {Spinner} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Spinner.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Spinner.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;input type="text" size="30" pSpinner [(ngModel)]="val1"/&gt;
 
@@ -147,9 +158,11 @@ import {Spinner} from 'primeng/primeng';
 
 &lt;h3&gt;Prefix&lt;/h3&gt;
 &lt;input type="text" size="30" pSpinner [(ngModel)]="val4" prefix="$"/&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class SpinnerDemo {
 
     val1: number;
@@ -160,6 +173,7 @@ export class SpinnerDemo {
 
     val4: number = 100;
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

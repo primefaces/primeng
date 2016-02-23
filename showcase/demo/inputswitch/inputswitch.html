@@ -18,37 +18,47 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {InputSwitch} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>InputSwitch is defined using p-inputSwitch element. Checked property supports two-way binding to retrieve and assign the model.</p>
 
 <pre>
+<code class="language-markup" pCode>
 &lt;p-inputSwitch [(checked)]="checked"&gt;&lt;/p-inputSwitch&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     checked: boolean;
 
 }
+</code>
 </pre>
 
             <p>As model is two-way binding enabled, setting the bound value as true displays the state as checked by default.</p>
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
    checked: boolean = true;
 
 }
+</code>
 </pre>
 
             <h3>Customization</h3>
             <p>Labels can be customized using onLabel and offLabel properties.</p>
-            <pre>
+<pre>
+<code class="language-markup" pCode>
 &lt;p-inputSwitch onLabel="I confirm" offLabel="I reject" [(checked)]="val"&gt;&lt;/p-inputSwitch&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -106,15 +116,19 @@ export class ModelComponent {
                 </table>
             </div>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-inputSwitch (onChange)="handleChange($event)" [(checked)]="val"&gt;
+</code>
 </pre>
  <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     handleChange(e) {
         var isChecked = e.checked;
     }
 }
+</code>
 </pre>
 
             <h3>Styling</h3>
@@ -145,25 +159,29 @@ export class ModelComponent {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Switch.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Switch.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic - <span>{</span><span>{</span>checked1<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;p-inputSwitch [(checked)]="checked1"&gt;&lt;/p-inputSwitch&gt;
 
 &lt;h3&gt;Labels - &lt;span&gt; <span>{</span><span>{</span>checked2<span>}</span><span>}</span>&lt;/h3&gt;
 &lt;p-inputSwitch onLabel="Yes" offLabel="No" [(checked)]="checked2"&gt;&lt;/p-inputSwitch&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class InputSwitchDemo {
 
     checked1: boolean = false;
 
     checked2: boolean = true;
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

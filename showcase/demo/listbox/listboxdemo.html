@@ -34,16 +34,21 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Listbox} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Listbox requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 import {SelectItem} from 'primeng/primeng';
 
 export class MyModel {
@@ -62,14 +67,18 @@ export class MyModel {
     }
 
 }
+</code>
 </pre>
             <h3>Multiple</h3>
             <p>Listbox allows selecting only one item, setting multiple option enables choosing more than one item. In multiple case, model property should be an array.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-listbox [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-listbox&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 import {SelectItem} from 'primeng/primeng';
 
 export class MyModel {
@@ -88,11 +97,13 @@ export class MyModel {
     }
 
 }
+</code>
 </pre>
 
             <h3>Custom Content</h3>
             <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unordered list.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-listbox [options]="cars" [(value)]="selectedCar" customContent="true" style="width:190px"&gt;
     &lt;ul&gt;
         &lt;li *ngFor="#car of cars" class="ui-helper-clearfix"&gt;
@@ -101,9 +112,11 @@ export class MyModel {
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/p-listbox&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 import {SelectItem} from 'primeng/primeng'
 
 export class MyModel {
@@ -126,6 +139,7 @@ export class MyModel {
         this.cars.push({label: 'Volvo', value: 'Volvo'});
     }
 }
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -236,7 +250,7 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Listbox.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Listbox.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -265,6 +279,7 @@ export class MyModel {
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ListboxDemo {
 
     cities: SelectItem[];
@@ -298,6 +313,7 @@ export class ListboxDemo {
         this.cars.push({label: 'Volvo', value: 'Volvo'});
     }
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

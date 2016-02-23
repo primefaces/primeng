@@ -53,13 +53,16 @@
         <p-tabPanel header ="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Accordion} from 'primeng/primeng';
 import {AccordionTab} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Accordion element consists of one or more p-accordionTab elements. Header of the tab is defined using header attribute.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header 1"&gt;
        Content 1
@@ -71,6 +74,7 @@ import {AccordionTab} from 'primeng/primeng';
         Content 3    
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
+</code>
 </pre>
 
             <h3>ActiveIndex</h3>
@@ -78,6 +82,7 @@ import {AccordionTab} from 'primeng/primeng';
             the tab with user interaction updates the value at model. In default single selectiode, activeIndex should be a number
             and in multiple mode it should be an array of numbers as multiple tabs can be chosen.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-accordion [(activeIndex)]]="index"&gt;
     &lt;p-accordionTab header="Header 1"&gt;
        Content 1
@@ -89,17 +94,21 @@ import {AccordionTab} from 'primeng/primeng';
         Content 3    
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
+</code>
 </pre>
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
     index: number: 0;
 }
+</code>
 </pre>
 
             <h3>Multiple</h3>
             <p>By default only one tab at a time can be active, enabling multiple property changes this behavior to allow multiple
                 tabs be active at the same time.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-accordion multiple="multiple"&gt;
     &lt;p-accordionTab header="Header 1"&gt;
        Content 1
@@ -111,6 +120,7 @@ export class ModelComponent {
         Content 3    
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
+</code>
 </pre>
   
             <h3>Attributes</h3>
@@ -164,15 +174,19 @@ export class ModelComponent {
                 </table>
             </div>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-accordion (onChange)="handleChange($event)"&gt;
+</code>
 </pre>
  <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
     
     handleChange(e) {
         var index = e.index;
     }
 }
+</code>
 </pre>
 
             <h3>Styling</h3>
@@ -204,12 +218,13 @@ export class ModelComponent {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Accordion.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Accordion.</p>
 
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Godfather I"&gt;
@@ -250,9 +265,11 @@ export class ModelComponent {
         After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
     &lt;/p-accordionTab&gt;
 &lt;/p-accordion&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class AccordionDemo {
 
     activeTabIndex: number = 1; 
@@ -267,6 +284,7 @@ export class AccordionDemo {
         this.activeTabIndex = index;
     }
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

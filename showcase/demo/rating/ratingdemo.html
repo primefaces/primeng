@@ -32,31 +32,39 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {Rating} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Rating is defined using p-rating element and the value property supports two-way binding to manage the model.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;p-rating [(value)]="val"&gt;&lt;/p-rating&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     val: number;
 
 }
+</code>
 </pre>
 
                     <p>As value is two-way binding enabled, defining a default value is enough to render the initial number of selected stars based on it.</p>
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     val: number = 3;
 
 }
+</code>
 </pre>
 
                     <h3>Attributes</h3>
@@ -164,11 +172,12 @@ export class ModelComponent {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>jQuery, jQuery UI WidgetFactory API, PrimeUI Rating.</p>
+                    <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Rating.</p>
                 </p-tabPanel>
 
                 <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic <span>{</span><span>{</span>value1<span>}</span><span>}</span>&lt;/h3&gt; 
 &lt;p-rating [(value)]="value1"&gt;&lt;/p-rating&gt;
 &lt;br /&gt;
@@ -188,9 +197,11 @@ export class ModelComponent {
 &lt;h3&gt;Disabled&lt;/h3&gt; 
 &lt;p-rating [value]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
 &lt;br /&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class RatingDemo {
 
     val1: number;
@@ -211,6 +222,7 @@ export class RatingDemo {
         this.msg = "Rating Cancelled";
     }
 }
+</code>
 </pre>
                 </p-tabPanel>
             </p-tabView>

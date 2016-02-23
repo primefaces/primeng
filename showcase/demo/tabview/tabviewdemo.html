@@ -77,14 +77,17 @@
         <p-tabPanel header ="Documentation">
             <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {TabView} from 'primeng/primeng';
 import {TabPanel} from 'primeng/primeng';
+</code>
 </pre>
 
             <h3>Getting Started</h3>
             <p>Tabview element consists of one or more p-tabPanel elements. Header of the tab is defined using header attribute.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -96,12 +99,14 @@ import {TabPanel} from 'primeng/primeng';
         Content 3    
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
+</code>
 </pre>
 
             <h3>ActiveIndex</h3>
             <p>ActiveIndex property supports two-way binding, changes to the model updates the selected tab and changing
             the tab with user interaction updates the value at model.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-tabView [(activeIndex)]="index"&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -113,20 +118,25 @@ import {TabPanel} from 'primeng/primeng';
         Content 3    
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
+</code>
 </pre>
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
     index: number: 0;
 }
+</code>
 </pre>
 
             <h3>Closable Tabs</h3>
             <p>When closable attribute is enabled, an icon is displayed to close the tab. onClose event is fired
             when a tab is closed.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-tabPanel header="Header Text" closable="closable"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
+</code>
 </pre>
 
             <h3>Effects</h3>
@@ -135,14 +145,18 @@ export class ModelComponent {
             of the effect is customized with effectDuration attributes using number values as milliseconds or pre-defined values
             such as "slow","normal" and "fast".</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-tabView effect="fade" effectDuration="fast"&gt;
+</code>
 </pre>
 
             <h3>Orientation</h3>
             <p>TabView has four different orientations; "top", "bottom", "left" and "right". Top is the default one
             and this can be changed using orientation attribute.</p>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-tabView orientation="left"&gt;
+</code>
 </pre>
 
             <h3>Attributes</h3>
@@ -228,15 +242,19 @@ export class ModelComponent {
                 </table>
             </div>
 <pre>
+<code class="language-markup" pCode>
 &lt;p-tabView (onChange)="handleChange($event)"&gt;
+</code>
 </pre>
  <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
     
     handleChange(e) {
         var index = e.index;
     }
 }
+</code>
 </pre>
 
             <h3>Styling</h3>
@@ -276,12 +294,13 @@ export class ModelComponent {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery, jQuery UI WidgetFactory API, PrimeUI TabView.</p>
+            <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI TabView.</p>
             
         </p-tabPanel>
         
         <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Godfather I"&gt;
@@ -346,13 +365,16 @@ export class ModelComponent {
         After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
     &lt;/p-tabPanel&gt;
 &lt;/p-tabView&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class TabViewDemo {
 
     activeTabIndex: number = 1;
 }
+</code>
 </pre>
         </p-tabPanel>
     </p-tabView>

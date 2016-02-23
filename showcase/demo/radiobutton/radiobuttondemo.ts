@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {RadioButton} from '../../../components/radiobutton/radiobutton';
+import {pCode} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
@@ -54,32 +55,40 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                 <p-tabPanel header="Documentation">
                     <h3>Import</h3>
 <pre>
+<code class="language-typescript" pCode>
 import {RadioButton} from 'primeng/primeng';
+</code>
 </pre>
 
                     <h3>Getting Started</h3>
                     <p>RadioButton is defined using p-radio element and value is bound to model property that supports two-way binding.</p>
                     
 <pre>
+<code class="language-markup" pCode>
 &lt;p-radio name="groupname" value="val1" [(model)]="selectedValue"&gt;&lt;/p-radio&gt;
 &lt;p-radio name="groupname" value="val2" [(model)]="selectedValue"&gt;&lt;/p-radio&gt;
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     selectedValue: string;
 
 }
+</code>
 </pre>
 
                     <p>As model is two-way binding enabled, giving a default value to the model is enough to display a radio button as checked by default.</p>
 <pre>
+<code class="language-typescript" pCode>
 export class ModelComponent {
 
     selectedValue: string = 'val1';
 
 }
+</code>
 </pre>
 
                     <h3>Attributes</h3>
@@ -170,12 +179,13 @@ export class ModelComponent {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>PrimeUI radiobutton widget css.</p>
+                    <p>Prismjs, PrimeUI radiobutton widget css.</p>
                     
                 </p-tabPanel>
 
                 <p-tabPanel header="Source">
 <pre>
+<code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
     &lt;div class="ui-grid-row"&gt;
@@ -209,15 +219,18 @@ Value 1 = <span>{</span><span>{</span>val1<span>}</span><span>}</span>
     &lt;/div&gt;
 &lt;/div&gt;
 Value 2 = <span>{</span><span>{</span>val2<span>}</span><span>}</span>
+</code>
 </pre>
 
 <pre>
+<code class="language-typescript" pCode>
 export class RadioButtonDemo {
 
     val1: string;
 
     val2: string = 'Option 2';
 }
+</code>
 </pre>
                 </p-tabPanel>
             </p-tabView>
@@ -234,7 +247,7 @@ export class RadioButtonDemo {
             margin: 3px 0px 0px 4px;
         }
     `],
-    directives: [RadioButton,TabPanel,TabView,ROUTER_DIRECTIVES]
+    directives: [RadioButton,TabPanel,TabView,pCode,ROUTER_DIRECTIVES]
 })
 export class RadioButtonDemo {
 

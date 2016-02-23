@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {Growl} from '../../../components/growl/growl';
+import {pCode} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
@@ -9,7 +10,7 @@ import {Message} from '../../../components/api/message';
 
 @Component({
     templateUrl: 'showcase/demo/growl/growldemo.html',
-    directives: [Growl,TabPanel,TabView,Button,ROUTER_DIRECTIVES]
+    directives: [Growl,TabPanel,TabView,Button,pCode,ROUTER_DIRECTIVES]
 })
 export class GrowlDemo {
 
