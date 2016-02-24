@@ -70,7 +70,7 @@ export class DataTableDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.cars = this.carService.getCars();
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
 
         this.cols = [
             {field: 'vin', headerText: 'Vin'},
@@ -221,7 +221,7 @@ export class DataTableDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.cars = this.carService.getCars();
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
 
         this.cols = [
             {field: 'vin', headerText: 'Vin'},
@@ -253,7 +253,7 @@ export class DataTableDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.cars = this.carService.getCars();
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
 
         this.cols = [
             {field: 'vin', headerText: 'Vin'},
