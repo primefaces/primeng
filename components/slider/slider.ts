@@ -60,11 +60,11 @@ export class Slider implements AfterViewInit, OnDestroy, OnChanges {
                 this.stopNgOnChangesPropagation = true;
 
                 if(this.range) {
-                    this.onChange.emit(ui.values);
+                    this.onChange.emit({originalEvent: event, values: ui.values});
                     this.valuesChange.emit(ui.values);
                 }
                 else {
-                    this.onChange.emit(ui.value);
+                    this.onChange.emit({originalEvent: event, value: ui.value});
                     this.valueChange.emit(ui.value);
                 }
             }

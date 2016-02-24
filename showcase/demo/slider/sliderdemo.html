@@ -192,8 +192,9 @@ export class MyModel {
                         <tr>
                             <td>onChange</td>
                             <td>
-                                value: New value <br />
-                                values: Array of values in range mode
+                                event.originalEvent: Slide event <br />
+                                event.value: New value <br />
+                                event.values: Values in range mode <br />
                             </td>
                             <td>Callback to invoke on value change via slide.</td>
                         </tr>
@@ -202,14 +203,14 @@ export class MyModel {
             </div>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-slider [(value)]="val" (onChange)="handleChange(#newval)"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(value)]="val" (onChange)="handleChange($event)"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-handleChange(val) {
-    //val is the new value
+handleChange(e) {
+    //e.value is the new value
 }
 </code>
 </pre>
