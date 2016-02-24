@@ -13,6 +13,11 @@
         <link rel="stylesheet" type="text/css" href="showcase/resources/css/prism.css" />
         <link rel="stylesheet" type="text/css" href="showcase/resources/primeui/primeui.css" />
         <link rel="stylesheet" type="text/css" href="showcase/resources/css/site.css" />
+        
+        <!-- 1. Load libraries -->
+        <!-- IE required polyfills, in this exact order -->
+        <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+        <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
 
         <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
         <script src="node_modules/systemjs/dist/system.src.js"></script>
@@ -25,9 +30,10 @@
         <script src="showcase/resources/js/jquery-ui.js"></script>
         <script src="showcase/resources/js/prism.js" data-manual></script>
         <script src="showcase/resources/primeui/primeui.js"></script>
-        <script src="showcase/resources/js/site.js"></script>
         <script src="showcase/resources/js/charts.min.js"></script>
+        <script src="showcase/resources/js/site.js"></script>
 
+        <!-- 2. Configure SystemJS -->
         <script>
           System.config({
             packages: {
