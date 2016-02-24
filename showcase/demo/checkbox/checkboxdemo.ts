@@ -186,7 +186,7 @@ export class ModelComponent {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>Prismjs, PrimeUI checkbox widget css.</p>
+                    <p>Native component that requires css of PrimeUI Checkbox.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <pre>

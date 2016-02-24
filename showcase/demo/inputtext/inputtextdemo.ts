@@ -94,7 +94,7 @@ import {InputText} from 'primeng/primeng';
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI InputText.</p>
+                    <p>PrimeUI InputText.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <pre>

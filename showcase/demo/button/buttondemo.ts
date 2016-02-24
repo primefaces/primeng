@@ -132,7 +132,7 @@ export class Model {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>jQuery, jQuery UI WidgetFactory API, Prismjs, PrimeUI Button.</p>
+                    <p>PrimeUI Button.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <pre>

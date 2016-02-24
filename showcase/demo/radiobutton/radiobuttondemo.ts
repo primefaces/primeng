@@ -179,7 +179,7 @@ export class ModelComponent {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>Prismjs, PrimeUI radiobutton widget css.</p>
+                    <p>Native component that requires css of PrimeUI RadioButton.</p>
                     
                 </p-tabPanel>
 
