@@ -36,7 +36,7 @@ import {Button} from 'primeng/primeng';
                     
 <pre>
 <code class="language-markup" pCode>
-&lt;button type="button" pButton&gt;Click&lt;/button/&gt;
+&lt;button type="button" pButton&gt;Click&lt;/button&gt;
 </code>
 </pre>
 
@@ -45,7 +45,7 @@ import {Button} from 'primeng/primeng';
                     
 <pre>
 <code class="language-markup" pCode>
-&lt;button type="button" pButton (click)="onclick()"&gt;Click&lt;/button/&gt;
+&lt;button type="button" pButton (click)="onclick()"&gt;Click&lt;/button&gt;
 </code>
 </pre>
 
@@ -66,7 +66,7 @@ export class Model {
                     icon position is left.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;button type="button" pButton icon="fa-check'" iconPos="left"&gt;Click&lt;/button/&gt;
+&lt;button type="button" pButton icon="fa-check'" iconPos="left"&gt;Click&lt;/button&gt;
 </code>
 </pre>
 
