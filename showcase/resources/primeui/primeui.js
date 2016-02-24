@@ -3972,6 +3972,7 @@ PUI.resolveUserAgent();/**
 
             this.closeIcon.on('click.puidialog', function(e) {
                 $this.hide();
+                $this._trigger('clickClose');
                 e.preventDefault();
             });
 

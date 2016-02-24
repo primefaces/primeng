@@ -106,11 +106,11 @@ export class Dialog implements AfterViewInit, OnDestroy, OnChanges {
             beforeShow: this.onBeforeShow ? (event: Event) => { this.onBeforeShow.next(event); } : null,
             afterShow: this.onAfterShow ? (event: Event) => { this.onAfterShow.next(event); } : null,
             beforeHide: this.onBeforeHide ? (event: Event) => { this.onBeforeHide.next(event); } : null,
-            afterHide: this.onAfterHide ? (event: Event) => { 
+            afterHide: this.onAfterHide ? (event: Event) => { this.onAfterHide.next(event); } : null,
+            clickClose: (event: Event) => {
                 this.stopNgOnChangesPropagation = true;
                 this.visibleChange.next(false);
-                this.onAfterHide.next(event); 
-            } : null,
+            },
             minimize: this.onMinimize ? (event: Event) => { this.onMinimize.next(event); } : null,
             maximize: this.onMaximize ? (event: Event) => { this.onMaximize.next(event); } : null,
             enhanced: true
