@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,ContentChild} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers} from 'angular2/core';
 import {Column} from '../api/column';
 import {Header} from '../common/header';
 import {Footer} from '../common/footer';
@@ -99,7 +99,9 @@ import {InputText} from '../inputtext/inputtext';
     `,
     directives: [Paginator,InputText]
 })
-export class DataTable implements AfterViewInit {
+export class DataTable implements AfterViewInit,DoCheck {
+
+    @Input() value: any[];
 
     @Input() columns: Column[];
 
@@ -157,8 +159,6 @@ export class DataTable implements AfterViewInit {
 
     @ContentChild(Footer) footer;
 
-    private _value: any[];
-
     private dataToRender: any[];
 
     private first: number = 0;
@@ -172,9 +172,11 @@ export class DataTable implements AfterViewInit {
     private filterMetadata: any = {};
 
     private filteredValue: any[];
+    
+    differ: any;
 
-    constructor(private el: ElementRef) {
-
+    constructor(private el: ElementRef, differs: IterableDiffers) {
+        this.differ = differs.find([]).create(null);
     }
 
     ngAfterViewInit() {
@@ -190,21 +192,21 @@ export class DataTable implements AfterViewInit {
             this.initScrolling();
         }
     }
+    
+    ngDoCheck() {
+        let changes = this.differ.diff(this.value);
 
-    @Input() get value(): any[] {
-        return this._value;
-    }
-
-    set value(val:any[]) {
-        this._value = val;
-        this.totalRecords = this._value ? this._value.length: 0;
-        this.updateDataToRender(this._value);
+        if(changes) {
+            console.log('checking: ' + this.value);
+            this.totalRecords = this.value ? this.value.length: 0;
+            this.updateDataToRender(this.value);
+        }
     }
 
     paginate(event) {
         this.first = event.first;
         this.rows = event.rows;
-        this.updateDataToRender(this._value);
+        this.updateDataToRender(this.value);
     }
 
     updateDataToRender(datasource) {
@@ -228,11 +230,11 @@ export class DataTable implements AfterViewInit {
             return;
         }
 
-        if(this._value) {
+        if(this.value) {
             this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
             this.sortField = column.field;
 
-            this._value.sort((data1, data2) => {
+            this.value.sort((data1, data2) => {
                 let value1 = data1[this.sortField],
                 value2 = data2[this.sortField],
                 result = null;
@@ -250,7 +252,7 @@ export class DataTable implements AfterViewInit {
             if(this.hasFilter())
                 this.filter();
             else
-                this.updateDataToRender(this._value);
+                this.updateDataToRender(this.value);
         }
     }
 
@@ -340,7 +342,7 @@ export class DataTable implements AfterViewInit {
         else {
             this.filteredValue = [];
 
-            for(let i = 0; i < this._value.length; i++) {
+            for(let i = 0; i < this.value.length; i++) {
                 let localMatch = true;
 
                 for(let prop in this.filterMetadata) {
@@ -349,7 +351,7 @@ export class DataTable implements AfterViewInit {
                             filterValue = filterMeta.value,
                             filterField = prop,
                             filterMatchMode = filterMeta.matchMode||'startsWith',
-                            dataFieldValue = this._value[i][filterField];
+                            dataFieldValue = this.value[i][filterField];
 
                         var filterConstraint = this.filterConstraints[filterMatchMode];
                         if(!filterConstraint(dataFieldValue, filterValue)) {
@@ -363,11 +365,11 @@ export class DataTable implements AfterViewInit {
                 }
 
                 if(localMatch) {
-                    this.filteredValue.push(this._value[i]);
+                    this.filteredValue.push(this.value[i]);
                 }
             }
 
-            if(this.filteredValue.length === this._value.length) {
+            if(this.filteredValue.length === this.value.length) {
                 this.filteredValue = null;
             }
 
@@ -375,7 +377,7 @@ export class DataTable implements AfterViewInit {
                 this.totalRecords = this.filteredValue ? this.filteredValue.length: this.value ? this.value.length: 0;
             }
 
-            this.updateDataToRender(this.filteredValue||this._value);
+            this.updateDataToRender(this.filteredValue||this.value);
         }
     }
 
