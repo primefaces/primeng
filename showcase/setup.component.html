@@ -9,12 +9,15 @@
     <h3 style="margin-top:0px">Download</h3>
     <p>PrimeNG is available at npm, run the following command to download the module to your project.</p>
 <pre>
+<code class="language-markup" pCode>
 npm install primeng --save
+</code>
 </pre>
 
     <h3>Loader</h3>
     <p>PrimeNG supports System.JS loader, a configuration is necessary in your application to load PrimeNG.</p>
 <pre>
+<code class="language-typescript" pCode>
  System.config({
     defaultJSExtensions: true,
     packages: {
@@ -24,12 +27,15 @@ npm install primeng --save
         "/primeng": "node_modules/primeng"
     }
 });
+</code>
 </pre>
 
     <h3>Import</h3>
     <p>Components are imported from 'primeng/primeng' in your application code.</p>
 <pre>
+<code class="language-typescript" pCode>
 import {Accordion} from 'primeng/primeng';
+</code>
 </pre>
 
     <h3>Dependencies</h3>
@@ -45,6 +51,7 @@ import {Accordion} from 'primeng/primeng';
 
     <h4>index.html</h4>
 <pre>
+<code class="language-markup" pCode>
 &lt;html&gt;
 
 &lt;head&gt;
@@ -89,19 +96,23 @@ import {Accordion} from 'primeng/primeng';
 &lt;/body&gt;
 
 &lt;/html&gt;
+</code>
 </pre>
 
     <h4>boot.ts</h4>
 <pre>
+<code class="language-typescript" pCode>
 import {bootstrap}    from 'angular2/platform/browser';
 import {AppComponent} from './app.component';
 
 bootstrap(AppComponent);
+</code>
 </pre>
 
     <h4>app.component.ts</h4>
     <p>Sample app component uses PrimeNG InputText.</p>
 <pre>
+<code class="language-typescript" pCode>
 import {Component} from 'angular2/core';
 import {InputText} from 'primeng/primeng';
 
@@ -116,6 +127,7 @@ import {InputText} from 'primeng/primeng';
 export class AppComponent {
 
 }
+</code>
 </pre>
 
 </div>
