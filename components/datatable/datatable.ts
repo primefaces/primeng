@@ -197,7 +197,6 @@ export class DataTable implements AfterViewInit,DoCheck {
         let changes = this.differ.diff(this.value);
 
         if(changes) {
-            console.log('checking: ' + this.value);
             this.totalRecords = this.value ? this.value.length: 0;
             this.updateDataToRender(this.value);
         }
