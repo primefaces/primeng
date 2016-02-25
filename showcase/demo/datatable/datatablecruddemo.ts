@@ -93,14 +93,7 @@ export class DataTableCrudDemo implements OnInit {
     }
     
     findSelectedCarIndex(): number {
-        let index: number = -1;
-        for(let i = 0; i < this.cars.length; i++) {
-            if(this.cars[i] === this.selectedCar) {
-                index = i;
-                break;
-            }
-        }
-        return index;
+        return this.cars.indexOf(this.selectedCar);
     }
 }
 
