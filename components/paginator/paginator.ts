@@ -15,7 +15,7 @@ import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from 'angul
             <span class="ui-paginator-pages">
                 <span #plink *ngFor="#pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
                     (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null" (click)="changePage(pageLink - 1)"
-                    [ngClass]="{'ui-state-hover':(plink === hoveredItem), 'ui-state-active': (pageLink-1 == page)}">{{pageLink}}</span>
+                    [ngClass]="{'ui-state-hover':(plink === hoveredItem), 'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</span>
             </span>
             <span #nextlink class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all" (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null"
                     (click)="changePageToNext()" [ngClass]="{'ui-state-disabled':isLastPage(),'ui-state-hover':(nextlink === hoveredItem  && !isLastPage())}">
@@ -26,13 +26,14 @@ import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from 'angul
                 <span class="fa fa-step-forward"></span>
             </span>
         </div>
+        {{getPage()}}
     `
 })
 export class Paginator {
 
     @Input() rows: number = 0;
 
-    @Input() page: number = 0;
+    @Input() first: number = 0;
 
     @Input() pageLinkSize: number = 5;
 
@@ -56,11 +57,11 @@ export class Paginator {
     }
 
     isFirstPage() {
-        return this.page === 0;
+        return this.getPage() === 0;
     }
 
     isLastPage() {
-        return this.page === this.getPageCount() - 1;
+        return this.getPage() === this.getPageCount() - 1;
     }
 
     getPageCount() {
@@ -72,7 +73,7 @@ export class Paginator {
         visiblePages = Math.min(this.pageLinkSize, numberOfPages);
 
         //calculate range, keep current in middle if necessary
-        let start = Math.max(0, Math.ceil(this.page - ((visiblePages) / 2))),
+        let start = Math.max(0, Math.ceil(this.getPage() - ((visiblePages) / 2))),
         end = Math.min(numberOfPages - 1, start + visiblePages - 1);
 
         //check when approaching to last page
@@ -97,20 +98,21 @@ export class Paginator {
         var pc = this.getPageCount();
 
         if(p >= 0 && p < pc) {
+            this.first = this.rows *p;
             var state = {
-                first: this.rows * p,
+                first: this.first,
                 rows: this.rows,
-                page: p,
                 pageCount: pc
             };
-
-            this.page = p;
-
             this.updatePageLinks();
 
             this.onPageChange.next(state);
         }
 
+    }
+    
+    getPage(): number {
+        return Math.floor(this.first / this.rows);
     }
 
     changePageToFirst() {
@@ -118,11 +120,11 @@ export class Paginator {
     }
 
     changePageToPrev() {
-        this.changePage(this.page - 1);
+        this.changePage(this.getPage() - 1);
     }
 
     changePageToNext() {
-        this.changePage(this.page + 1);
+        this.changePage(this.getPage()  + 1);
     }
 
     changePageToLast() {

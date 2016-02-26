@@ -91,7 +91,7 @@ import {InputText} from '../inputtext/inputtext';
                     </tbody>
                 </table>
             </div>
-            <p-paginator [rows]="rows" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" (onPageChange)="paginate($event)" *ngIf="paginator"></p-paginator>
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" (onPageChange)="paginate($event)" *ngIf="paginator"></p-paginator>
             <div class="ui-datatable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="footer"></ng-content>
             </div>
@@ -162,6 +162,8 @@ export class DataTable implements AfterViewInit,DoCheck {
     private dataToRender: any[];
 
     private first: number = 0;
+    
+    private page: number = 0;
 
     private sortField: string;
 
@@ -197,8 +199,22 @@ export class DataTable implements AfterViewInit,DoCheck {
         let changes = this.differ.diff(this.value);
 
         if(changes) {
-            this.totalRecords = this.value ? this.value.length: 0;
+            if(this.paginator) {
+                this.updatePaginator();
+            }
+            
             this.updateDataToRender(this.value);
+        }
+    }
+    
+    updatePaginator() {
+        //total records
+        this.totalRecords = this.value ? this.value.length: 0;
+        
+        //first
+        if(this.totalRecords && this.first >= this.totalRecords) {
+            let numberOfPages = Math.ceil(this.totalRecords/this.rows);
+            this.first = Math.max((numberOfPages-1) * this.rows, 0);
         }
     }
 
