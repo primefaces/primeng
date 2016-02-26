@@ -49,10 +49,10 @@ export class DataTableCrudDemo implements OnInit {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
 
         this.cols = [
-            {field: 'vin', header: 'Vin', sortable: true, filter: true},
-            {field: 'brand', header: 'Brand', sortable: true, filter: true},
-            {field: 'year', header: 'Year', sortable: true, filter: true},
-            {field: 'color', header: 'Color', sortable: true, filter: true}
+            {field: 'vin', header: 'Vin', sortable: true},
+            {field: 'brand', header: 'Brand', sortable: true},
+            {field: 'year', header: 'Year', sortable: true,
+            {field: 'color', header: 'Color', sortable: true}
         ];
     }
     
