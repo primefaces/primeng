@@ -5,19 +5,14 @@ declare var Prism: any;
 @Directive({
     selector: '[pCode]'
 })
-export class pCode implements OnInit{
+export class CodeHighlighter implements OnInit {
     
     initialized: boolean;
     
-    constructor(private el: ElementRef) {
-        this.initialized = false;
-    }
+    constructor(private el: ElementRef) {}
     
     ngOnInit() {
-        Prism.highlightElement(
-            this.el.nativeElement
-        );
-        this.initialized = true;
+        Prism.highlightElement(this.el.nativeElement);
     }
 }
 
