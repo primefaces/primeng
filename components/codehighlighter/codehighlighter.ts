@@ -6,9 +6,7 @@ declare var Prism: any;
     selector: '[pCode]'
 })
 export class CodeHighlighter implements OnInit {
-    
-    initialized: boolean;
-    
+        
     constructor(private el: ElementRef) {}
     
     ngOnInit() {
