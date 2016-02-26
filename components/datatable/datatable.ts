@@ -262,30 +262,35 @@ export class DataTable implements AfterViewInit,DoCheck {
         if(!column.sortable) {
             return;
         }
+        
+        this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
+        this.sortField = column.field;
 
-        if(this.value) {
-            this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
-            this.sortField = column.field;
+        if(this.lazy) {
+            this.onLazyLoad.next(this.createLazyLoadMetadata());
+        }
+        else {
+            if(this.value) {
+                this.value.sort((data1, data2) => {
+                    let value1 = data1[this.sortField],
+                    value2 = data2[this.sortField],
+                    result = null;
 
-            this.value.sort((data1, data2) => {
-                let value1 = data1[this.sortField],
-                value2 = data2[this.sortField],
-                result = null;
+                    if (value1 instanceof String && value2 instanceof String)
+                        result = value1.localeCompare(value2);
+                    else
+                        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
 
-                if (value1 instanceof String && value2 instanceof String)
-                    result = value1.localeCompare(value2);
+                    return (this.sortOrder * result);
+                });
+
+                this.first = 0;
+
+                if(this.hasFilter())
+                    this.filter();
                 else
-                    result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-
-                return (this.sortOrder * result);
-            });
-
-            this.first = 0;
-
-            if(this.hasFilter())
-                this.filter();
-            else
-                this.updateDataToRender(this.value);
+                    this.updateDataToRender(this.value);
+            }
         }
     }
 
@@ -370,7 +375,7 @@ export class DataTable implements AfterViewInit,DoCheck {
 
     filter() {
         if(this.lazy) {
-            //TODO
+            this.onLazyLoad.next(this.createLazyLoadMetadata());
         }
         else {
             this.filteredValue = [];
@@ -558,7 +563,7 @@ export class DataTable implements AfterViewInit,DoCheck {
             rows: this.rows,
             sortField: this.sortField,
             sortOrder: this.sortOrder,
-            filters: null
+            filters: this.filterMetadata
         };
     }
     
