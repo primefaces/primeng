@@ -322,6 +322,31 @@ this.cols = [
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTableScrollDemo']">live example.</a></p>
+            
+            <h3>Lazy Loading</h3>
+            <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
+             onLazyLoad callback everytime paging, sorting and filtering happens. To implement lazy loading,
+            enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object 
+            that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator 
+            displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataTable [value]="cars" [columns]="cols" [scrollable]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;&lt;/p-dataTable&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-ts" pCode>
+    //event.first = First row offset
+    //event.rows = Number of rows per page
+    //event.sortField = Field name to sort with
+    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+    //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+    this.cars = //do a request to a remote datasource using a service and return the cars that match the lazy load criteria
+}
+</code>
+</pre>
+            <p>See the <a [routerLink]="['DataTableLazyDemo']">live example.</a></p>
 
             <h3>Responsive</h3>
             <p>DataTable columns are displayed as stacked in responsive mode if the screen size becomes smaller than a certain breakpoint value. This feature is enabled
@@ -508,6 +533,15 @@ this.cols = [
                             <td>event.dragIndex: Index of the dragged column <br>
                                 event.dropIndex: Index of the dropped column <br>
                                 event.dropSide: -1 for left side and +1 for right side of dropped column</td>
+                            <td>Callback to invoke when a column is reordered.</td>
+                        </tr>
+                        <tr>
+                            <td>onLazyLoad</td>
+                            <td>event.first = First row offset <br>
+                                event.rows = Number of rows per page <br>
+                                event.sortField = Field name to sort with <br>
+                                event.sortOrder = Sort order as number, 1 for asc and -1 for dec <br>
+                                filters: FilterMetadata object having field as key and filter value, filter matchMode as value</td>
                             <td>Callback to invoke when a column is reordered.</td>
                         </tr>
                     </tbody>
