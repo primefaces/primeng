@@ -53,7 +53,11 @@ export class DataTableLazyDemo implements OnInit {
         //event.sortField = Field name to sort with
         //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
         //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
-        this.cars = this.datasource.slice(event.first, (event.first + event.rows));
+        
+        //imitate db connection over a network
+        setTimeout(() => {
+            this.cars = this.datasource.slice(event.first, (event.first + event.rows));
+        }, 250);
     }
 }
 </code>
