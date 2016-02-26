@@ -57,6 +57,7 @@ import {DataTableColReorderDemo} from "./demo/datatable/datatablecolreorderdemo"
 import {DataTableScrollDemo} from "./demo/datatable/datatablescrolldemo";
 import {DataTableGroupDemo} from "./demo/datatable/datatablegroupdemo";
 import {DataTableCrudDemo} from "./demo/datatable/datatablecruddemo";
+import {DataTableLazyDemo} from "./demo/datatable/datatablelazydemo";
 import {CodeHighlighterDemo} from "./demo/codehighlighter/codehighlighterdemo";
 
 @Component({
@@ -120,7 +121,8 @@ import {CodeHighlighterDemo} from "./demo/codehighlighter/codehighlighterdemo";
     {path: '/datatablecolresize', name: 'DataTableColResizeDemo', component: DataTableColResizeDemo},
     {path: '/datatablecolreorder', name: 'DataTableColReorderDemo', component: DataTableColReorderDemo},
     {path: '/datatablescroll', name: 'DataTableScrollDemo', component: DataTableScrollDemo},
-    {path: '/datatablegroup', name: 'DataTableGroupDemo', component: DataTableGroupDemo},,
+    {path: '/datatablegroup', name: 'DataTableGroupDemo', component: DataTableGroupDemo},
+    {path: '/datatablelazy', name: 'DataTableLazyDemo', component: DataTableLazyDemo},
     {path: '/datatablecrud', name: 'DataTableCrudDemo', component: DataTableCrudDemo},
     {path: '/codehighlighter', name: 'CodeHighlighterDemo', component: CodeHighlighterDemo}
 ])

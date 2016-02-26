@@ -26,7 +26,6 @@ import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from 'angul
                 <span class="fa fa-step-forward"></span>
             </span>
         </div>
-        {{getPage()}}
     `
 })
 export class Paginator {

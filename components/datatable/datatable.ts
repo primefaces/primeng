@@ -130,6 +130,8 @@ export class DataTable implements AfterViewInit,DoCheck {
     @Input() filterDelay: number = 300;
 
     @Input() lazy: boolean;
+    
+    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
     @Input() resizableColumns: boolean;
 
@@ -182,6 +184,16 @@ export class DataTable implements AfterViewInit,DoCheck {
     }
 
     ngAfterViewInit() {
+        if(this.lazy) {
+            this.onLazyLoad.next({
+                first: this.first,
+                rows: this.rows,
+                sortField: this.sortField,
+                sortOrder: this.sortOrder,
+                filters: null
+            });
+        }
+        
         if(this.resizableColumns) {
             this.initResizableColumns();
         }
@@ -202,14 +214,13 @@ export class DataTable implements AfterViewInit,DoCheck {
             if(this.paginator) {
                 this.updatePaginator();
             }
-            
             this.updateDataToRender(this.value);
         }
     }
     
     updatePaginator() {
         //total records
-        this.totalRecords = this.value ? this.value.length: 0;
+        this.totalRecords = this.lazy ? this.totalRecords : (this.value ? this.value.length: 0);
         
         //first
         if(this.totalRecords && this.first >= this.totalRecords) {
@@ -221,13 +232,20 @@ export class DataTable implements AfterViewInit,DoCheck {
     paginate(event) {
         this.first = event.first;
         this.rows = event.rows;
-        this.updateDataToRender(this.value);
+        
+        if(this.lazy) {
+            this.onLazyLoad.next(this.createLazyLoadMetadata());
+        }
+        else {
+            this.updateDataToRender(this.value);
+        }
     }
 
     updateDataToRender(datasource) {
         if(this.paginator && datasource) {
             this.dataToRender = [];
-            for(let i = this.first; i < (this.first + this.rows); i++) {
+            let startIndex = this.lazy ? 0 : this.first;
+            for(let i = startIndex; i < (startIndex+ this.rows); i++) {
                 if(i >= datasource.length) {
                     break;
                 }
@@ -533,7 +551,17 @@ export class DataTable implements AfterViewInit,DoCheck {
     isEmpty() {
         return !this.dataToRender||(this.dataToRender.length == 0);
     }
-
+    
+    createLazyLoadMetadata(): any {
+        return {
+            first: this.first,
+            rows: this.rows,
+            sortField: this.sortField,
+            sortOrder: this.sortOrder,
+            filters: null
+        };
+    }
+    
     ngOnDestroy() {
         if(this.resizableColumns) {
             jQuery(this.el.nativeElement.children[0]).puicolresize('destroy');

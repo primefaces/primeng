@@ -1,0 +1,56 @@
+<datatable-demos></datatable-demos>
+
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable - <span class="subitem">Lazy</span></span>
+        <span class="defaultText dispTable">Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded
+            whenever paging, sorting and filtering happens. onLazyLoad callback is to load the data by getting the state as a parameter.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-dataTable [value]="cars" [columns]="cols" [lazy]="true" [rows]="10" [paginator]="true" 
+                        [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
+        <header>List of Cars</header>
+    </p-dataTable>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablepaginatordemo.ts">
+<pre>
+<code class="language-typescript" pCode>
+export class DataTablePaginatorDemo implements OnInit {
+
+    cars: Car[];
+
+    cols: Column[];
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
+
+        this.cols = [
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
+        ];
+    }
+}
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablepaginatordemo.html">
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataTable [value]="cars" [columns]="cols" [rows]="10" [paginator]="true" [pageLinks]="3"&gt;
+    &lt;header&gt;List of Cars&lt;/header&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -17,6 +17,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                 <li><a [routerLink]="['DataTableColResizeDemo']">&#9679; Resize</a></li>
                 <li><a [routerLink]="['DataTableColReorderDemo']">&#9679; Reorder</a></li>
                 <li><a [routerLink]="['DataTableScrollDemo']">&#9679; Scroll</a></li>
+                <li><a [routerLink]="['DataTableLazyDemo']">&#9679; Lazy</a></li>
                 <li><a [routerLink]="['DataTableResponsiveDemo']">&#9679; Responsive</a></li>
                 <li><a [routerLink]="['DataTableCrudDemo']">&#9679; Crud</a></li>
             </ul>
