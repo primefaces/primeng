@@ -51,7 +51,7 @@ export class DataTableCrudDemo implements OnInit {
         this.cols = [
             {field: 'vin', header: 'Vin', sortable: true},
             {field: 'brand', header: 'Brand', sortable: true},
-            {field: 'year', header: 'Year', sortable: true,
+            {field: 'year', header: 'Year', sortable: true},
             {field: 'color', header: 'Color', sortable: true}
         ];
     }
