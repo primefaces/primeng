@@ -2,7 +2,7 @@ import {Component,OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {HTTP_PROVIDERS}    from 'angular2/http';
 import {DataTable} from '../../../components/datatable/datatable';
-import {pCode} from '../../../components/codehighlighter/codehighlighter';
+import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
@@ -13,7 +13,7 @@ import {CarService} from '../service/carservice';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablelazydemo.html',
-    directives: [DataTable,Header,DataTableSubmenu,TabPanel,TabView,pCode,ROUTER_DIRECTIVES],
+    directives: [DataTable,Header,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
     providers: [HTTP_PROVIDERS,CarService]
 })
 export class DataTableLazyDemo implements OnInit {

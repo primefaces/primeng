@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Messages} from '../../../components/messages/messages';
-import {pCode} from '../../../components/codehighlighter/codehighlighter';
+import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
@@ -10,7 +10,7 @@ import {Message} from '../../../components/api/message';
 
 @Component({
     templateUrl: 'showcase/demo/messages/messagesdemo.html',
-    directives: [Messages,TabPanel,TabView,Button,pCode,ROUTER_DIRECTIVES]
+    directives: [Messages,TabPanel,TabView,Button,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class MessagesDemo {
 

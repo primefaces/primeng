@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {pCode} from '../../../components/codehighlighter/codehighlighter';
+import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 
 @Component ({
     styles:[`
@@ -17,7 +17,7 @@ import {pCode} from '../../../components/codehighlighter/codehighlighter';
         }
     `],
     templateUrl: 'showcase/demo/grid/griddemo.html',
-    directives: [TabView,TabPanel,pCode]
+    directives: [TabView,TabPanel,CodeHighlighter]
 })
 export class GridDemo {
 

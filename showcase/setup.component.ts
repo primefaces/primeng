@@ -1,9 +1,9 @@
 import {Component} from 'angular2/core';
-import {pCode} from '../components/codehighlighter/codehighlighter';
+import {CodeHighlighter} from '../components/codehighlighter/codehighlighter';
 
 @Component({
     templateUrl: 'showcase/setup.component.html',
-    directives: [pCode]
+    directives: [CodeHighlighter]
 })
 export class SetupComponent {
 

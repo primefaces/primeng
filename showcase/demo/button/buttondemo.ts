@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {TabView} from '../../../components/tabview/tabview';
-import {pCode} from '../../../components/codehighlighter/codehighlighter';
+import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
@@ -160,7 +160,7 @@ export class ButtonDemo {
              </p-tabView >
         </div>
     `,
-    directives: [pCode,Button,TabPanel,TabView,ROUTER_DIRECTIVES]
+    directives: [CodeHighlighter,Button,TabPanel,TabView,ROUTER_DIRECTIVES]
 })
 export class ButtonDemo {
 

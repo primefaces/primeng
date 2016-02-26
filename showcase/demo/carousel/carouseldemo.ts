@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Carousel} from '../../../components/carousel/carousel';
-import {pCode} from '../../../components/codehighlighter/codehighlighter';
+import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
@@ -11,7 +11,7 @@ import {Car} from '../domain/car';
 
 @Component({
     templateUrl: 'showcase/demo/carousel/carouseldemo.html',
-    directives: [Carousel,TabPanel,TabView,Button,Growl,pCode,ROUTER_DIRECTIVES],
+    directives: [Carousel,TabPanel,TabView,Button,Growl,CodeHighlighter,ROUTER_DIRECTIVES],
     styles: [`
         .ui-grid-row {
             text-align: center;

@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {PolarAreaChart} from '../../../../components/chart/polarareachart/polarareachart';
-import {pCode} from '../../../../components/codehighlighter/codehighlighter';
+import {CodeHighlighter} from '../../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../../components/tabview/tabview';
 import {TabPanel} from '../../../../components/tabview/tabpanel';
 import {Growl} from '../../../../components/growl/growl';
@@ -10,7 +10,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'showcase/demo/chart/polarareachart/polarareachartdemo.html',
-    directives: [PolarAreaChart,Button,Growl,TabPanel,TabView,pCode,ROUTER_DIRECTIVES]
+    directives: [PolarAreaChart,Button,Growl,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class PolarAreaChartDemo {
 

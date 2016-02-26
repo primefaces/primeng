@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Slider} from '../../../components/slider/slider';
-import {pCode} from '../../../components/codehighlighter/codehighlighter';
+import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {Button} from '../../../components/button/button';
 import {InputText} from '../../../components/inputtext/inputtext';
 import {TabView} from '../../../components/tabview/tabview';
@@ -9,7 +9,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'showcase/demo/slider/sliderdemo.html',
-    directives: [Slider,InputText,Button,TabView,TabPanel,pCode,ROUTER_DIRECTIVES]
+    directives: [Slider,InputText,Button,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class SliderDemo {
 
