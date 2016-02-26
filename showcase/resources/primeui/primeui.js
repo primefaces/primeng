@@ -13507,7 +13507,7 @@ PUI.resolveUserAgent();/**
 
         getScrollbarWidth: function() {
             if(!this.scrollbarWidth) {
-                this.scrollbarWidth = PUI.browser.webkit ? '15' : PUI.calculateScrollbarWidth();
+                this.scrollbarWidth = PUI.calculateScrollbarWidth();
             }
 
             return this.scrollbarWidth;
