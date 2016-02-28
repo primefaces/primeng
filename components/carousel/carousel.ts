@@ -1,16 +1,20 @@
-import {Component,ElementRef,AfterContentInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,TemplateRef,ContentChild} from 'angular2/core';
 
 @Component({
     selector: 'p-carousel',
     template: `
         <div class="ui-carousel ui-widget-content ui-corner-all">
             <div class="ui-carousel-viewport">
-                <ng-content></ng-content>
+                <ul>
+                    <template ngFor [ngForOf]="value" [ngForTemplate]="itemTemplate"></template>
+                </ul>
             </div>
         </div>
     `
 })
 export class Carousel {
+    
+    @Input() value: any[];
 
     @Input() numVisible: number;
 
@@ -35,6 +39,8 @@ export class Carousel {
     @Input() style: string;
 
     @Input() styleClass: string;
+    
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
 
     initialized: boolean;
 
@@ -44,7 +50,7 @@ export class Carousel {
         this.initialized = false;
     }
 
-    ngAfterContentInit() {
+    ngAfterViewInit() {
         this.carouselElement = jQuery(this.el.nativeElement).find('> .ui-carousel > .ui-carousel-viewport > ul');
         this.carouselElement.puicarousel({
             numVisible: this.numVisible,
