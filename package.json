@@ -2,7 +2,6 @@
   "name": "primeng",
   "version": "v0.6.0-SNAPSHOT",
   "scripts": {
-    "postinstall": "npm run typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",

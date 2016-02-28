@@ -9,6 +9,7 @@ Execute the following commands to run the showcase in your local environment. A 
 
 ```
 npm install
+typings install
 npm start
 ```
 
