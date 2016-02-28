@@ -6,7 +6,6 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
-    "prepublish": "tsc",
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
     "typings" : "typings"
   },
