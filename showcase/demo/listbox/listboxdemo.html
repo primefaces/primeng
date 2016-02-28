@@ -16,13 +16,13 @@
     <p>Selected Cities: <span *ngFor="#c of selectedCities">{{c}} &nbsp;</span></p>
 
     <h3>Content</h3>
-    <p-listbox [options]="cars" [(value)]="selectedCar" customContent="true" style="width:190px">
-        <ul>
-            <li *ngFor="#car of cars" class="ui-helper-clearfix">
+    <p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px">
+        <template #car>
+            <li class="ui-helper-clearfix">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
                 <div style="font-size:20px;float:right;margin:15px 10px 0 0">{{car.value}}</div>
             </li>
-        </ul>
+        </template>
     </p-listbox>
     <p>Selected Car: {{selectedCar}}</p>
 
@@ -101,16 +101,17 @@ export class MyModel {
 </pre>
 
             <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unordered list.</p>
+            <p>Label of an option is used as the display text of an item by default, for custom content support define a template having a li item as a wrapper for the content. The local template variable
+            refers to an option in the options collection.</p>
 <pre>
-<code class="language-markup" pCode>
-&lt;p-listbox [options]="cars" [(value)]="selectedCar" customContent="true" style="width:190px"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/<span>{</span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;<span>{</span><span>{</span>car.value<span>}</span><span>}</span>&lt;/div&gt;
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px"&gt;
+    &lt;template #car&gt;
+        &lt;li class="ui-helper-clearfix"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
         &lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;/template&gt;
 &lt;/p-listbox&gt;
 </code>
 </pre>
@@ -177,12 +178,6 @@ export class MyModel {
                         <td>number</td>
                         <td>200</td>
                         <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
-                    </tr>
-                    <tr>
-                        <td>customContent</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>Used to display customized content inside the listbox.</td>
                     </tr>
                     <tr>
                         <td>style</td>
@@ -266,13 +261,13 @@ export class MyModel {
 &lt;p&gt;Selected Cities: &lt;span *ngFor="#c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Content&lt;/h3&gt;
-&lt;p-listbox [options]="cars" [(value)]="selectedCar" customContent="true" style="width:190px"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix"&gt;
+&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px"&gt;
+    &lt;template #car&gt;
+        &lt;li class="ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
             &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
         &lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;/template&gt;
 &lt;/p-listbox&gt;
 &lt;p&gt;Selected Car: {{selectedCar}}&lt;/p&gt;
 

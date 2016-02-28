@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,ContentChild,TemplateRef} from 'angular2/core';
 import {SelectItem} from '../api/selectitem';
 
 @Component({
@@ -10,13 +10,14 @@ import {SelectItem} from '../api/selectitem';
                     <option *ngFor="#option of options;" [value]="option.value">{{option.label}}</option>
                 </select>
             </div>
-            <ul class="ui-listbox-list" *ngIf="!customContent">
+            <ul class="ui-listbox-list" *ngIf="!itemTemplate">
                 <li *ngFor="#option of options" class="ui-listbox-item ui-corner-all">
                     {{option.label}}
                 </li>
-
             </ul>
-            <ng-content *ngIf="customContent"></ng-content>
+            <ul class="ui-listbox-list" *ngIf="itemTemplate">
+                <template ngFor [ngForOf]="options" [ngForTemplate]="itemTemplate"></template>
+            </ul>
         </div>
     `
 })
@@ -32,8 +33,6 @@ export class Listbox {
 
     @Input() scrollHeight: number;
 
-    @Input() customContent: boolean;
-
     @Input() style: string;
 
     @Input() styleClass: string;
@@ -41,6 +40,8 @@ export class Listbox {
     @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+    
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
 
     stopNgOnChangesPropagation: boolean;
 
