@@ -4323,6 +4323,11 @@ PUI.resolveUserAgent();/**
                 this.itemsContainer.addClass('ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset');
                 this.items = this.itemsContainer.children('li').addClass('ui-dropdown-item ui-dropdown-list-item ui-corner-all');
 
+                var $this = this;
+                this.items.each(function(i) {
+                    $(this).data('label', $this.choices.eq(i).text());
+                });
+
                 if(this.options.filter) {
                     this.filterContainer = this.panel.children('.ui-dropdown-filter-container');
                     this.filterInput = this.filterContainer.children('input');

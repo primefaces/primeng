@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,ContentChild,TemplateRef} from 'angular2/core';
 import {SelectItem} from '../api/selectitem';
 import DropdownEventParams = PrimeUI.DropdownEventParams;
 
@@ -24,10 +24,12 @@ import DropdownEventParams = PrimeUI.DropdownEventParams;
                     <span class="fa fa-search"></span>
                 </div>
                 <div class="ui-dropdown-items-wrapper">
-                    <ul *ngIf="!customContent" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
+                    <ul *ngIf="!itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                         <li *ngFor="#option of options" [attr.data-label]="option.label" class="ui-dropdown-item ui-dropdown-list-item ui-corner-all">{{option.label}}</li>
                     </ul>
-                    <ng-content *ngIf="customContent"></ng-content>
+                    <ul *ngIf="itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
+                        <template ngFor [ngForOf]="options" [ngForTemplate]="itemTemplate"></template>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -45,8 +47,6 @@ export class Dropdown {
 
     @Input() scrollHeight: number;
 
-    @Input() customContent: boolean;
-
     @Input() filter: boolean;
 
     @Input() filterMatchMode: string;
@@ -54,6 +54,8 @@ export class Dropdown {
     @Input() style: string;
 
     @Input() styleClass: string;
+    
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
 
     initialized: boolean;
 

@@ -11,13 +11,13 @@
     <p>Selected City: {{selectedCity||'none'}}</p>
 
     <h3>Content with Filter</h3>
-    <p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true" style="width:100px">
-        <ul>
-            <li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative">
+    <p-dropdown [options]="cars" [(value)]="selectedCar" [filter]="true" style="width:100px">
+        <template #car>
+            <li class="ui-helper-clearfix" style="position: relative">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/>
                 <div style="font-size:14px;float:right;margin-top:2px">{{car.label}}</div>
             </li>
-        </ul>
+        </template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar||'none'}}</p>
 </div>
@@ -66,22 +66,22 @@ export class MyModel {
             <p>Options can be filtered using an input field in the overlay, there are 3 different filtering modes defined with filterMatchMode; "startsWith" (default), "contains" and "endsWith".</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-listbox [options]="cities" [(value)]="selectedCities" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-listbox&gt;
+&lt;p-dropdown [options]="cities" [(value)]="selectedCities" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
             <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item, for custom content support enable customContent property as true and provide an unordered list.
-             The label of an item should be provided explicity with data-label attribute on li element.</p>
+            <p>Label of an option is used as the display text of an item by default, for custom content support define a template having a li item as a wrapper for the content. The local template variable
+            refers to an option in the options collection.</p>
 <pre>
-<code class="language-markup" pCode>
-&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
-            &lt;img src="showcase/resources/demo/images/car/<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin:2px 0 0 50px"&gt;<span>{></span><span>{</span>car.label<span>}</span><span>}</span>.&lt;/div&gt;
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [filter]="true" style="width:100px"&gt;
+    &lt;template #car&gt;
+        &lt;li class="ui-helper-clearfix" style="position: relative"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin-top:2px"&gt;{{car.label}}&lt;/div&gt;
         &lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;/template&gt;
 &lt;/p-dropdown&gt;
 </code>
 </pre>
@@ -142,12 +142,6 @@ export class MyModel {
                             <td>number</td>
                             <td>200</td>
                             <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
-                        </tr>
-                        <tr>
-                            <td>customContent</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Used to display customized content inside the listbox.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -262,13 +256,13 @@ export class MyModel {
 &lt;p&gt;Selected City: {{selectedCity||'none'}}&lt;/p&gt;
 
 &lt;h3&gt;Content with Filter&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [customContent]="true" [filter]="true" style="width:100px"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="#car of cars" class="ui-helper-clearfix" [attr.data-label]="car.label" style="position: relative"&gt;
+&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [filter]="true" style="width:100px"&gt;
+    &lt;template #car&gt;
+        &lt;li class="ui-helper-clearfix" style="position: relative"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
             &lt;div style="font-size:14px;float:right;margin-top:2px"&gt;{{car.label}}&lt;/div&gt;
         &lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;/template&gt;
 &lt;/p-dropdown&gt;
 &lt;p&gt;Selected Car: {{selectedCar||'none'}}&lt;/p&gt;
 </code>
