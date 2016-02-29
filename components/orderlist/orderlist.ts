@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,ContentChild,TemplateRef} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,ContentChild,TemplateRef,Renderer} from 'angular2/core';
 import {Button} from '../button/button';
 import {DomUtils} from '../utils/domutils';
 
@@ -24,7 +24,7 @@ import {DomUtils} from '../utils/domutils';
     `,
     directives: [Button]
 })
-export class OrderList implements AfterViewInit{
+export class OrderList implements AfterViewInit,OnDestroy{
 
     @Input() value: any[];
     
@@ -43,8 +43,10 @@ export class OrderList implements AfterViewInit{
     items: any;
     
     selectedIndex: number = null;
+    
+    eventHandlers: any[];
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef, private renderer: Renderer) {}
 
     ngAfterViewInit() {
         setTimeout(() => {
@@ -54,20 +56,22 @@ export class OrderList implements AfterViewInit{
     }
     
     bindEvents() {
+        this.eventHandlers = [];
+        
         for(let i = 0; i < this.items.length; i++) {
             DomUtils.addClass(this.items[i], 'ui-orderlist-item');
             
-            DomUtils.on(this.items[i], 'mouseover', () => {
+            this.eventHandlers.push(this.renderer.listen(this.items[i], 'mouseover', () => {
                 DomUtils.addClass(this.items[i], 'ui-state-hover');
-            });
+            }));
             
-            DomUtils.on(this.items[i], 'mouseout', () => {
+            this.eventHandlers.push(this.renderer.listen(this.items[i], 'mouseout', () => {
                 DomUtils.removeClass(this.items[i], 'ui-state-hover');
-            });
+            }));
             
-            DomUtils.on(this.items[i], 'click', (event) => {
+            this.eventHandlers.push(this.renderer.listen(this.items[i], 'click', (event) => {
                 this.onItemClick(event, this.items[i]);
-            });
+            }));
         }
     }
     
@@ -130,6 +134,12 @@ export class OrderList implements AfterViewInit{
             let movedItem = this.value.splice(this.selectedIndex,1)[0];
             this.value.push(movedItem);
             this.selectedIndex = this.value.length - 1;
+        }
+    }
+    
+    ngOnDestroy() {
+        for(let i = 0; i < this.eventHandlers.length; i++) {
+            this.eventHandlers[i]();
         }
     }
 }
