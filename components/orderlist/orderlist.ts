@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,ContentChild,TemplateRef,Renderer} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,ContentChild,TemplateRef,Renderer} from 'angular2/core';
 import {Button} from '../button/button';
 import {DomUtils} from '../utils/domutils';
 
@@ -24,7 +24,7 @@ import {DomUtils} from '../utils/domutils';
     `,
     directives: [Button]
 })
-export class OrderList implements AfterViewInit,OnDestroy{
+export class OrderList implements AfterViewInit,OnDestroy {
 
     @Input() value: any[];
     
@@ -45,32 +45,36 @@ export class OrderList implements AfterViewInit,OnDestroy{
     selectedIndex: number = null;
     
     eventHandlers: any[];
-
+    
+    listContainer: any;
+        
     constructor(private el: ElementRef, private renderer: Renderer) {}
 
     ngAfterViewInit() {
         setTimeout(() => {
-            this.items = DomUtils.find(this.el.nativeElement, 'li');
+            this.listContainer = DomUtils.find(this.el.nativeElement, 'ul')[0];
+            this.items = this.listContainer.children;
             this.bindEvents();
-        }, 10);
+        }, 25);
     }
-    
+        
     bindEvents() {
         this.eventHandlers = [];
         
         for(let i = 0; i < this.items.length; i++) {
-            DomUtils.addClass(this.items[i], 'ui-orderlist-item');
-            
-            this.eventHandlers.push(this.renderer.listen(this.items[i], 'mouseover', () => {
-                DomUtils.addClass(this.items[i], 'ui-state-hover');
+            let item = this.items[i];
+            DomUtils.addClass(item, 'ui-orderlist-item');
+        
+            this.eventHandlers.push(this.renderer.listen(item, 'mouseover', () => {
+                DomUtils.addClass(item, 'ui-state-hover');
             }));
             
-            this.eventHandlers.push(this.renderer.listen(this.items[i], 'mouseout', () => {
-                DomUtils.removeClass(this.items[i], 'ui-state-hover');
+            this.eventHandlers.push(this.renderer.listen(item, 'mouseout', () => {
+                DomUtils.removeClass(item, 'ui-state-hover');
             }));
             
-            this.eventHandlers.push(this.renderer.listen(this.items[i], 'click', (event) => {
-                this.onItemClick(event, this.items[i]);
+            this.eventHandlers.push(this.renderer.listen(item, 'click', (event) => {
+                this.onItemClick(event, item);
             }));
         }
     }
@@ -108,6 +112,7 @@ export class OrderList implements AfterViewInit,OnDestroy{
             this.value[this.selectedIndex-1] = movedItem;
             this.value[this.selectedIndex] = temp;
             this.selectedIndex--;
+            DomUtils.scrollInView(this.listContainer, this.items[this.selectedIndex]);
         }
     }
     
@@ -116,6 +121,7 @@ export class OrderList implements AfterViewInit,OnDestroy{
             let movedItem = this.value.splice(this.selectedIndex,1)[0];
             this.value.unshift(movedItem);
             this.selectedIndex = 0;
+            this.listContainer.scrollTop = 0;
         }
     }
     
@@ -126,6 +132,7 @@ export class OrderList implements AfterViewInit,OnDestroy{
             this.value[this.selectedIndex+1] = movedItem;
             this.value[this.selectedIndex] = temp;
             this.selectedIndex++;
+            DomUtils.scrollInView(this.listContainer, this.items[this.selectedIndex]);
         }
     }
     
@@ -134,12 +141,23 @@ export class OrderList implements AfterViewInit,OnDestroy{
             let movedItem = this.value.splice(this.selectedIndex,1)[0];
             this.value.push(movedItem);
             this.selectedIndex = this.value.length - 1;
+            this.listContainer.scrollTop = this.listContainer.scrollHeight;
         }
     }
     
-    ngOnDestroy() {
-        for(let i = 0; i < this.eventHandlers.length; i++) {
-            this.eventHandlers[i]();
+    unbindEvents() {
+        if(this.eventHandlers) {
+            for(let i = 0; i < this.eventHandlers.length; i++) {
+                this.eventHandlers[i]();
+            }
+            this.eventHandlers = [];
         }
+    }
+
+        
+    ngOnDestroy() {
+        this.unbindEvents();
+        this.listContainer = null;
+        this.items = null;
     }
 }
