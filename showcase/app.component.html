@@ -35,6 +35,7 @@
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (datamenutitle.id == activeMenuId), 'submenuhide': (datamenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['CarouselDemo']" (click)="mobileMenuActive = false">&#9679; Carousel</a>
                 <a class="SubMenuLink" [routerLink]="['DataTableDemo']" (click)="mobileMenuActive = false">&#9679; DataTable</a>
+                <a class="SubMenuLink" [routerLink]="['OrderListDemo']" (click)="mobileMenuActive = false">&#9679; OrderList</a>
                 <a class="SubMenuLink" [routerLink]="['PaginatorDemo']" (click)="mobileMenuActive = false">&#9679; Paginator</a>
             </div>
 
