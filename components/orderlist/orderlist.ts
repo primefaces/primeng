@@ -1,5 +1,6 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,Input,Output,ContentChild,TemplateRef} from 'angular2/core';
 import {Button} from '../button/button';
+import {DomUtils} from '../utils/domutils';
 
 @Component({
     selector: 'p-orderList',
@@ -7,10 +8,10 @@ import {Button} from '../button/button';
         <div [ngClass]="{'ui-orderlist ui-grid ui-widget':true,'ui-grid-responsive':responsive}" [attr.style]="style" [attr.class]="styleClass">
             <div class="ui-grid-row">
                 <div class="ui-orderlist-controls ui-grid-col-2">
-                    <button type="button" pButton icon="fa-angle-up"></button>
-                    <button type="button" pButton icon="fa-angle-double-up"></button>
-                    <button type="button" pButton icon="fa-angle-down"></button>
-                    <button type="button" pButton icon="fa-angle-double-down"></button>
+                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp()"></button>
+                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop()"></button>
+                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown()"></button>
+                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom()"></button>
                 </div>
                 <div class="ui-grid-col-10">
                     <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
@@ -23,7 +24,7 @@ import {Button} from '../button/button';
     `,
     directives: [Button]
 })
-export class OrderList implements AfterViewInit,OnDestroy {
+export class OrderList implements AfterViewInit{
 
     @Input() value: any[];
     
@@ -38,70 +39,97 @@ export class OrderList implements AfterViewInit,OnDestroy {
     @Input() responsive: boolean;
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
-        
-    initialized: boolean;
+            
+    items: any;
+    
+    selectedIndex: number = null;
 
     constructor(private el: ElementRef) {}
 
     ngAfterViewInit() {
         setTimeout(() => {
-            jQuery(this.el.nativeElement.children[0]).puiorderlist({
-                enhanced: true,
-                multiple: false,
-                dragdrop: false,
-                onMoveUp: (event: Event, ui: any) => {
-                    this.moveUp(ui.index);
-                },
-                onMoveTop: (event: Event, ui: any) => {
-                    this.moveTop(ui.index);
-                },
-                onMoveDown: (event: Event, ui: any) => {
-                    this.moveDown(ui.index);
-                },
-                onMoveBottom: (event: Event, ui: any) => {
-                    this.moveBottom(ui.index);
-                }
-            });
-            this.initialized = true;
+            this.items = DomUtils.find(this.el.nativeElement, 'li');
+            this.bindEvents();
         }, 10);
     }
     
-    moveUp(index: number) {
-        if(index !== 0) {
-            let movedItem = this.value[index];
-            let temp = this.value[index-1];
-            this.value[index-1] = movedItem;
-            this.value[index] = temp;
+    bindEvents() {
+        for(let i = 0; i < this.items.length; i++) {
+            DomUtils.addClass(this.items[i], 'ui-orderlist-item');
+            
+            DomUtils.on(this.items[i], 'mouseover', () => {
+                DomUtils.addClass(this.items[i], 'ui-state-hover');
+            });
+            
+            DomUtils.on(this.items[i], 'mouseout', () => {
+                DomUtils.removeClass(this.items[i], 'ui-state-hover');
+            });
+            
+            DomUtils.on(this.items[i], 'click', (event) => {
+                this.onItemClick(event, this.items[i]);
+            });
         }
     }
     
-    moveTop(index: number) {
-        if(index !== 0) {
-            let movedItem = this.value.splice(index,1)[0];
+    onItemClick(event, item) {
+        let metaKey = (event.metaKey||event.ctrlKey);
+        
+        if(DomUtils.hasClass(item, 'ui-state-highlight')) {
+            if(metaKey) {
+                DomUtils.removeClass(item, 'ui-state-highlight');
+                this.selectedIndex = null;
+            }
+        }
+        else {
+            if(!metaKey) {
+                let siblings = DomUtils.siblings(item);
+                for(let i = 0; i < siblings.length; i++) {
+                    let sibling = siblings[i];
+                    if(DomUtils.hasClass(sibling, 'ui-state-highlight')) {
+                        DomUtils.removeClass(sibling, 'ui-state-highlight');
+                    }
+                }
+            }
+            
+            DomUtils.removeClass(item, 'ui-state-hover');
+            DomUtils.addClass(item, 'ui-state-highlight');
+            this.selectedIndex = DomUtils.index(item);
+        }
+    }
+
+    moveUp() {
+        if(this.selectedIndex != null && this.selectedIndex !== 0) {
+            let movedItem = this.value[this.selectedIndex];
+            let temp = this.value[this.selectedIndex-1];
+            this.value[this.selectedIndex-1] = movedItem;
+            this.value[this.selectedIndex] = temp;
+            this.selectedIndex--;
+        }
+    }
+    
+    moveTop() {
+        if(this.selectedIndex != null && this.selectedIndex !== 0) {
+            let movedItem = this.value.splice(this.selectedIndex,1)[0];
             this.value.unshift(movedItem);
+            this.selectedIndex = 0;
         }
     }
     
-    moveDown(index: number) {
-        if(index !== (this.value.length - 1)) {
-            let movedItem = this.value[index];
-            let temp = this.value[index+1];
-            this.value[index+1] = movedItem;
-            this.value[index] = temp;
+    moveDown() {
+        if(this.selectedIndex != null && this.selectedIndex !== (this.value.length - 1)) {
+            let movedItem = this.value[this.selectedIndex];
+            let temp = this.value[this.selectedIndex+1];
+            this.value[this.selectedIndex+1] = movedItem;
+            this.value[this.selectedIndex] = temp;
+            this.selectedIndex++;
         }
     }
     
-    moveBottom(index: number) {
-        if(index !== (this.value.length - 1)) {
-            let movedItem = this.value.splice(index,1)[0];
+    moveBottom() {
+        if(this.selectedIndex != null && this.selectedIndex !== (this.value.length - 1)) {
+            let movedItem = this.value.splice(this.selectedIndex,1)[0];
             this.value.push(movedItem);
-        }
-    }
-    
-    ngOnDestroy() {
-        if(this.initialized) {
-            jQuery(this.el.nativeElement.children[0]).puiorderlist('destroy');
-            this.initialized = false;
+            this.selectedIndex = this.value.length - 1;
         }
     }
 }
