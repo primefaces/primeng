@@ -4,7 +4,7 @@ import {Button} from '../button/button';
 @Component({
     selector: 'p-orderList',
     template: `
-        <div [ngClass]="{'ui-orderlist ui-grid ui-widget':true}" [attr.style]="style" [attr.class]="styleClass">
+        <div [ngClass]="{'ui-orderlist ui-grid ui-widget':true,'ui-grid-responsive':responsive}" [attr.style]="style" [attr.class]="styleClass">
             <div class="ui-grid-row">
                 <div class="ui-orderlist-controls ui-grid-col-2">
                     <button type="button" pButton icon="fa-angle-up"></button>
@@ -34,6 +34,8 @@ export class OrderList implements AfterViewInit,OnDestroy {
     @Input() styleClass: string;
     
     @Input() listStyle: string;
+    
+    @Input() responsive: boolean;
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
         
