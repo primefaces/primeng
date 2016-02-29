@@ -9095,7 +9095,7 @@ PUI.resolveUserAgent();/**
             }
             else {
                 this.list = this.element.find('ul.ui-orderlist-list');
-                this.items = this.list.children('.ui-orderlist-item');
+                this.items = this.list.children('li').addClass('ui-orderlist-item ui-corner-all');
                 
                 var buttons = this.element.find('> div > .ui-orderlist-controls > button');
                 this.moveUpButton = buttons.eq(0);
@@ -9217,8 +9217,8 @@ PUI.resolveUserAgent();/**
                     start: function(event, ui) {
                         PUI.clearSelection();
                     }
-                    ,update: function(event, ui) {
-                        $this.onDragDrop(event, ui);
+                    ,beforeStop: function(event, ui) {
+                        return false;
                     }
                 });
             }
@@ -9423,43 +9423,39 @@ PUI.resolveUserAgent();/**
         },
 
         _unbindItemEvents: function(item) {
-            item.off('mouseover.puiorderlist mouseout.puiorderlist mousedown.puiorderlist');
+            item.off('mouseover.ui-orderlist mouseout.ui-orderlist mousedown.ui-orderlist');
         },
 
         _bindItemEvents: function(item) {
             var $this = this;
 
-            item.on('mouseover.puiorderlist', function(e) {
+            item.on('mouseover.ui-orderlist', function(e) {
                 var element = $(this);
 
                 if(!element.hasClass('ui-state-highlight'))
                     $(this).addClass('ui-state-hover');
             })
-            .on('mouseout.puiorderlist', function(e) {
+            .on('mouseout.ui-orderlist', function(e) {
                 var element = $(this);
 
                 if(!element.hasClass('ui-state-highlight'))
                     $(this).removeClass('ui-state-hover');
             })
-            .on('mousedown.puiorderlist', function(e) {
+            .on('mousedown.ui-orderlist', function(e) {
                 var element = $(this),
                 metaKey = (e.metaKey||e.ctrlKey);
-
-                if(!metaKey||!$this.options.multiple) {
-                    element.removeClass('ui-state-hover').addClass('ui-state-highlight')
-                            .siblings('.ui-state-highlight').removeClass('ui-state-highlight');
-
-                    //$this.fireItemSelectEvent(element, e);
+                
+                if(element.hasClass('ui-state-highlight')) {
+                    if(metaKey) {
+                        element.removeClass('ui-state-highlight');
+                    }
                 }
                 else {
-                    if(element.hasClass('ui-state-highlight')) {
-                        element.removeClass('ui-state-highlight');
-                        //$this.fireItemUnselectEvent(element);
+                    if(!$this.options.multiple||!metaKey) {
+                        element.siblings('.ui-state-highlight').removeClass('ui-state-highlight');
                     }
-                    else {
-                        element.removeClass('ui-state-hover').addClass('ui-state-highlight');
-                        //$this.fireItemSelectEvent(element, e);
-                    }
+                    
+                    element.removeClass('ui-state-hover').addClass('ui-state-highlight');
                 }
             });
         },
@@ -9468,16 +9464,32 @@ PUI.resolveUserAgent();/**
             var $this = this;
 
             this.moveUpButton.on('click.ui-orderlist', function(e) {
+                var item = $this.items.filter('.ui-state-highlight').eq(0);
                 $this._trigger('onMoveUp', e, {index: $this.items.filter('.ui-state-highlight').index()});
+                setTimeout(function() {
+                    PUI.scrollInView($this.list, item);
+                }, 50);
             });
             this.moveTopButton.on('click.ui-orderlist', function(e) {
+                var item = $this.items.filter('.ui-state-highlight').eq(0);
                 $this._trigger('onMoveTop', e, {index: $this.items.filter('.ui-state-highlight').index()});
+                setTimeout(function() {
+                    PUI.scrollInView($this.list, item);
+                }, 50);
             });
             this.moveDownButton.on('click.ui-orderlist', function(e) {
+                var item = $this.items.filter('.ui-state-highlight').eq(0);
                 $this._trigger('onMoveDown', e, {index: $this.items.filter('.ui-state-highlight').index()});
+                setTimeout(function() {
+                    PUI.scrollInView($this.list, item);
+                }, 50);
             });
             this.moveBottomButton.on('click.ui-orderlist', function(e) {
+                var item = $this.items.filter('.ui-state-highlight').eq(0);
                 $this._trigger('onMoveBottom', e, {index: $this.items.filter('.ui-state-highlight').index()});
+                setTimeout(function() {
+                    PUI.scrollInView($this.list, item);
+                }, 50);
             });
         },
                 
@@ -9544,6 +9556,10 @@ PUI.resolveUserAgent();/**
                 this.moveDownButton.puibutton('enable');
                 this.moveBottomButton.puibutton('enable');
             }
+        },
+        
+        _destroy: function() {
+            this.unbindEvents();
         }
         
     });

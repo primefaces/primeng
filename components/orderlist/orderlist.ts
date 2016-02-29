@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers} from 'angular2/core';
 import {Button} from '../button/button';
 
 @Component({
@@ -23,7 +23,7 @@ import {Button} from '../button/button';
     `,
     directives: [Button]
 })
-export class OrderList implements AfterViewInit {
+export class OrderList implements AfterViewInit,OnDestroy {
 
     @Input() value: any[];
     
@@ -36,18 +36,17 @@ export class OrderList implements AfterViewInit {
     @Input() listStyle: string;
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
-    
-    differ: any;
+        
+    initialized: boolean;
 
-    constructor(private el: ElementRef, differs: IterableDiffers) {
-        this.differ = differs.find([]).create(null);
-    }
+    constructor(private el: ElementRef) {}
 
     ngAfterViewInit() {
         setTimeout(() => {
             jQuery(this.el.nativeElement.children[0]).puiorderlist({
                 enhanced: true,
                 multiple: false,
+                dragdrop: false,
                 onMoveUp: (event: Event, ui: any) => {
                     this.moveUp(ui.index);
                 },
@@ -61,6 +60,7 @@ export class OrderList implements AfterViewInit {
                     this.moveBottom(ui.index);
                 }
             });
+            this.initialized = true;
         }, 10);
     }
     
@@ -93,6 +93,13 @@ export class OrderList implements AfterViewInit {
         if(index !== (this.value.length - 1)) {
             let movedItem = this.value.splice(index,1)[0];
             this.value.push(movedItem);
+        }
+    }
+    
+    ngOnDestroy() {
+        if(this.initialized) {
+            jQuery(this.el.nativeElement.children[0]).puiorderlist('destroy');
+            this.initialized = false;
         }
     }
 }
