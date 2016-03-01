@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,ContentChild,TemplateRef,Renderer} from 'angular2/core';
+import {Component,ElementRef,OnDestroy,DoCheck,Input,Output,ContentChild,TemplateRef,Renderer} from 'angular2/core';
 import {Button} from '../button/button';
 import {DomUtils} from '../utils/domutils';
 
@@ -23,10 +23,10 @@ import {DomUtils} from '../utils/domutils';
             </div>
             <div class="ui-picklist-buttons">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-right"></button>
-                    <button type="button" pButton icon="fa-angle-double-right"></button>
-                    <button type="button" pButton icon="fa-angle-left"></button>
-                    <button type="button" pButton icon="fa-angle-double-left"></button>
+                    <button type="button" pButton icon="fa-angle-right" (click)="moveRight(sourcelist)"></button>
+                    <button type="button" pButton icon="fa-angle-double-right" (click)="moveAllRight(sourcelist)"></button>
+                    <button type="button" pButton icon="fa-angle-left" (click)="moveLeft(targetlist)"></button>
+                    <button type="button" pButton icon="fa-angle-double-left" (click)="moveAllLeft(targetlist)"></button>
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper">
@@ -48,7 +48,7 @@ import {DomUtils} from '../utils/domutils';
     `,
     directives: [Button]
 })
-export class PickList implements AfterViewInit,OnDestroy {
+export class PickList implements OnDestroy {
 
     @Input() source: any[];
     
@@ -71,10 +71,6 @@ export class PickList implements AfterViewInit,OnDestroy {
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
                             
     constructor(private el: ElementRef, private renderer: Renderer) {}
-
-    ngAfterViewInit() {
-
-    }
     
     onMouseover(event) {
         let element = event.target;
@@ -207,6 +203,36 @@ export class PickList implements AfterViewInit,OnDestroy {
                 break;
             }
         }
+    }
+    
+    moveRight(sourceListElement) {
+        let selectedElements = this.getSelectedListElements(sourceListElement);
+        let i = selectedElements.length;
+        while(i--) {
+            this.target.push(this.source.splice(DomUtils.index(selectedElements[i]),1)[0]);
+        }
+    }
+    
+    moveAllRight() {
+        for(let i = 0; i < this.source.length; i++) {
+            this.target.push(this.source[i]);
+        }
+        this.source.splice(0, this.source.length);
+    }
+    
+    moveLeft(targetListElement) {
+        let selectedElements = this.getSelectedListElements(targetListElement);
+        let i = selectedElements.length;
+        while(i--) {
+            this.source.push(this.target.splice(DomUtils.index(selectedElements[i]),1)[0]);
+        }
+    }
+    
+    moveAllLeft() {
+        for(let i = 0; i < this.target.length; i++) {
+            this.source.push(this.target[i]);
+        }
+        this.target.splice(0, this.target.length);
     }
     
     getListElements(listElement) {
