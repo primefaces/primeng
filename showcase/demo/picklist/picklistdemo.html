@@ -24,22 +24,22 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {OrderList} from 'primeng/primeng';
+import {PickList} from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>OrderList requires an array as its value and a template for its content. Template should
-            contain a wrapper li element having ui-orderlist-item style class. Each item in the array can be accessed inside the template using a local template variable. </p>
+            <p>PickList requires two arrays for its lists and a template for the item content. Template should
+            contain a wrapper li element having ui-picklist-item style class. Each item in the array can be accessed inside the template using a local template variable. </p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-orderList [value]="cars"&gt;
+&lt;p-pickList [source]="list1" [target]="list2"&gt;
     &lt;template #car&gt;
-        &lt;li class="ui-orderlist-item ui-helper-clearfix"&gt;
+        &lt;li class="ui-picklist-item"&gt;
             Content of an item
         &lt;/li&gt;
     &lt;/template&gt;
-&lt;/p-orderList&gt;
+&lt;/p-pickList&gt;
 </code>
 </pre>
 
@@ -47,19 +47,30 @@ import {OrderList} from 'primeng/primeng';
 <code class="language-typescript" pCode>
 export class MyComponent {
 
-    cars: Car[];
+    list1: any[];
+    
+    list2: any[];
     
     ngOnInit() {
-        this.cars = //initialize cars
+        this.list1 = //initialize list 1
+        this.list1 = //initialize list 2
     }
 }
 </code>
 </pre>
             <h3>Responsive</h3>
-            <p>In responsive mode, orderlist adjusts its controls based on screen size. To activate this mode, set responsive as true.</p>
+            <p>In responsive mode, picklist adjusts its controls based on screen size. To activate this mode, set responsive as true.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-orderList [value]="cars" [responsive]="true"&gt;
+&lt;p-pickList [responsive]="true"&gt;
+</code>
+</pre>
+
+            <h3>Headers</h3>
+            <p>sourceHeader and targetHeader attributes are used to define captions for the lists.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-pickList sourceHeader="Source List" targetHeader="Target List"&gt;
 </code>
 </pre>
 
@@ -76,16 +87,28 @@ export class MyComponent {
                     </thead>
                     <tbody>
                     <tr>
-                        <td>value</td>
+                        <td>source</td>
                         <td>array</td>
                         <td>null</td>
-                        <td>An array of objects to reorder.</td>
+                        <td>An array of objects for the source list.</td>
                     </tr>
                     <tr>
-                        <td>header</td>
+                        <td>target</td>
+                        <td>array</td>
+                        <td>null</td>
+                        <td>An array of objects for the target list.</td>
+                    </tr>
+                    <tr>
+                        <td>sourceHeader</td>
                         <td>string</td>
                         <td>null</td>
-                        <td>Text for the caption</td>
+                        <td>Text for the source list caption</td>
+                    </tr>
+                    <tr>
+                        <td>targetHeader</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Text for the target list caption</td>
                     </tr>
                     <tr>
                         <td>style</td>
@@ -100,10 +123,16 @@ export class MyComponent {
                         <td>Style class of the component.</td>
                     </tr>
                     <tr>
-                        <td>listStyle</td>
+                        <td>sourceStyle</td>
                         <td>string</td>
                         <td>null</td>
-                        <td>Inline style of the list element.</td>
+                        <td>Inline style of the source list element.</td>
+                    </tr>
+                    <tr>
+                        <td>targetStyle</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Inline style of the target list element.</td>
                     </tr>
                     <tr>
                         <td>responsive</td>
@@ -127,15 +156,31 @@ export class MyComponent {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-orderlist</td>
+                            <td>ui-picklist</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-orderlist-list</td>
-                            <td>List container.</td>
+                            <td>ui-picklist-source-controls</td>
+                            <td>Container of source list buttons.</td>
                         </tr>
                         <tr>
-                            <td>ui-orderlist-item</td>
+                            <td>ui-picklist-target-controls</td>
+                            <td>Container of target list buttons.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-picklist-buttons</td>
+                            <td>Container of buttons.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-picklist-listwrapper</td>
+                            <td>Parent of a list element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-picklist-list</td>
+                            <td>List element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-picklist-item</td>
                             <td>An item in the list.</td>
                         </tr>
                     </tbody>
@@ -143,44 +188,36 @@ export class MyComponent {
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that only requires css of PrimeUI OrderList.</p>
+            <p>Native component that only requires css of PrimeUI PickList.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;div class="ui-grid ui-grid-responsive"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;p-orderList [value]="cars" listStyle="height:250px" [responsive]="true" header="Responsive Cars"&gt;
-                &lt;template #car&gt;
-                    &lt;li class="ui-orderlist-item ui-helper-clearfix"&gt;
-                        &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-                        &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
-                    &lt;/li&gt;
-                &lt;/template&gt;
-            &lt;/p-orderList&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;ul&gt;
-                &lt;li *ngFor="#car of cars" style="list-style-type:none"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
+&lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" sourceStyle="height:300px" targetStyle="height:300px"&gt;
+    &lt;template #car&gt;
+        &lt;li class="ui-picklist-item ui-helper-clearfix"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+        &lt;/li&gt;
+    &lt;/template&gt;
+&lt;/p-pickList&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class OrderListDemo {
+export class PickListDemo {
 
-    cars: Car[];
+    sourceCars: Car[];
+    
+    targetCars: Car[];
     
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.carService.getCarsSmall().then(cars => this.sourceCars = cars);
+        this.targetCars = [];
     }
 }
 </code>
