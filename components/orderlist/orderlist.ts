@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,ContentChild,TemplateRef,Renderer} from 'angular2/core';
+import {Component,ElementRef,DoCheck,Input,Output,ContentChild,TemplateRef,Renderer} from 'angular2/core';
 import {Button} from '../button/button';
 import {DomUtils} from '../utils/domutils';
 
@@ -8,14 +8,14 @@ import {DomUtils} from '../utils/domutils';
         <div [ngClass]="{'ui-orderlist ui-grid ui-widget':true,'ui-grid-responsive':responsive}" [attr.style]="style" [attr.class]="styleClass">
             <div class="ui-grid-row">
                 <div class="ui-orderlist-controls ui-grid-col-2">
-                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp()"></button>
-                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop()"></button>
-                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown()"></button>
-                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom()"></button>
+                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(listelement)"></button>
+                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(listelement)"></button>
+                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(listelement)"></button>
+                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(listelement)"></button>
                 </div>
                 <div class="ui-grid-col-10">
                     <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
-                    <ul class="ui-widget-content ui-orderlist-list ui-corner-bottom" [attr.style]="listStyle" 
+                    <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [attr.style]="listStyle" 
                         (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
                         <template ngFor [ngForOf]="value" [ngForTemplate]="itemTemplate"></template>
                     </ul>
@@ -25,7 +25,7 @@ import {DomUtils} from '../utils/domutils';
     `,
     directives: [Button]
 })
-export class OrderList implements AfterViewInit,OnDestroy {
+export class OrderList {
 
     @Input() value: any[];
     
@@ -40,14 +40,8 @@ export class OrderList implements AfterViewInit,OnDestroy {
     @Input() responsive: boolean;
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
-                    
-    listContainer: any;
         
     constructor(private el: ElementRef, private renderer: Renderer) {}
-
-    ngAfterViewInit() {
-        this.listContainer = DomUtils.find(this.el.nativeElement, 'ul')[0];
-    }
             
     onMouseover(event) {
         let element = event.target;
@@ -110,8 +104,8 @@ export class OrderList implements AfterViewInit,OnDestroy {
         }
     }
 
-    moveUp() {
-        let selectedElements = this.getSelectedListElements();
+    moveUp(listElement) {
+        let selectedElements = this.getSelectedListElements(listElement);
         for(let i = 0; i < selectedElements.length; i++) {
             let selectedElement = selectedElements[i];
             let selectedElementIndex: number = DomUtils.index(selectedElement);
@@ -121,7 +115,7 @@ export class OrderList implements AfterViewInit,OnDestroy {
                 let temp = this.value[selectedElementIndex-1];
                 this.value[selectedElementIndex-1] = movedItem;
                 this.value[selectedElementIndex] = temp;
-                DomUtils.scrollInView(this.listContainer, this.getListElements()[selectedElementIndex - 1]);
+                DomUtils.scrollInView(listElement, listElement.children[selectedElementIndex - 1]);
             }
             else {
                 break;
@@ -129,8 +123,8 @@ export class OrderList implements AfterViewInit,OnDestroy {
         }
     }
     
-    moveTop() {
-        let selectedElements = this.getSelectedListElements();
+    moveTop(listElement) {
+        let selectedElements = this.getSelectedListElements(listElement);
         for(let i = 0; i < selectedElements.length; i++) {
             let selectedElement = selectedElements[i];
             let selectedElementIndex: number = DomUtils.index(selectedElement);
@@ -138,7 +132,7 @@ export class OrderList implements AfterViewInit,OnDestroy {
             if(selectedElementIndex != 0) {
                 let movedItem = this.value.splice(selectedElementIndex,1)[0];
                 this.value.unshift(movedItem);
-                this.listContainer.scrollTop = 0;
+                listElement.scrollTop = 0;
             }
             else {
                 break;
@@ -146,8 +140,8 @@ export class OrderList implements AfterViewInit,OnDestroy {
         }
     }
     
-    moveDown() {
-        let selectedElements = this.getSelectedListElements();
+    moveDown(listElement) {
+        let selectedElements = this.getSelectedListElements(listElement);
         for(let i = selectedElements.length - 1; i >= 0; i--) {
             let selectedElement = selectedElements[i];
             let selectedElementIndex: number = DomUtils.index(selectedElement);
@@ -157,7 +151,7 @@ export class OrderList implements AfterViewInit,OnDestroy {
                 let temp = this.value[selectedElementIndex+1];
                 this.value[selectedElementIndex+1] = movedItem;
                 this.value[selectedElementIndex] = temp;
-                DomUtils.scrollInView(this.listContainer, this.getListElements()[selectedElementIndex + 1]);
+                DomUtils.scrollInView(listElement, listElement.children[selectedElementIndex + 1]);
             }
             else {
                 break;
@@ -165,8 +159,8 @@ export class OrderList implements AfterViewInit,OnDestroy {
         }
     }
     
-    moveBottom() {
-        let selectedElements = this.getSelectedListElements();
+    moveBottom(listElement) {
+        let selectedElements = this.getSelectedListElements(listElement);
         for(let i = selectedElements.length - 1; i >= 0; i--) {
             let selectedElement = selectedElements[i];
             let selectedElementIndex: number = DomUtils.index(selectedElement);
@@ -174,23 +168,15 @@ export class OrderList implements AfterViewInit,OnDestroy {
             if(selectedElementIndex != (this.value.length - 1)) {
                 let movedItem = this.value.splice(selectedElementIndex,1)[0];
                 this.value.push(movedItem);
-                this.listContainer.scrollTop = this.listContainer.scrollHeight;
+                listElement.scrollTop = listElement.scrollHeight;
             }
             else {
                 break;
             }
         }
     }
-    
-    getListElements() {
-        return this.listContainer.children;
-    }
-    
-    getSelectedListElements() {
-        return DomUtils.find(this.listContainer, 'li.ui-state-highlight');
-    }
-    
-    ngOnDestroy() {
-        this.listContainer = null;
+        
+    getSelectedListElements(listElement) {
+        return DomUtils.find(listElement, 'li.ui-state-highlight');
     }
 }
