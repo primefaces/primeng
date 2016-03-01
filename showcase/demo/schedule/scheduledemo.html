@@ -1,0 +1,297 @@
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Schedule</span>
+        <span class="defaultText dispTable">Schedule is an event calendar based on FullCalendar.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-schedule [events]="events"></p-schedule>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode>
+import {Schedule} from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Listbox requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+import {SelectItem} from 'primeng/primeng';
+
+export class MyModel {
+
+    cities: SelectItem[];
+
+    selectedCity: string;
+
+    constructor() {
+        this.cities = [];
+        this.cities.push({label:'New York', value:'New York'});
+        this.cities.push({label:'Rome', value:'Rome'});
+        this.cities.push({label:'London', value:'London'});
+        this.cities.push({label:'Istanbul', value:'Istanbul'});
+        this.cities.push({label:'Paris', value:'Paris'});
+    }
+
+}
+</code>
+</pre>
+            <h3>Multiple</h3>
+            <p>Listbox allows selecting only one item, setting multiple option enables choosing more than one item. In multiple case, model property should be an array.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-listbox [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-listbox&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+import {SelectItem} from 'primeng/primeng';
+
+export class MyModel {
+
+    cities: SelectItem[];
+
+    selectedCities: string[];
+
+    constructor() {
+        this.cities = [];
+        this.cities.push({label:'New York', value:'New York'});
+        this.cities.push({label:'Rome', value:'Rome'});
+        this.cities.push({label:'London', value:'London'});
+        this.cities.push({label:'Istanbul', value:'Istanbul'});
+        this.cities.push({label:'Paris', value:'Paris'});
+    }
+
+}
+</code>
+</pre>
+
+            <h3>Custom Content</h3>
+            <p>Label of an option is used as the display text of an item by default, for custom content support define a template having a li item as a wrapper for the content. The local template variable
+            refers to an option in the options collection.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px"&gt;
+    &lt;template #car&gt;
+        &lt;li class="ui-helper-clearfix"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
+        &lt;/li&gt;
+    &lt;/template&gt;
+&lt;/p-listbox&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+import {SelectItem} from 'primeng/primeng'
+
+export class MyModel {
+
+    cars: SelectItem[];
+
+    selectedCar: string;
+
+    constructor() {
+        this.cars = [];
+        this.cars.push({label: 'Audi', value: 'Audi'});
+        this.cars.push({label: 'BMW', value: 'BMW'});
+        this.cars.push({label: 'Fiat', value: 'Fiat'});
+        this.cars.push({label: 'Ford', value: 'Ford'});
+        this.cars.push({label: 'Honda', value: 'Honda'});
+        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
+        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
+        this.cars.push({label: 'Renault', value: 'Renault'});
+        this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
+        this.cars.push({label: 'Volvo', value: 'Volvo'});
+    }
+}
+</code>
+</pre>
+
+            <h3>Attributes</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>options</td>
+                        <td>array</td>
+                        <td>null</td>
+                        <td>An array of selectitems to display as the available options.</td>
+                    </tr>
+                    <tr>
+                        <td>value</td>
+                        <td>any</td>
+                        <td>false</td>
+                        <td>Value of the listbox.</td>
+                    </tr>
+                    <tr>
+                        <td>multiple</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>When specified, allows selecting multiple values.</td>
+                    </tr>
+                    <tr>
+                        <td>scrollHeight</td>
+                        <td>number</td>
+                        <td>200</td>
+                        <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
+                    </tr>
+                    <tr>
+                        <td>style</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Inline style of the element.</td>
+                    </tr>
+                    <tr>
+                        <td>styleClass</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Style class of the element.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onChange</td>
+                            <td>event.originalEvent: browser event<br />
+                                event.value: single value or an array of values that are selected
+                            </td>
+                            <td>Callback to invoke when value of listbox changes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-listbox</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-listbox-list</td>
+                            <td>List container.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-listbox-item</td>
+                            <td>An item in the list.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>PrimeUI Listbox.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Single&lt;/h3&gt;
+&lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
+
+&lt;p&gt;Selected City: {{selectedCity}}&lt;/p&gt;
+
+&lt;h3&gt;Multiple&lt;/h3&gt;
+&lt;p-listbox [options]="cities" [(value)]="selectedCities" multiple="multiple"&gt;&lt;/p-listbox&gt;
+&lt;p&gt;Selected Cities: &lt;span *ngFor="#c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h3&gt;Content&lt;/h3&gt;
+&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px"&gt;
+    &lt;template #car&gt;
+        &lt;li class="ui-helper-clearfix"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
+        &lt;/li&gt;
+    &lt;/template&gt;
+&lt;/p-listbox&gt;
+&lt;p&gt;Selected Car: {{selectedCar}}&lt;/p&gt;
+
+&lt;button type="button" (click)="selectedCar=null" pButton icon="fa-close"&gt;Clear Selected Car&lt;/button&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class ListboxDemo {
+
+    cities: SelectItem[];
+
+    selectedCity: string;
+
+    selectedCities: string[];
+
+    cars: SelectItem[];
+
+    selectedCar: string = 'BMW';
+
+    constructor() {
+        this.cities = [];
+        this.cities.push({label:'New York', value:'New York'});
+        this.cities.push({label:'Rome', value:'Rome'});
+        this.cities.push({label:'London', value:'London'});
+        this.cities.push({label:'Istanbul', value:'Istanbul'});
+        this.cities.push({label:'Paris', value:'Paris'});
+
+        this.cars = [];
+        this.cars.push({label: 'Audi', value: 'Audi'});
+        this.cars.push({label: 'BMW', value: 'BMW'});
+        this.cars.push({label: 'Fiat', value: 'Fiat'});
+        this.cars.push({label: 'Ford', value: 'Ford'});
+        this.cars.push({label: 'Honda', value: 'Honda'});
+        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
+        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
+        this.cars.push({label: 'Renault', value: 'Renault'});
+        this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
+        this.cars.push({label: 'Volvo', value: 'Volvo'});
+    }
+}
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
