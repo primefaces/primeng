@@ -407,7 +407,7 @@ button.ui-button::-moz-focus-inner{border:0;padding:0;}
 .ui-picklist-list.ui-picklist-source,.ui-picklist-list.ui-picklist-target{outline:none;}
 .ui-picklist.ui-picklist-responsive *{box-sizing:border-box;}
 .ui-picklist.ui-picklist-responsive{width:100%;}
-.ui-picklist.ui-picklist-responsive .ui-picklist-list-wrapper{width:35%;}
+.ui-picklist.ui-picklist-responsive .ui-picklist-listwrapper{width:35%;}
 .ui-picklist.ui-picklist-responsive .ui-picklist-buttons{width:10%;}
 .ui-picklist.ui-picklist-responsive .ui-picklist-buttons button{width:100%;}
 .ui-picklist.ui-picklist-responsive .ui-picklist-list{width:auto;}

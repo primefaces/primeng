@@ -60,6 +60,7 @@ import {DataTableCrudDemo} from "./demo/datatable/datatablecruddemo";
 import {DataTableLazyDemo} from "./demo/datatable/datatablelazydemo";
 import {CodeHighlighterDemo} from "./demo/codehighlighter/codehighlighterdemo";
 import {OrderListDemo} from "./demo/orderlist/orderlistdemo";
+import {PickListDemo} from "./demo/picklist/picklistdemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -126,7 +127,8 @@ import {OrderListDemo} from "./demo/orderlist/orderlistdemo";
     {path: '/datatablelazy', name: 'DataTableLazyDemo', component: DataTableLazyDemo},
     {path: '/datatablecrud', name: 'DataTableCrudDemo', component: DataTableCrudDemo},
     {path: '/codehighlighter', name: 'CodeHighlighterDemo', component: CodeHighlighterDemo},
-    {path: '/orderlist', name: 'OrderListDemo', component: OrderListDemo}
+    {path: '/orderlist', name: 'OrderListDemo', component: OrderListDemo},
+    {path: '/picklist', name: 'PickListDemo', component: PickListDemo}
 ])
 export class AppComponent {
 
