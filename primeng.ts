@@ -4,6 +4,7 @@ export * from './components/accordion/accordion';
 export * from './components/accordion/accordiontab';
 export * from './components/breadcrumb/breadcrumb';
 export * from './components/button/button';
+export * from './components/calendar/calendar';
 export * from './components/carousel/carousel';
 export * from './components/codehighlighter/codehighlighter';
 export * from './components/chart/barchart/barchart';
