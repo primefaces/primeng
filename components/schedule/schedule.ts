@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,ContentChild,TemplateRef} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from 'angular2/core';
 import {SelectItem} from '../api/selectitem';
 
 @Component({
@@ -11,36 +11,40 @@ export class Schedule {
 
     initialized: boolean;
 
-    @Input() events: any;
+    @Input() events: any[];
 
     @Input() style: string;
 
     @Input() styleClass: string;
     
     stopNgOnChangesPropagation: boolean;
+    
+    differ: any;
+    
+    schedule: any;
 
-    constructor(private el: ElementRef) {
+    constructor(private el: ElementRef, differs: IterableDiffers) {
+        this.differ = differs.find([]).create(null);
         this.initialized = false;
     }
 
     ngAfterViewInit() {
-        jQuery(this.el.nativeElement.children[0]).fullCalendar({
-            theme: true
+        this.schedule = jQuery(this.el.nativeElement.children[0]);
+        this.schedule.fullCalendar({
+            theme: true,
+            events: (start, end, timezone, callback) => {
+                callback(this.events);
+            }
         });
         this.initialized = true;
     }
 
-    ngOnChanges(changes: { [key: string]: SimpleChange}) {
-        /*if (this.initialized) {
-            for (var key in changes) {
-                if (key == 'value' && this.stopNgOnChangesPropagation) {
-                    this.stopNgOnChangesPropagation = false;
-                    continue;
-                }
-
-                jQuery(this.el.nativeElement.children[0].children[0].children[0]).puilistbox('option', key, changes[key].currentValue);
-            }
-        }*/
+    ngDoCheck() {
+        let changes = this.differ.diff(this.events);
+        
+        if(changes) {
+            this.schedule.fullCalendar('refetchEvents');
+        }
     }
 
     ngOnDestroy() {
