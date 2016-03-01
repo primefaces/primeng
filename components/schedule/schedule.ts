@@ -47,7 +47,9 @@ export class Schedule {
     
     @Input() eventDurationEditable: boolean;
     
-    @Input() defaultView: string;
+    @Input() defaultView: string = 'month';
+    
+    @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     initialized: boolean;
     
@@ -85,6 +87,13 @@ export class Schedule {
             defaultView: this.defaultView,
             events: (start, end, timezone, callback) => {
                 callback(this.events);
+            },
+            dayClick: (date, jsEvent, view) => {
+                this.onDayClick.next({
+                    'date': date,
+                    'event': jsEvent,
+                    'view': view
+                })
             }
         });
         this.initialized = true;
