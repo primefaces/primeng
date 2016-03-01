@@ -17,9 +17,17 @@ export class ScheduleDemo implements OnInit {
 
     events: any[];
     
+    header: any;
+    
     constructor(private eventService: EventService) { }
 
     ngOnInit() {
         this.eventService.getEvents().then(events => {this.events = events;});
+        
+        this.header = {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		};
     }
 }
