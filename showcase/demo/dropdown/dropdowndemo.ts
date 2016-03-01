@@ -39,7 +39,7 @@ export class DropdownDemo {
         this.cars.push({label: 'Jaguar', value: 'Jaguar'});
         this.cars.push({label: 'Mercedes', value: 'Mercedes'});
         this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
+        this.cars.push({label: 'VW', value: 'VW'});
         this.cars.push({label: 'Volvo', value: 'Volvo'});
     }
 
