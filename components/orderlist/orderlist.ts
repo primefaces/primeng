@@ -107,62 +107,98 @@ export class OrderList implements AfterViewInit,OnDestroy {
         if(DomUtils.hasClass(item, 'ui-state-highlight')) {
             if(metaKey) {
                 DomUtils.removeClass(item, 'ui-state-highlight');
-                this.selectedIndex = null;
             }
         }
         else {
-            let siblings = DomUtils.siblings(item);
-            for(let i = 0; i < siblings.length; i++) {
-                let sibling = siblings[i];
-                if(DomUtils.hasClass(sibling, 'ui-state-highlight')) {
-                    DomUtils.removeClass(sibling, 'ui-state-highlight');
+            if(!metaKey) {
+                let siblings = DomUtils.siblings(item);
+                for(let i = 0; i < siblings.length; i++) {
+                    let sibling = siblings[i];
+                    if(DomUtils.hasClass(sibling, 'ui-state-highlight')) {
+                        DomUtils.removeClass(sibling, 'ui-state-highlight');
+                    }
                 }
             }
             
             DomUtils.removeClass(item, 'ui-state-hover');
             DomUtils.addClass(item, 'ui-state-highlight');
-            this.selectedIndex = DomUtils.index(item);
         }
     }
 
     moveUp() {
-        if(this.selectedIndex != null && this.selectedIndex !== 0) {
-            let movedItem = this.value[this.selectedIndex];
-            let temp = this.value[this.selectedIndex-1];
-            this.value[this.selectedIndex-1] = movedItem;
-            this.value[this.selectedIndex] = temp;
-            this.selectedIndex--;
-            DomUtils.scrollInView(this.listContainer, this.items[this.selectedIndex]);
+        let selectedElements = this.getSelectedElements();
+        for(let i = 0; i < selectedElements.length; i++) {
+            let selectedElement = selectedElements[i];
+            let selectedElementIndex: number = DomUtils.index(selectedElement);
+
+            if(selectedElementIndex != 0) {
+                let movedItem = this.value[selectedElementIndex];
+                let temp = this.value[selectedElementIndex-1];
+                this.value[selectedElementIndex-1] = movedItem;
+                this.value[selectedElementIndex] = temp;
+                DomUtils.scrollInView(this.listContainer, this.items[selectedElementIndex - 1]);
+            }
+            else {
+                break;
+            }
         }
     }
     
     moveTop() {
-        if(this.selectedIndex != null && this.selectedIndex !== 0) {
-            let movedItem = this.value.splice(this.selectedIndex,1)[0];
-            this.value.unshift(movedItem);
-            this.selectedIndex = 0;
-            this.listContainer.scrollTop = 0;
+        let selectedElements = this.getSelectedElements();
+        for(let i = 0; i < selectedElements.length; i++) {
+            let selectedElement = selectedElements[i];
+            let selectedElementIndex: number = DomUtils.index(selectedElement);
+
+            if(selectedElementIndex != 0) {
+                let movedItem = this.value.splice(selectedElementIndex,1)[0];
+                this.value.unshift(movedItem);
+                this.listContainer.scrollTop = 0;
+            }
+            else {
+                break;
+            }
         }
     }
     
     moveDown() {
-        if(this.selectedIndex != null && this.selectedIndex !== (this.value.length - 1)) {
-            let movedItem = this.value[this.selectedIndex];
-            let temp = this.value[this.selectedIndex+1];
-            this.value[this.selectedIndex+1] = movedItem;
-            this.value[this.selectedIndex] = temp;
-            this.selectedIndex++;
-            DomUtils.scrollInView(this.listContainer, this.items[this.selectedIndex]);
+        let selectedElements = this.getSelectedElements();
+        for(let i = selectedElements.length - 1; i >= 0; i--) {
+            let selectedElement = selectedElements[i];
+            let selectedElementIndex: number = DomUtils.index(selectedElement);
+
+            if(selectedElementIndex != (this.value.length - 1)) {
+                let movedItem = this.value[selectedElementIndex];
+                let temp = this.value[selectedElementIndex+1];
+                this.value[selectedElementIndex+1] = movedItem;
+                this.value[selectedElementIndex] = temp;
+                DomUtils.scrollInView(this.listContainer, this.items[selectedElementIndex]);
+            }
+            else {
+                break;
+            }
         }
     }
     
     moveBottom() {
-        if(this.selectedIndex != null && this.selectedIndex !== (this.value.length - 1)) {
-            let movedItem = this.value.splice(this.selectedIndex,1)[0];
-            this.value.push(movedItem);
-            this.selectedIndex = this.value.length - 1;
-            this.listContainer.scrollTop = this.listContainer.scrollHeight;
+        let selectedElements = this.getSelectedElements();
+        for(let i = selectedElements.length - 1; i >= 0; i--) {
+            let selectedElement = selectedElements[i];
+            let selectedElementIndex: number = DomUtils.index(selectedElement);
+
+            if(selectedElementIndex != (this.value.length - 1)) {
+                let movedItem = this.value.splice(selectedElementIndex,1)[0];
+                this.value.push(movedItem);
+                this.listContainer.scrollTop = this.listContainer.scrollHeight;
+            }
+            else {
+                break;
+            }
         }
+    }
+    
+    getSelectedElements() {
+        return DomUtils.find(this.listContainer, 'li.ui-state-highlight');
     }
     
     ngOnDestroy() {
