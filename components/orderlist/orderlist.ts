@@ -40,30 +40,15 @@ export class OrderList implements AfterViewInit,OnDestroy {
     @Input() responsive: boolean;
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
-            
-    items: any;
-    
-    selectedIndex: number = null;
-    
+                    
     listContainer: any;
         
     constructor(private el: ElementRef, private renderer: Renderer) {}
 
     ngAfterViewInit() {
-        setTimeout(() => {
-            this.listContainer = DomUtils.find(this.el.nativeElement, 'ul')[0];
-            this.items = this.listContainer.children;
-            this.bindEvents();
-        }, 25);
+        this.listContainer = DomUtils.find(this.el.nativeElement, 'ul')[0];
     }
-        
-    bindEvents() {        
-        for(let i = 0; i < this.items.length; i++) {
-            let item = this.items[i];
-            DomUtils.addClass(item, 'ui-orderlist-item');
-        }
-    }
-    
+            
     onMouseover(event) {
         let element = event.target;
         if(element.nodeName != 'UL') {
@@ -126,7 +111,7 @@ export class OrderList implements AfterViewInit,OnDestroy {
     }
 
     moveUp() {
-        let selectedElements = this.getSelectedElements();
+        let selectedElements = this.getSelectedListElements();
         for(let i = 0; i < selectedElements.length; i++) {
             let selectedElement = selectedElements[i];
             let selectedElementIndex: number = DomUtils.index(selectedElement);
@@ -136,7 +121,7 @@ export class OrderList implements AfterViewInit,OnDestroy {
                 let temp = this.value[selectedElementIndex-1];
                 this.value[selectedElementIndex-1] = movedItem;
                 this.value[selectedElementIndex] = temp;
-                DomUtils.scrollInView(this.listContainer, this.items[selectedElementIndex - 1]);
+                DomUtils.scrollInView(this.listContainer, this.getListElements()[selectedElementIndex - 1]);
             }
             else {
                 break;
@@ -145,7 +130,7 @@ export class OrderList implements AfterViewInit,OnDestroy {
     }
     
     moveTop() {
-        let selectedElements = this.getSelectedElements();
+        let selectedElements = this.getSelectedListElements();
         for(let i = 0; i < selectedElements.length; i++) {
             let selectedElement = selectedElements[i];
             let selectedElementIndex: number = DomUtils.index(selectedElement);
@@ -162,7 +147,7 @@ export class OrderList implements AfterViewInit,OnDestroy {
     }
     
     moveDown() {
-        let selectedElements = this.getSelectedElements();
+        let selectedElements = this.getSelectedListElements();
         for(let i = selectedElements.length - 1; i >= 0; i--) {
             let selectedElement = selectedElements[i];
             let selectedElementIndex: number = DomUtils.index(selectedElement);
@@ -172,7 +157,7 @@ export class OrderList implements AfterViewInit,OnDestroy {
                 let temp = this.value[selectedElementIndex+1];
                 this.value[selectedElementIndex+1] = movedItem;
                 this.value[selectedElementIndex] = temp;
-                DomUtils.scrollInView(this.listContainer, this.items[selectedElementIndex]);
+                DomUtils.scrollInView(this.listContainer, this.getListElements()[selectedElementIndex + 1]);
             }
             else {
                 break;
@@ -181,7 +166,7 @@ export class OrderList implements AfterViewInit,OnDestroy {
     }
     
     moveBottom() {
-        let selectedElements = this.getSelectedElements();
+        let selectedElements = this.getSelectedListElements();
         for(let i = selectedElements.length - 1; i >= 0; i--) {
             let selectedElement = selectedElements[i];
             let selectedElementIndex: number = DomUtils.index(selectedElement);
@@ -197,12 +182,15 @@ export class OrderList implements AfterViewInit,OnDestroy {
         }
     }
     
-    getSelectedElements() {
+    getListElements() {
+        return this.listContainer.children;
+    }
+    
+    getSelectedListElements() {
         return DomUtils.find(this.listContainer, 'li.ui-state-highlight');
     }
     
     ngOnDestroy() {
         this.listContainer = null;
-        this.items = null;
     }
 }
