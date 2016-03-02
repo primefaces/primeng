@@ -1,12 +1,40 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Schedule</span>
-        <span class="defaultText dispTable">Schedule is an event calendar based on FullCalendar.</span>
+        <span class="defaultText dispTable">Schedule is an event calendar based on FullCalendar. This sample demonstrates a crud scenario using a Dialog and various other PrimeNG components.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-schedule [events]="events" [header]="header" defaultDate="2016-01-12" [eventLimit]="4" [editable]="true"></p-schedule>
+    <p-schedule [events]="events" [header]="header" defaultDate="2016-01-12" [eventLimit]="4" [editable]="true"
+                (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)">></p-schedule>
+    
+    <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="vin">Title</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="start">Start</label></div>
+                <div class="ui-grid-col-8"><p-calendar id="start" dateFormat="yy-mm-dd" [(value)]="event.start"></p-calendar></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="end">End</label></div>
+                <div class="ui-grid-col-8"><p-calendar id="end" dateFormat="yy-mm-dd" [(value)]="event.end" defaultDate="2016-01-01" placeholder="Optional"></p-calendar></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="allday">All Day</label></div>
+                <div class="ui-grid-col-8"><p-toggleButton [(checked)]="event.allDay" style="width:150px" onLabel="Yes" offLabel="No"></p-toggleButton></div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="button" pButton icon="fa-close" (click)="deleteEvent()">Delete</button>
+                <button type="button" pButton icon="fa-check" (click)="saveEvent()">Save</button>
+            </div>
+        </footer>
+    </p-dialog>
 </div>
 
 <div class="ContentSideSections Source">

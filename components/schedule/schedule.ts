@@ -49,7 +49,31 @@ export class Schedule {
     
     @Input() defaultView: string = 'month';
     
+    @Input() allDaySlot: boolean = true;
+    
+    @Input() slotDuration: any = '00:30:00';
+    
+    @Input() slotLabelInterval: any;
+    
+    @Input() snapDuration: any;
+    
+    @Input() scrollTime: any = '06:00:00';
+    
+    @Input() minTime: any = '00:00:00';
+        
+    @Input() maxTime: any = '24:00:00';
+    
+    @Input() slotEventOverlap: boolean = true;
+    
+    @Input() nowIndicator: boolean;
+    
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onEventClick: EventEmitter<any> = new EventEmitter();
+        
+    @Output() onEventMouseover: EventEmitter<any> = new EventEmitter();
+            
+    @Output() onEventMouseout: EventEmitter<any> = new EventEmitter();
     
     initialized: boolean;
     
@@ -85,15 +109,45 @@ export class Schedule {
             eventStartEditable: this.eventStartEditable,
             eventDurationEditable: this.eventDurationEditable,
             defaultView: this.defaultView,
+            allDayslot: this.allDaySlot,
+            slotDuration: this.slotDuration,
+            slotLabelInterval: this.slotLabelInterval,
+            snapDuration: this.snapDuration,
+            scrollTime: this.scrollTime,
+            minTime: this.minTime,
+            maxTime: this.maxTime,
+            slotEventOverlap: this.slotEventOverlap,
+            nowIndicator: this.nowIndicator,
             events: (start, end, timezone, callback) => {
                 callback(this.events);
             },
             dayClick: (date, jsEvent, view) => {
                 this.onDayClick.next({
                     'date': date,
-                    'event': jsEvent,
+                    'jsEvent': jsEvent,
                     'view': view
-                })
+                });
+            },
+            eventClick: (calEvent, jsEvent, view) => {
+                this.onEventClick.next({
+                    'calEvent': calEvent,
+                    'jsEvent': jsEvent,
+                    'view': view
+                });
+            },
+            eventMouseover: (calEvent, jsEvent, view) => {
+                this.onEventMouseover.next({
+                    'calEvent': calEvent,
+                    'jsEvent': jsEvent,
+                    'view': view
+                });
+            },
+            eventMouseout: (calEvent, jsEvent, view) => {
+                this.onEventMouseover.next({
+                    'calEvent': calEvent,
+                    'jsEvent': jsEvent,
+                    'view': view
+                });
             }
         });
         this.initialized = true;
