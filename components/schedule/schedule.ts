@@ -67,6 +67,16 @@ export class Schedule {
     
     @Input() nowIndicator: boolean;
     
+    @Input() dragRevertDuration: number = 500;
+    
+    @Input() dragOpacity: number = .75;
+    
+    @Input() dragScroll: boolean = true;
+    
+    @Input() eventOverlap: any;
+        
+    @Input() eventConstraint: any;
+    
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onEventClick: EventEmitter<any> = new EventEmitter();
@@ -74,6 +84,18 @@ export class Schedule {
     @Output() onEventMouseover: EventEmitter<any> = new EventEmitter();
             
     @Output() onEventMouseout: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onEventDragStart: EventEmitter<any> = new EventEmitter();
+
+    @Output() onEventDragStop: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onEventDrop: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onEventResizeStart: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onEventResizeStop: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onEventResize: EventEmitter<any> = new EventEmitter();
     
     initialized: boolean;
     
@@ -118,6 +140,11 @@ export class Schedule {
             maxTime: this.maxTime,
             slotEventOverlap: this.slotEventOverlap,
             nowIndicator: this.nowIndicator,
+            dragRevertDuration: this.dragRevertDuration,
+            dragOpacity: this.dragOpacity,
+            dragScroll: this.dragScroll,
+            eventOverlay: this.eventOverlap,
+            eventConstraint: this.eventConstraint,
             events: (start, end, timezone, callback) => {
                 callback(this.events);
             },
@@ -145,6 +172,52 @@ export class Schedule {
             eventMouseout: (calEvent, jsEvent, view) => {
                 this.onEventMouseover.next({
                     'calEvent': calEvent,
+                    'jsEvent': jsEvent,
+                    'view': view
+                });
+            },
+            eventDragStart: (event, jsEvent, ui, view) => {
+                this.onEventDragStart.next({
+                    'event': event,
+                    'jsEvent': jsEvent,
+                    'view': view
+                });
+            },
+            eventDragStop: (event, jsEvent, ui, view) => {
+                this.onEventDragStop.next({
+                    'event': event,
+                    'jsEvent': jsEvent,
+                    'view': view
+                });
+            },
+            eventDrop: (event, delta, revertFunc, jsEvent, ui, view) => {
+                this.onEventDragStop.next({
+                    'event': event,
+                    'delta': delta,
+                    'revertFunc': revertFunc,
+                    'jsEvent': jsEvent,
+                    'view': view
+                });
+            },
+            eventResizeStart: (event, jsEvent, ui, view) => {
+                this.onEventResizeStart.next({
+                    'event': event,
+                    'jsEvent': jsEvent,
+                    'view': view
+                });
+            },
+            eventResizeStop: (event, jsEvent, ui, view) => {
+                this.onEventResizeStop.next({
+                    'event': event,
+                    'jsEvent': jsEvent,
+                    'view': view
+                });
+            },
+            eventResize: (event, delta, revertFunc, jsEvent, ui, view) => {
+                this.onEventResize.next({
+                    'event': event,
+                    'delta': delta,
+                    'revertFunc': revertFunc,
                     'jsEvent': jsEvent,
                     'view': view
                 });
