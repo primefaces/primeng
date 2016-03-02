@@ -1,13 +1,13 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Schedule</span>
-        <span class="defaultText dispTable">Schedule is an event calendar based on FullCalendar. This sample demonstrates a crud scenario using a Dialog and various other PrimeNG components.</span>
+        <span class="defaultText dispTable">Schedule is an event calendar based on FullCalendar. This sample demonstrates a crud scenario using a Dialog.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
     <p-schedule [events]="events" [header]="header" defaultDate="2016-01-12" [eventLimit]="4" [editable]="true"
-                (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)">></p-schedule>
+                (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
     
     <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
