@@ -124,5 +124,5 @@ export class MyEvent {
     title: string;
     start: string;
     end: string;
-    allDay: boolean;
+    allDay: boolean = true;
 }

@@ -143,7 +143,7 @@ export class Schedule {
             dragRevertDuration: this.dragRevertDuration,
             dragOpacity: this.dragOpacity,
             dragScroll: this.dragScroll,
-            eventOverlay: this.eventOverlap,
+            eventOverlap: this.eventOverlap,
             eventConstraint: this.eventConstraint,
             events: (start, end, timezone, callback) => {
                 callback(this.events);

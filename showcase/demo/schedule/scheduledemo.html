@@ -48,109 +48,124 @@ import {Schedule} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Listbox requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
+            <p>Schedule is based on <a href="http://fullcalendar.io/">FullCalendar</a>. For a complete documentation and samples please refer to the fullcalendar website.
+            Events of schedule should be an array and defined using the events property.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
+&lt;p-schedule [events]="events"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-import {SelectItem} from 'primeng/primeng';
-
 export class MyModel {
 
-    cities: SelectItem[];
+    events: any[];
 
-    selectedCity: string;
-
-    constructor() {
-        this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
+    ngOnInit() {
+        this.events = [
+            {
+                "title": "All Day Event",
+                "start": "2016-01-01"
+            },
+            {
+                "title": "Long Event",
+                "start": "2016-01-07",
+                "end": "2016-01-10"
+            },
+            {
+                "title": "Repeating Event",
+                "start": "2016-01-09T16:00:00"
+            },
+            {
+                "title": "Repeating Event",
+                "start": "2016-01-16T16:00:00"
+            },
+            {
+                "title": "Conference",
+                "start": "2016-01-11",
+                "end": "2016-01-13"
+            }
+        ];
     }
-
+    
 }
 </code>
 </pre>
-            <h3>Multiple</h3>
-            <p>Listbox allows selecting only one item, setting multiple option enables choosing more than one item. In multiple case, model property should be an array.</p>
+            <p>In a real application, it is likely to populate the events by making a service call, when the events are updated, schedule component will detect the change and render them.</p>
+<pre>
+<code class="language-typescript" pCode>
+@Injectable()
+export class EventService {
+    
+    constructor(private http: Http) {}
+
+    getEvents() {
+        return this.http.get('showcase/resources/data/scheduleevents.json')
+                    .toPromise()
+                    .then(res =&gt; &lt;any[]&gt; res.json().data)
+                    .then(data =&gt; { return data; });
+    }
+}
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class MyModel {
+
+    events: any[];
+
+    ngOnInit() {
+        this.eventService.getEvents().then(events => {this.events = events;});
+    }
+    
+}
+</code>
+</pre>
+
+            <h3>Event API</h3>
+            <p>Event object has various properties to define an event, refer to <a href="http://fullcalendar.io/docs/event_data/Event_Object/">official documentation</a> for the whole list.</p>
+
+            <h3>Header Customization</h3>
+            <p>Header is customized using the header property that takes an object as its value. Default configuration is;</p>
+<pre>
+<code class="language-javascript" pCode>
+{
+    left:   'title',
+    center: '',
+    right:  'today prev,next'
+}
+</code>
+</pre>
+
+            <p>Here is a customized version of header.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-listbox [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-listbox&gt;
+&lt;p-schedule [events]="events" [header]="headerConfig"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-import {SelectItem} from 'primeng/primeng';
-
 export class MyModel {
 
-    cities: SelectItem[];
+    events: any[];
+    
+    headerConfig: any;
 
-    selectedCities: string[];
-
-    constructor() {
-        this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
+    ngOnInit() {
+        this.headerConfig = {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		};
     }
-
+    
 }
 </code>
 </pre>
-
-            <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item by default, for custom content support define a template having a li item as a wrapper for the content. The local template variable
-            refers to an option in the options collection.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px"&gt;
-    &lt;template #car&gt;
-        &lt;li class="ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
-        &lt;/li&gt;
-    &lt;/template&gt;
-&lt;/p-listbox&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode>
-import {SelectItem} from 'primeng/primeng'
-
-export class MyModel {
-
-    cars: SelectItem[];
-
-    selectedCar: string;
-
-    constructor() {
-        this.cars = [];
-        this.cars.push({label: 'Audi', value: 'Audi'});
-        this.cars.push({label: 'BMW', value: 'BMW'});
-        this.cars.push({label: 'Fiat', value: 'Fiat'});
-        this.cars.push({label: 'Ford', value: 'Ford'});
-        this.cars.push({label: 'Honda', value: 'Honda'});
-        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
-        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
-        this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
-        this.cars.push({label: 'Volvo', value: 'Volvo'});
-    }
-}
-</code>
-</pre>
-
+            
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -158,47 +173,170 @@ export class MyModel {
                     <tr>
                         <th>Name</th>
                         <th>Type</th>
-                        <th>Default</th>
                         <th>Description</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>options</td>
-                        <td>array</td>
-                        <td>null</td>
-                        <td>An array of selectitems to display as the available options.</td>
-                    </tr>
-                    <tr>
-                        <td>value</td>
-                        <td>any</td>
-                        <td>false</td>
-                        <td>Value of the listbox.</td>
-                    </tr>
-                    <tr>
-                        <td>multiple</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>When specified, allows selecting multiple values.</td>
-                    </tr>
-                    <tr>
-                        <td>scrollHeight</td>
-                        <td>number</td>
-                        <td>200</td>
-                        <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
-                    </tr>
-                    <tr>
-                        <td>style</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Inline style of the element.</td>
-                    </tr>
-                    <tr>
-                        <td>styleClass</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Style class of the element.</td>
-                    </tr>
+                        <tr>
+                            <td>events</td>
+                            <td>array</td>
+                            <td>An array of events to display.</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>object</td>
+                            <td><a href="http://fullcalendar.io/docs/display/header/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>isRTL</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/display/isRTL/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>weekends</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/display/weekends/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>hiddenDays</td>
+                            <td>array</td>
+                            <td><a href="http://fullcalendar.io/docs/display/hiddenDays/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>lang</td>
+                            <td>string</td>
+                            <td><a href="http://fullcalendar.io/docs/text/lang/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>fixedWeekCount</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/display/fixedWeekCount/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>weekNumbers</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/display/weekNumbers/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>businessHours</td>
+                            <td>any</td>
+                            <td><a href="http://fullcalendar.io/docs/display/businessHours/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>height</td>
+                            <td>any</td>
+                            <td><a href="http://fullcalendar.io/docs/display/height/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>contentHeight</td>
+                            <td>any</td>
+                            <td><a href="http://fullcalendar.io/docs/display/contentHeight/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>aspectRatio</td>
+                            <td>any</td>
+                            <td><a href="http://fullcalendar.io/docs/display/aspectRatio/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>eventLimit</td>
+                            <td>any</td>
+                            <td><a href="http://fullcalendar.io/docs/display/eventLimit/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>defaultDate</td>
+                            <td>any</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/defaultDate/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>editable</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/editable/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>eventStartEditable</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventStartEditable/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>eventDurationEditable</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventDurationEditable/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>defaultView</td>
+                            <td>string</td>
+                            <td><a href="http://fullcalendar.io/docs/views/defaultView/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>allDaySlot</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/agenda/allDaySlot/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>slotDuration</td>
+                            <td>Duration</td>
+                            <td><a href="http://fullcalendar.io/docs/agenda/slotDuration/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>slotLabelInterval</td>
+                            <td>Duration</td>
+                            <td><a href="http://fullcalendar.io/docs/agenda/slotLabelInterval/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>snapDuration</td>
+                            <td>Duration</td>
+                            <td><a href="http://fullcalendar.io/docs/agenda/snapDuration/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>scrollTime</td>
+                            <td>Duration</td>
+                            <td><a href="http://fullcalendar.io/docs/agenda/scrollTime/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>minTime</td>
+                            <td>Duration</td>
+                            <td><a href="http://fullcalendar.io/docs/agenda/minTime/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>maxTime</td>
+                            <td>Duration</td>
+                            <td><a href="hhttp://fullcalendar.io/docs/agenda/maxTime/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>slotEventOverlap</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/agenda/slotEventOverlap/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>nowIndicator</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/nowIndicator/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>dragRevertDuration</td>
+                            <td>number</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/dragRevertDuration/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>dragOpacity</td>
+                            <td>number</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/dragOpacity/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>dragScroll</td>
+                            <td>boolean</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/dragScroll/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>eventOverlap</td>
+                            <td>any</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventOverlap/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>eventConstraint</td>
+                            <td>any</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventConstraint/">Read more</a></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -209,113 +347,230 @@ export class MyModel {
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Parameters</th>
                         <th>Description</th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>onChange</td>
-                            <td>event.originalEvent: browser event<br />
-                                event.value: single value or an array of values that are selected
-                            </td>
-                            <td>Callback to invoke when value of listbox changes.</td>
+                            <td>onDayClick</td>
+                            <td><a href="http://fullcalendar.io/docs/mouse/dayClick/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>onEventClick</td>
+                            <td><a href="http://fullcalendar.io/docs/mouse/eventClick/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>onEventMouseover</td>
+                            <td><a href="http://fullcalendar.io/docs/mouse/eventMouseover/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>onEventMouseout</td>
+                            <td><a href="http://fullcalendar.io/docs/mouse/eventMouseout/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>onEventDragStart</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventDragStart/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>onEventDragStop</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventDragStop/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>onEventDrop</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventDrop/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>onEventResizeStart</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventResizeStart/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>onEventResizeStop</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventResizeStop/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>onEventResize</td>
+                            <td><a href="http://fullcalendar.io/docs/event_ui/eventResize/">Read more</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
-            <h3>Styling</h3>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Element</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>ui-listbox</td>
-                            <td>Container element.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-listbox-list</td>
-                            <td>List container.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-listbox-item</td>
-                            <td>An item in the list.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3>Dependencies</h3>
-            <p>PrimeUI Listbox.</p>
-        </p-tabPanel>
-
-        <p-tabPanel header="Source">
+            
 <pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
-
-&lt;p&gt;Selected City: {{selectedCity}}&lt;/p&gt;
-
-&lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(value)]="selectedCities" multiple="multiple"&gt;&lt;/p-listbox&gt;
-&lt;p&gt;Selected Cities: &lt;span *ngFor="#c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h3&gt;Content&lt;/h3&gt;
-&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px"&gt;
-    &lt;template #car&gt;
-        &lt;li class="ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
-        &lt;/li&gt;
-    &lt;/template&gt;
-&lt;/p-listbox&gt;
-&lt;p&gt;Selected Car: {{selectedCar}}&lt;/p&gt;
-
-&lt;button type="button" (click)="selectedCar=null" pButton icon="fa-close"&gt;Clear Selected Car&lt;/button&gt;
+<code class="language-markup" pCode>
+&lt;p-schedule [events]="events" [header]="headerConfig" (onEventClick)="handleEventClick($event)"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class ListboxDemo {
+export class MyModel {
 
-    cities: SelectItem[];
+    handleEventClick(e) {
+        //e.event = Selected event
+        //e.jsEvent = Browser click event
+        //e.view = Current view object
+    }
+    
+}
+</code>
+</pre>
 
-    selectedCity: string;
+            <h3>Dependencies</h3>
+            <p><a href="http://fullcalendar.io/docs/usage/">FullCalendar</a>.</p>
+        </p-tabPanel>
 
-    selectedCities: string[];
+        <p-tabPanel header="Source">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-schedule [events]="events" [header]="header" defaultDate="2016-01-12" [eventLimit]="4" [editable]="true"
+            (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"&gt;&lt;/p-schedule&gt;
 
-    cars: SelectItem[];
+&lt;p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false"&gt;
+    &lt;div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event"&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-4"&gt;&lt;label for="vin"&gt;Title&lt;/label&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;input pInputText id="title" [(ngModel)]="event.title" /&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-4"&gt;&lt;label for="start"&gt;Start&lt;/label&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar id="start" dateFormat="yy-mm-dd" [(value)]="event.start"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-4"&gt;&lt;label for="end"&gt;End&lt;/label&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar id="end" dateFormat="yy-mm-dd" [(value)]="event.end" defaultDate="2016-01-01" placeholder="Optional"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-4"&gt;&lt;label for="allday"&gt;All Day&lt;/label&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;p-toggleButton [(checked)]="event.allDay" style="width:150px" onLabel="Yes" offLabel="No"&gt;&lt;/p-toggleButton&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;footer&gt;
+        &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
+            &lt;button type="button" pButton icon="fa-close" (click)="deleteEvent()"&gt;Delete&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-check" (click)="saveEvent()"&gt;Save&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/footer&gt;
+&lt;/p-dialog&gt;
+</code>
+</pre>
 
-    selectedCar: string = 'BMW';
+<pre>
+<code class="language-typescript" pCode>
+export class ScheduleDemo implements OnInit {
 
-    constructor() {
-        this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
+    events: any[];
+    
+    header: any;
+    
+    event: MyEvent;
+    
+    dialogVisible: boolean = false;
+    
+    idGen: number = 100;
+    
+    constructor(private eventService: EventService, private cd: ChangeDetectorRef) { }
 
-        this.cars = [];
-        this.cars.push({label: 'Audi', value: 'Audi'});
-        this.cars.push({label: 'BMW', value: 'BMW'});
-        this.cars.push({label: 'Fiat', value: 'Fiat'});
-        this.cars.push({label: 'Ford', value: 'Ford'});
-        this.cars.push({label: 'Honda', value: 'Honda'});
-        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
-        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
-        this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'Volkswagen', value: 'Volkswagen'});
-        this.cars.push({label: 'Volvo', value: 'Volvo'});
+    ngOnInit() {
+        this.eventService.getEvents().then(events => {this.events = events;});
+        
+        this.header = {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		};
+    }
+    
+    handleDayClick(event) {
+        this.event = new MyEvent();
+        this.event.start = event.date.format();
+        this.dialogVisible = true;
+        
+        //trigger detection manually as somehow only moving the mouse quickly after click triggers the automatic detection
+        this.cd.detectChanges();
+    }
+    
+    handleEventClick(e) {
+        this.event = new MyEvent();
+        this.event.title = e.calEvent.title;
+        
+        let start = e.calEvent.start;
+        let end = e.calEvent.end;
+        if(e.view.name === 'month') {
+            start.stripTime();
+        }
+        
+        if(end) {
+            end.stripTime();
+            this.event.end = end.format();
+        }
+
+        this.event.id = e.calEvent.id;
+        this.event.start = start.format();
+        this.event.allDay = e.calEvent.allDay;
+        this.dialogVisible = true;
+    }
+    
+    saveEvent() {
+        //update
+        if(this.event.id) {
+            let index: number = this.findEventIndexById(this.event.id);
+            if(index >= 0) {
+                this.events[index] = this.event;
+            }
+        }
+        //new
+        else {
+            this.event.id = this.idGen;
+            this.events.push(this.event);
+            this.event = null;
+        }
+        
+        this.dialogVisible = false;
+    }
+    
+    deleteEvent() {
+        let index: number = this.findEventIndexById(this.event.id);
+        if(index >= 0) {
+            this.events.splice(index, 1);
+        }
+        this.dialogVisible = false;
+    }
+    
+    findEventIndexById(id: number) {
+        let index = -1;
+        for(let i = 0; i < this.events.length; i++) {
+            if(id == this.events[i].id) {
+                index = i;
+                break;
+            }
+        }
+        
+        return index;
+    }
+}
+
+export class MyEvent {
+    id: number;
+    title: string;
+    start: string;
+    end: string;
+    allDay: boolean;
+}
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+@Injectable()
+export class EventService {
+    
+    constructor(private http: Http) {}
+
+    getEvents() {
+        return this.http.get('showcase/resources/data/scheduleevents.json')
+                    .toPromise()
+                    .then(res =&gt; &lt;any[]&gt; res.json().data)
+                    .then(data =&gt; { return data; });
     }
 }
 </code>
