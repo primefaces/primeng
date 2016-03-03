@@ -23,10 +23,14 @@ export class Checkbox {
     @Input() disabled: boolean;
 
     @Input() model: any;
+    
+    @Input() checked: any;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() modelChange: EventEmitter<any> = new EventEmitter();
+    
+    @Output() checkedChange: EventEmitter<any> = new EventEmitter();
 
     hover: boolean;
 
@@ -34,16 +38,24 @@ export class Checkbox {
         input.checked = !input.checked;
         this.onChange.next(input.checked);
 
-        if (input.checked)
-            this.addValue(input.value);
-        else
-            this.removeValue(input.value);
+        if(this.model) {
+            if (input.checked)
+                this.addValue(input.value);
+            else
+                this.removeValue(input.value);
 
-        this.modelChange.next(this.model);
+            this.modelChange.next(this.model);
+        }
+        else {
+            this.checkedChange.next(input.checked);
+        }
     }
 
     isChecked(value) {
-        return this.findValueIndex(value) !== -1;
+        if(this.model)
+            return this.findValueIndex(value) !== -1;
+        else
+            return this.checked;
     }
 
     removeValue(value) {
