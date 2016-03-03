@@ -39,12 +39,13 @@ import {Accordion} from 'primeng/primeng';
 </pre>
 
     <h3>Dependencies</h3>
-    <p>PrimeNG is built on top of <a href="http://www.primefaces.org/primeui">PrimeUI</a> so you need to install it as a dependency. Visit <a href="http://www.primefaces.org/primeui/#setup">PrimeUI setup page</a> for details.</p>
+    <p>PrimeNG utilizes <a href="http://www.primefaces.org/primeui">PrimeUI</a> so you need to install it as a dependency. Visit <a href="http://www.primefaces.org/primeui/#setup">PrimeUI setup page</a> for details.</p>
 
-    <h4>jQuery</h4>
+    <h4>jQuery (Optional)</h4>
     <p>In an Angular2 application, you don't need to use jQuery directly however some of the PrimeNG components are based on existing jQuery plugins in PrimeUI and others are native components.
-        jQuery based ones are optimized for PrimeNG integration using a technique called enhanced mode where plugin assumes dom is already created by PrimeNG component. As a result, jQuery plugin does not manipulate dom, only
-        adds lightweight behaviors and low level requirements such as positioning. Changes as a result of one or two way binding are properly reflected between the UI and model. In addition components are destroyed whenever page is navigated away via router. </p>
+        Dependencies section at the documentation of each component states the origin such as Native, jQuery or an external library. jQuery based ones are optimized for PrimeNG integration using a technique called enhanced mode where plugin assumes dom is already created by PrimeNG component. As a result, jQuery plugin does not manipulate dom, only
+        adds lightweight behaviors and low level requirements such as positioning. Changes as a result of one or two way binding are properly reflected between the UI and model. In addition components are destroyed whenever page is navigated away via router. 
+    </p>
 
     <h3>Quickstart</h3>
     <p>An example starter application based on angular2-quickstart is available at <a href="https://github.com/primefaces/primeng-quickstart">GitHub</a>.</p>
