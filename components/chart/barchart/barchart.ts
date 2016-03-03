@@ -80,7 +80,7 @@ export class BarChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() multiTooltipTemplate: string = "<%= value %>";
 
-    @Input() value: LinearChartData;
+    @Input() value: any;
 
     @Input() width: string;
 

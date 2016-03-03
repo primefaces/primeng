@@ -76,7 +76,7 @@ export class PolarAreaChart implements AfterViewInit, OnDestroy, DoCheck {
 
     @Input() multiTooltipTemplate: string = "<%= value %>";
 
-    @Input() value: CircularChartData[];
+    @Input() value: any[];
 
     @Input() width: string;
 

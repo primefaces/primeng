@@ -26,7 +26,7 @@ export class Menu {
 
     initialized: boolean;
 
-    menuElement: JQuery;
+    menuElement: any;
 
     constructor(private el: ElementRef) {
         this.initialized = false;
