@@ -1,35 +1,53 @@
-import {Directive, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input} from 'angular2/core';
+import {Directive, ElementRef,HostBinding,HostListener,Input} from 'angular2/core';
+import {NgModel} from 'angular2/common';
 
 @Directive({
-    selector: '[pInputText]'
+    selector: '[pInputText]',
+    host: {
+        '[class.ui-inputtext]': 'true',
+        '[class.ui-corner-all]': 'true',
+        '[class.ui-state-default]': 'true',
+        '[class.ui-widget]': 'true',
+        '[class.ui-state-hover]': 'hover',
+        '[class.ui-state-focus]': 'focus',
+        '[class.ui-state-disabled]': 'isDisabled()',
+        '[class.ui-state-error]': 'isInvalid()'
+    },
+    providers: [NgModel]
 })
-export class InputText implements OnInit, OnDestroy, OnChanges {
+export class InputText {
 
-    @Input() disabled: boolean;
-
-    initialized: boolean;
-
-    constructor(private el: ElementRef) {
-        this.initialized = false;
+    hover: boolean;
+    
+    focus: boolean;
+    
+    constructor(private el: ElementRef, private control: NgModel) {}
+    
+    @HostListener('mouseover', ['$event']) 
+    onMouseover(e) {
+        this.hover = true;
     }
-
-    ngOnInit() {
-        jQuery(this.el.nativeElement).puiinputtext({
-            disabled: this.disabled
-        });
-        this.initialized = true;
+    
+    @HostListener('mouseout', ['$event']) 
+    onMouseout(e) {
+        this.hover = false;
     }
-
-    ngOnChanges(changes: {[key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-                jQuery(this.el.nativeElement).puiinputtext('option', key, changes[key].currentValue);
-            }
-        }   
+    
+    @HostListener('focus', ['$event']) 
+    onFocus(e) {
+        this.focus = true;
     }
-
-    ngOnDestroy() {
-        jQuery(this.el.nativeElement).puiinputtext('destroy');
-        this.initialized = false;
+    
+    @HostListener('blur', ['$event']) 
+    onBlur(e) {
+        this.focus = false;
+    }
+    
+    isDisabled() {
+        return this.el.nativeElement.disabled;
+    }
+    
+    isInvalid() {
+        return !this.control.valid;
     }
 }

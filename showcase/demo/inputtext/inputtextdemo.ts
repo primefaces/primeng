@@ -22,7 +22,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
             <h3>Disabled</h3>
             <input id="in" type="text" size="30" pInputText [disabled]="disabled" />
 
-            <button type="text" (click)="toggleDisabled()" pButton>Toggle</button>
+            <button type="button" (click)="toggleDisabled()" pButton>Toggle</button>
         </div>
 
         <div class="ContentSideSections Source">
@@ -94,7 +94,7 @@ import {InputText} from 'primeng/primeng';
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>PrimeUI InputText.</p>
+                    <p>Native directive that only requires the CSS of PrimeUI Inputtext.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <pre>
@@ -105,7 +105,7 @@ import {InputText} from 'primeng/primeng';
 &lt;h3&gt;Disabled&lt;/h3&gt;
 &lt;input id="in" type="text" size="30" pInputText [disabled]="disabled" /&gt;
 
-&lt;button type="text" (click)="toggleDisabled()" pButton&gt;Toggle&lt;/button&gt;
+&lt;button type="button" (click)="toggleDisabled()" pButton&gt;Toggle&lt;/button&gt;
 </code>
 </pre>
 
