@@ -4,7 +4,7 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
     selector: 'p-checkbox',
     template: `
         <div class="ui-chkbox ui-widget">
-            <div class="ui-helper-hidden-accessible">
+            <div class="ui-helper-hidden-accessibse">
                 <input #cb type="checkbox" name="{{name}}" value="{{value}}" [checked]="isChecked(cb.value)"/>
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick(cb)"
@@ -35,11 +35,10 @@ export class Checkbox {
     hover: boolean;
 
     onClick(input) {
-        input.checked = !input.checked;
-        this.onChange.next(input.checked);
+        this.onChange.next(!input.checked);
 
         if(this.model) {
-            if (input.checked)
+            if (!input.checked)
                 this.addValue(input.value);
             else
                 this.removeValue(input.value);
@@ -47,7 +46,7 @@ export class Checkbox {
             this.modelChange.next(this.model);
         }
         else {
-            this.checkedChange.next(input.checked);
+            this.checkedChange.next(!input.checked);
         }
     }
 
