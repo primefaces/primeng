@@ -1,4 +1,4 @@
-import {Directive, ElementRef,HostBinding,HostListener,Input} from 'angular2/core';
+import {Directive,ElementRef,HostListener,Input} from 'angular2/core';
 import {NgModel} from 'angular2/common';
 
 @Directive({
