@@ -4,7 +4,7 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
     selector: 'p-checkbox',
     template: `
         <div class="ui-chkbox ui-widget">
-            <div class="ui-helper-hidden-accessibse">
+            <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" name="{{name}}" value="{{value}}" [checked]="isChecked(cb.value)"/>
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick(cb)"

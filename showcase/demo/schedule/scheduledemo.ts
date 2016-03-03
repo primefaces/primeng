@@ -8,13 +8,13 @@ import {Calendar} from '../../../components/calendar/calendar';
 import {Button} from '../../../components/button/button';
 import {InputText} from '../../../components/inputtext/inputtext';
 import {Dialog} from '../../../components/dialog/dialog';
-import {ToggleButton} from '../../../components/togglebutton/togglebutton';
+import {Checkbox} from '../../../components/checkbox/checkbox';
 import {EventService} from '../service/eventservice';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'showcase/demo/schedule/scheduledemo.html',
-    directives: [Schedule,Button,InputText,Calendar,Dialog,ToggleButton,TabPanel,TabView,Button,CodeHighlighter,ROUTER_DIRECTIVES],
+    directives: [Schedule,Button,InputText,Calendar,Dialog,Checkbox,TabPanel,TabView,Button,CodeHighlighter,ROUTER_DIRECTIVES],
     providers: [HTTP_PROVIDERS,EventService],
     styles: [`
         .ui-grid-row div {
