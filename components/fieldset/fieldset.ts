@@ -21,8 +21,6 @@ export class Fieldset {
 
     @Input() toggleable: boolean;
 
-    @Input() toggleDuration: any;
-
     @Input() collapsed: boolean = false;
 
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
