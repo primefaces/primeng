@@ -1,4 +1,4 @@
-import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, SimpleChange, Output, EventEmitter} from 'angular2/core';
+import {Component,Input,Output,EventEmitter} from 'angular2/core';
 
 @Component({
     selector: 'p-panel',
@@ -6,80 +6,52 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, Simpl
         <div class="ui-panel ui-widget ui-widget-content ui-corner-all">
             <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
                 <span class="ui-panel-title">{{header}}</span>
-                <a *ngIf="closable" class="ui-panel-titlebar-icon ui-panel-titlebar-closer ui-corner-all ui-state-default" href="#"><span class="fa fa-fw fa-close"></span></a>
-                <a *ngIf="toggleable" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"><span class="fa fa-fw"></span></a>
+                <a *ngIf="toggleable" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
+                    [ngClass]="{'ui-state-hover':hoverToggler}" (mouseenter)="hoverToggler=true" (mouseleave)="hoverToggler=false" (click)="toggle($event)">
+                    <span class="fa fa-fw" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
+                </a>
             </div>
-            <div class="ui-panel-content ui-widget-content">
+            <div class="ui-panel-content ui-widget-content" [style.display]="collapsed ? 'none' : 'block'">
                 <ng-content></ng-content>
             </div>
         </div>
     `
 })
-export class Panel implements AfterViewInit, OnDestroy, OnChanges {
+export class Panel {
 
     @Input() toggleable: boolean;
 
-    @Input() toggleDuration: any;
-
-    @Input() toggleOrientation: any;
-
     @Input() header: string;
 
-    @Input() closable: boolean;
+    @Input() collapsed: boolean = false;
 
-    @Input() closeDuration: any;
+    @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
-    @Input() collapsed: boolean;
-
-    @Output() onBeforeCollapse: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterCollapse: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeExpand: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterExpand: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeClose: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterClose: EventEmitter<any> = new EventEmitter();
-
-    initialized: boolean;
-
-    constructor(private el: ElementRef) {
-        this.initialized = false;
+    @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
+    
+    private hoverToggler: boolean;
+    
+    toggle(event) {
+        this.onBeforeToggle.next({originalEvent: event, collapsed: this.collapsed});
+        
+        if(this.toggleable) {            
+            if(this.collapsed)
+                this.expand(event);
+            else
+                this.collapse(event);
+        }
+        
+        this.onAfterToggle.next({originalEvent: event, collapsed: this.collapsed});   
+        
+        event.preventDefault();
     }
     
-    ngAfterViewInit() {
-        jQuery(this.el.nativeElement.children[0]).puipanel({
-            title: this.header,
-            toggleable: this.toggleable,
-            toggleDuration: this.toggleDuration,
-            toggleOrientation: this.toggleOrientation,
-            collapsed: this.collapsed,
-            closable: this.closable,
-            closeDuration: this.closeDuration,
-            beforeCollapse: this.onBeforeCollapse ? (event: Event) => { this.onBeforeCollapse.next(event); } : null,
-            afterCollapse: this.onAfterCollapse ? (event: Event) => { this.onAfterCollapse.next(event); } : null,
-            beforeExpand: this.onBeforeExpand ? (event: Event) => { this.onBeforeExpand.next(event); } : null,
-            afterExpand: this.onAfterExpand ? (event: Event) => { this.onAfterExpand.next(event); } : null,
-            beforeClose: this.onBeforeClose ? (event: Event) => { this.onBeforeClose.next(event); } : null,
-            afterClose: this.onAfterClose ? (event: Event) => { this.onAfterClose.next(event); } : null,
-            enhanced: true
-        });
-        this.initialized = true;
+    expand(event) {
+        this.collapsed = false;
     }
-
-    ngOnChanges(changes: { [key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-                jQuery(this.el.nativeElement.children[0]).puipanel('option', key, changes[key].currentValue);
-            }
-        }   
-    }
-
-    ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0]).puipanel('destroy');
-        this.initialized = false;
+    
+    collapse(event) {
+        this.collapsed = true;
     }
 
 }

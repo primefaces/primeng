@@ -1,12 +1,12 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Panel</span>
-        <span class="defaultText dispTable">Panel is a grouping component providing with content toggle and close features.</span>
+        <span class="defaultText dispTable">Panel is a grouping component providing with content toggle feature.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-panel header="Godfather I" toggleable="true">
+    <p-panel header="Godfather I" [toggleable]="true">
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
         Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
@@ -34,12 +34,10 @@ import {Panel} from 'primeng/primeng';
 </code>
 </pre>
             <h3>Toggleable</h3>
-            <p>Content of the panel can be expanded and collapsed using toggleable option. Duration of the toggle effect
-                is customized with toggleDuration and default state is defined with collapsed option. Orientation is "vertical" by default
-                and other possible value is "horizontal".</p>
+            <p>Content of the panel can be expanded and collapsed using toggleable option, default state is defined with collapsed option.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-panel header="Title" toggleable="true"&gt;
+&lt;p-panel header="Title" [toggleable]="true"&gt;
     Content
 &lt;/p-panel&gt;
 </code>
@@ -70,34 +68,10 @@ import {Panel} from 'primeng/primeng';
                             <td>Defines if content of panel can be expanded and collapsed.</td>
                         </tr>
                         <tr>
-                            <td>toggleDuration</td>
-                            <td>any</td>
-                            <td>normal</td>
-                            <td>Duration of the effect in milliseconds or pre-defined values like "slow","normal" and "fast".</td>
-                        </tr>
-                        <tr>
-                            <td>toggleOrientation</td>
-                            <td>string</td>
-                            <td>vertical</td>
-                            <td>Defines orientation of toggle direction, valid values are "vertical" and "horizontal".</td>
-                        </tr>
-                        <tr>
                             <td>collapsed</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>When specified, displays the panel as collapsed initially.</td>
-                        </tr>
-                        <tr>
-                            <td>closable</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Defines if panel can be hidden using close option.</td>
-                        </tr>
-                        <tr>
-                            <td>closeDuration</td>
-                            <td>any</td>
-                            <td>normal</td>
-                            <td>Duration of the effect in milliseconds or pre-defined values like "slow","normal" and "fast".</td>
                         </tr>
                     </tbody>
                 </table>
@@ -115,47 +89,29 @@ import {Panel} from 'primeng/primeng';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>onBeforeCollapse</td>
-                            <td>event: Toggle event</td>
-                            <td>Callback to invoke before content is collapsed.</td>
+                            <td>onBeforeToggle</td>
+                            <td>event.originalEvent: browser event<br>
+                                event.collapsed: state as a boolean</td>
+                            <td>Callback to invoke before content toggle.</td>
                         </tr>
                         <tr>
-                            <td>onAfterCollapse</td>
-                            <td>event: Toggle event</td>
-                            <td>Callback to invoke  after content is collapsed.</td>
-                        </tr>
-                        <tr>
-                            <td>onBeforeExpand</td>
-                            <td>event: Toggle event</td>
-                            <td>Callback to invoke before content is expanded.</td>
-                        </tr>
-                        <tr>
-                            <td>onAfterExpand</td>
-                            <td>event: Toggle event</td>
-                            <td>Callback to invoke after content is expanded.</td>
-                        </tr>
-                        <tr>
-                            <td>onBeforeClose</td>
-                            <td>event: Toggle event</td>
-                            <td>Callback to invoke before panel is closed.</td>
-                        </tr>
-                        <tr>
-                            <td>onAfterClose</td>
-                            <td>event: Toggle event</td>
-                            <td>Callback to invoke after panel is closed.</td>
+                            <td>onAfterToggle</td>
+                            <td>event.originalEvent: browser event<br>
+                                event.collapsed: state as a boolean</td>
+                            <td>Callback to invoke after content toggle.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI Panel.</p>
+            <p>Native component that only requires the css of PrimeUI Panel.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-panel header="Godfather I" toggleable="true"&gt;
+&lt;p-panel header="Godfather I" [toggleable]="true"&gt;
     The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
     His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
     Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
