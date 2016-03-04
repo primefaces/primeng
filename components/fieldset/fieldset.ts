@@ -1,17 +1,21 @@
-import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
+import {Component, ElementRef, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
 
 @Component({
     selector: 'p-fieldset',
     template: `
         <fieldset class="ui-fieldset ui-widget ui-widget-content ui-corner-all" [ngClass]="{'ui-fieldset-toggleable': toggleable}">
-            <legend class="ui-fieldset-legend ui-corner-all ui-state-default"><span class="ui-fieldset-toggler fa fa-w" *ngIf="toggleable"></span>{{legend}}</legend>
-            <div class="ui-fieldset-content">
+            <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text" 
+                (mouseenter)="onLegendMouseenter($event)" (mouseleave)="onLegendMouseleave($event)" (click)="toggle($event)"[ngClass]="{'ui-state-hover':hover}">
+                <span *ngIf="toggleable" class="ui-fieldset-toggler fa fa-w" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
+                {{legend}}
+            </legend>
+            <div class="ui-fieldset-content" [style.display]="collapsed ? 'none' : 'block'">
                 <ng-content></ng-content>
             </div>
         </fieldset>
     `,
 })
-export class Fieldset implements AfterViewInit, OnDestroy, OnChanges {
+export class Fieldset {
 
     @Input() legend: string;
 
@@ -19,44 +23,45 @@ export class Fieldset implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() toggleDuration: any;
 
-    @Input() collapsed: boolean;
+    @Input() collapsed: boolean = false;
 
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
-
-    initialized: boolean;
-
-    constructor(private el: ElementRef) {
-        this.initialized = false;
-    }
-
-    ngAfterViewInit() {
-        jQuery(this.el.nativeElement.children[0]).puifieldset({
-            toggleable: this.toggleable,
-            toggleDuration: this.toggleDuration,
-            collapsed: this.collapsed,
-            beforeToggle: this.onBeforeToggle ? (event: Event, collapsed: boolean) => { 
-                this.onBeforeToggle.next({'originalEvent': event, 'collapsed': collapsed}); 
-            } : null,
-            afterToggle: this.onAfterToggle ? (event: Event, collapsed: boolean) => {
-                this.onAfterToggle.next({'originalEvent': event, 'collapsed': collapsed} ); 
-            } : null,
-            enhanced: true
-        });
-        this.initialized = true;
-    }
-
-    ngOnChanges(changes: { [key: string]: SimpleChange }) {
-        if (this.initialized) {
-            for (var key in changes) {
-                jQuery(this.el.nativeElement.children[0]).puifieldset('option', key, changes[key].currentValue);
-            }
+    
+    private hover: boolean;
+    
+    onLegendMouseenter(event) {
+        if(this.toggleable) {
+            this.hover = true;
+        }
+    } 
+    
+    onLegendMouseleave(event) {
+        if(this.toggleable) {
+            this.hover = false;
         }
     }
-
-    ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0]).puifieldset('destroy');
-        this.initialized = false;
+    
+    toggle(event) {
+        if(this.toggleable) {
+            this.onBeforeToggle.next({originalEvent: event, collapsed: this.collapsed});
+            
+            if(this.collapsed)
+                this.expand(event);
+            else
+                this.collapse(event);
+                
+            this.onAfterToggle.next({originalEvent: event, collapsed: this.collapsed});   
+        }
     }
+    
+    expand(event) {
+        this.collapsed = false;
+    }
+    
+    collapse(event) {
+        this.collapsed = true;
+    }
+
 }
