@@ -1,6 +1,6 @@
-import {Component,ElementRef,DoCheck,Input,Output,ContentChild,TemplateRef,Renderer} from 'angular2/core';
+import {Component,ElementRef,DoCheck,Input,Output,ContentChild,TemplateRef} from 'angular2/core';
 import {Button} from '../button/button';
-import {DomUtils} from '../utils/domutils';
+import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-orderList',
@@ -23,7 +23,8 @@ import {DomUtils} from '../utils/domutils';
             </div>
         </div>
     `,
-    directives: [Button]
+    directives: [Button],
+    providers: [DomHandler]
 })
 export class OrderList {
 
@@ -41,13 +42,13 @@ export class OrderList {
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
         
-    constructor(private el: ElementRef, private renderer: Renderer) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler) {}
             
     onMouseover(event) {
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
-            DomUtils.addClass(item, 'ui-state-hover');
+            this.domHandler.addClass(item, 'ui-state-hover');
         }
     }
     
@@ -55,7 +56,7 @@ export class OrderList {
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
-            DomUtils.removeClass(item, 'ui-state-hover');
+            this.domHandler.removeClass(item, 'ui-state-hover');
         }
     }
     
@@ -83,24 +84,24 @@ export class OrderList {
     onItemClick(event, item) {
         let metaKey = (event.metaKey||event.ctrlKey);
         
-        if(DomUtils.hasClass(item, 'ui-state-highlight')) {
+        if(this.domHandler.hasClass(item, 'ui-state-highlight')) {
             if(metaKey) {
-                DomUtils.removeClass(item, 'ui-state-highlight');
+                this.domHandler.removeClass(item, 'ui-state-highlight');
             }
         }
         else {
             if(!metaKey) {
-                let siblings = DomUtils.siblings(item);
+                let siblings = this.domHandler.siblings(item);
                 for(let i = 0; i < siblings.length; i++) {
                     let sibling = siblings[i];
-                    if(DomUtils.hasClass(sibling, 'ui-state-highlight')) {
-                        DomUtils.removeClass(sibling, 'ui-state-highlight');
+                    if(this.domHandler.hasClass(sibling, 'ui-state-highlight')) {
+                        this.domHandler.removeClass(sibling, 'ui-state-highlight');
                     }
                 }
             }
             
-            DomUtils.removeClass(item, 'ui-state-hover');
-            DomUtils.addClass(item, 'ui-state-highlight');
+            this.domHandler.removeClass(item, 'ui-state-hover');
+            this.domHandler.addClass(item, 'ui-state-highlight');
         }
     }
 
@@ -108,14 +109,14 @@ export class OrderList {
         let selectedElements = this.getSelectedListElements(listElement);
         for(let i = 0; i < selectedElements.length; i++) {
             let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = DomUtils.index(selectedElement);
+            let selectedElementIndex: number = this.domHandler.index(selectedElement);
 
             if(selectedElementIndex != 0) {
                 let movedItem = this.value[selectedElementIndex];
                 let temp = this.value[selectedElementIndex-1];
                 this.value[selectedElementIndex-1] = movedItem;
                 this.value[selectedElementIndex] = temp;
-                DomUtils.scrollInView(listElement, listElement.children[selectedElementIndex - 1]);
+                this.domHandler.scrollInView(listElement, listElement.children[selectedElementIndex - 1]);
             }
             else {
                 break;
@@ -127,7 +128,7 @@ export class OrderList {
         let selectedElements = this.getSelectedListElements(listElement);
         for(let i = 0; i < selectedElements.length; i++) {
             let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = DomUtils.index(selectedElement);
+            let selectedElementIndex: number = this.domHandler.index(selectedElement);
 
             if(selectedElementIndex != 0) {
                 let movedItem = this.value.splice(selectedElementIndex,1)[0];
@@ -144,14 +145,14 @@ export class OrderList {
         let selectedElements = this.getSelectedListElements(listElement);
         for(let i = selectedElements.length - 1; i >= 0; i--) {
             let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = DomUtils.index(selectedElement);
+            let selectedElementIndex: number = this.domHandler.index(selectedElement);
 
             if(selectedElementIndex != (this.value.length - 1)) {
                 let movedItem = this.value[selectedElementIndex];
                 let temp = this.value[selectedElementIndex+1];
                 this.value[selectedElementIndex+1] = movedItem;
                 this.value[selectedElementIndex] = temp;
-                DomUtils.scrollInView(listElement, listElement.children[selectedElementIndex + 1]);
+                this.domHandler.scrollInView(listElement, listElement.children[selectedElementIndex + 1]);
             }
             else {
                 break;
@@ -163,7 +164,7 @@ export class OrderList {
         let selectedElements = this.getSelectedListElements(listElement);
         for(let i = selectedElements.length - 1; i >= 0; i--) {
             let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = DomUtils.index(selectedElement);
+            let selectedElementIndex: number = this.domHandler.index(selectedElement);
 
             if(selectedElementIndex != (this.value.length - 1)) {
                 let movedItem = this.value.splice(selectedElementIndex,1)[0];
@@ -177,6 +178,6 @@ export class OrderList {
     }
         
     getSelectedListElements(listElement) {
-        return DomUtils.find(listElement, 'li.ui-state-highlight');
+        return this.domHandler.find(listElement, 'li.ui-state-highlight');
     }
 }
