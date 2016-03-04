@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
+import {Component,Input,Output,EventEmitter} from 'angular2/core';
 
 @Component({
     selector: 'p-fieldset',
