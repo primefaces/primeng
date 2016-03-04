@@ -29,15 +29,6 @@ export class DomHandler {
             return child !== element;
         });
     }
-
-        
-    public on(element: any, eventName: string, eventHandler: any):void {
-        element.addEventListener(eventName, eventHandler);
-    }
-    
-    public off(element: any, eventName: string, eventHandler: any):void {
-        element.removeEventListener(eventName, eventHandler);
-    }
     
     public find(element: any, selector: string):any[] {
         return element.querySelectorAll(selector);
