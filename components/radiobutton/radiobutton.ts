@@ -5,11 +5,11 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
     template: `
         <div class="ui-radiobutton ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input #rb type="radio" name="{{name}}" value="{{value}}" [checked]="model == value"/>
+                <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="isChecked()"/>
             </div>
-            <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="onclick(rb)"
-                        (mouseover)="hover = true" (mouseout)="hover = false" [ngClass]="{'ui-state-hover':hover,'ui-state-active':rb.checked,'ui-state-disabled':disabled}">
-                <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':rb.checked}"></span>
+            <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="onclick()"
+                        (mouseover)="hover=true" (mouseout)="hover=false" [ngClass]="{'ui-state-hover':hover,'ui-state-active':isChecked(),'ui-state-disabled':disabled}">
+                <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':isChecked()}"></span>
             </div>
         </div>
     `
@@ -30,9 +30,12 @@ export class RadioButton {
 
     hover: boolean;
 
-    onclick(input) {
-        input.checked = true;
+    onclick() {
         this.click.next(null);
-        this.modelChange.next(input.value);
+        this.modelChange.next(this.value);
+    }
+    
+    isChecked() {
+        return this.value == this.model;
     }
 }

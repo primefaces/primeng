@@ -30,7 +30,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                     <div class="ui-grid-col-11"><label class="ui-widget">Option 3</label></div>
                 </div>
             </div>
-            Value 1 = {{val1}}
+            Selected Value = {{val1||'none'}}
 
             <h3>Preselection</h3>
             <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
@@ -47,7 +47,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                     <div class="ui-grid-col-11"><label class="ui-widget">Option 3</label></div>
                 </div>
             </div>
-            Value 2 = {{val2}}
+            Selected Value = {{val2||'none'}}
         </div>
 
         <div class="ContentSideSections Source">
@@ -185,7 +185,7 @@ export class ModelComponent {
 
                 <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
     &lt;div class="ui-grid-row"&gt;
@@ -201,7 +201,7 @@ export class ModelComponent {
         &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-Value 1 = <span>{</span><span>{</span>val1<span>}</span><span>}</span>
+Selected Value = {{val1||'none'}}
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
 &lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
@@ -218,7 +218,7 @@ Value 1 = <span>{</span><span>{</span>val1<span>}</span><span>}</span>
         &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-Value 2 = <span>{</span><span>{</span>val2<span>}</span><span>}</span>
+Selected Value = {{val2||'none'}}
 </code>
 </pre>
 
