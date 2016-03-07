@@ -36,4 +36,8 @@ export class DataGridDemo implements OnInit {
         this.selectedCar = car;
         this.displayDialog = true;
     }
+    
+    onDialogHide() {
+        this.selectedCar = null;
+    }
 }
