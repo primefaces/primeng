@@ -337,6 +337,7 @@ this.cols = [
 
 <pre>
 <code class="language-ts" pCode>
+loadData(event) {
     //event.first = First row offset
     //event.rows = Number of rows per page
     //event.sortField = Field name to sort with
@@ -399,6 +400,12 @@ this.cols = [
                             <td>number</td>
                             <td>null</td>
                             <td>Number of rows to display per page.</td>
+                        </tr>
+                        <tr>
+                            <td>paginator</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specified as true, enables the pagination.</td>
                         </tr>
                         <tr>
                             <td>totalRecords</td>
@@ -542,7 +549,7 @@ this.cols = [
                                 event.sortField = Field name to sort with <br>
                                 event.sortOrder = Sort order as number, 1 for asc and -1 for dec <br>
                                 filters: FilterMetadata object having field as key and filter value, filter matchMode as value</td>
-                            <td>Callback to invoke when a column is reordered.</td>
+                            <td>Callback to invoke when paging, sorting or filtering happens in lazy mode.</td>
                         </tr>
                     </tbody>
                 </table>
