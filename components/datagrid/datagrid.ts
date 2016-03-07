@@ -29,7 +29,7 @@ export class DataGrid implements AfterViewInit,DoCheck {
 
     @Input() rows: number;
     
-    @Input() columns: number;
+    @Input() columns: number = 3;
 
     @Input() totalRecords: number;
 
