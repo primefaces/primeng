@@ -1,5 +1,5 @@
 /*
- * PrimeUI 4.1.1
+ * PrimeUI 4.1.2
  * 
  * Copyright 2009-2015 PrimeTek.
  *
