@@ -2,13 +2,27 @@
 
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
-        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable</span>
-        <span class="defaultText dispTable">DataTable displays data in tabular format.</span>
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataGrid</span>
+        <span class="defaultText dispTable">DataGrid displays data in grid format.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [columns]="cols" style="width:50%"></p-dataTable>
+    <p-dataGrid [value]="cars" [columns]="5" [paginator]="true" [rows]="20">
+        <header>
+            List of Cars
+        </header>
+        <template #car>
+            <div style="padding:3px">
+                <p-panel [header]="car.vin" [paginator]="true" style="text-align:center">
+                    <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
+                    <div class="car-detail">{{car.year}} - {{car.color}}</div>
+                    <hr class="ui-widget-content">
+                    <button type="button" pButton icon="fa-search" (click)="selectCar(car)"></button>
+                </p-panel>
+            </div>
+        </template>
+    </p-dataGrid>
 </div>
 
 <div class="ContentSideSections Source">
@@ -17,7 +31,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {DataTable} from 'primeng/primeng';
+import {DataGrid} from 'primeng/primeng';
 </code>
 </pre>
 
