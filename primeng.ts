@@ -16,6 +16,8 @@ export * from './components/chart/radarchart/radarchart';
 export * from './components/checkbox/checkbox';
 export * from './components/common/header';
 export * from './components/common/footer';
+export * from './components/datagrid/datagrid';
+export * from './components/datalist/datalist';
 export * from './components/datatable/datatable';
 export * from './components/dialog/dialog';
 export * from './components/fieldset/fieldset';
