@@ -66,10 +66,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
 
     ngAfterViewInit() {
         if(this.lazy) {
-            this.onLazyLoad.next({
-                first: this.first,
-                rows: this.rows
-            });
+            this.load();
         }
         
         if(this.loader) {
@@ -86,17 +83,28 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
         let changes = this.differ.diff(this.value);
 
         if(changes) {
-            this.load();
+            if(this.lazy)
+                this.dataToRender = this.value;
+            else
+                this.load();
         }
     }
     
     load() {
-        for(let i = this.first; i < (this.first + this.rows); i++) {
-            if(i >= this.value.length) {
-                break;
-            }
+        if(this.lazy) {
+            this.onLazyLoad.next({
+                first: this.first,
+                rows: this.rows
+            });
+        }
+        else {
+            for(let i = this.first; i < (this.first + this.rows); i++) {
+                if(i >= this.value.length) {
+                    break;
+                }
 
-            this.dataToRender.push(this.value[i]);
+                this.dataToRender.push(this.value[i]);
+            }
         }
         this.first = this.first + this.rows;
     }

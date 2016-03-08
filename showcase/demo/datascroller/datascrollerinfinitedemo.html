@@ -1,0 +1,48 @@
+<datascroller-demos></datascroller-demos>
+
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataScroller  - <span class="subitem">Infinite</span></span>
+        <span class="defaultText dispTable">DataScroller supports lazy loading so that each scroll event fetches new chunk of data from a remote datasource. This example generates
+        the new records on-the-fly and scrolling is infinite.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-growl [value]="msgs"></p-growl>
+    
+    <p-dataScroller [value]="cars" [paginator]="true" [rows]="10" (onLazyLoad)="loadData($event)" [lazy]="true">
+        <header>
+            Scroll Down to to Load More
+        </header>
+        <template #car>
+            <li style="border-bottom:1px solid #D5D5D5;">
+                <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3" style="text-align:center"><img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"></div>
+                        <div class="ui-grid-col-9">
+                            <div class="ui-grid ui-grid-responsive ui-fluid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">Vin: </div>
+                                    <div class="ui-grid-col-10">{{car.vin}}</div>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">Year: </div>
+                                    <div class="ui-grid-col-10">{{car.year}}</div>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">Brand: </div>
+                                    <div class="ui-grid-col-10">{{car.brand}}</div>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">Color: </div>
+                                    <div class="ui-grid-col-10">{{car.color}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </template>
+    </p-dataScroller>
+</div>

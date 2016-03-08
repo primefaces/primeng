@@ -9,6 +9,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                 <li><a [routerLink]="['DataScrollerDemo']">&#9679; Window</a></li>
                 <li><a [routerLink]="['DataScrollerInlineDemo']">&#9679; Inline</a></li>
                 <li><a [routerLink]="['DataScrollerLoaderDemo']">&#9679; Loader</a></li>
+                <li><a [routerLink]="['DataScrollerInfiniteDemo']">&#9679; Infinite</a></li>
             </ul>
         </div>
     `,
