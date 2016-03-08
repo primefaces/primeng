@@ -74,12 +74,12 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {DataList} from 'primeng/primeng';
+import {DataScroller} from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>DataList requires a collection of items as its value and a template to display each item. Template should contain a li element as a wrapper. </p><p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the datalist. Cars are loaded by a CarService that connects to a server to fetch the cars with a Promise.</p>
+            <p>DataScroller requires a collection of items as its value, number of rows to load and a template to display each item. Template should contain a li element as a wrapper. </p><p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the datascroller. Cars are loaded by a CarService that connects to a server to fetch the cars with a Promise.</p>
 <pre>
 <code class="language-typescript" pCode>
 export interface Car {
@@ -112,10 +112,10 @@ export class CarService {
 </code>
 </pre>
         
-            <p>Here is a sample DataList that displays a list of cars where each row contains 3 cars.</p>
+            <p>Here is a sample DataScroller that displays a list of cars where each load event adds 10 more rows if available.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class DataListDemo implements OnInit {
+export class DataScrollertDemo implements OnInit {
 
     cars: Car[];
 
@@ -130,13 +130,13 @@ export class DataListDemo implements OnInit {
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataList [value]="cars"&gt;
+&lt;p-dataScroller [value]="cars" [rows]="10"&gt;
     &lt;template #car&gt;
         &lt;li&gt;
             Car content
         &lt;/li&gt;
     &lt;/template&gt;
-&lt;/p-dataList&gt;
+&lt;/p-dataScroller&gt;
 </code>
 </pre>
 
@@ -150,7 +150,7 @@ import {Footer} from 'primeng/primeng';
 </pre>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataList [value]="cars" [columns]="5"&gt;
+&lt;p-dataScroller [value]="cars" [rows]="10"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;footer&gt;Choose from the list.&lt;/footer&gt;
     &lt;template #car&gt;
@@ -158,22 +158,21 @@ import {Footer} from 'primeng/primeng';
             Car content
         &lt;/li&gt;
     &lt;/template&gt;
-&lt;/p-dataList&gt;
+&lt;/p-dataScroller&gt;
 </code>
 </pre>
             
-            <h3>Paginator</h3>
-            <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
-                of page links to display.</p>
+            <h3>Inline</h3>
+            <p>By default DataScroller listens to the scroll event of window, the alternative is the inline mode where container of the DataScroller element itself is used as the event target. Set inline option to true to enable this mode.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataList [value]="cars" [paginator]="true" [rows]="9"&gt;
+&lt;p-dataScroller [value]="cars" [inline]="true" [rows]="10"&gt;
     &lt;template #car&gt;
         &lt;li&gt;
             Car content
         &lt;/li&gt;
     &lt;/template&gt;
-&lt;/p-dataList&gt;
+&lt;/p-dataScroller&gt;
 </code>
 </pre>
     
@@ -181,25 +180,25 @@ import {Footer} from 'primeng/primeng';
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
              onLazyLoad callback everytime paging happens. To implement lazy loading,
             enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object 
-            that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator 
-            displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
+            that contains information about what to load.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataList [value]="cars" [columns]="3" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
+&lt;p-dataScroller [value]="cars" [rows]="10" [lazy]="true" (onLazyLoad)="loadData($event)"&gt;
     &lt;template #car&gt;
         &lt;li&gt;
             Car content
         &lt;/li&gt;
     &lt;/template&gt;
-&lt;/p-dataList&gt;
+&lt;/p-dataScroller&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-ts" pCode>
+<code class="language-typescript" pCode>
 loadData(event) {
     //event.first = First row offset
     //event.rows = Number of rows per page
+    //add more records to the cars array
 }
 </code>
 </pre>
@@ -226,31 +225,25 @@ loadData(event) {
                             <td>rows</td>
                             <td>number</td>
                             <td>null</td>
-                            <td>Number of rows to display per page.</td>
+                            <td>Number of rows to fetch in a load event.</td>
                         </tr>
                         <tr>
-                            <td>paginator</td>
+                            <td>inline</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When specified as true, enables the pagination.</td>
+                            <td>Defines if the event target to listen the scroll event is the element itself.</td>
                         </tr>
                         <tr>
-                            <td>totalRecords</td>
-                            <td>number</td>
+                            <td>scrollHeight</td>
+                            <td>any</td>
                             <td>null</td>
-                            <td>Number of total records, defaults to length of value when not defined.</td>
+                            <td>Max height of the content area in inline mode.</td>
                         </tr>
                         <tr>
-                            <td>pageLinks</td>
-                            <td>number</td>
+                            <td>loader</td>
+                            <td>any</td>
                             <td>null</td>
-                            <td>Number of page links to display in paginator.</td>
-                        </tr>
-                        <tr>
-                            <td>lazy</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                            <td>Reference of the target element whose click event loads the data instead of scrolling.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -283,7 +276,7 @@ loadData(event) {
                             <td>onLazyLoad</td>
                             <td>event.first = First row offset <br>
                                 event.rows = Number of rows per page <br></td>
-                            <td>Callback to invoke when paging, sorting or filtering happens in lazy mode.</td>
+                            <td>Callback to invoke in lazy mode to load new data.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -301,23 +294,23 @@ loadData(event) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-datalist</td>
+                            <td>ui-datascroller</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-datalist-header</td>
+                            <td>ui-datascroller-header</td>
                             <td>Header section.</td>
                         </tr>
                         <tr>
-                            <td>ui-datalist-footer</td>
+                            <td>ui-datascroller-footer</td>
                             <td>Footer section.</td>
                         </tr>
                         <tr>
-                            <td>ui-datalist-content</td>
+                            <td>ui-datascroller-content</td>
                             <td>Wrapper of item container.</td>
                         </tr>
                         <tr>
-                            <td>ui-datalist-data</td>
+                            <td>ui-datascroller-list</td>
                             <td>Item container element.</td>
                         </tr>
                     </tbody>
@@ -325,15 +318,15 @@ loadData(event) {
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires css of PrimeUI DataList.</p>
+            <p>Native component that requires css of PrimeUI DataScroller.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataList [value]="cars" [paginator]="true" [rows]="5"&gt;
+&lt;p-dataScroller [value]="cars" [paginator]="true" [rows]="10" [buffer]="0.4"&gt;
     &lt;header&gt;
-        List of Cars
+        Scroll Down to to Load More
     &lt;/header&gt;
     &lt;template #car&gt;
         &lt;li style="border-bottom:1px solid #D5D5D5;"&gt;
@@ -364,7 +357,7 @@ loadData(event) {
             &lt;/div&gt;
         &lt;/li&gt;
     &lt;/template&gt;
-&lt;/p-dataList&gt;
+&lt;/p-dataScroller&gt;
     
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
     &lt;div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px"&gt;
@@ -393,7 +386,7 @@ loadData(event) {
 </pre>
 <pre>
 <code class="language-typescript" pCode>
-export class DataListDemo implements OnInit {
+export class DataScrollerDemo implements OnInit {
 
     cars: Car[];
     
@@ -404,7 +397,7 @@ export class DataListDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsLarge().then(cars => this.cars = cars);
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
     }
     
     selectCar(car: Car) {
