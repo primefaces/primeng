@@ -4,8 +4,86 @@
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataScroller  - <span class="subitem">Infinite</span></span>
         <span class="defaultText dispTable">DataScroller supports lazy loading so that each scroll event fetches new chunk of data from a remote datasource. This example generates
-        the new records on-the-fly and scrolling is infinite.</span>
+        the new records on-the-fly and scrolling is infinite.</span><br><span class="defaultText">Scroll to the bottom of this page to see the demo.</span>
     </div>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datascrollerinfinitedemo.ts">
+<pre>
+<code class="language-typescript" pCode>
+export class DataScrollerInfiniteDemo {
+
+    cars: Car[];
+    
+    msgs: Message[] = [];
+    
+    constructor(private carService: CarService) { }
+    
+    loadData(event) {
+        //initialize
+        if(!this.cars) {
+            this.carService.getCarsSmall().then(cars => this.cars = cars);
+        }
+        //in real application, newArray should be loaded from a remote datasource
+        else {
+            let newArray = this.cars.slice(0);
+            for(let i = 0; i < newArray.length; i++) {
+                this.cars.push(newArray[i]);
+            }
+            this.msgs = [];
+            this.msgs.push({severity:'info', summary:'Data Loaded', detail:'Between ' + event.first + ' and ' + (event.first + event.rows)});
+        }        
+    }
+}
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datascrollerinfinitedemo.html">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+
+&lt;p-dataScroller [value]="cars" [paginator]="true" [rows]="10" (onLazyLoad)="loadData($event)" [lazy]="true"&gt;
+    &lt;header&gt;
+        Scroll Down to to Load More
+    &lt;/header&gt;
+    &lt;template #car&gt;
+        &lt;li style="border-bottom:1px solid #D5D5D5;"&gt;
+            &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px"&gt;
+                &lt;div class="ui-grid-row"&gt;
+                    &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;
+                    &lt;div class="ui-grid-col-9"&gt;
+                        &lt;div class="ui-grid ui-grid-responsive ui-fluid"&gt;
+                            &lt;div class="ui-grid-row"&gt;
+                                &lt;div class="ui-grid-col-2"&gt;Vin: &lt;/div&gt;
+                                &lt;div class="ui-grid-col-10"&gt;{{car.vin}}&lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;div class="ui-grid-row"&gt;
+                                &lt;div class="ui-grid-col-2"&gt;Year: &lt;/div&gt;
+                                &lt;div class="ui-grid-col-10"&gt;{{car.year}}&lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;div class="ui-grid-row"&gt;
+                                &lt;div class="ui-grid-col-2"&gt;Brand: &lt;/div&gt;
+                                &lt;div class="ui-grid-col-10"&gt;{{car.brand}}&lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;div class="ui-grid-row"&gt;
+                                &lt;div class="ui-grid-col-2"&gt;Color: &lt;/div&gt;
+                                &lt;div class="ui-grid-col-10"&gt;{{car.color}}&lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/li&gt;
+    &lt;/template&gt;
+&lt;/p-dataScroller&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
 </div>
 
 <div class="ContentSideSections Implementation">
