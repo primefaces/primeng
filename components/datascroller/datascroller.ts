@@ -47,6 +47,8 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     @ContentChild(Footer) footer;
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
+    
+    @Input() loader: any;
 
     private dataToRender: any[] = [];
 
@@ -70,7 +72,14 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
             });
         }
         
-        this.bindScrollListener();
+        if(this.loader) {
+            this.scrollFunction = this.renderer.listen(this.loader, 'click', () => {
+                this.load();
+            });
+        }
+        else {
+            this.bindScrollListener();
+        }
     }
     
     ngDoCheck() {
