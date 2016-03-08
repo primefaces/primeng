@@ -129,7 +129,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
                 let scrollHeight = this.contentElement.scrollHeight;
                 let viewportHeight = this.contentElement.clientHeight;
 
-                if((scrollTop >= ((scrollHeight * this.buffer) - (viewportHeight))) && this.shouldLoad()) {
+                if((scrollTop >= ((scrollHeight * this.buffer) - (viewportHeight)))) {
                     this.load();
                 }
             });
@@ -142,16 +142,12 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
                 let winHeight = docElement.clientHeight;
                 let docHeight = Math.max(docBody.scrollHeight, docBody.offsetHeight, winHeight, docElement.scrollHeight, docElement.offsetHeight);
                             
-                if(scrollTop >= ((docHeight * this.buffer) - winHeight) && this.shouldLoad()) {
+                if(scrollTop >= ((docHeight * this.buffer) - winHeight)) {
                     this.load();
                 }
             });
         }
         
-    }
-    
-    shouldLoad() {
-        return true;
     }
     
     ngOnDestroy() {
