@@ -113,7 +113,9 @@ export class DataGridDemo implements OnInit {
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars" [columns]="3"&gt;
     &lt;template #car&gt;
-        Car content
+        &lt;div&gt;
+            Car content
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-dataGrid&gt;
 </code>
@@ -132,6 +134,11 @@ import {Footer} from 'primeng/primeng';
 &lt;p-dataGrid [value]="cars" [columns]="5"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+    &lt;template #car&gt;
+        &lt;div&gt;
+            Car content
+        &lt;/div&gt;
+    &lt;/template&gt;
 &lt;/p-dataGrid&gt;
 </code>
 </pre>
@@ -143,7 +150,9 @@ import {Footer} from 'primeng/primeng';
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars" [columns]="3" [paginator]="true" [rows]="9"&gt;
     &lt;template #car&gt;
-        Car content
+        &lt;div&gt;
+            Car content
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-dataGrid&gt;
 </code>
@@ -159,7 +168,9 @@ import {Footer} from 'primeng/primeng';
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars" [columns]="3" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
     &lt;template #car&gt;
-        Car content
+        &lt;div&gt;
+            Car content
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-dataGrid&gt;
 </code>
