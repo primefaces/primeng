@@ -112,7 +112,7 @@ export class CarService {
 </code>
 </pre>
         
-            <p>Here is a sample DataList that displays a list of cars where each row contains 3 cars.</p>
+            <p>Here is a sample DataList that displays a list of cars.</p>
 <pre>
 <code class="language-typescript" pCode>
 export class DataListDemo implements OnInit {
@@ -150,7 +150,7 @@ import {Footer} from 'primeng/primeng';
 </pre>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataList [value]="cars" [columns]="5"&gt;
+&lt;p-dataList [value]="cars"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;footer&gt;Choose from the list.&lt;/footer&gt;
     &lt;template #car&gt;
@@ -167,7 +167,7 @@ import {Footer} from 'primeng/primeng';
                 of page links to display.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataList [value]="cars" [paginator]="true" [rows]="9"&gt;
+&lt;p-dataList [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;template #car&gt;
         &lt;li&gt;
             Car content
@@ -196,7 +196,7 @@ import {Footer} from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-ts" pCode>
+<code class="language-typescript" pCode>
 loadData(event) {
     //event.first = First row offset
     //event.rows = Number of rows per page
