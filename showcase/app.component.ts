@@ -65,6 +65,7 @@ import {ScheduleDemo} from "./demo/schedule/scheduledemo";
 import {DataGridDemo} from "./demo/datagrid/datagriddemo";
 import {DataListDemo} from "./demo/datalist/datalistdemo";
 import {DataScrollerDemo} from "./demo/datascroller/datascrollerdemo";
+import {DataScrollerInlineDemo} from "./demo/datascroller/datascrollerinlinedemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -136,7 +137,8 @@ import {DataScrollerDemo} from "./demo/datascroller/datascrollerdemo";
     {path: '/schedule', name: 'ScheduleDemo', component: ScheduleDemo},
     {path: '/datagrid', name: 'DataGridDemo', component: DataGridDemo},
     {path: '/datalist', name: 'DataListDemo', component: DataListDemo},
-    {path: '/datascroller', name: 'DataScrollerDemo', component: DataScrollerDemo}
+    {path: '/datascroller', name: 'DataScrollerDemo', component: DataScrollerDemo},
+    {path: '/datascrollerinline', name: 'DataScrollerInlineDemo', component: DataScrollerInlineDemo}
 ])
 export class AppComponent {
 

@@ -34,6 +34,10 @@ export class DomHandler {
         return element.querySelectorAll(selector);
     }
     
+    public findSingle(element: any, selector: string):any {
+        return element.querySelector(selector);
+    }
+    
     public index(element: any): number {
         let children = element.parentNode.childNodes;
         let num = 0;

@@ -15,7 +15,7 @@ import {CarService} from '../service/carservice';
 import {DataScrollerSubMenu} from './datascrollersubmenu';
 
 @Component({
-    templateUrl: 'showcase/demo/datascroller/datascrollerdemo.html',
+    templateUrl: 'showcase/demo/datascroller/datascrollerinlinedemo.html',
     directives: [DataScroller,Header,Footer,Dialog,Panel,DataScrollerSubMenu,Button,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
     providers: [HTTP_PROVIDERS,CarService],
     styles: [`
@@ -29,7 +29,7 @@ import {DataScrollerSubMenu} from './datascrollersubmenu';
         }
     `]
 })
-export class DataScrollerDemo implements OnInit {
+export class DataScrollerInlineDemo implements OnInit {
 
     cars: Car[];
     
