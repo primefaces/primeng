@@ -15,7 +15,15 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
         </div>
 
         <div class="ContentSideSections Implementation">
-            <button type="text" pButton (click)="count()" [icon]="'fa-check'">Click</button>
+            <button pButton type="text" (click)="count()" label="Click"></button>
+        
+            <button pButton type="text" (click)="count()" icon="fa-check" label="Click"></button>
+            
+            <button pButton type="text" (click)="count()" icon="fa-check" iconPos="right" label="Click"></button>
+            
+            <button pButton type="text" (click)="count()" icon="fa-check"></button>
+            
+            <button pButton type="text" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"></button>
 
             <br /><br />
             Number of clicks: {{clicks}}
@@ -32,11 +40,11 @@ import {Button} from 'primeng/primeng';
 </pre>
 
                     <h3>Getting Started</h3>
-                    <p>Button is applied to a button element with pButton directive.</p>
+                    <p>Button is applied to a button element with pButton directive. Text of the button is defined using label property.</p>
                     
 <pre>
 <code class="language-markup" pCode>
-&lt;button type="button" pButton&gt;Click&lt;/button&gt;
+&lt;button pButton type="button" label="Click"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -45,7 +53,7 @@ import {Button} from 'primeng/primeng';
                     
 <pre>
 <code class="language-markup" pCode>
-&lt;button type="button" pButton (click)="onclick()"&gt;Click&lt;/button&gt;
+&lt;button pButton type="button" (click)="onclick()" label="Click"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -62,11 +70,11 @@ export class Model {
 </pre>
 
                     <h3>Icons</h3>
-                    <p>Icon on a button is defined with icon attribute and position is customized using iconPos attribute. Default
-                    icon position is left.</p>
+                    <p>Icon on a button is specified with icon attribute and position is customized using iconPos attribute. Default
+                    icon position is left. To display only an icon, leave label as undefined.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;button type="button" pButton icon="fa-check'" iconPos="left"&gt;Click&lt;/button&gt;
+&lt;button pButton type="button" icon="fa-check" iconPos="left"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -83,6 +91,12 @@ export class Model {
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>label</td>
+                                    <td>string</td>
+                                    <td>null</td>
+                                    <td>Text of the button.</td>
+                                </tr>
+                                <tr>
                                     <td>icon</td>
                                     <td>string</td>
                                     <td>null</td>
@@ -93,12 +107,6 @@ export class Model {
                                     <td>string</td>
                                     <td>left</td>
                                     <td>Position of the icon, valid values are "left" and "right".</td>
-                                </tr>
-                                <tr>
-                                    <td>disabled</td>
-                                    <td>boolean</td>
-                                    <td>false</td>
-                                    <td>When present, it specifies that the element should be disabled.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -132,18 +140,24 @@ export class Model {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>PrimeUI Button.</p>
+                    <p>Native component that requires the css of PrimeUI Button.</p>
                 </p-tabPanel>
                 <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
-&lt;button type="text" pButton (click)="count()" [icon]="'fa-check'"&gt;Click&lt;/button&gt;
+<code class="language-markup" pCode ngNonBindable>
+&lt;button pButton type="text" (click)="count()" label="Click"&gt;&lt;/button&gt;
 
-Number of clicks: <span>{</span><span>{</span>clicks<span>}</span><span>}</span>
+&lt;button pButton type="text" (click)="count()" icon="fa-check" label="Click"&gt;&lt;/button&gt;
+
+&lt;button pButton type="text" (click)="count()" icon="fa-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
+
+&lt;button pButton type="text" (click)="count()" icon="fa-check"&gt;&lt;/button&gt;
+
+&lt;button pButton type="text" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+
+Number of clicks: {{clicks}}
 </code>
 </pre>
-
-                <h3>ButtonDemo</h3>
 <pre>
 <code class="language-typescript" pCode>
 export class ButtonDemo {
