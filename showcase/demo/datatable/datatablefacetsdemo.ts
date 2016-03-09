@@ -21,8 +21,7 @@ export class DataTableFacetsDemo implements OnInit {
 
     cars: Car[];
 
-    constructor(private carService:CarService) {
-    }
+    constructor(private carService:CarService) {}
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);

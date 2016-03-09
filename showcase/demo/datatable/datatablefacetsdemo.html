@@ -27,22 +27,12 @@ export class DataTableFacetsDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
-
-    constructor(private carService:CarService) {
-    }
+    constructor(private carService:CarService) {}
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', header: 'Vin'},
-            {field: 'brand', header: 'Brand'},
-            {field: 'year', header: 'Year'},
-            {field: 'color', header: 'Color'}
-        ];
     }
-} 
+}
 </code>
 </pre>   
         </p-tabPanel>
@@ -50,10 +40,14 @@ export class DataTableFacetsDemo implements OnInit {
         <p-tabPanel header="datatablefacetsdemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols">
-    &lt;header>List of Cars&lt;/header>
-    &lt;footer>There are 10 cars&lt;/footer>
-&lt;/p-dataTable>
+&lt;p-dataTable [value]="cars"&gt;
+    &lt;header&gt;List of Cars&lt;/header&gt;
+    &lt;footer&gt;There are 10 cars&lt;/footer&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
         </p-tabPanel>

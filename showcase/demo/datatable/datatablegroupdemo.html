@@ -9,7 +9,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="sales" [columns]="cols" [headerRows]="headerRows" [footerRows]="footerRows">
+    <p-dataTable [value]="sales" [headerRows]="headerRows" [footerRows]="footerRows">
         <p-column field="brand"></p-column>
         <p-column field="lastYearSale"></p-column>
         <p-column field="thisYearSale"></p-column>
@@ -26,8 +26,6 @@
 export class DataTableGroupDemo implements OnInit {
 
     sales: any[];
-
-    cols: Column[];
 
     headerRows: any[];
     
@@ -46,15 +44,7 @@ export class DataTableGroupDemo implements OnInit {
             {brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'},
             {brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'}
         ];
-
-        this.cols = [
-            {field: 'brand'},
-            {field: 'lastYearSale'},
-            {field: 'thisYearSale'},
-            {field: 'lastYearProfit'},
-            {field: 'thisYearProfit'}
-        ];
-
+        
         this.headerRows = [
             {
                 columns: [
@@ -96,7 +86,13 @@ export class DataTableGroupDemo implements OnInit {
         <p-tabPanel header="datatablegroupdemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="sales" [columns]="cols" [headerRows]="headerRows" [footerRows]="footerRows"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="sales" [headerRows]="headerRows" [footerRows]="footerRows"&gt;
+    &lt;p-column field="brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="lastYearSale"&gt;&lt;/p-column&gt;
+    &lt;p-column field="thisYearSale"&gt;&lt;/p-column&gt;
+    &lt;p-column field="lastYearProfit"&gt;&lt;/p-column&gt;
+    &lt;p-column field="thisYearProfit"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
         </p-tabPanel>

@@ -36,19 +36,10 @@ export class DataTableColResizeDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
-
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', header: 'Vin'},
-            {field: 'brand', header: 'Brand'},
-            {field: 'year', header: 'Year'},
-            {field: 'color', header: 'Color'}
-        ];
     }
 }
 </code>
@@ -59,10 +50,20 @@ export class DataTableColResizeDemo implements OnInit {
 <pre>
 <code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Fit Mode&lt;/h3&gt;
-&lt;p-dataTable [value]="cars" [columns]="cols" resizableColumns="true"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" resizableColumns="true"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 
 &lt;h3&gt;Expand Mode&lt;/h3&gt;
-&lt;p-dataTable [value]="cars" [columns]="cols" resizableColumns="true" columnResizeMode="expand"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" resizableColumns="true" columnResizeMode="expand"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
         </p-tabPanel>

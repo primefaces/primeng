@@ -62,19 +62,10 @@ export class DataTableCrudDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
-
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', header: 'Vin', sortable: true},
-            {field: 'brand', header: 'Brand', sortable: true},
-            {field: 'year', header: 'Year', sortable: true},
-            {field: 'color', header: 'Color', sortable: true}
-        ];
     }
     
     showDialogToAdd() {
@@ -129,8 +120,12 @@ class PrimeCar implements Car {
         <p-tabPanel header="datatablecruddemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true"&gt;
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true"&gt;
     &lt;header&gt;CRUD for Cars&lt;/header&gt;
+    &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;footer&gt;&lt;div class="ui-helper-clearfix" style="width:100%"&gt;&lt;button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()"&gt;Add&lt;/button&gt;&lt;/div&gt;&lt;/footer&gt;
 &lt;/p-dataTable&gt;
 

@@ -25,19 +25,10 @@ export class DataTableSortDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
-
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', header: 'Vin', sortable: true},
-            {field: 'brand', header: 'Brand', sortable: true},
-            {field: 'year', header: 'Year', sortable: true},
-            {field: 'color', header: 'Color', sortable: true}
-        ];
     }
 }
 </code>
@@ -47,7 +38,12 @@ export class DataTableSortDemo implements OnInit {
         <p-tabPanel header="datatablesortdemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars"&gt;
+    &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
         </p-tabPanel>

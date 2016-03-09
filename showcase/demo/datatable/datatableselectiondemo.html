@@ -40,7 +40,7 @@
 
     <h3>Events</h3>
     <p>DataTable provides onRowSelect and onRowUnselect as optional callbacks.</p>
-    <p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
         <header>Selection with Events</header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -60,8 +60,6 @@ export class DataTableSelectionDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
-
     selectedCar1: Car;
 
     selectedCar2: Car;
@@ -72,13 +70,6 @@ export class DataTableSelectionDemo implements OnInit {
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', header: 'Vin'},
-            {field: 'brand', header: 'Brand'},
-            {field: 'year', header: 'Year'},
-            {field: 'color', header: 'Color'}
-        ];
     }
 
     onRowSelect(event) {
@@ -102,15 +93,23 @@ export class DataTableSelectionDemo implements OnInit {
 
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p&gt;In single mode, a row is selected on click event of a row, if the metaKey is on and row is already selected then the row gets unselected.&lt;/p&gt;
-&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar1"&gt;
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar1"&gt;
     &lt;header&gt;Single Selection&lt;/header&gt;
     &lt;footer&gt;&lt;div style="text-align: left"&gt;Selected Car: {{selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'}}&lt;/div&gt;&lt;/footer&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
-&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="multiple" [(selection)]="selectedCars"&gt;
+&lt;p-dataTable [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
     &lt;header&gt;Multiple Selection&lt;/header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;footer&gt;
         &lt;ul&gt;
             &lt;li *ngFor="#car of selectedCars" style="text-align: left"&gt;{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}&lt;/li&gt;
@@ -120,8 +119,12 @@ export class DataTableSelectionDemo implements OnInit {
 
 &lt;h3&gt;Events&lt;/h3&gt;
 &lt;p&gt;DataTable provides onRowSelect and onRowUnselect as optional callbacks.&lt;/p&gt;
-&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"&gt;
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"&gt;
     &lt;header&gt;Selection with Events&lt;/header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>

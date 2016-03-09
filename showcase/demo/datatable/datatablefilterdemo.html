@@ -27,19 +27,10 @@ export class DataTableFilterDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
-
     constructor(private carService: CarService) {}
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', header: 'Vin (startsWith)', filter: true},
-            {field: 'brand', header: 'Brand (contains)', filter: true, filterMatchMode: 'contains'},
-            {field: 'year', header: 'Year (startsWith)', filter: true},
-            {field: 'color', header: 'Color (endsWith)', filter: true, filterMatchMode: 'endsWith'}
-        ];
     }
 }
 </code>
@@ -49,8 +40,12 @@ export class DataTableFilterDemo implements OnInit {
         <p-tabPanel header="datatablefilterdemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" [rows]="10" [paginator]="true"&gt;
+&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
+    &lt;p-column field="vin" header="Vin (startsWith)" [filter]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year (contains)" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand (startsWith)" [filter]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color (endsWith)" [filter]="true" filterMatchMode="endsWith"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
