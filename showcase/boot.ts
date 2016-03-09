@@ -5,7 +5,7 @@ import {ROUTER_PROVIDERS,LocationStrategy,HashLocationStrategy} from 'angular2/r
 import {enableProdMode} from 'angular2/core';
 import 'rxjs/Rx';
 
-enableProdMode();
+//enableProdMode();
 bootstrap(AppComponent, [
   ROUTER_PROVIDERS,
   provide(LocationStrategy, {useClass: HashLocationStrategy})

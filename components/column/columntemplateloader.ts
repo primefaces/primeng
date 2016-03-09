@@ -14,7 +14,7 @@ export class ColumnTemplateLoader {
     
     constructor(private viewContainer: ViewContainerRef) {}
     
-    ngAfterViewInit() {
+    ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.column.template);
         view.setLocal('\$implicit', this.column);
         view.setLocal('rowData', this.rowData);
