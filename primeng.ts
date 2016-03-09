@@ -22,6 +22,7 @@ export * from './components/datalist/datalist';
 export * from './components/datascroller/datascroller';
 export * from './components/datatable/datatable';
 export * from './components/dialog/dialog';
+export * from './components/dropdown/dropdown';
 export * from './components/fieldset/fieldset';
 export * from './components/galleria/galleria';
 export * from './components/growl/growl';
