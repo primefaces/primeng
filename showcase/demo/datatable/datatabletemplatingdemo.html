@@ -19,7 +19,7 @@
                 <span [style.color]="car[col.field]">{{car[col.field]}}</span>
             </template>
         </p-column>
-        <p-column>
+        <p-column style="width:10%;text-align:center">
             <template #car="rowData">
                 <button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>
             </template>
