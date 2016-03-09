@@ -18,10 +18,19 @@ import {CarService} from '../service/carservice';
 export class DataTableDemo implements OnInit {
 
     cars: Car[];
+    
+    cols: any[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
+        
+        this.cols = [
+            {field: 'vin', header: 'Vin'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'year', header: 'Year'},
+            {field: 'color', header: 'Color'}
+        ];
     }
 }
