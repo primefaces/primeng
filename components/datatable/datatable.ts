@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,IterableDiffers,QueryList} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,IterableDiffers,Query,QueryList} from 'angular2/core';
 import {Column} from '../column/column';
 import {ColumnTemplateLoader} from '../column/columntemplateloader';
 import {Header} from '../common/header';
@@ -103,12 +103,10 @@ import {InputText} from '../inputtext/inputtext';
     `,
     directives: [Paginator,InputText,ColumnTemplateLoader]
 })
-export class DataTable implements AfterViewInit,DoCheck {
+export class DataTable implements AfterViewInit,AfterViewChecked,OnInit,DoCheck {
 
     @Input() value: any[];
-    
-    @ContentChildren(Column) columns: QueryList<Column>;
-    
+        
     @Input() paginator: boolean;
 
     @Input() rows: number;
@@ -181,13 +179,21 @@ export class DataTable implements AfterViewInit,DoCheck {
 
     private filteredValue: any[];
     
+    private columns: Column[];
+    
+    private columnsUpdated: boolean = false;
+        
     differ: any;
 
-    constructor(private el: ElementRef, differs: IterableDiffers) {
+    constructor(private el: ElementRef, differs: IterableDiffers, @Query(Column) cols: QueryList<Column>) {
         this.differ = differs.find([]).create(null);
+        cols.changes.subscribe(_ => {
+            this.columns = cols.toArray();
+            this.columnsUpdated = true;
+        });
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
         if(this.lazy) {
             this.onLazyLoad.next({
                 first: this.first,
@@ -197,20 +203,26 @@ export class DataTable implements AfterViewInit,DoCheck {
                 filters: null
             });
         }
-        
-        if(this.resizableColumns) {
-            this.initResizableColumns();
-        }
-
-        if(this.reorderableColumns) {
-            this.initColumnReordering();
-        }
-
-        if(this.scrollable) {
-            this.initScrolling();
-        }
     }
     
+    ngAfterViewChecked() {
+        if(this.columnsUpdated) {
+            if(this.resizableColumns) {
+                this.initResizableColumns();
+            }
+
+            if(this.reorderableColumns) {
+                this.initColumnReordering();
+            }
+            
+            if(this.scrollable) {
+                this.initScrolling();
+            }
+            
+            this.columnsUpdated = false;
+        }
+    }
+     
     ngDoCheck() {
         let changes = this.differ.diff(this.value);
 
@@ -520,7 +532,7 @@ export class DataTable implements AfterViewInit,DoCheck {
     }
 
     initColumnReordering() {
-        /*jQuery(this.el.nativeElement.children[0]).puicolreorder({
+        jQuery(this.el.nativeElement.children[0]).puicolreorder({
             colReorder: (event: Event, ui: PrimeUI.ColReorderEventParams) => {
                 //right
                 if(ui.dropSide > 0) {
@@ -533,7 +545,7 @@ export class DataTable implements AfterViewInit,DoCheck {
 
                 this.onColReorder.next(ui);
             }
-        });*/
+        });
     }
 
     initScrolling() {
@@ -548,12 +560,14 @@ export class DataTable implements AfterViewInit,DoCheck {
             return true;
         }
         else {
-            let columnsArray = this.columns.toArray();
-            for(let i = 0; i  < columnsArray.length; i++) {
-                if(columnsArray[i].footer) {
-                    return true;
+            if(this.columns) {
+                for(let i = 0; i  < this.columns.length; i++) {
+                    if(this.columns[i].footer) {
+                        return true;
+                    }
                 }
             }
+            
         }
         return false;
     }
@@ -575,6 +589,10 @@ export class DataTable implements AfterViewInit,DoCheck {
     ngOnDestroy() {
         if(this.resizableColumns) {
             jQuery(this.el.nativeElement.children[0]).puicolresize('destroy');
+        }
+        
+        if(this.reorderableColumns) {
+            jQuery(this.el.nativeElement.children[0]).puicolreorder('destroy');
         }
     }
 }
