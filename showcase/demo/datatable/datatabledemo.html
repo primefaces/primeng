@@ -8,17 +8,11 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <h3 class="first">Basic</h3>
     <p-dataTable [value]="cars">
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color"></p-column>
-    </p-dataTable>
-        
-    <h3>Dynamic Columns</h3>
-    <p-dataTable [value]="cars">
-        <p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"></p-column>
     </p-dataTable>
 </div>
 
@@ -29,12 +23,13 @@
 <pre>
 <code class="language-typescript" pCode>
 import {DataTable} from 'primeng/primeng';
+import {Column} from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>DataTable requires a value as an array of objects and a collection of column configurations. Throughout the samples, a car interface having
-            vin, brand, year and color properties are used to define an object to be displayed by the datatable. Cars are loaded by a CarService that
+            <p>DataTable requires a value as an array of objects and columns defined with p-column component. Throughout the samples, a car interface having
+            vin, brand, year and color properties is used to define an object to be displayed by the datatable. Cars are loaded by a CarService that
             connects to a server to fetch the cars with a Promise.
             </p>
 <pre>
@@ -76,50 +71,170 @@ export class DataTableDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+    }
+}
+</code>
+</pre>
+
+        <p>List of cars are bound to the value property and columns are defined using p-column component.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataTable [value]="cars"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+
+            <h3>Column Component</h3>
+            <p>Column component defines various options to specify corresponding features.</p>
+            <h3>Attributes</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>field</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Property of a row data.</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Header text of a column.</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Footer text of a column.</td>
+                        </tr>
+                        <tr>
+                            <td>sortable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if a column is sortable</td>
+                        </tr>
+                        <tr>
+                            <td>editable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if a column is editable.</td>
+                        </tr>
+                        <tr>
+                            <td>filter</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if a column can be filtered.</td>
+                        </tr>
+                        <tr>
+                            <td>filterMatchMode</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines filterMatchMode; "startsWith", "contains" or "endsWidth".</td>
+                        </tr>
+                        <tr>
+                            <td>rowspan</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Number of rows to span for grouping.</td>
+                        </tr>
+                        <tr>
+                            <td>colspan</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Number of columns to span for grouping.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the column.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the column.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+<pre>
+<code class="language-markup" pCode>
+&lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
+</code>
+</pre>
+
+            <h3>Dynamic Colums</h3>
+            <p>Columns can be instantiated using an array as well by iterating with ngFor.</p>
+<pre>
+<code class="language-typescript" pCode>
+export class DataTableDemo implements OnInit {
+
+    cars: Car[];
+    
+    cols: any[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
+        
         this.cols = [
-            {field: 'vin', headerText: 'Vin'},
-            {field: 'brand', headerText: 'Brand'},
-            {field: 'year', headerText: 'Year'},
-            {field: 'color', headerText: 'Color'}
+            {field: 'vin', header: 'Vin'},
+            {field: 'year', header: 'Year'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'color', header: 'Color'}
         ];
     }
 }
 </code>
 </pre>
 
-        <p>List of cars are bound to the value property and column definitions are configured using columns property.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars"&gt;
+    &lt;p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
 
-            <h3>Column API</h3>
-            <p>Column interface defines various options to specify corresponding features.</p>
+            <h3>Templates</h3>
+            <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating. The implicit variable is the column definition and data of current row can be accessed using
+            rowData property.</p>
 <pre>
-<code class="language-typescript" pCode>
-export interface Column {
-    field;              //Property of a row data
-    header?;            //Header text of a column
-    footer?;            //Footer text of a column
-    sortable?;          //Defines if a column is sortable
-    editable?;          //Defines if a column is editable
-    filter?;            //Defines if a column can be filtered
-    filterMatchMode?;   //Defines filterMatchMode; "startsWith", "contains" or "endsWidth"
-    rowspan?;           //RowSpan to be used for grouping
-    colspan?;           //Colspan to be used for grouping
-    style?;             //Inline style of the column
-    styleClass?;        //Style class of the column
-}
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-column field="color" header="Color"&gt;
+    &lt;template #col #car="rowData"&gt;
+        &lt;span"&gt;{{car[col.field]}}&lt;/span&gt;
+    &lt;/template&gt;
+&lt;/p-column&gt;
+&lt;p-column&gt;
+    &lt;template #car="rowData"&gt;
+        &lt;button type="button" pButton (click)="selectCar(car)" icon="fa-search"&gt;&lt;/button&gt;
+    &lt;/template&gt;
+&lt;/p-column&gt;
 </code>
 </pre>
+
+            <p>See the <a [routerLink]="['DataTableTemplatingDemo']">live example.</a></p>
 
             <h3>Facets</h3>
             <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
@@ -131,9 +246,13 @@ import {Footer} from 'primeng/primeng';
 </pre>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols"&gt;
+&lt;p-dataTable [value]="cars"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
@@ -144,7 +263,12 @@ import {Footer} from 'primeng/primeng';
                 of columns each having colspan and rowspan.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="sales" [columns]="cols" [headerRows]="headerRows"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" [headerRows]="headerRows"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
 <pre>
@@ -180,7 +304,12 @@ this.headerRows = [
                 of page links to display. See <a [routerLink]="['PaginatorDemo']">paginator</a> component for more information.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" [rows]="10" [paginator]="true"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTablePaginatorDemo']">live example.</a></p>
@@ -188,28 +317,21 @@ this.headerRows = [
             <h3>Sorting</h3>
             <p>Simply enabling sortable property at column object is enough to make a column sortable.</p>
 <pre>
-<code class="language-typescript" pCode>
-this.cols = [
-    {field: 'vin', headerText: 'Vin', sortable: true},
-    {field: 'brand', headerText: 'Brand', sortable: true},
-    {field: 'year', headerText: 'Year', sortable: true},
-    {field: 'color', headerText: 'Color', sortable: true}
-];
+<code class="language-markup" pCode>
+&lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTableSortDemo']">live example.</a></p>
 
             <h3>Filtering</h3>
-            <p>Filtering is enabled by setting the filter property as true in column object. Default match mode is "startsWith" and this can be configured
-            using filterMatchMode property of column object that also accepts "contains" and "endsWith".</p>
+            <p>Filtering is enabled by setting the filter property as true on a column. Default match mode is "startsWith" and this can be configured
+            using filterMatchMode property that also accepts "contains" and "endsWith".</p>
 <pre>
-<code class="language-typescript" pCode>
-this.cols = [
-    {field: 'vin', headerText: 'Vin', filter: true},
-    {field: 'brand', headerText: 'Brand', filter: true, filterMatchMode: 'startsWith'},
-    {field: 'year', headerText: 'Year', filter: true, filterMatchMode: 'contains'},
-    {field: 'color', headerText: 'Color', filter: true, filterMatchMode: 'endsWith'}
-];
+<code class="language-markup" pCode>
+&lt;p-column field="vin" header="Vin (startsWith)" [filter]="true"&gt;&lt;/p-column&gt;
+&lt;p-column field="year" header="Year (contains)" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-column&gt;
+&lt;p-column field="brand" header="Brand (startsWith)" [filter]="true"&gt;&lt;/p-column&gt;
+&lt;p-column field="color" header="Color (endsWith)" [filter]="true" filterMatchMode="endsWith"&gt;&lt;/p-column&gt;
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTableFilterDemo']">live example.</a></p>
@@ -224,8 +346,6 @@ this.cols = [
 export class DataTableDemo implements OnInit {
 
     cars: Car[];
-
-    cols: Column[];
     
     selectedCar: Car;
 
@@ -233,20 +353,18 @@ export class DataTableDemo implements OnInit {
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', headerText: 'Vin'},
-            {field: 'brand', headerText: 'Brand'},
-            {field: 'year', headerText: 'Year'},
-            {field: 'color', headerText: 'Color'}
-        ];
     }
 }
 </code>
 </pre>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
 
@@ -256,8 +374,6 @@ export class DataTableDemo implements OnInit {
 export class DataTableDemo implements OnInit {
 
     cars: Car[];
-
-    cols: Column[];
     
     selectedCars: Car[];
 
@@ -265,20 +381,18 @@ export class DataTableDemo implements OnInit {
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', headerText: 'Vin'},
-            {field: 'brand', headerText: 'Brand'},
-            {field: 'year', headerText: 'Year'},
-            {field: 'color', headerText: 'Color'}
-        ];
     }
 }
 </code>
 </pre>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCars"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCars"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTableFilterDemo']">live example.</a></p>
@@ -287,20 +401,16 @@ export class DataTableDemo implements OnInit {
             <p>Incell editing is enabled by setting editable property true both on datatable and columns, when a cell is clicked edit mode is activated, clicking outside of cell or hitting the enter key 
             switches back to view mode after updating the value.</p>
 <pre>
-<code class="language-typescript" pCode>
-this.cols = [
-    {field: 'vin', headerText: 'Vin', editable: true},
-    {field: 'brand', headerText: 'Brand', editable: true},
-    {field: 'year', headerText: 'Year', editable: true},
-    {field: 'color', headerText: 'Color', editable: true}
-];
-</code>
-</pre>
-<pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" [editable]="true"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" [editable]="true"&gt;
+    &lt;p-column field="vin" header="Vin" [editable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand" [editable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [editable]="true"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
+
             <p>See the <a [routerLink]="['DataTableEditableDemo']">live example.</a></p>
 
             <h3>Column Resize</h3>
@@ -309,7 +419,12 @@ this.cols = [
             is a callback that passes the resized column header as a parameter.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" [resizableColumns]="true"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" [resizableColumns]="true"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTableColResizeDemo']">live example.</a></p>
@@ -318,7 +433,12 @@ this.cols = [
             <p>Columns can be reordered using drag drop by setting the reorderableColumns to true. onColReorder is a callback that is invoked when a column is reordered.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" [reorderableColumns]="true"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" [reorderableColumns]="true"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTableColReorderDemo']">live example.</a></p>
@@ -329,7 +449,12 @@ this.cols = [
             headers are fixed and data is scrollable. In horizontal scrolling, it is important to give fixed widths to columns.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" [scrollable]="true" scrollHeight="200"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" [scrollable]="true" scrollHeight="200"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTableScrollDemo']">live example.</a></p>
@@ -342,7 +467,12 @@ this.cols = [
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" [scrollable]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" [scrollable]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
 
@@ -365,7 +495,12 @@ loadData(event) {
             by setting responsive to true.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" [responsive]="true"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars" [responsive]="true"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTableResponsiveDemo']">live example.</a></p>
@@ -387,12 +522,6 @@ loadData(event) {
                             <td>array</td>
                             <td>null</td>
                             <td>An array of objects to display.</td>
-                        </tr>
-                        <tr>
-                            <td>columns</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>An array of column definitions.</td>
                         </tr>
                         <tr>
                             <td>headerRows</td>
@@ -568,7 +697,12 @@ loadData(event) {
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="handleRowSelect($event)"&gt;&lt;/p-dataTable>
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="handleRowSelect($event)"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable>
 </code>
 </pre>
 
@@ -650,28 +784,25 @@ handleRowSelect(event) {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [columns]="cols"&gt;&lt;/p-dataTable&gt;
+&lt;p-dataTable [value]="cars"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
+
 <pre>
 <code class="language-typescript" pCode>
 export class DataTableDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
-
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', header: 'Vin'},
-            {field: 'brand', header: 'Brand'},
-            {field: 'year', header: 'Year'},
-            {field: 'color', header: 'Color'}
-        ];
     }
 }
 </code>
