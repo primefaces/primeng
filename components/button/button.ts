@@ -20,7 +20,8 @@ export class Button implements OnInit, OnDestroy, OnChanges {
     ngOnInit() {
         jQuery(this.el.nativeElement).puibutton({
             icon: this.icon,
-            iconPos: this.iconPos
+            iconPos: this.iconPos,
+            disabled: this.disabled
         });
         this.initialized = true;
     }
