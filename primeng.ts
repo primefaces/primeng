@@ -14,6 +14,7 @@ export * from './components/chart/piechart/piechart';
 export * from './components/chart/polarareachart/polarareachart';
 export * from './components/chart/radarchart/radarchart';
 export * from './components/checkbox/checkbox';
+export * from './components/column/column';
 export * from './components/common/header';
 export * from './components/common/footer';
 export * from './components/datagrid/datagrid';
