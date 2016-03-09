@@ -8,6 +8,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
             <ul>
                 <li><a [routerLink]="['DataTableDemo']">&#9679; Basic</a></li>
                 <li><a [routerLink]="['DataTableFacetsDemo']">&#9679; Facets</a></li>
+                <li><a [routerLink]="['DataTableTemplatingDemo']">&#9679; Templating</a></li>
                 <li><a [routerLink]="['DataTableGroupDemo']">&#9679; Group</a></li>
                 <li><a [routerLink]="['DataTablePaginatorDemo']">&#9679; Paginator</a></li>
                 <li><a [routerLink]="['DataTableSortDemo']">&#9679; Sort</a></li>

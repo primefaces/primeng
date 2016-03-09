@@ -58,6 +58,7 @@ import {DataTableScrollDemo} from "./demo/datatable/datatablescrolldemo";
 import {DataTableGroupDemo} from "./demo/datatable/datatablegroupdemo";
 import {DataTableCrudDemo} from "./demo/datatable/datatablecruddemo";
 import {DataTableLazyDemo} from "./demo/datatable/datatablelazydemo";
+import {DataTableTemplatingDemo} from "./demo/datatable/datatabletemplatingdemo";
 import {CodeHighlighterDemo} from "./demo/codehighlighter/codehighlighterdemo";
 import {OrderListDemo} from "./demo/orderlist/orderlistdemo";
 import {PickListDemo} from "./demo/picklist/picklistdemo";
@@ -133,6 +134,7 @@ import {DataScrollerInfiniteDemo} from "./demo/datascroller/datascrollerinfinite
     {path: '/datatablegroup', name: 'DataTableGroupDemo', component: DataTableGroupDemo},
     {path: '/datatablelazy', name: 'DataTableLazyDemo', component: DataTableLazyDemo},
     {path: '/datatablecrud', name: 'DataTableCrudDemo', component: DataTableCrudDemo},
+    {path: '/datatabletemplating', name: 'DataTableTemplatingDemo', component: DataTableTemplatingDemo},
     {path: '/codehighlighter', name: 'CodeHighlighterDemo', component: CodeHighlighterDemo},
     {path: '/orderlist', name: 'OrderListDemo', component: OrderListDemo},
     {path: '/picklist', name: 'PickListDemo', component: PickListDemo},

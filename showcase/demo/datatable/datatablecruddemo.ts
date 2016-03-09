@@ -9,7 +9,7 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
-import {Column} from '../../../components/api/column';
+import {Column} from '../../../components/column/column';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
 import {Header} from '../../../components/common/header';
@@ -17,7 +17,7 @@ import {Footer} from '../../../components/common/footer';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablecruddemo.html',
-    directives: [DataTable,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,Header,Footer,Dialog,Button,InputText,ROUTER_DIRECTIVES],
+    directives: [DataTable,Column,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,Header,Footer,Dialog,Button,InputText,ROUTER_DIRECTIVES],
     providers: [HTTP_PROVIDERS,CarService],
     styles: [`
         .ui-grid-row div {
@@ -41,19 +41,10 @@ export class DataTableCrudDemo implements OnInit {
 
     cars: Car[];
 
-    cols: Column[];
-
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-
-        this.cols = [
-            {field: 'vin', header: 'Vin', sortable: true},
-            {field: 'brand', header: 'Brand', sortable: true},
-            {field: 'year', header: 'Year', sortable: true},
-            {field: 'color', header: 'Color', sortable: true}
-        ];
     }
     
     showDialogToAdd() {

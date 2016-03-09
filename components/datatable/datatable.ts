@@ -1,5 +1,6 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers} from 'angular2/core';
-import {Column} from '../api/column';
+import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,IterableDiffers,QueryList} from 'angular2/core';
+import {Column} from '../column/column';
+import {ColumnTemplateLoader} from '../column/columntemplateloader';
 import {Header} from '../common/header';
 import {Footer} from '../common/footer';
 import {Paginator} from '../paginator/paginator';
@@ -36,7 +37,7 @@ import {InputText} from '../inputtext/inputtext';
                             </th>
                         </tr>
                     </thead>
-                    <tfoot *ngIf="hasFooter()">
+                    <!--<tfoot *ngIf="hasFooter()">
                         <tr *ngIf="!footerRows">
                             <th *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</th>
                         </tr>
@@ -45,14 +46,17 @@ import {InputText} from '../inputtext/inputtext';
                                 [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
                                 [ngClass]="{'ui-state-default':true}">{{col.footer}}</th>
                         </tr>
-                    </tfoot>
+                    </tfoot>-->
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)">{{rowData[col.field]}}</span>
+                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)" *ngIf="!col.template">{{rowData[col.field]}}</span>
+                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)" *ngIf="col.template">
+                                    <p-columnTemplateLoader [column]="col" [rowData]="rowData"></p-columnTemplateLoader>
+                                </span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
                             </td>
                         </tr>
@@ -97,14 +101,14 @@ import {InputText} from '../inputtext/inputtext';
             </div>
         </div>
     `,
-    directives: [Paginator,InputText]
+    directives: [Paginator,InputText,ColumnTemplateLoader]
 })
 export class DataTable implements AfterViewInit,DoCheck {
 
     @Input() value: any[];
-
-    @Input() columns: Column[];
-
+    
+    @ContentChildren(Column) columns: QueryList<Column>;
+    
     @Input() paginator: boolean;
 
     @Input() rows: number;
@@ -516,7 +520,7 @@ export class DataTable implements AfterViewInit,DoCheck {
     }
 
     initColumnReordering() {
-        jQuery(this.el.nativeElement.children[0]).puicolreorder({
+        /*jQuery(this.el.nativeElement.children[0]).puicolreorder({
             colReorder: (event: Event, ui: PrimeUI.ColReorderEventParams) => {
                 //right
                 if(ui.dropSide > 0) {
@@ -529,7 +533,7 @@ export class DataTable implements AfterViewInit,DoCheck {
 
                 this.onColReorder.next(ui);
             }
-        });
+        });*/
     }
 
     initScrolling() {

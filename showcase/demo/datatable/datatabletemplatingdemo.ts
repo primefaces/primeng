@@ -2,26 +2,36 @@ import {Component,OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {HTTP_PROVIDERS}    from 'angular2/http';
 import {DataTable} from '../../../components/datatable/datatable';
+import {Column} from '../../../components/column/column';
+import {Button} from '../../../components/button/button';
+import {Growl} from '../../../components/growl/growl';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
-import {Column} from '../../../components/column/column';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
+import {Message} from '../../../components/api/message';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatabledemo.html',
-    directives: [DataTable,Column,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
+    templateUrl: 'showcase/demo/datatable/datatabletemplatingdemo.html',
+    directives: [DataTable,Column,Button,Growl,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
     providers: [HTTP_PROVIDERS,CarService]
 })
-export class DataTableDemo implements OnInit {
+export class DataTableTemplatingDemo implements OnInit {
 
     cars: Car[];
+    
+    msgs: Message[] = [];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
+    }
+    
+    selectCar(car: Car) {
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'Car Select', detail:'Vin: ' + car.vin});
     }
 }

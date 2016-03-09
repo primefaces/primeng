@@ -6,14 +6,14 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
-import {Column} from '../../../components/api/column';
+import {Column} from '../../../components/column/column';
 import {Header} from '../../../components/common/header';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablelazydemo.html',
-    directives: [DataTable,Header,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
+    directives: [DataTable,Column,Header,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
     providers: [HTTP_PROVIDERS,CarService]
 })
 export class DataTableLazyDemo implements OnInit {
@@ -21,8 +21,6 @@ export class DataTableLazyDemo implements OnInit {
     datasource: Car[];
     
     cars: Car[];
-
-    cols: Column[];
     
     totalRecords: number;
 
@@ -31,13 +29,6 @@ export class DataTableLazyDemo implements OnInit {
     ngOnInit() {
         //datasource imitation
         this.carService.getCarsLarge().then(cars => {this.datasource = cars; this.totalRecords = this.datasource.length;});
-
-        this.cols = [
-            {field: 'vin', header: 'Vin'},
-            {field: 'brand', header: 'Brand'},
-            {field: 'year', header: 'Year'},
-            {field: 'color', header: 'Color'}
-        ];
     }
     
     loadCarsLazy(event) {

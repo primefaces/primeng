@@ -1,0 +1,28 @@
+<datatable-demos></datatable-demos>
+
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable - <span class="subitem">Templating</span></span>
+        <span class="defaultText dispTable">Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-growl [value]="msgs"></p-growl>
+
+    <p-dataTable [value]="cars">
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color">
+            <template #col #car="rowData">
+                <span [style.color]="car[col.field]">{{car[col.field]}}</span>
+            </template>
+        </p-column>
+        <p-column>
+            <template #car="rowData">
+                <button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>
+            </template>
+        </p-column>
+    </p-dataTable>
+</div>

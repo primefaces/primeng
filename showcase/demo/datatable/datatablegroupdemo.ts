@@ -4,18 +4,16 @@ import {DataTable} from '../../../components/datatable/datatable';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Column} from '../../../components/api/column';
+import {Column} from '../../../components/column/column';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablegroupdemo.html',
-    directives: [DataTable,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
+    directives: [DataTable,Column,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class DataTableGroupDemo implements OnInit {
 
     sales: any[];
-
-    cols: Column[];
 
     headerRows: any[];
     
@@ -33,14 +31,6 @@ export class DataTableGroupDemo implements OnInit {
             {brand: 'Panasonic', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322'},
             {brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'},
             {brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'}
-        ];
-
-        this.cols = [
-            {field: 'brand'},
-            {field: 'lastYearSale'},
-            {field: 'thisYearSale'},
-            {field: 'lastYearProfit'},
-            {field: 'thisYearProfit'}
         ];
 
         this.headerRows = [
