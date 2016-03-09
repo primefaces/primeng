@@ -10,7 +10,7 @@ export class Column {
     
     @Input() field: string;
     @Input() header: string;
-    @Input() foooter: string;
+    @Input() footer: string;
     @Input() sortable: boolean;
     @Input() editable: boolean;
     @Input() filter: boolean;

@@ -37,7 +37,7 @@ import {InputText} from '../inputtext/inputtext';
                             </th>
                         </tr>
                     </thead>
-                    <!--<tfoot *ngIf="hasFooter()">
+                    <tfoot *ngIf="hasFooter()">
                         <tr *ngIf="!footerRows">
                             <th *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</th>
                         </tr>
@@ -46,7 +46,7 @@ import {InputText} from '../inputtext/inputtext';
                                 [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
                                 [ngClass]="{'ui-state-default':true}">{{col.footer}}</th>
                         </tr>
-                    </tfoot>-->
+                    </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
@@ -548,8 +548,9 @@ export class DataTable implements AfterViewInit,DoCheck {
             return true;
         }
         else {
-            for(let i = 0; i  < this.columns.length; i++) {
-                if(this.columns[i].footer) {
+            let columnsArray = this.columns.toArray();
+            for(let i = 0; i  < columnsArray.length; i++) {
+                if(columnsArray[i].footer) {
                     return true;
                 }
             }
