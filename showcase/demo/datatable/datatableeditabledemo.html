@@ -9,7 +9,12 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [columns]="cols" editable="true"></p-dataTable>
+    <p-dataTable [value]="cars" [editable]="true">
+        <p-column field="vin" header="Vin" [editable]="true"></p-column>
+        <p-column field="year" header="Year" [editable]="true"></p-column>
+        <p-column field="brand" header="Brand" [editable]="true"></p-column>
+        <p-column field="color" header="Color" [editable]="true"></p-column>
+    </p-dataTable>
 
 </div>
 

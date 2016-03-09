@@ -11,9 +11,13 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [columns]="cols" [lazy]="true" [rows]="10" [paginator]="true" 
+    <p-dataTable [value]="cars" [lazy]="true" [rows]="10" [paginator]="true" 
                         [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
         <header>List of Cars</header>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
     </p-dataTable>
 </div>
 

@@ -9,12 +9,20 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [columns]="cols1" scrollable="true"  scrollHeight="200">
+    <p-dataTable [value]="cars" scrollable="true"  scrollHeight="200">
         <header>Vertical</header>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
     </p-dataTable>
 
-    <p-dataTable [value]="cars" [columns]="cols2" scrollable="true"  scrollHeight="200" scrollWidth="75%" style="margin-top:30px">
+    <p-dataTable [value]="cars" scrollable="true"  scrollHeight="200" scrollWidth="75%" style="margin-top:30px">
         <header>Vertical and Horizontal</header>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
     </p-dataTable>
 </div>
 

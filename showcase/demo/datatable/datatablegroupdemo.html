@@ -9,7 +9,13 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="sales" [columns]="cols" [headerRows]="headerRows" [footerRows]="footerRows"></p-dataTable>
+    <p-dataTable [value]="sales" [columns]="cols" [headerRows]="headerRows" [footerRows]="footerRows">
+        <p-column field="brand"></p-column>
+        <p-column field="lastYearSale"></p-column>
+        <p-column field="thisYearSale"></p-column>
+        <p-column field="lastYearProfit"></p-column>
+        <p-column field="thisYearProfit"></p-column>
+    </p-dataTable>
 </div>
 
 <div class="ContentSideSections Source">

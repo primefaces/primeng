@@ -8,8 +8,12 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [columns]="cols" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
         <header>CRUD for Cars</header>
+        <p-column field="vin" header="Vin" [sortable]="true"></p-column>
+        <p-column field="year" header="Year" [sortable]="true"></p-column>
+        <p-column field="brand" header="Brand" [sortable]="true"></p-column>
+        <p-column field="color" header="Color" [sortable]="true"></p-column>
         <footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()">Add</button></div></footer>
     </p-dataTable>
 

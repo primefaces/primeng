@@ -8,7 +8,12 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [columns]="cols"></p-dataTable>
+    <p-dataTable [value]="cars">
+        <p-column field="vin" header="Vin" [sortable]="true"></p-column>
+        <p-column field="year" header="Year" [sortable]="true"></p-column>
+        <p-column field="brand" header="Brand" [sortable]="true"></p-column>
+        <p-column field="color" header="Color" [sortable]="true"></p-column>
+    </p-dataTable>
 </div>
 
 <div class="ContentSideSections Source">
