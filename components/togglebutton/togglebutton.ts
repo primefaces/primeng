@@ -6,7 +6,6 @@ import {Component,Input,Output,EventEmitter} from 'angular2/core';
         <div [ngClass]="{'ui-button ui-togglebutton ui-widget ui-state-default ui-corner-all': true, 'ui-button-text-only': (!onIcon&&!offIcon), 'ui-button-text-icon-left': (onIcon&&offIcon),
                 'ui-state-active': checked, 'ui-state-hover': hover&&!disabled, 'ui-state-disabled': disabled}" [attr.style]="style" [attr.class]="styleClass" 
                 (click)="toggle($event)" (mouseenter)="hover=true" (mouseleave)="hover=false">
-            <input type="checkbox" class="ui-helper-hidden-accessible">
             <span *ngIf="onIcon||offIcon" [attr.class]="getIconClass()"></span>
             <span class="ui-button-text ui-unselectable-text">{{checked ? onLabel : offLabel}}</span>
         </div>
