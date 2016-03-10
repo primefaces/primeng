@@ -1,14 +1,22 @@
-import {Component, ElementRef, OnInit, OnDestroy, OnChanges, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
+import {Component,Input,Output,EventEmitter} from 'angular2/core';
 
 @Component({
     selector: 'p-toggleButton',
-    template:'<input type="checkbox" />'
+    template: `
+        <div [ngClass]="{'ui-button ui-togglebutton ui-widget ui-state-default ui-corner-all': true, 'ui-button-text-only': (!onIcon&&!offIcon), 'ui-button-text-icon-left': (onIcon&&offIcon),
+                'ui-state-active': checked, 'ui-state-hover': hover&&!disabled, 'ui-state-disabled': disabled}" [attr.style]="style" [attr.class]="styleClass" 
+                (click)="toggle($event)" (mouseenter)="hover=true" (mouseleave)="hover=false">
+            <input type="checkbox" class="ui-helper-hidden-accessible">
+            <span *ngIf="onIcon||offIcon" [attr.class]="getIconClass()"></span>
+            <span class="ui-button-text ui-unselectable-text">{{checked ? onLabel : offLabel}}</span>
+        </div>
+    `
 })
-export class ToggleButton implements OnInit, OnDestroy, OnChanges {
+export class ToggleButton {
 
-    @Input() onLabel: string;
+    @Input() onLabel: string = 'Yes';
 
-    @Input() offLabel: string;
+    @Input() offLabel: string = 'No';
 
     @Input() onIcon: string;
 
@@ -25,51 +33,21 @@ export class ToggleButton implements OnInit, OnDestroy, OnChanges {
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() checkedChange: EventEmitter<any> = new EventEmitter();
+    
+    private hover: boolean;
 
-    initialized: boolean;
-
-    stopNgOnChangesPropagation: boolean;
-
-    constructor(private el: ElementRef) {
-        this.initialized = false;
+    getIconClass() {
+        let baseClass = 'ui-button-icon-left fa fa-fw';
+        return baseClass + ' ' + (this.checked ? this.onIcon : this.offIcon);
     }
-
-    ngOnInit() {
-        jQuery(this.el.nativeElement.children[0]).puitogglebutton({
-            onLabel: this.onLabel,
-            offLabel: this.offLabel,
-            onIcon: this.onIcon,
-            offIcon: this.offIcon,
-            checked: this.checked,
-            disabled: this.disabled,
-            style: this.style,
-            styleClass: this.styleClass,
-            change: (event: Event, ui: PrimeUI.ToggleButtonEventParams) => {
-                this.stopNgOnChangesPropagation = true;
-                this.checkedChange.next(ui.checked);
-                if (this.onChange) {
-                    this.onChange.next({originalEvent: event, checked: ui.checked});
-                }
-            }
-        });
-        this.initialized = true;
-    }
-
-    ngOnChanges(changes: { [key: string]: SimpleChange }) {
-        if (this.initialized) {
-            for (var key in changes) {
-                if (key == 'checked' && this.stopNgOnChangesPropagation) {
-                    this.stopNgOnChangesPropagation = false;
-                    continue;
-                }
-
-                jQuery(this.el.nativeElement.children[0].children[0]).puitogglebutton('option', key, changes[key].currentValue);
-            }
+    
+    toggle(event) {
+        if(!this.disabled) {
+            this.checkedChange.next(!this.checked);
+            this.onChange.next({
+                originalEvent: event,
+                checked: !this.checked
+            })
         }
-    }
-
-    ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0].children[0]).puitogglebutton('destroy');
-        this.initialized = false;
     }
 }
