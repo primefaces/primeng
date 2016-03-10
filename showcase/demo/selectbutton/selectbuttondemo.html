@@ -62,7 +62,7 @@ export class MyModel {
 </pre>
 
             <h3>Multiple</h3>
-            <p>SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. In multiple case, model property should be an array.</p>
+            <p>SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. In multiple case, model property should be an array instance that is not null or undefined.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-selectButton [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-selectButton&gt;
@@ -77,7 +77,7 @@ export class MyModel {
 
     cities: SelectItem[];
 
-    selectedCities: string[];
+    selectedCities: string[] = [];
 
     constructor() {
         this.cities = [];
