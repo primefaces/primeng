@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,IterableDiffers,Query,QueryList} from 'angular2/core';
+import {Component,ElementRef,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,IterableDiffers,Query,QueryList} from 'angular2/core';
 import {Column} from '../column/column';
 import {ColumnTemplateLoader} from '../column/columntemplateloader';
 import {Header} from '../common/header';
@@ -103,7 +103,7 @@ import {InputText} from '../inputtext/inputtext';
     `,
     directives: [Paginator,InputText,ColumnTemplateLoader]
 })
-export class DataTable implements AfterViewInit,AfterViewChecked,OnInit,DoCheck {
+export class DataTable implements AfterViewChecked,OnInit,DoCheck {
 
     @Input() value: any[];
         
