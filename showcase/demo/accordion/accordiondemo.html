@@ -20,7 +20,7 @@
     </p-accordion>
 
     <h3>Active Index Binding - {{activeTabIndex}}</h3>
-    <button type="button" (click)="changeTab()" pButton icon="fa fa-arrows-v">Change</button>
+    <button type="button" (click)="changeTab()" pButton icon="fa fa-arrows-v" label="Change"></button>
     <br /><br />
     <p-accordion [(activeIndex)]="activeTabIndex">
         <p-accordionTab header="Godfather I">
@@ -239,7 +239,7 @@ export class ModelComponent {
 &lt;/p-accordion&gt;
 
 &lt;h3&gt;Active Index Binding -  <span>{</span><span>{</span>activeTabIndex<span>}</span><span>}</span>&lt;/h3&gt;
-&lt;button type="button" (click)="changeTab()" pButton icon="fa fa-arrows-v"&gt;Change&lt;/button&gt;
+&lt;button type="button" (click)="changeTab()" pButton icon="fa fa-arrows-v" label="Change"&gt;&lt;/button&gt;
 &lt;br /&gt;&lt;br /&gt;
 &lt;p-accordion [(activeIndex)]="activeTabIndex"&gt;
     &lt;p-accordionTab header="Godfather I"&gt;

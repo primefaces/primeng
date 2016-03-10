@@ -9,11 +9,11 @@
     <p-growl [value]="msgs" sticky="sticky"></p-growl>
 
     <div>
-        <button type="button" pButton (click)="showInfo()">Info</button>
-        <button type="button" pButton (click)="showWarn()">Warn</button>
-        <button type="button" pButton (click)="showError()">Error</button>
-        <button type="button" pButton (click)="showMultiple()">Multiple</button>
-        <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right">Clear</button>
+        <button type="button" pButton (click)="showInfo()" label="Info"></button>
+        <button type="button" pButton (click)="showWarn()" label="Warn"></button>
+        <button type="button" pButton (click)="showError()" label="Error"></button>
+        <button type="button" pButton (click)="showMultiple() label="Multiple></button>
+        <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"></button>
     </div>
 </div>
 
@@ -159,11 +159,11 @@ hide() {
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;div&gt;
-    &lt;button type="button" pButton (click)="showInfo()"&gt;Info&lt;/button&gt;
-    &lt;button type="button" pButton (click)="showWarn()"&gt;Warn&lt;/button&gt;
-    &lt;button type="button" pButton (click)="showError()"&gt;Error&lt;/button&gt;
-    &lt;button type="button" pButton (click)="showMultiple()"&gt;Multiple&lt;/button&gt;
-    &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right"&gt;Clear&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showInfo()" label="Info"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showWarn()" label="Warn"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showError()" label="Error"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showMultiple() label="Multiple&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"&gt;&lt;/button&gt;
 &lt;/div&gt;
 </code>
 </pre>

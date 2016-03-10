@@ -30,8 +30,8 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="deleteEvent()">Delete</button>
-                <button type="button" pButton icon="fa-check" (click)="saveEvent()">Save</button>
+                <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
+                <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
             </div>
         </footer>
     </p-dialog>
@@ -446,8 +446,8 @@ export class MyModel {
     &lt;/div&gt;
     &lt;footer&gt;
         &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="fa-close" (click)="deleteEvent()"&gt;Delete&lt;/button&gt;
-            &lt;button type="button" pButton icon="fa-check" (click)="saveEvent()"&gt;Save&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/footer&gt;
 &lt;/p-dialog&gt;

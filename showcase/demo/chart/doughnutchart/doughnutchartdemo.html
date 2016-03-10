@@ -20,7 +20,7 @@
                             [segmentShowStroke]="false" [animationSteps]="50" animationEasing="easeInOutQuint" [animateScale]="true"></p-doughnutChart>
             </div>
         </div>
-        <button type="button" (click)="removeYellow()" pButton icon="fa-minus" style="width:300px;margin:10px 0px" *ngIf="!updated">Remove Yellow</button>
+        <button type="button" (click)="removeYellow()" pButton icon="fa-minus" style="width:300px;margin:10px 0px" *ngIf="!updated" label="Remove Yellow"></button>
     </div>
 </div>
 
@@ -492,7 +492,7 @@ export class MyModel {
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-&lt;button type="button" (click)="removeYellow()" pButton icon="fa-minus" style="width:300px" *ngIf="!updated"&gt;Remove Yellow&lt;/button&gt;
+&lt;button type="button" (click)="removeYellow()" pButton icon="fa-minus" style="width:300px" *ngIf="!updated" label="Remove Yellow"&gt;Remove Yellow&lt;/button&gt;
 </code>
 </pre>
 

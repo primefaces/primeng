@@ -14,13 +14,13 @@
            but given to ruthless violence whenever anything stands against the good of the family.</p>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="display=false">No</button>
-                <button type="button" pButton icon="fa-check" (click)="display=false">Yes</button>
+                <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
+                <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
             </div>
         </footer>
     </p-dialog>
 
-    <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square">Show</button>
+    <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button>
 </div>
 
 <div class="ContentSideSections Source">
@@ -42,7 +42,7 @@ import {Dialog} from 'primeng/primeng';
     Content
 &lt;/p-dialog&gt;
 
-&lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square"&gt;Show&lt;/button&gt;
+&lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -314,13 +314,13 @@ export class ModelComponent {
        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
         &lt;footer&gt;
             &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
-                &lt;button type="button" pButton icon="fa-close" (click)="display=false"&gt;No&lt;/button&gt;
-                &lt;button type="button" pButton icon="fa-check" (click)="display=false"&gt;Yes&lt;/button&gt;
+                &lt;button type="button" pButton icon="fa-close" (click)="display=false" label="No"&gt;&lt;/button&gt;
+                &lt;button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"&gt;&lt;/button&gt;
             &lt;/div&gt;
         &lt;/footer&gt;
 &lt;/p-dialog&gt;
 
-&lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square"&gt;Show&lt;/button&gt;
+&lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;
 </code>
 </pre>
 

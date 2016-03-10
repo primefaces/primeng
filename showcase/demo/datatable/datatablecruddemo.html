@@ -14,7 +14,7 @@
         <p-column field="year" header="Year" [sortable]="true"></p-column>
         <p-column field="brand" header="Brand" [sortable]="true"></p-column>
         <p-column field="color" header="Color" [sortable]="true"></p-column>
-        <footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()">Add</button></div></footer>
+        <footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></footer>
     </p-dataTable>
 
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
@@ -38,8 +38,8 @@
         </div>
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="delete()">Delete</button>
-                <button type="button" pButton icon="fa-check" (click)="save()">Save</button>
+                <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+                <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
             </div>
         </footer>
     </p-dialog>
@@ -126,7 +126,7 @@ class PrimeCar implements Car {
     &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
-    &lt;footer&gt;&lt;div class="ui-helper-clearfix" style="width:100%"&gt;&lt;button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()"&gt;Add&lt;/button&gt;&lt;/div&gt;&lt;/footer&gt;
+    &lt;footer&gt;&lt;div class="ui-helper-clearfix" style="width:100%"&gt;&lt;button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"&gt;&lt;/button&gt;&lt;/div&gt;&lt;/footer&gt;
 &lt;/p-dataTable&gt;
 
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"&gt;
@@ -150,8 +150,8 @@ class PrimeCar implements Car {
     &lt;/div&gt;
     &lt;footer&gt;
         &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="fa-close" (click)="delete()"&gt;Delete&lt;/button&gt;
-            &lt;button type="button" pButton icon="fa-check" (click)="save()"&gt;Save&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-check" (click)="save()" label="Save"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/footer&gt;
 &lt;/p-dialog&gt;
