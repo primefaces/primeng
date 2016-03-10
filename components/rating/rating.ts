@@ -1,10 +1,17 @@
-import {Component, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input, Output, EventEmitter} from 'angular2/core';
+import {Component,ElementRef,OnInit,Input,Output, EventEmitter} from 'angular2/core';
 
 @Component({
     selector: 'p-rating',
-    template: '<input type="hidden" />'
+    template: `
+        <div class="ui-rating" [ngClass]="{'ui-state-disabled': disabled}">
+            <div class="ui-rating-cancel" *ngIf="cancel" (click)="clear($event)" [ngClass]="{'ui-rating-cancel-hover':hoverCancel}"
+             (mouseenter)="hoverCancel=true" (mouseleave)="hoverCancel=false"><a></a></div>
+            <div class="ui-rating-star" *ngFor="#star of starsArray;#i=index" (click)="rate($event,i)"
+             [ngClass]="{'ui-rating-star-on':(i < value)}"><a></a></div>
+        </div>
+    `
 })
-export class Rating implements OnInit, OnDestroy, OnChanges {
+export class Rating {
 
     @Input() value: number;
 
@@ -12,7 +19,7 @@ export class Rating implements OnInit, OnDestroy, OnChanges {
 
     @Input() readonly: boolean;
 
-    @Input() stars: number;
+    @Input() stars: number = 5;
 
     @Input() cancel: boolean = true;
 
@@ -21,50 +28,32 @@ export class Rating implements OnInit, OnDestroy, OnChanges {
     @Output() onRate: EventEmitter<any> = new EventEmitter();
 
     @Output() onCancel: EventEmitter<any> = new EventEmitter();
-
-    initialized: boolean;
-
-    stopNgOnChangesPropagation: boolean;
-
-    constructor(private el: ElementRef) {
-        this.initialized = false;
-    }
+    
+    private starsArray: number[];
+    
+    private hoverCancel: boolean;
 
     ngOnInit() {
-        jQuery(this.el.nativeElement.children[0]).puirating({
-            value: this.value,
-            stars: this.stars,
-            cancel: this.cancel,
-            disabled: this.disabled,
-            readonly: this.readonly,
-            rate: (event: Event, value: number) => {
-                this.stopNgOnChangesPropagation = true;
-                this.valueChange.next(value); 
-
-                if (this.onRate) {
-                    this.onRate.next({ originalEvent: event, value: value });
-                }
-            },
-            oncancel: this.onCancel ? (event: Event) => { this.onCancel.next(event); } : null
-        });
-        this.initialized = true;
-    }
-
-    ngOnChanges(changes: {[key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-                if (key == 'value' && this.stopNgOnChangesPropagation) {
-                    this.stopNgOnChangesPropagation = false;
-                    continue;
-                }
-
-                jQuery(this.el.nativeElement.children[0].children[0]).puirating('option', key, changes[key].currentValue);
-            }
+        this.starsArray = [];
+        for(let i = 0; i < this.stars; i++) {
+            this.starsArray[i] = i;
         }
     }
-
-    ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0].children[0]).puirating('destroy');
-        this.initialized = false;
+    
+    rate(event, i: number): void {
+        if(!this.readonly&&!this.disabled) {
+            this.valueChange.next(i + 1);
+            this.onRate.next({
+                originalEvent: event,
+                value: (i+1)
+            });
+        }        
+    }
+    
+    clear(event): void {
+        if(!this.readonly&&!this.disabled) {
+            this.valueChange.next(null);
+            this.onCancel.next(event);
+        }
     }
 }

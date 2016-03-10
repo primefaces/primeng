@@ -13,7 +13,7 @@ export class RatingDemo {
 
     val1: number;
 
-    val2: number = 5;
+    val2: number;
 
     val3: number;
 

@@ -6,16 +6,16 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <h3 class="first">Basic {{value1}}</h3> 
-    <p-rating [(value)]="value1"></p-rating>
+    <h3 class="first">Basic {{val1}}</h3> 
+    <p-rating [(value)]="val1"></p-rating>
     <br />
 
-    <h3>Callback {{value2}}</h3>
-    <p-rating [(value)]="value2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"></p-rating> <span *ngIf="msg" style="margin-left:10px">{{msg}}</span>
+    <h3>Callback {{val2}}</h3>
+    <p-rating [(value)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"></p-rating> <span *ngIf="msg" style="margin-left:10px">{{msg}}</span>
     <br />
 
-    <h3>No Cancel {{value3}}</h3> 
-    <p-rating [(value)]="value3" [cancel]="false"></p-rating>
+    <h3>No Cancel {{val3}}</h3> 
+    <p-rating [(value)]="val3" [cancel]="false"></p-rating>
     <br />
 
     <h3>ReadOnly</h3> 
@@ -105,8 +105,8 @@ export class ModelComponent {
                                 </tr>
                                 <tr>
                                     <td>readonly</td>
-                                    <td>Boolean</td>
-                                    <td>true</td>
+                                    <td>boolean</td>
+                                    <td>false</td>
                                     <td>When present, changing the value is not possible.</td>
                                 </tr>
                             </tbody>
@@ -172,22 +172,22 @@ export class ModelComponent {
                     </div>
 
                     <h3>Dependencies</h3>
-                    <p>PrimeUI Rating.</p>
+                    <p>Native component that requires css of PrimeUI Rating.</p>
                 </p-tabPanel>
 
                 <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;h3 class="first"&gt;Basic <span>{</span><span>{</span>value1<span>}</span><span>}</span>&lt;/h3&gt; 
-&lt;p-rating [(value)]="value1"&gt;&lt;/p-rating&gt;
+&lt;h3 class="first"&gt;Basic {{val1}}&lt;/h3&gt; 
+&lt;p-rating [(value)]="val1"&gt;&lt;/p-rating&gt;
 &lt;br /&gt;
 
-&lt;h3&gt;Callback <span>{</span><span>{</span>value2<span>}</span><span>}</span>&lt;/h3&gt;
-&lt;p-rating [(value)]="value2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"&gt;&lt;/p-rating&gt; &lt;span *ngIf="msg" style="margin-left:10px"&gt;<span>{</span><span>{</span>msg<span>}</span><span>}</span>&lt;/span&gt;
+&lt;h3&gt;Callback {{val2}}&lt;/h3&gt;
+&lt;p-rating [(value)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"&gt;&lt;/p-rating&gt; &lt;span *ngIf="msg" style="margin-left:10px"&gt;{{msg}}&lt;/span&gt;
 &lt;br /&gt;
 
-&lt;h3&gt;No Cancel <span>{</span><span>{</span>value3<span>}</span><span>}</span>&lt;/h3&gt; 
-&lt;p-rating [(value)]="value3" [cancel]="false"&gt;&lt;/p-rating&gt;
+&lt;h3&gt;No Cancel {{val3}}&lt;/h3&gt; 
+&lt;p-rating [(value)]="val3" [cancel]="false"&gt;&lt;/p-rating&gt;
 &lt;br /&gt;
 
 &lt;h3&gt;ReadOnly&lt;/h3&gt; 
