@@ -4088,6 +4088,7 @@ PUI.resolveUserAgent();/**
 
                     if(e.which === keyCode.ESCAPE && $this.element.is(':visible') && active) {
                         $this.hide();
+                        $this._trigger('hideWithEscape');
                     }
                 });
             }

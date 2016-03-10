@@ -99,6 +99,7 @@ declare module PrimeUI {
         minimize?: (event?: Event) => void;
         maximize?: (event?: Event) => void;
         clickClose?: (event?: Event) => void;
+        hideWithEscape?: (event?: Event) => void;
         enhanced?: boolean;
     }
 
