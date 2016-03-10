@@ -32,13 +32,10 @@ export class SelectButton {
     onItemClick(event, option: SelectItem) {
         if(this.multiple) {
             let itemIndex = this.findItemIndex(option);
-            let values = this.value ? this.value.slice() : [];
             if(itemIndex != -1)
-                values.splice(itemIndex, 1);
+                this.value.splice(itemIndex, 1);
             else
-                values.push(option.value);
-
-            this.valueChange.next(values);
+                this.value.push(option.value);
         }
         else {
             this.valueChange.next(option.value);
