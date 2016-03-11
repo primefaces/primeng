@@ -53,10 +53,10 @@ import {FilterMetadata} from '../api/lazyload';
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
-                                [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target)">
+                                [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)" *ngIf="!col.template">{{rowData[col.field]}}</span>
-                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)" *ngIf="col.template">
+                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target,col)" *ngIf="!col.template">{{rowData[col.field]}}</span>
+                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target,col)" *ngIf="col.template">
                                     <p-columnTemplateLoader [column]="col" [rowData]="rowData"></p-columnTemplateLoader>
                                 </span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
@@ -88,9 +88,9 @@ import {FilterMetadata} from '../api/lazyload';
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                            <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target)">
+                            <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target)">{{rowData[col.field]}}</span>
+                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target,col)">{{rowData[col.field]}}</span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
                             </td>
                         </tr>
@@ -492,8 +492,8 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
         }
     }
 
-    switchCellToEditMode(element: any) {
-        if(!this.selectionMode && this.editable) {
+    switchCellToEditMode(element: any, column: Column) {
+        if(!this.selectionMode && this.editable && column.editable) {
             let cell = this.findCell(element);
             cell.classList.add('ui-cell-editing','ui-state-highlight');
             let editor = cell.querySelector('.ui-cell-editor').focus();
