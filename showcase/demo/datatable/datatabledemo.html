@@ -478,12 +478,12 @@ export class DataTableDemo implements OnInit {
 
 <pre>
 <code class="language-ts" pCode>
-loadData(event) {
+loadData(event: LazyLoadEvent) {
     //event.first = First row offset
     //event.rows = Number of rows per page
     //event.sortField = Field name to sort with
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-    //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+    //filters: Filters object having field as key and filter value, filter matchMode as value
     this.cars = //do a request to a remote datasource using a service and return the cars that match the lazy load criteria
 }
 </code>

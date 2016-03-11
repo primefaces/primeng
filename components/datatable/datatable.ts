@@ -5,6 +5,8 @@ import {Header} from '../common/header';
 import {Footer} from '../common/footer';
 import {Paginator} from '../paginator/paginator';
 import {InputText} from '../inputtext/inputtext';
+import {LazyLoadEvent} from '../api/lazyload';
+import {FilterMetadata} from '../api/lazyload';
 
 @Component({
     selector: 'p-dataTable',
@@ -175,7 +177,7 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
 
     private filterTimeout: any;
 
-    private filterMetadata: any = {};
+    private filters: {[s: string]: FilterMetadata;} = {};
 
     private filteredValue: any[];
     
@@ -383,7 +385,7 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
         }
 
         this.filterTimeout = setTimeout(() => {
-            this.filterMetadata[field] = {value: value, matchMode: matchMode};
+            this.filters[field] = {value: value, matchMode: matchMode};
             this.filter();
             this.filterTimeout = null;
         }, this.filterDelay);
@@ -399,9 +401,9 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
             for(let i = 0; i < this.value.length; i++) {
                 let localMatch = true;
 
-                for(let prop in this.filterMetadata) {
-                    if(this.filterMetadata.hasOwnProperty(prop)) {
-                        let filterMeta = this.filterMetadata[prop],
+                for(let prop in this.filters) {
+                    if(this.filters.hasOwnProperty(prop)) {
+                        let filterMeta = this.filters[prop],
                             filterValue = filterMeta.value,
                             filterField = prop,
                             filterMatchMode = filterMeta.matchMode||'startsWith',
@@ -437,8 +439,8 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
 
     hasFilter() {
         let empty = true;
-        for(let prop in this.filterMetadata) {
-            if(this.filterMetadata.hasOwnProperty(prop)) {
+        for(let prop in this.filters) {
+            if(this.filters.hasOwnProperty(prop)) {
                 empty = false;
                 break;
             }
@@ -576,13 +578,13 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
         return !this.dataToRender||(this.dataToRender.length == 0);
     }
     
-    createLazyLoadMetadata(): any {
+    createLazyLoadMetadata(): LazyLoadEvent {
         return {
             first: this.first,
             rows: this.rows,
             sortField: this.sortField,
             sortOrder: this.sortOrder,
-            filters: this.filterMetadata
+            filters: this.filters
         };
     }
     

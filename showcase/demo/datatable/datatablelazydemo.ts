@@ -10,6 +10,8 @@ import {Column} from '../../../components/column/column';
 import {Header} from '../../../components/common/header';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
+import {LazyLoadEvent} from '../../../components/api/lazyload';
+import {FilterMetadata} from '../../../components/api/lazyload';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablelazydemo.html',
@@ -31,7 +33,7 @@ export class DataTableLazyDemo implements OnInit {
         this.carService.getCarsLarge().then(cars => {this.datasource = cars; this.totalRecords = this.datasource.length;});
     }
     
-    loadCarsLazy(event) {
+    loadCarsLazy(event: LazyLoadEvent) {
         //in a real application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
