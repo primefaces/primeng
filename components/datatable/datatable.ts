@@ -7,6 +7,7 @@ import {Paginator} from '../paginator/paginator';
 import {InputText} from '../inputtext/inputtext';
 import {LazyLoadEvent} from '../api/lazyload';
 import {FilterMetadata} from '../api/lazyload';
+import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-dataTable',
@@ -55,8 +56,8 @@ import {FilterMetadata} from '../api/lazyload';
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target,col)" *ngIf="!col.template">{{rowData[col.field]}}</span>
-                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target,col)" *ngIf="col.template">
+                                <span class="ui-cell-data" *ngIf="!col.template">{{rowData[col.field]}}</span>
+                                <span class="ui-cell-data" *ngIf="col.template">
                                     <p-columnTemplateLoader [column]="col" [rowData]="rowData"></p-columnTemplateLoader>
                                 </span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
@@ -90,7 +91,7 @@ import {FilterMetadata} from '../api/lazyload';
                                 (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                <span class="ui-cell-data" (click)="switchCellToEditMode($event.target,col)">{{rowData[col.field]}}</span>
+                                <span class="ui-cell-data">{{rowData[col.field]}}</span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
                             </td>
                         </tr>
@@ -103,7 +104,8 @@ import {FilterMetadata} from '../api/lazyload';
             </div>
         </div>
     `,
-    directives: [Paginator,InputText,ColumnTemplateLoader]
+    directives: [Paginator,InputText,ColumnTemplateLoader],
+    providers: [DomHandler]
 })
 export class DataTable implements AfterViewChecked,OnInit,DoCheck {
 
@@ -186,8 +188,8 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
     private columnsUpdated: boolean = false;
         
     differ: any;
-
-    constructor(private el: ElementRef, differs: IterableDiffers, @Query(Column) cols: QueryList<Column>) {
+    
+    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, @Query(Column) cols: QueryList<Column>) {
         this.differ = differs.find([]).create(null);
         cols.changes.subscribe(_ => {
             this.columns = cols.toArray();
@@ -495,15 +497,19 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
     switchCellToEditMode(element: any, column: Column) {
         if(!this.selectionMode && this.editable && column.editable) {
             let cell = this.findCell(element);
-            cell.classList.add('ui-cell-editing','ui-state-highlight');
-            let editor = cell.querySelector('.ui-cell-editor').focus();
+            if(!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
+                this.domHandler.addClass(cell, 'ui-cell-editing');
+                this.domHandler.addClass(cell, 'ui-state-highlight');
+                let editor = cell.querySelector('.ui-cell-editor').focus();
+            }
         }
     }
 
     switchCellToViewMode(element: any) {
         if(this.editable) {
             let cell = this.findCell(element);
-            cell.classList.remove('ui-cell-editing','ui-state-highlight');
+            this.domHandler.removeClass(cell, 'ui-cell-editing');
+            this.domHandler.removeClass(cell, 'ui-state-highlight');
         }
     }
 
