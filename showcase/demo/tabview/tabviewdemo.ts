@@ -1,14 +1,21 @@
 import {Component} from 'angular2/core';
 import {TabView} from '../../../components/tabview/tabview';
+import {Growl} from '../../../components/growl/growl';
+import {Message} from '../../../components/api/message';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'showcase/demo/tabview/tabviewdemo.html',
-    directives: [TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
+    directives: [TabView,TabPanel,Growl,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class TabViewDemo {
 
-    activeTabIndex: number = 1;
+    msgs: Message[];
+    
+    onTabChange(event) {
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
+    }
 }

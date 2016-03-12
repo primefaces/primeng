@@ -1,85 +1,111 @@
-import {Component, ElementRef, OnInit, OnDestroy, OnChanges, AfterViewInit, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterContentInit,Input,Output,EventEmitter} from 'angular2/core';
 import {TabPanel} from './tabpanel';
 
 @Component({
     selector: 'p-tabView',
     template: `
-        <div>
-            <ul>
-                <li *ngFor="#tab of tabPanels">
-                    <a href="#">{{tab.header}}</a><span *ngIf="tab.closable"class="fa fa-close"></span>
-                </li>
+        <div [ngClass]="'ui-tabview ui-widget ui-widget-content ui-corner-all ui-tabview-' + orientation" [attr.style]="style" [attr.class]="styleClass">
+            <ul class="ui-tabview-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                <template ngFor #tab [ngForOf]="tabs">
+                    <li [attr.class]="getDefaultHeaderClass()" 
+                        [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-hover': tab.hoverHeader&&!tab.disabled, 'ui-state-disabled': tab.disabled}"
+                        (mouseenter)="tab.hoverHeader=true" (mouseleave)="tab.hoverHeader=false" (click)="open($event,tab)" *ngIf="!tab.closed">
+                        <a href="#">{{tab.header}}</a><span *ngIf="tab.closable" class="fa fa-close" (click)="close($event,tab)"></span>
+                    </li>
+                </template>
             </ul>
-            <div>
+            <div class="ui-tabview-panels">
                 <ng-content></ng-content>
             </div>
         </div>
     `,
 })
-export class TabView implements OnDestroy, OnChanges, AfterViewInit {
+export class TabView implements AfterContentInit {
 
-    @Input() activeIndex: number = 0;
-
-    @Input() orientation: string;
-
-    @Input() effect: string;
-
-    @Input() effectDuration: any = 'fast';
+    @Input() orientation: string = 'top';
+    
+    @Input() style: string;
+    
+    @Input() styleClass: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
-    @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
-
     initialized: boolean;
 
-    tabPanels: TabPanel[];
-
-    stopNgOnChangesPropagation: boolean;
+    tabs: TabPanel[];
 
     constructor(private el: ElementRef) {
-        this.tabPanels = [];
-        this.initialized = false;
+        this.tabs = [];
     }
-
-    addTab(tab: TabPanel) {
-        this.tabPanels.push(tab);
-    }
-
-    ngAfterViewInit() {
-        jQuery(this.el.nativeElement.children[0]).puitabview({
-            activeIndex: this.activeIndex,
-            orientation: this.orientation,
-            effect: this.effect ? {name: this.effect, duration: this.effectDuration} : null,
-            change: (event: Event, ui: any) => {
-                this.stopNgOnChangesPropagation = true;
-                this.activeIndexChange.next(ui.index);
-
-                if (this.onChange) {
-                    this.onChange.next({originalEvent: event, index: ui.index});
-                }
-            },
-            close: this.onClose ? (event: Event, ui: any) => { this.onClose.next({originalEvent: event, index: ui.index})}: null
-        });
-        this.initialized = true;
-    }
-
-    ngOnChanges(changes: { [key: string]: SimpleChange }) {
-        if (this.initialized) {
-            for (var key in changes) {
-                if (key == 'activeIndex' && this.stopNgOnChangesPropagation) {
-                    this.stopNgOnChangesPropagation = false;
-                    continue;
-                }
-
-                jQuery(this.el.nativeElement.children[0]).puitabview('option', key, changes[key].currentValue);
-            }
+    
+    ngAfterContentInit() {
+        let selectedTab: TabPanel = this.findSelectedTab();
+        if(!selectedTab  && this.tabs.length) {
+            this.tabs[0].selected = true;
         }
     }
 
-    ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0]).puitabview('destroy');
-        this.initialized = false;
+    addTab(tab: TabPanel) {
+        this.tabs.push(tab);
+    }
+    
+    open(event, tab: TabPanel) {
+        if(tab.disabled) {
+            event.preventDefault();
+            return;
+        }
+        
+        if(!tab.selected) {
+            let selectedTab: TabPanel = this.findSelectedTab();
+            if(selectedTab) {
+                selectedTab.selected = false
+            }
+            tab.selected = true;
+            this.onChange.next({originalEvent: event, index: this.findTabIndex(tab)});
+        }
+        event.preventDefault();
+    }
+    
+    close(event, tab: TabPanel) {        
+        if(tab.selected) {
+            tab.selected = false;
+            for(let i = 0; i < this.tabs.length; i++) {
+                let tabPanel = this.tabs[i];
+                if(!tabPanel.closed&&!tab.disabled) {
+                    tabPanel.selected = true;
+                    break;
+                }
+            }
+        }
+        
+        tab.closed = true;
+        this.onClose.next({originalEvent: event, index: this.findTabIndex(tab)});
+        event.stopPropagation();
+    }
+    
+    findSelectedTab() {
+        for(let i = 0; i < this.tabs.length; i++) {
+            if(this.tabs[i].selected) {
+                return this.tabs[i];
+            }
+        }
+        return null;
+    }
+    
+    findTabIndex(tab: TabPanel) {
+        let index = -1;
+        for(let i = 0; i < this.tabs.length; i++) {
+            if(this.tabs[i] == tab) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+    
+    getDefaultHeaderClass() {
+        return 'ui-state-default ui-corner-' + this.orientation; 
     }
 }
