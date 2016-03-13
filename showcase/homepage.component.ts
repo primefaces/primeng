@@ -50,17 +50,38 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
         </div>
 
         <div class="ContentSideSections overHidden PFLayouts">
-            <span class="dispBlock logoBlueText fontSize30 mediumFont">Premium Layouts and Themes coming soon...</span>
-            <span class="defaultText">Create <a href="http://www.primefaces.org/themes">awesome web applications</a> in no time, impress your users.</span>
+            <span class="dispBlock logoBlueText fontSize30 mediumFont">Premium Layouts and Themes coming soon for PrimeNG</span>
+            <p class="defaultText" style="margin-bottom:10px">Create <a href="http://www.primefaces.org/themes">awesome web applications</a> in no time, impress your users.</p>
             <div style="padding:30px">
                 <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/modena-primeui"><img src="showcase/resources/images/layouts/modena.png" style="width:100%" /></a>
+                    <a href="http://www.primefaces.org/layouts/modena-primeui"><img src="http://www.primefaces.org/images/highlights/modena.png" style="width:100%" /></a>
                 </div>
                 <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/rio-primeui"><img src="showcase/resources/images/layouts/rio.png" style="width:100%" /></a>
+                    <a href="http://www.primefaces.org/layouts/rio-primeui"><img src="http://www.primefaces.org/images/highlights/rio.png" style="width:100%" /></a>
                 </div>
                 <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/adamantium-primeui"><img src="showcase/resources/images/layouts/adamantium.png" style="width:100%" /></a>
+                    <a href="http://www.primefaces.org/layouts/adamantium-primeui"><img src="http://www.primefaces.org/images/highlights/adamantium.png" style="width:100%" /></a>
+                </div>
+                <div class="Content33 floatLeft overHidden">
+                    <a href="http://www.primefaces.org/layouts/olympos"><img src="http://www.primefaces.org/images/highlights/olympos.png" style="width:100%" /></a>
+                </div>
+                <div class="Content33 floatLeft overHidden">
+                    <a href="http://www.primefaces.org/layouts/titan"><img src="http://www.primefaces.org/images/highlights/titan.png" style="width:100%" /></a>
+                </div>
+                <div class="Content33 floatLeft overHidden">
+                    <a href="http://www.primefaces.org/layouts/atlas"><img src="http://www.primefaces.org/images/highlights/atlas.png" style="width:100%" /></a>
+                </div>
+                <div class="Content33 floatLeft overHidden">
+                    <a href="http://www.primefaces.org/layouts/sentinel"><img src="http://www.primefaces.org/images/highlights/sentinel.png" style="width:100%" /></a>
+                </div>
+                <div class="Content33 floatLeft overHidden">
+                    <a href="http://www.primefaces.org/layouts/spark"><img src="http://www.primefaces.org/images/highlights/spark.png" style="width:100%" /></a>
+                </div>
+                <div class="Content33 floatLeft overHidden">
+                    <a href="http://www.primefaces.org/layouts/ronin"><img src="http://www.primefaces.org/images/highlights/ronin.png" style="width:100%" /></a>
+                </div>
+                <div class="Content33 floatLeft overHidden">
+                    <a href="http://www.primefaces.org/layouts/volt"><img src="http://www.primefaces.org/images/highlights/volt.png" style="width:100%" /></a>
                 </div>
             </div>
         </div>
