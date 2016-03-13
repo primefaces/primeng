@@ -40,15 +40,16 @@ import {Accordion} from 'primeng/primeng';
 </pre>
 
     <h3>Dependencies</h3>
-    <p>PrimeUI provides optimized dependencies for PrimeNG via its distribution. These are the <i>primeui-ng-all.min.js</i> and <i>primeui-ng-all.min.css</i> files. The js files includes jquery, jquery-ui core and the PrimeUI widgets
-    utilized by PrimeNG. If you simply need the widgets and prefer your own jquery, use primeui-ng.min.js. Components also require font-awesome for icons and a theme of your choice for skinning.</p>
+    <p>PrimeUI provides optimized dependencies for PrimeNG via its distribution. These are the <i>primeui-ng-all.js</i> and <i>primeui-ng-all.css</i> files. The js files includes jquery, jquery-ui core and the PrimeUI widgets
+    and the css file contains jquery ui core and structural css of PrimeUI widgets utilized by PrimeNG. If you simply need the widgets and prefer your own jquery, use primeui-ng.js instead. 
+    Components also require font-awesome for icons and a theme of your choice for skinning.</p>
 
 <pre>
 <code class="language-typescript" pCode>
 &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/delta/theme.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="PATH/font-awesome.min.css" /&gt;
-&lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
-&lt;script src="node_modules/primeui/primeui-ng-all.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.css" /&gt;
+&lt;script src="node_modules/primeui/primeui-ng-all.js"&gt;&lt;/script&gt;
 </code>
 </pre>
 
@@ -58,6 +59,8 @@ import {Accordion} from 'primeng/primeng';
         adds lightweight behaviors and low level requirements such as positioning. Changes as a result of one or two way binding are properly reflected between the UI and model. In addition components are destroyed whenever page is navigated away via router. In future
         as PrimeNG grows, remaining jQuery based ones will be replaced with native implementations where appropriate.
     </p>
+    <p>Note for 0.7.0; you need to add jquery.d.ts for the compile process, if you are using typings package, easiest way is adding an entry. Here is an example <a href="https://github.com/primefaces/primeng-quickstart/blob/master/typings.json">typings.json</a>.
+    This won't be required starting with 0.8.0.</p>
 
     <h3>Quickstart</h3>
     <p>An example starter application based on angular2-quickstart is available at <a href="https://github.com/primefaces/primeng-quickstart">GitHub</a>.</p>
@@ -73,14 +76,14 @@ import {Accordion} from 'primeng/primeng';
     &lt;!-- CSS for PrimeUI --&gt;
     &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/bootstrap/theme.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
-    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.css" /&gt;
 
     &lt;!-- 1. Load libraries --&gt;
     &lt;script src="node_modules/angular2/bundles/angular2-polyfills.js"&gt;&lt;/script&gt;
     &lt;script src="node_modules/systemjs/dist/system.src.js"&gt;&lt;/script&gt;
 
     &lt;!-- JS for PrimeUI --&gt;
-    &lt;script src="node_modules/primeui/primeui-ng-all.min.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/primeui/primeui-ng-all.js"&gt;&lt;/script&gt;
 
     &lt;!-- 2. Configure SystemJS --&gt;
     &lt;script&gt;
