@@ -59,7 +59,7 @@ export class Dropdown {
 
     initialized: boolean;
 
-    selectElement: JQuery;
+    selectElement: any;
 
     constructor(private el: ElementRef) {
         this.initialized = false;
