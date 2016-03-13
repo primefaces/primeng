@@ -7,15 +7,16 @@
 
 <div class="ContentSideSections Source">
     <h3 style="margin-top:0px">Download</h3>
-    <p>PrimeNG is available at npm, run the following command to download the module to your project.</p>
+    <p>PrimeNG is available at npm, run the following commands to download the modules to your project. PrimeNG depends on PrimeUI so install it as well.</p>
 <pre>
 <code class="language-markup" pCode>
 npm install primeng --save
+npm install primeui --save
 </code>
 </pre>
 
     <h3>Loader</h3>
-    <p>PrimeNG supports System.JS loader, a configuration is necessary in your application to load PrimeNG.</p>
+    <p>PrimeNG is distributed in commonjs format and a module loader of your choice is required. Sample configuration with System.js would be as follows;</p>
 <pre>
 <code class="language-typescript" pCode>
  System.config({
@@ -39,12 +40,23 @@ import {Accordion} from 'primeng/primeng';
 </pre>
 
     <h3>Dependencies</h3>
-    <p>PrimeNG utilizes <a href="http://www.primefaces.org/primeui">PrimeUI</a> so you need to install it as a dependency. Visit <a href="http://www.primefaces.org/primeui/#setup">PrimeUI setup page</a> for details.</p>
+    <p>PrimeUI provides optimized dependencies for PrimeNG via its distribution. These are the <i>primeui-ng-all.min.js</i> and <i>primeui-ng-all.min.css</i> files. The js files includes jquery, jquery-ui core and the PrimeUI widgets
+    utilized by PrimeNG. If you simply need the widgets and prefer your own jquery, use primeui-ng.min.js. Components also require font-awesome for icons and a theme of your choice for skinning.</p>
+
+<pre>
+<code class="language-typescript" pCode>
+&lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/delta/theme.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="PATH/font-awesome.min.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
+&lt;script src="node_modules/primeui/primeui-ng-all.min.js"&gt;&lt;/script&gt;
+</code>
+</pre>
 
     <h4>jQuery (Optional)</h4>
-    <p>In an Angular2 application, you don't need to use jQuery directly however some of the PrimeNG components are based on existing jQuery plugins in PrimeUI and others are native components.
-        Dependencies section at the documentation of each component states the origin such as Native, jQuery or an external library. jQuery based ones are optimized for PrimeNG integration using a technique called enhanced mode where plugin assumes dom is already created by PrimeNG component. As a result, jQuery plugin does not manipulate dom, only
-        adds lightweight behaviors and low level requirements such as positioning. Changes as a result of one or two way binding are properly reflected between the UI and model. In addition components are destroyed whenever page is navigated away via router. 
+    <p>In an Angular2 application, you don't need to use jQuery directly however some of the PrimeNG components are based on existing jQuery plugins (e.g. Schedule) although many others are native components.
+        Dependencies section at the documentation of each component states the origin such as Native, jQuery/PrimeUI or an external library (e.g. charts.js). jQuery based ones in PrimeUI are optimized for PrimeNG integration using a technique called enhanced mode where plugin assumes dom is already created by PrimeNG component. As a result, jQuery plugin does not manipulate dom, only
+        adds lightweight behaviors and low level requirements such as positioning. Changes as a result of one or two way binding are properly reflected between the UI and model. In addition components are destroyed whenever page is navigated away via router. In future
+        as PrimeNG grows, remaining jQuery based ones will be replaced with native implementations where appropriate.
     </p>
 
     <h3>Quickstart</h3>
@@ -59,18 +71,16 @@ import {Accordion} from 'primeng/primeng';
     &lt;title&gt;PrimeNG QuickStart&lt;/title&gt;
 
     &lt;!-- CSS for PrimeUI --&gt;
-    &lt;link rel="stylesheet" type="text/css" href="app/resources/delta/theme.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/bootstrap/theme.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
-    &lt;link rel="stylesheet" type="text/css" href="app/resources/primeui.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
 
     &lt;!-- 1. Load libraries --&gt;
     &lt;script src="node_modules/angular2/bundles/angular2-polyfills.js"&gt;&lt;/script&gt;
     &lt;script src="node_modules/systemjs/dist/system.src.js"&gt;&lt;/script&gt;
 
     &lt;!-- JS for PrimeUI --&gt;
-    &lt;script src="app/resources/jquery.js"&gt;&lt;/script&gt;
-    &lt;script src="app/resources/jquery-ui.js"&gt;&lt;/script&gt;
-    &lt;script src="app/resources/primeui.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/primeui/primeui-ng-all.min.js"&gt;&lt;/script&gt;
 
     &lt;!-- 2. Configure SystemJS --&gt;
     &lt;script&gt;
