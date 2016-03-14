@@ -3037,7 +3037,7 @@ button.ui-button::-moz-focus-inner {
 .ui-tree .ui-tree-toggler {
     cursor: pointer;
     display: inline-block;
-    vertical-align: bottom;
+    margin-top: 3px;
 }
 
 .ui-tree .ui-treenode-icon {
@@ -3048,7 +3048,6 @@ button.ui-button::-moz-focus-inner {
 .ui-tree .ui-treenode-label {
     display: inline-block;
     margin: 2px 0 0 0;
-    vertical-align: top;
     padding: 0 3px;
 }
 

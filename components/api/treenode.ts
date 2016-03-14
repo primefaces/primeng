@@ -1,8 +1,8 @@
 export interface TreeNode {
     label?: string;
     data?: any;
-    icon?: string;
-    expandedIcon?: string;
-    collapsedIcon?: string;
+    icon?: any;
+    expandedIcon?: any;
+    collapsedIcon?: any;
     children?: TreeNode[];
 }
