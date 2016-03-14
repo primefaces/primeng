@@ -13,7 +13,7 @@ import {TreeNode} from '../api/treenode';
                 ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
                 ><span [attr.class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                 ><span class="ui-treenode-label ui-corner-all" 
-                    [ngClass]="{'ui-state-hover':hover&&tree.selectionMode}">{{node.label}}</span>
+                    [ngClass]="{'ui-state-hover':hover&&tree.selectionMode,'ui-state-highlight':isSelected()}">{{node.label}}</span>
             </span>
             <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children" [style.display]="expanded ? 'block' : 'none'">
                 <p-treeNode *ngFor="#childNode of node.children" [node]="childNode"></p-treeNode>
