@@ -27,6 +27,10 @@ export class Tree {
     
     @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
     
+    @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
+    
     onNodeClick(event, node) {
         if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {
             return;
