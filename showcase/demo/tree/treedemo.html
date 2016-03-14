@@ -6,15 +6,19 @@
 </div>
 
 <div class="ContentSideSections Implementation">
+    <p-growl [value]="msgs"></p-growl>
+    
     <h3 class="first">Basic</h3>
     <p-tree [value]="files"></p-tree>
     
     <h3>Single Selection</h3>
-    <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile"></p-tree>
+    <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" 
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
     Selected Node: {{selectedFile ? selectedFile.label : 'none'}}
     
     <h3>Multiple Selection with Metakey</h3>
-    <p-tree [value]="files" selectionMode="multiple" [(selection)]="selectedFiles"></p-tree>
+    <p-tree [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
     Selected Nodes: <span *ngFor="#file of selectedFiles">{{file.label}} </span>
 </div>
 
