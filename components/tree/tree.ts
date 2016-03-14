@@ -16,6 +16,14 @@ import {UITreeNode} from './uitreenode';
 export class Tree {
 
     @Input() value: TreeNode[];
+        
+    @Input() selectionMode: string;
     
-    @Input() icons: any;
+    @Input() selection: any;
+    
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
 }
