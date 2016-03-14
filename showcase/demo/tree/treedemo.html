@@ -9,8 +9,13 @@
     <h3 class="first">Basic</h3>
     <p-tree [value]="files"></p-tree>
     
-    <h3>Selection</h3>
+    <h3>Single Selection</h3>
     <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile"></p-tree>
+    Selected Node: {{selectedFile ? selectedFile.label : 'none'}}
+    
+    <h3>Multiple Selection with Metakey</h3>
+    <p-tree [value]="files" selectionMode="multiple" [(selection)]="selectedFiles"></p-tree>
+    Selected Nodes: <span *ngFor="#file of selectedFiles">{{file.label}} </span>
 </div>
 
 <div class="ContentSideSections Source">

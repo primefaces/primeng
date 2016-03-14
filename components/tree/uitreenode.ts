@@ -12,7 +12,8 @@ import {TreeNode} from '../api/treenode';
                         (click)="toggle($event)"></span
                 ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
                 ><span [attr.class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
-                ><span class="ui-treenode-label ui-corner-all" [ngClass]="{'ui-state-hover':hover&&tree.selectionMode}">{{node.label}}</span>
+                ><span class="ui-treenode-label ui-corner-all" 
+                    [ngClass]="{'ui-state-hover':hover&&tree.selectionMode,'ui-state-highlight':isSelected()}">{{node.label}}</span>
             </span>
             <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children" [style.display]="expanded ? 'block' : 'none'">
                 <p-treeNode *ngFor="#childNode of node.children" [node]="childNode"></p-treeNode>
@@ -52,24 +53,10 @@ export class UITreeNode {
     }
     
     onNodeClick(event) {
-        if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {
-            return;
-        }
-        else {
-            this.tree.selectionChange.next(this.node);
-            /*var selected = this._isNodeSelected(node.data('puidata')),
-            metaKey = event.metaKey||event.ctrlKey;
-
-            if(selected && metaKey) {
-                this.unselectNode(node);
-            }
-            else {
-                if(this._isSingleSelection()||(this._isMultipleSelection() && !metaKey)) {
-                    this.unselectAllNodes();
-                }
-
-                this.selectNode(node);
-            }*/
-        }
+        this.tree.onNodeClick(event, this.node);
+    }
+    
+    isSelected() {
+        return this.tree.isSelected(this.node);
     }
 }
