@@ -14,17 +14,17 @@ import {Footer} from '../common/footer';
                 <ng-content select="header"></ng-content>
             </div>
             <div class="ui-treetable-tablewrapper">
-                <div style="display:table;width:100%">
-                    <div style="display:table-header-group">
-                        <div style="display:table-row" class="ui-state-default">
-                            <div #headerCell *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
-                                [ngStyle]="{'display':'table-cell'}" [ngClass]="'ui-state-default ui-unselectable-text'">
+                <table class="ui-widget-content" style="border:0 0 1px 0px">
+                    <thead>
+                        <tr class="ui-state-default">
+                            <th #headerCell *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
+                                [ngClass]="'ui-state-default ui-unselectable-text'">
                                 <span class="ui-column-title">{{col.header}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display:table-row-group" pTreeRow *ngFor="#node of value" [node]="node"></div>
-                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody pTreeRow *ngFor="#node of value" [node]="node" [level]="0"></tbody>
+                </table>
             </div>
             <div class="ui-datatable-footer ui-widget-header" *ngIf="header">
                 <ng-content select="footer"></ng-content>
