@@ -297,6 +297,21 @@ export class TreeDemoComponent implements OnInit {
             <h3>Icons</h3>
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
                 expandedIcon and collapsedIcon instead.</p>
+                
+            <h3>Templating</h3>
+            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a template that gets 
+                the treenode as an implicit variable. Example below places an input field to create editable treenodes.</p>
+
+<pre>
+<code class="language-markup" pCode>
+&lt;h3&gt;Template&lt;/h3&gt;
+&lt;p-tree [value]="files"&gt;
+    &lt;template #node&gt;
+        &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
+    &lt;/template&gt;
+&lt;/p-tree&gt;
+</code>
+</pre>
 
             <h3>Lazy Loading</h3>
             <p>Lazy loading is handy to deal with large datasets. Instead of loading the whole tree, nodes can be loaded at onNodeExpand event.
@@ -523,6 +538,13 @@ Selected Nodes: &lt;span *ngFor="#file of selectedFiles"&gt;{{file.label}} &lt;/
 
 &lt;h3&gt;Lazy Loading&lt;/h3&gt;
 &lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" style="max-height:200px;overflow:auto"&gt;&lt;/p-tree&gt;
+
+&lt;h3&gt;Template&lt;/h3&gt;
+&lt;p-tree [value]="files"&gt;
+    &lt;template #node&gt;
+        &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
+    &lt;/template&gt;
+&lt;/p-tree&gt;
 </code>
 </pre>
 
