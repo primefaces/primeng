@@ -23,6 +23,13 @@
     
     <h3>Lazy Loading</h3>
     <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" style="max-height:200px;overflow:auto"></p-tree>
+    
+    <h3>Template</h3>
+    <p-tree [value]="files">
+        <template #node>
+            <input [(ngModel)]="node.label" type="text" style="width:100%">
+        </template>
+    </p-tree>
 </div>
 
 <div class="ContentSideSections Source">

@@ -1,33 +1,37 @@
 import {Component,Input,Output,EventEmitter,Inject,forwardRef,Host} from 'angular2/core';
 import {Tree} from '../tree/tree';
 import {TreeNode} from '../api/treenode';
+import {TreeNodeTemplateLoader} from './treenodetemplateloader';
 
 @Component({
     selector: 'p-treeNode',
     template: `
         <li class="ui-treenode" *ngIf="node">
-            <span class="ui-treenode-content" [ngClass]="{'ui-treenode-selectable': tree.selectionMode}" 
+            <div class="ui-treenode-content" [ngClass]="{'ui-treenode-selectable': tree.selectionMode}" 
                 (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)">
                 <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!expanded,'fa-caret-down':expanded}" *ngIf="!isLeaf()"
                         (click)="toggle($event)"></span
                 ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
                 ><span [attr.class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                 ><span class="ui-treenode-label ui-corner-all" 
-                    [ngClass]="{'ui-state-hover':hover&&tree.selectionMode,'ui-state-highlight':isSelected()}">{{node.label}}</span>
-            </span>
+                    [ngClass]="{'ui-state-hover':hover&&tree.selectionMode,'ui-state-highlight':isSelected()}">
+                        <span *ngIf="!tree.template">{{node.label}}</span>
+                        <p-treeNodeTemplateLoader [node]="node" [template]="tree.template" *ngIf="tree.template"></p-treeNodeTemplateLoader>
+                    </span>
+            </div>
             <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children" [style.display]="expanded ? 'block' : 'none'">
                 <p-treeNode *ngFor="#childNode of node.children" [node]="childNode"></p-treeNode>
             </ul>
         </li>
     `,
-    directives: [UITreeNode]
+    directives: [UITreeNode,TreeNodeTemplateLoader]
 })
 export class UITreeNode {
 
     static ICON_CLASS: string = 'ui-treenode-icon fa fa-fw';
 
     @Input() node: TreeNode;
-    
+        
     hover: boolean = false;
         
     expanded: boolean = false;
