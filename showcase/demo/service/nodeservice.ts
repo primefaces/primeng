@@ -13,4 +13,11 @@ export class NodeService {
                     .then(res => <TreeNode[]> res.json().data)
                     .then(data => { return data; });
     }
+    
+    getLazyFiles() {
+        return this.http.get('showcase/resources/data/files-lazy.json')
+                    .toPromise()
+                    .then(res => <TreeNode[]> res.json().data)
+                    .then(data => { return data; });
+    }
 }

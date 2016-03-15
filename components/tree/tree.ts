@@ -5,7 +5,7 @@ import {UITreeNode} from './uitreenode';
 @Component({
     selector: 'p-tree',
     template: `
-        <div class="ui-tree ui-widget ui-widget-content ui-corner-all">
+        <div [ngClass]="'ui-tree ui-widget ui-widget-content ui-corner-all'" [attr.style]="style" [attr.class]="styleClass">
             <ul class="ui-tree-container">
                 <p-treeNode *ngFor="#node of value" [node]="node"></p-treeNode>
             </ul>
@@ -30,6 +30,10 @@ export class Tree {
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
     
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
+    
+    @Input() style: string;
+        
+    @Input() styleClass: string;
     
     onNodeClick(event, node) {
         if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {

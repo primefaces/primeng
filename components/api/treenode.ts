@@ -5,4 +5,5 @@ export interface TreeNode {
     expandedIcon?: any;
     collapsedIcon?: any;
     children?: TreeNode[];
+    leaf?: boolean;
 }

@@ -21,6 +21,8 @@ export class TreeDemo implements OnInit {
     
     files: TreeNode[];
     
+    lazyFiles: TreeNode[];
+    
     selectedFile: TreeNode;
     
     selectedFiles: TreeNode[];
@@ -29,6 +31,7 @@ export class TreeDemo implements OnInit {
 
     ngOnInit() {
         this.nodeService.getFiles().then(files => this.files = files);
+        this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
     }
     
     nodeSelect(event) {
@@ -39,5 +42,12 @@ export class TreeDemo implements OnInit {
     nodeUnselect(event) {
         this.msgs = [];
         this.msgs.push({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
+    }
+    
+    nodeExpand(event) {
+        if(event.node) {
+            //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
+            this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
+        }
     }
 }

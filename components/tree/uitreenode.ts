@@ -45,7 +45,7 @@ export class UITreeNode {
     }
     
     isLeaf() {
-        return !(this.node.children&&this.node.children.length);
+        return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);
     }
     
     toggle(event) {
