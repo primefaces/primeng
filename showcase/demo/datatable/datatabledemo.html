@@ -9,6 +9,7 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
+
     <p-dataTable [value]="cars">
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -675,6 +676,12 @@ loadData(event: LazyLoadEvent) {
                             <td>event.originalEvent: Browser event <br>
                                 event.data: Unselected data </td>
                             <td>Callback to invoke when a row is unselected with metakey.</td>
+                        </tr>
+                        <tr>
+                            <td>onRowDblclick</td>
+                            <td>event.originalEvent: Browser event <br>
+                                event.data: Selected data </td>
+                            <td>Callback to invoke when a row is selected with double clicked.</td>
                         </tr>
                         <tr>
                             <td>onColResize</td>

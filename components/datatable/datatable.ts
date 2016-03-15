@@ -52,7 +52,8 @@ import {DomHandler} from '../dom/domhandler';
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
+                                (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" 
+                                [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
@@ -88,7 +89,8 @@ import {DomHandler} from '../dom/domhandler';
                 <table>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                (click)="onRowClick($event, rowData)" [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
+                                (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" 
+                                [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                 <span class="ui-cell-data">{{rowData[col.field]}}</span>
@@ -132,6 +134,8 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();
 
     @Input() filterDelay: number = 300;
 
@@ -347,6 +351,10 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
 
             this.onRowSelect.next({originalEvent: event, data: rowData});
         }
+    }
+    
+    rowDblclick(event, rowData) {
+        this.onRowDblclick.next({originalEvent: event, data: rowData});
     }
 
     isSingleSelectionMode() {
