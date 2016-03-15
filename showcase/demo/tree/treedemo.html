@@ -219,19 +219,19 @@ export class TreeDemoComponent implements OnInit {
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 <pre>
 <code class="language-typescript" pCode>
-    export class TreeDemoComponent implements OnInit {
-        
-        files: TreeNode[];
-        
-        selectedFile: TreeNode;
+export class TreeDemoComponent implements OnInit {
+    
+    files: TreeNode[];
+    
+    selectedFile: TreeNode;
 
-        constructor(private nodeService: NodeService) {}
-        
-        ngOnInit() {
-            this.nodeService.getFiles().then(files => this.files = files);
-        }
-
+    constructor(private nodeService: NodeService) {}
+    
+    ngOnInit() {
+        this.nodeService.getFiles().then(files => this.files = files);
     }
+
+}
 </code>
 </pre>
 <pre>
@@ -315,7 +315,7 @@ export class TreeDemoComponent implements OnInit {
 
             <h3>Lazy Loading</h3>
             <p>Lazy loading is handy to deal with large datasets. Instead of loading the whole tree, nodes can be loaded at onNodeExpand event.
-            Important part of implementing lazy loading is defining leaf property of a node as true, this will instruct tree to display an arrow icon
+            Important part of implementing lazy loading is defining leaf property of a node as false, this will instruct tree to display an arrow icon
             to indicate there are children of this node although they are not loaded yet. When the lazy node is expanded, onNodeExpand is called
             and a remote call can be made to add the children to the expanded node.</p>
 <pre>
@@ -350,7 +350,7 @@ export class TreeDemoComponent implements OnInit {
 </code>
 </pre>
 
-            <p>Assume at ngOnInit tree is initialized with a data like below that has nodes having no actual children but leaf property is set true.</p>
+            <p>Assume at ngOnInit tree is initialized with a data like below that has nodes having no actual children but leaf property is set false.</p>
 <pre>
 <code class="language-javascript" pCode>
 {
