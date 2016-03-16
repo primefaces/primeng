@@ -23,6 +23,11 @@ import {Footer} from '../common/footer';
                             </th>
                         </tr>
                     </thead>
+                    <tfoot *ngIf="hasFooter()">
+                        <tr>
+                            <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</td>
+                        </tr>
+                    </tfoot>
                     <tbody pTreeRow *ngFor="#node of value" [node]="node" [level]="0"></tbody>
                 </table>
             </div>
@@ -126,5 +131,17 @@ export class TreeTable {
     
     isMultipleSelectionMode() {
         return this.selectionMode && this.selectionMode == 'multiple';
+    }
+    
+    hasFooter() {
+        if(this.columns) {
+            let columnsArr = this.columns.toArray();
+            for(let i = 0; i < columnsArr.length; i++) {
+                if(columnsArr[i].footer) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
