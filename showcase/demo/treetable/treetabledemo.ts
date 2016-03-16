@@ -10,10 +10,11 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
 import {NodeService} from '../service/nodeservice';
 import {Growl} from '../../../components/growl/growl';
 import {Message} from '../../../components/api/message';
+import {Header} from '../../../components/common/header';
 
 @Component({
     templateUrl: 'showcase/demo/treetable/treetabledemo.html',
-    directives: [TreeTable,Column,TabView,Growl,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES],
+    directives: [TreeTable,Column,TabView,Growl,TabPanel,Header,CodeHighlighter,ROUTER_DIRECTIVES],
     providers: [HTTP_PROVIDERS,NodeService]
 })
 export class TreeTableDemo implements OnInit {

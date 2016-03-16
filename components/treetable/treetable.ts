@@ -10,7 +10,7 @@ import {Footer} from '../common/footer';
     selector: 'p-treeTable',
     template: `
         <div [ngClass]="'ui-treetable ui-widget'" [attr.style]="style" [attr.class]="styleClass">
-            <div class="ui-datatable-header ui-widget-header" *ngIf="header">
+            <div class="ui-treetable-header ui-widget-header" *ngIf="header">
                 <ng-content select="header"></ng-content>
             </div>
             <div class="ui-treetable-tablewrapper">
@@ -26,7 +26,7 @@ import {Footer} from '../common/footer';
                     <tbody pTreeRow *ngFor="#node of value" [node]="node" [level]="0"></tbody>
                 </table>
             </div>
-            <div class="ui-datatable-footer ui-widget-header" *ngIf="header">
+            <div class="ui-treetable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="footer"></ng-content>
             </div>
         </div>
@@ -61,8 +61,8 @@ export class TreeTable {
     
     @ContentChildren(Column) columns: QueryList<Column>;
         
-    onNodeClick(event, node) {
-        if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {
+    onRowClick(event, node) {
+        if(event.target.className&&event.target.className.indexOf('ui-treetable-toggler') === 0) {
             return;
         }
         else {

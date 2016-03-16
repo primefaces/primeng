@@ -8,12 +8,28 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <h3 class="first">Basic</h3>
-    <p-treeTable [value]="files">
+    <p-treeTable [value]="files" style="margin-bottom:30px">
+        <header>Basic</header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
+        
+    <p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile">
+        <header>Singe Selection</header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+    Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
+        
+    <p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" style="margin-top:30px">
+        <header>Multiple Selection</header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+    Selected Nodes: <span *ngFor="#file of selectedFiles">{{file.data.name}}</span>
 </div>
 
 <div class="ContentSideSections Source">
