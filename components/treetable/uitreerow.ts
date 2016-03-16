@@ -6,7 +6,7 @@ import {ColumnTemplateLoader} from '../column/columntemplateloader';
 @Component({
     selector: '[pTreeRow]',
     template: `
-        <div style="display:table-row;border-bottom:0px transparent" [ngClass]="{'ui-state-hover':hover&&treeTable.selectionMode,'ui-state-highlight':isSelected(node)}">
+        <div class="ui-treetable-row" [ngClass]="{'ui-state-hover':hover&&treeTable.selectionMode,'ui-state-highlight':isSelected(node)}">
             <td *ngFor="#col of treeTable.columns; #i=index" [attr.style]="col.style" [attr.class]="col.styleClass"
                 (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onRowClick($event)">
                 <span *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':expanded,'fa-caret-right':!expanded}"
@@ -16,8 +16,8 @@ import {ColumnTemplateLoader} from '../column/columntemplateloader';
                 <p-columnTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnTemplateLoader>
             </td>
         </div>
-        <div [style.display]="expanded ? 'table-row' : 'none'" *ngIf="node.children">
-            <td [attr.colspan]="treeTable.columns.length" style="padding:0px;border:0px none;">
+        <div *ngIf="node.children" class="ui-treetable-row" [style.display]="expanded ? 'table-row' : 'none'">
+            <td [attr.colspan]="treeTable.columns.length" class="ui-treetable-child-table-container">
                 <table>
                     <tbody pTreeRow *ngFor="#childNode of node.children" [node]="childNode" [level]="level+1"></tbody>
                 </table>
