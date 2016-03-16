@@ -1,6 +1,7 @@
 import {Component,Input,Output,EventEmitter,Inject,forwardRef,Host} from 'angular2/core';
 import {TreeTable} from './treetable';
 import {TreeNode} from '../api/treenode';
+import {ColumnTemplateLoader} from '../column/columntemplateloader';
 
 @Component({
     selector: '[pTreeRow]',
@@ -11,7 +12,8 @@ import {TreeNode} from '../api/treenode';
                 <span *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':expanded,'fa-caret-right':!expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"></span>
-                <span>{{node.data[col.field]}}</span>
+                <span *ngIf="!col.template">{{node.data[col.field]}}</span>
+                <p-columnTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnTemplateLoader>
             </td>
         </div>
         <div [style.display]="expanded ? 'table-row' : 'none'" *ngIf="node.children">
@@ -22,7 +24,7 @@ import {TreeNode} from '../api/treenode';
             </td>
         </div>
     `,
-    directives: [UITreeRow]
+    directives: [UITreeRow,ColumnTemplateLoader]
 })
 export class UITreeRow {
 

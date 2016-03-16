@@ -33,6 +33,25 @@
     </p-treeTable>
     Selected Nodes: <span *ngFor="#file of selectedFiles">{{file.data.name}}</span>
     
+    <p-treeTable [value]="files" style="margin-top:30px">
+        <header>Templating</header>
+        <p-column field="name" header="Name">
+            <template #node="rowData">
+                <input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
+            </template>
+        </p-column>
+        <p-column field="size" header="Size">
+            <template #node="rowData">
+                <input type="text" [(ngModel)]="node.data.size" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
+            </template>
+        </p-column>
+        <p-column field="type" header="Type">
+            <template #node="rowData">
+                <input type="text" [(ngModel)]="node.data.type" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
+            </template>
+        </p-column>
+    </p-treeTable>
+    
     <p-treeTable [value]="files" style="margin-bottom:30px" style="margin-top:30px" 
         (onNodeExpand)="nodeExpand($event)">
         <header>Lazy Loading</header>
@@ -449,15 +468,15 @@ export class TreeTableDemoComponent implements OnInit {
                 
             <h3>Templating</h3>
             <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a template inside a column that gets 
-                the treenode as an implicit variable. Example below places an input field to create editable treenodes.</p>
+                the column as an implicit variable and rowData as the node instance. Example below places an input field to create editable treenodes.</p>
 
 <pre>
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-treeTable [value]="files"&gt;
     &lt;p:column&gt;
-        &lt;template #node&gt;
-            &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
+        &lt;template #col #node="rowData"&gt;
+            &lt;input [(ngModel)]="node.data.name" type="text" style="width:100%"&gt;
         &lt;/template&gt;
     &lt;/p:column&gt;
 &lt;/p-treeTable&gt;
@@ -677,6 +696,25 @@ Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
 Selected Nodes: &lt;span *ngFor="#file of selectedFiles"&gt;{{file.data.name}}&lt;/span&gt;
+
+&lt;p-treeTable [value]="files" style="margin-top:30px"&gt;
+    &lt;header&gt;Templating&lt;/header&gt;
+    &lt;p-column field="name" header="Name"&gt;
+        &lt;template #node="rowData"&gt;
+            &lt;input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;
+        &lt;template #node="rowData"&gt;
+            &lt;input type="text" [(ngModel)]="node.data.size" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;
+        &lt;template #node="rowData"&gt;
+            &lt;input type="text" [(ngModel)]="node.data.type" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
+&lt;/p-treeTable&gt;
 
 &lt;p-treeTable [value]="files" style="margin-bottom:30px" style="margin-top:30px" 
     (onNodeExpand)="nodeExpand($event)"&gt;
