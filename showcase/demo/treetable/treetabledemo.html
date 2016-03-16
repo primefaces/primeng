@@ -15,7 +15,8 @@
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
         
-    <p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile">
+    <p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile"
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
         <header>Singe Selection</header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
@@ -23,13 +24,22 @@
     </p-treeTable>
     Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
         
-    <p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" style="margin-top:30px">
+    <p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" style="margin-top:30px">
         <header>Multiple Selection</header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
     Selected Nodes: <span *ngFor="#file of selectedFiles">{{file.data.name}}</span>
+    
+    <p-treeTable [value]="files" style="margin-bottom:30px" style="margin-top:30px" 
+        (onNodeExpand)="nodeExpand($event)">
+        <header>Lazy Loading</header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
 </div>
 
 <div class="ContentSideSections Source">

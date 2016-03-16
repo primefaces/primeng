@@ -27,4 +27,11 @@ export class NodeService {
                     .then(res => <TreeNode[]> res.json().data)
                     .then(data => { return data; });
     }
+    
+    getLazyFilesystem() {
+        return this.http.get('showcase/resources/data/filesystem-lazy.json')
+                    .toPromise()
+                    .then(res => <TreeNode[]> res.json().data)
+                    .then(data => { return data; });
+    }
 }
