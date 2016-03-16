@@ -71,6 +71,7 @@ import {DataScrollerLoaderDemo} from "./demo/datascroller/datascrollerloaderdemo
 import {DataScrollerInfiniteDemo} from "./demo/datascroller/datascrollerinfinitedemo";
 import {TreeDemo} from "./demo/tree/treedemo";
 import {TreeTableDemo} from "./demo/treetable/treetabledemo";
+import {TerminalDemo} from "./demo/terminal/terminaldemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -148,7 +149,8 @@ import {TreeTableDemo} from "./demo/treetable/treetabledemo";
     {path: '/datascrollerloader', name: 'DataScrollerLoaderDemo', component: DataScrollerLoaderDemo},
     {path: '/datascrollerinfinite', name: 'DataScrollerInfiniteDemo', component: DataScrollerInfiniteDemo},
     {path: '/tree', name: 'TreeDemo', component: TreeDemo},
-    {path: '/treetable', name: 'TreeTableDemo', component: TreeTableDemo}
+    {path: '/treetable', name: 'TreeTableDemo', component: TreeTableDemo},
+    {path: '/terminal', name: 'TerminalDemo', component: TerminalDemo}
 ])
 export class AppComponent {
 
