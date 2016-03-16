@@ -48,13 +48,14 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Tree} from 'primeng/primeng';
+import {TreeTable} from 'primeng/primeng';
 import {TreeNode} from 'primeng/primeng';
+import {Column} from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Tree component requires an array of TreeNode objects as its value. Let's begin with the TreeNode api.</p>
+            <p>TreeTable component requires an array of TreeNode objects as its value. Let's begin with the TreeNode api.</p>
             
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -83,19 +84,19 @@ import {TreeNode} from 'primeng/primeng';
                             <td>icon</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Icon of the node to display next to content.</td>
+                            <td>Icon of the node to display next to content. Not used by TreeTable.</td>
                         </tr>
                         <tr>
                             <td>expandedIcon</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Icon to use in expanded state.</td>
+                            <td>Icon to use in expanded state. Not used by TreeTable.</td>
                         </tr>
                         <tr>
-                            <td>expandedIcon</td>
+                            <td>collapsedIcon</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Icon to use in collapsed state.</td>
+                            <td>Icon to use in collapsed state. Not used by TreeTable.</td>
                         </tr>
                         <tr>
                             <td>children</td>
@@ -133,67 +134,99 @@ export class NodeService {
     
     constructor(private http: Http) {}
 
-    getFiles() {
-        return this.http.get('showcase/resources/data/files.json')
+    getFilesystem() {
+        return this.http.get('showcase/resources/data/filesystem.json')
                     .toPromise()
-                    .then(res =&gt; &lt;TreeNode[]&gt; res.json().data)
-                    .then(data =&gt; { return data; });
+                    .then(res => &lt;TreeNode[]&gt; res.json().data)
+                    .then(data => { return data; });
     }
 }
 </code>
 </pre>
         
-        <p>The files.json file consists of sample data. In a real application, this should be a dynamic response generated from the remote call.</p>
+        <p>The filesystem.json file consists of sample data. In a real application, this should be a dynamic response generated from the remote call.</p>
 <pre>
 <code class="language-javascript" pCode>
 {
-    "data": 
-    [
-        {
-            "label": "Documents",
-            "data": "Documents Folder",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
-            "children": [{
-                    "label": "Work",
-                    "data": "Work Folder",
-                    "expandedIcon": "fa-folder-open",
-                    "collapsedIcon": "fa-folder",
-                    "children": [{"label": "Expenses.doc", "icon": "fa-file-word-o", "data": "Expenses Document"}, {"label": "Resume.doc", "icon": "fa-file-word-o", "data": "Resume Document"}]
+    "data":
+    [  
+        {  
+            "data":{  
+                "name":"Documents",
+                "size":"75kb",
+                "type":"Folder"
+            },
+            "children":[
+                {  
+                    "data":{  
+                        "name":"Work",
+                        "size":"55kb",
+                        "type":"Folder"
+                    },
+                    "children":[  
+                        {  
+                            "data":{  
+                                "name":"Expenses.doc",
+                                "size":"30kb",
+                                "type":"Document"
+                            }
+                        },
+                        {  
+                            "data":{  
+                                "name":"Resume.doc",
+                                "size":"25kb",
+                                "type":"Resume"
+                            }
+                        }
+                    ]
                 },
-                {
-                    "label": "Home",
-                    "data": "Home Folder",
-                    "expandedIcon": "fa-folder-open",
-                    "collapsedIcon": "fa-folder",
-                    "children": [{"label": "Invoices.txt", "icon": "fa-file-word-o", "data": "Invoices for this month"}]
-                }]
+                {  
+                    "data":{  
+                        "name":"Home",
+                        "size":"20kb",
+                        "type":"Folder"
+                    },
+                    "children":[  
+                        {  
+                            "data":{  
+                                "name":"Invoices",
+                                "size":"20kb",
+                                "type":"Text"
+                            }
+                        }
+                    ]
+                }
+            ]
         },
-        {
-            "label": "Pictures",
-            "data": "Pictures Folder",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
-            "children": [
-                {"label": "barcelona.jpg", "icon": "fa-file-image-o", "data": "Barcelona Photo"},
-                {"label": "logo.jpg", "icon": "fa-file-image-o", "data": "PrimeFaces Logo"},
-                {"label": "primeui.png", "icon": "fa-file-image-o", "data": "PrimeUI Logo"}]
-        },
-        {
-            "label": "Movies",
-            "data": "Movies Folder",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
-            "children": [{
-                    "label": "Al Pacino",
-                    "data": "Pacino Movies",
-                    "children": [{"label": "Scarface", "icon": "fa-file-video-o", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "fa-file-video-o", "data": "Serpico Movie"}]
+        {  
+            "data":{  
+                "name":"Pictures",
+                "size":"150kb",
+                "type":"Folder"
+            },
+            "children":[  
+                {  
+                    "data":{  
+                        "name":"barcelona.jpg",
+                        "size":"90kb",
+                        "type":"Picture"
+                    }
                 },
-                {
-                    "label": "Robert De Niro",
-                    "data": "De Niro Movies",
-                    "children": [{"label": "Goodfellas", "icon": "fa-file-video-o", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "fa-file-video-o", "data": "Untouchables Movie"}]
-                }]
+                {  
+                    "data":{  
+                        "name":"primeui.png",
+                        "size":"30kb",
+                        "type":"Picture"
+                    }
+                },
+                {  
+                    "data":{  
+                        "name":"optimus.jpg",
+                        "size":"30kb",
+                        "type":"Picture"
+                    }
+                }
+            ]
         }
     ]
 }
@@ -204,14 +237,14 @@ export class NodeService {
 
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemoComponent implements OnInit {
+export class TreeTableDemoComponent implements OnInit {
     
     files: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
     
     ngOnInit() {
-        this.nodeService.getFiles().then(files => this.files = files);
+        this.nodeService.getFileSystem().then(files => this.files = files);
     }
 
 }
@@ -220,16 +253,126 @@ export class TreeDemoComponent implements OnInit {
                   
 <pre>
 <code class="language-markup" pCode>
-&lt;p-tree [value]="files"&gt;&lt;/p-tree&gt;
+&lt;p-treeTable [value]="files"&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+            <h3>Column Component</h3>
+            <p>TreeTable utilizes the following options defined by a column component.</p>
+            <h3>Attributes</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>field</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Property of a row data.</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Header text of a column.</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Footer text of a column.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the column.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the column.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+<pre>
+<code class="language-markup" pCode>
+&lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+</code>
+</pre>
+
+                <h3>Dynamic Colums</h3>
+                <p>Columns can be instantiated using an array as well by iterating with ngFor.</p>
+            <pre>
+<code class="language-typescript" pCode>
+export class TreeTableDemoComponent implements OnInit {
+
+    files: TreeNode[];
+
+    constructor(private nodeService: NodeService) {}
+    
+    ngOnInit() {
+        this.nodeService.getFileSystem().then(files => this.files = files);
+
+        this.cols = [
+                {field: 'name', header: 'Name'},
+                {field: 'size', header: 'Size'},
+                {field: 'type', header: 'Type'}
+            ];
+        }
+    }
+}
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode>
+&lt;p-treeTable [value]="cars"&gt;
+    &lt;p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+            <h3>Facets</h3>
+            <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
+<pre>
+<code class="language-typescript" pCode>
+import {Header} from 'primeng/primeng';
+import {Footer} from 'primeng/primeng';
+</code>
+</pre>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-treeTable [value]="files"&gt;
+    &lt;header&gt;List of Files&lt;/header&gt;
+    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
 </code>
 </pre>
 
             <h3>Selection</h3>
-            <p>Tree supports two selection methods, single and multiple. Selection is enabled by setting selectionMode property and providing a single TreeNode or
+            <p>TreeTable supports two selection methods, single and multiple. Selection is enabled by setting selectionMode property and providing a single TreeNode or
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemoComponent implements OnInit {
+export class TreeTableDemoComponent implements OnInit {
     
     files: TreeNode[];
     
@@ -246,14 +389,14 @@ export class TreeDemoComponent implements OnInit {
 </pre>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-tree&gt;
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-treeTable&gt;
 </code>
 </pre>
 
 <p>In multiple mode, selection property should be an array.</p>
 <pre>
 <code class="language-typescript" pCode>
-    export class TreeDemoComponent implements OnInit {
+    export class TreeTableDemoComponent implements OnInit {
         
         files: TreeNode[];
         
@@ -271,20 +414,20 @@ export class TreeDemoComponent implements OnInit {
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles"&gt;&lt;/p-tree&gt;
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFiles"&gt;&lt;/p-treeTable&gt;
 </code>
 </pre>
 
-            <p>Tree provides onNodeSelect and onNodeUnselect options as callbacks for selection feature.</p>
+            <p>TreeTable provides onNodeSelect and onNodeUnselect options as callbacks for selection feature.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)"&gt;&lt;/p-tree&gt;
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)"&gt;&lt;/p-treeTable&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemoComponent implements OnInit {
+export class TreeTableDemoComponent implements OnInit {
     
     files: TreeNode[];
     
@@ -303,23 +446,21 @@ export class TreeDemoComponent implements OnInit {
 }
 </code>
 </pre>
-
-            <h3>Icons</h3>
-            <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
-                expandedIcon and collapsedIcon instead.</p>
                 
             <h3>Templating</h3>
-            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a template that gets 
+            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a template inside a column that gets 
                 the treenode as an implicit variable. Example below places an input field to create editable treenodes.</p>
 
 <pre>
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="files"&gt;
-    &lt;template #node&gt;
-        &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
-    &lt;/template&gt;
-&lt;/p-tree&gt;
+&lt;p-treeTable [value]="files"&gt;
+    &lt;p:column&gt;
+        &lt;template #node&gt;
+            &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
+        &lt;/template&gt;
+    &lt;/p:column&gt;
+&lt;/p-treeTable&gt;
 </code>
 </pre>
 
@@ -330,13 +471,13 @@ export class TreeDemoComponent implements OnInit {
             and a remote call can be made to add the children to the expanded node.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-tree [value]="files" (onNodeExpand)="loadNode($event)"&gt;&lt;/p-tree&gt;
+&lt;p-treeTable [value]="files" (onNodeExpand)="loadNode($event)"&gt;&lt;/p-treeTable&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemoComponent implements OnInit {
+export class TreeTableDemoComponent implements OnInit {
     
     files: TreeNode[];
     
@@ -352,7 +493,7 @@ export class TreeDemoComponent implements OnInit {
     loadNode(event) {
         if(event.node) {
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
-            this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
+            this.nodeService.getLazyFilesystem().then(nodes => event.node.children = nodes);
         }
     }
 
@@ -360,31 +501,26 @@ export class TreeDemoComponent implements OnInit {
 </code>
 </pre>
 
-            <p>Assume at ngOnInit tree is initialized with a data like below that has nodes having no actual children but leaf property is set false.</p>
+            <p>Assume at ngOnInit treetable is initialized with a data like below that has nodes having no actual children but leaf property is set false.</p>
 <pre>
 <code class="language-javascript" pCode>
 {
-    "data": 
-    [
-        {
-            "label": "Lazy Node 0",
-            "data": "Node 0",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
+    "data":
+    [  
+        {  
+            "data":{  
+                "name":"Lazy Folder 0",
+                "size":"75kb",
+                "type":"Folder"
+            },
             "leaf": false
         },
-        {
-            "label": "Lazy Node 1",
-            "data": "Node 1",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
-            "leaf": false
-        },
-        {
-            "label": "Lazy Node 1",
-            "data": "Node 2",
-            "expandedIcon": "fa-folder-open",
-            "collapsedIcon": "fa-folder",
+        {  
+            "data":{  
+                "name":"Lazy Folder 1",
+                "size":"150kb",
+                "type":"Folder"
+            },
             "leaf": false
         }
     ]
@@ -489,43 +625,27 @@ export class TreeDemoComponent implements OnInit {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-tree</td>
+                            <td>ui-treetable</td>
                             <td>Main container element</td>
                         </tr>
                         <tr>
-                            <td>ui-tree-container</td>
-                            <td>Container of nodes</td>
+                            <td>ui-treetable-header</td>
+                            <td>Header element</td>
                         </tr>
                         <tr>
-                            <td>ui-treenode</td>
-                            <td>A treenode element</td>
+                            <td>ui-treetable-tablewrapper</td>
+                            <td>Container of table</td>
                         </tr>
                         <tr>
-                            <td>ui-treenode-content</td>
-                            <td>Content of a treenode</td>
-                        </tr>
-                        <tr>
-                            <td>ui-treenode-toggler</td>
-                            <td>Toggle icon</td>
-                        </tr>
-                        <tr>
-                            <td>ui-treenode-icon</td>
-                            <td>Icon of a treenode</td>
-                        </tr>
-                        <tr>
-                            <td>ui-treenode-label</td>
-                            <td>Label of a treenode</td>
-                        </tr>
-                        <tr>
-                            <td>ui-treenode-children</td>
-                            <td>Container element for node children</td>
+                            <td>ui-treetable-footer</td>
+                            <td>Footer element</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires the css of PrimeUI Tree.</p>
+            <p>Native component that requires the css of PrimeUI TreeTable.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -533,41 +653,49 @@ export class TreeDemoComponent implements OnInit {
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-tree [value]="files"&gt;&lt;/p-tree&gt;
+&lt;p-treeTable [value]="files" style="margin-bottom:30px"&gt;
+    &lt;header&gt;Basic&lt;/header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+    
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile"
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;
+    &lt;header&gt;Singe Selection&lt;/header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
+    
+&lt;p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" style="margin-top:30px"&gt;
+    &lt;header&gt;Multiple Selection&lt;/header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+Selected Nodes: &lt;span *ngFor="#file of selectedFiles"&gt;{{file.data.name}}&lt;/span&gt;
 
-&lt;h3&gt;Single Selection&lt;/h3&gt;
-&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" 
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-Selected Node: {{selectedFile ? selectedFile.label : 'none'}}
-
-&lt;h3&gt;Multiple Selection with Metakey&lt;/h3&gt;
-&lt;p-tree [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-Selected Nodes: &lt;span *ngFor="#file of selectedFiles"&gt;{{file.label}} &lt;/span&gt;
-
-&lt;h3&gt;Lazy Loading&lt;/h3&gt;
-&lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" style="max-height:200px;overflow:auto"&gt;&lt;/p-tree&gt;
-
-&lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="files"&gt;
-    &lt;template #node&gt;
-        &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
-    &lt;/template&gt;
-&lt;/p-tree&gt;
+&lt;p-treeTable [value]="files" style="margin-bottom:30px" style="margin-top:30px" 
+    (onNodeExpand)="nodeExpand($event)"&gt;
+    &lt;header&gt;Lazy Loading&lt;/header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemo implements OnInit {
+export class TreeTableDemo implements OnInit {
     
     msgs: Message[];
     
     files: TreeNode[];
-    
-    lazyFiles: TreeNode[];
-    
+        
     selectedFile: TreeNode;
     
     selectedFiles: TreeNode[];
@@ -575,24 +703,23 @@ export class TreeDemo implements OnInit {
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {
-        this.nodeService.getFiles().then(files => this.files = files);
-        this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
+        this.nodeService.getFilesystem().then(files => this.files = files);
     }
     
     nodeSelect(event) {
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Node Selected', detail: event.node.label});
+        this.msgs.push({severity: 'info', summary: 'Node Selected', detail: event.node.data.name});
     }
     
     nodeUnselect(event) {
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
+        this.msgs.push({severity: 'info', summary: 'Node Unselected', detail: event.node.data.name});
     }
     
     nodeExpand(event) {
         if(event.node) {
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
-            this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
+            this.nodeService.getLazyFilesystem().then(nodes => event.node.children = nodes);
         }
     }
 }
