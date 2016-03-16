@@ -31,10 +31,10 @@
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
-    Selected Nodes: <span *ngFor="#file of selectedFiles">{{file.data.name}}</span>
+    Selected Nodes: <span *ngFor="#file of selectedFiles">{{file.data.name}} </span>
     
     <p-treeTable [value]="files" style="margin-top:30px">
-        <header>Templating</header>
+        <header>Editable Cells with Templating</header>
         <p-column field="name" header="Name">
             <template #node="rowData">
                 <input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
@@ -52,7 +52,7 @@
         </p-column>
     </p-treeTable>
     
-    <p-treeTable [value]="files" style="margin-bottom:30px" style="margin-top:30px" 
+    <p-treeTable [value]="lazyFiles" style="margin-bottom:30px" style="margin-top:30px" 
         (onNodeExpand)="nodeExpand($event)">
         <header>Lazy Loading</header>
         <p-column field="name" header="Name"></p-column>
@@ -695,10 +695,10 @@ Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
-Selected Nodes: &lt;span *ngFor="#file of selectedFiles"&gt;{{file.data.name}}&lt;/span&gt;
+Selected Nodes: &lt;span *ngFor="#file of selectedFiles"&gt;{{file.data.name}} &lt;/span&gt;
 
 &lt;p-treeTable [value]="files" style="margin-top:30px"&gt;
-    &lt;header&gt;Templating&lt;/header&gt;
+    &lt;header&gt;Editable Cells with Templating&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;
         &lt;template #node="rowData"&gt;
             &lt;input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
@@ -716,7 +716,7 @@ Selected Nodes: &lt;span *ngFor="#file of selectedFiles"&gt;{{file.data.name}}&l
     &lt;/p-column&gt;
 &lt;/p-treeTable&gt;
 
-&lt;p-treeTable [value]="files" style="margin-bottom:30px" style="margin-top:30px" 
+&lt;p-treeTable [value]="lazyFiles" style="margin-bottom:30px" style="margin-top:30px" 
     (onNodeExpand)="nodeExpand($event)"&gt;
     &lt;header&gt;Lazy Loading&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
@@ -733,6 +733,8 @@ export class TreeTableDemo implements OnInit {
     msgs: Message[];
     
     files: TreeNode[];
+    
+    lazyFiles: TreeNode[];
         
     selectedFile: TreeNode;
     
@@ -742,6 +744,7 @@ export class TreeTableDemo implements OnInit {
 
     ngOnInit() {
         this.nodeService.getFilesystem().then(files => this.files = files);
+        this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
     }
     
     nodeSelect(event) {

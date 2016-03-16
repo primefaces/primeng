@@ -22,6 +22,8 @@ export class TreeTableDemo implements OnInit {
     msgs: Message[];
     
     files: TreeNode[];
+    
+    lazyFiles: TreeNode[];
         
     selectedFile: TreeNode;
     
@@ -31,6 +33,7 @@ export class TreeTableDemo implements OnInit {
 
     ngOnInit() {
         this.nodeService.getFilesystem().then(files => this.files = files);
+        this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
     }
     
     nodeSelect(event) {
