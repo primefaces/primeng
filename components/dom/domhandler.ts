@@ -54,7 +54,6 @@ export class DomHandler {
         let targetOffset = target.getBoundingClientRect();
         let top;
         
-        //flip
         if((targetOffset.top + targetHeight + elementOuterHeight) > window.innerHeight)
             top = -1* (elementOuterHeight);
         else
