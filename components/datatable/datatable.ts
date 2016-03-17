@@ -559,8 +559,12 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
                 else {
                     this.columns.splice(ui.dropIndex, 0, this.columns.splice(ui.dragIndex, 1)[0]);
                 }
-
-                this.onColReorder.next(ui);
+                
+                this.onColReorder.next({
+                    dragIndex: ui.dragIndex,
+                    dropIndex: ui.dropIndex,
+                    columns: this.columns
+                });
             }
         });
     }
