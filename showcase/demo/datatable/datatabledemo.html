@@ -341,6 +341,15 @@ this.headerRows = [
 &lt;p-column field="color" header="Color (endsWith)" [filter]="true" filterMatchMode="endsWith"&gt;&lt;/p-column&gt;
 </code>
 </pre>
+            <p>An optional global filter feature is available to search all fields with the same keyword, to enable this place an input component whose keyup event would be 
+            listened for filtering and bind the local template variable name of it to the global filter property.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;input #gb type="text" placeholder="Global search"&gt;
+&lt;p-dataTable [value]="cars" [rows]="10" [globalFilter]="gb"&gt;
+</code>
+</pre>
+        
             <p>See the <a [routerLink]="['DataTableFilterDemo']">live example.</a></p>
 
             <h3>Selection</h3>
@@ -482,7 +491,7 @@ export class DataTableDemo implements OnInit {
 &lt;/p-dataTable&gt;
 </code>
 </pre>
-
+            
 <pre>
 <code class="language-ts" pCode>
 loadData(event: LazyLoadEvent) {
@@ -589,6 +598,12 @@ loadData(event: LazyLoadEvent) {
                             <td>boolean</td>
                             <td>false</td>
                             <td>Activates incell editing when enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>globalFilter</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Reference of an input field to use as a global filter.</td>
                         </tr>
                         <tr>
                             <td>filterDelay</td>

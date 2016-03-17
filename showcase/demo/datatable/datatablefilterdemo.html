@@ -4,12 +4,16 @@
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable - <span class="subitem">Filter</span></span>
         <span class="defaultText dispTable">Filtering is enabled by setting the filter property as true in column object. Default match mode is "startsWith" and this can be configured
-        using filterMatchMode property of column object that also accepts "contains" and "endsWith".</span>
+        using filterMatchMode property of column object that also accepts "contains" and "endsWith". An optional global filter feature is available to search all fields with a keyword.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [rows]="10" [paginator]="true">
+    <div class="ui-widget-header ui-helper-clearfix" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="float:left;margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" style="float:left" placeholder="Global Filter">
+    </div>
+    <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb">
         <header>List of Cars</header>
         <p-column field="vin" header="Vin (startsWith)" [filter]="true"></p-column>
         <p-column field="year" header="Year (contains)" [filter]="true" filterMatchMode="contains"></p-column>
@@ -40,7 +44,11 @@ export class DataTableFilterDemo implements OnInit {
         <p-tabPanel header="datatablefilterdemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true"&gt;
+&lt;div class="ui-widget-header ui-helper-clearfix" style="padding:4px 10px;border-bottom: 0 none"&gt;
+    &lt;i class="fa fa-search" style="float:left;margin:4px 4px 0 0"&gt;&lt;/i&gt;
+    &lt;input #gb type="text" pInputText size="50" style="float:left" placeholder="Global Filter"&gt;
+&lt;/div&gt;
+&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;p-column field="vin" header="Vin (startsWith)" [filter]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year (contains)" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-column&gt;

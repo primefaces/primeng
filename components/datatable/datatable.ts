@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,IterableDiffers,Query,QueryList} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList} from 'angular2/core';
 import {Column} from '../column/column';
 import {ColumnTemplateLoader} from '../column/columntemplateloader';
 import {Header} from '../common/header';
@@ -109,7 +109,7 @@ import {DomHandler} from '../dom/domhandler';
     directives: [Paginator,InputText,ColumnTemplateLoader],
     providers: [DomHandler]
 })
-export class DataTable implements AfterViewChecked,OnInit,DoCheck {
+export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck {
 
     @Input() value: any[];
         
@@ -167,6 +167,8 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
 
     @Input() styleClass: string;
     
+    @Input() globalFilter: any;
+    
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
@@ -193,7 +195,9 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
         
     differ: any;
     
-    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, @Query(Column) cols: QueryList<Column>) {
+    globalFilterFunction: any;
+    
+    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, @Query(Column) cols: QueryList<Column>,private renderer: Renderer) {
         this.differ = differs.find([]).create(null);
         cols.changes.subscribe(_ => {
             this.columns = cols.toArray();
@@ -228,6 +232,17 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
             }
             
             this.columnsUpdated = false;
+        }
+    }
+    
+    ngAfterViewInit() {
+        if(this.globalFilter) {
+            this.globalFilterFunction = this.renderer.listen(this.globalFilter, 'keyup', () => {
+                this.filterTimeout = setTimeout(() => {
+                    this.filter();
+                    this.filterTimeout = null;
+                }, this.filterDelay);
+            });
         }
     }
      
@@ -411,16 +426,21 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
 
             for(let i = 0; i < this.value.length; i++) {
                 let localMatch = true;
+                let globalMatch = false;
+                
+                for(let j = 0; j < this.columns.length; j++) {
+                    let col = this.columns[j],
+                    filterMeta = this.filters[col.field];
+                    
+                    //local
+                    if(filterMeta) {
+                        let filterValue = filterMeta.value,
+                        filterField = col.field,
+                        filterMatchMode = filterMeta.matchMode||'startsWith',
+                        dataFieldValue = this.value[i][filterField];
+                        
+                        let filterConstraint = this.filterConstraints[filterMatchMode];
 
-                for(let prop in this.filters) {
-                    if(this.filters.hasOwnProperty(prop)) {
-                        let filterMeta = this.filters[prop],
-                            filterValue = filterMeta.value,
-                            filterField = prop,
-                            filterMatchMode = filterMeta.matchMode||'startsWith',
-                            dataFieldValue = this.value[i][filterField];
-
-                        var filterConstraint = this.filterConstraints[filterMatchMode];
                         if(!filterConstraint(dataFieldValue, filterValue)) {
                             localMatch = false;
                         }
@@ -429,9 +449,20 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
                             break;
                         }
                     }
+                    
+                    //global
+                    if(this.globalFilter && !globalMatch && col.filter) {
+                        globalMatch = this.filterConstraints['contains'](this.value[i][col.field], this.globalFilter.value);
+                        
+                    }
                 }
 
-                if(localMatch) {
+                let matches = localMatch;
+                if(this.globalFilter) {
+                    matches = localMatch&&globalMatch;
+                }
+
+                if(matches) {
                     this.filteredValue.push(this.value[i]);
                 }
             }
@@ -615,5 +646,10 @@ export class DataTable implements AfterViewChecked,OnInit,DoCheck {
         if(this.reorderableColumns) {
             jQuery(this.el.nativeElement.children[0]).puicolreorder('destroy');
         }
+        
+        //remove event listener
+        if(this.globalFilterFunction) {
+            this.globalFilterFunction();
+        } 
     }
 }
