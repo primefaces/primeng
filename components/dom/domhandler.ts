@@ -75,4 +75,20 @@ export class DomHandler {
         height += parseInt(style.marginTop) + parseInt(style.marginBottom);
         return height;
     }
+    
+    public fadeIn(element):void {
+        element.style.opacity = 0;
+
+        let last = +new Date();
+        let tick = function() {
+            element.style.opacity = +element.style.opacity + (new Date().getTime() - last) / 25;
+            last = +new Date();
+
+            if (+element.style.opacity < 1) {
+              (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+            }
+        };
+
+        tick();
+    }
 }

@@ -1,5 +1,6 @@
 import {Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from 'angular2/core';
 import {SplitButtonItem} from './splitbuttonitem';
+import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-splitButton',
@@ -17,11 +18,11 @@ import {SplitButtonItem} from './splitbuttonitem';
             <button class="ui-splitbutton-menubutton ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-right" type="button"
                 [ngClass]="{'ui-state-hover':hoverDropdown,'ui-state-focus':focusDropdown,'ui-state-active':activeDropdown}"
                 (mouseenter)="hoverDropdown=true" (mouseleave)="hoverDropdown=false" (focus)="focusDropdown=true" (blur)="focusDropdown=false"
-                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="onDropdownClick($event)">
+                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="onDropdownClick($event,menu)">
                 <span class="ui-button-icon-left ui-c fa fa-fw fa-caret-down"></span>
                 <span class="ui-button-text ui-c">ui-button</span>
             </button>
-            <div class="ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow" [style.display]="menuVisible ? 'block' : 'none'">
+            <div #menu class="ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow" [style.display]="menuVisible ? 'block' : 'none'">
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="#item of items" [ngClass]="{'ui-state-hover':(hoveredItem==item)}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
@@ -33,7 +34,8 @@ import {SplitButtonItem} from './splitbuttonitem';
                 </ul>
             </div>
         </div>
-    ` 
+    `,
+    providers: [DomHandler]
 })
 export class SplitButton implements OnInit,OnDestroy {
 
@@ -65,7 +67,7 @@ export class SplitButton implements OnInit,OnDestroy {
     
     private documentClickListener: any;
 
-    constructor(private el: ElementRef,private renderer: Renderer) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
     
     ngOnInit() {
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
@@ -77,8 +79,9 @@ export class SplitButton implements OnInit,OnDestroy {
         this.onClick.next(event);
     }
     
-    onDropdownClick(event) {
+    onDropdownClick(event,menu) {
         this.menuVisible= !this.menuVisible;
+        this.domHandler.fadeIn(menu);
         event.stopPropagation();
     }
     
