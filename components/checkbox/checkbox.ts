@@ -8,7 +8,8 @@ import {Component, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChange, Input
                 <input #cb type="checkbox" name="{{name}}" value="{{value}}" [checked]="isChecked(cb.value)"/>
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick(cb)"
-                        (mouseover)="hover = true" (mouseout)="hover = false" [ngClass]="{'ui-state-hover':hover,'ui-state-active':cb.checked,'ui-state-disabled':disabled}">
+                        (mouseover)="hover=true" (mouseout)="hover=false" 
+                        [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':cb.checked,'ui-state-disabled':disabled}">
                 <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':cb.checked}"></span>
             </div>
         </div>
@@ -35,6 +36,10 @@ export class Checkbox {
     hover: boolean;
 
     onClick(input) {
+        if(this.disabled) {
+            return;
+        }
+        
         this.onChange.next(!input.checked);
 
         if(this.model) {
