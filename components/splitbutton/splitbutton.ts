@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChildren,QueryList} from 'angular2/core';
+import {Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from 'angular2/core';
 import {SplitButtonItem} from './splitbuttonitem';
 
 @Component({
@@ -17,7 +17,7 @@ import {SplitButtonItem} from './splitbuttonitem';
             <button class="ui-splitbutton-menubutton ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-right" type="button"
                 [ngClass]="{'ui-state-hover':hoverDropdown,'ui-state-focus':focusDropdown,'ui-state-active':activeDropdown}"
                 (mouseenter)="hoverDropdown=true" (mouseleave)="hoverDropdown=false" (focus)="focusDropdown=true" (blur)="focusDropdown=false"
-                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="menuVisible=!menuVisible">
+                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="onDropdownClick($event)">
                 <span class="ui-button-icon-left ui-c fa fa-fw fa-caret-down"></span>
                 <span class="ui-button-text ui-c">ui-button</span>
             </button>
@@ -35,7 +35,7 @@ import {SplitButtonItem} from './splitbuttonitem';
         </div>
     ` 
 })
-export class SplitButton {
+export class SplitButton implements OnInit,OnDestroy {
 
     @Input() icon: string;
 
@@ -62,20 +62,36 @@ export class SplitButton {
     private hoveredItem: any;
     
     private menuVisible: boolean = false;
+    
+    private documentClickListener: any;
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef,private renderer: Renderer) {}
+    
+    ngOnInit() {
+        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.menuVisible = false;
+        });
+    }
     
     onDefaultButtonClick(event) {
         this.onClick.next(event);
     }
     
+    onDropdownClick(event) {
+        this.menuVisible= !this.menuVisible;
+        event.stopPropagation();
+    }
+    
     onItemClick(event,item: SplitButtonItem) {
         item.onClick.next(event);
-        this.menuVisible = false;
         this.hoveredItem = null;
         
         if(!item.url) {
             event.preventDefault();
         }            
+    }
+    
+    ngOnDestroy() {
+        this.documentClickListener();
     }
 }
