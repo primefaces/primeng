@@ -3,12 +3,22 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable - <span class="orange">Sort</span></span>
-        <span class="defaultText dispTable">Simply enabling sortable property at column object is enough to make a column sortable.</span>
+        <span class="defaultText dispTable">Simply enabling sortable property at column object is enough to make a column sortable. For multiple sorting
+        use metakey.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars">
+    <h3 class="first">Single Column</h3>
+    <p-dataTable [value]="cars1">
+        <p-column field="vin" header="Vin" [sortable]="true"></p-column>
+        <p-column field="year" header="Year" [sortable]="true"></p-column>
+        <p-column field="brand" header="Brand" [sortable]="true"></p-column>
+        <p-column field="color" header="Color" [sortable]="true"></p-column>
+    </p-dataTable>
+    
+    <h3>Multiple Columns</h3>
+    <p-dataTable [value]="cars2" sortMode="multiple">
         <p-column field="vin" header="Vin" [sortable]="true"></p-column>
         <p-column field="year" header="Year" [sortable]="true"></p-column>
         <p-column field="brand" header="Brand" [sortable]="true"></p-column>
@@ -23,12 +33,15 @@
 <code class="language-typescript" pCode>
 export class DataTableSortDemo implements OnInit {
 
-    cars: Car[];
+    cars1: Car[];
+    
+    cars2: Car[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.carService.getCarsSmall().then(cars => this.cars1 = cars);
+        this.carService.getCarsSmall().then(cars => this.cars2 = cars);
     }
 }
 </code>
@@ -38,7 +51,16 @@ export class DataTableSortDemo implements OnInit {
         <p-tabPanel header="datatablesortdemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars"&gt;
+&lt;h3 class="first"&gt;Single Column&lt;/h3&gt;
+&lt;p-dataTable [value]="cars1"&gt;
+    &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;h3&gt;Multiple Columns&lt;/h3&gt;
+&lt;p-dataTable [value]="cars2" sortMode="multiple"&gt;
     &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;

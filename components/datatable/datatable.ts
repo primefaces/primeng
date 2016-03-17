@@ -7,6 +7,7 @@ import {Paginator} from '../paginator/paginator';
 import {InputText} from '../inputtext/inputtext';
 import {LazyLoadEvent} from '../api/lazyload';
 import {FilterMetadata} from '../api/lazyload';
+import {SortMeta} from '../api/sortmeta';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -21,21 +22,21 @@ import {DomHandler} from '../dom/domhandler';
                     <thead>
                         <tr *ngIf="!headerRows" class="ui-state-default">
                             <th #headerCell *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass"
-                                (click)="sort(col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': (sortField && col.field === sortField)}">
+                                (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
+                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col)}">
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
-                                     [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
+                                     [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                             </th>
                         </tr>
                         <tr *ngFor="#headerRow of headerRows" class="ui-state-default">
                             <th #headerCell *ngFor="#col of headerRow.columns" [attr.style]="col.style" [attr.class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
-                                (click)="sort(col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': (sortField && col.field === sortField)}">
+                                (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
+                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col)}">
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
-                                     [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
+                                     [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                             </th>
                         </tr>
@@ -169,6 +170,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     @Input() globalFilter: any;
     
+    @Input() sortMode: string = 'single';
+    
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
@@ -182,6 +185,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private sortField: string;
 
     private sortOrder: number;
+    
+    private sortMeta: SortMeta[];
 
     private filterTimeout: any;
 
@@ -212,7 +217,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 rows: this.rows,
                 sortField: this.sortField,
                 sortOrder: this.sortOrder,
-                filters: null
+                filters: null,
+                multiSortMeta: this.sortMeta
             });
         }
     }
@@ -297,40 +303,143 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         }
     }
 
-    sort(column: Column) {
+    sort(event, column: Column) {
         if(!column.sortable) {
             return;
         }
         
         this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
         this.sortField = column.field;
+        let metaKey = event.metaKey||event.ctrlKey;
 
         if(this.lazy) {
             this.onLazyLoad.next(this.createLazyLoadMetadata());
         }
         else {
-            if(this.value) {
-                this.value.sort((data1, data2) => {
-                    let value1 = data1[this.sortField],
-                    value2 = data2[this.sortField],
-                    result = null;
+            if(this.sortMode == 'multiple') {
+                if(!metaKey) {
+                    this.sortMeta = [];
+                }
+                
+                this.addSortMeta({field: this.sortField, order: this.sortOrder});
+                this.sortMultiple();
+            }
+            else {
+                this.sortSingle();        
+            }    
+        }
+    }
+    
+    sortSingle() {
+        if(this.value) {
+            this.value.sort((data1, data2) => {
+                let value1 = data1[this.sortField],
+                value2 = data2[this.sortField],
+                result = null;
 
-                    if (value1 instanceof String && value2 instanceof String)
-                        result = value1.localeCompare(value2);
-                    else
-                        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-
-                    return (this.sortOrder * result);
-                });
-
-                this.first = 0;
-
-                if(this.hasFilter())
-                    this.filter();
+                if (value1 instanceof String && value2 instanceof String)
+                    result = value1.localeCompare(value2);
                 else
-                    this.updateDataToRender(this.value);
+                    result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+                return (this.sortOrder * result);
+            });
+
+            this.first = 0;
+
+            if(this.hasFilter())
+                this.filter();
+            else
+                this.updateDataToRender(this.value);
+        }
+    }
+    
+    sortMultiple() {  
+        if(this.value) {
+            this.value.sort((data1,data2) => {
+                return this.multisortField(data1, data2, this.sortMeta, 0);
+            });
+            
+            if(this.hasFilter())
+                this.filter();
+            else
+                this.updateDataToRender(this.value);
+        }      
+        
+    }
+    
+    multisortField(data1,data2,sortMeta,index) {
+        var value1 = data1[sortMeta[index].field], 
+        value2 = data2[sortMeta[index].field],
+        result = null;
+                        
+        if (typeof value1 == 'string' || value1 instanceof String) {
+            if (value1.localeCompare && (value1 != value2)) {
+                return (sortMeta[index].order * value1.localeCompare(value2));
             }
         }
+        else {
+            result = (value1 < value2) ? -1 : 1;    
+        }
+
+        if(value1 == value2)  {
+            return (sortMeta.length - 1) > (index) ? (this.multisortField(data1, data2, sortMeta, index + 1)) : 0;
+        }
+        
+        return (sortMeta[index].order * result);
+    }
+    
+    addSortMeta(meta) {
+        var index = -1;
+        for(var i = 0; i < this.sortMeta.length; i++) {
+            if(this.sortMeta[i].field === meta.field) {
+                index = i;
+                break;
+            }
+        }
+        
+        if(index >= 0)
+            this.sortMeta[index] = meta;
+        else
+            this.sortMeta.push(meta);
+    }
+    
+    isSorted(column: Column) {
+        if(this.sortMode === 'single') {
+            return (this.sortField && column.field === this.sortField);
+        }
+        else if(this.sortMode === 'multiple') {
+            let sorted = false;
+            if(this.sortMeta) {
+                for(let i = 0; i < this.sortMeta.length; i++) {
+                    if(this.sortMeta[i].field == column.field) {
+                        sorted = true;
+                        break;
+                    }
+                }
+            }
+            return sorted;
+        }
+    }
+    
+    getSortOrder(column: Column) {
+        let order = 0;
+        if(this.sortMode === 'single') {
+            if(this.sortField && column.field === this.sortField) {
+                order = this.sortOrder;
+            }
+        }
+        else if(this.sortMode === 'multiple') {
+            if(this.sortMeta) {
+                for(let i = 0; i < this.sortMeta.length; i++) {
+                    if(this.sortMeta[i].field == column.field) {
+                        order = this.sortMeta[i].order;
+                        break;
+                    }
+                }
+            }
+        }
+        return order;
     }
 
     onRowClick(event, rowData) {
@@ -636,7 +745,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             rows: this.rows,
             sortField: this.sortField,
             sortOrder: this.sortOrder,
-            filters: this.filters
+            filters: this.filters,
+            multiSortMeta: this.sortMeta
         };
     }
     

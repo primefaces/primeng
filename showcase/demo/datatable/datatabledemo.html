@@ -328,6 +328,14 @@ this.headerRows = [
 &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
 </code>
 </pre>
+            <p>By default sorting is executed on the clicked column. To do multiple field sorting, set sortMode property to "multiple" and use metakey 
+            when clicking on another column.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataTable [value]="cars" [sortMode]="multiple"&gt;
+</code>
+</pre>
+            
             <p>See the <a [routerLink]="['DataTableSortDemo']">live example.</a></p>
 
             <h3>Filtering</h3>
@@ -497,8 +505,9 @@ export class DataTableDemo implements OnInit {
 loadData(event: LazyLoadEvent) {
     //event.first = First row offset
     //event.rows = Number of rows per page
-    //event.sortField = Field name to sort with
-    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+    //event.sortField = Field name to sort in single sort mode
+    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec in single sort mode
+    //multiSortMeta: An array of SortMeta objects used in multiple columns sorting. Each SortMeta has field and order properties.
     //filters: Filters object having field as key and filter value, filter matchMode as value
     this.cars = //do a request to a remote datasource using a service and return the cars that match the lazy load criteria
 }
@@ -574,6 +583,12 @@ loadData(event: LazyLoadEvent) {
                             <td>number</td>
                             <td>null</td>
                             <td>Number of page links to display in paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>sortMode</td>
+                            <td>string</td>
+                            <td>single</td>
+                            <td>Defines whether sorting works on single column or on multiple columns.</td>
                         </tr>
                         <tr>
                             <td>responsive</td>
