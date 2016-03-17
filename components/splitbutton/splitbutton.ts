@@ -5,7 +5,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-splitButton',
     template: `
-        <div class="ui-splitbutton ui-buttonset ui-widget">
+        <div [ngClass]="'ui-splitbutton ui-buttonset ui-widget'" [attr.style]="style" [attr.styleClass]="styleClass">
             <button #defaultbtn type="button" class="ui-button ui-widget ui-state-default ui-corner-left"
                 [ngClass]="{'ui-button-text-only':(!icon&&label),'ui-button-icon-only':(icon&&!label),
                 'ui-button-text-icon-left':(icon&&label&&iconPos=='left'),'ui-button-text-icon-right':(icon&&label&&iconPos=='right'),
@@ -22,7 +22,8 @@ import {DomHandler} from '../dom/domhandler';
                 <span class="ui-button-icon-left ui-c fa fa-fw fa-caret-down"></span>
                 <span class="ui-button-text ui-c">ui-button</span>
             </button>
-            <div #menu class="ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow" [style.display]="menuVisible ? 'block' : 'none'">
+            <div #menu [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
+                    [attr.style]="menuStyle" [attr.styleClass]="menuStyleClass">
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="#item of items" [ngClass]="{'ui-state-hover':(hoveredItem==item)}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
@@ -46,6 +47,14 @@ export class SplitButton implements OnInit,OnDestroy {
     @Input() label: string;
     
     @Output() onClick: EventEmitter<any> = new EventEmitter();
+    
+    @Input() style: string;
+    
+    @Input() styleClass: string;
+    
+    @Input() menuStyle: string;
+    
+    @Input() menuStyleClass: string;
     
     @ContentChildren(SplitButtonItem) items : QueryList<SplitButtonItem>;
     
