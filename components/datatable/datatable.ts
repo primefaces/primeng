@@ -506,7 +506,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 return false;
             }
 
-            return value.toString().toLowerCase().slice(0, filter.length) === filter;
+            let filterValue = filter.toLowerCase();
+            return value.toString().toLowerCase().slice(0, filterValue.length) === filterValue;
         },
 
         contains(value, filter): boolean {
@@ -518,7 +519,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 return false;
             }
 
-            return value.toString().toLowerCase().indexOf(filter) !== -1;
+            return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
         },
 
         endsWith(value, filter): boolean {
@@ -529,8 +530,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             if(value === undefined || value === null) {
                 return false;
             }
-
-            return value.indexOf(filter, value.length - filter.length) !== -1;
+            
+            let filterValue = filter.toLowerCase();
+            return value.indexOf(filterValue, value.length - filterValue.length) !== -1;
         }
     }
 
