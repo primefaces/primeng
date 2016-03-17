@@ -101,13 +101,13 @@ export class MyModel {
 </pre>
 
             <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item by default, for custom content support define a template having a li item as a wrapper for the content. The local template variable
-            refers to an option in the options collection.</p>
+            <p>Label of an option is used as the display text of an item by default, for custom content support define a template having a li item 
+                with "ui-listbox-item" class as a wrapper for the content. The local template variable refers to an option in the options collection.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px"&gt;
     &lt;template #car&gt;
-        &lt;li class="ui-helper-clearfix"&gt;
+        &lt;li class="ui-listbox-item ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
             &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
         &lt;/li&gt;
@@ -155,42 +155,36 @@ export class MyModel {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>options</td>
-                        <td>array</td>
-                        <td>null</td>
-                        <td>An array of selectitems to display as the available options.</td>
-                    </tr>
-                    <tr>
-                        <td>value</td>
-                        <td>any</td>
-                        <td>false</td>
-                        <td>Value of the listbox.</td>
-                    </tr>
-                    <tr>
-                        <td>multiple</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>When specified, allows selecting multiple values.</td>
-                    </tr>
-                    <tr>
-                        <td>scrollHeight</td>
-                        <td>number</td>
-                        <td>200</td>
-                        <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
-                    </tr>
-                    <tr>
-                        <td>style</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Inline style of the element.</td>
-                    </tr>
-                    <tr>
-                        <td>styleClass</td>
-                        <td>string</td>
-                        <td>null</td>
-                        <td>Style class of the element.</td>
-                    </tr>
+                        <tr>
+                            <td>options</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of selectitems to display as the available options.</td>
+                        </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>any</td>
+                            <td>false</td>
+                            <td>Value of the listbox.</td>
+                        </tr>
+                        <tr>
+                            <td>multiple</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specified, allows selecting multiple values.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the element.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -245,7 +239,7 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI Listbox.</p>
+            <p>Native component that requires the css of PrimeUI Listbox.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -261,9 +255,9 @@ export class MyModel {
 &lt;p&gt;Selected Cities: &lt;span *ngFor="#c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Content&lt;/h3&gt;
-&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px"&gt;
+&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px;max-height:250px"&gt;
     &lt;template #car&gt;
-        &lt;li class="ui-helper-clearfix"&gt;
+        &lt;li class="ui-listbox-item ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
             &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
         &lt;/li&gt;
