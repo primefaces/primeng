@@ -29,6 +29,7 @@
             <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="showcase/resources/images/mono/button.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/buttonBlue.svg" /><span class="MainLinkText">Button</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (buttonmenutitle.id == activeMenuId), 'submenuhide': (buttonmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['ButtonDemo']" (click)="mobileMenuActive = false">&#9679; Button</a>
+                <a class="SubMenuLink" [routerLink]="['SplitButtonDemo']" (click)="mobileMenuActive = false">&#9679; SplitButton</a>
             </div>
 
             <span id="data_menutitle" #datamenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="datamenutitle.id == activeMenuId" (click)="activeMenuId = datamenutitle.id"><img src="showcase/resources/images/mono/data.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/dataBlue.svg" /><span class="MainLinkText">Data</span></span>
