@@ -6,7 +6,7 @@ import {DomHandler} from '../dom/domhandler';
     selector: 'p-splitButton',
     template: `
         <div class="ui-splitbutton ui-buttonset ui-widget">
-            <button id="btn" type="button" class="ui-button ui-widget ui-state-default ui-corner-left"
+            <button #defaultbtn type="button" class="ui-button ui-widget ui-state-default ui-corner-left"
                 [ngClass]="{'ui-button-text-only':(!icon&&label),'ui-button-icon-only':(icon&&!label),
                 'ui-button-text-icon-left':(icon&&label&&iconPos=='left'),'ui-button-text-icon-right':(icon&&label&&iconPos=='right'),
                 'ui-state-hover':hoverDefaultBtn,'ui-state-focus':focusDefaultBtn,'ui-state-active':activeDefaultBtn}"
@@ -18,7 +18,7 @@ import {DomHandler} from '../dom/domhandler';
             <button class="ui-splitbutton-menubutton ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-right" type="button"
                 [ngClass]="{'ui-state-hover':hoverDropdown,'ui-state-focus':focusDropdown,'ui-state-active':activeDropdown}"
                 (mouseenter)="hoverDropdown=true" (mouseleave)="hoverDropdown=false" (focus)="focusDropdown=true" (blur)="focusDropdown=false"
-                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="onDropdownClick($event,menu)">
+                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="onDropdownClick($event,menu,defaultbtn)">
                 <span class="ui-button-icon-left ui-c fa fa-fw fa-caret-down"></span>
                 <span class="ui-button-text ui-c">ui-button</span>
             </button>
@@ -79,8 +79,9 @@ export class SplitButton implements OnInit,OnDestroy {
         this.onClick.next(event);
     }
     
-    onDropdownClick(event,menu) {
+    onDropdownClick(event, menu, defaultbtn) {
         this.menuVisible= !this.menuVisible;
+        this.domHandler.position(menu, defaultbtn);
         this.domHandler.fadeIn(menu);
         event.stopPropagation();
     }

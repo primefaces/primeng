@@ -48,6 +48,32 @@ export class DomHandler {
         return -1;
     }
     
+    public position(element: any, target: any):void {
+        let elementOuterHeight = this.getHiddenElementOuterHeight(element);
+        let targetHeight = target.offsetHeight;
+        let targetOffset = target.getBoundingClientRect();
+        let top;
+        
+        //flip
+        if((targetOffset.top + targetHeight + elementOuterHeight) > window.innerHeight)
+            top = -1* (elementOuterHeight);
+        else
+            top = targetHeight;
+                
+        element.style.top = top+ 'px';
+        element.style.left = 0 + 'px';
+    }
+    
+    public getHiddenElementOuterHeight(element: any): number {
+        element.style.visibility = 'hidden';
+        element.style.display = 'block';
+        let elementHeight = element.offsetHeight;
+        element.style.display = 'none';
+        element.style.visibility = 'visible';
+        
+        return elementHeight;
+    }
+    
     public scrollInView(container, item) {   
         let borderTopValue: string = getComputedStyle(container).getPropertyValue('borderTopWidth');
         let borderTop: number = borderTopValue ? parseFloat(borderTopValue) : 0;
@@ -67,7 +93,7 @@ export class DomHandler {
             container.scrollTop = scroll + offset - elementHeight + itemHeight;
         }
     }
-    
+        
     public getOuterHeight(element): number {
         let height: number = element.offsetHeight;
         let style: any = getComputedStyle(element);
