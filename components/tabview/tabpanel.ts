@@ -22,8 +22,4 @@ export class TabPanel {
     public hoverHeader: boolean;
     
     public closed: boolean;
-
-    constructor(private tabview: TabView) {
-        tabview.addTab(this);
-    }
 }

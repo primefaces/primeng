@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterContentInit,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,Input,Output,EventEmitter,Query,QueryList} from 'angular2/core';
 import {TabPanel} from './tabpanel';
 
 @Component({
@@ -20,7 +20,7 @@ import {TabPanel} from './tabpanel';
         </div>
     `,
 })
-export class TabView implements AfterContentInit {
+export class TabView {
 
     @Input() orientation: string = 'top';
     
@@ -33,24 +33,19 @@ export class TabView implements AfterContentInit {
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     initialized: boolean;
-
+    
     tabs: TabPanel[];
 
-    constructor(private el: ElementRef) {
-        this.tabs = [];
+    constructor(private el: ElementRef,@Query(TabPanel) tabPanels: QueryList<TabPanel>) {
+        tabPanels.changes.subscribe(_ => {
+            this.tabs = tabPanels.toArray();
+            let selectedTab: TabPanel = this.findSelectedTab();
+            if(!selectedTab && this.tabs.length) {
+                this.tabs[0].selected = true;
+            }
+        });
     }
-    
-    ngAfterContentInit() {
-        let selectedTab: TabPanel = this.findSelectedTab();
-        if(!selectedTab  && this.tabs.length) {
-            this.tabs[0].selected = true;
-        }
-    }
-
-    addTab(tab: TabPanel) {
-        this.tabs.push(tab);
-    }
-    
+            
     open(event, tab: TabPanel) {
         if(tab.disabled) {
             event.preventDefault();
