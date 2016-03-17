@@ -5,7 +5,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-listbox',
     template: `
-        <div [ngClass]="'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all'" [attr.style]="style" [attr.class]="styleClass">
+        <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [attr.style]="style" [attr.class]="styleClass">
             <ul class="ui-listbox-list" *ngIf="!itemTemplate" (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
                 <li *ngFor="#option of options" class="ui-listbox-item ui-corner-all">
                     {{option.label}}
@@ -27,6 +27,8 @@ export class Listbox implements AfterViewInit {
     @Input() style: string;
 
     @Input() styleClass: string;
+    
+    @Input() disabled: string;
 
     @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
@@ -104,6 +106,10 @@ export class Listbox implements AfterViewInit {
     }
     
     onMouseover(event) {
+        if(this.disabled) {
+            return;
+        }
+        
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
@@ -112,6 +118,10 @@ export class Listbox implements AfterViewInit {
     }
     
     onMouseout(event) {
+        if(this.disabled) {
+            return;
+        }
+        
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
@@ -120,6 +130,10 @@ export class Listbox implements AfterViewInit {
     }
     
     onClick(event) {
+        if(this.disabled) {
+            return;
+        }
+        
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
