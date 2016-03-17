@@ -23,8 +23,9 @@ import {SplitButtonItem} from './splitbuttonitem';
             </button>
             <div class="ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow" [style.display]="menuVisible ? 'block' : 'none'">
                 <ul class="ui-menu-list ui-helper-reset">
-                    <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="#item of items">
-                        <a href="#" class="ui-menuitem-link ui-corner-all" (click)="onItemClick($event,item)">
+                    <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="#item of items" [ngClass]="{'ui-state-hover':(hoveredItem==item)}"
+                        (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
+                        <a [href]="item.url ? item.url : '#'" class="ui-menuitem-link ui-corner-all" (click)="onItemClick($event,item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [attr.class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
@@ -58,6 +59,8 @@ export class SplitButton {
     
     private activeDropdown: boolean;
     
+    private hoveredItem: any;
+    
     private menuVisible: boolean = false;
 
     constructor(private el: ElementRef) {}
@@ -69,7 +72,10 @@ export class SplitButton {
     onItemClick(event,item: SplitButtonItem) {
         item.onClick.next(event);
         this.menuVisible = false;
-        event.preventDefault();
+        this.hoveredItem = null;
+        
+        if(!item.url) {
+            event.preventDefault();
+        }            
     }
-    
 }

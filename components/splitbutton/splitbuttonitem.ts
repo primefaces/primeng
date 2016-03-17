@@ -12,6 +12,8 @@ export class SplitButtonItem {
         
     @Input() label: string;
     
+    @Input() url: string;
+    
     @Output() onClick: EventEmitter<any> = new EventEmitter();
         
 }
