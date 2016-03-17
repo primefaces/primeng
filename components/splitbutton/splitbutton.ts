@@ -1,4 +1,5 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChildren,QueryList} from 'angular2/core';
+import {SplitButtonItem} from './splitbuttonitem';
 
 @Component({
     selector: 'p-splitButton',
@@ -16,10 +17,20 @@ import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter} from 'angu
             <button class="ui-splitbutton-menubutton ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-right" type="button"
                 [ngClass]="{'ui-state-hover':hoverDropdown,'ui-state-focus':focusDropdown,'ui-state-active':activeDropdown}"
                 (mouseenter)="hoverDropdown=true" (mouseleave)="hoverDropdown=false" (focus)="focusDropdown=true" (blur)="focusDropdown=false"
-                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false">
+                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="menuVisible=!menuVisible">
                 <span class="ui-button-icon-left ui-c fa fa-fw fa-caret-down"></span>
                 <span class="ui-button-text ui-c">ui-button</span>
             </button>
+            <div class="ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow" [style.display]="menuVisible ? 'block' : 'none'">
+                <ul class="ui-menu-list ui-helper-reset">
+                    <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="#item of items">
+                        <a href="#" class="ui-menuitem-link ui-corner-all" (click)="onItemClick($event,item)">
+                            <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [attr.class]="item.icon" *ngIf="item.icon"></span>
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     ` 
 })
@@ -33,6 +44,8 @@ export class SplitButton {
     
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
+    @ContentChildren(SplitButtonItem) items : QueryList<SplitButtonItem>;
+    
     private hoverDefaultBtn: boolean;
     
     private focusDefaultBtn: boolean;
@@ -44,11 +57,19 @@ export class SplitButton {
     private focusDropdown: boolean;
     
     private activeDropdown: boolean;
+    
+    private menuVisible: boolean = false;
 
     constructor(private el: ElementRef) {}
     
     onDefaultButtonClick(event) {
         this.onClick.next(event);
+    }
+    
+    onItemClick(event,item: SplitButtonItem) {
+        item.onClick.next(event);
+        this.menuVisible = false;
+        event.preventDefault();
     }
     
 }

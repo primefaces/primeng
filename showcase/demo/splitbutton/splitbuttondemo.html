@@ -8,7 +8,10 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-splitButton label="Save" icon="fa-check" (onClick)="save()"></p-splitButton>
+    <p-splitButton label="Save" icon="fa-check" (onClick)="save()">
+        <p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"></p-splitButtonItem>
+        <p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"></p-splitButtonItem>
+    </p-splitButton>
 </div>
 
 <div class="ContentSideSections Source">

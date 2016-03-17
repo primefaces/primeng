@@ -3,13 +3,14 @@ import {TabView} from '../../../components/tabview/tabview';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {SplitButton} from '../../../components/splitbutton/splitbutton';
+import {SplitButtonItem} from '../../../components/splitbutton/splitbuttonitem';
 import {Growl} from '../../../components/growl/growl';
 import {Message} from '../../../components/api/message';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     templateUrl: 'showcase/demo/splitbutton/splitbuttondemo.html',
-    directives: [SplitButton,Growl,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
+    directives: [SplitButton,SplitButtonItem,Growl,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class SplitButtonDemo {
 
