@@ -25,9 +25,9 @@ export class Panel {
 
     @Input() collapsed: boolean = false;
     
-    @Input() style: string
+    @Input() style: string;
         
-    @Input() styleClass: string
+    @Input() styleClass: string;
 
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
