@@ -172,6 +172,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     @Input() sortMode: string = 'single';
     
+    @Input() sortField: string;
+
+    @Input() sortOrder: number;
+    
+    @Input() multiSortMeta: SortMeta[];
+    
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
@@ -181,13 +187,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private first: number = 0;
     
     private page: number = 0;
-
-    private sortField: string;
-
-    private sortOrder: number;
     
-    private sortMeta: SortMeta[];
-
     private filterTimeout: any;
 
     private filters: {[s: string]: FilterMetadata;} = {};
@@ -197,6 +197,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private columns: Column[];
     
     private columnsUpdated: boolean = false;
+    
+    private sortedByDefault: boolean;
         
     differ: any;
     
@@ -218,7 +220,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 sortField: this.sortField,
                 sortOrder: this.sortOrder,
                 filters: null,
-                multiSortMeta: this.sortMeta
+                multiSortMeta: this.multiSortMeta
             });
         }
     }
@@ -260,7 +262,19 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 this.updatePaginator();
             }
             this.updateDataToRender(this.value);
+            
+            if((this.sortField || this.multiSortMeta) && !this.sortedByDefault) {
+                this.sortByDefault();
+                this.sortedByDefault = true;
+            }
         }
+    }
+    
+    sortByDefault() {
+        if(this.sortMode == 'single')
+            this.sortSingle();
+        else if(this.sortMode == 'multiple')
+            this.sortMultiple();
     }
     
     updatePaginator() {
@@ -318,7 +332,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         else {
             if(this.sortMode == 'multiple') {
                 if(!metaKey) {
-                    this.sortMeta = [];
+                    this.multiSortMeta = [];
                 }
                 
                 this.addSortMeta({field: this.sortField, order: this.sortOrder});
@@ -357,7 +371,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     sortMultiple() {  
         if(this.value) {
             this.value.sort((data1,data2) => {
-                return this.multisortField(data1, data2, this.sortMeta, 0);
+                return this.multisortField(data1, data2, this.multiSortMeta, 0);
             });
             
             if(this.hasFilter())
@@ -368,14 +382,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         
     }
     
-    multisortField(data1,data2,sortMeta,index) {
-        var value1 = data1[sortMeta[index].field], 
-        value2 = data2[sortMeta[index].field],
+    multisortField(data1,data2,multiSortMeta,index) {
+        var value1 = data1[multiSortMeta[index].field], 
+        value2 = data2[multiSortMeta[index].field],
         result = null;
                         
         if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
-                return (sortMeta[index].order * value1.localeCompare(value2));
+                return (multiSortMeta[index].order * value1.localeCompare(value2));
             }
         }
         else {
@@ -383,25 +397,25 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         }
 
         if(value1 == value2)  {
-            return (sortMeta.length - 1) > (index) ? (this.multisortField(data1, data2, sortMeta, index + 1)) : 0;
+            return (multiSortMeta.length - 1) > (index) ? (this.multisortField(data1, data2, multiSortMeta, index + 1)) : 0;
         }
         
-        return (sortMeta[index].order * result);
+        return (multiSortMeta[index].order * result);
     }
     
     addSortMeta(meta) {
         var index = -1;
-        for(var i = 0; i < this.sortMeta.length; i++) {
-            if(this.sortMeta[i].field === meta.field) {
+        for(var i = 0; i < this.multiSortMeta.length; i++) {
+            if(this.multiSortMeta[i].field === meta.field) {
                 index = i;
                 break;
             }
         }
         
         if(index >= 0)
-            this.sortMeta[index] = meta;
+            this.multiSortMeta[index] = meta;
         else
-            this.sortMeta.push(meta);
+            this.multiSortMeta.push(meta);
     }
     
     isSorted(column: Column) {
@@ -410,9 +424,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         }
         else if(this.sortMode === 'multiple') {
             let sorted = false;
-            if(this.sortMeta) {
-                for(let i = 0; i < this.sortMeta.length; i++) {
-                    if(this.sortMeta[i].field == column.field) {
+            if(this.multiSortMeta) {
+                for(let i = 0; i < this.multiSortMeta.length; i++) {
+                    if(this.multiSortMeta[i].field == column.field) {
                         sorted = true;
                         break;
                     }
@@ -430,10 +444,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             }
         }
         else if(this.sortMode === 'multiple') {
-            if(this.sortMeta) {
-                for(let i = 0; i < this.sortMeta.length; i++) {
-                    if(this.sortMeta[i].field == column.field) {
-                        order = this.sortMeta[i].order;
+            if(this.multiSortMeta) {
+                for(let i = 0; i < this.multiSortMeta.length; i++) {
+                    if(this.multiSortMeta[i].field == column.field) {
+                        order = this.multiSortMeta[i].order;
                         break;
                     }
                 }
@@ -746,7 +760,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
-            multiSortMeta: this.sortMeta
+            multiSortMeta: this.multiSortMeta
         };
     }
     
