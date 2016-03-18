@@ -64,7 +64,7 @@ export class DomHandler {
     }
     
     public absolutePosition(element: any, target: any): void {
-        let elementOuterHeight = this.getHiddenElementOuterHeight(element);
+        let elementOuterHeight = element.offsetParent ? element.offsetHeight : this.getHiddenElementOuterHeight(element);
         let targetOuterHeight = target.offsetHeight;
         let targetOffset = target.getBoundingClientRect();
         let windowScrollTop = this.getWindowScrollTop();

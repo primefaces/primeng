@@ -48,13 +48,16 @@ export class OverlayPanel implements OnInit {
     }
     
     show(event,target) {
-        let targetElement = target||event.target;
+        let elementTarget = target||event.currentTarget||event.target;
         let container = this.el.nativeElement.children[0];
         container.style.zIndex = ++PUI.zindex;
         
-        if(!this.visible) {
+        if(this.visible) {
+            this.domHandler.absolutePosition(container, elementTarget);
+        }
+        else {
             this.visible = true;
-            this.domHandler.absolutePosition(container, targetElement);
+            this.domHandler.absolutePosition(container, elementTarget);
             this.domHandler.fadeIn(container, 250);
         }
         
