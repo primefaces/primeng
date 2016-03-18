@@ -27,9 +27,13 @@ export class OverlayPanel implements OnInit {
         
     @Input() styleClass: string;
 
-    @Output() beforeShow: EventEmitter<any> = new EventEmitter();
+    @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
 
-    @Output() afterShow: EventEmitter<any> = new EventEmitter();
+    @Output() onAfterShow: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
+
+    @Output() onAfterHide: EventEmitter<any> = new EventEmitter();
     
     visible: boolean = false;
     
@@ -47,7 +51,7 @@ export class OverlayPanel implements OnInit {
         }
     }
     
-    show(event,target) {
+    show(event,target?) {
         let elementTarget = target||event.currentTarget||event.target;
         let container = this.el.nativeElement.children[0];
         container.style.zIndex = ++PUI.zindex;

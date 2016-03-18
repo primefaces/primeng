@@ -15,7 +15,7 @@
     </p-overlayPanel>
     
     <h3>Customized</h3>
-    <p>This OverlayPanel is not dismissable and displays close icon.</p>
+    <p>This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.</p>
     <i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
     
     <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
@@ -43,7 +43,6 @@
     <p-overlayPanel #op3 [showCloseIcon]="true" [dismissable]="false">
         <img src="showcase/resources/demo/images/car/{{selectedCar.brand}}-big.gif" *ngIf="selectedCar"/>
     </p-overlayPanel>
-    
 </div>
 
 <div class="ContentSideSections Source">
@@ -52,26 +51,45 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Panel} from 'primeng/primeng';
+import {OverlayPanel} from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Panel is defined with p-panel element.</p>
+            <p>OverlayPanel is defined using p-overlayPanel element and is displayed using the show method of a local template variable.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-panel header="Title"&gt;
+&lt;p-overlayPanel #op&gt;
     Content
-&lt;/p-panel&gt;
+&lt;/p-overlayPanel&gt;
+
+&lt;button type="text" pButton label="Basic" (click)="op1.show($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
-            <h3>Toggleable</h3>
-            <p>Content of the panel can be expanded and collapsed using toggleable option, default state is defined with collapsed option.</p>
+            <h3>Show and Hide</h3>
+            <p>show method takes two parameters, first one is the event and it is mandatory. By default the target component to align the overlay is the event target, 
+            if you'd like to align it to another element, provide it as the second parameter. Similarly calling hide() hides the overlay panel. In example below,
+            clicking the button displays the overlayPanel aligned to the actualTarget div, not the button itself.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-panel header="Title" [toggleable]="true"&gt;
+&lt;p-overlayPanel #op&gt;
     Content
-&lt;/p-panel&gt;
+&lt;/p-overlayPanel&gt;
+
+&lt;button type="text" pButton label="Custom Target" (click)="op1.show($event, actualTarget)"&gt;&lt;/button&gt;
+&lt;div #actualTarget&gt;&lt;/div&gt;
+</code>
+</pre>
+        
+        
+            <h3>Dismissable and CloseIcon</h3>
+            <p>Clicking outside the overlay hides the panel, setting dismissable to false disables this behavior. Additionally enablign showCloseIcon property 
+            displays a close icon at the top right corner to close the panel</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true"&gt;
+    Content
+&lt;/p-overlayPanel&gt;
 </code>
 </pre>
 
@@ -88,22 +106,16 @@ import {Panel} from 'primeng/primeng';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>header</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Header text of the panel.</td>
+                            <td>dismissable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Enables to hide the overlay when outside is clicked.</td>
                         </tr>
                         <tr>
-                            <td>toggleable</td>
+                            <td>showCloseIcon</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Defines if content of panel can be expanded and collapsed.</td>
-                        </tr>
-                        <tr>
-                            <td>collapsed</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When specified, displays the panel as collapsed initially.</td>
+                            <td>When enabled, displays a close icon at top right corner.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -133,16 +145,24 @@ import {Panel} from 'primeng/primeng';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>onBeforeToggle</td>
-                            <td>event.originalEvent: browser event<br>
-                                event.collapsed: state as a boolean</td>
-                            <td>Callback to invoke before content toggle.</td>
+                            <td>onBeforeShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke before overlay is shown.</td>
                         </tr>
                         <tr>
-                            <td>onAfterToggle</td>
-                            <td>event.originalEvent: browser event<br>
-                                event.collapsed: state as a boolean</td>
-                            <td>Callback to invoke after content toggle.</td>
+                            <td>onAfterShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke after overlay is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>onBeforeShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke before overlay is hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>onAfterShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke after overlay is hidden.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -160,42 +180,87 @@ import {Panel} from 'primeng/primeng';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-panel</td>
+                            <td>ui-overlaypanel</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-panel-titlebar</td>
-                            <td>Header section.</td>
+                            <td>ui-overlaypanel-content</td>
+                            <td>Content of the panel.</td>
                         </tr>
                         <tr>
-                            <td>ui-panel-title</td>
-                            <td>Title text of panel.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-panel-titlebar-toggler</td>
-                            <td>Toggle icon.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-panel-content</td>
-                            <td>Content of panel.</td>
+                            <td>ui-overlaypanel-close</td>
+                            <td>Close icon.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that only requires the css of PrimeUI Panel.</p>
+            <p>Native component that only requires the css of PrimeUI OverlayPanel.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
-&lt;p-panel header="Godfather I" [toggleable]="true"&gt;
-    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
-    kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-&lt;/p-panel&gt;
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p&gt;Click the button to show the panel.&lt;/p&gt;
+&lt;button type="text" pButton label="Basic" (click)="op1.show($event)"&gt;&lt;/button&gt;
+
+&lt;p-overlayPanel #op1&gt;
+    &lt;img src="showcase/resources/demo/images/galleria/galleria1.jpg" alt="Galleria 1" /&gt;
+&lt;/p-overlayPanel&gt;
+
+&lt;h3&gt;Customized&lt;/h3&gt;
+&lt;p&gt;This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.&lt;/p&gt;
+&lt;i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
+
+&lt;p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false"&gt;
+    &lt;p-dataTable [value]="cars" style="width:500px"&gt;
+        &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
+        &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
+        &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
+        &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;/p-dataTable&gt;
+&lt;/p-overlayPanel&gt;
+
+&lt;h3&gt;DataTable Integration&lt;/h3&gt;
+&lt;p-dataTable [value]="cars"&gt;
+    &lt;p-column style="width:10%;text-align:center" header="Logo"&gt;
+        &lt;template #car="rowData"&gt;
+            &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"&gt;&lt;/button&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-overlayPanel #op3 [showCloseIcon]="true" [dismissable]="false"&gt;
+    &lt;img src="showcase/resources/demo/images/car/{{selectedCar.brand}}-big.gif" *ngIf="selectedCar"/&gt;
+&lt;/p-overlayPanel&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class OverlayPanelDemo {
+
+    cars: Car[];
+    
+    selectedCar: Car;
+    
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+    }
+    
+    selectCar(event,car: Car, overlaypanel: OverlayPanel) {
+        this.selectedCar = car;
+        overlaypanel.show(event);
+    }
+}
 </code>
 </pre>
         </p-tabPanel>

@@ -28,8 +28,8 @@ export class OverlayPanelDemo {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
     }
     
-    selectCar(button,car: Car, overlaypanel: OverlayPanel) {
+    selectCar(event,car: Car, overlaypanel: OverlayPanel) {
         this.selectedCar = car;
-        overlaypanel.show(button);
+        overlaypanel.show(event);
     }
 }
