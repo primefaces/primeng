@@ -42,11 +42,10 @@ export class Listbox implements AfterViewChecked {
     
     valueChanged: boolean;
     
-    get value(): any {
+    @Input() get value(): any {
         return this._value;
     }
     
-    @Input()
     set value(val: any) {
         this._value = val;
         if(!this.multiple) {
