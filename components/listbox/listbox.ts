@@ -105,8 +105,8 @@ export class Listbox implements AfterViewChecked {
     
     unselectAll(items: NodeList[]) {
         let listItems = items||this.domHandler.find(this.el.nativeElement, 'li.ui-listbox-item');
-        for(let i = 0; i < items.length; i++) {
-            this.domHandler.removeClass(items[i], 'ui-state-highlight');
+        for(let i = 0; i < listItems.length; i++) {
+            this.domHandler.removeClass(listItems[i], 'ui-state-highlight');
         }
     }
     
