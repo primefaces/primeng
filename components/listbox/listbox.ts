@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers} from 'angular2/core';
+import {Component,ElementRef,AfterViewChecked,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers} from 'angular2/core';
 import {SelectItem} from '../api/selectitem';
 import {DomHandler} from '../dom/domhandler';
 
@@ -18,7 +18,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class Listbox implements AfterViewInit {
+export class Listbox implements AfterViewChecked {
 
     @Input() options: SelectItem[];
 
@@ -40,6 +40,8 @@ export class Listbox implements AfterViewInit {
     
     differ: any;
     
+    valueChanged: boolean;
+    
     get value(): any {
         return this._value;
     }
@@ -48,7 +50,7 @@ export class Listbox implements AfterViewInit {
     set value(val: any) {
         this._value = val;
         if(!this.multiple) {
-            this.preselect();
+            this.valueChanged = true;
         }
     }
     
@@ -59,21 +61,24 @@ export class Listbox implements AfterViewInit {
     ngDoCheck() {
         if(this.multiple) {
             let changes = this.differ.diff(this.value);
-
+            
             if(changes) {
-                this.preselect();
+                this.valueChanged = true;
             }
         }
     }
-    
-    ngAfterViewInit() {
-        this.preselect();
+        
+    ngAfterViewChecked() {
+        if(this.valueChanged) {
+            this.preselect();
+            this.valueChanged = false;
+        }
     }
     
     preselect() {
         let items = this.domHandler.find(this.el.nativeElement, 'li.ui-listbox-item');
         if(items && items.length) {
-            this.unselectAll();
+            this.unselectAll(items);
             
             if(this.value) {
                 if(this.multiple) {
@@ -98,8 +103,8 @@ export class Listbox implements AfterViewInit {
         }
     }
     
-    unselectAll() {
-        let items = this.domHandler.find(this.el.nativeElement, 'li.ui-listbox-item');
+    unselectAll(items: NodeList[]) {
+        let listItems = items||this.domHandler.find(this.el.nativeElement, 'li.ui-listbox-item');
         for(let i = 0; i < items.length; i++) {
             this.domHandler.removeClass(items[i], 'ui-state-highlight');
         }
