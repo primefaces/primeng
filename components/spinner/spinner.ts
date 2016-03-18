@@ -4,7 +4,7 @@ import {InputText} from '../inputtext/inputtext';
 @Component({
     selector: 'p-spinner',
     template: `
-        <span class="ui-spinner ui-widget ui-corner-all">
+        <span class="ui-spinner ui-widget ui-corner-all" [ngClass]="{'ui-state-disabled':disabled}">
             <input id="basic" pInputText type="text" class="ui-spinner-input" [value]="value === 0 ? 0 : value||''"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled"
             (keydown)="onInputKeydown($event)" (input)="onInput($event)">
