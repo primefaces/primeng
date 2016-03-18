@@ -67,12 +67,13 @@ export class DomHandler {
         let elementOuterHeight = this.getHiddenElementOuterHeight(element);
         let targetOuterHeight = target.offsetHeight;
         let targetOffset = target.getBoundingClientRect();
+        let windowScrollTop = this.getWindowScrollTop();
         let top;
 
         if(targetOffset.top + targetOuterHeight + elementOuterHeight > window.innerHeight)
-            top = targetOffset.top - elementOuterHeight;
+            top = targetOffset.top + windowScrollTop - elementOuterHeight;
         else
-            top = targetOuterHeight + targetOffset.top;
+            top = targetOuterHeight + targetOffset.top + windowScrollTop;
         
         element.style.top = top + 'px';
         element.style.left = targetOffset.left + 'px';
@@ -130,5 +131,10 @@ export class DomHandler {
         };
 
         tick();
+    }
+    
+    public getWindowScrollTop(): number {
+        let doc = document.documentElement;
+        return (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
     }
 }

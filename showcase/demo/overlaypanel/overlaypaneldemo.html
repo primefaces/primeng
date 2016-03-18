@@ -6,11 +6,22 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <button #btn type="text" pButton label="Basic" (click)="op.show($event,btn)"></button>
+    <h3 class="first">Basic</h3>
+    <p>Click the button to show the panel.</p>
+    <button #btn type="text" pButton label="Basic" (click)="op1.show($event,btn)"></button>
 
-    <p-overlayPanel #op [showCloseIcon]="true" [dismissable]="false">
+    <p-overlayPanel #op1 [showCloseIcon]="true" [dismissable]="false">
         <img src="showcase/resources/demo/images/galleria/galleria1.jpg" alt="Galleria 1" />
     </p-overlayPanel>
+    
+    <h3>Customized</h3>
+    <p>This OverlayPanel is not dismissable and displays close icon.</p>
+    <i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
+    
+    <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
+        <img src="showcase/resources/demo/images/galleria/galleria2.jpg" alt="Galleria 2" />
+    </p-overlayPanel>
+    
 </div>
 
 <div class="ContentSideSections Source">
