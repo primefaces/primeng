@@ -52,6 +52,7 @@ export class OverlayPanel implements OnInit {
     }
     
     show(event,target?) {
+        this.onBeforeShow.next(null);
         let elementTarget = target||event.currentTarget||event.target;
         let container = this.el.nativeElement.children[0];
         container.style.zIndex = ++PUI.zindex;
@@ -64,13 +65,16 @@ export class OverlayPanel implements OnInit {
             this.domHandler.absolutePosition(container, elementTarget);
             this.domHandler.fadeIn(container, 250);
         }
+        this.onAfterShow.next(null);
         
         event.stopPropagation();
     }
     
     hide() {
         if(this.visible) {
+            this.onBeforeHide.next(null);
             this.visible = false;
+            this.onAfterHide.next(null);
         }
     }
     
