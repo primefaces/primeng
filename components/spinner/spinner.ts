@@ -5,19 +5,19 @@ import {InputText} from '../inputtext/inputtext';
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all" [ngClass]="{'ui-state-disabled':disabled}">
-            <input id="basic" pInputText type="text" class="ui-spinner-input" [value]="value === 0 ? 0 : value||''"
+            <input #in id="basic" pInputText type="text" class="ui-spinner-input" [value]="value === 0 ? 0 : value||''"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled"
             (keydown)="onInputKeydown($event)" (input)="onInput($event)">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp}"
-                (mouseenter)="hoverUp=true" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event)" (mouseup)="onUpButtonMouseup($event)">
+                (mouseenter)="hoverUp=true" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
                 <span class="ui-button-text">
                     <span class="fa fa-fw fa-caret-up"></span>
                 </span>
             </a>
             <a class="ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverDown,'ui-state-active':activeDown}"
-                (mouseenter)="hoverDown=true" (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event)" (mouseup)="onDownButtonMouseup($event)">
+                (mouseenter)="hoverDown=true" (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event,in)" (mouseup)="onDownButtonMouseup($event)">
                 <span class="ui-button-text">
                     <span class="fa fa-fw fa-caret-down"></span>
                 </span>
@@ -105,7 +105,8 @@ export class Spinner implements OnInit {
         return String(Math.round(value * power) / power);
     }
     
-    onUpButtonMousedown(event) {
+    onUpButtonMousedown(event,input) {
+        input.focus();
         this.activeUp = true;
         this.repeat(null, 1);
         
@@ -123,7 +124,8 @@ export class Spinner implements OnInit {
         this.clearTimer();
     }
     
-    onDownButtonMousedown(event) {
+    onDownButtonMousedown(event,input) {
+        input.focus();
         this.activeDown = true;
         this.repeat(null, -1);
         
