@@ -73,6 +73,7 @@ import {TreeDemo} from "./demo/tree/treedemo";
 import {TreeTableDemo} from "./demo/treetable/treetabledemo";
 import {TerminalDemo} from "./demo/terminal/terminaldemo";
 import {SplitButtonDemo} from "./demo/splitbutton/splitbuttondemo";
+import {OverlayPanelDemo} from "./demo/overlaypanel/overlaypaneldemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -152,7 +153,8 @@ import {SplitButtonDemo} from "./demo/splitbutton/splitbuttondemo";
     {path: '/tree', name: 'TreeDemo', component: TreeDemo},
     {path: '/treetable', name: 'TreeTableDemo', component: TreeTableDemo},
     {path: '/terminal', name: 'TerminalDemo', component: TerminalDemo},
-    {path: '/splitbutton', name: 'SplitButtonDemo', component: SplitButtonDemo}
+    {path: '/splitbutton', name: 'SplitButtonDemo', component: SplitButtonDemo},
+    {path: '/overlaypanel', name: 'OverlayPanelDemo', component: OverlayPanelDemo}
 ])
 export class AppComponent {
 

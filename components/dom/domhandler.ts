@@ -48,7 +48,7 @@ export class DomHandler {
         return -1;
     }
     
-    public position(element: any, target: any):void {
+    public relativePosition(element: any, target: any):void {
         let elementOuterHeight = this.getHiddenElementOuterHeight(element);
         let targetHeight = target.offsetHeight;
         let targetOffset = target.getBoundingClientRect();
@@ -61,6 +61,21 @@ export class DomHandler {
                 
         element.style.top = top+ 'px';
         element.style.left = 0 + 'px';
+    }
+    
+    public absolutePosition(element: any, target: any): void {
+        let elementOuterHeight = this.getHiddenElementOuterHeight(element);
+        let targetOuterHeight = target.offsetHeight;
+        let targetOffset = target.getBoundingClientRect();
+        let top;
+
+        if(targetOffset.top + targetOuterHeight + elementOuterHeight > window.innerHeight)
+            top = targetOffset.top - elementOuterHeight;
+        else
+            top = targetOuterHeight + targetOffset.top;
+        
+        element.style.top = top + 'px';
+        element.style.left = targetOffset.left + 'px';
     }
     
     public getHiddenElementOuterHeight(element: any): number {
@@ -101,12 +116,12 @@ export class DomHandler {
         return height;
     }
     
-    public fadeIn(element):void {
+    public fadeIn(element, duration: number):void {
         element.style.opacity = 0;
 
         let last = +new Date();
         let tick = function() {
-            element.style.opacity = +element.style.opacity + (new Date().getTime() - last) / 25;
+            element.style.opacity = +element.style.opacity + (new Date().getTime() - last) / duration;
             last = +new Date();
 
             if (+element.style.opacity < 1) {
