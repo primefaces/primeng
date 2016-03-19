@@ -1,5 +1,6 @@
-import {Component,ElementRef,OnInit,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter} from 'angular2/core';
 import {InputText} from '../inputtext/inputtext';
+import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-spinner',
@@ -24,9 +25,10 @@ import {InputText} from '../inputtext/inputtext';
             </a>
         </span>
     `,
-    directives: [InputText]
+    directives: [InputText],
+    providers: [DomHandler]
 })
-export class Spinner implements OnInit {
+export class Spinner implements AfterViewInit {
 
     @Input() value: number;
     
@@ -58,10 +60,14 @@ export class Spinner implements OnInit {
     
     private timer: any;
     
-    ngOnInit() {
+    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    
+    ngAfterViewInit() {
         if(Math.floor(this.step) === 0) {
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }
+        
+        this.domHandler.findSingle(this.el.nativeElement, 'input').value = (this.value == undefined || this.value === undefined) ? '' : this.value;
     }
     
     repeat(interval, dir, input) {
