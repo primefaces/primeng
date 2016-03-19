@@ -5,9 +5,9 @@ import {InputText} from '../inputtext/inputtext';
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all" [ngClass]="{'ui-state-disabled':disabled}">
-            <input #in id="basic" pInputText type="text" class="ui-spinner-input" [value]="value === 0 ? 0 : value||''"
+            <input #in id="basic" pInputText type="text" class="ui-spinner-input"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled"
-            (keydown)="onInputKeydown($event)" (input)="onInput($event)">
+            (keydown)="onInputKeydown($event,in)" (input)="onInput($event)" (blur)="in.value = value">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp}"
                 (mouseenter)="hoverUp=true" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
@@ -64,18 +64,18 @@ export class Spinner implements OnInit {
         }
     }
     
-    repeat(interval, dir) {
+    repeat(interval, dir, input) {
         let i = interval||500;
 
         this.clearTimer();
         this.timer = setTimeout(() => {
-            this.repeat(40, dir);
+            this.repeat(40, dir, input);
         }, i);
 
-        this.spin(dir);
+        this.spin(dir, input);
     }
     
-    spin(dir: number) {
+    spin(dir: number,inputElement) {
         let step = this.step * dir;
         let currentValue = this.value||0;
         let newValue = null;
@@ -97,7 +97,8 @@ export class Spinner implements OnInit {
             this.value = this.max;
         }
         
-        this.valueChange.next(this.value); 
+        inputElement.value = this.value;
+        this.valueChange.next(this.value);
     }
     
     toFixed(value: number, precision: number) {
@@ -108,7 +109,7 @@ export class Spinner implements OnInit {
     onUpButtonMousedown(event,input) {
         input.focus();
         this.activeUp = true;
-        this.repeat(null, 1);
+        this.repeat(null, 1, input);
         
         event.preventDefault();
     }
@@ -127,7 +128,7 @@ export class Spinner implements OnInit {
     onDownButtonMousedown(event,input) {
         input.focus();
         this.activeDown = true;
-        this.repeat(null, -1);
+        this.repeat(null, -1, input);
         
         event.preventDefault();
     }
@@ -143,21 +144,19 @@ export class Spinner implements OnInit {
         this.clearTimer();
     }
     
-    onInputKeydown(event) {  
+    onInputKeydown(event,inputElement) {  
         if(event.which == 38) {
-            this.spin(1);
+            this.spin(1,inputElement);
             event.preventDefault();
         }
         else if(event.which == 40) {
-            this.spin(-1);
+            this.spin(-1,inputElement);
             event.preventDefault();
         }    
     }
     
     onInput(event) {
-        this.value = this.parseValue(event.target.value);
-        event.target.value = this.value;
-        
+        this.value = this.parseValue(event.target.value);        
         this.valueChange.next(this.value);
     }
     
