@@ -56,13 +56,14 @@ import {DomHandler} from '../dom/domhandler';
                                 (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" 
                                 [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
-                                [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col)">
+                                [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                 <span class="ui-cell-data" *ngIf="!col.template">{{rowData[col.field]}}</span>
                                 <span class="ui-cell-data" *ngIf="col.template">
                                     <p-columnTemplateLoader [column]="col" [rowData]="rowData"></p-columnTemplateLoader>
                                 </span>
-                                <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
+                                <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" 
+                                        (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
                             </td>
                         </tr>
                     </tbody>
@@ -92,10 +93,11 @@ import {DomHandler} from '../dom/domhandler';
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" 
                                 [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                            <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col)">
+                            <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                 <span class="ui-cell-data">{{rowData[col.field]}}</span>
-                                <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" (blur)="switchCellToViewMode($event.target)" (keydown)="onCellEditorKeydown($event)"/>
+                                <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" 
+                                        (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event,col,rowData)"/>
                             </td>
                         </tr>
                     </tbody>
@@ -178,6 +180,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     @Input() multiSortMeta: SortMeta[];
     
+    @Output() onEditInit: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onEdit: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
+    
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
@@ -203,6 +213,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     differ: any;
     
     globalFilterFunction: any;
+    
+    preventBlurOnEdit: boolean;
     
     constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, @Query(Column) cols: QueryList<Column>,private renderer: Renderer) {
         this.differ = differs.find([]).create(null);
@@ -659,8 +671,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         }
     }
 
-    switchCellToEditMode(element: any, column: Column) {
+    switchCellToEditMode(element: any, column: Column, rowData: any) {
         if(!this.selectionMode && this.editable && column.editable) {
+            this.onEditInit.next({column: column, data: rowData});
             let cell = this.findCell(element);
             if(!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
                 this.domHandler.addClass(cell, 'ui-cell-editing');
@@ -670,18 +683,37 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         }
     }
 
-    switchCellToViewMode(element: any) {
+    switchCellToViewMode(element: any, column: Column, rowData: any, complete: boolean) {
         if(this.editable) {
-            let cell = this.findCell(element);
-            this.domHandler.removeClass(cell, 'ui-cell-editing');
-            this.domHandler.removeClass(cell, 'ui-state-highlight');
+            if(this.preventBlurOnEdit) {
+                this.preventBlurOnEdit = false;
+            }
+            else {
+                if(complete)
+                    this.onEditComplete.next({column: column, data: rowData});
+                else
+                    this.onEditCancel.next({column: column, data: rowData});
+                    
+                let cell = this.findCell(element);
+                this.domHandler.removeClass(cell, 'ui-cell-editing');
+                this.domHandler.removeClass(cell, 'ui-state-highlight');
+            }
         }
     }
 
-    onCellEditorKeydown(event) {
+    onCellEditorKeydown(event, column: Column, rowData: any) {
         if(this.editable) {
+            this.onEdit.next({originalEvent: event,column: column, data: rowData});
+            
+            //enter
             if(event.keyCode == 13) {
-                this.switchCellToViewMode(event.target);
+                this.switchCellToViewMode(event.target, column, rowData, true);
+                this.preventBlurOnEdit = true;
+            }
+            //escape
+            if(event.keyCode == 27) {
+                this.switchCellToViewMode(event.target, column, rowData, false);
+                this.preventBlurOnEdit = true;
             }
         }
     }

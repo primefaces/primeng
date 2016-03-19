@@ -783,6 +783,31 @@ loadData(event: LazyLoadEvent) {
                                 filters: FilterMetadata object having field as key and filter value, filter matchMode as value</td>
                             <td>Callback to invoke when paging, sorting or filtering happens in lazy mode.</td>
                         </tr>
+                        <tr>
+                            <td>onEditInit</td>
+                            <td>event.column: Column object of the cell<br>
+                                event.data: Row data</td>
+                            <td>Callback to invoke when a cell switches to edit mode.</td>
+                        </tr>
+                        <tr>
+                            <td>onEdit</td>
+                            <td>event.originalEvent: Browser event
+                                event.column: Column object of the cell<br>
+                                event.data: Row data</td>
+                            <td>Callback to invoke when cell data is being edited.</td>
+                        </tr>
+                        <tr>
+                            <td>onEditComplete</td>
+                            <td>event.column: Column object of the cell<br>
+                                event.data: Row data</td>
+                            <td>Callback to invoke when cell edit is completed.</td>
+                        </tr>
+                        <tr>
+                            <td>onEditCancel</td>
+                            <td>event.column: Column object of the cell<br>
+                                event.data: Row data</td>
+                            <td>Callback to invoke when cell edit is cancelled with escape key.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
