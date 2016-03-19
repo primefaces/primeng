@@ -7,7 +7,7 @@ import {InputText} from '../inputtext/inputtext';
         <span class="ui-spinner ui-widget ui-corner-all">
             <input #in id="basic" pInputText type="text" class="ui-spinner-input"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled"
-            (keydown)="onInputKeydown($event,in)" (input)="onInput($event)" (blur)="in.value = value">
+            (keydown)="onInputKeydown($event,in)" (input)="onInput($event)" (blur)="in.value = value" (change)="handleChange($event)">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp,'ui-state-disabled':disabled}"
                 (mouseenter)="onUpButtonMouseenter($event)" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
@@ -31,6 +31,8 @@ export class Spinner implements OnInit {
     @Input() value: number;
     
     @Output() valueChange: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Input() step: number = 1;
 
@@ -208,6 +210,10 @@ export class Spinner implements OnInit {
         }
         
         return value;
+    }
+    
+    handleChange(event) {
+        this.onChange.next(event);
     }
         
     clearTimer() {
