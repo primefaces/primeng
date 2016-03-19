@@ -30,10 +30,10 @@ import {Spinner} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Spinner is applied to an input element using pSpinner directive.</p>     
+            <p>Spinner is defined using p-spinner element. Value of the component should be a number.</p>     
 <pre>
 <code class="language-markup" pCode>
-&lt;input type="text" pSpinner /&gt;
+&lt;p-spinner size="30" [(value)]="val"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -41,7 +41,7 @@ import {Spinner} from 'primeng/primeng';
             <p>Boundaries are specified with min and max attributes.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;input type="text" pSpinner min="0" max="100"/&gt;
+&lt;p-spinner size="30" [(value)]="val" [min]="0" [max]="100"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -49,15 +49,7 @@ import {Spinner} from 'primeng/primeng';
             <p>Step factor is 1 by default and can be customized with step option.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;input type="text" pSpinner step="0.25"/&gt;
-</code>
-</pre>
-
-            <h3>Prefix and Suffix</h3>
-            <p>Characters can be inserted before or after the value using prefix and suffix options.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;input type="text" pSpinner prefix="$"/&gt;
+&lt;p-spinner size="30" [(value)]="val" [step]="0.25"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -73,6 +65,12 @@ import {Spinner} from 'primeng/primeng';
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>value</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Value of the component.</td>
+                        </tr>
                         <tr>
                             <td>step</td>
                             <td>number</td>
@@ -92,22 +90,22 @@ import {Spinner} from 'primeng/primeng';
                             <td>Maximum boundary value.</td>
                         </tr>
                         <tr>
-                            <td>prefix</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Prefix for the value.</td>
-                        </tr>
-                        <tr>
-                            <td>suffix</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Suffix for the value.</td>
-                        </tr>
-                        <tr>
                             <td>disabled</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that the element should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>maxlength</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Maximum number of character allows in the input field.</td>
+                        </tr>
+                        <tr>
+                            <td>size</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Size of the input field.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -148,16 +146,16 @@ import {Spinner} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;input type="text" size="30" pSpinner [(ngModel)]="val1"/&gt;
+&lt;p-spinner size="30" [(value)]="val1"&gt;&lt;/p-spinner&gt;
 
 &lt;h3&gt;Min/Max&lt;/h3&gt;
-&lt;input type="text" size="30" pSpinner [(ngModel)]="val2" min="0" max="100"/&gt;
+&lt;p-spinner size="30" [(value)]="val2" [min]="0" [max]="100"&gt;&lt;/p-spinner&gt;
 
 &lt;h3&gt;Step&lt;/h3&gt;
-&lt;input type="text" size="30" pSpinner [(ngModel)]="val3" step="0.25"/&gt;
+&lt;p-spinner size="30" [(value)]="val3" [step]="0.25"&gt;&lt;/p-spinner&gt;
 
-&lt;h3&gt;Prefix&lt;/h3&gt;
-&lt;input type="text" size="30" pSpinner [(ngModel)]="val4" prefix="$"/&gt;
+&lt;h3&gt;Disabled&lt;/h3&gt;
+&lt;p-spinner size="30" [(value)]="val4" [disabled]="true"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
