@@ -18,14 +18,17 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
 })
 export class OverlayPanelDemo {
 
-    cars: Car[];
+    cars1: Car[];
+    
+    cars2: Car[];
     
     selectedCar: Car;
     
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.carService.getCarsSmall().then(cars => this.cars1 = cars);
+        this.carService.getCarsSmall().then(cars => this.cars2 = cars);
     }
     
     selectCar(event,car: Car, overlaypanel: OverlayPanel) {
