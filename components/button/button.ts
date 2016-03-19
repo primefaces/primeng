@@ -55,6 +55,7 @@ export class Button implements AfterViewInit, OnDestroy {
     @HostListener('mouseout', ['$event']) 
     onMouseout(e) {
         this.hover = false;
+        this.active = false;
     }
     
     @HostListener('mousedown', ['$event']) 
