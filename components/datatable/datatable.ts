@@ -58,7 +58,7 @@ import {DomHandler} from '../dom/domhandler';
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" 
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                <span class="ui-cell-data" *ngIf="!col.template">{{rowData[col.field]}}</span>
+                                <span class="ui-cell-data" *ngIf="!col.template">{{resolveFieldData(rowData,col.field)}}</span>
                                 <span class="ui-cell-data" *ngIf="col.template">
                                     <p-columnTemplateLoader [column]="col" [rowData]="rowData"></p-columnTemplateLoader>
                                 </span>
@@ -282,6 +282,25 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         }
     }
     
+    resolveFieldData(data: any, field: string): any {
+        if(data && field) {
+            if(field.indexOf('.') == -1) {
+                return data[field];
+            }
+            else {
+                let fields: string[] = field.split('.');
+                let value = data;
+                for(var i = 0, len = fields.length; i < len; ++i) {
+                    value = value[fields[i]];
+                }
+                return value;
+            }
+        }
+        else {
+            return null;
+        }        
+    }
+    
     sortByDefault() {
         if(this.sortMode == 'single')
             this.sortSingle();
@@ -359,9 +378,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     sortSingle() {
         if(this.value) {
             this.value.sort((data1, data2) => {
-                let value1 = data1[this.sortField],
-                value2 = data2[this.sortField],
-                result = null;
+                let value1 = this.resolveFieldData(data1, this.sortField);
+                let value2 = this.resolveFieldData(data2, this.sortField);
+                let result = null;
 
                 if (value1 instanceof String && value2 instanceof String)
                     result = value1.localeCompare(value2);
@@ -395,9 +414,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     }
     
     multisortField(data1,data2,multiSortMeta,index) {
-        var value1 = data1[multiSortMeta[index].field], 
-        value2 = data2[multiSortMeta[index].field],
-        result = null;
+        let value1 = this.resolveFieldData(data1, multiSortMeta[index].field);
+        let value2 = this.resolveFieldData(data2, multiSortMeta[index].field);
+        let result = null;
                         
         if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
@@ -572,7 +591,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                         let filterValue = filterMeta.value,
                         filterField = col.field,
                         filterMatchMode = filterMeta.matchMode||'startsWith',
-                        dataFieldValue = this.value[i][filterField];
+                        dataFieldValue = this.resolveFieldData(this.value[i], filterField);
                         
                         let filterConstraint = this.filterConstraints[filterMatchMode];
 
