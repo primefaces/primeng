@@ -1,11 +1,23 @@
-*.log
-*.ts
-!*.d.ts
+# dependencies
+node_modules
+
+# demo
+showcase
+index.html
+
+# git
 .git
 .gitignore
-node_modules
-showcase
+
+# type definition
 typings
-index.html
-tsconfig.json
 typings.json
+
+# config
+tsconfig.json
+
+# misc
+*.log
+
+
+
