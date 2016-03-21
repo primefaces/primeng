@@ -1,6 +1,7 @@
 export * from './components/api/selectitem';
 export * from './components/api/message';
 export * from './components/api/lazyload';
+export * from './components/api/treenode';
 export * from './components/accordion/accordion';
 export * from './components/accordion/accordiontab';
 export * from './components/breadcrumb/breadcrumb';
