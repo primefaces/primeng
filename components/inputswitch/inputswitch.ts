@@ -3,7 +3,7 @@ import {Component, ElementRef, AfterContentInit, OnDestroy, OnChanges, Input, Ou
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div class="ui-inputswitch ui-widget ui-widget-content ui-corner-all">
+        <div [ngClass]="'ui-inputswitch ui-widget ui-widget-content ui-corner-all'" [attr.style]="style" [attr.class]="styleClass">
             <div class="ui-inputswitch-off">
                 <span>{{offLabel}}</span>
             </div>
@@ -24,6 +24,10 @@ export class InputSwitch implements AfterContentInit, OnDestroy, OnChanges {
     @Input() offLabel: string = 'Off';
 
     @Input() checked: boolean;
+    
+    @Input() style: string;
+        
+    @Input() styleClass: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
