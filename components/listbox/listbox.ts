@@ -5,7 +5,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-listbox',
     template: `
-        <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [attr.style]="style" [attr.class]="styleClass">
+        <div [ngClass]="{'ui-listbox ui-inputfield ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [attr.style]="style" [attr.class]="styleClass">
             <ul class="ui-listbox-list" *ngIf="!itemTemplate" (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
                 <li *ngFor="#option of options" class="ui-listbox-item ui-corner-all">
                     {{option.label}}
