@@ -13,7 +13,8 @@ import {Paginator} from '../paginator/paginator';
             <div class="ui-datagrid-content ui-widget-content" [ngClass]="'ui-datagrid-col-' + columns">
                 <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
             </div>
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" (onPageChange)="paginate($event)" *ngIf="paginator"></p-paginator>
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
+                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" *ngIf="paginator"></p-paginator>
             <div class="ui-datagrid-footer ui-widget-header ui-corner-top" *ngIf="footer">
                 <ng-content select="footer"></ng-content>
             </div>

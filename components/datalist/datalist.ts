@@ -15,7 +15,8 @@ import {Paginator} from '../paginator/paginator';
                     <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
                 </ul>
             </div>
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" (onPageChange)="paginate($event)" *ngIf="paginator"></p-paginator>
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
+            (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" *ngIf="paginator"></p-paginator>
             <div class="ui-datalist-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
                 <ng-content select="footer"></ng-content>
             </div>
