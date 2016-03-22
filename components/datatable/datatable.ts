@@ -276,7 +276,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             }
             this.updateDataToRender(this.value);
             
-            if((this.sortField || this.multiSortMeta) && !this.sortedByDefault) {
+            if(!this.lazy && !this.sortedByDefault && (this.sortField || this.multiSortMeta)) {
                 this.sortByDefault();
                 this.sortedByDefault = true;
             }
