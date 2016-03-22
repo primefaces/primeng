@@ -9,14 +9,15 @@ declare var PUI: any;
     template: `
         <span class="ui-autocomplete ui-widget" [attr.style]="style" [attr.styleClass]="styleClass">
             <input #in pInputText type="text" [attr.style]="inputStyle" [attr.styleClass]="inputStyleClass" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
-            [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled" (input)="onInput($event)">
+            [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled" (input)="onInput($event)">
             <div class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="'100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" 
-                    (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)">
+                    (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)" *ngIf="!itemTemplate">
                     <li class="ui-autocomplete-list-item ui-corner-all" *ngFor="#item of suggestions">{{field ? item[field] : item}}</li>
                 </ul>
-                <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                    <template ngFor [ngForOf]="options" [ngForTemplate]="itemTemplate"></template>
+                <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" 
+                    (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)"*ngIf="itemTemplate">
+                    <template ngFor [ngForOf]="suggestions" [ngForTemplate]="itemTemplate"></template>
                 </ul>
             </div>
         </span>
@@ -170,6 +171,7 @@ export class AutoComplete implements AfterViewInit,DoCheck {
         let itemIndex = this.domHandler.index(item);
         let selectedValue = this.suggestions[itemIndex];
         this.input.value = this.field ? selectedValue[this.field]: selectedValue;
+        this.input.focus();
         this.valueChange.next(selectedValue);
     }
     

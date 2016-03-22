@@ -18,9 +18,13 @@ export class AutoCompleteDemo {
     
     filteredCountries: any[];
     
+    brands: string[] = ['Audi','BMW','Fiat','Ford','Honda','Jaguar','Mercedes','Renault','Volvo','VW'];
+    
+    filteredBrands: any[];
+    
     constructor(private countryService: CountryService) { }
     
-    filter(event) {
+    filterCountry(event) {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         this.countryService.getCountries().then(countries => {
             this.filteredCountries = [];
@@ -31,5 +35,15 @@ export class AutoCompleteDemo {
                 }
             }
         });
+    }
+    
+    filterBrands(event) {
+        this.filteredBrands = [];
+        for(let i = 0; i < this.brands.length; i++) {
+            let brand = this.brands[i];
+            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
+                this.filteredBrands.push(brand);
+            }
+        }
     }
 }
