@@ -8,6 +8,7 @@
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
     <p-autoComplete [(value)]="val1" [suggestions]="filteredCountries" (completeMethod)="filter($event)" field="name"></p-autoComplete>
+    <span style="margin-left:10px">Selected Country: {{val1 ? val1.name : 'none'}}</span>
 </div>
 
 <div class="ContentSideSections Source">

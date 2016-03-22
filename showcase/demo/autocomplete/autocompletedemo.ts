@@ -14,7 +14,7 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
 })
 export class AutoCompleteDemo {
 
-    val1: string;
+    country1: any;
     
     filteredCountries: any[];
     

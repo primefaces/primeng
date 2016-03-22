@@ -11,7 +11,8 @@ declare var PUI: any;
             <input #in pInputText type="text" [attr.style]="inputStyle" [attr.styleClass]="inputStyleClass" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled" (input)="onInput($event)">
             <div class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="'100%'" [style.max-height]="scrollHeight">
-                <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
+                <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" 
+                    (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)">
                     <li class="ui-autocomplete-list-item ui-corner-all" *ngFor="#item of suggestions">{{field ? item[field] : item}}</li>
                 </ul>
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
@@ -52,6 +53,10 @@ export class AutoComplete implements AfterViewInit,DoCheck {
     @Input() suggestions: any[];
     
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
+    
+    @Output() valueChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
     @Input() field: string;
     
@@ -127,6 +132,58 @@ export class AutoComplete implements AfterViewInit,DoCheck {
            originalEvent: event,
            query: query
        });
+    }
+    
+    onItemMouseover(event) {
+        if(this.disabled) {
+            return;
+        }
+        
+        let element = event.target;
+        if(element.nodeName != 'UL') {
+            let item = this.findListItem(element);
+            this.domHandler.addClass(item, 'ui-state-hover');
+        }
+    }
+    
+    onItemMouseout(event) {
+        if(this.disabled) {
+            return;
+        }
+        
+        let element = event.target;
+        if(element.nodeName != 'UL') {
+            let item = this.findListItem(element);
+            this.domHandler.removeClass(item, 'ui-state-hover');
+        }
+    }
+    
+    onItemClick(event) {        
+        let element = event.target;
+        if(element.nodeName != 'UL') {
+            let item = this.findListItem(element);
+            this.selectItem(item);
+        }
+    }
+    
+    selectItem(item: any) {
+        let itemIndex = this.domHandler.index(item);
+        let selectedValue = this.suggestions[itemIndex];
+        this.input.value = this.field ? selectedValue[this.field]: selectedValue;
+        this.valueChange.next(selectedValue);
+    }
+    
+    findListItem(element) {
+        if(element.nodeName == 'LI') {
+            return element;
+        }
+        else {
+            let parent = element.parentElement;
+            while(parent.nodeName != 'LI') {
+                parent = parent.parentElement;
+            }
+            return parent;
+        }
     }
     
     show() {
