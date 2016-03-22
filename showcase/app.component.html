@@ -10,6 +10,7 @@
 
             <span id="menu_input" #inputmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id"><img src="showcase/resources/images/mono/input.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/inputBlue.svg" /><span class="MainLinkText">Input</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['AutoCompleteDemo']" (click)="mobileMenuActive = false">&#9679; AutoComplete</a>
                 <a class="SubMenuLink" [routerLink]="['CalendarDemo']" (click)="mobileMenuActive = false">&#9679; Calendar</a>
                 <a class="SubMenuLink" [routerLink]="['CheckboxDemo']" (click)="mobileMenuActive = false">&#9679; Checkbox</a>
                 <a class="SubMenuLink" [routerLink]="['DropdownDemo']" (click)="mobileMenuActive = false">&#9679; Dropdown</a>

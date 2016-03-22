@@ -74,6 +74,7 @@ import {TreeTableDemo} from "./demo/treetable/treetabledemo";
 import {TerminalDemo} from "./demo/terminal/terminaldemo";
 import {SplitButtonDemo} from "./demo/splitbutton/splitbuttondemo";
 import {OverlayPanelDemo} from "./demo/overlaypanel/overlaypaneldemo";
+import {AutoCompleteDemo} from "./demo/autocomplete/autocompletedemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -154,7 +155,8 @@ import {OverlayPanelDemo} from "./demo/overlaypanel/overlaypaneldemo";
     {path: '/treetable', name: 'TreeTableDemo', component: TreeTableDemo},
     {path: '/terminal', name: 'TerminalDemo', component: TerminalDemo},
     {path: '/splitbutton', name: 'SplitButtonDemo', component: SplitButtonDemo},
-    {path: '/overlaypanel', name: 'OverlayPanelDemo', component: OverlayPanelDemo}
+    {path: '/overlaypanel', name: 'OverlayPanelDemo', component: OverlayPanelDemo},
+    {path: '/autocomplete', name: 'AutoCompleteDemo', component: AutoCompleteDemo}
 ])
 export class AppComponent {
 

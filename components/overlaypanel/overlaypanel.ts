@@ -1,4 +1,4 @@
-import {Component,Input,Output,OnInit, EventEmitter,Renderer,ElementRef} from 'angular2/core';
+import {Component,Input,Output,OnInit,OnDestroy,EventEmitter,Renderer,ElementRef} from 'angular2/core';
 import {DomHandler} from '../dom/domhandler';
 
 declare var PUI: any;
@@ -17,7 +17,7 @@ declare var PUI: any;
     `,
     providers: [DomHandler]
 })
-export class OverlayPanel implements OnInit {
+export class OverlayPanel implements OnInit, OnDestroy {
     
     @Input() dismissable: boolean = true;
     
@@ -81,5 +81,11 @@ export class OverlayPanel implements OnInit {
     onCloseClick(event) {
         this.hide();
         event.preventDefault();
+    }
+    
+    ngOnDestroy() {
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
     }
 }
