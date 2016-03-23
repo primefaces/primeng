@@ -14,13 +14,15 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
 })
 export class AutoCompleteDemo {
 
-    country1: any;
-    
+    country: any;
+        
     filteredCountries: any[];
     
     brands: string[] = ['Audi','BMW','Fiat','Ford','Honda','Jaguar','Mercedes','Renault','Volvo','VW'];
     
     filteredBrands: any[];
+    
+    brand: string;
     
     constructor(private countryService: CountryService) { }
     
@@ -36,7 +38,7 @@ export class AutoCompleteDemo {
             }
         });
     }
-    
+        
     filterBrands(event) {
         this.filteredBrands = [];
         for(let i = 0; i < this.brands.length; i++) {
@@ -45,5 +47,9 @@ export class AutoCompleteDemo {
                 this.filteredBrands.push(brand);
             }
         }
+    }
+    
+    handleDropdownClick() {
+        this.filteredBrands = this.brands;
     }
 }

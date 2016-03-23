@@ -7,11 +7,12 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <p-autoComplete [(value)]="country1" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
-    <span style="margin-left:10px">Country: {{country1 ? country1.name : 'none'}}</span>
+    <p-autoComplete [(value)]="country" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+    <span style="margin-left:10px">Country: {{country ? country.name : 'none'}}</span>
     
-    <h3>Template</h3>
-    <p-autoComplete [(value)]="val2" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [minLength]="1" placeholder="Hint: type 'v' or 'f'">
+    <h3>Advanced</h3>
+    <p-autoComplete [(value)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"
+        [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
         <template #brand>
             <li class="ui-autocomplete-list-item ui-helper-clearfix">
                 <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -19,7 +20,7 @@
             </li>
         </template>
     </p-autoComplete>
-    <span style="margin-left:10px">Brand: {{val2||'none'}}</span>
+    <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
 </div>
 
 <div class="ContentSideSections Source">
