@@ -7,11 +7,11 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <p-autoComplete [(value)]="country" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+    <p-autoComplete [(value)]="country" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [size]="30"></p-autoComplete>
     <span style="margin-left:10px">Country: {{country ? country.name : 'none'}}</span>
     
     <h3>Advanced</h3>
-    <p-autoComplete [(value)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"
+    <p-autoComplete [(value)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
         <template #brand>
             <li class="ui-autocomplete-list-item ui-helper-clearfix">

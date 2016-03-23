@@ -8,9 +8,10 @@ declare var PUI: any;
 @Component({
     selector: 'p-autoComplete',
     template: `
-        <span class="ui-autocomplete ui-widget" [attr.style]="style" [attr.styleClass]="styleClass">
+        <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" [attr.style]="style" [attr.styleClass]="styleClass">
             <input #in pInputText type="text" [attr.style]="inputStyle" [attr.styleClass]="inputStyleClass" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
-            [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled" (input)="onInput($event)"><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" (click)="handleDropdownClick($event,in.value)" *ngIf="dropdown"></button>
+            [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled" (input)="onInput($event)"
+            ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" (click)="handleDropdownClick($event,in.value)" *ngIf="dropdown"></button>
             <div class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="'100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" 
                     (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)" *ngIf="!itemTemplate">
