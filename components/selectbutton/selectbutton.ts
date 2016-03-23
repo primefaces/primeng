@@ -4,7 +4,7 @@ import {SelectItem} from '../api/selectitem';
 @Component({
     selector: 'p-selectButton',
     template: `
-        <div class="ui-selectbutton ui-buttonset ui-widget ui-corner-all" (mouseleave)="hoveredItem=null">
+        <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + options.length" (mouseleave)="hoveredItem=null" [attr.style]="style" [attr.class]="styleClass">
             <div *ngFor="#option of options;" class="ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover': hoveredItem == option,'ui-state-active':isSelected(option)}"
                 (mouseenter)="hoveredItem=option" (click)="onItemClick($event,option)">
@@ -22,6 +22,10 @@ export class SelectButton {
     @Input() multiple: boolean;
 
     @Input() value: any;
+    
+    @Input() style: string;
+        
+    @Input() styleClass: string;
 
     @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
