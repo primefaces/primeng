@@ -221,6 +221,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
             this.valueChange.next(selectedValue);
         }
         
+        this.onSelect.next(selectedValue);
         
         this.input.focus();
     }
