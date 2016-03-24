@@ -7,20 +7,29 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <p-autoComplete [(value)]="country" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [size]="30"></p-autoComplete>
+    <p-autoComplete [(value)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+        placeholder="Countries"></p-autoComplete>
     <span style="margin-left:10px">Country: {{country ? country.name : 'none'}}</span>
     
     <h3>Advanced</h3>
     <p-autoComplete [(value)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
         <template #brand>
-            <li class="ui-autocomplete-list-item ui-helper-clearfix">
+            <li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                 <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
                 <div style="font-size:20px;float:right;margin:15px 10px 0 0">{{brand}}</div>
             </li>
         </template>
     </p-autoComplete>
     <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
+    
+    <h3>Multiple</h3>
+    <p-autoComplete [(value)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" style="width:100%"
+        [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
+    </p-autoComplete>
+    <ul>
+        <li *ngFor="#c of countries">{{c.name}}</li>
+    </ul>
 </div>
 
 <div class="ContentSideSections Source">

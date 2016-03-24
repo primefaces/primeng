@@ -15,8 +15,12 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
 export class AutoCompleteDemo {
 
     country: any;
+    
+    countries: any[];
         
-    filteredCountries: any[];
+    filteredCountriesSingle: any[];
+    
+    filteredCountriesMultiple: any[];
     
     brands: string[] = ['Audi','BMW','Fiat','Ford','Honda','Jaguar','Mercedes','Renault','Volvo','VW'];
     
@@ -26,14 +30,23 @@ export class AutoCompleteDemo {
     
     constructor(private countryService: CountryService) { }
     
-    filterCountry(event) {
+    filterCountrySingle(event) {
+        this.filteredCountriesSingle = [];
+        this.filterCountry(event, this.filteredCountriesSingle);
+    }
+    
+    filterCountryMultiple(event) {
+        this.filteredCountriesMultiple = [];
+        this.filterCountry(event, this.filteredCountriesMultiple);
+    }
+    
+    filterCountry(event, suggestions: any[]) {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         this.countryService.getCountries().then(countries => {
-            this.filteredCountries = [];
             for(let i = 0; i < countries.length; i++) {
                 let country = countries[i];
                 if(country.name.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
-                    this.filteredCountries.push(country);
+                    suggestions.push(country);
                 }
             }
         });
