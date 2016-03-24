@@ -8,10 +8,10 @@ declare var Quill: any;
     selector: 'p-editor',
     template: `
         <div [ngClass]="'ui-widget ui-editor-container ui-widget-content ui-corner-all'" [attr.style]="style" [attr.class]="styleClass">
-            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" style="border:0 none" *ngIf="toolbar">
+            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
                 <ng-content select="toolbar"></ng-content>
             </div>
-            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" style="border:0 none" *ngIf="!toolbar">
+            <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="!toolbar">
             <span class="ql-format-group">
                 <select title="Font" class="ql-font">
                     <option value="sans-serif" selected="">Sans Serif</option>

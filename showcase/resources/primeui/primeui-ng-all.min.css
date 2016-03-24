@@ -21,3 +21,7 @@
     margin: 2px;
     padding: 1px;
 }
+
+.ui-editor-container .ui-editor-toolbar {
+    border:0 none;
+}
