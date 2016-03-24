@@ -9,7 +9,7 @@
     <h3 class="first">Basic</h3>
     <p-autoComplete [(value)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
         placeholder="Countries"></p-autoComplete>
-    <span style="margin-left:10px">Country: {{country ? country.name : 'none'}}</span>
+    <span style="margin-left:10px">Country: {{country ? country.name||country : 'none'}}</span>
     
     <h3>Advanced</h3>
     <p-autoComplete [(value)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"

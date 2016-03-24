@@ -9,8 +9,9 @@ declare var PUI: any;
     selector: 'p-autoComplete',
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" [attr.style]="style" [attr.styleClass]="styleClass">
-            <input *ngIf="!multiple" #in pInputText type="text" [attr.style]="inputStyle" [attr.styleClass]="inputStyleClass"
-            [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled" (input)="onInput($event)"
+            <input *ngIf="!multiple" #in pInputText type="text" [attr.style]="inputStyle" [attr.styleClass]="inputStyleClass" 
+            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)"
+            [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled" 
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple ui-widget ui-inputtext ui-state-default ui-corner-all" (click)="multiIn.focus()">
                 <li #token *ngFor="#val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
                     <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)"></span>
@@ -126,6 +127,9 @@ export class AutoComplete implements AfterViewInit,DoCheck {
     
     onInput(event) {
         let value = event.target.value;
+        if(!this.multiple) {
+            this.valueChange.next(value);
+        }
         
         if(value.length === 0) {
            this.hide();
@@ -201,7 +205,7 @@ export class AutoComplete implements AfterViewInit,DoCheck {
             this.valueChange.next(this.value);
         }
         else {
-            this.input.value = this.field ? this.resolveFieldData(selectedValue, this.field): selectedValue;
+            this.input.value = this.field ? this.resolveFieldData(selectedValue): selectedValue;
             this.valueChange.next(selectedValue);
         }
         
@@ -224,14 +228,13 @@ export class AutoComplete implements AfterViewInit,DoCheck {
     
     show() {
         this.panelVisible = true;
-        this.panel.style.zIndex = ++PUI.zindex;
-        if(this.multiple) {
-            this.domHandler.relativePosition(this.panel, this.multipleContainer);
-        }
-        else {
-            this.domHandler.relativePosition(this.panel, this.input);
-        }
         
+        if(this.multiple)
+            this.domHandler.relativePosition(this.panel, this.multipleContainer);
+        else
+            this.domHandler.relativePosition(this.panel, this.input);
+        
+        this.panel.style.zIndex = ++PUI.zindex;
         this.domHandler.fadeIn(this.panel, 200);
     }
     
@@ -251,13 +254,13 @@ export class AutoComplete implements AfterViewInit,DoCheck {
         this.value.splice(itemIndex, 1);
     }
     
-    resolveFieldData(data: any, field: string): any {
-        if(data && field) {
-            if(field.indexOf('.') == -1) {
-                return data[field];
+    resolveFieldData(data: any): any {
+        if(data && this.field) {
+            if(this.field.indexOf('.') == -1) {
+                return data[this.field];
             }
             else {
-                let fields: string[] = field.split('.');
+                let fields: string[] = this.field.split('.');
                 let value = data;
                 for(var i = 0, len = fields.length; i < len; ++i) {
                     value = value[fields[i]];
