@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,DoCheck,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,Renderer} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,Renderer} from 'angular2/core';
 import {InputText} from '../inputtext/inputtext';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
@@ -37,7 +37,7 @@ declare var PUI: any;
     directives: [InputText,Button],
     providers: [DomHandler]
 })
-export class AutoComplete implements AfterViewInit,DoCheck {
+export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
 
     @Input() value: any;
     
@@ -97,6 +97,8 @@ export class AutoComplete implements AfterViewInit,DoCheck {
     
     documentClickListener: any;
     
+    suggestionsUpdated: boolean;
+    
     constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, private renderer: Renderer) {
         this.differ = differs.find([]).create(null);
     }
@@ -105,10 +107,13 @@ export class AutoComplete implements AfterViewInit,DoCheck {
         let changes = this.differ.diff(this.suggestions);
 
         if(changes) {
-            if(this.suggestions && this.suggestions.length)
+            if(this.suggestions && this.suggestions.length) {
                 this.show();
-            else
+                this.suggestionsUpdated = true;
+            }
+            else {
                 this.hide();
+            }
         }
     }
     
@@ -123,6 +128,13 @@ export class AutoComplete implements AfterViewInit,DoCheck {
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             this.hide();
         });
+    }
+    
+    ngAfterViewChecked() {
+        if(this.suggestionsUpdated) {
+            this.align();
+            this.suggestionsUpdated = false;
+        }
     }
     
     onInput(event) {
@@ -227,16 +239,18 @@ export class AutoComplete implements AfterViewInit,DoCheck {
     }
     
     show() {
-        if(this.multiple)
-            this.domHandler.relativePosition(this.panel, this.multipleContainer);
-        else
-            this.domHandler.relativePosition(this.panel, this.input);
-        
         if(!this.panelVisible) {
             this.panelVisible = true;
             this.panel.style.zIndex = ++PUI.zindex;
             this.domHandler.fadeIn(this.panel, 200);
         }        
+    }
+    
+    align() {
+        if(this.multiple)
+            this.domHandler.relativePosition(this.panel, this.multipleContainer);
+        else
+            this.domHandler.relativePosition(this.panel, this.input);
     }
     
     hide() {
