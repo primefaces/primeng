@@ -7,8 +7,24 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <p-editor [(value)]="text"></p-editor>
-    <p>Value: {{text}}</p>
+    <p-editor [(value)]="text1" style="height:320px"></p-editor>
+    <p>Value: {{text1}}</p>
+    
+    <h3>Custom Toolbar</h3>
+    <p-editor [(value)]="text2">
+        <toolbar>
+            <span class="ql-format-group">
+                <span title="Bold" class="ql-format-button ql-bold"></span>
+                <span class="ql-format-separator"></span>
+                <span title="Italic" class="ql-format-button ql-italic"></span>
+                <span class="ql-format-separator"></span>
+                <span title="Underline" class="ql-format-button ql-underline"></span>
+                <span class="ql-format-separator"></span>
+                <span title="Strikethrough" class="ql-format-button ql-strike"></span>
+            </span>
+        </toolbar>
+    </p-editor>
+    <p>Value: {{text2}}</p>
 </div>
 
 <div class="ContentSideSections Source">
