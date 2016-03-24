@@ -168,6 +168,14 @@ export class Editor implements AfterViewInit,OnDestroy {
             if(htmlValue == '<div><br></div>') {
                 htmlValue = null;
             }
+            
+            this.onTextChange.next({
+                htmlValue: htmlValue,
+                textValue: this.quill.getText(),
+                delta: delta,
+                source: source
+            });
+            
             this.valueChange.next(htmlValue);
         });
         
