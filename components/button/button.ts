@@ -28,7 +28,6 @@ export class Button implements AfterViewInit, OnDestroy {
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
     
     ngAfterViewInit() {
-        console.log(this.getStyleClass());
         this.domHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
         if(this.icon) {
             let iconElement = document.createElement("span");
