@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,SimpleChange} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ContentChild,OnChanges,SimpleChange} from 'angular2/core';
 import {Toolbar} from '../common/toolbar'
 import {DomHandler} from '../dom/domhandler';
 
@@ -133,7 +133,7 @@ declare var Quill: any;
     directives: [Toolbar],
     providers: [DomHandler]
 })
-export class Editor implements AfterViewInit {
+export class Editor implements AfterViewInit,OnDestroy {
     
     @Input() value: string;
     
@@ -190,5 +190,11 @@ export class Editor implements AfterViewInit {
                 }
             }
         }   
+    }
+    
+    ngOnDestroy() {
+        if(this.quill) {
+            this.quill.destroy();
+        }
     }
 }
