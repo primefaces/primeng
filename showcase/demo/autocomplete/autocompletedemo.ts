@@ -31,25 +31,29 @@ export class AutoCompleteDemo {
     constructor(private countryService: CountryService) { }
     
     filterCountrySingle(event) {
-        this.filteredCountriesSingle = [];
-        this.filterCountry(event, this.filteredCountriesSingle);
+        let query = event.query;        
+        this.countryService.getCountries().then(countries => {
+            this.filteredCountriesSingle = this.filterCountry(query, countries);
+        });
     }
     
     filterCountryMultiple(event) {
-        this.filteredCountriesMultiple = [];
-        this.filterCountry(event, this.filteredCountriesMultiple);
+        let query = event.query;
+        this.countryService.getCountries().then(countries => {
+            this.filteredCountriesMultiple = this.filterCountry(query, countries);
+        });
     }
     
-    filterCountry(event, suggestions: any[]) {
+    filterCountry(query, countries: any[]):any[] {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-        this.countryService.getCountries().then(countries => {
-            for(let i = 0; i < countries.length; i++) {
-                let country = countries[i];
-                if(country.name.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
-                    suggestions.push(country);
-                }
+        let filtered : any[] = [];
+        for(let i = 0; i < countries.length; i++) {
+            let country = countries[i];
+            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                filtered.push(country);
             }
-        });
+        }
+        return filtered;
     }
         
     filterBrands(event) {
