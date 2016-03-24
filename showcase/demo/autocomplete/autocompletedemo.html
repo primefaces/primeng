@@ -79,7 +79,7 @@ export class AutoCompleteDemo {
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-typescript" pCode>
 export class AutoCompleteDemo {
     
     text: string;
@@ -109,7 +109,7 @@ export class AutoCompleteDemo {
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-typescript" pCode>
 export class AutoCompleteDemo {
     
     texts: string[];
@@ -136,20 +136,20 @@ export class AutoCompleteDemo {
     </pre>
     
     <pre>
-    <code class="language-markup" pCode>
-    export class AutoCompleteDemo {
-        
-        val: country;
-        
-        results: country[];
-        
-        search(event) {
-            this.countrylookupservice.getResults(event.query).then(data => {
-                this.results = data;
-            });
-        }
-        
+    <code class="language-typescript" pCode>
+export class AutoCompleteDemo {
+    
+    val: country;
+    
+    results: country[];
+    
+    search(event) {
+        this.countrylookupservice.getResults(event.query).then(data => {
+            this.results = data;
+        });
     }
+    
+}
     </code>
     </pre>
     
