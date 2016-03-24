@@ -10,7 +10,7 @@ declare var PUI: any;
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" [attr.style]="style" [attr.styleClass]="styleClass">
             <input *ngIf="!multiple" #in pInputText type="text" [attr.style]="inputStyle" [attr.styleClass]="inputStyleClass" 
-            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)"
+            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled" 
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple ui-widget ui-inputtext ui-state-default ui-corner-all" (click)="multiIn.focus()">
                 <li #token *ngFor="#val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
@@ -286,6 +286,65 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
         else {
             return null;
         }        
+    }
+    
+    onKeydown(event) {
+        if(this.panelVisible) {
+            let highlightedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
+            
+            switch(event.which) {
+                //down
+                case 40:
+                    if(highlightedItem) {
+                        var nextItem = highlightedItem.nextSibling;
+                        if(nextItem) {
+                            this.domHandler.removeClass(highlightedItem, 'ui-state-highlight');
+                            this.domHandler.addClass(nextItem, 'ui-state-highlight');
+                            this.domHandler.scrollInView(this.panel, nextItem);
+                        }
+                    }
+                    else {
+                        let firstItem = this.domHandler.findSingle(this.panel, 'li:first-child');
+                        this.domHandler.addClass(firstItem, 'ui-state-highlight');
+                    }
+                    
+                    event.preventDefault();
+                break;
+                
+                //up
+                case 38:
+                    if(highlightedItem) {
+                        var prevItem = highlightedItem.previousElementSibling;
+                        if(prevItem) {
+                            this.domHandler.removeClass(highlightedItem, 'ui-state-highlight');
+                            this.domHandler.addClass(prevItem, 'ui-state-highlight');
+                            this.domHandler.scrollInView(this.panel, prevItem);
+                        }
+                    }
+                    
+                    event.preventDefault();
+                break;
+                
+                //enter
+                case 13:
+                    this.selectItem(highlightedItem);
+                    this.hide();
+                    event.preventDefault();
+                break;
+                
+                //enter
+                case 27:
+                    this.hide();
+                    event.preventDefault();
+                break;
+                
+                //tab
+                case 9:
+                    this.selectItem(highlightedItem);
+                    this.hide();
+                break;
+            }
+        }
     }
     
     ngOnDestroy() {
