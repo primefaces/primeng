@@ -170,6 +170,10 @@ export class Editor implements AfterViewInit,OnDestroy {
             }
             this.valueChange.next(htmlValue);
         });
+        
+        if(this.value) {
+            this.quill.setHTML(this.value);
+        }
     }
     
     ngOnChanges(changes: { [key: string]: SimpleChange}) {
