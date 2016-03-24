@@ -10,6 +10,22 @@ export class DomHandler {
             element.className += ' ' + className;
     }
     
+    public addMultipleClasses(element: any, className: string):void {
+        if (element.classList) {
+            let styles: string[] = className.split(' ');
+            for(let i = 0; i < styles.length; i++) {
+                element.classList.add(styles[i]);
+            }
+            
+        }
+        else {
+            let styles: string[] = className.split(' ');
+            for(let i = 0; i < styles.length; i++) {
+                element.className += ' ' + styles[i];
+            }
+        }
+    }
+    
     public removeClass(element: any, className: string):void {
         if (element.classList)
             element.classList.remove(className);

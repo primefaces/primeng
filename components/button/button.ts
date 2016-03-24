@@ -1,21 +1,15 @@
 import {Directive,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input} from 'angular2/core';
+import {DomHandler} from '../dom/domhandler';
 
 @Directive({
     selector: '[pButton]',
     host: {
-        '[class.ui-button]': 'true',
-        '[class.ui-widget]': 'true',
-        '[class.ui-state-default]': 'true',
-        '[class.ui-corner-all]': 'true',
-        '[class.ui-button-text-only]': '!icon && label',
-        '[class.ui-button-icon-only]': 'icon && !label',
-        '[class.ui-button-text-icon-left]': 'icon && label && iconPos == "left"',
-        '[class.ui-button-text-icon-right]': 'icon && label && iconPos == "right"',
         '[class.ui-state-hover]': 'hover',
         '[class.ui-state-focus]': 'focus',
         '[class.ui-state-active]': 'active',
         '[class.ui-state-disabled]': 'isDisabled()'
-    }
+    },
+    providers: [DomHandler]
 })
 export class Button implements AfterViewInit, OnDestroy {
 
@@ -31,9 +25,11 @@ export class Button implements AfterViewInit, OnDestroy {
     
     private active: boolean;
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler) {}
     
     ngAfterViewInit() {
+        console.log(this.getStyleClass());
+        this.domHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());
         if(this.icon) {
             let iconElement = document.createElement("span");
             let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
@@ -80,6 +76,26 @@ export class Button implements AfterViewInit, OnDestroy {
     
     isDisabled() {
         return this.el.nativeElement.disabled;
+    }
+    
+    getStyleClass(): string {
+        let styleClass = 'ui-button ui-widget ui-state-default ui-corner-all';
+        if(this.icon) {
+            if(this.label) {
+                if(this.iconPos == 'left')
+                    styleClass = styleClass + ' ui-button-text-icon-left';
+                else
+                    styleClass = styleClass + ' ui-button-text-icon-right';
+            }
+            else {
+                styleClass = styleClass + ' ui-button-icon-only';
+            }
+        }
+        else {
+            styleClass = styleClass + ' ui-button-text-only';
+        }
+        
+        return styleClass;
     }
         
     ngOnDestroy() {
