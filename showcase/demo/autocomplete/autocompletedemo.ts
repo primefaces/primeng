@@ -73,6 +73,5 @@ export class AutoCompleteDemo {
         setTimeout(() => {
             this.filteredBrands = this.brands;
         }, 100)
-        
     }
 }
