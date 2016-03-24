@@ -18,7 +18,7 @@ declare var PUI: any;
                     <span class="ui-autocomplete-token-label">{{val[field]}}</span>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn type="text" pInputText (input)="onInput($event)">
+                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)">
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
