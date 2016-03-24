@@ -8,7 +8,7 @@ import {DomHandler} from '../dom/domhandler';
         <span class="ui-spinner ui-widget ui-corner-all">
             <input #in id="basic" pInputText type="text" class="ui-spinner-input"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled"
-            (keydown)="onInputKeydown($event,in)" (input)="onInput($event)" (blur)="in.value = value" (change)="handleChange($event)">
+            (keydown)="onInputKeydown($event,in)" (input)="onInput($event)" (blur)="onBlur(in)" (change)="handleChange($event)">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp,'ui-state-disabled':disabled}"
                 (mouseenter)="onUpButtonMouseenter($event)" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
@@ -188,6 +188,12 @@ export class Spinner implements AfterViewInit {
     onInput(event) {
         this.value = this.parseValue(event.target.value);        
         this.valueChange.next(this.value);
+    }
+    
+    onBlur(inputElement) {
+        if(this.value !== undefined && this.value !== null) {
+            inputElement.value = this.value;
+        }
     }
     
     parseValue(val: string): number {
