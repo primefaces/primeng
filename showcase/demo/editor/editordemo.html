@@ -8,7 +8,9 @@
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
     <p-editor [(value)]="text1" style="height:320px"></p-editor>
-    <p>Value: {{text1}}</p>
+    <p>Value: {{text1||'empty'}}</p>
+    
+    <button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"></button>
     
     <h3>Custom Toolbar</h3>
     <p-editor [(value)]="text2">
@@ -24,7 +26,9 @@
             </span>
         </toolbar>
     </p-editor>
-    <p>Value: {{text2}}</p>
+    <p>Value: {{text2||'empty'}}</p>
+    
+    <button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"></button>
 </div>
 
 <div class="ContentSideSections Source">

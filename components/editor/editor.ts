@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,SimpleChange} from 'angular2/core';
 import {Toolbar} from '../common/toolbar'
 import {DomHandler} from '../dom/domhandler';
 
@@ -134,8 +134,8 @@ declare var Quill: any;
     providers: [DomHandler]
 })
 export class Editor implements AfterViewInit {
-
-    @Input() value: any;
+    
+    @Input() value: string;
     
     @Output() valueChange: EventEmitter<any> = new EventEmitter();
     
@@ -146,6 +146,8 @@ export class Editor implements AfterViewInit {
     @Input() style: string;
         
     @Input() styleClass: string;
+    
+    selfChange: boolean;
 
     quill: any;
     
@@ -161,7 +163,32 @@ export class Editor implements AfterViewInit {
         });
         
         this.quill.on('text-change', (delta, source) => {
-            this.valueChange.next(this.quill.getHTML());
+            this.selfChange = true;
+            let htmlValue = this.quill.getHTML();
+            if(htmlValue == '<div><br></div>') {
+                htmlValue = null;
+            }
+            this.valueChange.next(htmlValue);
         });
+    }
+    
+    ngOnChanges(changes: { [key: string]: SimpleChange}) {
+        if (this.quill) {
+            for (var key in changes) {
+                if (key == 'value') {
+                    if(this.selfChange) {
+                        this.selfChange = false;
+                        continue;
+                    }
+                    else {
+                        let val = changes[key].currentValue;
+                        if(val)
+                            this.quill.setHTML(val);
+                        else
+                            this.quill.setText('');
+                    }
+                }
+            }
+        }   
     }
 }
