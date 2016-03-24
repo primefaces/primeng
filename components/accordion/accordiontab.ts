@@ -1,5 +1,6 @@
-import {Component,Input} from 'angular2/core';
+import {Component,Input,ContentChild} from 'angular2/core';
 import {Accordion} from './accordion';
+import {Header} from '../common/header'
 
 @Component({
     selector: 'p-accordionTab',
@@ -7,12 +8,15 @@ import {Accordion} from './accordion';
         <div class="ui-accordion-header ui-helper-reset ui-state-default" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}"
             (click)="toggle($event)" (mouseenter)="hover = true" (mouseout)="hover=false">
             <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
-            <a href="#">{{header}}</a>
+            <a href="#" *ngIf="!headerFacet">{{header}}</a>
+            <a href="#" *ngIf="headerFacet">
+                <ng-content select="header"></ng-content>
+            </a>
         </div>
         <div class="ui-accordion-content ui-helper-reset ui-widget-content" [style.display]="selected ? 'block' : 'none'">
             <ng-content></ng-content>
         </div>
-    `,
+    `
 })
 export class AccordionTab {
 
@@ -21,6 +25,8 @@ export class AccordionTab {
     @Input() selected: boolean;
     
     @Input() disabled: boolean;
+    
+    @ContentChild(Header) headerFacet;
         
     constructor(private accordion: Accordion) {
         this.accordion.addTab(this);
