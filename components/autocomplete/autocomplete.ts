@@ -71,6 +71,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
+    @Output() onUnselect: EventEmitter<any> = new EventEmitter();
+    
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
     
     @Input() field: string;
@@ -267,6 +269,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
     
     removeItem(item: any) {
         let itemIndex = this.domHandler.index(item);
+        this.onUnselect.next(this.suggestions[itemIndex]);
         this.value.splice(itemIndex, 1);
     }
     
