@@ -21,7 +21,7 @@ declare var PUI: any;
                     <input #multiIn type="text" pInputText (input)="onInput($event)">
                 </li>
             </ul
-            ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" (click)="handleDropdownClick($event,in.value)" *ngIf="dropdown"></button>
+            ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
             <div class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="'100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" 
                     (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)" *ngIf="!itemTemplate">
@@ -257,10 +257,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
         this.panelVisible = false;
     }
     
-    handleDropdownClick(event,query) {
+    handleDropdownClick(event) {
         this.onDropdownClick.next({
             originalEvent: event,
-            query: query
+            query: this.input.value
         });
     }
     
