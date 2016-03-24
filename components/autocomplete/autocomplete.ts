@@ -227,15 +227,16 @@ export class AutoComplete implements AfterViewInit,DoCheck {
     }
     
     show() {
-        this.panelVisible = true;
-        
         if(this.multiple)
             this.domHandler.relativePosition(this.panel, this.multipleContainer);
         else
             this.domHandler.relativePosition(this.panel, this.input);
         
-        this.panel.style.zIndex = ++PUI.zindex;
-        this.domHandler.fadeIn(this.panel, 200);
+        if(!this.panelVisible) {
+            this.panelVisible = true;
+            this.panel.style.zIndex = ++PUI.zindex;
+            this.domHandler.fadeIn(this.panel, 200);
+        }        
     }
     
     hide() {

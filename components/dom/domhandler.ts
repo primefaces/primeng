@@ -49,7 +49,7 @@ export class DomHandler {
     }
     
     public relativePosition(element: any, target: any):void {
-        let elementOuterHeight = this.getHiddenElementOuterHeight(element);
+        let elementOuterHeight = element.offsetParent ? element.offsetHeight : this.getHiddenElementOuterHeight(element);
         let targetHeight = target.offsetHeight;
         let targetOffset = target.getBoundingClientRect();
         let top;
