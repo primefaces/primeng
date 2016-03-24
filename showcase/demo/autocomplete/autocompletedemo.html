@@ -156,7 +156,7 @@ export class AutoCompleteDemo {
             <h3>Templating</h3>
             <p>Templating allows displaying custom content inside the suggestions panel. The local template variable passed to the template is an object in the suggestions array.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-autoComplete [(value)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
     &lt;template #brand&gt;
         &lt;li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
