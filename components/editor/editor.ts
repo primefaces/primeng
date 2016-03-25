@@ -1,5 +1,5 @@
 import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ContentChild,OnChanges,SimpleChange} from 'angular2/core';
-import {Toolbar} from '../common/toolbar'
+import {Header} from '../common/header'
 import {DomHandler} from '../dom/domhandler';
 
 declare var Quill: any;
@@ -9,7 +9,7 @@ declare var Quill: any;
     template: `
         <div [ngClass]="'ui-widget ui-editor-container ui-widget-content ui-corner-all'" [attr.style]="style" [attr.class]="styleClass">
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
-                <ng-content select="toolbar"></ng-content>
+                <ng-content select="header"></ng-content>
             </div>
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="!toolbar">
             <span class="ql-format-group">
@@ -130,7 +130,7 @@ declare var Quill: any;
             <div class="ui-editor-content"></div>
         </div>
     `,
-    directives: [Toolbar],
+    directives: [Header],
     providers: [DomHandler]
 })
 export class Editor implements AfterViewInit,OnDestroy {
@@ -141,7 +141,7 @@ export class Editor implements AfterViewInit,OnDestroy {
     
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(Toolbar) toolbar;
+    @ContentChild(Header) toolbar;
     
     @Input() style: string;
         

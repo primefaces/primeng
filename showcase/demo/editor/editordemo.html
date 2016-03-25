@@ -16,7 +16,7 @@
     
     <h3>Custom Toolbar</h3>
     <p-editor [(value)]="text2" style="height:320px">
-        <toolbar>
+        <header>
             <span class="ql-format-group">
                 <span title="Bold" class="ql-format-button ql-bold"></span>
                 <span class="ql-format-separator"></span>
@@ -26,7 +26,7 @@
                 <span class="ql-format-separator"></span>
                 <span title="Strikethrough" class="ql-format-button ql-strike"></span>
             </span>
-        </toolbar>
+        </header>
     </p-editor>
     <p>Value: {{text2||'empty'}}</p>
     
@@ -40,7 +40,7 @@
 <pre>
 <code class="language-typescript" pCode>
 import {Editor} from 'primeng/primeng';
-import {Toolbar} from 'primeng/primeng';
+import {Header} from 'primeng/primeng';
 </code>
 </pre>
 
@@ -64,11 +64,11 @@ export class EditorDemo {
 </pre>
 
             <h3>Toolbar</h3>
-            <p>Editor provides a default toolbar with common options, to customize it define your elements inside the toolbar element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
+            <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-editor [(value)]="text2" style="height:320px"&gt;
-    &lt;toolbar&gt;
+    &lt;header&gt;
         &lt;span class="ql-format-group"&gt;
             &lt;span title="Bold" class="ql-format-button ql-bold"&gt;&lt;/span&gt;
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
@@ -78,7 +78,7 @@ export class EditorDemo {
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
             &lt;span title="Strikethrough" class="ql-format-button ql-strike"&gt;&lt;/span&gt;
         &lt;/span&gt;
-    &lt;/toolbar&gt;
+    &lt;/header&gt;
 &lt;/p-editor&gt;
 </code>
 </pre>
@@ -183,7 +183,7 @@ export class EditorDemo {
 
 &lt;h3&gt;Custom Toolbar&lt;/h3&gt;
 &lt;p-editor [(value)]="text2" style="height:320px"&gt;
-    &lt;toolbar&gt;
+    &lt;header&gt;
         &lt;span class="ql-format-group"&gt;
             &lt;span title="Bold" class="ql-format-button ql-bold"&gt;&lt;/span&gt;
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
@@ -193,7 +193,7 @@ export class EditorDemo {
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
             &lt;span title="Strikethrough" class="ql-format-button ql-strike"&gt;&lt;/span&gt;
         &lt;/span&gt;
-    &lt;/toolbar&gt;
+    &lt;/header&gt;
 &lt;/p-editor&gt;
 &lt;p&gt;Value: {{text2||'empty'}}&lt;/p&gt;
 
