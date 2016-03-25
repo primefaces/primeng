@@ -76,6 +76,7 @@ import {SplitButtonDemo} from "./demo/splitbutton/splitbuttondemo";
 import {OverlayPanelDemo} from "./demo/overlaypanel/overlaypaneldemo";
 import {AutoCompleteDemo} from "./demo/autocomplete/autocompletedemo";
 import {EditorDemo} from "./demo/editor/editordemo";
+import {ResponsiveDemo} from "./demo/responsive/responsivedemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -158,7 +159,8 @@ import {EditorDemo} from "./demo/editor/editordemo";
     {path: '/splitbutton', name: 'SplitButtonDemo', component: SplitButtonDemo},
     {path: '/overlaypanel', name: 'OverlayPanelDemo', component: OverlayPanelDemo},
     {path: '/autocomplete', name: 'AutoCompleteDemo', component: AutoCompleteDemo},
-    {path: '/editor', name: 'EditorDemo', component: EditorDemo}
+    {path: '/editor', name: 'EditorDemo', component: EditorDemo},
+    {path: '/responsive', name: 'ResponsiveDemo', component: ResponsiveDemo}
 ])
 export class AppComponent {
 
