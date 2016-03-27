@@ -184,7 +184,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
-            this.domHandler.addClass(item, 'ui-state-hover');
+            this.domHandler.addClass(item, 'ui-state-highlight');
         }
     }
     
@@ -196,7 +196,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
-            this.domHandler.removeClass(item, 'ui-state-hover');
+            this.domHandler.removeClass(item, 'ui-state-highlight');
         }
     }
     
