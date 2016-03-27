@@ -50,40 +50,56 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
         </div>
 
         <div class="ContentSideSections overHidden PFLayouts">
-            <span class="dispBlock logoBlueText fontSize30 mediumFont">Premium Layouts and Themes coming soon for PrimeNG</span>
-            <p class="defaultText" style="margin-bottom:10px">Create <a href="http://www.primefaces.org/themes">awesome web applications</a> in no time, impress your users.</p>
+            <span class="dispBlock logoBlueText fontSize30 mediumFont">Premium Layouts and Themes for PrimeNG</span>
+            <p class="defaultText" style="margin-bottom:10px">Create awesome applications in no time, impress your users.</p>
             <div style="padding:30px">
                 <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/modena-primeui"><img src="http://www.primefaces.org/images/highlights/modena.png" style="width:100%" /></a>
+                    <a href="http://www.primefaces.org/layouts/modena-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/modena.png" style="width:100%" /></a>
                 </div>
                 <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/rio-primeui"><img src="http://www.primefaces.org/images/highlights/rio.png" style="width:100%" /></a>
+                    <a href="http://www.primefaces.org/layouts/rio-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/rio.png" style="width:100%" /></a>
                 </div>
                 <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/adamantium-primeui"><img src="http://www.primefaces.org/images/highlights/adamantium.png" style="width:100%" /></a>
-                </div>
-                <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/olympos"><img src="http://www.primefaces.org/images/highlights/olympos.png" style="width:100%" /></a>
-                </div>
-                <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/titan"><img src="http://www.primefaces.org/images/highlights/titan.png" style="width:100%" /></a>
-                </div>
-                <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/atlas"><img src="http://www.primefaces.org/images/highlights/atlas.png" style="width:100%" /></a>
-                </div>
-                <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/sentinel"><img src="http://www.primefaces.org/images/highlights/sentinel.png" style="width:100%" /></a>
-                </div>
-                <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/spark"><img src="http://www.primefaces.org/images/highlights/spark.png" style="width:100%" /></a>
-                </div>
-                <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/ronin"><img src="http://www.primefaces.org/images/highlights/ronin.png" style="width:100%" /></a>
-                </div>
-                <div class="Content33 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/volt"><img src="http://www.primefaces.org/images/highlights/volt.png" style="width:100%" /></a>
+                    <a href="http://www.primefaces.org/layouts/adamantium-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/adamantium.png" style="width:100%" /></a>
                 </div>
             </div>
+        </div>
+        
+        <div class="ContentSideSections overHidden defaultText">
+            <span class="dispBlock logoBlueText fontSize30 mediumFont">PrimeNG PRO Support</span>
+            <p class="defaultText" style="margin-bottom:10px">With PrimeNG PRO, it's easy to support, tune and add features to PrimeNG as if it were an in-house framework.</p>
+            <p class="defaultText" style="margin-bottom:10px">PrimeNG PRO is a term based commercial support service. With the exclusive services of Pro account, 
+                            you no longer need to post your questions in the community forum and your issues to community issue tracker.</p>
+                            
+            <h4>Standard PRO Services</h4>
+			<ul>
+				<li>Access to pro.primefaces.org</li>
+				<li>Response within 1 business day.</li>
+				<li>Defect patches.</li>
+				<li>Private branch management in case you need.</li>
+				<li>Customized builds.</li>
+				<li>Unlimited number of cases.</li>
+				<li>Remote desktop connection.</li>
+				<li>Conference calls for discussions.</li>
+				<li>High priority to your issues.</li>
+			</ul>
+						
+			<h4>New Features (Optional)</h4>			
+						
+			<p>New feature and enhancement requests are not available in core services and provided via an hour based model instead.  When you have a feature request we provide an estimate, if you confirm we deliver your request within an estimated timeframe and deduct the amount of work from your hours. These requests can be;</p>
+
+			<ul>
+				<li>New components.</li>
+				<li>New functionality to existing components.</li>
+				<li>Changing the way a certain functionality is implemented.</li>
+				<li>Accessibility improvements.</li>
+				<li>Proof of Concept implementations of a use case.</li>
+				<li>Code reviews to offer best practices.</li>
+			</ul>
+			
+			<p>You can purchase additional hours along with the subscription and also anytime during your subscription period. If your subscription term ends with unused hours, they will be added to your new subscription term in case you extend.</p>
+        
+            <div style="text-align:center"><a href="mailto:primeng@primetek.com.tr"><img src="showcase/resources/images/quote.png" alt="Get a Quote"></a></div>
         </div>
     `,
     directives: [ROUTER_DIRECTIVES]
