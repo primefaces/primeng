@@ -3,7 +3,9 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, DoCheck, SimpleChange, 
 @Component({
     selector: 'p-barChart',
     template: `
-        <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
+        <div>
+            <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
+        </div>
     `
 })
 export class BarChart implements AfterViewInit, OnDestroy, DoCheck {
@@ -165,7 +167,7 @@ export class BarChart implements AfterViewInit, OnDestroy, DoCheck {
 
     initChart() {
         if(this.value) {
-            this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).Bar(this.value, {
+            this.chart = new Chart(this.el.nativeElement.children[0].children[0].getContext("2d")).Bar(this.value, {
                 animation: this.animation,
                 animationSteps: this.animationSteps,
                 animationEasing: this.animationEasing,

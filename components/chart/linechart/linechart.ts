@@ -3,7 +3,9 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, DoCheck, SimpleChange, 
 @Component({
     selector: 'p-lineChart',
     template: `
-        <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
+        <div>
+            <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
+        </div>
     `
 })
 export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
@@ -175,7 +177,7 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
 
     initChart() {
         if(this.value) {
-            this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).Line(this.value, {
+            this.chart = new Chart(this.el.nativeElement.children[0].children[0].getContext("2d")).Line(this.value, {
                 animation: this.animation,
                 animationSteps: this.animationSteps,
                 animationEasing: this.animationEasing,

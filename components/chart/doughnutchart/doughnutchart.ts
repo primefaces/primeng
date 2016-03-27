@@ -3,7 +3,9 @@ import {Component, ElementRef, AfterViewInit, OnDestroy, DoCheck, SimpleChange, 
 @Component({
     selector: 'p-doughnutChart',
     template: `
-        <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
+        <div>
+            <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
+        </div>
     `
 })
 export class DoughnutChart implements AfterViewInit, OnDestroy, DoCheck {
@@ -151,7 +153,7 @@ export class DoughnutChart implements AfterViewInit, OnDestroy, DoCheck {
 
     initChart() {
         if(this.value) {
-            this.chart = new Chart(this.el.nativeElement.children[0].getContext("2d")).Pie(this.value, {
+            this.chart = new Chart(this.el.nativeElement.children[0].children[0].getContext("2d")).Pie(this.value, {
                 animation: this.animation,
                 showScale: this.showScale,
                 scaleOverride: this.scaleOverride,
