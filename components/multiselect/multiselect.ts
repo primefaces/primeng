@@ -38,13 +38,14 @@ declare var PUI: any;
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                        <li *ngFor="#option of options" class="ui-multiselect-item ui-multiselect-list-item ui-corner-all">
+                        <li *ngFor="#option of options" class="ui-multiselect-item ui-multiselect-list-item ui-corner-all" (click)="onItemClick($event,option.value)"
+                            [ngClass]="{'ui-state-highlight':isSelected(option.value)}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
-                                    <input type="checkbox" readonly="readonly">
+                                    <input type="checkbox" readonly="readonly" [checked]="isSelected(option.value)">
                                 </div>
-                                <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
-                                    <span class="ui-chkbox-icon ui-c"></span>
+                                <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option.value)}">
+                                    <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
                             <label>{{option.label}}</label>
@@ -76,6 +77,8 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
 
     @Input() styleClass: string;
     
+    @Input() field: string;
+    
     @Input() disabled: boolean;
     
     private valuesAsString: string;
@@ -97,12 +100,7 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
     }
     
     ngOnInit() {
-        if(this.value) {
-            this.valuesAsString = this.value.join(',');
-        }
-        else {
-            this.valuesAsString = 'Choose';
-        }
+        this.updateLabel();
         
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             this.hide();
@@ -114,6 +112,40 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
         this.panel = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-multiselect-panel');
     }
     
+    onItemClick(event, value) {
+        let selectionIndex = this.findSelectionIndex(value);
+        if(selectionIndex != -1) {
+            this.value.splice(selectionIndex, 1);
+        }
+        else {
+            this.value = this.value||[];
+            this.value.push(value);
+        }
+        
+        this.updateLabel();
+        
+        event.stopPropagation();
+    }   
+    
+    isSelected(value) {
+        return this.findSelectionIndex(value) != -1;
+    }
+    
+    findSelectionIndex(val: any): number {
+        let index = -1;
+        
+        if(this.value) {
+            for(let i = 0; i < this.value.length; i++) {
+                if(this.value[i] == val) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        
+        return index;
+    }
+     
     show() {
         this.panelVisible = true;
         this.panel.style.zIndex = ++PUI.zindex;
@@ -151,6 +183,22 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
     
     onBlur(event) {
         this.focus = false;
+    }
+    
+    updateLabel() {
+        if(this.value && this.value.length) {
+            let label = '';
+            for(let i = 0; i < this.value.length; i++) {
+                if(i != 0) {
+                    label = label + ',';
+                }
+                label = label + (this.field ? this.value[i][this.field] : this.value[i]);
+            }
+            this.valuesAsString = label;
+        }
+        else {
+            this.valuesAsString = 'Choose';
+        }
     }
 
     ngOnDestroy() {

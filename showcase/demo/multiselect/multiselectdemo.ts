@@ -15,7 +15,7 @@ export class MultiSelectDemo {
 
     cars: SelectItem[];
 
-    selectedCars: string[];
+    selectedCars: string[] = [];
 
     constructor() {
         this.cars = [];
