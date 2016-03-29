@@ -133,8 +133,7 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
         }
         
         this.updateLabel();
-        
-        event.stopPropagation();
+        this.valueChange.next(this.value);
     }   
     
     isSelected(value) {
