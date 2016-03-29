@@ -21,12 +21,13 @@ declare var PUI: any;
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
-            <div class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow" [style.display]="panelVisible ? 'block' : 'none'">
+            <div class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow" 
+                [style.display]="panelVisible ? 'block' : 'none'">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
                     <span class="fa fa-search"></span>
                 </div>
-                <div class="ui-dropdown-items-wrapper">
+                <div class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul *ngIf="!itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                         (mouseover)="onListMouseover($event)" (mouseout)="onListMouseout($event)">
                         <li *ngFor="#option of optionsToDisplay;#i=index" [attr.data-label]="option.label" [attr.data-value]="option.value" (click)="onListClick($event)"
@@ -50,7 +51,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-    @Input() scrollHeight: number;
+    @Input() scrollHeight: string = '200px';
 
     @Input() filter: boolean;
 
@@ -89,6 +90,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     private panel: any;
     
     private container: any;
+    
+    private itemsWrapper: any;
     
     private initialized: boolean;
     
@@ -143,8 +146,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         }
         
         this.container = this.el.nativeElement.children[0];
-        this.panel = this.domHandler.findSingle(this.el.nativeElement, '.ui-dropdown-panel');
-        
+        this.panel = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-dropdown-panel');
+        this.itemsWrapper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-dropdown-items-wrapper');
+
         this.updateDimensions();
         this.initialized = true;
     }
@@ -233,7 +237,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                         var nextItem = highlightedItem.nextElementSibling;
                         if(nextItem) {
                             this.selectItem(event, nextItem);
-                            this.domHandler.scrollInView(this.panel, nextItem);
+                            this.domHandler.scrollInView(this.itemsWrapper, nextItem);
                         }
                     }
                     else {
@@ -252,7 +256,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                     var prevItem = highlightedItem.previousElementSibling;
                     if(prevItem) {
                         this.selectItem(event, prevItem);
-                        this.domHandler.scrollInView(this.panel, prevItem);
+                        this.domHandler.scrollInView(this.itemsWrapper, prevItem);
                     }
                 }
                 
