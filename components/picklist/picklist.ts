@@ -38,10 +38,10 @@ import {DomHandler} from '../dom/domhandler';
             </div>
             <div class="ui-picklist-target-controls ui-picklist-buttons">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(targetlist)"></button>
-                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(targetlist)"></button>
-                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(targetlist)"></button>
-                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(targetlist)"></button>
+                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(targetlist,target)"></button>
+                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(targetlist,target)"></button>
+                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(targetlist,target)"></button>
+                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(targetlist,target)"></button>
                 </div>
             </div>
         </div>
@@ -52,27 +52,27 @@ import {DomHandler} from '../dom/domhandler';
 export class PickList implements OnDestroy {
 
     @Input() source: any[];
-    
+
     @Input() target: any[];
-    
+
     @Input() sourceHeader: string;
-        
+
     @Input() targetHeader: string;
-    
+
     @Input() responsive: boolean;
-    
+
     @Input() style: string;
-        
+
     @Input() styleClass: string;
-    
+
     @Input() sourceStyle: string;
-    
+
     @Input() targetStyle: string;
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
-                            
+
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
-    
+
     onMouseover(event) {
         let element = event.target;
         if(element.nodeName != 'UL') {
@@ -80,7 +80,7 @@ export class PickList implements OnDestroy {
             this.domHandler.addClass(item, 'ui-state-hover');
         }
     }
-    
+
     onMouseout(event) {
         let element = event.target;
         if(element.nodeName != 'UL') {
@@ -88,7 +88,7 @@ export class PickList implements OnDestroy {
             this.domHandler.removeClass(item, 'ui-state-hover');
         }
     }
-    
+
     onClick(event) {
         let element = event.target;
         if(element.nodeName != 'UL') {
@@ -96,7 +96,7 @@ export class PickList implements OnDestroy {
             this.onItemClick(event, item);
         }
     }
-    
+
     findListItem(element) {
         if(element.nodeName == 'LI') {
             return element;
@@ -109,10 +109,10 @@ export class PickList implements OnDestroy {
             return parent;
         }
     }
-    
+
     onItemClick(event, item) {
         let metaKey = (event.metaKey||event.ctrlKey);
-        
+
         if(this.domHandler.hasClass(item, 'ui-state-highlight')) {
             if(metaKey) {
                 this.domHandler.removeClass(item, 'ui-state-highlight');
@@ -128,12 +128,12 @@ export class PickList implements OnDestroy {
                     }
                 }
             }
-            
+
             this.domHandler.removeClass(item, 'ui-state-hover');
             this.domHandler.addClass(item, 'ui-state-highlight');
         }
     }
-    
+
     moveUp(listElement, list) {
         let selectedElements = this.getSelectedListElements(listElement);
         for(let i = 0; i < selectedElements.length; i++) {
@@ -152,7 +152,7 @@ export class PickList implements OnDestroy {
             }
         }
     }
-    
+
     moveTop(listElement, list) {
         let selectedElements = this.getSelectedListElements(listElement);
         for(let i = 0; i < selectedElements.length; i++) {
@@ -169,7 +169,7 @@ export class PickList implements OnDestroy {
             }
         }
     }
-    
+
     moveDown(listElement, list) {
         let selectedElements = this.getSelectedListElements(listElement);
         for(let i = selectedElements.length - 1; i >= 0; i--) {
@@ -188,7 +188,7 @@ export class PickList implements OnDestroy {
             }
         }
     }
-    
+
     moveBottom(listElement, list) {
         let selectedElements = this.getSelectedListElements(listElement);
         for(let i = selectedElements.length - 1; i >= 0; i--) {
@@ -205,7 +205,7 @@ export class PickList implements OnDestroy {
             }
         }
     }
-    
+
     moveRight(sourceListElement) {
         let selectedElements = this.getSelectedListElements(sourceListElement);
         let i = selectedElements.length;
@@ -213,14 +213,14 @@ export class PickList implements OnDestroy {
             this.target.push(this.source.splice(this.domHandler.index(selectedElements[i]),1)[0]);
         }
     }
-    
+
     moveAllRight() {
         for(let i = 0; i < this.source.length; i++) {
             this.target.push(this.source[i]);
         }
         this.source.splice(0, this.source.length);
     }
-    
+
     moveLeft(targetListElement) {
         let selectedElements = this.getSelectedListElements(targetListElement);
         let i = selectedElements.length;
@@ -228,22 +228,22 @@ export class PickList implements OnDestroy {
             this.source.push(this.target.splice(this.domHandler.index(selectedElements[i]),1)[0]);
         }
     }
-    
+
     moveAllLeft() {
         for(let i = 0; i < this.target.length; i++) {
             this.source.push(this.target[i]);
         }
         this.target.splice(0, this.target.length);
     }
-    
+
     getListElements(listElement) {
         return listElement.children;
     }
-    
+
     getSelectedListElements(listElement) {
         return this.domHandler.find(listElement, 'li.ui-state-highlight');
     }
-    
+
     ngOnDestroy() {
 
     }
