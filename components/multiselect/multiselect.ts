@@ -20,13 +20,13 @@ declare var PUI: any;
             </div>
             <div class="ui-multiselect-panel ui-widget ui-widget-content ui-corner-all" [style.display]="panelVisible ? 'block' : 'none'" (click)="panelClick=true">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
-                    <div class="ui-chkbox ui-widget" (click)="toggleAll($event,cb.checked)">
+                    <div class="ui-chkbox ui-widget">
                         <div class="ui-helper-hidden-accessible">
-                            <input #cb type="checkbox" readonly="readonly" [checked]="options&&value&&(options.length == value.length)">
+                            <input #cb type="checkbox" readonly="readonly">
                         </div>
                         <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-hover':hoverToggleAll}"
-                            (mouseenter)="hoverToggleAll=true" (mouseleave)="hoverToggleAll=false">
-                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':options&&value&&(options.length == value.length)}"></span>
+                            (mouseenter)="hoverToggleAll=true" (mouseleave)="hoverToggleAll=false" (click)="toggleAll($event,cb)">
+                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':cb.checked}"></span>
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container">
@@ -154,18 +154,20 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
         return index;
     }
     
-    toggleAll(event, checked) {
-        if(checked) {
+    toggleAll(event, checkbox) {
+        if(checkbox.checked) {
             this.value = [];
         }
         else {
-            if(this.options) {
+            let opts = this.getVisibleOptions();
+            if(opts) {
                 this.value = [];
-                for(let i = 0; i < this.options.length; i++) {
-                    this.value.push(this.options[i].value);
+                for(let i = 0; i < opts.length; i++) {
+                    this.value.push(opts[i].value);
                 } 
             }
         }
+        checkbox.checked = !checkbox.checked;
         this.updateLabel();
         this.valueChange.next(this.value);
     } 
@@ -238,6 +240,22 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
         }
         else {
             return true;
+        }
+    }
+    
+    getVisibleOptions(): SelectItem[] {
+        if(this.filterValue && this.filterValue.trim().length) {
+            let items = [];
+            for(let i = 0; i < this.options.length; i++) {
+                let option = this.options[i];
+                if(option.label.toLowerCase().startsWith(this.filterValue.toLowerCase())) {
+                    items.push(option);
+                }
+            }
+            return items;
+        }
+        else {
+            return this.options;
         }
     }
 
