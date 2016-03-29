@@ -30,8 +30,8 @@ declare var PUI: any;
                     <ul *ngIf="!itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                         (mouseover)="onListMouseover($event)" (mouseout)="onListMouseout($event)">
                         <li *ngFor="#option of optionsToDisplay;#i=index" [attr.data-label]="option.label" [attr.data-value]="option.value" (click)="onListClick($event)"
-                            class="ui-dropdown-item ui-dropdown-list-item ui-corner-all">{{option.label}}</li
-                    ></ul>
+                            class="ui-dropdown-item ui-dropdown-list-item ui-corner-all">{{option.label}}</li>
+                    </ul>
                     <ul *ngIf="itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                         (mouseover)="onListMouseover($event)" (mouseout)="onListMouseout($event)" (click)="onListClick($event)">
                         <template ngFor [ngForOf]="optionsToDisplay" [ngForTemplate]="itemTemplate"></template>
@@ -180,7 +180,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,OnDestroy
     
     onKeydown(event) {
         let highlightedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
-        
         switch(event.which) {
             //down
             case 40:
@@ -189,7 +188,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,OnDestroy
                 }
                 else {
                     if(highlightedItem) {
-                        var nextItem = highlightedItem.nextSibling;
+                        var nextItem = highlightedItem.nextElementSibling;
                         if(nextItem) {
                             this.selectItem(event, nextItem);
                             this.domHandler.scrollInView(this.panel, nextItem);
