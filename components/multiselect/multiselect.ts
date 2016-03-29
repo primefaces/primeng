@@ -12,34 +12,35 @@ declare var PUI: any;
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
-            <span class="ui-multiselect-label-container">
+            <div class="ui-multiselect-label-container">
                 <label [ngClass]="{'ui-multiselect-label ui-corner-all':true,'ui-state-hover':hover,'ui-state-focus':focus}">{{valuesAsString}}</label>
-            </span>
+            </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true,'ui-state-hover':hover,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
-            <div class="ui-multiselect-panel ui-widget ui-widget-content ui-corner-all" [style.display]="panelVisible ? 'block' : 'none'">
+            <div class="ui-multiselect-panel ui-widget ui-widget-content ui-corner-all" [style.display]="panelVisible ? 'block' : 'none'" (click)="panelClick=true">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
-                    <div class="ui-chkbox ui-widget">
+                    <div class="ui-chkbox ui-widget" (click)="toggleAll($event,cb.checked)">
                         <div class="ui-helper-hidden-accessible">
-                            <input type="checkbox" readonly="readonly">
+                            <input #cb type="checkbox" readonly="readonly" [checked]="options&&value&&(options.length == value.length)">
                         </div>
-                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
-                            <span class="ui-chkbox-icon ui-c"></span>
+                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-hover':hoverToggleAll}"
+                            (mouseenter)="hoverToggleAll=true" (mouseleave)="hoverToggleAll=false">
+                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':options&&value&&(options.length == value.length)}"></span>
                         </div>
-                        </div>
+                    </div>
                     <div class="ui-multiselect-filter-container">
                         <input type="text" aria-multiline="false" aria-readonly="false" aria-disabled="false" role="textbox" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all">
                         <span class="fa fa-fw fa-search"></span>
                     </div>
-                    <a class="ui-multiselect-close ui-corner-all" href="#">
+                    <a class="ui-multiselect-close ui-corner-all" href="#" (click)="close($event)">
                         <span class="fa fa-close"></span>
                     </a>
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                        <li *ngFor="#option of options" class="ui-multiselect-item ui-multiselect-list-item ui-corner-all" (click)="onItemClick($event,option.value)"
-                            [ngClass]="{'ui-state-highlight':isSelected(option.value)}">
+                        <li #item *ngFor="#option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)"
+                            [ngClass]="{'ui-state-highlight':isSelected(option.value),'ui-state-hover':hoveredItem==item}" (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
                                     <input type="checkbox" readonly="readonly" [checked]="isSelected(option.value)">
@@ -95,6 +96,10 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
     
     private container: any;
     
+    private selfClick: boolean;
+    
+    private panelClick: boolean;
+    
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {
 
     }
@@ -103,7 +108,12 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
         this.updateLabel();
         
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            this.hide();
+            if(!this.selfClick && this.panelVisible) {
+                this.hide();
+            }
+            
+            this.selfClick = false;
+            this.panelClick = false;
         });
     }
     
@@ -145,7 +155,23 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
         
         return index;
     }
-     
+    
+    toggleAll(event, checked) {
+        if(checked) {
+            this.value = [];
+        }
+        else {
+            if(this.options) {
+                this.value = [];
+                for(let i = 0; i < this.options.length; i++) {
+                    this.value.push(this.options[i].value);
+                } 
+            }
+        }
+        this.valueChange.next(this.value);
+        event.stopPropagation();
+    } 
+  
     show() {
         this.panelVisible = true;
         this.panel.style.zIndex = ++PUI.zindex;
@@ -155,6 +181,11 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
     
     hide() {
         this.panelVisible = false;
+    }
+    
+    close(event) {
+        this.hide();
+        event.preventDefault();
     }
      
     onMouseenter(event) {
@@ -166,15 +197,17 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
     }
     
     onMouseclick(event,input) {
-        if(this.panelVisible) {
-            this.hide();
-        }
-        else {
-            input.focus();
-            this.show();
+        if(!this.panelClick) {
+            if(this.panelVisible) {
+                this.hide();
+            }
+            else {
+                input.focus();
+                this.show();
+            }
         }
         
-        event.stopPropagation();
+        this.selfClick = true;
     }
     
     onFocus(event) {

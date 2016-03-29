@@ -657,7 +657,7 @@ pre {
     border: 0 none;
 }
 
-.ui-multiselect-panel .ui-multiselect-list-item {
+.ui-multiselect-panel .ui-multiselect-item {
     border:0px none;
     cursor:pointer;
     font-weight:normal;
@@ -665,23 +665,21 @@ pre {
     padding:4px;
     text-align:left;
     white-space: nowrap;
-}
-
-.ui-multiselect-panel .ui-multiselect-list-item {
     display: block;
     position: relative;
 }
 
-.ui-multiselect-panel .ui-multiselect-list-item .ui-chkbox {
+.ui-multiselect-panel .ui-multiselect-item .ui-chkbox {
     position: absolute;
     top:50%;
     margin-top:-8px;
 }
 
-.ui-multiselect-panel .ui-multiselect-list-item label {
+.ui-multiselect-panel .ui-multiselect-item label {
     display: block;
     padding-left: 25px;
-    padding-top: 5px;
+    padding-top: 3px;
+    cursor:pointer;
 }
 
 .ui-multiselect-header {
