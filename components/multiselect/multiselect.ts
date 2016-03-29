@@ -60,7 +60,7 @@ declare var PUI: any;
     `,
     providers: [DomHandler]
 })
-export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
+export class MultiSelect implements OnInit,AfterViewInit,DoCheck,OnDestroy {
 
     @Input() value: any[];
 
@@ -102,7 +102,11 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
     
     private visibleOptions: SelectItem[];
     
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+    differ: any;
+    
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, differs: IterableDiffers) {
+        this.differ = differs.find([]).create(null);
+    }
     
     ngOnInit() {
         this.updateLabel();
@@ -122,6 +126,14 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
         this.panel = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-multiselect-panel');
     }
     
+    ngDoCheck() {
+        let changes = this.differ.diff(this.value);
+        
+        if(changes) {
+            this.updateLabel();
+        }
+    }
+    
     onItemClick(event, value) {
         let selectionIndex = this.findSelectionIndex(value);
         if(selectionIndex != -1) {
@@ -132,7 +144,6 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
             this.value.push(value);
         }
         
-        this.updateLabel();
         this.valueChange.next(this.value);
     }   
     
@@ -169,7 +180,6 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
             }
         }
         checkbox.checked = !checkbox.checked;
-        this.updateLabel();
         this.valueChange.next(this.value);
     } 
     
