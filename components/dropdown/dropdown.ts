@@ -30,7 +30,7 @@ declare var PUI: any;
                     <ul *ngIf="!itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                         (mouseover)="onListMouseover($event)" (mouseout)="onListMouseout($event)">
                         <li *ngFor="#option of optionsToDisplay;#i=index" [attr.data-label]="option.label" [attr.data-value]="option.value" (click)="onListClick($event)"
-                            class="ui-dropdown-item ui-dropdown-list-item ui-corner-all">{{option.label}}</li>
+                            class="ui-dropdown-item ui-corner-all">{{option.label}}</li>
                     </ul>
                     <ul *ngIf="itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                         (mouseover)="onListMouseover($event)" (mouseout)="onListMouseout($event)" (click)="onListClick($event)">

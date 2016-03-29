@@ -13,7 +13,7 @@
     <h3>Content with Filter</h3>
     <p-dropdown [options]="cars" [(value)]="selectedCar" [filter]="true" style="width:150px">
         <template #car>
-            <li class="ui-dropdown-list-item ui-helper-clearfix" style="position: relative" [attr.data-value]="car.value">
+            <li class="ui-dropdown-item ui-helper-clearfix" style="position: relative" [attr.data-value]="car.value">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/>
                 <div style="font-size:14px;float:right;margin-top:2px">{{car.label}}</div>
             </li>
