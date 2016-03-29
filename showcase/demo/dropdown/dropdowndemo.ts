@@ -42,5 +42,5 @@ export class DropdownDemo {
         this.cars.push({label: 'VW', value: 'VW'});
         this.cars.push({label: 'Volvo', value: 'Volvo'});
     }
-
+    
 }

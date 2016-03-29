@@ -1,4 +1,4 @@
-import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChild,TemplateRef} from 'angular2/core';
+import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChild,TemplateRef,IterableDiffers} from 'angular2/core';
 import {SelectItem} from '../api/selectitem';
 import {DomHandler} from '../dom/domhandler';
 
@@ -42,11 +42,9 @@ declare var PUI: any;
     `,
     providers: [DomHandler]
 })
-export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,OnDestroy {
+export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy {
 
     @Input() options: SelectItem[];
-
-    @Input() value: any;
 
     @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
@@ -66,7 +64,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,OnDestroy
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, differs: IterableDiffers) {
+        this.differ = differs.find([]).create(null);
+    }
+
+    _value: any;
 
     optionsToDisplay: SelectItem[];
 
@@ -76,16 +78,32 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,OnDestroy
     
     focus: boolean;
     
+    differ: any;
+    
     private panelVisible: boolean = false;
     
     private documentClickListener: any;
     
-    private optionsFiltered: boolean;
+    private viewstateChanged: boolean;
     
     private panel: any;
     
     private container: any;
     
+    private initialized: boolean;
+    
+    @Input() get value(): any {
+        return this._value;
+    }
+    
+    set value(val: any) {
+        this._value = val;
+        
+        if(this.initialized) {
+            this.updateUI();
+        }
+    }
+        
     ngOnInit() {
         if(this.options) {
             let selectedIndex = this.findItemIndex(this.value, this.options);
@@ -105,6 +123,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,OnDestroy
         this.optionsToDisplay = this.options;
     }
     
+    ngDoCheck() {
+        let changes = this.differ.diff(this.options);
+        
+        if(changes && this.initialized) {
+            this.optionsToDisplay = this.options;
+            this.viewstateChanged = true;
+        }
+    }
+    
     ngAfterViewInit() {
         let items = this.domHandler.find(this.el.nativeElement, '.ui-dropdown-items > li');
         let selectedIndex = this.findItemIndex(this.value, this.options);
@@ -119,21 +146,36 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,OnDestroy
         this.panel = this.domHandler.findSingle(this.el.nativeElement, '.ui-dropdown-panel');
         
         this.updateDimensions();
+        this.initialized = true;
     }
     
     ngAfterViewChecked() {
-        if(this.optionsFiltered) {
-            let items = this.domHandler.find(this.el.nativeElement, '.ui-dropdown-items > li');
-            let selectedIndex = this.findItemIndex(this.value, this.optionsToDisplay);
-            if(selectedIndex != -1) {
-                this.domHandler.addClass(items[selectedIndex], 'ui-state-highlight');
-            }
-            
+        if(this.viewstateChanged) {
+            this.updateUI();            
             this.domHandler.relativePosition(this.panel, this.container);
-            this.optionsFiltered = false;
+            this.viewstateChanged = false;
         }
     }
     
+    updateUI() {
+        let items = this.domHandler.find(this.el.nativeElement, '.ui-dropdown-items > li');
+        let currentSelectedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
+        if(currentSelectedItem) {
+            this.domHandler.removeClass(currentSelectedItem, 'ui-state-highlight');
+        }
+        
+        if(this.optionsToDisplay) {
+            let selectedIndex = this.findItemIndex(this.value, this.optionsToDisplay);
+            if(selectedIndex != -1) {
+                this.label = this.optionsToDisplay[selectedIndex].label;
+                this.domHandler.addClass(items[selectedIndex], 'ui-state-highlight');
+            }
+        }
+        else {
+            this.label = '&nbsp;';
+        }
+    }
+     
     updateDimensions() {
         let select = this.domHandler.findSingle(this.el.nativeElement, 'select');
         if(!this.style||this.style.indexOf('width') == -1) {
@@ -320,12 +362,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,OnDestroy
                     this.optionsToDisplay.push(option);
                 }
             }
-            this.optionsFiltered = true;
+            this.viewstateChanged = true;
         }
     }
     
     ngOnDestroy() {
         this.documentClickListener();
+        this.initialized = false;
     }
 
 }
