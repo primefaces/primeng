@@ -22,15 +22,15 @@ declare var PUI: any;
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
                     <div class="ui-chkbox ui-widget">
                         <div class="ui-helper-hidden-accessible">
-                            <input #cb type="checkbox" readonly="readonly">
+                            <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
                         <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-hover':hoverToggleAll}"
                             (mouseenter)="hoverToggleAll=true" (mouseleave)="hoverToggleAll=false" (click)="toggleAll($event,cb)">
-                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':cb.checked}"></span>
+                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':isAllChecked()}"></span>
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container">
-                        <input type="text" aria-multiline="false" aria-readonly="false" aria-disabled="false" role="textbox" (input)="filterValue = $event.target.value"
+                        <input type="text" aria-multiline="false" aria-readonly="false" aria-disabled="false" role="textbox" (input)="onFilter($event)"
                                     class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all">
                         <span class="fa fa-fw fa-search"></span>
                     </div>
@@ -41,7 +41,7 @@ declare var PUI: any;
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
                         <li #item *ngFor="#option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
-                            [style.display]="isItemVisible(option.label) ? 'block' : 'none'"
+                            [style.display]="isItemVisible(option) ? 'block' : 'none'"
                             [ngClass]="{'ui-state-highlight':isSelected(option.value),'ui-state-hover':hoveredItem==item}" (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
@@ -99,6 +99,8 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
     private panelClick: boolean;
     
     private filterValue: string;
+    
+    private visibleOptions: SelectItem[];
     
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
     
@@ -171,7 +173,14 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
         this.updateLabel();
         this.valueChange.next(this.value);
     } 
-  
+    
+    isAllChecked() {
+        if(this.filterValue && this.filterValue.trim().length)
+            return this.value&&this.visibleOptions&&(this.value.length == this.visibleOptions.length);
+        else
+            return this.value&&this.options&&(this.value.length == this.options.length);
+    } 
+    
     show() {
         this.panelVisible = true;
         this.panel.style.zIndex = ++PUI.zindex;
@@ -233,10 +242,25 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
             this.valuesAsString = 'Choose';
         }
     }
+    
+    onFilter(event) {
+        this.filterValue = event.target.value.trim().toLowerCase();
+        this.visibleOptions = [];
+        for(let i = 0; i < this.options.length; i++) {
+            let option = this.options[i];
+            if(option.label.toLowerCase().startsWith(this.filterValue.toLowerCase())) {
+                this.visibleOptions.push(option);
+            }
+        }
+    }
         
-    isItemVisible(val) {
+    isItemVisible(option: SelectItem): boolean {
         if(this.filterValue && this.filterValue.trim().length) {
-            return val.toLowerCase().startsWith(this.filterValue.toLowerCase());
+            for(let i = 0; i < this.visibleOptions.length; i++) {
+                if(this.visibleOptions[i].value == option.value) {
+                    return true;
+                }
+            }
         }
         else {
             return true;
