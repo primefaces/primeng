@@ -60,7 +60,7 @@ declare var PUI: any;
     `,
     providers: [DomHandler]
 })
-export class MultiSelect implements OnInit,AfterViewInit,DoCheck,OnDestroy {
+export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy {
 
     @Input() value: any[];
 
@@ -102,6 +102,8 @@ export class MultiSelect implements OnInit,AfterViewInit,DoCheck,OnDestroy {
     
     private visibleOptions: SelectItem[];
     
+    private filtered: boolean;
+    
     differ: any;
     
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, differs: IterableDiffers) {
@@ -124,6 +126,13 @@ export class MultiSelect implements OnInit,AfterViewInit,DoCheck,OnDestroy {
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];
         this.panel = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-multiselect-panel');
+    }
+    
+    ngAfterViewChecked() {
+        if(this.filtered) {
+            this.domHandler.relativePosition(this.panel, this.container);
+            this.filtered = false;
+        }
     }
     
     ngDoCheck() {
@@ -261,6 +270,7 @@ export class MultiSelect implements OnInit,AfterViewInit,DoCheck,OnDestroy {
                 this.visibleOptions.push(option);
             }
         }
+        this.filtered = true;
     }
         
     isItemVisible(option: SelectItem): boolean {
