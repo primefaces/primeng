@@ -8,7 +8,7 @@ declare var PUI: any;
     selector: 'p-dropdown',
     template: `
         <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,'ui-state-hover':hover,'ui-state-focus':focus}" 
-            (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,container,pnl,in)">
+            (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,container,pnl,in)" [attr.style]="style" [attr.styleClass]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <select>
                     <option *ngFor="#option of options" [value]="option.value">{{option.label}}</option>
@@ -109,13 +109,17 @@ export class Dropdown implements OnInit,AfterViewInit,OnDestroy {
             this.domHandler.addClass(items[selectedIndex], 'ui-state-highlight');
         }
         
-        //dimensions
         this.updateDimensions();
     }
     
     updateDimensions() {
         let select = this.domHandler.findSingle(this.el.nativeElement, 'select');
-        this.el.nativeElement.children[0].style.width = select.offsetWidth + 20 + 'px';
+        let panel = this.domHandler.findSingle(this.el.nativeElement, '.ui-dropdown-panel');
+        if(!this.style||this.style.indexOf('width') == -1) {
+            this.el.nativeElement.children[0].style.width = select.offsetWidth + 20 + 'px';
+        }
+        
+        panel.style.width = '100%';
     }
     
     onMouseenter(event) {
