@@ -77,6 +77,7 @@ import {OverlayPanelDemo} from "./demo/overlaypanel/overlaypaneldemo";
 import {AutoCompleteDemo} from "./demo/autocomplete/autocompletedemo";
 import {EditorDemo} from "./demo/editor/editordemo";
 import {ResponsiveDemo} from "./demo/responsive/responsivedemo";
+import {MultiSelectDemo} from "./demo/multiselect/multiselectdemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -160,7 +161,8 @@ import {ResponsiveDemo} from "./demo/responsive/responsivedemo";
     {path: '/overlaypanel', name: 'OverlayPanelDemo', component: OverlayPanelDemo},
     {path: '/autocomplete', name: 'AutoCompleteDemo', component: AutoCompleteDemo},
     {path: '/editor', name: 'EditorDemo', component: EditorDemo},
-    {path: '/responsive', name: 'ResponsiveDemo', component: ResponsiveDemo}
+    {path: '/responsive', name: 'ResponsiveDemo', component: ResponsiveDemo},
+    {path: '/multiselect', name: 'MultiSelectDemo', component: MultiSelectDemo}
 ])
 export class AppComponent {
 
