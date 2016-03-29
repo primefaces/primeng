@@ -30,7 +30,8 @@ declare var PUI: any;
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container">
-                        <input type="text" aria-multiline="false" aria-readonly="false" aria-disabled="false" role="textbox" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all">
+                        <input type="text" aria-multiline="false" aria-readonly="false" aria-disabled="false" role="textbox" (input)="filterValue = $event.target.value"
+                                    class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all">
                         <span class="fa fa-fw fa-search"></span>
                     </div>
                     <a class="ui-multiselect-close ui-corner-all" href="#" (click)="close($event)">
@@ -38,8 +39,9 @@ declare var PUI: any;
                     </a>
                 </div>
                 <div class="ui-multiselect-items-wrapper">
-                    <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
-                        <li #item *ngFor="#option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)"
+                    <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
+                        <li #item *ngFor="#option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
+                            [style.display]="isItemVisible(option.label) ? 'block' : 'none'"
                             [ngClass]="{'ui-state-highlight':isSelected(option.value),'ui-state-hover':hoveredItem==item}" (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
@@ -70,10 +72,6 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
 
     @Input() scrollHeight: string = '200px';
 
-    @Input() filter: boolean;
-
-    @Input() filterMatchMode: string;
-
     @Input() style: string;
 
     @Input() styleClass: string;
@@ -100,9 +98,9 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
     
     private panelClick: boolean;
     
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {
-
-    }
+    private filterValue: string;
+    
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
     
     ngOnInit() {
         this.updateLabel();
@@ -231,6 +229,15 @@ export class MultiSelect implements OnInit,AfterViewInit,OnDestroy {
         }
         else {
             this.valuesAsString = 'Choose';
+        }
+    }
+        
+    isItemVisible(val) {
+        if(this.filterValue && this.filterValue.trim().length) {
+            return val.toLowerCase().startsWith(this.filterValue.toLowerCase());
+        }
+        else {
+            return true;
         }
     }
 
