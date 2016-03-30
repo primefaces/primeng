@@ -77,9 +77,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() style: string;
 
     @Input() styleClass: string;
-    
-    @Input() field: string;
-    
+
     @Input() disabled: boolean;
     
     private valuesAsString: string;
@@ -256,13 +254,25 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
                 if(i != 0) {
                     label = label + ',';
                 }
-                label = label + (this.field ? this.value[i][this.field] : this.value[i]);
+                label = label + this.findLabelByValue(this.value[i]);
             }
             this.valuesAsString = label;
         }
         else {
             this.valuesAsString = this.defaultLabel;
         }
+    }
+    
+    findLabelByValue(val: any): string {
+        let label = null;
+        for(let i = 0; i < this.options.length; i++) {
+            let option = this.options[i];
+            if(option.value == val) {
+                label = option.label;
+                break; 
+            }
+        }
+        return label;
     }
     
     onFilter(event) {
