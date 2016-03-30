@@ -71,6 +71,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Input() scrollHeight: string = '200px';
+    
+    @Input() defaultLabel: string = 'Choose';
 
     @Input() style: string;
 
@@ -259,7 +261,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             this.valuesAsString = label;
         }
         else {
-            this.valuesAsString = 'Choose';
+            this.valuesAsString = this.defaultLabel;
         }
     }
     
