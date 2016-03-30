@@ -81,11 +81,12 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .PFGrayText{color:#aab7c1;}
 .PFDarkText{color:#313b3f;}
 
-#openMenuBtn{display:inline-block; float:left; padding:10px; margin-top:-9px; border-radius:5px; display:none;}
-#openMenuBtn.active,
-#openMenuBtn:hover,
-#openMenuBtn.focus{background-color:#2F88E0;}
-#openMenuBtn img{width:30px;}
+#openMenuBtn{float:left; padding:10px; margin-top:-9px; border-radius:5px; display:none;}
+#openMobileMenuBtn {float: left; padding: 10px 10px 5px 10px; margin-left: 23px; margin-top: 5px; border-radius: 5px; display: none;}
+#openMenuBtn.active, #openMenuBtn:hover, #openMenuBtn:focus,
+#openMobileMenuBtn:hover, #openMobileMenuBtn:focus{background-color:#2F88E0;}
+#openMenuBtn img,
+#openMobileMenuBtn img{width:30px;}
 
 .PropertyBox{width:27%; height:280px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
     -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
@@ -465,11 +466,13 @@ input.searchInput {
         padding:14px 24px;
     }
 
-    #openMenuBtn{display:inline-block; float:left; padding:10px; margin-top:-6px; margin-right: 5px; border-radius:5px; display:inline-block; position:relative; z-index:1000;}
-    #openMenuBtn.active,
-    #openMenuBtn:hover,
-    #openMenuBtn.focus{background-color:#2F88E0;}
-    #openMenuBtn img{width:20px;}
+    #openMenuBtn{display:inline-block; float:left; padding:10px; margin-top:-6px; margin-right: 5px; border-radius:5px; position:relative; z-index:1000;}
+    #openMenuBtn.active {display: none;}
+    #openMobileMenuBtn.active{display: inline-block; background-color:#1976D2;}
+    #openMenuBtn:hover, #openMenuBtn:focus,
+    #openMobileMenuBtn:hover, #openMobileMenuBtn:focus{background-color:#2F88E0;}
+    #openMenuBtn img, 
+    #openMobileMenuBtn img{width:20px;}
 
     .Content33 {
         width: 100%;

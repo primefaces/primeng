@@ -5,6 +5,9 @@
                 <a href="#" [routerLink]="['HomePage']">
                     <img alt="logo" src="showcase/resources/images/primeng.svg" />
                 </a>
+                <a href="#" id="openMobileMenuBtn" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
+                    <img alt="logo" src="showcase/resources/images/menuicon.svg"/>
+                </a>
                 <!--<img id="BlueLogo" alt="logo" src="showcase/resources/images/primeng.png" class="hiddenLogo"/> -->
             </span>
 
