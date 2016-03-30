@@ -33,6 +33,6 @@ export class OverlayPanelDemo {
     
     selectCar(event,car: Car, overlaypanel: OverlayPanel) {
         this.selectedCar = car;
-        overlaypanel.show(event);
+        overlaypanel.toggle(event);
     }
 }
