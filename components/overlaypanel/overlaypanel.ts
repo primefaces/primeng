@@ -63,7 +63,7 @@ export class OverlayPanel implements OnInit, OnDestroy {
     
     toggle(event,target?) {
         let currentTarget = (target||event.currentTarget||event.target);
-        
+                                
         if(!this.target||this.target == currentTarget) {
             if(this.visible)
                 this.hide();
@@ -73,15 +73,19 @@ export class OverlayPanel implements OnInit, OnDestroy {
         else {
             this.show(event, target);
         }
-
-        this.target = currentTarget;
         
         if(this.dismissable) {
             this.targetEvent = true;
         }
+
+        this.target = currentTarget;
     }
 
     show(event,target?) {
+        if(this.dismissable) {
+            this.targetEvent = true;
+        }
+        
         this.onBeforeShow.emit(null);
         let elementTarget = target||event.currentTarget||event.target;
         let container = this.el.nativeElement.children[0];
