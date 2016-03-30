@@ -12,7 +12,7 @@ declare var PUI: any;
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
-            <div class="ui-multiselect-label-container">
+            <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label [ngClass]="{'ui-multiselect-label ui-corner-all':true,'ui-state-hover':hover,'ui-state-focus':focus}">{{valuesAsString}}</label>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true,'ui-state-hover':hover,'ui-state-focus':focus}">
