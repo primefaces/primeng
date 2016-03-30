@@ -89,9 +89,6 @@ export class OverlayPanel implements OnInit, OnDestroy {
 
         if(this.visible) {
             this.domHandler.absolutePosition(container, elementTarget);
-            if(this.dismissable) {
-                this.hide();
-            }
         }
         else {
             this.visible = true;
