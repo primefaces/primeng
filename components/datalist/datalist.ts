@@ -64,7 +64,7 @@ export class DataList implements AfterViewInit,DoCheck {
 
     ngAfterViewInit() {
         if(this.lazy) {
-            this.onLazyLoad.next({
+            this.onLazyLoad.emit({
                 first: this.first,
                 rows: this.rows
             });
@@ -98,7 +98,7 @@ export class DataList implements AfterViewInit,DoCheck {
         this.rows = event.rows;
         
         if(this.lazy) {
-            this.onLazyLoad.next(this.createLazyLoadMetadata());
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
             this.updateDataToRender(this.value);

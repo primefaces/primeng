@@ -149,49 +149,49 @@ export class Schedule {
                 callback(this.events);
             },
             dayClick: (date, jsEvent, view) => {
-                this.onDayClick.next({
+                this.onDayClick.emit({
                     'date': date,
                     'jsEvent': jsEvent,
                     'view': view
                 });
             },
             eventClick: (calEvent, jsEvent, view) => {
-                this.onEventClick.next({
+                this.onEventClick.emit({
                     'calEvent': calEvent,
                     'jsEvent': jsEvent,
                     'view': view
                 });
             },
             eventMouseover: (calEvent, jsEvent, view) => {
-                this.onEventMouseover.next({
+                this.onEventMouseover.emit({
                     'calEvent': calEvent,
                     'jsEvent': jsEvent,
                     'view': view
                 });
             },
             eventMouseout: (calEvent, jsEvent, view) => {
-                this.onEventMouseover.next({
+                this.onEventMouseover.emit({
                     'calEvent': calEvent,
                     'jsEvent': jsEvent,
                     'view': view
                 });
             },
             eventDragStart: (event, jsEvent, ui, view) => {
-                this.onEventDragStart.next({
+                this.onEventDragStart.emit({
                     'event': event,
                     'jsEvent': jsEvent,
                     'view': view
                 });
             },
             eventDragStop: (event, jsEvent, ui, view) => {
-                this.onEventDragStop.next({
+                this.onEventDragStop.emit({
                     'event': event,
                     'jsEvent': jsEvent,
                     'view': view
                 });
             },
             eventDrop: (event, delta, revertFunc, jsEvent, ui, view) => {
-                this.onEventDragStop.next({
+                this.onEventDragStop.emit({
                     'event': event,
                     'delta': delta,
                     'revertFunc': revertFunc,
@@ -200,21 +200,21 @@ export class Schedule {
                 });
             },
             eventResizeStart: (event, jsEvent, ui, view) => {
-                this.onEventResizeStart.next({
+                this.onEventResizeStart.emit({
                     'event': event,
                     'jsEvent': jsEvent,
                     'view': view
                 });
             },
             eventResizeStop: (event, jsEvent, ui, view) => {
-                this.onEventResizeStop.next({
+                this.onEventResizeStop.emit({
                     'event': event,
                     'jsEvent': jsEvent,
                     'view': view
                 });
             },
             eventResize: (event, delta, revertFunc, jsEvent, ui, view) => {
-                this.onEventResize.next({
+                this.onEventResize.emit({
                     'event': event,
                     'delta': delta,
                     'revertFunc': revertFunc,

@@ -36,7 +36,7 @@ export class Panel {
     private hoverToggler: boolean;
     
     toggle(event) {
-        this.onBeforeToggle.next({originalEvent: event, collapsed: this.collapsed});
+        this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
         
         if(this.toggleable) {            
             if(this.collapsed)
@@ -45,7 +45,7 @@ export class Panel {
                 this.collapse(event);
         }
         
-        this.onAfterToggle.next({originalEvent: event, collapsed: this.collapsed});   
+        this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});   
         
         event.preventDefault();
     }

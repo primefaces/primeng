@@ -103,20 +103,20 @@ export class Dialog implements AfterViewInit, OnDestroy, OnChanges {
             minimizable: this.minimizable,
             maximizable: this.maximizable,
             responsive: this.responsive,
-            beforeShow: this.onBeforeShow ? (event: Event) => { this.onBeforeShow.next(event); } : null,
-            afterShow: this.onAfterShow ? (event: Event) => { this.onAfterShow.next(event); } : null,
-            beforeHide: this.onBeforeHide ? (event: Event) => { this.onBeforeHide.next(event); } : null,
-            afterHide: this.onAfterHide ? (event: Event) => { this.onAfterHide.next(event); } : null,
+            beforeShow: this.onBeforeShow ? (event: Event) => { this.onBeforeShow.emit(event); } : null,
+            afterShow: this.onAfterShow ? (event: Event) => { this.onAfterShow.emit(event); } : null,
+            beforeHide: this.onBeforeHide ? (event: Event) => { this.onBeforeHide.emit(event); } : null,
+            afterHide: this.onAfterHide ? (event: Event) => { this.onAfterHide.emit(event); } : null,
             clickClose: (event: Event) => {
                 this.stopNgOnChangesPropagation = true;
-                this.visibleChange.next(false);
+                this.visibleChange.emit(false);
             },
             hideWithEscape: (event: Event) => {
                 this.stopNgOnChangesPropagation = true;
-                this.visibleChange.next(false);
+                this.visibleChange.emit(false);
             },
-            minimize: this.onMinimize ? (event: Event) => { this.onMinimize.next(event); } : null,
-            maximize: this.onMaximize ? (event: Event) => { this.onMaximize.next(event); } : null,
+            minimize: this.onMinimize ? (event: Event) => { this.onMinimize.emit(event); } : null,
+            maximize: this.onMaximize ? (event: Event) => { this.onMaximize.emit(event); } : null,
             enhanced: true
         });
         this.initialized = true;

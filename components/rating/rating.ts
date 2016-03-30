@@ -42,8 +42,8 @@ export class Rating {
     
     rate(event, i: number): void {
         if(!this.readonly&&!this.disabled) {
-            this.valueChange.next(i + 1);
-            this.onRate.next({
+            this.valueChange.emit(i + 1);
+            this.onRate.emit({
                 originalEvent: event,
                 value: (i+1)
             });
@@ -52,8 +52,8 @@ export class Rating {
     
     clear(event): void {
         if(!this.readonly&&!this.disabled) {
-            this.valueChange.next(null);
-            this.onCancel.next(event);
+            this.valueChange.emit(null);
+            this.onCancel.emit(event);
         }
     }
 }

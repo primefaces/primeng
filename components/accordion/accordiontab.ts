@@ -42,7 +42,7 @@ export class AccordionTab {
         
         if(this.selected) {
             this.selected = !this.selected;
-            this.accordion.onClose.next({originalEvent: event, index: index});
+            this.accordion.onClose.emit({originalEvent: event, index: index});
         }
         else {
             if(!this.accordion.multiple) {
@@ -53,7 +53,7 @@ export class AccordionTab {
             
             this.selected = true;
             
-            this.accordion.onOpen.next({originalEvent: event, index: index});
+            this.accordion.onOpen.emit({originalEvent: event, index: index});
         }
 
         event.preventDefault();

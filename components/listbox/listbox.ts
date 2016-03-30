@@ -173,16 +173,16 @@ export class Listbox implements AfterViewChecked {
                     valueArr.push(this.options[itemIndex].value);
                 }
             }
-            this.valueChange.next(valueArr);
+            this.valueChange.emit(valueArr);
         }
         else {
             let selectedItem = this.domHandler.findSingle(item.parentNode, 'li.ui-state-highlight');
             if(selectedItem) {
                 let selectedIndex = this.domHandler.index(selectedItem);
-                this.valueChange.next(this.options[selectedIndex].value);
+                this.valueChange.emit(this.options[selectedIndex].value);
             }
             else {
-                this.valueChange.next(null);
+                this.valueChange.emit(null);
             }
         }
     }

@@ -85,7 +85,7 @@ export class SplitButton implements OnInit,OnDestroy {
     }
     
     onDefaultButtonClick(event) {
-        this.onClick.next(event);
+        this.onClick.emit(event);
     }
     
     onDropdownClick(event, menu, defaultbtn) {
@@ -96,7 +96,7 @@ export class SplitButton implements OnInit,OnDestroy {
     }
     
     onItemClick(event,item: SplitButtonItem) {
-        item.onClick.next(event);
+        item.onClick.emit(event);
         this.hoveredItem = null;
         
         if(!item.url) {

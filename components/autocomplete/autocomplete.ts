@@ -142,7 +142,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
     onInput(event) {
         let value = event.target.value;
         if(!this.multiple) {
-            this.valueChange.next(value);
+            this.valueChange.emit(value);
         }
         
         if(value.length === 0) {
@@ -170,7 +170,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
            return;
        }
        
-       this.completeMethod.next({
+       this.completeMethod.emit({
            originalEvent: event,
            query: query
        });
@@ -216,14 +216,14 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
             this.input.value = '';
             this.value = this.value||[];
             this.value.push(selectedValue);
-            this.valueChange.next(this.value);
+            this.valueChange.emit(this.value);
         }
         else {
             this.input.value = this.field ? this.resolveFieldData(selectedValue): selectedValue;
-            this.valueChange.next(selectedValue);
+            this.valueChange.emit(selectedValue);
         }
         
-        this.onSelect.next(selectedValue);
+        this.onSelect.emit(selectedValue);
         
         this.input.focus();
     }
@@ -261,7 +261,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
     }
     
     handleDropdownClick(event) {
-        this.onDropdownClick.next({
+        this.onDropdownClick.emit({
             originalEvent: event,
             query: this.input.value
         });
@@ -269,7 +269,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
     
     removeItem(item: any) {
         let itemIndex = this.domHandler.index(item);
-        this.onUnselect.next(this.suggestions[itemIndex]);
+        this.onUnselect.emit(this.suggestions[itemIndex]);
         this.value.splice(itemIndex, 1);
     }
     

@@ -36,7 +36,7 @@ export class Messages {
     }
 
     clear(event) {
-        this.valueChange.next([]);
+        this.valueChange.emit([]);
 
         event.preventDefault();
     }

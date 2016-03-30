@@ -227,7 +227,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     ngOnInit() {
         if(this.lazy) {
-            this.onLazyLoad.next({
+            this.onLazyLoad.emit({
                 first: this.first,
                 rows: this.rows,
                 sortField: this.sortField,
@@ -325,7 +325,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         this.rows = event.rows;
         
         if(this.lazy) {
-            this.onLazyLoad.next(this.createLazyLoadMetadata());
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
             this.updateDataToRender(this.value);
@@ -359,7 +359,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         let metaKey = event.metaKey||event.ctrlKey;
 
         if(this.lazy) {
-            this.onLazyLoad.next(this.createLazyLoadMetadata());
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
             if(this.sortMode == 'multiple') {
@@ -500,32 +500,32 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         if(selected && metaKey) {
             if(this.isSingleSelectionMode()) {
                 this.selection = null;
-                this.selectionChange.next(null);
+                this.selectionChange.emit(null);
             }
             else {
                 this.selection.splice(selectionIndex,1);
-                this.selectionChange.next(this.selection);
+                this.selectionChange.emit(this.selection);
             }
 
-            this.onRowUnselect.next({originalEvent: event, data: rowData});
+            this.onRowUnselect.emit({originalEvent: event, data: rowData});
         }
         else {
             if(this.isSingleSelectionMode()) {
                 this.selection = rowData;
-                this.selectionChange.next(rowData);
+                this.selectionChange.emit(rowData);
             }
             else if(this.isMultipleSelectionMode()) {
                 this.selection = (!metaKey) ? [] : this.selection||[];
                 this.selection.push(rowData);
-                this.selectionChange.next(this.selection);
+                this.selectionChange.emit(this.selection);
             }
 
-            this.onRowSelect.next({originalEvent: event, data: rowData});
+            this.onRowSelect.emit({originalEvent: event, data: rowData});
         }
     }
     
     rowDblclick(event, rowData) {
-        this.onRowDblclick.next({originalEvent: event, data: rowData});
+        this.onRowDblclick.emit({originalEvent: event, data: rowData});
     }
 
     isSingleSelectionMode() {
@@ -574,7 +574,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     filter() {
         if(this.lazy) {
-            this.onLazyLoad.next(this.createLazyLoadMetadata());
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
             this.filteredValue = [];
@@ -693,7 +693,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     switchCellToEditMode(element: any, column: Column, rowData: any) {
         if(!this.selectionMode && this.editable && column.editable) {
-            this.onEditInit.next({column: column, data: rowData});
+            this.onEditInit.emit({column: column, data: rowData});
             let cell = this.findCell(element);
             if(!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
                 this.domHandler.addClass(cell, 'ui-cell-editing');
@@ -710,9 +710,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             }
             else {
                 if(complete)
-                    this.onEditComplete.next({column: column, data: rowData});
+                    this.onEditComplete.emit({column: column, data: rowData});
                 else
-                    this.onEditCancel.next({column: column, data: rowData});
+                    this.onEditCancel.emit({column: column, data: rowData});
                     
                 let cell = this.findCell(element);
                 this.domHandler.removeClass(cell, 'ui-cell-editing');
@@ -723,7 +723,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     onCellEditorKeydown(event, column: Column, rowData: any) {
         if(this.editable) {
-            this.onEdit.next({originalEvent: event,column: column, data: rowData});
+            this.onEdit.emit({originalEvent: event,column: column, data: rowData});
             
             //enter
             if(event.keyCode == 13) {
@@ -751,7 +751,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         jQuery(this.el.nativeElement.children[0]).puicolresize({
             mode: this.columnResizeMode,
             colResize: (event: Event, ui: PrimeUI.ColResizeEventParams) => {
-                this.onColResize.next(ui.element);
+                this.onColResize.emit(ui.element);
             }
         });
     }
@@ -768,7 +768,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                     this.columns.splice(ui.dropIndex, 0, this.columns.splice(ui.dragIndex, 1)[0]);
                 }
                 
-                this.onColReorder.next({
+                this.onColReorder.emit({
                     dragIndex: ui.dragIndex,
                     dropIndex: ui.dropIndex,
                     columns: this.columns

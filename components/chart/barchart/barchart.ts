@@ -160,7 +160,7 @@ export class BarChart implements AfterViewInit, OnDestroy, DoCheck {
         if(this.chart) {
             let activeBars = this.chart.getBarsAtEvent(event);
             if(activeBars) {
-                this.onBarsSelect.next({originalEvent: event, bars: activeBars});
+                this.onBarsSelect.emit({originalEvent: event, bars: activeBars});
             }
         }
     }

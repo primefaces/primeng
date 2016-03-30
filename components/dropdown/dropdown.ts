@@ -333,8 +333,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.domHandler.addClass(item, 'ui-state-highlight');
             let selectedOption = this.options[this.findItemIndex(item.dataset.value, this.options)];
             this.label = selectedOption.label;
-            this.valueChange.next(selectedOption.value);
-            this.onChange.next(event);
+            this.valueChange.emit(selectedOption.value);
+            this.onChange.emit(event);
         }
     }
     

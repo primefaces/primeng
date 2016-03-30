@@ -42,8 +42,8 @@ export class ToggleButton {
     
     toggle(event) {
         if(!this.disabled) {
-            this.checkedChange.next(!this.checked);
-            this.onChange.next({
+            this.checkedChange.emit(!this.checked);
+            this.onChange.emit({
                 originalEvent: event,
                 checked: !this.checked
             })

@@ -105,7 +105,7 @@ export class Paginator {
             };
             this.updatePageLinks();
 
-            this.onPageChange.next(state);
+            this.onPageChange.emit(state);
         }
 
     }

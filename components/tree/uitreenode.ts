@@ -54,9 +54,9 @@ export class UITreeNode {
     
     toggle(event) {
         if(this.expanded)
-            this.tree.onNodeCollapse.next({originalEvent: event, node: this.node});
+            this.tree.onNodeCollapse.emit({originalEvent: event, node: this.node});
         else
-            this.tree.onNodeExpand.next({originalEvent: event, node: this.node});
+            this.tree.onNodeExpand.emit({originalEvent: event, node: this.node});
 
         this.expanded = !this.expanded
     }

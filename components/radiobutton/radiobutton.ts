@@ -31,8 +31,8 @@ export class RadioButton {
     hover: boolean;
 
     onclick() {
-        this.click.next(null);
-        this.modelChange.next(this.value);
+        this.click.emit(null);
+        this.modelChange.emit(this.value);
     }
     
     isChecked() {

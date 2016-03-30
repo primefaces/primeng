@@ -40,9 +40,9 @@ export class UITreeRow {
     
     toggle(event) {
         if(this.expanded)
-            this.treeTable.onNodeCollapse.next({originalEvent: event, node: this.node});
+            this.treeTable.onNodeCollapse.emit({originalEvent: event, node: this.node});
         else
-            this.treeTable.onNodeExpand.next({originalEvent: event, node: this.node});
+            this.treeTable.onNodeExpand.emit({originalEvent: event, node: this.node});
             
         this.expanded = !this.expanded;
     }

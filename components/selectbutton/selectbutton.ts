@@ -42,10 +42,10 @@ export class SelectButton {
                 this.value.push(option.value);
         }
         else {
-            this.valueChange.next(option.value);
+            this.valueChange.emit(option.value);
         }
         
-        this.onChange.next({
+        this.onChange.emit({
             originalEvent: event,
             value: this.value
         });

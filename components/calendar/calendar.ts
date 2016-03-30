@@ -5,7 +5,7 @@ import Datepicker = JQueryUI.Datepicker;
     selector: 'p-calendar',
     template:  `
         <input *ngIf="!inline" type="text" [attr.style]="style" [attr.placeholder]="placeholder"
-                [value]="value||''" (input)="valueChange.next($event.target.value)" [readonly]="readonlyInput"
+                [value]="value||''" (input)="valueChange.emit($event.target.value)" [readonly]="readonlyInput"
                 class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled"
                 (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="focused=false"
                 [ngClass]="{'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}"/>
@@ -86,8 +86,8 @@ export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
                 maxDate: this.maxDate,
                 onSelect: (dateText: string) => {
                     this.stopNgOnChangesPropagation = true;
-                    this.onSelect.next(dateText);
-                    this.valueChange.next(dateText);
+                    this.onSelect.emit(dateText);
+                    this.valueChange.emit(dateText);
                 }
             });
             this.initialized = true;

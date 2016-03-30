@@ -58,7 +58,7 @@ export class TabView {
                 selectedTab.selected = false
             }
             tab.selected = true;
-            this.onChange.next({originalEvent: event, index: this.findTabIndex(tab)});
+            this.onChange.emit({originalEvent: event, index: this.findTabIndex(tab)});
         }
         event.preventDefault();
     }
@@ -76,7 +76,7 @@ export class TabView {
         }
         
         tab.closed = true;
-        this.onClose.next({originalEvent: event, index: this.findTabIndex(tab)});
+        this.onClose.emit({originalEvent: event, index: this.findTabIndex(tab)});
         event.stopPropagation();
     }
     

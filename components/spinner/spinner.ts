@@ -104,7 +104,7 @@ export class Spinner implements AfterViewInit {
         }
         
         inputElement.value = this.value;
-        this.valueChange.next(this.value);
+        this.valueChange.emit(this.value);
     }
     
     toFixed(value: number, precision: number) {
@@ -187,7 +187,7 @@ export class Spinner implements AfterViewInit {
     
     onInput(event) {
         this.value = this.parseValue(event.target.value);        
-        this.valueChange.next(this.value);
+        this.valueChange.emit(this.value);
     }
     
     onBlur(inputElement) {
@@ -225,7 +225,7 @@ export class Spinner implements AfterViewInit {
     }
     
     handleChange(event) {
-        this.onChange.next(event);
+        this.onChange.emit(event);
     }
         
     clearTimer() {

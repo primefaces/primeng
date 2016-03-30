@@ -92,7 +92,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     
     load() {
         if(this.lazy) {
-            this.onLazyLoad.next({
+            this.onLazyLoad.emit({
                 first: this.first,
                 rows: this.rows
             });

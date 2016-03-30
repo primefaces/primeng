@@ -40,7 +40,7 @@ export class Checkbox {
             return;
         }
         
-        this.onChange.next(!input.checked);
+        this.onChange.emit(!input.checked);
 
         if(this.model) {
             if (!input.checked)
@@ -48,10 +48,10 @@ export class Checkbox {
             else
                 this.removeValue(input.value);
 
-            this.modelChange.next(this.model);
+            this.modelChange.emit(this.model);
         }
         else {
-            this.checkedChange.next(!input.checked);
+            this.checkedChange.emit(!input.checked);
         }
     }
 

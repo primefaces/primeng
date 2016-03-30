@@ -153,8 +153,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             this.value.push(value);
         }
         
-        this.onChange.next({originalEvent: event, value: this.value});
-        this.valueChange.next(this.value);
+        this.onChange.emit({originalEvent: event, value: this.value});
+        this.valueChange.emit(this.value);
     }   
     
     isSelected(value) {
@@ -190,8 +190,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             }
         }
         checkbox.checked = !checkbox.checked;
-        this.onChange.next({originalEvent: event, value: this.value});
-        this.valueChange.next(this.value);
+        this.onChange.emit({originalEvent: event, value: this.value});
+        this.valueChange.emit(this.value);
     } 
     
     isAllChecked() {

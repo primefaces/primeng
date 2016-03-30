@@ -51,9 +51,9 @@ export class InputSwitch implements AfterContentInit, OnDestroy, OnChanges {
                 enhanced: true,
                 change: (event: Event, ui: PrimeUI.InputSwitchEventParams) => {
                     this.stopNgOnChangesPropagation = true;
-                    this.checkedChange.next(ui.checked);
+                    this.checkedChange.emit(ui.checked);
                     if (this.onChange) {
-                        this.onChange.next({originalEvent: event, checked: ui.checked});
+                        this.onChange.emit({originalEvent: event, checked: ui.checked});
                     }
                 }
             });

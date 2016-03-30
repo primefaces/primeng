@@ -170,7 +170,7 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
         if(this.chart) {
             let activePoints = this.chart.getPointsAtEvent(event);
             if(activePoints) {
-                this.onPointsSelect.next({originalEvent: event, points: activePoints});
+                this.onPointsSelect.emit({originalEvent: event, points: activePoints});
             }
         }
     }

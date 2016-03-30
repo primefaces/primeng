@@ -48,26 +48,26 @@ export class Tree {
                    
             if(selected && metaKey) {
                 if(this.isSingleSelectionMode()) {
-                    this.selectionChange.next(null);
+                    this.selectionChange.emit(null);
                 }
                 else {
                     this.selection.splice(index,1);
-                    this.selectionChange.next(this.selection);
+                    this.selectionChange.emit(this.selection);
                 }
 
-                this.onNodeUnselect.next({originalEvent: event, node: node});
+                this.onNodeUnselect.emit({originalEvent: event, node: node});
             }
             else {
                 if(this.isSingleSelectionMode()) {
-                    this.selectionChange.next(node);
+                    this.selectionChange.emit(node);
                 }
                 else if(this.isMultipleSelectionMode()) {
                     this.selection = (!event.metaKey) ? [] : this.selection||[];
                     this.selection.push(node);
-                    this.selectionChange.next(this.selection);
+                    this.selectionChange.emit(this.selection);
                 }
 
-                this.onNodeSelect.next({originalEvent: event, node: node});
+                this.onNodeSelect.emit({originalEvent: event, node: node});
             }
         }
     }
