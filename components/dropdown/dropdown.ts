@@ -55,8 +55,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
 
     @Input() filter: boolean;
 
-    @Input() filterMatchMode: string;
-
     @Input() style: string;
 
     @Input() styleClass: string;
