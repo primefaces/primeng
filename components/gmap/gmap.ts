@@ -36,11 +36,10 @@ export class GMap implements AfterViewInit,DoCheck {
                 overlay.setMap(this.map);
                 
                 overlay.addListener('click', (event) => {
-                    console.log('click');
                     this.zone.run(() => {
                         this.onOverlayClick.emit({
                             originalEvent: event,
-                            overlay: overlay,
+                            'overlay': overlay,
                             map: this.map
                         });
                     });
@@ -58,16 +57,16 @@ export class GMap implements AfterViewInit,DoCheck {
     ngDoCheck() {
         let changes = this.differ.diff(this.overlays);
         
-        if(changes) {
+        if(changes && this.map) {
             changes.forEachRemovedItem((record) => {record.item.setMap(null)});
             changes.forEachAddedItem((record) => {
                 record.item.setMap(this.map);
-                
                 record.item.addListener('click', (event) => {
                     this.zone.run(() => {
                         this.onOverlayClick.emit({
                             originalEvent: event,
-                            overlay: record.item
+                            overlay: record.item,
+                            map: this.map
                         });
                     });
                 });

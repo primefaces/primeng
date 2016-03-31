@@ -45,11 +45,13 @@ export class GMapDemo implements OnInit {
     }
     
     handleMapClick(event) {
+        console.log('map');
         this.dialogVisible = true;
         this.selectedPosition = event.latLng;
     }
     
     handleOverlayClick(event) {
+        console.log('overlay');
         this.msgs = [];
         let isMarker = event.overlay.getTitle != undefined;
         
@@ -57,6 +59,7 @@ export class GMapDemo implements OnInit {
             let title = event.overlay.getTitle();
             this.infoWindow.setContent('<div>' + title + '</div>');
             this.infoWindow.open(event.map, event.overlay);
+            event.map.setCenter(event.overlay.getPosition());
             
             this.msgs.push({severity:'info', summary:'Marker Selected', detail: title});
         }
