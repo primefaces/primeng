@@ -6,8 +6,22 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-gmap style="width:100%;height:320px" [options]="options" [markers]="markers"></p-gmap>
-    <button type="button" pButton label="Clear" icon="fa-clear" (click)="clear()"></button>
+    <p-gmap style="width:100%;height:320px" [options]="options" [markers]="markers" (onMapClick)="handleMapClick($event)"></p-gmap>
+    <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()"></button>
+{{dialogVisible}} {{selectedPosition}}
+    <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location">
+        <div class="ui-grid ui-fluid">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="title">Label</label></div>
+                <div class="ui-grid-col-10"><input type="text" pInputText id="title" [(ngModel)]="markerTitle"></div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="button" pButton label="Add Marker" icon="fa-plus" (click)="addMarker()"></button>
+            </div>
+        </footer>
+    </p-dialog>
 </div>
 
 <div class="ContentSideSections Source">

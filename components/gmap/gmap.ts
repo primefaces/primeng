@@ -1,4 +1,4 @@
-import {Component,ElementRef,OnInit,AfterViewInit,DoCheck,OnDestroy,Input,Output,EventEmitter,IterableDiffers} from 'angular2/core';
+import {Component,ElementRef,OnInit,AfterViewInit,DoCheck,OnDestroy,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from 'angular2/core';
 
 declare var google: any;
 
@@ -16,11 +16,13 @@ export class GMap implements AfterViewInit,DoCheck {
     
     @Input() markers: any[];
     
+    @Output() onMapClick: EventEmitter<any> = new EventEmitter();
+    
     differ: any;
     
     map: any;
 
-    constructor(private el: ElementRef,differs: IterableDiffers) {
+    constructor(private el: ElementRef,differs: IterableDiffers, private cd: ChangeDetectorRef, private zone:NgZone) {
         this.differ = differs.find([]).create(null);
     }
 
@@ -32,6 +34,12 @@ export class GMap implements AfterViewInit,DoCheck {
                 marker.setMap(this.map);
             }
         }
+        
+        this.map.addListener('click', (event) => {
+            this.zone.run(() => {
+                this.onMapClick.emit(event);
+            });
+        });
     }
     
     ngDoCheck() {
@@ -39,7 +47,7 @@ export class GMap implements AfterViewInit,DoCheck {
         
         if(changes) {
             changes.forEachRemovedItem((record) => {record.item.setMap(null)});
-            changes.forEachRemovedItem((record) => {record.item.setMap(this.map)});
+            changes.forEachAddedItem((record) => {record.item.setMap(this.map)});
         }
     }
 
