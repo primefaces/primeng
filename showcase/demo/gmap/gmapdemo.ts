@@ -5,15 +5,17 @@ import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
 import {Dialog} from '../../../components/dialog/dialog';
+import {Growl} from '../../../components/growl/growl';
 import {InputText} from '../../../components/inputtext/inputtext';
 import {Footer} from '../../../components/common/footer';
+import {Message} from '../../../components/api/message';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 declare var google: any;
 
 @Component({
     templateUrl: 'showcase/demo/gmap/gmapdemo.html',
-    directives: [GMap,TabPanel,TabView,Button,Dialog,InputText,Footer,CodeHighlighter,ROUTER_DIRECTIVES]
+    directives: [GMap,TabPanel,TabView,Button,Dialog,InputText,Growl,Footer,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class GMapDemo implements OnInit {
 
@@ -27,6 +29,8 @@ export class GMapDemo implements OnInit {
     
     selectedPosition: any;
     
+    msgs: Message[] = [];
+
     ngOnInit() {
         this.options = {
             center: {lat: 36.890257, lng: 30.707417},
@@ -43,6 +47,11 @@ export class GMapDemo implements OnInit {
     handleMapClick(event) {
         this.dialogVisible = true;
         this.selectedPosition = event.latLng;
+    }
+    
+    handleOverlayClick(event) {
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'Marker Selected', detail:event.overlay.getTitle()});
     }
     
     addMarker() {

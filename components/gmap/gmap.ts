@@ -18,6 +18,8 @@ export class GMap implements AfterViewInit,DoCheck {
     
     @Output() onMapClick: EventEmitter<any> = new EventEmitter();
     
+    @Output() onOverlayClick: EventEmitter<any> = new EventEmitter();
+    
     differ: any;
     
     map: any;
@@ -32,6 +34,15 @@ export class GMap implements AfterViewInit,DoCheck {
         if(this.markers) {
             for(let marker of this.markers) {
                 marker.setMap(this.map);
+                
+                marker.addListener('click', (event) => {
+                    this.zone.run(() => {
+                        this.onOverlayClick.emit({
+                            originalEvent: event,
+                            overlay: marker
+                        });
+                    });
+                });
             }
         }
         
@@ -47,7 +58,18 @@ export class GMap implements AfterViewInit,DoCheck {
         
         if(changes) {
             changes.forEachRemovedItem((record) => {record.item.setMap(null)});
-            changes.forEachAddedItem((record) => {record.item.setMap(this.map)});
+            changes.forEachAddedItem((record) => {
+                record.item.setMap(this.map);
+                
+                record.item.addListener('click', (event) => {
+                    this.zone.run(() => {
+                        this.onOverlayClick.emit({
+                            originalEvent: event,
+                            overlay: record.item
+                        });
+                    });
+                });
+            });
         }
     }
 
