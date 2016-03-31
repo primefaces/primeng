@@ -8,12 +8,20 @@
 <div class="ContentSideSections Implementation">
     <p-gmap style="width:100%;height:320px" [options]="options" [markers]="markers" (onMapClick)="handleMapClick($event)"></p-gmap>
     <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()"></button>
-{{dialogVisible}} {{selectedPosition}}
+
     <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location">
-        <div class="ui-grid ui-fluid">
+        <div class="ui-grid ui-grid-pad ui-fluid" *ngIf="selectedPosition">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2"><label for="title">Label</label></div>
                 <div class="ui-grid-col-10"><input type="text" pInputText id="title" [(ngModel)]="markerTitle"></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="lat">Lat</label></div>
+                <div class="ui-grid-col-10"><input id="lat" type="text" readonly pInputText [value]="selectedPosition.lat()"></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="lng">Lng</label></div>
+                <div class="ui-grid-col-10"><input id="lng" type="text" readonly pInputText [value]="selectedPosition.lng()"></div>
             </div>
         </div>
         <footer>

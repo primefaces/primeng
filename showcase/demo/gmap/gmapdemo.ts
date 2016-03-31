@@ -43,7 +43,6 @@ export class GMapDemo implements OnInit {
     handleMapClick(event) {
         this.dialogVisible = true;
         this.selectedPosition = event.latLng;
-        console.log(this.selectedPosition);
     }
     
     addMarker() {
