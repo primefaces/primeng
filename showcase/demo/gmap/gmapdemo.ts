@@ -96,6 +96,14 @@ export class GMapDemo implements OnInit {
         }
     }
     
+    zoomIn(map) {
+        map.setZoom(map.getZoom()+1);
+    }
+    
+    zoomOut(map) {
+        map.setZoom(map.getZoom()-1);
+    }
+    
     clear() {
         this.overlays = [];
     }
