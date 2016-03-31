@@ -11,16 +11,23 @@ export class GMap implements AfterViewInit {
     @Input() style: string;
         
     @Input() styleClass: string;
+    
+    @Input() options: any;
+    
+    @Input() markers: any[];
 
     constructor(private el: ElementRef) {}
     
     map: any;
 
     ngAfterViewInit() {
-        this.map = new google.maps.Map(this.el.nativeElement.children[0], {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
+        this.map = new google.maps.Map(this.el.nativeElement.children[0], this.options);
+        
+        if(this.markers) {
+            for(let marker of this.markers) {
+                marker.setMap(this.map);
+            }
+        }
     }
 
 }
