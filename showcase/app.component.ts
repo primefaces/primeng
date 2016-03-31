@@ -78,6 +78,7 @@ import {AutoCompleteDemo} from "./demo/autocomplete/autocompletedemo";
 import {EditorDemo} from "./demo/editor/editordemo";
 import {ResponsiveDemo} from "./demo/responsive/responsivedemo";
 import {MultiSelectDemo} from "./demo/multiselect/multiselectdemo";
+import {GMapDemo} from "./demo/gmap/gmapdemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -162,7 +163,8 @@ import {MultiSelectDemo} from "./demo/multiselect/multiselectdemo";
     {path: '/autocomplete', name: 'AutoCompleteDemo', component: AutoCompleteDemo},
     {path: '/editor', name: 'EditorDemo', component: EditorDemo},
     {path: '/responsive', name: 'ResponsiveDemo', component: ResponsiveDemo},
-    {path: '/multiselect', name: 'MultiSelectDemo', component: MultiSelectDemo}
+    {path: '/multiselect', name: 'MultiSelectDemo', component: MultiSelectDemo},
+    {path: '/gmap', name: 'GMapDemo', component: GMapDemo}
 ])
 export class AppComponent {
 
