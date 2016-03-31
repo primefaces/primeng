@@ -10,7 +10,8 @@
     
     <p-gmap style="width:100%;height:320px" [options]="options" [overlays]="overlays" 
         (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)"></p-gmap>
-    <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"></button>
+    <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin:10px 10px 0 0"></button>
+    <button type="button" pButton label="Add" icon="fa-map-marker" (click)="add()" style="margin-top: 10px"></button>
 
     <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location">
         <div class="ui-grid ui-grid-pad ui-fluid" *ngIf="selectedPosition">
