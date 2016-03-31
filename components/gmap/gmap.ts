@@ -40,7 +40,8 @@ export class GMap implements AfterViewInit,DoCheck {
                     this.zone.run(() => {
                         this.onOverlayClick.emit({
                             originalEvent: event,
-                            overlay: overlay
+                            overlay: overlay,
+                            map: this.map
                         });
                     });
                 });
@@ -73,5 +74,4 @@ export class GMap implements AfterViewInit,DoCheck {
             });
         }
     }
-
 }

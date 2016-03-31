@@ -29,6 +29,8 @@ export class GMapDemo implements OnInit {
     
     selectedPosition: any;
     
+    infoWindow: any;
+    
     msgs: Message[] = [];
 
     ngOnInit() {
@@ -38,6 +40,8 @@ export class GMapDemo implements OnInit {
         };
         
         this.add();
+        
+        this.infoWindow = new google.maps.InfoWindow();
     }
     
     handleMapClick(event) {
@@ -47,7 +51,18 @@ export class GMapDemo implements OnInit {
     
     handleOverlayClick(event) {
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Overlay Selected', detail: event.overlay.getTitle ? event.overlay.getTitle() : 'Shape'});
+        let isMarker = event.overlay.getTitle != undefined;
+        
+        if(isMarker) {
+            let title = event.overlay.getTitle();
+            this.infoWindow.setContent('<div>' + title + '</div>');
+            this.infoWindow.open(event.map, event.overlay);
+            
+            this.msgs.push({severity:'info', summary:'Marker Selected', detail: title});
+        }
+        else {
+            this.msgs.push({severity:'info', summary:'Shape Selected', detail: ''});
+        }        
     }
     
     addMarker() {
