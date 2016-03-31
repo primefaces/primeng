@@ -1,7 +1,8 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">GMap</span>
-        <span class="defaultText dispTable">GMap component provides integration with Google Maps API.</span>
+        <span class="defaultText dispTable">GMap component provides integration with Google Maps API. This sample demontrates
+        various uses cases like binding, overlays and events. Click the map to add a new item.</span>
     </div>
 </div>
 
@@ -10,11 +11,10 @@
     
     <p-gmap #gmap style="width:100%;height:320px" [options]="options" [overlays]="overlays" 
         (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"></p-gmap>
-    <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin:10px 10px 0 0"></button>
+    <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"></button>
     <button type="button" pButton label="Reset" icon="fa-map-marker" (click)="initOverlays()" style="margin-top: 10px"></button>
     <button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())" style="margin-top: 10px"></button>
     <button type="button" pButton label="Zoom Out" icon="fa-search-minus" (click)="zoomOut(gmap.getMap())" style="margin-top: 10px"></button>
-
 
     <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location">
         <div class="ui-grid ui-grid-pad ui-fluid" *ngIf="selectedPosition">
@@ -49,51 +49,153 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Growl} from 'primeng/primeng';
+import {GMap} from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>A single message is specified by Message interface in PrimeNG that defines the severity, summary and detail properties.
-            Messages to display on growl are defined using the value property which should an array of Message instances.</p>
+            <p>A map is initialized with options and dimensions. Refer to the google maps api for the list of available options.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+&lt;p-gmap [options]="options" style="width:100%;height:320px" &gt;&lt;/p-gmap&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-import {Message} from 'primeng/primeng';
-
 export class MyModel {
 
-    msgs: Message[] = [];
+    options: any;
+    
+    overlays: any[];
+    
+    ngOnInit() {
+        this.options = {
+            center: {lat: 36.890257, lng: 30.707417},
+            zoom: 12
+        };
+    }
 
 }
 </code>
 </pre>
 
-            <h3>Showing Messages</h3>
-            <p>Adding messages to the array is enough to display them via growl. Similary removing a message
-            from the array is also removed by growl.</p>
+            <h3>Overlays</h3>
+            <p>GMap can display any type of overlay such as markers, polygons and circles. Overlay instances are bound using the overlays property array. Overlays are aware
+            of one-way binding so whenever the array changes, gmap updates itself.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
-    
-&lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
-&lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
+&lt;p-gmap [options]="options" [overlays]="overlays" style="width:100%;height:320px" &gt;&lt;/p-gmap&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-show() {
-    this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
-}
+export class MyModel {
 
-hide() {
-    this.msgs = [];
+    options: any;
+    
+    overlays: any[];
+    
+    ngOnInit() {
+        this.options = {
+            center: {lat: 36.890257, lng: 30.707417},
+            zoom: 12
+        };
+        
+        this.overlays = [
+            new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
+            new google.maps.Marker({position: {lat: 36.883707, lng: 30.689216}, title:"Ataturk Park"}),
+            new google.maps.Marker({position: {lat: 36.885233, lng: 30.702323}, title:"Oldtown"}),
+            new google.maps.Polygon({paths: [
+                {lat: 36.9177, lng: 30.7854},{lat: 36.8851, lng: 30.7802},{lat: 36.8829, lng: 30.8111},{lat: 36.9177, lng: 30.8159}
+            ], strokeOpacity: 0.5, strokeWeight: 1,fillColor: '#1976D2', fillOpacity: 0.35
+            }),
+            new google.maps.Circle({center: {lat: 36.90707, lng: 30.56533}, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500}),
+            new google.maps.Polyline({path: [{lat: 36.86149, lng: 30.63743},{lat: 36.86341, lng: 30.72463}], geodesic: true, strokeColor: '#FF0000', strokeOpacity: 0.5, strokeWeight: 2})
+        ];
+    }
+}
+</code>
+</pre>
+
+            <h3>Events</h3>
+            <p>GMap provides common callbacks to hook into events including map click, overlay click and overlay dragging.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-gmap [options]="options" [overlays]="overlays" style="width:100%;height:320px" 
+            (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)"&gt;&lt;/p-gmap&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class MyModel {
+
+    options: any;
+    
+    overlays: any[];
+    
+    ngOnInit() {
+        this.options = {
+            center: {lat: 36.890257, lng: 30.707417},
+            zoom: 12
+        };
+        
+        this.overlays = [
+            new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
+            new google.maps.Marker({position: {lat: 36.883707, lng: 30.689216}, title:"Ataturk Park"}),
+            new google.maps.Marker({position: {lat: 36.885233, lng: 30.702323}, title:"Oldtown"}),
+            new google.maps.Polygon({paths: [
+                {lat: 36.9177, lng: 30.7854},{lat: 36.8851, lng: 30.7802},{lat: 36.8829, lng: 30.8111},{lat: 36.9177, lng: 30.8159}
+            ], strokeOpacity: 0.5, strokeWeight: 1,fillColor: '#1976D2', fillOpacity: 0.35
+            }),
+            new google.maps.Circle({center: {lat: 36.90707, lng: 30.56533}, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500}),
+            new google.maps.Polyline({path: [{lat: 36.86149, lng: 30.63743},{lat: 36.86341, lng: 30.72463}], geodesic: true, strokeColor: '#FF0000', strokeOpacity: 0.5, strokeWeight: 2})
+        ];
+    }
+    
+    handleMapClick(event) {
+        //event: MouseEvent of Google Maps api
+    }
+    
+    handleOverlayClick(event) {
+        //event.originalEvent: MouseEvent of Google Maps api
+        //event.overlay: Clicked overlay     
+        //event.map: Map instance   
+    }
+}
+</code>
+</pre>
+
+            <h3>Google Maps API</h3>
+            <p>In case you need to access the map instance directly, use the getMap() method.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-gmap #gmap [options]="options"&gt;&lt;/p-gmap&gt;
+
+&lt;button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())"&gt;&lt;/button&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class MyModel {
+
+    options: any;
+    
+    overlays: any[];
+    
+    ngOnInit() {
+        this.options = {
+            center: {lat: 36.890257, lng: 30.707417},
+            zoom: 12
+        };
+    }
+    
+    zoomIn(map) {
+        map.setZoom(map.getZoom()+1);
+    }
 }
 </code>
 </pre>
@@ -110,73 +212,84 @@ hide() {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>value</td>
-                        <td>array</td>
-                        <td>null</td>
-                        <td>An array of messages to display.</td>
-                    </tr>
-                    <tr>
-                        <td>sticky</td>
-                        <td>boolean</td>
-                        <td>false</td>
-                        <td>When defined, growl messages are not removed automatically after a period defined by life option.</td>
-                    </tr>
-                    <tr>
-                        <td>life</td>
-                        <td>number</td>
-                        <td>3000</td>
-                        <td>Time to display a message in milliseconds before removing it.</td>
-                    </tr>
+                        <tr>
+                            <td>options</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Google Maps API configuration object.</td>
+                        </tr>
+                        <tr>
+                            <td>overlays</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of overlays to display.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-
-            <h3>Styling</h3>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+            
+            <h3>Events</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Element</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-growl</td>
-                            <td>Main container element.</td>
+                            <td>onMapClick</td>
+                            <td>event: Google Maps MouseEvent</td>
+                            <td>Callback to invoke when map is clicked except markers.</td>
                         </tr>
                         <tr>
-                            <td>ui-growl-container</td>
-                            <td>Container of a message item.</td>
+                            <td>onOverlayClick</td>
+                            <td>originalEvent: Google Maps MouseEvent <br>
+                                overlay: Clicked overlay <br>
+                                map: Map instance <br></td>
+                            <td>Callback to invoke when an overlay is clicked.</td>
                         </tr>
                         <tr>
-                            <td>ui-growl-item</td>
-                            <td>Message element.</td>
+                            <td>onOverlayDragStart</td>
+                            <td>originalEvent: Google Maps MouseEvent <br>
+                                overlay: Clicked overlay <br>
+                                map: Map instance <br></td>
+                            <td>Callback to invoke when an overlay drag starts.</td>
                         </tr>
                         <tr>
-                            <td>ui-growl-icon-close</td>
-                            <td>Close icon of a message.</td>
+                            <td>onOverlayDrag</td>
+                            <td>originalEvent: Google Maps MouseEvent <br>
+                                overlay: Clicked overlay <br>
+                                map: Map instance <br></td>
+                            <td>Callback to invoke when an overlay is being dragged.</td>
                         </tr>
                         <tr>
-                            <td>ui-growl-image</td>
-                            <td>Severity icon.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-growl-message</td>
-                            <td>Container of message texts.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-growl-title</td>
-                            <td>Summary of the message.</td>
+                            <td>onOverlayDragEnd</td>
+                            <td>originalEvent: Google Maps MouseEvent <br>
+                                overlay: Clicked overlay <br>
+                                map: Map instance <br></td>
+                            <td>Callback to invoke when an overlay drag ends.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI Growl.</p>
+            <p>Google Maps API.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -184,48 +297,131 @@ hide() {
 <code class="language-markup" pCode>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;div&gt;
-    &lt;button type="button" pButton (click)="showInfo()" label="Info"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton (click)="showWarn()" label="Warn"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton (click)="showError()" label="Error"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"&gt;&lt;/button&gt;
-&lt;/div&gt;
+&lt;p-gmap #gmap style="width:100%;height:320px" [options]="options" [overlays]="overlays" 
+    (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"&gt;&lt;/p-gmap&gt;
+&lt;button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"&gt;&lt;/button&gt;
+&lt;button type="button" pButton label="Reset" icon="fa-map-marker" (click)="initOverlays()" style="margin-top: 10px"&gt;&lt;/button&gt;
+&lt;button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())" style="margin-top: 10px"&gt;&lt;/button&gt;
+&lt;button type="button" pButton label="Zoom Out" icon="fa-search-minus" (click)="zoomOut(gmap.getMap())" style="margin-top: 10px"&gt;&lt;/button&gt;
+
+&lt;p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location"&gt;
+    &lt;div class="ui-grid ui-grid-pad ui-fluid" *ngIf="selectedPosition"&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-2"&gt;&lt;label for="title"&gt;Label&lt;/label&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-10"&gt;&lt;input type="text" pInputText id="title" [(ngModel)]="markerTitle"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-2"&gt;&lt;label for="lat"&gt;Lat&lt;/label&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-10"&gt;&lt;input id="lat" type="text" readonly pInputText [value]="selectedPosition.lat()"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-2"&gt;&lt;label for="lng"&gt;Lng&lt;/label&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-10"&gt;&lt;input id="lng" type="text" readonly pInputText [value]="selectedPosition.lng()"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-2"&gt;&lt;label for="drg"&gt;Drag&lt;/label&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-10"&gt;&lt;p-checkbox [(checked)]="draggable"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;footer&gt;
+        &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
+            &lt;button type="button" pButton label="Add Marker" icon="fa-plus" (click)="addMarker()"&gt;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/footer&gt;
+&lt;/p-dialog&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-import {Message} from 'primeng/primeng';
+export class GMapDemo implements OnInit {
 
-export class GrowlDemo {
-
+    options: any;
+    
+    overlays: any[];
+    
+    dialogVisible: boolean;
+    
+    markerTitle: string;
+    
+    selectedPosition: any;
+    
+    infoWindow: any;
+    
+    draggable: boolean;
+    
     msgs: Message[] = [];
 
-    showInfo() {
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
+    ngOnInit() {
+        this.options = {
+            center: {lat: 36.890257, lng: 30.707417},
+            zoom: 12
+        };
+        
+        this.initOverlays();
+        
+        this.infoWindow = new google.maps.InfoWindow();
     }
-
-    showWarn() {
-        this.msgs = [];
-        this.msgs.push({severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'});
+    
+    handleMapClick(event) {
+        this.dialogVisible = true;
+        this.selectedPosition = event.latLng;
     }
-
-    showError() {
+    
+    handleOverlayClick(event) {
         this.msgs = [];
-        this.msgs.push({severity:'error', summary:'Error Message', detail:'Validation failed'});
+        let isMarker = event.overlay.getTitle != undefined;
+        
+        if(isMarker) {
+            let title = event.overlay.getTitle();
+            this.infoWindow.setContent('<div>' + title + '</div>');
+            this.infoWindow.open(event.map, event.overlay);
+            event.map.setCenter(event.overlay.getPosition());
+            
+            this.msgs.push({severity:'info', summary:'Marker Selected', detail: title});
+        }
+        else {
+            this.msgs.push({severity:'info', summary:'Shape Selected', detail: ''});
+        }        
     }
-
-    showMultiple() {
+    
+    addMarker() {
+        this.overlays.push(new google.maps.Marker({position:{lat: this.selectedPosition.lat(), lng: this.selectedPosition.lng()}, title:this.markerTitle, draggable: this.draggable}));
+        this.markerTitle = null;
+        this.dialogVisible = false;
+    }
+    
+    handleDragEnd(event) {
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Message 1', detail:'PrimeNG rocks'});
-        this.msgs.push({severity:'info', summary:'Message 2', detail:'PrimeUI rocks'});
-        this.msgs.push({severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'});
+        this.msgs.push({severity:'info', summary:'Marker Dragged', detail: event.overlay.getTitle()});
     }
-
+    
+    initOverlays() {
+        if(!this.overlays||!this.overlays.length) {
+            this.overlays = [
+                new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
+                new google.maps.Marker({position: {lat: 36.883707, lng: 30.689216}, title:"Ataturk Park"}),
+                new google.maps.Marker({position: {lat: 36.885233, lng: 30.702323}, title:"Oldtown"}),
+                new google.maps.Polygon({paths: [
+                    {lat: 36.9177, lng: 30.7854},{lat: 36.8851, lng: 30.7802},{lat: 36.8829, lng: 30.8111},{lat: 36.9177, lng: 30.8159}
+                ], strokeOpacity: 0.5, strokeWeight: 1,fillColor: '#1976D2', fillOpacity: 0.35
+                }),
+                new google.maps.Circle({center: {lat: 36.90707, lng: 30.56533}, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500}),
+                new google.maps.Polyline({path: [{lat: 36.86149, lng: 30.63743},{lat: 36.86341, lng: 30.72463}], geodesic: true, strokeColor: '#FF0000', strokeOpacity: 0.5, strokeWeight: 2})
+            ];
+        }
+    }
+    
+    zoomIn(map) {
+        map.setZoom(map.getZoom()+1);
+    }
+    
+    zoomOut(map) {
+        map.setZoom(map.getZoom()-1);
+    }
+    
     clear() {
-        this.msgs = [];
+        this.overlays = [];
     }
 }
 </code>
