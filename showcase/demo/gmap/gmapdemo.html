@@ -9,9 +9,9 @@
     <p-growl [value]="msgs"></p-growl>
     
     <p-gmap style="width:100%;height:320px" [options]="options" [overlays]="overlays" 
-        (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)"></p-gmap>
+        (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"></p-gmap>
     <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin:10px 10px 0 0"></button>
-    <button type="button" pButton label="Add" icon="fa-map-marker" (click)="add()" style="margin-top: 10px"></button>
+    <button type="button" pButton label="Reset" icon="fa-map-marker" (click)="reset()" style="margin-top: 10px"></button>
 
     <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location">
         <div class="ui-grid ui-grid-pad ui-fluid" *ngIf="selectedPosition">
@@ -26,6 +26,10 @@
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2"><label for="lng">Lng</label></div>
                 <div class="ui-grid-col-10"><input id="lng" type="text" readonly pInputText [value]="selectedPosition.lng()"></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="drg">Drag</label></div>
+                <div class="ui-grid-col-10"><p-checkbox [(checked)]="draggable"></p-checkbox></div>
             </div>
         </div>
         <footer>

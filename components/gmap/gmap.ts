@@ -20,6 +20,12 @@ export class GMap implements AfterViewInit,DoCheck {
     
     @Output() onOverlayClick: EventEmitter<any> = new EventEmitter();
     
+    @Output() onOverlayDragStart: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onOverlayDrag: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onOverlayDragEnd: EventEmitter<any> = new EventEmitter();
+    
     differ: any;
     
     map: any;
@@ -44,6 +50,10 @@ export class GMap implements AfterViewInit,DoCheck {
                         });
                     });
                 });
+                
+                if(overlay.getDraggable()) {
+                    this.bindDragEvents(overlay);
+                }
             }
         }
         
@@ -70,7 +80,48 @@ export class GMap implements AfterViewInit,DoCheck {
                         });
                     });
                 });
+                
+                if(record.item.getDraggable()) {
+                    this.bindDragEvents(record.item);
+                }
             });
         }
+    }
+    
+    bindDragEvents(overlay) {
+        overlay.addListener('dragstart', (event) => {
+            this.zone.run(() => {
+                this.onOverlayDragStart.emit({
+                    originalEvent: event,
+                    overlay: overlay,
+                    map: this.map
+                });
+            });
+        });
+        
+        overlay.addListener('drag', (event) => {
+            this.zone.run(() => {
+                this.onOverlayDrag.emit({
+                    originalEvent: event,
+                    overlay: overlay,
+                    map: this.map
+                });
+            });
+        });
+        
+        overlay.addListener('dragend', (event) => {
+            this.zone.run(() => {
+                this.onOverlayDragEnd.emit({
+                    originalEvent: event,
+                    overlay: overlay,
+                    map: this.map
+                });
+            });
+            
+        });
+    }
+    
+    getMap() {
+        return this.map;
     }
 }

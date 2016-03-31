@@ -6,6 +6,7 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
 import {Dialog} from '../../../components/dialog/dialog';
 import {Growl} from '../../../components/growl/growl';
+import {Checkbox} from '../../../components/checkbox/checkbox';
 import {InputText} from '../../../components/inputtext/inputtext';
 import {Footer} from '../../../components/common/footer';
 import {Message} from '../../../components/api/message';
@@ -15,7 +16,7 @@ declare var google: any;
 
 @Component({
     templateUrl: 'showcase/demo/gmap/gmapdemo.html',
-    directives: [GMap,TabPanel,TabView,Button,Dialog,InputText,Growl,Footer,CodeHighlighter,ROUTER_DIRECTIVES]
+    directives: [GMap,TabPanel,TabView,Button,Dialog,InputText,Checkbox,Growl,Footer,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class GMapDemo implements OnInit {
 
@@ -31,6 +32,8 @@ export class GMapDemo implements OnInit {
     
     infoWindow: any;
     
+    draggable: boolean;
+    
     msgs: Message[] = [];
 
     ngOnInit() {
@@ -39,19 +42,17 @@ export class GMapDemo implements OnInit {
             zoom: 12
         };
         
-        this.add();
+        this.initOverlays();
         
         this.infoWindow = new google.maps.InfoWindow();
     }
     
     handleMapClick(event) {
-        console.log('map');
         this.dialogVisible = true;
         this.selectedPosition = event.latLng;
     }
     
     handleOverlayClick(event) {
-        console.log('overlay');
         this.msgs = [];
         let isMarker = event.overlay.getTitle != undefined;
         
@@ -69,12 +70,17 @@ export class GMapDemo implements OnInit {
     }
     
     addMarker() {
-        this.overlays.push(new google.maps.Marker({position:{lat: this.selectedPosition.lat(), lng: this.selectedPosition.lng()}, title:this.markerTitle}));
+        this.overlays.push(new google.maps.Marker({position:{lat: this.selectedPosition.lat(), lng: this.selectedPosition.lng()}, title:this.markerTitle, draggable: this.draggable}));
         this.markerTitle = null;
         this.dialogVisible = false;
     }
     
-    add() {
+    handleDragEnd(event) {
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'Marker Dragged', detail: event.overlay.getTitle()});
+    }
+    
+    initOverlays() {
         if(!this.overlays||!this.overlays.length) {
             this.overlays = [
                 new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
