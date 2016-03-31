@@ -30,4 +30,8 @@ export class GMapDemo implements OnInit {
             new google.maps.Marker({position: {lat: 36.885233, lng: 30.702323}, title:"Oldtown"})
         ];
     }
+    
+    clear() {
+        this.markers = [];
+    }
 }
