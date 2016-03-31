@@ -21,7 +21,7 @@ export class GMapDemo implements OnInit {
 
     options: any;
     
-    markers: any[];
+    overlays: any[];
     
     dialogVisible: boolean;
     
@@ -34,13 +34,18 @@ export class GMapDemo implements OnInit {
     ngOnInit() {
         this.options = {
             center: {lat: 36.890257, lng: 30.707417},
-            zoom: 13
+            zoom: 12
         };
         
-        this.markers = [
+        this.overlays = [
             new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
             new google.maps.Marker({position: {lat: 36.883707, lng: 30.689216}, title:"Ataturk Park"}),
-            new google.maps.Marker({position: {lat: 36.885233, lng: 30.702323}, title:"Oldtown"})
+            new google.maps.Marker({position: {lat: 36.885233, lng: 30.702323}, title:"Oldtown"}),
+            new google.maps.Polygon({paths: [
+                {lat: 36.9177, lng: 30.7854},{lat: 36.8851, lng: 30.7802},{lat: 36.8829, lng: 30.8111},{lat: 36.9177, lng: 30.8159}
+            ], strokeOpacity: 0.5, strokeWeight: 1,fillColor: '#1976D2', fillOpacity: 0.35
+            }),
+            new google.maps.Circle({center: {lat: 36.90707, lng: 30.56533}, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500})
         ];
     }
     
@@ -51,16 +56,16 @@ export class GMapDemo implements OnInit {
     
     handleOverlayClick(event) {
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Marker Selected', detail:event.overlay.getTitle()});
+        this.msgs.push({severity:'info', summary:'Overlay Selected', detail: event.overlay.getTitle ? event.overlay.getTitle() : 'Shape'});
     }
     
     addMarker() {
-        this.markers.push(new google.maps.Marker({position:{lat: this.selectedPosition.lat(), lng: this.selectedPosition.lng()}, title:this.markerTitle}));
+        this.overlays.push(new google.maps.Marker({position:{lat: this.selectedPosition.lat(), lng: this.selectedPosition.lng()}, title:this.markerTitle}));
         this.markerTitle = null;
         this.dialogVisible = false;
     }
     
     clear() {
-        this.markers = [];
+        this.overlays = [];
     }
 }

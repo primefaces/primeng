@@ -14,7 +14,7 @@ export class GMap implements AfterViewInit,DoCheck {
     
     @Input() options: any;
     
-    @Input() markers: any[];
+    @Input() overlays: any[];
     
     @Output() onMapClick: EventEmitter<any> = new EventEmitter();
     
@@ -31,15 +31,16 @@ export class GMap implements AfterViewInit,DoCheck {
     ngAfterViewInit() {
         this.map = new google.maps.Map(this.el.nativeElement.children[0], this.options);
         
-        if(this.markers) {
-            for(let marker of this.markers) {
-                marker.setMap(this.map);
+        if(this.overlays) {
+            for(let overlay of this.overlays) {
+                overlay.setMap(this.map);
                 
-                marker.addListener('click', (event) => {
+                overlay.addListener('click', (event) => {
+                    console.log('click');
                     this.zone.run(() => {
                         this.onOverlayClick.emit({
                             originalEvent: event,
-                            overlay: marker
+                            overlay: overlay
                         });
                     });
                 });
@@ -54,7 +55,7 @@ export class GMap implements AfterViewInit,DoCheck {
     }
     
     ngDoCheck() {
-        let changes = this.differ.diff(this.markers);
+        let changes = this.differ.diff(this.overlays);
         
         if(changes) {
             changes.forEachRemovedItem((record) => {record.item.setMap(null)});
