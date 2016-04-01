@@ -8,7 +8,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataScroller [value]="cars" [paginator]="true" [rows]="10" [buffer]="0.4">
+    <p-dataScroller [value]="cars" [rows]="10" [buffer]="0.4">
         <header>
             Scroll Down to to Load More
         </header>
@@ -42,7 +42,7 @@
             </li>
         </template>
     </p-dataScroller>
-        
+
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px">
             <div class="ui-grid-row">
@@ -96,10 +96,10 @@ export interface Car {
 import {Injectable} from 'angular2/core';
 import {Http, Response} from 'angular2/http';
 import {Car} from '../domain/car';
-    
+
 @Injectable()
 export class CarService {
-    
+
     constructor(private http: Http) {}
 
     getCarsLarge() {
@@ -111,7 +111,7 @@ export class CarService {
 }
 </code>
 </pre>
-        
+
             <p>Here is a sample DataScroller that displays a list of cars where each load event adds 10 more rows if available.</p>
 <pre>
 <code class="language-typescript" pCode>
@@ -161,7 +161,7 @@ import {Footer} from 'primeng/primeng';
 &lt;/p-dataScroller&gt;
 </code>
 </pre>
-            
+
             <h3>Inline</h3>
             <p>By default DataScroller listens to the scroll event of window, the alternative is the inline mode where container of the DataScroller element itself is used as the event target. Set inline option to true to enable this mode.</p>
 <pre>
@@ -175,11 +175,11 @@ import {Footer} from 'primeng/primeng';
 &lt;/p-dataScroller&gt;
 </code>
 </pre>
-    
+
             <h3>Lazy Loading</h3>
             <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
              onLazyLoad callback everytime paging happens. To implement lazy loading,
-            enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object 
+            enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object
             that contains information about what to load.</p>
 <pre>
 <code class="language-markup" pCode>
@@ -324,7 +324,7 @@ loadData(event) {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataScroller [value]="cars" [paginator]="true" [rows]="10" [buffer]="0.4"&gt;
+&lt;p-dataScroller [value]="cars" [rows]="10" [buffer]="0.4"&gt;
     &lt;header&gt;
         Scroll Down to to Load More
     &lt;/header&gt;
@@ -358,7 +358,7 @@ loadData(event) {
         &lt;/li&gt;
     &lt;/template&gt;
 &lt;/p-dataScroller&gt;
-    
+
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
     &lt;div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px"&gt;
         &lt;div class="ui-grid-row"&gt;
@@ -389,9 +389,9 @@ loadData(event) {
 export class DataScrollerDemo implements OnInit {
 
     cars: Car[];
-    
+
     selectedCar: Car;
-    
+
     displayDialog: boolean;
 
     constructor(private carService: CarService) { }
@@ -399,12 +399,12 @@ export class DataScrollerDemo implements OnInit {
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
     }
-    
+
     selectCar(car: Car) {
         this.selectedCar = car;
         this.displayDialog = true;
     }
-    
+
     onDialogHide() {
         this.selectedCar = null;
     }
