@@ -16,7 +16,7 @@ import {Paginator} from '../paginator/paginator';
                 </ul>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
-            (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" *ngIf="paginator"></p-paginator>
+            (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator"></p-paginator>
             <div class="ui-datalist-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
                 <ng-content select="footer"></ng-content>
             </div>
@@ -35,6 +35,8 @@ export class DataList implements AfterViewInit,DoCheck {
     @Input() totalRecords: number;
 
     @Input() pageLinks: number = 5;
+    
+    @Input() rowsPerPageOptions: number[];
 
     @Input() lazy: boolean;
     

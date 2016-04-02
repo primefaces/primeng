@@ -9,7 +9,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3">
+    <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
         <header>List of Cars</header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -40,7 +40,7 @@ export class DataTablePaginatorDemo implements OnInit {
         <p-tabPanel header="datatablepaginatordemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3"&gt;
+&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;

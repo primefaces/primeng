@@ -107,7 +107,7 @@ import {DomHandler} from '../dom/domhandler';
                 </table>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
-                (onPageChange)="paginate($event)" *ngIf="paginator"></p-paginator>
+                (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator"></p-paginator>
             <div class="ui-datatable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="footer"></ng-content>
             </div>
@@ -127,6 +127,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Input() totalRecords: number;
 
     @Input() pageLinks: number = 5;
+    
+    @Input() rowsPerPageOptions: number[];
 
     @Input() responsive: boolean;
 

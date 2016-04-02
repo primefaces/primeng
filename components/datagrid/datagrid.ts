@@ -14,7 +14,7 @@ import {Paginator} from '../paginator/paginator';
                 <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
-                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" *ngIf="paginator"></p-paginator>
+                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator"></p-paginator>
             <div class="ui-datagrid-footer ui-widget-header ui-corner-top" *ngIf="footer">
                 <ng-content select="footer"></ng-content>
             </div>
@@ -35,6 +35,8 @@ export class DataGrid implements AfterViewInit,DoCheck {
     @Input() totalRecords: number;
 
     @Input() pageLinks: number = 5;
+    
+    @Input() rowsPerPageOptions: number[];
 
     @Input() lazy: boolean;
     
