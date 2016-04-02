@@ -1,17 +1,18 @@
 import {Component,ElementRef,AfterContentInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
-import Datepicker = JQueryUI.Datepicker;
+import {Button} from '../button/button';
 
 @Component({
     selector: 'p-calendar',
     template:  `
-        <input *ngIf="!inline" type="text" [attr.style]="style" [attr.placeholder]="placeholder"
+        <input *ngIf="!inline" type="text" [attr.style]="style" [attr.class]="styleClass" [attr.placeholder]="placeholder"
                 [value]="value||''" (input)="valueChange.emit($event.target.value)" [readonly]="readonlyInput"
-                class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled"
-                (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="focused=false"
-                [ngClass]="{'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}"/>
-
+                [disabled]="disabled" (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="focused=false"
+                [ngClass]="{'ui-inputfield ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,
+                    'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}"
+        ><button type="button" icon="fa-calendar" pButton *ngIf="showIcon" (click)="onButtonClick($event)" class="ui-datepicker-trigger"></button>
         <div *ngIf="inline"></div>
-    `
+    `,
+    directives: [Button]
 })
 export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
 
@@ -54,6 +55,8 @@ export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
     @Input() maxDate: any;
 
     @Input() disabled: any;
+    
+    @Input() showIcon: boolean;
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
 
@@ -110,5 +113,9 @@ export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
     ngOnDestroy() {
         jQuery(this.el.nativeElement.children[0]).datepicker('destroy');
         this.initialized = false;
+    }
+    
+    onButtonClick(event,input) {
+        jQuery(this.el.nativeElement.children[0]).focus();
     }
 }

@@ -12,8 +12,8 @@
     <h3>DateFormat</h3>
     <p-calendar [(value)]="date2" dateFormat="dd.mm.yy"></p-calendar> &nbsp; {{date2}}
 
-    <h3>ShowAnim</h3>
-    <p-calendar [(value)]="date3" showAnim="blind"></p-calendar> &nbsp; {{date3}}
+    <h3>ShowAnim and Icon</h3>
+    <p-calendar [(value)]="date3" showAnim="slide" [showIcon]="true"></p-calendar> &nbsp; {{date3}}
 
     <h3>ButtonPanel</h3>
     <p-calendar [(value)]="date4" [showButtonPanel]="true"></p-calendar> &nbsp; {{date4}}
@@ -159,6 +159,12 @@ export class MyModel {
                             <td>Effect to show when displaying the popup.</td>
                         </tr>
                         <tr>
+                            <td>showIcon</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, displays a button with icon next to input.</td>
+                        </tr>
+                        <tr>
                             <td>dateFormat</td>
                             <td>string</td>
                             <td>mm/dd/yy</td>
@@ -288,7 +294,7 @@ export class MyModel {
 &lt;p-calendar [(value)]="date2" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date2<span>}</span><span>}</span>
 
 &lt;h3&gt;ShowAnim&lt;/h3&gt;
-&lt;p-calendar [(value)]="date3" showAnim="blind"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date3<span>}</span><span>}</span>
+&lt;p-calendar [(value)]="date3" showAnim="slide" [showIcon]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date3<span>}</span><span>}</span>
 
 &lt;h3&gt;ButtonPanel&lt;/h3&gt;
 &lt;p-calendar [(value)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date4<span>}</span><span>}</span>
