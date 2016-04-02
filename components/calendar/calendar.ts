@@ -1,20 +1,21 @@
-import {Component,ElementRef,AfterContentInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
 import {Button} from '../button/button';
 
 @Component({
     selector: 'p-calendar',
     template:  `
-        <input *ngIf="!inline" type="text" [attr.style]="style" [attr.class]="styleClass" [attr.placeholder]="placeholder"
+        <span [attr.style]="style" [attr.class]="styleClass" [ngClass]="'ui-calendar'" *ngIf="!inline">
+        <input #in type="text" [attr.placeholder]="placeholder" [attr.style]="inputStyle" [attr.class]="inputStyleClass"
                 [value]="value||''" (input)="valueChange.emit($event.target.value)" [readonly]="readonlyInput"
                 [disabled]="disabled" (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="focused=false"
                 [ngClass]="{'ui-inputfield ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,
                     'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}"
-        ><button type="button" icon="fa-calendar" pButton *ngIf="showIcon" (click)="onButtonClick($event)" class="ui-datepicker-trigger"></button>
+        ><button type="button" icon="fa-calendar" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)" class="ui-datepicker-trigger"></button></span>
         <div *ngIf="inline"></div>
     `,
     directives: [Button]
 })
-export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
+export class Calendar implements AfterViewInit,OnChanges,OnDestroy {
 
     @Input() value: string;
 
@@ -25,6 +26,10 @@ export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
     @Input() style: string;
 
     @Input() styleClass: string;
+    
+    @Input() inputStyle: string;
+
+    @Input() inputStyleClass: string;
 
     @Input() placeholder: string;
 
@@ -67,35 +72,35 @@ export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
     initialized: boolean;
 
     stopNgOnChangesPropagation: boolean;
+    
+    calendarElement: any;
 
     constructor(private el: ElementRef) {
         this.initialized = false;
     }
 
-    ngAfterContentInit() {
-        setTimeout(() => {
-            jQuery(this.el.nativeElement.children[0]).datepicker({
-                showAnim: this.showAnim,
-                dateFormat: this.dateFormat,
-                showButtonPanel: this.showButtonPanel,
-                changeMonth: this.monthNavigator,
-                changeYear: this.yearNavigator,
-                numberOfMonths: this.numberOfMonths,
-                showWeek: this.showWeek,
-                showOtherMonths: this.showOtherMonths,
-                selectOtherMonths: this.selectOtherMonths,
-                defaultDate: this.defaultDate,
-                minDate: this.minDate,
-                maxDate: this.maxDate,
-                onSelect: (dateText: string) => {
-                    this.stopNgOnChangesPropagation = true;
-                    this.onSelect.emit(dateText);
-                    this.valueChange.emit(dateText);
-                }
-            });
-            this.initialized = true;
-        }, 10);
-
+    ngAfterViewInit() {
+        this.calendarElement = this.inline ? jQuery(this.el.nativeElement.children[0]) : jQuery(this.el.nativeElement.children[0].children[0]);
+        this.calendarElement.datepicker({
+            showAnim: this.showAnim,
+            dateFormat: this.dateFormat,
+            showButtonPanel: this.showButtonPanel,
+            changeMonth: this.monthNavigator,
+            changeYear: this.yearNavigator,
+            numberOfMonths: this.numberOfMonths,
+            showWeek: this.showWeek,
+            showOtherMonths: this.showOtherMonths,
+            selectOtherMonths: this.selectOtherMonths,
+            defaultDate: this.defaultDate,
+            minDate: this.minDate,
+            maxDate: this.maxDate,
+            onSelect: (dateText: string) => {
+                this.stopNgOnChangesPropagation = true;
+                this.onSelect.emit(dateText);
+                this.valueChange.emit(dateText);
+            }
+        });
+        this.initialized = true;
     }
 
     ngOnChanges(changes: {[key: string]: SimpleChange}) {
@@ -105,17 +110,18 @@ export class Calendar implements AfterContentInit,OnChanges,OnDestroy {
                     continue;
                 }
 
-                jQuery(this.el.nativeElement.children[0]).datepicker('option', key, changes[key].currentValue);
+                this.calendarElement.datepicker('option', key, changes[key].currentValue);
             }
         }
     }
 
     ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0]).datepicker('destroy');
+        this.calendarElement.datepicker('destroy');
+        this.calendarElement = null;
         this.initialized = false;
     }
     
     onButtonClick(event,input) {
-        jQuery(this.el.nativeElement.children[0]).focus();
+        input.focus();
     }
 }
