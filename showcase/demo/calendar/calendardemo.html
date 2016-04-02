@@ -13,7 +13,7 @@
     <p-calendar [(value)]="date2" dateFormat="dd.mm.yy"></p-calendar> &nbsp; {{date2}}
 
     <h3>ShowAnim and Icon</h3>
-    <p-calendar [(value)]="date3" showAnim="slide" [showIcon]="true"></p-calendar> &nbsp; {{date3}}
+    <p-calendar [(value)]="date3" showAnim="slideDown" [showIcon]="true"></p-calendar> &nbsp; {{date3}}
 
     <h3>ButtonPanel</h3>
     <p-calendar [(value)]="date4" [showButtonPanel]="true"></p-calendar> &nbsp; {{date4}}
@@ -84,7 +84,7 @@ export class MyModel {
 
             <h3>Show Effect</h3>
             <p>Calendar popup can be displayed with various effects. fadeIn is the default and other available options are
-                slideDown, blind, bounce, clip, drop, fold and slide.</p>
+                slideDown, slide and clip.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-calendar [(value)]="dateValue" showAnim="blind"&gt;&lt;/p-calendar&gt;
@@ -310,7 +310,7 @@ export class MyModel {
 &lt;p-calendar [(value)]="date2" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date2<span>}</span><span>}</span>
 
 &lt;h3&gt;ShowAnim&lt;/h3&gt;
-&lt;p-calendar [(value)]="date3" showAnim="slide" [showIcon]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date3<span>}</span><span>}</span>
+&lt;p-calendar [(value)]="date3" showAnim="slideDown" [showIcon]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date3<span>}</span><span>}</span>
 
 &lt;h3&gt;ButtonPanel&lt;/h3&gt;
 &lt;p-calendar [(value)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date4<span>}</span><span>}</span>
