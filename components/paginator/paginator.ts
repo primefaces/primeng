@@ -25,6 +25,9 @@ import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from 'angul
                     (click)="changePageToLast()" [ngClass]="{'ui-state-disabled':isLastPage(),'ui-state-hover':(lastlink === hoveredItem  && !isLastPage())}">
                 <span class="fa fa-step-forward"></span>
             </span>
+            <select class="ui-paginator-rpp-options ui-widget ui-state-default" *ngIf="rowsPerPageOptions" (change)="onRppChange($event)">
+                <option *ngFor="#opt of rowsPerPageOptions" [value]="opt" [selected]="rows == opt">{{opt}}</option>
+            </select>
         </div>
     `
 })
@@ -41,6 +44,8 @@ export class Paginator {
     @Input() style: string;
 
     @Input() styleClass: string;
+    
+    @Input() rowsPerPageOptions: number[];
 
     pageLinks: number[];
 
@@ -97,7 +102,7 @@ export class Paginator {
         var pc = this.getPageCount();
 
         if(p >= 0 && p < pc) {
-            this.first = this.rows *p;
+            this.first = this.rows * p;
             var state = {
                 first: this.first,
                 rows: this.rows,
@@ -128,5 +133,10 @@ export class Paginator {
 
     changePageToLast() {
         this.changePage(this.getPageCount() - 1);
+    }
+    
+    onRppChange(event) {
+        this.rows = this.rowsPerPageOptions[event.target.selectedIndex];
+        this.changePageToFirst();
     }
 }

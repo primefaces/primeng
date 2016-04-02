@@ -6,7 +6,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-paginator rows="10" totalRecords="100"></p-paginator>
+    <p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
 </div>
 
 <div class="ContentSideSections Source">
@@ -40,6 +40,14 @@ import {Paginator} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-paginator rows="10" totalRecords="100" pageLinkSize="3"&gt;&lt;/p-paginator&gt;
+</code>
+</pre>
+
+            <h3>Rows Per Page</h3>
+            <p>Number of items per page can be changed by the user using a dropdown if you define rowsPerPageOptions as an array of possible values.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
 
@@ -78,6 +86,12 @@ import {Paginator} from 'primeng/primeng';
                             <td>number</td>
                             <td>5</td>
                             <td>Number of page links to display.</td>
+                        </tr>
+                        <tr>
+                            <td>rowsPerPageOptions</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>Array of integer values to display inside rows per page dropdown.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -178,6 +192,10 @@ export class MyComponent {
                             <td>ui-paginator-last</td>
                             <td>Last page element.</td>
                         </tr>
+                        <tr>
+                            <td>ui-paginator-rpp-options</td>
+                            <td>Rows per page dropdown.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -189,7 +207,7 @@ export class MyComponent {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-paginator rows="10" totalRecords="100"&gt;&lt;/p-paginator&gt;
+&lt;p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
         </p-tabPanel>
