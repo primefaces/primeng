@@ -7,23 +7,23 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic {{val1}}</h3> 
-    <p-rating [(value)]="val1"></p-rating>
+    <p-rating [(ngModel)]="val1"></p-rating>
     <br />
 
     <h3>Callback {{val2}}</h3>
-    <p-rating [(value)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"></p-rating> <span *ngIf="msg" style="margin-left:10px">{{msg}}</span>
+    <p-rating [(ngModel)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"></p-rating> <span *ngIf="msg" style="margin-left:10px">{{msg}}</span>
     <br />
 
     <h3>No Cancel {{val3}}</h3> 
-    <p-rating [(value)]="val3" [cancel]="false"></p-rating>
+    <p-rating [(ngModel)]="val3" [cancel]="false"></p-rating>
     <br />
 
     <h3>ReadOnly</h3> 
-    <p-rating value="5" readonly="true" stars="10" [cancel]="false"></p-rating>
+    <p-rating [ngModel]="5" readonly="true" stars="10" [cancel]="false"></p-rating>
     <br />
 
     <h3>Disabled</h3> 
-    <p-rating [value]="val4" disabled="true" stars="10"></p-rating>
+    <p-rating [ngModel]="val4" disabled="true" stars="10"></p-rating>
     <br />
 </div>
 

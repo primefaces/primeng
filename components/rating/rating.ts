@@ -1,4 +1,13 @@
-import {Component,ElementRef,OnInit,Input,Output, EventEmitter} from 'angular2/core';
+import {Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,Provider} from 'angular2/core';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {CONST_EXPR} from 'angular2/src/facade/lang';
+
+const RATING_VALUE_ACCESSOR: Provider = CONST_EXPR(
+    new Provider(NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => Rating),
+        multi: true
+    })
+);
 
 @Component({
     selector: 'p-rating',
@@ -9,11 +18,10 @@ import {Component,ElementRef,OnInit,Input,Output, EventEmitter} from 'angular2/c
             <div class="ui-rating-star" *ngFor="#star of starsArray;#i=index" (click)="rate($event,i)"
              [ngClass]="{'ui-rating-star-on':(i < value)}"><a></a></div>
         </div>
-    `
+    `,
+    providers: [RATING_VALUE_ACCESSOR]
 })
-export class Rating {
-
-    @Input() value: number;
+export class Rating implements ControlValueAccessor {
 
     @Input() disabled: boolean;
 
@@ -23,11 +31,15 @@ export class Rating {
 
     @Input() cancel: boolean = true;
 
-    @Output() valueChange: EventEmitter<any> = new EventEmitter();
-
     @Output() onRate: EventEmitter<any> = new EventEmitter();
 
     @Output() onCancel: EventEmitter<any> = new EventEmitter();
+    
+    value: number;
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
     
     private starsArray: number[];
     
@@ -42,7 +54,9 @@ export class Rating {
     
     rate(event, i: number): void {
         if(!this.readonly&&!this.disabled) {
-            this.valueChange.emit(i + 1);
+            this.value = (i + 1);
+            this.onModelChange(this.value);
+            this.onModelTouched();
             this.onRate.emit({
                 originalEvent: event,
                 value: (i+1)
@@ -52,8 +66,22 @@ export class Rating {
     
     clear(event): void {
         if(!this.readonly&&!this.disabled) {
-            this.valueChange.emit(null);
+            this.value = null;
+            this.onModelChange(this.value);
+            this.onModelTouched();
             this.onCancel.emit(event);
         }
+    }
+    
+    writeValue(value: any) : void {
+        this.value = value;
+    }
+    
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
     }
 }
