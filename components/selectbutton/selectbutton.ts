@@ -1,5 +1,14 @@
-import {Component,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,Input,Output,EventEmitter,forwardRef,Provider} from 'angular2/core';
 import {SelectItem} from '../api/selectitem';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {CONST_EXPR} from 'angular2/src/facade/lang';
+
+const SELECTBUTTON_VALUE_ACCESSOR: Provider = CONST_EXPR(
+    new Provider(NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => SelectButton),
+        multi: true
+    })
+);
 
 @Component({
     selector: 'p-selectButton',
@@ -11,27 +20,42 @@ import {SelectItem} from '../api/selectitem';
                 <span class="ui-button-text ui-c">{{option.label}}</span>
             </div>
         </div>
-    `
+    `,
+    providers: [SELECTBUTTON_VALUE_ACCESSOR]
 })
-export class SelectButton {
+export class SelectButton implements ControlValueAccessor {
 
     @Input() options: SelectItem[];
 
     @Input() tabindex: number;
 
     @Input() multiple: boolean;
-
-    @Input() value: any;
     
     @Input() style: string;
         
     @Input() styleClass: string;
 
-    @Output() valueChange: EventEmitter<any> = new EventEmitter();
-
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+    
+    value: any;
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
 
     private hoveredItem: any;
+    
+    writeValue(value: any) : void {
+        this.value = value;
+    }
+    
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
+    }
     
     onItemClick(event, option: SelectItem) {
         if(this.multiple) {
@@ -42,8 +66,10 @@ export class SelectButton {
                 this.value.push(option.value);
         }
         else {
-            this.valueChange.emit(option.value);
+            this.value = option.value;
         }
+        
+        this.onModelChange(this.value);
         
         this.onChange.emit({
             originalEvent: event,

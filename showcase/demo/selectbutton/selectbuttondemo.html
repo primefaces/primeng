@@ -7,12 +7,12 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Single</h3>
-    <p-selectButton [options]="types" [(value)]="selectedType"></p-selectButton>
+    <p-selectButton [options]="types" [(ngModel)]="selectedType"></p-selectButton>
 
     <p>Selected Type: {{selectedType}}</p>
 
     <h3>Multiple</h3>
-    <p-selectButton [options]="types" [(value)]="selectedTypes" multiple="multiple"></p-selectButton>
+    <p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"></p-selectButton>
     <p>Selected Types: <span *ngFor="#type of selectedTypes">{{type}} </span></p>
 
     <hr />
