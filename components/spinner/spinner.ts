@@ -4,7 +4,7 @@ import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
 import {CONST_EXPR} from 'angular2/src/facade/lang';
 
-const RATING_VALUE_ACCESSOR: Provider = CONST_EXPR(
+const SPINNER_VALUE_ACCESSOR: Provider = CONST_EXPR(
     new Provider(NG_VALUE_ACCESSOR, {
         useExisting: forwardRef(() => Spinner),
         multi: true
@@ -35,7 +35,7 @@ const RATING_VALUE_ACCESSOR: Provider = CONST_EXPR(
         </span>
     `,
     directives: [InputText],
-    providers: [DomHandler,RATING_VALUE_ACCESSOR]
+    providers: [DomHandler,SPINNER_VALUE_ACCESSOR]
 })
 export class Spinner implements AfterViewInit,ControlValueAccessor {
         
