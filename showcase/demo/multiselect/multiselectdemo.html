@@ -6,7 +6,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-multiSelect [options]="cars" [(value)]="selectedCars"></p-multiSelect>
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars"></p-multiSelect>
     <p>Selected Cars: <span *ngFor="#c of selectedCars">{{c}} &nbsp;</span></p>
 </div>
 

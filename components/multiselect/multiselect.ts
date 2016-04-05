@@ -1,8 +1,18 @@
-import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChild,TemplateRef,IterableDiffers} from 'angular2/core';
+import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,
+            ContentChild,TemplateRef,IterableDiffers,forwardRef,Provider} from 'angular2/core';
 import {SelectItem} from '../api/selectitem';
 import {DomHandler} from '../dom/domhandler';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {CONST_EXPR} from 'angular2/src/facade/lang';
 
 declare var PUI: any;
+
+const MULTISELECT_VALUE_ACCESSOR: Provider = CONST_EXPR(
+    new Provider(NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => MultiSelect),
+        multi: true
+    })
+);
 
 @Component({
     selector: 'p-multiSelect',
@@ -58,15 +68,11 @@ declare var PUI: any;
             </div>
         </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler,MULTISELECT_VALUE_ACCESSOR]
 })
-export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy {
-
-    @Input() value: any[];
+export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
     @Input() options: SelectItem[];
-
-    @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -79,6 +85,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() styleClass: string;
 
     @Input() disabled: boolean;
+    
+    value: any[];
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
     
     private valuesAsString: string;
     
@@ -143,6 +155,18 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         }
     }
     
+    writeValue(value: any) : void {
+        this.value = value;
+    }
+    
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
+    }
+    
     onItemClick(event, value) {
         let selectionIndex = this.findSelectionIndex(value);
         if(selectionIndex != -1) {
@@ -153,8 +177,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             this.value.push(value);
         }
         
+        this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
-        this.valueChange.emit(this.value);
     }   
     
     isSelected(value) {
@@ -190,8 +214,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             }
         }
         checkbox.checked = !checkbox.checked;
+        this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
-        this.valueChange.emit(this.value);
     } 
     
     isAllChecked() {
@@ -245,6 +269,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     onBlur(event) {
         this.focus = false;
+        this.onModelTouched();
     }
     
     updateLabel() {
