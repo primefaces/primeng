@@ -38,11 +38,11 @@ import {Rating} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Rating is defined using p-rating element and the value property supports two-way binding to manage the model.</p>
+            <p>Two-way value binding is defined using ngModel.</p>
                     
 <pre>
 <code class="language-markup" pCode>
-&lt;p-rating [(value)]="val"&gt;&lt;/p-rating&gt;
+&lt;p-rating [(ngModel)]="val"&gt;&lt;/p-rating&gt;
 </code>
 </pre>
 
@@ -56,7 +56,7 @@ export class ModelComponent {
 </code>
 </pre>
 
-                    <p>As value is two-way binding enabled, defining a default value is enough to render the initial number of selected stars based on it.</p>
+            <p>Defining a default value would be enough to display the initial number of selected stars.</p>
 <pre>
 <code class="language-typescript" pCode>
 export class ModelComponent {
@@ -64,6 +64,14 @@ export class ModelComponent {
     val: number = 3;
 
 }
+</code>
+</pre>
+
+            <h3>Model Driven Forms</h3>
+            <p>Rating can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-rating [ngFormControl]="myGroup.controls['rating1']"&gt;&lt;/p-rating&gt;
 </code>
 </pre>
 
@@ -179,24 +187,19 @@ export class ModelComponent {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic {{val1}}&lt;/h3&gt; 
-&lt;p-rating [(value)]="val1"&gt;&lt;/p-rating&gt;
-&lt;br /&gt;
+&lt;p-rating [(ngModel)]="val1"&gt;&lt;/p-rating&gt;
 
 &lt;h3&gt;Callback {{val2}}&lt;/h3&gt;
-&lt;p-rating [(value)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"&gt;&lt;/p-rating&gt; &lt;span *ngIf="msg" style="margin-left:10px"&gt;{{msg}}&lt;/span&gt;
-&lt;br /&gt;
+&lt;p-rating [(ngModel)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"&gt;&lt;/p-rating&gt; &lt;span *ngIf="msg" style="margin-left:10px"&gt;{{msg}}&lt;/span&gt;
 
 &lt;h3&gt;No Cancel {{val3}}&lt;/h3&gt; 
-&lt;p-rating [(value)]="val3" [cancel]="false"&gt;&lt;/p-rating&gt;
-&lt;br /&gt;
+&lt;p-rating [(ngModel)]="val3" [cancel]="false"&gt;&lt;/p-rating&gt;
 
 &lt;h3&gt;ReadOnly&lt;/h3&gt; 
-&lt;p-rating value="5" readonly="true" stars="10" [cancel]="false"&gt;&lt;/p-rating&gt;
-&lt;br /&gt;
+&lt;p-rating [ngModel]="5" readonly="true" stars="10" [cancel]="false"&gt;&lt;/p-rating&gt;
 
 &lt;h3&gt;Disabled&lt;/h3&gt; 
-&lt;p-rating [value]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
-&lt;br /&gt;
+&lt;p-rating [ngModel]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
 </code>
 </pre>
 
