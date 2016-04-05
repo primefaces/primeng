@@ -205,6 +205,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         if(this.value !== undefined && this.value !== null) {
             inputElement.value = this.value;
         }
+        this.onModelTouched();
     }
     
     parseValue(val: string): number {
