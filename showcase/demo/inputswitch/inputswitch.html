@@ -7,10 +7,10 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic - {{checked1}}</h3>
-    <p-inputSwitch [(checked)]="checked1"></p-inputSwitch>
+    <p-inputSwitch [(ngModel)]="checked1"></p-inputSwitch>
 
     <h3>Labels - {{checked2}}</h3>
-    <p-inputSwitch onLabel="Yes" offLabel="No" [(checked)]="checked2"></p-inputSwitch>
+    <p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="checked2"></p-inputSwitch>
 </div>
 
 <div class="ContentSideSections Source">
