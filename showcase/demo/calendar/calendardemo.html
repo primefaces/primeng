@@ -7,34 +7,34 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <p-calendar [(value)]="date1"></p-calendar> &nbsp; {{date1}}
+    <p-calendar [(ngModel)]="date1"></p-calendar> &nbsp; {{date1}}
 
     <h3>DateFormat</h3>
-    <p-calendar [(value)]="date2" dateFormat="dd.mm.yy"></p-calendar> &nbsp; {{date2}}
+    <p-calendar [(ngModel)]="date2" dateFormat="dd.mm.yy"></p-calendar> &nbsp; {{date2}}
 
     <h3>ShowAnim and Icon</h3>
-    <p-calendar [(value)]="date3" showAnim="slideDown" [showIcon]="true"></p-calendar> &nbsp; {{date3}}
+    <p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"></p-calendar> &nbsp; {{date3}}
 
     <h3>ButtonPanel</h3>
-    <p-calendar [(value)]="date4" [showButtonPanel]="true"></p-calendar> &nbsp; {{date4}}
+    <p-calendar [(ngModel)]="date4" [showButtonPanel]="true"></p-calendar> &nbsp; {{date4}}
 
     <h3>Navigators</h3>
-    <p-calendar [(value)]="date5" [monthNavigator]="true" [yearNavigator]="true"></p-calendar> &nbsp; {{date5}}
+    <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"></p-calendar> &nbsp; {{date5}}
 
     <h3>Multiple Months</h3>
-    <p-calendar [(value)]="date6" [numberOfMonths]="3"></p-calendar> &nbsp; {{date6}}
+    <p-calendar [(ngModel)]="date6" [numberOfMonths]="3"></p-calendar> &nbsp; {{date6}}
 
     <h3>Show Week and Months</h3>
-    <p-calendar [(value)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"></p-calendar> &nbsp; {{date7}}
+    <p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"></p-calendar> &nbsp; {{date7}}
 
     <h3>Restrict</h3>
-    <p-calendar [(value)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"></p-calendar> &nbsp; {{date8}}
+    <p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"></p-calendar> &nbsp; {{date8}}
 
     <h3>Default Date</h3>
-    <p-calendar [(value)]="date9" defaultDate="+1m +7d"></p-calendar> &nbsp; {{date9}}
+    <p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"></p-calendar> &nbsp; {{date9}}
 
     <h3>Inline</h3>
-    <p-calendar [(value)]="date10" [inline]="true"></p-calendar> &nbsp; {{date10}}
+    <p-calendar [(ngModel)]="date10" [inline]="true"></p-calendar> &nbsp; {{date10}}
 </div>
 
 <div class="ContentSideSections Source">
