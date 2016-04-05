@@ -10,7 +10,7 @@ const RADIO_VALUE_ACCESSOR: Provider = CONST_EXPR(
 );
 
 @Component({
-    selector: 'p-radio',
+    selector: 'p-radioButton',
     template: `
         <div class="ui-radiobutton ui-widget">
             <div class="ui-helper-hidden-accessible">

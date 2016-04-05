@@ -9,15 +9,15 @@
     <h3 class="first">Basic</h3>
     <div class="ui-grid ui-grid-responsive ui-grid-pad" style="width:250px;margin-bottom:10px">
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radio name="group1" value="Option 1" [(ngModel)]="val1"></p-radio></div>
+            <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 1" [(ngModel)]="val1"></p-radioButton></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Option 1</label></div>
         </div>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radio name="group1" value="Option 2" [(ngModel)]="val1"></p-radio></div>
+            <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 2" [(ngModel)]="val1"></p-radioButton></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Option 2</label></div>
         </div>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radio name="group1" value="Option 3" [(ngModel)]="val1"></p-radio></div>
+            <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 3" [(ngModel)]="val1"></p-radioButton></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Option 3</label></div>
         </div>
     </div>
@@ -26,15 +26,15 @@
     <h3>Preselection</h3>
     <div class="ui-grid ui-grid-responsive ui-grid-pad" style="width:250px;margin-bottom:10px">
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radio name="group1" value="Option 1" [(ngModel)]="val2"></p-radio></div>
+            <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 1" [(ngModel)]="val2"></p-radioButton></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Option 1</label></div>
         </div>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radio name="group2" value="Option 2" [(ngModel)]="val2"></p-radio></div>
+            <div class="ui-grid-col-1"><p-radioButton name="group2" value="Option 2" [(ngModel)]="val2"></p-radioButton></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Option 2</label></div>
         </div>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radio name="group2" value="Option 3" [(ngModel)]="val2"></p-radio></div>
+            <div class="ui-grid-col-1"><p-radioButton name="group2" value="Option 3" [(ngModel)]="val2"></p-radioButton></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Option 3</label></div>
         </div>
     </div>
@@ -52,12 +52,12 @@ import {RadioButton} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>RadioButton is defined using p-radio element and value is bound to model property that supports two-way binding.</p>
+            <p>RadioButton is defined using p-radioButton element and value is bound to model property that supports two-way binding.</p>
             
 <pre>
 <code class="language-markup" pCode>
-&lt;p-radio name="groupname" value="val1" [(model)]="selectedValue"&gt;&lt;/p-radio&gt;
-&lt;p-radio name="groupname" value="val2" [(model)]="selectedValue"&gt;&lt;/p-radio&gt;
+&lt;p-radioButton name="groupname" value="val1" [(model)]="selectedValue"&gt;&lt;/p-radioButton&gt;
+&lt;p-radioButton name="groupname" value="val2" [(model)]="selectedValue"&gt;&lt;/p-radioButton&gt;
 </code>
 </pre>
 
@@ -180,15 +180,15 @@ selectedValue: string = 'val1';
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
 &lt;div class="ui-grid-row"&gt;
-&lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 1" [(model)]="val1"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+&lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 1" [(model)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="ui-grid-row"&gt;
-&lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 2" [(model)]="val1"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+&lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 2" [(model)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="ui-grid-row"&gt;
-&lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 3" [(model)]="val1"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+&lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 3" [(model)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -197,15 +197,15 @@ Selected Value = {{val1||'none'}}
 &lt;h3&gt;Preselection&lt;/h3&gt;
 &lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
 &lt;div class="ui-grid-row"&gt;
-&lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group1" value="Option 1" [(model)]="val2"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+&lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 1" [(model)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="ui-grid-row"&gt;
-&lt;div class="ui-grid-col-1"&gt;&lt;p-radio name="group2" value="Option 2" [(model)]="val2"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+&lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group2" value="Option 2" [(model)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="ui-grid-r ow"&gt;
- &lt;div class ="ui-grid-col-1"&gt;&lt;p-radio name="group2" value="Option 3" [(model)]="val2"&gt;&lt;/p-radio&gt;&lt;/div&gt;
+ &lt;div class ="ui-grid-col-1"&gt;&lt;p-radioButton name="group2" value="Option 3" [(model)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
