@@ -95,8 +95,6 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
     ngOnChanges(changes: { [key: string]: SimpleChange }) {
         if (this.initialized) {
             for (var key in changes) {
-                console.log(key);
-
                 jQuery(this.el.nativeElement.children[0]).slider('option', key, changes[key].currentValue);
             }
         }
