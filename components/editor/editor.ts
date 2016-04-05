@@ -1,8 +1,17 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ContentChild,OnChanges,SimpleChange} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ContentChild,OnChanges,SimpleChange,forwardRef,Provider} from 'angular2/core';
 import {Header} from '../common/header'
 import {DomHandler} from '../dom/domhandler';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {CONST_EXPR} from 'angular2/src/facade/lang';
 
 declare var Quill: any;
+
+const EDITOR_VALUE_ACCESSOR: Provider = CONST_EXPR(
+    new Provider(NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => Editor),
+        multi: true
+    })
+);
 
 @Component({
     selector: 'p-editor',
@@ -127,18 +136,14 @@ declare var Quill: any;
                 <span title="Link" class="ql-format-button ql-link"></span>
                 </span>
             </div>
-            <div class="ui-editor-content"></div>
+            <div class="ui-editor-content" [innerHTML]="value||''"></div>
         </div>
     `,
     directives: [Header],
-    providers: [DomHandler]
+    providers: [DomHandler,EDITOR_VALUE_ACCESSOR]
 })
-export class Editor implements AfterViewInit,OnDestroy {
-    
-    @Input() value: string;
-    
-    @Output() valueChange: EventEmitter<any> = new EventEmitter();
-    
+export class Editor implements AfterViewInit,OnDestroy,ControlValueAccessor {
+        
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(Header) toolbar;
@@ -146,6 +151,12 @@ export class Editor implements AfterViewInit,OnDestroy {
     @Input() style: string;
         
     @Input() styleClass: string;
+    
+    value: string;
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
     
     selfChange: boolean;
 
@@ -168,7 +179,7 @@ export class Editor implements AfterViewInit,OnDestroy {
             if(htmlValue == '<div><br></div>') {
                 htmlValue = null;
             }
-            
+
             this.onTextChange.emit({
                 htmlValue: htmlValue,
                 textValue: this.quill.getText(),
@@ -176,12 +187,24 @@ export class Editor implements AfterViewInit,OnDestroy {
                 source: source
             });
             
-            this.valueChange.emit(htmlValue);
+            this.onModelChange(htmlValue);
         });
         
         if(this.value) {
             this.quill.setHTML(this.value);
         }
+    }
+        
+    writeValue(value: any) : void {
+        this.value = value;
+    }
+    
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
     }
     
     ngOnChanges(changes: { [key: string]: SimpleChange}) {
