@@ -1,12 +1,21 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,Provider} from 'angular2/core';
 import {InputText} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {CONST_EXPR} from 'angular2/src/facade/lang';
+
+const RATING_VALUE_ACCESSOR: Provider = CONST_EXPR(
+    new Provider(NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => Spinner),
+        multi: true
+    })
+);
 
 @Component({
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #in id="basic" pInputText type="text" class="ui-spinner-input"
+            <input #in pInputText type="text" class="ui-spinner-input"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled"
             (keydown)="onInputKeydown($event,in)" (input)="onInput($event)" (blur)="onBlur(in)" (change)="handleChange($event)">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
@@ -26,14 +35,10 @@ import {DomHandler} from '../dom/domhandler';
         </span>
     `,
     directives: [InputText],
-    providers: [DomHandler]
+    providers: [DomHandler,RATING_VALUE_ACCESSOR]
 })
-export class Spinner implements AfterViewInit {
-
-    @Input() value: number;
-    
-    @Output() valueChange: EventEmitter<any> = new EventEmitter();
-    
+export class Spinner implements AfterViewInit,ControlValueAccessor {
+        
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Input() step: number = 1;
@@ -47,6 +52,12 @@ export class Spinner implements AfterViewInit {
     @Input() size: number;
 
     @Input() disabled: boolean;
+    
+    value: number;
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
         
     private hoverUp: boolean;
     
@@ -66,7 +77,7 @@ export class Spinner implements AfterViewInit {
         if(Math.floor(this.step) === 0) {
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }
-        
+
         this.domHandler.findSingle(this.el.nativeElement, 'input').value = (this.value == undefined || this.value === undefined) ? '' : this.value;
     }
     
@@ -104,7 +115,7 @@ export class Spinner implements AfterViewInit {
         }
         
         inputElement.value = this.value;
-        this.valueChange.emit(this.value);
+        this.onModelChange(this.value);
     }
     
     toFixed(value: number, precision: number) {
@@ -187,7 +198,7 @@ export class Spinner implements AfterViewInit {
     
     onInput(event) {
         this.value = this.parseValue(event.target.value);        
-        this.valueChange.emit(this.value);
+        this.onModelChange(this.value);
     }
     
     onBlur(inputElement) {
@@ -234,4 +245,15 @@ export class Spinner implements AfterViewInit {
         }
     }
     
+    writeValue(value: any) : void {
+        this.value = value;
+    }
+    
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
+    }
 }
