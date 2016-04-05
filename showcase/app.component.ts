@@ -79,6 +79,7 @@ import {EditorDemo} from "./demo/editor/editordemo";
 import {ResponsiveDemo} from "./demo/responsive/responsivedemo";
 import {MultiSelectDemo} from "./demo/multiselect/multiselectdemo";
 import {GMapDemo} from "./demo/gmap/gmapdemo";
+import {FormsDemo} from "./demo/forms/formsdemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -164,7 +165,8 @@ import {GMapDemo} from "./demo/gmap/gmapdemo";
     {path: '/editor', name: 'EditorDemo', component: EditorDemo},
     {path: '/responsive', name: 'ResponsiveDemo', component: ResponsiveDemo},
     {path: '/multiselect', name: 'MultiSelectDemo', component: MultiSelectDemo},
-    {path: '/gmap', name: 'GMapDemo', component: GMapDemo}
+    {path: '/gmap', name: 'GMapDemo', component: GMapDemo},
+    {path: '/forms', name: 'FormsDemo', component: FormsDemo}
 ])
 export class AppComponent {
 
