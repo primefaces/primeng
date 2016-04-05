@@ -9,15 +9,15 @@
     <h3 class="first">Basic</h3>
     <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group1" value="New York" [(model)]="selectedCities"></p-checkbox></div>
+            <div class="ui-grid-col-1"><p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities"></p-checkbox></div>
             <div class="ui-grid-col-11"><label class="ui-widget">New York</label></div>
         </div>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group1" value="San Francisco" [(model)]="selectedCities"></p-checkbox></div>
+            <div class="ui-grid-col-1"><p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities"></p-checkbox></div>
             <div class="ui-grid-col-11"><label class="ui-widget">San Francisco</label></div>
         </div>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group1" value="Los Angeles" [(model)]="selectedCities"></p-checkbox></div>
+            <div class="ui-grid-col-1"><p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities"></p-checkbox></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Los Angeles</label></div>
         </div>
     </div>
@@ -27,19 +27,19 @@
     <h3>Preselection</h3>
     <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Technology" [(model)]="selectedCategories"></p-checkbox></div>
+            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Technology" [(ngModel)]="selectedCategories"></p-checkbox></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Technology</label></div>
         </div>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Finance" [(model)]="selectedCategories"></p-checkbox></div>
+            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Finance" [(ngModel)]="selectedCategories"></p-checkbox></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Finance</label></div>
         </div>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Sports" [(model)]="selectedCategories"></p-checkbox></div>
+            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Sports" [(ngModel)]="selectedCategories"></p-checkbox></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Sports</label></div>
         </div>
         <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Entertainment" [(model)]="selectedCategories"></p-checkbox></div>
+            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Entertainment" [(ngModel)]="selectedCategories"></p-checkbox></div>
             <div class="ui-grid-col-11"><label class="ui-widget">Entertainment</label></div>
         </div>
     </div>
@@ -47,7 +47,7 @@
     Selected Categories: <span *ngFor="#cat of selectedCategories">{{cat}} &nbsp;&nbsp;</span>
     
     <h3>Boolean</h3>
-    <p-checkbox [(checked)]="checked"></p-checkbox>
+    <p-checkbox [(ngModel)]="checked"></p-checkbox>
     <br>
     {{checked}}
 </div>
