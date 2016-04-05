@@ -7,12 +7,12 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <p-autoComplete [(value)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+    <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
         placeholder="Countries" [minLength]="1"></p-autoComplete>
     <span style="margin-left:10px">Country: {{country ? country.name||country : 'none'}}</span>
     
     <h3>Advanced</h3>
-    <p-autoComplete [(value)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
+    <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
         <template #brand>
             <li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
@@ -24,7 +24,7 @@
     <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
     
     <h3>Multiple</h3>
-    <p-autoComplete [(value)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" style="width:100%"
+    <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" style="width:100%"
         [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
     </p-autoComplete>
     <ul>

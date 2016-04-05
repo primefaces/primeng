@@ -1,16 +1,25 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,Renderer} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,Renderer,forwardRef,Provider} from 'angular2/core';
 import {InputText} from '../inputtext/inputtext';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {CONST_EXPR} from 'angular2/src/facade/lang';
 
 declare var PUI: any;
+
+const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
+    new Provider(NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => AutoComplete),
+        multi: true
+    })
+);
 
 @Component({
     selector: 'p-autoComplete',
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" [attr.style]="style" [attr.styleClass]="styleClass">
             <input *ngIf="!multiple" #in pInputText type="text" [attr.style]="inputStyle" [attr.styleClass]="inputStyleClass" 
-            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)"
+            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled" 
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple ui-widget ui-inputtext ui-state-default ui-corner-all" (click)="multiIn.focus()">
                 <li #token *ngFor="#val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
@@ -18,7 +27,7 @@ declare var PUI: any;
                     <span class="ui-autocomplete-token-label">{{val[field]}}</span>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)">
+                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()">
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
@@ -35,11 +44,9 @@ declare var PUI: any;
         </span>
     `,
     directives: [InputText,Button],
-    providers: [DomHandler]
+    providers: [DomHandler,AUTOCOMPLETE_VALUE_ACCESSOR]
 })
-export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
-
-    @Input() value: any;
+export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,ControlValueAccessor {
     
     @Input() minLength: number = 3;
     
@@ -67,8 +74,6 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
     
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
     
-    @Output() valueChange: EventEmitter<any> = new EventEmitter();
-
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
     @Output() onUnselect: EventEmitter<any> = new EventEmitter();
@@ -84,6 +89,12 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
     @Input() multiple: boolean;
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
+    
+    value: any;
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
     
     timeout: number;
     
@@ -139,10 +150,23 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
         }
     }
     
+    writeValue(value: any) : void {
+        this.value = value;
+    }
+    
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
+    }
+    
     onInput(event) {
         let value = event.target.value;
         if(!this.multiple) {
-            this.valueChange.emit(value);
+            this.value = value;
+            this.onModelChange(value);
         }
         
         if(value.length === 0) {
@@ -216,11 +240,12 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
             this.input.value = '';
             this.value = this.value||[];
             this.value.push(selectedValue);
-            this.valueChange.emit(this.value);
+            this.onModelChange(this.value);
         }
         else {
             this.input.value = this.field ? this.resolveFieldData(selectedValue): selectedValue;
-            this.valueChange.emit(selectedValue);
+            this.value = selectedValue;
+            this.onModelChange(this.value);
         }
         
         this.onSelect.emit(selectedValue);
@@ -271,6 +296,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked {
         let itemIndex = this.domHandler.index(item);
         this.onUnselect.emit(this.suggestions[itemIndex]);
         this.value.splice(itemIndex, 1);
+        this.onModelChange(this.value);
     }
     
     resolveFieldData(data: any): any {
