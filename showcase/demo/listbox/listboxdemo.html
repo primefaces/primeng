@@ -7,16 +7,16 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Single</h3>
-    <p-listbox [options]="cities" [(value)]="selectedCity"></p-listbox>
+    <p-listbox [options]="cities" [(ngModel)]="selectedCity"></p-listbox>
 
     <p>Selected City: {{selectedCity}}</p>
 
     <h3>Multiple</h3>
-    <p-listbox [options]="cities" [(value)]="selectedCities" multiple="multiple"></p-listbox>
+    <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple"></p-listbox>
     <p>Selected Cities: <span *ngFor="#c of selectedCities">{{c}} &nbsp;</span></p>
 
     <h3>Content</h3>
-    <p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px;max-height:250px">
+    <p-listbox [options]="cars" [(ngModel)]="selectedCar" style="width:190px;max-height:250px">
         <template #car>
             <li class="ui-listbox-item ui-helper-clearfix">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>

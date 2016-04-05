@@ -1,6 +1,15 @@
-import {Component,ElementRef,AfterViewChecked,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers} from 'angular2/core';
+import {Component,ElementRef,AfterViewChecked,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef,Provider} from 'angular2/core';
 import {SelectItem} from '../api/selectitem';
 import {DomHandler} from '../dom/domhandler';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {CONST_EXPR} from 'angular2/src/facade/lang';
+
+const LISTBOX_VALUE_ACCESSOR: Provider = CONST_EXPR(
+    new Provider(NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => Listbox),
+        multi: true
+    })
+);
 
 @Component({
     selector: 'p-listbox',
@@ -16,9 +25,9 @@ import {DomHandler} from '../dom/domhandler';
             </ul>
         </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler,LISTBOX_VALUE_ACCESSOR]
 })
-export class Listbox implements AfterViewChecked {
+export class Listbox implements AfterViewChecked,ControlValueAccessor {
 
     @Input() options: SelectItem[];
 
@@ -30,31 +39,37 @@ export class Listbox implements AfterViewChecked {
     
     @Input() disabled: string;
 
-    @Output() valueChange: EventEmitter<any> = new EventEmitter();
-
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
     
-    _value: any;
+    value: any;
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
     
     differ: any;
     
     valueChanged: boolean;
-    
-    @Input() get value(): any {
-        return this._value;
+        
+    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers) {
+        this.differ = differs.find([]).create(null);
     }
     
-    set value(val: any) {
-        this._value = val;
+    writeValue(value: any) : void {
+        this.value = value;
         if(!this.multiple) {
             this.valueChanged = true;
         }
     }
     
-    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers) {
-        this.differ = differs.find([]).create(null);
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
     }
     
     ngDoCheck() {
@@ -173,18 +188,21 @@ export class Listbox implements AfterViewChecked {
                     valueArr.push(this.options[itemIndex].value);
                 }
             }
-            this.valueChange.emit(valueArr);
+            this.value = valueArr;
         }
         else {
             let selectedItem = this.domHandler.findSingle(item.parentNode, 'li.ui-state-highlight');
             if(selectedItem) {
                 let selectedIndex = this.domHandler.index(selectedItem);
-                this.valueChange.emit(this.options[selectedIndex].value);
+                this.value = this.options[selectedIndex].value;
             }
             else {
-                this.valueChange.emit(null);
+                this.value = null;
             }
         }
+        
+        this.onModelChange(this.value);
+        this.onChange.emit(event);
     }
     
     unselectSiblings(item) {
