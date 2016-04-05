@@ -1,4 +1,13 @@
-import {Component,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,Input,Output,EventEmitter,forwardRef,Provider} from 'angular2/core';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {CONST_EXPR} from 'angular2/src/facade/lang';
+
+const TOGGLEBUTTON_VALUE_ACCESSOR: Provider = CONST_EXPR(
+    new Provider(NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => ToggleButton),
+        multi: true
+    })
+);
 
 @Component({
     selector: 'p-toggleButton',
@@ -9,9 +18,10 @@ import {Component,Input,Output,EventEmitter} from 'angular2/core';
             <span *ngIf="onIcon||offIcon" [attr.class]="getIconClass()"></span>
             <span class="ui-button-text ui-unselectable-text">{{checked ? onLabel : offLabel}}</span>
         </div>
-    `
+    `,
+    providers: [TOGGLEBUTTON_VALUE_ACCESSOR]
 })
-export class ToggleButton {
+export class ToggleButton implements ControlValueAccessor {
 
     @Input() onLabel: string = 'Yes';
 
@@ -21,8 +31,6 @@ export class ToggleButton {
 
     @Input() offIcon: string;
 
-    @Input() checked: boolean;
-
     @Input() disabled: boolean;
 
     @Input() style: string;
@@ -30,8 +38,12 @@ export class ToggleButton {
     @Input() styleClass: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() checkedChange: EventEmitter<any> = new EventEmitter();
+    
+    checked: boolean = false;
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
     
     private hover: boolean;
 
@@ -42,11 +54,25 @@ export class ToggleButton {
     
     toggle(event) {
         if(!this.disabled) {
-            this.checkedChange.emit(!this.checked);
+            this.checked = !this.checked;
+            this.onModelChange(this.checked);
+            this.onModelTouched();
             this.onChange.emit({
                 originalEvent: event,
-                checked: !this.checked
+                checked: this.checked
             })
         }
+    }
+    
+    writeValue(value: any) : void {
+        this.checked = value;
+    }
+    
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
     }
 }
