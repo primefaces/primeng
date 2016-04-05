@@ -1,13 +1,22 @@
-import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, Output, SimpleChange, EventEmitter} from 'angular2/core';
-import SliderUIParams = JQueryUI.SliderUIParams;
+import {Component, ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider} from 'angular2/core';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {CONST_EXPR} from 'angular2/src/facade/lang';
+
+const SLIDER_VALUE_ACCESSOR: Provider = CONST_EXPR(
+    new Provider(NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => Slider),
+        multi: true
+    })
+);
 
 @Component({
     selector: 'p-slider',
     template: `
         <div [attr.style]="style" [attr.class]="styleClass"></div>
-    `
+    `,
+    providers: [SLIDER_VALUE_ACCESSOR]
 })
-export class Slider implements AfterViewInit, OnDestroy, OnChanges {
+export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAccessor {
 
     @Input() animate: boolean;
 
@@ -19,10 +28,6 @@ export class Slider implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() orientation: string;
 
-    @Input() value: number;
-
-    @Input() values: number[];
-
     @Input() step: number;
 
     @Input() range: boolean;
@@ -32,14 +37,14 @@ export class Slider implements AfterViewInit, OnDestroy, OnChanges {
     @Input() styleClass: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() valueChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() valuesChange: EventEmitter<any> = new EventEmitter();
+    
+    value: any;
+    
+    onModelChange: Function = () => {};
+    
+    onModelTouched: Function = () => {};
 
     initialized: boolean;
-
-    stopNgOnChangesPropagation: boolean;
 
     constructor(private el: ElementRef) {
         this.initialized = false;
@@ -55,30 +60,42 @@ export class Slider implements AfterViewInit, OnDestroy, OnChanges {
             range: this.range,
             step: this.step,
             value: this.value,
-            values: this.values,
-            slide: (event: Event, ui: SliderUIParams) => {
-                this.stopNgOnChangesPropagation = true;
-
+            values: this.value,
+            slide: (event: Event, ui: any) => {
                 if(this.range) {
+                    this.onModelChange(ui.value);
                     this.onChange.emit({originalEvent: event, values: ui.values});
-                    this.valuesChange.emit(ui.values);
                 }
                 else {
+                    this.onModelChange(ui.value);
                     this.onChange.emit({originalEvent: event, value: ui.value});
-                    this.valueChange.emit(ui.value);
                 }
             }
         });
         this.initialized = true;
     }
+    
+    writeValue(value: any) : void {
+        this.value = value;
+        
+        if(this.initialized) {
+            let optionName = this.range ? 'values' : 'value';
+            jQuery(this.el.nativeElement.children[0]).slider('option', optionName, this.value);                
+        }
+    }
+    
+    registerOnChange(fn: Function): void {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched(fn: Function): void {
+        this.onModelTouched = fn;
+    }
 
     ngOnChanges(changes: { [key: string]: SimpleChange }) {
         if (this.initialized) {
             for (var key in changes) {
-                if ((key === 'value'||key === 'values') && this.stopNgOnChangesPropagation) {
-                    this.stopNgOnChangesPropagation = false;
-                    continue;
-                }
+                console.log(key);
 
                 jQuery(this.el.nativeElement.children[0]).slider('option', key, changes[key].currentValue);
             }

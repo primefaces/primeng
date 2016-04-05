@@ -7,23 +7,23 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic: {{val1}}</h3>
-    <p-slider [(value)]="val1" style="width:200px"></p-slider>
+    <p-slider [(ngModel)]="val1" style="width:200px"></p-slider>
 
     <h3>Input: {{val2}}</h3>
     <input type="text" pInputText [(ngModel)]="val2" style="width:200px"/>
-    <p-slider [(value)]="val2" style="width:200px"></p-slider>
+    <p-slider [(ngModel)]="val2" style="width:200px"></p-slider>
 
     <h3>Animate: {{val3}}</h3>
-    <p-slider [(value)]="val3" style="width:200px" [animate]="true"></p-slider>
+    <p-slider [(ngModel)]="val3" style="width:200px" [animate]="true"></p-slider>
 
     <h3>Step: {{val4}}</h3>
-    <p-slider [(value)]="val4" style="width:200px" [step]="10"></p-slider>
+    <p-slider [(ngModel)]="val4" style="width:200px" [step]="10"></p-slider>
 
     <h3>Range: {{rangeValues}}</h3>
-    <p-slider [(values)]="rangeValues" style="width:200px" [range]="true"></p-slider>
+    <p-slider [(ngModel)]="rangeValues" style="width:200px" [range]="true"></p-slider>
 
     <h3>Vertical: {{val5}}</h3>
-    <p-slider [(value)]="val5" style="height:200px" orientation="vertical"></p-slider>
+    <p-slider [(ngModel)]="val5" style="height:200px" orientation="vertical"></p-slider>
 </div>
 
 <div class="ContentSideSections Source">
