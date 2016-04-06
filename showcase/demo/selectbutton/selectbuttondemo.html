@@ -31,10 +31,11 @@ import {SelectButton} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>SelectButton requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
+            <p>Two-way value binding is defined using ngModel and selectbutton requires a collection of options 
+                where each option should follow the SelectItem interface that defines label-value properties.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-selectButton [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-selectButton&gt;
+&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-selectButton&gt;
 </code>
 </pre>
 
@@ -62,10 +63,11 @@ export class MyModel {
 </pre>
 
             <h3>Multiple</h3>
-            <p>SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. In multiple case, model property should be an array instance that is not null or undefined.</p>
+            <p>SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. 
+                In multiple case, model property should be an array instance that is not null or undefined.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-selectButton [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-selectButton&gt;
+&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-selectButton&gt;
 </code>
 </pre>
 
@@ -92,6 +94,14 @@ export class MyModel {
 </code>
 </pre>
 
+            <h3>Model Driven Forms</h3>
+            <p>SelectButton can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-selectButton [options]="cities" ngControl="selectedCity"&gt;&lt;/p-selectButton&gt;
+</code>
+</pre>
+
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -109,12 +119,6 @@ export class MyModel {
                             <td>array</td>
                             <td>null</td>
                             <td>An array of selectitems to display as the available options.</td>
-                        </tr>
-                        <tr>
-                            <td>value</td>
-                            <td>any</td>
-                            <td>false</td>
-                            <td>Value of the component.</td>
                         </tr>
                         <tr>
                             <td>multiple</td>
@@ -174,12 +178,12 @@ export class MyModel {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-selectButton [options]="types" [(value)]="selectedType"&gt;&lt;/p-selectButton&gt;
+&lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
 
 &lt;p&gt;Selected Type: {{selectedType}}&lt;/p&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p-selectButton [options]="types" [(value)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
+&lt;p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
 &lt;p&gt;Selected Types: &lt;span *ngFor="#type of selectedTypes"&gt;{{type}} &lt;/span&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
