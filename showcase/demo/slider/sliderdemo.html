@@ -37,10 +37,10 @@ import {Slider} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Slider is defined using p-slider element and requires a value binding.</p>
+            <p>Two-way binding is defined using the standard ngModel directive.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-slider [(value)]="val"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
@@ -54,11 +54,19 @@ export class MyModel {
 </code>
 </pre>
 
+            <h3>Model Driven Forms</h3>
+            <p>Slider can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-slider ngControl="age"&gt;&lt;/p-slider&gt;
+</code>
+</pre>
+
             <h3>Min-Max</h3>
             <p>Boundaries are specified with min and max attributes.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-slider [(value)]="val" [min]="0" [max]="100"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val" [min]="0" [max]="100"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
@@ -66,15 +74,15 @@ export class MyModel {
             <p>Step factor is 1 by default and can be customized with step option.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-slider [(value)]="val" [step]="10"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val" [step]="10"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
             <h3>Range</h3>
-            <p>Range slider provides two handles to define two values. In this case, use the values property that binds to an array.</p>
+            <p>Range slider provides two handles to define two values. In this case, value binding should refer to an array.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-slider [(values)]="vals" [range]="true"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="rangeValues" [range]="true"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
@@ -92,7 +100,7 @@ export class MyModel {
             <p>Sliders supports two orientations, horizontal is the default and other alternative is vertical.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-slider [(value)]="val" orientation="vertical"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val" orientation="vertical"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
@@ -108,18 +116,6 @@ export class MyModel {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>value</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Value of the slider.</td>
-                        </tr>
-                        <tr>
-                            <td>value</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>Values of the slider as an array in range mode.</td>
-                        </tr>
                         <tr>
                             <td>animate</td>
                             <td>boolean</td>
@@ -203,7 +199,7 @@ export class MyModel {
             </div>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-slider [(value)]="val" (onChange)="handleChange($event)"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val" (onChange)="handleChange($event)"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
@@ -246,23 +242,23 @@ handleChange(e) {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic: {{val1}}&lt;/h3&gt;
-&lt;p-slider [(value)]="val1" style="width:200px"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val1" style="width:200px"&gt;&lt;/p-slider&gt;
 
 &lt;h3&gt;Input: {{val2}}&lt;/h3&gt;
 &lt;input type="text" pInputText [(ngModel)]="val2" style="width:200px"/&gt;
-&lt;p-slider [(value)]="val2" style="width:200px"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val2" style="width:200px"&gt;&lt;/p-slider&gt;
 
 &lt;h3&gt;Animate: {{val3}}&lt;/h3&gt;
-&lt;p-slider [(value)]="val3" style="width:200px" [animate]="true"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val3" style="width:200px" [animate]="true"&gt;&lt;/p-slider&gt;
 
 &lt;h3&gt;Step: {{val4}}&lt;/h3&gt;
-&lt;p-slider [(value)]="val4" style="width:200px" [step]="10"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val4" style="width:200px" [step]="10"&gt;&lt;/p-slider&gt;
 
 &lt;h3&gt;Range: {{rangeValues}}&lt;/h3&gt;
-&lt;p-slider [(values)]="rangeValues" style="width:200px" [range]="true"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="rangeValues" style="width:200px" [range]="true"&gt;&lt;/p-slider&gt;
 
 &lt;h3&gt;Vertical: {{val5}}&lt;/h3&gt;
-&lt;p-slider [(value)]="val5" style="height:200px" orientation="vertical"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val5" style="height:200px" orientation="vertical"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
