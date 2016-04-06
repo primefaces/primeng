@@ -140,7 +140,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         this.panel = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-multiselect-panel');
         
         if(this.overlayVisible) {
-            this.panel.style.zIndex = ++PUI.zindex;
+            this.show();
         }
     }
     
