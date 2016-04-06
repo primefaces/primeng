@@ -6,7 +6,7 @@ import {Button} from '../../../components/button/button';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
-    templateUrl: 'components/button/buttondemo.html',
+    templateUrl: 'showcase/demo/button/buttondemo.html',
     directives: [CodeHighlighter,Button,TabPanel,TabView,ROUTER_DIRECTIVES]
 })
 export class ButtonDemo {
