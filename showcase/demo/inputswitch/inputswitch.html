@@ -24,11 +24,11 @@ import {InputSwitch} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>InputSwitch is defined using p-inputSwitch element. Checked property supports two-way binding to retrieve and assign the model.</p>
+            <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-inputSwitch [(checked)]="checked"&gt;&lt;/p-inputSwitch&gt;
+&lt;p-inputSwitch [(ngModel)]="checked"&gt;&lt;/p-inputSwitch&gt;
 </code>
 </pre>
 
@@ -53,11 +53,19 @@ export class ModelComponent {
 </code>
 </pre>
 
+            <h3>Model Driven Forms</h3>
+            <p>InputSwitch can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-inputSwitch ngControl="enabled"&gt;&lt;/p-inputSwitch&gt;
+</code>
+</pre>
+
             <h3>Customization</h3>
             <p>Labels can be customized using onLabel and offLabel properties.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-inputSwitch onLabel="I confirm" offLabel="I reject" [(checked)]="val"&gt;&lt;/p-inputSwitch&gt;
+&lt;p-inputSwitch onLabel="I confirm" offLabel="I reject" [(ngModel)]="val"&gt;&lt;/p-inputSwitch&gt;
 </code>
 </pre>
 
@@ -73,12 +81,6 @@ export class ModelComponent {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>checked</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Checked state of the component.</td>
-                        </tr>
                         <tr>
                             <td>onLabel</td>
                             <td>string</td>
@@ -129,7 +131,7 @@ export class ModelComponent {
             </div>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-inputSwitch (onChange)="handleChange($event)" [(checked)]="val"&gt;
+&lt;p-inputSwitch (onChange)="handleChange($event)" [(ngModel)]="val"&gt;
 </code>
 </pre>
  <pre>
@@ -178,10 +180,10 @@ export class ModelComponent {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic - {{checked1}}&lt;/h3&gt;
-&lt;p-inputSwitch [(checked)]="checked1"&gt;&lt;/p-inputSwitch&gt;
+&lt;p-inputSwitch [(ngModel)]="checked1"&gt;&lt;/p-inputSwitch&gt;
 
 &lt;h3&gt;Labels - &lt;span&gt; {{checked2}}&lt;/h3&gt;
-&lt;p-inputSwitch onLabel="Yes" offLabel="No" [(checked)]="checked2"&gt;&lt;/p-inputSwitch&gt;
+&lt;p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="checked2"&gt;&lt;/p-inputSwitch&gt;
 </code>
 </pre>
 
