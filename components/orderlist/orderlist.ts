@@ -1,4 +1,4 @@
-import {Component,ElementRef,DoCheck,Input,Output,ContentChild,TemplateRef} from 'angular2/core';
+import {Component,ElementRef,DoCheck,Input,Output,ContentChild,TemplateRef,EventEmitter} from 'angular2/core';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
 
@@ -8,10 +8,10 @@ import {DomHandler} from '../dom/domhandler';
         <div [ngClass]="{'ui-orderlist ui-grid ui-widget':true,'ui-grid-responsive':responsive}" [attr.style]="style" [attr.class]="styleClass">
             <div class="ui-grid-row">
                 <div class="ui-orderlist-controls ui-grid-col-2">
-                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(listelement)"></button>
-                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(listelement)"></button>
-                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(listelement)"></button>
-                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(listelement)"></button>
+                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp($event,listelement)"></button>
+                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop($event,listelement)"></button>
+                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown($event,listelement)"></button>
+                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom($event,listelement)"></button>
                 </div>
                 <div class="ui-grid-col-10">
                     <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
@@ -39,6 +39,8 @@ export class OrderList {
     @Input() listStyle: string;
     
     @Input() responsive: boolean;
+    
+    @Output() onReorder: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
         
@@ -105,75 +107,91 @@ export class OrderList {
         }
     }
 
-    moveUp(listElement) {
+    moveUp(event,listElement) {
         let selectedElements = this.getSelectedListElements(listElement);
-        for(let i = 0; i < selectedElements.length; i++) {
-            let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        if(selectedElements.length) {
+            for(let i = 0; i < selectedElements.length; i++) {
+                let selectedElement = selectedElements[i];
+                let selectedElementIndex: number = this.domHandler.index(selectedElement);
 
-            if(selectedElementIndex != 0) {
-                let movedItem = this.value[selectedElementIndex];
-                let temp = this.value[selectedElementIndex-1];
-                this.value[selectedElementIndex-1] = movedItem;
-                this.value[selectedElementIndex] = temp;
-                this.domHandler.scrollInView(listElement, listElement.children[selectedElementIndex - 1]);
+                if(selectedElementIndex != 0) {
+                    let movedItem = this.value[selectedElementIndex];
+                    let temp = this.value[selectedElementIndex-1];
+                    this.value[selectedElementIndex-1] = movedItem;
+                    this.value[selectedElementIndex] = temp;
+                    this.domHandler.scrollInView(listElement, listElement.children[selectedElementIndex - 1]);
+                }
+                else {
+                    break;
+                }
             }
-            else {
-                break;
-            }
+            
+            this.onReorder.emit(event);
         }
     }
     
-    moveTop(listElement) {
+    moveTop(event,listElement) {
         let selectedElements = this.getSelectedListElements(listElement);
-        for(let i = 0; i < selectedElements.length; i++) {
-            let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        if(selectedElements.length) {
+            for(let i = 0; i < selectedElements.length; i++) {
+                let selectedElement = selectedElements[i];
+                let selectedElementIndex: number = this.domHandler.index(selectedElement);
 
-            if(selectedElementIndex != 0) {
-                let movedItem = this.value.splice(selectedElementIndex,1)[0];
-                this.value.unshift(movedItem);
-                listElement.scrollTop = 0;
+                if(selectedElementIndex != 0) {
+                    let movedItem = this.value.splice(selectedElementIndex,1)[0];
+                    this.value.unshift(movedItem);
+                    listElement.scrollTop = 0;
+                }
+                else {
+                    break;
+                }
             }
-            else {
-                break;
-            }
+            
+            this.onReorder.emit(event);
         }
     }
     
-    moveDown(listElement) {
+    moveDown(event,listElement) {
         let selectedElements = this.getSelectedListElements(listElement);
-        for(let i = selectedElements.length - 1; i >= 0; i--) {
-            let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        if(selectedElements.length) {
+            for(let i = selectedElements.length - 1; i >= 0; i--) {
+                let selectedElement = selectedElements[i];
+                let selectedElementIndex: number = this.domHandler.index(selectedElement);
 
-            if(selectedElementIndex != (this.value.length - 1)) {
-                let movedItem = this.value[selectedElementIndex];
-                let temp = this.value[selectedElementIndex+1];
-                this.value[selectedElementIndex+1] = movedItem;
-                this.value[selectedElementIndex] = temp;
-                this.domHandler.scrollInView(listElement, listElement.children[selectedElementIndex + 1]);
+                if(selectedElementIndex != (this.value.length - 1)) {
+                    let movedItem = this.value[selectedElementIndex];
+                    let temp = this.value[selectedElementIndex+1];
+                    this.value[selectedElementIndex+1] = movedItem;
+                    this.value[selectedElementIndex] = temp;
+                    this.domHandler.scrollInView(listElement, listElement.children[selectedElementIndex + 1]);
+                }
+                else {
+                    break;
+                }
             }
-            else {
-                break;
-            }
+            
+            this.onReorder.emit(event);
         }
     }
     
-    moveBottom(listElement) {
+    moveBottom(event,listElement) {
         let selectedElements = this.getSelectedListElements(listElement);
-        for(let i = selectedElements.length - 1; i >= 0; i--) {
-            let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        if(selectedElements.length) {
+            for(let i = selectedElements.length - 1; i >= 0; i--) {
+                let selectedElement = selectedElements[i];
+                let selectedElementIndex: number = this.domHandler.index(selectedElement);
 
-            if(selectedElementIndex != (this.value.length - 1)) {
-                let movedItem = this.value.splice(selectedElementIndex,1)[0];
-                this.value.push(movedItem);
-                listElement.scrollTop = listElement.scrollHeight;
+                if(selectedElementIndex != (this.value.length - 1)) {
+                    let movedItem = this.value.splice(selectedElementIndex,1)[0];
+                    this.value.push(movedItem);
+                    listElement.scrollTop = listElement.scrollHeight;
+                }
+                else {
+                    break;
+                }
             }
-            else {
-                break;
-            }
+            
+            this.onReorder.emit(event);
         }
     }
         
