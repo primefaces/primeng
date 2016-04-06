@@ -28,7 +28,7 @@ const MULTISELECT_VALUE_ACCESSOR: Provider = CONST_EXPR(
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true,'ui-state-hover':hover,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
-            <div class="ui-multiselect-panel ui-widget ui-widget-content ui-corner-all" [style.display]="panelVisible ? 'block' : 'none'" (click)="panelClick=true">
+            <div class="ui-multiselect-panel ui-widget ui-widget-content ui-corner-all" [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
                     <div class="ui-chkbox ui-widget">
                         <div class="ui-helper-hidden-accessible">
@@ -86,6 +86,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
 
     @Input() disabled: boolean;
     
+    @Input() overlayVisible: boolean;
+    
     value: any[];
     
     onModelChange: Function = () => {};
@@ -97,8 +99,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     private hover: boolean;
     
     private focus: boolean;
-    
-    private panelVisible: boolean;
     
     private documentClickListener: any;
     
@@ -126,7 +126,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         this.updateLabel();
         
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            if(!this.selfClick && this.panelVisible) {
+            if(!this.selfClick && this.overlayVisible) {
                 this.hide();
             }
             
@@ -138,6 +138,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];
         this.panel = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-multiselect-panel');
+        
+        if(this.overlayVisible) {
+            this.panel.style.zIndex = ++PUI.zindex;
+        }
     }
     
     ngAfterViewChecked() {
@@ -226,14 +230,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     } 
     
     show() {
-        this.panelVisible = true;
+        this.overlayVisible = true;
         this.panel.style.zIndex = ++PUI.zindex;
         this.domHandler.relativePosition(this.panel, this.container);
         this.domHandler.fadeIn(this.panel, 250);
     }
     
     hide() {
-        this.panelVisible = false;
+        this.overlayVisible = false;
     }
     
     close(event) {
@@ -251,7 +255,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     onMouseclick(event,input) {
         if(!this.panelClick) {
-            if(this.panelVisible) {
+            if(this.overlayVisible) {
                 this.hide();
             }
             else {

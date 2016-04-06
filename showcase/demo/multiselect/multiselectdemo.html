@@ -6,7 +6,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars"></p-multiSelect>
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars" [overlayVisible]="true"></p-multiSelect>
     <p>Selected Cars: <span *ngFor="#c of selectedCars">{{c}} &nbsp;</span></p>
 </div>
 
@@ -107,6 +107,12 @@ export class MyModel {
                             <td>string</td>
                             <td>200px</td>
                             <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
+                        </tr>
+                        <tr>
+                            <td>overlayVisible</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifies the visibility of the options panel.</td>
                         </tr>
                     </tbody>
                 </table>
