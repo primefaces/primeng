@@ -31,10 +31,18 @@ import {Spinner} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Spinner is defined using p-spinner element. Value of the component should be a number.</p>     
+            <p>Two-way value binding is defined using standard ngModel directive.</p>     
 <pre>
 <code class="language-markup" pCode>
-&lt;p-spinner size="30" [(value)]="val"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val"&gt;&lt;/p-spinner&gt;
+</code>
+</pre>
+
+            <h3>Model Driven Forms</h3>
+            <p>Spinner can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-spinner ngControl="age"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -42,7 +50,7 @@ import {Spinner} from 'primeng/primeng';
             <p>Boundaries are specified with min and max attributes.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-spinner size="30" [(value)]="val" [min]="0" [max]="100"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val" [min]="0" [max]="100"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -50,7 +58,7 @@ import {Spinner} from 'primeng/primeng';
             <p>Step factor is 1 by default and can be customized with step option.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-spinner size="30" [(value)]="val" [step]="0.25"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val" [step]="0.25"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -66,12 +74,6 @@ import {Spinner} from 'primeng/primeng';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>value</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Value of the component.</td>
-                        </tr>
                         <tr>
                             <td>step</td>
                             <td>number</td>
@@ -169,16 +171,16 @@ import {Spinner} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-spinner size="30" [(value)]="val1"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val1"&gt;&lt;/p-spinner&gt;
 
 &lt;h3&gt;Min/Max&lt;/h3&gt;
-&lt;p-spinner size="30" [(value)]="val2" [min]="0" [max]="100"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val2" [min]="0" [max]="100"&gt;&lt;/p-spinner&gt;
 
 &lt;h3&gt;Step&lt;/h3&gt;
-&lt;p-spinner size="30" [(value)]="val3" [step]="0.25"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val3" [step]="0.25"&gt;&lt;/p-spinner&gt;
 
 &lt;h3&gt;Disabled&lt;/h3&gt;
-&lt;p-spinner size="30" [(value)]="val4" [disabled]="true"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val4" [disabled]="true"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
@@ -193,6 +195,7 @@ export class SpinnerDemo {
     val3: number;
 
     val4: number = 100;
+    
 }
 </code>
 </pre>
