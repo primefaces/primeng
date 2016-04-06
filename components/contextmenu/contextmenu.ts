@@ -9,6 +9,8 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
     `
 })
 export class ContextMenu {
+    
+    @Input() global: boolean;
 
     @Input() style: string;
 
@@ -25,6 +27,7 @@ export class ContextMenu {
     ngAfterViewInit() {
         this.menuElement = jQuery(this.el.nativeElement).find('> div > ul');
         this.menuElement.puicontextmenu({
+            target: this.global ? document : null,
             enhanced: true
         });
         this.initialized = true;
@@ -33,7 +36,7 @@ export class ContextMenu {
     ngOnChanges(changes: {[key: string]: SimpleChange}) {
         if (this.initialized) {
             for (var key in changes) {
-                this.menuElement.puitieredmenu('option', key, changes[key].currentValue);
+                this.menuElement.puicontextmenu('option', key, changes[key].currentValue);
             }
         }
     }
@@ -42,6 +45,10 @@ export class ContextMenu {
         this.menuElement.puicontextmenu('destroy');
         this.initialized = false;
         this.menuElement = null;
+    }
+    
+    show(event) {
+        this.menuElement.puicontextmenu('show', event);
     }
 
 }

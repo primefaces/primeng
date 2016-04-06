@@ -59,6 +59,7 @@ import {DataTableGroupDemo} from "./demo/datatable/datatablegroupdemo";
 import {DataTableCrudDemo} from "./demo/datatable/datatablecruddemo";
 import {DataTableLazyDemo} from "./demo/datatable/datatablelazydemo";
 import {DataTableTemplatingDemo} from "./demo/datatable/datatabletemplatingdemo";
+import {DataTableCMDemo} from "./demo/datatable/datatablecmdemo";
 import {CodeHighlighterDemo} from "./demo/codehighlighter/codehighlighterdemo";
 import {OrderListDemo} from "./demo/orderlist/orderlistdemo";
 import {PickListDemo} from "./demo/picklist/picklistdemo";
@@ -146,6 +147,7 @@ import {ContextMenuDemo} from "./demo/contextmenu/contextmenudemo";
     {path: '/datatablelazy', name: 'DataTableLazyDemo', component: DataTableLazyDemo},
     {path: '/datatablecrud', name: 'DataTableCrudDemo', component: DataTableCrudDemo},
     {path: '/datatabletemplating', name: 'DataTableTemplatingDemo', component: DataTableTemplatingDemo},
+    {path: '/datatablecontextmenu', name: 'DataTableCMDemo', component: DataTableCMDemo},
     {path: '/codehighlighter', name: 'CodeHighlighterDemo', component: CodeHighlighterDemo},
     {path: '/orderlist', name: 'OrderListDemo', component: OrderListDemo},
     {path: '/picklist', name: 'PickListDemo', component: PickListDemo},

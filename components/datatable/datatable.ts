@@ -54,7 +54,7 @@ import {DomHandler} from '../dom/domhandler';
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)"
+                                (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                 [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass"
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
@@ -148,6 +148,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
     @Input() filterDelay: number = 300;
 
@@ -188,6 +190,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Input() sortOrder: number;
 
     @Input() multiSortMeta: SortMeta[];
+    
+    @Input() contextMenu: any;
 
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
@@ -529,6 +533,28 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             }
 
             this.onRowSelect.emit({originalEvent: event, data: rowData});
+        }
+    }
+    
+    onRowRightClick(event, rowData) {
+        if(this.contextMenu) {
+            let selectionIndex = this.findIndexInSelection(rowData);
+            let selected = selectionIndex != -1;
+            
+            if(!selected) {
+                if(this.isSingleSelectionMode()) {
+                    this.selection = rowData;
+                    this.selectionChange.emit(rowData);
+                }
+                else if(this.isMultipleSelectionMode()) {
+                    this.selection = [];
+                    this.selection.push(rowData);
+                    this.selectionChange.emit(this.selection);
+                }
+            }
+
+            this.contextMenu.show(event);            
+            this.onContextMenuSelect.emit({originalEvent: event, data: rowData});
         }
     }
 
