@@ -1,5 +1,4 @@
 import {Directive,ElementRef,HostListener,Input,OnInit} from 'angular2/core';
-import {NgModel} from 'angular2/common';
 
 @Directive({
     selector: '[pInputTextarea]',
@@ -11,11 +10,9 @@ import {NgModel} from 'angular2/common';
         '[class.ui-state-hover]': 'hover',
         '[class.ui-state-focus]': 'focus',
         '[class.ui-state-disabled]': 'isDisabled()',
-        '[class.ui-state-error]': 'isInvalid()',
         '[attr.rows]': 'rows',
         '[attr.cols]': 'cols'
-    },
-    providers: [NgModel]
+    }
 })
 export class InputTextarea implements OnInit {
     
@@ -33,7 +30,7 @@ export class InputTextarea implements OnInit {
     
     colsDefault: number;
         
-    constructor(private el: ElementRef, private control: NgModel) {}
+    constructor(private el: ElementRef) {}
     
     ngOnInit() {
         this.rowsDefault = this.rows;
@@ -70,10 +67,6 @@ export class InputTextarea implements OnInit {
     
     isDisabled() {
         return this.el.nativeElement.disabled;
-    }
-    
-    isInvalid() {
-        return !this.control.valid;
     }
     
     @HostListener('keyup', ['$event']) 
