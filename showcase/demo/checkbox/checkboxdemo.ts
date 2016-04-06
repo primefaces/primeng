@@ -14,8 +14,8 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
         }
 
         .ui-grid label {
-            display: inline-block;
-            margin: 3px 0px 0px 4px;
+            display: block;
+            margin: 2px 0 0 4px;
         }
     `],
     directives: [Checkbox,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
