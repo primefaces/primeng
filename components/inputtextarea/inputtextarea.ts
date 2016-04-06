@@ -5,7 +5,6 @@ import {NgModel} from 'angular2/common';
     selector: '[pInputTextarea]',
     host: {
         '[class.ui-inputtext]': 'true',
-        '[class.ui-inputfield]': 'true',
         '[class.ui-corner-all]': 'true',
         '[class.ui-state-default]': 'true',
         '[class.ui-widget]': 'true',

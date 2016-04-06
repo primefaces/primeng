@@ -41,7 +41,7 @@ const MULTISELECT_VALUE_ACCESSOR: Provider = CONST_EXPR(
                     </div>
                     <div class="ui-multiselect-filter-container">
                         <input type="text" aria-multiline="false" aria-readonly="false" aria-disabled="false" role="textbox" (input)="onFilter($event)"
-                                    class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all">
+                                    class="ui-inputtext ui-widget ui-state-default ui-corner-all">
                         <span class="fa fa-fw fa-search"></span>
                     </div>
                     <a class="ui-multiselect-close ui-corner-all" href="#" (click)="close($event)">
