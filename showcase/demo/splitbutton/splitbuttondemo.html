@@ -12,6 +12,7 @@
         <p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"></p-splitButtonItem>
         <p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"></p-splitButtonItem>
         <p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"></p-splitButtonItem>
+        <p-splitButtonItem icon="fa-paint-brush" label="Theming" [url]="['Theming']"></p-splitButtonItem>
     </p-splitButton>
 </div>
 
@@ -35,6 +36,7 @@ import {SplitButtonItem} from 'primeng/primeng';
     &lt;p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"&gt;&lt;/p-splitButtonItem&gt;
     &lt;p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"&gt;&lt;/p-splitButtonItem&gt;
     &lt;p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"&gt;&lt;/p-splitButtonItem&gt;
+    &lt;p-splitButtonItem icon="fa-link" label="Theming" [url]="['Theming']"&gt;&lt;/p-splitButtonItem&gt;
 &lt;/p-splitButton&gt;
 </code>
 </pre>
@@ -66,9 +68,9 @@ import {SplitButtonItem} from 'primeng/primeng';
                         </tr>
                         <tr>
                             <td>url</td>
-                            <td>string</td>
+                            <td>string/array</td>
                             <td>null</td>
-                            <td>URL to navigate when item is clicked.</td>
+                            <td>URL as string to navigate, also supports router link dsl.</td>
                         </tr>
                         <tr>
                             <td>onClick</td>
@@ -208,6 +210,7 @@ import {SplitButtonItem} from 'primeng/primeng';
     &lt;p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"&gt;&lt;/p-splitButtonItem&gt;
     &lt;p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"&gt;&lt;/p-splitButtonItem&gt;
     &lt;p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"&gt;&lt;/p-splitButtonItem&gt;
+    &lt;p-splitButtonItem icon="fa-paint-brush" label="Theming" [url]="['Theming']"&gt;&lt;/p-splitButtonItem&gt;
 &lt;/p-splitButton&gt;
 </code>
 </pre>

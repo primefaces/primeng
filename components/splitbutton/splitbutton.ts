@@ -1,6 +1,7 @@
 import {Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from 'angular2/core';
 import {SplitButtonItem} from './splitbuttonitem';
 import {DomHandler} from '../dom/domhandler';
+import {Router,Location,RouteConfig,ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
     selector: 'p-splitButton',
@@ -27,7 +28,7 @@ import {DomHandler} from '../dom/domhandler';
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="#item of items" [ngClass]="{'ui-state-hover':(hoveredItem==item)}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
-                        <a [href]="item.url ? item.url : '#'" class="ui-menuitem-link ui-corner-all" (click)="onItemClick($event,item)">
+                        <a [href]="getItemUrl(item)" class="ui-menuitem-link ui-corner-all" (click)="onItemClick($event,item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [attr.class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
@@ -36,7 +37,8 @@ import {DomHandler} from '../dom/domhandler';
             </div>
         </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler],
+    directives: [ROUTER_DIRECTIVES]
 })
 export class SplitButton implements OnInit,OnDestroy {
 
@@ -76,7 +78,7 @@ export class SplitButton implements OnInit,OnDestroy {
     
     private documentClickListener: any;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, private router: Router, private location: Location) {}
     
     ngOnInit() {
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
@@ -101,7 +103,19 @@ export class SplitButton implements OnInit,OnDestroy {
         
         if(!item.url) {
             event.preventDefault();
-        }            
+        }          
+    }
+    
+    getItemUrl(item: SplitButtonItem): string {
+        if(item.url) {
+            if(Array.isArray(item.url))
+                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
+            else
+                return item.url;
+        }
+        else {
+            return '#';
+        }
     }
     
     ngOnDestroy() {
