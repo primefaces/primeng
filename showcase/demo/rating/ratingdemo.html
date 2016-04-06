@@ -71,7 +71,7 @@ export class ModelComponent {
             <p>Rating can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-rating [ngFormControl]="myGroup.controls['rating1']"&gt;&lt;/p-rating&gt;
+&lt;p-rating ngControl="score"&gt;&lt;/p-rating&gt;
 </code>
 </pre>
 
@@ -87,12 +87,6 @@ export class ModelComponent {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>value</td>
-                                    <td>number</td>
-                                    <td>null</td>
-                                    <td>Number of selected stars.</td>
-                                </tr>
                                 <tr>
                                     <td>stars</td>
                                     <td>number</td>
