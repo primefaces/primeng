@@ -21,10 +21,11 @@ import {MultiSelect} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>MultiSelect requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
+            <p>Two-way value binding is defined using ngModel and multiselect requires a collection of options 
+                where each option should follow the SelectItem interface that defines label-value properties.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-multiSelect [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
@@ -50,6 +51,14 @@ export class MyModel {
 }
 </code>
 </pre>
+
+            <h3>Model Driven Forms</h3>
+            <p>MultiSelect can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-multiSelect [options]="cities" ngControl="selectedCities"&gt;&lt;/p-multiSelect&gt;
+</code>
+</pre>
         
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -68,12 +77,6 @@ export class MyModel {
                             <td>array</td>
                             <td>null</td>
                             <td>An array of selectitems to display as the available options.</td>
-                        </tr>
-                        <tr>
-                            <td>value</td>
-                            <td>array</td>
-                            <td>false</td>
-                            <td>Value of the component as an array.</td>
                         </tr>
                         <tr>
                             <td>disabled</td>
@@ -125,7 +128,7 @@ export class MyModel {
                             <td>event.originalEvent: browser event<br />
                                 event.value: Current selected values
                             </td>
-                            <td>Callback to invoke when value of listbox changes.</td>
+                            <td>Callback to invoke when value changes.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -179,13 +182,14 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires the css of PrimeUI Listbox.</p>
+            <p>Native component that requires the css of PrimeUI MultiSelect.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-multiSelect [options]="cars" [(value)]="selectedCars"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars"&gt;&lt;/p-multiSelect&gt;
+
 &lt;p&gt;Selected Cars: &lt;span *ngFor="#c of selectedCars"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
 </code>
 </pre>
