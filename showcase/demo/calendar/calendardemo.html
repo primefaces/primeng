@@ -48,11 +48,11 @@ import {Calendar} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Calendar is defined with p-calendar element and model binding is done using value property.</p>
+            <p>Two-way value binding is defined using the standard ngModel directive.</p>
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(value)]="dateValue"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -64,12 +64,19 @@ export class MyModel {
 </code>
 </pre>
 
+            <h3>Model Driven Forms</h3>
+            <p>Calendar can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar ngControl="date"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
 
             <h3>Popup and Inline</h3>
             <p>Calendar is displayed in a popup by default, enable inline option for inline display.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(value)]="dateValue" [inline]="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" [inline]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -78,7 +85,7 @@ export class MyModel {
             for the date format patterns.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(value)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -87,7 +94,7 @@ export class MyModel {
                 slideDown, slide and clip.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(value)]="dateValue" showAnim="blind"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" showAnim="blind"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -96,7 +103,7 @@ export class MyModel {
                 and maxDate options. minDate and maxDate allow values such as a string in dateFormat or values like "+1m +7d".</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(value)]="dateValue" minDate="-1m" maxDate="+1m" [readonlyInput]="true">&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" minDate="-1m" maxDate="+1m" [readonlyInput]="true">&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -116,12 +123,6 @@ export class MyModel {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>value</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Value of the component.</td>
-                        </tr>
                         <tr>
                             <td>readonlyInput</td>
                             <td>string</td>
@@ -304,34 +305,34 @@ export class MyModel {
 <pre>
 <code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-calendar [(value)]="date1"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date1<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date1<span>}</span><span>}</span>
 
 &lt;h3&gt;DateFormat&lt;/h3&gt;
-&lt;p-calendar [(value)]="date2" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date2<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date2" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date2<span>}</span><span>}</span>
 
 &lt;h3&gt;ShowAnim&lt;/h3&gt;
-&lt;p-calendar [(value)]="date3" showAnim="slideDown" [showIcon]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date3<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date3<span>}</span><span>}</span>
 
 &lt;h3&gt;ButtonPanel&lt;/h3&gt;
-&lt;p-calendar [(value)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date4<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date4<span>}</span><span>}</span>
 
 &lt;h3&gt;Navigators&lt;/h3&gt;
-&lt;p-calendar [(value)]="date5" [monthNavigator]="true" [yearNavigator]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date5<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date5<span>}</span><span>}</span>
 
 &lt;h3&gt;Multiple Months&lt;/h3&gt;
-&lt;p-calendar [(value)]="date6" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date1<span>6</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date6" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date1<span>6</span><span>}</span>
 
 &lt;h3&gt;Show Week and Months&lt;/h3&gt;
-&lt;p-calendar [(value)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date7<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date7<span>}</span><span>}</span>
 
 &lt;h3&gt;Restrict&lt;/h3&gt;
-&lt;p-calendar [(value)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date8<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date8<span>}</span><span>}</span>
 
 &lt;h3&gt;Default Date&lt;/h3&gt;
-&lt;p-calendar [(value)]="date9" defaultDate="+1m +7d"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date9<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date9<span>}</span><span>}</span>
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(value)]="date10" [inline]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date10<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date10" [inline]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date10<span>}</span><span>}</span>
 </code>
 </pre>
 

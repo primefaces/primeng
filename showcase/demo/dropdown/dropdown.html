@@ -33,10 +33,11 @@ import {Dropdown} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Dropdown requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
+            <p>Two-way value binding is defined using ngModel and dropdown requires a collection of options 
+                where each option should follow the SelectItem interface that defines label-value properties.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dropdown [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -62,11 +63,20 @@ export class MyModel {
 }
 </code>
 </pre>
+
+            <h3>Model Driven Forms</h3>
+            <p>Listbox can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dropdown [options]="cities" ngControl="selectedCity"&gt;&lt;/p-dropdown&gt;
+</code>
+</pre>
+
             <h3>Filtering</h3>
             <p>Options can be filtered using an input field in the overlay by enabling the filter property.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dropdown [options]="cities" [(value)]="selectedCities" [filter]="true"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -75,7 +85,7 @@ export class MyModel {
                 as a wrapper for the content. The list item should have data-value attribute defined as the value of the select item. The local template variable refers to an option in the options collection.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [filter]="true" style="width:100px"&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [filter]="true" style="width:100px"&gt;
     &lt;template #car&gt;
         &lt;li class="ui-dropdown-list-item ui-helper-clearfix" style="position: relative" [attr.data-value]="car.value"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
@@ -130,12 +140,6 @@ export class MyModel {
                             <td>array</td>
                             <td>null</td>
                             <td>An array of selectitems to display as the available options.</td>
-                        </tr>
-                        <tr>
-                            <td>value</td>
-                            <td>any</td>
-                            <td>false</td>
-                            <td>Value of the dropdown.</td>
                         </tr>
                         <tr>
                             <td>scrollHeight</td>
@@ -246,11 +250,11 @@ export class MyModel {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-dropdown [options]="cities" [(value)]="selectedCity" style="width:100px"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-dropdown&gt;
 &lt;p&gt;Selected City: {{selectedCity||'none'}}&lt;/p&gt;
 
 &lt;h3&gt;Content with Filter&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(value)]="selectedCar" [filter]="true" style="width:150px"&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [filter]="true" style="width:150px"&gt;
     &lt;template #car&gt;
         &lt;li class="ui-helper-clearfix" style="position: relative"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
