@@ -10,7 +10,7 @@
     <p-toggleButton [(ngModel)]="checked1" style="width:150px"></p-toggleButton>
 
     <h3>Customized - ({{checked2}})</h3>
-    <p-toggleButton onLabel="I confirm" offLabel="I reject" onIcon="fa-check-square" offIcon="fa-square" [(ngModel)]="checked2" style="width:150px"></p-toggleButton>
+    <p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="fa-check-square" offIcon="fa-square" style="width:150px"></p-toggleButton>
 </div>
 
 <div class="ContentSideSections Source">
@@ -24,11 +24,11 @@ import {ToggleButton} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>ToggleButton is defined using p-toggleButton element. Checked property supports two-way binding to retrieve and assign the model.</p>
+            <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
                     
 <pre>
 <code class="language-markup" pCode>
-&lt;p-toggleButton [(checked)]="checked"&gt;&lt;/p-toggleButton&gt;
+&lt;p-toggleButton [(ngModel)]="checked"&gt;&lt;/p-toggleButton&gt;
 </code>
 </pre>
 
@@ -53,12 +53,20 @@ export class ModelComponent {
 </code>
 </pre>
 
+            <h3>Model Driven Forms</h3>
+            <p>ToggleButton can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-toggleButton ngControl="agreed"&gt;&lt;/p-toggleButton&gt;
+</code>
+</pre>
+
             <h3>Customization</h3>
             <p>Icons and Labels can be customized using onLabel, offLabel, onIcon and OffIcon attributes.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-toggleButton onLabel="I confirm" offLabel="I reject" 
-        onIcon="fa-check-square" offIcon="fa-square" [(checked)]="val"&gt;&lt;/p-toggleButton&gt;
+        onIcon="fa-check-square" offIcon="fa-square" [(ngModel)]="val"&gt;&lt;/p-toggleButton&gt;
 </code>
 </pre>
 
@@ -142,7 +150,7 @@ export class ModelComponent {
             </div>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-toggleButton (onChange)="handleChange($event)" [(checked)]="val"&gt;
+&lt;p-toggleButton (onChange)="handleChange($event)" [(ngModel)]="val"&gt;
 </code>
 </pre>
  <pre>
@@ -191,10 +199,10 @@ export class ModelComponent {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic - ({{checked1}})&lt;/h3&gt;
-&lt;p-toggleButton [(checked)]="checked1" style="width:150px"&gt;&lt;/p-toggleButton&gt;
+&lt;p-toggleButton [(ngModel)]="checked1" style="width:150px"&gt;&lt;/p-toggleButton&gt;
 
 &lt;h3&gt;Customized - ({{checked2}})&lt;/h3&gt;
-&lt;p-toggleButton onLabel="I confirm" offLabel="I reject" onIcon="fa-check-square" offIcon="fa-square" [(checked)]="checked2" style="width:150px"&gt;&lt;/p-toggleButton&gt;
+&lt;p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="fa-check-square" offIcon="fa-square" style="width:150px"&gt;&lt;/p-toggleButton&gt;
 </code>
 </pre>
 
