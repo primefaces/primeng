@@ -7,6 +7,7 @@
 
 <div class="ContentSideSections Implementation">
     <div style="heigh:300px"></div>
+    
     <p-contextMenu [global]="true">
         <ul>
             <li> <a data-icon="fa-file-o"><span>File</span></a>
@@ -67,6 +68,7 @@
             </li>
         </ul>
     </p-contextMenu>
+    
 </div>
 
 <div class="ContentSideSections Source">
@@ -75,12 +77,12 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {TieredMenu} from 'primeng/primeng';
+import {ContextMenu} from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>TieredMenu requires nested list elements.</p>
+            <p>ContextMenu requires a list element as its child. Menus can be tiered using nested lists.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-tieredMenu&gt;
@@ -108,69 +110,6 @@ import {TieredMenu} from 'primeng/primeng';
 </code>
 </pre>
 
-            <h3>Popup Mode</h3>
-            <p>TieredMenu is inline by default, popup mode is also supported by enabling popup property and defining a trigger element.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;p-tieredMenu [popup]="true" [trigger]="btn"&gt;
-     &lt;ul&gt;
-         &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
-             &lt;ul&gt;
-                 &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
-                     &lt;ul&gt;
-                         &lt;li&gt;&lt;a&gt;&lt;span&gt;Project&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                         &lt;li&gt;&lt;a&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                     &lt;/ul&gt;
-                 &lt;/li&gt;
-                 &lt;li&gt;&lt;a&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                 &lt;li&gt;&lt;a&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-             &lt;/ul&gt;
-         &lt;/li&gt;
-         &lt;li&gt; &lt;a data-icon="fa-edit"&gt;Edit&lt;/a&gt;
-             &lt;ul&gt;
-                 &lt;li&gt;&lt;a data-icon="fa-mail-forward"&gt;&lt;span&gt;Undo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                 &lt;li&gt;&lt;a data-icon="fa-mail-reply"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-             &lt;/ul&gt;
-         &lt;/li&gt;
-     &lt;/ul&gt;
-&lt;/p-tieredMenu&gt;
-&lt;button #btn type="button" pButton icon="fa fa-list" label="Show"&gt;&lt;/button&gt;
-</code>
-</pre>
-
-            <p>my, at and triggerEvent attributes provide further customization. Following menu opens at right top position of the button on mouseover event.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;p-tieredMenu [popup]="true" [trigger]="btn" my="left top" at="right top" triggerEvent="mouseover"&gt;
-     &lt;ul&gt;
-         &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
-             &lt;ul&gt;
-                 &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
-                     &lt;ul&gt;
-                         &lt;li&gt;&lt;a&gt;&lt;span&gt;Project&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                         &lt;li&gt;&lt;a&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                     &lt;/ul&gt;
-                 &lt;/li&gt;
-                 &lt;li&gt;&lt;a&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                 &lt;li&gt;&lt;a&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-             &lt;/ul&gt;
-         &lt;/li&gt;
-         &lt;li&gt; &lt;a data-icon="fa-edit"&gt;Edit&lt;/a&gt;
-             &lt;ul&gt;
-                 &lt;li&gt;&lt;a data-icon="fa-mail-forward"&gt;&lt;span&gt;Undo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                 &lt;li&gt;&lt;a data-icon="fa-mail-reply"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-             &lt;/ul&gt;
-         &lt;/li&gt;
-     &lt;/ul&gt;
-&lt;/p-tieredMenu&gt;
-&lt;button #btn type="button" pButton icon="fa fa-list" label="Show"&gt;&lt;/button&gt;
-</code>
-</pre>
-
-            <h3>AutoDisplay</h3>
-            <p>TieredMenu submenus are displayed on hover by default, enable autoDisplay property to require a click to open a submenu initially. In this mode, until outside of tieredMenu is clicked,
-            menu goes in activated mode and submenus can be displayed using mouseover.</p>
-
             <h3>Icons</h3>
             <p>An icon of a menuitem is defined using data-icon attribute.</p>
 <pre>
@@ -178,7 +117,6 @@ import {TieredMenu} from 'primeng/primeng';
 &lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
 </code>
 </pre>
-
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -193,38 +131,6 @@ import {TieredMenu} from 'primeng/primeng';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>popup</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Defines if menu would displayed as a popup.</td>
-                        </tr>
-                        <tr>
-                            <td>trigger</td>
-                            <td>element</td>
-                            <td>null</td>
-                            <td>Trigger element to show the menu in popup mode..</td>
-                        </tr>
-                        <tr>
-                            <td>my</td>
-                            <td>string</td>
-                            <td>left top</td>
-                            <td>Corners of menu to align with trigger in popup mode.</td>
-                        </tr>
-                        <tr>
-                            <td>at</td>
-                            <td>string</td>
-                            <td>left bottom</td>
-                            <td>Corners of the trigger to align with menu in popup mode.</td>
-                        </tr>
-
-                        <tr>
-                            <td>triggerEvent</td>
-                            <td>string</td>
-                            <td>click</td>
-                            <td>Event to show the menu in popup mode.</td>
-                        </tr>
-
-                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -237,10 +143,10 @@ import {TieredMenu} from 'primeng/primeng';
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
-                            <td>autoDisplay</td>
+                            <td>global</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Displays submenus with mouseover, set to false to require a click to activate the menu.</td>
+                            <td>When enabled, contextmenu is attached to the document itself.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -258,7 +164,7 @@ import {TieredMenu} from 'primeng/primeng';
                     </thead>
                     <tbody>
                     <tr>
-                        <td>ui-tieredmenu</td>
+                        <td>ui-contextmenu</td>
                         <td>Container element.</td>
                     </tr>
                     <tr>
@@ -293,7 +199,7 @@ import {TieredMenu} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 <h3 class="first">Default</h3>
-&lt;p-tieredMenu&gt;
+&lt;p-contextMenu [global]="true"&gt;
     &lt;ul&gt;
         &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
             &lt;ul&gt;
@@ -352,132 +258,7 @@ import {TieredMenu} from 'primeng/primeng';
             &lt;a data-icon="fa-close"&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
-&lt;/p-tieredMenu&gt;
-
-&lt;h3&gt;Click to Display&lt;/h3&gt;
-&lt;p-tieredMenu [autoDisplay]="false"&gt;
-    &lt;ul&gt;
-        &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Project&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-                &lt;li&gt;&lt;a&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt; &lt;a data-icon="fa-edit"&gt;Edit&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a data-icon="fa-mail-forward"&gt;&lt;span&gt;Undo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a data-icon="fa-mail-reply"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt;
-            &lt;a data-icon="fa-question"&gt;Help&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a&gt;&lt;span&gt;Contents&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;
-                    &lt;a data-icon="fa-search"&gt;&lt;span&gt;Search&lt;/span&gt;&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a&gt;Text&lt;/a&gt;
-                            &lt;ul&gt;
-                                &lt;li&gt;&lt;a&gt;&lt;span&gt;Workspace&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                            &lt;/ul&gt;
-                        &lt;/li&gt;
-                        &lt;li&gt;&lt;a&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-
-            &lt;/ul&gt;
-
-        &lt;/li&gt;
-        &lt;li&gt;
-            &lt;a data-icon="fa-gear"&gt;Actions&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a data-icon="fa-refresh"&gt;&lt;span&gt;Edit&lt;/span&gt;&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Save&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Update&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-                &lt;li&gt;&lt;a data-icon="fa-phone"&gt;Other&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a data-icon="fa-minus"&gt;&lt;span&gt;Delete&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt;
-            &lt;a data-icon="fa-close"&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-tieredMenu&gt;
-
-&lt;h3&gt;Popup&lt;/h3&gt;
-&lt;p-tieredMenu [popup]="true" [trigger]="btn"&gt;
-    &lt;ul&gt;
-        &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Project&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-                &lt;li&gt;&lt;a&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt; &lt;a data-icon="fa-edit"&gt;Edit&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a data-icon="fa-mail-forward"&gt;&lt;span&gt;Undo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a data-icon="fa-mail-reply"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt;
-            &lt;a data-icon="fa-question"&gt;Help&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a&gt;&lt;span&gt;Contents&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;
-                    &lt;a data-icon="fa-search"&gt;&lt;span&gt;Search&lt;/span&gt;&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a&gt;Text&lt;/a&gt;
-                            &lt;ul&gt;
-                                &lt;li&gt;&lt;a&gt;&lt;span&gt;Workspace&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                            &lt;/ul&gt;
-                        &lt;/li&gt;
-                        &lt;li&gt;&lt;a&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-
-            &lt;/ul&gt;
-
-        &lt;/li&gt;
-        &lt;li&gt;
-            &lt;a data-icon="fa-gear"&gt;Actions&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a data-icon="fa-refresh"&gt;&lt;span&gt;Edit&lt;/span&gt;&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Save&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Update&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-                &lt;li&gt;&lt;a data-icon="fa-phone"&gt;Other&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a data-icon="fa-minus"&gt;&lt;span&gt;Delete&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt;
-            &lt;a data-icon="fa-close"&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-tieredMenu&gt;
-&lt;button #btn type="button" pButton icon="fa fa-list" label="Show"&gt;&lt;/button&gt;
+&lt;/p-contextMenu&gt;
 </code>
 </pre>
         </p-tabPanel>

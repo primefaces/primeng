@@ -452,6 +452,30 @@ export class DataTableDemo implements OnInit {
 </pre>
             <p>See the <a [routerLink]="['DataTableFilterDemo']">live example.</a></p>
 
+            <h3>ContextMenu</h3>
+            <p>DataTable has exclusive integration with contextmenu component. In order to attach a menu to a datatable, define a local template
+            variable for the menu and bind it to the contextMenu property of the datatable. This enables showing the menu whenever a row is right clicked.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" [contextMenu]="cm"&gt;
+    &lt;header&gt;Right Click on Rows for ContextMenu&lt;/header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-contextMenu #cm&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a data-icon="fa-search" (click)="viewCar(selectedCar)"&gt;View&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a data-icon="fa-close" (click)="deleteCar(selectedCar)"&gt;Delete&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/p-contextMenu&gt;
+</code>
+</pre>
+
+            <p>See the <a [routerLink]="['DataTableCMDemo']">live example.</a></p>
+
             <h3>Editing</h3>
             <p>Incell editing is enabled by setting editable property true both on datatable and columns, when a cell is clicked edit mode is activated, clicking outside of cell or hitting the enter key 
             switches back to view mode after updating the value.</p>
@@ -734,6 +758,12 @@ loadData(event: LazyLoadEvent) {
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>contextMenu</td>
+                            <td>ContextMenu</td>
+                            <td>null</td>
+                            <td>Local template varilable of a ContextMenu.</td>
                         </tr>
                     </tbody>
                 </table>
