@@ -40,10 +40,11 @@ import {Listbox} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Listbox requires a collection of options and a value to bind. Options should follow the SelectItem interface that defines label and value properties.</p>
+            <p>Two-way value binding is defined using ngModel and listbox requires a collection of options 
+                where each option should follow the SelectItem interface that defines label-value properties.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
@@ -70,10 +71,11 @@ export class MyModel {
 </code>
 </pre>
             <h3>Multiple</h3>
-            <p>Listbox allows selecting only one item, setting multiple option enables choosing more than one item. In multiple case, model property should be an array.</p>
+            <p>Listbox allows selecting only one item, setting multiple option enables choosing more than one item. 
+                In multiple case, model property should be an array.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-listbox [options]="cities" [(value)]="selectedCities"&gt;&lt;/p-listbox&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
@@ -100,12 +102,20 @@ export class MyModel {
 </code>
 </pre>
 
+            <h3>Model Driven Forms</h3>
+            <p>Listbox can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-listbox [options]="cities" ngControl="cities"&gt;&lt;/p-listbox&gt;
+</code>
+</pre>
+
             <h3>Custom Content</h3>
             <p>Label of an option is used as the display text of an item by default, for custom content support define a template having a li item 
                 with "ui-listbox-item" class as a wrapper for the content. The local template variable refers to an option in the options collection.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px"&gt;
+&lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" style="width:190px"&gt;
     &lt;template #car&gt;
         &lt;li class="ui-listbox-item ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
@@ -160,12 +170,6 @@ export class MyModel {
                             <td>array</td>
                             <td>null</td>
                             <td>An array of selectitems to display as the available options.</td>
-                        </tr>
-                        <tr>
-                            <td>value</td>
-                            <td>any</td>
-                            <td>false</td>
-                            <td>Value of the listbox.</td>
                         </tr>
                         <tr>
                             <td>multiple</td>
@@ -252,16 +256,16 @@ export class MyModel {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-listbox&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-listbox&gt;
 
 &lt;p&gt;Selected City: {{selectedCity}}&lt;/p&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(value)]="selectedCities" multiple="multiple"&gt;&lt;/p-listbox&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple"&gt;&lt;/p-listbox&gt;
 &lt;p&gt;Selected Cities: &lt;span *ngFor="#c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Content&lt;/h3&gt;
-&lt;p-listbox [options]="cars" [(value)]="selectedCar" style="width:190px;max-height:250px"&gt;
+&lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" style="width:190px;max-height:250px"&gt;
     &lt;template #car&gt;
         &lt;li class="ui-listbox-item ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
