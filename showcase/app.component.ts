@@ -165,8 +165,7 @@ import {FormsDemo} from "./demo/forms/formsdemo";
     {path: '/editor', name: 'EditorDemo', component: EditorDemo},
     {path: '/responsive', name: 'ResponsiveDemo', component: ResponsiveDemo},
     {path: '/multiselect', name: 'MultiSelectDemo', component: MultiSelectDemo},
-    {path: '/gmap', name: 'GMapDemo', component: GMapDemo},
-    {path: '/forms', name: 'FormsDemo', component: FormsDemo}
+    {path: '/gmap', name: 'GMapDemo', component: GMapDemo}
 ])
 export class AppComponent {
 
