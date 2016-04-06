@@ -29,11 +29,17 @@
 export class DataTableResponsiveDemo implements OnInit {
 
     cars: Car[];
+    
+    stacked: boolean;
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
+    }
+    
+    toggle() {
+        this.stacked = !this.stacked;
     }
 }
 </code>
