@@ -13,7 +13,8 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-dataTable',
     template: `
-        <div [attr.style]="style" [attr.class]="styleClass" [ngClass]="{'ui-datatable ui-widget': true, 'ui-datatable-reflow':responsive}">
+        <div [attr.style]="style" [attr.class]="styleClass" 
+            [ngClass]="{'ui-datatable ui-widget': true, 'ui-datatable-reflow':responsive, 'ui-datatable-stacked': stacked}">
             <div class="ui-datatable-header ui-widget-header" *ngIf="header">
                 <ng-content select="header"></ng-content>
             </div>
@@ -131,6 +132,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Input() rowsPerPageOptions: number[];
 
     @Input() responsive: boolean;
+    
+    @Input() stacked: boolean;
 
     @Input() selectionMode: string;
 
