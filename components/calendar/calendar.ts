@@ -153,6 +153,12 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
             }
         };
         
+        if(this.locale) {
+            for(var prop in this.locale) {
+                options[prop] = this.locale[prop];
+            }
+        }
+        
         if(this.timeFormat||this.timeOnly) {
             options['timeFormat'] = this.timeFormat;
             options['timeOnly'] = this.timeOnly;

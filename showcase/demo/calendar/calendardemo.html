@@ -14,8 +14,8 @@
             </div>
             
             <div class="ui-grid-col-4">
-                <h3>DateFormat</h3>
-                <p-calendar [(ngModel)]="date2" dateFormat="dd.mm.yy"></p-calendar> &nbsp; {{date2}}
+                <h3>Spanish</h3>
+                <p-calendar [(ngModel)]="date2" [locale]="es"></p-calendar> &nbsp; {{date2}}
             </div>
             
             <div class="ui-grid-col-4">
@@ -138,7 +138,7 @@ export class MyModel {
             for available timeformat options.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(ngModel)]="dateValue" dateFormat="dd.mm.yy" timeFormat="HH:mm"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateTimeValue" dateFormat="dd.mm.yy" timeFormat="HH:mm"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -161,8 +161,62 @@ export class MyModel {
 </pre>
 
             <h3>Localization</h3>
-            <p>Localization for different languages and formats is done by adding
-                the necessary <a href="http://api.jqueryui.com/datepicker/">locale script</a> to your application.</p>
+            <p>Localization for different languages and formats is defined by binding the settings object to the locale property. Following is a Spanish calendar.
+            </p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar [(ngModel)]="dateValue" [locale]="es"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class MyModel {
+    
+    es: any;
+    
+    ngOnInit() {
+        this.es = {
+            //date
+            closeText: "Cerrar",
+        	prevText: "&#x3C;Ant",
+        	nextText: "Sig&#x3E;",
+        	currentText: "Hoy",
+        	monthNames: [ "enero","febrero","marzo","abril","mayo","junio",
+        	"julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+        	monthNamesShort: [ "ene","feb","mar","abr","may","jun",
+        	"jul","ago","sep","oct","nov","dic" ],
+        	dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+        	dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+        	dayNamesMin: [ "D","L","M","X","J","V","S" ],
+        	weekHeader: "Sm",
+        	dateFormat: "dd/mm/yy",
+        	firstDay: 1,
+        	isRTL: false,
+        	showMonthAfterYear: false,
+        	yearSuffix: "" 
+            
+            //time
+            timeOnlyTitle: 'Elegir una hora',
+    		timeText: 'Hora',
+    		hourText: 'Horas',
+    		minuteText: 'Minutos',
+    		secondText: 'Segundos',
+    		millisecText: 'Milisegundos',
+    		microsecText: 'Microsegundos',
+    		timezoneText: 'Uso horario',
+    		timeFormat: 'HH:mm',
+    		timeSuffix: '',
+    		amNames: ['a.m.', 'AM', 'A'],
+    		pmNames: ['p.m.', 'PM', 'P'],
+        };
+    }
+}
+</code>
+</pre>
+            <p>Translations for datepicker are available at <a href="https://github.com/jquery/jquery-ui/tree/master/ui/i18n">here</a> and for the timepicker,
+                <a href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.1/i18n/jquery-ui-timepicker-addon-i18n.js">here</a>.
+            </p>
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -486,8 +540,8 @@ export class MyModel {
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;DateFormat&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date2" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt; &nbsp; {{date2}}
+            &lt;h3&gt;Spanish&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date2" [locale]="es"&gt;&lt;/p-calendar&gt; &nbsp; {{date2}}
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
@@ -555,7 +609,7 @@ export class MyModel {
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class CalendarDemo {
 
     date1: string;
@@ -581,8 +635,32 @@ export class CalendarDemo {
     date11: string;
     
     date12: string;
-        
+    
     date13: string;
+    
+    es: any;
+    
+    ngOnInit() {
+        this.es = {
+            closeText: "Cerrar",
+        	prevText: "&#x3C;Ant",
+        	nextText: "Sig&#x3E;",
+        	currentText: "Hoy",
+        	monthNames: [ "enero","febrero","marzo","abril","mayo","junio",
+        	"julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+        	monthNamesShort: [ "ene","feb","mar","abr","may","jun",
+        	"jul","ago","sep","oct","nov","dic" ],
+        	dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+        	dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+        	dayNamesMin: [ "D","L","M","X","J","V","S" ],
+        	weekHeader: "Sm",
+        	dateFormat: "dd/mm/yy",
+        	firstDay: 1,
+        	isRTL: false,
+        	showMonthAfterYear: false,
+        	yearSuffix: "" 
+        };
+    }
 }
 </code>
 </pre>
