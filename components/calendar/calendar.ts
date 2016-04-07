@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider,NgZone} from 'angular2/core';
 import {Button} from '../button/button';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
 import {CONST_EXPR} from 'angular2/src/facade/lang';
@@ -68,7 +68,47 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     @Input() disabled: any;
     
     @Input() showIcon: boolean;
+    
+    @Input() timeFormat: string;
+    
+    @Input() timeOnly: boolean;
+    
+    @Input() stepHour: number = 1;
+    
+    @Input() stepMinute: number = 1;
+    
+    @Input() stepSecond: number = 1;
+    
+    @Input() hourMin: number = 0;
+        
+    @Input() hourMax: number = 23;
+        
+    @Input() minuteMin: number = 0;
+    
+    @Input() minuteMax: number = 59;
+    
+    @Input() secondMin: number = 0;
+    
+    @Input() secondMax: number = 59;
+    
+    @Input() hourGrid: number = 0;
+    
+    @Input() minuteGrid: number = 0;
+    
+    @Input() secondGrid: number = 0;
 
+    @Input() timeControlType: string;
+    
+    @Input() horizontalTimeControls: boolean;
+    
+    @Input() minTime: string;
+    
+    @Input() maxTime: string;
+    
+    @Input() timezoneList: string[];
+    
+    @Input() locale: any;
+    
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
     value: string;
@@ -85,13 +125,13 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     
     calendarElement: any;
 
-    constructor(private el: ElementRef) {
+    constructor(private el: ElementRef, private zone:NgZone) {
         this.initialized = false;
     }
 
     ngAfterViewInit() {
         this.calendarElement = this.inline ? jQuery(this.el.nativeElement.children[0]) : jQuery(this.el.nativeElement.children[0].children[0]);
-        this.calendarElement.datepicker({
+        let options = {
             showAnim: this.showAnim,
             dateFormat: this.dateFormat,
             showButtonPanel: this.showButtonPanel,
@@ -105,11 +145,39 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
             minDate: this.minDate,
             maxDate: this.maxDate,
             onSelect: (dateText: string) => {
-                this.value = dateText;
-                this.onModelChange(this.value);
-                this.onSelect.emit(this.value);
+                this.zone.run(() => {
+                    this.value = dateText;
+                    this.onModelChange(this.value);
+                    this.onSelect.emit(this.value);
+                });
             }
-        });
+        };
+        
+        if(this.timeFormat||this.timeOnly) {
+            options['timeFormat'] = this.timeFormat;
+            options['timeOnly'] = this.timeOnly;
+            options['stepHour'] = this.stepHour;
+            options['stepMinute'] = this.stepMinute;
+            options['stepSecond'] = this.stepSecond;
+            options['hourMin'] = this.hourMin;
+            options['hourMax'] = this.hourMax;
+            options['minuteMin'] = this.minuteMin;
+            options['minuteMax'] = this.minuteMax;
+            options['secondMin'] = this.secondMin;
+            options['secondMax'] = this.secondMax;
+            options['hourGrid'] = this.hourGrid;
+            options['minuteGrid'] = this.minuteGrid;
+            options['secondGrid'] = this.secondGrid;
+            options['controlType'] = this.timeControlType;
+            options['oneLine'] = this.horizontalTimeControls;
+            options['minTime'] = this.minTime;
+            options['maxTime'] = this.maxTime;
+            options['timezoneList'] = this.timezoneList;
+            this.calendarElement.datetimepicker(options);
+        }
+        else
+            this.calendarElement.datepicker(options);
+        
         this.initialized = true;
     }
     

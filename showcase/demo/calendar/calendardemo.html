@@ -1,40 +1,84 @@
 <div class="ContentSideSections">
     <div class="Content100 overHidden TextShadow">
         <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Calendar</span>
-        <span class="defaultText dispTable">Calendar is an input component to select a date.</span>
+        <span class="defaultText dispTable">Calendar is an input component to select a date, time or datetime.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
-    <h3 class="first">Basic</h3>
-    <p-calendar [(ngModel)]="date1"></p-calendar> &nbsp; {{date1}}
-
-    <h3>DateFormat</h3>
-    <p-calendar [(ngModel)]="date2" dateFormat="dd.mm.yy"></p-calendar> &nbsp; {{date2}}
-
-    <h3>ShowAnim and Icon</h3>
-    <p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"></p-calendar> &nbsp; {{date3}}
-
-    <h3>ButtonPanel</h3>
-    <p-calendar [(ngModel)]="date4" [showButtonPanel]="true"></p-calendar> &nbsp; {{date4}}
-
-    <h3>Navigators</h3>
-    <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"></p-calendar> &nbsp; {{date5}}
-
-    <h3>Multiple Months</h3>
-    <p-calendar [(ngModel)]="date6" [numberOfMonths]="3"></p-calendar> &nbsp; {{date6}}
-
-    <h3>Show Week and Months</h3>
-    <p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"></p-calendar> &nbsp; {{date7}}
-
-    <h3>Restrict</h3>
-    <p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"></p-calendar> &nbsp; {{date8}}
-
-    <h3>Default Date</h3>
-    <p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"></p-calendar> &nbsp; {{date9}}
-
+    <div class="ui-grid ui-grid-responsive ui-grid-pad">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <h3>Basic</h3>
+                <p-calendar [(ngModel)]="date1"></p-calendar> &nbsp; {{date1}}
+            </div>
+            
+            <div class="ui-grid-col-4">
+                <h3>DateFormat</h3>
+                <p-calendar [(ngModel)]="date2" dateFormat="dd.mm.yy"></p-calendar> &nbsp; {{date2}}
+            </div>
+            
+            <div class="ui-grid-col-4">
+                <h3>ShowAnim and Icon</h3>
+                <p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"></p-calendar> &nbsp; {{date3}}
+            </div>
+        </div>
+        
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <h3>ButtonPanel</h3>
+                <p-calendar [(ngModel)]="date4" [showButtonPanel]="true"></p-calendar> &nbsp; {{date4}}
+            </div>
+            
+            <div class="ui-grid-col-4">
+                <h3>Navigators</h3>
+                <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"></p-calendar> &nbsp; {{date5}}
+            </div>
+            
+            <div class="ui-grid-col-4">
+                <h3>Multiple Months</h3>
+                <p-calendar [(ngModel)]="date6" [numberOfMonths]="3"></p-calendar> &nbsp; {{date6}}
+            </div>
+        </div>
+        
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <h3>Show Weeks-Months</h3>
+                <p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"></p-calendar> &nbsp; {{date7}}
+            </div>
+            
+            <div class="ui-grid-col-4">
+                <h3>Restrict</h3>
+                <p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"></p-calendar> &nbsp; {{date8}}
+            </div>
+            
+            <div class="ui-grid-col-4">
+                <h3>Default Date</h3>
+                <p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"></p-calendar> &nbsp; {{date9}}
+            </div>
+        </div>
+        
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <h3>DateTime</h3>
+                <p-calendar [(ngModel)]="date10" dateFormat="mm/dd/yy" timeFormat="HH:mm"></p-calendar> &nbsp; {{date10}}
+            </div>
+            
+            <div class="ui-grid-col-4">
+                <h3>Custom Time</h3>
+                <p-calendar [(ngModel)]="date11" dateFormat="mm/dd/yy" timeFormat="hh:mm tt z" timeControlType="select" [horizontalTimeControls]="true"></p-calendar> &nbsp; {{date11}}
+            </div>
+            
+            <div class="ui-grid-col-4">
+                <h3>Time Only</h3>
+                <p-calendar [(ngModel)]="date12" dateFormat="mm/dd/yy" timeFormat="HH:mm:ss" [timeOnly]="true"></p-calendar> &nbsp; {{date12}}
+                
+            </div>
+        </div>
+    </div>
+    
     <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date10" [inline]="true"></p-calendar> &nbsp; {{date10}}
+    <p-calendar [(ngModel)]="date12" [inline]="true"></p-calendar> &nbsp; {{date13}}
 </div>
 
 <div class="ContentSideSections Source">
@@ -89,12 +133,21 @@ export class MyModel {
 </code>
 </pre>
 
+            <h3>Time</h3>
+            <p>TimePicker is enabled if timeOnly or timeFormat properties are defined.  See <a href="http://trentrichardson.com/examples/timepicker/#tp-formatting">here</a>
+            for available timeformat options.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar [(ngModel)]="dateValue" dateFormat="dd.mm.yy" timeFormat="HH:mm"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
             <h3>Show Effect</h3>
             <p>Calendar popup can be displayed with various effects. fadeIn is the default and other available options are
                 slideDown, slide and clip.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(ngModel)]="dateValue" showAnim="blind"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" showAnim="slideDown"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -249,6 +302,127 @@ export class MyModel {
                             <td>false</td>
                             <td>When specified, disables the component.</td>
                         </tr>
+                        <tr>
+                            <td>timeFormat</td>
+                            <td>string</td>
+                            <td>HH:mm</td>
+                            <td>String of format tokens to be replaced with the time.</td>
+                        </tr>
+                        <tr>
+                            <td>timeOnly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Hides the datepicker and only provide a time interface.</td>
+                        </tr>
+                        <tr>
+                            <td>stepHour</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Hours per step the slider makes.</td>
+                        </tr>
+                        <tr>
+                            <td>stepMinute</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Minutes per step the slider makes.</td>
+                        </tr>
+                        <tr>
+                            <td>stepSecond</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Seconds per step the slider makes.</td>
+                        </tr>
+                        <tr>
+                            <td>hourMin</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>The minimum hour allowed.</td>
+                        </tr>
+                        <tr>
+                            <td>hourMax</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>The maximum hour allowed.</td>
+                        </tr>
+                        <tr>
+                            <td>minuteMin</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>The minimum minute allowed.</td>
+                        </tr>
+                        <tr>
+                            <td>minuteMax</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>The maximum minute allowed.</td>
+                        </tr>
+                        <tr>
+                            <td>secondMin</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>The minimum second allowed.</td>
+                        </tr>
+                        <tr>
+                            <td>secondMax</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>The maximum second allowed.</td>
+                        </tr>
+                        <tr>
+                            <td>hourGrid</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Intervals hours scaler.</td>
+                        </tr>
+                        <tr>
+                            <td>minuteGrid</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Intervals minutes scaler.</td>
+                        </tr>
+                        <tr>
+                            <td>secondGrid</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Intervals secons scaler.</td>
+                        </tr>
+                        <tr>
+                            <td>timeControlType</td>
+                            <td>string</td>
+                            <td>slider</td>
+                            <td>Defines the ui controls for time input, valid values are slider and select.</td>
+                        </tr>
+                        <tr>
+                            <td>horizontalTimeControls</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Displays select elements horizontally when timeControlType is set to select.</td>
+                        </tr>
+                        <tr>
+                            <td>minTime</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>String of the minimum time allowed. '8:00 am' will restrict to times after 8am.</td>
+                        </tr>
+                        <tr>
+                            <td>maxTime</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>String of the maximum time allowed. '8:00 pm' will restrict to times before 8pm.</td>
+                        </tr>
+                        <tr>
+                            <td>timezoneList</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of timezones used to populate the timezone select. Can be an array of values or an array of objects: { label: "EDT", value: -240 }. 
+                                The value should be the offset number in minutes. So "-0400" which is the format "-hhmm", would equate to -240 minutes.</td>
+                        </tr>
+                        <tr>
+                            <td>locale</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>An object having regional configuration properties for the calendar.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -298,41 +472,85 @@ export class MyModel {
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery UI Datepicker</p>
+            <p>jQuery UI Datepicker and DateTimePicker</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date1<span>}</span><span>}</span>
-
-&lt;h3&gt;DateFormat&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date2" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date2<span>}</span><span>}</span>
-
-&lt;h3&gt;ShowAnim&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date3<span>}</span><span>}</span>
-
-&lt;h3&gt;ButtonPanel&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date4<span>}</span><span>}</span>
-
-&lt;h3&gt;Navigators&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date5<span>}</span><span>}</span>
-
-&lt;h3&gt;Multiple Months&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date6" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date1<span>6</span><span>}</span>
-
-&lt;h3&gt;Show Week and Months&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date7<span>}</span><span>}</span>
-
-&lt;h3&gt;Restrict&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date8<span>}</span><span>}</span>
-
-&lt;h3&gt;Default Date&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date9<span>}</span><span>}</span>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-grid ui-grid-responsive ui-grid-pad"&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;Basic&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt; &nbsp; {{date1}}
+        &lt;/div&gt;
+        
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;DateFormat&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date2" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt; &nbsp; {{date2}}
+        &lt;/div&gt;
+        
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;ShowAnim and Icon&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date3}}
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;ButtonPanel&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date4}}
+        &lt;/div&gt;
+        
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;Navigators&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date5}}
+        &lt;/div&gt;
+        
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;Multiple Months&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date6" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt; &nbsp; {{date6}}
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;Show Weeks-Months&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date7}}
+        &lt;/div&gt;
+        
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;Restrict&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date8}}
+        &lt;/div&gt;
+        
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;Default Date&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"&gt;&lt;/p-calendar&gt; &nbsp; {{date9}}
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;DateTime&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date10" dateFormat="mm/dd/yy" timeFormat="HH:mm"&gt;&lt;/p-calendar&gt; &nbsp; {{date10}}
+        &lt;/div&gt;
+        
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;Custom Time&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date11" dateFormat="mm/dd/yy" timeFormat="hh:mm tt z" timeControlType="select" [horizontalTimeControls]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date11}}
+        &lt;/div&gt;
+        
+        &lt;div class="ui-grid-col-4"&gt;
+            &lt;h3&gt;Time Only&lt;/h3&gt;
+            &lt;p-calendar [(ngModel)]="date12" dateFormat="mm/dd/yy" timeFormat="HH:mm:ss" [timeOnly]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date12}}
+            
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date10" [inline]="true"&gt;&lt;/p-calendar&gt; &nbsp; <span>{</span><span>{</span>date10<span>}</span><span>}</span>
+&lt;p-calendar [(ngModel)]="date12" [inline]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date13}}
 </code>
 </pre>
 
@@ -359,6 +577,12 @@ export class CalendarDemo {
     date9: string;
 
     date10: string;
+    
+    date11: string;
+    
+    date12: string;
+        
+    date13: string;
 }
 </code>
 </pre>

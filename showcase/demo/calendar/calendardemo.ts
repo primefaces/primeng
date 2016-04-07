@@ -30,4 +30,10 @@ export class CalendarDemo {
     date9: string;
 
     date10: string;
+    
+    date11: string;
+    
+    date12: string;
+    
+    date13: string;
 }
