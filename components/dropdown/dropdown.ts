@@ -68,6 +68,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     @Input() disabled: boolean;
     
+    @Input() autoWidth: boolean = true;
+    
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
 
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, differs: IterableDiffers) {
@@ -189,9 +191,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
      
     updateDimensions() {
-        let select = this.domHandler.findSingle(this.el.nativeElement, 'select');
-        if(!this.style||this.style.indexOf('width') == -1) {
-            this.el.nativeElement.children[0].style.width = select.offsetWidth + 20 + 'px';
+        if(this.autoWidth) {
+            let select = this.domHandler.findSingle(this.el.nativeElement, 'select');
+            if(!this.style||this.style.indexOf('width') == -1) {
+                this.el.nativeElement.children[0].style.width = select.offsetWidth + 30 + 'px';
+            }
         }
         
         this.panel.style.width = '100%';
