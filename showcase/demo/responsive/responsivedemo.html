@@ -45,7 +45,7 @@
                         Calendar
                     </div>
                     <div class="ui-grid-col-8">
-                        <p-calendar [(value)]="date"></p-calendar>
+                        <p-calendar [(ngModel)]="date"></p-calendar>
                     </div>
                 </div>
                 <div class="ui-grid-col-6">
@@ -53,7 +53,7 @@
                         AutoComplete
                     </div>
                     <div class="ui-grid-col-8">
-                        <p-autoComplete [(value)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+                        <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
                         placeholder="Countries" [minLength]="1"></p-autoComplete>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                         Dropdown
                     </div>
                     <div class="ui-grid-col-8">
-                        <p-dropdown [options]="cities" [(value)]="selectedCity"></p-dropdown>
+                        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [autoWidth]="false"></p-dropdown>
                     </div>
                 </div>
                 <div class="ui-grid-col-6">
@@ -105,7 +105,7 @@
                         Listbox
                     </div>
                     <div class="ui-grid-col-8">
-                        <p-listbox [options]="options" [(value)]="selectedOptions"></p-listbox>
+                        <p-listbox [options]="options" [(ngModel)]="selectedOptions"></p-listbox>
                     </div>
                 </div>
                 <div class="ui-grid-col-6">
@@ -339,7 +339,7 @@
                 Calendar
             &lt;/div&gt;
             &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-calendar [(value)]="date"&gt;&lt;/p-calendar&gt;
+                &lt;p-calendar [(ngModel)]="date"&gt;&lt;/p-calendar&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-col-6"&gt;
@@ -347,7 +347,7 @@
                 AutoComplete
             &lt;/div&gt;
             &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-autoComplete [(value)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+                &lt;p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
                 placeholder="Countries" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
             &lt;/div&gt;
         &lt;/div&gt;
@@ -380,7 +380,7 @@
                 Dropdown
             &lt;/div&gt;
             &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-dropdown [options]="cities" [(value)]="selectedCity"&gt;&lt;/p-dropdown&gt;
+                &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [autoWidth]="false"&gt;&lt;/p-dropdown&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-col-6"&gt;
@@ -399,7 +399,7 @@
                 Listbox
             &lt;/div&gt;
             &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-listbox [options]="options" [(value)]="selectedOptions"&gt;&lt;/p-listbox&gt;
+                &lt;p-listbox [options]="options" [(ngModel)]="selectedOptions"&gt;&lt;/p-listbox&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-col-6"&gt;
