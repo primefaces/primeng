@@ -408,7 +408,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             if(this.hasFilter())
                 this.filter();
             else
-                this.updateDataToRender(this.value);
+                this.updateDataToRender(this.filteredValue||this.value);
         }
     }
 
@@ -421,7 +421,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             if(this.hasFilter())
                 this.filter();
             else
-                this.updateDataToRender(this.value);
+                this.updateDataToRender(this.filteredValue||this.value);
         }
 
     }
