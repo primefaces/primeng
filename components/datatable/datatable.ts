@@ -340,7 +340,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
-            this.updateDataToRender(this.value);
+            this.updateDataToRender(this.filteredValue||this.value);
         }
     }
 
