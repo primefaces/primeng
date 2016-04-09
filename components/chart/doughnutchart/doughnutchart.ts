@@ -205,4 +205,8 @@ export class DoughnutChart implements AfterViewInit, OnDestroy, DoCheck {
             }
         }
     }
+    
+    getCanvas() {
+        return this.el.nativeElement.children[0].children[0];
+    }
 }

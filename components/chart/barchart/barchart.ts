@@ -220,6 +220,9 @@ export class BarChart implements AfterViewInit, OnDestroy, DoCheck {
                 this.legend.innerHTML = this.chart.generateLegend();
             }
         }
-
+    }
+    
+    getCanvas() {
+        return this.el.nativeElement.children[0].children[0];
     }
 }
