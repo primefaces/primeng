@@ -240,4 +240,8 @@ export class LineChart implements AfterViewInit, OnDestroy, DoCheck {
     getCanvas() {
         return this.el.nativeElement.children[0].children[0];
     }
+    
+    getBase64Image() {
+        return this.chart.toBase64Image();
+    }
 }
