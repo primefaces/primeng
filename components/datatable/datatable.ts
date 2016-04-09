@@ -608,6 +608,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     filter() {
         if(this.lazy) {
+            this.first = 0;
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
