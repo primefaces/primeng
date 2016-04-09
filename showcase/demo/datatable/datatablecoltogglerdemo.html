@@ -1,0 +1,71 @@
+<datatable-demos></datatable-demos>
+
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">DataTable - <span class="subitem">Column Toggler</span></span>
+        <span class="defaultText dispTable">This demo uses a multiselect component to implement toggleable columns.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-dataTable [value]="cars">
+        <header>
+            <div style="text-align:left">
+                <p-multiSelect [options]="columnOptions" [(ngModel)]="cols"></p-multiSelect>
+            </div>
+        </header>
+        <p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"></p-column>
+    </p-dataTable>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablecoltogglerdemo.ts">
+<pre>
+<code class="language-typescript" pCode>
+export class DataTableColTogglerDemo implements OnInit {
+
+    cars: Car[];
+    
+    cols: any[];
+    
+    columnOptions: SelectItem[];
+        
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        
+        this.cols = [
+            {field: 'vin', header: 'Vin'},
+            {field: 'year', header: 'Year'},
+            {field: 'brand', header: 'Brand'},
+            {field: 'color', header: 'Color'}
+        ];
+        
+        this.columnOptions = [];
+        for(let i = 0; i < this.cols.length; i++) {
+            this.columnOptions.push({label: this.cols[i].header, value: this.cols[i]});
+        }
+    }
+}
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablecoltogglerdemo.html">
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataTable [value]="cars"&gt;
+    &lt;header&gt;
+        &lt;div style="text-align:left"&gt;
+            &lt;p-multiSelect [options]="columnOptions" [(ngModel)]="cols"&gt;&lt;/p-multiSelect&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+    &lt;p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

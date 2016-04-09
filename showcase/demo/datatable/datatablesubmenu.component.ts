@@ -20,6 +20,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                 <li><a [routerLink]="['DataTableScrollDemo']">&#9679; Scroll</a></li>
                 <li><a [routerLink]="['DataTableLazyDemo']">&#9679; Lazy</a></li>
                 <li><a [routerLink]="['DataTableCMDemo']">&#9679; ContextMenu</a></li>
+                <li><a [routerLink]="['DataTableColTogglerDemo']">&#9679; ColToggler</a></li>
                 <li><a [routerLink]="['DataTableResponsiveDemo']">&#9679; Responsive</a></li>
                 <li><a [routerLink]="['DataTableCrudDemo']">&#9679; Crud</a></li>
             </ul>
