@@ -50,6 +50,6 @@ export class DataTableCMDemo implements OnInit {
         this.cars.splice(index, 1);
         
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Car Delete', detail: car.vin + ' - ' + car.brand});
+        this.msgs.push({severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand});
     }
 }
