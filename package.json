@@ -15,7 +15,7 @@
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
     "zone.js": "0.6.6",
-    "primeui": "4.1.6"
+    "primeui": "4.1.7"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
