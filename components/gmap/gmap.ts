@@ -40,20 +40,7 @@ export class GMap implements AfterViewInit,DoCheck {
         if(this.overlays) {
             for(let overlay of this.overlays) {
                 overlay.setMap(this.map);
-                
-                overlay.addListener('click', (event) => {
-                    this.zone.run(() => {
-                        this.onOverlayClick.emit({
-                            originalEvent: event,
-                            'overlay': overlay,
-                            map: this.map
-                        });
-                    });
-                });
-                
-                if(overlay.getDraggable()) {
-                    this.bindDragEvents(overlay);
-                }
+                this.bindOverlayEvents(overlay);
             }
         }
         
@@ -62,6 +49,22 @@ export class GMap implements AfterViewInit,DoCheck {
                 this.onMapClick.emit(event);
             });
         });
+    }
+    
+    bindOverlayEvents(overlay: any) {
+        overlay.addListener('click', (event) => {
+            this.zone.run(() => {
+                this.onOverlayClick.emit({
+                    originalEvent: event,
+                    'overlay': overlay,
+                    map: this.map
+                });
+            });
+        });
+        
+        if(overlay.getDraggable()) {
+            this.bindDragEvents(overlay);
+        }
     }
     
     ngDoCheck() {
