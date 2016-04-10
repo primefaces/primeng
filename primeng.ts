@@ -11,6 +11,7 @@ export * from './components/button/button';
 export * from './components/calendar/calendar';
 export * from './components/carousel/carousel';
 export * from './components/codehighlighter/codehighlighter';
+export * from './components/contextmenu/contextmenu';
 export * from './components/chart/barchart/barchart';
 export * from './components/chart/doughnutchart/doughnutchart';
 export * from './components/chart/linechart/linechart';
