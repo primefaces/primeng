@@ -16,7 +16,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
 @Component({
     selector: 'p-dropdown',
     template: `
-        <div [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,'ui-state-hover':hover,'ui-state-focus':focus}" 
+        <div [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,'ui-state-hover':hover&&!disabled,'ui-state-focus':focus,'ui-state-disabled':disabled}" 
             (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)" [attr.style]="style" [attr.styleClass]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <select>
@@ -27,7 +27,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
                 <input #in type="text" readonly (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeydown($event)">
             </div>
             <label class="ui-dropdown-label ui-inputtext ui-corner-all">{{label}}</label>
-            <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover}">
+            <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
             <div class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow" 
@@ -210,6 +210,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     onMouseclick(event,input) {
+        if(this.disabled) {
+            return;
+        }
+        
         if(!this.panelVisible) {
             input.focus();
             this.show(this.panel,this.container);
