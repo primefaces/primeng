@@ -43,7 +43,6 @@ export class Button implements AfterViewInit, OnDestroy {
         labelElement.appendChild(document.createTextNode(this.label||'ui-button'));
         this.el.nativeElement.appendChild(labelElement);
         this.initialized = true;
-        console.log('init');
     }
         
     @HostListener('mouseover', ['$event']) 
