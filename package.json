@@ -7,6 +7,10 @@
     "lite": "lite-server",
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" "
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/primefaces/primeng.git"
+  },
   "license": "Apache-2.0",
   "peerDependencies": {
     "angular2": "2.0.0-beta.14",
@@ -19,8 +23,8 @@
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
-    "lite-server": "^2.1.0",
+    "lite-server": "^2.2.0",
     "typescript": "^1.8.9",
-    "typings": "^0.7.11"
+    "typings": "^0.7.12"
   }
 }
