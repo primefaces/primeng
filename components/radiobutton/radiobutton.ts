@@ -17,7 +17,7 @@ const RADIO_VALUE_ACCESSOR: Provider = CONST_EXPR(
                 <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked" (blur)="onModelTouched()">
             </div>
             <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="onclick()"
-                        (mouseover)="hover=true" (mouseout)="hover=false" [ngClass]="{'ui-state-hover':hover,'ui-state-active':checked,'ui-state-disabled':disabled}">
+                        (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled}">
                 <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':checked}"></span>
             </div>
         </div>
@@ -45,9 +45,19 @@ export class RadioButton implements ControlValueAccessor {
     private hover: boolean;
 
     onclick() {
-        this.click.emit(null);
-        this.checked = true;
-        this.onModelChange(this.value);
+        if(!this.disabled) {
+            this.click.emit(null);
+            this.checked = true;
+            this.onModelChange(this.value);
+        }
+    }
+    
+    onMouseEnter() {
+        this.hover = true;
+    }
+    
+    onMouseLeave() {
+        this.hover = false;
     }
         
     writeValue(model: any) : void {
