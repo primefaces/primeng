@@ -197,8 +197,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                 this.el.nativeElement.children[0].style.width = select.offsetWidth + 30 + 'px';
             }
         }
-        
-        this.panel.style.width = '100%';
     }
     
     onMouseenter(event) {
