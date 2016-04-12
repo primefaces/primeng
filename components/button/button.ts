@@ -17,13 +17,15 @@ export class Button implements AfterViewInit, OnDestroy {
 
     @Input() iconPos: string = 'left';
         
-    @Input() label: string;
+    private _label: string;
     
     private hover: boolean;
     
     private focus: boolean;
     
     private active: boolean;
+    
+    private initialized: boolean;
 
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
     
@@ -40,6 +42,8 @@ export class Button implements AfterViewInit, OnDestroy {
         labelElement.className = 'ui-button-text ui-c';
         labelElement.appendChild(document.createTextNode(this.label||'ui-button'));
         this.el.nativeElement.appendChild(labelElement);
+        this.initialized = true;
+        console.log('init');
     }
         
     @HostListener('mouseover', ['$event']) 
@@ -96,10 +100,24 @@ export class Button implements AfterViewInit, OnDestroy {
         
         return styleClass;
     }
+    
+    @Input() get label(): string {
+        return this._label;
+    }
+
+    set label(val: string) {
+        this._label = val;
+        
+        if(this.initialized) {
+            this.domHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label;
+        }
+    }
         
     ngOnDestroy() {
         while(this.el.nativeElement.hasChildNodes()) {
             this.el.nativeElement.removeChild(this.el.nativeElement.lastChild);
         }
+        
+        this.initialized = false;
     }
 }
