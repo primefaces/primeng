@@ -19,6 +19,7 @@ export class Column {
     @Input() colspan: number;
     @Input() style: string;
     @Input() styleClass: string;
+    @Input() hidden: boolean;
     @ContentChild(TemplateRef) template: TemplateRef;
     
 }
