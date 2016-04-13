@@ -112,6 +112,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             this.panelVisible = false;
         });
+        
+        this.updateLabel();
     }
     
     ngDoCheck() {
