@@ -354,7 +354,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.label = selectedOption.label;
             this.value = selectedOption.value;
             this.onModelChange(this.value);
-            this.onChange.emit(event);
+            this.onChange.emit({
+                originalEvent: event,
+                value: this.value
+            });
         }
     }
     
