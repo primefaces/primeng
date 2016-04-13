@@ -22,9 +22,7 @@ export class Schedule {
     @Input() weekends: boolean;
     
     @Input() hiddenDays: number[];
-    
-    @Input() lang: string;
-    
+        
     @Input() fixedWeekCount: boolean;
     
     @Input() weekNumbers: boolean;
@@ -77,6 +75,8 @@ export class Schedule {
         
     @Input() eventConstraint: any;
     
+    @Input() locale: any;
+    
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onEventClick: EventEmitter<any> = new EventEmitter();
@@ -112,13 +112,12 @@ export class Schedule {
 
     ngAfterViewInit() {
         this.schedule = jQuery(this.el.nativeElement.children[0]);
-        this.schedule.fullCalendar({
+        let options = {
             theme: true,
             header: this.header,
             isRTL: this.rtl,
             weekends: this.weekends,
             hiddenDays: this.hiddenDays,
-            lang: this.lang,
             fixedWeekCount: this.fixedWeekCount,
             weekNumbers: this.weekNumbers,
             businessHours: this.businessHours,
@@ -222,7 +221,15 @@ export class Schedule {
                     'view': view
                 });
             }
-        });
+        };
+        
+        if(this.locale) {
+            for(var prop in this.locale) {
+                options[prop] = this.locale[prop];
+            }
+        }
+        
+        this.schedule.fullCalendar(options);
         this.initialized = true;
     }
 
