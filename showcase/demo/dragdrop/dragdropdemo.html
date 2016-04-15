@@ -6,11 +6,11 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <div class="ui-grid ui-grid-pad">
+    <div class="ui-grid ui-grid-pad ui-grid-responsive">
         <div class="ui-grid-row">
             <div class="ui-grid-col-6 ui-widget-content" style="border-right:0 none">
                 <ul style="margin:0;padding:0">
-                    <li *ngFor="#car of availableCars" class="ui-state-default" pDraggable (onDragStart)="dragStart($event,car)">{{car.vin}} - {{car.year}} - {{car.color}} - {{car.brand}}</li>
+                    <li *ngFor="#car of availableCars" class="ui-state-default" pDraggable (onDragStart)="dragStart($event,car)">{{car.vin}} - {{car.year}} - {{car.brand}} - {{car.color}}</li>
                 </ul>
             </div>
             <div class="ui-grid-col-6 ui-widget-content" pDroppable (onDrop)="drop($event)">
