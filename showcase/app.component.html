@@ -110,6 +110,16 @@
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (multimediamenutitle.id == activeMenuId), 'submenuhide': (multimediamenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['GalleriaDemo']" (click)="mobileMenuActive = false">&#9679; Galleria</a>
             </div>
+            
+            <span id="menu_dnd" #dndmenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="dndmenutitle.id == activeMenuId"
+                  (click)="activeMenuId = dndmenutitle.id"><img src="showcase/resources/images/mono/dragdrop.svg">
+                    <img class="hiddenIcons" src="showcase/resources/images/mono/dragdrop.svg" style="opacity: 0;">
+                    <span class="MainLinkText">DragDrop</span>
+            </span>
+            <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (dndmenutitle.id == activeMenuId), 'submenuhide': (dndmenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['DragDropDemo']" (click)="mobileMenuActive = false">&#9679; Drag&amp;Drop</a>
+            </div>
+            
             <span id="menu_misc" #misctitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="misctitle.id == activeMenuId"
                   (click)="activeMenuId = misctitle.id"><img src="showcase/resources/images/mono/misc.svg">
                     <img class="hiddenIcons" src="showcase/resources/images/mono/miscBlue.svg" style="opacity: 0;">
