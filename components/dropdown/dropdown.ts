@@ -27,7 +27,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
                 <input #in type="text" readonly (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeydown($event)">
             </div>
             <label class="ui-dropdown-label ui-inputtext ui-corner-all">{{label}}</label>
-            <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled}">
+            <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
             <div class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow" 
