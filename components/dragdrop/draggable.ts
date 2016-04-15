@@ -21,14 +21,14 @@ export class Draggable {
         this.onDragStart.emit(event);
     }
     
-    @HostListener('dragend', ['$event']) 
-    dragStart(event) {
-        this.onDragStart.emit(event);
-    }
-    
     @HostListener('drag', ['$event']) 
     drag(event) {
         this.onDrag.emit(event);
     }
-
+    
+    @HostListener('dragend', ['$event']) 
+    dragStart(event) {
+        this.onDragEnd.emit(event);
+    }
+    
 }

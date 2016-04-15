@@ -41,7 +41,6 @@ export class DragDropDemo {
     
     dragStart(event,car: Car) {
         this.draggedCar = car;
-        console.log(this.draggedCar);
     }
     
     drop(event) {
@@ -50,6 +49,10 @@ export class DragDropDemo {
             this.availableCars.splice(this.findIndex(this.draggedCar), 1);
             this.draggedCar = null;
         }
+    }
+    
+    dragEnd(event) {
+        this.draggedCar = null;
     }
     
     findIndex(car: Car) {
