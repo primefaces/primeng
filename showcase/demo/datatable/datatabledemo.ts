@@ -33,4 +33,8 @@ export class DataTableDemo implements OnInit {
             {field: 'color', header: 'Color'}
         ];
     }
+    
+    dragStart($event,car: Car) {
+        console.log(car);
+    }
 }
