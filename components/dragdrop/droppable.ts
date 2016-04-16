@@ -13,6 +13,8 @@ export class Droppable {
     
     @Output() onDragOver: EventEmitter<any> = new EventEmitter();
     
+    @Input() dropEffect: string;
+    
     constructor(private el: ElementRef) {}
             
     @HostListener('drop', ['$event']) 
@@ -24,6 +26,11 @@ export class Droppable {
     @HostListener('dragenter', ['$event']) 
     dragEnter(event) {
         event.preventDefault();
+        
+        if(this.dropEffect) {
+            event.dataTransfer.dropEffect = this.dropEffect;
+        }
+        
         this.onDragEnter.emit(event);
     }
     

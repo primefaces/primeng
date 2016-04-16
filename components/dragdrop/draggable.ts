@@ -14,10 +14,16 @@ export class Draggable {
     
     @Output() onDrag: EventEmitter<any> = new EventEmitter();
     
+    @Input() dragEffect: string;
+        
     constructor(private el: ElementRef) {}
     
     @HostListener('dragstart', ['$event']) 
-    dragEnd(event) {
+    dragStart(event) {
+        if(this.dragEffect) {
+            event.dataTransfer.effectAllowed = this.dragEffect;
+        }
+                
         this.onDragStart.emit(event);
     }
     
@@ -27,7 +33,7 @@ export class Draggable {
     }
     
     @HostListener('dragend', ['$event']) 
-    dragStart(event) {
+    dragEnd(event) {
         this.onDragEnd.emit(event);
     }
     
