@@ -327,7 +327,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 //down
                 case 40:
                     if(highlightedItem) {
-                        var nextItem = highlightedItem.nextSibling;
+                        var nextItem = highlightedItem.nextElementSibling;
                         if(nextItem) {
                             this.domHandler.removeClass(highlightedItem, 'ui-state-highlight');
                             this.domHandler.addClass(nextItem, 'ui-state-highlight');
