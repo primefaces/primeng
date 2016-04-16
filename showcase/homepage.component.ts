@@ -24,7 +24,7 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/components.svg" />
                     <span class="PropertyTopic boldFont">WIDGETS</span>
-                    <span class="PropertyText mediumFont">50+ Components<br />Easy to Use<br />Accessible</span>
+                    <span class="PropertyText mediumFont">60+ Components<br />Easy to Use<br />Accessible</span>
                 </div>
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/productivity.svg" />
