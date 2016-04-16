@@ -5,6 +5,7 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 import {Button} from '../../../components/button/button';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
+import {Panel} from '../../../components/panel/panel';
 import {Car} from '../domain/car';
 import {Column} from '../../../components/column/column';
 import {DataTable} from '../../../components/datatable/datatable';
@@ -14,7 +15,7 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
 
 @Component({
     templateUrl: 'showcase/demo/dragdrop/dragdropdemo.html',
-    directives: [Draggable,Droppable,Button,TabView,TabPanel,Column,DataTable,CodeHighlighter,ROUTER_DIRECTIVES],
+    directives: [Draggable,Droppable,Button,TabView,TabPanel,Panel,Column,DataTable,CodeHighlighter,ROUTER_DIRECTIVES],
     styles: [`
         .ui-grid li {
             list-style-type: none;

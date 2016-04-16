@@ -6,11 +6,22 @@
 </div>
 
 <div class="ContentSideSections Implementation">
+    <h3 class="first">Drag Only</h3>
+    <div pDraggable="pnl"  dragHandle=".ui-panel-titlebar">
+        <p-panel header="Drag Header">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+            kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        </p-panel>
+    </div>
+    
+    <h3>Drag and Drop to DataTable</h3>
     <div class="ui-grid ui-grid-pad ui-grid-responsive">
         <div class="ui-grid-row">
             <div class="ui-grid-col-6 ui-widget-content" style="border-right:0 none">
                 <ul style="margin:0;padding:0">
-                    <li *ngFor="#car of availableCars" class="ui-state-default" pDraggable="cars" dragHandle="i.fa-arrows"
+                    <li *ngFor="#car of availableCars" class="ui-state-default" pDraggable="cars"
                         (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)">
                         <i class="fa fa-arrows fa-2w"></i>
                         {{car.vin}} - {{car.year}} - {{car.brand}} - {{car.color}}
@@ -28,8 +39,6 @@
             </div>
         </div>
     </div>
-    
-    <div style="height:100px;width:100px;background-color:yellow" pDraggable></div>
 </div>
 
 <div class="ContentSideSections Source">
