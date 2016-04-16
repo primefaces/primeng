@@ -21,10 +21,11 @@
         <div class="ui-grid-row">
             <div class="ui-grid-col-6 ui-widget-content" style="border-right:0 none">
                 <ul style="margin:0;padding:0">
-                    <li *ngFor="#car of availableCars" class="ui-state-default" pDraggable="cars"
+                    <li *ngFor="#car of availableCars" class="ui-state-default ui-helper-clearfix" pDraggable="cars"
                         (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)">
                         <i class="fa fa-arrows fa-2w"></i>
-                        {{car.vin}} - {{car.year}} - {{car.brand}} - {{car.color}}
+                        <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="float:right" draggable="false">
+                        {{car.vin}} - {{car.year}}
                     </li>
                 </ul>
             </div>
