@@ -133,8 +133,10 @@ const EDITOR_VALUE_ACCESSOR: Provider = CONST_EXPR(
                         </select>
                 </span>
                 <span class="ql-format-group">
-                <span title="Link" class="ql-format-button ql-link"></span>
+                    <span title="Link" class="ql-format-button ql-link"></span>
                 </span>
+                <span class="ql-format-separator"></span>
+                <span title="Image" class="ql-format-button ql-image"></span>
             </div>
             <div class="ui-editor-content" [innerHTML]="value||''"></div>
         </div>
@@ -169,7 +171,11 @@ export class Editor implements AfterViewInit,OnDestroy,ControlValueAccessor {
         let toolbarElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
         
         this.quill = new Quill(editorElement, {
-          modules: {toolbar: toolbarElement},
+          modules: {
+              toolbar: toolbarElement,
+              'image-tooltip': true,
+              'link-tooltip': true
+          },
           theme: 'snow'
         });
         
