@@ -213,7 +213,8 @@ export class BarChart implements AfterViewInit, OnDestroy, DoCheck {
                 barShowStroke: this.barShowStroke,
                 barStrokeWidth: this.barStrokeWidth,
                 barValueSpacing: this.barValueSpacing,
-                barDatasetSpacing: this.barDatasetSpacing
+                barDatasetSpacing: this.barDatasetSpacing,
+                legendTemplate: this.legendTemplate
             });
 
             if(this.legend) {

@@ -231,7 +231,8 @@ export class RadarChart implements AfterViewInit, OnDestroy, DoCheck {
                 pointHitDetectionRadius: this.pointHitDetectionRadius,
                 datasetStroke: this.datasetStroke,
                 datasetStrokeWidth: this.datasetStrokeWidth,
-                datasetFill: this.datasetFill
+                datasetFill: this.datasetFill,
+                legendTemplate: this.legendTemplate
             });
 
             if(this.legend) {

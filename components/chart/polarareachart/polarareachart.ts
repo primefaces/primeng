@@ -208,7 +208,8 @@ export class PolarAreaChart implements AfterViewInit, OnDestroy, DoCheck {
                 animationSteps: this.animationSteps,
                 animationEasing: this.animationEasing,
                 animateRotate: this.animateRotate,
-                animateScale: this.animateScale
+                animateScale: this.animateScale,
+                legendTemplate: this.legendTemplate
             });
 
             if(this.legend) {
