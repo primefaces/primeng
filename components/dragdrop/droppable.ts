@@ -47,10 +47,23 @@ export class Droppable {
     
     @HostListener('dragover', ['$event']) 
     dragOver(event) {
-        if(this.scope == event.dataTransfer.types[0]) {
+        if(this.allowDrop(event)) {
             event.preventDefault();
             this.onDragOver.emit(event);
         }
     }
-
+    
+    allowDrop(event): boolean {
+        let allow = false;
+        let types = event.dataTransfer.types;
+        if(types && types.length) {
+            for(let i = 0; i < types.length; i++) {
+                if(types[i] == this.scope) {
+                    allow = true;
+                    break;
+                }
+            }
+        }
+        return allow;
+    }
 }
