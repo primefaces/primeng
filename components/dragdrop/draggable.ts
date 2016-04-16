@@ -10,16 +10,18 @@ import {DomHandler} from '../dom/domhandler';
 })
 export class Draggable {
     
+    @Input('pDraggable') scope: string;
+        
+    @Input() dragEffect: string;
+    
+    @Input() dragHandle: string;
+    
     @Output() onDragStart: EventEmitter<any> = new EventEmitter();
     
     @Output() onDragEnd: EventEmitter<any> = new EventEmitter();
     
     @Output() onDrag: EventEmitter<any> = new EventEmitter();
     
-    @Input() dragEffect: string;
-    
-    @Input() dragHandle: string;
-        
     private handle: any;
         
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
@@ -30,7 +32,8 @@ export class Draggable {
             if(this.dragEffect) {
                 event.dataTransfer.effectAllowed = this.dragEffect;
             }
-                        
+                
+            event.dataTransfer.setData(this.scope, this.scope);
             this.onDragStart.emit(event);
         }
         else {

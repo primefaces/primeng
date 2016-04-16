@@ -5,6 +5,10 @@ import {Directive,ElementRef,HostListener,Input,Output,EventEmitter} from 'angul
 })
 export class Droppable {
     
+    @Input('pDroppable') scope: string;
+        
+    @Input() dropEffect: string;
+    
     @Output() onDragEnter: EventEmitter<any> = new EventEmitter();
     
     @Output() onDragLeave: EventEmitter<any> = new EventEmitter();
@@ -12,9 +16,7 @@ export class Droppable {
     @Output() onDrop: EventEmitter<any> = new EventEmitter();
     
     @Output() onDragOver: EventEmitter<any> = new EventEmitter();
-    
-    @Input() dropEffect: string;
-    
+
     constructor(private el: ElementRef) {}
             
     @HostListener('drop', ['$event']) 
@@ -42,8 +44,10 @@ export class Droppable {
     
     @HostListener('dragover', ['$event']) 
     dragOver(event) {
-        event.preventDefault();
-        this.onDragOver.emit(event);
+        if(this.scope == event.dataTransfer.types[0]) {
+            event.preventDefault();
+            this.onDragOver.emit(event);
+        }
     }
 
 }

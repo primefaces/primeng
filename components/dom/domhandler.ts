@@ -156,7 +156,6 @@ export class DomHandler {
     
     public matches(element, selector: string): boolean {
         var p = Element.prototype;
-        console.log(p);
     	var f = p.matches||p.webkitMatchesSelector||p['mozMatchesSelector']||p.msMatchesSelector||function(s) {
     		return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
     	};
