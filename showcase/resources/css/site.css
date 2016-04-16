@@ -277,6 +277,13 @@ input.searchInput {
     font-weight: normal;
 }
 
+.Source h4 {
+    margin-top: 25px;
+    margin-bottom: 0px;
+    font-size: 20px;
+    font-weight: normal;
+}
+
 .Source p {
     font-size: 16px;
     margin: 10px 0;
