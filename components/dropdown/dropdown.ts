@@ -105,12 +105,21 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     private itemsWrapper: any;
     
     private initialized: boolean;
+    
+    private selfClick: boolean;
+    
+    private itemClick: boolean;
             
     ngOnInit() {
         this.optionsToDisplay = this.options;
                 
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            this.panelVisible = false;
+            if(!this.selfClick&&!this.itemClick) {
+                this.panelVisible = false;
+            }
+            
+            this.selfClick = false;
+            this.itemClick = false;
         });
         
         this.updateLabel();
@@ -214,10 +223,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             return;
         }
         
-        if(!this.panelVisible) {
+        this.selfClick = true;
+        
+        if(!this.itemClick) {
             input.focus();
-            this.show(this.panel,this.container);
-            event.stopPropagation();
+            
+            if(this.panelVisible)
+                this.hide();
+            else
+                this.show(this.panel,this.container);
         }
     }
     
@@ -336,11 +350,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             return;
         }
         
+        this.itemClick = true;
+        
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
             this.selectItem(event,item);
         }
+        
+        this.hide();
     }
     
     selectItem(event, item) {
