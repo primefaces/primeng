@@ -23,9 +23,9 @@
                 <ul style="margin:0;padding:0">
                     <li *ngFor="#car of availableCars" class="ui-state-default ui-helper-clearfix" pDraggable="cars"
                         (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)">
-                        <i class="fa fa-arrows fa-2w"></i>
-                        <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="float:right" draggable="false">
-                        {{car.vin}} - {{car.year}}
+                        <i class="fa fa-arrows fa-2x" style="float:right;margin-top:8px"></i>
+                        <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="float:left" draggable="false">
+                        <div style="margin:8px 0 0 8px;float:left">{{car.vin}} - {{car.year}}</div>
                     </li>
                 </ul>
             </div>
@@ -236,9 +236,9 @@ import {Draggable,Droppable} from 'primeng/primeng';
             &lt;ul style="margin:0;padding:0"&gt;
                 &lt;li *ngFor="#car of availableCars" class="ui-state-default ui-helper-clearfix" pDraggable="cars"
                     (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)"&gt;
-                    &lt;i class="fa fa-arrows fa-2w"&gt;&lt;/i&gt;
-                    &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="float:right" draggable="false"&gt;
-                    {{car.vin}} - {{car.year}}
+                    &lt;i class="fa fa-arrows fa-2x" style="float:right;margin-top:8px"&gt;&lt;/i&gt;
+                    &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="float:left" draggable="false"&gt;
+                    &lt;div style="margin:8px 0 0 8px;float:left"&gt;{{car.vin}} - {{car.year}}&lt;/div&gt;
                 &lt;/li&gt;
             &lt;/ul&gt;
         &lt;/div&gt;
