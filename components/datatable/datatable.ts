@@ -223,6 +223,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private columnsUpdated: boolean = false;
 
     private sortedByDefault: boolean;
+    
+    private sortColumn: Column;
 
     differ: any;
 
@@ -369,6 +371,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
         this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
         this.sortField = column.field;
+        this.sortColumn = column;
         let metaKey = event.metaKey||event.ctrlKey;
 
         if(this.lazy) {
@@ -391,18 +394,27 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     sortSingle() {
         if(this.value) {
-            this.value.sort((data1, data2) => {
-                let value1 = this.resolveFieldData(data1, this.sortField);
-                let value2 = this.resolveFieldData(data2, this.sortField);
-                let result = null;
+            if(this.sortColumn.sortable === 'custom') {
+                this.sortColumn.sortFunction.emit({
+                    field: this.sortField,
+                    order: this.sortOrder
+                });
+            }
+            else {
+                this.value.sort((data1, data2) => {
+                    let value1 = this.resolveFieldData(data1, this.sortField);
+                    let value2 = this.resolveFieldData(data2, this.sortField);
+                    let result = null;
 
-                if (value1 instanceof String && value2 instanceof String)
-                    result = value1.localeCompare(value2);
-                else
-                    result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+                    if (value1 instanceof String && value2 instanceof String)
+                        result = value1.localeCompare(value2);
+                    else
+                        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
 
-                return (this.sortOrder * result);
-            });
+                    return (this.sortOrder * result);
+                });
+            }
+            
 
             this.first = 0;
 

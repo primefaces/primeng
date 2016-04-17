@@ -11,7 +11,7 @@ export class Column {
     @Input() field: string;
     @Input() header: string;
     @Input() footer: string;
-    @Input() sortable: boolean;
+    @Input() sortable: any;
     @Input() editable: boolean;
     @Input() filter: boolean;
     @Input() filterMatchMode: string;
@@ -20,6 +20,7 @@ export class Column {
     @Input() style: string;
     @Input() styleClass: string;
     @Input() hidden: boolean;
+    @Output() sortFunction: EventEmitter<any> = new EventEmitter();
     @ContentChild(TemplateRef) template: TemplateRef;
     
 }
