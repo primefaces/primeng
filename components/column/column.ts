@@ -20,6 +20,7 @@ export class Column {
     @Input() style: string;
     @Input() styleClass: string;
     @Input() hidden: boolean;
+    @Input() expander: boolean;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
     @ContentChild(TemplateRef) template: TemplateRef;
     

@@ -1,6 +1,7 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef} from 'angular2/core';
 import {Column} from '../column/column';
 import {ColumnTemplateLoader} from '../column/columntemplateloader';
+import {RowExpansionLoader} from './rowexpansionloader';
 import {Header} from '../common/header';
 import {Footer} from '../common/footer';
 import {Paginator} from '../paginator/paginator';
@@ -53,20 +54,29 @@ import {DomHandler} from '../dom/domhandler';
                         </tr>
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
-                        <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
-                                [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                            <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [hidden]="col.hidden"
-                                [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
-                                <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                <span class="ui-cell-data" *ngIf="!col.template">{{resolveFieldData(rowData,col.field)}}</span>
-                                <span class="ui-cell-data" *ngIf="col.template">
-                                    <p-columnTemplateLoader [column]="col" [rowData]="rowData"></p-columnTemplateLoader>
-                                </span>
-                                <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
-                                        (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
-                            </td>
-                        </tr>
+                        <template ngFor #rowData [ngForOf]="dataToRender" #even="even" #odd="odd">
+                            <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
+                                    (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
+                                    [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
+                                <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [hidden]="col.hidden"
+                                    [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
+                                    <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
+                                    <span class="ui-cell-data" *ngIf="!col.template">{{resolveFieldData(rowData,col.field)}}</span>
+                                    <span class="ui-cell-data" *ngIf="col.template">
+                                        <p-columnTemplateLoader [column]="col" [rowData]="rowData"></p-columnTemplateLoader>
+                                    </span>
+                                    <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
+                                            (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
+                                    <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
+                                        *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="rowExpansionTemplate && isRowExpanded(rowData)">
+                                <td [attr.colspan]="columns.length">
+                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
+                                </td>
+                            </tr>
+                        </template>
                     </tbody>
                 </table>
             </div>
@@ -115,7 +125,7 @@ import {DomHandler} from '../dom/domhandler';
             </div>
         </div>
     `,
-    directives: [Paginator,InputText,ColumnTemplateLoader],
+    directives: [Paginator,InputText,ColumnTemplateLoader,RowExpansionLoader],
     providers: [DomHandler]
 })
 export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck {
@@ -211,6 +221,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
+    
+    @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef;
 
     private dataToRender: any[];
 
@@ -231,6 +243,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private sortByDefault: boolean;
     
     private sortColumn: Column;
+    
+    private expandedRows: any[];
 
     differ: any;
 
@@ -878,6 +892,36 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             filters: this.filters,
             multiSortMeta: this.multiSortMeta
         };
+    }
+    
+    toggleRow(row: any) {
+        if(!this.expandedRows) {
+            this.expandedRows = [];
+        }
+        
+        let expandedRowIndex = this.findExpandedRowIndex(row);
+        
+        if(expandedRowIndex != -1)
+            this.expandedRows.splice(expandedRowIndex, 1);
+        else
+            this.expandedRows.push(row);
+    }
+    
+    findExpandedRowIndex(row: any): number {
+        let index = -1
+        if(this.expandedRows) {
+            for(let i = 0; i < this.expandedRows.length; i++) {
+                if(this.expandedRows[i] == row) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
+    }
+    
+    isRowExpanded(row) {
+        return this.findExpandedRowIndex(row) != -1;
     }
 
     ngOnDestroy() {

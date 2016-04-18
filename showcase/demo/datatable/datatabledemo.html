@@ -11,10 +11,38 @@
     <h3 class="first">Basic</h3>
 
     <p-dataTable [value]="cars">
+        <p-column expander="true" style="width:22px"></p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color"></p-column>
+        <template #car>
+            <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"></div>
+                    <div class="ui-grid-col-9">
+                        <div class="ui-grid ui-grid-responsive ui-fluid">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Vin: </div>
+                                <div class="ui-grid-col-10">{{car.vin}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Year: </div>
+                                <div class="ui-grid-col-10">{{car.year}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Brand: </div>
+                                <div class="ui-grid-col-10">{{car.brand}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Color: </div>
+                                <div class="ui-grid-col-10">{{car.color}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
     </p-dataTable>
     
     <h3>Dynamic Columns</h3>
