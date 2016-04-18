@@ -71,7 +71,7 @@ import {DomHandler} from '../dom/domhandler';
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
                                 </td>
                             </tr>
-                            <tr *ngIf="rowExpansionTemplate && isRowExpanded(rowData)">
+                            <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="columns.length">
                                     <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
                                 </td>
@@ -203,7 +203,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Input() multiSortMeta: SortMeta[];
     
     @Input() contextMenu: any;
-
+    
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
@@ -221,6 +221,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
+    
+    @Input() expandableRows: boolean;
     
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef;
 

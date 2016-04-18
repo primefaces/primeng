@@ -15,6 +15,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
                 <li><a [routerLink]="['DataTableFilterDemo']">&#9679; Filter</a></li>
                 <li><a [routerLink]="['DataTableSelectionDemo']">&#9679; Selection</a></li>
                 <li><a [routerLink]="['DataTableEditableDemo']">&#9679; Editable</a></li>
+                <li><a [routerLink]="['DataTableRowExpansionDemo']">&#9679; Expand</a></li>
                 <li><a [routerLink]="['DataTableColResizeDemo']">&#9679; Resize</a></li>
                 <li><a [routerLink]="['DataTableColReorderDemo']">&#9679; Reorder</a></li>
                 <li><a [routerLink]="['DataTableScrollDemo']">&#9679; Scroll</a></li>
