@@ -201,6 +201,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Output() onEdit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
+        
+    @Output() onSort: EventEmitter<any> = new EventEmitter();
+            
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(Header) header;
 
@@ -339,12 +345,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         this.first = event.first;
         this.rows = event.rows;
 
-        if(this.lazy) {
+        if(this.lazy)
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-        else {
+        else
             this.updateDataToRender(this.filteredValue||this.value);
-        }
+        
+        this.onPage.emit({
+            first: this.first,
+            rows: this.rows
+        });
     }
 
     updateDataToRender(datasource) {
@@ -390,6 +399,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 this.sortSingle();
             }
         }
+        
+        this.onSort.emit({
+            field: this.sortField,
+            order: this.sortOrder,
+            multisortmeta: this.multiSortMeta
+        });
     }
 
     sortSingle() {
@@ -677,6 +692,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
             this.updateDataToRender(this.filteredValue||this.value);
         }
+        
+        this.onFilter.emit({
+            filters: this.filters
+        });
     }
 
     hasFilter() {
