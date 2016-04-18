@@ -221,8 +221,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private columns: Column[];
 
     private columnsUpdated: boolean = false;
-
-    private sortedByDefault: boolean;
+    
+    private sortByDefault: boolean;
     
     private sortColumn: Column;
 
@@ -250,6 +250,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 filters: null,
                 multiSortMeta: this.multiSortMeta
             });
+        }
+        else if(this.sortField||this.multiSortMeta) {
+            this.sortByDefault = true;
         }
     }
 
@@ -289,11 +292,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             if(this.paginator) {
                 this.updatePaginator();
             }
-            this.updateDataToRender(this.value);
+            this.updateDataToRender(this.filteredValue||this.value);
 
-            if(!this.lazy && !this.sortedByDefault && (this.sortField || this.multiSortMeta)) {
-                this.sortByDefault();
-                this.sortedByDefault = true;
+            if(!this.lazy && this.sortByDefault) {
+                this.sortByDefault = false;
+                
+                if(this.sortMode == 'single')
+                    this.sortSingle();
+                else if(this.sortMode == 'multiple')
+                    this.sortMultiple();
             }
         }
     }
@@ -315,13 +322,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         else {
             return null;
         }
-    }
-
-    sortByDefault() {
-        if(this.sortMode == 'single')
-            this.sortSingle();
-        else if(this.sortMode == 'multiple')
-            this.sortMultiple();
     }
 
     updatePaginator() {
@@ -415,13 +415,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 });
             }
             
-
             this.first = 0;
 
-            if(this.hasFilter())
+            if(this.hasFilter()) {
                 this.filter();
-            else
-                this.updateDataToRender(this.filteredValue||this.value);
+            }
         }
     }
 
@@ -431,12 +429,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 return this.multisortField(data1, data2, this.multiSortMeta, 0);
             });
 
-            if(this.hasFilter())
+            if(this.hasFilter()) {
                 this.filter();
-            else
-                this.updateDataToRender(this.filteredValue||this.value);
+            }
         }
-
     }
 
     multisortField(data1,data2,multiSortMeta,index) {
