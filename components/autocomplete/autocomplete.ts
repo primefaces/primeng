@@ -120,7 +120,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     ngDoCheck() {
         let changes = this.differ.diff(this.suggestions);
 
-        if(changes) {
+        if(changes && this.panel) {
             if(this.suggestions && this.suggestions.length) {
                 this.show();
                 this.suggestionsUpdated = true;
