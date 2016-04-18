@@ -63,7 +63,7 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
             values: this.value,
             slide: (event: Event, ui: any) => {
                 if(this.range) {
-                    this.onModelChange(ui.value);
+                    this.onModelChange(ui.values);
                     this.onChange.emit({originalEvent: event, values: ui.values});
                 }
                 else {
