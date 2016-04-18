@@ -877,6 +877,24 @@ loadData(event: LazyLoadEvent) {
                                 event.data: Row data</td>
                             <td>Callback to invoke when cell edit is cancelled with escape key.</td>
                         </tr>
+                        <tr>
+                            <td>onPage</td>
+                            <td>event.first: Index of first record in page<br>
+                                event.rows: Number of rows on the page</td>
+                            <td>Callback to invoke when pagination occurs.</td>
+                        </tr>
+                        <tr>
+                            <td>onSort</td>
+                            <td>event.field: Field name of the sorted column<br>
+                                event.order: Sort order as 1 or -1<br>
+                                event.multisortmeta: Sort metadata in multi sort mode. See multiple sorting section for the structure of this object.</td>
+                            <td>Callback to invoke when a column gets sorted.</td>
+                        </tr>
+                        <tr>
+                            <td>onFilter</td>
+                            <td>event.filters: Filters object having a field as the property key and an object with value, matchMode as the property value.<br></td>
+                            <td>Callback to invoke when data is filtered.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
