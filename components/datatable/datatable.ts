@@ -29,7 +29,7 @@ import {DomHandler} from '../dom/domhandler';
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
-                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                             </th>
                         </tr>
                         <tr *ngFor="#headerRow of headerRows" class="ui-state-default">
@@ -39,7 +39,7 @@ import {DomHandler} from '../dom/domhandler';
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
-                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                             </th>
                         </tr>
                     </thead>
@@ -924,6 +924,24 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     isRowExpanded(row) {
         return this.findExpandedRowIndex(row) != -1;
+    }
+    
+    public reset() {
+        this.sortField = null;
+        this.sortOrder = null;
+        
+        this.filteredValue = null;
+        this.filters = {};
+
+        if(this.paginator) {
+            this.paginate({
+                first: 0,
+                rows: this.rows
+            });
+        }
+        else {
+            this.updateDataToRender(this.value);
+        }
     }
 
     ngOnDestroy() {
