@@ -151,14 +151,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.optionsChanged = false;
         }
     }
-        
+    
     writeValue(value: any) : void {
         this.value = value;
         this.updateLabel();
-        
-        if(this.initialized) {
+
+        if(this.initialized && !this.optionsChanged) {
             this.highlightValue();
-        }    
+        }
     }
     
     registerOnChange(fn: Function): void {
