@@ -26,7 +26,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeydown($event)">
             </div>
-            <label class="ui-dropdown-label ui-inputtext ui-corner-all">{{label}}</label>
+            <label class="ui-dropdown-label ui-inputtext ui-corner-all" [innerHTML]="label"></label>
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
@@ -170,7 +170,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     updateLabel() {
-        if(this.optionsToDisplay) {
+        if(this.optionsToDisplay && this.optionsToDisplay.length) {
             let selectedIndex = this.findItemIndex(this.value, this.optionsToDisplay);
             if(selectedIndex == -1)
                 this.label = this.optionsToDisplay[0].label;
@@ -190,7 +190,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.domHandler.removeClass(currentSelectedItem, 'ui-state-highlight');
         }
         
-        if(this.optionsToDisplay) {
+        if(this.optionsToDisplay && this.optionsToDisplay.length) {
             let selectedIndex = this.findItemIndex(this.value, this.optionsToDisplay);
             if(selectedIndex == -1 && fallbackToFirst) {
                 selectedIndex = 0;
@@ -236,10 +236,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     show(panel,container) {
-        this.panelVisible = true;
-        panel.style.zIndex = ++PUI.zindex;
-        this.domHandler.relativePosition(panel, container);
-        this.domHandler.fadeIn(panel,250);
+        if(this.optionsToDisplay && this.optionsToDisplay.length) {
+            this.panelVisible = true;
+            panel.style.zIndex = ++PUI.zindex;
+            this.domHandler.relativePosition(panel, container);
+            this.domHandler.fadeIn(panel,250);
+        }
     }
     
     hide() {
