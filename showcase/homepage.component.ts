@@ -53,13 +53,16 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
             <span class="dispBlock logoBlueText fontSize30 mediumFont">Premium Layouts and Themes for PrimeNG</span>
             <p class="defaultText" style="margin-bottom:10px">Create awesome applications in no time, impress your users.</p>
             <div style="padding:30px">
-                <div class="Content33 floatLeft overHidden">
+                <div class="Content50 floatLeft overHidden">
+                    <a href="http://www.primefaces.org/layouts/olympos-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/olympos.png" style="width:100%" /></a>
+                </div>
+                <div class="Content50 floatLeft overHidden">
                     <a href="http://www.primefaces.org/layouts/modena-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/modena.png" style="width:100%" /></a>
                 </div>
-                <div class="Content33 floatLeft overHidden">
+                <div class="Content50 floatLeft overHidden">
                     <a href="http://www.primefaces.org/layouts/rio-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/rio.png" style="width:100%" /></a>
                 </div>
-                <div class="Content33 floatLeft overHidden">
+                <div class="Content50 floatLeft overHidden">
                     <a href="http://www.primefaces.org/layouts/adamantium-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/adamantium.png" style="width:100%" /></a>
                 </div>
             </div>

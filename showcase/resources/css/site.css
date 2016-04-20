@@ -184,6 +184,7 @@ a{ text-decoration:none; outline:none;color: #25AAE1}
 
 /* content boxes*/
 .Content33{width:33%; }
+.Content50{width:50%; }
 .Content66{width:65%; background-position:left top; background-repeat:no-repeat;}
 .Content100{width:100%;}
 
@@ -556,7 +557,8 @@ input.searchInput {
 .ui-theme.ui-theme-ui-lightness{ background-position: -80px -768px; width: 30px; height: 27px; }
 .ui-theme.ui-theme-vader{ background-position: -80px -845px; width: 30px; height: 27px; }
 
-.PFLayouts .Content33 {
+.PFLayouts .Content33,
+.PFLayouts .Content50 {
     box-sizing: border-box;
     padding-right: 15px;
 }
