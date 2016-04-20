@@ -27,6 +27,8 @@ export * from './components/datalist/datalist';
 export * from './components/datascroller/datascroller';
 export * from './components/datatable/datatable';
 export * from './components/dialog/dialog';
+export * from './components/dragdrop/draggable';
+export * from './components/dragdrop/droppable';
 export * from './components/dropdown/dropdown';
 export * from './components/editor/editor';
 export * from './components/fieldset/fieldset';
