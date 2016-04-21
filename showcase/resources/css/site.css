@@ -189,7 +189,7 @@ a{ text-decoration:none; outline:none;color: #25AAE1}
 .Content100{width:100%;}
 
 /* general text styles */
-.defaultText{font-size:18px; color:#404C51;}
+.defaultText{font-size:16px; color:#404C51;}
 .defaultTopic{font-size:46px; color:#DB2226; line-height:46px; padding:10px 0px 10px 0px;}
 
 /* buttons */
