@@ -358,8 +358,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 
                 //enter
                 case 13:
-                    this.selectItem(highlightedItem);
-                    this.hide();
+                    if(highlightedItem) {
+                        this.selectItem(highlightedItem);
+                        this.hide();
+                    }
                     event.preventDefault();
                 break;
                 
