@@ -9,7 +9,7 @@ export class Password implements OnInit, OnDestroy, OnChanges {
 
     @Input() weakLabel: string;
 
-    @Input() goodLabel: string;
+    @Input() mediumLabel: string;
 
     @Input() strongLabel: string;
 
@@ -27,7 +27,7 @@ export class Password implements OnInit, OnDestroy, OnChanges {
         jQuery(this.el.nativeElement).puipassword({
             promptLabel: this.promptLabel,
             weakLabel: this.weakLabel,
-            goodLabel: this.goodLabel,
+            mediumLabel: this.mediumLabel,
             strongLabel: this.strongLabel,
             inline: this.inline
         });
