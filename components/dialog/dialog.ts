@@ -15,17 +15,13 @@ declare var PUI: any;
                     (click)="hide($event)" (mouseenter)="hoverCloseIcon=true" (mouseleave)="hoverCloseIcon=false">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
-                <!--<a class="ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all" href="#" role="button" *ngIf="maximizable">
-                    <span class="fa fa-fw fa-sort"></span>
-                </a>
-                <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-minimize ui-corner-all" href="#" role="button" *ngIf="minimizable">
-                    <span class="fa fa-fw fa-minus"></span>
-                </a>-->
             </div>
             <div class="ui-dialog-content ui-widget-content">
                 <ng-content></ng-content>
             </div>
             <ng-content select="footer"></ng-content>
+            <div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
+                (mousedown)="initResize($event)"></div>
         </div>
     `,
     providers: [DomHandler]
@@ -38,9 +34,9 @@ export class Dialog implements AfterViewInit,OnDestroy {
 
     @Input() resizable: boolean = true;
     
-    @Input() minWidth: number;
+    @Input() minWidth: number = 150;
 
-    @Input() minHeight: number;
+    @Input() minHeight: number = 150;
 
     @Input() width: any;
 
@@ -50,19 +46,11 @@ export class Dialog implements AfterViewInit,OnDestroy {
 
     @Input() showEffect: string;
 
-    @Input() hideEffect: string;
-
-    @Input() effectDuration: any;
-
     @Input() closeOnEscape: boolean = true;
 
     @Input() rtl: boolean;
 
     @Input() closable: boolean = true;
-
-    @Input() minimizable: boolean;
-
-    @Input() maximizable: boolean;
 
     @Input() responsive: boolean;
 
@@ -74,10 +62,6 @@ export class Dialog implements AfterViewInit,OnDestroy {
 
     @Output() onAfterHide: EventEmitter<any> = new EventEmitter();
 
-    @Output() onMinimize: EventEmitter<any> = new EventEmitter();
-
-    @Output() onMaximize: EventEmitter<any> = new EventEmitter();
-
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
     
     _visible: boolean;
@@ -86,12 +70,18 @@ export class Dialog implements AfterViewInit,OnDestroy {
 
     documentDragListener: any;
     
+    resizing: boolean;
+
+    documentResizeListener: any;
+    
+    documentResizeEndListener: any;
+    
     lastPageX: number;
     
     lastPageY: number;
     
     mask: any;
-        
+            
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
     
     @Input() get visible(): boolean {
@@ -136,6 +126,18 @@ export class Dialog implements AfterViewInit,OnDestroy {
         if(this.draggable) {
             this.documentDragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
                 this.onDrag(event);
+            });
+        }
+        
+        if(this.resizable) {
+            this.documentResizeListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+                this.onResize(event);
+            });
+            
+            this.documentResizeEndListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
+                if(this.resizing) {
+                    this.resizing = false;
+                }
             });
         }
     }
@@ -196,12 +198,46 @@ export class Dialog implements AfterViewInit,OnDestroy {
             this.dragging = false;
         }
     }
+    
+    initResize(event) {
+        if(this.resizable) {
+            this.resizing = true;
+            this.lastPageX = event.pageX;
+            this.lastPageY = event.pageY;
+        }
+    }
+    
+    onResize(event) {
+        if(this.resizing) {
+            let container = this.el.nativeElement.children[0];
+            let deltaX = event.pageX - this.lastPageX;
+            let deltaY = event.pageY - this.lastPageY;
+            let containerWidth = this.domHandler.getOuterWidth(container);
+            let containerHeight = this.domHandler.getOuterHeight(container);
+            let newWidth = containerWidth + deltaX;
+            let newHeight = containerHeight + deltaY;
 
+            if(newWidth > this.minWidth)
+                container.style.width = containerWidth + deltaX + 'px';
+                
+            if(newHeight > this.minHeight)
+                container.style.height = containerHeight + deltaY + 'px';
+            
+            this.lastPageX = event.pageX;
+            this.lastPageY = event.pageY;
+        }
+    }
+    
     ngOnDestroy() {
         this.mask = null;
         
         if(this.documentDragListener) {
             this.documentDragListener();
+        }
+        
+        if(this.resizable) {
+            this.documentResizeListener();
+            this.documentResizeEndListener();
         }
     }
 
