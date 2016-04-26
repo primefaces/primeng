@@ -67,6 +67,8 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
     private offLabelChild: any;
 
     private offset: any;
+    
+    initialized: boolean = false;
 
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
 
@@ -110,19 +112,27 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
             this.onContainer.style.width = 0 + 'px';
             this.onLabelChild.style.marginLeft = -this.offset + 'px';
         }
+        
+        this.initialized = true;
     }
 
     toggle(event,checkbox) {
         if(!this.disabled) {
-            checkbox.focus();
-            this.checked = !this.checked;
-            this.checked ? this.checkUI() : this.uncheckUI();
+            if(this.checked) {
+                this.checked = false;
+                this.uncheckUI()
+            }
+            else {
+                this.checked = true;
+                this.checkUI();
+            }
+
             this.onModelChange(this.checked);
-            this.onModelTouched();
             this.onChange.emit({
                 originalEvent: event,
                 checked: this.checked
-            })
+            });
+            checkbox.focus();
         }
     }
 
@@ -151,6 +161,13 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
 
     writeValue(value: any) : void {
         this.value = value;
+        
+        if(this.initialized) {
+            if(this.value === true)
+                this.checkUI();
+            else
+                this.uncheckUI();
+        }
     }
 
     registerOnChange(fn: Function): void {
