@@ -76,6 +76,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     
     documentResizeEndListener: any;
     
+    documentResponsiveListener: any;
+    
     lastPageX: number;
     
     lastPageY: number;
@@ -105,13 +107,16 @@ export class Dialog implements AfterViewInit,OnDestroy {
     
     center() {
         let container = this.el.nativeElement.children[0];
-        container.style.visibility = 'hidden';
-        container.style.display = 'block';
         let elementWidth = this.domHandler.getOuterWidth(container);
         let elementHeight = this.domHandler.getOuterHeight(container);
-        container.style.display = 'none';
-        container.style.visibility = 'visible';
-        
+        if(elementWidth == 0 && elementHeight == 0) {
+            container.style.visibility = 'hidden';
+            container.style.display = 'block';
+            elementWidth = this.domHandler.getOuterWidth(container);
+            elementHeight = this.domHandler.getOuterHeight(container);
+            container.style.display = 'none';
+            container.style.visibility = 'visible';
+        }
         let viewport = this.domHandler.getViewport();
         let x = (viewport.width - elementWidth) / 2;
         let y = (viewport.height - elementHeight) / 2;
@@ -119,7 +124,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         container.style.left = x + 'px';
         container.style.top = y + 'px';
     }
-
+    
     ngAfterViewInit() {
         this.center();
         
@@ -138,6 +143,12 @@ export class Dialog implements AfterViewInit,OnDestroy {
                 if(this.resizing) {
                     this.resizing = false;
                 }
+            });
+        }
+        
+        if(this.responsive) {
+            this.documentResponsiveListener = this.renderer.listenGlobal('window', 'resize', (event) => {
+                this.center();
             });
         }
     }
@@ -238,6 +249,10 @@ export class Dialog implements AfterViewInit,OnDestroy {
         if(this.resizable) {
             this.documentResizeListener();
             this.documentResizeEndListener();
+        }
+        
+        if(this.responsive) {
+            this.documentResponsiveListener();
         }
     }
 
