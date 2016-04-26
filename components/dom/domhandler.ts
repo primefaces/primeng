@@ -2,7 +2,9 @@ import {Injectable} from 'angular2/core';
 
 @Injectable()
 export class DomHandler {
-
+    
+    public static zindex: number = 1000;
+    
     public addClass(element: any, className: string):void {
         if (element.classList)
             element.classList.add(className);

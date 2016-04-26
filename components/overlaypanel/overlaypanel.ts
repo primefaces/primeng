@@ -1,8 +1,6 @@
 import {Component,Input,Output,OnInit,OnDestroy,EventEmitter,Renderer,ElementRef} from 'angular2/core';
 import {DomHandler} from '../dom/domhandler';
 
-declare var PUI: any;
-
 @Component({
     selector: 'p-overlayPanel',
     template: `
@@ -89,7 +87,7 @@ export class OverlayPanel implements OnInit, OnDestroy {
         this.onBeforeShow.emit(null);
         let elementTarget = target||event.currentTarget||event.target;
         let container = this.el.nativeElement.children[0];
-        container.style.zIndex = ++PUI.zindex;
+        container.style.zIndex = ++DomHandler.zindex;
 
         if(this.visible) {
             this.domHandler.absolutePosition(container, elementTarget);

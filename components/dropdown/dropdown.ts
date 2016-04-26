@@ -4,8 +4,6 @@ import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
 import {CONST_EXPR} from 'angular2/src/facade/lang';
 
-declare var PUI: any;
-
 const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
     new Provider(NG_VALUE_ACCESSOR, {
         useExisting: forwardRef(() => Dropdown),
@@ -238,7 +236,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     show(panel,container) {
         if(this.optionsToDisplay && this.optionsToDisplay.length) {
             this.panelVisible = true;
-            panel.style.zIndex = ++PUI.zindex;
+            panel.style.zIndex = ++DomHandler.zindex;
             this.domHandler.relativePosition(panel, container);
             this.domHandler.fadeIn(panel,250);
         }

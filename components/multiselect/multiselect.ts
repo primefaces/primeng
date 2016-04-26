@@ -5,8 +5,6 @@ import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
 import {CONST_EXPR} from 'angular2/src/facade/lang';
 
-declare var PUI: any;
-
 const MULTISELECT_VALUE_ACCESSOR: Provider = CONST_EXPR(
     new Provider(NG_VALUE_ACCESSOR, {
         useExisting: forwardRef(() => MultiSelect),
@@ -231,7 +229,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     show() {
         this.overlayVisible = true;
-        this.panel.style.zIndex = ++PUI.zindex;
+        this.panel.style.zIndex = ++DomHandler.zindex;
         this.domHandler.relativePosition(this.panel, this.container);
         this.domHandler.fadeIn(this.panel, 250);
     }

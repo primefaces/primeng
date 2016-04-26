@@ -1,8 +1,6 @@
 import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer} from 'angular2/core';
 import {DomHandler} from '../dom/domhandler';
 
-declare var PUI: any;
-
 @Component({
     selector: 'p-dialog',
     template: `
@@ -100,7 +98,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this._visible) {
             this.onBeforeShow.emit(event);
             
-            this.el.nativeElement.children[0].style.zIndex = ++PUI.zindex;
+            this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
             
             if(this.showEffect == 'fade')
                 this.domHandler.fadeIn(this.el.nativeElement.children[0], 250);
@@ -146,7 +144,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.closeOnEscape && this.closable) {
             this.documentEscapeListener = this.renderer.listenGlobal('body', 'keydown', (event) => {
                 if(event.which == 27) {
-                    if(this.el.nativeElement.children[0].style.zIndex == PUI.zindex) {
+                    if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex) {
                         this.hide(event);
                     }
                 }
@@ -205,7 +203,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     moveOnTop() {
-        this.el.nativeElement.children[0].style.zIndex = ++PUI.zindex;
+        this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
     }
     
     initDrag(event) {
