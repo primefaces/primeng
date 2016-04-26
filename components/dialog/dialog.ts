@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer} from 'angular2/core';
 import {DomHandler} from '../dom/domhandler';
 
 declare var PUI: any;
@@ -6,8 +6,10 @@ declare var PUI: any;
 @Component({
     selector: 'p-dialog',
     template: `
-        <div [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" [style.display]="visible ? 'block' : 'none'">
-            <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
+        <div [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" 
+            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()">
+            <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
+                (mousedown)="initDrag($event)" (mouseup)="endDrag($event)">
                 <span class="ui-dialog-title">{{header}}</span>
                 <a [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true,'ui-state-hover':hoverCloseIcon}" href="#" role="button" *ngIf="closable" 
                     (click)="hide($event)" (mouseenter)="hoverCloseIcon=true" (mouseleave)="hoverCloseIcon=false">
@@ -80,9 +82,17 @@ export class Dialog implements AfterViewInit,OnDestroy {
     
     _visible: boolean;
     
+    dragging: boolean;
+
+    documentDragListener: any;
+    
+    lastPageX: number;
+    
+    lastPageY: number;
+    
     mask: any;
         
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
     
     @Input() get visible(): boolean {
         return this._visible;
@@ -122,6 +132,12 @@ export class Dialog implements AfterViewInit,OnDestroy {
 
     ngAfterViewInit() {
         this.center();
+        
+        if(this.draggable) {
+            this.documentDragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+                this.onDrag(event);
+            });
+        }
     }
     
     enableModality() {
@@ -146,9 +162,47 @@ export class Dialog implements AfterViewInit,OnDestroy {
         this.onAfterHide.emit(event);
         event.preventDefault();
     }
+    
+    moveOnTop() {
+        this.el.nativeElement.children[0].style.zIndex = ++PUI.zindex;
+    }
+    
+    initDrag(event) {
+        if(this.draggable) {
+            this.dragging = true;
+            this.lastPageX = event.pageX;
+            this.lastPageY = event.pageY;
+        }
+    }
+    
+    onDrag(event) {
+        if(this.dragging) {
+            let container = this.el.nativeElement.children[0];
+            let deltaX = event.pageX - this.lastPageX;
+            let deltaY = event.pageY - this.lastPageY;
+            let leftPos = parseInt(container.style.left);
+            let topPos = parseInt(container.style.top);
+
+            container.style.left = leftPos + deltaX + 'px';
+            container.style.top = topPos + deltaY + 'px';
+            
+            this.lastPageX = event.pageX;
+            this.lastPageY = event.pageY;
+        }
+    }
+    
+    endDrag(event) {
+        if(this.draggable) {
+            this.dragging = false;
+        }
+    }
 
     ngOnDestroy() {
         this.mask = null;
+        
+        if(this.documentDragListener) {
+            this.documentDragListener();
+        }
     }
 
 }
