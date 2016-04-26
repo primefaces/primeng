@@ -24,7 +24,7 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple ui-widget ui-inputtext ui-state-default ui-corner-all" (click)="multiIn.focus()">
                 <li #token *ngFor="#val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
                     <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)"></span>
-                    <span class="ui-autocomplete-token-label">{{val[field]}}</span>
+                    <span class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()">
