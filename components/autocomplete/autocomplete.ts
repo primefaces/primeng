@@ -15,8 +15,8 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
 @Component({
     selector: 'p-autoComplete',
     template: `
-        <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" [attr.style]="style" [attr.styleClass]="styleClass">
-            <input *ngIf="!multiple" #in pInputText type="text" [attr.style]="inputStyle" [attr.styleClass]="inputStyleClass" 
+        <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" [attr.style]="style" [attr.class]="styleClass">
+            <input *ngIf="!multiple" #in pInputText type="text" [attr.style]="inputStyle" [attr.class]="inputStyleClass" 
             [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [disabled]="disabled" 
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple ui-widget ui-inputtext ui-state-default ui-corner-all" (click)="multiIn.focus()">
