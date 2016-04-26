@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer} from 'angular2/core';
 import {DomHandler} from '../dom/domhandler';
 
 declare var PUI: any;
@@ -26,7 +26,7 @@ declare var PUI: any;
     `,
     providers: [DomHandler]
 })
-export class Dialog implements AfterViewInit,OnDestroy {
+export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() header: string;
 
@@ -85,6 +85,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     lastPageY: number;
     
     mask: any;
+    
+    shown: boolean;
             
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
     
@@ -96,11 +98,15 @@ export class Dialog implements AfterViewInit,OnDestroy {
         this._visible = val;
         
         if(this._visible) {
+            this.onBeforeShow.emit(event);
+            
             this.el.nativeElement.children[0].style.zIndex = ++PUI.zindex;
             
             if(this.showEffect == 'fade')
                 this.domHandler.fadeIn(this.el.nativeElement.children[0], 250);
-        }
+                
+            this.shown = true;
+        } 
         
         if(this.modal) {
             if(this._visible)
@@ -145,6 +151,13 @@ export class Dialog implements AfterViewInit,OnDestroy {
                     }
                 }
             });
+        }
+    }
+    
+    ngAfterViewChecked() {
+        if(this.shown) {
+            this.onAfterShow.emit(event);
+            this.shown = false;
         }
     }
     
