@@ -56,7 +56,7 @@ import {DomHandler} from '../dom/domhandler';
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor #rowData [ngForOf]="dataToRender" #even="even" #odd="odd">
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                    (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
+                                    (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [hidden]="col.hidden"
                                     [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
@@ -102,7 +102,7 @@ import {DomHandler} from '../dom/domhandler';
                 <table>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                (click)="onRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)"
+                                (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)"
                                 [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                             <td *ngFor="#col of columns" [attr.style]="col.style" [attr.class]="col.styleClass" [hidden]="col.hidden"
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
@@ -153,6 +153,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() editable: boolean;
+    
+    @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
@@ -540,7 +542,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         return order;
     }
 
-    onRowClick(event, rowData) {
+    handleRowClick(event, rowData) {
+        this.onRowClick.next({originalEvent: event, data: rowData});
+        
         if(!this.selectionMode) {
             return;
         }
