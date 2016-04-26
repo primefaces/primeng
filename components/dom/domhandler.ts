@@ -162,11 +162,14 @@ export class DomHandler {
     	return f.call(element, selector);
     }
 
-    public outerWidth(el) {
+    public getOuterWidth(el,margin?) {
         let width = el.offsetWidth;
-        let style = getComputedStyle(el);
 
-        width += parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+        if(margin) {
+            let style = getComputedStyle(el);
+            width += parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+        }
+        
         return width;
     }
 
@@ -184,5 +187,27 @@ export class DomHandler {
 
         width -= parseInt(style.paddingLeft) + parseInt(style.paddingRight);
         return width;
+    }
+    
+    public outerHeight(el,margin?) {
+        let height = el.offsetHeight;
+        
+        if(margin) {
+            let style = getComputedStyle(el);
+            height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+        }
+
+        return height;
+    }
+    
+    public getViewport(): any {
+        let win = window,
+        d = document,
+        e = d.documentElement,
+        g = d.getElementsByTagName('body')[0],
+        w = win.innerWidth || e.clientWidth || g.clientWidth,
+        h = win.innerHeight|| e.clientHeight|| g.clientHeight;
+        
+        return {width: w, height: h};
     }
 }

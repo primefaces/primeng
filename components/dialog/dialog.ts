@@ -1,36 +1,41 @@
-import {Component, ElementRef, AfterViewInit, OnDestroy, HostBinding, Input, Output, OnChanges, SimpleChange, EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter} from 'angular2/core';
+import {DomHandler} from '../dom/domhandler';
+
+declare var PUI: any;
 
 @Component({
     selector: 'p-dialog',
     template: `
-        <div class="ui-dialog ui-widget ui-widget-content ui-helper-hidden ui-corner-all ui-shadow" [ngClass]="{'ui-dialog-rtl':rtl}">
+        <div [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl}" [style.display]="visible ? 'block' : 'none'">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title">{{header}}</span>
-                <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" href="#" role="button" *ngIf="closable">
+                <a [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true,'ui-state-hover':hoverCloseIcon}" href="#" role="button" *ngIf="closable" 
+                    (click)="hide($event)" (mouseenter)="hoverCloseIcon=true" (mouseleave)="hoverCloseIcon=false">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
-                <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all" href="#" role="button" *ngIf="maximizable">
+                <!--<a class="ui-dialog-titlebar-icon ui-dialog-titlebar-maximize ui-corner-all" href="#" role="button" *ngIf="maximizable">
                     <span class="fa fa-fw fa-sort"></span>
                 </a>
                 <a class="ui-dialog-titlebar-icon ui-dialog-titlebar-minimize ui-corner-all" href="#" role="button" *ngIf="minimizable">
                     <span class="fa fa-fw fa-minus"></span>
-                </a>
+                </a>-->
             </div>
             <div class="ui-dialog-content ui-widget-content">
                 <ng-content></ng-content>
             </div>
             <ng-content select="footer"></ng-content>
         </div>
-    `
+    `,
+    providers: [DomHandler]
 })
-export class Dialog implements AfterViewInit, OnDestroy, OnChanges {
+export class Dialog implements AfterViewInit,OnDestroy {
 
     @Input() header: string;
 
     @Input() draggable: boolean = true;
 
     @Input() resizable: boolean = true;
-
+    
     @Input() minWidth: number;
 
     @Input() minHeight: number;
@@ -38,8 +43,6 @@ export class Dialog implements AfterViewInit, OnDestroy, OnChanges {
     @Input() width: any;
 
     @Input() height: any;
-
-    @Input() visible: boolean;
 
     @Input() modal: boolean;
 
@@ -74,70 +77,78 @@ export class Dialog implements AfterViewInit, OnDestroy, OnChanges {
     @Output() onMaximize: EventEmitter<any> = new EventEmitter();
 
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
-
-    initialized: boolean;
-
-    stopNgOnChangesPropagation: boolean;
-
-    constructor(private el: ElementRef) {
-        this.initialized = false;
-    } 
-
-    ngAfterViewInit() {
-        jQuery(this.el.nativeElement.children[0]).puidialog({
-            title: this.header,
-            draggable: this.draggable,
-            resizable: this.resizable,
-            minWidth: this.minWidth,
-            minHeight: this.minHeight,
-            width: this.width,
-            height: this.height,
-            visible: this.visible,
-            modal: this.modal,
-            showEffect: this.showEffect,
-            hideEffect: this.hideEffect,
-            effectSpeed: this.effectDuration,
-            closeOnEscape: this.closeOnEscape,
-            rtl: this.rtl,
-            closable: this.closable,
-            minimizable: this.minimizable,
-            maximizable: this.maximizable,
-            responsive: this.responsive,
-            beforeShow: this.onBeforeShow ? (event: Event) => { this.onBeforeShow.emit(event); } : null,
-            afterShow: this.onAfterShow ? (event: Event) => { this.onAfterShow.emit(event); } : null,
-            beforeHide: this.onBeforeHide ? (event: Event) => { this.onBeforeHide.emit(event); } : null,
-            afterHide: this.onAfterHide ? (event: Event) => { this.onAfterHide.emit(event); } : null,
-            clickClose: (event: Event) => {
-                this.stopNgOnChangesPropagation = true;
-                this.visibleChange.emit(false);
-            },
-            hideWithEscape: (event: Event) => {
-                this.stopNgOnChangesPropagation = true;
-                this.visibleChange.emit(false);
-            },
-            minimize: this.onMinimize ? (event: Event) => { this.onMinimize.emit(event); } : null,
-            maximize: this.onMaximize ? (event: Event) => { this.onMaximize.emit(event); } : null,
-            enhanced: true
-        });
-        this.initialized = true;
+    
+    _visible: boolean;
+    
+    mask: any;
+        
+    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    
+    @Input() get visible(): boolean {
+        return this._visible;
     }
 
-    ngOnChanges(changes: { [key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-                if (key == 'visible' && this.stopNgOnChangesPropagation) {
-                    this.stopNgOnChangesPropagation = false;
-                    continue;
-                }
+    set visible(val:boolean) {
+        this._visible = val;
+        
+        if(this._visible) {
+            this.el.nativeElement.children[0].style.zIndex = ++PUI.zindex;
+        }
+        
+        if(this.modal) {
+            if(this._visible)
+                this.enableModality();
+            else
+                this.disableModality();
+        }
+    }
+    
+    center() {
+        let container = this.el.nativeElement.children[0];
+        container.style.visibility = 'hidden';
+        container.style.display = 'block';
+        let elementWidth = this.domHandler.getOuterWidth(container);
+        let elementHeight = this.domHandler.getOuterHeight(container);
+        container.style.display = 'none';
+        container.style.visibility = 'visible';
+        
+        let viewport = this.domHandler.getViewport();
+        let x = (viewport.width - elementWidth) / 2;
+        let y = (viewport.height - elementHeight) / 2;
 
-                jQuery(this.el.nativeElement.children[0]).puidialog('option', key, changes[key].currentValue);
-            }
-        }   
+        container.style.left = x + 'px';
+        container.style.top = y + 'px';
+    }
+
+    ngAfterViewInit() {
+        this.center();
+    }
+    
+    enableModality() {
+        if(!this.mask) {
+            this.mask = document.createElement('div');
+            this.mask.style.zIndex = this.el.nativeElement.children[0].style.zIndex - 1;
+            this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
+            document.body.appendChild(this.mask);
+        }
+    }
+    
+    disableModality() {
+        if(this.mask) {
+            document.body.removeChild(this.mask);
+            this.mask = null;
+        }
+    }
+    
+    hide(event) {
+        this.onBeforeHide.emit(event);
+        this.visibleChange.emit(false);
+        this.onAfterHide.emit(event);
+        event.preventDefault();
     }
 
     ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0]).puidialog('destroy');
-        this.initialized = false;
+        this.mask = null;
     }
 
 }
