@@ -2,21 +2,21 @@ import {Injectable} from 'angular2/core';
 
 @Injectable()
 export class DomHandler {
-    
+
     public addClass(element: any, className: string):void {
         if (element.classList)
             element.classList.add(className);
         else
             element.className += ' ' + className;
     }
-    
+
     public addMultipleClasses(element: any, className: string):void {
         if (element.classList) {
             let styles: string[] = className.split(' ');
             for(let i = 0; i < styles.length; i++) {
                 element.classList.add(styles[i]);
             }
-            
+
         }
         else {
             let styles: string[] = className.split(' ');
@@ -25,35 +25,35 @@ export class DomHandler {
             }
         }
     }
-    
+
     public removeClass(element: any, className: string):void {
         if (element.classList)
             element.classList.remove(className);
         else
             element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     }
-    
+
     public hasClass(element: any, className: string):boolean {
         if (element.classList)
             return element.classList.contains(className);
         else
             return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
     }
-    
+
     public siblings(element: any):any {
         return Array.prototype.filter.call(element.parentNode.children, function(child){
             return child !== element;
         });
     }
-    
+
     public find(element: any, selector: string):any[] {
         return element.querySelectorAll(selector);
     }
-    
+
     public findSingle(element: any, selector: string):any {
         return element.querySelector(selector);
     }
-    
+
     public index(element: any): number {
         let children = element.parentNode.childNodes;
         let num = 0;
@@ -63,22 +63,22 @@ export class DomHandler {
         }
         return -1;
     }
-    
+
     public relativePosition(element: any, target: any):void {
         let elementOuterHeight = element.offsetParent ? element.offsetHeight : this.getHiddenElementOuterHeight(element);
         let targetHeight = target.offsetHeight;
         let targetOffset = target.getBoundingClientRect();
         let top;
-        
+
         if((targetOffset.top + targetHeight + elementOuterHeight) > window.innerHeight)
             top = -1* (elementOuterHeight);
         else
             top = targetHeight;
-                
+
         element.style.top = top+ 'px';
         element.style.left = 0 + 'px';
     }
-    
+
     public absolutePosition(element: any, target: any): void {
         let elementOuterHeight = element.offsetParent ? element.offsetHeight : this.getHiddenElementOuterHeight(element);
         let targetOuterHeight = target.offsetHeight;
@@ -90,22 +90,22 @@ export class DomHandler {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
         else
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
-        
+
         element.style.top = top + 'px';
         element.style.left = targetOffset.left + 'px';
     }
-    
+
     public getHiddenElementOuterHeight(element: any): number {
         element.style.visibility = 'hidden';
         element.style.display = 'block';
         let elementHeight = element.offsetHeight;
         element.style.display = 'none';
         element.style.visibility = 'visible';
-        
+
         return elementHeight;
     }
-    
-    public scrollInView(container, item) {   
+
+    public scrollInView(container, item) {
         let borderTopValue: string = getComputedStyle(container).getPropertyValue('borderTopWidth');
         let borderTop: number = borderTopValue ? parseFloat(borderTopValue) : 0;
         let paddingTopValue: string = getComputedStyle(container).getPropertyValue('paddingTop');
@@ -116,7 +116,7 @@ export class DomHandler {
         let scroll = container.scrollTop;
         let elementHeight = container.clientHeight;
         let itemHeight = this.getOuterHeight(item);
-        
+
         if(offset < 0) {
             container.scrollTop = scroll + offset;
         }
@@ -124,7 +124,7 @@ export class DomHandler {
             container.scrollTop = scroll + offset - elementHeight + itemHeight;
         }
     }
-        
+
     public getOuterHeight(element): number {
         let height: number = element.offsetHeight;
         let style: any = getComputedStyle(element);
@@ -132,7 +132,7 @@ export class DomHandler {
         height += parseInt(style.marginTop) + parseInt(style.marginBottom);
         return height;
     }
-    
+
     public fadeIn(element, duration: number):void {
         element.style.opacity = 0;
 
@@ -148,17 +148,41 @@ export class DomHandler {
 
         tick();
     }
-    
+
     public getWindowScrollTop(): number {
         let doc = document.documentElement;
         return (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
     }
-    
+
     public matches(element, selector: string): boolean {
         var p = Element.prototype;
     	var f = p['matches']||p.webkitMatchesSelector||p['mozMatchesSelector']||p.msMatchesSelector||function(s) {
     		return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
     	};
     	return f.call(element, selector);
+    }
+
+    public outerWidth(el) {
+        let width = el.offsetWidth;
+        let style = getComputedStyle(el);
+
+        width += parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+        return width;
+    }
+
+    public innerWidth(el) {
+        let width = el.offsetWidth;
+        let style = getComputedStyle(el);
+
+        width += parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+        return width;
+    }
+
+    public width(el) {
+        let width = el.offsetWidth;
+        let style = getComputedStyle(el);
+
+        width -= parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+        return width;
     }
 }
