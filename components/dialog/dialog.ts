@@ -78,6 +78,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     
     documentResponsiveListener: any;
     
+    documentEscapeListener: any;
+    
     lastPageX: number;
     
     lastPageY: number;
@@ -95,6 +97,9 @@ export class Dialog implements AfterViewInit,OnDestroy {
         
         if(this._visible) {
             this.el.nativeElement.children[0].style.zIndex = ++PUI.zindex;
+            
+            if(this.showEffect == 'fade')
+                this.domHandler.fadeIn(this.el.nativeElement.children[0], 250);
         }
         
         if(this.modal) {
@@ -103,26 +108,6 @@ export class Dialog implements AfterViewInit,OnDestroy {
             else
                 this.disableModality();
         }
-    }
-    
-    center() {
-        let container = this.el.nativeElement.children[0];
-        let elementWidth = this.domHandler.getOuterWidth(container);
-        let elementHeight = this.domHandler.getOuterHeight(container);
-        if(elementWidth == 0 && elementHeight == 0) {
-            container.style.visibility = 'hidden';
-            container.style.display = 'block';
-            elementWidth = this.domHandler.getOuterWidth(container);
-            elementHeight = this.domHandler.getOuterHeight(container);
-            container.style.display = 'none';
-            container.style.visibility = 'visible';
-        }
-        let viewport = this.domHandler.getViewport();
-        let x = (viewport.width - elementWidth) / 2;
-        let y = (viewport.height - elementHeight) / 2;
-
-        container.style.left = x + 'px';
-        container.style.top = y + 'px';
     }
     
     ngAfterViewInit() {
@@ -151,6 +136,36 @@ export class Dialog implements AfterViewInit,OnDestroy {
                 this.center();
             });
         }
+        
+        if(this.closeOnEscape && this.closable) {
+            this.documentEscapeListener = this.renderer.listenGlobal('body', 'keydown', (event) => {
+                if(event.which == 27) {
+                    if(this.el.nativeElement.children[0].style.zIndex == PUI.zindex) {
+                        this.hide(event);
+                    }
+                }
+            });
+        }
+    }
+    
+    center() {
+        let container = this.el.nativeElement.children[0];
+        let elementWidth = this.domHandler.getOuterWidth(container);
+        let elementHeight = this.domHandler.getOuterHeight(container);
+        if(elementWidth == 0 && elementHeight == 0) {
+            container.style.visibility = 'hidden';
+            container.style.display = 'block';
+            elementWidth = this.domHandler.getOuterWidth(container);
+            elementHeight = this.domHandler.getOuterHeight(container);
+            container.style.display = 'none';
+            container.style.visibility = 'visible';
+        }
+        let viewport = this.domHandler.getViewport();
+        let x = (viewport.width - elementWidth) / 2;
+        let y = (viewport.height - elementHeight) / 2;
+
+        container.style.left = x + 'px';
+        container.style.top = y + 'px';
     }
     
     enableModality() {
@@ -253,6 +268,10 @@ export class Dialog implements AfterViewInit,OnDestroy {
         
         if(this.responsive) {
             this.documentResponsiveListener();
+        }
+        
+        if(this.closeOnEscape) {
+            this.documentEscapeListener();
         }
     }
 

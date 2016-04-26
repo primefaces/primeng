@@ -6,7 +6,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dialog id="dlgelement" header="Godfather I" [(visible)]="display" modal="modal" minimizable="minimizable" maximizable="maximizable" showEffect="fade" hideEffect="fade">
+    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" showEffect="fade">
         <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
@@ -107,13 +107,6 @@ export class ModelComponent {
                             <td>Enables resizing of the content.</td>
                         </tr>
                         <tr>
-                            <td>location</td>
-                            <td>string</td>
-                            <td>center</td>
-                            <td>Defines the position of the dialog in window, valid values are combination of "left", "right", "top", "bottom" like "left right"
-                                or absolute coordinates like "50,150".</td>
-                        </tr>
-                        <tr>
                             <td>minWidth</td>
                             <td>number</td>
                             <td>150</td>
@@ -122,7 +115,7 @@ export class ModelComponent {
                         <tr>
                             <td>minHeight</td>
                             <td>number</td>
-                            <td>25</td>
+                            <td>150</td>
                             <td>Minimum width of a resizable dialog.</td>
                         </tr>
                         <tr>
@@ -156,18 +149,6 @@ export class ModelComponent {
                             <td>Effect to use when showing the dialog.</td>
                         </tr>
                         <tr>
-                            <td>hideEffect</td>
-                            <td>string</td>
-                            <td>false</td>
-                            <td>Effect to use hiding the dialog.</td>
-                        </tr>
-                        <tr>
-                            <td>effectDuration</td>
-                            <td>any</td>
-                            <td>null</td>
-                            <td>Duration of the effect in milliseconds or pre-defined values like "slow","normal" and "fast".</td>
-                        </tr>
-                        <tr>
                             <td>closeOnEscape</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -184,18 +165,6 @@ export class ModelComponent {
                             <td>boolean</td>
                             <td>true</td>
                             <td>Adds a close icon to the header to hide the dialog.</td>
-                        </tr>
-                        <tr>
-                            <td>minimizable</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Adds a toggle icon to the header to minimize the dialog.</td>
-                        </tr>
-                        <tr>
-                            <td>maximizable</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Adds a toggle icon to the header to maximize the dialog.</td>
                         </tr>
                         <tr>
                             <td>responsive</td>
@@ -237,16 +206,6 @@ export class ModelComponent {
                             <td>onAfterHide</td>
                             <td>event: Event object</td>
                             <td>Callback to invoke after dialog is hidden.</td>
-                        </tr>
-                        <tr>
-                            <td>onMinimize</td>
-                            <td>event: Event object</td>
-                            <td>Callback to invoke when dialog is minimized.</td>
-                        </tr>
-                        <tr>
-                            <td>onMaximize</td>
-                            <td>event: Event object</td>
-                            <td>Callback to invoke when dialog is maximized.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -300,13 +259,13 @@ export class ModelComponent {
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI Dialog.</p>
+            <p>Native component that requires css of PrimeUI Dialog.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dialog id="dlgelement" header="Godfather I" [(visible)]="display" modal="modal" minimizable="minimizable" maximizable="maximizable" showEffect="fade" hideEffect="fade"&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" showEffect="fade"&gt;
     &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
