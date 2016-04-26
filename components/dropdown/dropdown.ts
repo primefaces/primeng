@@ -17,8 +17,8 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
         <div [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,'ui-state-hover':hover&&!disabled,'ui-state-focus':focus,'ui-state-disabled':disabled}" 
             (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)" [attr.style]="style" [attr.styleClass]="styleClass">
             <div class="ui-helper-hidden-accessible">
-                <select>
-                    <option *ngFor="#option of options" [value]="option.value">{{option.label}}</option>
+                <select [required]="required">
+                    <option *ngFor="#option of options" [value]="option.value" [selected]="value == option.value">{{option.label}}</option>
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
@@ -67,6 +67,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     @Input() disabled: boolean;
     
     @Input() autoWidth: boolean = true;
+    
+    @Input() required: boolean;
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef;
 
