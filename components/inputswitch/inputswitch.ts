@@ -1,5 +1,5 @@
 import {Component,ElementRef,AfterViewInit,OnChanges,Input,forwardRef,Provider,EventEmitter,Output} from 'angular2/core';
-import {NG_VALUE_ACCESSOR,ControlValueAccessor,NgStyle} from 'angular2/common';
+import {NG_VALUE_ACCESSOR,ControlValueAccessor} from 'angular2/common';
 import {DomHandler} from '../dom/domhandler';
 import {CONST_EXPR} from 'angular2/src/facade/lang';
 
@@ -14,7 +14,7 @@ const INPUTSWITCH_VALUE_ACCESSOR: Provider = CONST_EXPR(
     selector: 'p-inputSwitch',
     template: `
         <div [ngClass]="{'ui-inputswitch ui-widget ui-widget-content ui-corner-all': true,
-            'ui-state-disabled': disabled}" (click)="toggle($event)"
+            'ui-state-disabled': disabled}" (click)="toggle($event, in)"
             [attr.style]="style" [attr.class]="styleClass">
             <div class="ui-inputswitch-off">
                 <span class="ui-inputswitch-offlabel">{{offLabel}}</span>
@@ -22,14 +22,13 @@ const INPUTSWITCH_VALUE_ACCESSOR: Provider = CONST_EXPR(
             <div class="ui-inputswitch-on">
                 <span class="ui-inputswitch-onlabel">{{onLabel}}</span>
             </div>
-            <div class="ui-inputswitch-handle ui-state-default" [ngClass]="{'ui-state-focus':focus}"></div>
+            <div [ngClass]="{'ui-inputswitch-handle ui-state-default':true, 'ui-state-focus':focused}"></div>
             <div class="ui-helper-hidden-accessible">
-                <input type="checkbox" (focus)="onFocus($event)" (blur)="onBlur($event)"/>
+                <input #in type="checkbox" (focus)="onFocus($event)" (blur)="onBlur($event)" readonly="readonly"/>
             </div>
         </div>
     `,
-    providers: [INPUTSWITCH_VALUE_ACCESSOR,DomHandler],
-    directives: [NgStyle]
+    providers: [INPUTSWITCH_VALUE_ACCESSOR,DomHandler]
 })
 export class InputSwitch implements ControlValueAccessor, AfterViewInit {
 
@@ -49,7 +48,7 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
 
     checked: boolean = false;
 
-    focus: boolean = false;
+    focused: boolean = false;
 
     onModelChange: Function = () => {};
 
@@ -72,10 +71,6 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
 
     ngAfterViewInit() {
-        this.handleDimensions();
-    }
-
-    handleDimensions() {
         this.container = this.el.nativeElement.children[0];
         this.handle = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-inputswitch-handle');
         this.onContainer = this.domHandler.findSingle(this.container,'div.ui-inputswitch-on');
@@ -86,7 +81,7 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
         let	onContainerWidth =  this.domHandler.width(this.onContainer),
             offContainerWidth = this.domHandler.width(this.offContainer),
             spanPadding	= this.domHandler.innerWidth(this.offLabelChild) - this.domHandler.width(this.offLabelChild),
-            handleMargins = this.domHandler.outerWidth(this.handle) - this.domHandler.innerWidth(this.handle);
+            handleMargins = this.domHandler.getOuterWidth(this.handle) - this.domHandler.innerWidth(this.handle);
         
         var containerWidth = (onContainerWidth > offContainerWidth) ? onContainerWidth : offContainerWidth,
             handleWidth = containerWidth;
@@ -100,9 +95,10 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
         this.container.style.width = containerWidth + 'px';
         this.onLabelChild.style.width = labelWidth + 'px';
         this.offLabelChild.style.width = labelWidth + 'px';
+        
         //position
         this.offContainer.style.width = (this.domHandler.width(this.container) - 5) + 'px';
-        this.offset = this.domHandler.width(this.container) - this.domHandler.outerWidth(this.handle);
+        this.offset = this.domHandler.width(this.container) - this.domHandler.getOuterWidth(this.handle);
 
         //default value
         if(this.checked) {
@@ -116,9 +112,9 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
         }
     }
 
-    toggle(event) {
+    toggle(event,checkbox) {
         if(!this.disabled) {
-            this.focus = true;
+            checkbox.focus();
             this.checked = !this.checked;
             this.checked ? this.checkUI() : this.uncheckUI();
             this.onModelChange(this.checked);
@@ -145,11 +141,11 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
     }
 
     onFocus(event) {
-        this.focus = true;
+        this.focused = true;
     }
 
     onBlur(event) {
-        this.focus = false;
+        this.focused = false;
         this.onModelTouched();
     }
 
