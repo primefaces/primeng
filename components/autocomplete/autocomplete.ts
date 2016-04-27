@@ -17,7 +17,7 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" [attr.style]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in pInputText type="text" [attr.style]="inputStyle" [class]="inputStyleClass" 
-            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()"
+            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onBlur()"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [disabled]="disabled" 
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple ui-widget ui-inputtext ui-state-default ui-corner-all" (click)="multiIn.focus()">
                 <li #token *ngFor="#val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
@@ -25,7 +25,7 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
                     <span class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()">
+                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onBlur()">
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
@@ -105,11 +105,11 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     multipleContainer: any;
     
-    panelVisible: boolean = false;
-    
-    documentClickListener: any;
+    panelVisible: boolean = false;       
     
     suggestionsUpdated: boolean;
+
+	mouseInside: boolean;
     
     constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, private renderer: Renderer) {
         this.differ = differs.find([]).create(null);
@@ -135,11 +135,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         
         if(this.multiple) {
             this.multipleContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-autocomplete-multiple');
-        }
-        
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            this.hide();
-        });
+        }               
     }
     
     ngAfterViewChecked() {
@@ -176,6 +172,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             //Cancel the search request if user types within the timeout
             if(this.timeout) {
                 clearTimeout(this.timeout);
+				this.timeout = null;
             }
 
             this.timeout = setTimeout(() => {
@@ -198,8 +195,16 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
            query: query
        });
     }
+
+	onBlur() {
+		if (!this.mouseInside)
+			this.hide();
+
+		this.onModelTouched();
+	};
     
-    onItemMouseover(event) {
+    onItemMouseover(event) {
+	    this.mouseInside = true;
         if(this.disabled) {
             return;
         }
@@ -211,7 +216,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         }
     }
     
-    onItemMouseout(event) {
+    onItemMouseout(event)  {
+		this.mouseInside = false;
         if(this.disabled) {
             return;
         }
@@ -258,6 +264,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
 				this.input.value = this.field ? this.resolveFieldData(selectedValue) : selectedValue;
 				this.value = selectedValue;
 				this.onModelChange(this.value);
+				this.suggestions = null;
 			}
 
 			this.onSelect.emit(selectedValue);
@@ -295,6 +302,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     hide() {
         this.panelVisible = false;
+	    this.mouseInside = false;
     }
     
     handleDropdownClick(event) {
@@ -387,11 +395,5 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 break;
             }
         }
-    }
-    
-    ngOnDestroy() {
-        if(this.documentClickListener) {
-            this.documentClickListener();
-        }
-    }
+    }      
 }
