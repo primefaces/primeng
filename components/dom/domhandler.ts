@@ -127,14 +127,6 @@ export class DomHandler {
         }
     }
 
-    public getOuterHeight(element): number {
-        let height: number = element.offsetHeight;
-        let style: any = getComputedStyle(element);
-
-        height += parseInt(style.marginTop) + parseInt(style.marginBottom);
-        return height;
-    }
-
     public fadeIn(element, duration: number):void {
         element.style.opacity = 0;
 
@@ -191,7 +183,7 @@ export class DomHandler {
         return width;
     }
     
-    public outerHeight(el,margin?) {
+    public getOuterHeight(el,margin?) {
         let height = el.offsetHeight;
         
         if(margin) {
