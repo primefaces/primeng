@@ -432,7 +432,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     sortSingle() {
         if(this.value) {
-            if(this.sortColumn.sortable === 'custom') {
+            if(this.sortColumn && this.sortColumn.sortable === 'custom') {
                 this.sortColumn.sortFunction.emit({
                     field: this.sortField,
                     order: this.sortOrder
