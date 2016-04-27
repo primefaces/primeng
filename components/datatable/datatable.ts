@@ -226,7 +226,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     @Input() expandableRows: boolean;
     
-    @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef;
+    rowExpansionTemplate: TemplateRef;
 
     private dataToRender: any[];
 
@@ -256,11 +256,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     preventBlurOnEdit: boolean;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, @Query(Column) cols: QueryList<Column>,private renderer: Renderer) {
+    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, 
+        @Query(Column) cols: QueryList<Column>, @Query(TemplateRef) rowExpansionTmpl: QueryList<TemplateRef>, private renderer: Renderer) {
         this.differ = differs.find([]).create(null);
         cols.changes.subscribe(_ => {
             this.columns = cols.toArray();
             this.columnsUpdated = true;
+        });
+        
+        rowExpansionTmpl.changes.subscribe(_ => {
+            this.rowExpansionTemplate = rowExpansionTmpl.first
         });
     }
 
