@@ -691,9 +691,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                     }
 
                     //global
-                    if(this.globalFilter && !globalMatch && col.filter) {
-                        globalMatch = this.filterConstraints['contains'](this.value[i][col.field], this.globalFilter.value);
-
+                    if(this.globalFilter && !globalMatch) {
+                        globalMatch = this.filterConstraints['contains'](this.resolveFieldData(this.value[i], col.field), this.globalFilter.value);
                     }
                 }
 
