@@ -242,11 +242,11 @@ export class DataTableDemo implements OnInit {
 
             <h3>Templates</h3>
             <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating. The implicit variable is the column definition and data of current row can be accessed using
-            rowData property.</p>
+            rowData property. In addition index of the current can be access using the optional rowIndex variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-column field="color" header="Color"&gt;
-    &lt;template #col #car="rowData"&gt;
+    &lt;template #col #car="rowData" #ri="rowIndex"&gt;
         &lt;span"&gt;{{car[col.field]}}&lt;/span&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;

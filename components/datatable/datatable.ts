@@ -54,7 +54,7 @@ import {DomHandler} from '../dom/domhandler';
                         </tr>
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
-                        <template ngFor #rowData [ngForOf]="dataToRender" #even="even" #odd="odd">
+                        <template ngFor #rowData [ngForOf]="dataToRender" #even="even" #odd="odd" #rowIndex="index">
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
@@ -63,7 +63,7 @@ import {DomHandler} from '../dom/domhandler';
                                     <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                     <span class="ui-cell-data" *ngIf="!col.template">{{resolveFieldData(rowData,col.field)}}</span>
                                     <span class="ui-cell-data" *ngIf="col.template">
-                                        <p-columnTemplateLoader [column]="col" [rowData]="rowData"></p-columnTemplateLoader>
+                                        <p-columnTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnTemplateLoader>
                                     </span>
                                     <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>

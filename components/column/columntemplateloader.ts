@@ -12,11 +12,14 @@ export class ColumnTemplateLoader {
     
     @Input() rowData: any;
     
+    @Input() rowIndex: number;
+    
     constructor(private viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.column.template);
         view.setLocal('\$implicit', this.column);
         view.setLocal('rowData', this.rowData);
+        view.setLocal('rowIndex', this.rowIndex);
     }
 }
