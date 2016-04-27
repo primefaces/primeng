@@ -13,7 +13,7 @@
   },
   "license": "Apache-2.0",
   "peerDependencies": {
-    "angular2": "^2.0.0-beta.15",
+    "angular2": "^2.0.0-beta.16",
     "primeui": "4.1.8"
   },
   "devDependencies": {

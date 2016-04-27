@@ -7,6 +7,6 @@
     "fullcalendar": "github:DefinitelyTyped/DefinitelyTyped/fullCalendar/fullCalendar.d.ts#4de74cb527395c13ba20b438c3a7a419ad931f1c",
     "moment": "github:DefinitelyTyped/DefinitelyTyped/moment/moment-node.d.ts#1be6a281906e5cd179a97c86bd58ebf9cdc9c6a5",
     "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
-    "primeui": "github:primefaces/primeui/primeui.d.ts#7640bc59a3634e501634655217fdd413bed6d003"
+    "primeui": "github:primefaces/primeui/primeui.d.ts#032bdbd3ddbe65570080a74c20afe2c2565f0fb0"
   }
 }
