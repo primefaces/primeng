@@ -120,7 +120,7 @@ export class Galleria implements AfterViewInit {
 
         if(this.showCaption) {
             this.caption = this.domHandler.findSingle(this.container,'div.ui-galleria-caption');
-            this.caption.style.bottom = this.showFilmstrip ? this.domHandler.outerHeight(this.stripWrapper) + 'px' : 0 + 'px';
+            this.caption.style.bottom = this.showFilmstrip ? this.domHandler.getOuterHeight(this.stripWrapper) + 'px' : 0 + 'px';
             this.caption.style.width = this.domHandler.width(this.panelWrapper) + 'px';
             this.caption.style.display = 'block';
             
