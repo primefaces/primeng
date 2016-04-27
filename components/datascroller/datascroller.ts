@@ -6,7 +6,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-dataScroller',
     template: `
-    <div [ngClass]="{'ui-datascroller ui-widget': true, 'ui-datascroller-inline': inline}" [attr.style]="style" [attr.class]="styleClass">
+    <div [ngClass]="{'ui-datascroller ui-widget': true, 'ui-datascroller-inline': inline}" [attr.style]="style" [class]="styleClass">
         <div class="ui-datascroller-header ui-widget-header ui-corner-top" *ngIf="header">
             <ng-content select="header"></ng-content>
         </div>

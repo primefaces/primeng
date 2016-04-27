@@ -13,8 +13,8 @@ const CALENDAR_VALUE_ACCESSOR: Provider = CONST_EXPR(
 @Component({
     selector: 'p-calendar',
     template:  `
-        <span [attr.style]="style" [attr.class]="styleClass" [ngClass]="'ui-calendar'" *ngIf="!inline">
-        <input #in type="text" [attr.placeholder]="placeholder" [attr.style]="inputStyle" [attr.class]="inputStyleClass"
+        <span [attr.style]="style" [class]="styleClass" [ngClass]="'ui-calendar'" *ngIf="!inline">
+        <input #in type="text" [attr.placeholder]="placeholder" [attr.style]="inputStyle" [class]="inputStyleClass"
                 [value]="value||''" (input)="onInput($event)" [readonly]="readonlyInput"
                 [disabled]="disabled" (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="onBlur($event)"
                 [ngClass]="{'ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,

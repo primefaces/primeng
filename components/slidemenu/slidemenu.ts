@@ -3,7 +3,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 @Component({
     selector: 'p-slideMenu',
     template: `
-        <div [attr.class]="styleClass" [attr.style]="style" [ngClass]="{'ui-menu ui-slidemenu ui-widget ui-widget-content ui-corner-all':true}">
+        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-menu ui-slidemenu ui-widget ui-widget-content ui-corner-all':true}">
             <div class="ui-slidemenu-wrapper">
                 <div class="ui-slidemenu-content">
                     <ng-content></ng-content>

@@ -16,7 +16,7 @@ const EDITOR_VALUE_ACCESSOR: Provider = CONST_EXPR(
 @Component({
     selector: 'p-editor',
     template: `
-        <div [ngClass]="'ui-widget ui-editor-container ui-widget-content ui-corner-all'" [attr.style]="style" [attr.class]="styleClass">
+        <div [ngClass]="'ui-widget ui-editor-container ui-widget-content ui-corner-all'" [attr.style]="style" [class]="styleClass">
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
                 <ng-content select="header"></ng-content>
             </div>

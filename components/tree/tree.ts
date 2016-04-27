@@ -5,7 +5,7 @@ import {UITreeNode} from './uitreenode';
 @Component({
     selector: 'p-tree',
     template: `
-        <div [ngClass]="'ui-tree ui-widget ui-widget-content ui-corner-all'" [attr.style]="style" [attr.class]="styleClass">
+        <div [ngClass]="'ui-tree ui-widget ui-widget-content ui-corner-all'" [attr.style]="style" [class]="styleClass">
             <ul class="ui-tree-container">
                 <p-treeNode *ngFor="#node of value" [node]="node"></p-treeNode>
             </ul>

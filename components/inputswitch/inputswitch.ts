@@ -15,7 +15,7 @@ const INPUTSWITCH_VALUE_ACCESSOR: Provider = CONST_EXPR(
     template: `
         <div [ngClass]="{'ui-inputswitch ui-widget ui-widget-content ui-corner-all': true,
             'ui-state-disabled': disabled}" (click)="toggle($event, in)"
-            [attr.style]="style" [attr.class]="styleClass">
+            [attr.style]="style" [class]="styleClass">
             <div class="ui-inputswitch-off">
                 <span class="ui-inputswitch-offlabel">{{offLabel}}</span>
             </div>

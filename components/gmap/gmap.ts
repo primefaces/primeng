@@ -4,7 +4,7 @@ declare var google: any;
 
 @Component({
     selector: 'p-gmap',
-    template: `<div [attr.style]="style" [attr.class]="styleClass"></div>`
+    template: `<div [attr.style]="style" [class]="styleClass"></div>`
 })
 export class GMap implements AfterViewInit,DoCheck {
 

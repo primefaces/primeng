@@ -15,7 +15,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
     selector: 'p-dropdown',
     template: `
         <div [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,'ui-state-hover':hover&&!disabled,'ui-state-focus':focus,'ui-state-disabled':disabled}" 
-            (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)" [attr.style]="style" [attr.class]="styleClass">
+            (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)" [attr.style]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <select [required]="required">
                     <option *ngFor="#option of options" [value]="option.value" [selected]="value == option.value">{{option.label}}</option>

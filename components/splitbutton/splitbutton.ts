@@ -14,7 +14,7 @@ import {Location} from 'angular2/platform/common';
                 'ui-state-hover':hoverDefaultBtn,'ui-state-focus':focusDefaultBtn,'ui-state-active':activeDefaultBtn}"
                 (mouseenter)="hoverDefaultBtn=true" (mouseleave)="hoverDefaultBtn=false"  (focus)="focusDefaultBtn=true" (blur)="focusDefaultBtn=false"
                 (mousedown)="activeDefaultBtn=true" (mouseup)="activeDefaultBtn=false" (click)="onDefaultButtonClick($event)">
-                <span [ngClass]="'ui-button-icon-left ui-c fa fa-fw'" [attr.class]="icon"></span>
+                <span [ngClass]="'ui-button-icon-left ui-c fa fa-fw'" [class]="icon"></span>
                 <span class="ui-button-text ui-c">{{label}}</span>
             </button>
             <button class="ui-splitbutton-menubutton ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-right" type="button"
@@ -30,7 +30,7 @@ import {Location} from 'angular2/platform/common';
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="#item of items" [ngClass]="{'ui-state-hover':(hoveredItem==item)}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                         <a [href]="getItemUrl(item)" class="ui-menuitem-link ui-corner-all" (click)="onItemClick($event,item)">
-                            <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [attr.class]="item.icon" *ngIf="item.icon"></span>
+                            <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </li>

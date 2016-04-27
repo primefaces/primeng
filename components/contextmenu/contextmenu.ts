@@ -3,7 +3,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 @Component({
     selector: 'p-contextMenu',
     template: `
-        <div [attr.class]="styleClass" [attr.style]="style" [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-contextmenu ui-menu-dynamic ui-shadow':true}">
+        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-contextmenu ui-menu-dynamic ui-shadow':true}">
             <ng-content></ng-content>
         </div>
     `

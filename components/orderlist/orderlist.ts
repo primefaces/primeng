@@ -5,7 +5,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-orderList',
     template: `
-        <div [ngClass]="{'ui-orderlist ui-grid ui-widget':true,'ui-grid-responsive':responsive}" [attr.style]="style" [attr.class]="styleClass">
+        <div [ngClass]="{'ui-orderlist ui-grid ui-widget':true,'ui-grid-responsive':responsive}" [attr.style]="style" [class]="styleClass">
             <div class="ui-grid-row">
                 <div class="ui-orderlist-controls ui-grid-col-2">
                     <button type="button" pButton icon="fa-angle-up" (click)="moveUp($event,listelement)"></button>

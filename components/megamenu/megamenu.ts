@@ -3,7 +3,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 @Component({
     selector: 'p-megaMenu',
     template: `
-        <div [attr.class]="styleClass" [attr.style]="style"
+        <div [class]="styleClass" [attr.style]="style"
             [ngClass]="{'ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-megamenu-vertical': orientation == 'vertical'}">
             <div tabindex="0" class="ui-helper-hidden-accessible"></div>
             <ng-content></ng-content>

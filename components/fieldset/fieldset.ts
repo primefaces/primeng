@@ -3,7 +3,7 @@ import {Component,Input,Output,EventEmitter} from 'angular2/core';
 @Component({
     selector: 'p-fieldset',
     template: `
-        <fieldset [ngClass]="{'ui-fieldset ui-widget ui-widget-content ui-corner-all': true, 'ui-fieldset-toggleable': toggleable}" [attr.style]="style" [attr.class]="styleClass">
+        <fieldset [ngClass]="{'ui-fieldset ui-widget ui-widget-content ui-corner-all': true, 'ui-fieldset-toggleable': toggleable}" [attr.style]="style" [class]="styleClass">
             <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text" 
                 (mouseenter)="onLegendMouseenter($event)" (mouseleave)="onLegendMouseleave($event)" (click)="toggle($event)" [ngClass]="{'ui-state-hover':hover}">
                 <span *ngIf="toggleable" class="ui-fieldset-toggler fa fa-w" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>

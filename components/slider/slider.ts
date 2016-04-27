@@ -12,7 +12,7 @@ const SLIDER_VALUE_ACCESSOR: Provider = CONST_EXPR(
 @Component({
     selector: 'p-slider',
     template: `
-        <div [attr.style]="style" [attr.class]="styleClass"></div>
+        <div [attr.style]="style" [class]="styleClass"></div>
     `,
     providers: [SLIDER_VALUE_ACCESSOR]
 })

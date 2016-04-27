@@ -12,7 +12,7 @@ import {TreeNodeTemplateLoader} from './treenodetemplateloader';
                 <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!expanded,'fa-caret-down':expanded}" *ngIf="!isLeaf()"
                         (click)="toggle($event)"></span
                 ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
-                ><span [attr.class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
+                ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                 ><span class="ui-treenode-label ui-corner-all" 
                     [ngClass]="{'ui-state-hover':hover&&tree.selectionMode,'ui-state-highlight':isSelected()}">
                         <span *ngIf="!tree.template">{{node.label}}</span>

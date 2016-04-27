@@ -4,7 +4,7 @@ import {SelectItem} from '../api/selectitem';
 @Component({
     selector: 'p-schedule',
     template: `
-        <div [attr.style]="style" [attr.class]="styleClass"></div>
+        <div [attr.style]="style" [class]="styleClass"></div>
     `
 })
 export class Schedule {

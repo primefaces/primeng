@@ -5,7 +5,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-pickList',
     template: `
-        <div [attr.class]="styleClass" [attr.style]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true, 'ui-picklist-responsive': responsive}">
+        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true, 'ui-picklist-responsive': responsive}">
             <div class="ui-picklist-source-controls ui-picklist-buttons">
                 <div class="ui-picklist-buttons-cell">
                     <button type="button" pButton icon="fa-angle-up" (click)="moveUp(sourcelist,source)"></button>

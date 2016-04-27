@@ -3,7 +3,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 @Component({
     selector: 'p-panelMenu',
     template: `
-        <div [attr.class]="styleClass" [attr.style]="style" [ngClass]="{'ui-panelmenu ui-widget':true}">
+        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-panelmenu ui-widget':true}">
             <ng-content></ng-content>
         </div>
     `

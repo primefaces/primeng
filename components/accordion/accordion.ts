@@ -4,7 +4,7 @@ import {AccordionTab} from './accordiontab';
 @Component({
     selector: 'p-accordion',
     template: `
-        <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [attr.style]="style" [attr.class]="styleClass">
+        <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [attr.style]="style" [class]="styleClass">
             <ng-content></ng-content>
         </div>
     `,
