@@ -17,7 +17,7 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" [attr.style]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in pInputText type="text" [attr.style]="inputStyle" [class]="inputStyleClass" 
-            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onBlur()"
+            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onBlur()" (focus)="showSuggestionsIfAny()"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [disabled]="disabled" 
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple ui-widget ui-inputtext ui-state-default ui-corner-all" (click)="multiIn.focus()">
                 <li #token *ngFor="#val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
@@ -25,7 +25,7 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
                     <span class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onBlur()">
+                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onBlur()" (focus)="showSuggestionsIfAny()">
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
@@ -117,17 +117,21 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     ngDoCheck() {
         let changes = this.differ.diff(this.suggestions);
+	    if (changes)
+			this.showSuggestionsIfAny();
+    }
 
-        if(changes && this.panel) {
-            if(this.suggestions && this.suggestions.length) {
+	showSuggestionsIfAny() {
+		if (this.panel) {
+            if (this.suggestions && this.suggestions.length) {
                 this.show();
                 this.suggestionsUpdated = true;
             }
             else {
                 this.hide();
             }
-        }
-    }
+        }		
+	}
     
     ngAfterViewInit() {
         this.input = this.domHandler.findSingle(this.el.nativeElement, 'input');
