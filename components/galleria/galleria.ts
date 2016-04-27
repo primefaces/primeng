@@ -1,4 +1,4 @@
-import {Component, ElementRef, AfterViewInit, Input, SimpleChange, Output, EventEmitter} from 'angular2/core';
+import {Component, ElementRef, AfterViewChecked, AfterViewInit,Input, SimpleChange, Output, Renderer, IterableDiffers, EventEmitter} from 'angular2/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -26,7 +26,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class Galleria implements AfterViewInit {
+export class Galleria implements AfterViewChecked, AfterViewInit {
     
     @Input() images: GalleriaImages[];
     
@@ -58,6 +58,8 @@ export class Galleria implements AfterViewInit {
 
     @Input() customContent: boolean;
     
+    differ: any;
+    
     slideshowActive: boolean;
     
     private container: any;
@@ -77,15 +79,33 @@ export class Galleria implements AfterViewInit {
     private interval: any;
     
     private stepFactorHelper: number = 0;
+    
+    private imagesChanged: boolean;
+    
+    private initialized: boolean;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler) {
+    constructor(private el: ElementRef, private domHandler: DomHandler,private renderer: Renderer, differs: IterableDiffers) {
+        this.differ = differs.find([]).create(null);
+    }
+    
+    ngAfterViewChecked() {
+        if(this.imagesChanged) {
+            console.log('rendering');
+            this.render();
+            this.imagesChanged = false;
+            this.initialized = true;
+        }
+    }
+    
+    ngDoCheck() {
+        let changes = this.differ.diff(this.images);
+        
+        if(changes && this.initialized) {
+            this.imagesChanged = true;
+        }
     }
     
     ngAfterViewInit() {
-        this.init();
-    }
-    
-    init() {
         this.panelWidth = this.panelWidth||600;
         this.panelHeight = this.panelHeight||400;
         this.frameWidth = this.frameWidth||60;
@@ -98,11 +118,11 @@ export class Galleria implements AfterViewInit {
 
         this.container = this.el.nativeElement.children[0];
         this.panelWrapper = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-galleria-panel-wrapper');
-        this.panels = this.domHandler.find(this.panelWrapper, 'li.ui-galleria-panel');
-        this.render();
+        
     }
     
     render() {
+        this.panels = this.domHandler.find(this.panelWrapper, 'li.ui-galleria-panel');
         this.panelWrapper.style.width = this.panelWidth + 'px';
         this.panelWrapper.style.height = this.panelHeight + 'px';
         for (let i = 0; i < this.panels.length; i++) {
