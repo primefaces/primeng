@@ -6,26 +6,10 @@
 </div>
 
 <div class="ContentSideSections Implementation">
+    
     <h3 class="first">Basic</h3>
-    <p-galleria panelWidth="500" panelHeight="313">
-        <ul>
-            <li *ngFor="#image of images;#i = index;">
-                <img src="showcase/resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/>
-            </li>
-        </ul>
-    </p-galleria>
-
-    <h3>Custom Content</h3>
-    <p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false">
-        <ul>
-            <li *ngFor="#image of images;#i = index;">
-                <img src="showcase/resources/demo/images/galleria/{{image}}" />
-                <div>
-                    <h2>Content For Item {{i}}</h2>
-                </div>
-            </li>
-        </ul>
-    </p-galleria>
+    <p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"></p-galleria>
+    
 </div>
 
 <div class="ContentSideSections Source">
