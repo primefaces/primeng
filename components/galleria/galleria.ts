@@ -1,4 +1,4 @@
-import {Component, ElementRef, AfterViewChecked, AfterViewInit,Input, SimpleChange, Output, Renderer, IterableDiffers, EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,SimpleChange,Output,Renderer,IterableDiffers,EventEmitter} from 'angular2/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -12,7 +12,7 @@ import {DomHandler} from '../dom/domhandler';
         </ul>
         <div [ngClass]="{'ui-galleria-filmstrip-wrapper' : true}">
             <ul class="ui-galleria-filmstrip">
-                <li #frame class="ui-galleria-frame" (click)="frameClick(frame)" *ngFor="#image of images;">
+                <li #frame [ngClass]="{'ui-galleria-frame-active':i==activeIndex}" class="ui-galleria-frame" (click)="frameClick(frame)" *ngFor="#image of images;#i=index">
                     <div class="ui-galleria-frame-content">
                         <img src="{{image.source}}" alt="{{image.alt}}" title="{{image.title}}" class="ui-galleria-frame-image">
                     </div>
@@ -26,7 +26,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class Galleria implements AfterViewChecked, AfterViewInit {
+export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     
     @Input() images: GalleriaImages[];
     
@@ -90,10 +90,10 @@ export class Galleria implements AfterViewChecked, AfterViewInit {
     
     ngAfterViewChecked() {
         if(this.imagesChanged) {
-            console.log('rendering');
+            this.stopSlideshow();
+            this.activeIndex = 0;
             this.render();
             this.imagesChanged = false;
-            this.initialized = true;
         }
     }
     
@@ -118,7 +118,7 @@ export class Galleria implements AfterViewChecked, AfterViewInit {
 
         this.container = this.el.nativeElement.children[0];
         this.panelWrapper = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-galleria-panel-wrapper');
-        
+        this.initialized = true;
     }
     
     render() {
@@ -169,8 +169,8 @@ export class Galleria implements AfterViewChecked, AfterViewInit {
             image  = this.domHandler.find(this.panels[i], 'img.ui-panel-images');
             this.frames = this.domHandler.find(this.strip,'li.ui-galleria-frame');
             
-            if(i == this.activeIndex)
-                this.domHandler.addClass(this.frames[i],'ui-galleria-frame-active');
+            //if(i == this.activeIndex)
+            //    this.domHandler.addClass(this.frames[i],'ui-galleria-frame-active');
                 
             this.frames[i].style = frameStyle;
             
@@ -192,7 +192,9 @@ export class Galleria implements AfterViewChecked, AfterViewInit {
     }
         
     stopSlideshow() {
-        clearInterval(this.interval);
+        if(this.interval) {
+            clearInterval(this.interval);
+        }
         
         this.slideshowActive = false;
     }
@@ -263,10 +265,10 @@ export class Galleria implements AfterViewChecked, AfterViewInit {
             if(this.showFilmstrip) {
                 var oldFrame = this.frames[this.activeIndex],
                 newFrame = this.frames[index];
-                this.domHandler.removeClass(oldFrame,'ui-galleria-frame-active');
+                //this.domHandler.removeClass(oldFrame,'ui-galleria-frame-active');
                 oldFrame.style.opacity = '';
                 newFrame.style.opacity = '1.0';
-                this.domHandler.addClass(newFrame,'ui-galleria-frame-active');
+                //this.domHandler.addClass(newFrame,'ui-galleria-frame-active');
                 newFrame.style.transition = "0.75s ease";
                 
                 //viewport
@@ -297,6 +299,10 @@ export class Galleria implements AfterViewChecked, AfterViewInit {
             
             this.activeIndex = index;
         }
+    }
+    
+    ngOnDestroy() {
+        this.stopSlideshow();
     }
 
 }
