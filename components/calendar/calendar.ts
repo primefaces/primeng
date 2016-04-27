@@ -16,7 +16,7 @@ const CALENDAR_VALUE_ACCESSOR: Provider = CONST_EXPR(
         <span [attr.style]="style" [class]="styleClass" [ngClass]="'ui-calendar'" *ngIf="!inline">
         <input #in type="text" [attr.placeholder]="placeholder" [attr.style]="inputStyle" [class]="inputStyleClass"
                 [value]="value||''" (input)="onInput($event)" [readonly]="readonlyInput"
-                [disabled]="disabled" (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="onBlur($event)"
+                [disabled]="disabled" (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="handleBlur($event)"
                 [ngClass]="{'ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,
                     'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}"
         ><button type="button" icon="fa-calendar" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)" class="ui-datepicker-trigger"></button></span>
@@ -109,6 +109,8 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     
     @Input() locale: any;
     
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+    
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
     value: string;
@@ -191,10 +193,11 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
         this.onModelChange(event.target.value);
     }
     
-    onBlur(event) {
+    handleBlur(event) {
         this.value = event.target.value;
         this.onModelTouched();
         this.focused=false;
+        this.onBlur.emit(event);
     }
     
     writeValue(value: any) : void {
