@@ -232,24 +232,37 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     }
     
     selectItem(item: any) {
-        let itemIndex = this.domHandler.index(item);
-        let selectedValue = this.suggestions[itemIndex];
-        
-        if(this.multiple) {
-            this.input.value = '';
-            this.value = this.value||[];
-            this.value.push(selectedValue);
-            this.onModelChange(this.value);
-        }
-        else {
-            this.input.value = this.field ? this.resolveFieldData(selectedValue): selectedValue;
-            this.value = selectedValue;
-            this.onModelChange(this.value);
-        }
-        
-        this.onSelect.emit(selectedValue);
-        
-        this.input.focus();
+		var selectedValue;
+
+		if (item == null) {
+			if (this.suggestions && this.field) {
+				let lcValue = this.input.value.toLowerCase();				
+				let matches = this.suggestions.filter(x => x[this.field].toLowerCase() === lcValue);
+				if (matches.length > 0)
+					selectedValue = matches[0];
+			}
+		} else {
+			let itemIndex = this.domHandler.index(item);
+			selectedValue = this.suggestions[itemIndex];
+		}
+
+		if (selectedValue) {
+			if (this.multiple) {
+				this.input.value = '';
+				this.value = this.value || [];
+				if (this.value.indexOf(selectedValue) === -1) {
+					this.value.push(selectedValue);
+					this.onModelChange(this.value);
+				}
+			} else {
+				this.input.value = this.field ? this.resolveFieldData(selectedValue) : selectedValue;
+				this.value = selectedValue;
+				this.onModelChange(this.value);
+			}
+
+			this.onSelect.emit(selectedValue);
+		}
+		this.hide();	    
     }
     
     findListItem(element) {
@@ -356,10 +369,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 
                 //enter
                 case 13:
-                    if(highlightedItem) {
-                        this.selectItem(highlightedItem);
-                        this.hide();
-                    }
+                    this.selectItem(highlightedItem);
+                    this.hide();                    
                     event.preventDefault();
                 break;
                 
