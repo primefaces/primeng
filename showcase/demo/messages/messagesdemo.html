@@ -6,7 +6,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-messages [(value)]="msgs"></p-messages>
+    <p-messages [value]="msgs"></p-messages>
 
     <div>
         <button type="button" pButton (click)="showInfo()" label="Info"></button>
@@ -32,7 +32,7 @@ import {Messages} from 'primeng/primeng';
                 Messages to display are defined using the value property which should an array of Message instances.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
             <h3>Showing Messages</h3>
@@ -59,11 +59,10 @@ hide() {
 </pre>
 
             <h3>Closable</h3>
-            <p>Messages are closable by default, a close icon is displayed on top right corner. If you use two-way binding, clicking this icon also
-            clears the messages array at your component.</p>
+            <p>Messages are closable by default resulting in a close icon being displayed on top right corner.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
 
@@ -231,7 +230,7 @@ hide() {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
+&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
 
 &lt;div&gt;
     &lt;button type="button" pButton (click)="showInfo()" label="Info"&gt;&lt;/button&gt;

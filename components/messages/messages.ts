@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange} from 'angular2/core';
 import {Message} from '../api/message';
 
 @Component({
@@ -23,8 +23,6 @@ export class Messages {
 
     @Input() value: Message[];
 
-    @Output() valueChange: EventEmitter<any> = new EventEmitter();
-
     @Input() closable: boolean = true;
 
     hasMessages() {
@@ -36,7 +34,7 @@ export class Messages {
     }
 
     clear(event) {
-        this.valueChange.emit([]);
+        this.value.splice(0, this.value.length);
 
         event.preventDefault();
     }
