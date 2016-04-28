@@ -182,10 +182,13 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
     
     next() {
-        if(this.activeIndex  !== (this.panels.length-1))
+        if(this.activeIndex !== (this.panels.length-1)) {
             this.select(this.activeIndex + 1, true);
-        else
-            this.select(0, true);
+        }
+        else {
+            this.select(0, false);
+            this.stripLeft = 0;
+        }
     }
         
     select(index, reposition) {
@@ -201,17 +204,15 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
                 
                 if(reposition === undefined || reposition === true) {
                     let frameLeft = newFrame.offsetLeft,
-                    stepFactor = this.frameWidth + 10,
+                    stepFactor = this.frameWidth + parseInt(getComputedStyle(newFrame)['margin-right'], 10),
                     stripLeft = this.strip.offsetLeft,
                     frameViewportLeft = frameLeft + stripLeft,
                     frameViewportRight = frameViewportLeft + this.frameWidth;
                     
-                    if(frameViewportRight > this.domHandler.width(this.stripWrapper)) {
+                    if(frameViewportRight > this.domHandler.width(this.stripWrapper))
                         this.stripLeft -= stepFactor;
-                    } 
-                    else if(frameViewportLeft < 0) {
-                        this.stripLeft = this.stripLeft/8 + stepFactor;
-                    }
+                    else if(frameViewportLeft < 0)
+                        this.stripLeft += stepFactor;
                 }
             }
             
