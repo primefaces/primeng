@@ -144,7 +144,7 @@ export class DomHandler {
     }
     
     public fadeOut(element, ms) {
-        var opacity = element.style.opacity,
+        var opacity = 1,
         interval = 50,
         duration = ms,
         gap = interval / duration;
