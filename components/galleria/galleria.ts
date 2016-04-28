@@ -34,29 +34,23 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
 
     @Input() styleClass: string;
 
-    @Input() panelWidth: number;
+    @Input() panelWidth: number = 600;
 
-    @Input() panelHeight: number;
+    @Input() panelHeight: number = 400;
 
-    @Input() frameWidth: number;
+    @Input() frameWidth: number = 60;
     
-    @Input() frameHeight: number;
+    @Input() frameHeight: number = 40;
 
-    @Input() activeIndex: number;
+    @Input() activeIndex: number = 0;
 
     @Input() showFilmstrip: boolean = true;
 
     @Input() autoPlay: boolean = true;
 
-    @Input() transitionInterval: number;
-
-    @Input() effect: string;
-
-    @Input() effectDuration: any;
+    @Input() transitionInterval: number = 4000;
 
     @Input() showCaption: boolean = true;
-
-    @Input() customContent: boolean;
     
     differ: any;
     
@@ -106,16 +100,6 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
     
     ngAfterViewInit() {
-        this.panelWidth = this.panelWidth||600;
-        this.panelHeight = this.panelHeight||400;
-        this.frameWidth = this.frameWidth||60;
-        this.frameHeight = this.frameHeight||40;
-        this.activeIndex = 0;
-        this.showFilmstrip = (this.showFilmstrip === false) ? false : true;
-        this.autoPlay = (this.autoPlay === false) ? false : true;
-        this.transitionInterval = this.transitionInterval||4000;
-        this.effect = this.effect||'fade';
-
         this.container = this.el.nativeElement.children[0];
         this.panelWrapper = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-galleria-panel-wrapper');
         this.initialized = true;
