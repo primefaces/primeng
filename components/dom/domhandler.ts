@@ -142,6 +142,22 @@ export class DomHandler {
 
         tick();
     }
+    
+    public fadeOut(element, ms) {
+        var opacity = element.style.opacity,
+        interval = 50,
+        duration = ms,
+        gap = interval / duration;
+
+        let fading = setInterval(() => {
+            opacity = opacity - gap;
+            element.style.opacity = opacity;
+
+            if(opacity <= 0) {
+                clearInterval(fading);
+            }
+        }, interval);
+    }
 
     public getWindowScrollTop(): number {
         let doc = document.documentElement;
