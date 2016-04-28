@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,EventEmitter,Renderer,IterableDiffers} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,IterableDiffers} from 'angular2/core';
 import {Message} from '../api/message';
 import {DomHandler} from '../dom/domhandler';
 
