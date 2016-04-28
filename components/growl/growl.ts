@@ -61,12 +61,14 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
                 this.zIndex = ++DomHandler.zindex;
                 this.domHandler.fadeIn(this.container, 250);
                 
-                if(this.timeout) {
-                    clearTimeout(this.timeout);
+                if(!this.sticky) {
+                    if(this.timeout) {
+                        clearTimeout(this.timeout);
+                    }
+                    this.timeout = setTimeout(() => {
+                        this.removeAll();
+                    }, this.life);
                 }
-                this.timeout = setTimeout(() => {
-                    this.removeAll();
-                }, this.life);
             }
         }
     }
