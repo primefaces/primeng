@@ -23,7 +23,7 @@ import {DomHandler} from '../dom/domhandler';
                 <table>
                     <thead>
                         <tr *ngIf="!headerRows" class="ui-state-default">
-                            <th #headerCell *ngFor="#col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                            <th #headerCell *ngFor="let col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col)}">
                                 <span class="ui-column-title">{{col.header}}</span>
@@ -32,8 +32,8 @@ import {DomHandler} from '../dom/domhandler';
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                             </th>
                         </tr>
-                        <tr *ngFor="#headerRow of headerRows" class="ui-state-default">
-                            <th #headerCell *ngFor="#col of headerRow.columns" [attr.style]="col.style" [class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
+                        <tr *ngFor="let headerRow of headerRows" class="ui-state-default">
+                            <th #headerCell *ngFor="let col of headerRow.columns" [attr.style]="col.style" [class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
                                 (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col)}">
                                 <span class="ui-column-title">{{col.header}}</span>
@@ -45,20 +45,20 @@ import {DomHandler} from '../dom/domhandler';
                     </thead>
                     <tfoot *ngIf="hasFooter()">
                         <tr *ngIf="!footerRows">
-                            <th *ngFor="#col of columns" [attr.style]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}" [style.display]="col.hidden ? 'none' : 'table-cell'">{{col.footer}}</th>
+                            <th *ngFor="let col of columns" [attr.style]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}" [style.display]="col.hidden ? 'none' : 'table-cell'">{{col.footer}}</th>
                         </tr>
-                        <tr *ngFor="#footerRow of footerRows">
-                            <th *ngFor="#col of footerRow.columns" [attr.style]="col.style" [class]="col.styleClass"
+                        <tr *ngFor="let footerRow of footerRows">
+                            <th *ngFor="let col of footerRow.columns" [attr.style]="col.style" [class]="col.styleClass"
                                 [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 [ngClass]="{'ui-state-default':true}">{{col.footer}}</th>
                         </tr>
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
-                        <template ngFor #rowData [ngForOf]="dataToRender" #even="even" #odd="odd" #rowIndex="index">
+                        <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                                <td *ngFor="#col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                <td *ngFor="let col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                     <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                     <span class="ui-cell-data" *ngIf="!col.template">{{resolveFieldData(rowData,col.field)}}</span>
@@ -85,7 +85,7 @@ import {DomHandler} from '../dom/domhandler';
                     <table>
                         <thead>
                             <tr>
-                                <th #headerCell *ngFor="#col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                <th #headerCell *ngFor="let col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                     [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col)}">
                                     <span class="ui-column-title">{{col.header}}</span>
@@ -101,11 +101,11 @@ import {DomHandler} from '../dom/domhandler';
             <div class="ui-datatable-scrollable-body" *ngIf="scrollable">
                 <table>
                     <tbody class="ui-datatable-data ui-widget-content">
-                    <template ngFor #rowData [ngForOf]="dataToRender" #even="even" #odd="odd" #rowIndex="index">
+                    <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
                         <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                 [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                            <td *ngFor="#col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                            <td *ngFor="let col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                 <span class="ui-cell-data" *ngIf="!col.template">{{resolveFieldData(rowData,col.field)}}</span>

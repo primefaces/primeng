@@ -12,7 +12,7 @@
         <header>
             Scroll Down to to Load More
         </header>
-        <template #car>
+        <template let-car>
             <li style="border-bottom:1px solid #D5D5D5;">
                 <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
                     <div class="ui-grid-row">
@@ -131,7 +131,7 @@ export class DataScrollertDemo implements OnInit {
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li&gt;
             Car content
         &lt;/li&gt;
@@ -153,7 +153,7 @@ import {Footer} from 'primeng/primeng';
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;footer&gt;Choose from the list.&lt;/footer&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li&gt;
             Car content
         &lt;/li&gt;
@@ -167,7 +167,7 @@ import {Footer} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [inline]="true" [rows]="10"&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li&gt;
             Car content
         &lt;/li&gt;
@@ -184,7 +184,7 @@ import {Footer} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [rows]="10" [lazy]="true" (onLazyLoad)="loadData($event)"&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li&gt;
             Car content
         &lt;/li&gt;
@@ -328,7 +328,7 @@ loadData(event) {
     &lt;header&gt;
         Scroll Down to to Load More
     &lt;/header&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li style="border-bottom:1px solid #D5D5D5;"&gt;
             &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px"&gt;
                 &lt;div class="ui-grid-row"&gt;

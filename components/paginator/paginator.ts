@@ -13,7 +13,7 @@ import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from 'angul
                 <span class="fa fa-backward"></span>
             </span>
             <span class="ui-paginator-pages">
-                <span #plink *ngFor="#pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
+                <span #plink *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
                     (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null" (click)="changePage(pageLink - 1)"
                     [ngClass]="{'ui-state-hover':(plink === hoveredItem), 'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</span>
             </span>
@@ -26,7 +26,7 @@ import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from 'angul
                 <span class="fa fa-step-forward"></span>
             </span>
             <select class="ui-paginator-rpp-options ui-widget ui-state-default" *ngIf="rowsPerPageOptions" (change)="onRppChange($event)">
-                <option *ngFor="#opt of rowsPerPageOptions" [value]="opt" [selected]="rows == opt">{{opt}}</option>
+                <option *ngFor="let opt of rowsPerPageOptions" [value]="opt" [selected]="rows == opt">{{opt}}</option>
             </select>
         </div>
     `

@@ -6,14 +6,14 @@ import {DomHandler} from '../dom/domhandler';
     template: `
         <div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [attr.style]="style" [class]="styleClass" [style.width.px]="panelWidth">
             <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
-                <li *ngFor="#image of images;#i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
+                <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
                     [style.width.px]="panelWidth" [style.height.px]="panelHeight">
                     <img class="ui-panel-images" [src]="image.source" [alt]="image.alt" [title]="image.title"/>
                 </li>
             </ul>
             <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}">
                 <ul class="ui-galleria-filmstrip" style="transition:left 1s" [style.left.px]="stripLeft">
-                    <li #frame *ngFor="#image of images;#i=index" [ngClass]="{'ui-galleria-frame-active':i==activeIndex}" class="ui-galleria-frame" (click)="frameClick(frame)"
+                    <li #frame *ngFor="let image of images;let i=index" [ngClass]="{'ui-galleria-frame-active':i==activeIndex}" class="ui-galleria-frame" (click)="frameClick(frame)"
                         [style.width.px]="frameWidth" [style.height.px]="frameHeight" [style.transition]="'opacity 0.75s ease'">
                         <div class="ui-galleria-frame-content">
                             <img [src]="image.source" [alt]="image.alt" [title]="image.title" class="ui-galleria-frame-image"

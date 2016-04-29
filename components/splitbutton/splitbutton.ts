@@ -27,7 +27,7 @@ import {Location} from 'angular2/platform/common';
             <div #menu [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
                     [attr.style]="menuStyle" [attr.styleClass]="menuStyleClass">
                 <ul class="ui-menu-list ui-helper-reset">
-                    <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="#item of items" [ngClass]="{'ui-state-hover':(hoveredItem==item)}"
+                    <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of items" [ngClass]="{'ui-state-hover':(hoveredItem==item)}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                         <a [href]="getItemUrl(item)" class="ui-menuitem-link ui-corner-all" (click)="onItemClick($event,item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>

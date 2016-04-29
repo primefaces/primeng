@@ -14,7 +14,7 @@
                 <p-multiSelect [options]="columnOptions" [(ngModel)]="cols"></p-multiSelect>
             </div>
         </header>
-        <p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"></p-column>
+        <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
     </p-dataTable>
 </div>
 
@@ -62,7 +62,7 @@ export class DataTableColTogglerDemo implements OnInit {
             &lt;p-multiSelect [options]="columnOptions" [(ngModel)]="cols"&gt;&lt;/p-multiSelect&gt;
         &lt;/div&gt;
     &lt;/header&gt;
-    &lt;p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
+    &lt;p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>

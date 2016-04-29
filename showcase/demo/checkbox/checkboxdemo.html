@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    Selected Cities: <span *ngFor="#city of selectedCities">{{city}} &nbsp;&nbsp;</span>
+    Selected Cities: <span *ngFor="let city of selectedCities">{{city}} &nbsp;&nbsp;</span>
 
     <h3>Preselection</h3>
     <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    Selected Categories: <span *ngFor="#cat of selectedCategories">{{cat}} &nbsp;&nbsp;</span>
+    Selected Categories: <span *ngFor="let cat of selectedCategories">{{cat}} &nbsp;&nbsp;</span>
     
     <h3>Boolean</h3>
     <p-checkbox [(ngModel)]="checked"></p-checkbox>
@@ -225,7 +225,7 @@ export class ModelComponent {
     &lt;/div&gt;
 &lt;/div&gt;
 
-Selected Cities: &lt;span *ngFor="#city of selectedCities"&gt;{{city}} &nbsp;&nbsp;&lt;/span&gt;
+Selected Cities: &lt;span *ngFor="let city of selectedCities"&gt;{{city}} &nbsp;&nbsp;&lt;/span&gt;
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
 &lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
@@ -247,7 +247,7 @@ Selected Cities: &lt;span *ngFor="#city of selectedCities"&gt;{{city}} &nbsp;&nb
     &lt;/div&gt;
 &lt;/div&gt;
 
-Selected Categories: &lt;span *ngFor="#cat of selectedCategories"&gt;{{cat}} &nbsp;&nbsp;&lt;/span&gt;
+Selected Categories: &lt;span *ngFor="let cat of selectedCategories"&gt;{{cat}} &nbsp;&nbsp;&lt;/span&gt;
 
 &lt;h3&gt;Boolean&lt;/h3&gt;
 &lt;p-checkbox [(ngModel)]="checked"&gt;&lt;/p-checkbox&gt;

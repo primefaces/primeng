@@ -18,7 +18,7 @@
     
     <h3>Dynamic Columns</h3>
     <p-dataTable [value]="cars">
-        <p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"></p-column>
+        <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
     </p-dataTable>
 </div>
 
@@ -235,7 +235,7 @@ export class DataTableDemo implements OnInit {
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars"&gt;
-    &lt;p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
+    &lt;p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
@@ -246,12 +246,12 @@ export class DataTableDemo implements OnInit {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-column field="color" header="Color"&gt;
-    &lt;template #col #car="rowData" #ri="rowIndex"&gt;
+    &lt;template let-col #car="rowData" #ri="rowIndex"&gt;
         &lt;span"&gt;{{car[col.field]}}&lt;/span&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;
 &lt;p-column&gt;
-    &lt;template #car="rowData"&gt;
+    &lt;template let-car="rowData"&gt;
         &lt;button type="button" pButton (click)="selectCar(car)" icon="fa-search"&gt;&lt;/button&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;
@@ -541,7 +541,7 @@ export class DataTableDemo implements OnInit {
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;
@@ -1095,7 +1095,7 @@ update(dt: DataTable) {
 
 &lt;h3&gt;Dynamic Columns&lt;/h3&gt;
 &lt;p-dataTable [value]="cars"&gt;
-    &lt;p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
+    &lt;p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>

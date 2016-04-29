@@ -16,7 +16,7 @@ const LISTBOX_VALUE_ACCESSOR: Provider = CONST_EXPR(
     template: `
         <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [attr.style]="style" [class]="styleClass">
             <ul class="ui-listbox-list" *ngIf="!itemTemplate" (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
-                <li *ngFor="#option of options" class="ui-listbox-item ui-corner-all">
+                <li *ngFor="let option of options" class="ui-listbox-item ui-corner-all">
                     {{option.label}}
                 </li>
             </ul>

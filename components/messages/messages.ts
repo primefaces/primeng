@@ -11,7 +11,7 @@ import {Message} from '../api/message';
             </a>
             <span class="ui-messages-icon fa fa-2x fa-info-circle"></span>
             <ul>
-                <li *ngFor="#msg of value">
+                <li *ngFor="let msg of value">
                     <span class="ui-messages-summary">{{msg.summary}}</span>
                     <span class="ui-messages-detail">{{msg.detail}}</span>
                 </li>

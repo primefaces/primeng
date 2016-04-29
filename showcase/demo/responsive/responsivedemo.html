@@ -173,7 +173,7 @@
             <header>
                 Datagrid
             </header>
-            <template #car>
+            <template let-car>
                 <div style="padding:3px">
                     <p-panel [header]="car.vin" [paginator]="true" style="text-align:center">
                         <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
@@ -187,7 +187,7 @@
         <p-tree [value]="files" style="margin-top:20px;margin-bottom:20px"></p-tree>
 
         <p-orderList [value]="cars" listStyle="height:250px" style="margin-top:20px;margin-bottom:20px" [responsive]="true" header="Responsive Cars">
-            <template #car>
+            <template let-car>
                 <li class="ui-orderlist-item ui-helper-clearfix">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
                     <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
@@ -196,7 +196,7 @@
         </p-orderList>
 
         <p-carousel headerText="Cars" [value]="cars2" style="margin-top:20px;margin-bottom:20px">
-            <template #car>
+            <template let-car>
                 <li>
                     <div class="ui-grid ui-grid-responsive ui-grid-pad" style="text-align:center">
                         <div class="ui-grid-row">
@@ -220,7 +220,7 @@
         </p-carousel>
 
         <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" sourceStyle="height:300px" targetStyle="height:300px" style="margin-top:20px;margin-bottom:20px">
-            <template #car>
+            <template let-car>
                 <li class="ui-picklist-item ui-helper-clearfix">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
                     <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
@@ -467,7 +467,7 @@
     &lt;header&gt;
         Datagrid
     &lt;/header&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;div style="padding:3px"&gt;
             &lt;p-panel [header]="car.vin" [paginator]="true" style="text-align:center"&gt;
                 &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;
@@ -481,7 +481,7 @@
 &lt;p-tree [value]="files" style="margin-top:20px;margin-bottom:20px"&gt;&lt;/p-tree&gt;
 
 &lt;p-orderList [value]="cars" listStyle="height:250px" style="margin-top:20px;margin-bottom:20px" [responsive]="true" header="Responsive Cars"&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li class="ui-orderlist-item ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
@@ -490,7 +490,7 @@
 &lt;/p-orderList&gt;
 
 &lt;p-carousel headerText="Cars" [value]="cars2" style="margin-top:20px;margin-bottom:20px"&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li&gt;
             &lt;div class="ui-grid ui-grid-responsive ui-grid-pad" style="text-align:center"&gt;
                 &lt;div class="ui-grid-row"&gt;
@@ -514,7 +514,7 @@
 &lt;/p-carousel&gt;
 
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" sourceStyle="height:300px" targetStyle="height:300px" style="margin-top:20px;margin-bottom:20px"&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li class="ui-picklist-item ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;

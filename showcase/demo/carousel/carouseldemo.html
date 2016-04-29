@@ -10,7 +10,7 @@
     <p-growl [value]="msgs"></p-growl>
 
     <p-carousel headerText="Cars" [value]="cars">
-        <template #car>
+        <template let-car>
             <li>
                 <div class="ui-grid ui-grid-responsive">
                     <div class="ui-grid-row">
@@ -55,7 +55,7 @@ import {Carousel} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-carousel [value]="items"&gt;
-    &lt;template #item&gt;
+    &lt;template let-item&gt;
         &lt;li&gt;
             content of item
         &lt;/li&gt;
@@ -255,7 +255,7 @@ import {Carousel} from 'primeng/primeng';
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;p-carousel headerText="Cars" [value]="cars"&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li&gt;
             &lt;div class="ui-grid ui-grid-responsive"&gt;
                 &lt;div class="ui-grid-row"&gt;

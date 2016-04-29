@@ -48,7 +48,7 @@ const MULTISELECT_VALUE_ACCESSOR: Provider = CONST_EXPR(
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
-                        <li #item *ngFor="#option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
+                        <li #item *ngFor="let option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
                             [style.display]="isItemVisible(option) ? 'block' : 'none'"
                             [ngClass]="{'ui-state-highlight':isSelected(option.value),'ui-state-hover':hoveredItem==item}" (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                             <div class="ui-chkbox ui-widget">

@@ -20,7 +20,7 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
             [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [disabled]="disabled" 
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple ui-widget ui-inputtext ui-state-default ui-corner-all" (click)="multiIn.focus()">
-                <li #token *ngFor="#val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
+                <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
                     <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)"></span>
                     <span class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
                 </li>
@@ -33,7 +33,7 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
             <div class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="'100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" 
                     (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)" *ngIf="!itemTemplate">
-                    <li class="ui-autocomplete-list-item ui-corner-all" *ngFor="#item of suggestions">{{field ? item[field] : item}}</li>
+                    <li class="ui-autocomplete-list-item ui-corner-all" *ngFor="let item of suggestions">{{field ? item[field] : item}}</li>
                 </ul>
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" 
                     (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)"*ngIf="itemTemplate">

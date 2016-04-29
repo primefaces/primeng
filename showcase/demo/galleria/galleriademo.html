@@ -41,7 +41,7 @@ import {Galleria} from 'primeng/primeng';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;
-        &lt;li *ngFor="#image of images;#i = index;"&gt;
+        &lt;li *ngFor="let image of images;#i = index;"&gt;
             &lt;img src="resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
@@ -65,7 +65,7 @@ export class Model {
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false"&gt;
     &lt;ul&gt;
-        &lt;li *ngFor="#image of images;#i = index;"&gt;
+        &lt;li *ngFor="let image of images;#i = index;"&gt;
             &lt;img src="resources/demo/images/galleria/{{image}}" /&gt;
             &lt;div&gt;
                 &lt;!-- Content Here --&gt;
@@ -220,7 +220,7 @@ export class Model {
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-galleria panelWidth="500" panelHeight="313"&gt;
     &lt;ul&gt;
-        &lt;li *ngFor="#image of images;#i = index;"&gt;
+        &lt;li *ngFor="let image of images;#i = index;"&gt;
             &lt;img src="showcase/resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/&gt;
         &lt;/li&gt;
     &lt;/ul&gt;
@@ -229,7 +229,7 @@ export class Model {
 &lt;h3&gt;Custom Content&lt;/h3&gt;
 &lt;p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false"&gt;
     &lt;ul&gt;
-        &lt;li *ngFor="#image of images;#i = index;"&gt;
+        &lt;li *ngFor="let image of images;#i = index;"&gt;
             &lt;img src="showcase/resources/demo/images/galleria/{{image}}" /&gt;
             &lt;div&gt;
                 &lt;h2&gt;Content For Item {{i}}&lt;/h2&gt;

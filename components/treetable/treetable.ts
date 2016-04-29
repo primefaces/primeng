@@ -17,7 +17,7 @@ import {Footer} from '../common/footer';
                 <table class="ui-widget-content" style="border:0 0 1px 0px">
                     <thead>
                         <tr class="ui-state-default">
-                            <th #headerCell *ngFor="#col of columns" [attr.style]="col.style" [class]="col.styleClass" 
+                            <th #headerCell *ngFor="let col of columns" [attr.style]="col.style" [class]="col.styleClass" 
                                 [ngClass]="'ui-state-default ui-unselectable-text'">
                                 <span class="ui-column-title">{{col.header}}</span>
                             </th>
@@ -25,10 +25,10 @@ import {Footer} from '../common/footer';
                     </thead>
                     <tfoot *ngIf="hasFooter()">
                         <tr>
-                            <td *ngFor="#col of columns" [attr.style]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</td>
+                            <td *ngFor="let col of columns" [attr.style]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</td>
                         </tr>
                     </tfoot>
-                    <tbody pTreeRow *ngFor="#node of value" [node]="node" [level]="0"></tbody>
+                    <tbody pTreeRow *ngFor="let node of value" [node]="node" [level]="0"></tbody>
                 </table>
             </div>
             <div class="ui-treetable-footer ui-widget-header" *ngIf="footer">

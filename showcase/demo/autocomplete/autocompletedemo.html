@@ -14,7 +14,7 @@
     <h3>Advanced</h3>
     <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
-        <template #brand>
+        <template let-brand>
             <li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                 <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:2px 0 2px 2px"/>
                 <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
@@ -28,7 +28,7 @@
         [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
     </p-autoComplete>
     <ul>
-        <li *ngFor="#c of countries">{{c.name}}</li>
+        <li *ngFor="let c of countries">{{c.name}}</li>
     </ul>
 </div>
 
@@ -167,7 +167,7 @@ export class AutoCompleteDemo {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
-    &lt;template #brand&gt;
+    &lt;template let-brand&gt;
         &lt;li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
             &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
@@ -392,7 +392,7 @@ export class AutoCompleteDemo {
 &lt;h3&gt;Advanced&lt;/h3&gt;
 &lt;p-autoComplete [(value)]="ngModel" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
     [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)"&gt;
-    &lt;template #brand&gt;
+    &lt;template let-brand&gt;
         &lt;li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:2px 0 2px 2px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
@@ -406,7 +406,7 @@ export class AutoCompleteDemo {
     [minLength]="1" placeholder="Countries" field="name" [multiple]="true"&gt;
 &lt;/p-autoComplete&gt;
 &lt;ul&gt;
-    &lt;li *ngFor="#c of countries"&gt;{{c.name}}&lt;/li&gt;
+    &lt;li *ngFor="let c of countries"&gt;{{c.name}}&lt;/li&gt;
 &lt;/ul&gt;
 </code>
 </pre>

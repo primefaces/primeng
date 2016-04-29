@@ -31,22 +31,22 @@
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
-    Selected Nodes: <span *ngFor="#file of selectedFiles">{{file.data.name}} </span>
+    Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.data.name}} </span>
     
     <p-treeTable [value]="files" style="margin-top:30px">
         <header>Editable Cells with Templating</header>
         <p-column field="name" header="Name">
-            <template #node="rowData">
+            <template let-node="rowData">
                 <input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
             </template>
         </p-column>
         <p-column field="size" header="Size">
-            <template #node="rowData">
+            <template let-node="rowData">
                 <input type="text" [(ngModel)]="node.data.size" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
             </template>
         </p-column>
         <p-column field="type" header="Type">
-            <template #node="rowData">
+            <template let-node="rowData">
                 <input type="text" [(ngModel)]="node.data.type" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
             </template>
         </p-column>
@@ -361,7 +361,7 @@ export class TreeTableDemoComponent implements OnInit {
 <pre>
 <code class="language-markup" pCode>
 &lt;p-treeTable [value]="cars"&gt;
-    &lt;p-column *ngFor="#col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
+    &lt;p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
 </code>
 </pre>
@@ -475,7 +475,7 @@ export class TreeTableDemoComponent implements OnInit {
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-treeTable [value]="files"&gt;
     &lt;p:column&gt;
-        &lt;template #col #node="rowData"&gt;
+        &lt;template let-col #node="rowData"&gt;
             &lt;input [(ngModel)]="node.data.name" type="text" style="width:100%"&gt;
         &lt;/template&gt;
     &lt;/p:column&gt;
@@ -695,22 +695,22 @@ Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
-Selected Nodes: &lt;span *ngFor="#file of selectedFiles"&gt;{{file.data.name}} &lt;/span&gt;
+Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.data.name}} &lt;/span&gt;
 
 &lt;p-treeTable [value]="files" style="margin-top:30px"&gt;
     &lt;header&gt;Editable Cells with Templating&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;
-        &lt;template #node="rowData"&gt;
+        &lt;template let-node="rowData"&gt;
             &lt;input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;
-        &lt;template #node="rowData"&gt;
+        &lt;template let-node="rowData"&gt;
             &lt;input type="text" [(ngModel)]="node.data.size" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;
-        &lt;template #node="rowData"&gt;
+        &lt;template let-node="rowData"&gt;
             &lt;input type="text" [(ngModel)]="node.data.type" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;

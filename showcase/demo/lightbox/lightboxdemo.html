@@ -8,7 +8,7 @@
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
     <p-lightbox>
-        <a *ngFor="#image of images" href="showcase/resources/demo/images/sopranos/{{image}}.jpg">
+        <a *ngFor="let image of images" href="showcase/resources/demo/images/sopranos/{{image}}.jpg">
             <img src="showcase/resources/demo/images/sopranos/{{image}}_small.jpg" alt="{{image}}"/>
         </a>
     </p-lightbox>
@@ -41,7 +41,7 @@ import {Lightbox} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-lightbox&gt;
-    &lt;a *ngFor="#image of images" href="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>.jpg"&gt;
+    &lt;a *ngFor="let image of images" href="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>.jpg"&gt;
         &lt;img src="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>_small.jpg" alt="<span>{</span><span>{</span>image<span>}</span><span>}</span>"/&gt;
     &lt;/a&gt;
 &lt;/p-lightbox&gt;
@@ -114,7 +114,7 @@ import {Lightbox} from 'primeng/primeng';
 <code class="language-markup" pCode>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-lightbox&gt;
-    &lt;a *ngFor="#image of images" href="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>.jpg"&gt;
+    &lt;a *ngFor="let image of images" href="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>.jpg"&gt;
         &lt;img src="showcase/resources/demo/images/sopranos/<span>{</span><span>{</span>image<span>}</span><span>}</span>_small.jpg" alt="<span>{</span><span>{</span>image<span>}</span><span>}</span>"/&gt;
     &lt;/a&gt;
 &lt;/p-lightbox&gt;

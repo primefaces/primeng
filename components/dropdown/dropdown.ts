@@ -18,7 +18,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
             (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)" [attr.style]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <select [required]="required">
-                    <option *ngFor="#option of options" [value]="option.value" [selected]="value == option.value">{{option.label}}</option>
+                    <option *ngFor="let option of options" [value]="option.value" [selected]="value == option.value">{{option.label}}</option>
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
@@ -37,7 +37,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
                 <div class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul *ngIf="!itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                         (mouseover)="onListMouseover($event)" (mouseout)="onListMouseout($event)">
-                        <li *ngFor="#option of optionsToDisplay;#i=index" [attr.data-label]="option.label" [attr.data-value]="option.value" (click)="onListClick($event)"
+                        <li *ngFor="let option of optionsToDisplay;let i=index" [attr.data-label]="option.label" [attr.data-value]="option.value" (click)="onListClick($event)"
                             class="ui-dropdown-item ui-corner-all">{{option.label}}</li>
                     </ul>
                     <ul *ngIf="itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"

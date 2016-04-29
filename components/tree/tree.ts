@@ -7,7 +7,7 @@ import {UITreeNode} from './uitreenode';
     template: `
         <div [ngClass]="'ui-tree ui-widget ui-widget-content ui-corner-all'" [attr.style]="style" [class]="styleClass">
             <ul class="ui-tree-container">
-                <p-treeNode *ngFor="#node of value" [node]="node"></p-treeNode>
+                <p-treeNode *ngFor="let node of value" [node]="node"></p-treeNode>
             </ul>
         </div>
     `,

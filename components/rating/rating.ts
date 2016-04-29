@@ -15,7 +15,7 @@ const RATING_VALUE_ACCESSOR: Provider = CONST_EXPR(
         <div class="ui-rating" [ngClass]="{'ui-state-disabled': disabled}">
             <div class="ui-rating-cancel" *ngIf="cancel" (click)="clear($event)" [ngClass]="{'ui-rating-cancel-hover':hoverCancel}"
              (mouseenter)="hoverCancel=true" (mouseleave)="hoverCancel=false"><a></a></div>
-            <div class="ui-rating-star" *ngFor="#star of starsArray;#i=index" (click)="rate($event,i)"
+            <div class="ui-rating-star" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)"
              [ngClass]="{'ui-rating-star-on':(i < value)}"><a></a></div>
         </div>
     `,

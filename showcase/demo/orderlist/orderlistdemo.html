@@ -11,7 +11,7 @@
         <div class="ui-grid-row">
             <div class="ui-grid-col-6">
                 <p-orderList [value]="cars" listStyle="height:250px" [responsive]="true" header="Responsive Cars">
-                    <template #car>
+                    <template let-car>
                         <li class="ui-orderlist-item ui-helper-clearfix">
                             <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
                             <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
@@ -21,7 +21,7 @@
             </div>
             <div class="ui-grid-col-6">
                 <ul>
-                    <li *ngFor="#car of cars" style="list-style-type:none">{{car.brand}} - {{car.year}} - {{car.color}}</li>
+                    <li *ngFor="let car of cars" style="list-style-type:none">{{car.brand}} - {{car.year}} - {{car.color}}</li>
                 </ul>
             </div>
         </div>
@@ -45,7 +45,7 @@ import {OrderList} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-orderList [value]="cars"&gt;
-    &lt;template #car&gt;
+    &lt;template let-car&gt;
         &lt;li class="ui-orderlist-item ui-helper-clearfix"&gt;
             Content of an item
         &lt;/li&gt;
@@ -184,7 +184,7 @@ export class MyComponent {
     &lt;div class="ui-grid-row"&gt;
         &lt;div class="ui-grid-col-6"&gt;
             &lt;p-orderList [value]="cars" listStyle="height:250px" [responsive]="true" header="Responsive Cars"&gt;
-                &lt;template #car&gt;
+                &lt;template let-car&gt;
                     &lt;li class="ui-orderlist-item ui-helper-clearfix"&gt;
                         &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
                         &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
@@ -194,7 +194,7 @@ export class MyComponent {
         &lt;/div&gt;
         &lt;div class="ui-grid-col-6"&gt;
             &lt;ul&gt;
-                &lt;li *ngFor="#car of cars" style="list-style-type:none"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/li&gt;
+                &lt;li *ngFor="let car of cars" style="list-style-type:none"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/li&gt;
             &lt;/ul&gt;
         &lt;/div&gt;
     &lt;/div&gt;
