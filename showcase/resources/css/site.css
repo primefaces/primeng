@@ -348,7 +348,8 @@ input.searchInput {
     border-bottom-left-radius:0px;
 }
 
-.Source .ui-tabview .ui-tabview-nav li {
+.Source .ui-tabview .ui-tabview-nav li,
+.Source .ui-tabview .ui-tabview-nav li.ui-state-hover {
     border:0px none !important;
     background:#3F94E9;
     border-color:#3F94E9;
