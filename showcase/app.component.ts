@@ -85,6 +85,7 @@ import {GMapDemo} from "./demo/gmap/gmapdemo";
 import {ContextMenuDemo} from "./demo/contextmenu/contextmenudemo";
 import {DragDropDemo} from "./demo/dragdrop/dragdropdemo";
 import {ToolbarDemo} from "./demo/toolbar/toolbardemo";
+import {ValidationDemo} from "./demo/validation/validationdemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -176,7 +177,8 @@ import {ToolbarDemo} from "./demo/toolbar/toolbardemo";
     {path: '/gmap', name: 'GMapDemo', component: GMapDemo},
     {path: '/contextmenu', name: 'ContextMenuDemo', component: ContextMenuDemo},
     {path: '/dragdrop', name: 'DragDropDemo', component: DragDropDemo},
-    {path: '/toolbar', name: 'ToolbarDemo', component: ToolbarDemo}
+    {path: '/toolbar', name: 'ToolbarDemo', component: ToolbarDemo},
+    {path: '/validation', name: 'ValidationDemo', component: ValidationDemo}
 ])
 export class AppComponent {
 

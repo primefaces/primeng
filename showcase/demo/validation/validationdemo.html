@@ -1,0 +1,82 @@
+    <div class="ContentSideSections">
+        <div class="Content100 overHidden TextShadow">
+            <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">Validation</span>
+            <span class="defaultText dispTable">.ui-fluid style class provides fluid width to components for efficient use of space in screen.
+                This example demonstrates ui-fluid in combination with Grid CSS and the components having built-in responsive modes like datatable. Note that Grid CSS is not mandatory, any grid system 
+                can be used with ui-fluid.</span>
+        </div>
+    </div>
+
+<div class="ContentSideSections Implementation">
+    <form [ngFormModel]="form" (ngSubmit)="onSubmit(form.value)">
+        <p-panel header="Validate">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        First Name:
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <input pInputText type="text" [ngFormControl]="form.controls['firstName']" #firstName="ngForm"/>
+                        {{form.controls['firstName'].value}}
+                        <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
+                          Name is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Last Name:
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <input pInputText type="text" [ngFormControl]="form.controls['lastName']" #lastName="ngForm"/>
+                        <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
+                          Last Name is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Password:
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <input type="text" pPassword [ngFormControl]="form.controls['password']" #password="ngForm"/>
+                        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                          Password is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Description:
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <textarea pInputTextarea type="text" [(ngModel)]="description"></textarea>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Gender:
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <p-dropdown [options]="genders" [(ngModel)]="selectedGender"></p-dropdown>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Submit
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <button pButton type="submit" label="Submit" [disabled]="!form.valid"></button>
+                    </div>
+                </div>
+                <div style="text-align:center"*ngIf="submitted">
+                    Form Submitted!
+                    <p>First Name: {{form.controls['firstName'].value}}</p>
+                    <p>Last Name: {{form.controls['lastName'].value}}</p>
+                    <p>Password: {{form.controls['password'].value}}</p>
+                    <p *ngIf="selectedGender">Gender: {{selectedGender}}</p>
+                </div>
+            </div>   
+        </p-panel> 
+    </form>
+</div>
