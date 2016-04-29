@@ -87,7 +87,7 @@ import {DomHandler} from '../dom/domhandler';
                             <tr>
                                 <th #headerCell *ngFor="#col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': col.field === sortField}">
+                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col)}">
                                     <span class="ui-column-title">{{col.header}}</span>
                                     <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                          [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
@@ -101,20 +101,29 @@ import {DomHandler} from '../dom/domhandler';
             <div class="ui-datatable-scrollable-body" *ngIf="scrollable">
                 <table>
                     <tbody class="ui-datatable-data ui-widget-content">
-                        <tr #rowElement *ngFor="#rowData of dataToRender;#even = even; #odd = odd;" class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)"
+                    <template ngFor #rowData [ngForOf]="dataToRender" #even="even" #odd="odd" #rowIndex="index">
+                        <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
+                                (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                 [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                             <td *ngFor="#col of columns" [attr.style]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                 <span class="ui-cell-data" *ngIf="!col.template">{{resolveFieldData(rowData,col.field)}}</span>
                                 <span class="ui-cell-data" *ngIf="col.template">
-                                    <p-columnTemplateLoader [column]="col" [rowData]="rowData"></p-columnTemplateLoader>
+                                    <p-columnTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnTemplateLoader>
                                 </span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
-                                        (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event,col,rowData)"/>
+                                        (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
+                                <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
+                                    *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
                             </td>
                         </tr>
+                        <tr *ngIf="expandableRows && isRowExpanded(rowData)">
+                            <td [attr.colspan]="columns.length">
+                                <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
+                            </td>
+                        </tr>
+                    </template>
                     </tbody>
                 </table>
             </div>
