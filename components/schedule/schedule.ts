@@ -236,7 +236,7 @@ export class Schedule {
     ngDoCheck() {
         let changes = this.differ.diff(this.events);
         
-        if(changes) {
+        if(this.schedule && changes) {
             this.schedule.fullCalendar('refetchEvents');
         }
     }
