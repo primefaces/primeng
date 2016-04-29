@@ -562,6 +562,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         if(!this.selectionMode) {
             return;
         }
+        
+        let targetNode = event.target.nodeName;
+        if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' 
+            || (this.domHandler.hasClass(event.target, 'ui-c'))) {
+            return;
+        }
 
         let selectionIndex = this.findIndexInSelection(rowData);
         let selected = selectionIndex != -1;
