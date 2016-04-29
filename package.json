@@ -12,13 +12,8 @@
     "url": "https://github.com/primefaces/primeng.git"
   },
   "license": "Apache-2.0",
-  "dependencies": {
+  "peerDependencies": {
     "angular2": "2.0.0-beta.17",
-    "systemjs": "0.19.26",
-    "es6-shim": "^0.35.0",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.6",
-    "zone.js": "0.6.12",
     "primeui": "4.1.8"
   },
   "devDependencies": {
