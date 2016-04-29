@@ -90,7 +90,6 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     ngAfterViewChecked() {
         if(this.imagesChanged) {
             this.stopSlideshow();
-            this.activeIndex = 0;
             this.render();
             this.imagesChanged = false;
         }
@@ -100,6 +99,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         let changes = this.differ.diff(this.images);
         
         if(changes && this.initialized) {
+            this.activeIndex = 0;
             this.imagesChanged = true;
         }
     }
