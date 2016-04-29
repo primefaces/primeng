@@ -6,10 +6,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    
-    <h3 class="first">Basic</h3>
     <p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"></p-galleria>
-    <button type="button" (click)="update()">Change</button>
 </div>
 
 <div class="ContentSideSections Source">
@@ -23,57 +20,36 @@ import {Galleria} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Galleria requires a set of images inside list items as the content. Alt and Title attributes are used
-                in the caption section.</p>
+            <p>Galleria requires a set of images to display. Source attribute defines the path of the image whereas title and alt attributes are used in the caption section
+                to display summary and description about an image.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-galleria panelWidth="500" panelHeight="313"&gt;
-    &lt;ul&gt;
-        &lt;li&gt;&lt;img src="showcase/resources/demo/images/galleria/galleria1.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src="showcase/resources/demo/images/galleria/galleria2.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src="showcase/resources/demo/images/galleria/galleria3.png" alt="Description" title="Image Title"/&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-galleria&gt;
-</code>
-</pre>
-            <p>If the images are dynamic, ngFor can be used to display the list dynamically.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-galleria panelWidth="500" panelHeight="313"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="let image of images;#i = index;"&gt;
-            &lt;img src="resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-galleria&gt;
+&lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class Model {
-    images: string[] = ['galleria1.jpg', 'galleria2.jpg', 'galleria3.jpg', 'galleria4.jpg', 'galleria5.jpg', 'galleria6.jpg', 
-                    'galleria7.jpg', 'galleria8.jpg', 'galleria9.jpg', 'galleria10.jpg', 'galleria11.jpg', 'galleria12.jpg'];
+export class GalleriaDemo implements OnInit {
+    
+    images: any[];
+    
+    ngOnInit() {
+        this.images = [];
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria1.jpg', alt:'Description for Image 1', title:'Title 1'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria2.jpg', alt:'Description for Image 2', title:'Title 2'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria3.jpg', alt:'Description for Image 3', title:'Title 3'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria4.jpg', alt:'Description for Image 4', title:'Title 4'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria5.jpg', alt:'Description for Image 5', title:'Title 5'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria6.jpg', alt:'Description for Image 6', title:'Title 6'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria7.jpg', alt:'Description for Image 7', title:'Title 7'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria8.jpg', alt:'Description for Image 8', title:'Title 8'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria9.jpg', alt:'Description for Image 9', title:'Title 9'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria10.jpg', alt:'Description for Image 10', title:'Title 10'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria11.jpg', alt:'Description for Image 11', title:'Title 11'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria12.jpg', alt:'Description for Image 12', title:'Title 12'});
+    }
 }
-</code>
-</pre>
-
-            <h3>Custom Content</h3>
-            <p>Galleria supports custom content display instead of images, in this case enable customContent option
-                and place your content inside a div element next to the image.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="let image of images;#i = index;"&gt;
-            &lt;img src="resources/demo/images/galleria/{{image}}" /&gt;
-            &lt;div&gt;
-                &lt;!-- Content Here --&gt;
-                &lt;h2&gt;Content For Item {{i}}&lt;/h2&gt;
-            &lt;/div&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-galleria&gt;
 </code>
 </pre>
 
@@ -149,12 +125,6 @@ export class Model {
                             <td>true</td>
                             <td>Displays information retrieved from title and alt attributes of images in content caption.</td>
                         </tr>
-                        <tr>
-                            <td>customContent</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>In custom content mode, galleria displays content next to the image element instead of the image itself.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -179,31 +149,27 @@ export class Model {
                             <td>Parent of item containers.</td>
                         </tr>
                         <tr>
-                            <td>ui-fieldset-legend</td>
-                            <td>Container of an item.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-fieldset-filmstrip-wrapper</td>
+                            <td>ui-galleria-filmstrip-wrapper</td>
                             <td>Container of filmstrip.</td>
                         </tr>
                         <tr>
-                            <td>ui-fieldset-filmstrip</td>
+                            <td>ui-galleria-filmstrip</td>
                             <td>Filmstrip element</td>
                         </tr>
                         <tr>
-                            <td>ui-fieldset-frame</td>
+                            <td>ui-galleria-frame</td>
                             <td>Frame element of thumbnail</td>
                         </tr>
                         <tr>
-                            <td>ui-fieldset-nav-next</td>
+                            <td>ui-galleria-nav-next</td>
                             <td>Icon to navigate to next item</td>
                         </tr>
                         <tr>
-                            <td>ui-fieldset-nav-prev</td>
+                            <td>ui-galleria-nav-prev</td>
                             <td>Icon to navigate to previous item</td>
                         </tr>
                         <tr>
-                            <td>ui-fieldset-caption</td>
+                            <td>ui-galleria-caption</td>
                             <td>Caption element that displays title and description of an item</td>
                         </tr>
                     </tbody>
@@ -217,35 +183,31 @@ export class Model {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-galleria panelWidth="500" panelHeight="313"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="let image of images;#i = index;"&gt;
-            &lt;img src="showcase/resources/demo/images/galleria/{{image}}" alt="Description for Image {{i}}" title="Image {{i}}"/&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-galleria&gt;
-
-&lt;h3&gt;Custom Content&lt;/h3&gt;
-&lt;p-galleria panelWidth="500" panelHeight="313" customContent="customContent" [showCaption]="false"&gt;
-    &lt;ul&gt;
-        &lt;li *ngFor="let image of images;#i = index;"&gt;
-            &lt;img src="showcase/resources/demo/images/galleria/{{image}}" /&gt;
-            &lt;div&gt;
-                &lt;h2&gt;Content For Item {{i}}&lt;/h2&gt;
-            &lt;/div&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-galleria&gt;
+&lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"&gt;&lt;/p-galleria&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class GalleriaDemo {
-
-    images: string[] = ['galleria1.jpg', 'galleria2.jpg', 'galleria3.jpg', 'galleria4.jpg', 'galleria5.jpg', 'galleria6.jpg', 'galleria7.jpg', 'galleria8.jpg',
-        'galleria9.jpg', 'galleria10.jpg', 'galleria11.jpg', 'galleria12.jpg'];
+export class GalleriaDemo implements OnInit {
+    
+    images: any[];
+    
+    ngOnInit() {
+        this.images = [];
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria1.jpg', alt:'Description for Image 1', title:'Title 1'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria2.jpg', alt:'Description for Image 2', title:'Title 2'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria3.jpg', alt:'Description for Image 3', title:'Title 3'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria4.jpg', alt:'Description for Image 4', title:'Title 4'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria5.jpg', alt:'Description for Image 5', title:'Title 5'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria6.jpg', alt:'Description for Image 6', title:'Title 6'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria7.jpg', alt:'Description for Image 7', title:'Title 7'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria8.jpg', alt:'Description for Image 8', title:'Title 8'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria9.jpg', alt:'Description for Image 9', title:'Title 9'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria10.jpg', alt:'Description for Image 10', title:'Title 10'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria11.jpg', alt:'Description for Image 11', title:'Title 11'});
+        this.images.push({source:'showcase/resources/demo/images/galleria/galleria12.jpg', alt:'Description for Image 12', title:'Title 12'});
+    }
 }
 </code>
 </pre>

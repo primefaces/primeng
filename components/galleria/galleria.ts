@@ -33,7 +33,7 @@ import {DomHandler} from '../dom/domhandler';
 })
 export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     
-    @Input() images: GalleriaImage[];
+    @Input() images: any[];
     
     @Input() style: string;
 
@@ -113,6 +113,10 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
             this.stripWrapper = this.domHandler.findSingle(this.container,'div.ui-galleria-filmstrip-wrapper');
             this.strip = this.domHandler.findSingle(this.stripWrapper,'ul.ui-galleria-filmstrip');
         }
+        
+        if(this.images && this.images.length) {
+            this.render();
+        } 
     }
     
     render() {
@@ -224,10 +228,4 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         this.stopSlideshow();
     }
 
-}
-
-export interface GalleriaImage {
-    source: string;
-    alt?: any;
-    title?: any;
 }
