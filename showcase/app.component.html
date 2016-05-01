@@ -150,9 +150,9 @@
                     <img alt="logo" src="showcase/resources/images/menuicon.svg"/>
                 </a>
 
-                <a href="http://forum.primefaces.org/viewforum.php?f=35" class="PFTopLinks floatRight boldFont"><img alt="mockosx" src="showcase/resources/images/community.svg" /><span class="PFDarkText">Forum</span></a>
+                <a href="http://forum.primefaces.org/viewforum.php?f=35" class="PFTopLinks floatRight"><img alt="mockosx" src="showcase/resources/images/community.svg" /><span class="PFDarkText">Forum</span></a>
 
-                <span class="PFTopLinks floatRight boldFont cursorPointer" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
+                <span class="PFTopLinks floatRight cursorPointer" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
                     <img src="showcase/resources/images/themeswitcher.svg" /><span class="PFDarkText">Free Themes</span>
                     <div id="GlobalThemeSwitcher" class="navOverlay" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px">
                         <a href="#" data-theme="afterdark"  onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afterdark"></span><span class="ui-text">Afterdark</span></a>
@@ -195,7 +195,7 @@
                     </div>
                 </span>
                 
-                <span class="PFTopLinks floatRight boldFont cursorPointer" id="PremiumLayouts" (mouseenter)="premiumVisible = true" (mouseleave)="premiumVisible = false">
+                <span class="PFTopLinks floatRight cursorPointer" id="PremiumLayouts" (mouseenter)="premiumVisible = true" (mouseleave)="premiumVisible = false">
                     <img src="showcase/resources/images/layouts.svg" /><span class="PFDarkText">Premium</span>
                     <div id="PremiumLayoutsPanel" class="navOverlay" [style.display]="premiumVisible ? 'block' : 'none'" style="margin-top:10px">
                         <a href="http://www.primefaces.org/layouts/rio-primeng" target="_blank"><span class="ui-text">Rio</span></a>
@@ -205,11 +205,11 @@
                     </div>
                 </span>
 
-                <a href="setup.html" class="PFTopLinks floatRight boldFont hashed" [routerLink]="['Setup']"><img alt="mockosx" src="showcase/resources/images/setup.svg" /><span class="PFDarkText">Setup</span></a>
+                <a href="setup.html" class="PFTopLinks floatRight hashed" [routerLink]="['Setup']"><img alt="mockosx" src="showcase/resources/images/setup.svg" /><span class="PFDarkText">Setup</span></a>
 
                 <div class="mobileLogoCover">
                     <img src="showcase/resources/images/primengdark.svg" style="height:30px;" class="floatLeft marginRight10" />
-                    <span class="dispBlock logoDarkText fontSize18 floatRight" style="margin:-5px 0px 0px 5px;">PrimeNG <span class="dispBlock logoBlueText fontSize14 mediumFont">SHOWCASE</span></span>
+                    <span class="dispBlock logoDarkText fontSize18 floatRight" style="margin:-5px 0px 0px 5px;">PrimeNG <span class="dispBlock logoBlueText fontSize14">SHOWCASE</span></span>
                 </div>
             </div>
             <!-- header bar end-->
