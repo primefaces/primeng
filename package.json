@@ -5,7 +5,7 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
-    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" "
+    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" "
   },
   "repository": {
     "type": "git",
