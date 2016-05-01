@@ -1,38 +1,21 @@
 @charset "UTF-8";
 
 @font-face {
-    font-family: 'RobotoLight';
-    src: url("../fonts/roboto-light-webfont.eot");
-    src: url("../fonts/roboto-light-webfont.eot#iefix") format('embedded-opentype'),
-         url("../fonts/roboto-light-webfont.woff2") format('woff2'),
-         url("../fonts/roboto-light-webfont.woff") format('woff'),
-         url("../fonts/roboto-light-webfont.ttf") format('truetype'),
-         url("../fonts/roboto-light-webfont.svg#RobotoLight") format('svg');
-}
-
-@font-face {
-    font-family: 'RobotoRegular';
-    src: url("../fonts/roboto-regular-webfont.eot");
-    src: url("../fonts/roboto-regular-webfont.eot#iefix") format('embedded-opentype'),
-         url("../fonts/roboto-regular-webfont.woff2") format('woff2'),
-         url("../fonts/roboto-regular-webfont.woff") format('woff'),
-         url("../fonts/roboto-regular-webfont.ttf") format('truetype'),
-         url("../fonts/roboto-regular-webfont.svg#RobotoRegular") format('svg');
-}
-
-@font-face {
-    font-family: 'RobotoMedium';
-    src: url("../fonts/roboto-medium-webfont.eot");
-    src: url("../fonts/roboto-medium-webfont.eot#iefix") format('embedded-opentype'),
-         url("../fonts/roboto-medium-webfont.woff2") format('woff2'),
-         url("../fonts/roboto-medium-webfont.woff") format('woff'),
-         url("../fonts/roboto-medium-webfont.ttf") format('truetype'),
-         url("../fonts/roboto-medium-webfont.svg#RobotoMedium") format('svg');
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/roboto-v15-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('../fonts/roboto-v15-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/roboto-v15-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/roboto-v15-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/roboto-v15-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/roboto-v15-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
 }
 
 /*  ----------------------------------------------------------------------------------------------------- */
 
-body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#20272a; font-family: 'RobotoRegular', "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:normal;color:#404C51}
+body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#20272a; font-family: 'Roboto', "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:normal;color:#404C51}
 
 #LOGOTEXTSIDE{display:block;width:290px; float:left; height:auto; z-index:999; margin:-23px 0px 0px 0px; padding-top:25px; line-height:30px;}
 #LOGOTEXTSIDE img{width:245px;}
@@ -94,7 +77,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
     -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
 .PropertyBox img{width:60%;}
 .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:18px; margin-bottom:10px;}
-.PropertyBox .PropertyText{display:block; color:#414D52; font-size:14px; font-family:'RobotoRegular';}
+.PropertyBox .PropertyText{display:block; color:#414D52; font-size:14px; }
 
 .MOBILE .PropertyBox{width:27%; height:250px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
     -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
@@ -161,12 +144,6 @@ a{ text-decoration:none; outline:none;color: #25AAE1}
 .marginRight20{margin-right:20px;}
 .marginBottom20{margin-bottom:20px;}
 .marLefRigAuto{ margin-left:auto !important; margin-right:auto !important;}
-
-/*fonts*/
-.boldFont{font-family: 'RobotoMedium', "Trebuchet MS", Arial, Helvetica, sans-serif;}
-.boldItalicFont{font-family: 'RobotoRegular', "Trebuchet MS", Arial, Helvetica, sans-serif; font-style:italic;}
-.mediumFont{font-family: 'RobotoMedium', "Trebuchet MS", Arial, Helvetica, sans-serif;}
-.regularFont{font-family: 'RobotoRegular', "Trebuchet MS", Arial, Helvetica, sans-serif;}
 
 .bordersOfMenuSide{border-top:solid 1px #404a4e;}
 .hiddenIcons{opacity:0; filter:alpha(opacity=0);margin-left:-30px}
@@ -331,7 +308,6 @@ input.searchInput {
     background: none;
     border: 0 none;
     color: #5C666A;
-    font-family: 'RobotoLight', Arial, Helvetica, sans-serif;
     font-weight:lighter;
     -moz-border-radius: 4px !important;
     -webkit-border-radius: 4px !important;
