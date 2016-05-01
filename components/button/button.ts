@@ -83,7 +83,7 @@ export class Button implements AfterViewInit, OnDestroy {
     getStyleClass(): string {
         let styleClass = 'ui-button ui-widget ui-state-default ui-corner-all';
         if(this.icon) {
-            if(this.label) {
+            if(this.label != null && this.label != undefined) {
                 if(this.iconPos == 'left')
                     styleClass = styleClass + ' ui-button-text-icon-left';
                 else
@@ -107,7 +107,7 @@ export class Button implements AfterViewInit, OnDestroy {
     set label(val: string) {
         this._label = val;
         
-        if(this.initialized) {
+        if(this.initialized && this.label) {
             this.domHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label;
         }
     }
