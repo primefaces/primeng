@@ -107,7 +107,7 @@ export class Button implements AfterViewInit, OnDestroy {
     set label(val: string) {
         this._label = val;
         
-        if(this.initialized && this.label) {
+        if(this.initialized) {
             this.domHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label;
         }
     }
