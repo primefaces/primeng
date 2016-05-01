@@ -67,6 +67,7 @@ export * from './components/tabview/tabpanel';
 export * from './components/terminal/terminal';
 export * from './components/tieredmenu/tieredmenu';
 export * from './components/togglebutton/togglebutton';
+export * from './components/toolbar/toolbar';
 export * from './components/tree/tree';
 export * from './components/treetable/treetable';
 
