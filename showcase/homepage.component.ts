@@ -5,52 +5,53 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
     template: `
         <div class="ContentSideSections overHidden">
             <div class="Content33 floatLeft overHidden TextShadow">
-                <span class="defaultTopic mediumFont dispTable">PrimeNG</span>
-                <span class="defaultText dispTable">PrimeNG is a collection of rich UI components for AngularJS2. PrimeNG is a sibling of the popular JavaServer Faces Component Suite, <a href="http://www.primefaces.org">PrimeFaces</a>.</span>
+                <div class="defaultTopic">PrimeNG</div>
+                <div class="defaultText">PrimeNG is a collection of rich UI components for AngularJS2. PrimeNG is a sibling of the popular JavaServer Faces Component Suite, <a href="http://www.primefaces.org">PrimeFaces</a>.</div>
                 <br />
-                <span class="defaultText dispTable">All widgets are open source and free to use under Apache License 2.0, a commercial friendly license.</span>
+                <div class="defaultText">All widgets are open source and free to use under Apache License 2.0, a commercial friendly license.</div>
                 <br />
-                <span class="defaultText dispTable">PrimeNG is developed by <a href="http://www.primetek.com.tr">PrimeTek Informatics</a>, a company with years of expertise in developing open source UI components.
-                 For project news and updates, follow us on <a href="https://twitter.com/prime_ng">twitter.</a></span>
+                <div class="defaultText">PrimeNG is developed by <a href="http://www.primetek.com.tr">PrimeTek Informatics</a>, a company with years of expertise in developing open source UI components.
+                 For project news and updates, follow us on <a href="https://twitter.com/prime_ng">twitter.</a></div>
+                 <br />
                 <a [routerLink]="['Setup']" class="BigButton TextShadowNone YellowBtn"> <span class="floatLeft">Download</span> <img src="showcase/resources/images/btnArrow.svg" style="float:right"/></a>
                 <a href="https://github.com/primefaces/primeng" class="BigButton TextShadowNone OrangeBtn"> <span class="floatLeft">View on GitHub</span> <img src="showcase/resources/images/btnDocumenticon.svg" style="float:right"/></a>
             </div>
             <div class="Content66 floatRight overHidden">
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/ajaxFramework.svg" />
-                    <span class="PropertyTopic boldFont">PRIMEFACES UI</span>
-                    <span class="PropertyText mediumFont">Derived from the mighty PrimeFaces</span>
+                    <span class="PropertyTopic">PRIMEFACES UI</span>
+                    <span class="PropertyText">Derived from the mighty PrimeFaces</span>
                 </div>
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/components.svg" />
-                    <span class="PropertyTopic boldFont">WIDGETS</span>
-                    <span class="PropertyText mediumFont">60+ Components<br />Easy to Use<br />Accessible</span>
+                    <span class="PropertyTopic">WIDGETS</span>
+                    <span class="PropertyText">60+ Components<br />Easy to Use<br />Accessible</span>
                 </div>
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/productivity.svg" />
-                    <span class="PropertyTopic boldFont">PRODUCTIVITY</span>
-                    <span class="PropertyText mediumFont">Simple<br />Lightweight<br />Powerful</span>
+                    <span class="PropertyTopic">PRODUCTIVITY</span>
+                    <span class="PropertyText">Simple<br />Lightweight<br />Powerful</span>
                 </div>
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/mobile.svg" />
-                    <span class="PropertyTopic boldFont">MOBILE</span>
-                    <span class="PropertyText mediumFont">Responsive<br />Cross Browser<br />Touch Optimized</span>
+                    <span class="PropertyTopic">MOBILE</span>
+                    <span class="PropertyText">Responsive<br />Cross Browser<br />Touch Optimized</span>
                 </div>
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/community.svg"/>
-                    <span class="PropertyTopic boldFont">COMMUNITY</span>
-                    <span class="PropertyText mediumFont">Active<br />Vibrant<br />Open Source<br /></span>
+                    <span class="PropertyTopic">COMMUNITY</span>
+                    <span class="PropertyText">Active<br />Vibrant<br />Open Source<br /></span>
                 </div>
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/themeswitcher.svg" />
-                    <span class="PropertyTopic boldFont">THEMES</span>
-                    <span class="PropertyText mediumFont">35+ Free Themes<br />Premium Themes<br />Theme Creator Tool<br /></span>
+                    <span class="PropertyTopic">THEMES</span>
+                    <span class="PropertyText">35+ Free Themes<br />Premium Themes<br />Theme Creator Tool<br /></span>
                 </div>
             </div>
         </div>
 
         <div class="ContentSideSections overHidden PFLayouts">
-            <span class="dispBlock logoBlueText fontSize30 mediumFont">Premium Layouts and Themes for PrimeNG</span>
+            <div class="logoBlueText fontSize30">Premium Layouts and Themes for PrimeNG</div>
             <p class="defaultText" style="margin-bottom:10px">Create awesome applications in no time, impress your users.</p>
             <div style="padding:30px">
                 <div class="Content50 floatLeft overHidden">
@@ -69,7 +70,7 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
         </div>
         
         <div class="ContentSideSections overHidden defaultText">
-            <span class="dispBlock logoBlueText fontSize30 mediumFont">PrimeNG PRO Support</span>
+            <span class="dispBlock logoBlueText fontSize30">PrimeNG PRO Support</span>
             <p class="defaultText" style="margin-bottom:10px">With PrimeNG PRO, it's easy to support, tune and add features to PrimeNG as if it were an in-house framework.</p>
             <p class="defaultText" style="margin-bottom:10px">PrimeNG PRO is a term based commercial support service. With the exclusive services of Pro account, 
                             you no longer need to post your questions in the community forum and your issues to community issue tracker.</p>

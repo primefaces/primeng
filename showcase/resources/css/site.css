@@ -77,7 +77,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
     -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
 .PropertyBox img{width:60%;}
 .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:18px; margin-bottom:10px;}
-.PropertyBox .PropertyText{display:block; color:#414D52; font-size:14px; }
+.PropertyBox .PropertyText{display:block; color:#414D52; font-size:14px; line-height: 22px;}
 
 .MOBILE .PropertyBox{width:27%; height:250px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
     -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
@@ -166,7 +166,7 @@ a{ text-decoration:none; outline:none;color: #25AAE1}
 .Content100{width:100%;}
 
 /* general text styles */
-.defaultText{font-size:16px; color:#404C51;}
+.defaultText{font-size:16px; color:#404C51; line-height: 24px;}
 .defaultTopic{font-size:46px; color:#DB2226; line-height:46px; padding:10px 0px 10px 0px;}
 
 /* buttons */
@@ -264,7 +264,9 @@ input.searchInput {
 
 .Source p {
     font-size: 16px;
+    line-height: 24px;
     margin: 10px 0;
+    opacity: .90;
 }
 .Source .doc-tablewrapper {
     margin: 10px 0;
@@ -293,6 +295,7 @@ input.searchInput {
     padding: 4px 10px;
     border: 1px solid #E5EBF0;
     font-size: 16px;
+    opacity: .90;
 }
 
 .doc-table tbody tr:nth-child(even) {
