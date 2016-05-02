@@ -281,7 +281,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.documentResponsiveListener();
         }
         
-        if(this.closeOnEscape) {
+        if(this.closeOnEscape && this.closable) {
             this.documentEscapeListener();
         }
     }
