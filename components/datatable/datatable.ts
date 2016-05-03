@@ -152,7 +152,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Input() rowsPerPageOptions: number[];
 
     @Input() responsive: boolean;
-    
+
     @Input() stacked: boolean;
 
     @Input() selectionMode: string;
@@ -162,7 +162,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() editable: boolean;
-    
+
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
@@ -170,7 +170,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
     @Input() filterDelay: number = 300;
@@ -212,9 +212,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Input() sortOrder: number;
 
     @Input() multiSortMeta: SortMeta[];
-    
+
     @Input() contextMenu: any;
-    
+
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
@@ -222,19 +222,19 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Output() onEdit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onPage: EventEmitter<any> = new EventEmitter();
-        
+
     @Output() onSort: EventEmitter<any> = new EventEmitter();
-            
+
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
-    
+
     @Input() expandableRows: boolean;
-    
+
     rowExpansionTemplate: TemplateRef;
 
     private dataToRender: any[];
@@ -252,11 +252,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private columns: Column[];
 
     private columnsUpdated: boolean = false;
-    
+
     private sortByDefault: boolean;
-    
+
     private sortColumn: Column;
-    
+
     private expandedRows: any[];
 
     differ: any;
@@ -265,14 +265,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     preventBlurOnEdit: boolean;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, 
-        @Query(Column) cols: QueryList<Column>, @Query(TemplateRef) rowExpansionTmpl: QueryList<TemplateRef>, private renderer: Renderer) {
+    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers,
+                @Query(Column) cols: QueryList<Column>, @Query(TemplateRef) rowExpansionTmpl: QueryList<TemplateRef>, private renderer: Renderer) {
         this.differ = differs.find([]).create(null);
         cols.changes.subscribe(_ => {
             this.columns = cols.toArray();
             this.columnsUpdated = true;
         });
-        
+
         rowExpansionTmpl.changes.subscribe(_ => {
             this.rowExpansionTemplate = rowExpansionTmpl.first
         });
@@ -334,7 +334,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
             if(!this.lazy && this.sortByDefault) {
                 this.sortByDefault = false;
-                
+
                 if(this.sortMode == 'single')
                     this.sortSingle();
                 else if(this.sortMode == 'multiple')
@@ -381,7 +381,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         else
             this.updateDataToRender(this.filteredValue||this.value);
-        
+
         this.onPage.emit({
             first: this.first,
             rows: this.rows
@@ -431,7 +431,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 this.sortSingle();
             }
         }
-        
+
         this.onSort.emit({
             field: this.sortField,
             order: this.sortOrder,
@@ -461,7 +461,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                     return (this.sortOrder * result);
                 });
             }
-            
+
             this.first = 0;
 
             if(this.hasFilter()) {
@@ -558,13 +558,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     handleRowClick(event, rowData) {
         this.onRowClick.next({originalEvent: event, data: rowData});
-        
+
         if(!this.selectionMode) {
             return;
         }
-        
+
         let targetNode = event.target.nodeName;
-        if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' 
+        if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A'
             || (this.domHandler.hasClass(event.target, 'ui-c'))) {
             return;
         }
@@ -573,7 +573,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         let selected = selectionIndex != -1;
         let metaKey = (event.metaKey||event.ctrlKey);
 
-        if(selected && metaKey) {
+        if((selected && metaKey) || (selected && this.isMultipleNoMetaSelectionMode())) {
             if(this.isSingleSelectionMode()) {
                 this.selection = null;
                 this.selectionChange.emit(null);
@@ -595,16 +595,20 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 this.selection.push(rowData);
                 this.selectionChange.emit(this.selection);
             }
-
+            else if(this.isMultipleNoMetaSelectionMode()) {
+                this.selection = this.selection || [];
+                this.selection.push(rowData);
+                this.selectionChange.emit(this.selection);
+            }
             this.onRowSelect.emit({originalEvent: event, data: rowData});
         }
     }
-    
+
     onRowRightClick(event, rowData) {
         if(this.contextMenu) {
             let selectionIndex = this.findIndexInSelection(rowData);
             let selected = selectionIndex != -1;
-            
+
             if(!selected) {
                 if(this.isSingleSelectionMode()) {
                     this.selection = rowData;
@@ -617,7 +621,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 }
             }
 
-            this.contextMenu.show(event);            
+            this.contextMenu.show(event);
             this.onContextMenuSelect.emit({originalEvent: event, data: rowData});
         }
     }
@@ -634,6 +638,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         return this.selectionMode === 'multiple';
     }
 
+    isMultipleNoMetaSelectionMode() {
+        return this.selectionMode === 'multipleNoMeta';
+    }
+
     findIndexInSelection(rowData: any) {
         let index: number = -1;
 
@@ -641,7 +649,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             if(this.isSingleSelectionMode()) {
                 index = (this.selection == rowData) ? 0 : - 1;
             }
-            else if(this.isMultipleSelectionMode()) {
+            else if(this.isMultipleSelectionMode() || this.isMultipleNoMetaSelectionMode()) {
                 for(let i = 0; i  < this.selection.length; i++) {
                     if(this.selection[i] == rowData) {
                         index = i;
@@ -672,7 +680,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     filter() {
         this.first = 0;
-        
+
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -685,14 +693,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
                 for(let j = 0; j < this.columns.length; j++) {
                     let col = this.columns[j],
-                    filterMeta = this.filters[col.field];
+                        filterMeta = this.filters[col.field];
 
                     //local
                     if(filterMeta) {
                         let filterValue = filterMeta.value,
-                        filterField = col.field,
-                        filterMatchMode = filterMeta.matchMode||'startsWith',
-                        dataFieldValue = this.resolveFieldData(this.value[i], filterField);
+                            filterField = col.field,
+                            filterMatchMode = filterMeta.matchMode||'startsWith',
+                            dataFieldValue = this.resolveFieldData(this.value[i], filterField);
 
                         let filterConstraint = this.filterConstraints[filterMatchMode];
 
@@ -731,7 +739,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
             this.updateDataToRender(this.filteredValue||this.value);
         }
-        
+
         this.onFilter.emit({
             filters: this.filters
         });
@@ -918,20 +926,20 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             multiSortMeta: this.multiSortMeta
         };
     }
-    
+
     toggleRow(row: any) {
         if(!this.expandedRows) {
             this.expandedRows = [];
         }
-        
+
         let expandedRowIndex = this.findExpandedRowIndex(row);
-        
+
         if(expandedRowIndex != -1)
             this.expandedRows.splice(expandedRowIndex, 1);
         else
             this.expandedRows.push(row);
     }
-    
+
     findExpandedRowIndex(row: any): number {
         let index = -1
         if(this.expandedRows) {
@@ -944,15 +952,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         }
         return index;
     }
-    
+
     isRowExpanded(row) {
         return this.findExpandedRowIndex(row) != -1;
     }
-    
+
     public reset() {
         this.sortField = null;
         this.sortOrder = null;
-        
+
         this.filteredValue = null;
         this.filters = {};
 

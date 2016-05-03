@@ -38,6 +38,21 @@
         </footer>
     </p-dataTable>
 
+    <h3>Multiple no metaKey</h3>
+    <p>In Multiple no metaKey mode, multiple rows can be selected on click event of a row without the use of metaKey</p>
+    <p-dataTable [value]="cars" selectionMode="multipleNoMeta" [(selection)]="selectedCars">
+        <header>Multiple without metaKey Selection</header>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
+        <footer>
+            <ul>
+                <li *ngFor="let car of selectedCars" style="text-align: left">{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}</li>
+            </ul>
+        </footer>
+    </p-dataTable>
+
     <h3>Events</h3>
     <p>DataTable provides onRowSelect and onRowUnselect as optional callbacks.</p>
     <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
@@ -54,7 +69,7 @@
         <p-tabPanel header="datatableselectiondemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableSelectionDemo implements OnInit {
+    export class DataTableSelectionDemo implements OnInit {
 
     msgs: Message[];
 
@@ -69,63 +84,78 @@ export class DataTableSelectionDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+    this.carService.getCarsSmall().then(cars => this.cars = cars);
     }
 
     onRowSelect(event) {
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Car Selected', detail: event.data.vin + ' - ' + event.data.brand});
+    this.msgs = [];
+    this.msgs.push({severity: 'info', summary: 'Car Selected', detail: event.data.vin + ' - ' + event.data.brand});
     }
 
     onRowUnselect(event) {
-        this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Car Unselected', detail: event.data.vin + ' - ' + event.data.brand});
+    this.msgs = [];
+    this.msgs.push({severity: 'info', summary: 'Car Unselected', detail: event.data.vin + ' - ' + event.data.brand});
     }
-}
+    }
 </code>
-</pre>            
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="datatableselectiondemo.html">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+    &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p&gt;In single mode, a row is selected on click event of a row, if the metaKey is on and row is already selected then the row gets unselected.&lt;/p&gt;
-&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar1"&gt;
+    &lt;h3 class="first"&gt;Single&lt;/h3&gt;
+    &lt;p&gt;In single mode, a row is selected on click event of a row, if the metaKey is on and row is already selected then the row gets unselected.&lt;/p&gt;
+    &lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar1"&gt;
     &lt;header&gt;Single Selection&lt;/header&gt;
     &lt;footer&gt;&lt;div style="text-align: left"&gt;Selected Car: {{selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'}}&lt;/div&gt;&lt;/footer&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
-&lt;/p-dataTable&gt;
+    &lt;/p-dataTable&gt;
 
-&lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p&gt;&lt;/p&gt;
-&lt;p-dataTable [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
+    &lt;h3&gt;Multiple&lt;/h3&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p-dataTable [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
     &lt;header&gt;Multiple Selection&lt;/header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;footer&gt;
-        &lt;ul&gt;
-            &lt;li *ngFor="let car of selectedCars" style="text-align: left"&gt;{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}&lt;/li&gt;
-        &lt;/ul&gt;
+    &lt;ul&gt;
+    &lt;li *ngFor="let car of selectedCars" style="text-align: left"&gt;{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}&lt;/li&gt;
+    &lt;/ul&gt;
     &lt;/footer&gt;
-&lt;/p-dataTable&gt;
+    &lt;/p-dataTable&gt;
 
-&lt;h3&gt;Events&lt;/h3&gt;
-&lt;p&gt;DataTable provides onRowSelect and onRowUnselect as optional callbacks.&lt;/p&gt;
-&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"&gt;
+    &lt;h3&gt;Multiple no metaKey&lt;/h3&gt;
+    &lt;p&gt;In Multiple no metaKey mode, multiple rows can be selected on click event of a row without the use of metaKey&lt;/p&gt;
+    &lt;p-dataTable [value]="cars" selectionMode="multipleNoMeta" [(selection)]="selectedCars"&gt;
+    &lt;header&gt;Multiple Selection&lt;/header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+    &lt;footer&gt;
+    &lt;ul&gt;
+    &lt;li *ngFor="let car of selectedCars" style="text-align: left"&gt;{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/footer&gt;
+    &lt;/p-dataTable&gt;
+
+    &lt;h3&gt;Events&lt;/h3&gt;
+    &lt;p&gt;DataTable provides onRowSelect and onRowUnselect as optional callbacks.&lt;/p&gt;
+    &lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"&gt;
     &lt;header&gt;Selection with Events&lt;/header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
-&lt;/p-dataTable&gt;
+    &lt;/p-dataTable&gt;
 </code>
 </pre>
         </p-tabPanel>
