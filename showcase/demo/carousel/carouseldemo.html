@@ -11,7 +11,7 @@
 
     <p-carousel headerText="Cars" [value]="cars">
         <template let-car>
-            <li>
+            <li class="ui-carousel-item ui-widget-content ui-corner-all">
                 <div class="ui-grid ui-grid-responsive">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12"><img src="showcase/resources/demo/images/car/{{car.brand}}.gif" /></div>
@@ -38,6 +38,7 @@
         </template>
     </p-carousel>
     
+    <button type="button" (click)="update()">Change</button>
 </div>
 
 <div class="ContentSideSections Source">
