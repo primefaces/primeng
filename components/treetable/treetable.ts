@@ -1,4 +1,4 @@
-import {Component,Input,Output,EventEmitter,ElementRef,ContentChild,IterableDiffers,ContentChildren,QueryList} from 'angular2/core';
+import {Component,Input,Output,EventEmitter,ElementRef,ContentChild,IterableDiffers,ContentChildren,QueryList} from '@angular/core';
 import {TreeNode} from '../api/treenode';
 import {UITreeRow} from './uitreerow';
 import {Column} from '../column/column';

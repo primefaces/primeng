@@ -1,4 +1,4 @@
-import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'p-paginator',

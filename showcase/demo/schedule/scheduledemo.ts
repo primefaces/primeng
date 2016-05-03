@@ -1,5 +1,5 @@
-import {Component,OnInit,ChangeDetectorRef} from 'angular2/core';
-import {HTTP_PROVIDERS}    from 'angular2/http';
+import {Component,OnInit,ChangeDetectorRef} from '@angular/core';
+import {HTTP_PROVIDERS}    from '@angular/http';
 import {Schedule} from '../../../components/schedule/schedule';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
@@ -10,7 +10,7 @@ import {InputText} from '../../../components/inputtext/inputtext';
 import {Dialog} from '../../../components/dialog/dialog';
 import {Checkbox} from '../../../components/checkbox/checkbox';
 import {EventService} from '../service/eventservice';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 @Component({
     templateUrl: 'showcase/demo/schedule/scheduledemo.html',

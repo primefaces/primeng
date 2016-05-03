@@ -1,4 +1,4 @@
-import {Directive,ElementRef,HostListener,Input,OnInit} from 'angular2/core';
+import {Directive,ElementRef,HostListener,Input,OnInit} from '@angular/core';
 
 @Directive({
     selector: '[pInputTextarea]',

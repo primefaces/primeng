@@ -1,5 +1,5 @@
-import {Component,OnInit} from 'angular2/core';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component,OnInit} from '@angular/core';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {DataTable} from '../../../components/datatable/datatable';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';

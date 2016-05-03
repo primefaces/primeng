@@ -1,4 +1,4 @@
-import {Component,ElementRef,DoCheck,Input,Output,ContentChild,TemplateRef,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,DoCheck,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
 
@@ -42,7 +42,7 @@ export class OrderList {
     
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
         
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
             

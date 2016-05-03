@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {LineChart} from '../../../../components/chart/linechart/linechart';
 import {CodeHighlighter} from '../../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../../components/tabview/tabview';
@@ -6,7 +6,7 @@ import {TabPanel} from '../../../../components/tabview/tabpanel';
 import {Growl} from '../../../../components/growl/growl';
 import {Button} from '../../../../components/button/button';
 import {Message} from '../../../../components/api/message';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 @Component({
     templateUrl: 'showcase/demo/chart/linechart/linechartdemo.html',

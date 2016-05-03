@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,DoCheck,Input,Output,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,DoCheck,Input,Output,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
 import {Header} from '../common/header';
 import {Footer} from '../common/footer';
 
@@ -22,6 +22,6 @@ export class Column {
     @Input() hidden: boolean;
     @Input() expander: boolean;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
-    @ContentChild(TemplateRef) template: TemplateRef;
+    @ContentChild(TemplateRef) template: TemplateRef<any>;
     
 }

@@ -1,14 +1,11 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider,NgZone} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider,NgZone} from '@angular/core';
 import {Button} from '../button/button';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
-import {CONST_EXPR} from 'angular2/src/facade/lang';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
 
-const CALENDAR_VALUE_ACCESSOR: Provider = CONST_EXPR(
-    new Provider(NG_VALUE_ACCESSOR, {
-        useExisting: forwardRef(() => Calendar),
-        multi: true
-    })
-);
+const CALENDAR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
+    useExisting: forwardRef(() => Calendar),
+    multi: true
+});
 
 @Component({
     selector: 'p-calendar',

@@ -1,4 +1,4 @@
-import {Directive,ElementRef,HostListener,Input,Output,EventEmitter} from 'angular2/core';
+import {Directive,ElementRef,HostListener,Input,Output,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Directive({

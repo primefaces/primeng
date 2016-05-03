@@ -1,4 +1,4 @@
-import {Directive,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input} from 'angular2/core';
+import {Directive,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Directive({

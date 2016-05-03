@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,DoCheck,Input,Output,EventEmitter,ContentChild,IterableDiffers,TemplateRef,ViewContainerRef} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,DoCheck,Input,Output,EventEmitter,ContentChild,IterableDiffers,TemplateRef,ViewContainerRef} from '@angular/core';
 import {Header} from '../common/header';
 import {Footer} from '../common/footer';
 
@@ -17,9 +17,10 @@ export class ColumnTemplateLoader {
     constructor(private viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.column.template);
-        view.setLocal('\$implicit', this.column);
-        view.setLocal('rowData', this.rowData);
-        view.setLocal('rowIndex', this.rowIndex);
+        let view = this.viewContainer.createEmbeddedView(this.column.template, {
+            '\$implicit': this.column,
+            'rowData': this.rowData,
+            'rowIndex': this.rowIndex
+        });
     }
 }

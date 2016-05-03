@@ -1,4 +1,4 @@
-import {Component,OnInit} from 'angular2/core';
+import {Component,OnInit} from '@angular/core';
 import {Messages} from '../../../components/messages/messages';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
@@ -7,7 +7,7 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 import {SelectItem} from '../../../components/api/selectitem';
 import {Message} from '../../../components/api/message';
 import {Growl} from '../../../components/growl/growl';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 @Component({
     templateUrl: 'showcase/demo/progressbar/progressbardemo.html',

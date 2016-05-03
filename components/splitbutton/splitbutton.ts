@@ -1,8 +1,8 @@
-import {Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from 'angular2/core';
+import {Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from '@angular/core';
 import {SplitButtonItem} from './splitbuttonitem';
 import {DomHandler} from '../dom/domhandler';
-import {Router,RouteConfig,ROUTER_DIRECTIVES} from 'angular2/router';
-import {Location} from 'angular2/platform/common';
+import {Router,RouteConfig,ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'p-splitButton',

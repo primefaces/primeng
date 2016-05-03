@@ -1,4 +1,4 @@
-import {Component,AfterViewInit,AfterViewChecked,Input,Output,EventEmitter,Query,QueryList,ElementRef} from 'angular2/core';
+import {Component,AfterViewInit,AfterViewChecked,Input,Output,EventEmitter,Query,QueryList,ElementRef} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({

@@ -1,9 +1,9 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {Calendar} from '../../../components/calendar/calendar';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 @Component({
     templateUrl: 'showcase/demo/calendar/calendardemo.html',

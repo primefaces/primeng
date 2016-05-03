@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
 import {Header} from '../common/header';
 import {Footer} from '../common/footer';
 import {Paginator} from '../paginator/paginator';
@@ -50,7 +50,7 @@ export class DataGrid implements AfterViewInit,DoCheck {
 
     @ContentChild(Footer) footer;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
     private dataToRender: any[];
 

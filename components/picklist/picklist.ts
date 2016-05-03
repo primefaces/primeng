@@ -1,4 +1,4 @@
-import {Component,ElementRef,OnDestroy,DoCheck,Input,Output,ContentChild,TemplateRef} from 'angular2/core';
+import {Component,ElementRef,OnDestroy,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
 
@@ -69,7 +69,7 @@ export class PickList implements OnDestroy {
 
     @Input() targetStyle: string;
 
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
 

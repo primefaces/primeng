@@ -1,16 +1,13 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,Renderer,forwardRef,Provider} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,Renderer,forwardRef,Provider} from '@angular/core';
 import {InputText} from '../inputtext/inputtext';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
-import {CONST_EXPR} from 'angular2/src/facade/lang';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
 
-const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = CONST_EXPR(
-    new Provider(NG_VALUE_ACCESSOR, {
-        useExisting: forwardRef(() => AutoComplete),
-        multi: true
-    })
-);
+const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
+    useExisting: forwardRef(() => AutoComplete),
+    multi: true
+});
 
 @Component({
     selector: 'p-autoComplete',
@@ -87,7 +84,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     @Input() multiple: boolean;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
     
     value: any;
     

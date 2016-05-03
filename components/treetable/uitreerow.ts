@@ -1,4 +1,4 @@
-import {Component,Input,Output,EventEmitter,Inject,forwardRef,Host} from 'angular2/core';
+import {Component,Input,Output,EventEmitter,Inject,forwardRef,Host} from '@angular/core';
 import {TreeTable} from './treetable';
 import {TreeNode} from '../api/treenode';
 import {ColumnTemplateLoader} from '../column/columntemplateloader';
@@ -7,7 +7,7 @@ import {ColumnTemplateLoader} from '../column/columntemplateloader';
     selector: '[pTreeRow]',
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-hover':hover&&treeTable.selectionMode,'ui-state-highlight':isSelected(node)}">
-            <td *ngFor="let col of treeTable.columns; #i=index" [attr.style]="col.style" [class]="col.styleClass"
+            <td *ngFor="let col of treeTable.columns; let i=index" [attr.style]="col.style" [class]="col.styleClass"
                 (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onRowClick($event)">
                 <span *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':expanded,'fa-caret-right':!expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"

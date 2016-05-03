@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,Renderer,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,Renderer,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
 import {Header} from '../common/header';
 import {Footer} from '../common/footer';
 import {DomHandler} from '../dom/domhandler';
@@ -46,7 +46,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
 
     @ContentChild(Footer) footer;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
     
     @Input() loader: any;
 

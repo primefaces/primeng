@@ -5,15 +5,30 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
-    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" "
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" "
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/primefaces/primeng.git"
   },
   "license": "Apache-2.0",
-  "peerDependencies": {
-    "angular2": "2.0.0-beta.17",
+  "dependencies": {
+    "@angular/common":  "2.0.0-rc.0",
+    "@angular/compiler":  "2.0.0-rc.0",
+    "@angular/core":  "2.0.0-rc.0",
+    "@angular/http":  "2.0.0-rc.0",
+    "@angular/platform-browser":  "2.0.0-rc.0",
+    "@angular/platform-browser-dynamic":  "2.0.0-rc.0",
+    "@angular/router-deprecated":  "2.0.0-rc.0",
+    "@angular/upgrade":  "2.0.0-rc.0",
+
+    "systemjs": "0.19.27",
+    "es6-shim": "^0.35.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "5.0.0-beta.6",
+    "zone.js": "^0.6.12",
+
+    "angular2-in-memory-web-api": "0.0.5",
     "primeui": "4.1.9"
   },
   "devDependencies": {

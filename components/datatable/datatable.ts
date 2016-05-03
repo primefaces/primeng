@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef} from '@angular/core';
 import {Column} from '../column/column';
 import {ColumnTemplateLoader} from '../column/columntemplateloader';
 import {RowExpansionLoader} from './rowexpansionloader';
@@ -235,8 +235,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     @Input() expandableRows: boolean;
     
-    rowExpansionTemplate: TemplateRef;
-
+    @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
+    
     private dataToRender: any[];
 
     private first: number = 0;
@@ -266,15 +266,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     preventBlurOnEdit: boolean;
 
     constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, 
-        @Query(Column) cols: QueryList<Column>, @Query(TemplateRef) rowExpansionTmpl: QueryList<TemplateRef>, private renderer: Renderer) {
+        @Query(Column) cols: QueryList<Column>, private renderer: Renderer) {
         this.differ = differs.find([]).create(null);
         cols.changes.subscribe(_ => {
             this.columns = cols.toArray();
             this.columnsUpdated = true;
-        });
-        
-        rowExpansionTmpl.changes.subscribe(_ => {
-            this.rowExpansionTemplate = rowExpansionTmpl.first
         });
     }
 

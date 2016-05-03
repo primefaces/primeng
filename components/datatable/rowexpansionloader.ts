@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,DoCheck,Input,Output,EventEmitter,ContentChild,IterableDiffers,TemplateRef,ViewContainerRef} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,DoCheck,Input,Output,EventEmitter,ContentChild,IterableDiffers,TemplateRef,ViewContainerRef} from '@angular/core';
 import {Header} from '../common/header';
 import {Footer} from '../common/footer';
 
@@ -8,14 +8,15 @@ import {Footer} from '../common/footer';
 })
 export class RowExpansionLoader {
         
-    @Input() template: TemplateRef;
+    @Input() template: TemplateRef<any>;
     
     @Input() rowData: any;
     
     constructor(private viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.template);
-        view.setLocal('\$implicit', this.rowData);
+        let view = this.viewContainer.createEmbeddedView(this.template, {
+            '\$implicit': this.rowData
+        });
     }
 }

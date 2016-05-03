@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
 import {SelectItem} from '../api/selectitem';
 
 @Component({

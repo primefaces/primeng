@@ -1,11 +1,11 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {AutoComplete} from '../../../components/autocomplete/autocomplete';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {CountryService} from '../service/countryservice';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
-import {HTTP_PROVIDERS}    from 'angular2/http';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {HTTP_PROVIDERS}    from '@angular/http';
 
 @Component({
     templateUrl: 'showcase/demo/autocomplete/autocompletedemo.html',

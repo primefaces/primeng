@@ -1,15 +1,12 @@
-import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef,Provider} from 'angular2/core';
+import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef,Provider} from '@angular/core';
 import {SelectItem} from '../api/selectitem';
 import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
-import {CONST_EXPR} from 'angular2/src/facade/lang';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
 
-const DROPDOWN_VALUE_ACCESSOR: Provider = CONST_EXPR(
-    new Provider(NG_VALUE_ACCESSOR, {
-        useExisting: forwardRef(() => Dropdown),
-        multi: true
-    })
-);
+const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
+    useExisting: forwardRef(() => Dropdown),
+    multi: true
+});
 
 @Component({
     selector: 'p-dropdown',
@@ -70,7 +67,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     @Input() required: boolean;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);

@@ -1,4 +1,4 @@
-import {Component,Input,Output,EventEmitter,ContentChild,TemplateRef} from 'angular2/core';
+import {Component,Input,Output,EventEmitter,ContentChild,TemplateRef} from '@angular/core';
 import {TreeNode} from '../api/treenode';
 import {UITreeNode} from './uitreenode';
 
@@ -35,7 +35,7 @@ export class Tree {
         
     @Input() styleClass: string;
     
-    @ContentChild(TemplateRef) template: TemplateRef;
+    @ContentChild(TemplateRef) template: TemplateRef<any>;
     
     onNodeClick(event, node) {
         if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {

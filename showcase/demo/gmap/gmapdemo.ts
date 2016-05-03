@@ -1,4 +1,4 @@
-import {Component,OnInit} from 'angular2/core';
+import {Component,OnInit} from '@angular/core';
 import {GMap} from '../../../components/gmap/gmap';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
@@ -10,7 +10,7 @@ import {Checkbox} from '../../../components/checkbox/checkbox';
 import {InputText} from '../../../components/inputtext/inputtext';
 import {Footer} from '../../../components/common/footer';
 import {Message} from '../../../components/api/message';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 declare var google: any;
 

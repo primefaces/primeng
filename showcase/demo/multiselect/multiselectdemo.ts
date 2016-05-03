@@ -1,11 +1,11 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {MultiSelect} from '../../../components/multiselect/multiselect';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
 import {SelectItem} from '../../../components/api/selectitem';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 @Component({
     templateUrl: 'showcase/demo/multiselect/multiselectdemo.html',

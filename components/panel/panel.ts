@@ -1,4 +1,4 @@
-import {Component,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,Input,Output,EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'p-panel',

@@ -1,4 +1,4 @@
-import {Component,Input,ContentChild} from 'angular2/core';
+import {Component,Input,ContentChild} from '@angular/core';
 import {Accordion} from './accordion';
 import {Header} from '../common/header'
 

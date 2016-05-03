@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,Output,IterableDiffers,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,Output,IterableDiffers,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({

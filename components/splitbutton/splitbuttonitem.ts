@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'p-splitButtonItem',

@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterContentInit,Input,Output,EventEmitter} from 'angular2/core';
+import {Component,ElementRef,AfterContentInit,Input,Output,EventEmitter} from '@angular/core';
 import {AccordionTab} from './accordiontab';
 
 @Component({

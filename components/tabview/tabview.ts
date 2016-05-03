@@ -1,4 +1,4 @@
-import {Component,ElementRef,Input,Output,EventEmitter,Query,QueryList} from 'angular2/core';
+import {Component,ElementRef,Input,Output,EventEmitter,Query,QueryList} from '@angular/core';
 import {TabPanel} from './tabpanel';
 
 @Component({

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit} from 'angular2/core';
+import {Directive, ElementRef, OnInit} from '@angular/core';
 
 declare var Prism: any;
 

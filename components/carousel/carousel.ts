@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,OnChanges,Input,Output,SimpleChange,IterableDiffers,EventEmitter,TemplateRef,ContentChild,NgZone} from 'angular2/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,OnChanges,Input,Output,SimpleChange,IterableDiffers,EventEmitter,TemplateRef,ContentChild,NgZone} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -53,7 +53,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,DoCheck{
 
     @Input() styleClass: string;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef;
+    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
     
     private dataToRender: any[];
     

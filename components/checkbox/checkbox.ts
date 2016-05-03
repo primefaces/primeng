@@ -1,13 +1,10 @@
-import {Component,Input,Output,EventEmitter,forwardRef,Provider} from 'angular2/core';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
-import {CONST_EXPR} from 'angular2/src/facade/lang';
+import {Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
 
-const CHECKBOX_VALUE_ACCESSOR: Provider = CONST_EXPR(
-    new Provider(NG_VALUE_ACCESSOR, {
-        useExisting: forwardRef(() => Checkbox),
-        multi: true
-    })
-);
+const CHECKBOX_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
+    useExisting: forwardRef(() => Checkbox),
+    multi: true
+});
 
 @Component({
     selector: 'p-checkbox',

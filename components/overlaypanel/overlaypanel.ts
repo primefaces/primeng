@@ -1,4 +1,4 @@
-import {Component,Input,Output,OnInit,OnDestroy,EventEmitter,Renderer,ElementRef} from 'angular2/core';
+import {Component,Input,Output,OnInit,OnDestroy,EventEmitter,Renderer,ElementRef} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({

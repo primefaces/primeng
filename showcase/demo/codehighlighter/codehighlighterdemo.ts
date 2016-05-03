@@ -1,8 +1,8 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {TabView} from '../../../components/tabview/tabview';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 @Component({
     template: `
@@ -64,7 +64,7 @@ function initMap() {
             <h3>Typescript</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Directive, ElementRef, OnInit} from 'angular2/core';
+import {Directive, ElementRef, OnInit} from '@angular/core';
 
 declare var Prism: any;
 

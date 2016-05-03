@@ -1,8 +1,8 @@
-import {Component,OnInit} from 'angular2/core';
+import {Component,OnInit} from '@angular/core';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {InputText} from '../../../components/inputtext/inputtext';
 import {InputTextarea} from '../../../components/inputtextarea/inputtextarea';
 import {Button} from '../../../components/button/button';
@@ -35,7 +35,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 import {NodeService} from '../service/nodeservice';
 import {CountryService} from '../service/countryservice';
-import {HTTP_PROVIDERS}    from 'angular2/http';
+import {HTTP_PROVIDERS}    from '@angular/http';
 
 @Component({
     templateUrl: 'showcase/demo/responsive/responsivedemo.html',

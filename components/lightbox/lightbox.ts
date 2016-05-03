@@ -1,4 +1,4 @@
-import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, SimpleChange, Output, EventEmitter} from 'angular2/core';
+import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, SimpleChange, Output, EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'p-lightbox',

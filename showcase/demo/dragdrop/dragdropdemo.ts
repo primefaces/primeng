@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {Draggable} from '../../../components/dragdrop/draggable';
 import {Droppable} from '../../../components/dragdrop/droppable';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
@@ -10,8 +10,8 @@ import {Car} from '../domain/car';
 import {Column} from '../../../components/column/column';
 import {DataTable} from '../../../components/datatable/datatable';
 import {CarService} from '../service/carservice';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
-import {HTTP_PROVIDERS}    from 'angular2/http';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {HTTP_PROVIDERS}    from '@angular/http';
 
 @Component({
     templateUrl: 'showcase/demo/dragdrop/dragdropdemo.html',

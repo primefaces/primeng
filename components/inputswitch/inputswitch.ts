@@ -1,14 +1,11 @@
-import {Component,ElementRef,AfterViewInit,OnChanges,Input,forwardRef,Provider,EventEmitter,Output} from 'angular2/core';
-import {NG_VALUE_ACCESSOR,ControlValueAccessor} from 'angular2/common';
+import {Component,ElementRef,AfterViewInit,OnChanges,Input,forwardRef,Provider,EventEmitter,Output} from '@angular/core';
+import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {CONST_EXPR} from 'angular2/src/facade/lang';
 
-const INPUTSWITCH_VALUE_ACCESSOR: Provider = CONST_EXPR(
-    new Provider(NG_VALUE_ACCESSOR, {
-        useExisting: forwardRef(() => InputSwitch),
-        multi: true
-    })
-);
+const INPUTSWITCH_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
+    useExisting: forwardRef(() => InputSwitch),
+    multi: true
+});
 
 @Component({
     selector: 'p-inputSwitch',
