@@ -182,6 +182,11 @@ export class DomHandler {
         
         return width;
     }
+    
+    public getHorizontalMargin(el) {
+        let style = getComputedStyle(el);
+        return parseInt(style.marginLeft) + parseInt(style.marginRight); 
+    }
 
     public innerWidth(el) {
         let width = el.offsetWidth;

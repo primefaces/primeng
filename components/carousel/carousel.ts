@@ -150,7 +150,6 @@ export class Carousel implements AfterViewChecked,AfterViewInit,DoCheck{
         
         if(this.responsive) {
             this.refreshDimensions();
-            this.container.style.width = (this.domHandler.width(this.container)) + 'px';
         }
         else {
             this.calculateItemWidths();
@@ -164,11 +163,10 @@ export class Carousel implements AfterViewChecked,AfterViewInit,DoCheck{
     }
     
     calculateItemWidths () {
-        let firstItem = this.items[0];
+        let firstItem = (this.items && this.items.length) ? this.items[0] : null;
         if(firstItem) {
-            let itemFrameWidth = this.domHandler.getOuterWidth(firstItem,true) - this.domHandler.width(firstItem);    //sum of margin, border and padding
             for (let i = 0; i < this.items.length; i++) {
-                this.items[i].style.width = ((this.domHandler.innerWidth(this.viewport) - itemFrameWidth * this.columns) / this.columns) + 'px';
+                this.items[i].style.width = ((this.domHandler.innerWidth(this.viewport) - (this.domHandler.getHorizontalMargin(firstItem) * this.columns)) / this.columns) + 'px';
             }
         }
     }
