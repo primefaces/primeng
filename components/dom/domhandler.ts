@@ -215,6 +215,15 @@ export class DomHandler {
         return height;
     }
     
+    public getHeight(el): number {
+        let height = el.offsetHeight;
+        let style = getComputedStyle(el);
+
+        height -= parseInt(style.paddingTop) + parseInt(style.paddingBottom) + parseInt(style.borderTopWidth) + parseInt(style.borderBottomWidth);
+        
+        return height;
+    }
+    
     public getViewport(): any {
         let win = window,
         d = document,
