@@ -100,7 +100,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this._visible = val;
         
         if(this._visible) {
-            this.onBeforeShow.emit(event);
+            this.onBeforeShow.emit({});
             
             this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
             
@@ -159,7 +159,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     ngAfterViewChecked() {
         if(this.shown) {
-            this.onAfterShow.emit(event);
+            this.onAfterShow.emit({});
             this.shown = false;
         }
     }
