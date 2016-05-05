@@ -209,7 +209,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     @Input() sortField: string;
 
-    @Input() sortOrder: number;
+    @Input() sortOrder: number = 1;
 
     @Input() multiSortMeta: SortMeta[];
     
@@ -947,7 +947,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     public reset() {
         this.sortField = null;
-        this.sortOrder = null;
+        this.sortOrder = 1;
         
         this.filteredValue = null;
         this.filters = {};
