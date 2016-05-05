@@ -593,3 +593,13 @@ pre {
 .ui-tabview-left > .ui-tabview-nav {
     height: 150px;
 }
+
+.col-button {
+    width: 10%;
+    text-align: center;
+}
+
+.col-icon {
+    width: 22px;
+    text-align: center;
+}

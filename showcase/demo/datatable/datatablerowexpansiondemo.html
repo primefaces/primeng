@@ -9,7 +9,7 @@
 
 <div class="ContentSideSections Implementation">
     <p-dataTable [value]="cars" expandableRows="true">
-        <p-column expander="true" style="width:22px"></p-column>
+        <p-column expander="true" styleClass="col-icon"></p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -109,7 +109,7 @@ export class DataTableRowExpansionDemo implements OnInit {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" expandableRows="true"&gt;
-    &lt;p-column expander="true" style="width:22px"&gt;&lt;/p-column&gt;
+    &lt;p-column expander="true" styleClass="col-icon"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;

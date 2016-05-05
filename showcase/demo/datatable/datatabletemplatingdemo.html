@@ -19,7 +19,7 @@
                 <span [style.color]="car[col.field]">{{car[col.field]}}</span>
             </template>
         </p-column>
-        <p-column style="width:10%;text-align:center">
+        <p-column styleClass="col-button">
             <template let-car="rowData">
                 <button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>
             </template>
@@ -67,7 +67,7 @@ export class DataTableTemplatingDemo implements OnInit {
             &lt;span [style.color]="car[col.field]"&gt;{{car[col.field]}}&lt;/span&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
-    &lt;p-column style="width:10%;text-align:center"&gt;
+    &lt;p-column styleClass="col-button"&gt;
         &lt;template let-car="rowData"&gt;
             &lt;button type="button" pButton (click)="selectCar(car)" icon="fa-search"&gt;&lt;/button&gt;
         &lt;/template&gt;
