@@ -362,11 +362,12 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                     event.preventDefault();
                 break;
                 
-                //enter
+                //escape
                 case 27:
                     this.hide();
                     event.preventDefault();
                 break;
+
                 
                 //tab
                 case 9:
@@ -374,6 +375,19 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                         this.selectItem(highlightedItem);
                     }
                     this.hide();
+                break;
+            }
+        }
+        
+        if(this.multiple) {
+            switch(event.which) {
+                //backspace
+                case 8:
+                    if(this.value && this.value.length && !this.input.value) {
+                        let removedValue = this.value.pop();
+                        this.onUnselect.emit(removedValue);
+                        this.onModelChange(this.value);
+                    }
                 break;
             }
         }
