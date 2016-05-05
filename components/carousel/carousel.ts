@@ -129,15 +129,21 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     }
     
     ngOnInit() {
-        this.columns = this.numVisible;
+        if(window.innerWidth <= this.breakpoint) {
+            this.shrinked = true;
+            this.columns = 1;
+        }
+        else {
+            this.shrinked = false;
+            this.columns = this.numVisible;
+        }
         this.page = Math.floor(this.firstVisible / this.columns);
     }
 
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];
         this.viewport = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-carousel-viewport');
-        this.itemsContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-carousel-items');
-        this.shrinked = (window.innerWidth <= this.breakpoint);
+        this.itemsContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-carousel-items');    
 
         if(this.responsive) {
             this.documentResponsiveListener = this.renderer.listenGlobal('window', 'resize', (event) => {
@@ -248,9 +254,11 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.shrinked = true;
             this.columns = 1;
         }
-        else {
+        else if(this.shrinked) {
             this.shrinked = false;
             this.columns = this.numVisible;
+            this.updateLinks();
+            this.updateDropdown();
         }
         
         this.calculateItemWidths();
