@@ -7,7 +7,7 @@ import {Location} from '@angular/common';
 @Component({
     selector: 'p-splitButton',
     template: `
-        <div [ngClass]="'ui-splitbutton ui-buttonset ui-widget'" [attr.style]="style" [class]="styleClass">
+        <div #container [ngClass]="'ui-splitbutton ui-buttonset ui-widget'" [attr.style]="style" [class]="styleClass">
             <button #defaultbtn type="button" class="ui-button ui-widget ui-state-default ui-corner-left"
                 [ngClass]="{'ui-button-text-only':(!icon&&label),'ui-button-icon-only':(icon&&!label),
                 'ui-button-text-icon-left':(icon&&label&&iconPos=='left'),'ui-button-text-icon-right':(icon&&label&&iconPos=='right'),
@@ -20,7 +20,7 @@ import {Location} from '@angular/common';
             <button class="ui-splitbutton-menubutton ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-right" type="button"
                 [ngClass]="{'ui-state-hover':hoverDropdown,'ui-state-focus':focusDropdown,'ui-state-active':activeDropdown}"
                 (mouseenter)="hoverDropdown=true" (mouseleave)="hoverDropdown=false" (focus)="focusDropdown=true" (blur)="focusDropdown=false"
-                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="onDropdownClick($event,menu,defaultbtn)">
+                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="onDropdownClick($event,menu,container)">
                 <span class="ui-button-icon-left ui-c fa fa-fw fa-caret-down"></span>
                 <span class="ui-button-text ui-c">ui-button</span>
             </button>
@@ -91,9 +91,9 @@ export class SplitButton implements OnInit,OnDestroy {
         this.onClick.emit(event);
     }
     
-    onDropdownClick(event, menu, defaultbtn) {
+    onDropdownClick(event, menu, container) {
         this.menuVisible= !this.menuVisible;
-        this.domHandler.relativePosition(menu, defaultbtn);
+        this.domHandler.relativePosition(menu, container);
         this.domHandler.fadeIn(menu,25);
         event.stopPropagation();
     }

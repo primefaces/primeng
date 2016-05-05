@@ -67,18 +67,24 @@ export class DomHandler {
     }
 
     public relativePosition(element: any, target: any):void {
-        let elementOuterHeight = element.offsetParent ? element.offsetHeight : this.getHiddenElementOuterHeight(element);
+        let elementDimensions = element.offsetParent ? {width: element.outerWidth, height: element.outerHeight} : this.getHiddenElementDimensions(element);
         let targetHeight = target.offsetHeight;
+        let targetWidth = target.offsetWidth;
         let targetOffset = target.getBoundingClientRect();
-        let top;
+        let top, left;
 
-        if((targetOffset.top + targetHeight + elementOuterHeight) > window.innerHeight)
-            top = -1* (elementOuterHeight);
+        if((targetOffset.top + targetHeight + elementDimensions.height) > window.innerHeight)
+            top = -1* (elementDimensions.height);
         else
             top = targetHeight;
 
+        if((targetOffset.left + elementDimensions.width) > window.innerWidth)
+            left = targetWidth - elementDimensions.width;
+        else
+            left = 0;
+
         element.style.top = top+ 'px';
-        element.style.left = 0 + 'px';
+        element.style.left = left + 'px';
     }
 
     public absolutePosition(element: any, target: any): void {
@@ -105,6 +111,28 @@ export class DomHandler {
         element.style.visibility = 'visible';
 
         return elementHeight;
+    }
+    
+    public getHiddenElementOuterWidth(element: any): number {
+        element.style.visibility = 'hidden';
+        element.style.display = 'block';
+        let elementWidth = element.offsetWidth;
+        element.style.display = 'none';
+        element.style.visibility = 'visible';
+
+        return elementWidth;
+    }
+    
+    public getHiddenElementDimensions(element: any): any {
+        let dimensions: any = {};
+        element.style.visibility = 'hidden';
+        element.style.display = 'block';
+        dimensions.width = element.offsetWidth;
+        dimensions.height = element.offsetHeight;
+        element.style.display = 'none';
+        element.style.visibility = 'visible';
+
+        return dimensions;
     }
 
     public scrollInView(container, item) {
