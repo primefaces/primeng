@@ -253,7 +253,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     private columnsUpdated: boolean = false;
     
-    private sortByDefault: boolean;
+    private stopSortPropagation: boolean;
     
     private sortColumn: Column;
     
@@ -284,9 +284,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 filters: null,
                 multiSortMeta: this.multiSortMeta
             });
-        }
-        else if(this.sortField||this.multiSortMeta) {
-            this.sortByDefault = true;
         }
     }
 
@@ -326,16 +323,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             if(this.paginator) {
                 this.updatePaginator();
             }
-            this.updateDataToRender(this.filteredValue||this.value);
 
-            if(!this.lazy && this.sortByDefault) {
-                this.sortByDefault = false;
-                
+            if(!this.lazy && !this.stopSortPropagation && (this.sortField||this.multiSortMeta)) {                
                 if(this.sortMode == 'single')
                     this.sortSingle();
                 else if(this.sortMode == 'multiple')
                     this.sortMultiple();
             }
+            
+            this.updateDataToRender(this.filteredValue||this.value);
+            
+            this.stopSortPropagation = false;
         }
     }
 
@@ -464,6 +462,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 this.filter();
             }
         }
+        
+        //prevent resort at ngDoCheck
+        this.stopSortPropagation = true;
     }
 
     sortMultiple() {
@@ -476,6 +477,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 this.filter();
             }
         }
+        
+        //prevent resort at ngDoCheck
+        this.stopSortPropagation = true;
     }
 
     multisortField(data1,data2,multiSortMeta,index) {
