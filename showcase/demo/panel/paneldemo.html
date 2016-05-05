@@ -6,7 +6,30 @@
 </div>
 
 <div class="ContentSideSections Implementation">
+    <p-growl [value]="msgs"></p-growl>
+    
     <p-panel header="Godfather I" [toggleable]="true">
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+        kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    </p-panel>
+    
+    <br />
+    
+    <p-panel>
+        <header>
+            <div class="ui-helper-clearfix">
+                <span class="ui-panel-title" style="font-size:16px">Custom Header</span>
+                
+                <p-splitButton label="Save" icon="fa-check" (onClick)="save()" styleClass="floatRight">
+                    <p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"></p-splitButtonItem>
+                    <p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"></p-splitButtonItem>
+                    <p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"></p-splitButtonItem>
+                    <p-splitButtonItem icon="fa-paint-brush" label="Theming" [url]="['Theming']"></p-splitButtonItem>
+                </p-splitButton>
+            </div>
+        </header>
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
         Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
@@ -39,6 +62,19 @@ import {Panel} from 'primeng/primeng';
 <code class="language-markup" pCode>
 &lt;p-panel header="Title" [toggleable]="true"&gt;
     Content
+&lt;/p-panel&gt;
+</code>
+</pre>
+
+            <h3>Custom Header</h3>
+            <p>Header section of the panel can be customized by defining a header element with content.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-panel &gt;
+    &lt;header&gt;
+        Header content here
+    &lt;/header&gt;
+    Body Content
 &lt;/p-panel&gt;
 </code>
 </pre>
@@ -158,7 +194,28 @@ import {Panel} from 'primeng/primeng';
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+
 &lt;p-panel header="Godfather I" [toggleable]="true"&gt;
+    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+&lt;/p-panel&gt;
+
+&lt;p-panel&gt;
+    &lt;header&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;span class="ui-panel-title" style="font-size:16px"&gt;Custom Header&lt;/span&gt;
+            
+            &lt;p-splitButton label="Save" icon="fa-check" (onClick)="save()" styleClass="floatRight"&gt;
+                &lt;p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"&gt;&lt;/p-splitButtonItem&gt;
+                &lt;p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"&gt;&lt;/p-splitButtonItem&gt;
+                &lt;p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"&gt;&lt;/p-splitButtonItem&gt;
+                &lt;p-splitButtonItem icon="fa-paint-brush" label="Theming" [url]="['Theming']"&gt;&lt;/p-splitButtonItem&gt;
+            &lt;/p-splitButton&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
     The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
     His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
     Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 

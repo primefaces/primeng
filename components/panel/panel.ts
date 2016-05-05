@@ -5,7 +5,8 @@ import {Component,Input,Output,EventEmitter} from '@angular/core';
     template: `
         <div [ngClass]="'ui-panel ui-widget ui-widget-content ui-corner-all'" [attr.style]="style" [class]="styleClass">
             <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
-                <span class="ui-panel-title">{{header}}</span>
+                <span class="ui-panel-title" *ngIf="header">{{header}}</span>
+                <ng-content select="header"></ng-content>
                 <a *ngIf="toggleable" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
                     [ngClass]="{'ui-state-hover':hoverToggler}" (mouseenter)="hoverToggler=true" (mouseleave)="hoverToggler=false" (click)="toggle($event)">
                     <span class="fa fa-fw" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
