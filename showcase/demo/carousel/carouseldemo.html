@@ -37,8 +37,6 @@
             </li>
         </template>
     </p-carousel>
-    
-    <button type="button" (click)="update()">Change</button>
 </div>
 
 <div class="ContentSideSections Source">
@@ -52,12 +50,13 @@ import {Carousel} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Carousel requires a collection of items as its value and a template to display each item. Template element should contain a li element as a wrapper.</p>
+            <p>Carousel requires a collection of items as its value and a template to display each item. Template element should contain a li element having 
+                    .ui-carousel-item style class as a wrapper.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-carousel [value]="items"&gt;
     &lt;template let-item&gt;
-        &lt;li&gt;
+        &lt;li class="ui-carousel-item"&gt;
             content of item
         &lt;/li&gt;
     &lt;/ul&gt;
@@ -73,9 +72,8 @@ import {Carousel} from 'primeng/primeng';
 </pre>
 
             <h3>Effects</h3>
-            <p>Following easing options are available for the slide effect; <i>backBoth, backIn, backOut, bounceBoth,
-            bounceIn, bounceOut, easeBoth, easeBothStrong, easeIn, easeInStrong, easeNone, easeOut, easeInOutCirc,
-            easeOutStrong, elasticBoth, elasticIn, elasticOut.</i></p>
+            <p>The easing function to use is "ease-out" by default and this can be customized using easing property. 
+                See <a href="http://www.w3schools.com/cssref/css3_pr_transition-timing-function.asp">here</a> for possible alternative values.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-carousel easing="easeOutStrong"&gt;
@@ -257,7 +255,7 @@ import {Carousel} from 'primeng/primeng';
 
 &lt;p-carousel headerText="Cars" [value]="cars"&gt;
     &lt;template let-car&gt;
-        &lt;li&gt;
+        &lt;li class="ui-carousel-item"&gt;
             &lt;div class="ui-grid ui-grid-responsive"&gt;
                 &lt;div class="ui-grid-row"&gt;
                     &lt;div class="ui-grid-col-12"&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" /&gt;&lt;/div&gt;

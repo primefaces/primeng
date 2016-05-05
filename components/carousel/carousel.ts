@@ -24,7 +24,7 @@ import {DomHandler} from '../dom/domhandler';
             </div>
             <div class="ui-carousel-viewport">
                 <ul class="ui-carousel-items" [style.left.px]="left" [style.transitionProperty]="'left'" 
-                            [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="effect">
+                            [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
                     <template ngFor [ngForOf]="value" [ngForTemplate]="itemTemplate"></template>
                 </ul>
             </div>
@@ -52,7 +52,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     
     @Input() effectDuration: any = '1s';
         
-    @Input() effect: string = 'ease-out';
+    @Input() easing: string = 'ease-out';
 
     @Input() pageLinks: number = 3;
 
