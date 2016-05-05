@@ -215,6 +215,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     @Input() contextMenu: any;
     
+    @Input() CsvSeparator: string = ';' ;
+    
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
@@ -965,6 +967,33 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         else {
             this.updateDataToRender(this.value);
         }
+    }
+    
+    public exportCSV() {
+        let data = this.value,
+        csvContent = "data:text/csv;charset=utf-8,",
+        dataString = '',
+        fields = '',
+        csvSeperator = this.CsvSeparator;
+        
+        for (let i = 0; i < this.columns.length; i++) {
+            fields += this.columns[i].field + csvSeperator;
+        }
+        
+        data.forEach(function(infoArray, i) {
+            var line = '';
+            for (let index in data[i]) {
+                if (line != '')
+                    line += csvSeperator;
+
+                line += data[i][index];
+            }
+            dataString += line + '\n';
+        });
+        
+        csvContent += fields + "\n" +  dataString + "\n";
+        let encodedUri = encodeURI(csvContent);
+        window.open(encodedUri);
     }
 
     ngOnDestroy() {
