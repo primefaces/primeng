@@ -14,10 +14,10 @@ import {DomHandler} from '../dom/domhandler';
                 <div *ngIf="displayPageLinks" class="ui-carousel-page-links">
                     <a href="#" class="ui-carousel-page-link fa fa-circle-o" *ngFor="let links of anchorPageLinks;let i=index" [ngClass]="{'fa-dot-circle-o':page===i}"></a>
                 </div>
-                <select *ngIf="displayPageDropdown" class="ui-carousel-dropdown ui-widget ui-state-default ui-corner-left" [value]="page" (change)="setPage($event.target.value)">
+                <select *ngIf="displayPageDropdown" class="ui-carousel-dropdown ui-widget ui-state-default ui-corner-left" [value]="page" (change)="onDropdownChange($event.target.value)">
                     <option *ngFor="let option of selectDropdownOptions" [value]="option" [selected]="value == option">{{option+1}}</option>
                 </select>
-                <select *ngIf="responsive" class="ui-carousel-mobiledropdown ui-widget ui-state-default ui-corner-left" [value]="page" (change)="setPage($event.target.value)"
+                <select *ngIf="responsive" class="ui-carousel-mobiledropdown ui-widget ui-state-default ui-corner-left" [value]="page" (change)="onDropdownChange($event.target.value)"
                     [style.display]="shrinked ? 'block' : 'none'">
                     <option *ngFor="let option of mobileDropdownOptions" [value]="option" [selected]="value == option">{{option+1}}</option>
                 </select>
@@ -216,6 +216,10 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.left = (-1 * (this.domHandler.innerWidth(this.viewport) * this.page));
             this.firstVisible = this.page * this.columns;
         }
+    }
+    
+    onDropdownChange(val: string) {
+        this.setPage(parseInt(val));
     }
     
     get displayPageLinks(): boolean {
