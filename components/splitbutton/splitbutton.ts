@@ -7,7 +7,7 @@ import {Location} from '@angular/common';
 @Component({
     selector: 'p-splitButton',
     template: `
-        <div [ngClass]="'ui-splitbutton ui-buttonset ui-widget'" [attr.style]="style" [attr.styleClass]="styleClass">
+        <div [ngClass]="'ui-splitbutton ui-buttonset ui-widget'" [attr.style]="style" [class]="styleClass">
             <button #defaultbtn type="button" class="ui-button ui-widget ui-state-default ui-corner-left"
                 [ngClass]="{'ui-button-text-only':(!icon&&label),'ui-button-icon-only':(icon&&!label),
                 'ui-button-text-icon-left':(icon&&label&&iconPos=='left'),'ui-button-text-icon-right':(icon&&label&&iconPos=='right'),
