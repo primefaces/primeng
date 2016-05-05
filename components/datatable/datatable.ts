@@ -998,8 +998,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             }
         });
         
-        let encodedUri = encodeURI(csv);
-        window.open(encodedUri);
+        window.open(encodeURI(csv));
     }
 
     ngOnDestroy() {
