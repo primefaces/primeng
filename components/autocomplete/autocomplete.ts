@@ -235,8 +235,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         if(this.multiple) {
             this.input.value = '';
             this.value = this.value||[];
-            this.value.push(selectedValue);
-            this.onModelChange(this.value);
+            if(!this.isSelected(selectedValue)) {
+                this.value.push(selectedValue);
+                this.onModelChange(this.value);
+            }
         }
         else {
             this.input.value = this.field ? this.resolveFieldData(selectedValue): selectedValue;
@@ -375,6 +377,19 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 break;
             }
         }
+    }
+    
+    isSelected(val: any): boolean {
+        let selected: boolean = false;
+        if(this.value && this.value.length) {
+            for(let i = 0; i < this.value.length; i++) {
+                if(this.domHandler.equals(this.value[i], val)) {
+                    selected = true;
+                    break;
+                }
+            }
+        }
+        return selected;
     }
     
     ngOnDestroy() {
