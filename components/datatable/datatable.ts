@@ -215,7 +215,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     @Input() contextMenu: any;
     
-    @Input() CsvSeparator: string = ';' ;
+    @Input() csvSeparator: string = ',';
     
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
@@ -971,28 +971,34 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     public exportCSV() {
         let data = this.value,
-        csvContent = "data:text/csv;charset=utf-8,",
-        dataString = '',
-        fields = '',
-        csvSeperator = this.CsvSeparator;
+        csv = "data:text/csv;charset=utf-8,";
         
-        for (let i = 0; i < this.columns.length; i++) {
-            fields += this.columns[i].field + csvSeperator;
+        //headers
+        for(let i = 0; i < this.columns.length; i++) {
+            if(this.columns[i].field) {
+                csv += this.columns[i].field;
+                
+                if(i < (this.columns.length - 1)) {
+                    csv += this.csvSeparator;
+                }
+            }
         }
         
-        data.forEach(function(infoArray, i) {
-            var line = '';
-            for (let index in data[i]) {
-                if (line != '')
-                    line += csvSeperator;
-
-                line += data[i][index];
+        //body        
+        this.value.forEach((record, i) => {
+            csv += '\n';
+            for(let i = 0; i < this.columns.length; i++) {
+                if(this.columns[i].field) {
+                    csv += this.resolveFieldData(record, this.columns[i].field);
+                    
+                    if(i < (this.columns.length - 1)) {
+                        csv += this.csvSeparator;
+                    }
+                }
             }
-            dataString += line + '\n';
         });
         
-        csvContent += fields + "\n" +  dataString + "\n";
-        let encodedUri = encodeURI(csvContent);
+        let encodedUri = encodeURI(csv);
         window.open(encodedUri);
     }
 
