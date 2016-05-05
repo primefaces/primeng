@@ -24,7 +24,7 @@
     <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
     
     <h3>Multiple</h3>
-    <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" style="width:100%"
+    <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
         [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
     </p-autoComplete>
     <ul>
@@ -402,7 +402,7 @@ export class AutoCompleteDemo {
 &lt;span style="margin-left:50px"&gt;Brand: {{brand||'none'}}&lt;/span&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" style="width:100%"
+&lt;p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
     [minLength]="1" placeholder="Countries" field="name" [multiple]="true"&gt;
 &lt;/p-autoComplete&gt;
 &lt;ul&gt;

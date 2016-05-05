@@ -136,6 +136,7 @@ a{ text-decoration:none; outline:none;color: #25AAE1}
     transition: all 0.5s ease;}
 
 .wid50{width:50px;}
+.wid100{width:100%;}
 
 .texAliCenter{text-align:center;}
 
