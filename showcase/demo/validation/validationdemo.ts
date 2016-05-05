@@ -39,7 +39,6 @@ export class ValidationDemo {
     
     onSubmit(value: string) {
         this.submitted = true;
-        console.log(value);
     }
     
 }
