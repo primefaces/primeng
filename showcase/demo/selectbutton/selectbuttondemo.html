@@ -13,7 +13,7 @@
 
     <h3>Multiple</h3>
     <p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"></p-selectButton>
-    <p>Selected Types: <span ngFor="let type of selectedTypes">{{type}} </span></p>
+    <p>Selected Types: <span *ngFor="let type of selectedTypes">{{type}} </span></p>
 
     <hr />
 
@@ -184,7 +184,7 @@ export class MyModel {
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
-&lt;p&gt;Selected Types: &lt;span ngFor="let type of selectedTypes"&gt;{{type}} &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Selected Types: &lt;span *ngFor="let type of selectedTypes"&gt;{{type}} &lt;/span&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
