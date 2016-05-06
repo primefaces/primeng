@@ -17,12 +17,12 @@
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
 
-    <p-dataTable [value]="cars" scrollable="true"  scrollHeight="200" scrollWidth="75%" style="margin-top:30px">
+    <p-dataTable [value]="cars" scrollable="true"  scrollHeight="200" scrollWidth="75%" [style]="{'margin-top':'30px'}">
         <header>Vertical and Horizontal</header>
-        <p-column field="vin" header="Vin" style="width:250px"></p-column>
-        <p-column field="year" header="Year" style="width:250px"></p-column>
-        <p-column field="brand" header="Brand" style="width:250px"></p-column>
-        <p-column field="color" header="Color" style="width:250px"></p-column>
+        <p-column field="vin" header="Vin" [style]="{'width':'250px'}"></p-column>
+        <p-column field="year" header="Year" [style]="{'width':'250px'}"></p-column>
+        <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
+        <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
     </p-dataTable>
 </div>
 
@@ -56,12 +56,12 @@ export class DataTableScrollDemo implements OnInit {
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-dataTable [value]="cars" scrollable="true"  scrollHeight="200" scrollWidth="75%" style="margin-top:30px"&gt;
+&lt;p-dataTable [value]="cars" scrollable="true"  scrollHeight="200" scrollWidth="75%" [style]="{'margin-top':'30px'}"&gt;
     &lt;header&gt;Vertical and Horizontal&lt;/header&gt;
-    &lt;p-column field="vin" header="Vin" style="width:250px"&gt;&lt;/p-column&gt;
-    &lt;p-column field="year" header="Year" style="width:250px"&gt;&lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand" style="width:250px"&gt;&lt;/p-column&gt;
-    &lt;p-column field="color" header="Color" style="width:250px"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin" [style]="{'width':'250px'}"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" [style]="{'width':'250px'}"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand" [style]="{'width':'250px'}"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [style]="{'width':'250px'}"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>

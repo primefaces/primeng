@@ -201,7 +201,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     updateDimensions() {
         if(this.autoWidth) {
             let select = this.domHandler.findSingle(this.el.nativeElement, 'select');
-            if(!this.style||this.style.indexOf('width') == -1) {
+            if(!this.style||(!this.style['width']&&!this.style['min-width'])) {
                 this.el.nativeElement.children[0].style.width = select.offsetWidth + 30 + 'px';
             }
         }

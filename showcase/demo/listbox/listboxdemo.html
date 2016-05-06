@@ -16,7 +16,7 @@
     <p>Selected Cities: <span *ngFor="let c of selectedCities">{{c}} &nbsp;</span></p>
 
     <h3>Content</h3>
-    <p-listbox [options]="cars" [(ngModel)]="selectedCar" style="width:190px;max-height:250px">
+    <p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px','max-height':'250px'}">
         <template let-car>
             <li class="ui-listbox-item ui-helper-clearfix">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -265,7 +265,7 @@ export class MyModel {
 &lt;p&gt;Selected Cities: &lt;span *ngFor="let c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Content&lt;/h3&gt;
-&lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" style="width:190px;max-height:250px"&gt;
+&lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px','max-height':'250px'}"&gt;
     &lt;template let-car&gt;
         &lt;li class="ui-listbox-item ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;

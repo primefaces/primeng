@@ -8,7 +8,7 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-treeTable [value]="files" style="margin-bottom:30px">
+    <p-treeTable [value]="files" [style]="{'margin-bottom':'30px'}">
         <header>Basic</header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
@@ -25,7 +25,7 @@
     Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
         
     <p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
-        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" style="margin-top:30px">
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="{'margin-top':'30px'}">
         <header>Multiple Selection</header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
@@ -33,7 +33,7 @@
     </p-treeTable>
     Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.data.name}} </span>
     
-    <p-treeTable [value]="files" style="margin-top:30px">
+    <p-treeTable [value]="files" [style]="{'margin-top':'30px'}">
         <header>Editable Cells with Templating</header>
         <p-column field="name" header="Name">
             <template let-node="rowData">
@@ -52,7 +52,7 @@
         </p-column>
     </p-treeTable>
     
-    <p-treeTable [value]="lazyFiles" style="margin-bottom:30px" style="margin-top:30px" 
+    <p-treeTable [value]="lazyFiles" style="margin-bottom:30px" [style]="{'margin-top':'30px'}"
         (onNodeExpand)="nodeExpand($event)">
         <header>Lazy Loading</header>
         <p-column field="name" header="Name"></p-column>
@@ -672,7 +672,7 @@ export class TreeTableDemoComponent implements OnInit {
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;p-treeTable [value]="files" style="margin-bottom:30px"&gt;
+&lt;p-treeTable [value]="files" [style]="{'margin-bottom':'30px'}"&gt;
     &lt;header&gt;Basic&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
@@ -689,7 +689,7 @@ export class TreeTableDemoComponent implements OnInit {
 Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
     
 &lt;p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" style="margin-top:30px"&gt;
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="{'margin-top':'30px'}"&gt;
     &lt;header&gt;Multiple Selection&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
@@ -697,7 +697,7 @@ Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
 &lt;/p-treeTable&gt;
 Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.data.name}} &lt;/span&gt;
 
-&lt;p-treeTable [value]="files" style="margin-top:30px"&gt;
+&lt;p-treeTable [value]="files" [style]="{'margin-top':'30px'}"&gt;
     &lt;header&gt;Editable Cells with Templating&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;
         &lt;template let-node="rowData"&gt;
@@ -716,7 +716,7 @@ Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.data.name}
     &lt;/p-column&gt;
 &lt;/p-treeTable&gt;
 
-&lt;p-treeTable [value]="lazyFiles" style="margin-bottom:30px" style="margin-top:30px" 
+&lt;p-treeTable [value]="lazyFiles" style="margin-bottom:30px" [style]="{'margin-top':'30px'}"
     (onNodeExpand)="nodeExpand($event)"&gt;
     &lt;header&gt;Lazy Loading&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
