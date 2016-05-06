@@ -3,7 +3,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 @Component({
     selector: 'p-tieredMenu',
     template: `
-        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-tieredmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true}">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-tieredmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true}">
             <ng-content></ng-content>
         </div>
     `
@@ -22,7 +22,7 @@ export class TieredMenu {
 
     @Input() autoDisplay: boolean;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 

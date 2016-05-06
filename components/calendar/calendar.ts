@@ -10,8 +10,8 @@ const CALENDAR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
 @Component({
     selector: 'p-calendar',
     template:  `
-        <span [attr.style]="style" [class]="styleClass" [ngClass]="'ui-calendar'" *ngIf="!inline">
-        <input #in type="text" [attr.placeholder]="placeholder" [attr.style]="inputStyle" [class]="inputStyleClass"
+        <span [ngStyle]="style" [class]="styleClass" [ngClass]="'ui-calendar'" *ngIf="!inline">
+        <input #in type="text" [attr.placeholder]="placeholder" [ngStyle]="inputStyle" [class]="inputStyleClass"
                 [value]="value||''" (input)="onInput($event)" [readonly]="readonlyInput"
                 [disabled]="disabled" (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="handleBlur($event)"
                 [ngClass]="{'ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,
@@ -26,11 +26,11 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
 
     @Input() readonlyInput: boolean;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
     
-    @Input() inputStyle: string;
+    @Input() inputStyle: any;
 
     @Input() inputStyleClass: string;
 

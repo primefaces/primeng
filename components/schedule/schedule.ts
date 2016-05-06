@@ -4,7 +4,7 @@ import {SelectItem} from '../api/selectitem';
 @Component({
     selector: 'p-schedule',
     template: `
-        <div [attr.style]="style" [class]="styleClass"></div>
+        <div [ngStyle]="style" [class]="styleClass"></div>
     `
 })
 export class Schedule {
@@ -13,7 +13,7 @@ export class Schedule {
     
     @Input() header: any;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
     

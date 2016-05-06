@@ -9,7 +9,7 @@ const SLIDER_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
 @Component({
     selector: 'p-slider',
     template: `
-        <div [attr.style]="style" [class]="styleClass"></div>
+        <div [ngStyle]="style" [class]="styleClass"></div>
     `,
     providers: [SLIDER_VALUE_ACCESSOR]
 })
@@ -29,7 +29,7 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
 
     @Input() range: boolean;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 

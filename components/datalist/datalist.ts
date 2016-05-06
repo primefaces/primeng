@@ -6,7 +6,7 @@ import {Paginator} from '../paginator/paginator';
 @Component({
     selector: 'p-dataList',
     template: `
-        <div [ngClass]="'ui-datalist ui-widget'" [attr.style]="style" [class]="styleClass">
+        <div [ngClass]="'ui-datalist ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-datalist-header ui-widget-header ui-corner-top" *ngIf="header">
                 <ng-content select="header"></ng-content>
             </div>
@@ -42,7 +42,7 @@ export class DataList implements AfterViewInit,DoCheck {
     
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
         

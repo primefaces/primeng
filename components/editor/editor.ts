@@ -13,7 +13,7 @@ const EDITOR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
 @Component({
     selector: 'p-editor',
     template: `
-        <div [ngClass]="'ui-widget ui-editor-container ui-widget-content ui-corner-all'" [attr.style]="style" [class]="styleClass">
+        <div [ngClass]="'ui-widget ui-editor-container ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
                 <ng-content select="header"></ng-content>
             </div>
@@ -147,7 +147,7 @@ export class Editor implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     @ContentChild(Header) toolbar;
     
-    @Input() style: string;
+    @Input() style: any;
         
     @Input() styleClass: string;
     

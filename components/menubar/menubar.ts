@@ -3,7 +3,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 @Component({
     selector: 'p-menubar',
     template: `
-        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-menubar ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true}">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-menubar ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true}">
             <ng-content></ng-content>
         </div>
     `
@@ -12,7 +12,7 @@ export class Menubar {
 
     @Input() autoDisplay: boolean;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 

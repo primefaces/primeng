@@ -17,7 +17,7 @@ export class Column {
     @Input() filterMatchMode: string;
     @Input() rowspan: number;
     @Input() colspan: number;
-    @Input() style: string;
+    @Input() style: any;
     @Input() styleClass: string;
     @Input() hidden: boolean;
     @Input() expander: boolean;

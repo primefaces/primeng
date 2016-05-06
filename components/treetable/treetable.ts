@@ -9,7 +9,7 @@ import {Footer} from '../common/footer';
 @Component({
     selector: 'p-treeTable',
     template: `
-        <div [ngClass]="'ui-treetable ui-widget'" [attr.style]="style" [class]="styleClass">
+        <div [ngClass]="'ui-treetable ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-treetable-header ui-widget-header" *ngIf="header">
                 <ng-content select="header"></ng-content>
             </div>
@@ -17,7 +17,7 @@ import {Footer} from '../common/footer';
                 <table class="ui-widget-content" style="border:0 0 1px 0px">
                     <thead>
                         <tr class="ui-state-default">
-                            <th #headerCell *ngFor="let col of columns" [attr.style]="col.style" [class]="col.styleClass" 
+                            <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" 
                                 [ngClass]="'ui-state-default ui-unselectable-text'">
                                 <span class="ui-column-title">{{col.header}}</span>
                             </th>
@@ -25,7 +25,7 @@ import {Footer} from '../common/footer';
                     </thead>
                     <tfoot *ngIf="hasFooter()">
                         <tr>
-                            <td *ngFor="let col of columns" [attr.style]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</td>
+                            <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</td>
                         </tr>
                     </tfoot>
                     <tbody pTreeRow *ngFor="let node of value" [node]="node" [level]="0"></tbody>
@@ -56,7 +56,7 @@ export class TreeTable {
     
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
     
-    @Input() style: string;
+    @Input() style: any;
         
     @Input() styleClass: string;
     

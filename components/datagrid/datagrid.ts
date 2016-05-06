@@ -6,7 +6,7 @@ import {Paginator} from '../paginator/paginator';
 @Component({
     selector: 'p-dataGrid',
     template: `
-        <div [ngClass]="'ui-datagrid ui-widget'" [attr.style]="style" [class]="styleClass">
+        <div [ngClass]="'ui-datagrid ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-datagrid-header ui-widget-header ui-corner-top" *ngIf="header">
                 <ng-content select="header"></ng-content>
             </div>
@@ -42,7 +42,7 @@ export class DataGrid implements AfterViewInit,DoCheck {
     
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
         

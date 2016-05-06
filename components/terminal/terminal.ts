@@ -4,7 +4,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-terminal',
     template: `
-        <div [ngClass]="'ui-terminal ui-widget ui-widget-content ui-corner-all'" [attr.style]="style" [attr.styleClass]="styleClass" (click)="focus(in)">
+        <div [ngClass]="'ui-terminal ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
             <div *ngIf="welcomeMessage">{{welcomeMessage}}</div>
             <div class="ui-terminal-content">
                 <div *ngFor="let command of commands">
@@ -27,7 +27,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked {
 
     @Input() prompt: string;
         
-    @Input() style: string;
+    @Input() style: any;
         
     @Input() styleClass: string;
     

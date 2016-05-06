@@ -4,11 +4,11 @@ declare var google: any;
 
 @Component({
     selector: 'p-gmap',
-    template: `<div [attr.style]="style" [class]="styleClass"></div>`
+    template: `<div [ngStyle]="style" [class]="styleClass"></div>`
 })
 export class GMap implements AfterViewInit,DoCheck {
 
-    @Input() style: string;
+    @Input() style: any;
         
     @Input() styleClass: string;
     

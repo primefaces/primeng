@@ -5,7 +5,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-pickList',
     template: `
-        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true, 'ui-picklist-responsive': responsive}">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true, 'ui-picklist-responsive': responsive}">
             <div class="ui-picklist-source-controls ui-picklist-buttons">
                 <div class="ui-picklist-buttons-cell">
                     <button type="button" pButton icon="fa-angle-up" (click)="moveUp(sourcelist,source)"></button>
@@ -16,7 +16,7 @@ import {DomHandler} from '../dom/domhandler';
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
-                <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [attr.style]="sourceStyle"
+                <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle"
                     (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
                     <template ngFor [ngForOf]="source" [ngForTemplate]="itemTemplate"></template>
                 </ul>
@@ -31,7 +31,7 @@ import {DomHandler} from '../dom/domhandler';
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
-                <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [attr.style]="targetStyle"
+                <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="targetStyle"
                     (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
                     <template ngFor [ngForOf]="target" [ngForTemplate]="itemTemplate"></template>
                 </ul>
@@ -61,13 +61,13 @@ export class PickList implements OnDestroy {
 
     @Input() responsive: boolean;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 
-    @Input() sourceStyle: string;
+    @Input() sourceStyle: any;
 
-    @Input() targetStyle: string;
+    @Input() targetStyle: any;
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 

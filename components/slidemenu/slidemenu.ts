@@ -3,7 +3,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 @Component({
     selector: 'p-slideMenu',
     template: `
-        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-menu ui-slidemenu ui-widget ui-widget-content ui-corner-all':true}">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-menu ui-slidemenu ui-widget ui-widget-content ui-corner-all':true}">
             <div class="ui-slidemenu-wrapper">
                 <div class="ui-slidemenu-content">
                     <ng-content></ng-content>
@@ -29,7 +29,7 @@ export class SlideMenu {
 
     @Input() backLabel: string = 'Back';
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 

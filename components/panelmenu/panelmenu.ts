@@ -3,14 +3,14 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 @Component({
     selector: 'p-panelMenu',
     template: `
-        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-panelmenu ui-widget':true}">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-panelmenu ui-widget':true}">
             <ng-content></ng-content>
         </div>
     `
 })
 export class PanelMenu {
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 

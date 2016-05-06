@@ -3,14 +3,14 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,Simp
 @Component({
     selector: 'p-breadcrumb',
     template: `
-        <div [class]="styleClass" [attr.style]="style" [ngClass]="{'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all':true}">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all':true}">
             <ng-content></ng-content>
         </div>
     `
 })
 export class Breadcrumb {
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 

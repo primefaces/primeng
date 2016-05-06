@@ -4,7 +4,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-galleria',
     template: `
-        <div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [attr.style]="style" [class]="styleClass" [style.width.px]="panelWidth">
+        <div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
             <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
                 <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
                     [style.width.px]="panelWidth" [style.height.px]="panelHeight">
@@ -35,7 +35,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     
     @Input() images: any[];
     
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 

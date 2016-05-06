@@ -12,7 +12,7 @@ const INPUTSWITCH_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
     template: `
         <div [ngClass]="{'ui-inputswitch ui-widget ui-widget-content ui-corner-all': true,
             'ui-state-disabled': disabled}" (click)="toggle($event, in)"
-            [attr.style]="style" [class]="styleClass">
+            [ngStyle]="style" [class]="styleClass">
             <div class="ui-inputswitch-off">
                 <span class="ui-inputswitch-offlabel">{{offLabel}}</span>
             </div>
@@ -35,7 +35,7 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
 
     @Input() disabled: boolean;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
 

@@ -7,7 +7,7 @@ import {Location} from '@angular/common';
 @Component({
     selector: 'p-splitButton',
     template: `
-        <div #container [ngClass]="'ui-splitbutton ui-buttonset ui-widget'" [attr.style]="style" [class]="styleClass">
+        <div #container [ngClass]="'ui-splitbutton ui-buttonset ui-widget'" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn type="button" class="ui-button ui-widget ui-state-default ui-corner-left"
                 [ngClass]="{'ui-button-text-only':(!icon&&label),'ui-button-icon-only':(icon&&!label),
                 'ui-button-text-icon-left':(icon&&label&&iconPos=='left'),'ui-button-text-icon-right':(icon&&label&&iconPos=='right'),
@@ -25,7 +25,7 @@ import {Location} from '@angular/common';
                 <span class="ui-button-text ui-c">ui-button</span>
             </button>
             <div #menu [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
-                    [attr.style]="menuStyle" [attr.styleClass]="menuStyleClass">
+                    [ngStyle]="menuStyle" [class]="menuStyleClass">
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of items" [ngClass]="{'ui-state-hover':(hoveredItem==item)}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
@@ -51,11 +51,11 @@ export class SplitButton implements OnInit,OnDestroy {
     
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
-    @Input() style: string;
+    @Input() style: any;
     
     @Input() styleClass: string;
     
-    @Input() menuStyle: string;
+    @Input() menuStyle: any;
     
     @Input() menuStyleClass: string;
     

@@ -4,7 +4,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-carousel',
     template: `
-        <div [ngClass]="{'ui-carousel ui-widget ui-widget-content ui-corner-all':true}" [attr.style]="style" [class]="styleClass">
+        <div [ngClass]="{'ui-carousel ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-carousel-header ui-widget-header">
                 <div class="ui-carousel-header-title">{{headerText}}</div>
                 <span class="ui-carousel-button ui-carousel-next-button fa fa-arrow-circle-right" (click)="onNextNav()" 
@@ -56,7 +56,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
 
     @Input() pageLinks: number = 3;
 
-    @Input() style: string;
+    @Input() style: any;
 
     @Input() styleClass: string;
     
