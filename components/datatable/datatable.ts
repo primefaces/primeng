@@ -416,7 +416,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         }
         else {
             if(this.sortMode == 'multiple') {
-                if(!metaKey) {
+                if(!this.multiSortMeta||!metaKey) {
                     this.multiSortMeta = [];
                 }
 
