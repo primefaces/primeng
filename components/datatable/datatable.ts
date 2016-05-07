@@ -72,7 +72,7 @@ import {DomHandler} from '../dom/domhandler';
                                 </td>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
-                                <td [attr.colspan]="columns.length">
+                                <td [attr.colspan]="visibleColumns().length">
                                     <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
                                 </td>
                             </tr>
@@ -967,6 +967,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         else {
             this.updateDataToRender(this.value);
         }
+    }
+
+    visibleColumns() {
+        return this.columns.filter(c => !c.hidden);
     }
     
     public exportCSV() {
