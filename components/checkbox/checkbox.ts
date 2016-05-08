@@ -11,11 +11,12 @@ const CHECKBOX_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
     template: `
         <div class="ui-chkbox ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input #cb type="checkbox" name="{{name}}" value="{{value}}" [checked]="checked" (blur)="onModelTouched()">
+                <input #cb type="checkbox" name="{{name}}" value="{{value}}" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)"
+                [ngClass]="{'ui-state-focus':focused}" (keydown.space)="onClick($event,cb)">
             </div>
-            <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick()"
+            <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,cb)"
                         (mouseover)="hover=true" (mouseout)="hover=false" 
-                        [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled}">
+                        [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':checked}"></span>
             </div>
         </div>
@@ -40,9 +41,11 @@ export class Checkbox implements ControlValueAccessor {
     
     hover: boolean;
     
+    focused: boolean = false;
+    
     checked: boolean = false;
 
-    onClick() {
+    onClick(event,checkbox) {
         if(this.disabled) {
             return;
         }
@@ -60,7 +63,7 @@ export class Checkbox implements ControlValueAccessor {
         else {
             this.onModelChange(this.checked);
         }
-        
+        checkbox.focus();
         this.onChange.emit(this.checked);
     }
 
@@ -80,6 +83,15 @@ export class Checkbox implements ControlValueAccessor {
 
     addValue(value) {
         this.model.push(value);
+    }
+    
+    onFocus(event) {
+        this.focused = true;
+    }
+
+    onBlur(event) {
+        this.focused = false;
+        this.onModelTouched();
     }
 
     findValueIndex(value) {
