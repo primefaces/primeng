@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Default</h3>
-    <p-editor [(ngModel)]="text1" style="height:320px"></p-editor>
+    <p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"></p-editor>
     <p>Value: {{text1||'empty'}}</p>
     
     <button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"></button>
@@ -15,7 +15,7 @@
     <hr style="border-top:0px;border-color:#dde3e6">
     
     <h3>Custom Toolbar</h3>
-    <p-editor [(ngModel)]="text2" style="height:320px">
+    <p-editor [(ngModel)]="text2" [style]="{'height':'320px'}">
         <header>
             <span class="ql-format-group">
                 <span title="Bold" class="ql-format-button ql-bold"></span>
@@ -49,7 +49,7 @@ import {Header} from 'primeng/primeng';
             
 <pre>
 <code class="language-markup" pCode>
-&lt;p-editor [(ngModel)]="text" style="height:320px"&gt;&lt;/p-editor&gt;
+&lt;p-editor [(ngModel)]="text" [style]="{'height':'320px'}"&gt;&lt;/p-editor&gt;
 </code>
 </pre>
 
@@ -67,7 +67,7 @@ export class EditorDemo {
             <p>Editor can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-editor ngControl="description" style="height:320px"&gt;&lt;/p-editor&gt;
+&lt;p-editor ngControl="description" [style]="{'height':'320px'}"&gt;&lt;/p-editor&gt;
 </code>
 </pre>
 
@@ -75,7 +75,7 @@ export class EditorDemo {
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-editor [(ngModel)]="text2" style="height:320px"&gt;
+&lt;p-editor [(ngModel)]="text2" [style]="{'height':'320px'}"&gt;
     &lt;header&gt;
         &lt;span class="ql-format-group"&gt;
             &lt;span title="Bold" class="ql-format-button ql-bold"&gt;&lt;/span&gt;
