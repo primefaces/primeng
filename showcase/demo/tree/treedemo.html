@@ -22,12 +22,12 @@
     Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}} </span>
     
     <h3>Lazy Loading</h3>
-    <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" style="max-height:200px;overflow:auto"></p-tree>
+    <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="{'max-height':'200px','overflow':'auto'}"></p-tree>
     
     <h3>Template</h3>
     <p-tree [value]="files">
         <template let-node>
-            <input [(ngModel)]="node.label" type="text" style="width:100%">
+            <input [(ngModel)]="node.label" type="text" [style]="{'width':'100%'}">
         </template>
     </p-tree>
 </div>
@@ -537,12 +537,12 @@ Selected Node: {{selectedFile ? selectedFile.label : 'none'}}
 Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &lt;/span&gt;
 
 &lt;h3&gt;Lazy Loading&lt;/h3&gt;
-&lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" style="max-height:200px;overflow:auto"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="{'max-height':'200px','overflow':'auto'}"&gt;&lt;/p-tree&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
     &lt;template let-node&gt;
-        &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
+        &lt;input [(ngModel)]="node.label" type="text" [style]="{'width':'100%'}"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
 </code>

@@ -19,7 +19,7 @@
     <i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
     
     <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
-        <p-dataTable [value]="cars1" style="width:500px">
+        <p-dataTable [value]="cars1" [style]="{'width':'500px'}">
             <p-column field="vin" header="Vin" [sortable]="true"></p-column>
             <p-column field="year" header="Year" [sortable]="true"></p-column>
             <p-column field="brand" header="Brand" [sortable]="true"></p-column>
@@ -29,7 +29,7 @@
     
     <h3>DataTable Integration</h3>
     <p-dataTable [value]="cars2">
-        <p-column style="width:10%;text-align:center" header="Logo">
+        <p-column [style]="{'width':'10%','text-align':'center'}" header="Logo">
             <template let-car="rowData">
                 <button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"></button>
             </template>
@@ -246,10 +246,10 @@ import {OverlayPanel} from 'primeng/primeng';
 
 &lt;h3&gt;Customized&lt;/h3&gt;
 &lt;p&gt;This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.&lt;/p&gt;
-&lt;i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
+&lt;i class="fa fa-search" (mouseenter)="op2.show($event)" [style]="{'font-size':'24px'}"&gt;&lt;/i&gt;
 
 &lt;p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false"&gt;
-    &lt;p-dataTable [value]="cars1" style="width:500px"&gt;
+    &lt;p-dataTable [value]="cars1" [style]="{'width':'500px'}"&gt;
         &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
         &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
         &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
@@ -259,7 +259,7 @@ import {OverlayPanel} from 'primeng/primeng';
 
 &lt;h3&gt;DataTable Integration&lt;/h3&gt;
 &lt;p-dataTable [value]="cars2"&gt;
-    &lt;p-column style="width:10%;text-align:center" header="Logo"&gt;
+    &lt;p-column [style]="{'width':'10%'};text-align:center" header="Logo"&gt;
         &lt;template let-car="rowData"&gt;
             &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"&gt;&lt;/button&gt;
         &lt;/template&gt;
