@@ -14,7 +14,7 @@
         </header>
         <template let-car>
             <div style="padding:3px">
-                <p-panel [header]="car.vin" [paginator]="true" style="text-align:center">
+                <p-panel [header]="car.vin" [paginator]="true" [style]="{'text-align':'center'}">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
                     <div class="car-detail">{{car.year}} - {{car.color}}</div>
                     <hr class="ui-widget-content" style="border-top:0">
@@ -329,7 +329,7 @@ loadData(event) {
     &lt;/header&gt;
     &lt;template let-car&gt;
         &lt;div style="padding:3px"&gt;
-            &lt;p-panel [header]="car.vin" [paginator]="true" style="text-align:center"&gt;
+            &lt;p-panel [header]="car.vin" [paginator]="true" [style]="{'text-align':'center'}"&gt;
                 &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;
                 &lt;div class="car-detail"&gt;{{car.year}} - {{car.color}}&lt;/div&gt;
                 &lt;hr class="ui-widget-content" style="border-top:0"&gt;

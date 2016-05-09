@@ -153,7 +153,7 @@
                 but given to ruthless violence whenever anything stands against the good of the family.</p>
         </p-dialog>
 
-        <p-panel header="Panel" style="margin-top:20px">
+        <p-panel header="Panel" [style]="{'margin-top':'20px'}">
             The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
             His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
             Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
@@ -161,7 +161,7 @@
             but given to ruthless violence whenever anything stands against the good of the family.
         </p-panel>
 
-        <p-dataTable style="margin-top:20px" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true">
+        <p-dataTable [style]="{'margin-top':'20px'}" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true">
             <header>Cars</header>
             <p-column field="vin" header="Vin"></p-column>
             <p-column field="year" header="Year"></p-column>
@@ -169,13 +169,13 @@
             <p-column field="color" header="Color"></p-column>
         </p-dataTable>
 
-        <p-dataGrid style="margin-top:20px;margin-bottom:20px" [value]="cars" [columns]="5" [paginator]="true" [rows]="20">
+        <p-dataGrid [style]="{'margin-top':'20px','margin-bottom':'20px'}" [value]="cars" [columns]="5" [paginator]="true" [rows]="20">
             <header>
                 Datagrid
             </header>
             <template let-car>
                 <div style="padding:3px">
-                    <p-panel [header]="car.vin" [paginator]="true" style="text-align:center">
+                    <p-panel [header]="car.vin" [paginator]="true" [style]="{'text-align':'center'}">
                         <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
                         <div class="car-detail">{{car.year}} - {{car.color}}</div>
                         <hr class="ui-widget-content" style="border-top:0">
@@ -184,9 +184,9 @@
             </template>
         </p-dataGrid>
 
-        <p-tree [value]="files" style="margin-top:20px;margin-bottom:20px"></p-tree>
+        <p-tree [value]="files" [style]="{'margin-top':'20px','margin-bottom':'20px'}"></p-tree>
 
-        <p-orderList [value]="cars" listStyle="height:250px" style="margin-top:20px;margin-bottom:20px" [responsive]="true" header="Responsive Cars">
+        <p-orderList [value]="cars" [listStyle]="{'height':'250px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}" [responsive]="true" header="Responsive Cars">
             <template let-car>
                 <li class="ui-orderlist-item ui-helper-clearfix">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -195,7 +195,7 @@
             </template>
         </p-orderList>
 
-        <p-carousel headerText="Cars" [value]="cars2" style="margin-top:20px;margin-bottom:20px">
+        <p-carousel headerText="Cars" [value]="cars2" [style]="{'margin-top':'20px','margin-bottom':'20px'}">
             <template let-car>
                 <li>
                     <div class="ui-grid ui-grid-responsive ui-grid-pad" style="text-align:center">
@@ -219,7 +219,8 @@
             </template>
         </p-carousel>
 
-        <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" sourceStyle="height:300px" targetStyle="height:300px" style="margin-top:20px;margin-bottom:20px">
+        <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" 
+            [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}">
             <template let-car>
                 <li class="ui-picklist-item ui-helper-clearfix">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -367,9 +368,9 @@
                 SplitButton
             &lt;/div&gt;
             &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-splitButton label="Save" icon="fa-check" (onClick)="save()"&gt;
-                    &lt;p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"&gt;&lt;/p-splitButtonItem&gt;
-                    &lt;p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"&gt;&lt;/p-splitButtonItem&gt;
+                &lt;p-splitButton label="Save" icon="fa-check"&gt;
+                    &lt;p-splitButtonItem icon="fa-close" label="Delete"&gt;&lt;/p-splitButtonItem&gt;
+                    &lt;p-splitButtonItem icon="fa-refresh" label="Update"&gt;&lt;/p-splitButtonItem&gt;
                     &lt;p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"&gt;&lt;/p-splitButtonItem&gt;
                 &lt;/p-splitButton&gt;
             &lt;/div&gt;
@@ -447,7 +448,7 @@
         but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
 &lt;/p-dialog&gt;
 
-&lt;p-panel header="Panel" style="margin-top:20px"&gt;
+&lt;p-panel header="Panel" [style]="{'margin-top':'20px'}"&gt;
     The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
     His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
     Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
@@ -455,7 +456,7 @@
     but given to ruthless violence whenever anything stands against the good of the family.
 &lt;/p-panel&gt;
 
-&lt;p-dataTable style="margin-top:20px" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true"&gt;
+&lt;p-dataTable [style]="{'margin-top':'20px'}" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true"&gt;
     &lt;header&gt;Cars&lt;/header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
@@ -463,13 +464,13 @@
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-dataGrid style="margin-top:20px;margin-bottom:20px" [value]="cars" [columns]="5" [paginator]="true" [rows]="20"&gt;
+&lt;p-dataGrid [style]="{'margin-top':'20px','margin-bottom':'20px'}" [value]="cars" [columns]="5" [paginator]="true" [rows]="20"&gt;
     &lt;header&gt;
         Datagrid
     &lt;/header&gt;
     &lt;template let-car&gt;
         &lt;div style="padding:3px"&gt;
-            &lt;p-panel [header]="car.vin" [paginator]="true" style="text-align:center"&gt;
+            &lt;p-panel [header]="car.vin" [paginator]="true" [style]="{'text-align':'center'}"&gt;
                 &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;
                 &lt;div class="car-detail"&gt;{{car.year}} - {{car.color}}&lt;/div&gt;
                 &lt;hr class="ui-widget-content" style="border-top:0"&gt;
@@ -478,9 +479,9 @@
     &lt;/template&gt;
 &lt;/p-dataGrid&gt;
 
-&lt;p-tree [value]="files" style="margin-top:20px;margin-bottom:20px"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="files" [style]="{'margin-top':'20px','margin-bottom':'20px'}"&gt;&lt;/p-tree&gt;
 
-&lt;p-orderList [value]="cars" listStyle="height:250px" style="margin-top:20px;margin-bottom:20px" [responsive]="true" header="Responsive Cars"&gt;
+&lt;p-orderList [value]="cars" [listStyle]="{'height':'250px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}" [responsive]="true" header="Responsive Cars"&gt;
     &lt;template let-car&gt;
         &lt;li class="ui-orderlist-item ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
@@ -489,7 +490,7 @@
     &lt;/template&gt;
 &lt;/p-orderList&gt;
 
-&lt;p-carousel headerText="Cars" [value]="cars2" style="margin-top:20px;margin-bottom:20px"&gt;
+&lt;p-carousel headerText="Cars" [value]="cars2" [style]="{'margin-top':'20px','margin-bottom':'20px'}"&gt;
     &lt;template let-car&gt;
         &lt;li&gt;
             &lt;div class="ui-grid ui-grid-responsive ui-grid-pad" style="text-align:center"&gt;
@@ -513,7 +514,8 @@
     &lt;/template&gt;
 &lt;/p-carousel&gt;
 
-&lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" sourceStyle="height:300px" targetStyle="height:300px" style="margin-top:20px;margin-bottom:20px"&gt;
+&lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" 
+    [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}"&gt;
     &lt;template let-car&gt;
         &lt;li class="ui-picklist-item ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
