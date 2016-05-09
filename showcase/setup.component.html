@@ -1,13 +1,13 @@
 <div class="ContentSideSections">
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Setup</span>
-        <span class="defaultText">PrimeNG setup consists of three steps; download, load and import. Various development configurations such as System.js or Webpack are supported.</span>
+        <span class="defaultText">PrimeNG is a rich set of native Angular2 UI components that depend on PrimeUI mostly for CSS.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Source">
     <h3 style="margin-top:0px">Download</h3>
-    <p>PrimeNG is available at npm, run the following commands to download the modules to your project. PrimeNG depends on PrimeUI so install it as well.</p>
+    <p>PrimeNG is available at npm, run the following commands to download the modules to your project.</p>
 <pre>
 <code class="language-markup" pCode>
 npm install primeng --save
@@ -15,25 +15,11 @@ npm install primeui --save
 </code>
 </pre>
 
-    <h3>Load</h3>
-    <p>PrimeNG is distributed in commonjs format and a module loader of your choice is required. Sample configuration with System.js would be as follows;</p>
-<pre>
-<code class="language-typescript" pCode>
- System.config({
-    defaultJSExtensions: true,
-    packages: {
-        "/angular2": {"defaultExtension": false}
-    },
-    map: {
-        "/primeng": "node_modules/primeng"
-    }
-});
-</code>
-</pre>
-    <p>If you'd like to use webpack instead, scroll bottom to the webpack section.</p>
+    <h3>Load Configuration</h3>
+    <p>PrimeNG is distributed in commonjs format, a module loader of your choice is required and this guide provides a sample for SystemJS whereas a Webpack starter is in progress.</p>
 
     <h3>Import</h3>
-    <p>Components are imported from 'primeng/primeng' in your application code.</p>
+    <p>Once PrimeNG is downloaded and configured, components can be imported from 'primeng/primeng' in your application code.</p>
 <pre>
 <code class="language-typescript" pCode>
 import {Accordion} from 'primeng/primeng';
@@ -58,64 +44,147 @@ import {Accordion} from 'primeng/primeng';
     <p>In an Angular2 application, you don't need to use jQuery directly however some of the PrimeNG components are based on existing jQuery plugins (e.g. Schedule) although many others are native components.
         Dependencies section at the documentation of each component states the origin such as Native, jQuery/PrimeUI or an external library (e.g. charts.js). jQuery based ones in PrimeUI are optimized for PrimeNG integration using a technique called enhanced mode where plugin assumes dom is already created by PrimeNG component. As a result, jQuery plugin does not manipulate dom, only
         adds lightweight behaviors and low level requirements such as positioning. Changes as a result of one or two way binding are properly reflected between the UI and model. In addition components are destroyed whenever page is navigated away via router. In future
-        as PrimeNG grows, remaining jQuery based ones will be replaced with native implementations where appropriate.
+        as PrimeNG grows, remaining jQuery based ones will be replaced with native implementations where appropriate so that PrimeNG does not utilize any javascript from PrimeUI by 1.0 Final.
     </p>
 
     <h3>Quickstart with System.js</h3>
     <p>An example starter application based on angular2-quickstart is available at <a href="https://github.com/primefaces/primeng-quickstart">GitHub</a>.</p>
+
+    <h4>package.json</h4>
+<pre>
+<code class="language-js" pCode>
+{
+  "name": "primeng-quickstart",
+  "version": "v1.0.0-SNAPSHOT",
+  "scripts": {
+    "postinstall": "npm run typings install",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "lite": "lite-server",
+    "start": "tsc &amp;&amp; concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "typings" : "typings"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@angular/common":  "2.0.0-rc.1",
+    "@angular/compiler":  "2.0.0-rc.1",
+    "@angular/core":  "2.0.0-rc.1",
+    "@angular/http":  "2.0.0-rc.1",
+    "@angular/platform-browser":  "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic":  "2.0.0-rc.1",
+    "@angular/router":  "2.0.0-rc.1",
+    "@angular/router-deprecated":  "2.0.0-rc.1",
+    "@angular/upgrade":  "2.0.0-rc.1",
+    "systemjs": "0.19.27",
+    "es6-shim": "^0.35.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "5.0.0-beta.6",
+    "zone.js": "^0.6.12",
+    "angular2-in-memory-web-api": "0.0.7",
+    "primeng": "1.0.0-beta.5",
+    "primeui": "4.1.10"
+  },
+  "devDependencies": {
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1"
+  }
+}
+</code>
+</pre>
 
     <h4>index.html</h4>
 <pre>
 <code class="language-markup" pCode>
 &lt;html&gt;
 
-&lt;head&gt;
-    &lt;title&gt;PrimeNG QuickStart&lt;/title&gt;
+  &lt;head&gt;
+    &lt;script&gt;document.write('&lt;base href="' + document.location + '" /&gt;');&lt;/script&gt;
+    &lt;title&gt;PrimeNG QuickStart with SystemJS&lt;/title&gt;
 
-    &lt;!-- CSS for PrimeUI --&gt;
-    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/bootstrap/theme.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="app/resources/css/site.css"/&gt;
 
-    &lt;!-- 1. Load libraries --&gt;
-    &lt;script src="node_modules/angular2/bundles/angular2-polyfills.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/es6-shim/es6-shim.min.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/zone.js/dist/zone.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/reflect-metadata/Reflect.js"&gt;&lt;/script&gt;
     &lt;script src="node_modules/systemjs/dist/system.src.js"&gt;&lt;/script&gt;
-
-    &lt;!-- JS for PrimeUI --&gt;
     &lt;script src="node_modules/primeui/primeui-ng-all.min.js"&gt;&lt;/script&gt;
-
-    &lt;!-- 2. Configure SystemJS --&gt;
+    &lt;script src="systemjs.config.js"&gt;&lt;/script&gt;
     &lt;script&gt;
-        System.config({
-            defaultJSExtensions: true,
-            packages: {
-                "/angular2": {"defaultExtension": false}
-            },
-            map: {
-                'primeng': 'node_modules/primeng'
-            }
-        });
-        System.import('app/boot').then(null, console.error.bind(console));
+      System.import('app').catch(function(err){ console.error(err);  });
     &lt;/script&gt;
+  &lt;/head&gt;
 
-    &lt;script src="node_modules/rxjs/bundles/Rx.js"&gt;&lt;/script&gt;
-    &lt;script src="node_modules/angular2/bundles/angular2.dev.js"&gt;&lt;/script&gt;
-
-&lt;/head&gt;
-
-&lt;!-- 3. Display the application --&gt;
-&lt;body&gt;
-&lt;my-app&gt;Loading...&lt;/my-app&gt;
-&lt;/body&gt;
+  &lt;body&gt;
+    &lt;my-app&gt;Loading...&lt;/my-app&gt;
+  &lt;/body&gt;
 
 &lt;/html&gt;
+</code>
+</pre>
+
+    <h4>systemjs.config.js</h4>
+<pre>
+<code class="language-javascript" pCode>
+(function(global) {
+
+  // map tells the System loader where to look for things
+  var map = {
+    'app':                        'app', // 'dist',
+    'rxjs':                       'node_modules/rxjs',
+    'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
+    '@angular':                   'node_modules/@angular',
+    'primeng':                    'node_modules/primeng'
+  };
+
+  // packages tells the System loader how to load when no filename and/or no extension
+  var packages = {
+    'app':                        { main: 'boot.js',  defaultExtension: 'js' },
+    'rxjs':                       { defaultExtension: 'js' },
+    'angular2-in-memory-web-api': { defaultExtension: 'js' },
+    'primeng':                    { defaultExtension: 'js' }
+  };
+
+  var packageNames = [
+    '@angular/common',
+    '@angular/compiler',
+    '@angular/core',
+    '@angular/http',
+    '@angular/platform-browser',
+    '@angular/platform-browser-dynamic',
+    '@angular/router',
+    '@angular/router-deprecated',
+    '@angular/testing',
+    '@angular/upgrade',
+  ];
+
+  // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
+  packageNames.forEach(function(pkgName) {
+    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
+  });
+
+  var config = {
+    map: map,
+    packages: packages
+  }
+
+  // filterSystemConfig - index.html's chance to modify config before we register it.
+  if (global.filterSystemConfig) { global.filterSystemConfig(config); }
+
+  System.config(config);
+
+})(this);
 </code>
 </pre>
 
     <h4>boot.ts</h4>
 <pre>
 <code class="language-typescript" pCode>
-import {bootstrap}    from 'angular2/platform/browser';
+import {bootstrap} from '@angular/platform-browser-dynamic';
 import {AppComponent} from './app.component';
 
 bootstrap(AppComponent);
@@ -126,7 +195,7 @@ bootstrap(AppComponent);
     <p>Sample app component uses PrimeNG InputText.</p>
 <pre>
 <code class="language-typescript" pCode>
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {InputText} from 'primeng/primeng';
 
 @Component({
@@ -143,133 +212,5 @@ export class AppComponent {
 </code>
 </pre>
     <p>Running npm install and then npm start, starts the lite-server, opens up a browser and runs the application.</p>
-
-    <h3>Quickstart with Webpack</h3>
-    <p>An example starter application with webpack is available at <a href="https://github.com/primefaces/primeng-quickstart-webpack">GitHub</a>.</p>
-
-<h4>index.html</h4>
-<pre>
-<code class="language-markup" pCode>
-&lt;html&gt;
-
-  &lt;head&gt;
-    &lt;title&gt;PrimeNG QuickStart with Webpack&lt;/title&gt;
-
-    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/delta/theme.css" /&gt;
-    &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
-    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
-    &lt;link rel="stylesheet" type="text/css" href="app/resources/css/site.css"/&gt;
-  &lt;/head&gt;
-
-  &lt;!-- 3. Display the application --&gt;
-  &lt;body&gt;
-    &lt;my-app&gt;Loading...&lt;/my-app&gt;
-    &lt;script src="dist/bundle.js"&gt;&lt;/script&gt;
-  &lt;/body&gt;
-
-&lt;/html&gt;
-</code>
-</pre>
-
-    <h4>package.json</h4>
-<pre>
-<code class="language-javascript" pCode>
-{
-  "name": "primeng-quickstart-webpack",
-  "version": "v1.0.0-SNAPSHOT",
-  "scripts": {
-    "postinstall": "npm run typings install",
-    "typings": "typings",
-    "build": "webpack",
-    "start": "webpack-dev-server --inline"
-  },
-  "license": "ISC",
-  "dependencies": {
-      "angular2": "2.0.0-beta.17",
-      "systemjs": "0.19.26",
-      "es6-shim": "^0.35.0",
-      "reflect-metadata": "0.1.2",
-      "rxjs": "5.0.0-beta.6",
-      "zone.js": "0.6.12",
-      "primeng": "1.0.0-beta.4",
-      "primeui": "4.1.9"
-  },
-  "devDependencies": {
-    "script-loader": "^0.6.1",
-    "ts-loader": "^0.8.1",
-    "typescript": "^1.8.10",
-    "typings": "^0.8.1",
-    "webpack": "^1.3.0",
-    "webpack-dev-server": "^1.14.1"
-  }
-}
-</code>
-</pre>
-
-    <h4>webpack.config.js</h4>
-<pre>
-<code class="language-javascript" pCode>
-module.exports = {
-  entry: './app/boot.ts',
-  output: {
-    filename: './dist/bundle.js'
-  },
-  resolve: {
-    modulesDirectories: ['node_modules'],
-    root: './app',
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
-  },
-  module: {
-    loaders: [
-      { test: /\.tsx?$/, loader: 'ts-loader' }
-    ],
-    noParse: [ /zone\.js\/dist\/.+/, /angular2\/bundles\/.+/ ]
-  }
-};
-</code>
-</pre>
-
-    <h4>boot.ts</h4>
-<pre>
-<code class="language-typescript" pCode>
-import 'script!primeui/primeui-ng-all.min.js';
-import 'angular2/bundles/angular2-polyfills';
-import {bootstrap}    from 'angular2/platform/browser';
-import {AppComponent} from './app.component';
-import 'rxjs/Rx';
-
-bootstrap(AppComponent);
-</code>
-</pre>
-
-<h4>app.component.ts</h4>
-<p>Sample app component uses PrimeNG InputText.</p>
-<pre>
-<code class="language-typescript" pCode>
-import {Component} from 'angular2/core';
-import {InputText} from 'primeng/primeng';
-
-@Component({
-selector: 'my-app',
-template: `
-    &lt;h1&gt;My First PrimeNG App&lt;/h1&gt;
-    &lt;input type="text" pInputText/&gt;
-`,
-directives: [InputText]
-})
-export class AppComponent {
-
-}
-</code>
-</pre>
-        <p>Running npm install and then npm start, starts the webpack-dev-server, opens up a browser and runs the application.</p>
-
-    <h3>Angular2-Webpack-Starter</h3>
-    <p><a href="https://angularclass.github.io/angular2-webpack-starter/">Angular2-Webpack-Start</a> is a starter kit featuring an advanced development setup. 
-        We've our own <a href="https://github.com/cagataycivici/angular2-webpack-starter">fork</a> that adds PrimeNG for the UI.</p>
-        
-    <h3>Angular2-Seed</h3>
-    <p><a href="https://github.com/mgechev/angular2-seed">Angular2-Seed</a> is a modular seed project to kickstart an Angular2 app fast. 
-        Similarly to the webpack-starter, We've our own <a href="https://github.com/cagataycivici/angular2-seed">fork</a> that adds PrimeNG for the UI.</p>
 
 </div>
