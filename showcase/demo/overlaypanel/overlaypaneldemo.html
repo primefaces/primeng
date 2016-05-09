@@ -246,7 +246,7 @@ import {OverlayPanel} from 'primeng/primeng';
 
 &lt;h3&gt;Customized&lt;/h3&gt;
 &lt;p&gt;This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.&lt;/p&gt;
-&lt;i class="fa fa-search" (mouseenter)="op2.show($event)" [style]="{'font-size':'24px'}"&gt;&lt;/i&gt;
+&lt;i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
 
 &lt;p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false"&gt;
     &lt;p-dataTable [value]="cars1" [style]="{'width':'500px'}"&gt;

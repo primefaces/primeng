@@ -10,8 +10,8 @@
     <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
         <template let-car>
             <li class="ui-picklist-item ui-helper-clearfix">
-                <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" [style]="{'display':'inline-block','margin':'2px 0 2px 2px'}"/>
-                <div [style]="{'font-size':'14px','float':'right','margin':'15px 5px 0 0'}">{{car.brand}} - {{car.year}} - {{car.color}}</div>
+                <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
+                <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
             </li>
         </template>
     </p-pickList>
@@ -197,8 +197,8 @@ export class MyComponent {
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}"&gt;
     &lt;template let-car&gt;
         &lt;li class="ui-picklist-item ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" [style]="{'display':'inline-block','margin':'2px 0 2px 2px'}"/&gt;
-            &lt;div [style]="{'font-size':'14px','float':'right','margin':'15px 5px 0 0'}"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/li&gt;
     &lt;/template&gt;
 &lt;/p-pickList&gt;

@@ -13,25 +13,21 @@
             List of Cars
         </header>
         <template let-car>
-<<<<<<< HEAD
             <div style="padding:3px">
-=======
-            <div [style]="{'padding':'3px'}">
->>>>>>> origin/master
                 <p-panel [header]="car.vin" [paginator]="true" [style]="{'text-align':'center'}">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
                     <div class="car-detail">{{car.year}} - {{car.color}}</div>
-                    <hr class="ui-widget-content" [style]="{'border-top':'0'}">
-                    <i class="fa fa-search" (click)="selectCar(car)" [style]="{'cursor':'pointer'}"></i>
+                    <hr class="ui-widget-content" style="border-top:0">
+                    <i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer"></i>
                 </p-panel>
             </div>
         </template>
     </p-dataGrid>
         
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
-        <div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" [style]="{'font-size':'16px','text-align':'center','padding':'20px'}">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px">
             <div class="ui-grid-row">
-                <div class="ui-grid-col-12" [style]="{'text-align':'center'}"><img src="showcase/resources/demo/images/car/{{selectedCar.brand}}-big.gif"></div>
+                <div class="ui-grid-col-12" style="text-align:center"><img src="showcase/resources/demo/images/car/{{selectedCar.brand}}-big.gif"></div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4">Vin: </div>
@@ -332,23 +328,19 @@ loadData(event) {
         List of Cars
     &lt;/header&gt;
     &lt;template let-car&gt;
-<<<<<<< HEAD
         &lt;div style="padding:3px"&gt;
-=======
-        &lt;div [style]="{'padding':'3px'}"&gt;
->>>>>>> origin/master
             &lt;p-panel [header]="car.vin" [paginator]="true" [style]="{'text-align':'center'}"&gt;
                 &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;
                 &lt;div class="car-detail"&gt;{{car.year}} - {{car.color}}&lt;/div&gt;
-                &lt;hr class="ui-widget-content" [style]="{'border-top':'0'}"&gt;
-                &lt;i class="fa fa-search" (click)="selectCar(car)" [style]="{'cursor':'pointer'}"&gt;&lt;/i&gt;
+                &lt;hr class="ui-widget-content" style="border-top:0"&gt;
+                &lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer"&gt;&lt;/i&gt;
             &lt;/p-panel&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-dataGrid&gt;
 
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
-    &lt;div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" [style]="{'font-size':'16px','text-align':'center','padding':'20px'}"&gt;
+    &lt;div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px"&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-12" style="text-align:center"&gt;&lt;img src="showcase/resources/demo/images/car/{{selectedCar.brand}}-big.gif"&gt;&lt;/div&gt;
         &lt;/div&gt;
