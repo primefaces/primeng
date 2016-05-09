@@ -49,6 +49,15 @@ import {RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
                 </div>
             </div>
         </div>
+        
+        
+        <div class="ContentSideSections overHidden defaultText">
+            <span class="dispBlock logoBlueText fontSize30">PrimeNG at Keynote of NG-Conf</span>
+            <p class="defaultText" style="margin-bottom:10px">PrimeNG has been mentioned at keynote of NG-Conf, watch the full keynote <a href="https://www.youtube.com/watch?v=gdlpE9vPQFs">here</a>.</p>
+            <a href="https://www.youtube.com/watch?v=gdlpE9vPQFs">
+                <img src="showcase/resources/images/keynote.png" style="width:100%" />
+            </a>
+        </div>
 
         <div class="ContentSideSections overHidden PFLayouts">
             <div class="logoBlueText fontSize30">Premium Layouts and Themes for PrimeNG</div>
