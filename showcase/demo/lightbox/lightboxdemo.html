@@ -7,13 +7,9 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <p-lightbox>
-        <a *ngFor="let image of images" href="showcase/resources/demo/images/sopranos/{{image}}.jpg">
-            <img src="showcase/resources/demo/images/sopranos/{{image}}_small.jpg" alt="{{image}}"/>
-        </a>
-    </p-lightbox>
+    <p-lightbox [images]="images"></p-lightbox>
 
-    <h3>Content</h3>
+    <!--<h3>Content</h3>
     <p-lightbox>
         <a class="group" href="#">
             View Content
@@ -22,7 +18,7 @@
         <div class="ui-helper-hidden">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen></iframe>
         </div>
-    </p-lightbox>
+    </p-lightbox>-->
 </div>
 
 <div class="ContentSideSections Source">

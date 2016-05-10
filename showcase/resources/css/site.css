@@ -603,3 +603,11 @@ pre {
     width: 22px;
     text-align: center;
 }
+
+.ui-lightbox-nav-left, .ui-lightbox-nav-right {
+    opacity: .5;
+}
+
+.ui-lightbox-nav-left:hover, .ui-lightbox-nav-right:hover{
+    opacity: 1;
+}
