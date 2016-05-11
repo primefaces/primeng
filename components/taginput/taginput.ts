@@ -24,17 +24,6 @@ import {TagItem} from './tagitem';
     #tagInputRef>
     </div>`,
   styles: [`
-    :host {
-      display: block;
-      box-shadow: 0 1px #ccc;
-      padding: 5px 0;
-    }
-    .ng2-tag-input-field {
-      display: inline-block;
-      width: auto;
-      box-shadow: none;
-      border: 0;
-    }
     .tagsinput {
       background-color: #fff;
       border: 1px solid #ccc;
