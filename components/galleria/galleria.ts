@@ -11,7 +11,7 @@ import {DomHandler} from '../dom/domhandler';
                     <img class="ui-panel-images" [src]="image.source" [alt]="image.alt" [title]="image.title"/>
                 </li>
             </ul>
-            <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}">
+            <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}" *ngIf="showFilmstrip">
                 <ul class="ui-galleria-filmstrip" style="transition:left 1s" [style.left.px]="stripLeft">
                     <li #frame *ngFor="let image of images;let i=index" [ngClass]="{'ui-galleria-frame-active':i==activeIndex}" class="ui-galleria-frame" (click)="frameClick(frame)"
                         [style.width.px]="frameWidth" [style.height.px]="frameHeight" [style.transition]="'opacity 0.75s ease'">
@@ -121,9 +121,9 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     
     render() {
         this.panels = this.domHandler.find(this.panelWrapper, 'li.ui-galleria-panel'); 
-        this.frames = this.domHandler.find(this.strip,'li.ui-galleria-frame');
         
         if(this.showFilmstrip) {
+            this.frames = this.domHandler.find(this.strip,'li.ui-galleria-frame');
             this.stripWrapper.style.width = this.domHandler.width(this.panelWrapper) - 50 + 'px';
             this.stripWrapper.style.height = this.frameHeight + 'px';
         }
