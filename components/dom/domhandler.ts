@@ -89,18 +89,27 @@ export class DomHandler {
 
     public absolutePosition(element: any, target: any): void {
         let elementOuterHeight = element.offsetParent ? element.offsetHeight : this.getHiddenElementOuterHeight(element);
+        let elementOuterWidth = element.offsetParent ? element.offsetWidth : this.getHiddenElementOuterWidth(element);
         let targetOuterHeight = target.offsetHeight;
         let targetOffset = target.getBoundingClientRect();
         let windowScrollTop = this.getWindowScrollTop();
+        let windowScrollLeft = this.getWindowScrollLeft();
+        let viewport = this.getViewport();
         let top;
+        let left;
 
-        if(targetOffset.top + targetOuterHeight + elementOuterHeight > window.innerHeight)
+        if(targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height)
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
         else
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
 
         element.style.top = top + 'px';
-        element.style.left = targetOffset.left + 'px';
+        if (targetOffset.left + elementOuterWidth > viewport.width ) {
+            left = Math.max(targetOffset.left +windowScrollLeft - elementOuterWidth + target.offsetWidth, 0)
+        } else {
+            left = targetOffset.left;
+        }
+        element.style.left = left + 'px';
     }
 
     public getHiddenElementOuterHeight(element: any): number {
@@ -190,6 +199,11 @@ export class DomHandler {
     public getWindowScrollTop(): number {
         let doc = document.documentElement;
         return (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+    }
+
+    public getWindowScrollLeft(): number {
+        let doc = document.documentElement;
+        return (window.pageXOffset || doc.scrollLeft)  - (doc.clientLeft || 0);
     }
 
     public matches(element, selector: string): boolean {
