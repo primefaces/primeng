@@ -5,28 +5,28 @@ import {DomHandler} from '../dom/domhandler';
     selector: 'p-lightbox',
     template: `
         <div [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'image')">
-            <a *ngFor="let image of images; let i = index;" [href]="image.source" (click)="onImageClick($event,image,i,content,panel)">
+            <a *ngFor="let image of images; let i = index;" [href]="image.source" (click)="onImageClick($event,image,i,content)">
                 <img [src]="image.thumbnail" [title]="image.title" [alt]="image.alt">
             </a>
         </div>
-        <span [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'content')" (click)="onLinkClick($event,content,panel)">
+        <span [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'content')" (click)="onLinkClick($event,content)">
             <ng-content select="a"></ng-content>
         </span>
-        <div #panel class="ui-lightbox ui-widget ui-helper-hidden ui-corner-all ui-shadow" [style.display]="visible ? 'block' : 'none'" [style.zIndex]="zindex"
+        <div class="ui-lightbox ui-widget ui-helper-hidden ui-corner-all ui-shadow" [style.display]="visible ? 'block' : 'none'" [style.zIndex]="zindex"
             [style.transitionProperty]="'all'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing" (click)="preventDocumentClickListener=true">
            <div class="ui-lightbox-content-wrapper">
               <a class="ui-state-default ui-lightbox-nav-left ui-corner-right" [style.zIndex]="zindex + 1" (click)="prev(img)"
                 [ngClass]="{'ui-helper-hidden':!leftVisible}"><span class="fa fa-fw fa-caret-left"></span></a>
               <div #content class="ui-lightbox-content ui-corner-all" #content [ngClass]="{'ui-lightbox-loading': loading}" 
                 [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
-                <img #img [src]="currentImage ? currentImage.source||'' : ''" (load)="onImageLoad($event,panel,content)" style="display:none">
+                <img #img [src]="currentImage ? currentImage.source||'' : ''" (load)="onImageLoad($event,content)" style="display:none">
                 <ng-content></ng-content>
               </div>
               <a class="ui-state-default ui-lightbox-nav-right ui-corner-left ui-helper-hidden" [style.zIndex]="zindex + 1" (click)="next(img)"
                 [ngClass]="{'ui-helper-hidden':!rightVisible}"><span class="fa fa-fw fa-caret-right"></span></a>
            </div>
            <div class="ui-lightbox-caption ui-widget-header" [style.display]="captionText ? 'block' : 'none'">
-              <span class="ui-lightbox-caption-text">{{captionText}}</span><a class="ui-lightbox-close ui-corner-all" href="#" (click)="hide($event,panel)"><span class="fa fa-fw fa-close"></span></a>
+              <span class="ui-lightbox-caption-text">{{captionText}}</span><a class="ui-lightbox-close ui-corner-all" href="#" (click)="hide($event)"><span class="fa fa-fw fa-close"></span></a>
               <div style="clear:both"></div>
            </div>
         </div>
@@ -69,12 +69,12 @@ export class Lightbox implements AfterViewInit,OnDestroy{
 
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
                 
-    onImageClick(event,image,i,content,panel) {
+    onImageClick(event,image,i,content) {
         this.index = i;
         this.loading = true;
         content.style.width = 32 + 'px';
         content.style.height = 32 + 'px';
-        this.show(panel);
+        this.show();
         this.displayImage(image);
         
         this.preventDocumentClickListener = true;
@@ -86,14 +86,14 @@ export class Lightbox implements AfterViewInit,OnDestroy{
         
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
             if(!this.preventDocumentClickListener&&this.visible) {
-                this.hide(event, this.panel);
+                this.hide(event);
             }
             this.preventDocumentClickListener = false;
         });
     }
     
-    onLinkClick(event,content,panel) {
-        this.show(panel);
+    onLinkClick(event,content) {
+        this.show();
         this.preventDocumentClickListener = true;
         event.preventDefault();
     }
@@ -104,24 +104,24 @@ export class Lightbox implements AfterViewInit,OnDestroy{
         }, 1000);
     }
     
-    show(panel) {
+    show() {
         this.mask = document.createElement('div');
         this.mask.style.zIndex = ++DomHandler.zindex;
         this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
         document.body.appendChild(this.mask);
         
         this.zindex = ++DomHandler.zindex;
-        this.center(panel);
+        this.center();
         this.visible = true;
     }
     
-    hide(event,panel) {
+    hide(event) {
         this.captionText = null;
         this.index = null;
         this.currentImage = null;
         this.visible = false;
-        panel.style.left = 'auto';
-        panel.style.top = 'auto';
+        this.panel.style.left = 'auto';
+        this.panel.style.top = 'auto';
         
         if(this.mask) {
             document.body.removeChild(this.mask);
@@ -131,26 +131,26 @@ export class Lightbox implements AfterViewInit,OnDestroy{
         event.preventDefault();
     }
     
-    center(container) {
-        let elementWidth = this.domHandler.getOuterWidth(container);
-        let elementHeight = this.domHandler.getOuterHeight(container);
+    center() {
+        let elementWidth = this.domHandler.getOuterWidth(this.panel);
+        let elementHeight = this.domHandler.getOuterHeight(this.panel);
         if(elementWidth == 0 && elementHeight == 0) {
-            container.style.visibility = 'hidden';
-            container.style.display = 'block';
-            elementWidth = this.domHandler.getOuterWidth(container);
-            elementHeight = this.domHandler.getOuterHeight(container);
-            container.style.display = 'none';
-            container.style.visibility = 'visible';
+            this.panel.style.visibility = 'hidden';
+            this.panel.style.display = 'block';
+            elementWidth = this.domHandler.getOuterWidth(this.panel);
+            elementHeight = this.domHandler.getOuterHeight(this.panel);
+            this.panel.style.display = 'none';
+            this.panel.style.visibility = 'visible';
         }
         let viewport = this.domHandler.getViewport();
         let x = (viewport.width - elementWidth) / 2;
         let y = (viewport.height - elementHeight) / 2;
 
-        container.style.left = x + 'px';
-        container.style.top = y + 'px';
+        this.panel.style.left = x + 'px';
+        this.panel.style.top = y + 'px';
     }
         
-    onImageLoad(event,panel,content) {
+    onImageLoad(event,content) {
         let image = event.target;
         image.style.visibility = 'hidden';
         image.style.display = 'block';
@@ -161,8 +161,8 @@ export class Lightbox implements AfterViewInit,OnDestroy{
 
         content.style.width = imageWidth + 'px';
         content.style.height = imageHeight + 'px';
-        panel.style.left = parseInt(panel.style.left) + (this.domHandler.getOuterWidth(panel) - imageWidth) / 2 + 'px';
-        panel.style.top = parseInt(panel.style.top) + (this.domHandler.getOuterHeight(panel) - imageHeight) / 2 + 'px';
+        this.panel.style.left = parseInt(this.panel.style.left) + (this.domHandler.getOuterWidth(this.panel) - imageWidth) / 2 + 'px';
+        this.panel.style.top = parseInt(this.panel.style.top) + (this.domHandler.getOuterHeight(this.panel) - imageHeight) / 2 + 'px';
 
         setTimeout(() => {
             this.domHandler.fadeIn(image, 500);
