@@ -64,10 +64,10 @@ export * from './components/splitbutton/splitbutton';
 export * from './components/splitbutton/splitbuttonitem';
 export * from './components/tabview/tabview';
 export * from './components/tabview/tabpanel';
+export * from './components/taginput/taginput';
 export * from './components/terminal/terminal';
 export * from './components/tieredmenu/tieredmenu';
 export * from './components/togglebutton/togglebutton';
 export * from './components/toolbar/toolbar';
 export * from './components/tree/tree';
 export * from './components/treetable/treetable';
-

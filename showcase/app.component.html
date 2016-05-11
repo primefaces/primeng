@@ -30,6 +30,7 @@
                 <a class="SubMenuLink" [routerLink]="['SpinnerDemo']" (click)="mobileMenuActive = false">&#9679; Spinner</a>
                 <a class="SubMenuLink" [routerLink]="['SelectButtonDemo']" (click)="mobileMenuActive = false">&#9679; SelectButton</a>
                 <a class="SubMenuLink" [routerLink]="['ToggleButtonDemo']" (click)="mobileMenuActive = false">&#9679; ToggleButton</a>
+                <a class="SubMenuLink" [routerLink]="['TagInputDemo']" (click)="mobileMenuActive = false">&#9679; TagInput</a>
             </div>
 
             <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="showcase/resources/images/mono/button.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/buttonBlue.svg" /><span class="MainLinkText">Button</span></span>
@@ -111,7 +112,7 @@
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (multimediamenutitle.id == activeMenuId), 'submenuhide': (multimediamenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['GalleriaDemo']" (click)="mobileMenuActive = false">&#9679; Galleria</a>
             </div>
-            
+
             <span id="menu_dnd" #dndmenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="dndmenutitle.id == activeMenuId"
                   (click)="activeMenuId = dndmenutitle.id"><img src="showcase/resources/images/mono/dragdrop.svg">
                     <img class="hiddenIcons" src="showcase/resources/images/mono/dragdrop.svg" style="opacity: 0;">
@@ -120,7 +121,7 @@
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (dndmenutitle.id == activeMenuId), 'submenuhide': (dndmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['DragDropDemo']" (click)="mobileMenuActive = false">&#9679; Drag&amp;Drop</a>
             </div>
-            
+
             <span id="menu_misc" #misctitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="misctitle.id == activeMenuId"
                   (click)="activeMenuId = misctitle.id"><img src="showcase/resources/images/mono/misc.svg">
                     <img class="hiddenIcons" src="showcase/resources/images/mono/miscBlue.svg" style="opacity: 0;">
@@ -194,7 +195,7 @@
                         <a href="#" data-theme="vader" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-var"></span><span class="ui-text">Vader</span></a>
                     </div>
                 </span>
-                
+
                 <span class="PFTopLinks floatRight cursorPointer" id="PremiumLayouts" (mouseenter)="premiumVisible = true" (mouseleave)="premiumVisible = false">
                     <img src="showcase/resources/images/layouts.svg" /><span class="PFDarkText">Premium</span>
                     <div id="PremiumLayoutsPanel" class="navOverlay" [style.display]="premiumVisible ? 'block' : 'none'" style="margin-top:10px">
