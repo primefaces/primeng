@@ -18,7 +18,8 @@ import {TagItem} from './tagitem';
     [placeholder]="placeholder"
     [(ngModel)]="inputValue"
     (paste)="inputPaste($event)"
-    (keyup)="inputChanged($event)"
+    (keydown)="inputChangedDown($event)"
+    (keyup)="inputChangedUp($event)"
     (blur)="inputBlurred($event)"
     (focus)="inputFocused()"
     #tagInputRef>
@@ -65,12 +66,9 @@ export class TagInput {
     this.delimiter = parseInt(this.delimiterCode);
   }
 
-  inputChanged(event) {
+  inputChangedDown(event) {
     let key = event.keyCode;
     switch(key) {
-      case 8: // Backspace
-        this._handleBackspace();
-        break;
       case 13: //Enter
         this.addOnEnter && this._addTags([this.inputValue]);
         event.preventDefault();
@@ -79,6 +77,15 @@ export class TagInput {
       case this.delimiter:
         this.addOnEnter && this._addTags([this.inputValue]);
         event.preventDefault();
+        break;
+    }
+  }
+
+  inputChangedUp(event) {
+    let key = event.keyCode;
+    switch(key) {
+      case 8: // Backspace
+        this._handleBackspace();
         break;
     }
   }
