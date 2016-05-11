@@ -10,7 +10,7 @@ import {MenuElement,MenuItem} from '../api/menumodel';
                 <template ngFor let-item let-end="last" [ngForOf]="model">
                     <li role="menuitem">
                         <a [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)">
-                            <span class="ui-menuitem-text">{{item.text}}</span>
+                            <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </li>
                     <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="!end"></li>

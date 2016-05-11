@@ -23,7 +23,7 @@ export class BreadcrumbDemo implements OnInit {
         this.items.push({label:'Countries'});
         this.items.push({label:'Spain'});
         this.items.push({label:'F.C. Barcelona'});
-        this.items.push({label:'Squad', command: (event) => event.preventDefault()});
+        this.items.push({label:'Squad'});
         this.items.push({label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'});
     }
 }

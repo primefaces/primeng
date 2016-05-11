@@ -1,7 +1,7 @@
 <div class="ContentSideSections">
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Breadcrumb</span>
-        <span class="defaultText">Breadcrumb provides contextual information about page hierarchy..</span>
+        <span class="defaultText">Breadcrumb provides contextual information about page hierarchy.</span>
     </div>
 </div>
 
@@ -15,21 +15,37 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Breadcrumb} from 'primeng/primeng';
+import {Breadcrumb,MenuItem} from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Breadcrumb requires a list element where each item contains an anchor.</p>
+            <p>Breadcrumb requires a collection of menuitems connected to its model property.</p>
+            
+<pre>
+<code class="language-typescript" pCode>
+export class BreadcrumbDemo implements OnInit {
+
+    private items: MenuItem[];
+    
+    ngOnInit() {
+        this.items = [];
+        this.items.push({label:'Categories'});
+        this.items.push({label:'Sports'});
+        this.items.push({label:'Football'});
+        this.items.push({label:'Countries'});
+        this.items.push({label:'Spain'});
+        this.items.push({label:'F.C. Barcelona'});
+        this.items.push({label:'Squad'});
+        this.items.push({label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'});
+    }
+}
+</code>
+</pre>
+
 <pre>
 <code class="language-markup" pCode>
-&lt;p-breadcrumb&gt;
-    &lt;ul&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Label of item 1&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Label of item 2&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Label of item 3&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-breadcrumb&gt;
+&lt;p-breadcrumb [model]="items"&gt;&lt;/p-breadcrumb&gt;
 </code>
 </pre>
 
@@ -45,6 +61,12 @@ import {Breadcrumb} from 'primeng/primeng';
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>model</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of menuitems.</td>
+                        </tr>
                         <tr>
                             <td>style</td>
                             <td>string</td>
@@ -93,24 +115,34 @@ import {Breadcrumb} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI Breadcrumb.</p>
+            <p>Native component that requires the css of PrimeUI Breadcrumb.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
+<code class="language-typescript" pCode>
+export class BreadcrumbDemo implements OnInit {
+
+    private items: MenuItem[];
+    
+    ngOnInit() {
+        this.items = [];
+        this.items.push({label:'Categories'});
+        this.items.push({label:'Sports'});
+        this.items.push({label:'Football'});
+        this.items.push({label:'Countries'});
+        this.items.push({label:'Spain'});
+        this.items.push({label:'F.C. Barcelona'});
+        this.items.push({label:'Squad'});
+        this.items.push({label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'});
+    }
+}
+</code>
+</pre>
+
+<pre>
 <code class="language-markup" pCode>
-&lt;p-breadcrumb&gt;
-    &lt;ul&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Categories&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Sports&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Football&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Countries&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Spain&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;F.C. Barcelona&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Squad&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a href="#"&gt;&lt;span&gt;Lionel Messi&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-breadcrumb&gt;
+&lt;p-breadcrumb [model]="items"&gt;&lt;/p-breadcrumb&gt;
 </code>
 </pre>
         </p-tabPanel>
