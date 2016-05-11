@@ -1,22 +1,26 @@
-import {Component,ElementRef,Input,Output} from '@angular/core';
+import {Component,ElementRef,Input,Output,Renderer,AfterViewInit,OnDestroy} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-lightbox',
     template: `
-        <div [ngStyle]="style" [class]="styleClass">
-            <a *ngFor="let image of images; let i = index;" [href]="image.source" (click)="onImageClick($event,image, i, content, panel)">
+        <div [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'image')">
+            <a *ngFor="let image of images; let i = index;" [href]="image.source" (click)="onImageClick($event,image,i,content,panel)">
                 <img [src]="image.thumbnail" [title]="image.title" [alt]="image.alt">
             </a>
         </div>
+        <span [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'content')" (click)="onLinkClick($event,content,panel)">
+            <ng-content select="a"></ng-content>
+        </span>
         <div #panel class="ui-lightbox ui-widget ui-helper-hidden ui-corner-all ui-shadow" [style.display]="visible ? 'block' : 'none'" [style.zIndex]="zindex"
-            [style.transitionProperty]="'all'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
+            [style.transitionProperty]="'all'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing" (click)="preventDocumentClickListener=true">
            <div class="ui-lightbox-content-wrapper">
               <a class="ui-state-default ui-lightbox-nav-left ui-corner-right" [style.zIndex]="zindex + 1" (click)="prev(img)"
                 [ngClass]="{'ui-helper-hidden':!leftVisible}"><span class="fa fa-fw fa-caret-left"></span></a>
               <div #content class="ui-lightbox-content ui-corner-all" #content [ngClass]="{'ui-lightbox-loading': loading}" 
                 [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
                 <img #img [src]="currentImage ? currentImage.source||'' : ''" (load)="onImageLoad($event,panel,content)" style="display:none">
+                <ng-content></ng-content>
               </div>
               <a class="ui-state-default ui-lightbox-nav-right ui-corner-left ui-helper-hidden" [style.zIndex]="zindex + 1" (click)="next(img)"
                 [ngClass]="{'ui-helper-hidden':!rightVisible}"><span class="fa fa-fw fa-caret-right"></span></a>
@@ -29,9 +33,11 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class Lightbox {
+export class Lightbox implements AfterViewInit,OnDestroy{ 
 
     @Input() images: any[];
+    
+    @Input() type: string = 'image';
 
     @Input() style: any;
         
@@ -39,8 +45,8 @@ export class Lightbox {
     
     @Input() easing: 'ease-out';
     
-    @Input() effectDuration: any = '1500ms';
-        
+    @Input() effectDuration: any = '500ms';
+                
     private visible: boolean;
     
     private loading: boolean;
@@ -51,11 +57,17 @@ export class Lightbox {
     
     private zindex: any;
     
+    private panel: any;
+    
     private index: number;
     
     private mask: any;
+    
+    private preventDocumentClickListener: boolean;
+    
+    private documentClickListener: any;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
                 
     onImageClick(event,image,i,content,panel) {
         this.index = i;
@@ -65,6 +77,24 @@ export class Lightbox {
         this.show(panel);
         this.displayImage(image);
         
+        this.preventDocumentClickListener = true;
+        event.preventDefault();
+    }
+    
+    ngAfterViewInit() {
+        this.panel = this.domHandler.findSingle(this.el.nativeElement, '.ui-lightbox ');
+        
+        this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
+            if(!this.preventDocumentClickListener&&this.visible) {
+                this.hide(event, this.panel);
+            }
+            this.preventDocumentClickListener = false;
+        });
+    }
+    
+    onLinkClick(event,content,panel) {
+        this.show(panel);
+        this.preventDocumentClickListener = true;
         event.preventDefault();
     }
     
@@ -137,7 +167,7 @@ export class Lightbox {
         setTimeout(() => {
             this.domHandler.fadeIn(image, 500);
             image.style.display = 'block';
-            this.captionText = this.currentImage.title;
+            //this.captionText = this.currentImage.title;
             this.loading = false;
         }, parseInt(this.effectDuration));
     }
@@ -166,6 +196,10 @@ export class Lightbox {
     
     get rightVisible():boolean {
         return this.images && this.images.length && this.index < (this.images.length - 1) && !this.loading; 
+    }
+    
+    ngOnDestroy() {
+        this.documentClickListener();
     }
         
 }
