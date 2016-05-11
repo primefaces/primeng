@@ -7,7 +7,7 @@ import {DomHandler} from '../dom/domhandler';
         <div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
             <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
                 <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
-                    [style.width.px]="panelWidth" [style.height.px]="panelHeight">
+                    [style.width.px]="panelWidth" [style.height.px]="panelHeight" (click)="imageClicked.emit({image: image, originalEvent: $event})">
                     <img class="ui-panel-images" [src]="image.source" [alt]="image.alt" [title]="image.title"/>
                 </li>
             </ul>
@@ -32,7 +32,7 @@ import {DomHandler} from '../dom/domhandler';
     providers: [DomHandler]
 })
 export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
-    
+    @Output() imageClicked = new EventEmitter();
     @Input() images: any[];
     
     @Input() style: any;
