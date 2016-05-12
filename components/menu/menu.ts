@@ -11,7 +11,7 @@ import {MenuItem} from '../api/menumodel';
                 <template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                     <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
-                        <a #link data-icon="fa-plus" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
+                        <a #link [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
                             (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
@@ -20,7 +20,7 @@ import {MenuItem} from '../api/menumodel';
                 </template>
                 <template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li class="ui-menuitem ui-widget ui-corner-all">
-                        <a #link data-icon="fa-plus" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
+                        <a #link [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
                             (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
@@ -90,7 +90,9 @@ export class Menu implements AfterViewInit,OnDestroy {
         
         item.eventEmitter.emit(event);
         
-        this.hide();
+        if(this.popup) {
+            this.hide();
+        }
     }
     
     ngOnDestroy() {
