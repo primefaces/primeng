@@ -5,9 +5,10 @@ import {MenuItem} from '../api/menumodel';
 @Component({
     selector: 'p-tieredMenuSub',
     template: `
-        <ul class="ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow">
-            <li *ngFor="let child of item.items" class="ui-menuitem ui-widget ui-corner-all ui-menu-parent">
-                <a class="ui-menuitem-link ui-corner-all">
+        <ul [ngClass]="{'ui-helper-reset': root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list">
+            <li *ngFor="let child of (root ? item : item.items)" [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items}">
+                <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
+                    (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, child)">
                     <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                     <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="child.icon"></span>
                     <span class="ui-menuitem-text">{{child.label}}</span>
@@ -21,6 +22,8 @@ import {MenuItem} from '../api/menumodel';
 export class TieredMenuSub {
 
     @Input() item: MenuItem;
+    
+    @Input() root: boolean;
 
 }
 
@@ -29,17 +32,7 @@ export class TieredMenuSub {
     template: `
         <div [ngClass]="{'ui-tieredmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
-            <ul class="ui-menu-list ui-helper-reset">
-                <li *ngFor="let item of model" [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':item.items}">
-                    <a #link [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
-                        (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
-                        <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="item.items"></span>
-                        <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
-                        <span class="ui-menuitem-text">{{item.label}}</span>
-                    </a>
-                    <p-tieredMenuSub [item]="item" *ngIf="item.items"></p-tieredMenuSub>
-                </li>
-            </ul>
+            <p-tieredMenuSub [item]="model" root="root"></p-tieredMenuSub>
         </div>
     `,
     providers: [DomHandler],
