@@ -5,25 +5,51 @@ import {MenuItem} from '../api/menumodel';
 @Component({
     selector: 'p-tieredMenuSub',
     template: `
-        <ul [ngClass]="{'ui-helper-reset': root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list">
-            <li *ngFor="let child of (root ? item : item.items)" [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items}">
-                <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
-                    (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, child)">
-                    <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
-                    <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="child.icon"></span>
-                    <span class="ui-menuitem-text">{{child.label}}</span>
-                </a>
-                <p-tieredMenuSub [item]="child" *ngIf="child.items"></p-tieredMenuSub>
-            </li>
+        <ul [ngClass]="{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list">
+            <template ngFor let-child [ngForOf]="(root ? item : item.items)">
+                <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
+                    (mouseenter)="onItemMouseEnter($event, item)" (mouseleave)="onItemMouseLeave($event, item)">
+                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredLink}" (click)="itemClick($event, child)">
+                        <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
+                        <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="child.icon"></span>
+                        <span class="ui-menuitem-text">{{child.label}}</span>
+                    </a>
+                    <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items"></p-tieredMenuSub>
+                </li>
+            </template>
         </ul>
     `,
-    directives: [TieredMenuSub]
+    directives: [TieredMenuSub],
+    providers: [DomHandler]
 })
 export class TieredMenuSub {
 
     @Input() item: MenuItem;
     
     @Input() root: boolean;
+    
+    constructor(private domHandler: DomHandler) {}
+    
+    activeItem: any;
+    
+    hoveredLink: any;
+    
+    onItemMouseEnter(event, item) {
+        this.activeItem = item;
+        this.hoveredLink = item.children[0];
+        let nextElement =  item.children[0].nextElementSibling;
+        if(nextElement) {
+            let sublist = nextElement.children[0];
+            sublist.style.top = '0px';
+            sublist.style.left = this.domHandler.getOuterWidth(event.target.parentElement) + 'px';
+            
+        }
+    }
+    
+    onItemMouseLeave(event, link) {
+        this.activeItem = null;
+        this.hoveredLink = null;
+    }
 
 }
 

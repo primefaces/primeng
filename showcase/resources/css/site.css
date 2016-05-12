@@ -611,3 +611,7 @@ pre {
 .ui-lightbox-nav-left:hover, .ui-lightbox-nav-right:hover{
     opacity: 1;
 }
+
+.ui-menuitem-active > .ui-submenu > ul {
+    display: block !important;
+}
