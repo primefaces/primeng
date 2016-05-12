@@ -89,6 +89,8 @@ export class Menu implements AfterViewInit,OnDestroy {
         }
         
         item.eventEmitter.emit(event);
+        
+        this.hide();
     }
     
     ngOnDestroy() {
