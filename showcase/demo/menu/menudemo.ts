@@ -5,7 +5,7 @@ import {Button} from '../../../components/button/button';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-import {MenuElement} from '../../../components/api/menumodel';
+import {MenuItem} from '../../../components/api/menumodel';
 
 @Component({
     templateUrl: 'showcase/demo/menu/menudemo.html',
@@ -13,7 +13,7 @@ import {MenuElement} from '../../../components/api/menumodel';
 })
 export class MenuDemo {
     
-    private items: MenuElement[];
+    private items: MenuItem[];
 
     ngOnInit() {
         this.items = [{
