@@ -22,10 +22,10 @@ import {DomHandler} from '../dom/domhandler';
                     </li>
                 </ul>
             </div>
-            <div class="ui-galleria-nav-prev fa fa-fw fa-chevron-circle-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2"></div>
-            <div class="ui-galleria-nav-next fa fa-fw fa-chevron-circle-right" (click)="clickNavRight()" [style.bottom.px]="frameHeight/2"></div>
+            <div class="ui-galleria-nav-prev fa fa-fw fa-chevron-circle-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2" *ngIf="activeIndex !== 0"></div>
+            <div class="ui-galleria-nav-next fa fa-fw fa-chevron-circle-right" (click)="clickNavRight()" [style.bottom.px]="frameHeight/2" *ngIf="images?.length > 0 && activeIndex !== (images.length -1)"></div>
             <div class="ui-galleria-caption" *ngIf="showCaption&&images" style="display:block">
-                <h4>{{images[activeIndex].title}}</h4><p>{{images[activeIndex].alt}}</p>
+                <h4>{{images[activeIndex]?.title}}</h4><p>{{images[activeIndex]?.alt}}</p>
             </div>
         </div>
     `,
