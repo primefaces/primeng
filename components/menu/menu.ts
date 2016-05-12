@@ -1,6 +1,6 @@
 import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
-import {MenuElement,MenuItem,SubMenu} from '../api/menumodel';
+import {MenuItem} from '../api/menumodel';
 
 @Component({
     selector: 'p-menu',
@@ -8,9 +8,18 @@ import {MenuElement,MenuItem,SubMenu} from '../api/menumodel';
         <div [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
             <ul class="ui-menu-list ui-helper-reset">
-                <template ngFor let-submenu [ngForOf]="model">
+                <template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                     <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
+                        <a #link data-icon="fa-plus" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
+                            (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
+                            <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </a>
+                    </li>
+                </template>
+                <template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
+                    <li class="ui-menuitem ui-widget ui-corner-all">
                         <a #link data-icon="fa-plus" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
                             (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
@@ -92,6 +101,17 @@ export class Menu implements AfterViewInit,OnDestroy {
                 this.unsubscribe(item);
             }
         }
+    }
+    
+    hasSubMenu(): boolean {
+        if(this.model) {
+            for(var item of this.model) {
+                if(item.items) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     unsubscribe(item: any) {

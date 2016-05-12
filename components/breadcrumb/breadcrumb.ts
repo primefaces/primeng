@@ -1,5 +1,5 @@
 import {Component,Input,OnDestroy,EventEmitter} from '@angular/core';
-import {MenuElement,MenuItem} from '../api/menumodel';
+import {MenuItem} from '../api/menumodel';
 
 @Component({
     selector: 'p-breadcrumb',
