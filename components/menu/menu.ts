@@ -1,62 +1,82 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange} from '@angular/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer} from '@angular/core';
+import {DomHandler} from '../dom/domhandler';
+import {MenuElement,MenuItem,SubMenu} from '../api/menumodel';
 
 @Component({
     selector: 'p-menu',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true}">
-            <ng-content></ng-content>
+        <div [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
+            [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
+            <ul class="ui-menu-list ui-helper-reset">
+                <template ngFor let-submenu [ngForOf]="model">
+                    <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
+                    <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
+                        <a #link data-icon="fa-plus" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
+                            (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null">
+                            <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </a>
+                    </li>
+                </template>
+            </ul>
         </div>
-    `
+    `,
+    providers: [DomHandler]
 })
-export class Menu {
+export class Menu implements AfterViewInit,OnDestroy {
+
+    @Input() model: MenuItem[];
 
     @Input() popup: boolean;
-
-    @Input() trigger: any;
-
-    @Input() my: string;
-
-    @Input() at: string;
-
-    @Input() triggerEvent: string;
 
     @Input() style: any;
 
     @Input() styleClass: string;
-
-    initialized: boolean;
-
-    menuElement: any;
-
-    constructor(private el: ElementRef) {
-        this.initialized = false;
-    }
+    
+    container: any;
+    
+    documentClickListener: any;
+    
+    preventDocumentDefault: any;
+    
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
 
     ngAfterViewInit() {
-        this.menuElement = jQuery(this.el.nativeElement).find('> div > ul');
-        this.menuElement.puimenu({
-            enhanced: true,
-            popup: this.popup,
-            trigger: this.trigger ? jQuery(this.trigger): null,
-            my: this.my,
-            at: this.at,
-            triggerEvent: this.triggerEvent
-        });
-        this.initialized = true;
-    }
-
-    ngOnChanges(changes: {[key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-                this.menuElement.puimenu('option', key, changes[key].currentValue);
-            }
+        this.container = this.el.nativeElement.children[0];
+        
+        if(this.popup) {
+            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+                if(!this.preventDocumentDefault) {
+                    this.hide();
+                }
+                this.preventDocumentDefault = false;
+            });
         }
     }
-
+    
+    toggle(event) {
+        if(this.container.offsetParent)
+            this.hide();
+        else
+            this.show(event);
+            
+        this.preventDocumentDefault = true;
+    }
+    
+    show(event) {
+        this.container.style.display = 'block';
+        this.domHandler.absolutePosition(this.container, event.target);
+        this.domHandler.fadeIn(this.container, 250);
+    }
+    
+    hide() {
+        this.container.style.display = 'none';
+    }
+    
     ngOnDestroy() {
-        this.menuElement.puimenu('destroy');
-        this.initialized = false;
-        this.menuElement = null;
+        if(this.popup) {
+            this.documentClickListener();
+        }
     }
 
 }

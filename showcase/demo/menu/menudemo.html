@@ -7,19 +7,10 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <p-menu>
-        <ul>
-            <li><h3>File</h3></li>
-            <li><a data-icon="fa-plus"><span>New</span></a></li>
-            <li><a data-icon="fa-download"><span>Open</span></a></li>
-            <li><h3>Edit</h3></li>
-            <li><a data-icon="fa-refresh"><span>Undo</span></a></li>
-            <li><a data-icon="fa-repeat"><span>Redo</span></a></li>
-        </ul>
-    </p-menu>
+    <p-menu [model]="items"></p-menu>
 
     <h3>Popup</h3>
-    <p-menu [popup]="true" [trigger]="btn">
+    <p-menu #menu popup="popup" [model]="items">
         <ul>
             <li><h3>File</h3></li>
             <li><a data-icon="fa-plus"><span>New</span></a></li>
@@ -29,7 +20,7 @@
             <li><a data-icon="fa-repeat"><span>Redo</span></a></li>
         </ul>
     </p-menu>
-    <button #btn type="button" pButton icon="fa fa-list" label="Show"></button>
+    <button type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"></button>
 </div>
 
 <div class="ContentSideSections Source">

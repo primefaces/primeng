@@ -5,11 +5,30 @@ import {Button} from '../../../components/button/button';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {MenuElement} from '../../../components/api/menumodel';
 
 @Component({
     templateUrl: 'showcase/demo/menu/menudemo.html',
     directives: [Menu,Button,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class MenuDemo {
+    
+    private items: MenuElement[];
 
+    ngOnInit() {
+        this.items = [{
+            label: 'File',
+            items: [
+                {label: 'New', icon: 'fa-plus'},
+                {label: 'Open', icon: 'fa-download'}
+            ]
+        },
+        {
+            label: 'Edit',
+            items: [
+                {label: 'Undo', icon: 'fa-refresh'},
+                {label: 'Redo', icon: 'fa-repeat'}
+            ]
+        }];
+    }
 }
