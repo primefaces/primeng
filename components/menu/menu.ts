@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer} from '@angular/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {MenuElement,MenuItem,SubMenu} from '../api/menumodel';
 
@@ -12,7 +12,7 @@ import {MenuElement,MenuItem,SubMenu} from '../api/menumodel';
                     <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                     <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
                         <a #link data-icon="fa-plus" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
-                            (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null">
+                            (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
@@ -73,9 +73,36 @@ export class Menu implements AfterViewInit,OnDestroy {
         this.container.style.display = 'none';
     }
     
+    itemClick(event, item: MenuItem) {
+        if(!item.eventEmitter) {
+            item.eventEmitter = new EventEmitter();
+            item.eventEmitter.subscribe(item.command);
+        }
+        
+        item.eventEmitter.emit(event);
+    }
+    
     ngOnDestroy() {
         if(this.popup) {
             this.documentClickListener();
+        }
+        
+        if(this.model) {
+            for(let item of this.model) {
+                this.unsubscribe(item);
+            }
+        }
+    }
+    
+    unsubscribe(item: any) {
+        if(item.eventEmitter) {
+            item.eventEmitter.unsubscribe();
+        }
+        
+        if(item.items) {
+            for(let childItem of item.items) {
+                this.unsubscribe(childItem);
+            }
         }
     }
 
