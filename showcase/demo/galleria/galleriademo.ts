@@ -27,19 +27,5 @@ export class GalleriaDemo {
         this.images.push({source:'showcase/resources/demo/images/galleria/galleria10.jpg', alt:'Description for Image 10', title:'Title 10'});
         this.images.push({source:'showcase/resources/demo/images/galleria/galleria11.jpg', alt:'Description for Image 11', title:'Title 11'});
         this.images.push({source:'showcase/resources/demo/images/galleria/galleria12.jpg', alt:'Description for Image 12', title:'Title 12'});
-        
-        setTimeout(() => {
-            
-        }, 2050);
-    }
-    
-    update() {
-        this.images = [];
-        this.images.push({source:'showcase/resources/demo/images/galleria/galleria2.jpg', alt:'2', title:'Image 2'});
-        this.images.push({source:'showcase/resources/demo/images/galleria/galleria6.jpg', alt:'6', title:'Image 6'});
-        this.images.push({source:'showcase/resources/demo/images/galleria/galleria11.jpg', alt:'11', title:'Image 11'});
-        this.images.push({source:'showcase/resources/demo/images/galleria/galleria5.jpg', alt:'5', title:'Image 5'});
-        this.images.push({source:'showcase/resources/demo/images/galleria/galleria4.jpg', alt:'4', title:'Image 4'});
-        this.images.push({source:'showcase/resources/demo/images/galleria/galleria12.jpg', alt:'12', title:'Image 12'});
     }
 }
