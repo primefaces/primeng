@@ -612,6 +612,7 @@ pre {
     opacity: 1;
 }
 
-.ui-menuitem-active > .ui-submenu > ul {
+.ui-menuitem-active > .ui-submenu > ul,
+.ui-menuitem-active > .ui-megamenu-panel {
     display: block !important;
 }
