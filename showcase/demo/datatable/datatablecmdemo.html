@@ -18,12 +18,7 @@
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
     
-    <p-contextMenu #cm>
-        <ul>
-            <li><a data-icon="fa-search" (click)="viewCar(selectedCar)">View</a></li>
-            <li><a data-icon="fa-close" (click)="deleteCar(selectedCar)">Delete</a></li>
-        </ul>
-    </p-contextMenu>
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
 </div>
 
 <div class="ContentSideSections Source">
