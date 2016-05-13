@@ -34,13 +34,15 @@ export class TieredMenuSub {
     activeItem: any;
     
     activeLink: any;
-        
+            
     onItemMouseEnter(event, item) {
         this.activeItem = item;
         this.activeLink = item.children[0];
         let nextElement =  item.children[0].nextElementSibling;
         if(nextElement) {
             let sublist = nextElement.children[0];
+            sublist.style.zIndex = ++DomHandler.zindex;
+                        
             sublist.style.top = '0px';
             sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
         }
@@ -60,8 +62,6 @@ export class TieredMenuSub {
         if(item.eventEmitter) {
             item.eventEmitter.emit(event);
         }
-        
-        event.preventDefault();
     }
     
     listClick(event) {
