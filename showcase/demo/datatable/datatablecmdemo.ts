@@ -37,8 +37,8 @@ export class DataTableCMDemo implements OnInit {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
         
         this.items = [
-            {label: 'View', icon: 'fa-search', command: (car: Car) => this.viewCar(car)},
-            {label: 'Delete', icon: 'fa-close', command: (car: Car) => this.deleteCar(car)}
+            {label: 'View', icon: 'fa-search', command: (event) => this.viewCar(this.selectedCar)},
+            {label: 'Delete', icon: 'fa-close', command: (event) => this.deleteCar(this.selectedCar)}
         ];
     }
 
