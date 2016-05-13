@@ -5,11 +5,12 @@ import {MenuItem} from '../api/menumodel';
 @Component({
     selector: 'p-tieredMenuSub',
     template: `
-        <ul [ngClass]="{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list">
+        <ul [ngClass]="{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
+            (click)="listClick($event)">
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event, item)" (mouseleave)="onItemMouseLeave($event, item)">
-                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredLink}" (click)="itemClick($event, child)">
+                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==activeLink}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -32,23 +33,40 @@ export class TieredMenuSub {
     
     activeItem: any;
     
-    hoveredLink: any;
-    
+    activeLink: any;
+        
     onItemMouseEnter(event, item) {
         this.activeItem = item;
-        this.hoveredLink = item.children[0];
+        this.activeLink = item.children[0];
         let nextElement =  item.children[0].nextElementSibling;
         if(nextElement) {
             let sublist = nextElement.children[0];
             sublist.style.top = '0px';
-            sublist.style.left = this.domHandler.getOuterWidth(event.target.parentElement) + 'px';
-            
+            sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
         }
     }
     
     onItemMouseLeave(event, link) {
         this.activeItem = null;
-        this.hoveredLink = null;
+        this.activeLink = null;
+    }
+    
+    itemClick(event, item: MenuItem) {
+        if(!item.eventEmitter && item.command) {
+            item.eventEmitter = new EventEmitter();
+            item.eventEmitter.subscribe(item.command);
+        }
+        
+        if(item.eventEmitter) {
+            item.eventEmitter.emit(event);
+        }
+        
+        event.preventDefault();
+    }
+    
+    listClick(event) {
+        this.activeItem = null;
+        this.activeLink = null;
     }
 
 }
@@ -57,7 +75,7 @@ export class TieredMenuSub {
     selector: 'p-tieredMenu',
     template: `
         <div [ngClass]="{'ui-tieredmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
-            [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
+            [class]="styleClass" [ngStyle]="style">
             <p-tieredMenuSub [item]="model" root="root"></p-tieredMenuSub>
         </div>
     `,
@@ -113,17 +131,16 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     hide() {
         this.container.style.display = 'none';
     }
-    
-    itemClick(event, item: MenuItem) {
-        if(!item.eventEmitter) {
-            item.eventEmitter = new EventEmitter();
-            item.eventEmitter.subscribe(item.command);
+
+    unsubscribe(item: any) {
+        if(item.eventEmitter) {
+            item.eventEmitter.unsubscribe();
         }
         
-        item.eventEmitter.emit(event);
-        
-        if(this.popup) {
-            this.hide();
+        if(item.items) {
+            for(let childItem of item.items) {
+                this.unsubscribe(childItem);
+            }
         }
     }
     
@@ -135,29 +152,6 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
         if(this.model) {
             for(let item of this.model) {
                 this.unsubscribe(item);
-            }
-        }
-    }
-    
-    hasSubMenu(): boolean {
-        if(this.model) {
-            for(var item of this.model) {
-                if(item.items) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    
-    unsubscribe(item: any) {
-        if(item.eventEmitter) {
-            item.eventEmitter.unsubscribe();
-        }
-        
-        if(item.items) {
-            for(let childItem of item.items) {
-                this.unsubscribe(childItem);
             }
         }
     }
