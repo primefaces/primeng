@@ -503,12 +503,7 @@ export class DataTableDemo implements OnInit {
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-contextMenu #cm&gt;
-    &lt;ul&gt;
-        &lt;li&gt;&lt;a data-icon="fa-search" (click)="viewCar(selectedCar)"&gt;View&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a data-icon="fa-close" (click)="deleteCar(selectedCar)"&gt;Delete&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-contextMenu&gt;
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
 </code>
 </pre>
 
