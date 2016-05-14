@@ -21,7 +21,7 @@ import {MenuItem} from '../api/menumodel';
                             <div class="ui-grid">
                                 <div class="ui-grid-row">
                                     <template ngFor let-column [ngForOf]="category.items">
-                                        <div class="ui-grid-col-6">
+                                        <div [class]="getColumnClass(category)">
                                             <template ngFor let-submenu [ngForOf]="column">
                                                 <ul class="ui-menu-list ui-helper-reset">
                                                     <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
@@ -103,6 +103,34 @@ export class MegaMenu implements OnDestroy {
                 this.unsubscribe(item);
             }
         }
+    }
+    
+    getColumnClass(menuitem: MenuItem) {
+        let length = menuitem.items ? menuitem.items.length: 0;
+        let columnClass;
+        switch(length) {
+            case 2:
+                columnClass= 'ui-grid-col-6';
+            break;
+            
+            case 3:
+                columnClass= 'ui-grid-col-4';
+            break;
+            
+            case 4:
+                columnClass= 'ui-grid-col-3';
+            break;
+            
+            case 6:
+                columnClass= 'ui-grid-col-2';
+            break;
+                        
+            default:
+                columnClass= 'ui-grid-col-12';
+            break;
+        }
+        
+        return columnClass;
     }
 
 }
