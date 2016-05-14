@@ -87,6 +87,7 @@ import {DragDropDemo} from "./demo/dragdrop/dragdropdemo";
 import {ToolbarDemo} from "./demo/toolbar/toolbardemo";
 import {ValidationDemo} from "./demo/validation/validationdemo";
 import {DataTableExportDemo} from "./demo/datatable/datatableexportdemo";
+import {TagInputDemo} from "./demo/taginput/taginputdemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -180,7 +181,8 @@ import {DataTableExportDemo} from "./demo/datatable/datatableexportdemo";
     {path: '/dragdrop', name: 'DragDropDemo', component: DragDropDemo},
     {path: '/toolbar', name: 'ToolbarDemo', component: ToolbarDemo},
     {path: '/validation', name: 'ValidationDemo', component: ValidationDemo},
-    {path: '/datatableexport', name: 'DataTableExportDemo', component: DataTableExportDemo}
+    {path: '/datatableexport', name: 'DataTableExportDemo', component: DataTableExportDemo},
+    {path: '/taginput', name: 'TagInputDemo', component: TagInputDemo}
 ])
 export class AppComponent {
 
