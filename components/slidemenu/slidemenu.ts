@@ -75,8 +75,8 @@ export class SlideMenuSub implements OnDestroy {
     template: `
         <div [ngClass]="{'ui-menu ui-slidemenu ui-widget ui-widget-content ui-corner-all':true,'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="onClick($event)">
-            <div class="ui-slidemenu-wrapper" style="height: 172.76px">
-                <div class="ui-slidemenu-content" style="height: 143px">
+            <div class="ui-slidemenu-wrapper" [style.height.px]="viewportHeight">
+                <div class="ui-slidemenu-content" [style.height.px]="viewportHeight - 30">
                     <p-slideMenuSub [item]="model" root="root" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
                 <div class="ui-slidemenu-backward ui-widget-header ui-corner-all" [style.display]="left ? 'block' : 'none'" (click)="goBack()">
@@ -99,6 +99,8 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     @Input() styleClass: string;
     
     @Input() menuWidth: number = 180;
+    
+    @Input() viewportHeight: number = 175;
     
     @Input() effectDuration: any = '500ms';
         
