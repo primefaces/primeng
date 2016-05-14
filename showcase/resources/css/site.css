@@ -616,3 +616,41 @@ pre {
 .ui-menuitem-active > .ui-megamenu-panel {
     display: block !important;
 }
+
+/** TabMenu **/
+.ui-tabmenu { 
+    position: relative; 
+    zoom: 1; 
+}
+
+.ui-tabmenu .ui-tabmenu-nav { 
+    margin: 0;
+    padding: .2em .2em 0; 
+}
+
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem { 
+    list-style: none; 
+    float: left; 
+    position: relative; 
+    margin: 0 .2em 1px 0;  
+    padding: 0; 
+    white-space: nowrap;
+    display: block;
+    border-bottom: 0;
+    top: 1px; 
+}
+
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem a { 
+    float: left; 
+    padding: 0.5em 1em;
+    text-decoration: none; 
+}
+
+.ui-tabmenu .ui-tabmenu-nav a { 
+    padding: 0.5em 1em;
+}
+
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem .ui-icon { 
+    float: left; 
+    cursor: pointer; 
+}
