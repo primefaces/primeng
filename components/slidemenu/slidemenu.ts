@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../api/menumodel';
 
@@ -6,25 +6,24 @@ import {MenuItem} from '../api/menumodel';
     selector: 'p-slideMenuSub',
     template: `
         <ul [ngClass]="{'ui-helper-reset ui-menu-rootlist':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child':!root}" class="ui-menu-list"
-            (click)="listClick($event)" [style.width.px]="menuWidth" 
+            [style.width.px]="menuWidth" [style.left.px]="root ? slideMenu.left : slideMenu.menuWidth" 
             [style.transitionProperty]="root ? 'left' : 'none'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
-                    (mouseenter)="onItemMouseEnter($event, item)" (mouseleave)="onItemMouseLeave($event, item)">
-                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==activeLink}" (click)="itemClick($event, child)">
+                <li #listitem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':listitem==activeItem}">
+                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredLink,'ui-menuitem-link-parent':child.items}" 
+                        (click)="itemClick($event, child, listitem)" (mouseenter)="hoveredLink=link" (mouseleave)="hoveredLink=null">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <p-slideMenuSub [item]="child" [menuWidth]="menuWidth" *ngIf="child.items"></p-slideMenuSub>
+                    <p-slideMenuSub class="ui-submenu" [item]="child" [menuWidth]="menuWidth" *ngIf="child.items"></p-slideMenuSub>
                 </li>
             </template>
         </ul>
     `,
-    directives: [SlideMenuSub],
-    providers: [DomHandler]
+    directives: [SlideMenuSub]
 })
-export class SlideMenuSub {
+export class SlideMenuSub implements OnDestroy {
 
     @Input() item: MenuItem;
     
@@ -38,23 +37,15 @@ export class SlideMenuSub {
         
     @Input() easing: string = 'ease-out';
         
-    constructor(private domHandler: DomHandler) {}
+    constructor(@Inject(forwardRef(() => SlideMenu)) private slideMenu: SlideMenu) {}
     
     activeItem: any;
-    
-    activeLink: any;
-            
-    onItemMouseEnter(event, item) {
-        this.activeItem = item;
-        this.activeLink = item.children[0];
-    }
-    
-    onItemMouseLeave(event, link) {
-        this.activeItem = null;
-        this.activeLink = null;
-    }
-    
-    itemClick(event, item: MenuItem) {
+        
+    hoveredLink: any;
+                
+    itemClick(event, item: MenuItem, listitem: any) {
+        this.activeItem = listitem;
+        
         if(item.command) {
             if(!item.eventEmitter && item.command) {
                 item.eventEmitter = new EventEmitter();
@@ -66,25 +57,29 @@ export class SlideMenuSub {
         else if(!item.url) {
             event.preventDefault();
         }
+        
+        if(item.items) {
+            this.slideMenu.left -= this.slideMenu.menuWidth;
+        }
     }
     
-    listClick(event) {
+    
+    ngOnDestroy() {
+        this.hoveredLink = null;
         this.activeItem = null;
-        this.activeLink = null;
     }
-
 }
 
 @Component({
     selector: 'p-slideMenu',
     template: `
         <div [ngClass]="{'ui-menu ui-slidemenu ui-widget ui-widget-content ui-corner-all':true,'ui-menu-dynamic ui-shadow':popup}" 
-            [class]="styleClass" [ngStyle]="style">
+            [class]="styleClass" [ngStyle]="style" (click)="onClick($event)">
             <div class="ui-slidemenu-wrapper" style="height: 172.76px">
                 <div class="ui-slidemenu-content" style="height: 143px">
                     <p-slideMenuSub [item]="model" root="root" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
-                <div class="ui-slidemenu-backward ui-widget-header ui-corner-all">
+                <div class="ui-slidemenu-backward ui-widget-header ui-corner-all" [style.display]="left ? 'block' : 'none'" (click)="goBack()">
                     <span class="fa fa-fw fa-caret-left"></span>{{backLabel}}
                 </div>
             </div>
@@ -105,15 +100,19 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @Input() menuWidth: number = 180;
     
-    @Input() effectDuration: any = '1s';
+    @Input() effectDuration: any = '500ms';
         
     @Input() easing: string = 'ease-out';
     
-    container: any;
+    @Input() backLabel: string = 'Back';
     
-    documentClickListener: any;
+    private container: any;
     
-    preventDocumentDefault: any;
+    private documentClickListener: any;
+    
+    private preventDocumentDefault: any;
+        
+    public left: number = 0;
         
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
 
@@ -159,6 +158,14 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
                 this.unsubscribe(childItem);
             }
         }
+    }
+    
+    onClick(event) {
+        this.preventDocumentDefault = true;
+    }
+    
+    goBack() {
+        this.left += this.menuWidth;
     }
     
     ngOnDestroy() {

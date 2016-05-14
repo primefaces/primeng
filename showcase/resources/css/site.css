@@ -604,5 +604,10 @@ pre {
     text-align: center;
 }
 
+.ui-menuitem-active > .ui-submenu > ul,
+.ui-menuitem-active > .ui-megamenu-panel {
+    display: block !important;
+}
+
 
 
