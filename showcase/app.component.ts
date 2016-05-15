@@ -88,6 +88,7 @@ import {ToolbarDemo} from "./demo/toolbar/toolbardemo";
 import {ValidationDemo} from "./demo/validation/validationdemo";
 import {DataTableExportDemo} from "./demo/datatable/datatableexportdemo";
 import {TabMenuDemo} from "./demo/tabmenu/tabmenudemo";
+import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 
 @Component({
     selector: 'primeng-showcase',
@@ -182,7 +183,8 @@ import {TabMenuDemo} from "./demo/tabmenu/tabmenudemo";
     {path: '/toolbar', name: 'ToolbarDemo', component: ToolbarDemo},
     {path: '/validation', name: 'ValidationDemo', component: ValidationDemo},
     {path: '/datatableexport', name: 'DataTableExportDemo', component: DataTableExportDemo},
-    {path: '/tabmenu', name: 'TabMenuDemo', component: TabMenuDemo}
+    {path: '/tabmenu', name: 'TabMenuDemo', component: TabMenuDemo},
+    {path: '/tooltip', name: 'TooltipDemo', component: TooltipDemo}
 ])
 export class AppComponent {
 
