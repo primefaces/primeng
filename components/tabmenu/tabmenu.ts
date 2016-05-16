@@ -54,12 +54,12 @@ export class TabMenu implements OnDestroy {
             
             item.eventEmitter.emit(event);
         }
-        
-        this.activeItem = item;
-        
+
         if(!item.url) {
             event.preventDefault();
         }
+        
+        this.activeItem = item;
     }
     
     ngOnDestroy() {        

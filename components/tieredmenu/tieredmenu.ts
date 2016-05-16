@@ -56,13 +56,17 @@ export class TieredMenuSub {
     }
     
     itemClick(event, item: MenuItem) {
-        if(!item.eventEmitter && item.command) {
-            item.eventEmitter = new EventEmitter();
-            item.eventEmitter.subscribe(item.command);
-        }
-        
-        if(item.eventEmitter) {
+        if(item.command) {
+            if(!item.eventEmitter) {
+                item.eventEmitter = new EventEmitter();
+                item.eventEmitter.subscribe(item.command);
+            }
+            
             item.eventEmitter.emit(event);
+        }
+                
+        if(!item.url) {
+            event.preventDefault();
         }
     }
     

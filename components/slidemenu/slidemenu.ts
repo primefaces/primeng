@@ -56,7 +56,8 @@ export class SlideMenuSub implements OnDestroy {
             
             item.eventEmitter.emit(event);
         }
-        else if(!item.url) {
+        
+        if(!item.url) {
             event.preventDefault();
         }
         

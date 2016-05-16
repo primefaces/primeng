@@ -97,6 +97,10 @@ export class Menu implements AfterViewInit,OnDestroy {
         if(this.popup) {
             this.hide();
         }
+        
+        if(!item.url) {
+            event.preventDefault();
+        }
     }
     
     ngOnDestroy() {

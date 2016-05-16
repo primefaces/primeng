@@ -86,6 +86,24 @@ export class MegaMenu implements OnDestroy {
         this.activeLink = null;
     }
     
+    itemClick(event, item: MenuItem) {
+        if(item.command) {
+            if(!item.eventEmitter) {
+                item.eventEmitter = new EventEmitter();
+                item.eventEmitter.subscribe(item.command);
+            }
+            
+            item.eventEmitter.emit(event);
+        }
+                
+        if(!item.url) {
+            event.preventDefault();
+        }
+        
+        this.activeItem = null;
+        this.activeLink = null;
+    }
+    
     unsubscribe(item: any) {
         if(item.eventEmitter) {
             item.eventEmitter.unsubscribe();

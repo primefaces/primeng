@@ -32,12 +32,18 @@ export class Breadcrumb implements OnDestroy {
     constructor(private router: Router, private location: Location) {}
     
     itemClick(event, item: MenuItem) {
-        if(!item.eventEmitter) {
-            item.eventEmitter = new EventEmitter();
-            item.eventEmitter.subscribe(item.command);
+        if(item.command) {
+            if(!item.eventEmitter) {
+                item.eventEmitter = new EventEmitter();
+                item.eventEmitter.subscribe(item.command);
+            }
+            
+            item.eventEmitter.emit(event);
         }
-        
-        item.eventEmitter.emit(event);
+                
+        if(!item.url) {
+            event.preventDefault();
+        }
     }
     
     getItemUrl(item: MenuItem): string {

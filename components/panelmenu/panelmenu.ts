@@ -1,4 +1,4 @@
-import {Component,ElementRef,OnDestroy,Input} from '@angular/core';
+import {Component,ElementRef,OnDestroy,Input,EventEmitter} from '@angular/core';
 import {MenuItem} from '../api/menumodel';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router-deprecated';
@@ -31,19 +31,30 @@ export class PanelMenuSub {
         
     activeItems: MenuItem[] = [];
         
-    onClick(event,child: MenuItem) {
-        if(child.items) {
-            let index = this.activeItems.indexOf(child);
+    onClick(event,item: MenuItem) {
+        if(item.items) {
+            let index = this.activeItems.indexOf(item);
             
             if(index == -1)
-                this.activeItems.push(child);
+                this.activeItems.push(item);
             else
                 this.activeItems.splice(index, 1);
 
             event.preventDefault();
         }
-        else if(!child.url) {
-            event.preventDefault();
+        else {
+            if(item.command) {
+                if(!item.eventEmitter) {
+                    item.eventEmitter = new EventEmitter();
+                    item.eventEmitter.subscribe(item.command);
+                }
+                
+                item.eventEmitter.emit(event);
+            }
+            
+            if(!item.url) {
+                event.preventDefault();
+            }
         }
     }
     
