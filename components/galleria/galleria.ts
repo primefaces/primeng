@@ -7,7 +7,7 @@ import {DomHandler} from '../dom/domhandler';
         <div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
             <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
                 <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
-                    [style.width.px]="panelWidth" [style.height.px]="panelHeight" (click)="imageClicked.emit({image: image, originalEvent: $event, index: i})">
+                    [style.width.px]="panelWidth" [style.height.px]="panelHeight" (click)="clickImage($event,image,i)">
                     <img class="ui-panel-images" [src]="image.source" [alt]="image.alt" [title]="image.title"/>
                 </li>
             </ul>
@@ -32,9 +32,7 @@ import {DomHandler} from '../dom/domhandler';
     providers: [DomHandler]
 })
 export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
-
-    @Output() imageClicked = new EventEmitter();
-
+    
     @Input() images: any[];
     
     @Input() style: any;
@@ -58,6 +56,8 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     @Input() transitionInterval: number = 4000;
 
     @Input() showCaption: boolean = true;
+    
+    @Output() onImageClicked = new EventEmitter();
     
     differ: any;
     
@@ -224,6 +224,10 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
             
             this.activeIndex = index;
         }
+    }
+    
+    clickImage(event, image, i) {
+        this.onImageClicked.emit({originalEvent: event, image: image, index: i})
     }
         
     ngOnDestroy() {
