@@ -19,6 +19,7 @@ export class TieredMenuDemo {
         this.items = [
             {
                 label: 'File',
+                icon: 'fa-file-o',
                 items: [{
                         label: 'New', 
                         icon: 'fa-plus',
