@@ -39,44 +39,32 @@ import {Tooltip} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Button is applied to a button element with pButton directive. Text of the button is defined using label property.</p>
+            <p>Tooltip is applied to an element with pTooltip directive where the value of the directive defines the text to display.</p>
             
 <pre>
 <code class="language-markup" pCode>
-&lt;button pButton type="button" label="Click"&gt;&lt;/button&gt;
+&lt;input type="text" pTooltip="Enter your username"&gt;
+</code>
+</pre>
+
+            <h3>Position</h3>
+            <p>There are four choices to position the tooltip, default value is "right" and alternatives are "top", "bottom", "left". Position is 
+            specified using tooltipPosition attribute.</p>
+            
+<pre>
+<code class="language-markup" pCode>
+&lt;input type="text" pTooltip="Enter your username" tooltipPosition="top"&gt;
 </code>
 </pre>
 
             <h3>Events</h3>
-            <p>Events are defined using standard notation.</p>
-            
+            <p>Tooltip gets displayed on hover event of its target by default, other option is the focus event to display and blur to hide.</p>
+
 <pre>
 <code class="language-markup" pCode>
-&lt;button pButton type="button" (click)="onclick()" label="Click"&gt;&lt;/button&gt;
+&lt;input type="text" pTooltip="Enter your username" tooltipPosition="top" tooltipEvent="focus"&gt;
 </code>
 </pre>
-
-<pre>
-<code class="language-typescript" pCode>
-export class Model {
-
-onclick() {
-
-}
-
-}
-</code>
-</pre>
-
-            <h3>Icons</h3>
-            <p>Icon on a button is specified with icon attribute and position is customized using iconPos attribute. Default
-            icon position is left. To display only an icon, leave label as undefined.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;button pButton type="button" icon="fa-check" iconPos="left"&gt;&lt;/button&gt;
-</code>
-</pre>
-
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -90,22 +78,22 @@ onclick() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>label</td>
+                            <td>pTooltip</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Text of the button.</td>
+                            <td>Text of the tooltip.</td>
                         </tr>
                         <tr>
-                            <td>icon</td>
+                            <td>tooltipPosition</td>
                             <td>string</td>
-                            <td>null</td>
-                            <td>Name of the icon.</td>
+                            <td>right</td>
+                            <td>Position of the tooltip, valid values are right, left, top and right.</td>
                         </tr>
                         <tr>
-                            <td>iconPos</td>
+                            <td>tooltipEvent</td>
                             <td>string</td>
-                            <td>left</td>
-                            <td>Position of the icon, valid values are "left" and "right".</td>
+                            <td>hover</td>
+                            <td>Event to show the tooltip, valid values are hover and focus.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -123,52 +111,51 @@ onclick() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-button</td>
-                            <td>Button element</td>
+                            <td>ui-tooltip</td>
+                            <td>Container element</td>
                         </tr>
                         <tr>
-                            <td>ui-button-icon</td>
-                            <td>Icon element</td>
+                            <td>ui-tooltip-arrow</td>
+                            <td>Arrow of the tooltip</td>
                         </tr>
                         <tr>
-                            <td>ui-button-text</td>
-                            <td>Label element of the button</td>
+                            <td>ui-tooltip-text</td>
+                            <td>Text of the tooltip</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires the css of PrimeUI Button.</p>
+            <p>Native component that requires the css of PrimeUI Tooltip.</p>
         </p-tabPanel>
+        
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="text" (click)="count()" label="Click"&gt;&lt;/button&gt;
+&lt;h3 class="first"&gt;Positions&lt;/h3&gt;
+&lt;div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad"&gt;
+    &lt;div class="ui-grid-row"&gt;
+        &lt;div class="ui-grid-col-3"&gt;
+            &lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right"&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-col-3"&gt;
+            &lt;input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top"&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-col-3"&gt;
+            &lt;input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom"&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-col-3"&gt;
+            &lt;input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left"&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 
-&lt;button pButton type="text" (click)="count()" icon="fa-check" label="Click"&gt;&lt;/button&gt;
-
-&lt;button pButton type="text" (click)="count()" icon="fa-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
-
-&lt;button pButton type="text" (click)="count()" icon="fa-check"&gt;&lt;/button&gt;
-
-&lt;button pButton type="text" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
-
-Number of clicks: {{clicks}}
+&lt;h3&gt;Focus and Blur&lt;/h3&gt;
+&lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right" tooltipEvent="focus" style="margin-left:10px"&gt;
 </code>
 </pre>
-<pre>
-<code class="language-typescript" pCode>
-export class ButtonDemo {
 
-    clicks: number = 0;
-
-    count() {
-        this.clicks++;
-    }
-}
-</code>
-</pre>
-        </ p-tabPanel>
+        </p-tabPanel>
      </p-tabView >
 </div>
