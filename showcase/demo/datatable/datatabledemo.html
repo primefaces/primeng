@@ -678,6 +678,19 @@ loadData(event: LazyLoadEvent) {
 </code>
 </pre>
             <p>See the <a [routerLink]="['DataTableResponsiveDemo']">live example.</a></p>
+            
+            <h3>Overlays in Cells</h3>
+            <p>Cells of datatable hides the overflow by default, this prevents overlay of a component like dropdown to be displayed properly. In cases like these, 
+            set the style of the column to allow overflow.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-column field="color" style="{'overflow':'visible'}"&gt;
+    &lt;template let-col #car="rowData"&gt;
+        &lt;p-dropdown&gt;&lt;/p-dropdown&gt;
+    &lt;/template&gt;
+&lt;/p-column&gt;
+</code>
+</pre>
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
