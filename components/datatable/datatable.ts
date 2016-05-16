@@ -237,6 +237,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     @Input() expandableRows: boolean;
     
+    @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
+    
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
     
     private dataToRender: any[];
@@ -928,10 +932,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         
         let expandedRowIndex = this.findExpandedRowIndex(row);
         
-        if(expandedRowIndex != -1)
+        if(expandedRowIndex != -1) {
             this.expandedRows.splice(expandedRowIndex, 1);
-        else
+            this.onRowCollapse.emit(row);
+        }
+        else {
             this.expandedRows.push(row);
+            this.onRowExpand.emit(row);
+        }
     }
     
     findExpandedRowIndex(row: any): number {
