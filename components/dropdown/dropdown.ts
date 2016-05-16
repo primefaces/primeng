@@ -15,7 +15,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <select [required]="required">
-                    <option *ngFor="let option of options" [value]="option.value" [selected]="value == option.value">{{option.label}}</option>
+                    <option *ngFor="let option of options" [value]="option[field]" [selected]="value == option[field]">{{option[fieldLabel]}}</option>
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
@@ -34,8 +34,8 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
                 <div class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul *ngIf="!itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                         (mouseover)="onListMouseover($event)" (mouseout)="onListMouseout($event)">
-                        <li *ngFor="let option of optionsToDisplay;let i=index" [attr.data-label]="option.label" [attr.data-value]="option.value" (click)="onListClick($event)"
-                            class="ui-dropdown-item ui-corner-all">{{option.label}}</li>
+                        <li *ngFor="let option of optionsToDisplay;let i=index" [attr.data-label]="option[fieldLabel]" [attr.data-value]="option[field]" (click)="onListClick($event)"
+                            class="ui-dropdown-item ui-corner-all">{{option[fieldLabel]}}</li>
                     </ul>
                     <ul *ngIf="itemTemplate" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                         (mouseover)="onListMouseover($event)" (mouseout)="onListMouseout($event)" (click)="onListClick($event)">
@@ -67,6 +67,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     @Input() required: boolean;
     
+
+    @Input() fieldLabel: string = 'label';
+
+    @Input() field: string = 'value';
+
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, differs: IterableDiffers) {
@@ -170,9 +175,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         if(this.optionsToDisplay && this.optionsToDisplay.length) {
             let selectedIndex = this.findItemIndex(this.value, this.optionsToDisplay);
             if(selectedIndex == -1)
-                this.label = this.optionsToDisplay[0].label;
+                this.label = this.optionsToDisplay[0][this.fieldLabel];
             else
-                this.label = this.optionsToDisplay[selectedIndex].label;
+                this.label = this.optionsToDisplay[selectedIndex][this.fieldLabel];
         }
         else {
             this.label = '&nbsp;';
@@ -368,8 +373,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             }
             this.domHandler.addClass(item, 'ui-state-highlight');
             let selectedOption = this.options[this.findItemIndex(item.dataset.value, this.options)];
-            this.label = selectedOption.label;
-            this.value = selectedOption.value;
+            this.label = selectedOption[this.fieldLabel];
+            this.value = selectedOption[this.field];
             this.onModelChange(this.value);
             this.onChange.emit({
                 originalEvent: event,
