@@ -1,5 +1,7 @@
 import {Component,Input,OnDestroy,EventEmitter} from '@angular/core';
 import {MenuItem} from '../api/menumodel';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router-deprecated';
 
 @Component({
     selector: 'p-breadcrumb',
@@ -9,7 +11,7 @@ import {MenuItem} from '../api/menumodel';
                 <li class="fa fa-home"></li>
                 <template ngFor let-item let-end="last" [ngForOf]="model">
                     <li role="menuitem">
-                        <a [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)">
+                        <a [href]="getItemUrl(item)" class="ui-menuitem-link" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </li>
@@ -27,6 +29,8 @@ export class Breadcrumb implements OnDestroy {
 
     @Input() styleClass: string;
     
+    constructor(private router: Router, private location: Location) {}
+    
     itemClick(event, item: MenuItem) {
         if(!item.eventEmitter) {
             item.eventEmitter = new EventEmitter();
@@ -34,6 +38,18 @@ export class Breadcrumb implements OnDestroy {
         }
         
         item.eventEmitter.emit(event);
+    }
+    
+    getItemUrl(item: MenuItem): string {
+        if(item.url) {
+            if(Array.isArray(item.url))
+                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
+            else
+                return item.url;
+        }
+        else {
+            return '#';
+        }
     }
     
     ngOnDestroy() {

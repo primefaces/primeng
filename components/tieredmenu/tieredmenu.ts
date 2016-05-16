@@ -1,6 +1,8 @@
 import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../api/menumodel';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router-deprecated';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -10,7 +12,7 @@ import {MenuItem} from '../api/menumodel';
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event, item)" (mouseleave)="onItemMouseLeave($event, item)">
-                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==activeLink}" (click)="itemClick($event, child)">
+                    <a #link [href]="getItemUrl(child)" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==activeLink}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -29,7 +31,7 @@ export class TieredMenuSub {
     
     @Input() root: boolean;
     
-    constructor(private domHandler: DomHandler) {}
+    constructor(private domHandler: DomHandler, private router: Router, private location: Location) {}
     
     activeItem: any;
     
@@ -67,6 +69,18 @@ export class TieredMenuSub {
     listClick(event) {
         this.activeItem = null;
         this.activeLink = null;
+    }
+    
+    getItemUrl(item: MenuItem): string {
+        if(item.url) {
+            if(Array.isArray(item.url))
+                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
+            else
+                return item.url;
+        }
+        else {
+            return '#';
+        }
     }
 
 }
@@ -143,7 +157,7 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
             }
         }
     }
-    
+        
     ngOnDestroy() {
         if(this.popup) {
             this.documentClickListener();

@@ -1,6 +1,8 @@
 import {Component,ElementRef,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../api/menumodel';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router-deprecated';
 
 @Component({
     selector: 'p-tabMenu',
@@ -11,7 +13,7 @@ import {MenuItem} from '../api/menumodel';
                     [ngClass]="{'ui-tabmenuitem ui-state-default ui-corner-top':true,
                         'ui-tabmenuitem-hasicon':item.icon,'ui-state-hover':hoveredItem==item,'ui-state-active':activeItem==item}"
                     (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
-                    <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)">
+                    <a [href]="getItemUrl(item)"class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
@@ -32,6 +34,8 @@ export class TabMenu implements OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    constructor(private router: Router, private location: Location) {}
         
     hoveredItem: MenuItem;
     
@@ -63,6 +67,18 @@ export class TabMenu implements OnDestroy {
             for(let item of this.model) {
                 this.unsubscribe(item);
             }
+        }
+    }
+    
+    getItemUrl(item: MenuItem): string {
+        if(item.url) {
+            if(Array.isArray(item.url))
+                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
+            else
+                return item.url;
+        }
+        else {
+            return '#';
         }
     }
     

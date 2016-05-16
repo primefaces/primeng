@@ -1,7 +1,8 @@
 import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../api/menumodel';
-
+import {Location} from '@angular/common';
+import {Router} from '@angular/router-deprecated';
 
 @Component({
     selector: 'p-megaMenu',
@@ -26,7 +27,7 @@ import {MenuItem} from '../api/menumodel';
                                                 <ul class="ui-menu-list ui-helper-reset">
                                                     <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                                                     <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
-                                                        <a #link [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
+                                                        <a #link [href]="getItemUrl(item)" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredItem}"
                                                             (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
                                                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="ui-menuitem-text">{{item.label}}</span>
@@ -60,7 +61,7 @@ export class MegaMenu implements OnDestroy {
     
     activeLink: any;
             
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, private router: Router, private location: Location) {}
     
     onItemMouseEnter(event, item) {
         this.activeItem = item;
@@ -131,6 +132,18 @@ export class MegaMenu implements OnDestroy {
         }
         
         return columnClass;
+    }
+    
+    getItemUrl(item: MenuItem): string {
+        if(item.url) {
+            if(Array.isArray(item.url))
+                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
+            else
+                return item.url;
+        }
+        else {
+            return '#';
+        }
     }
 
 }
