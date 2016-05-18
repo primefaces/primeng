@@ -36,6 +36,7 @@ import {CarService} from '../service/carservice';
 import {NodeService} from '../service/nodeservice';
 import {CountryService} from '../service/countryservice';
 import {HTTP_PROVIDERS}    from '@angular/http';
+import {MenuItem} from '../../../components/api/menumodel';
 
 @Component({
     templateUrl: 'showcase/demo/responsive/responsivedemo.html',
@@ -77,6 +78,10 @@ export class ResponsiveDemo implements OnInit {
     text: string;
 
     filteredCountriesSingle: any[];
+    
+    items1: MenuItem[];
+    
+    items2: MenuItem[];
 
     showDialog() {
         this.display = true;
@@ -143,6 +148,93 @@ export class ResponsiveDemo implements OnInit {
         this.carService.getCarsSmall().then(cars1 => this.cars1 = cars1);
         this.carService.getCarsSmall().then(cars3 => this.sourceCars = cars3);
         this.targetCars = [];
+        
+        this.items1 = [{
+            label: 'File',
+            items: [
+                {label: 'New', icon: 'fa-plus'},
+                {label: 'Open', icon: 'fa-download'}
+            ]
+        },
+        {
+            label: 'Edit',
+            items: [
+                {label: 'Undo', icon: 'fa-refresh'},
+                {label: 'Redo', icon: 'fa-repeat'}
+            ]
+        }];
+        
+        this.items2 = [
+            {
+                label: 'File',
+                icon: 'fa-file-o',
+                items: [{
+                        label: 'New', 
+                        icon: 'fa-plus',
+                        items: [
+                            {label: 'Project'},
+                            {label: 'Other'},
+                        ]
+                    },
+                    {label: 'Open'},
+                    {label: 'Quit'}
+                ]
+            },
+            {
+                label: 'Edit',
+                icon: 'fa-edit',
+                items: [
+                    {label: 'Undo', icon: 'fa-mail-forward'},
+                    {label: 'Redo', icon: 'fa-mail-reply'}
+                ]
+            },
+            {
+                label: 'Help',
+                icon: 'fa-question',
+                items: [
+                    {
+                        label: 'Contents'
+                    },
+                    {
+                        label: 'Search', 
+                        icon: 'fa-search', 
+                        items: [
+                            {
+                                label: 'Text', 
+                                items: [
+                                    {
+                                        label: 'Workspace'
+                                    }
+                                ]
+                            },
+                            {
+                                label: 'File'
+                            }
+                    ]}
+                ]
+            },
+            {
+                label: 'Actions',
+                icon: 'fa-gear',
+                items: [
+                    {
+                        label: 'Edit',
+                        icon: 'fa-refresh',
+                        items: [
+                            {label: 'Save', icon: 'fa-save'},
+                            {label: 'Update', icon: 'fa-save'},
+                        ]
+                    },
+                    {
+                        label: 'Other',
+                        icon: 'fa-phone',
+                        items: [
+                            {label: 'Delete', icon: 'fa-minus'}
+                        ]
+                    }
+                ]
+            }
+        ];
     }
 
     filterCountrySingle(event) {
