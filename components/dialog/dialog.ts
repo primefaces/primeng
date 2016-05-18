@@ -18,7 +18,7 @@ import {DomHandler} from '../dom/domhandler';
                 <ng-content></ng-content>
             </div>
             <ng-content select="footer"></ng-content>
-            <div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
+            <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
                 (mousedown)="initResize($event)"></div>
         </div>
     `,

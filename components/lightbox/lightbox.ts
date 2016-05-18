@@ -1,37 +1,205 @@
-import {Component, ElementRef, AfterViewInit, OnDestroy, OnChanges, Input, SimpleChange, Output, EventEmitter} from '@angular/core';
+import {Component,ElementRef,Input,Output,Renderer,AfterViewInit,OnDestroy} from '@angular/core';
+import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-lightbox',
     template: `
-        <div>
-            <ng-content></ng-content>
+        <div [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'image')">
+            <a *ngFor="let image of images; let i = index;" [href]="image.source" (click)="onImageClick($event,image,i,content)">
+                <img [src]="image.thumbnail" [title]="image.title" [alt]="image.alt">
+            </a>
         </div>
-    `
+        <span [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'content')" (click)="onLinkClick($event,content)">
+            <ng-content select="a"></ng-content>
+        </span>
+        <div class="ui-lightbox ui-widget ui-helper-hidden ui-corner-all ui-shadow" [style.display]="visible ? 'block' : 'none'" [style.zIndex]="zindex"
+            [style.transitionProperty]="'all'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing" (click)="preventDocumentClickListener=true">
+           <div class="ui-lightbox-content-wrapper">
+              <a class="ui-state-default ui-lightbox-nav-left ui-corner-right" [style.zIndex]="zindex + 1" (click)="prev(img)"
+                [ngClass]="{'ui-helper-hidden':!leftVisible}"><span class="fa fa-fw fa-caret-left"></span></a>
+              <div #content class="ui-lightbox-content ui-corner-all" #content [ngClass]="{'ui-lightbox-loading': loading}" 
+                [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
+                <img #img [src]="currentImage ? currentImage.source||'' : ''" (load)="onImageLoad($event,content)" style="display:none">
+                <ng-content></ng-content>
+              </div>
+              <a class="ui-state-default ui-lightbox-nav-right ui-corner-left ui-helper-hidden" [style.zIndex]="zindex + 1" (click)="next(img)"
+                [ngClass]="{'ui-helper-hidden':!rightVisible}"><span class="fa fa-fw fa-caret-right"></span></a>
+           </div>
+           <div class="ui-lightbox-caption ui-widget-header" [style.display]="captionText ? 'block' : 'none'">
+              <span class="ui-lightbox-caption-text">{{captionText}}</span><a class="ui-lightbox-close ui-corner-all" href="#" (click)="hide($event)"><span class="fa fa-fw fa-close"></span></a>
+              <div style="clear:both"></div>
+           </div>
+        </div>
+    `,
+    providers: [DomHandler]
 })
-export class Lightbox implements AfterViewInit, OnDestroy, OnChanges {
+export class Lightbox implements AfterViewInit,OnDestroy{ 
 
-    initialized: boolean;
+    @Input() images: any[];
+    
+    @Input() type: string = 'image';
 
-    constructor(private el: ElementRef) {
-        this.initialized = false;
+    @Input() style: any;
+        
+    @Input() styleClass: string;
+    
+    @Input() easing: 'ease-out';
+    
+    @Input() effectDuration: any = '500ms';
+                
+    private visible: boolean;
+    
+    private loading: boolean;
+        
+    private currentImage: any;
+    
+    private captionText: string;
+    
+    private zindex: any;
+    
+    private panel: any;
+    
+    private index: number;
+    
+    private mask: any;
+    
+    private preventDocumentClickListener: boolean;
+    
+    private documentClickListener: any;
+
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+                
+    onImageClick(event,image,i,content) {
+        this.index = i;
+        this.loading = true;
+        content.style.width = 32 + 'px';
+        content.style.height = 32 + 'px';
+        this.show();
+        this.displayImage(image);
+        
+        this.preventDocumentClickListener = true;
+        event.preventDefault();
     }
-
+    
     ngAfterViewInit() {
-        jQuery(this.el.nativeElement.children[0]).puilightbox();
-        this.initialized = true;
-    }
-
-    ngOnChanges(changes: { [key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-                jQuery(this.el.nativeElement.children[0]).puilightbox('option', key, changes[key].currentValue);
+        this.panel = this.domHandler.findSingle(this.el.nativeElement, '.ui-lightbox ');
+        
+        this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
+            if(!this.preventDocumentClickListener&&this.visible) {
+                this.hide(event);
             }
+            this.preventDocumentClickListener = false;
+        });
+    }
+    
+    onLinkClick(event,content) {
+        this.show();
+        this.preventDocumentClickListener = true;
+        event.preventDefault();
+    }
+    
+    displayImage(image) {
+        setTimeout(() => {
+            this.currentImage = image;
+        }, 1000);
+    }
+    
+    show() {
+        this.mask = document.createElement('div');
+        this.mask.style.zIndex = ++DomHandler.zindex;
+        this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
+        document.body.appendChild(this.mask);
+        
+        this.zindex = ++DomHandler.zindex;
+        this.center();
+        this.visible = true;
+    }
+    
+    hide(event) {
+        this.captionText = null;
+        this.index = null;
+        this.currentImage = null;
+        this.visible = false;
+        this.panel.style.left = 'auto';
+        this.panel.style.top = 'auto';
+        
+        if(this.mask) {
+            document.body.removeChild(this.mask);
+            this.mask = null;
+        }
+        
+        event.preventDefault();
+    }
+    
+    center() {
+        let elementWidth = this.domHandler.getOuterWidth(this.panel);
+        let elementHeight = this.domHandler.getOuterHeight(this.panel);
+        if(elementWidth == 0 && elementHeight == 0) {
+            this.panel.style.visibility = 'hidden';
+            this.panel.style.display = 'block';
+            elementWidth = this.domHandler.getOuterWidth(this.panel);
+            elementHeight = this.domHandler.getOuterHeight(this.panel);
+            this.panel.style.display = 'none';
+            this.panel.style.visibility = 'visible';
+        }
+        let viewport = this.domHandler.getViewport();
+        let x = (viewport.width - elementWidth) / 2;
+        let y = (viewport.height - elementHeight) / 2;
+
+        this.panel.style.left = x + 'px';
+        this.panel.style.top = y + 'px';
+    }
+        
+    onImageLoad(event,content) {
+        let image = event.target;
+        image.style.visibility = 'hidden';
+        image.style.display = 'block';
+        let imageWidth = this.domHandler.getOuterWidth(image);
+        let imageHeight = this.domHandler.getOuterHeight(image);
+        image.style.display = 'none';
+        image.style.visibility = 'visible';
+
+        content.style.width = imageWidth + 'px';
+        content.style.height = imageHeight + 'px';
+        this.panel.style.left = parseInt(this.panel.style.left) + (this.domHandler.getOuterWidth(this.panel) - imageWidth) / 2 + 'px';
+        this.panel.style.top = parseInt(this.panel.style.top) + (this.domHandler.getOuterHeight(this.panel) - imageHeight) / 2 + 'px';
+
+        setTimeout(() => {
+            this.domHandler.fadeIn(image, 500);
+            image.style.display = 'block';
+            //this.captionText = this.currentImage.title;
+            this.loading = false;
+        }, parseInt(this.effectDuration));
+    }
+    
+    prev(placeholder: any) {
+        this.captionText = null;
+        this.loading = true;
+        placeholder.style.display = 'none';
+        if(this.index > 0) {
+            this.displayImage(this.images[--this.index]);
         }
     }
-
-    ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0]).puilightbox('destroy');
-        this.initialized = false;
+    
+    next(placeholder: any) {
+        this.captionText = null;
+        this.loading = true;
+        placeholder.style.display = 'none';
+        if(this.index <= (this.images.length - 1)) {
+            this.displayImage(this.images[++this.index]);
+        }
     }
-
+        
+    get leftVisible():boolean {
+        return this.images && this.images.length && this.index != 0 && !this.loading; 
+    }
+    
+    get rightVisible():boolean {
+        return this.images && this.images.length && this.index < (this.images.length - 1) && !this.loading; 
+    }
+    
+    ngOnDestroy() {
+        this.documentClickListener();
+    }
+        
 }

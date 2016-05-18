@@ -1,65 +1,177 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange} from '@angular/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {DomHandler} from '../dom/domhandler';
+import {MenuItem} from '../api/menumodel';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router-deprecated';
+
+@Component({
+    selector: 'p-tieredMenuSub',
+    template: `
+        <ul [ngClass]="{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
+            (click)="listClick($event)">
+            <template ngFor let-child [ngForOf]="(root ? item : item.items)">
+                <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
+                    (mouseenter)="onItemMouseEnter($event, item)" (mouseleave)="onItemMouseLeave($event, item)">
+                    <a #link [href]="getItemUrl(child)" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==activeLink}" (click)="itemClick($event, child)">
+                        <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
+                        <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
+                        <span class="ui-menuitem-text">{{child.label}}</span>
+                    </a>
+                    <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items"></p-tieredMenuSub>
+                </li>
+            </template>
+        </ul>
+    `,
+    directives: [TieredMenuSub],
+    providers: [DomHandler]
+})
+export class TieredMenuSub {
+
+    @Input() item: MenuItem;
+    
+    @Input() root: boolean;
+    
+    constructor(private domHandler: DomHandler, private router: Router, private location: Location) {}
+    
+    activeItem: any;
+    
+    activeLink: any;
+            
+    onItemMouseEnter(event, item) {
+        this.activeItem = item;
+        this.activeLink = item.children[0];
+        let nextElement =  item.children[0].nextElementSibling;
+        if(nextElement) {
+            let sublist = nextElement.children[0];
+            sublist.style.zIndex = ++DomHandler.zindex;
+                        
+            sublist.style.top = '0px';
+            sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+        }
+    }
+    
+    onItemMouseLeave(event, link) {
+        this.activeItem = null;
+        this.activeLink = null;
+    }
+    
+    itemClick(event, item: MenuItem) {
+        if(item.command) {
+            if(!item.eventEmitter) {
+                item.eventEmitter = new EventEmitter();
+                item.eventEmitter.subscribe(item.command);
+            }
+            
+            item.eventEmitter.emit(event);
+        }
+                
+        if(!item.url) {
+            event.preventDefault();
+        }
+    }
+    
+    listClick(event) {
+        this.activeItem = null;
+        this.activeLink = null;
+    }
+    
+    getItemUrl(item: MenuItem): string {
+        if(item.url) {
+            if(Array.isArray(item.url))
+                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
+            else
+                return item.url;
+        }
+        else {
+            return '#';
+        }
+    }
+
+}
 
 @Component({
     selector: 'p-tieredMenu',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-tieredmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true}">
-            <ng-content></ng-content>
+        <div [ngClass]="{'ui-tieredmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
+            [class]="styleClass" [ngStyle]="style">
+            <p-tieredMenuSub [item]="model" root="root"></p-tieredMenuSub>
         </div>
-    `
+    `,
+    providers: [DomHandler],
+    directives: [TieredMenuSub]
 })
-export class TieredMenu {
+export class TieredMenu implements AfterViewInit,OnDestroy {
+
+    @Input() model: MenuItem[];
 
     @Input() popup: boolean;
-
-    @Input() trigger: any;
-
-    @Input() my: string;
-
-    @Input() at: string;
-
-    @Input() triggerEvent: string;
-
-    @Input() autoDisplay: boolean;
 
     @Input() style: any;
 
     @Input() styleClass: string;
-
-    initialized: boolean;
-
-    menuElement: any;
-
-    constructor(private el: ElementRef) {
-        this.initialized = false;
-    }
+    
+    container: any;
+    
+    documentClickListener: any;
+    
+    preventDocumentDefault: any;
+    
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
 
     ngAfterViewInit() {
-        this.menuElement = jQuery(this.el.nativeElement).find('> div > ul');
-        this.menuElement.puitieredmenu({
-            enhanced: true,
-            popup: this.popup,
-            trigger: this.trigger ? jQuery(this.trigger): null,
-            my: this.my,
-            at: this.at,
-            autoDisplay: this.autoDisplay,
-            triggerEvent: this.triggerEvent
-        });
-        this.initialized = true;
+        this.container = this.el.nativeElement.children[0];
+        
+        if(this.popup) {
+            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+                if(!this.preventDocumentDefault) {
+                    this.hide();
+                }
+                this.preventDocumentDefault = false;
+            });
+        }
+    }
+    
+    toggle(event) {
+        if(this.container.offsetParent)
+            this.hide();
+        else
+            this.show(event);
+            
+        this.preventDocumentDefault = true;
+    }
+    
+    show(event) {
+        this.container.style.display = 'block';
+        this.domHandler.absolutePosition(this.container, event.target);
+        this.domHandler.fadeIn(this.container, 250);
+    }
+    
+    hide() {
+        this.container.style.display = 'none';
     }
 
-    ngOnChanges(changes: {[key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-                this.menuElement.puitieredmenu('option', key, changes[key].currentValue);
+    unsubscribe(item: any) {
+        if(item.eventEmitter) {
+            item.eventEmitter.unsubscribe();
+        }
+        
+        if(item.items) {
+            for(let childItem of item.items) {
+                this.unsubscribe(childItem);
             }
         }
     }
-
+        
     ngOnDestroy() {
-        this.menuElement.puitieredmenu('destroy');
-        this.initialized = false;
-        this.menuElement = null;
+        if(this.popup) {
+            this.documentClickListener();
+        }
+        
+        if(this.model) {
+            for(let item of this.model) {
+                this.unsubscribe(item);
+            }
+        }
     }
 
 }

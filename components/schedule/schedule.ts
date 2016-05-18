@@ -190,7 +190,7 @@ export class Schedule {
                 });
             },
             eventDrop: (event, delta, revertFunc, jsEvent, ui, view) => {
-                this.onEventDragStop.emit({
+                this.onEventDrop.emit({
                     'event': event,
                     'delta': delta,
                     'revertFunc': revertFunc,

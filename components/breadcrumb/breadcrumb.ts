@@ -1,46 +1,71 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange} from '@angular/core';
+import {Component,Input,OnDestroy,EventEmitter} from '@angular/core';
+import {MenuItem} from '../api/menumodel';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router-deprecated';
 
 @Component({
     selector: 'p-breadcrumb',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all':true}">
-            <ng-content></ng-content>
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'">
+            <ul>
+                <li class="fa fa-home"></li>
+                <template ngFor let-item let-end="last" [ngForOf]="model">
+                    <li role="menuitem">
+                        <a [href]="getItemUrl(item)" class="ui-menuitem-link" (click)="itemClick($event, item)">
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </a>
+                    </li>
+                    <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="!end"></li>
+                </template>
+            </ul>
         </div>
     `
 })
-export class Breadcrumb {
+export class Breadcrumb implements OnDestroy {
+
+    @Input() model: MenuItem[];
 
     @Input() style: any;
 
     @Input() styleClass: string;
-
-    initialized: boolean;
-
-    menuElement: any;
-
-    constructor(private el: ElementRef) {
-        this.initialized = false;
+    
+    constructor(private router: Router, private location: Location) {}
+    
+    itemClick(event, item: MenuItem) {
+        if(item.command) {
+            if(!item.eventEmitter) {
+                item.eventEmitter = new EventEmitter();
+                item.eventEmitter.subscribe(item.command);
+            }
+            
+            item.eventEmitter.emit(event);
+        }
+                
+        if(!item.url) {
+            event.preventDefault();
+        }
     }
-
-    ngAfterViewInit() {
-        this.menuElement = jQuery(this.el.nativeElement).find('> div > ul');
-        this.menuElement.puibreadcrumb({
-            enhanced: true
-        });
-        this.initialized = true;
+    
+    getItemUrl(item: MenuItem): string {
+        if(item.url) {
+            if(Array.isArray(item.url))
+                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
+            else
+                return item.url;
+        }
+        else {
+            return '#';
+        }
     }
-
-    ngOnChanges(changes: {[key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-                this.menuElement.puibreadcrumb('option', key, changes[key].currentValue);
+    
+    ngOnDestroy() {
+        if(this.model) {
+            for(let item of this.model) {
+                if(item.eventEmitter) {
+                    item.eventEmitter.unsubscribe();
+                }
             }
         }
     }
 
-    ngOnDestroy() {
-        this.menuElement.puibreadcrumb('destroy');
-        this.initialized = false;
-        this.menuElement = null;
-    }
 }

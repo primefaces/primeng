@@ -14,6 +14,7 @@ import {CarService} from '../service/carservice';
 import {Growl} from '../../../components/growl/growl';
 import {ContextMenu} from '../../../components/contextmenu/contextmenu';
 import {Message} from '../../../components/api/message';
+import {MenuItem} from '../../../components/api/menumodel';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablecmdemo.html',
@@ -27,11 +28,18 @@ export class DataTableCMDemo implements OnInit {
     cars: Car[];
 
     selectedCar: Car;
+    
+    items: MenuItem[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
+        
+        this.items = [
+            {label: 'View', icon: 'fa-search', command: (event) => this.viewCar(this.selectedCar)},
+            {label: 'Delete', icon: 'fa-close', command: (event) => this.deleteCar(this.selectedCar)}
+        ];
     }
 
     viewCar(car: Car) {

@@ -6,7 +6,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-galleria [images]="images" panelWidth="500" panelHeight="313" showCaption="true"></p-galleria>
+    <p-galleria [images]="images" panelWidth="500" panelHeight="313"></p-galleria>
 </div>
 
 <div class="ContentSideSections Source">
@@ -125,6 +125,30 @@ export class GalleriaDemo implements OnInit {
                             <td>true</td>
                             <td>Displays information retrieved from title and alt attributes of images in content caption.</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>Events</h4>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>onImageClicked</td>
+                        <td>
+                            event.image: Image Object<br>
+                            event.originalEvent: Click Object<br>
+                            event.index: Index of the image
+                        </td>
+                        <td>Callback to invoke when the displayed image is clicked.</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

@@ -69,10 +69,12 @@
                 <a class="SubMenuLink" [routerLink]="['DialogDemo']" (click)="mobileMenuActive = false">&#9679; Dialog</a>
                 <a class="SubMenuLink" [routerLink]="['LightboxDemo']" (click)="mobileMenuActive = false">&#9679; Lightbox</a>
                 <a class="SubMenuLink" [routerLink]="['OverlayPanelDemo']" (click)="mobileMenuActive = false">&#9679; OverlayPanel</a>
+                <a class="SubMenuLink" [routerLink]="['TooltipDemo']" (click)="mobileMenuActive = false">&#9679; Tooltip</a>
             </div>
 
             <span id="menu_menu" #menumenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="menumenutitle.id == activeMenuId" (click)="activeMenuId = menumenutitle.id"><img src="showcase/resources/images/mono/menu.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/menuBlue.svg" /><span class="MainLinkText">Menu</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (menumenutitle.id == activeMenuId), 'submenuhide': (menumenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['MenuModelApi']" (click)="mobileMenuActive = false">&#9679; MenuModel</a>
                 <a class="SubMenuLink" [routerLink]="['BreadcrumbDemo']" (click)="mobileMenuActive = false">&#9679; Breadcrumb</a>
                 <a class="SubMenuLink" [routerLink]="['ContextMenuDemo']" (click)="mobileMenuActive = false">&#9679; ContextMenu</a>
                 <a class="SubMenuLink" [routerLink]="['MegaMenuDemo']" (click)="mobileMenuActive = false">&#9679; MegaMenu</a>
@@ -80,6 +82,7 @@
                 <a class="SubMenuLink" [routerLink]="['MenubarDemo']" (click)="mobileMenuActive = false">&#9679; Menubar</a>
                 <a class="SubMenuLink" [routerLink]="['PanelMenuDemo']" (click)="mobileMenuActive = false">&#9679; PanelMenu</a>
                 <a class="SubMenuLink" [routerLink]="['SlideMenuDemo']" (click)="mobileMenuActive = false">&#9679; SlideMenu</a>
+                <a class="SubMenuLink" [routerLink]="['TabMenuDemo']" (click)="mobileMenuActive = false">&#9679; TabMenu</a>
                 <a class="SubMenuLink" [routerLink]="['TieredMenuDemo']" (click)="mobileMenuActive = false">&#9679; TieredMenu</a>
             </div>
 

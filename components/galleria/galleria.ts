@@ -7,11 +7,11 @@ import {DomHandler} from '../dom/domhandler';
         <div [ngClass]="{'ui-galleria ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass" [style.width.px]="panelWidth">
             <ul class="ui-galleria-panel-wrapper" [style.width.px]="panelWidth" [style.height.px]="panelHeight">
                 <li *ngFor="let image of images;let i=index" class="ui-galleria-panel" [ngClass]="{'ui-helper-hidden':i!=activeIndex}"
-                    [style.width.px]="panelWidth" [style.height.px]="panelHeight">
+                    [style.width.px]="panelWidth" [style.height.px]="panelHeight" (click)="clickImage($event,image,i)">
                     <img class="ui-panel-images" [src]="image.source" [alt]="image.alt" [title]="image.title"/>
                 </li>
             </ul>
-            <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}">
+            <div [ngClass]="{'ui-galleria-filmstrip-wrapper':true}" *ngIf="showFilmstrip">
                 <ul class="ui-galleria-filmstrip" style="transition:left 1s" [style.left.px]="stripLeft">
                     <li #frame *ngFor="let image of images;let i=index" [ngClass]="{'ui-galleria-frame-active':i==activeIndex}" class="ui-galleria-frame" (click)="frameClick(frame)"
                         [style.width.px]="frameWidth" [style.height.px]="frameHeight" [style.transition]="'opacity 0.75s ease'">
@@ -22,10 +22,10 @@ import {DomHandler} from '../dom/domhandler';
                     </li>
                 </ul>
             </div>
-            <div class="ui-galleria-nav-prev fa fa-fw fa-chevron-circle-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2"></div>
+            <div class="ui-galleria-nav-prev fa fa-fw fa-chevron-circle-left" (click)="clickNavLeft()" [style.bottom.px]="frameHeight/2" *ngIf="activeIndex !== 0"></div>
             <div class="ui-galleria-nav-next fa fa-fw fa-chevron-circle-right" (click)="clickNavRight()" [style.bottom.px]="frameHeight/2"></div>
             <div class="ui-galleria-caption" *ngIf="showCaption&&images" style="display:block">
-                <h4>{{images[activeIndex].title}}</h4><p>{{images[activeIndex].alt}}</p>
+                <h4>{{images[activeIndex]?.title}}</h4><p>{{images[activeIndex]?.alt}}</p>
             </div>
         </div>
     `,
@@ -56,6 +56,8 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     @Input() transitionInterval: number = 4000;
 
     @Input() showCaption: boolean = true;
+    
+    @Output() onImageClicked = new EventEmitter();
     
     differ: any;
     
@@ -121,9 +123,9 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     
     render() {
         this.panels = this.domHandler.find(this.panelWrapper, 'li.ui-galleria-panel'); 
-        this.frames = this.domHandler.find(this.strip,'li.ui-galleria-frame');
         
         if(this.showFilmstrip) {
+            this.frames = this.domHandler.find(this.strip,'li.ui-galleria-frame');
             this.stripWrapper.style.width = this.domHandler.width(this.panelWrapper) - 50 + 'px';
             this.stripWrapper.style.height = this.frameHeight + 'px';
         }
@@ -222,6 +224,10 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
             
             this.activeIndex = index;
         }
+    }
+    
+    clickImage(event, image, i) {
+        this.onImageClicked.emit({originalEvent: event, image: image, index: i})
     }
         
     ngOnDestroy() {
