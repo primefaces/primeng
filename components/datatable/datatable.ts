@@ -119,7 +119,7 @@ import {DomHandler} from '../dom/domhandler';
                             </td>
                         </tr>
                         <tr *ngIf="expandableRows && isRowExpanded(rowData)">
-                            <td [attr.colspan]="columns.length">
+                            <td [attr.colspan]="visibleColumns().length">
                                 <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
                             </td>
                         </tr>
