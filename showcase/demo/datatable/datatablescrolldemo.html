@@ -9,7 +9,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" scrollable="true"  scrollHeight="200">
+    <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px">
         <header>Vertical</header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -17,7 +17,7 @@
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
 
-    <p-dataTable [value]="cars" scrollable="true"  scrollHeight="200" scrollWidth="75%" [style]="{'margin-top':'30px'}">
+    <p-dataTable [value]="cars" scrollable="true"  scrollHeight="200px" scrollWidth="75%" [style]="{'margin-top':'30px'}">
         <header>Vertical and Horizontal</header>
         <p-column field="vin" header="Vin" [style]="{'width':'250px'}"></p-column>
         <p-column field="year" header="Year" [style]="{'width':'250px'}"></p-column>
@@ -48,7 +48,7 @@ export class DataTableScrollDemo implements OnInit {
         <p-tabPanel header="datatablescrolldemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" scrollable="true"  scrollHeight="200"&gt;
+&lt;p-dataTable [value]="cars" scrollable="true" scrollHeight="200px"&gt;
     &lt;header&gt;Vertical&lt;/header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
@@ -56,7 +56,7 @@ export class DataTableScrollDemo implements OnInit {
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-dataTable [value]="cars" scrollable="true"  scrollHeight="200" scrollWidth="75%" [style]="{'margin-top':'30px'}"&gt;
+&lt;p-dataTable [value]="cars" scrollable="true"  scrollHeight="200px" scrollWidth="75%" [style]="{'margin-top':'30px'}"&gt;
     &lt;header&gt;Vertical and Horizontal&lt;/header&gt;
     &lt;p-column field="vin" header="Vin" [style]="{'width':'250px'}"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [style]="{'width':'250px'}"&gt;&lt;/p-column&gt;

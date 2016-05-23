@@ -16,7 +16,7 @@ import {DomHandler} from '../dom/domhandler';
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
             [ngClass]="{'ui-datatable ui-widget': true, 'ui-datatable-reflow':responsive, 'ui-datatable-stacked': stacked}">
-            <div class="ui-datatable-header ui-widget-header" *ngIf="header">
+            <div class="ui-datatable-header ui-widget-header" *ngIf="header" [ngStyle]="{'width': scrollWidth}">
                 <ng-content select="header"></ng-content>
             </div>
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
@@ -80,7 +80,7 @@ import {DomHandler} from '../dom/domhandler';
                     </tbody>
                 </table>
             </div>
-            <div class="ui-widget-header ui-datatable-scrollable-header" *ngIf="scrollable">
+            <div class="ui-widget-header ui-datatable-scrollable-header" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
                 <div class="ui-datatable-scrollable-header-box">
                     <table>
                         <thead>
@@ -98,7 +98,7 @@ import {DomHandler} from '../dom/domhandler';
                     </table>
                 </div>
             </div>
-            <div class="ui-datatable-scrollable-body" *ngIf="scrollable">
+            <div class="ui-datatable-scrollable-body" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
                 <table>
                     <tbody class="ui-datatable-data ui-widget-content">
                     <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
@@ -264,6 +264,20 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private sortColumn: Column;
     
     private expandedRows: any[];
+    
+    private percentageScrollHeight: boolean;
+        
+    private scrollBody: any;
+    
+    private scrollHeader: any
+    
+    private scrollHeaderBox: any;
+    
+    private bodyScrollListener: any;
+    
+    private headerScrollListener: any;
+    
+    private resizeScrollListener: any;
 
     differ: any;
 
@@ -887,10 +901,48 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     }
 
     initScrolling() {
-        jQuery(this.el.nativeElement.children[0]).puitablescroll({
-            scrollHeight: this.scrollHeight,
-            scrollWidth: this.scrollWidth
+        this.scrollHeader = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header');
+        this.scrollHeaderBox = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box');
+        this.scrollBody = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-body');
+        this.percentageScrollHeight = this.scrollHeight && (this.scrollHeight.indexOf('%') !== -1);
+        
+        if(this.scrollHeight) {
+            if(this.percentageScrollHeight)
+                this.scrollBody.style.maxHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100) + 'px';
+            else
+                this.scrollBody.style.maxHeight = this.scrollHeight;
+                
+            this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
+        }
+        
+        this.bodyScrollListener = this.renderer.listen(this.scrollBody, 'scroll', () => {
+            this.scrollHeaderBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
         });
+        
+        this.headerScrollListener = this.renderer.listen(this.scrollHeader, 'scroll', () => {
+            this.scrollHeader.scrollLeft = 0;
+        });
+        
+        if(this.percentageScrollHeight) {
+            this.resizeScrollListener = this.renderer.listenGlobal('window', 'resize', () => {
+                this.scrollBody.style.maxHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100) + 'px';
+            });
+        }
+    }
+    
+    adjustScrollHeight() {
+        
+    }
+        
+    calculateScrollbarWidth(): number {
+        let scrollDiv = document.createElement("div");
+        scrollDiv.className = "ui-scrollbar-measure";
+        document.body.appendChild(scrollDiv);
+
+        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        
+        return scrollbarWidth;
     }
 
     hasFooter() {
@@ -1025,6 +1077,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         //remove event listener
         if(this.globalFilterFunction) {
             this.globalFilterFunction();
+        }
+        
+        if(this.scrollable) {
+            this.bodyScrollListener();
+            this.headerScrollListener();
+            
+            if(this.percentageScrollHeight) {
+                this.resizeScrollListener();
+            }
         }
     }
 }

@@ -604,3 +604,16 @@ pre {
     text-align: center;
 }
 
+.ui-scrollbar-measure {
+	width: 100px;
+	height: 100px;
+	overflow: scroll;
+	position: absolute;
+	top: -9999px;
+}
+
+.ui-datatable .ui-datatable-header,
+.ui-datatable .ui-datatable-footer  {
+    box-sizing: border-box;
+}
+
