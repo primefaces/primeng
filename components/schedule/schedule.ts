@@ -169,7 +169,7 @@ export class Schedule {
                 });
             },
             eventMouseout: (calEvent, jsEvent, view) => {
-                this.onEventMouseover.emit({
+                this.onEventMouseout.emit({
                     'calEvent': calEvent,
                     'jsEvent': jsEvent,
                     'view': view
