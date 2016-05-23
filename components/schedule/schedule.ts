@@ -97,6 +97,8 @@ export class Schedule {
     
     @Output() onEventResize: EventEmitter<any> = new EventEmitter();
     
+    @Output() viewRender: EventEmitter<any> = new EventEmitter();
+    
     initialized: boolean;
     
     stopNgOnChangesPropagation: boolean;
@@ -219,6 +221,12 @@ export class Schedule {
                     'revertFunc': revertFunc,
                     'jsEvent': jsEvent,
                     'view': view
+                });
+            },
+            viewRender: (view, element) => {
+                this.onEventResize.emit({
+                    'view': view,
+                    'element': element                    
                 });
             }
         };
