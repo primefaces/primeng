@@ -12,7 +12,9 @@ export class SplitButtonItem {
         
     @Input() label: string;
     
-    @Input() url: any;
+    @Input() url: string;
+    
+    @Input() routerLink: any;
     
     @Output() onClick: EventEmitter<any> = new EventEmitter();
             

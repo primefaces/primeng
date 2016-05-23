@@ -2,7 +2,7 @@ import {Component,ElementRef,OnDestroy,Input,Output,EventEmitter} from '@angular
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../api/menumodel';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'p-tabMenu',
@@ -13,7 +13,7 @@ import {Router} from '@angular/router-deprecated';
                     [ngClass]="{'ui-tabmenuitem ui-state-default ui-corner-top':true,
                         'ui-tabmenuitem-hasicon':item.icon,'ui-state-hover':hoveredItem==item,'ui-state-active':activeItem==item}"
                     (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
-                    <a [href]="getItemUrl(item)"class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)">
+                    <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
@@ -35,7 +35,7 @@ export class TabMenu implements OnDestroy {
 
     @Input() styleClass: string;
     
-    constructor(private router: Router, private location: Location) {}
+    constructor(private router: Router) {}
         
     hoveredItem: MenuItem;
     
@@ -46,6 +46,10 @@ export class TabMenu implements OnDestroy {
     }
     
     itemClick(event, item: MenuItem) {
+        if(!item.url||item.routerLink) {
+            event.preventDefault();
+        }
+        
         if(item.command) {
             if(!item.eventEmitter) {
                 item.eventEmitter = new EventEmitter();
@@ -54,9 +58,9 @@ export class TabMenu implements OnDestroy {
             
             item.eventEmitter.emit(event);
         }
-
-        if(!item.url) {
-            event.preventDefault();
+        
+        if(item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
         
         this.activeItem = item;
@@ -69,19 +73,7 @@ export class TabMenu implements OnDestroy {
             }
         }
     }
-    
-    getItemUrl(item: MenuItem): string {
-        if(item.url) {
-            if(Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
-        }
-    }
-    
+        
     unsubscribe(item: any) {
         if(item.eventEmitter) {
             item.eventEmitter.unsubscribe();

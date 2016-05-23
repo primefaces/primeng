@@ -80,9 +80,15 @@ export class MenuDemo {
                 </tr>
                 <tr>
                     <td>url</td>
-                    <td>any</td>
+                    <td>string</td>
                     <td>null</td>
-                    <td>External link or a router link to navigate when item is clicked.</td>
+                    <td>External link to navigate when item is clicked.</td>
+                </tr>
+                <tr>
+                    <td>routerLink</td>
+                    <td>array</td>
+                    <td>null</td>
+                    <td>RouterLink definition for internal navigation.</td>
                 </tr>
                 <tr>
                     <td>items</td>
@@ -117,7 +123,7 @@ export class MenuDemo {
 </pre>
 
     <h4>Navigation</h4>
-    <p>The link to navigate is specified with url property that can either be an external url or an internal router link.</p>
+    <p>Navigation is specified using url property for external links and with routerLink for internal ones.</p>
 <pre>
 <code class="language-typescript" pCode>
 export class MenuDemo {
@@ -129,7 +135,7 @@ export class MenuDemo {
             label: 'File',
             items: [
                 {label: 'New', icon: 'fa-plus', url: 'http://www.primefaces.org/primeng'},
-                {label: 'Open', icon: 'fa-download', url: ['PageName']}
+                {label: 'Open', icon: 'fa-download', routerLink: ['/pagename']}
             ]
         }
     }

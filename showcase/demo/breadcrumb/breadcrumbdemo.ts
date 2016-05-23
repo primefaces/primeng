@@ -5,7 +5,7 @@ import {Button} from '../../../components/button/button';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {MenuItem} from '../../../components/api/menumodel';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/breadcrumb/breadcrumbdemo.html',

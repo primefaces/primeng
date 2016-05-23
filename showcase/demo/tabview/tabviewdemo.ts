@@ -4,7 +4,7 @@ import {Growl} from '../../../components/growl/growl';
 import {Message} from '../../../components/api/message';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/tabview/tabviewdemo.html',

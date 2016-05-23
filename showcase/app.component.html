@@ -2,7 +2,7 @@
     <div id="MENUSIDE" [ngClass]="{'active':mobileMenuActive}">
         <div id="MENUSIDEindent">
             <span id="LOGO" class="">
-                <a href="#" [routerLink]="['HomePage']">
+                <a href="#" [routerLink]="['/']">
                     <img alt="logo" src="showcase/resources/images/primeng.svg" />
                 </a>
                 <a href="#" id="openMobileMenuBtn" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
@@ -13,87 +13,87 @@
 
             <span id="menu_input" #inputmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id"><img src="showcase/resources/images/mono/input.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/inputBlue.svg" /><span class="MainLinkText">Input</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['AutoCompleteDemo']" (click)="mobileMenuActive = false">&#9679; AutoComplete</a>
-                <a class="SubMenuLink" [routerLink]="['CalendarDemo']" (click)="mobileMenuActive = false">&#9679; Calendar</a>
-                <a class="SubMenuLink" [routerLink]="['CheckboxDemo']" (click)="mobileMenuActive = false">&#9679; Checkbox</a>
-                <a class="SubMenuLink" [routerLink]="['DropdownDemo']" (click)="mobileMenuActive = false">&#9679; Dropdown</a>
-                <a class="SubMenuLink" [routerLink]="['EditorDemo']" (click)="mobileMenuActive = false">&#9679; Editor</a>
-                <a class="SubMenuLink" [routerLink]="['InputSwitchDemo']" (click)="mobileMenuActive = false">&#9679; InputSwitch</a>
-                <a class="SubMenuLink" [routerLink]="['InputTextDemo']" (click)="mobileMenuActive = false">&#9679; InputText</a>
-                <a class="SubMenuLink" [routerLink]="['InputTextareaDemo']" (click)="mobileMenuActive = false">&#9679; InputTextArea</a>
-                <a class="SubMenuLink" [routerLink]="['ListboxDemo']" (click)="mobileMenuActive = false">&#9679; Listbox</a>
-                <a class="SubMenuLink" [routerLink]="['MultiSelectDemo']" (click)="mobileMenuActive = false">&#9679; MultiSelect</a>
-                <a class="SubMenuLink" [routerLink]="['PasswordDemo']" (click)="mobileMenuActive = false">&#9679; Password</a>
-                <a class="SubMenuLink" [routerLink]="['RadioButtonDemo']" (click)="mobileMenuActive = false">&#9679; RadioButton</a>
-                <a class="SubMenuLink" [routerLink]="['RatingDemo']" (click)="mobileMenuActive = false">&#9679; Rating</a>
-                <a class="SubMenuLink" [routerLink]="['SliderDemo']" (click)="mobileMenuActive = false">&#9679; Slider</a>
-                <a class="SubMenuLink" [routerLink]="['SpinnerDemo']" (click)="mobileMenuActive = false">&#9679; Spinner</a>
-                <a class="SubMenuLink" [routerLink]="['SelectButtonDemo']" (click)="mobileMenuActive = false">&#9679; SelectButton</a>
-                <a class="SubMenuLink" [routerLink]="['ToggleButtonDemo']" (click)="mobileMenuActive = false">&#9679; ToggleButton</a>
+                <a class="SubMenuLink" [routerLink]="['/autocomplete']" (click)="mobileMenuActive = false">&#9679; AutoComplete</a>
+                <a class="SubMenuLink" [routerLink]="['/calendar']" (click)="mobileMenuActive = false">&#9679; Calendar</a>
+                <a class="SubMenuLink" [routerLink]="['/checkbox']" (click)="mobileMenuActive = false">&#9679; Checkbox</a>
+                <a class="SubMenuLink" [routerLink]="['/dropdown']" (click)="mobileMenuActive = false">&#9679; Dropdown</a>
+                <a class="SubMenuLink" [routerLink]="['/editor']" (click)="mobileMenuActive = false">&#9679; Editor</a>
+                <a class="SubMenuLink" [routerLink]="['/inputswitch']" (click)="mobileMenuActive = false">&#9679; InputSwitch</a>
+                <a class="SubMenuLink" [routerLink]="['/inputtext']" (click)="mobileMenuActive = false">&#9679; InputText</a>
+                <a class="SubMenuLink" [routerLink]="['/inputtext']" (click)="mobileMenuActive = false">&#9679; InputTextArea</a>
+                <a class="SubMenuLink" [routerLink]="['/listbox']" (click)="mobileMenuActive = false">&#9679; Listbox</a>
+                <a class="SubMenuLink" [routerLink]="['/multiselect']" (click)="mobileMenuActive = false">&#9679; MultiSelect</a>
+                <a class="SubMenuLink" [routerLink]="['/password']" (click)="mobileMenuActive = false">&#9679; Password</a>
+                <a class="SubMenuLink" [routerLink]="['/radiobutton']" (click)="mobileMenuActive = false">&#9679; RadioButton</a>
+                <a class="SubMenuLink" [routerLink]="['/rating']" (click)="mobileMenuActive = false">&#9679; Rating</a>
+                <a class="SubMenuLink" [routerLink]="['/slider']" (click)="mobileMenuActive = false">&#9679; Slider</a>
+                <a class="SubMenuLink" [routerLink]="['/spinner']" (click)="mobileMenuActive = false">&#9679; Spinner</a>
+                <a class="SubMenuLink" [routerLink]="['/selectbutton']" (click)="mobileMenuActive = false">&#9679; SelectButton</a>
+                <a class="SubMenuLink" [routerLink]="['/togglebutton']" (click)="mobileMenuActive = false">&#9679; ToggleButton</a>
             </div>
 
             <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="showcase/resources/images/mono/button.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/buttonBlue.svg" /><span class="MainLinkText">Button</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (buttonmenutitle.id == activeMenuId), 'submenuhide': (buttonmenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['ButtonDemo']" (click)="mobileMenuActive = false">&#9679; Button</a>
-                <a class="SubMenuLink" [routerLink]="['SplitButtonDemo']" (click)="mobileMenuActive = false">&#9679; SplitButton</a>
+                <a class="SubMenuLink" [routerLink]="['/button']" (click)="mobileMenuActive = false">&#9679; Button</a>
+                <a class="SubMenuLink" [routerLink]="['/splitbutton']" (click)="mobileMenuActive = false">&#9679; SplitButton</a>
             </div>
 
             <span id="data_menutitle" #datamenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="datamenutitle.id == activeMenuId" (click)="activeMenuId = datamenutitle.id"><img src="showcase/resources/images/mono/data.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/dataBlue.svg" /><span class="MainLinkText">Data</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (datamenutitle.id == activeMenuId), 'submenuhide': (datamenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['CarouselDemo']" (click)="mobileMenuActive = false">&#9679; Carousel</a>
-                <a class="SubMenuLink" [routerLink]="['DataGridDemo']" (click)="mobileMenuActive = false">&#9679; DataGrid</a>
-                <a class="SubMenuLink" [routerLink]="['DataListDemo']" (click)="mobileMenuActive = false">&#9679; DataList</a>
-                <a class="SubMenuLink" [routerLink]="['DataScrollerDemo']" (click)="mobileMenuActive = false">&#9679; DataScroller</a>
-                <a class="SubMenuLink" [routerLink]="['DataTableDemo']" (click)="mobileMenuActive = false">&#9679; DataTable</a>
-                <a class="SubMenuLink" [routerLink]="['OrderListDemo']" (click)="mobileMenuActive = false">&#9679; OrderList</a>
-                <a class="SubMenuLink" [routerLink]="['GMapDemo']" (click)="mobileMenuActive = false">&#9679; GMap</a>
-                <a class="SubMenuLink" [routerLink]="['PaginatorDemo']" (click)="mobileMenuActive = false">&#9679; Paginator</a>
-                <a class="SubMenuLink" [routerLink]="['PickListDemo']" (click)="mobileMenuActive = false">&#9679; PickList</a>
-                <a class="SubMenuLink" [routerLink]="['ScheduleDemo']" (click)="mobileMenuActive = false">&#9679; Schedule</a>
-                <a class="SubMenuLink" [routerLink]="['TreeDemo']" (click)="mobileMenuActive = false">&#9679; Tree</a>
-                <a class="SubMenuLink" [routerLink]="['TreeTableDemo']" (click)="mobileMenuActive = false">&#9679; TreeTable</a>
+                <a class="SubMenuLink" [routerLink]="['/carousel']" (click)="mobileMenuActive = false">&#9679; Carousel</a>
+                <a class="SubMenuLink" [routerLink]="['/datagrid']" (click)="mobileMenuActive = false">&#9679; DataGrid</a>
+                <a class="SubMenuLink" [routerLink]="['/datalist']" (click)="mobileMenuActive = false">&#9679; DataList</a>
+                <a class="SubMenuLink" [routerLink]="['/datascroller']" (click)="mobileMenuActive = false">&#9679; DataScroller</a>
+                <a class="SubMenuLink" [routerLink]="['/datatable']" (click)="mobileMenuActive = false">&#9679; DataTable</a>
+                <a class="SubMenuLink" [routerLink]="['/orderlist']" (click)="mobileMenuActive = false">&#9679; OrderList</a>
+                <a class="SubMenuLink" [routerLink]="['/gmap']" (click)="mobileMenuActive = false">&#9679; GMap</a>
+                <a class="SubMenuLink" [routerLink]="['/paginator']" (click)="mobileMenuActive = false">&#9679; Paginator</a>
+                <a class="SubMenuLink" [routerLink]="['/picklist']" (click)="mobileMenuActive = false">&#9679; PickList</a>
+                <a class="SubMenuLink" [routerLink]="['/schedule']" (click)="mobileMenuActive = false">&#9679; Schedule</a>
+                <a class="SubMenuLink" [routerLink]="['/tree']" (click)="mobileMenuActive = false">&#9679; Tree</a>
+                <a class="SubMenuLink" [routerLink]="['/treetable']" (click)="mobileMenuActive = false">&#9679; TreeTable</a>
             </div>
 
             <span id="menu_panel" #panelmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = panelmenutitle.id"><img src="showcase/resources/images/mono/panel.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (panelmenutitle.id == activeMenuId), 'submenuhide': (panelmenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['AccordionDemo']" (click)="mobileMenuActive = false">&#9679; Accordion</a>
-                <a class="SubMenuLink" [routerLink]="['FieldsetDemo']" (click)="mobileMenuActive = false">&#9679; Fieldset</a>
-                <a class="SubMenuLink" [routerLink]="['PanelDemo']" (click)="mobileMenuActive = false">&#9679; Panel</a>
-                <a class="SubMenuLink" [routerLink]="['GridDemo']" (click)="mobileMenuActive = false">&#9679; Grid</a>
-                <a class="SubMenuLink" [routerLink]="['TabViewDemo']" (click)="mobileMenuActive = false">&#9679; TabView</a>
-                <a class="SubMenuLink" [routerLink]="['ToolbarDemo']" (click)="mobileMenuActive = false">&#9679; Toolbar</a>
+                <a class="SubMenuLink" [routerLink]="['/accordion']" (click)="mobileMenuActive = false">&#9679; Accordion</a>
+                <a class="SubMenuLink" [routerLink]="['/fieldset']" (click)="mobileMenuActive = false">&#9679; Fieldset</a>
+                <a class="SubMenuLink" [routerLink]="['/panel']" (click)="mobileMenuActive = false">&#9679; Panel</a>
+                <a class="SubMenuLink" [routerLink]="['/grid']" (click)="mobileMenuActive = false">&#9679; Grid</a>
+                <a class="SubMenuLink" [routerLink]="['/tabview']" (click)="mobileMenuActive = false">&#9679; TabView</a>
+                <a class="SubMenuLink" [routerLink]="['/toolbar']" (click)="mobileMenuActive = false">&#9679; Toolbar</a>
             </div>
 
             <span id="menu_overlay" #overlaymenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id"><img src="showcase/resources/images/mono/overlay.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['DialogDemo']" (click)="mobileMenuActive = false">&#9679; Dialog</a>
-                <a class="SubMenuLink" [routerLink]="['LightboxDemo']" (click)="mobileMenuActive = false">&#9679; Lightbox</a>
-                <a class="SubMenuLink" [routerLink]="['OverlayPanelDemo']" (click)="mobileMenuActive = false">&#9679; OverlayPanel</a>
-                <a class="SubMenuLink" [routerLink]="['TooltipDemo']" (click)="mobileMenuActive = false">&#9679; Tooltip</a>
+                <a class="SubMenuLink" [routerLink]="['/dialog']" (click)="mobileMenuActive = false">&#9679; Dialog</a>
+                <a class="SubMenuLink" [routerLink]="['/lightbox']" (click)="mobileMenuActive = false">&#9679; Lightbox</a>
+                <a class="SubMenuLink" [routerLink]="['/overlaypanel']" (click)="mobileMenuActive = false">&#9679; OverlayPanel</a>
+                <a class="SubMenuLink" [routerLink]="['/tooltip']" (click)="mobileMenuActive = false">&#9679; Tooltip</a>
             </div>
 
             <span id="menu_menu" #menumenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="menumenutitle.id == activeMenuId" (click)="activeMenuId = menumenutitle.id"><img src="showcase/resources/images/mono/menu.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/menuBlue.svg" /><span class="MainLinkText">Menu</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (menumenutitle.id == activeMenuId), 'submenuhide': (menumenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['MenuModelApi']" (click)="mobileMenuActive = false">&#9679; MenuModel</a>
-                <a class="SubMenuLink" [routerLink]="['BreadcrumbDemo']" (click)="mobileMenuActive = false">&#9679; Breadcrumb</a>
-                <a class="SubMenuLink" [routerLink]="['ContextMenuDemo']" (click)="mobileMenuActive = false">&#9679; ContextMenu</a>
-                <a class="SubMenuLink" [routerLink]="['MegaMenuDemo']" (click)="mobileMenuActive = false">&#9679; MegaMenu</a>
-                <a class="SubMenuLink" [routerLink]="['MenuDemo']" (click)="mobileMenuActive = false">&#9679; Menu</a>
-                <a class="SubMenuLink" [routerLink]="['MenubarDemo']" (click)="mobileMenuActive = false">&#9679; Menubar</a>
-                <a class="SubMenuLink" [routerLink]="['PanelMenuDemo']" (click)="mobileMenuActive = false">&#9679; PanelMenu</a>
-                <a class="SubMenuLink" [routerLink]="['SlideMenuDemo']" (click)="mobileMenuActive = false">&#9679; SlideMenu</a>
-                <a class="SubMenuLink" [routerLink]="['TabMenuDemo']" (click)="mobileMenuActive = false">&#9679; TabMenu</a>
-                <a class="SubMenuLink" [routerLink]="['TieredMenuDemo']" (click)="mobileMenuActive = false">&#9679; TieredMenu</a>
+                <a class="SubMenuLink" [routerLink]="['/menumodel']" (click)="mobileMenuActive = false">&#9679; MenuModel</a>
+                <a class="SubMenuLink" [routerLink]="['/breadcrumb']" (click)="mobileMenuActive = false">&#9679; Breadcrumb</a>
+                <a class="SubMenuLink" [routerLink]="['/contextmenu']" (click)="mobileMenuActive = false">&#9679; ContextMenu</a>
+                <a class="SubMenuLink" [routerLink]="['/megamenu']" (click)="mobileMenuActive = false">&#9679; MegaMenu</a>
+                <a class="SubMenuLink" [routerLink]="['/menu']" (click)="mobileMenuActive = false">&#9679; Menu</a>
+                <a class="SubMenuLink" [routerLink]="['/menubar']" (click)="mobileMenuActive = false">&#9679; Menubar</a>
+                <a class="SubMenuLink" [routerLink]="['/panelmenu']" (click)="mobileMenuActive = false">&#9679; PanelMenu</a>
+                <a class="SubMenuLink" [routerLink]="['/slidemenu']" (click)="mobileMenuActive = false">&#9679; SlideMenu</a>
+                <a class="SubMenuLink" [routerLink]="['/tabmenu']" (click)="mobileMenuActive = false">&#9679; TabMenu</a>
+                <a class="SubMenuLink" [routerLink]="['/tieredmenu']" (click)="mobileMenuActive = false">&#9679; TieredMenu</a>
             </div>
 
             <span id="menu_chart" #chartmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = chartmenutitle.id"><img src="showcase/resources/images/mono/charts.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/chartsBlue.svg" /><span class="MainLinkText">Charts</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (chartmenutitle.id == activeMenuId), 'submenuhide': (chartmenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['BarChartDemo']" (click)="mobileMenuActive = false">&#9679; Bar</a>
-                <a class="SubMenuLink" [routerLink]="['DoughnutChartDemo']" (click)="mobileMenuActive = false">&#9679; Doughnut</a>
-                <a class="SubMenuLink" [routerLink]="['LineChartDemo']" (click)="mobileMenuActive = false">&#9679; Line</a>
-                <a class="SubMenuLink" [routerLink]="['PolarAreaChartDemo']" (click)="mobileMenuActive = false">&#9679; PolarArea</a>
-                <a class="SubMenuLink" [routerLink]="['PieChartDemo']" (click)="mobileMenuActive = false">&#9679; Pie</a>
-                <a class="SubMenuLink" [routerLink]="['RadarChartDemo']" (click)="mobileMenuActive = false">&#9679; Radar</a>
+                <a class="SubMenuLink" [routerLink]="['/barchart']" (click)="mobileMenuActive = false">&#9679; Bar</a>
+                <a class="SubMenuLink" [routerLink]="['/doughnutchart']" (click)="mobileMenuActive = false">&#9679; Doughnut</a>
+                <a class="SubMenuLink" [routerLink]="['/linechart']" (click)="mobileMenuActive = false">&#9679; Line</a>
+                <a class="SubMenuLink" [routerLink]="['/polarchart']" (click)="mobileMenuActive = false">&#9679; PolarArea</a>
+                <a class="SubMenuLink" [routerLink]="['/piechart']" (click)="mobileMenuActive = false">&#9679; Pie</a>
+                <a class="SubMenuLink" [routerLink]="['/radarchart']" (click)="mobileMenuActive = false">&#9679; Radar</a>
             </div>
 
             <span id="menu_messages" #messagesmenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="messagesmenutitle.id == activeMenuId"
@@ -102,8 +102,8 @@
                     <span class="MainLinkText">Messages</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (messagesmenutitle.id == activeMenuId), 'submenuhide': (messagesmenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['MessagesDemo']" (click)="mobileMenuActive = false">&#9679; Messages</a>
-                <a class="SubMenuLink" [routerLink]="['GrowlDemo']" (click)="mobileMenuActive = false">&#9679; Growl</a>
+                <a class="SubMenuLink" [routerLink]="['/messages']" (click)="mobileMenuActive = false">&#9679; Messages</a>
+                <a class="SubMenuLink" [routerLink]="['/growl']" (click)="mobileMenuActive = false">&#9679; Growl</a>
             </div>
 
             <span id="menu_multimedia" #multimediamenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="multimediamenutitle.id == activeMenuId"
@@ -112,7 +112,7 @@
                     <span class="MainLinkText">Multimedia</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (multimediamenutitle.id == activeMenuId), 'submenuhide': (multimediamenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['GalleriaDemo']" (click)="mobileMenuActive = false">&#9679; Galleria</a>
+                <a class="SubMenuLink" [routerLink]="['/galleria']" (click)="mobileMenuActive = false">&#9679; Galleria</a>
             </div>
             
             <span id="menu_dnd" #dndmenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="dndmenutitle.id == activeMenuId"
@@ -121,7 +121,7 @@
                     <span class="MainLinkText">DragDrop</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (dndmenutitle.id == activeMenuId), 'submenuhide': (dndmenutitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['DragDropDemo']" (click)="mobileMenuActive = false">&#9679; Drag&amp;Drop</a>
+                <a class="SubMenuLink" [routerLink]="['/dragdrop']" (click)="mobileMenuActive = false">&#9679; Drag&amp;Drop</a>
             </div>
             
             <span id="menu_misc" #misctitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="misctitle.id == activeMenuId"
@@ -130,12 +130,12 @@
                     <span class="MainLinkText">Misc</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (misctitle.id == activeMenuId), 'submenuhide': (misctitle.id != activeMenuId)}">
-                <a class="SubMenuLink" [routerLink]="['ResponsiveDemo']" (click)="mobileMenuActive = false">&#9679; Responsive</a>
-                <a class="SubMenuLink" [routerLink]="['ValidationDemo']" (click)="mobileMenuActive = false" *ngIf="false">&#9679; Validation</a>
-                <a class="SubMenuLink" [routerLink]="['Theming']" (click)="mobileMenuActive = false">&#9679; Theming</a>
-                <a class="SubMenuLink" [routerLink]="['ProgressBarDemo']" (click)="mobileMenuActive = false">&#9679; ProgressBar</a>
-                <a class="SubMenuLink" [routerLink]="['CodeHighlighterDemo']" (click)="mobileMenuActive = false">&#9679; CodeHighlighter</a>
-                <a class="SubMenuLink" [routerLink]="['TerminalDemo']" (click)="mobileMenuActive = false">&#9679; Terminal</a>
+                <a class="SubMenuLink" [routerLink]="['/responsive']" (click)="mobileMenuActive = false">&#9679; Responsive</a>
+                <a class="SubMenuLink" [routerLink]="['/validation']" (click)="mobileMenuActive = false" *ngIf="false">&#9679; Validation</a>
+                <a class="SubMenuLink" [routerLink]="['/theming']" (click)="mobileMenuActive = false">&#9679; Theming</a>
+                <a class="SubMenuLink" [routerLink]="['/progressbar']" (click)="mobileMenuActive = false">&#9679; ProgressBar</a>
+                <a class="SubMenuLink" [routerLink]="['/codehighlighter']" (click)="mobileMenuActive = false">&#9679; CodeHighlighter</a>
+                <a class="SubMenuLink" [routerLink]="['/terminal']" (click)="mobileMenuActive = false">&#9679; Terminal</a>
             </div>
         </div>
     </div>
@@ -208,7 +208,7 @@
                     </div>
                 </span>
 
-                <a href="setup.html" class="PFTopLinks floatRight hashed" [routerLink]="['Setup']"><img alt="mockosx" src="showcase/resources/images/setup.svg" /><span class="PFDarkText">Setup</span></a>
+                <a href="setup.html" class="PFTopLinks floatRight hashed" [routerLink]="['/setup']"><img alt="mockosx" src="showcase/resources/images/setup.svg" /><span class="PFDarkText">Setup</span></a>
 
                 <div class="mobileLogoCover">
                     <img src="showcase/resources/images/primengdark.svg" style="height:30px;" class="floatLeft marginRight10" />

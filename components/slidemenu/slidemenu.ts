@@ -2,7 +2,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,Event
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../api/menumodel';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'p-slideMenuSub',
@@ -12,7 +12,7 @@ import {Router} from '@angular/router-deprecated';
             [style.transitionProperty]="root ? 'left' : 'none'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #listitem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':listitem==activeItem}">
-                    <a #link [href]="getItemUrl(child)" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredLink,'ui-menuitem-link-parent':child.items}" 
+                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==hoveredLink,'ui-menuitem-link-parent':child.items}" 
                         (click)="itemClick($event, child, listitem)" (mouseenter)="hoveredLink=link" (mouseleave)="hoveredLink=null">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -39,13 +39,17 @@ export class SlideMenuSub implements OnDestroy {
         
     @Input() easing: string = 'ease-out';
         
-    constructor(@Inject(forwardRef(() => SlideMenu)) private slideMenu: SlideMenu, private router: Router, private location: Location) {}
+    constructor(@Inject(forwardRef(() => SlideMenu)) private slideMenu: SlideMenu, private router: Router) {}
     
     activeItem: any;
         
     hoveredLink: any;
                 
     itemClick(event, item: MenuItem, listitem: any) {
+        if(!item.url||item.routerLink) {
+            event.preventDefault();
+        }
+        
         this.activeItem = listitem;
         
         if(item.command) {
@@ -57,27 +61,15 @@ export class SlideMenuSub implements OnDestroy {
             item.eventEmitter.emit(event);
         }
         
-        if(!item.url) {
-            event.preventDefault();
-        }
-        
         if(item.items) {
             this.slideMenu.left -= this.slideMenu.menuWidth;
         }
-    }
-    
-    getItemUrl(item: MenuItem): string {
-        if(item.url) {
-            if(Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
+        
+        if(item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
     }
-    
+        
     ngOnDestroy() {
         this.hoveredLink = null;
         this.activeItem = null;

@@ -7,7 +7,7 @@ import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Message} from '../../../components/api/message';
 import {Growl} from '../../../components/growl/growl';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/panel/paneldemo.html',

@@ -2,7 +2,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,Event
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../api/menumodel';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'p-menubarSub',
@@ -12,7 +12,7 @@ import {Router} from '@angular/router-deprecated';
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event, item)" (mouseleave)="onItemMouseLeave($event, item)">
-                    <a #link [href]="getItemUrl(child)" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==activeLink}" (click)="itemClick($event, child)">
+                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [ngClass]="{'ui-state-hover':link==activeLink}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw" *ngIf="child.items" [ngClass]="{'fa-caret-down':root,'fa-caret-right':!root}"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -31,7 +31,7 @@ export class MenubarSub {
     
     @Input() root: boolean;
     
-    constructor(private domHandler: DomHandler, private router: Router, private location: Location) {}
+    constructor(private domHandler: DomHandler, private router: Router) {}
     
     activeItem: any;
     
@@ -62,6 +62,10 @@ export class MenubarSub {
     }
     
     itemClick(event, item: MenuItem) {
+        if(!item.url||item.routerLink) {
+            event.preventDefault();
+        }
+        
         if(item.command) {
             if(!item.eventEmitter) {
                 item.eventEmitter = new EventEmitter();
@@ -70,27 +74,15 @@ export class MenubarSub {
             
             item.eventEmitter.emit(event);
         }
-                
-        if(!item.url) {
-            event.preventDefault();
+
+        if(item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
         
         this.activeItem = null;
         this.activeLink = null;
     }
-    
-    getItemUrl(item: MenuItem): string {
-        if(item.url) {
-            if(Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
-        }
-    }
-    
+        
     listClick(event) {
         this.activeItem = null;
         this.activeLink = null;

@@ -1,8 +1,7 @@
 import {Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from '@angular/core';
 import {SplitButtonItem} from './splitbuttonitem';
 import {DomHandler} from '../dom/domhandler';
-import {Router,RouteConfig,ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-import {Location} from '@angular/common';
+import {Router,ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     selector: 'p-splitButton',
@@ -29,7 +28,7 @@ import {Location} from '@angular/common';
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of items" [ngClass]="{'ui-state-hover':(hoveredItem==item)}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
-                        <a [href]="getItemUrl(item)" class="ui-menuitem-link ui-corner-all" (click)="onItemClick($event,item)">
+                        <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="onItemClick($event,item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
@@ -79,7 +78,7 @@ export class SplitButton implements OnInit,OnDestroy {
     
     private documentClickListener: any;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, private router: Router, private location: Location) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, private router: Router) {}
     
     ngOnInit() {
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
@@ -99,24 +98,17 @@ export class SplitButton implements OnInit,OnDestroy {
     }
     
     onItemClick(event,item: SplitButtonItem) {
-        item.onClick.emit(event);
+        if(!item.url&&!item.routerLink) {
+            event.preventDefault();
+        }
+        
         this.hoveredItem = null;
         
-        if(!item.url) {
-            event.preventDefault();
-        }          
-    }
-    
-    getItemUrl(item: SplitButtonItem): string {
-        if(item.url) {
-            if(Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
-        }
+        item.onClick.emit(event);
+        
+        if(item.routerLink) {
+            this.router.navigate(item.routerLink);
+        }         
     }
     
     ngOnDestroy() {

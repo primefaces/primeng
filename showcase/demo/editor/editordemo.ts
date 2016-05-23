@@ -5,7 +5,7 @@ import {Button} from '../../../components/button/button';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/editor/editordemo.html',

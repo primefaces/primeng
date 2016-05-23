@@ -1,5 +1,5 @@
 import {Component,OnInit} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HTTP_PROVIDERS}    from '@angular/http';
 import {DataTable} from '../../../components/datatable/datatable';
 import {Dialog} from '../../../components/dialog/dialog';

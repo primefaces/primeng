@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     template: `
@@ -13,7 +13,7 @@ import {RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
                 <div class="defaultText">PrimeNG is developed by <a href="http://www.primetek.com.tr">PrimeTek Informatics</a>, a company with years of expertise in developing open source UI components.
                  For project news and updates, follow us on <a href="https://twitter.com/prime_ng">twitter.</a></div>
                  <br />
-                <a [routerLink]="['Setup']" class="BigButton TextShadowNone YellowBtn"> <span class="floatLeft">Download</span> <img src="showcase/resources/images/btnArrow.svg" style="float:right"/></a>
+                <a [routerLink]="['/setup']" class="BigButton TextShadowNone YellowBtn"> <span class="floatLeft">Download</span> <img src="showcase/resources/images/btnArrow.svg" style="float:right"/></a>
                 <a href="https://github.com/primefaces/primeng" class="BigButton TextShadowNone OrangeBtn"> <span class="floatLeft">View on GitHub</span> <img src="showcase/resources/images/btnDocumenticon.svg" style="float:right"/></a>
             </div>
             <div class="Content66 floatRight overHidden">

@@ -4,7 +4,7 @@ import {TreeNode} from '../../../components/api/treenode';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HTTP_PROVIDERS}    from '@angular/http';
 import {NodeService} from '../service/nodeservice';
 import {Growl} from '../../../components/growl/growl';

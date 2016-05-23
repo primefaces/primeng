@@ -1,14 +1,14 @@
 import {Component,ElementRef,OnDestroy,Input,EventEmitter} from '@angular/core';
 import {MenuItem} from '../api/menumodel';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'p-panelMenuSub',
     template: `
         <ul class="ui-menu-list ui-helper-reset" [style.display]="expanded ? 'block' : 'none'">
             <li *ngFor="let child of item.items" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}">
-                <a #link [href]="getItemUrl(item)" class="ui-menuitem-link ui-corner-all" 
+                <a #link [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
                     [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-hover':(hoveredLink==link)}" (click)="onClick($event,child)"
                     (mouseenter)="hoveredLink=link" (mouseleave)="hoveredLink=null">
                     <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!isActive(child),'fa-caret-down':isActive(child)}" *ngIf="child.items"></span>
@@ -27,7 +27,7 @@ export class PanelMenuSub {
     
     @Input() expanded: boolean;
     
-    constructor(private router: Router, private location: Location) {}
+    constructor(private router: Router) {}
         
     activeItems: MenuItem[] = [];
         
@@ -43,6 +43,10 @@ export class PanelMenuSub {
             event.preventDefault();
         }
         else {
+            if(!item.url||item.routerLink) {
+                event.preventDefault();
+            }
+            
             if(item.command) {
                 if(!item.eventEmitter) {
                     item.eventEmitter = new EventEmitter();
@@ -52,26 +56,14 @@ export class PanelMenuSub {
                 item.eventEmitter.emit(event);
             }
             
-            if(!item.url) {
-                event.preventDefault();
+            if(item.routerLink) {
+                this.router.navigate(item.routerLink);
             }
         }
     }
     
     isActive(item: MenuItem): boolean {
         return this.activeItems.indexOf(item) != -1;
-    }
-    
-    getItemUrl(item: MenuItem): string {
-        if(item.url) {
-            if(Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
-        }
     }
 }
 

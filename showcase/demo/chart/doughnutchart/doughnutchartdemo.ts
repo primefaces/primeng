@@ -6,7 +6,7 @@ import {TabPanel} from '../../../../components/tabview/tabpanel';
 import {Growl} from '../../../../components/growl/growl';
 import {Button} from '../../../../components/button/button';
 import {Message} from '../../../../components/api/message';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/chart/doughnutchart/doughnutchartdemo.html',

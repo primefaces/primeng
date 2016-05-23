@@ -10,7 +10,7 @@ import {InputText} from '../../../components/inputtext/inputtext';
 import {Dialog} from '../../../components/dialog/dialog';
 import {Checkbox} from '../../../components/checkbox/checkbox';
 import {EventService} from '../service/eventservice';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/schedule/scheduledemo.html',

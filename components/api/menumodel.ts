@@ -4,7 +4,8 @@ export interface MenuItem {
     label?: string;
     icon?: string;
     command?: (event?: any) => void;
-    url?: any;
+    url?: string;
+    routerLink?: any;
     eventEmitter?: EventEmitter<any>;
     items?: MenuItem[];
 }

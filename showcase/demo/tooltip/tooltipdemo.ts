@@ -4,7 +4,7 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Tooltip} from '../../../components/tooltip/tooltip';
 import {InputText} from '../../../components/inputtext/inputtext';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/tooltip/tooltipdemo.html',

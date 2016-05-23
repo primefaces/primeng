@@ -2,7 +2,7 @@ import {Component,OnInit} from '@angular/core';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {InputText} from '../../../components/inputtext/inputtext';
 import {InputTextarea} from '../../../components/inputtextarea/inputtextarea';
 import {Button} from '../../../components/button/button';

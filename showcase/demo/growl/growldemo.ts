@@ -5,7 +5,7 @@ import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
 import {SelectItem} from '../../../components/api/selectitem';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {Message} from '../../../components/api/message';
 
 @Component({

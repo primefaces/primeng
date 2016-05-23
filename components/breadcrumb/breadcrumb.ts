@@ -1,7 +1,7 @@
 import {Component,Input,OnDestroy,EventEmitter} from '@angular/core';
 import {MenuItem} from '../api/menumodel';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'p-breadcrumb',
@@ -11,7 +11,7 @@ import {Router} from '@angular/router-deprecated';
                 <li class="fa fa-home"></li>
                 <template ngFor let-item let-end="last" [ngForOf]="model">
                     <li role="menuitem">
-                        <a [href]="getItemUrl(item)" class="ui-menuitem-link" (click)="itemClick($event, item)">
+                        <a [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </li>
@@ -29,9 +29,13 @@ export class Breadcrumb implements OnDestroy {
 
     @Input() styleClass: string;
     
-    constructor(private router: Router, private location: Location) {}
+    constructor(private router: Router) {}
     
     itemClick(event, item: MenuItem) {
+        if(!item.url||item.routerLink) {
+            event.preventDefault();
+        }
+        
         if(item.command) {
             if(!item.eventEmitter) {
                 item.eventEmitter = new EventEmitter();
@@ -41,23 +45,11 @@ export class Breadcrumb implements OnDestroy {
             item.eventEmitter.emit(event);
         }
                 
-        if(!item.url) {
-            event.preventDefault();
+        if(item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
     }
-    
-    getItemUrl(item: MenuItem): string {
-        if(item.url) {
-            if(Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
-        }
-    }
-    
+        
     ngOnDestroy() {
         if(this.model) {
             for(let item of this.model) {
