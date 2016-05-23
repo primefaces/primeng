@@ -11,6 +11,21 @@ import {FilterMetadata} from '../api/lazyload';
 import {SortMeta} from '../api/sortmeta';
 import {DomHandler} from '../dom/domhandler';
 
+
+export interface IDataRowInfo {
+    rowData: any;
+    rowIndex: number;
+    odd: boolean;
+    even: boolean;
+    hover: boolean;
+    selected: boolean;
+}
+
+export interface IRowController {
+    getRowClass? : (IDataRowInfo) => any;
+    getRowStyle? : (IDataRowInfo) => any;
+}
+
 @Component({
     selector: 'p-dataTable',
     template: `
@@ -57,7 +72,8 @@ import {DomHandler} from '../dom/domhandler';
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
-                                    [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
+                                    [ngClass]="dataRowClass(rowData, even, odd, rowIndex, element == hoveredRow)"
+                                    [ngStyle]="dataRowStyle(rowData, even, odd, rowIndex, element == hoveredRow)">
                                 <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                     <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
@@ -104,7 +120,8 @@ import {DomHandler} from '../dom/domhandler';
                     <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
                         <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                 (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
-                                [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
+                                [ngClass]="dataRowClass(rowData, even, odd, rowIndex, element == hoveredRow)"
+                                [ngStyle]="dataRowStyle(rowData, even, odd, rowIndex, element == hoveredRow)">
                             <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
@@ -240,8 +257,65 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
-    
+
+    @Input() RowController: IRowController = null;
+
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
+
+    dataRowStyle(rowData: any, even: boolean, odd: boolean, rowIndex: number, hover: boolean) : any {
+
+        let cls = {};
+        var info : IDataRowInfo = {
+            rowData : rowData,
+            even : even,
+            odd: odd,
+            rowIndex: rowIndex,
+            hover: hover,
+            selected: this.isSelected(rowData)
+        };
+        if(this.RowController && this.RowController.getRowStyle)
+        {
+            let addin = this.RowController.getRowStyle(info);
+            if(addin && typeof(addin) == 'object')
+            {
+                for(let prop in addin) {
+                    if(addin.hasOwnProperty(prop))
+                        cls[prop] = addin[prop];
+                }
+            }
+        }
+        return cls;
+    }
+
+    dataRowClass(rowData: any, even: boolean, odd: boolean, rowIndex: number, hover: boolean) : any {
+
+        let cls = {
+            'ui-datatable-even': even,
+            'ui-datatable-odd': odd,
+            'ui-state-hover': (this.selectionMode && hover),
+            'ui-state-highlight': this.isSelected(rowData)
+        };
+        var info : IDataRowInfo = {
+            rowData : rowData,
+            even : even,
+            odd: odd,
+            rowIndex: rowIndex,
+            hover: hover,
+            selected: this.isSelected(rowData)
+        };
+        if(this.RowController && this.RowController.getRowClass)
+        {
+            let addin = this.RowController.getRowClass(info);
+            if(addin && typeof(addin) == 'object')
+            {
+                for(let prop in addin) {
+                    if(addin.hasOwnProperty(prop))
+                        cls[prop] = addin[prop];
+                }
+            }
+        }
+        return cls;
+    }
     
     private dataToRender: any[];
 
