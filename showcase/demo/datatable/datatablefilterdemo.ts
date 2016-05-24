@@ -8,7 +8,7 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {InputText} from '../../../components/inputtext/inputtext';
 import {Car} from '../domain/car';
 import {Column} from '../../../components/column/column';
-import {Header} from '../../../components/common/header';
+import {Header} from '../../../components/common';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
 

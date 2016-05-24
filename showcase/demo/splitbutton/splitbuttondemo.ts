@@ -5,7 +5,7 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {SplitButton} from '../../../components/splitbutton/splitbutton';
 import {SplitButtonItem} from '../../../components/splitbutton/splitbuttonitem';
 import {Growl} from '../../../components/growl/growl';
-import {Message} from '../../../components/api/message';
+import {Message} from '../../../components/common';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({

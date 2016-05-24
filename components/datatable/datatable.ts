@@ -2,13 +2,13 @@ import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoC
 import {Column} from '../column/column';
 import {ColumnTemplateLoader} from '../column/columntemplateloader';
 import {RowExpansionLoader} from './rowexpansionloader';
-import {Header} from '../common/header';
-import {Footer} from '../common/footer';
+import {Header} from '../common';
+import {Footer} from '../common';
 import {Paginator} from '../paginator/paginator';
 import {InputText} from '../inputtext/inputtext';
-import {LazyLoadEvent} from '../api/lazyload';
-import {FilterMetadata} from '../api/lazyload';
-import {SortMeta} from '../api/sortmeta';
+import {LazyLoadEvent} from '../common';
+import {FilterMetadata} from '../common';
+import {SortMeta} from '../common';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
-import {SelectItem} from '../api/selectitem';
+import {SelectItem} from '../common';
 
 @Component({
     selector: 'p-schedule',

@@ -5,7 +5,7 @@ import {Button} from '../../../components/button/button';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {MenuItem} from '../../../components/api/menumodel';
+import {MenuItem} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/contextmenu/contextmenudemo.html',

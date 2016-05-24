@@ -11,7 +11,7 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
-import {Message} from '../../../components/api/message';
+import {Message} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatabletemplatingdemo.html',

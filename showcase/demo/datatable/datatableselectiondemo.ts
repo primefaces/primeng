@@ -7,12 +7,12 @@ import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
 import {Column} from '../../../components/column/column';
-import {Header} from '../../../components/common/header';
-import {Footer} from '../../../components/common/footer';
+import {Header} from '../../../components/common';
+import {Footer} from '../../../components/common';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
 import {Growl} from '../../../components/growl/growl';
-import {Message} from '../../../components/api/message';
+import {Message} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatableselectiondemo.html',

@@ -8,10 +8,10 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {MultiSelect} from '../../../components/multiselect/multiselect';
 import {Car} from '../domain/car';
 import {Column} from '../../../components/column/column';
-import {Header} from '../../../components/common/header';
+import {Header} from '../../../components/common';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
-import {SelectItem} from '../../../components/api/selectitem';
+import {SelectItem} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablecoltogglerdemo.html',

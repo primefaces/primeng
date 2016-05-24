@@ -1,5 +1,5 @@
 import {Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,IterableDiffers} from '@angular/core';
-import {Message} from '../api/message';
+import {Message} from '../common';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({

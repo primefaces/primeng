@@ -1,5 +1,5 @@
 import {Component,Input,OnDestroy,EventEmitter} from '@angular/core';
-import {MenuItem} from '../api/menumodel';
+import {MenuItem} from '../common';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 

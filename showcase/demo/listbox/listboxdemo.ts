@@ -4,7 +4,7 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
-import {SelectItem} from '../../../components/api/selectitem';
+import {SelectItem} from '../../../components/common';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({

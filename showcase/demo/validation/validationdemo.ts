@@ -5,7 +5,7 @@ import {Password} from '../../../components/password/password';
 import {Panel} from '../../../components/panel/panel';
 import {Button} from '../../../components/button/button';
 import {Dropdown} from '../../../components/dropdown/dropdown';
-import {SelectItem} from '../../../components/api/selectitem';
+import {SelectItem} from '../../../components/common';
 import {InputTextarea} from '../../../components/inputtextarea/inputtextarea';
 
 @Component({

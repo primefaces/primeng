@@ -12,8 +12,8 @@ import {Car} from '../domain/car';
 import {Column} from '../../../components/column/column';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
-import {Header} from '../../../components/common/header';
-import {Footer} from '../../../components/common/footer';
+import {Header} from '../../../components/common';
+import {Footer} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablecruddemo.html',

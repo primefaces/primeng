@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Editor} from '../../../components/editor/editor';
-import {Header} from '../../../components/common/header';
+import {Header} from '../../../components/common';
 import {Button} from '../../../components/button/button';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';

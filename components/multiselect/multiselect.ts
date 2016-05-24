@@ -1,6 +1,6 @@
 import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,
             ContentChild,TemplateRef,IterableDiffers,forwardRef,Provider} from '@angular/core';
-import {SelectItem} from '../api/selectitem';
+import {SelectItem} from '../common';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
 

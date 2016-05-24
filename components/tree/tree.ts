@@ -1,5 +1,5 @@
 import {Component,Input,Output,EventEmitter,ContentChild,TemplateRef} from '@angular/core';
-import {TreeNode} from '../api/treenode';
+import {TreeNode} from '../common';
 import {UITreeNode} from './uitreenode';
 
 @Component({

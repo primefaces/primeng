@@ -1,7 +1,7 @@
 import {Component,OnInit} from '@angular/core';
 import {TreeTable} from '../../../components/treetable/treetable';
 import {Column} from '../../../components/column/column';
-import {TreeNode} from '../../../components/api/treenode';
+import {TreeNode} from '../../../components/common';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
@@ -9,8 +9,8 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HTTP_PROVIDERS}    from '@angular/http';
 import {NodeService} from '../service/nodeservice';
 import {Growl} from '../../../components/growl/growl';
-import {Message} from '../../../components/api/message';
-import {Header} from '../../../components/common/header';
+import {Message} from '../../../components/common';
+import {Header} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/treetable/treetabledemo.html',

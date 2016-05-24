@@ -1,6 +1,6 @@
 import {Component,ElementRef,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../api/menumodel';
+import {MenuItem} from '../common';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 

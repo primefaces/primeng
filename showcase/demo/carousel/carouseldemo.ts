@@ -5,7 +5,7 @@ import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
 import {Growl} from '../../../components/growl/growl';
-import {Message} from '../../../components/api/message';
+import {Message} from '../../../components/common';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {Car} from '../domain/car';
 

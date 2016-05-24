@@ -7,7 +7,7 @@ import {InputText} from '../../../components/inputtext/inputtext';
 import {InputTextarea} from '../../../components/inputtextarea/inputtextarea';
 import {Button} from '../../../components/button/button';
 import {Dropdown} from '../../../components/dropdown/dropdown';
-import {SelectItem} from '../../../components/api/selectitem';
+import {SelectItem} from '../../../components/common';
 import {Listbox} from '../../../components/listbox/listbox';
 import {Dialog} from '../../../components/dialog/dialog';
 import {Panel} from '../../../components/panel/panel';
@@ -26,17 +26,17 @@ import {PanelMenu} from '../../../components/panelmenu/panelmenu';
 import {PickList} from '../../../components/picklist/picklist';
 import {Carousel} from '../../../components/carousel/carousel';
 import {OrderList} from '../../../components/orderlist/orderlist';
-import {TreeNode} from '../../../components/api/treenode';
+import {TreeNode} from '../../../components/common';
 import {UITreeNode} from '../../../components/tree/uitreenode';
 import {TreeNodeTemplateLoader} from '../../../components/tree/treenodetemplateloader';
-import {Header} from '../../../components/common/header';
+import {Header} from '../../../components/common';
 import {Column} from '../../../components/column/column';
 import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 import {NodeService} from '../service/nodeservice';
 import {CountryService} from '../service/countryservice';
 import {HTTP_PROVIDERS}    from '@angular/http';
-import {MenuItem} from '../../../components/api/menumodel';
+import {MenuItem} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/responsive/responsivedemo.html',

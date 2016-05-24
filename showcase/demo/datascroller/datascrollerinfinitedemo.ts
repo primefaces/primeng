@@ -2,8 +2,8 @@ import {Component,OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HTTP_PROVIDERS}    from '@angular/http';
 import {DataScroller} from '../../../components/datascroller/datascroller';
-import {Header} from '../../../components/common/header';
-import {Footer} from '../../../components/common/footer';
+import {Header} from '../../../components/common';
+import {Footer} from '../../../components/common';
 import {Growl} from '../../../components/growl/growl';
 import {Button} from '../../../components/button/button';
 import {Dialog} from '../../../components/dialog/dialog';
@@ -13,7 +13,7 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 import {DataScrollerSubMenu} from './datascrollersubmenu';
-import {Message} from '../../../components/api/message';
+import {Message} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/datascroller/datascrollerinfinitedemo.html',

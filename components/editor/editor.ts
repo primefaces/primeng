@@ -1,5 +1,5 @@
 import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ContentChild,OnChanges,SimpleChange,forwardRef,Provider} from '@angular/core';
-import {Header} from '../common/header'
+import {Header} from '../common'
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
 

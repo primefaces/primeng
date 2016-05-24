@@ -1,6 +1,6 @@
 import {Component,ElementRef,AfterViewInit,DoCheck,Input,Output,EventEmitter,ContentChild,IterableDiffers,TemplateRef,ViewContainerRef} from '@angular/core';
-import {Header} from '../common/header';
-import {Footer} from '../common/footer';
+import {Header} from '../common';
+import {Footer} from '../common';
 
 @Component({
     selector: 'p-rowExpansionLoader',
