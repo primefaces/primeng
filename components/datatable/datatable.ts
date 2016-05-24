@@ -15,7 +15,7 @@ import {DomHandler} from '../dom/domhandler';
     selector: 'p-dataTable',
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
-            [ngClass]="{'ui-datatable ui-widget': true, 'ui-datatable-reflow':responsive, 'ui-datatable-stacked': stacked}">
+            [ngClass]="{'ui-datatable ui-widget': true, 'ui-datatable-reflow':responsive, 'ui-datatable-stacked': stacked, 'ui-datatable-resizable': resizableColumns}">
             <div class="ui-datatable-header ui-widget-header" *ngIf="header" [ngStyle]="{'width': scrollWidth}">
                 <ng-content select="header"></ng-content>
             </div>
@@ -23,9 +23,11 @@ import {DomHandler} from '../dom/domhandler';
                 <table>
                     <thead>
                         <tr *ngIf="!headerRows" class="ui-state-default">
-                            <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                            <th #headerCell *ngFor="let col of columns;let lastCol = last" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col)}">
+                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
+                                'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}">
+                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)">&nbsp;</span>
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
@@ -35,7 +37,9 @@ import {DomHandler} from '../dom/domhandler';
                         <tr *ngFor="let headerRow of headerRows" class="ui-state-default">
                             <th #headerCell *ngFor="let col of headerRow.columns" [ngStyle]="col.style" [class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
                                 (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col)}">
+                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
+                                'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}">
+                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)">&nbsp;</span>
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
@@ -79,6 +83,7 @@ import {DomHandler} from '../dom/domhandler';
                         </template>
                     </tbody>
                 </table>
+                <div class="ui-column-resizer-helper ui-state-highlight" style="display:none"></div>
             </div>
             <div class="ui-widget-header ui-datatable-scrollable-header" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
                 <div class="ui-datatable-scrollable-header-box">
@@ -87,7 +92,9 @@ import {DomHandler} from '../dom/domhandler';
                             <tr>
                                 <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col)}">
+                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
+                                    'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}">
+                                    <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')">&nbsp;</span>
                                     <span class="ui-column-title">{{col.header}}</span>
                                     <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                          [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
@@ -181,7 +188,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     @Input() resizableColumns: boolean;
 
-    @Input() columnResizeMode: string;
+    @Input() columnResizeMode: string = 'fit';
 
     @Output() onColResize: EventEmitter<any> = new EventEmitter();
 
@@ -278,6 +285,20 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private headerScrollListener: any;
     
     private resizeScrollListener: any;
+    
+    private columnResizing: boolean;
+    
+    private lastPageX: number;
+        
+    private documentColumnResizeListener: any;
+    
+    private documentColumnResizeEndListener: any;
+    
+    private resizerHelper: any;
+    
+    private resizeColumn: any;
+        
+    private tbody: any;
 
     differ: any;
 
@@ -871,12 +892,81 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     }
 
     initResizableColumns() {
-        jQuery(this.el.nativeElement.children[0]).puicolresize({
-            mode: this.columnResizeMode,
-            colResize: (event: Event, ui: PrimeUI.ColResizeEventParams) => {
-                this.onColResize.emit(ui.element);
+        this.tbody = this.domHandler.findSingle(this.el.nativeElement, 'tbody.ui-datatable-data');
+        this.resizerHelper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
+        this.fixColumnWidths();
+        
+        this.documentColumnResizeListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            if(this.columnResizing) {
+                this.onColumnResize(event);
             }
         });
+        
+        this.documentColumnResizeEndListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
+            if(this.columnResizing) {
+                this.columnResizing = false;
+                this.onColumnResizeEnd(event);
+            }
+        });
+    }
+    
+    initColumnResize(event) {
+        this.resizeColumn = event.target.parentElement;
+        this.columnResizing = true;
+        this.lastPageX = event.pageX;
+    }
+    
+    onColumnResize(event) {
+        let container = this.el.nativeElement.children[0];
+        this.domHandler.addClass(container, 'ui-unselectable-text');
+        this.resizerHelper.style.height = container.offsetHeight - 4 + 'px';
+        this.resizerHelper.style.top = container.offsetTop + 'px';
+        if(event.pageX > container.offsetLeft && event.pageX < (container.offsetLeft + container.offsetWidth)) {
+            this.resizerHelper.style.left = event.pageX + 'px';
+        }
+        
+        this.resizerHelper.style.display = 'block';
+    }
+    
+    onColumnResizeEnd(event) {
+        let delta = this.resizerHelper.offsetLeft - this.lastPageX;
+        let columnWidth = this.resizeColumn.offsetWidth;
+        let newColumnWidth = columnWidth + delta;
+        let minWidth = this.resizeColumn.style.minWidth||15;
+        
+        if(columnWidth + delta > parseInt(minWidth)) {
+            if(this.columnResizeMode === 'fit') {
+                let nextColumn = this.resizeColumn.nextElementSibling;
+                let nextColumnWidth = nextColumn.offsetWidth - delta;
+                
+                if(newColumnWidth > 15 && nextColumnWidth > 15) {
+                    this.resizeColumn.style.width = newColumnWidth + 'px';
+                    if(nextColumn) {
+                        nextColumn.style.width = nextColumnWidth + 'px';
+                    }
+                }
+            }
+            else if(this.columnResizeMode === 'expand') {
+                this.tbody.parentElement.style.width = this.tbody.parentElement.offsetWidth + delta + 'px';
+                this.resizeColumn.style.width = newColumnWidth + 'px';
+            }    
+            
+            this.onColResize.emit({
+                element: this.resizeColumn,
+                delta: delta
+            });
+        }
+                
+        this.resizerHelper.style.display = 'none';
+        this.resizeColumn = null;
+        this.domHandler.removeClass(this.el.nativeElement.children[0], 'ui-unselectable-text');
+    }
+    
+    fixColumnWidths() {
+        let columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
+        for(let i = 0; i < columns.length; i++) {
+            columns[i].style.width = columns[i].offsetWidth + 'px';
+        }
     }
 
     initColumnReordering() {
@@ -928,10 +1018,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 this.scrollBody.style.maxHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100) + 'px';
             });
         }
-    }
-    
-    adjustScrollHeight() {
-        
     }
         
     calculateScrollbarWidth(): number {
@@ -1086,6 +1172,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             if(this.percentageScrollHeight) {
                 this.resizeScrollListener();
             }
+        }
+        
+        if(this.resizableColumns) {
+            this.documentColumnResizeListener();
+            this.documentColumnResizeEndListener();
         }
     }
 }
