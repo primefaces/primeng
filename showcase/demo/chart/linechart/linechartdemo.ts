@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LineChart} from '../../../../components/chart/linechart/linechart';
+import {UIChart} from '../../../../components/chart/chart';
 import {CodeHighlighter} from '../../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../../components/tabview/tabview';
 import {TabPanel} from '../../../../components/tabview/tabpanel';
@@ -10,12 +10,12 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/chart/linechart/linechartdemo.html',
-    directives: [LineChart,Button,Growl,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
+    directives: [UIChart,Button,Growl,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class LineChartDemo {
 
     data: any;
-
+    
     msgs: Message[];
 
     constructor() {
@@ -23,36 +23,21 @@ export class LineChartDemo {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 {
-                    label: 'My First dataset',
-                    fillColor: 'rgba(220,220,220,0.2)',
-                    strokeColor: 'rgba(220,220,220,1)',
-                    pointColor: 'rgba(220,220,220,1)',
-                    pointStrokeColor: '#fff',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    label: 'First Dataset',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    fill: false
                 },
                 {
-                    label: 'My Second dataset',
-                    fillColor: 'rgba(151,187,205,0.2)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
-                    pointStrokeColor: '#fff',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(151,187,205,1)',
-                    data: [28, 48, 40, 19, 86, 27, 90]
+                    label: 'Second Dataset',
+                    data: [28, 48, 40, 19, 86, 27, 90],
+                    fill: false
                 }
             ]
         }
     }
 
-    onSelect(event) {
-        if(event.points) {
-            this.msgs = [];
-            for(var i = 0; i < event.points.length; i++) {
-                this.msgs.push({severity: 'info', summary: 'Points Selected', 'detail': event.points[i].value});
-            }
-
-        }
+    selectData(event) {
+        this.msgs = [];
+        //this.msgs.push({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.data[0]._datasetIndex].data[event.data[0]._index]});
     }
 }

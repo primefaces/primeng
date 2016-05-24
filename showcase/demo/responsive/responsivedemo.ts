@@ -19,7 +19,7 @@ import {SplitButton} from '../../../components/splitbutton/splitbutton';
 import {SplitButtonItem} from '../../../components/splitbutton/splitbuttonitem';
 import {Password} from '../../../components/password/password';
 import {RadioButton} from '../../../components/radiobutton/radiobutton';
-import {LineChart} from '../../../components/chart/linechart/linechart';
+import {UIChart} from '../../../components/chart/chart';
 import {Tree} from '../../../components/tree/tree';
 import {Menu} from '../../../components/menu/menu';
 import {PanelMenu} from '../../../components/panelmenu/panelmenu';
@@ -40,7 +40,7 @@ import {MenuItem} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/responsive/responsivedemo.html',
-    directives: [PanelMenu,Menu,PickList,Carousel,OrderList,Tree,TreeNodeTemplateLoader,UITreeNode,LineChart,RadioButton,Password,SplitButton,SplitButtonItem,AutoComplete,Header,DataGrid,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES,InputText,InputTextarea,Button,Dropdown,Listbox,Dialog,Panel,DataTable,Column,Calendar],
+    directives: [PanelMenu,Menu,PickList,Carousel,OrderList,Tree,TreeNodeTemplateLoader,UITreeNode,UIChart,RadioButton,Password,SplitButton,SplitButtonItem,AutoComplete,Header,DataGrid,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES,InputText,InputTextarea,Button,Dropdown,Listbox,Dialog,Panel,DataTable,Column,Calendar],
     providers: [HTTP_PROVIDERS,CarService,CountryService,NodeService]
 })
 export class ResponsiveDemo implements OnInit {

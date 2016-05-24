@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RadarChart} from '../../../../components/chart/radarchart/radarchart';
+import {UIChart} from '../../../../components/chart/chart';
 import {CodeHighlighter} from '../../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../../components/tabview/tabview';
 import {TabPanel} from '../../../../components/tabview/tabpanel';
@@ -10,7 +10,7 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/chart/radarchart/radarchartdemo.html',
-    directives: [RadarChart,Button,Growl,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
+    directives: [UIChart,Button,Growl,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class RadarChartDemo {
 
