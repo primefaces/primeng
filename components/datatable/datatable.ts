@@ -26,7 +26,8 @@ import {DomHandler} from '../dom/domhandler';
                             <th #headerCell *ngFor="let col of columns;let lastCol = last" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
-                                'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}">
+                                'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}" 
+                                [draggable]="reorderableColumns" (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)">
                                 <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)">&nbsp;</span>
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
@@ -84,6 +85,8 @@ import {DomHandler} from '../dom/domhandler';
                     </tbody>
                 </table>
                 <div class="ui-column-resizer-helper ui-state-highlight" style="display:none"></div>
+                <span class="fa fa-arrow-down ui-datatable-reorder-indicator-up" style="position: absolute; display: none;"></span>
+                <span class="fa fa-arrow-up ui-datatable-reorder-indicator-down" style="position: absolute; display: none;"></span>
             </div>
             <div class="ui-widget-header ui-datatable-scrollable-header" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
                 <div class="ui-datatable-scrollable-header-box">
@@ -297,6 +300,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private resizerHelper: any;
     
     private resizeColumn: any;
+    
+    private reorderIndicatorUp: any;
+    
+    private reorderIndicatorDown: any;
+    
+    private draggedColumn: any;
+    
+    private dropLocation: number;
         
     private tbody: any;
 
@@ -968,26 +979,89 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             columns[i].style.width = columns[i].offsetWidth + 'px';
         }
     }
+    
+    onColumnDragStart(event) {
+        this.draggedColumn = this.findParentHeader(event.target);
+    }
+    
+    onColumnDragover(event) {
+        event.preventDefault();
+        let dropHeader = this.findParentHeader(event.target);
+        
+        if(this.draggedColumn != dropHeader) {
+            let targetPosition = dropHeader.getBoundingClientRect();
+            let targetLeft = targetPosition.left + document.body.scrollLeft;
+            let targetTop =  targetPosition.top + document.body.scrollTop;
+            let columnCenter = targetLeft + dropHeader.offsetWidth / 2;
+            
+            this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
+            this.reorderIndicatorDown.style.top = targetTop + dropHeader.offsetHeight + 'px';
+
+            if(event.pageX > columnCenter) {
+                this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
+                this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8)+ 'px';
+                this.dropLocation = 1;
+            }
+            else {
+                this.reorderIndicatorUp.style.left = (targetLeft - 8) + 'px';
+                this.reorderIndicatorDown.style.left = (targetLeft - 8)+ 'px';
+                this.dropLocation = -1;
+            }
+            
+            this.reorderIndicatorUp.style.display = 'block';
+            this.reorderIndicatorDown.style.display = 'block';
+        }
+        else {
+            event.dataTransfer.dropEffect = 'none';
+        }
+    }
+    
+    onColumnDragleave(event) {
+        event.preventDefault();
+        this.reorderIndicatorUp.style.display = 'none';
+        this.reorderIndicatorDown.style.display = 'none';
+    }
+    
+    onColumnDrop(event) {
+        event.preventDefault();
+        let dragIndex = this.domHandler.index(this.draggedColumn);
+        let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
+        
+        if(dragIndex != dropIndex) {
+            if(this.dropLocation > 0)
+                this.columns.splice(dropIndex + 1, 0, this.columns.splice(dragIndex, 1)[0]);
+            else
+                this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
+
+            this.onColReorder.emit({
+                dragIndex: dragIndex,
+                dropIndex: dropIndex,
+                columns: this.columns
+            });
+        }
+        
+        this.reorderIndicatorUp.style.display = 'none';
+        this.reorderIndicatorDown.style.display = 'none';
+        this.dropLocation = null;
+        this.draggedColumn = null;
+    }
 
     initColumnReordering() {
-        jQuery(this.el.nativeElement.children[0]).puicolreorder({
-            colReorder: (event: Event, ui: PrimeUI.ColReorderEventParams) => {
-                //right
-                if(ui.dropSide > 0) {
-                    this.columns.splice(ui.dropIndex + 1, 0, this.columns.splice(ui.dragIndex, 1)[0]);
-                }
-                //left
-                else {
-                    this.columns.splice(ui.dropIndex, 0, this.columns.splice(ui.dragIndex, 1)[0]);
-                }
-
-                this.onColReorder.emit({
-                    dragIndex: ui.dragIndex,
-                    dropIndex: ui.dropIndex,
-                    columns: this.columns
-                });
+        this.reorderIndicatorUp = this.domHandler.findSingle(this.el.nativeElement.children[0], 'span.ui-datatable-reorder-indicator-up');
+        this.reorderIndicatorDown = this.domHandler.findSingle(this.el.nativeElement.children[0], 'span.ui-datatable-reorder-indicator-down');
+    }
+    
+    findParentHeader(element) {
+        if(element.nodeName == 'TH') {
+            return element;
+        }
+        else {
+            let parent = element.parentElement;
+            while(parent.nodeName != 'TH') {
+                parent = parent.parentElement;
             }
-        });
+            return parent;
+        }
     }
 
     initScrolling() {
