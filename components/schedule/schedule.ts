@@ -224,7 +224,7 @@ export class Schedule {
                 });
             },
             viewRender: (view, element) => {
-                this.onEventResize.emit({
+                this.viewRender.emit({
                     'view': view,
                     'element': element                    
                 });
