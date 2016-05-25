@@ -25,12 +25,14 @@ export class LineChartDemo {
                 {
                     label: 'First Dataset',
                     data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false
+                    fill: false,
+                    borderColor: '#4bc0c0'
                 },
                 {
                     label: 'Second Dataset',
                     data: [28, 48, 40, 19, 86, 27, 90],
-                    fill: false
+                    fill: false,
+                    borderColor: '#565656'
                 }
             ]
         }
@@ -38,6 +40,6 @@ export class LineChartDemo {
 
     selectData(event) {
         this.msgs = [];
-        //this.msgs.push({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.data[0]._datasetIndex].data[event.data[0]._index]});
+        this.msgs.push({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]});
     }
 }

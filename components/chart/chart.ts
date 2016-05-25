@@ -52,9 +52,10 @@ export class UIChart implements AfterViewInit, OnDestroy, DoCheck {
 
     onCanvasClick(event) {
         if(this.chart) {
-            let elements = this.chart.getElementsAtEvent(event);
-            if(elements) {
-                this.onDataSelect.emit({originalEvent: event, elements: elements});
+            let element = this.chart.getElementAtEvent(event);
+            let dataset = this.chart.getDatasetAtEvent(event);
+            if(element&&element[0]&&dataset) {
+                this.onDataSelect.emit({originalEvent: event, element: element[0], dataset: dataset});
             }
         }
     }

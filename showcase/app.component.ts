@@ -28,6 +28,7 @@ import {SelectButtonDemo} from './demo/selectbutton/selectbuttondemo';
 import {CalendarDemo} from './demo/calendar/calendardemo';
 import {DropdownDemo} from './demo/dropdown/dropdowndemo';
 import {ProgressBarDemo} from './demo/progressbar/progressbardemo';
+import {ChartDemo} from './demo/chart/chartdemo';
 import {PieChartDemo} from './demo/chart/piechart/piechartdemo';
 import {DoughnutChartDemo} from './demo/chart/doughnutchart/doughnutchartdemo';
 import {LineChartDemo} from './demo/chart/linechart/linechartdemo';
@@ -125,6 +126,7 @@ import {MenuModelApi} from "./demo/menumodel/menumodelapi";
     {path: '/calendar', component: CalendarDemo},
     {path: '/dropdown', component: DropdownDemo},
     {path: '/progressbar', component: ProgressBarDemo},
+    {path: '/chart', component: ChartDemo},
     {path: '/piechart', component: PieChartDemo},
     {path: '/doughnutchart', component: DoughnutChartDemo},
     {path: '/linechart', component: LineChartDemo},
