@@ -9,13 +9,17 @@ import {SelectItem} from '../../../components/common';
 import {InputTextarea} from '../../../components/inputtextarea/inputtextarea';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
+import {Growl} from '../../../components/growl/growl';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
+import {Message} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/validation/validationdemo.html',
-    directives: [InputText,Password,Panel,Button,Dropdown,TabView,TabPanel,CodeHighlighter,InputTextarea,FORM_DIRECTIVES]
+    directives: [InputText,Password,Panel,Button,Dropdown,TabView,TabPanel,Growl,CodeHighlighter,InputTextarea,FORM_DIRECTIVES]
 })
 export class ValidationDemo {
+    
+    msgs: Message[] = [];
     
     userform: ControlGroup;
     
@@ -42,6 +46,8 @@ export class ValidationDemo {
     
     onSubmit(value: string) {
         this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'Success', detail:'Form Submitted'});
     }
     
     get diagnostic() { return JSON.stringify(this.userform.value); }
