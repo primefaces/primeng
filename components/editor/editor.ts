@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef,Provider} from '@angular/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef,Provider} from '@angular/core';
 import {Header} from '../common'
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
@@ -64,7 +64,7 @@ const EDITOR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
     directives: [Header],
     providers: [DomHandler,EDITOR_VALUE_ACCESSOR]
 })
-export class Editor implements AfterViewInit,ControlValueAccessor {
+export class Editor implements AfterViewInit,OnDestroy,ControlValueAccessor {
         
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
     
