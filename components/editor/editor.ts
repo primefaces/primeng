@@ -149,10 +149,4 @@ export class Editor implements AfterViewInit,OnDestroy,ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-        
-    ngOnDestroy() {
-        if(this.quill) {
-            this.quill.destroy();
-        }
-    }
 }
