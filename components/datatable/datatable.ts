@@ -20,7 +20,7 @@ import {DomHandler} from '../dom/domhandler';
                 <ng-content select="header"></ng-content>
             </div>
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
-                <table>
+                <table [ngClass]="classMap">
                     <thead>
                         <tr *ngIf="!headerRows" class="ui-state-default">
                             <th #headerCell *ngFor="let col of columns;let lastCol = last" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
@@ -252,6 +252,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
+
+    private classMap: string;
     
     private dataToRender: any[];
 
@@ -327,6 +329,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     }
 
     ngOnInit() {
+      let nativeElement = this.el.nativeElement;
+
+      this.classMap = nativeElement.getAttribute('class');
+      nativeElement.removeAttribute('class');
+
         if(this.lazy) {
             this.onLazyLoad.emit({
                 first: this.first,
