@@ -1,47 +1,36 @@
     <div class="ContentSideSections">
         <div>
             <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Validation</span>
-            <span class="defaultText">.ui-fluid style class provides fluid width to components for efficient use of space in screen.
-                This example demonstrates ui-fluid in combination with Grid CSS and the components having built-in responsive modes like datatable. Note that Grid CSS is not mandatory, any grid system 
-                can be used with ui-fluid.</span>
+            <span class="defaultText">PrimeNG input components indicate validation errors automatically when their value is marked as invalid.</span>
         </div>
     </div>
 
 <div class="ContentSideSections Implementation">
-    <form [ngFormModel]="form" (ngSubmit)="onSubmit(form.value)">
+    <form [ngFormModel]="userform" (ngSubmit)="onSubmit(userform.value)">
         <p-panel header="Validate">
-            <div class="ui-grid ui-grid-responsive ui-grid-pad">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">
-                        First Name:
+                        First Name *:
                     </div>
                     <div class="ui-grid-col-10">
-                        <input pInputText type="text" [ngFormControl]="form.controls['firstName']" #firstName="ngForm"/>
-                        <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
-                          Name is required
-                        </div>
+                        <input pInputText type="text" [ngFormControl]="userform.controls['firstname']" #firstname="ngForm" placeholder="Required"/>
                     </div>
                 </div>
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">
-                        Last Name:
+                        Last Name *:
                     </div>
                     <div class="ui-grid-col-10">
-                        <input pInputText type="text" [ngFormControl]="form.controls['lastName']" #lastName="ngForm"/>
-                        <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
-                          Last Name is required
-                        </div>
+                        <input pInputText type="text" [ngFormControl]="userform.controls['lastname']" #lastname="ngForm" placeholder="Required"/>
                     </div>
                 </div>
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">
-                        Password:
+                        Password *:
                     </div>
                     <div class="ui-grid-col-10">
-                        <input type="text" pPassword [ngFormControl]="form.controls['password']" #password="ngForm"/>
-                        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
-                          Password is required
-                        </div>
+                        <input pInputText type="password" [ngFormControl]="userform.controls['password']" #lastname="ngForm" placeholder="Required - Min(6)"/>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -49,15 +38,15 @@
                         Description:
                     </div>
                     <div class="ui-grid-col-10">
-                        <textarea pInputTextarea type="text" [(ngModel)]="description"></textarea>
+                        <textarea pInputTextarea type="text" [ngFormControl]="userform.controls['description']"></textarea>
                     </div>
                 </div>
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">
-                        Gender:
+                        Gender *:
                     </div>
                     <div class="ui-grid-col-10">
-                        <p-dropdown [options]="genders" [(ngModel)]="selectedGender"></p-dropdown>
+                        <p-dropdown [options]="genders" [ngFormControl]="userform.controls['gender']"></p-dropdown>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -65,17 +54,50 @@
                         Submit
                     </div>
                     <div class="ui-grid-col-10">
-                        <button pButton type="submit" label="Submit" [disabled]="!form.valid"></button>
+                        <button pButton type="submit" label="Submit" [disabled]="!userform.valid"></button>
                     </div>
                 </div>
-                <div style="text-align:center"*ngIf="submitted">
-                    Form Submitted!
-                    <p>First Name: {{form.controls['firstName'].value}}</p>
-                    <p>Last Name: {{form.controls['lastName'].value}}</p>
-                    <p>Password: {{form.controls['password'].value}}</p>
-                    <p *ngIf="selectedGender">Gender: {{selectedGender}}</p>
+                <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+                    Form Submitted
+                    <br>
+                    {{diagnostic}}
                 </div>
             </div>   
         </p-panel> 
     </form>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="validationdemo.ts">
+<pre>
+<code class="language-typescript" pCode>
+export class DataTablePaginatorDemo implements OnInit {
+
+    cars: Car[];
+
+    constructor(private carService: CarService) { }
+
+    ngOnInit() {
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
+    }
+}
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="validationdemo.html">
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"&gt;
+    &lt;header&gt;List of Cars&lt;/header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
 </div>
