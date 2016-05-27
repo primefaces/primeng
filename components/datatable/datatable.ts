@@ -15,12 +15,12 @@ import {DomHandler} from '../dom/domhandler';
     selector: 'p-dataTable',
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
-            [ngClass]="{'ui-datatable ui-widget': true, 'ui-datatable-reflow':responsive, 'ui-datatable-stacked': stacked, 'ui-datatable-resizable': resizableColumns}">
+            [ngClass]="classMap">
             <div class="ui-datatable-header ui-widget-header" *ngIf="header" [ngStyle]="{'width': scrollWidth}">
                 <ng-content select="header"></ng-content>
             </div>
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
-                <table [ngClass]="classMap">
+                <table [ngClass]="tableClassMap">
                     <thead>
                         <tr *ngIf="!headerRows" class="ui-state-default">
                             <th #headerCell *ngFor="let col of columns;let lastCol = last" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
@@ -90,7 +90,7 @@ import {DomHandler} from '../dom/domhandler';
             </div>
             <div class="ui-widget-header ui-datatable-scrollable-header" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
                 <div class="ui-datatable-scrollable-header-box">
-                    <table>
+                    <table [ngClass]="tableClassMap">
                         <thead>
                             <tr>
                                 <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
@@ -109,7 +109,7 @@ import {DomHandler} from '../dom/domhandler';
                 </div>
             </div>
             <div class="ui-datatable-scrollable-body" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
-                <table>
+                <table [ngClass]="tableClassMap">
                     <tbody class="ui-datatable-data ui-widget-content">
                     <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
                         <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
@@ -162,6 +162,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Input() rowsPerPageOptions: number[];
 
     @Input() responsive: boolean;
+
+    @Input() responsiveClass: string = "ui-datatable-reflow";
     
     @Input() stacked: boolean;
 
@@ -253,7 +255,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
 
-    private classMap: string;
+    private classMap: Object;
+
+    private tableClassMap: string;
     
     private dataToRender: any[];
 
@@ -329,9 +333,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     }
 
     ngOnInit() {
+      this.classMap = {'ui-datatable ui-widget': true, 'ui-datatable-stacked': this.stacked, 'ui-datatable-resizable': this.resizableColumns};
+      this.classMap[this.responsiveClass] = this.responsive;
+
       let nativeElement = this.el.nativeElement;
 
-      this.classMap = nativeElement.getAttribute('class');
+      this.tableClassMap = nativeElement.getAttribute('class');
       nativeElement.removeAttribute('class');
 
         if(this.lazy) {
