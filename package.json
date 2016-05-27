@@ -16,9 +16,22 @@
     "primeui": "^4.1.11"
   },
   "devDependencies": {
+    "@angular/common": "^2.0.0-rc.1",
+    "@angular/compiler": "^2.0.0-rc.1",
+    "@angular/core": "^2.0.0-rc.1",
+    "@angular/http": "^2.0.0-rc.1",
+    "@angular/platform-browser": "^2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "^2.0.0-rc.1",
+    "@angular/router-deprecated": "^2.0.0-rc.1",
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
+    "primeui": "^4.1.9",
+    "rxjs": "^5.0.0-beta.6",
     "typescript": "^1.8.10",
-    "typings": "^0.8.1"
+    "typings": "^0.8.1",
+    "zone.js": "^0.6.6"
+  },
+  "publishConfig": {
+    "registry": "http://icondev.rwe.com:8088/nexus3/repository/npm-release"
   }
 }
