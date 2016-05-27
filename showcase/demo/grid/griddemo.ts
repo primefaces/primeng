@@ -5,15 +5,10 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 
 @Component ({
     styles:[`
-        .ui-grid {
-            margin-bottom: 10px;
-        }
-
-        .ui-grid .ui-grid-row div {
-            background-color: #cccccc;
+        .ui-g div {
+            background-color: #d3d3d3;
             text-align: center;
-            border: 1px solid #dddddd;
-            padding: 10px 0px;
+            border: 1px solid #e0e0e0;
         }
     `],
     templateUrl: 'showcase/demo/grid/griddemo.html',
