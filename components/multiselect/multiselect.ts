@@ -12,7 +12,7 @@ const MULTISELECT_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
 @Component({
     selector: 'p-multiSelect',
     template: `
-        <div [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus': focus}" [ngStyle]="style" [class]="styleClass"
+        <div [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus': focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" (focus)="onFocus($event)" (blur)="onBlur($event)">
@@ -35,7 +35,7 @@ const MULTISELECT_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container">
-                        <input type="text" aria-multiline="false" aria-readonly="false" aria-disabled="false" role="textbox" (input)="onFilter($event)"
+                        <input type="text" role="textbox" (input)="onFilter($event)"
                                     class="ui-inputtext ui-widget ui-state-default ui-corner-all">
                         <span class="fa fa-fw fa-search"></span>
                     </div>
@@ -241,7 +241,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     }
      
     onMouseenter(event) {
-        this.hover = true;
+        if(!this.disabled) {
+            this.hover = true;
+        }
     }
     
     onMouseleave(event) {
@@ -249,6 +251,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     }
     
     onMouseclick(event,input) {
+        if(this.disabled) {
+            return;
+        }
+        
         if(!this.panelClick) {
             if(this.overlayVisible) {
                 this.hide();
