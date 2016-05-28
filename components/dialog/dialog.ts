@@ -89,6 +89,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     shown: boolean;
     
     contentContainer: any;
+    
+    positionInitialized: boolean;
             
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
     
@@ -101,6 +103,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         
         if(this._visible) {
             this.onBeforeShow.emit({});
+            
+            if(!this.positionInitialized) {
+                this.center();
+                this.positionInitialized = true;
+            }
             
             this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
             
@@ -120,7 +127,6 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     ngAfterViewInit() {
         this.contentContainer = this.domHandler.findSingle(this.el.nativeElement, '.ui-dialog-content');
-        this.center();
         
         if(this.draggable) {
             this.documentDragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
