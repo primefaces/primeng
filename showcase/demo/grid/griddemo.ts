@@ -6,9 +6,9 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 @Component ({
     styles:[`
         .ui-g div {
-            background-color: #d3d3d3;
+            background-color: #ededed;
             text-align: center;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #fafafa;
         }
     `],
     templateUrl: 'showcase/demo/grid/griddemo.html',
