@@ -271,7 +271,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     ngOnDestroy() {
-        this.mask = null;
+        this.disableModality();
         
         if(this.documentDragListener) {
             this.documentDragListener();
