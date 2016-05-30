@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Source">
     <h3 style="margin-top:0px">Download</h3>
-    <p>PrimeNG is available at npm, run the following commands to download the modules to your project.</p>
+    <p>PrimeNG is available at npm, if you have an existing application run the following commands to download the modules to your project.</p>
 <pre>
 <code class="language-markup" pCode>
 npm install primeng --save
@@ -19,10 +19,12 @@ npm install primeui --save
     <p>PrimeNG is distributed in commonjs format, a module loader of your choice is required and this guide provides a sample for SystemJS whereas a Webpack starter is in progress.</p>
 
     <h3>Import</h3>
-    <p>Once PrimeNG is downloaded and configured, components can be imported from 'primeng/primeng' in your application code.</p>
+    <p>Once PrimeNG is downloaded and configured, components and apis can be imported from 'primeng/primeng' in your application code.</p>
 <pre>
 <code class="language-typescript" pCode>
 import {Accordion} from 'primeng/primeng';
+import {Header} from 'primeng/primeng';
+import {MenuItem} from 'primeng/primeng';
 </code>
 </pre>
 
@@ -30,24 +32,29 @@ import {Accordion} from 'primeng/primeng';
 <pre>
 <code class="language-typescript" pCode>
 //import {ComponentName} from 'primeng/components/componentname/componentname';
+//import {InterfaceName} from 'primeng/common';
+
 import {Accordion} from 'primeng/components/accordion/accordion';
+import {Header} from 'primeng/common';
+import {MenuItem} from 'primeng/common';
 </code>
 </pre>
+
     <h3>Dependencies</h3>
     <p>Majority of PrimeNG components are native and there are some exceptions having 3rd party dependencies. The native components require structural and skinning css files
-        from PrimeUI which are primeui-ng.all.css and a theme of your choice. Components also require font-awesome for icons.</p>
+        from PrimeUI which are primeui-ng.all.css and a theme of your choice like omega. Components also require font-awesome for icons.</p>
 
     <p>The required css dependencies are as follows;</p>
 <pre>
 <code class="language-typescript" pCode>
 &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css" /&gt;
-&lt;link rel="stylesheet" type="text/css" href="PATH/font-awesome.min.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="YOUR_PATH/font-awesome.min.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
 </code>
 </pre>
 
     <p>Here is the list of components with 3rd party dependencies. The css for calendar and slider is included in primeui-ng-all.min.css so there is no need to add them
-    separately. For others both javascipt and css dependencies should be added such as css and js of quill.</p>
+    separately. For others both javascipt and css dependencies should be added such as css and js of quill. If you prefer a bundle of jquery, calendar and slider use <i>node_modules/primeui/primeui-ng-all.min.js</i> from PrimeUI.</p>
     <div class="doc-tablewrapper">
         <table class="doc-table">
             <thead>
@@ -79,7 +86,7 @@ import {Accordion} from 'primeng/components/accordion/accordion';
                 </tr>
                 <tr>
                     <td>Charts</td>
-                    <td>Charts.js 1.0.2</td>
+                    <td>Charts.js 2.1.x</td>
                 </tr>
             </tbody>
         </table>
@@ -119,8 +126,8 @@ import {Accordion} from 'primeng/components/accordion/accordion';
     "rxjs": "5.0.0-beta.6",
     "zone.js": "^0.6.12",
     "angular2-in-memory-web-api": "0.0.7",
-    "primeng": "1.0.0-beta.5",
-    "primeui": "4.1.10"
+    "primeng": "1.0.0-beta.7",
+    "primeui": "4.1.12"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
