@@ -1227,14 +1227,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     }
 
     ngOnDestroy() {
-        if(this.resizableColumns) {
-            jQuery(this.el.nativeElement.children[0]).puicolresize('destroy');
-        }
-
-        if(this.reorderableColumns) {
-            jQuery(this.el.nativeElement.children[0]).puicolreorder('destroy');
-        }
-
         //remove event listener
         if(this.globalFilterFunction) {
             this.globalFilterFunction();
