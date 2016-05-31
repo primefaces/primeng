@@ -4,7 +4,7 @@ import {DomHandler} from '../dom/domhandler';
 @Directive({
     selector: '[pButton]',
     host: {
-        '[class.ui-state-hover]': 'hover',
+        '[class.ui-state-hover]': 'hover&&!isDisabled()',
         '[class.ui-state-focus]': 'focus',
         '[class.ui-state-active]': 'active',
         '[class.ui-state-disabled]': 'isDisabled()'
@@ -45,13 +45,13 @@ export class Button implements AfterViewInit, OnDestroy {
         this.initialized = true;
     }
         
-    @HostListener('mouseover', ['$event']) 
-    onMouseover(e) {
+    @HostListener('mouseenter', ['$event']) 
+    onMouseenter(e) {
         this.hover = true;
     }
     
-    @HostListener('mouseout', ['$event']) 
-    onMouseout(e) {
+    @HostListener('mouseleave', ['$event']) 
+    onMouseleave(e) {
         this.hover = false;
         this.active = false;
     }
