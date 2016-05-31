@@ -306,9 +306,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private reorderIndicatorDown: any;
     
     private draggedColumn: any;
-    
-    private dropLocation: number;
-        
+            
     private tbody: any;
 
     differ: any;
@@ -1001,12 +999,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             if(event.pageX > columnCenter) {
                 this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
                 this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8)+ 'px';
-                this.dropLocation = 1;
             }
             else {
                 this.reorderIndicatorUp.style.left = (targetLeft - 8) + 'px';
                 this.reorderIndicatorDown.style.left = (targetLeft - 8)+ 'px';
-                this.dropLocation = -1;
             }
             
             this.reorderIndicatorUp.style.display = 'block';
@@ -1027,12 +1023,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         event.preventDefault();
         let dragIndex = this.domHandler.index(this.draggedColumn);
         let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
-        
+
         if(dragIndex != dropIndex) {
-            if(this.dropLocation > 0)
-                this.columns.splice(dropIndex + 1, 0, this.columns.splice(dragIndex, 1)[0]);
-            else
-                this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
+            this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
 
             this.onColReorder.emit({
                 dragIndex: dragIndex,
@@ -1043,7 +1036,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         
         this.reorderIndicatorUp.style.display = 'none';
         this.reorderIndicatorDown.style.display = 'none';
-        this.dropLocation = null;
         this.draggedColumn = null;
     }
 
