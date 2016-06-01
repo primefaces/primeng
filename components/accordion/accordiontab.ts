@@ -1,6 +1,6 @@
 import {Component,Input,ContentChild} from '@angular/core';
 import {Accordion} from './accordion';
-import {Header} from '../common/header'
+import {Header} from '../common';
 
 @Component({
     selector: 'p-accordionTab',

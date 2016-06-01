@@ -41,8 +41,6 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-    value: boolean;
-
     checked: boolean = false;
 
     focused: boolean = false;
@@ -156,11 +154,11 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
         this.onModelTouched();
     }
 
-    writeValue(value: any) : void {
-        this.value = value;
+    writeValue(checked: any) : void {
+        this.checked = checked;
         
         if(this.initialized) {
-            if(this.value === true)
+            if(this.checked === true)
                 this.checkUI();
             else
                 this.uncheckUI();

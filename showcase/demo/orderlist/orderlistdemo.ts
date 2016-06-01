@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HTTP_PROVIDERS}    from '@angular/http';
 import {OrderList} from '../../../components/orderlist/orderlist';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';

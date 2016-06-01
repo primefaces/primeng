@@ -1,10 +1,10 @@
 import {Component,Input,Output,EventEmitter,ElementRef,ContentChild,IterableDiffers,ContentChildren,QueryList} from '@angular/core';
-import {TreeNode} from '../api/treenode';
+import {TreeNode} from '../common';
 import {UITreeRow} from './uitreerow';
 import {Column} from '../column/column';
 import {DomHandler} from '../dom/domhandler';
-import {Header} from '../common/header';
-import {Footer} from '../common/footer';
+import {Header} from '../common';
+import {Footer} from '../common';
 
 @Component({
     selector: 'p-treeTable',

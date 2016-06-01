@@ -1,5 +1,5 @@
 import {Component,OnInit} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HTTP_PROVIDERS}    from '@angular/http';
 import {DataTable} from '../../../components/datatable/datatable';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
@@ -8,8 +8,8 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 import {Column} from '../../../components/column/column';
-import {Header} from '../../../components/common/header';
-import {Footer} from '../../../components/common/footer';
+import {Header} from '../../../components/common';
+import {Footer} from '../../../components/common';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 
 @Component({

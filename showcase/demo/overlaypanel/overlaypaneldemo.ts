@@ -8,7 +8,7 @@ import {DataTable} from '../../../components/datatable/datatable';
 import {Car} from '../domain/car';
 import {Column} from '../../../components/column/column';
 import {CarService} from '../service/carservice';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HTTP_PROVIDERS}    from '@angular/http';
 
 @Component({

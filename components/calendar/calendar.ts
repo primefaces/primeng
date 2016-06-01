@@ -16,7 +16,7 @@ const CALENDAR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
                 [disabled]="disabled" (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="handleBlur($event)"
                 [ngClass]="{'ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,
                     'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}"
-        ><button type="button" icon="fa-calendar" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)" class="ui-datepicker-trigger"></button></span>
+        ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)" class="ui-datepicker-trigger"></button></span>
         <div *ngIf="inline"></div>
     `,
     directives: [Button],
@@ -105,6 +105,8 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     @Input() timezoneList: string[];
     
     @Input() locale: any;
+    
+    @Input() icon: string = 'fa-calendar';
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     

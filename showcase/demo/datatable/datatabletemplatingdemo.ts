@@ -1,5 +1,5 @@
 import {Component,OnInit} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HTTP_PROVIDERS}    from '@angular/http';
 import {DataTable} from '../../../components/datatable/datatable';
 import {Column} from '../../../components/column/column';
@@ -11,7 +11,7 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
 import {DataTableSubmenu} from './datatablesubmenu.component';
 import {CarService} from '../service/carservice';
-import {Message} from '../../../components/api/message';
+import {Message} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatabletemplatingdemo.html',

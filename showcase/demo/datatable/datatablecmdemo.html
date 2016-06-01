@@ -18,12 +18,7 @@
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
     
-    <p-contextMenu #cm>
-        <ul>
-            <li><a data-icon="fa-search" (click)="viewCar(selectedCar)">View</a></li>
-            <li><a data-icon="fa-close" (click)="deleteCar(selectedCar)">Delete</a></li>
-        </ul>
-    </p-contextMenu>
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
 </div>
 
 <div class="ContentSideSections Source">
@@ -38,11 +33,18 @@ export class DataTableCMDemo implements OnInit {
     cars: Car[];
 
     selectedCar: Car;
+    
+    items: MenuItem[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
+        
+        this.items = [
+            {label: 'View', icon: 'fa-search', command: (event) => this.viewCar(this.selectedCar)},
+            {label: 'Delete', icon: 'fa-close', command: (event) => this.deleteCar(this.selectedCar)}
+        ];
     }
 
     viewCar(car: Car) {
@@ -81,12 +83,7 @@ export class DataTableCMDemo implements OnInit {
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-contextMenu #cm&gt;
-    &lt;ul&gt;
-        &lt;li&gt;&lt;a data-icon="fa-search" (click)="viewCar(selectedCar)"&gt;View&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;a data-icon="fa-close" (click)="deleteCar(selectedCar)"&gt;Delete&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-contextMenu&gt;
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
 </code>
 </pre>
         </p-tabPanel>

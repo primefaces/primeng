@@ -6,7 +6,7 @@ import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
 import {SplitButton} from '../../../components/splitbutton/splitbutton';
 import {SplitButtonItem} from '../../../components/splitbutton/splitbuttonitem';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/toolbar/toolbardemo.html',

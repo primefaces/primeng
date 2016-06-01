@@ -1,14 +1,14 @@
 import {Component,OnInit} from '@angular/core';
 import {Tree} from '../../../components/tree/tree';
-import {TreeNode} from '../../../components/api/treenode';
+import {TreeNode} from '../../../components/common';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HTTP_PROVIDERS}    from '@angular/http';
 import {NodeService} from '../service/nodeservice';
 import {Growl} from '../../../components/growl/growl';
-import {Message} from '../../../components/api/message';
+import {Message} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/tree/treedemo.html',

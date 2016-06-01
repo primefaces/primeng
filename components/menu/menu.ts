@@ -1,6 +1,7 @@
 import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../api/menumodel';
+import {MenuItem} from '../common';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'p-menu',
@@ -48,7 +49,7 @@ export class Menu implements AfterViewInit,OnDestroy {
     
     preventDocumentDefault: any;
     
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, private router: Router) {}
 
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];
@@ -83,15 +84,25 @@ export class Menu implements AfterViewInit,OnDestroy {
     }
     
     itemClick(event, item: MenuItem) {
-        if(!item.eventEmitter) {
-            item.eventEmitter = new EventEmitter();
-            item.eventEmitter.subscribe(item.command);
+        if(!item.url||item.routerLink) {
+            event.preventDefault();
         }
         
-        item.eventEmitter.emit(event);
+        if(item.command) {
+            if(!item.eventEmitter) {
+                item.eventEmitter = new EventEmitter();
+                item.eventEmitter.subscribe(item.command);
+            }
+            
+            item.eventEmitter.emit(event);
+        }
         
         if(this.popup) {
             this.hide();
+        }
+        
+        if(item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
     }
     
@@ -129,5 +140,4 @@ export class Menu implements AfterViewInit,OnDestroy {
             }
         }
     }
-
 }

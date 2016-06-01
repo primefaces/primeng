@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Source">
     <h3 style="margin-top:0px">Download</h3>
-    <p>PrimeNG is available at npm, run the following commands to download the modules to your project.</p>
+    <p>PrimeNG is available at npm, if you have an existing application run the following commands to download the modules to your project.</p>
 <pre>
 <code class="language-markup" pCode>
 npm install primeng --save
@@ -19,33 +19,78 @@ npm install primeui --save
     <p>PrimeNG is distributed in commonjs format, a module loader of your choice is required and this guide provides a sample for SystemJS whereas a Webpack starter is in progress.</p>
 
     <h3>Import</h3>
-    <p>Once PrimeNG is downloaded and configured, components can be imported from 'primeng/primeng' in your application code.</p>
+    <p>Once PrimeNG is downloaded and configured, components and apis can be imported from 'primeng/primeng' in your application code.</p>
 <pre>
 <code class="language-typescript" pCode>
 import {Accordion} from 'primeng/primeng';
+import {Header} from 'primeng/primeng';
+import {MenuItem} from 'primeng/primeng';
+</code>
+</pre>
+
+    <p>Importing from primeng/primeng will load all other components as well, to only import a specific component pattern would be;</p>
+<pre>
+<code class="language-typescript" pCode>
+//import {ComponentName} from 'primeng/components/componentname/componentname';
+//import {InterfaceName} from 'primeng/common';
+
+import {Accordion} from 'primeng/components/accordion/accordion';
+import {Header} from 'primeng/common';
+import {MenuItem} from 'primeng/common';
 </code>
 </pre>
 
     <h3>Dependencies</h3>
-    <p>PrimeUI provides optimized dependencies for PrimeNG via its distribution. These are the <i>primeui-ng-all.js</i> and <i>primeui-ng-all.css</i> files. The js file includes jquery, jquery-ui core, the PrimeUI widgets
-    and the css file contains jquery-ui core along with structural css of PrimeUI widgets. The PrimeUI widgets in these two files are the ones utilized by PrimeNG not all the widgets. If you simply need the widgets and prefer your own jquery, use primeui-ng.js instead. 
-    Components also require font-awesome for icons and a theme of your choice for skinning.</p>
+    <p>Majority of PrimeNG components are native and there are some exceptions having 3rd party dependencies. The native components require structural and skinning css files
+        from PrimeUI which are primeui-ng.all.css and a theme of your choice like omega. Components also require font-awesome for icons.</p>
 
+    <p>The required css dependencies are as follows;</p>
 <pre>
 <code class="language-typescript" pCode>
-&lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/delta/theme.css" /&gt;
-&lt;link rel="stylesheet" type="text/css" href="PATH/font-awesome.min.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="YOUR_PATH/font-awesome.min.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
-&lt;script src="node_modules/primeui/primeui-ng-all.min.js"&gt;&lt;/script&gt;
 </code>
 </pre>
 
-    <h4>jQuery (Optional)</h4>
-    <p>In an Angular2 application, you don't need to use jQuery directly however some of the PrimeNG components are based on existing jQuery plugins (e.g. Schedule) although many others are native components.
-        Dependencies section at the documentation of each component states the origin such as Native, jQuery/PrimeUI or an external library (e.g. charts.js). jQuery based ones in PrimeUI are optimized for PrimeNG integration using a technique called enhanced mode where plugin assumes dom is already created by PrimeNG component. As a result, jQuery plugin does not manipulate dom, only
-        adds lightweight behaviors and low level requirements such as positioning. Changes as a result of one or two way binding are properly reflected between the UI and model. In addition components are destroyed whenever page is navigated away via router. In future
-        as PrimeNG grows, remaining jQuery based ones will be replaced with native implementations where appropriate so that PrimeNG does not utilize any javascript from PrimeUI by 1.0 Final.
-    </p>
+    <p>Here is the list of components with 3rd party dependencies. The css for calendar and slider is included in primeui-ng-all.min.css so there is no need to add them
+    separately. For others both javascipt and css dependencies should be added such as css and js of quill. If you prefer a bundle of jquery, calendar and slider use <i>node_modules/primeui/primeui-ng-all.min.js</i> from PrimeUI.</p>
+    <div class="doc-tablewrapper">
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Dependency</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Calendar</td>
+                    <td>jQuery, jQuery UI Datepicker, jQuery UI Timepicker</td>
+                </tr>
+                <tr>
+                    <td>Slider</td>
+                    <td>jQuery, jQuery UI Slider</td>
+                </tr>
+                <tr>
+                    <td>Schedule</td>
+                    <td>FullCalendar and Moment.js</td>
+                </tr>
+                <tr>
+                    <td>Editor</td>
+                    <td>Quill Editor</td>
+                </tr>
+                <tr>
+                    <td>GMap</td>
+                    <td>Google Maps</td>
+                </tr>
+                <tr>
+                    <td>Charts</td>
+                    <td>Charts.js 2.1.x</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <h3>Quickstart with System.js</h3>
     <p>An example starter application based on angular2-quickstart is available at <a href="https://github.com/primefaces/primeng-quickstart">GitHub</a>.</p>
@@ -81,8 +126,8 @@ import {Accordion} from 'primeng/primeng';
     "rxjs": "5.0.0-beta.6",
     "zone.js": "^0.6.12",
     "angular2-in-memory-web-api": "0.0.7",
-    "primeng": "1.0.0-beta.5",
-    "primeui": "4.1.10"
+    "primeng": "1.0.0-beta.7",
+    "primeui": "4.1.12"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
@@ -112,7 +157,6 @@ import {Accordion} from 'primeng/primeng';
     &lt;script src="node_modules/zone.js/dist/zone.js"&gt;&lt;/script&gt;
     &lt;script src="node_modules/reflect-metadata/Reflect.js"&gt;&lt;/script&gt;
     &lt;script src="node_modules/systemjs/dist/system.src.js"&gt;&lt;/script&gt;
-    &lt;script src="node_modules/primeui/primeui-ng-all.min.js"&gt;&lt;/script&gt;
     &lt;script src="systemjs.config.js"&gt;&lt;/script&gt;
     &lt;script&gt;
       System.import('app').catch(function(err){ console.error(err);  });

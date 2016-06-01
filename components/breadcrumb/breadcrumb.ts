@@ -1,5 +1,7 @@
 import {Component,Input,OnDestroy,EventEmitter} from '@angular/core';
-import {MenuItem} from '../api/menumodel';
+import {MenuItem} from '../common';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'p-breadcrumb',
@@ -27,15 +29,27 @@ export class Breadcrumb implements OnDestroy {
 
     @Input() styleClass: string;
     
+    constructor(private router: Router) {}
+    
     itemClick(event, item: MenuItem) {
-        if(!item.eventEmitter) {
-            item.eventEmitter = new EventEmitter();
-            item.eventEmitter.subscribe(item.command);
+        if(!item.url||item.routerLink) {
+            event.preventDefault();
         }
         
-        item.eventEmitter.emit(event);
+        if(item.command) {
+            if(!item.eventEmitter) {
+                item.eventEmitter = new EventEmitter();
+                item.eventEmitter.subscribe(item.command);
+            }
+            
+            item.eventEmitter.emit(event);
+        }
+                
+        if(item.routerLink) {
+            this.router.navigate(item.routerLink);
+        }
     }
-    
+        
     ngOnDestroy() {
         if(this.model) {
             for(let item of this.model) {

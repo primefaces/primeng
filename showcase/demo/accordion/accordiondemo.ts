@@ -5,8 +5,8 @@ import {Growl} from '../../../components/growl/growl';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Message} from '../../../components/api/message';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {Message} from '../../../components/common';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     templateUrl: 'showcase/demo/accordion/accordiondemo.html',

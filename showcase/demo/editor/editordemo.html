@@ -17,14 +17,10 @@
     <h3>Custom Toolbar</h3>
     <p-editor [(ngModel)]="text2" [style]="{'height':'320px'}">
         <header>
-            <span class="ql-format-group">
-                <span title="Bold" class="ql-format-button ql-bold"></span>
-                <span class="ql-format-separator"></span>
-                <span title="Italic" class="ql-format-button ql-italic"></span>
-                <span class="ql-format-separator"></span>
-                <span title="Underline" class="ql-format-button ql-underline"></span>
-                <span class="ql-format-separator"></span>
-                <span title="Strikethrough" class="ql-format-button ql-strike"></span>
+            <span class="ql-formats">
+                <button class="ql-bold"></button>
+                <button class="ql-italic"></button>
+                <button class="ql-underline"></button>
             </span>
         </header>
     </p-editor>
@@ -143,7 +139,7 @@ export class EditorDemo {
             </div>
 
             <h3>Styling</h3>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -170,7 +166,7 @@ export class EditorDemo {
             </div>
 
             <h3>Dependencies</h3>
-            <p><a href="http://quilljs.com">Quill</a> Editor.</p>
+            <p><a href="http://quilljs.com">Quill</a> Editor 1.0.</p>
         </p-tabPanel>
         <p-tabPanel header="Source">
 <pre>
@@ -186,14 +182,10 @@ export class EditorDemo {
 &lt;h3&gt;Custom Toolbar&lt;/h3&gt;
 &lt;p-editor [(ngModel)]="text2" [style]="{'height':'320px'}"&gt;
     &lt;header&gt;
-        &lt;span class="ql-format-group"&gt;
-            &lt;span title="Bold" class="ql-format-button ql-bold"&gt;&lt;/span&gt;
-            &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
-            &lt;span title="Italic" class="ql-format-button ql-italic"&gt;&lt;/span&gt;
-            &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
-            &lt;span title="Underline" class="ql-format-button ql-underline"&gt;&lt;/span&gt;
-            &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
-            &lt;span title="Strikethrough" class="ql-format-button ql-strike"&gt;&lt;/span&gt;
+        &lt;span class="ql-formats"&gt;
+            &lt;button class="ql-bold"&gt;&lt;/button&gt;
+            &lt;button class="ql-italic"&gt;&lt;/button&gt;
+            &lt;button class="ql-underline"&gt;&lt;/button&gt;
         &lt;/span&gt;
     &lt;/header&gt;
 &lt;/p-editor&gt;

@@ -1,5 +1,5 @@
 import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange} from '@angular/core';
-import {Message} from '../api/message';
+import {Message} from '../common';
 
 @Component({
     selector: 'p-messages',

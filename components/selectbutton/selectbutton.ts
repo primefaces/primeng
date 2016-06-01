@@ -1,5 +1,5 @@
 import {Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
-import {SelectItem} from '../api/selectitem';
+import {SelectItem} from '../common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
 
 const SELECTBUTTON_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {

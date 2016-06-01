@@ -4,9 +4,9 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Button} from '../../../components/button/button';
-import {SelectItem} from '../../../components/api/selectitem';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-import {Message} from '../../../components/api/message';
+import {SelectItem} from '../../../components/common';
+import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Message} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/growl/growldemo.html',

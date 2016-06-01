@@ -8,66 +8,7 @@
 <div class="ContentSideSections Implementation">
     <div style="heigh:300px"></div>
     
-    <p-contextMenu [global]="true">
-        <ul>
-            <li> <a data-icon="fa-file-o"><span>File</span></a>
-                <ul>
-                    <li><a data-icon="fa-plus"><span>New</span></a>
-                        <ul>
-                            <li><a><span>Project</span></a></li>
-                            <li><a><span>Other</span></a></li>
-                        </ul>
-                    </li>
-                    <li><a><span>Open</span></a></li>
-                    <li><a><span>Quit</span></a></li>
-                </ul>
-            </li>
-            <li> <a data-icon="fa-edit">Edit</a>
-                <ul>
-                    <li><a data-icon="fa-mail-forward"><span>Undo</span></a></li>
-                    <li><a data-icon="fa-mail-reply"><span>Redo</span></a></li>
-                </ul>
-            </li>
-            <li>
-                <a data-icon="fa-question">Help</a>
-                <ul>
-                    <li><a><span>Contents</span></a></li>
-                    <li>
-                        <a data-icon="fa-search"><span>Search</span></a>
-                        <ul>
-                            <li><a>Text</a>
-                                <ul>
-                                    <li><a><span>Workspace</span></a></li>
-                                </ul>
-                            </li>
-                            <li><a><span>File</span></a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-
-            </li>
-            <li>
-                <a data-icon="fa-gear">Actions</a>
-                <ul>
-                    <li><a data-icon="fa-refresh"><span>Edit</span></a>
-                        <ul>
-                            <li><a data-icon="fa-save"><span>Save</span></a></li>
-                            <li><a data-icon="fa-save"><span>Update</span></a></li>
-                        </ul>
-                    </li>
-                    <li><a data-icon="fa-phone">Other</a>
-                        <ul>
-                            <li><a data-icon="fa-minus"><span>Delete</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a data-icon="fa-close"><span>Quit</span></a>
-            </li>
-        </ul>
-    </p-contextMenu>
+    <p-contextMenu [global]="true" [model]="items"></p-contextMenu>
     
 </div>
 
@@ -77,44 +18,54 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {ContextMenu} from 'primeng/primeng';
+import {ContextMenu,MenuItem} from 'primeng/primeng';
 </code>
 </pre>
+
+            <h3>MenuModel API</h3>
+            <p>ContextMenu uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
             <h3>Getting Started</h3>
-            <p>ContextMenu requires a list element as its child. Menus can be tiered using nested lists.</p>
+            <p>ContextMenu requires nested menuitems as its model.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-tieredMenu&gt;
-     &lt;ul&gt;
-         &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
-             &lt;ul&gt;
-                 &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
-                     &lt;ul&gt;
-                         &lt;li&gt;&lt;a&gt;&lt;span&gt;Project&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                         &lt;li&gt;&lt;a&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                     &lt;/ul&gt;
-                 &lt;/li&gt;
-                 &lt;li&gt;&lt;a&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                 &lt;li&gt;&lt;a&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-             &lt;/ul&gt;
-         &lt;/li&gt;
-         &lt;li&gt; &lt;a data-icon="fa-edit"&gt;Edit&lt;/a&gt;
-             &lt;ul&gt;
-                 &lt;li&gt;&lt;a data-icon="fa-mail-forward"&gt;&lt;span&gt;Undo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                 &lt;li&gt;&lt;a data-icon="fa-mail-reply"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-             &lt;/ul&gt;
-         &lt;/li&gt;
-     &lt;/ul&gt;
-&lt;/p-tieredMenu&gt;
+&lt;p-contextMenu [model]="items"&gt;&lt;/p-contextMenu&gt;
 </code>
 </pre>
 
-            <h3>Icons</h3>
-            <p>An icon of a menuitem is defined using data-icon attribute.</p>
 <pre>
-<code class="language-markup" pCode>
-&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
+<code class="language-typescript" pCode>
+export class ContextMenuDemo {
+
+    private items: MenuItem[];
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'File',
+                items: [{
+                        label: 'New', 
+                        icon: 'fa-plus',
+                        items: [
+                            {label: 'Project'},
+                            {label: 'Other'},
+                        ]
+                    },
+                    {label: 'Open'},
+                    {label: 'Quit'}
+                ]
+            },
+            {
+                label: 'Edit',
+                icon: 'fa-edit',
+                items: [
+                    {label: 'Undo', icon: 'fa-mail-forward'},
+                    {label: 'Redo', icon: 'fa-mail-reply'}
+                ]
+            }
+        ];
+    }
+}
 </code>
 </pre>
 
@@ -122,14 +73,26 @@ import {ContextMenu} from 'primeng/primeng';
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Default</th>
-                        <th>Description</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>model</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of menuitems.</td>
+                        </tr>
+                        <tr>
+                            <td>global</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Attaches the menu to document instead of a particular item.</td>
+                        </tr>
                         <tr>
                             <td>style</td>
                             <td>string</td>
@@ -142,18 +105,42 @@ import {ContextMenu} from 'primeng/primeng';
                             <td>null</td>
                             <td>Style class of the component.</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Methods</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
                         <tr>
-                            <td>global</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When enabled, contextmenu is attached to the document itself.</td>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>toggle</td>
+                            <td>event: browser event</td>
+                            <td>Toggles the visibility of the popup menu.</td>
+                        </tr>
+                        <tr>
+                            <td>show</td>
+                            <td>event: browser event</td>
+                            <td>Displays the popup menu.</td>
+                        </tr>
+                        <tr>
+                            <td>hide</td>
+                            <td>-</td>
+                            <td>Hides the popup menu.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Styling</h3>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['Theming']">theming page</a>.</p>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -192,73 +179,99 @@ import {ContextMenu} from 'primeng/primeng';
             </div>
 
             <h3>Dependencies</h3>
-            <p>PrimeUI TieredMenu.</p>
+            <p>Native component that requires the css of PrimeUI ContextMenu.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-<h3 class="first">Default</h3>
-&lt;p-contextMenu [global]="true"&gt;
-    &lt;ul&gt;
-        &lt;li&gt; &lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Project&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-                &lt;li&gt;&lt;a&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt; &lt;a data-icon="fa-edit"&gt;Edit&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a data-icon="fa-mail-forward"&gt;&lt;span&gt;Undo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a data-icon="fa-mail-reply"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt;
-            &lt;a data-icon="fa-question"&gt;Help&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a&gt;&lt;span&gt;Contents&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;
-                    &lt;a data-icon="fa-search"&gt;&lt;span&gt;Search&lt;/span&gt;&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a&gt;Text&lt;/a&gt;
-                            &lt;ul&gt;
-                                &lt;li&gt;&lt;a&gt;&lt;span&gt;Workspace&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                            &lt;/ul&gt;
-                        &lt;/li&gt;
-                        &lt;li&gt;&lt;a&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
+&lt;p-contextMenu [model]="items"&gt;&lt;/p-contextMenu&gt;
+</code>
+</pre>
 
-            &lt;/ul&gt;
+<pre>
+<code class="language-typescript" pCode>
+export class ContextMenuDemo {
 
-        &lt;/li&gt;
-        &lt;li&gt;
-            &lt;a data-icon="fa-gear"&gt;Actions&lt;/a&gt;
-            &lt;ul&gt;
-                &lt;li&gt;&lt;a data-icon="fa-refresh"&gt;&lt;span&gt;Edit&lt;/span&gt;&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Save&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Update&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-                &lt;li&gt;&lt;a data-icon="fa-phone"&gt;Other&lt;/a&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;&lt;a data-icon="fa-minus"&gt;&lt;span&gt;Delete&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt;
-            &lt;a data-icon="fa-close"&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;
-        &lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/p-contextMenu&gt;
+    private items: MenuItem[];
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'File',
+                icon: 'fa-file-o',
+                items: [{
+                        label: 'New', 
+                        icon: 'fa-plus',
+                        items: [
+                            {label: 'Project'},
+                            {label: 'Other'},
+                        ]
+                    },
+                    {label: 'Open'},
+                    {label: 'Quit'}
+                ]
+            },
+            {
+                label: 'Edit',
+                icon: 'fa-edit',
+                items: [
+                    {label: 'Undo', icon: 'fa-mail-forward'},
+                    {label: 'Redo', icon: 'fa-mail-reply'}
+                ]
+            },
+            {
+                label: 'Help',
+                icon: 'fa-question',
+                items: [
+                    {
+                        label: 'Contents'
+                    },
+                    {
+                        label: 'Search', 
+                        icon: 'fa-search', 
+                        items: [
+                            {
+                                label: 'Text', 
+                                items: [
+                                    {
+                                        label: 'Workspace'
+                                    }
+                                ]
+                            },
+                            {
+                                label: 'File'
+                            }
+                    ]}
+                ]
+            },
+            {
+                label: 'Actions',
+                icon: 'fa-gear',
+                items: [
+                    {
+                        label: 'Edit',
+                        icon: 'fa-refresh',
+                        items: [
+                            {label: 'Save', icon: 'fa-save'},
+                            {label: 'Update', icon: 'fa-save'},
+                        ]
+                    },
+                    {
+                        label: 'Other',
+                        icon: 'fa-phone',
+                        items: [
+                            {label: 'Delete', icon: 'fa-minus'}
+                        ]
+                    }
+                ]
+            },
+            {
+                label: 'Quit', icon: 'fa-minus'
+            }
+        ];
+    }
+}
 </code>
 </pre>
         </p-tabPanel>

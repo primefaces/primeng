@@ -1,6 +1,6 @@
 import {Component,Input,Output,EventEmitter,Inject,forwardRef,Host} from '@angular/core';
 import {TreeTable} from './treetable';
-import {TreeNode} from '../api/treenode';
+import {TreeNode} from '../common';
 import {ColumnTemplateLoader} from '../column/columntemplateloader';
 
 @Component({
