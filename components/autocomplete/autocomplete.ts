@@ -43,75 +43,75 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
     providers: [DomHandler,AUTOCOMPLETE_VALUE_ACCESSOR]
 })
 export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,ControlValueAccessor {
-    
+
     @Input() minLength: number = 3;
-    
+
     @Input() delay: number = 300;
-    
+
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() inputStyle: any;
-    
+
     @Input() inputStyleClass: string;
-    
+
     @Input() placeholder: string;
-    
+
     @Input() readonly: number;
-        
+
     @Input() disabled: boolean;
-    
+
     @Input() maxlength: number;
-    
+
     @Input() size: number;
-    
+
     @Input() suggestions: any[];
-    
+
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onUnselect: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
-    
+
     @Input() field: string;
-    
+
     @Input() scrollHeight: string = '200px';
-    
+
     @Input() dropdown: boolean;
-    
+
     @Input() multiple: boolean;
-    
+
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
-    
+
     value: any;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
+
     timeout: number;
-    
+
     differ: any;
-    
+
     panel: any;
-    
+
     input: any;
-    
+
     multipleContainer: any;
-    
+
     panelVisible: boolean = false;
-    
+
     documentClickListener: any;
-    
+
     suggestionsUpdated: boolean;
-    
+
     constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, private renderer: Renderer) {
         this.differ = differs.find([]).create(null);
     }
-    
+
     ngDoCheck() {
         let changes = this.differ.diff(this.suggestions);
 
@@ -125,31 +125,31 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             }
         }
     }
-    
+
     ngAfterViewInit() {
         this.input = this.domHandler.findSingle(this.el.nativeElement, 'input');
         this.panel = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-autocomplete-panel');
-        
+
         if(this.multiple) {
             this.multipleContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-autocomplete-multiple');
         }
-        
+
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             this.hide();
         });
     }
-    
+
     ngAfterViewChecked() {
         if(this.suggestionsUpdated) {
             this.align();
             this.suggestionsUpdated = false;
         }
     }
-    
+
     writeValue(value: any) : void {
         this.value = value;
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -157,18 +157,18 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     onInput(event) {
         let value = event.target.value;
         if(!this.multiple) {
             this.value = value;
             this.onModelChange(value);
         }
-        
+
         if(value.length === 0) {
            this.hide();
         }
-        
+
         if(value.length >= this.minLength) {
             //Cancel the search request if user types within the timeout
             if(this.timeout) {
@@ -183,55 +183,55 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             this.suggestions = null;
         }
     }
-    
+
     search(event: any, query: string) {
         //allow empty string but not undefined or null
        if(query === undefined || query === null) {
            return;
        }
-       
+
        this.completeMethod.emit({
            originalEvent: event,
            query: query
        });
     }
-    
+
     onItemMouseover(event) {
         if(this.disabled) {
             return;
         }
-        
+
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
             this.domHandler.addClass(item, 'ui-state-highlight');
         }
     }
-    
+
     onItemMouseout(event) {
         if(this.disabled) {
             return;
         }
-        
+
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
             this.domHandler.removeClass(item, 'ui-state-highlight');
         }
     }
-    
-    onItemClick(event) {        
+
+    onItemClick(event) {
         let element = event.target;
         if(element.nodeName != 'UL') {
             let item = this.findListItem(element);
             this.selectItem(item);
         }
     }
-    
+
     selectItem(item: any) {
         let itemIndex = this.domHandler.index(item);
         let selectedValue = this.suggestions[itemIndex];
-        
+
         if(this.multiple) {
             this.input.value = '';
             this.value = this.value||[];
@@ -245,12 +245,12 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             this.value = selectedValue;
             this.onModelChange(this.value);
         }
-        
+
         this.onSelect.emit(selectedValue);
-        
+
         this.input.focus();
     }
-    
+
     findListItem(element) {
         if(element.nodeName == 'LI') {
             return element;
@@ -263,40 +263,44 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             return parent;
         }
     }
-    
+
     show() {
         if(!this.panelVisible) {
             this.panelVisible = true;
             this.panel.style.zIndex = ++DomHandler.zindex;
             this.domHandler.fadeIn(this.panel, 200);
-        }        
+        }
     }
-    
+
     align() {
         if(this.multiple)
             this.domHandler.relativePosition(this.panel, this.multipleContainer);
         else
             this.domHandler.relativePosition(this.panel, this.input);
     }
-    
+
     hide() {
         this.panelVisible = false;
     }
-    
+
+    focus() {
+        this.input.focus();
+    }
+
     handleDropdownClick(event) {
         this.onDropdownClick.emit({
             originalEvent: event,
             query: this.input.value
         });
     }
-    
+
     removeItem(item: any) {
         let itemIndex = this.domHandler.index(item);
         let removedValue = this.value.splice(itemIndex, 1)[0];
         this.onUnselect.emit(removedValue);
         this.onModelChange(this.value);
     }
-    
+
     resolveFieldData(data: any): any {
         if(data && this.field) {
             if(this.field.indexOf('.') == -1) {
@@ -313,13 +317,13 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         }
         else {
             return null;
-        }        
+        }
     }
-    
+
     onKeydown(event) {
         if(this.panelVisible) {
             let highlightedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
-            
+
             switch(event.which) {
                 //down
                 case 40:
@@ -335,10 +339,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                         let firstItem = this.domHandler.findSingle(this.panel, 'li:first-child');
                         this.domHandler.addClass(firstItem, 'ui-state-highlight');
                     }
-                    
+
                     event.preventDefault();
                 break;
-                
+
                 //up
                 case 38:
                     if(highlightedItem) {
@@ -349,10 +353,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                             this.domHandler.scrollInView(this.panel, prevItem);
                         }
                     }
-                    
+
                     event.preventDefault();
                 break;
-                
+
                 //enter
                 case 13:
                     if(highlightedItem) {
@@ -361,14 +365,14 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                     }
                     event.preventDefault();
                 break;
-                
+
                 //escape
                 case 27:
                     this.hide();
                     event.preventDefault();
                 break;
 
-                
+
                 //tab
                 case 9:
                     if(highlightedItem) {
@@ -378,7 +382,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 break;
             }
         }
-        
+
         if(this.multiple) {
             switch(event.which) {
                 //backspace
@@ -392,7 +396,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             }
         }
     }
-    
+
     isSelected(val: any): boolean {
         let selected: boolean = false;
         if(this.value && this.value.length) {
@@ -405,7 +409,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         }
         return selected;
     }
-    
+
     ngOnDestroy() {
         if(this.documentClickListener) {
             this.documentClickListener();
