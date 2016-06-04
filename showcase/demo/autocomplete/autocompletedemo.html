@@ -390,7 +390,7 @@ export class AutoCompleteDemo {
 &lt;span style="margin-left:10px"&gt;Country: {{country ? country.name||country : 'none'}}&lt;/span&gt;
 
 &lt;h3&gt;Advanced&lt;/h3&gt;
-&lt;p-autoComplete [(value)]="ngModel" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
+&lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
     [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)"&gt;
     &lt;template let-brand&gt;
         &lt;li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
