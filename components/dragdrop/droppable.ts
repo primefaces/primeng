@@ -60,9 +60,9 @@ export class Droppable {
                 if (typeof (this.scope) == "string" && types[i] == this.scope) {
                     return true;
                 }
-                else if (typeof (this.scope) == "array") {
+                else if (this.scope instanceof Array) {
                     for (let j = 0; j < this.scope.length; j++) {
-                        if (types[i] == this.scope[j]) {
+                        if (types[i] == ("" + this.scope[j]).toLowerCase()) {
                             return true;
                         }
                     }
