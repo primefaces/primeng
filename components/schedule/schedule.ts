@@ -77,6 +77,8 @@ export class Schedule {
     
     @Input() locale: any;
     
+    @Input() firstDay: any;
+    
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onEventClick: EventEmitter<any> = new EventEmitter();
@@ -120,6 +122,7 @@ export class Schedule {
             isRTL: this.rtl,
             weekends: this.weekends,
             hiddenDays: this.hiddenDays,
+            firstDay: this.firstDay,
             fixedWeekCount: this.fixedWeekCount,
             weekNumbers: this.weekNumbers,
             businessHours: this.businessHours,
