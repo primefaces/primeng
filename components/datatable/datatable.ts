@@ -459,6 +459,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             return;
         }
 
+        this.sortField = column.field;
+
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -476,7 +478,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             }
             else {
                 this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
-                this.sortField = column.field;
                 this.sortColumn = column;
                 this.sortSingle();
             }
