@@ -365,10 +365,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 }, this.filterDelay);
             });
         }
-
-        if (!this.multiSortMeta) {
-            this.multiSortMeta = [];
-        }
     }
 
     ngDoCheck() {
@@ -466,6 +462,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         }
         else {
             if(this.sortMode == 'multiple') {
+                if(!this.multiSortMeta) {
+                    this.multiSortMeta = [];
+                }
                 let meta =  this.multiSortMeta.filter(m => m.field === column.field),
                     sortOrder = meta.length ? (meta[0].order + 2) % 3 - 1 : 1;
 
