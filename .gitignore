@@ -15,3 +15,6 @@ typings
 
 # misc 
 *.log
+
+# ide
+.idea
