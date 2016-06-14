@@ -228,8 +228,16 @@ export class Schedule {
             viewRender: (view, element) => {
                 this.viewRender.emit({
                     'view': view,
-                    'element': element                    
+                    'element': element
                 });
+            },
+            drop: (date, jsEvent, ui, resourceId) => {
+              this.onDrop.emit({
+                'date': date,
+                'jsEvent': jsEvent,
+                'ui': ui,
+                'resourceId': resourceId
+              });
             }
         };
         
