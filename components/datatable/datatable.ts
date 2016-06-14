@@ -525,7 +525,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     }
 
     sortMultiple() {
-        if(this.value) {
+        if(this.value && this.multiSortMeta.length) {
             this.value.sort((data1,data2) => {
                 return this.multisortField(data1, data2, this.multiSortMeta, 0);
             });
