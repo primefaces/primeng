@@ -77,6 +77,8 @@ export class Schedule {
     
     @Input() locale: any;
     
+    @Input() droppable: boolean = false;
+    
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onEventClick: EventEmitter<any> = new EventEmitter();
