@@ -1159,19 +1159,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     }
 
     findExpandedRowIndex(row: any): number {
-        let index = -1
+        let index = -1;
         if(this.expandedRows) {
-            for(let i = 0; i < this.expandedRows.length; i++) {
-                if(this.expandedRows[i] == row) {
-                    index = i;
-                    break;
-                }
-            }
+            return this.expandedRows.indexOf(row);
         }
         return index;
     }
 
     isRowExpanded(row) {
+        if (this.idField) {
+            row = row[this.idField];
+        }
         return this.findExpandedRowIndex(row) != -1;
     }
 
