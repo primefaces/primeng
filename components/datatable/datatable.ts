@@ -227,6 +227,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     @Input() csvSeparator: string = ',';
 
+    @Input() idField: string = null;
+
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
@@ -1139,6 +1141,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     toggleRow(row: any) {
         if(!this.expandedRows) {
             this.expandedRows = [];
+        }
+        if (this.idField) {
+            row = row[this.idField];
         }
 
         let expandedRowIndex = this.findExpandedRowIndex(row);
