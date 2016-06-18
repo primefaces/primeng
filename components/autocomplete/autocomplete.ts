@@ -92,7 +92,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     onModelTouched: Function = () => {};
     
-    timeout: number;
+    timeout: any;
     
     differ: any;
     
