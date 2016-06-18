@@ -1,7 +1,7 @@
 import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef,Provider} from '@angular/core';
 import {Header} from '../common'
 import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 declare var Quill: any;
 

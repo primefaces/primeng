@@ -1,6 +1,6 @@
 import {Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
 import {SelectItem} from '../common';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const SELECTBUTTON_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
     useExisting: forwardRef(() => SelectButton),
