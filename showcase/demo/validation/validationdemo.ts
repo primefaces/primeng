@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FORM_DIRECTIVES,Validators,FormBuilder,Control,ControlGroup} from '@angular/common';
+import {FORM_DIRECTIVES,REACTIVE_FORM_DIRECTIVES,Validators,FormControl,FormGroup} from '@angular/forms';
 import {InputText} from '../../../components/inputtext/inputtext';
 import {Password} from '../../../components/password/password';
 import {Panel} from '../../../components/panel/panel';
@@ -15,13 +15,13 @@ import {Message} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/validation/validationdemo.html',
-    directives: [InputText,Password,Panel,Button,Dropdown,TabView,TabPanel,Growl,CodeHighlighter,InputTextarea,FORM_DIRECTIVES]
+    directives: [InputText,Password,Panel,Button,Dropdown,TabView,TabPanel,Growl,CodeHighlighter,InputTextarea,REACTIVE_FORM_DIRECTIVES]
 })
 export class ValidationDemo {
     
     msgs: Message[] = [];
     
-    userform: ControlGroup;
+    userform: FormGroup;
     
     submitted: boolean;
     
@@ -29,13 +29,13 @@ export class ValidationDemo {
         
     description: string;
     
-    constructor(fb: FormBuilder) {
-        this.userform = fb.group({
-            'firstname': new Control('', Validators.required),
-            'lastname': new Control('', Validators.required),
-            'password': new Control('', Validators.compose([Validators.required, Validators.minLength(6)])),
-            'description': new Control(''),
-            'gender': new Control('', Validators.required)
+    ngOnInit() {
+        this.userform = new FormGroup({
+            'firstname': new FormControl('', Validators.required),
+            'lastname': new FormControl('', Validators.required),
+            'password': new FormControl('', [Validators.required, Validators.minLength(6)]),
+            'description': new FormControl(''),
+            'gender': new FormControl('', Validators.required)
         });
         
         this.genders = [];
