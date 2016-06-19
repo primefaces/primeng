@@ -254,5 +254,37 @@ export class Schedule {
         this.initialized = false;
         this.schedule = null;
     }
+    
+    gotoDate(date: any) {
+        this.schedule.fullCalendar('gotoDate', date);
+    }
+    
+    prev() {
+        this.schedule.fullCalendar('prev');
+    }
+    
+    next() {
+        this.schedule.fullCalendar('next');
+    }
+    
+    prevYear() {
+        this.schedule.fullCalendar('prevYear');
+    }
+    
+    nextYear() {
+        this.schedule.fullCalendar('nextYear');
+    }
+    
+    today() {
+        this.schedule.fullCalendar('today');
+    }
+    
+    incrementDate(duration: any) {
+        this.schedule.fullCalendar('incrementDate', duration);
+    }
+    
+    getDate() {
+        return this.schedule.fullCalendar('getDate');
+    }
 
 }

@@ -446,7 +446,82 @@ export class MyModel {
 }
 </code>
 </pre>
+            
+            <h3>Methods</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>prev()</td>
+                            <td>-</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/prev/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>next()</td>
+                            <td>-</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/next/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>prevYear()</td>
+                            <td>-</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/prevYear/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>nextYear()</td>
+                            <td>-</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/nextYear/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>today()</td>
+                            <td>-</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/today/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>gotoDate(date)</td>
+                            <td>date: Date to navigate</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/gotoDate/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>incrementDate(duration)</td>
+                            <td>duration: Duration to add to current date</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/incrementDate/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>getDate()</td>
+                            <td>-</td>
+                            <td><a href="http://fullcalendar.io/docs/current_date/getDate/">Read more</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+<pre>
+<code class="language-markup" pCode>
+&lt;p-schedule [events]="events" #fc&gt;&lt;/p-schedule&gt;
 
+&lt;button type="button" pButton (click)="back(fc)"&gt;&lt;/p-button&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class MyModel {
+
+    back(fc) {
+        fc.prev();
+    }
+    
+}
+</code>
+</pre>
+            
             <h3>Dependencies</h3>
             <p><a href="http://fullcalendar.io/docs/usage/">FullCalendar</a>.</p>
         </p-tabPanel>
