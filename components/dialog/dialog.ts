@@ -1,5 +1,6 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer} from '@angular/core';
+import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
+import {Header} from '../common';
 
 @Component({
     selector: 'p-dialog',
@@ -8,7 +9,10 @@ import {DomHandler} from '../dom/domhandler';
             [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)">
-                <span class="ui-dialog-title">{{header}}</span>
+                <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
+                <span class="ui-dialog-title" *ngIf="headerFacet">
+                    <ng-content select="header"></ng-content>
+                </span>
                 <a [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true,'ui-state-hover':hoverCloseIcon}" href="#" role="button" *ngIf="closable" 
                     (click)="hide($event)" (mouseenter)="hoverCloseIcon=true" (mouseleave)="hoverCloseIcon=false">
                     <span class="fa fa-fw fa-close"></span>
@@ -22,6 +26,7 @@ import {DomHandler} from '../dom/domhandler';
                 (mousedown)="initResize($event)"></div>
         </div>
     `,
+    directives: [Header],
     providers: [DomHandler]
 })
 export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
@@ -53,6 +58,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() closable: boolean = true;
 
     @Input() responsive: boolean;
+    
+    @ContentChild(Header) headerFacet;
 
     @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
 
