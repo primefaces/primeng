@@ -90,6 +90,7 @@ import {DataTableExportDemo} from "./demo/datatable/datatableexportdemo";
 import {TabMenuDemo} from "./demo/tabmenu/tabmenudemo";
 import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
+import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
 
 export const routes: RouterConfig = [
     {path: '/', component: HomePageComponent},
@@ -182,7 +183,8 @@ export const routes: RouterConfig = [
     {path: '/datatableexport', component: DataTableExportDemo},
     {path: '/tabmenu', component: TabMenuDemo},
     {path: '/tooltip', component: TooltipDemo},
-    {path: '/menumodel', component: MenuModelApi}
+    {path: '/menumodel', component: MenuModelApi},
+    {path: '/mask', component: InputMaskDemo}
 ];
 
 export const APP_ROUTER_PROVIDERS = [
