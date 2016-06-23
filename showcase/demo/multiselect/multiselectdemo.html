@@ -53,10 +53,10 @@ export class MyModel {
 </pre>
 
             <h3>Model Driven Forms</h3>
-            <p>MultiSelect can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+            <p>MultiSelect can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-multiSelect [options]="cities" ngControl="selectedCities"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
         

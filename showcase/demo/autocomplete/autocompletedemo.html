@@ -70,10 +70,10 @@ export class AutoCompleteDemo {
 </pre>
 
             <h3>Model Driven Forms</h3>
-            <p>AutoComplete can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+            <p>AutoComplete can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-autoComplete ngControl="city" [suggestions]="results" (completeMethod)="search($event)"&gt;&lt;/p-autoComplete&gt;
+&lt;p-autoComplete formControlName="city" [suggestions]="results" (completeMethod)="search($event)"&gt;&lt;/p-autoComplete&gt;
 </code>
 </pre>
 
