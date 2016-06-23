@@ -13,7 +13,7 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 })
 export class InputMaskDemo {
 
-    val1: string = '23-315121';
+    val1: string;
 
     val2: string;
 

@@ -1,4 +1,4 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input,forwardRef,Provider} from '@angular/core';
+import {Component,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input,forwardRef,Provider,Output,EventEmitter} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {InputText} from '../inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -10,7 +10,8 @@ const INPUTMASK_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
 
 @Component({
     selector: 'p-inputMask',
-    template: `<input pInputText type="text" [value]="value||''" (blur)="onBlur($event)" [ngStyle]="style" [ngClass]="styleClass" [placeholder]="placeholder">`,
+    template: `<input pInputText type="text" [value]="value||''" (blur)="onBlur($event)" [ngStyle]="style" [ngClass]="styleClass" [placeholder]="placeholder"
+        [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [disabled]="disabled" [readonly]="readonly">`,
     providers: [INPUTMASK_VALUE_ACCESSOR],
     directives: [InputText]
 })
@@ -30,6 +31,26 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     @Input() options: any;
     
+    @Input() unmask: boolean;
+        
+    @Input() clearMaskOnLostFocus: boolean = true;
+    
+    @Input() clearIncomplete: boolean = true;
+    
+    @Input() size: number;
+    
+    @Input() maxlength: number;
+    
+    @Input() tabindex: string;
+    
+    @Input() disabled: boolean;
+    
+    @Input() readonly: boolean;
+    
+    @Output() onComplete: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onInComplete: EventEmitter<any> = new EventEmitter();
+    
     value: any;
     
     onModelChange: Function = () => {};
@@ -43,8 +64,17 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             mask: this.mask,
             alias: this.alias,
             placeholder: this.slotChar,
+            clearIncomplete: this.clearIncomplete,
+            clearMaskOnLostFocus: this.clearMaskOnLostFocus,
             onKeyDown: (event, buffer, caretPos, opts) => {
-                this.onModelChange(jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue'));
+                let val = this.unmask ? jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue') : event.target.value;
+                this.onModelChange(val);
+            },
+            oncomplete: (event) => {
+                this.onComplete.emit(event);
+            },
+            onincomplete: (event) => {
+                this.onInComplete.emit(event);
             }
         };
         
@@ -79,6 +109,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     }
                 
     ngOnDestroy() {
-        
+        jQuery(this.el.nativeElement.children[0])['inputmask']('remove');
     }
 }
