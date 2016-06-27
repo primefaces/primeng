@@ -35,6 +35,8 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
+    @Output() onSlideEnd: EventEmitter<any> = new EventEmitter();
+    
     value: any;
     
     onModelChange: Function = () => {};
@@ -67,6 +69,9 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
                     this.onModelChange(ui.value);
                     this.onChange.emit({originalEvent: event, value: ui.value});
                 }
+            },
+            stop: (event: Event, ui: any) => {
+                this.onSlideEnd.emit({originalEvent: event, value: ui.value});
             }
         });
         this.initialized = true;
