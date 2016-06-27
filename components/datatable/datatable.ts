@@ -622,9 +622,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
         let selectionIndex = this.findIndexInSelection(rowData);
         let selected = selectionIndex != -1;
-        let metaKey = (event.metaKey||event.ctrlKey);
 
-        if(selected && metaKey) {
+        if(selected) {
             if(this.isSingleSelectionMode()) {
                 this.selection = null;
                 this.selectionChange.emit(null);
@@ -642,7 +641,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
                 this.selectionChange.emit(rowData);
             }
             else if(this.isMultipleSelectionMode()) {
-                this.selection = (!metaKey) ? [] : this.selection||[];
+                this.selection = this.selection||[];
                 this.selection.push(rowData);
                 this.selectionChange.emit(this.selection);
             }
