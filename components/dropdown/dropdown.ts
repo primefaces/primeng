@@ -227,13 +227,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             
             if(this.panelVisible)
                 this.hide();
-            else
+            else {
+                console.log('showing');
                 this.show(this.panel,this.container);
+            }
         }
     }
     
     show(panel,container) {
-        if(this.optionsToDisplay && this.optionsToDisplay.length) {
+        if(this.options && this.options.length) {
             this.panelVisible = true;
             panel.style.zIndex = ++DomHandler.zindex;
             this.domHandler.relativePosition(panel, container);
