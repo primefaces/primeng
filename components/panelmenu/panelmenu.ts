@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
     template: `
         <ul class="ui-menu-list ui-helper-reset" [style.display]="expanded ? 'block' : 'none'">
             <li *ngFor="let child of item.items" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}">
-                <a #link [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
                     [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-hover':(hoveredLink==link)}" (click)="onClick($event,child)"
                     (mouseenter)="hoveredLink=link" (mouseleave)="hoveredLink=null">
                     <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!isActive(child),'fa-caret-down':isActive(child)}" *ngIf="child.items"></span>
