@@ -134,9 +134,18 @@ export class EditorDemo {
                                 event.textValue: Current value as text.<br></td>
                             <td>Callback to invoke when text of editor changes.</td>
                         </tr>
+                        <tr>
+                            <td>onSelectionChange</td>
+                            <td>event.range: Object with index and length keys indicating where the selection exists.<br>
+                                event.oldRange: Object with index and length keys indicating where the previous selection was..<br>
+                                event.source: Source of change. Will be either "user" or "api".</td>
+                            <td>Callback to invoke when selected text of editor changes.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
+            
+            <p>Refer to <a href="http://beta.quilljs.com/docs/api/#events">Quill documentation</a> for more information.</p>
 
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>

@@ -68,6 +68,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
     
+    @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
+    
     @ContentChild(Header) toolbar;
     
     @Input() style: any;
@@ -123,6 +125,14 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             });
             
             this.onModelChange(html);
+        });
+        
+        this.quill.on('selection-change', function(range, oldRange, source) {
+            this.onSelectionChange.emit({
+                range: range,
+                oldRange: oldRange,
+                source: source
+            });
         });
     }
         
