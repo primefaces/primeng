@@ -369,13 +369,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
 
     ngDoCheck() {
         let changes = this.differ.diff(this.value);
-
         if(changes) {
             if(this.paginator) {
                 this.updatePaginator();
             }
-
-            if(!this.lazy && !this.stopSortPropagation && (this.sortField||this.multiSortMeta)) {                
+            
+            if(this.stopSortPropagation) {
+                this.stopSortPropagation = false;
+            }
+            else if(!this.lazy && (this.sortField||this.multiSortMeta)) {                    
                 if(this.sortMode == 'single')
                     this.sortSingle();
                 else if(this.sortMode == 'multiple')
@@ -383,8 +385,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             }
             
             this.updateDataToRender(this.filteredValue||this.value);
-            
-            this.stopSortPropagation = false;
         }
     }
 
