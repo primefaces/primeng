@@ -67,6 +67,8 @@ const EDITOR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
 export class Editor implements AfterViewInit,ControlValueAccessor {
         
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(Header) toolbar;
     
@@ -123,6 +125,21 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             });
             
             this.onModelChange(html);
+        });
+
+        this.quill.on('selection-change', (range) => {
+            this.selfChange = true;
+            let html = editorElement.children[0].innerHTML;
+            let text = this.quill.getText();
+            if(html == '<p><br></p>') {
+                html = null;
+            }
+
+            this.onSelectionChange.emit({
+                htmlValue: html,
+                textValue: text,
+                range: range
+            });
         });
     }
         
