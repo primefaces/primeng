@@ -71,11 +71,11 @@ export class PanelMenuSub {
     selector: 'p-panelMenu',
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-panelmenu ui-widget'">
-            <div *ngFor="let item of model" class="ui-menuitem-panel">
+            <div *ngFor="let item of model" class="ui-panelmenu-panel">
                 <div tabindex="0" [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-all':!isActive(item),
-                    'ui-state-active ui-corner-top':isActive(item),'ui-state-hover':(item == hoveredItem)}">
+                    'ui-state-active ui-corner-top':isActive(item),'ui-state-hover':(item == hoveredItem)}" (click)="headerClick($event,item)">
                     <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!isActive(item),'fa-caret-down':isActive(item)}"></span>
-                    <a [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="headerClick($event,item)"
+                    <a [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                         <span class="ui-menuitem-icon fa fa-fw" [ngClass]="item.icon" *ngIf="item.icon"></span>
                         <span>{{item.label}}</span>
