@@ -228,7 +228,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             if(this.panelVisible)
                 this.hide();
             else {
-                console.log('showing');
                 this.show(this.panel,this.container);
             }
         }
