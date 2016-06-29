@@ -22,6 +22,7 @@ tsconfig.json
 
 # misc
 *.log
+systemjs.config.js
 
 
 
