@@ -87,7 +87,8 @@ export class Tooltip implements OnDestroy {
     
     hide() {
         this.container.style.display = 'none';
-        this.ngOnDestroy();
+        document.body.removeChild(this.container);
+        this.container = null;
     }
          
     create() {
@@ -108,6 +109,9 @@ export class Tooltip implements OnDestroy {
     }
     
     ngOnDestroy() {
-        document.body.removeChild(this.container);
+        if(this.container && this.container.parentElement) {
+            document.body.removeChild(this.container);
+        }
+        this.container = null;
     }
 }
