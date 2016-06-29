@@ -127,7 +127,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             this.onModelChange(html);
         });
         
-        this.quill.on('selection-change', function(range, oldRange, source) {
+        this.quill.on('selection-change', (range, oldRange, source) => {
             this.onSelectionChange.emit({
                 range: range,
                 oldRange: oldRange,
