@@ -1,6 +1,6 @@
 {
   "name": "primeng",
-  "version": "v1.0.0-beta.9",
+  "version": "v1.0.0-beta.10-SNAPSHOT",
   "scripts": {
     "tsc": "tsc",
     "tsc:w": "tsc -w",
