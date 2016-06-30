@@ -11,10 +11,5 @@
         "declaration": true
     },
     "compileOnSave": false,
-    "buildOnSave": false,
-    "exclude": [
-        "node_modules",
-        "typings/main",
-        "typings/main.d.ts"
-    ]
+    "buildOnSave": false
 }
