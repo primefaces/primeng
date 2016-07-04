@@ -85,7 +85,7 @@ export class MyModel {
                 as a wrapper for the content. The list item should have data-value attribute defined as the value of the select item. The local template variable refers to an option in the options collection.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [filter]="true" style="width:100px"&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [filter]="true" [style]="{'width':'100px'}"&gt;
     &lt;template let-car&gt;
         &lt;li class="ui-dropdown-list-item ui-helper-clearfix" style="position: relative" [attr.data-value]="car.value"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/&gt;
