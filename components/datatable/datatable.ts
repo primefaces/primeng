@@ -255,7 +255,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     
     private dataToRender: any[];
 
-    private first: number = 0;
+    @Input() first: number = 0;
 
     private page: number = 0;
 
