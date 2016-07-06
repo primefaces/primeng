@@ -387,7 +387,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             this.updateDataToRender(this.filteredValue||this.value);
         }
     }
-
+    ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {        
+        if (changes["first"]) {
+            this.paginate({first:this.first,rows:this.rows})
+        };
+    }
     resolveFieldData(data: any, field: string): any {
         if(data && field) {
             if(field.indexOf('.') == -1) {
