@@ -143,7 +143,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     ngAfterViewChecked() {
         if(this.optionsChanged) {
-            this.highlightValue();
+            this.highlightValue(true);
+			this.updateDimensions();
             this.domHandler.relativePosition(this.panel, this.container);
             this.optionsChanged = false;
         }
@@ -382,14 +383,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     findItemIndex(val: any, opts: SelectItem[]): number {
         let index = -1;
         if(opts) {
-            if(val !== null && val !== undefined) {
-                for(let i = 0; i < opts.length; i++) {
-                    if(opts[i].value == val) {
-                        index = i;
-                        break;
-                    }
-                }
-            }
+			for(let i = 0; i < opts.length; i++) {
+				if(opts[i].value == val) {
+					index = i;
+					break;
+				}
+			}
         }
         
         return index;
