@@ -840,7 +840,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
             }
 
             let filterValue = filter.toLowerCase();
-            return value.indexOf(filterValue, value.length - filterValue.length) !== -1;
+            return value.toString().toLowerCase().indexOf(filterValue, value.length - filterValue.length) !== -1;
         }
     }
 
