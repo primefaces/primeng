@@ -11,7 +11,7 @@
 
     <h3>Input: {{val2}}</h3>
     <input type="text" pInputText [(ngModel)]="val2" style="width:190px" readonly/>
-    <p-slider [(ngModel)]="val2" [style]="{'width':'200px'}"></p-slider>
+	<p-slider [(ngModel)]="val2" [style]="{'width':'200px'}"></p-slider>
 
     <h3>Animate: {{val3}}</h3>
     <p-slider [(ngModel)]="val3" [style]="{'width':'200px'}" [animate]="true"></p-slider>
@@ -24,6 +24,17 @@
 
     <h3>Vertical: {{val5}}</h3>
     <p-slider [(ngModel)]="val5" [style]="{'height':'200px'}" orientation="vertical"></p-slider>
+	
+	<h3>Limited Range: {{val6}}</h3>
+    <p-slider [limitedMax]="limitedMax" [limitedMin]="limitedMin" [(ngModel)]="val6" [style]="{'width':'200px'}"></p-slider>
+	<div>
+		<strong>Lower limit: </strong>
+		<input type="number" [(ngModel)]="limitedMin" style="width: 40px; margin-top: 10px;}"/>
+	</div>
+	<div>
+		<strong>Upper limit: </strong>
+		<input type="number" [(ngModel)]="limitedMax" style="width: 40px;"/>
+	</div>
 </div>
 
 <div class="ContentSideSections Source">

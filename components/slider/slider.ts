@@ -22,6 +22,10 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
     @Input() min: number;
 
     @Input() max: number;
+	
+	@Input() limitedMin: number;
+	
+	@Input() limitedMax: number;
 
     @Input() orientation: string;
 
@@ -66,6 +70,15 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
                     this.onChange.emit({originalEvent: event, values: ui.values});
                 }
                 else {
+					if(ui.value > this.limitedMax){
+						ui.value = this.limitedMax;
+						jQuery(this.el.nativeElement.children[0]).slider("value", this.limitedMax);
+						event.preventDefault();
+					} else if (ui.value < this.limitedMin) {
+						ui.value = this.limitedMin;
+						jQuery(this.el.nativeElement.children[0]).slider("value", this.limitedMin);
+						event.preventDefault();
+					}
                     this.onModelChange(ui.value);
                     this.onChange.emit({originalEvent: event, value: ui.value});
                 }
