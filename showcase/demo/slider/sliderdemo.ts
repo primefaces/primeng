@@ -22,11 +22,6 @@ export class SliderDemo {
     val4: number;
 
     val5: number;
-	
-	val6: number = 50;
-	
-	limitedMin: number = 20;
-	limitedMax: number = 80;
 
     rangeValues: number[] = [20,80];
 }
