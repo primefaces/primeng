@@ -8,15 +8,15 @@
 <div class="ContentSideSections Implementation">
     <h3 class="first">Single</h3>
     <p-dropdown [options]="cities" [(ngModel)]="selectedCity"></p-dropdown>
-    <p>Selected City: {{selectedCity||'none'}}</p>
-
-    <h3>Content with Filter</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [filter]="true" [style]="{'width':'150px'}">
+    <p>Selected City: {{selectedCity ? selectedCity.id : 'none'}}</p>
+    
+    <h3>Content with Filters</h3>
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" *ngIf="false">
         <template let-car>
-            <li class="ui-dropdown-item ui-helper-clearfix" style="position: relative" [attr.data-value]="car.value">
+            <div class="ui-helper-clearfix" style="position: relative">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:10px"/>
                 <div style="font-size:14px;float:right;margin-top:2px">{{car.label}}</div>
-            </li>
+            </div>
         </template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar||'none'}}</p>

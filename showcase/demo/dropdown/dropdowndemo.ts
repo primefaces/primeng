@@ -15,7 +15,7 @@ export class DropdownDemo {
 
     cities: SelectItem[];
 
-    selectedCity: string;
+    selectedCity: any = {id:2, name: 'Rome', code: 'RM'};
 
     cars: SelectItem[];
 
@@ -23,12 +23,12 @@ export class DropdownDemo {
 
     constructor() {
         this.cities = [];
-        this.cities.push({label:'Select City', value:''});
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
+        this.cities.push({label:'Select City', value:null});
+        this.cities.push({label:'New York', value:{id:1, name: 'New York', code: 'NY'}});
+        this.cities.push({label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}});
+        this.cities.push({label:'London', value:{id:3, name: 'London', code: 'LDN'}});
+        this.cities.push({label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}});
+        this.cities.push({label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}});
 
         this.cars = [];
         this.cars.push({label: 'Audi', value: 'Audi'});

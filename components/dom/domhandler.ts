@@ -264,6 +264,10 @@ export class DomHandler {
     }
     
     public equals(obj1: any, obj2: any): boolean {
+        if(obj1 == null || obj2 == null) {
+            return false;
+        }
+        
     	for(var p in obj1) {
     		if(obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) {
                 return false;

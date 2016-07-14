@@ -1,4 +1,4 @@
-import {EventEmitter} from '@angular/core';
+import {EventEmitter,Directive,ViewContainerRef,Input,TemplateRef,OnInit} from '@angular/core';
 import {Component} from '@angular/core';
 
 export interface SortMeta {
@@ -62,3 +62,21 @@ export class Header {}
     template: '<ng-content></ng-content>'
 })
 export class Footer {}
+
+@Directive({
+    selector: '[pTemplateWrapper]'
+})
+export class TemplateWrapper implements OnInit {
+    
+    @Input() item: any;
+    
+    @Input('pTemplateWrapper') templateRef: TemplateRef<any>;
+    
+    constructor(private viewContainer: ViewContainerRef) {}
+    
+    ngOnInit() {
+        let view = this.viewContainer.createEmbeddedView(this.templateRef, {
+            '\$implicit': this.item
+        });
+    }
+}
