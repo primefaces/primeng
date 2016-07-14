@@ -107,6 +107,8 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     @Input() locale: any;
     
     @Input() icon: string = 'fa-calendar';
+	
+	@Input() hideOnSelect: boolean = true;
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -150,7 +152,11 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
                     this.value = dateText;
                     this.onModelChange(this.value);
                     this.onSelect.emit(this.value);
+					if(this.hideOnSelect){
+						this.calendarElement.datepicker("hide");
+					}
                 });
+				
             }
         };
         
