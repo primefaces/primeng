@@ -22,7 +22,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeydown($event)">
             </div>
-            <label class="ui-dropdown-label ui-inputtext ui-corner-all" [innerHTML]="label"></label>
+            <label class="ui-dropdown-label ui-inputtext ui-corner-all">{{label ? label : '&nbsp;'}}</label>
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
@@ -143,7 +143,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     get label(): string {
-        return this.selectedOption ? this.selectedOption.label : '&nbsp;'
+        return this.selectedOption ? this.selectedOption.label : null;
     }
     
     onItemClick(option) {
