@@ -139,12 +139,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     get label(): string {
-        if(this.optionsToDisplay && this.optionsToDisplay.length) {
-            return this.selectedOption ? this.selectedOption.label : this.optionsToDisplay[0].label;
-        }
-        else {
-            return '&nbsp;'
-        }
+        return this.selectedOption ? this.selectedOption.label : '&nbsp;'
     }
     
     onItemClick(option) {
@@ -168,7 +163,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     writeValue(value: any) : void {
-        this.selectedOption = this.findSelectedOption(value, this.optionsToDisplay);
+        this.selectedOption = this.findOption(value, this.optionsToDisplay);
+        if(!this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length) {
+            this.selectedOption = this.optionsToDisplay[0];
+        }
     }
     
     registerOnChange(fn: Function): void {
@@ -237,7 +235,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     onKeydown(event) {
-        /*let highlightedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
+        let selectedItemIndex = this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay);
+        console.log(selectedItemIndex)
         switch(event.which) {
             //down
             case 40:
@@ -245,16 +244,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                     this.show(this.panel, this.container);
                 }
                 else {
-                    if(highlightedItem) {
-                        var nextItem = highlightedItem.nextElementSibling;
-                        if(nextItem) {
-                            this.selectItem(event, nextItem);
-                            this.domHandler.scrollInView(this.itemsWrapper, nextItem);
+                    if(selectedItemIndex != -1) {
+                        let nextItemIndex = selectedItemIndex + 1;
+                        if(nextItemIndex != (this.optionsToDisplay.length)) {
+                            this.selectedOption = this.optionsToDisplay[nextItemIndex];
                         }
                     }
                     else {
-                        let firstItem = this.domHandler.findSingle(this.panel, 'li:first-child');
-                        this.selectItem(event, firstItem);
+                        this.selectedOption = this.optionsToDisplay[0];
                     }
                 }
                 
@@ -264,12 +261,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             
             //up
             case 38:
-                if(highlightedItem) {
-                    var prevItem = highlightedItem.previousElementSibling;
-                    if(prevItem) {
-                        this.selectItem(event, prevItem);
-                        this.domHandler.scrollInView(this.itemsWrapper, prevItem);
-                    }
+                if(selectedItemIndex > 0) {
+                    let prevItemIndex = selectedItemIndex - 1;
+                    this.selectedOption = this.optionsToDisplay[prevItemIndex];
                 }
                 
                 event.preventDefault();
@@ -286,7 +280,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             case 9:
                 this.panelVisible = false;
             break;
-        }*/
+        }
     }
     
     findListItem(element) {
@@ -302,20 +296,23 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         }
     }
                 
-    findSelectedOption(val: any, opts: SelectItem[]): SelectItem {        
-        let option: SelectItem;        
+    findOptionIndex(val: any, opts: SelectItem[]): number {        
+        let index: number = -1;        
         if(opts) {
-            if(val !== null && val !== undefined) {
-                for(let i = 0; i < opts.length; i++) {
-                    if(this.domHandler.equals(val, opts[i].value)) {
-                        option = opts[i];
-                        break;
-                    }
+            for(let i = 0; i < opts.length; i++) {
+                if((val == null && opts[i].value == null) || this.domHandler.equals(val, opts[i].value)) {
+                    index = i;
+                    break;
                 }
             }
         }
                 
-        return option;
+        return index;
+    }
+    
+    findOption(val: any, opts: SelectItem[]): SelectItem {
+        let index: number = this.findOptionIndex(val, opts);
+        return (index != -1) ? opts[index] : null;
     }
     
     onFilter(event): void {
