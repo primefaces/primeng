@@ -294,6 +294,7 @@ export class DomHandler {
     	for (var p in obj2) {
     		if (typeof (obj1[p]) == 'undefined') return false;
     	}
-    	return true;
+        
+    	return false;
     }
 }
