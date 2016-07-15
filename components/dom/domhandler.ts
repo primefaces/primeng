@@ -268,6 +268,10 @@ export class DomHandler {
             return false;
         }
         
+        if(obj1 == obj2) {
+            return true;
+        }
+        
     	for(var p in obj1) {
     		if(obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) {
                 return false;
