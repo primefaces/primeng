@@ -11,7 +11,7 @@
     <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
     
     <h3>Content with Filters</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}">
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" filter="filter">
         <template let-car>
             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/>
@@ -266,7 +266,7 @@ export class MyModel {
 &lt;p&gt;Selected City: {{selectedCity||'none'}}&lt;/p&gt;
 
 &lt;h3&gt;Content with Filter&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}"&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" filter="filter"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
