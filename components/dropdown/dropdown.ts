@@ -15,7 +15,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <select [required]="required" tabindex="-1">
-                    <option *ngFor="let option of options" [value]="option.value" [selected]="value == option.value">{{option.label}}</option>
+                    <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
@@ -34,7 +34,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
                 <div class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                         <li #item *ngFor="let option of optionsToDisplay;let i=index" 
-                            [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-hover':hoveredItem == item,'ui-state-highlight':(value == option.value)}"
+                            [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-hover':hoveredItem == item,'ui-state-highlight':(selectedOption == option)}"
                             (click)="onItemClick(option)" (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                             <span *ngIf="!itemTemplate">{{option.label}}</span>
                             <template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></template>
@@ -72,9 +72,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
-    
-    value: any;
-    
+        
     selectedOption: SelectItem;
     
     onModelChange: Function = () => {};
@@ -123,12 +121,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     ngDoCheck() {
-        /*let changes = this.differ.diff(this.options);
+        let changes = this.differ.diff(this.options);
         
         if(changes && this.initialized) {
             this.optionsToDisplay = this.options;
             this.optionsChanged = true;
-        }*/
+        }
     }
     
     ngAfterViewInit() {    
@@ -151,29 +149,26 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     onItemClick(option) {
         this.itemClick = true;
-        this.label = option.label;
-        this.value = option.value;
+        this.selectedOption = option;
                 
-        this.onModelChange(this.value);
+        this.onModelChange(this.selectedOption.value);
         this.onChange.emit({
             originalEvent: event,
-            value: this.value 
+            value: this.selectedOption.value
         });
                                 
         this.hide();
     }
     
     ngAfterViewChecked() {
-        /*if(this.optionsChanged) {
-            this.highlightValue();
+        if(this.optionsChanged) {
             this.domHandler.relativePosition(this.panel, this.container);
             this.optionsChanged = false;
-        }*/
+        }
     }
     
     writeValue(value: any) : void {
-        this.value = value;
-        this.selectedOption = this.findSelectedOption(this.value, this.optionsToDisplay);
+        this.selectedOption = this.findSelectedOption(value, this.optionsToDisplay);
     }
     
     registerOnChange(fn: Function): void {
@@ -242,7 +237,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     onKeydown(event) {
-        let highlightedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
+        /*let highlightedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
         switch(event.which) {
             //down
             case 40:
@@ -291,7 +286,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             case 9:
                 this.panelVisible = false;
             break;
-        }
+        }*/
     }
     
     findListItem(element) {
@@ -306,43 +301,21 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             return parent;
         }
     }
-            
-    selectItem(event, item) {
-        /*let currentSelectedItem = this.domHandler.findSingle(item.parentNode, 'li.ui-state-highlight');
-        if(currentSelectedItem != item) {
-            if(currentSelectedItem) {
-                this.domHandler.removeClass(currentSelectedItem, 'ui-state-highlight');
-            }
-            this.domHandler.addClass(item, 'ui-state-highlight');
-            let index = this.findItemIndex(item.dataset.value, this.options);
-            for(var prop in item.dataset.value) {
-                console.log(prop + ':' + item.dataset.value[prop]);
-            }
-            let selectedOption = this.options[index];
-            this.label = selectedOption.label;
-            this.value = selectedOption.value;
-            this.onModelChange(this.value);
-            this.onChange.emit({
-                originalEvent: event,
-                value: this.value
-            });
-        }*/
-    }
-    
+                
     findSelectedOption(val: any, opts: SelectItem[]): SelectItem {        
-        let selectedOption = -1;        
+        let option: SelectItem;        
         if(opts) {
             if(val !== null && val !== undefined) {
                 for(let i = 0; i < opts.length; i++) {
-                    if(val != this.domHandler.equals(val, opts[i].value)) {
-                        selectedOption = opts[i];
+                    if(this.domHandler.equals(val, opts[i].value)) {
+                        option = opts[i];
                         break;
                     }
                 }
             }
         }
                 
-        return selectedOption;
+        return option;
     }
     
     onFilter(event): void {

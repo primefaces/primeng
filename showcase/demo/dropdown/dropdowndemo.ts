@@ -15,7 +15,7 @@ export class DropdownDemo {
 
     cities: SelectItem[];
 
-    selectedCity: any = {id:2, name: 'Rome', code: 'RM'};
+    selectedCity: any;
 
     cars: SelectItem[];
 
