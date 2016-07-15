@@ -22,7 +22,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeydown($event)">
             </div>
-            <label class="ui-dropdown-label ui-inputtext ui-corner-all">{{label}}</label>
+            <label class="ui-dropdown-label ui-inputtext ui-corner-all" [innerHTML]="label"></label>
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
@@ -128,6 +128,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         
         if(changes && this.initialized) {
             this.optionsToDisplay = this.options;
+            this.updateSelectedOption(this.selectedOption ? this.selectedOption.value: null);
             this.optionsChanged = true;
         }
     }
@@ -164,14 +165,21 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.optionsChanged = false;
         }
         
-        if(this.selectedOptionUpdated) {
-            this.domHandler.scrollInView(this.itemsWrapper, this.domHandler.findSingle(this.panel, 'li.ui-state-highlight'));
+        if(this.selectedOptionUpdated && this.itemsWrapper) {
+            let selectedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
+            if(selectedItem) {
+                this.domHandler.scrollInView(this.itemsWrapper, this.domHandler.findSingle(this.panel, 'li.ui-state-highlight'));
+            }
             this.selectedOptionUpdated = false;
         }
     }
     
-    writeValue(value: any) : void {
-        this.selectedOption = this.findOption(value, this.optionsToDisplay);
+    writeValue(value: any): void {
+        this.updateSelectedOption(value);
+    }
+    
+    updateSelectedOption(val: any): void {
+        this.selectedOption = this.findOption(val, this.optionsToDisplay);
         if(!this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length) {
             this.selectedOption = this.optionsToDisplay[0];
         }
@@ -308,7 +316,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
                 
     findOptionIndex(val: any, opts: SelectItem[]): number {        
-        let index: number = -1;        
+        let index: number = -1;
         if(opts) {
             for(let i = 0; i < opts.length; i++) {
                 if((val == null && opts[i].value == null) || this.domHandler.equals(val, opts[i].value)) {
