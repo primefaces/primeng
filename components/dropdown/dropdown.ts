@@ -106,6 +106,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     private itemClick: boolean;
     
     private hoveredItem: any;
+    
+    private selectedOptionUpdated: boolean;
             
     ngOnInit() {
         this.optionsToDisplay = this.options;
@@ -160,6 +162,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.domHandler.relativePosition(this.panel, this.container);
             this.optionsChanged = false;
         }
+        
+        if(this.selectedOptionUpdated) {
+            this.domHandler.scrollInView(this.itemsWrapper, this.domHandler.findSingle(this.panel, 'li.ui-state-highlight'));
+            this.selectedOptionUpdated = false;
+        }
     }
     
     writeValue(value: any) : void {
@@ -167,6 +174,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         if(!this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length) {
             this.selectedOption = this.optionsToDisplay[0];
         }
+        this.selectedOptionUpdated = true;
     }
     
     registerOnChange(fn: Function): void {
@@ -236,7 +244,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     onKeydown(event) {
         let selectedItemIndex = this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay);
-        console.log(selectedItemIndex)
+
         switch(event.which) {
             //down
             case 40:
@@ -248,6 +256,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                         let nextItemIndex = selectedItemIndex + 1;
                         if(nextItemIndex != (this.optionsToDisplay.length)) {
                             this.selectedOption = this.optionsToDisplay[nextItemIndex];
+                            this.selectedOptionUpdated = true;
                         }
                     }
                     else {
@@ -264,6 +273,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                 if(selectedItemIndex > 0) {
                     let prevItemIndex = selectedItemIndex - 1;
                     this.selectedOption = this.optionsToDisplay[prevItemIndex];
+                    this.selectedOptionUpdated = true;
                 }
                 
                 event.preventDefault();
