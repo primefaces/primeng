@@ -1,7 +1,7 @@
 <div class="ContentSideSections">
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Setup</span>
-        <span class="defaultText">PrimeNG is a rich set of native Angular2 UI components that depend on PrimeUI mostly for CSS.</span>
+        <span class="defaultText">PrimeNG is a rich set of native Angular2 UI components that depend on PrimeUI for CSS.</span>
     </div>
 </div>
 
@@ -77,6 +77,10 @@ import {MenuItem} from 'primeng/common';
                     <td>FullCalendar and Moment.js</td>
                 </tr>
                 <tr>
+                    <td>InputMask</td>
+                    <td>jQuery InputMask plugin</td>
+                </tr>
+                <tr>
                     <td>Editor</td>
                     <td>Quill Editor</td>
                 </tr>
@@ -111,29 +115,28 @@ import {MenuItem} from 'primeng/common';
   },
   "license": "ISC",
   "dependencies": {
-    "@angular/common":  "2.0.0-rc.1",
-    "@angular/compiler":  "2.0.0-rc.1",
-    "@angular/core":  "2.0.0-rc.1",
-    "@angular/http":  "2.0.0-rc.1",
-    "@angular/platform-browser":  "2.0.0-rc.1",
-    "@angular/platform-browser-dynamic":  "2.0.0-rc.1",
-    "@angular/router":  "2.0.0-rc.1",
-    "@angular/router-deprecated":  "2.0.0-rc.1",
-    "@angular/upgrade":  "2.0.0-rc.1",
-    "systemjs": "0.19.27",
-    "es6-shim": "^0.35.0",
+    "@angular/common":  "2.0.0-rc.3",
+    "@angular/compiler":  "2.0.0-rc.3",
+    "@angular/core":  "2.0.0-rc.3",
+    "@angular/forms": "0.1.1",
+    "@angular/http":  "2.0.0-rc.3",
+    "@angular/platform-browser":  "2.0.0-rc.3",
+    "@angular/platform-browser-dynamic":  "2.0.0-rc.3",
+    "@angular/router":  "3.0.0-alpha.6",
+    "@angular/upgrade":  "2.0.0-rc.3",
+    "systemjs": "0.19.31",
+    "core-js": "^2.4.0",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.6",
     "zone.js": "^0.6.12",
-    "angular2-in-memory-web-api": "0.0.7",
-    "primeng": "1.0.0-beta.7",
+    "primeng": "1.0.0-beta.9",
     "primeui": "4.1.12"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
     "typescript": "^1.8.10",
-    "typings": "^0.8.1"
+    "typings":"^1.0.4"
   }
 }
 </code>
@@ -151,7 +154,6 @@ import {MenuItem} from 'primeng/common';
     &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
-    &lt;link rel="stylesheet" type="text/css" href="app/resources/css/site.css"/&gt;
 
     &lt;script src="node_modules/es6-shim/es6-shim.min.js"&gt;&lt;/script&gt;
     &lt;script src="node_modules/zone.js/dist/zone.js"&gt;&lt;/script&gt;
@@ -201,9 +203,9 @@ import {MenuItem} from 'primeng/common';
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     '@angular/router',
-    '@angular/router-deprecated',
     '@angular/testing',
     '@angular/upgrade',
+    '@angular/forms'
   ];
 
   // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }

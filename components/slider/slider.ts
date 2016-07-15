@@ -1,5 +1,5 @@
 import {Component, ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider} from '@angular/core';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const SLIDER_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
     useExisting: forwardRef(() => Slider),
@@ -35,6 +35,8 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
+    @Output() onSlideEnd: EventEmitter<any> = new EventEmitter();
+    
     value: any;
     
     onModelChange: Function = () => {};
@@ -67,6 +69,9 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
                     this.onModelChange(ui.value);
                     this.onChange.emit({originalEvent: event, value: ui.value});
                 }
+            },
+            stop: (event: Event, ui: any) => {
+                this.onSlideEnd.emit({originalEvent: event, value: ui.value});
             }
         });
         this.initialized = true;

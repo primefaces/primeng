@@ -104,6 +104,7 @@ export class Paginator {
         if(p >= 0 && p < pc) {
             this.first = this.rows * p;
             var state = {
+                page: p,
                 first: this.first,
                 rows: this.rows,
                 pageCount: pc

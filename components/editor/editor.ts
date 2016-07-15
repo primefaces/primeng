@@ -1,7 +1,7 @@
 import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef,Provider} from '@angular/core';
 import {Header} from '../common'
 import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 declare var Quill: any;
 
@@ -68,6 +68,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
     
+    @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
+    
     @ContentChild(Header) toolbar;
     
     @Input() style: any;
@@ -123,6 +125,14 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             });
             
             this.onModelChange(html);
+        });
+        
+        this.quill.on('selection-change', (range, oldRange, source) => {
+            this.onSelectionChange.emit({
+                range: range,
+                oldRange: oldRange,
+                source: source
+            });
         });
     }
         

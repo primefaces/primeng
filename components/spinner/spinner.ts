@@ -1,7 +1,7 @@
 import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
 import {InputText} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const SPINNER_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
     useExisting: forwardRef(() => Spinner),

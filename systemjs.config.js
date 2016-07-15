@@ -24,7 +24,8 @@
     '@angular/platform-browser-dynamic',
     '@angular/router',
     '@angular/testing',
-    '@angular/upgrade'
+    '@angular/upgrade',
+    '@angular/forms'
   ];
 
   // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }

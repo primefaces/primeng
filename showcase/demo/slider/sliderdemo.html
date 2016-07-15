@@ -55,10 +55,10 @@ export class MyModel {
 </pre>
 
             <h3>Model Driven Forms</h3>
-            <p>Slider can be used in a model driven form as well by defining ngFormControl or ngControl.</p>
+            <p>Slider can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-slider ngControl="age"&gt;&lt;/p-slider&gt;
+&lt;p-slider formControlName="age"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
@@ -193,6 +193,14 @@ export class MyModel {
                                 event.values: Values in range mode <br />
                             </td>
                             <td>Callback to invoke on value change via slide.</td>
+                        </tr>
+                        <tr>
+                            <td>onSlidEEnd</td>
+                            <td>
+                                event.originalEvent: Slide event <br />
+                                event.value: New value <br />
+                            </td>
+                            <td>Callback to invoke when slide stops.</td>
                         </tr>
                     </tbody>
                 </table>

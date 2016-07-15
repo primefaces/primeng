@@ -1,4 +1,4 @@
-import {Directive,ElementRef,HostBinding,HostListener,Input} from '@angular/core';
+import {Directive,ElementRef,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Directive({
@@ -7,7 +7,7 @@ import {DomHandler} from '../dom/domhandler';
     },
     providers: [DomHandler]
 })
-export class Tooltip {
+export class Tooltip implements OnDestroy {
 
     @Input('pTooltip') text: string;
 
@@ -87,7 +87,8 @@ export class Tooltip {
     
     hide() {
         this.container.style.display = 'none';
-        this.destroy();
+        document.body.removeChild(this.container);
+        this.container = null;
     }
          
     create() {
@@ -107,7 +108,10 @@ export class Tooltip {
         document.body.appendChild(this.container);
     }
     
-    destroy() {
-        document.body.removeChild(this.container);
+    ngOnDestroy() {
+        if(this.container && this.container.parentElement) {
+            document.body.removeChild(this.container);
+        }
+        this.container = null;
     }
 }

@@ -1,5 +1,5 @@
 import {Component,ElementRef,AfterViewInit,OnChanges,Input,forwardRef,Provider,EventEmitter,Output} from '@angular/core';
-import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/common';
+import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
 import {DomHandler} from '../dom/domhandler';
 
 const INPUTSWITCH_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {

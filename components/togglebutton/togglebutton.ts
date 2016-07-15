@@ -1,5 +1,5 @@
 import {Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const TOGGLEBUTTON_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
     useExisting: forwardRef(() => ToggleButton),
