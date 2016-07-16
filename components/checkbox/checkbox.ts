@@ -19,6 +19,9 @@ const CHECKBOX_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
                         [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':checked}"></span>
             </div>
+            <div (click)="onClick($event,cb,true)" style="display: inline-block;" class="ui-widget ui-chkbox-label">
+                <ng-content></ng-content>            
+            </div>
         </div>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR]
