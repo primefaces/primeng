@@ -29,6 +29,8 @@ export class Checkbox implements ControlValueAccessor {
 
     @Input() name: string;
 
+    @Input() multiple: boolean = true;
+
     @Input() disabled: boolean;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -54,7 +56,7 @@ export class Checkbox implements ControlValueAccessor {
         
         this.checked = !this.checked;
 
-        if(this.name) {
+        if(this.multiple) {
             if(this.checked)
                 this.addValue(this.value);
             else
@@ -74,7 +76,7 @@ export class Checkbox implements ControlValueAccessor {
     }
 
     isChecked(): boolean {
-        if(this.name)
+        if(this.multiple)
             return this.findValueIndex(this.value) !== -1;
         else
             return this.model;

@@ -47,7 +47,7 @@
     Selected Categories: <span *ngFor="let cat of selectedCategories">{{cat}} &nbsp;&nbsp;</span>
     
     <h3>Boolean</h3>
-    <p-checkbox [(ngModel)]="checked"></p-checkbox>
+    <p-checkbox [(ngModel)]="checked" [multiple]="false" name="value"></p-checkbox>
     <br>
     {{checked}}
 </div>
@@ -69,8 +69,8 @@ import {Checkbox} from 'primeng/primeng';
             <p>Multiple mode is enabled if name property is present, ngModel property refers to an array to bind the selected values.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
-&lt;p-checkbox name="groupname" value="val2" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
+&lt;p-checkbox name="groupname" value="val1" multiple="true" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
+&lt;p-checkbox name="groupname" value="val2" multiple="true" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>
 
@@ -151,6 +151,12 @@ export class ModelComponent {
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that the element should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>multiple</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Set to false to map value to a single boolean.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -250,7 +256,7 @@ Selected Cities: &lt;span *ngFor="let city of selectedCities"&gt;{{city}} &nbsp;
 Selected Categories: &lt;span *ngFor="let cat of selectedCategories"&gt;{{cat}} &nbsp;&nbsp;&lt;/span&gt;
 
 &lt;h3&gt;Boolean&lt;/h3&gt;
-&lt;p-checkbox [(ngModel)]="checked"&gt;&lt;/p-checkbox&gt;
+&lt;p-checkbox [(ngModel)]="checked" [multiple]="false" name="value"&gt;&lt;/p-checkbox&gt;
 {{checked}}
 </code>
 </pre>
