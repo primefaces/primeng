@@ -35,7 +35,7 @@ export class Checkbox implements ControlValueAccessor {
 
     @Input() disabled: boolean;
 
-    @Input() label: string|string[];
+    @Input() label: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
