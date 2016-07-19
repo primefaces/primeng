@@ -7,48 +7,27 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">New York</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">San Francisco</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Los Angeles</label></div>
-        </div>
+    <div>
+        <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" label="New York"></p-checkbox>
+        <p-checkbox name="group1" value="San Fransisco" [(ngModel)]="selectedCities" label="San Fransisco"></p-checkbox>
+        <p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities" label="Los Angeles"></p-checkbox>
     </div>
 
     Selected Cities: <span *ngFor="let city of selectedCities">{{city}} &nbsp;&nbsp;</span>
 
     <h3>Preselection</h3>
-    <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Technology" [(ngModel)]="selectedCategories"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Technology</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Finance" [(ngModel)]="selectedCategories"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Finance</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Sports" [(ngModel)]="selectedCategories"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Sports</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Entertainment" [(ngModel)]="selectedCategories"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Entertainment</label></div>
-        </div>
+    <div>
+        <p-checkbox name="group2" value="Technology" [(ngModel)]="selectedCategories" label="Technology"></p-checkbox>
+        <p-checkbox name="group2" value="Finance" [(ngModel)]="selectedCategories" label="Finance"></p-checkbox>
+        <p-checkbox name="group2" value="Sports" [(ngModel)]="selectedCategories" label="Sports"></p-checkbox>
+        <p-checkbox name="group2" value="Entertainment" [(ngModel)]="selectedCategories"
+                    label="Entertainment"></p-checkbox>
     </div>
 
     Selected Categories: <span *ngFor="let cat of selectedCategories">{{cat}} &nbsp;&nbsp;</span>
-    
+
     <h3>Boolean</h3>
-    <p-checkbox [(ngModel)]="checked">
-        Click me
+    <p-checkbox [(ngModel)]="checked" label="Click me">
     </p-checkbox>
     <br>
     {{checked}}
@@ -58,25 +37,27 @@
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
-<pre>
+            <pre>
 <code class="language-typescript" pCode>
 import {Checkbox} from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Checkbox can either be used in multiple selection with other checkboxes or as a single checkbox to provide a boolean value.</p>
-            
+            <p>Checkbox can either be used in multiple selection with other checkboxes or as a single checkbox to
+                provide a boolean value.</p>
+
             <h4>Multiple Values</h4>
-            <p>Multiple mode is enabled if name property is present, ngModel property refers to an array to bind the selected values.</p>
-<pre>
+            <p>Multiple mode is enabled if name property is present, ngModel property refers to an array to bind the
+                selected values.</p>
+            <pre>
 <code class="language-markup" pCode>
-&lt;p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
-&lt;p-checkbox name="groupname" value="val2" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
+&lt;p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" label="Value 1"&gt;&lt;/p-checkbox&gt;
+&lt;p-checkbox name="groupname" value="val2" [(ngModel)]="selectedValues" label="Value 2"&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode>
 export class ModelComponent {
 
@@ -86,9 +67,10 @@ export class ModelComponent {
 </code>
 </pre>
 
-            <p>As ngModel is two-way binding enabled, prepopulating the model array with values is enough to display the related
-            checkboxes as checked by default.</p>
-<pre>
+            <p>As ngModel is two-way binding enabled, prepopulating the model array with values is enough to display the
+                related
+                checkboxes as checked by default.</p>
+            <pre>
 <code class="language-typescript" pCode>
 export class ModelComponent {
 
@@ -98,9 +80,9 @@ export class ModelComponent {
 </code>
 </pre>
 
-        <h4>Boolean Value</h4>
-        <p>A single boolean value can be bound using the ngModel property as well.</p>
-<pre>
+            <h4>Boolean Value</h4>
+            <p>A single boolean value can be bound using the ngModel property as well.</p>
+            <pre>
 <code class="language-typescript" pCode>
 export class ModelComponent {
 
@@ -110,15 +92,15 @@ export class ModelComponent {
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-markup" pCode>
 &lt;p-checkbox [(ngModel)]="value"&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>
 
-        <h3>Model Driven Forms</h3>
-        <p>Checkbox can be used in a model driven form as well.</p>
-<pre>
+            <h3>Model Driven Forms</h3>
+            <p>Checkbox can be used in a model driven form as well.</p>
+            <pre>
 <code class="language-markup" pCode>
 &lt;p-checkbox formControlName="agreed"&gt;&lt;/p-checkbox&gt;
 </code>
@@ -128,32 +110,38 @@ export class ModelComponent {
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Default</th>
-                            <th>Description</th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>name</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Name of the checkbox group.</td>
-                        </tr>
-                        <tr>
-                            <td>value</td>
-                            <td>any</td>
-                            <td>null</td>
-                            <td>Value of the checkbox.</td>
-                        </tr>
-                        <tr>
-                            <td>disabled</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When present, it specifies that the element should be disabled.</td>
-                        </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Name of the checkbox group.</td>
+                    </tr>
+                    <tr>
+                        <td>value</td>
+                        <td>any</td>
+                        <td>null</td>
+                        <td>Value of the checkbox.</td>
+                    </tr>
+                    <tr>
+                        <td>label</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>When present, a clickable label is displayed next to the checkbox.</td>
+                    </tr>
+                    <tr>
+                        <td>disabled</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>When present, it specifies that the element should be disabled.</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -162,45 +150,51 @@ export class ModelComponent {
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Parameters</th>
-                            <th>Description</th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>onChange</td>
-                            <td>checked: Boolean value to represent new state of checkbox.</td>
-                            <td>Callback to invoke on checkbox click.</td>
-                        </tr>
+                    <tr>
+                        <td>onChange</td>
+                        <td>checked: Boolean value to represent new state of checkbox.</td>
+                        <td>Callback to invoke on checkbox click.</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3>Styling</h3>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#"
+                                                                                               [routerLink]="['/theming']">theming
+                page</a>.</p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Element</th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Element</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>ui-chkbox</td>
-                            <td>Container element</td>
-                        </tr>
-                        <tr>
-                            <td>ui-chkbox-box</td>
-                            <td>Container of icon.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-chkbox-icon</td>
-                            <td>Icon element.</td>
-                        </tr>
+                    <tr>
+                        <td>ui-chkbox</td>
+                        <td>Container element</td>
+                    </tr>
+                    <tr>
+                        <td>ui-chkbox-box</td>
+                        <td>Container of icon.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-chkbox-icon</td>
+                        <td>Icon element.</td>
+                    </tr>
+                    <tr>
+                        <td>ui-chkbox-label</td>
+                        <td>Label element.</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -211,53 +205,35 @@ export class ModelComponent {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;New York&lt;/label&gt;&lt;/div&gt;
+&lt;h3 class=&quot;first&quot;&gt;Basic&lt;/h3&gt;
+    &lt;div&gt;
+        &lt;p-checkbox name=&quot;group1&quot; value=&quot;New York&quot; [(ngModel)]=&quot;selectedCities&quot; label=&quot;New York&quot;&gt;&lt;/p-checkbox&gt;
+        &lt;p-checkbox name=&quot;group1&quot; value=&quot;San Fransisco&quot; [(ngModel)]=&quot;selectedCities&quot; label=&quot;San Fransisco&quot;&gt;&lt;/p-checkbox&gt;
+        &lt;p-checkbox name=&quot;group1&quot; value=&quot;Los Angeles&quot; [(ngModel)]=&quot;selectedCities&quot; label=&quot;Los Angeles&quot;&gt;&lt;/p-checkbox&gt;
     &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;San Francisco&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Los Angeles&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
 
-Selected Cities: &lt;span *ngFor="let city of selectedCities"&gt;{{city}} &nbsp;&nbsp;&lt;/span&gt;
+    Selected Cities: &lt;span *ngFor=&quot;let city of selectedCities&quot;&gt;{{city}} &lt;/span&gt;
 
-&lt;h3&gt;Preselection&lt;/h3&gt;
-&lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Technology" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Technology&lt;/label&gt;&lt;/div&gt;
+    &lt;h3&gt;Preselection&lt;/h3&gt;
+    &lt;div&gt;
+        &lt;p-checkbox name=&quot;group2&quot; value=&quot;Technology&quot; [(ngModel)]=&quot;selectedCategories&quot; label=&quot;Technology&quot;&gt;&lt;/p-checkbox&gt;
+        &lt;p-checkbox name=&quot;group2&quot; value=&quot;Finance&quot; [(ngModel)]=&quot;selectedCategories&quot; label=&quot;Finance&quot;&gt;&lt;/p-checkbox&gt;
+        &lt;p-checkbox name=&quot;group2&quot; value=&quot;Sports&quot; [(ngModel)]=&quot;selectedCategories&quot; label=&quot;Sports&quot;&gt;&lt;/p-checkbox&gt;
+        &lt;p-checkbox name=&quot;group2&quot; value=&quot;Entertainment&quot; [(ngModel)]=&quot;selectedCategories&quot;
+                    label=&quot;Entertainment&quot;&gt;&lt;/p-checkbox&gt;
     &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Finance" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Finance&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Sports" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Sports&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Entertainment" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Entertainment&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
 
-Selected Categories: &lt;span *ngFor="let cat of selectedCategories"&gt;{{cat}} &nbsp;&nbsp;&lt;/span&gt;
+    Selected Categories: &lt;span *ngFor=&quot;let cat of selectedCategories&quot;&gt;{{cat}}&lt;/span&gt;
 
-&lt;h3&gt;Boolean&lt;/h3&gt;
-&lt;p-checkbox [(ngModel)]="checked"&gt;&lt;/p-checkbox&gt;
-{{checked}}
+    &lt;h3&gt;Boolean&lt;/h3&gt;
+    &lt;p-checkbox [(ngModel)]=&quot;checked&quot; label=&quot;Click me&quot;&gt;
+    &lt;/p-checkbox&gt;
+    &lt;br&gt;
+    {{checked}}
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode>
 export class CheckboxDemo {
 
