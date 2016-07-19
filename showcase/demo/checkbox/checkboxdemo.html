@@ -66,7 +66,7 @@ import {Checkbox} from 'primeng/primeng';
             <p>Checkbox can either be used in multiple selection with other checkboxes or as a single checkbox to provide a boolean value.</p>
             
             <h4>Multiple Values</h4>
-            <p>Multiple mode is enabled if name property is present, ngModel property refers to an array to bind the selected values.</p>
+            <p>Multiple mode is enabled by default. The name property must be present, and ngModel property refers to an array to bind the selected values.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-checkbox name="groupname" value="val1" multiple="true" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
@@ -97,7 +97,7 @@ export class ModelComponent {
 </pre>
 
         <h4>Boolean Value</h4>
-        <p>A single boolean value can be bound using the ngModel property as well.</p>
+        <p>A single boolean value can be bound using the ngModel property as well. To use this, set the multiple property to false</p>
 <pre>
 <code class="language-typescript" pCode>
 export class ModelComponent {
@@ -110,7 +110,7 @@ export class ModelComponent {
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-checkbox [(ngModel)]="value"&gt;&lt;/p-checkbox&gt;
+&lt;p-checkbox [(ngModel)]="value" [multiple]=false&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>
 
@@ -138,7 +138,7 @@ export class ModelComponent {
                             <td>name</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Name of the checkbox group.</td>
+                            <td>Name of the checkbox group/control.</td>
                         </tr>
                         <tr>
                             <td>value</td>
@@ -156,7 +156,7 @@ export class ModelComponent {
                             <td>multiple</td>
                             <td>boolean</td>
                             <td>true</td>
-                            <td>Set to false to map value to a single boolean.</td>
+                            <td>If true (default), ngModel maps to an array of boolean values. When false, a single boolean is bound.</td>
                         </tr>
                     </tbody>
                 </table>
