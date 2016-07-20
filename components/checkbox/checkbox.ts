@@ -19,6 +19,10 @@ const CHECKBOX_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
                         [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':checked}"></span>
             </div>
+            <label class="ui-chkbox-label" (click)="onClick($event,cb,true)" [hidden]="label == null"
+                    (mouseover)="hover=true" (mouseout)="hover=false" >
+                {{ label }}
+            </label>
         </div>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR]
@@ -30,6 +34,8 @@ export class Checkbox implements ControlValueAccessor {
     @Input() name: string;
 
     @Input() disabled: boolean;
+
+    @Input() label: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
