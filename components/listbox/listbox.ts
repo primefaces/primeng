@@ -1,5 +1,5 @@
-import {Component,ElementRef,AfterViewChecked,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef,Provider} from '@angular/core';
-import {SelectItem} from '../common';
+import {Component,ElementRef,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef,Provider} from '@angular/core';
+import {SelectItem,TemplateWrapper} from '../common';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -12,19 +12,20 @@ const LISTBOX_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
     selector: 'p-listbox',
     template: `
         <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
-            <ul class="ui-listbox-list" *ngIf="!itemTemplate" (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
-                <li *ngFor="let option of options" class="ui-listbox-item ui-corner-all">
-                    {{option.label}}
+            <ul class="ui-listbox-list">
+                <li #item *ngFor="let option of options"
+                    [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(option)}"
+                    (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onOptionClick($event,option)">
+                    <span *ngIf="!itemTemplate">{{option.label}}</span>
+                    <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></template>
                 </li>
-            </ul>
-            <ul class="ui-listbox-list" *ngIf="itemTemplate" (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
-                <template ngFor [ngForOf]="options" [ngForTemplate]="itemTemplate"></template>
             </ul>
         </div>
     `,
-    providers: [DomHandler,LISTBOX_VALUE_ACCESSOR]
+    providers: [DomHandler,LISTBOX_VALUE_ACCESSOR],
+    directives: [TemplateWrapper]
 })
-export class Listbox implements AfterViewChecked,ControlValueAccessor {
+export class Listbox implements ControlValueAccessor {
 
     @Input() options: SelectItem[];
 
@@ -45,20 +46,15 @@ export class Listbox implements AfterViewChecked,ControlValueAccessor {
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
-    
-    differ: any;
-    
-    valueChanged: boolean;
         
-    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers) {
-        this.differ = differs.find([]).create(null);
-    }
+    valueChanged: boolean;
+    
+    hoveredItem: any;
+        
+    constructor(private el: ElementRef, private domHandler: DomHandler) {}
     
     writeValue(value: any) : void {
         this.value = value;
-        if(!this.multiple) {
-            this.valueChanged = true;
-        }
     }
     
     registerOnChange(fn: Function): void {
@@ -68,161 +64,97 @@ export class Listbox implements AfterViewChecked,ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
-    ngDoCheck() {
-        if(this.multiple) {
-            let changes = this.differ.diff(this.value);
-            
-            if(changes) {
-                this.valueChanged = true;
-            }
-        }
-    }
-        
-    ngAfterViewChecked() {
-        if(this.valueChanged) {
-            this.preselect();
-            this.valueChanged = false;
-        }
-    }
-    
-    preselect() {
-        let items = this.domHandler.find(this.el.nativeElement, 'li.ui-listbox-item');
-        if(items && items.length) {
-            this.unselectAll(items);
-            
-            if(this.value) {
-                if(this.multiple) {
-                    for(let i = 0; i < this.value.length; i++) {
-                        for(let j = 0; i < this.options.length; j++) {
-                            if(this.options[j].value == this.value[i]) {
-                                this.domHandler.addClass(items[j], 'ui-state-highlight');
-                                break;
-                            }
-                        }
-                    }
-                }
-                else {
-                    for(let i = 0; i < this.options.length; i++) {
-                        if(this.options[i].value == this.value) {
-                            this.domHandler.addClass(items[i], 'ui-state-highlight');
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    unselectAll(items: NodeList[]) {
-        let listItems = items||this.domHandler.find(this.el.nativeElement, 'li.ui-listbox-item');
-        for(let i = 0; i < listItems.length; i++) {
-            this.domHandler.removeClass(listItems[i], 'ui-state-highlight');
-        }
-    }
-    
-    onMouseover(event) {
-        if(this.disabled) {
-            return;
-        }
-        
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.domHandler.addClass(item, 'ui-state-hover');
-        }
-    }
-    
-    onMouseout(event) {
-        if(this.disabled) {
-            return;
-        }
-        
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.domHandler.removeClass(item, 'ui-state-hover');
-        }
-    }
-    
-    onClick(event) {
-        if(this.disabled) {
-            return;
-        }
-        
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.onItemClick(event,item);
-        }
-    }
-    
-    onItemClick(event, item) {
-        let metaKey = (event.metaKey||event.ctrlKey);
                 
-        if(this.domHandler.hasClass(item, 'ui-state-highlight')) {
-            if(metaKey)
-                this.domHandler.removeClass(item, 'ui-state-highlight');
-            else
-                this.unselectSiblings(item);
+    onOptionClick(event, option) {
+        let metaKey = (event.metaKey||event.ctrlKey);
+        let selected = this.isSelected(option);
+        
+        if(this.multiple)
+            this.onOptionClickMultiple(event,option);
+        else
+            this.onOptionClickSingle(event,option);
+    }
+    
+    onOptionClickSingle(event, option) {
+        let metaKey = (event.metaKey||event.ctrlKey);
+        let selected = this.isSelected(option);
+        let valueChanged = false;
+        
+        if(selected) {
+            if(metaKey) {
+                this.value = null;
+                valueChanged = true;
+            }
         }
         else {
-            if(!metaKey||!this.multiple) {
-                this.unselectSiblings(item);
-            }
-            
-            this.domHandler.removeClass(item, 'ui-state-hover');
-            this.domHandler.addClass(item, 'ui-state-highlight');
+            this.value = option.value;
+            valueChanged = true;
         }
         
-        //update value
-        if(this.multiple) {
-            let selectedItems = this.domHandler.find(item.parentNode, 'li.ui-state-highlight');
-            let valueArr = [];
-            if(selectedItems && selectedItems.length) {
-                for(let i = 0; i < selectedItems.length; i++) {
-                    let itemIndex = this.domHandler.index(selectedItems[i]);
-                    valueArr.push(this.options[itemIndex].value);
-                }
-            }
-            this.value = valueArr;
+        if(valueChanged) {
+            this.onModelChange(this.value);
+            this.onChange.emit(event);
         }
-        else {
-            let selectedItem = this.domHandler.findSingle(item.parentNode, 'li.ui-state-highlight');
-            if(selectedItem) {
-                let selectedIndex = this.domHandler.index(selectedItem);
-                this.value = this.options[selectedIndex].value;
+    }
+    
+    onOptionClickMultiple(event, option) {
+        let metaKey = (event.metaKey||event.ctrlKey);
+        let selected = this.isSelected(option);
+        let valueChanged = false;
+        
+        if(selected) {
+            if(metaKey) {
+                this.value.splice(this.findIndex(option), 1);
             }
             else {
-                this.value = null;
+                this.value = [];
+                this.value.push(option.value);
             }
-        }
-        
-        this.onModelChange(this.value);
-        this.onChange.emit(event);
-    }
-    
-    unselectSiblings(item) {
-        let siblings = this.domHandler.siblings(item);
-        for(let i = 0; i < siblings.length; i++) {
-            let sibling = siblings[i];
-            if(this.domHandler.hasClass(sibling, 'ui-state-highlight')) {
-                this.domHandler.removeClass(sibling, 'ui-state-highlight');
-            }
-        }
-    }
-    
-    findListItem(element) {
-        if(element.nodeName == 'LI') {
-            return element;
+            valueChanged = true;
         }
         else {
-            let parent = element.parentElement;
-            while(parent.nodeName != 'LI') {
-                parent = parent.parentElement;
-            }
-            return parent;
+            this.value = (metaKey) ? this.value||[] : [];            
+            this.value.push(option.value);
+            valueChanged = true;
+        }
+        
+        if(valueChanged) {
+            this.onModelChange(this.value);
+            this.onChange.emit(event);
         }
     }
-
+    
+    isSelected(option: SelectItem) {
+        let selected = false;
+        
+        if(this.multiple) {
+            if(this.value) {
+                for(let i = 0; i < this.value.length; i++) {
+                    if(this.value[i] === option.value) {
+                        selected = true;
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            selected =  this.value == option.value;
+        }
+        
+        return selected;
+    }
+    
+    findIndex(option: SelectItem): number {        
+        let index: number = -1;
+        if(this.value) {
+            for(let i = 0; i < this.value.length; i++) {
+                if(this.domHandler.equals(option.value, this.value[i])) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+                
+        return index;
+    }
 }
