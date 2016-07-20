@@ -1,4 +1,5 @@
 import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
 import {Column} from '../column/column';
 import {ColumnTemplateLoader} from '../column/columntemplateloader';
 import {RowExpansionLoader} from './rowexpansionloader';
@@ -151,7 +152,7 @@ import {DomHandler} from '../dom/domhandler';
     directives: [Paginator,InputText,ColumnTemplateLoader,RowExpansionLoader],
     providers: [DomHandler]
 })
-export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck {
+export class DataTable implements AfterViewChecked, AfterViewInit, DoCheck, OnInit, OnDestroy {
 
     @Input() value: any[];
 
@@ -274,7 +275,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     private columns: Column[];
 
     private columnsUpdated: boolean = false;
-    
+
+    private columnsSubscription: Subscription;
+
     private stopSortPropagation: boolean;
     
     private sortColumn: Column;
@@ -324,7 +327,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, 
         @Query(Column) cols: QueryList<Column>, private renderer: Renderer, changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
-        cols.changes.subscribe(_ => {
+        this.columnsSubscription = cols.changes.subscribe(_ => {
             this.columns = cols.toArray();
             this.columnsUpdated = true;
             changeDetector.markForCheck();
@@ -1241,6 +1244,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
         if(this.resizableColumns) {
             this.documentColumnResizeListener();
             this.documentColumnResizeEndListener();
+        }
+
+        if(this.columnsSubscription) {
+            this.columnsSubscription.unsubscribe();
         }
     }
 }
