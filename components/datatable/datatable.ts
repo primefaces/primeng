@@ -82,6 +82,10 @@ import {DomHandler} from '../dom/domhandler';
                                 </td>
                             </tr>
                         </template>
+                        
+                        <tr *ngIf="isEmpty()" class="ui-widget-content">
+                            <td [attr.colspan]="visibleColumns().length">{{emptyMessage}}</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="ui-column-resizer-helper ui-state-highlight" style="display:none"></div>
@@ -226,6 +230,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck 
     @Input() contextMenu: any;
     
     @Input() csvSeparator: string = ',';
+    
+    @Input() emptyMessage: string = 'No records found';
     
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
