@@ -1,4 +1,4 @@
-import {Component,ElementRef,OnDestroy,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
+import {Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
 import {TemplateWrapper} from '../common';
@@ -34,7 +34,7 @@ import {TemplateWrapper} from '../common';
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
-                <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="targetStyle">
+                <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle">
                     <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="selectItem($event,item)">
                         <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
@@ -79,14 +79,29 @@ export class PickList implements OnDestroy,AfterViewChecked {
     hoveredItem: any;
     
     selectedItems: any[];
+        
+    reorderedListElement: any;
     
-    itemsChanged: boolean;
+    movedUp: boolean;
+    
+    movedDown: boolean;
 
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
-    
+        
     ngAfterViewChecked() {
-        if(this.itemsChanged) {
-            this.itemsChanged = false;
+        if(this.movedUp||this.movedDown) {
+            let listItems = this.domHandler.find(this.reorderedListElement, 'li.ui-state-highlight');
+            let listItem;
+            
+            if(this.movedUp)
+                listItem = listItems[0];
+            else
+                listItem = listItems[listItems.length - 1];
+            
+            this.domHandler.scrollInView(this.reorderedListElement, listItem);
+            this.movedUp = false;
+            this.movedDown = false;
+            this.reorderedListElement = null;
         }
     }
     
@@ -120,6 +135,9 @@ export class PickList implements OnDestroy,AfterViewChecked {
                     break;
                 }
             }
+            
+            this.movedUp = true;
+            this.reorderedListElement = listElement;
         }
     }
 
@@ -137,6 +155,8 @@ export class PickList implements OnDestroy,AfterViewChecked {
                     break;
                 }
             }
+            
+            listElement.scrollTop = 0;
         }
     }
 
@@ -156,6 +176,9 @@ export class PickList implements OnDestroy,AfterViewChecked {
                     break;
                 }
             }
+            
+            this.movedDown = true;
+            this.reorderedListElement = listElement;
         }
     }
 
@@ -173,6 +196,8 @@ export class PickList implements OnDestroy,AfterViewChecked {
                     break;
                 }
             }
+            
+            listElement.scrollTop = listElement.scrollHeight;
         }
     }
 
