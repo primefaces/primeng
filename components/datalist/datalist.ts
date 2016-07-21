@@ -2,6 +2,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,Simple
 import {Header} from '../common';
 import {Footer} from '../common';
 import {Paginator} from '../paginator/paginator';
+import {TemplateWrapper} from '../common';
 
 @Component({
     selector: 'p-dataList',
@@ -12,7 +13,9 @@ import {Paginator} from '../paginator/paginator';
             </div>
             <div class="ui-datalist-content ui-widget-content">
                 <ul class="ui-datalist-data">
-                    <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
+                    <li *ngFor="let item of dataToRender">
+                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    </li>
                 </ul>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
@@ -22,7 +25,7 @@ import {Paginator} from '../paginator/paginator';
             </div>
         </div>
     `,
-    directives: [Paginator]
+    directives: [Paginator,TemplateWrapper]
 })
 export class DataList implements AfterViewInit,DoCheck {
 

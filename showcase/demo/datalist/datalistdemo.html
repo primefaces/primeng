@@ -13,33 +13,31 @@
             List of Cars
         </header>
         <template let-car>
-            <li style="border-bottom:1px solid #D5D5D5;">
-                <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"></div>
-                        <div class="ui-grid-col-9">
-                            <div class="ui-grid ui-grid-responsive ui-fluid">
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Vin: </div>
-                                    <div class="ui-grid-col-10">{{car.vin}}</div>
-                                </div>
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Year: </div>
-                                    <div class="ui-grid-col-10">{{car.year}}</div>
-                                </div>
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Brand: </div>
-                                    <div class="ui-grid-col-10">{{car.brand}}</div>
-                                </div>
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-2">Color: </div>
-                                    <div class="ui-grid-col-10">{{car.color}}</div>
-                                </div>
+            <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"></div>
+                    <div class="ui-grid-col-9">
+                        <div class="ui-grid ui-grid-responsive ui-fluid">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Vin: </div>
+                                <div class="ui-grid-col-10">{{car.vin}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Year: </div>
+                                <div class="ui-grid-col-10">{{car.year}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Brand: </div>
+                                <div class="ui-grid-col-10">{{car.brand}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Color: </div>
+                                <div class="ui-grid-col-10">{{car.color}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </li>
+            </div>
         </template>
     </p-dataList>
         
@@ -79,7 +77,12 @@ import {DataList} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>DataList requires a collection of items as its value and a template to display each item. Template should contain a li element as a wrapper. </p><p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the datalist. Cars are loaded by a CarService that connects to a server to fetch the cars with a Promise.</p>
+            <p>DataList requires a collection of items as its value and a template content to display
+                where each item can be accessed using the implicit variable.</p>
+                
+            <p>Throughout the samples, a car interface having vin, brand, year and color properties are 
+                used to define an object to be displayed by the datalist.  Cars are loaded by a CarService that 
+                connects to a server to fetch the cars with a Promise.</p>
 <pre>
 <code class="language-typescript" pCode>
 export interface Car {
@@ -132,9 +135,7 @@ export class DataListDemo implements OnInit {
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars"&gt;
     &lt;template let-car&gt;
-        &lt;li&gt;
-            Car content
-        &lt;/li&gt;
+        Car content
     &lt;/template&gt;
 &lt;/p-dataList&gt;
 </code>
@@ -154,9 +155,7 @@ import {Footer} from 'primeng/primeng';
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;footer&gt;Choose from the list.&lt;/footer&gt;
     &lt;template let-car&gt;
-        &lt;li&gt;
-            Car content
-        &lt;/li&gt;
+        Car content
     &lt;/template&gt;
 &lt;/p-dataList&gt;
 </code>
@@ -169,9 +168,7 @@ import {Footer} from 'primeng/primeng';
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;template let-car&gt;
-        &lt;li&gt;
-            Car content
-        &lt;/li&gt;
+        Car content
     &lt;/template&gt;
 &lt;/p-dataList&gt;
 </code>
@@ -187,9 +184,7 @@ import {Footer} from 'primeng/primeng';
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
     &lt;template let-car&gt;
-        &lt;li&gt;
-            Car content
-        &lt;/li&gt;
+        Car content
     &lt;/template&gt;
 &lt;/p-dataList&gt;
 </code>
@@ -342,33 +337,31 @@ loadData(event) {
         List of Cars
     &lt;/header&gt;
     &lt;template let-car&gt;
-        &lt;li style="border-bottom:1px solid #D5D5D5;"&gt;
-            &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px"&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;
-                    &lt;div class="ui-grid-col-9"&gt;
-                        &lt;div class="ui-grid ui-grid-responsive ui-fluid"&gt;
-                            &lt;div class="ui-grid-row"&gt;
-                                &lt;div class="ui-grid-col-2"&gt;Vin: &lt;/div&gt;
-                                &lt;div class="ui-grid-col-10"&gt;{{car.vin}}&lt;/div&gt;
-                            &lt;/div&gt;
-                            &lt;div class="ui-grid-row"&gt;
-                                &lt;div class="ui-grid-col-2"&gt;Year: &lt;/div&gt;
-                                &lt;div class="ui-grid-col-10"&gt;{{car.year}}&lt;/div&gt;
-                            &lt;/div&gt;
-                            &lt;div class="ui-grid-row"&gt;
-                                &lt;div class="ui-grid-col-2"&gt;Brand: &lt;/div&gt;
-                                &lt;div class="ui-grid-col-10"&gt;{{car.brand}}&lt;/div&gt;
-                            &lt;/div&gt;
-                            &lt;div class="ui-grid-row"&gt;
-                                &lt;div class="ui-grid-col-2"&gt;Color: &lt;/div&gt;
-                                &lt;div class="ui-grid-col-10"&gt;{{car.color}}&lt;/div&gt;
-                            &lt;/div&gt;
+        &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;"&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;
+                &lt;div class="ui-grid-col-9"&gt;
+                    &lt;div class="ui-grid ui-grid-responsive ui-fluid"&gt;
+                        &lt;div class="ui-grid-row"&gt;
+                            &lt;div class="ui-grid-col-2"&gt;Vin: &lt;/div&gt;
+                            &lt;div class="ui-grid-col-10"&gt;{{car.vin}}&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class="ui-grid-row"&gt;
+                            &lt;div class="ui-grid-col-2"&gt;Year: &lt;/div&gt;
+                            &lt;div class="ui-grid-col-10"&gt;{{car.year}}&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class="ui-grid-row"&gt;
+                            &lt;div class="ui-grid-col-2"&gt;Brand: &lt;/div&gt;
+                            &lt;div class="ui-grid-col-10"&gt;{{car.brand}}&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class="ui-grid-row"&gt;
+                            &lt;div class="ui-grid-col-2"&gt;Color: &lt;/div&gt;
+                            &lt;div class="ui-grid-col-10"&gt;{{car.color}}&lt;/div&gt;
                         &lt;/div&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/li&gt;
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-dataList&gt;
     
