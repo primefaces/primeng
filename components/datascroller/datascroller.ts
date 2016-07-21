@@ -2,6 +2,7 @@ import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,Render
 import {Header} from '../common';
 import {Footer} from '../common';
 import {DomHandler} from '../dom/domhandler';
+import {TemplateWrapper} from '../common';
 
 @Component({
     selector: 'p-dataScroller',
@@ -12,7 +13,9 @@ import {DomHandler} from '../dom/domhandler';
         </div>
         <div class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
             <ul class="ui-datascroller-list">
-                <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
+                <li *ngFor="let item of dataToRender">
+                    <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                </li>
             </ul>
         </div>
         <div class="ui-datascroller-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
@@ -20,7 +23,8 @@ import {DomHandler} from '../dom/domhandler';
         </div>
     </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler],
+    directives: [TemplateWrapper]
 })
 export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
 
