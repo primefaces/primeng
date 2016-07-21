@@ -43,6 +43,8 @@ export class Menu implements AfterViewInit,OnDestroy {
 
     @Input() styleClass: string;
     
+    @Input() appendTo: any;
+    
     container: any;
     
     documentClickListener: any;
@@ -55,6 +57,13 @@ export class Menu implements AfterViewInit,OnDestroy {
         this.container = this.el.nativeElement.children[0];
         
         if(this.popup) {
+            if(this.appendTo && this.appendTo === 'body') {
+                document.body.appendChild(this.el.nativeElement);
+            }
+            else if(this.appendTo && this.appendTo !== 'body') {
+                this.appendTo.appendChild(this.el.nativeElement);
+            }
+                
             this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
@@ -109,6 +118,7 @@ export class Menu implements AfterViewInit,OnDestroy {
     ngOnDestroy() {
         if(this.popup) {
             this.documentClickListener();
+            document.body.removeChild(this.el.nativeElement);
         }
         
         if(this.model) {
