@@ -1,6 +1,7 @@
 import {Component,ElementRef,DoCheck,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
+import {TemplateWrapper} from '../common';
 
 @Component({
     selector: 'p-orderList',
@@ -15,15 +16,18 @@ import {DomHandler} from '../dom/domhandler';
                 </div>
                 <div class="ui-grid-col-10">
                     <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
-                    <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" 
-                        (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
-                        <template ngFor [ngForOf]="value" [ngForTemplate]="itemTemplate"></template>
+                    <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle">
+                        <li *ngFor="let item of value" 
+                            [ngClass]="{'ui-orderlist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
+                            (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onItemClick($event,item)">
+                            <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     `,
-    directives: [Button],
+    directives: [Button,TemplateWrapper],
     providers: [DomHandler]
 })
 export class OrderList {
@@ -43,83 +47,57 @@ export class OrderList {
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    
+    hoveredItem: any;
+    
+    selectedItems: any[];
         
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
-            
-    onMouseover(event) {
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.domHandler.addClass(item, 'ui-state-hover');
-        }
-    }
-    
-    onMouseout(event) {
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.domHandler.removeClass(item, 'ui-state-hover');
-        }
-    }
-    
-    onClick(event) {
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.onItemClick(event, item);
-        }
-    }
-    
-    findListItem(element) {
-        if(element.nodeName == 'LI') {
-            return element;
-        }
-        else {
-            let parent = element.parentElement;
-            while(parent.nodeName != 'LI') {
-                parent = parent.parentElement;
-            }
-            return parent;
-        }
-    }
-    
+                
     onItemClick(event, item) {
         let metaKey = (event.metaKey||event.ctrlKey);
+        let index = this.findIndexInList(item, this.selectedItems);
+        let selected = (index != -1);
         
-        if(this.domHandler.hasClass(item, 'ui-state-highlight')) {
-            if(metaKey) {
-                this.domHandler.removeClass(item, 'ui-state-highlight');
-            }
+        if(selected && metaKey) {
+            this.selectedItems.splice(index, 1);
         }
         else {
-            if(!metaKey) {
-                let siblings = this.domHandler.siblings(item);
-                for(let i = 0; i < siblings.length; i++) {
-                    let sibling = siblings[i];
-                    if(this.domHandler.hasClass(sibling, 'ui-state-highlight')) {
-                        this.domHandler.removeClass(sibling, 'ui-state-highlight');
-                    }
+            this.selectedItems = (metaKey) ? this.selectedItems||[] : [];            
+            this.selectedItems.push(item);
+        }
+    }
+    
+    isSelected(item: any) {
+        return this.findIndexInList(item, this.selectedItems) != -1;
+    }
+        
+    findIndexInList(item: any, list: any): number {
+        let index: number = -1;
+        
+        if(list) {
+            for(let i = 0; i < list.length; i++) {
+                if(list[i] == item) {
+                    index = i;
+                    break;
                 }
             }
-            
-            this.domHandler.removeClass(item, 'ui-state-hover');
-            this.domHandler.addClass(item, 'ui-state-highlight');
         }
+        
+        return index;
     }
 
     moveUp(event,listElement) {
-        let selectedElements = this.getSelectedListElements(listElement);
-        if(selectedElements.length) {
-            for(let i = 0; i < selectedElements.length; i++) {
-                let selectedElement = selectedElements[i];
-                let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        if(this.selectedItems) {
+            for(let i = 0; i < this.selectedItems.length; i++) {
+                let selectedItem = this.selectedItems[i];
+                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
 
-                if(selectedElementIndex != 0) {
-                    let movedItem = this.value[selectedElementIndex];
-                    let temp = this.value[selectedElementIndex-1];
-                    this.value[selectedElementIndex-1] = movedItem;
-                    this.value[selectedElementIndex] = temp;
-                    this.domHandler.scrollInView(listElement, listElement.children[selectedElementIndex - 1]);
+                if(selectedItemIndex != 0) {
+                    let movedItem = this.value[selectedItemIndex];
+                    let temp = this.value[selectedItemIndex-1];
+                    this.value[selectedItemIndex-1] = movedItem;
+                    this.value[selectedItemIndex] = temp;
                 }
                 else {
                     break;
@@ -131,14 +109,13 @@ export class OrderList {
     }
     
     moveTop(event,listElement) {
-        let selectedElements = this.getSelectedListElements(listElement);
-        if(selectedElements.length) {
-            for(let i = 0; i < selectedElements.length; i++) {
-                let selectedElement = selectedElements[i];
-                let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        if(this.selectedItems) {
+            for(let i = 0; i < this.selectedItems.length; i++) {
+                let selectedItem = this.selectedItems[i];
+                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
 
-                if(selectedElementIndex != 0) {
-                    let movedItem = this.value.splice(selectedElementIndex,1)[0];
+                if(selectedItemIndex != 0) {
+                    let movedItem = this.value.splice(selectedItemIndex,1)[0];
                     this.value.unshift(movedItem);
                     listElement.scrollTop = 0;
                 }
@@ -152,18 +129,16 @@ export class OrderList {
     }
     
     moveDown(event,listElement) {
-        let selectedElements = this.getSelectedListElements(listElement);
-        if(selectedElements.length) {
-            for(let i = selectedElements.length - 1; i >= 0; i--) {
-                let selectedElement = selectedElements[i];
-                let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        if(this.selectedItems) {
+            for(let i = this.selectedItems.length - 1; i >= 0; i--) {
+                let selectedItem = this.selectedItems[i];
+                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
 
-                if(selectedElementIndex != (this.value.length - 1)) {
-                    let movedItem = this.value[selectedElementIndex];
-                    let temp = this.value[selectedElementIndex+1];
-                    this.value[selectedElementIndex+1] = movedItem;
-                    this.value[selectedElementIndex] = temp;
-                    this.domHandler.scrollInView(listElement, listElement.children[selectedElementIndex + 1]);
+                if(selectedItemIndex != (this.value.length - 1)) {
+                    let movedItem = this.value[selectedItemIndex];
+                    let temp = this.value[selectedItemIndex+1];
+                    this.value[selectedItemIndex+1] = movedItem;
+                    this.value[selectedItemIndex] = temp;
                 }
                 else {
                     break;
@@ -175,16 +150,14 @@ export class OrderList {
     }
     
     moveBottom(event,listElement) {
-        let selectedElements = this.getSelectedListElements(listElement);
-        if(selectedElements.length) {
-            for(let i = selectedElements.length - 1; i >= 0; i--) {
-                let selectedElement = selectedElements[i];
-                let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        if(this.selectedItems) {
+            for(let i = this.selectedItems.length - 1; i >= 0; i--) {
+                let selectedItem = this.selectedItems[i];
+                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
 
-                if(selectedElementIndex != (this.value.length - 1)) {
-                    let movedItem = this.value.splice(selectedElementIndex,1)[0];
+                if(selectedItemIndex != (this.value.length - 1)) {
+                    let movedItem = this.value.splice(selectedItemIndex,1)[0];
                     this.value.push(movedItem);
-                    listElement.scrollTop = listElement.scrollHeight;
                 }
                 else {
                     break;
@@ -193,9 +166,5 @@ export class OrderList {
             
             this.onReorder.emit(event);
         }
-    }
-        
-    getSelectedListElements(listElement) {
-        return this.domHandler.find(listElement, 'li.ui-state-highlight');
     }
 }

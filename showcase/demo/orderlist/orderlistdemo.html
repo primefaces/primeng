@@ -12,10 +12,10 @@
             <div class="ui-grid-col-6">
                 <p-orderList [value]="cars" [listStyle]="{'height':'250px'}" [responsive]="true" header="Responsive Cars">
                     <template let-car>
-                        <li class="ui-orderlist-item ui-helper-clearfix">
+                        <div class="ui-helper-clearfix">
                             <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px" />
                             <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
-                        </li>
+                        </div>
                     </template>
                 </p-orderList>
             </div>
@@ -40,15 +40,16 @@ import {OrderList} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>OrderList requires an array as its value and a template for its content. Template should
-            contain a wrapper li element having ui-orderlist-item style class. Each item in the array can be accessed inside the template using a local template variable. </p>
+            <p>OrderList requires an array as its value and a template for its content where each item in the array
+                 can be accessed inside the template using a local template variable.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-orderList [value]="cars"&gt;
     &lt;template let-car&gt;
-        &lt;li class="ui-orderlist-item ui-helper-clearfix"&gt;
-            Content of an item
-        &lt;/li&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px" /&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-orderList&gt;
 </code>
@@ -185,10 +186,10 @@ export class MyComponent {
         &lt;div class="ui-grid-col-6"&gt;
             &lt;p-orderList [value]="cars" [listStyle]="{'height':'250px'}" [responsive]="true" header="Responsive Cars"&gt;
                 &lt;template let-car&gt;
-                    &lt;li class="ui-orderlist-item ui-helper-clearfix"&gt;
-                        &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+                    &lt;div class="ui-helper-clearfix"&gt;
+                        &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px" /&gt;
                         &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
-                    &lt;/li&gt;
+                    &lt;/div&gt;
                 &lt;/template&gt;
             &lt;/p-orderList&gt;
         &lt;/div&gt;
