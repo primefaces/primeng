@@ -1,4 +1,4 @@
-import {Component,ElementRef,DoCheck,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
+import {Component,ElementRef,AfterViewChecked,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
 import {TemplateWrapper} from '../common';
@@ -30,7 +30,7 @@ import {TemplateWrapper} from '../common';
     directives: [Button,TemplateWrapper],
     providers: [DomHandler]
 })
-export class OrderList {
+export class OrderList implements AfterViewChecked {
 
     @Input() value: any[];
     
@@ -51,8 +51,34 @@ export class OrderList {
     hoveredItem: any;
     
     selectedItems: any[];
+    
+    movedUp: boolean;
+    
+    movedDown: boolean;
+        
+    listContainer: any;
         
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
+         
+    ngAfterViewInit() {
+        this.listContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-orderlist-list');
+    }
+         
+    ngAfterViewChecked() {
+        if(this.movedUp||this.movedDown) {
+            let listItems = this.domHandler.find(this.listContainer, 'li.ui-state-highlight');
+            let listItem;
+            
+            if(this.movedUp)
+                listItem = listItems[0];
+            else
+                listItem = listItems[listItems.length - 1];
+            
+            this.domHandler.scrollInView(this.listContainer, listItem);
+            this.movedUp = false;
+            this.movedDown = false;
+        }
+    }
                 
     onItemClick(event, item) {
         let metaKey = (event.metaKey||event.ctrlKey);
@@ -104,6 +130,7 @@ export class OrderList {
                 }
             }
             
+            this.movedUp = true;
             this.onReorder.emit(event);
         }
     }
@@ -125,6 +152,7 @@ export class OrderList {
             }
             
             this.onReorder.emit(event);
+            listElement.scrollTop = 0;
         }
     }
     
@@ -145,6 +173,7 @@ export class OrderList {
                 }
             }
             
+            this.movedDown = true;
             this.onReorder.emit(event);
         }
     }
@@ -165,6 +194,7 @@ export class OrderList {
             }
             
             this.onReorder.emit(event);
+            listElement.scrollTop = listElement.scrollHeight;
         }
     }
 }
