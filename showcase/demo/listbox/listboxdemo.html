@@ -18,10 +18,10 @@
     <h3>Content</h3>
     <p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px','max-height':'250px'}">
         <template let-car>
-            <li class="ui-listbox-item ui-helper-clearfix">
-                <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
-                <div style="font-size:20px;float:right;margin:15px 10px 0 0">{{car.value}}</div>
-            </li>
+            <div class="ui-helper-clearfix">
+                <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:5px 0 0 5px"/>
+                <span style="font-size:20px;float:right;margin:15px 10px 0 0">{{car.value}}</span>
+            </div>
         </template>
     </p-listbox>
     <p>Selected Car: {{selectedCar}}</p>
@@ -111,16 +111,16 @@ export class MyModel {
 </pre>
 
             <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item by default, for custom content support define a template having a li item 
-                with "ui-listbox-item" class as a wrapper for the content. The local template variable refers to an option in the options collection.</p>
+            <p>Label of an option is used as the display text of an item by default, for custom content support define a template where 
+                the local template variable refers to an option in the options collection.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" style="width:190px"&gt;
     &lt;template let-car&gt;
-        &lt;li class="ui-listbox-item ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
-        &lt;/li&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:5px 0 0 5px"/&gt;
+            &lt;span style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/span&gt;
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-listbox&gt;
 </code>
@@ -267,10 +267,10 @@ export class MyModel {
 &lt;h3&gt;Content&lt;/h3&gt;
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px','max-height':'250px'}"&gt;
     &lt;template let-car&gt;
-        &lt;li class="ui-listbox-item ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/div&gt;
-        &lt;/li&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:5px 0 0 5px"/&gt;
+            &lt;span style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/span&gt;
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-listbox&gt;
 &lt;p&gt;Selected Car: {{selectedCar}}&lt;/p&gt;
