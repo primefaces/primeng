@@ -105,103 +105,119 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveUp(listElement, list) {
-        for(let i = 0; i < this.selectedItems.length; i++) {
-            let selectedItem = this.selectedItems[i];
-            let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
+        if(this.selectedItems) {
+            for(let i = 0; i < this.selectedItems.length; i++) {
+                let selectedItem = this.selectedItems[i];
+                let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-            if(selectedItemIndex != 0) {
-                let movedItem = list[selectedItemIndex];
-                let temp = list[selectedItemIndex-1];
-                list[selectedItemIndex-1] = movedItem;
-                list[selectedItemIndex] = temp;
-            }
-            else {
-                break;
+                if(selectedItemIndex != 0) {
+                    let movedItem = list[selectedItemIndex];
+                    let temp = list[selectedItemIndex-1];
+                    list[selectedItemIndex-1] = movedItem;
+                    list[selectedItemIndex] = temp;
+                }
+                else {
+                    break;
+                }
             }
         }
     }
 
     moveTop(listElement, list) {
-        for(let i = 0; i < this.selectedItems.length; i++) {
-            let selectedItem = this.selectedItems[i];
-            let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
+        if(this.selectedItems) {
+            for(let i = 0; i < this.selectedItems.length; i++) {
+                let selectedItem = this.selectedItems[i];
+                let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-            if(selectedItemIndex != 0) {
-                let movedItem = list.splice(selectedItemIndex,1)[0];
-                list.unshift(movedItem);
-            }
-            else {
-                break;
+                if(selectedItemIndex != 0) {
+                    let movedItem = list.splice(selectedItemIndex,1)[0];
+                    list.unshift(movedItem);
+                }
+                else {
+                    break;
+                }
             }
         }
     }
 
     moveDown(listElement, list) {
-        for(let i = this.selectedItems.length - 1; i >= 0; i--) {
-            let selectedItem = this.selectedItems[i];
-            let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
+        if(this.selectedItems) {
+            for(let i = this.selectedItems.length - 1; i >= 0; i--) {
+                let selectedItem = this.selectedItems[i];
+                let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-            if(selectedItemIndex != (list.length - 1)) {
-                let movedItem = list[selectedItemIndex];
-                let temp = list[selectedItemIndex+1];
-                list[selectedItemIndex+1] = movedItem;
-                list[selectedItemIndex] = temp;
-            }
-            else {
-                break;
+                if(selectedItemIndex != (list.length - 1)) {
+                    let movedItem = list[selectedItemIndex];
+                    let temp = list[selectedItemIndex+1];
+                    list[selectedItemIndex+1] = movedItem;
+                    list[selectedItemIndex] = temp;
+                }
+                else {
+                    break;
+                }
             }
         }
     }
 
     moveBottom(listElement, list) {
-        for(let i = this.selectedItems.length - 1; i >= 0; i--) {
-            let selectedItem = this.selectedItems[i];
-            let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
+        if(this.selectedItems) {
+            for(let i = this.selectedItems.length - 1; i >= 0; i--) {
+                let selectedItem = this.selectedItems[i];
+                let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-            if(selectedItemIndex != (list.length - 1)) {
-                let movedItem = list.splice(selectedItemIndex,1)[0];
-                list.push(movedItem);
-            }
-            else {
-                break;
+                if(selectedItemIndex != (list.length - 1)) {
+                    let movedItem = list.splice(selectedItemIndex,1)[0];
+                    list.push(movedItem);
+                }
+                else {
+                    break;
+                }
             }
         }
     }
 
     moveRight(targetListElement) {
-        for(let i = 0; i < this.selectedItems.length; i++) {
-            let selectedItem = this.selectedItems[i];
-            if(this.findIndexInList(selectedItem, this.target) == -1) {
-                this.target.push(this.source.splice(this.findIndexInList(selectedItem, this.source),1)[0]);
+        if(this.selectedItems) {
+            for(let i = 0; i < this.selectedItems.length; i++) {
+                let selectedItem = this.selectedItems[i];
+                if(this.findIndexInList(selectedItem, this.target) == -1) {
+                    this.target.push(this.source.splice(this.findIndexInList(selectedItem, this.source),1)[0]);
+                }
             }
+            this.selectedItems = [];
         }
-        this.selectedItems = [];
     }
 
     moveAllRight() {
-        for(let i = 0; i < this.source.length; i++) {
-            this.target.push(this.source[i]);
+        if(this.selectedItems) {
+            for(let i = 0; i < this.source.length; i++) {
+                this.target.push(this.source[i]);
+            }
+            this.source.splice(0, this.source.length);
+            this.selectedItems = [];
         }
-        this.source.splice(0, this.source.length);
-        this.selectedItems = [];
     }
 
     moveLeft(sourceListElement) {
-        for(let i = 0; i < this.selectedItems.length; i++) {
-            let selectedItem = this.selectedItems[i];
-            if(this.findIndexInList(selectedItem, this.source) == -1) {
-                this.source.push(this.target.splice(this.findIndexInList(selectedItem, this.target),1)[0]);
+        if(this.selectedItems) {
+            for(let i = 0; i < this.selectedItems.length; i++) {
+                let selectedItem = this.selectedItems[i];
+                if(this.findIndexInList(selectedItem, this.source) == -1) {
+                    this.source.push(this.target.splice(this.findIndexInList(selectedItem, this.target),1)[0]);
+                }
             }
+            this.selectedItems = [];
         }
-        this.selectedItems = [];
     }
 
     moveAllLeft() {
-        for(let i = 0; i < this.target.length; i++) {
-            this.source.push(this.target[i]);
+        if(this.selectedItems) {
+            for(let i = 0; i < this.target.length; i++) {
+                this.source.push(this.target[i]);
+            }
+            this.target.splice(0, this.target.length);
+            this.selectedItems = [];
         }
-        this.target.splice(0, this.target.length);
-        this.selectedItems = [];
     }
 
     isSelected(item: any) {
