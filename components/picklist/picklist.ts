@@ -1,6 +1,7 @@
-import {Component,ElementRef,OnDestroy,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
+import {Component,ElementRef,OnDestroy,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
+import {TemplateWrapper} from '../common';
 
 @Component({
     selector: 'p-pickList',
@@ -16,24 +17,28 @@ import {DomHandler} from '../dom/domhandler';
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
-                <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle"
-                    (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
-                    <template ngFor [ngForOf]="source" [ngForTemplate]="itemTemplate"></template>
+                <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle">
+                    <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
+                        (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="selectItem($event,item)">
+                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    </li>
                 </ul>
             </div>
             <div class="ui-picklist-buttons">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-right" (click)="moveRight(sourcelist)"></button>
-                    <button type="button" pButton icon="fa-angle-double-right" (click)="moveAllRight(sourcelist)"></button>
-                    <button type="button" pButton icon="fa-angle-left" (click)="moveLeft(targetlist)"></button>
-                    <button type="button" pButton icon="fa-angle-double-left" (click)="moveAllLeft(targetlist)"></button>
+                    <button type="button" pButton icon="fa-angle-right" (click)="moveRight(targetlist)"></button>
+                    <button type="button" pButton icon="fa-angle-double-right" (click)="moveAllRight()"></button>
+                    <button type="button" pButton icon="fa-angle-left" (click)="moveLeft(sourcelist)"></button>
+                    <button type="button" pButton icon="fa-angle-double-left" (click)="moveAllLeft()"></button>
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
-                <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="targetStyle"
-                    (mouseover)="onMouseover($event)" (mouseout)="onMouseout($event)" (click)="onClick($event)">
-                    <template ngFor [ngForOf]="target" [ngForTemplate]="itemTemplate"></template>
+                <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="targetStyle">
+                    <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
+                        (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="selectItem($event,item)">
+                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    </li>
                 </ul>
             </div>
             <div class="ui-picklist-target-controls ui-picklist-buttons">
@@ -46,10 +51,10 @@ import {DomHandler} from '../dom/domhandler';
             </div>
         </div>
     `,
-    directives: [Button],
+    directives: [Button,TemplateWrapper],
     providers: [DomHandler]
 })
-export class PickList implements OnDestroy {
+export class PickList implements OnDestroy,AfterViewChecked {
 
     @Input() source: any[];
 
@@ -70,82 +75,45 @@ export class PickList implements OnDestroy {
     @Input() targetStyle: any;
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    
+    hoveredItem: any;
+    
+    selectedItems: any[];
+    
+    itemsChanged: boolean;
 
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
-
-    onMouseover(event) {
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.domHandler.addClass(item, 'ui-state-hover');
+    
+    ngAfterViewChecked() {
+        if(this.itemsChanged) {
+            this.itemsChanged = false;
         }
     }
-
-    onMouseout(event) {
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.domHandler.removeClass(item, 'ui-state-hover');
-        }
-    }
-
-    onClick(event) {
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.onItemClick(event, item);
-        }
-    }
-
-    findListItem(element) {
-        if(element.nodeName == 'LI') {
-            return element;
-        }
-        else {
-            let parent = element.parentElement;
-            while(parent.nodeName != 'LI') {
-                parent = parent.parentElement;
-            }
-            return parent;
-        }
-    }
-
-    onItemClick(event, item) {
+    
+    selectItem(event, item: any) {
         let metaKey = (event.metaKey||event.ctrlKey);
-
-        if(this.domHandler.hasClass(item, 'ui-state-highlight')) {
-            if(metaKey) {
-                this.domHandler.removeClass(item, 'ui-state-highlight');
-            }
+        let index = this.findIndexInSelection(item);
+        let selected = (index != -1);
+        
+        if(selected && metaKey) {
+            this.selectedItems.splice(index, 1);
         }
         else {
-            if(!metaKey) {
-                let siblings = this.domHandler.siblings(item);
-                for(let i = 0; i < siblings.length; i++) {
-                    let sibling = siblings[i];
-                    if(this.domHandler.hasClass(sibling, 'ui-state-highlight')) {
-                        this.domHandler.removeClass(sibling, 'ui-state-highlight');
-                    }
-                }
-            }
-
-            this.domHandler.removeClass(item, 'ui-state-hover');
-            this.domHandler.addClass(item, 'ui-state-highlight');
+            this.selectedItems = (metaKey) ? this.selectedItems||[] : [];            
+            this.selectedItems.push(item);
         }
     }
 
     moveUp(listElement, list) {
-        let selectedElements = this.getSelectedListElements(listElement);
-        for(let i = 0; i < selectedElements.length; i++) {
-            let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        for(let i = 0; i < this.selectedItems.length; i++) {
+            let selectedItem = this.selectedItems[i];
+            let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-            if(selectedElementIndex != 0) {
-                let movedItem = list[selectedElementIndex];
-                let temp = list[selectedElementIndex-1];
-                list[selectedElementIndex-1] = movedItem;
-                list[selectedElementIndex] = temp;
-                this.domHandler.scrollInView(listElement, this.getListElements(listElement)[selectedElementIndex - 1]);
+            if(selectedItemIndex != 0) {
+                let movedItem = list[selectedItemIndex];
+                let temp = list[selectedItemIndex-1];
+                list[selectedItemIndex-1] = movedItem;
+                list[selectedItemIndex] = temp;
             }
             else {
                 break;
@@ -154,15 +122,13 @@ export class PickList implements OnDestroy {
     }
 
     moveTop(listElement, list) {
-        let selectedElements = this.getSelectedListElements(listElement);
-        for(let i = 0; i < selectedElements.length; i++) {
-            let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        for(let i = 0; i < this.selectedItems.length; i++) {
+            let selectedItem = this.selectedItems[i];
+            let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-            if(selectedElementIndex != 0) {
-                let movedItem = list.splice(selectedElementIndex,1)[0];
+            if(selectedItemIndex != 0) {
+                let movedItem = list.splice(selectedItemIndex,1)[0];
                 list.unshift(movedItem);
-                listElement.scrollTop = 0;
             }
             else {
                 break;
@@ -171,17 +137,15 @@ export class PickList implements OnDestroy {
     }
 
     moveDown(listElement, list) {
-        let selectedElements = this.getSelectedListElements(listElement);
-        for(let i = selectedElements.length - 1; i >= 0; i--) {
-            let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        for(let i = this.selectedItems.length - 1; i >= 0; i--) {
+            let selectedItem = this.selectedItems[i];
+            let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-            if(selectedElementIndex != (list.length - 1)) {
-                let movedItem = list[selectedElementIndex];
-                let temp = list[selectedElementIndex+1];
-                list[selectedElementIndex+1] = movedItem;
-                list[selectedElementIndex] = temp;
-                this.domHandler.scrollInView(listElement, this.getListElements(listElement)[selectedElementIndex + 1]);
+            if(selectedItemIndex != (list.length - 1)) {
+                let movedItem = list[selectedItemIndex];
+                let temp = list[selectedItemIndex+1];
+                list[selectedItemIndex+1] = movedItem;
+                list[selectedItemIndex] = temp;
             }
             else {
                 break;
@@ -190,15 +154,13 @@ export class PickList implements OnDestroy {
     }
 
     moveBottom(listElement, list) {
-        let selectedElements = this.getSelectedListElements(listElement);
-        for(let i = selectedElements.length - 1; i >= 0; i--) {
-            let selectedElement = selectedElements[i];
-            let selectedElementIndex: number = this.domHandler.index(selectedElement);
+        for(let i = this.selectedItems.length - 1; i >= 0; i--) {
+            let selectedItem = this.selectedItems[i];
+            let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
 
-            if(selectedElementIndex != (list.length - 1)) {
-                let movedItem = list.splice(selectedElementIndex,1)[0];
+            if(selectedItemIndex != (list.length - 1)) {
+                let movedItem = list.splice(selectedItemIndex,1)[0];
                 list.push(movedItem);
-                listElement.scrollTop = listElement.scrollHeight;
             }
             else {
                 break;
@@ -206,12 +168,14 @@ export class PickList implements OnDestroy {
         }
     }
 
-    moveRight(sourceListElement) {
-        let selectedElements = this.getSelectedListElements(sourceListElement);
-        let i = selectedElements.length;
-        while(i--) {
-            this.target.push(this.source.splice(this.domHandler.index(selectedElements[i]),1)[0]);
+    moveRight(targetListElement) {
+        for(let i = 0; i < this.selectedItems.length; i++) {
+            let selectedItem = this.selectedItems[i];
+            if(this.findIndexInList(selectedItem, this.target) == -1) {
+                this.target.push(this.source.splice(this.findIndexInList(selectedItem, this.source),1)[0]);
+            }
         }
+        this.selectedItems = [];
     }
 
     moveAllRight() {
@@ -219,14 +183,17 @@ export class PickList implements OnDestroy {
             this.target.push(this.source[i]);
         }
         this.source.splice(0, this.source.length);
+        this.selectedItems = [];
     }
 
-    moveLeft(targetListElement) {
-        let selectedElements = this.getSelectedListElements(targetListElement);
-        let i = selectedElements.length;
-        while(i--) {
-            this.source.push(this.target.splice(this.domHandler.index(selectedElements[i]),1)[0]);
+    moveLeft(sourceListElement) {
+        for(let i = 0; i < this.selectedItems.length; i++) {
+            let selectedItem = this.selectedItems[i];
+            if(this.findIndexInList(selectedItem, this.source) == -1) {
+                this.source.push(this.target.splice(this.findIndexInList(selectedItem, this.target),1)[0]);
+            }
         }
+        this.selectedItems = [];
     }
 
     moveAllLeft() {
@@ -234,14 +201,30 @@ export class PickList implements OnDestroy {
             this.source.push(this.target[i]);
         }
         this.target.splice(0, this.target.length);
+        this.selectedItems = [];
     }
 
-    getListElements(listElement) {
-        return listElement.children;
+    isSelected(item: any) {
+        return this.findIndexInSelection(item) != -1;
     }
-
-    getSelectedListElements(listElement) {
-        return this.domHandler.find(listElement, 'li.ui-state-highlight');
+    
+    findIndexInSelection(item: any): number {
+        return this.findIndexInList(item, this.selectedItems);
+    }
+    
+    findIndexInList(item: any, list: any): number {
+        let index: number = -1;
+        
+        if(list) {
+            for(let i = 0; i < list.length; i++) {
+                if(list[i] == item) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        
+        return index;
     }
 
     ngOnDestroy() {
