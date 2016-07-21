@@ -151,7 +151,7 @@ import {DomHandler} from '../dom/domhandler';
     directives: [Paginator,InputText,ColumnTemplateLoader,RowExpansionLoader],
     providers: [DomHandler]
 })
-export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck {
+export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,OnDestroy {
 
     @Input() value: any[];
 
