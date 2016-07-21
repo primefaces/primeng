@@ -1,5 +1,6 @@
 import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChild,Renderer} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
+import {TemplateWrapper} from '../common';
 
 @Component({
     selector: 'p-carousel',
@@ -25,12 +26,15 @@ import {DomHandler} from '../dom/domhandler';
             <div class="ui-carousel-viewport">
                 <ul class="ui-carousel-items" [style.left.px]="left" [style.transitionProperty]="'left'" 
                             [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
-                    <template ngFor [ngForOf]="value" [ngForTemplate]="itemTemplate"></template>
+                    <li *ngFor="let item of value" class="ui-carousel-item ui-widget-content ui-corner-all">
+                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    </li>
                 </ul>
             </div>
         </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler],
+    directives: [TemplateWrapper]
 })
 export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,OnDestroy{
     

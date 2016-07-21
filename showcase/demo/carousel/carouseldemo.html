@@ -11,30 +11,28 @@
 
     <p-carousel headerText="Cars" [value]="cars">
         <template let-car>
-            <li class="ui-carousel-item ui-widget-content ui-corner-all">
-                <div class="ui-grid ui-grid-responsive">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-12"><img src="showcase/resources/demo/images/car/{{car.brand}}.gif" /></div>
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">Vin</div>
-                        <div class="ui-grid-col-6">{{car.vin}}</div>
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">Year</div>
-                        <div class="ui-grid-col-6">{{car.year}}</div>
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">Color</div>
-                        <div class="ui-grid-col-6">{{car.color}}</div>
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-12">
-                            <button type="button" pButton icon="fa-search" (click)="selectCar(car)"></button>
-                        </div>
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12"><img src="showcase/resources/demo/images/car/{{car.brand}}.gif" /></div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">Vin</div>
+                    <div class="ui-grid-col-6">{{car.vin}}</div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">Year</div>
+                    <div class="ui-grid-col-6">{{car.year}}</div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">Color</div>
+                    <div class="ui-grid-col-6">{{car.color}}</div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <button type="button" pButton icon="fa-search" (click)="selectCar(car)"></button>
                     </div>
                 </div>
-            </li>
+            </div>
         </template>
     </p-carousel>
 </div>
@@ -50,15 +48,13 @@ import {Carousel} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Carousel requires a collection of items as its value and a template to display each item. Template element should contain a li element having 
-                    .ui-carousel-item style class as a wrapper.</p>
+            <p>Carousel requires a collection of items as its value and a template to display each item 
+                where each item can be accessed using the implicit variable.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-carousel [value]="items"&gt;
     &lt;template let-item&gt;
-        &lt;li class="ui-carousel-item"&gt;
-            content of item
-        &lt;/li&gt;
+        Content to display
     &lt;/ul&gt;
 &lt;/p-carousel&gt;
 </code>
@@ -255,30 +251,28 @@ import {Carousel} from 'primeng/primeng';
 
 &lt;p-carousel headerText="Cars" [value]="cars"&gt;
     &lt;template let-car&gt;
-        &lt;li class="ui-carousel-item"&gt;
-            &lt;div class="ui-grid ui-grid-responsive"&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-12"&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" /&gt;&lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-6"&gt;Vin&lt;/div&gt;
-                    &lt;div class="ui-grid-col-6"&gt;{{car.vin}}&lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-6"&gt;Year&lt;/div&gt;
-                    &lt;div class="ui-grid-col-6"&gt;{{car.year}}&lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-6"&gt;Color&lt;/div&gt;
-                    &lt;div class="ui-grid-col-6"&gt;{{car.color}}&lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-12"&gt;
-                        &lt;button type="button" pButton icon="fa-search" (click)="selectCar(car)"&gt;&lt;/button&gt;
-                    &lt;/div&gt;
+        &lt;div class="ui-grid ui-grid-responsive"&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-12"&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" /&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-6"&gt;Vin&lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;{{car.vin}}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-6"&gt;Year&lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;{{car.year}}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-6"&gt;Color&lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;{{car.color}}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-12"&gt;
+                    &lt;button type="button" pButton icon="fa-search" (click)="selectCar(car)"&gt;&lt;/button&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/li&gt;
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-carousel&gt;
 </code>
