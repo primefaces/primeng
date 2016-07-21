@@ -15,10 +15,10 @@
     <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
         <template let-brand>
-            <li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
-                <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:2px 0 2px 2px"/>
+            <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
                 <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
-            </li>
+            </div>
         </template>
     </p-autoComplete>
     <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
@@ -168,10 +168,10 @@ export class AutoCompleteDemo {
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
     &lt;template let-brand&gt;
-        &lt;li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
-        &lt;/li&gt;
+        &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-autoComplete&gt;
 </code>
@@ -393,10 +393,10 @@ export class AutoCompleteDemo {
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
     [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)"&gt;
     &lt;template let-brand&gt;
-        &lt;li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:2px 0 2px 2px"/&gt;
+        &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
-        &lt;/li&gt;
+        &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-autoComplete&gt;
 &lt;span style="margin-left:50px"&gt;Brand: {{brand||'none'}}&lt;/span&gt;

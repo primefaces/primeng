@@ -2,6 +2,7 @@ import {Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,Input,Output
 import {InputText} from '../inputtext/inputtext';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
+import {TemplateWrapper} from '../common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
@@ -28,18 +29,17 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
                 (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
             <div class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="'100%'" [style.max-height]="scrollHeight">
-                <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" 
-                    (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)" *ngIf="!itemTemplate">
-                    <li class="ui-autocomplete-list-item ui-corner-all" *ngFor="let item of suggestions">{{field ? item[field] : item}}</li>
-                </ul>
-                <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" 
-                    (mouseover)="onItemMouseover($event)" (mouseout)="onItemMouseout($event)" (click)="onItemClick($event)"*ngIf="itemTemplate">
-                    <template ngFor [ngForOf]="suggestions" [ngForTemplate]="itemTemplate"></template>
+                <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
+                    <li *ngFor="let option of suggestions" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
+                        (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
+                        <span *ngIf="!itemTemplate">{{field ? option[field] : option}}</span>
+                        <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></template>
+                    </li>
                 </ul>
             </div>
         </span>
     `,
-    directives: [InputText,Button],
+    directives: [InputText,Button,TemplateWrapper],
     providers: [DomHandler,AUTOCOMPLETE_VALUE_ACCESSOR]
 })
 export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,ControlValueAccessor {
@@ -108,6 +108,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     suggestionsUpdated: boolean;
     
+    highlightOption: any;
+    
+    highlightOptionChanged: boolean;
+    
     constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, private renderer: Renderer) {
         this.differ = differs.find([]).create(null);
     }
@@ -143,6 +147,14 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         if(this.suggestionsUpdated) {
             this.align();
             this.suggestionsUpdated = false;
+        }
+        
+        if(this.highlightOptionChanged) {
+            let listItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
+            if(listItem) {
+                this.domHandler.scrollInView(this.panel, listItem);
+            }
+            this.highlightOptionChanged = false;
         }
     }
     
@@ -195,73 +207,25 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
            query: query
        });
     }
-    
-    onItemMouseover(event) {
-        if(this.disabled) {
-            return;
-        }
-        
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.domHandler.addClass(item, 'ui-state-highlight');
-        }
-    }
-    
-    onItemMouseout(event) {
-        if(this.disabled) {
-            return;
-        }
-        
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.domHandler.removeClass(item, 'ui-state-highlight');
-        }
-    }
-    
-    onItemClick(event) {        
-        let element = event.target;
-        if(element.nodeName != 'UL') {
-            let item = this.findListItem(element);
-            this.selectItem(item);
-        }
-    }
-    
-    selectItem(item: any) {
-        let itemIndex = this.domHandler.index(item);
-        let selectedValue = this.suggestions[itemIndex];
-        
+            
+    selectItem(option: any) {
         if(this.multiple) {
             this.input.value = '';
             this.value = this.value||[];
-            if(!this.isSelected(selectedValue)) {
-                this.value.push(selectedValue);
+            if(!this.isSelected(option)) {
+                this.value.push(option);
                 this.onModelChange(this.value);
             }
         }
         else {
-            this.input.value = this.field ? this.resolveFieldData(selectedValue): selectedValue;
-            this.value = selectedValue;
+            this.input.value = this.field ? this.resolveFieldData(option): option;
+            this.value = option;
             this.onModelChange(this.value);
         }
         
-        this.onSelect.emit(selectedValue);
+        this.onSelect.emit(option);
         
         this.input.focus();
-    }
-    
-    findListItem(element) {
-        if(element.nodeName == 'LI') {
-            return element;
-        }
-        else {
-            let parent = element.parentElement;
-            while(parent.nodeName != 'LI') {
-                parent = parent.parentElement;
-            }
-            return parent;
-        }
     }
     
     show() {
@@ -318,22 +282,20 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     onKeydown(event) {
         if(this.panelVisible) {
-            let highlightedItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
+            let highlightItemIndex = this.findOptionIndex(this.highlightOption);
             
             switch(event.which) {
                 //down
                 case 40:
-                    if(highlightedItem) {
-                        var nextItem = highlightedItem.nextElementSibling;
-                        if(nextItem) {
-                            this.domHandler.removeClass(highlightedItem, 'ui-state-highlight');
-                            this.domHandler.addClass(nextItem, 'ui-state-highlight');
-                            this.domHandler.scrollInView(this.panel, nextItem);
+                    if(highlightItemIndex != -1) {
+                        var nextItemIndex = highlightItemIndex + 1;
+                        if(nextItemIndex != (this.suggestions.length)) {
+                            this.highlightOption = this.suggestions[nextItemIndex];
+                            this.highlightOptionChanged = true;
                         }
                     }
                     else {
-                        let firstItem = this.domHandler.findSingle(this.panel, 'li:first-child');
-                        this.domHandler.addClass(firstItem, 'ui-state-highlight');
+                        this.highlightOption = this.suggestions[0];
                     }
                     
                     event.preventDefault();
@@ -341,13 +303,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 
                 //up
                 case 38:
-                    if(highlightedItem) {
-                        var prevItem = highlightedItem.previousElementSibling;
-                        if(prevItem) {
-                            this.domHandler.removeClass(highlightedItem, 'ui-state-highlight');
-                            this.domHandler.addClass(prevItem, 'ui-state-highlight');
-                            this.domHandler.scrollInView(this.panel, prevItem);
-                        }
+                    if(highlightItemIndex > 0) {
+                        let prevItemIndex = highlightItemIndex - 1;
+                        this.highlightOption = this.suggestions[prevItemIndex];
+                        this.highlightOptionChanged = true;
                     }
                     
                     event.preventDefault();
@@ -355,8 +314,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 
                 //enter
                 case 13:
-                    if(highlightedItem) {
-                        this.selectItem(highlightedItem);
+                    if(this.highlightOption) {
+                        this.selectItem(this.highlightOption);
                         this.hide();
                     }
                     event.preventDefault();
@@ -371,8 +330,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 
                 //tab
                 case 9:
-                    if(highlightedItem) {
-                        this.selectItem(highlightedItem);
+                    if(this.highlightOption) {
+                        this.selectItem(this.highlightOption);
                     }
                     this.hide();
                 break;
@@ -404,6 +363,20 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             }
         }
         return selected;
+    }
+    
+    findOptionIndex(option): number {        
+        let index: number = -1;
+        if(this.suggestions) {
+            for(let i = 0; i < this.suggestions.length; i++) {
+                if(this.domHandler.equals(option, this.suggestions[i])) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+                
+        return index;
     }
     
     ngOnDestroy() {

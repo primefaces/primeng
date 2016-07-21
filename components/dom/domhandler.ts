@@ -288,6 +288,7 @@ export class DomHandler {
 
     			default:
     				if (obj1[p] != obj2[p]) return false;
+                    break;
     		}
     	}
      
@@ -295,6 +296,6 @@ export class DomHandler {
     		if (typeof (obj1[p]) == 'undefined') return false;
     	}
         
-    	return false;
+    	return true;
     }
 }
