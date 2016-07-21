@@ -66,9 +66,15 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             placeholder: this.slotChar,
             clearIncomplete: this.clearIncomplete,
             clearMaskOnLostFocus: this.clearMaskOnLostFocus,
-            onKeyDown: (event, buffer, caretPos, opts) => {
-                let val = this.unmask ? jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue') : event.target.value;
-                this.onModelChange(val);
+			onKeyDown: (event, buffer, caretPos, opts) => {
+				let val = this.unmask ? jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue') : event.target.value;
+				this.onModelChange(val);
+			},
+			onBeforeWrite: (event, buffer, caretPos, opts) => {
+				if(event.target != null){
+					let val = this.unmask ? jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue') : event.target.value;
+					this.onModelChange(val);
+				}
             },
             oncomplete: (event) => {
                 this.onComplete.emit(event);
