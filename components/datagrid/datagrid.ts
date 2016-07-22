@@ -10,11 +10,13 @@ import {Paginator} from '../paginator/paginator';
             <div class="ui-datagrid-header ui-widget-header ui-corner-top" *ngIf="header">
                 <ng-content select="header"></ng-content>
             </div>
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
+                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-content ui-widget-content" [ngClass]="'ui-datagrid-col-' + columns">
                 <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
-                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator"></p-paginator>
+                (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-footer ui-widget-header ui-corner-top" *ngIf="footer">
                 <ng-content select="footer"></ng-content>
             </div>
@@ -45,6 +47,8 @@ export class DataGrid implements AfterViewInit,DoCheck {
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    @Input() paginatorPosition: string = 'bottom';
         
     @ContentChild(Header) header;
 

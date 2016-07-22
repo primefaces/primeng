@@ -19,6 +19,8 @@ import {DomHandler} from '../dom/domhandler';
             <div class="ui-datatable-header ui-widget-header" *ngIf="header" [ngStyle]="{'width': scrollWidth}">
                 <ng-content select="header"></ng-content>
             </div>
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
+                (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table>
                     <thead>
@@ -142,7 +144,7 @@ import {DomHandler} from '../dom/domhandler';
                 </table>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
-                (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator"></p-paginator>
+                (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datatable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="footer"></ng-content>
             </div>
@@ -232,6 +234,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     @Input() csvSeparator: string = ',';
     
     @Input() emptyMessage: string = 'No records found';
+    
+    @Input() paginatorPosition: string = 'bottom';
     
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
