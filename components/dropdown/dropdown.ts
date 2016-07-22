@@ -109,6 +109,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     private hoveredItem: any;
     
     private selectedOptionUpdated: boolean;
+    
+    private ngModelValue: any;
             
     ngOnInit() {
         this.optionsToDisplay = this.options;
@@ -128,6 +130,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         
         if(changes && this.initialized) {
             this.optionsToDisplay = this.options;
+            if(!this.selectedOption){
+                this.updateSelectedOption(this.ngModelValue);
+            }
             this.updateSelectedOption(this.selectedOption ? this.selectedOption.value: null);
             this.optionsChanged = true;
         }
@@ -175,6 +180,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     writeValue(value: any): void {
+        this.ngModelValue = value;
         this.updateSelectedOption(value);
     }
     
