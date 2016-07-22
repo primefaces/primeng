@@ -979,8 +979,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     
     fixColumnWidths() {
         let columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
-        for(let i = 0; i < columns.length; i++) {
-            columns[i].style.width = columns[i].offsetWidth + 'px';
+        for(let col of columns) {
+            col.style.width = 'auto';
+        }
+        
+        for(let col of columns) {
+            col.style.width = col.offsetWidth + 'px';
         }
     }
     
