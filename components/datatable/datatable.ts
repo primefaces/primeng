@@ -247,6 +247,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
 
     @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();
     
+    @Output() onHeaderCheckboxToggle: EventEmitter<any> = new EventEmitter();
+    
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
     @Input() filterDelay: number = 300;
@@ -703,7 +705,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
                 this.selectionChange.emit(this.selection);
             }
 
-            this.onRowUnselect.emit({originalEvent: event, data: rowData});
+            this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
         }
         else {
             if(this.isSingleSelectionMode()) {
@@ -716,7 +718,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
                 this.selectionChange.emit(this.selection);
             }
 
-            this.onRowSelect.emit({originalEvent: event, data: rowData});
+            this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
         }
     }
     
@@ -724,6 +726,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
         if(this.selection != rowData) {
             this.selection = rowData;
             this.selectionChange.emit(this.selection);
+            this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
         }
     }
     
@@ -731,21 +734,26 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
         let selectionIndex = this.findIndexInSelection(rowData);
         this.selection = this.selection||[];
         
-        if(selectionIndex != -1)
+        if(selectionIndex != -1) {
             this.selection.splice(selectionIndex, 1);
-        else
+            this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
+        }
+            
+        else {
             this.selection.push(rowData);
+            this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
+        }
                  
         this.selectionChange.emit(this.selection);
     }
     
     toggleRowsWithCheckbox(event) {
-        if(event.checked) {
+        if(event.checked)
             this.selection = this.dataToRender.slice(0);
-        }
-        else {
+        else
             this.selection = [];
-        }
+        
+        this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: event.checked});
     }
     
     onRowRightClick(event, rowData) {
