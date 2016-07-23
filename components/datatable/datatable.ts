@@ -10,6 +10,7 @@ import {LazyLoadEvent} from '../common';
 import {FilterMetadata} from '../common';
 import {SortMeta} from '../common';
 import {DomHandler} from '../dom/domhandler';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'p-dtRadioButton',
@@ -386,11 +387,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     globalFilterFunction: any;
 
     preventBlurOnEdit: boolean;
+    
+    columnsSubscription: Subscription;
 
     constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, 
         @Query(Column) cols: QueryList<Column>, private renderer: Renderer, changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
-        cols.changes.subscribe(_ => {
+        this.columnsSubscription = cols.changes.subscribe(_ => {
             this.columns = cols.toArray();
             this.columnsUpdated = true;
             changeDetector.markForCheck();
@@ -1357,6 +1360,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
         if(this.resizableColumns) {
             this.documentColumnResizeListener();
             this.documentColumnResizeEndListener();
+        }
+        
+        if(this.columnsSubscription) {
+            this.columnsSubscription.unsubscribe();
         }
     }
 }
