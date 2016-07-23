@@ -7,7 +7,7 @@ import {SelectItem} from '../common';
         <div [ngStyle]="style" [class]="styleClass"></div>
     `
 })
-export class Schedule {
+export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
     
     @Input() events: any[];
     
