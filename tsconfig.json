@@ -11,5 +11,9 @@
         "declaration": true
     },
     "compileOnSave": false,
-    "buildOnSave": false
+    "buildOnSave": false,
+    "filesGlob" : [
+        "**/*.ts",
+        "!node_modules/**"
+    ]
 }

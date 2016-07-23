@@ -42,11 +42,11 @@ export class DTRadioButton {
     template: `
         <div class="ui-chkbox ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input #cb type="checkbox" [checked]="checked">
+                <input type="checkbox" [checked]="checked">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="handleClick($event)"
                         (mouseover)="hover=true" (mouseout)="hover=false" 
-                        [ngClass]="{'ui-state-hover':hover,'ui-state-active':checked}">
+                        [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked&&!disabled,'ui-state-disabled':disabled}">
                 <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':checked}"></span>
             </div>
         </div>
@@ -55,11 +55,16 @@ export class DTRadioButton {
 export class DTCheckbox {
     
     @Input() checked: boolean;
+    
+    @Input() disabled: boolean;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     handleClick(event) {
-        this.onChange.emit(event);
+        if(!this.disabled) {
+            this.onChange.emit({originalEvent: event, checked: !this.checked});
+        }
+
     }
 }
 
@@ -80,13 +85,14 @@ export class DTCheckbox {
                             <th #headerCell *ngFor="let col of columns;let lastCol = last" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
-                                'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}" 
+                                'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
                                 [draggable]="reorderableColumns" (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)">
                                 <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)">&nbsp;</span>
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
                             </th>
                         </tr>
                         <tr *ngFor="let headerRow of headerRows" class="ui-state-default">
@@ -129,7 +135,7 @@ export class DTCheckbox {
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
                                     <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
-                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox(rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
+                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
@@ -721,10 +727,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
         }
     }
     
-    toggleRowWithCheckbox(rowData: any) {
+    toggleRowWithCheckbox(event,rowData) {
         let selectionIndex = this.findIndexInSelection(rowData);
         this.selection = this.selection||[];
-        console.log(selectionIndex);
         
         if(selectionIndex != -1)
             this.selection.splice(selectionIndex, 1);
@@ -732,6 +737,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
             this.selection.push(rowData);
                  
         this.selectionChange.emit(this.selection);
+    }
+    
+    toggleRowsWithCheckbox(event) {
+        if(event.checked) {
+            this.selection = this.dataToRender.slice(0);
+        }
+        else {
+            this.selection = [];
+        }
     }
     
     onRowRightClick(event, rowData) {
@@ -785,6 +799,23 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
 
     isSelected(rowData) {
         return ((rowData && rowData == this.selection) || this.findIndexInSelection(rowData) != -1);
+    }
+    
+    get allSelected() {
+        let val = true;
+        if(this.dataToRender && this.selection && (this.dataToRender.length == this.selection.length)) {
+            for(let data of this.dataToRender) {
+                console.log(data.vin);
+                if(!this.isSelected(data)) {
+                    val = false;
+                    break;
+                }
+            }
+        }
+        else {
+            val = false;
+        }
+        return val;
     }
 
     onFilterKeyup(value, field, matchMode) {
