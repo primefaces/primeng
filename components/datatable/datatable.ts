@@ -16,32 +16,50 @@ import {DomHandler} from '../dom/domhandler';
     template: `
         <div class="ui-radiobutton ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked">
+                <input type="radio" [checked]="checked">
             </div>
-            <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="handleClick()"
+            <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="handleClick($event)"
                         (mouseenter)="hover=true" (mouseleave)="hover=false"
-                        [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled}">
+                        [ngClass]="{'ui-state-hover':hover,'ui-state-active':checked}">
                 <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':checked}"></span>
             </div>
         </div>
     `
 })
 export class DTRadioButton {
-
-    @Input() value: any;
-
-    @Input() name: string;
-
-    @Input() disabled: boolean;
     
     @Input() checked: boolean;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
-    handleClick() {
-        if(!this.disabled) {
-            this.onClick.emit(null);
-        }
+    handleClick(event) {
+        this.onClick.emit(event);
+    }
+}
+
+@Component({
+    selector: 'p-dtCheckbox',
+    template: `
+        <div class="ui-chkbox ui-widget">
+            <div class="ui-helper-hidden-accessible">
+                <input #cb type="checkbox" [checked]="checked">
+            </div>
+            <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="handleClick($event)"
+                        (mouseover)="hover=true" (mouseout)="hover=false" 
+                        [ngClass]="{'ui-state-hover':hover,'ui-state-active':checked}">
+                <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':checked}"></span>
+            </div>
+        </div>
+    `
+})
+export class DTCheckbox {
+    
+    @Input() checked: boolean;
+
+    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    
+    handleClick(event) {
+        this.onChange.emit(event);
     }
 }
 
@@ -100,7 +118,7 @@ export class DTRadioButton {
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                    [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
+                                    [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                     <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                     <span class="ui-cell-data" *ngIf="!col.template">{{resolveFieldData(rowData,col.field)}}</span>
                                     <span class="ui-cell-data" *ngIf="col.template">
@@ -110,7 +128,8 @@ export class DTRadioButton {
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
-                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="selection == rowData"></p-dtRadioButton>
+                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
+                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox(rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
@@ -185,7 +204,7 @@ export class DTRadioButton {
             </div>
         </div>
     `,
-    directives: [Paginator,InputText,ColumnTemplateLoader,RowExpansionLoader,DTRadioButton],
+    directives: [Paginator,InputText,ColumnTemplateLoader,RowExpansionLoader,DTRadioButton,DTCheckbox],
     providers: [DomHandler]
 })
 export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,OnDestroy {
@@ -696,11 +715,23 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     }
     
     selectRowWithRadio(rowData:any) {
-        console.log(rowData);
         if(this.selection != rowData) {
             this.selection = rowData;
             this.selectionChange.emit(this.selection);
         }
+    }
+    
+    toggleRowWithCheckbox(rowData: any) {
+        let selectionIndex = this.findIndexInSelection(rowData);
+        this.selection = this.selection||[];
+        console.log(selectionIndex);
+        
+        if(selectionIndex != -1)
+            this.selection.splice(selectionIndex, 1);
+        else
+            this.selection.push(rowData);
+                 
+        this.selectionChange.emit(this.selection);
     }
     
     onRowRightClick(event, rowData) {
@@ -740,16 +771,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     findIndexInSelection(rowData: any) {
         let index: number = -1;
 
-        if(this.selectionMode && this.selection) {
-            if(this.isSingleSelectionMode()) {
-                index = (this.selection == rowData) ? 0 : - 1;
-            }
-            else if(this.isMultipleSelectionMode()) {
-                for(let i = 0; i  < this.selection.length; i++) {
-                    if(this.selection[i] == rowData) {
-                        index = i;
-                        break;
-                    }
+        if(this.selection) {
+            for(let i = 0; i  < this.selection.length; i++) {
+                if(this.selection[i] == rowData) {
+                    index = i;
+                    break;
                 }
             }
         }
@@ -758,7 +784,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     }
 
     isSelected(rowData) {
-        return this.findIndexInSelection(rowData) != -1;
+        return ((rowData && rowData == this.selection) || this.findIndexInSelection(rowData) != -1);
     }
 
     onFilterKeyup(value, field, matchMode) {
