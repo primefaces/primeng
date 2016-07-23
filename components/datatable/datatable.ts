@@ -12,6 +12,40 @@ import {SortMeta} from '../common';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
+    selector: 'p-dtRadioButton',
+    template: `
+        <div class="ui-radiobutton ui-widget">
+            <div class="ui-helper-hidden-accessible">
+                <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked">
+            </div>
+            <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="handleClick()"
+                        (mouseenter)="hover=true" (mouseleave)="hover=false"
+                        [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled}">
+                <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':checked}"></span>
+            </div>
+        </div>
+    `
+})
+export class DTRadioButton {
+
+    @Input() value: any;
+
+    @Input() name: string;
+
+    @Input() disabled: boolean;
+    
+    @Input() checked: boolean;
+
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
+    
+    handleClick() {
+        if(!this.disabled) {
+            this.onClick.emit(null);
+        }
+    }
+}
+
+@Component({
     selector: 'p-dataTable',
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
@@ -76,6 +110,7 @@ import {DomHandler} from '../dom/domhandler';
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
+                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="selection == rowData"></p-dtRadioButton>
                                 </td>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
@@ -150,7 +185,7 @@ import {DomHandler} from '../dom/domhandler';
             </div>
         </div>
     `,
-    directives: [Paginator,InputText,ColumnTemplateLoader,RowExpansionLoader],
+    directives: [Paginator,InputText,ColumnTemplateLoader,RowExpansionLoader,DTRadioButton],
     providers: [DomHandler]
 })
 export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,OnDestroy {
@@ -657,6 +692,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
             }
 
             this.onRowSelect.emit({originalEvent: event, data: rowData});
+        }
+    }
+    
+    selectRowWithRadio(rowData:any) {
+        console.log(rowData);
+        if(this.selection != rowData) {
+            this.selection = rowData;
+            this.selectionChange.emit(this.selection);
         }
     }
     
@@ -1176,7 +1219,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     isRowExpanded(row) {
         return this.findExpandedRowIndex(row) != -1;
     }
-    
+        
     public reset() {
         this.sortField = null;
         this.sortOrder = 1;

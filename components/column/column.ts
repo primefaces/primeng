@@ -21,6 +21,7 @@ export class Column {
     @Input() styleClass: string;
     @Input() hidden: boolean;
     @Input() expander: boolean;
+    @Input() selectionMode: string;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
     @ContentChild(TemplateRef) template: TemplateRef<any>;
     

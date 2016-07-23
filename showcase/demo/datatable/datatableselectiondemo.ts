@@ -28,8 +28,12 @@ export class DataTableSelectionDemo implements OnInit {
     selectedCar1: Car;
 
     selectedCar2: Car;
+    
+    selectedCar3: Car;
 
-    selectedCars: Car[];
+    selectedCars1: Car[];
+    
+    selectedCars2: Car[];
 
     constructor(private carService: CarService) { }
 
