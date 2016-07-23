@@ -248,7 +248,7 @@ Selected Cities: &lt;span *ngFor="let city of selectedCities"&gt;{{city}} &nbsp;
         &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Sports&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Entertainment" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Entertainment" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
         &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Entertainment&lt;/label&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
