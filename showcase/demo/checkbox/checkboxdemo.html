@@ -7,49 +7,26 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">New York</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">San Francisco</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Los Angeles</label></div>
-        </div>
+    <div class="ui-g" style="width:250px;margin-bottom:10px">
+        <div class="ui-g-12"><p-checkbox name="group1" value="New York" label="New York" [(ngModel)]="selectedCities"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="San Francisco" label="San Francisco" [(ngModel)]="selectedCities"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="Los Angeles" label="Los Angeles" [(ngModel)]="selectedCities"></p-checkbox></div>
     </div>
 
     Selected Cities: <span *ngFor="let city of selectedCities">{{city}} &nbsp;&nbsp;</span>
 
     <h3>Preselection</h3>
-    <div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Technology" [(ngModel)]="selectedCategories"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Technology</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Finance" [(ngModel)]="selectedCategories"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Finance</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Sports" [(ngModel)]="selectedCategories"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Sports</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-checkbox name="group2" value="Entertainment" [(ngModel)]="selectedCategories"></p-checkbox></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Entertainment</label></div>
-        </div>
+    <div class="ui-g" style="width:250px;margin-bottom:10px">
+        <div class="ui-g-12"><p-checkbox name="group2" value="Technology" label="Technology" [(ngModel)]="selectedCategories"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group2" value="Finance" label="Finance" [(ngModel)]="selectedCategories"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group2" value="Sports" label="Sports" [(ngModel)]="selectedCategories"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories"></p-checkbox></div>
     </div>
 
     Selected Categories: <span *ngFor="let cat of selectedCategories">{{cat}} &nbsp;&nbsp;</span>
     
-    <h3>Boolean</h3>
+    <h3>Boolean - {{checked}}</h3>
     <p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox>
-    <br>
-    {{checked}}
 </div>
 
 <div class="ContentSideSections Source">
@@ -93,6 +70,15 @@ export class ModelComponent {
     selectedValues: string[] = ['val1','val2'];
 
 }
+</code>
+</pre>
+
+        <h4>Label</h4>
+        <p>The label attribute provides a label text for the checkbox. This label is also clickable and toggles the checked state.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
+&lt;p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>
 
@@ -145,6 +131,12 @@ export class ModelComponent {
                             <td>any</td>
                             <td>null</td>
                             <td>Value of the checkbox.</td>
+                        </tr>
+                        <tr>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Label of the checkbox.</td>
                         </tr>
                         <tr>
                             <td>disabled</td>
@@ -205,6 +197,10 @@ export class ModelComponent {
                             <td>ui-chkbox-icon</td>
                             <td>Icon element.</td>
                         </tr>
+                        <tr>
+                            <td>ui-chkbox-label</td>
+                            <td>Label element.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -216,48 +212,26 @@ export class ModelComponent {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;New York&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;San Francisco&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Los Angeles&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
+&lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="New York" label="New York" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="San Francisco" label="San Francisco" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="Los Angeles" label="Los Angeles" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
 &lt;/div&gt;
 
 Selected Cities: &lt;span *ngFor="let city of selectedCities"&gt;{{city}} &nbsp;&nbsp;&lt;/span&gt;
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
-&lt;div class="ui-grid ui-grid-responsive" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Technology" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Technology&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Finance" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Finance&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Sports" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Sports&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-checkbox name="group2" value="Entertainment" [(model)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Entertainment&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
+&lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Technology" label="Technology" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Finance" label="Finance" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Sports" label="Sports" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
 &lt;/div&gt;
 
 Selected Categories: &lt;span *ngFor="let cat of selectedCategories"&gt;{{cat}} &nbsp;&nbsp;&lt;/span&gt;
 
-&lt;h3&gt;Boolean&lt;/h3&gt;
+&lt;h3&gt;Boolean - {{checked}}&lt;/h3&gt;
 &lt;p-checkbox [(ngModel)]="checked" binary="true"&gt;&lt;/p-checkbox&gt;
-{{checked}}
 </code>
 </pre>
 

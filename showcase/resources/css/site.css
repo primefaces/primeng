@@ -618,5 +618,9 @@ pre {
     width: 17px;
 }
 
+.ui-chkbox, .ui-chkbox-label {
+    vertical-align: middle;
+}
+
 
 
