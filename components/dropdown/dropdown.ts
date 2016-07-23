@@ -76,6 +76,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         
     selectedOption: SelectItem;
     
+    value: any;
+    
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
@@ -128,7 +130,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         
         if(changes && this.initialized) {
             this.optionsToDisplay = this.options;
-            this.updateSelectedOption(this.selectedOption ? this.selectedOption.value: null);
+            this.updateSelectedOption(this.value);
             this.optionsChanged = true;
         }
     }
@@ -149,11 +151,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     onItemClick(option) {
         this.itemClick = true;
         this.selectedOption = option;
+        this.value = option.value;
                 
-        this.onModelChange(this.selectedOption.value);
+        this.onModelChange(this.value);
         this.onChange.emit({
             originalEvent: event,
-            value: this.selectedOption.value
+            value: this.value
         });
                                 
         this.hide();
@@ -175,6 +178,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     writeValue(value: any): void {
+        this.value = value;
         this.updateSelectedOption(value);
     }
     
