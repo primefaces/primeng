@@ -346,7 +346,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     
     private sortColumn: Column;
     
-    private expandedRows: any[];
+    @Input() expandedRows: any[];
     
     private percentageScrollHeight: boolean;
         
