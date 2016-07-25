@@ -59,6 +59,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() responsive: boolean;
     
+    @Input() appendTo: any;
+    
     @ContentChild(Header) headerFacet;
 
     @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
@@ -167,6 +169,13 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
                     }
                 }
             });
+        }
+        
+        if(this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.el.nativeElement);
+            else
+                this.appendTo.appendChild(this.el.nativeElement);
         }
     }
     
@@ -301,6 +310,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         
         if(this.closeOnEscape && this.closable) {
             this.documentEscapeListener();
+        }
+        
+        if(this.appendTo && this.appendTo === 'body') {
+            document.body.removeChild(this.el.nativeElement);
         }
     }
 
