@@ -604,23 +604,6 @@ pre {
     text-align: center;
 }
 
-.ui-datatable .ui-selection-column .ui-chkbox,
-.ui-datatable .ui-selection-column .ui-radiobutton {
-     margin: 0;
-     display: block;
-}
-
-.ui-datatable .ui-selection-column .ui-chkbox-box,
-.ui-datatable .ui-selection-column .ui-radiobutton-box {
-    display: block;
-    box-sizing: border-box;
-    height: 17px;
-    width: 17px;
-}
-
-.ui-chkbox, .ui-chkbox-label {
-    vertical-align: middle;
-}
 
 
 

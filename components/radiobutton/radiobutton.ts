@@ -18,6 +18,7 @@ const RADIO_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
                 <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':checked}"></span>
             </div>
         </div>
+        <label class="ui-radiobutton-label" (click)="onclick()" *ngIf="label">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR]
 })
@@ -28,6 +29,8 @@ export class RadioButton implements ControlValueAccessor {
     @Input() name: string;
 
     @Input() disabled: boolean;
+    
+    @Input() label: string;
 
     @Output() click: EventEmitter<any> = new EventEmitter();
     

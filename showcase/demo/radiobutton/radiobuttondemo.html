@@ -7,36 +7,18 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <div class="ui-grid ui-grid-responsive ui-grid-pad" style="width:250px;margin-bottom:10px">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 1" [(ngModel)]="val1"></p-radioButton></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Option 1</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 2" [(ngModel)]="val1"></p-radioButton></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Option 2</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 3" [(ngModel)]="val1"></p-radioButton></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Option 3</label></div>
-        </div>
+    <div class="ui-g" style="width:250px;margin-bottom:10px">
+        <div class="ui-g-12"><p-radioButton name="group1" value="Option 1" label="Option 1" [(ngModel)]="val1"></p-radioButton></div>
+        <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val1"></p-radioButton></div>
+        <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val1"></p-radioButton></div>
     </div>
     Selected Value = {{val1||'none'}}
 
     <h3>Preselection</h3>
-    <div class="ui-grid ui-grid-responsive ui-grid-pad" style="width:250px;margin-bottom:10px">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 1" [(ngModel)]="val2"></p-radioButton></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Option 1</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radioButton name="group2" value="Option 2" [(ngModel)]="val2"></p-radioButton></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Option 2</label></div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-1"><p-radioButton name="group2" value="Option 3" [(ngModel)]="val2"></p-radioButton></div>
-            <div class="ui-grid-col-11"><label class="ui-widget">Option 3</label></div>
-        </div>
+    <div class="ui-g" style="width:250px;margin-bottom:10px">
+        <div class="ui-g-12"><p-radioButton name="group1" value="Option 1" label="Option 1" [(ngModel)]="val2"></p-radioButton></div>
+        <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val2"></p-radioButton></div>
+        <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val2"></p-radioButton></div>
     </div>
     Selected Value = {{val2||'none'}}
 </div>
@@ -90,6 +72,14 @@ export class ModelComponent {
 </code>
 </pre>
 
+            <h4>Label</h4>
+            <p>The label attribute provides a label text for the radio button. This label is also clickable and selects value.</p>
+            <pre>
+<code class="language-markup" pCode>
+&lt;p-radioButton name="groupname" value="val1" label="Option 2" [(ngModel)]="selectedValue"&gt;&lt;/p-radioButton&gt;
+</code>
+            </pre>
+
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -106,13 +96,19 @@ export class ModelComponent {
                             <td>name</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Name of the checkbox group.</td>
+                            <td>Name of the radiobutton group.</td>
                         </tr>
                         <tr>
                             <td>value</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Value of the checkbox.</td>
+                            <td>Value of the radiobutton.</td>
+                        </tr>
+                        <tr>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Label of the radiobutton.</td>
                         </tr>
                         <tr>
                             <td>disabled</td>
@@ -137,7 +133,7 @@ export class ModelComponent {
                     <tbody>
                         <tr>
                             <td>click</td>
-                            <td>-.</td>
+                            <td>-</td>
                             <td>Callback to invoke on radio button click.</td>
                         </tr>
                     </tbody>
@@ -167,6 +163,10 @@ export class ModelComponent {
                             <td>ui-radiobutton-icon</td>
                             <td>Icon element.</td>
                         </tr>
+                        <tr>
+                            <td>ui-chkbox-label</td>
+                            <td>Label element.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -180,36 +180,18 @@ export class ModelComponent {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;div class="ui-grid ui-grid-responsive ui-grid-pad" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 1" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 2" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 3" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
+&lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 1" label="Option 1" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;/div&gt;
 Selected Value = {{val1||'none'}}
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
-&lt;div class="ui-grid ui-grid-responsive ui-grid-pad" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 1" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group2" value="Option 2" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group2" value="Option 3" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
-    &lt;/div&gt;
+&lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 1" label="Option 1" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;/div&gt;
 Selected Value = {{val2||'none'}}
 </code>
