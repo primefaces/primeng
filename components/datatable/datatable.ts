@@ -300,6 +300,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     
     @Input() paginatorPosition: string = 'bottom';
     
+    @Input() expandedRows: any[];
+    
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
@@ -345,8 +347,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     private stopSortPropagation: boolean;
     
     private sortColumn: Column;
-    
-    private expandedRows: any[];
     
     private percentageScrollHeight: boolean;
         
