@@ -154,6 +154,34 @@ export class DataTableSelectionDemo implements OnInit {
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
+
+&lt;h3&gt;RadioButton&lt;/h3&gt;
+&lt;p&gt;Single selection can also be handled using radio buttons by enabling the selectionMode property of column as "single".&lt;/p&gt;
+&lt;p-dataTable [value]="cars" [(selection)]="selectedCar3"&gt;
+    &lt;header&gt;Single Selection&lt;/header&gt;
+    &lt;footer&gt;&lt;div style="text-align: left"&gt;Selected Car: {{selectedCar3 ? selectedCar3.vin + ' - ' + selectedCar3.brand + ' - ' + selectedCar3.year + ' - ' + selectedCar3.color: 'none'}}&lt;/div&gt;&lt;/footer&gt;
+    &lt;p-column [style]="{'width':'38px'}" selectionMode="single"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;h3&gt;Checkbox&lt;/h3&gt;
+&lt;p&gt;Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".&lt;/p&gt;
+&lt;p-dataTable [value]="cars" [(selection)]="selectedCars2"&gt;
+    &lt;header&gt;Single Selection&lt;/header&gt;
+    &lt;p-column [style]="{'width':'38px'}" selectionMode="multiple"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+    &lt;footer&gt;
+        &lt;ul&gt;
+            &lt;li *ngFor="let car of selectedCars1" style="text-align: left"&gt;{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/footer&gt;
+&lt;/p-dataTable&gt;
 </code>
 </pre>
         </p-tabPanel>
