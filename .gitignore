@@ -8,6 +8,9 @@ showcase/*.js
 showcase/demo/**/*.js
 *.map
 
+# production showcase bundle
+prod
+
 # type definition
 typings
 *.d.ts

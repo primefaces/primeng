@@ -32,14 +32,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.quilljs.com/1.0.0-beta.3/quill.snow.css" />
         <link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" />
         <link rel="stylesheet" type="text/css" href="showcase/resources/css/site.css" />
-        
-        <!-- 1. Load libraries -->
-        <!-- Polyfill(s) for older browsers -->
-        <script src="node_modules/core-js/client/shim.min.js"></script>
-        <script src="node_modules/zone.js/dist/zone.js"></script>
-        <script src="node_modules/reflect-metadata/Reflect.js"></script>
-        <script src="node_modules/systemjs/dist/system.src.js"></script>
-        
+                
         <!-- Datetimepicker, Slider, Schedule -->
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -66,12 +59,10 @@
         
         <!-- Showcase -->
         <script src="showcase/resources/js/site.js"></script>
-        
-        <!-- 2. Configure SystemJS -->
-        <script src="systemjs.config.js"></script>
-        <script>
-            System.import('showcase').catch(function(err){ console.error(err);  });
-        </script>
+
+        <script src="prod/polyfills.js"></script>
+        <script src="prod/vendor.js"></script>        
+        <script src="prod/app.js"></script>
     </head>
 
     <body>

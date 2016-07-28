@@ -5,7 +5,6 @@ import {APP_ROUTER_PROVIDERS} from './app.routes';
 import {enableProdMode} from '@angular/core';
 import {LocationStrategy,HashLocationStrategy} from '@angular/common';
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
-import 'rxjs/Rx';
 
 //enableProdMode();
 bootstrap(AppComponent, [
