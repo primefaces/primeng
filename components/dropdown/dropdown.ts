@@ -36,7 +36,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
                     <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                         <li #item *ngFor="let option of optionsToDisplay;let i=index" 
                             [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-hover':hoveredItem == item,'ui-state-highlight':(selectedOption == option)}"
-                            (click)="onItemClick(option)" (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
+                            (click)="onItemClick($event, option)" (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                             <span *ngIf="!itemTemplate">{{option.label}}</span>
                             <template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></template>
                         </li>
@@ -148,7 +148,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         return this.selectedOption ? this.selectedOption.label : null;
     }
     
-    onItemClick(option) {
+    onItemClick(event, option) {
         this.itemClick = true;
         this.selectedOption = option;
         this.value = option.value;
