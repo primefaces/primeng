@@ -30,6 +30,11 @@
             <input [(ngModel)]="node.label" type="text" style="width:100%">
         </template>
     </p-tree>
+    
+    <h3>Context Menu</h3>
+    <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
+    
+    <p-contextMenu #cm [model]="items" [global]="false"></p-contextMenu>
 </div>
 
 <div class="ContentSideSections Source">
@@ -313,6 +318,17 @@ export class TreeDemoComponent implements OnInit {
 </code>
 </pre>
 
+            <h3>ContextMenu</h3>
+            <p>Tree has exclusive integration with context menu created by binding a menu instance to the tree.</p>
+
+<pre>
+<code class="language-markup" pCode>
+&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
+
+&lt;p-contextMenu #cm [model]="items" [global]="false"&gt;&lt;/p-contextMenu&gt;
+</code>
+</pre>
+
             <h3>Lazy Loading</h3>
             <p>Lazy loading is handy to deal with large datasets. Instead of loading the whole tree, nodes can be loaded at onNodeExpand event.
             Important part of implementing lazy loading is defining leaf property of a node as false, this will instruct tree to display an arrow icon
@@ -424,6 +440,12 @@ export class TreeDemoComponent implements OnInit {
                             <td>null</td>
                             <td>Style class of the component.</td>
                         </tr>
+                        <tr>
+                            <td>contextMenu</td>
+                            <td>ContextMenu</td>
+                            <td>null</td>
+                            <td>Context menu instance.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -462,6 +484,12 @@ export class TreeDemoComponent implements OnInit {
                             <td>event.originalEvent: browser event <br>
                                 event.node: Collapsed node instance.</td>
                             <td>Callback to invoke when a node is collapsed.</td>
+                        </tr>
+                        <tr>
+                            <td>onNodeContextMenuSelect</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.node: Selected node instance.</td>
+                            <td>Callback to invoke when a node is selected with right click.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -545,6 +573,11 @@ Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &l
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
+
+&lt;h3&gt;Context Menu&lt;/h3&gt;
+&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
+
+&lt;p-contextMenu #cm [model]="items" [global]="false"&gt;&lt;/p-contextMenu&gt;
 </code>
 </pre>
 
@@ -560,13 +593,22 @@ export class TreeDemo implements OnInit {
     
     selectedFile: TreeNode;
     
+    selectedFile2: TreeNode;
+    
     selectedFiles: TreeNode[];
+    
+    items: MenuItem[];
         
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {
         this.nodeService.getFiles().then(files => this.files = files);
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
+        
+        this.items = [
+            {label: 'View', icon: 'fa-search', command: (event) => this.viewFile(this.selectedFile2)},
+            {label: 'Unselect', icon: 'fa-close', command: (event) => this.unselectFile()}
+        ];
     }
     
     nodeSelect(event) {
@@ -584,6 +626,15 @@ export class TreeDemo implements OnInit {
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
             this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
         }
+    }
+    
+    viewFile(file: TreeNode) {
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'Node Selected with Right Click', detail: file.label});
+    }
+    
+    unselectFile() {
+        this.selectedFile2 = null;
     }
 }
 </code>

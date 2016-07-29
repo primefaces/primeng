@@ -31,13 +31,17 @@ export class Tree {
     
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
     
+    @Output() onNodeContextMenuSelect: EventEmitter<any> = new EventEmitter();
+    
     @Input() style: any;
         
     @Input() styleClass: string;
     
+    @Input() contextMenu: any;
+    
     @ContentChild(TemplateRef) template: TemplateRef<any>;
     
-    onNodeClick(event, node) {
+    onNodeClick(event, node: TreeNode) {
         if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {
             return;
         }
@@ -68,6 +72,28 @@ export class Tree {
                 }
 
                 this.onNodeSelect.emit({originalEvent: event, node: node});
+            }
+        }
+    }
+    
+    onNodeRightClick(event, node: TreeNode) {
+        if(this.contextMenu) {
+            if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {
+                return;
+            }
+            else {
+                let index = this.findIndexInSelection(node);
+                let selected = (index >= 0);
+                
+                if(!selected) {
+                    if(this.isSingleSelectionMode())
+                        this.selectionChange.emit(node);
+                    else
+                        this.selectionChange.emit([node]);
+                }
+                   
+                this.contextMenu.show(event);
+                this.onNodeContextMenuSelect.emit({originalEvent: event, node: node});
             }
         }
     }

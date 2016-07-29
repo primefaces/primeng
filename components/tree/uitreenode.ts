@@ -8,7 +8,7 @@ import {TreeNodeTemplateLoader} from './treenodetemplateloader';
     template: `
         <li class="ui-treenode" *ngIf="node">
             <div class="ui-treenode-content" [ngClass]="{'ui-treenode-selectable': tree.selectionMode}" 
-                (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)">
+                (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
                 <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!expanded,'fa-caret-down':expanded}" *ngIf="!isLeaf()"
                         (click)="toggle($event)"></span
                 ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
@@ -63,6 +63,10 @@ export class UITreeNode {
     
     onNodeClick(event) {
         this.tree.onNodeClick(event, this.node);
+    }
+    
+    onNodeRightClick(event) {
+        this.tree.onNodeRightClick(event, this.node);
     }
     
     isSelected() {
