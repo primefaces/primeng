@@ -34,7 +34,7 @@
     <h3>Context Menu</h3>
     <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
     
-    <p-contextMenu #cm [model]="items" [global]="false"></p-contextMenu>
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
 </div>
 
 <div class="ContentSideSections Source">
@@ -325,7 +325,7 @@ export class TreeDemoComponent implements OnInit {
 <code class="language-markup" pCode>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
 
-&lt;p-contextMenu #cm [model]="items" [global]="false"&gt;&lt;/p-contextMenu&gt;
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
 </code>
 </pre>
 
@@ -577,7 +577,7 @@ Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &l
 &lt;h3&gt;Context Menu&lt;/h3&gt;
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
 
-&lt;p-contextMenu #cm [model]="items" [global]="false"&gt;&lt;/p-contextMenu&gt;
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
 </code>
 </pre>
 
