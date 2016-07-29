@@ -1,5 +1,0 @@
-{
-  "port": 8080,
-  "files": ["./showcase/**/*.{html}","./prod/*.js"],
-  "server": { "baseDir": "./" }
-}
