@@ -5,7 +5,9 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" "
+    "webpack": "webpack",
+    "webpack:w": "webpack -w",
+    "start": "npm run tsc && npm run webpack && npm run lite"
   },
   "repository": {
     "type": "git",
