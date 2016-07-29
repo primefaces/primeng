@@ -122,10 +122,12 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
             this.hide();
         });
         
-        this.documentRightClickListener = this.renderer.listenGlobal('body', 'contextmenu', (event) => {
-            this.show(event);
-            event.preventDefault();
-        });
+        if(this.global) {
+            this.documentRightClickListener = this.renderer.listenGlobal('body', 'contextmenu', (event) => {
+                this.show(event);
+                event.preventDefault();
+            });
+        }
     }
     
     toggle(event) {
@@ -140,6 +142,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         this.top = event.pageY;
         this.visible = true;
         this.domHandler.fadeIn(this.container, 250);
+        event.preventDefault();
     }
     
     hide() {
@@ -160,8 +163,11 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         
     ngOnDestroy() {
         this.documentClickListener();
-        this.documentRightClickListener();
         
+        if(this.global) {
+            this.documentRightClickListener();    
+        }
+
         if(this.model) {
             for(let item of this.model) {
                 this.unsubscribe(item);
