@@ -816,7 +816,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
         let val = true;
         if(this.dataToRender && this.selection && (this.dataToRender.length == this.selection.length)) {
             for(let data of this.dataToRender) {
-                console.log(data.vin);
                 if(!this.isSelected(data)) {
                     val = false;
                     break;
