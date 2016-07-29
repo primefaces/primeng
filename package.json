@@ -13,12 +13,13 @@
   },
   "license": "Apache-2.0",
   "peerDependencies": {
-      "primeui": "^4.1.14"
+    "primeui": "^4.1.14"
   },
   "devDependencies": {
-      "concurrently": "^2.0.0",
-      "lite-server": "^2.2.0",
-      "typescript": "^1.8.10",
-      "typings":"^1.0.4"
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4",
+    "webpack": "^1.13.1"
   }
 }
