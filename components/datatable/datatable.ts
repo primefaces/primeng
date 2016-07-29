@@ -343,6 +343,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     private columns: Column[];
 
     private columnsUpdated: boolean = false;
+
+    private previousDataSize: number;
     
     private stopSortPropagation: boolean;
     
@@ -395,6 +397,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
         this.differ = differs.find([]).create(null);
         this.columnsSubscription = cols.changes.subscribe(_ => {
             this.columns = cols.toArray();
+            if (this.sortField && !this.sortColumn) {
+                for (let count: number = 0; count < this.columns.length; count++) {
+                    if (this.columns[count].field === this.sortField) {
+                        this.sortColumn = this.columns[count];
+                        break;
+                    }
+                }
+            }
             this.columnsUpdated = true;
             changeDetector.markForCheck();
         });
@@ -448,16 +458,24 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
             if(this.paginator) {
                 this.updatePaginator();
             }
+
+            let forceSort = this.value.length != this.previousDataSize;
             
-            if(this.stopSortPropagation) {
-                this.stopSortPropagation = false;
-            }
-            else if(!this.lazy && (this.sortField||this.multiSortMeta)) {                    
+            if((!this.stopSortPropagation || forceSort) &&
+                !this.lazy &&
+                (this.sortField||this.multiSortMeta)
+            ) {
                 if(this.sortMode == 'single')
                     this.sortSingle();
                 else if(this.sortMode == 'multiple')
                     this.sortMultiple();
             }
+
+            if(this.stopSortPropagation) {
+                this.stopSortPropagation = false;
+            }
+
+            this.previousDataSize = this.value.length;
             
             this.updateDataToRender(this.filteredValue||this.value);
         }
