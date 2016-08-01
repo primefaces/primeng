@@ -168,7 +168,7 @@ export class DTCheckbox {
                                     <span class="ui-column-title">{{col.header}}</span>
                                     <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                          [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
-                                    <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                    <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''"  (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                                 </th>
                             </tr>
                         </thead>
@@ -336,7 +336,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
 
     private filterTimeout: any;
 
-    private filters: {[s: string]: FilterMetadata;} = {};
+    @Input() filters: {[s: string]: FilterMetadata;} = {};
 
     private filteredValue: any[];
 
@@ -401,15 +401,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     }
 
     ngOnInit() {
-        if(this.lazy) {
-            this.onLazyLoad.emit({
-                first: this.first,
-                rows: this.rows,
-                sortField: this.sortField,
-                sortOrder: this.sortOrder,
-                filters: null,
-                multiSortMeta: this.multiSortMeta
-            });
+        if(this.lazy&&!this.paginator) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
     }
 
