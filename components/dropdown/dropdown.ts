@@ -150,6 +150,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     onItemClick(event, option) {
         this.itemClick = true;
+        this.selectItem(event, option);
+                                
+        this.hide();
+    }
+    
+    selectItem(event, option) {
         this.selectedOption = option;
         this.value = option.value;
                 
@@ -158,8 +164,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             originalEvent: event,
             value: this.value
         });
-                                
-        this.hide();
     }
     
     ngAfterViewChecked() {
@@ -270,11 +274,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                         if(nextItemIndex != (this.optionsToDisplay.length)) {
                             this.selectedOption = this.optionsToDisplay[nextItemIndex];
                             this.selectedOptionUpdated = true;
+                            this.selectItem(event, this.selectedOption);
                         }
                     }
                     else {
                         this.selectedOption = this.optionsToDisplay[0];
-                    }
+                    }                    
                 }
                 
                 event.preventDefault();
@@ -287,14 +292,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                     let prevItemIndex = selectedItemIndex - 1;
                     this.selectedOption = this.optionsToDisplay[prevItemIndex];
                     this.selectedOptionUpdated = true;
+                    this.selectItem(event, this.selectedOption);
                 }
                 
                 event.preventDefault();
             break;
             
             //enter
-            case 13:
-                this.panelVisible = false;
+            case 13:                                        
+                this.hide();
+
                 event.preventDefault();
             break;
             
