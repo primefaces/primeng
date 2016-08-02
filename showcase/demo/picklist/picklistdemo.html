@@ -145,6 +145,32 @@ export class MyComponent {
                 </table>
             </div>
 
+            <h3>Events</h3>
+            <p>Two Event Emitters have been added so that someone implementing picklist can access the element(s) that are actually being
+            transferred.</p>
+            <p>They're called: movedLeft and movedRight.</p>
+            <p>To utilize the emitters, just listen for either or both as shown below. This should be placed in the main p-picklist element line.</p>
+            <br>
+            <pre>
+                <code class="language-typescript" pCode>
+                    (movedLeft)="your_method($event)"
+                    (movedRight)="your_method($event)"
+                    p-picklist (movedLeft)="method_to_handle_event($event)" (movedRight)="method_to_handle_event($event)"
+                </code>
+            </pre>
+            <br>
+            <p>They emit a JSON object (this is what $event is) in the format below:</p>
+            <pre>
+                <code class="language-typescript" pCode>
+                    {direction:string,data:any}
+                </code>
+            </pre>
+            <p>direction - is either the string 'left' or 'right' indicating which direction the data is GOING TO</p>
+            <p>data - is the actual data that is being sent left or right which is of type 'any' but based off the picklist structure it will be an array of >= 1 items.</p>
+
+            <p>The emitters will only fire if data was actually moved. I.E. if the user clicks something from the left and then clicks the transfer to left button...Nothing actually transfers
+            and thus no emitter is fired. Likewise, if multiple items are selected and transfered the data will consist of a single array containing all the items.</p>
+
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
