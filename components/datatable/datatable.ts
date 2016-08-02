@@ -755,6 +755,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
             this.selection = this.dataToRender.slice(0);
         else
             this.selection = [];
+            
+        this.selectionChange.emit(this.selection);
         
         this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: event.checked});
     }
