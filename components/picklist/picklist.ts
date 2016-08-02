@@ -93,7 +93,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     mRight: string = 'right';
 
     mLeft: string = 'left';
-    
+
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
         
     ngAfterViewChecked() {
@@ -251,7 +251,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
             for(let i = 0; i < this.target.length; i++) {
                 this.source.push(this.target[i]);
             }
-            this.movedLeft.emit({direction: this.mLeft, data: this.selectedItems});
+            this.movedLeft.emit({direction: this.mLeft, data: this.target});
             this.target.splice(0, this.target.length);
             this.selectedItems = [];
         }
