@@ -86,7 +86,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     
     movedDown: boolean;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
         
     ngAfterViewChecked() {
         if(this.movedUp||this.movedDown) {

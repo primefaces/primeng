@@ -31,7 +31,7 @@ export class MenubarSub {
     
     @Input() root: boolean;
     
-    constructor(private domHandler: DomHandler, private router: Router) {}
+    constructor(protected domHandler: DomHandler, protected router: Router) {}
     
     activeItem: any;
     
@@ -109,7 +109,7 @@ export class Menubar implements OnDestroy {
 
     @Input() styleClass: string;
             
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
     
     unsubscribe(item: any) {
         if(item.eventEmitter) {

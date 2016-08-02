@@ -51,7 +51,7 @@ export class Menu implements AfterViewInit,OnDestroy {
     
     preventDocumentDefault: any;
     
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, private router: Router) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer, protected router: Router) {}
 
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];

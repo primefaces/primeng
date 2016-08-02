@@ -45,7 +45,7 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
 
     initialized: boolean;
 
-    constructor(private el: ElementRef) {
+    constructor(protected el: ElementRef) {
         this.initialized = false;
     }
 

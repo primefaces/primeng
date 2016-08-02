@@ -23,7 +23,7 @@ export class Accordion {
     
     public tabs: AccordionTab[] = [];
 
-    constructor(private el: ElementRef) {}
+    constructor(protected el: ElementRef) {}
 
     addTab(tab: AccordionTab) {
         this.tabs.push(tab);

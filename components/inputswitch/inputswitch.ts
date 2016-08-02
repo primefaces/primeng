@@ -49,23 +49,23 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
 
     onModelTouched: Function = () => {};
 
-    private container: any;
+    protected container: any;
 
-    private handle: any;
+    protected handle: any;
 
-    private onContainer: any;
+    protected onContainer: any;
 
-    private offContainer: any;
+    protected offContainer: any;
 
-    private onLabelChild: any;
+    protected onLabelChild: any;
 
-    private offLabelChild: any;
+    protected offLabelChild: any;
 
-    private offset: any;
+    protected offset: any;
     
     initialized: boolean = false;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
 
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];

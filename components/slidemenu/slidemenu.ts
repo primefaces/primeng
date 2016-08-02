@@ -39,7 +39,7 @@ export class SlideMenuSub implements OnDestroy {
         
     @Input() easing: string = 'ease-out';
         
-    constructor(@Inject(forwardRef(() => SlideMenu)) private slideMenu: SlideMenu, private router: Router) {}
+    constructor(@Inject(forwardRef(() => SlideMenu)) protected slideMenu: SlideMenu, protected router: Router) {}
     
     activeItem: any;
         
@@ -114,15 +114,15 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @Input() backLabel: string = 'Back';
     
-    private container: any;
+    protected container: any;
     
-    private documentClickListener: any;
+    protected documentClickListener: any;
     
-    private preventDocumentDefault: any;
+    protected preventDocumentDefault: any;
         
     public left: number = 0;
         
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
 
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];

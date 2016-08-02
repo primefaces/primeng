@@ -43,7 +43,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked {
     
     commandProcessed: boolean;
     
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
     
     ngAfterViewInit() {
         this.container = this.domHandler.find(this.el.nativeElement, '.ui-terminal')[0];

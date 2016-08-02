@@ -22,9 +22,9 @@ export class Draggable {
     
     @Output() onDrag: EventEmitter<any> = new EventEmitter();
     
-    private handle: any;
+    protected handle: any;
         
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
     
     @HostListener('dragstart', ['$event']) 
     dragStart(event) {

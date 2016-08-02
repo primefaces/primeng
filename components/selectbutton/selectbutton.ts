@@ -40,7 +40,7 @@ export class SelectButton implements ControlValueAccessor {
     
     onModelTouched: Function = () => {};
 
-    private hoveredItem: any;
+    protected hoveredItem: any;
     
     writeValue(value: any) : void {
         this.value = value;

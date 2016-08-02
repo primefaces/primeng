@@ -56,21 +56,21 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     onModelTouched: Function = () => {};
         
-    private hoverUp: boolean;
+    protected hoverUp: boolean;
     
-    private activeUp: boolean;
+    protected activeUp: boolean;
     
-    private hoverDown: boolean;
+    protected hoverDown: boolean;
     
-    private activeDown: boolean;
+    protected activeDown: boolean;
 
-    private precision: number;
+    protected precision: number;
     
-    private timer: any;
+    protected timer: any;
     
-    private inputtext: any;
+    protected inputtext: any;
     
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
     
     ngAfterViewInit() {
         if(Math.floor(this.step) === 0) {

@@ -36,7 +36,7 @@ export class UITreeRow {
     
     hover: boolean;
     
-    constructor(@Inject(forwardRef(() => TreeTable)) private treeTable:TreeTable) {}
+    constructor(@Inject(forwardRef(() => TreeTable)) protected treeTable:TreeTable) {}
     
     toggle(event) {
         if(this.expanded)

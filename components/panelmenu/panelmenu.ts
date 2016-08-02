@@ -27,7 +27,7 @@ export class PanelMenuSub {
     
     @Input() expanded: boolean;
     
-    constructor(private router: Router) {}
+    constructor(protected router: Router) {}
         
     activeItems: MenuItem[] = [];
         
@@ -99,7 +99,7 @@ export class PanelMenu {
     
     activeItems: MenuItem[];
 
-    constructor(private el: ElementRef) {
+    constructor(protected el: ElementRef) {
         this.activeItems = [];
     }
 

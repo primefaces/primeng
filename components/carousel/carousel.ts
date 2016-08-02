@@ -66,37 +66,37 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
         
-    private container: any;    
+    protected container: any;    
     
-    private left: any = 0;
+    protected left: any = 0;
     
-    private viewport: any;
+    protected viewport: any;
     
-    private itemsContainer: any;
+    protected itemsContainer: any;
     
-    private items: any;
+    protected items: any;
     
-    private columns: any;
+    protected columns: any;
         
-    private page: number;
+    protected page: number;
                     
-    private valuesChanged: any;
+    protected valuesChanged: any;
     
-    private interval: any;
+    protected interval: any;
     
-    private anchorPageLinks: any[];
+    protected anchorPageLinks: any[];
     
-    private mobileDropdownOptions: any[];
+    protected mobileDropdownOptions: any[];
     
-    private selectDropdownOptions: any[];
+    protected selectDropdownOptions: any[];
     
-    private shrinked: boolean;
+    protected shrinked: boolean;
     
     documentResponsiveListener: any;
     
     differ: any;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, private renderer: Renderer) {
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, differs: IterableDiffers, protected renderer: Renderer) {
         this.differ = differs.find([]).create(null);
     }
     

@@ -72,7 +72,7 @@ export class TemplateWrapper implements OnInit {
     
     @Input('pTemplateWrapper') templateRef: TemplateRef<any>;
     
-    constructor(private viewContainer: ViewContainerRef) {}
+    constructor(protected viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.templateRef, {

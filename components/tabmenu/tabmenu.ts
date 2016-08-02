@@ -35,7 +35,7 @@ export class TabMenu implements OnDestroy {
 
     @Input() styleClass: string;
     
-    constructor(private router: Router) {}
+    constructor(protected router: Router) {}
         
     hoveredItem: MenuItem;
     

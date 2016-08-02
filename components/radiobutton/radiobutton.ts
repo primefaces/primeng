@@ -42,7 +42,7 @@ export class RadioButton implements ControlValueAccessor {
     
     checked: boolean;
     
-    private hover: boolean;
+    protected hover: boolean;
 
     onclick() {
         if(!this.disabled) {

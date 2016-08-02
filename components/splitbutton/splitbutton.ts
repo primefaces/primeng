@@ -60,25 +60,25 @@ export class SplitButton implements OnInit,OnDestroy {
     
     @ContentChildren(SplitButtonItem) items : QueryList<SplitButtonItem>;
     
-    private hoverDefaultBtn: boolean;
+    protected hoverDefaultBtn: boolean;
     
-    private focusDefaultBtn: boolean;
+    protected focusDefaultBtn: boolean;
     
-    private activeDefaultBtn: boolean;
+    protected activeDefaultBtn: boolean;
     
-    private hoverDropdown: boolean;
+    protected hoverDropdown: boolean;
     
-    private focusDropdown: boolean;
+    protected focusDropdown: boolean;
     
-    private activeDropdown: boolean;
+    protected activeDropdown: boolean;
     
-    private hoveredItem: any;
+    protected hoveredItem: any;
     
-    private menuVisible: boolean = false;
+    protected menuVisible: boolean = false;
     
-    private documentClickListener: any;
+    protected documentClickListener: any;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, private router: Router) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer, protected router: Router) {}
     
     ngOnInit() {
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
