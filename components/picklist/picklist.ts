@@ -1,4 +1,4 @@
-import {Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
+import {Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
 import {Button} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
 import {TemplateWrapper} from '../common';
@@ -75,7 +75,11 @@ export class PickList implements OnDestroy,AfterViewChecked {
     @Input() targetStyle: any;
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
-    
+
+    @Output() movedRight = new EventEmitter<any>();
+
+    @Output() movedLeft = new EventEmitter<any>();
+
     hoveredItem: any;
     
     selectedItems: any[];
@@ -86,6 +90,10 @@ export class PickList implements OnDestroy,AfterViewChecked {
     
     movedDown: boolean;
 
+    mRight: string = 'right';
+
+    mLeft: string = 'left';
+    
     constructor(private el: ElementRef, private domHandler: DomHandler) {}
         
     ngAfterViewChecked() {
@@ -209,6 +217,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
                     this.target.push(this.source.splice(this.findIndexInList(selectedItem, this.source),1)[0]);
                 }
             }
+            this.movedRight.emit({direction: this.mRight, data: this.selectedItems});
             this.selectedItems = [];
         }
     }
@@ -218,6 +227,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
             for(let i = 0; i < this.source.length; i++) {
                 this.target.push(this.source[i]);
             }
+            this.movedRight.emit({direction: this.mRight, data: this.source});
             this.source.splice(0, this.source.length);
             this.selectedItems = [];
         }
@@ -231,6 +241,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
                     this.source.push(this.target.splice(this.findIndexInList(selectedItem, this.target),1)[0]);
                 }
             }
+            this.movedLeft.emit({direction: this.mLeft, data: this.selectedItems});
             this.selectedItems = [];
         }
     }
@@ -240,6 +251,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
             for(let i = 0; i < this.target.length; i++) {
                 this.source.push(this.target[i]);
             }
+            this.movedLeft.emit({direction: this.mLeft, data: this.selectedItems});
             this.target.splice(0, this.target.length);
             this.selectedItems = [];
         }
