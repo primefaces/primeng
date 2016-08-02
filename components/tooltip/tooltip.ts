@@ -26,7 +26,7 @@ export class Tooltip implements OnDestroy {
         }
     }
     
-    @HostListener('mouseout', ['$event']) 
+    @HostListener('mouseleave', ['$event']) 
     onMouseLeave(e) {
         if(this.tooltipEvent === 'hover') {
             this.hide();
