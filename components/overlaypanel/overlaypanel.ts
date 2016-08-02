@@ -1,4 +1,4 @@
-import {Component,Input,Output,OnInit,OnDestroy,EventEmitter,Renderer,ElementRef} from '@angular/core';
+import {Component,Input,Output,OnInit,AfterViewInit,OnDestroy,EventEmitter,Renderer,ElementRef} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -15,7 +15,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class OverlayPanel implements OnInit, OnDestroy {
+export class OverlayPanel implements OnInit,AfterViewInit,OnDestroy {
 
     @Input() dismissable: boolean = true;
 
@@ -24,6 +24,8 @@ export class OverlayPanel implements OnInit, OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    @Input() appendTo: any;
 
     @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
 
@@ -32,6 +34,8 @@ export class OverlayPanel implements OnInit, OnDestroy {
     @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterHide: EventEmitter<any> = new EventEmitter();
+    
+    container: any;
 
     visible: boolean = false;
 
@@ -56,6 +60,16 @@ export class OverlayPanel implements OnInit, OnDestroy {
                 this.selfClick = false;
                 this.targetEvent = false;
             });
+        }
+    }
+    
+    ngAfterViewInit() {  
+        this.container = this.el.nativeElement.children[0]; 
+        if(this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.container);
+            else
+                this.appendTo.appendChild(this.container);
         }
     }
     
@@ -86,16 +100,15 @@ export class OverlayPanel implements OnInit, OnDestroy {
         
         this.onBeforeShow.emit(null);
         let elementTarget = target||event.currentTarget||event.target;
-        let container = this.el.nativeElement.children[0];
-        container.style.zIndex = ++DomHandler.zindex;
+        this.container.style.zIndex = ++DomHandler.zindex;
 
         if(this.visible) {
-            this.domHandler.absolutePosition(container, elementTarget);
+            this.domHandler.absolutePosition(this.container, elementTarget);
         }
         else {
             this.visible = true;
-            this.domHandler.absolutePosition(container, elementTarget);
-            this.domHandler.fadeIn(container, 250);
+            this.domHandler.absolutePosition(this.container, elementTarget);
+            this.domHandler.fadeIn(this.container, 250);
         }
         this.onAfterShow.emit(null);
     }
@@ -127,6 +140,10 @@ export class OverlayPanel implements OnInit, OnDestroy {
     ngOnDestroy() {
         if(this.documentClickListener) {
             this.documentClickListener();
+        }
+        
+        if(this.appendTo) {
+            this.el.nativeElement.appendChild(this.container);
         }
         
         this.target = null;
