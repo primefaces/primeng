@@ -9,6 +9,11 @@ import {DomHandler} from '../dom/domhandler';
                 <img [src]="image.thumbnail" [title]="image.title" [alt]="image.alt">
             </a>
         </div>
+        <div [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'encoded')">
+            <a *ngFor="let image of images; let i = index;" [src]="'data:image/(format);base64,' +image.source" (click)="onImageClick($event,image,i,content)">
+                <img [src]="'data:image/(format);base64,' +image.thumbnail" [title]="image.title" [alt]="image.alt">
+            </a>
+        </div>
         <span [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'content')" (click)="onLinkClick($event,content)">
             <ng-content select="a"></ng-content>
         </span>
@@ -46,7 +51,9 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     @Input() easing: 'ease-out';
     
     @Input() effectDuration: any = '500ms';
-                
+
+    @Input() format: string = 'png';
+
     protected visible: boolean;
     
     protected loading: boolean;
