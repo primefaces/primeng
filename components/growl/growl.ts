@@ -41,7 +41,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     
     timeout: any;
         
-    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers) {
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
         this.zIndex = DomHandler.zindex;
     }

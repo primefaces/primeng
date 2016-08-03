@@ -30,7 +30,7 @@ export class GMap implements AfterViewInit,DoCheck {
     
     map: any;
 
-    constructor(private el: ElementRef,differs: IterableDiffers, private cd: ChangeDetectorRef, private zone:NgZone) {
+    constructor(protected el: ElementRef,differs: IterableDiffers, protected cd: ChangeDetectorRef, protected zone:NgZone) {
         this.differ = differs.find([]).create(null);
     }
 

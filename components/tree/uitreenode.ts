@@ -36,7 +36,7 @@ export class UITreeNode {
         
     expanded: boolean = false;
     
-    constructor(@Inject(forwardRef(() => Tree)) private tree:Tree) {}
+    constructor(@Inject(forwardRef(() => Tree)) protected tree:Tree) {}
         
     getIcon() {
         let icon;

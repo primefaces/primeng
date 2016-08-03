@@ -57,7 +57,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     onModelTouched: Function = () => {};
             
-    constructor(private el: ElementRef) {}
+    constructor(protected el: ElementRef) {}
         
     ngAfterViewInit() {
         let cfg = {

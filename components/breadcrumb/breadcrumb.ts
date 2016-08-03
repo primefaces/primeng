@@ -29,7 +29,7 @@ export class Breadcrumb implements OnDestroy {
 
     @Input() styleClass: string;
     
-    constructor(private router: Router) {}
+    constructor(protected router: Router) {}
     
     itemClick(event, item: MenuItem) {
         if(!item.url||item.routerLink) {

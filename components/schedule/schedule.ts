@@ -107,7 +107,7 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
     
     schedule: any;
 
-    constructor(private el: ElementRef, differs: IterableDiffers) {
+    constructor(protected el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
         this.initialized = false;
     }

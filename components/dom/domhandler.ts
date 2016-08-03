@@ -88,21 +88,30 @@ export class DomHandler {
     }
 
     public absolutePosition(element: any, target: any): void {
-        let elementOuterHeight = element.offsetParent ? element.offsetHeight : this.getHiddenElementOuterHeight(element);
+        let elementDimensions = element.offsetParent ? {width:element.offsetWidth, height: element.offsetHeight} : this.getHiddenElementDimensions(element)
+        let elementOuterHeight = elementDimensions.height;
+        let elementOuterWidth = elementDimensions.width;
         let targetOuterHeight = target.offsetHeight;
+        let targetOuterWidth = target.offsetWidth;
         let targetOffset = target.getBoundingClientRect();
         let windowScrollTop = this.getWindowScrollTop();
-        let top;
+        let windowScrollLeft = this.getWindowScrollLeft();
+        let top,left;
 
         if(targetOffset.top + targetOuterHeight + elementOuterHeight > window.innerHeight)
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
         else
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
+            
+        if(targetOffset.left + targetOuterWidth + elementOuterWidth > window.innerWidth)
+            left = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;
+        else
+            left = targetOffset.left + windowScrollLeft;
 
         element.style.top = top + 'px';
-        element.style.left = targetOffset.left + 'px';
+        element.style.left = left + 'px';
     }
-
+    
     public getHiddenElementOuterHeight(element: any): number {
         element.style.visibility = 'hidden';
         element.style.display = 'block';
@@ -190,6 +199,11 @@ export class DomHandler {
     public getWindowScrollTop(): number {
         let doc = document.documentElement;
         return (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+    }
+    
+    public getWindowScrollLeft(): number {
+        let doc = document.documentElement;
+        return (window.pageXOffset || doc.scrollLeft)  - (doc.clientLeft || 0);
     }
 
     public matches(element, selector: string): boolean {

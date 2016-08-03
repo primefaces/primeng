@@ -59,15 +59,15 @@ export class DataList implements AfterViewInit,DoCheck {
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
-    private dataToRender: any[];
+    protected dataToRender: any[];
 
-    private first: number = 0;
+    protected first: number = 0;
     
-    private page: number = 0;
+    protected page: number = 0;
 
     differ: any;
 
-    constructor(private el: ElementRef, differs: IterableDiffers) {
+    constructor(protected el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
 

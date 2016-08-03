@@ -126,7 +126,7 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     
     calendarElement: any;
 
-    constructor(private el: ElementRef, private zone:NgZone) {
+    constructor(protected el: ElementRef, protected zone:NgZone) {
         this.initialized = false;
     }
 

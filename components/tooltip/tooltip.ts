@@ -17,7 +17,7 @@ export class Tooltip implements OnDestroy {
         
     container: any;
         
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
         
     @HostListener('mouseenter', ['$event']) 
     onMouseEnter(e) {
@@ -26,7 +26,7 @@ export class Tooltip implements OnDestroy {
         }
     }
     
-    @HostListener('mouseout', ['$event']) 
+    @HostListener('mouseleave', ['$event']) 
     onMouseLeave(e) {
         if(this.tooltipEvent === 'hover') {
             this.hide();

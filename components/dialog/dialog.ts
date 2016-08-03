@@ -101,7 +101,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     positionInitialized: boolean;
             
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
     
     @Input() get visible(): boolean {
         return this._visible;

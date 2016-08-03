@@ -94,8 +94,8 @@ export class PickList implements OnDestroy,AfterViewChecked {
 
     mLeft: string = 'left';
 
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
-        
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
+
     ngAfterViewChecked() {
         if(this.movedUp||this.movedDown) {
             let listItems = this.domHandler.find(this.reorderedListElement, 'li.ui-state-highlight');

@@ -14,7 +14,7 @@ export class ColumnTemplateLoader {
     
     @Input() rowIndex: number;
     
-    constructor(private viewContainer: ViewContainerRef) {}
+    constructor(protected viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.column.template, {

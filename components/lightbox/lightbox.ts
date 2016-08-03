@@ -47,27 +47,27 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     
     @Input() effectDuration: any = '500ms';
                 
-    private visible: boolean;
+    protected visible: boolean;
     
-    private loading: boolean;
+    protected loading: boolean;
         
-    private currentImage: any;
+    protected currentImage: any;
     
-    private captionText: string;
+    protected captionText: string;
     
-    private zindex: any;
+    protected zindex: any;
     
-    private panel: any;
+    protected panel: any;
     
-    private index: number;
+    protected index: number;
     
-    private mask: any;
+    protected mask: any;
     
-    private preventDocumentClickListener: boolean;
+    protected preventDocumentClickListener: boolean;
     
-    private documentClickListener: any;
+    protected documentClickListener: any;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
                 
     onImageClick(event,image,i,content) {
         this.index = i;

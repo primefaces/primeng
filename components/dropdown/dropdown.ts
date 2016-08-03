@@ -70,7 +70,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, differs: IterableDiffers) {
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
         
@@ -90,27 +90,27 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     differ: any;
     
-    private panelVisible: boolean = false;
+    protected panelVisible: boolean = false;
     
-    private documentClickListener: any;
+    protected documentClickListener: any;
     
-    private optionsChanged: boolean;
+    protected optionsChanged: boolean;
         
-    private panel: any;
+    protected panel: any;
     
-    private container: any;
+    protected container: any;
     
-    private itemsWrapper: any;
+    protected itemsWrapper: any;
     
-    private initialized: boolean;
+    protected initialized: boolean;
     
-    private selfClick: boolean;
+    protected selfClick: boolean;
     
-    private itemClick: boolean;
+    protected itemClick: boolean;
     
-    private hoveredItem: any;
+    protected hoveredItem: any;
     
-    private selectedOptionUpdated: boolean;
+    protected selectedOptionUpdated: boolean;
             
     ngOnInit() {
         this.optionsToDisplay = this.options;
@@ -150,6 +150,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     onItemClick(event, option) {
         this.itemClick = true;
+        this.selectItem(event, option);
+                                
+        this.hide();
+    }
+    
+    selectItem(event, option) {
         this.selectedOption = option;
         this.value = option.value;
                 
@@ -158,8 +164,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             originalEvent: event,
             value: this.value
         });
-                                
-        this.hide();
     }
     
     ngAfterViewChecked() {
@@ -270,11 +274,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                         if(nextItemIndex != (this.optionsToDisplay.length)) {
                             this.selectedOption = this.optionsToDisplay[nextItemIndex];
                             this.selectedOptionUpdated = true;
+                            this.selectItem(event, this.selectedOption);
                         }
                     }
                     else {
                         this.selectedOption = this.optionsToDisplay[0];
-                    }
+                    }                    
                 }
                 
                 event.preventDefault();
@@ -287,14 +292,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                     let prevItemIndex = selectedItemIndex - 1;
                     this.selectedOption = this.optionsToDisplay[prevItemIndex];
                     this.selectedOptionUpdated = true;
+                    this.selectItem(event, this.selectedOption);
                 }
                 
                 event.preventDefault();
             break;
             
             //enter
-            case 13:
-                this.panelVisible = false;
+            case 13:                                        
+                this.hide();
+
                 event.preventDefault();
             break;
             

@@ -71,7 +71,7 @@
         <p-column field="color" header="Color"></p-column>
         <footer>
             <ul>
-                <li *ngFor="let car of selectedCars1" style="text-align: left">{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}</li>
+                <li *ngFor="let car of selectedCars2" style="text-align: left">{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}</li>
             </ul>
         </footer>
     </p-dataTable>
@@ -178,7 +178,7 @@ export class DataTableSelectionDemo implements OnInit {
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;footer&gt;
         &lt;ul&gt;
-            &lt;li *ngFor="let car of selectedCars1" style="text-align: left"&gt;{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}&lt;/li&gt;
+            &lt;li *ngFor="let car of selectedCars2" style="text-align: left"&gt;{{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}&lt;/li&gt;
         &lt;/ul&gt;
     &lt;/footer&gt;
 &lt;/p-dataTable&gt;

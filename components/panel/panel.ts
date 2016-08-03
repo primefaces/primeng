@@ -34,7 +34,7 @@ export class Panel {
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
     
-    private hoverToggler: boolean;
+    protected hoverToggler: boolean;
     
     toggle(event) {
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});

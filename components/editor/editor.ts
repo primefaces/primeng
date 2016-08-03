@@ -90,7 +90,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
 
     quill: any;
     
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
 
     ngAfterViewInit() {
         let editorElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 

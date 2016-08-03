@@ -28,7 +28,7 @@ export class AccordionTab {
 
     @ContentChild(Header) headerFacet;
 
-    constructor(private accordion: Accordion) {
+    constructor(protected accordion: Accordion) {
         this.accordion.addTab(this);
     }
 

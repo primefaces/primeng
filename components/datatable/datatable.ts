@@ -328,59 +328,59 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
     
-    private dataToRender: any[];
+    protected dataToRender: any[];
 
-    private first: number = 0;
+    protected first: number = 0;
 
-    private page: number = 0;
+    protected page: number = 0;
 
-    private filterTimeout: any;
+    protected filterTimeout: any;
 
-    private filters: {[s: string]: FilterMetadata;} = {};
+    protected filters: {[s: string]: FilterMetadata;} = {};
 
-    private filteredValue: any[];
+    protected filteredValue: any[];
 
-    private columns: Column[];
+    protected columns: Column[];
 
-    private columnsUpdated: boolean = false;
+    protected columnsUpdated: boolean = false;
     
-    private stopSortPropagation: boolean;
+    protected stopSortPropagation: boolean;
     
-    private sortColumn: Column;
+    protected sortColumn: Column;
     
-    private percentageScrollHeight: boolean;
+    protected percentageScrollHeight: boolean;
         
-    private scrollBody: any;
+    protected scrollBody: any;
     
-    private scrollHeader: any
+    protected scrollHeader: any
     
-    private scrollHeaderBox: any;
+    protected scrollHeaderBox: any;
     
-    private bodyScrollListener: any;
+    protected bodyScrollListener: any;
     
-    private headerScrollListener: any;
+    protected headerScrollListener: any;
     
-    private resizeScrollListener: any;
+    protected resizeScrollListener: any;
     
-    private columnResizing: boolean;
+    protected columnResizing: boolean;
     
-    private lastPageX: number;
+    protected lastPageX: number;
         
-    private documentColumnResizeListener: any;
+    protected documentColumnResizeListener: any;
     
-    private documentColumnResizeEndListener: any;
+    protected documentColumnResizeEndListener: any;
     
-    private resizerHelper: any;
+    protected resizerHelper: any;
     
-    private resizeColumn: any;
+    protected resizeColumn: any;
     
-    private reorderIndicatorUp: any;
+    protected reorderIndicatorUp: any;
     
-    private reorderIndicatorDown: any;
+    protected reorderIndicatorDown: any;
     
-    private draggedColumn: any;
+    protected draggedColumn: any;
             
-    private tbody: any;
+    protected tbody: any;
 
     differ: any;
 
@@ -390,8 +390,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     
     columnsSubscription: Subscription;
 
-    constructor(private el: ElementRef, private domHandler: DomHandler, differs: IterableDiffers, 
-        @Query(Column) cols: QueryList<Column>, private renderer: Renderer, changeDetector: ChangeDetectorRef) {
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, differs: IterableDiffers, 
+        @Query(Column) cols: QueryList<Column>, protected renderer: Renderer, changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
         this.columnsSubscription = cols.changes.subscribe(_ => {
             this.columns = cols.toArray();
@@ -755,6 +755,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
             this.selection = this.dataToRender.slice(0);
         else
             this.selection = [];
+            
+        this.selectionChange.emit(this.selection);
         
         this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: event.checked});
     }

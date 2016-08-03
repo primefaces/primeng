@@ -19,7 +19,7 @@ export class Droppable {
     
     @Output() onDragOver: EventEmitter<any> = new EventEmitter();
 
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
             
     @HostListener('drop', ['$event'])
     drop(event) {

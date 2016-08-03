@@ -34,7 +34,7 @@ export class Password implements AfterViewInit,OnDestroy {
     
     info: any;
     
-    constructor(private el: ElementRef, private domHandler: DomHandler) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
     
     ngAfterViewInit() {
         this.panel = document.createElement('div');

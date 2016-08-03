@@ -89,31 +89,31 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     onModelTouched: Function = () => {};
     
-    private valuesAsString: string;
+    protected valuesAsString: string;
     
-    private hover: boolean;
+    protected hover: boolean;
     
-    private focus: boolean;
+    protected focus: boolean;
     
-    private documentClickListener: any;
+    protected documentClickListener: any;
     
-    private panel: any;
+    protected panel: any;
     
-    private container: any;
+    protected container: any;
     
-    private selfClick: boolean;
+    protected selfClick: boolean;
     
-    private panelClick: boolean;
+    protected panelClick: boolean;
     
-    private filterValue: string;
+    protected filterValue: string;
     
-    private visibleOptions: SelectItem[];
+    protected visibleOptions: SelectItem[];
     
-    private filtered: boolean;
+    protected filtered: boolean;
     
     differ: any;
     
-    constructor(private el: ElementRef, private domHandler: DomHandler, private renderer: Renderer, differs: IterableDiffers) {
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
     
