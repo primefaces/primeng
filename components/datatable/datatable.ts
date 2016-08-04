@@ -219,6 +219,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     @Input() value: any[];
 
     @Input() paginator: boolean;
+    
+    @Input() first: number = 0;
 
     @Input() rows: number;
 
@@ -329,8 +331,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
     
     protected dataToRender: any[];
-
-    protected first: number = 0;
 
     protected page: number = 0;
 
