@@ -29,8 +29,9 @@ import {Lightbox} from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Lightbox has two modes; <i>image</i> and <i>custom content</i> defined using type property. In image mode a collection of
-            images are required to display where an image object in the collection defines the source of the original image, thumbnail image and the title.</p>
+            <p>Lightbox has three modes; <i>image</i> <i>encoded</i> and <i>custom content</i> defined using type property. In image mode a collection of
+            images are required to display where an image object in the collection defines the source of the original image, thumbnail image and the title.
+            In encoded mode a collection of images are required just like image mode the only additional requirement is the format property, which is the decoded image type.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-lightbox [images]="images"&gt;&lt;/p-lightbox&gt;
@@ -62,6 +63,14 @@ export class LightboxDemo {
     &lt;/a&gt;
     &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/p-lightbox&gt;
+</code>
+</pre>
+
+</pre>
+            <p>Encoded mode is enabled by setting type property to "encoded", and setting the format property to the decoded image type, "png" is default</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-lightbox [images]="images" type="encoded" format="png"&gt;&lt;/p-lightbox&gt;
 </code>
 </pre>
 
@@ -97,7 +106,13 @@ export class LightboxDemo {
                             <td>type</td>
                             <td>string</td>
                             <td>image</td>
-                            <td>Type of the lightbox, valid values are "image" and "content".</td>
+                            <td>Type of the lightbox, valid values are "image", "content", "encoded".</td>
+                        </tr>
+                        <tr>
+                            <td>format</td>
+                            <td>string</td>
+                            <td>png</td>
+                            <td>Encoded image format.</td>
                         </tr>
                         <tr>
                             <td>style</td>
