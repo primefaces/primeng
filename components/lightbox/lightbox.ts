@@ -9,6 +9,11 @@ import {DomHandler} from '../dom/domhandler';
                 <img [src]="image.thumbnail" [title]="image.title" [alt]="image.alt">
             </a>
         </div>
+        <div [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'encoded')">
+            <a *ngFor="let image of images; let i = index;" (click)="onImageClick($event,image,i,content)">
+                <img [src]="'data:image/'+(format)+';base64,' +image.thumbnail" [title]="image.title" [alt]="image.alt">
+            </a>
+        </div>
         <span [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'content')" (click)="onLinkClick($event,content)">
             <ng-content select="a"></ng-content>
         </span>
@@ -17,9 +22,14 @@ import {DomHandler} from '../dom/domhandler';
            <div class="ui-lightbox-content-wrapper">
               <a class="ui-state-default ui-lightbox-nav-left ui-corner-right" [style.zIndex]="zindex + 1" (click)="prev(img)"
                 [ngClass]="{'ui-helper-hidden':!leftVisible}"><span class="fa fa-fw fa-caret-left"></span></a>
-              <div #content class="ui-lightbox-content ui-corner-all" #content [ngClass]="{'ui-lightbox-loading': loading}" 
+              <div *ngIf="(type == 'image')" #content class="ui-lightbox-content ui-corner-all" #content [ngClass]="{'ui-lightbox-loading': loading}" 
                 [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
                 <img #img [src]="currentImage ? currentImage.source||'' : ''" (load)="onImageLoad($event,content)" style="display:none">
+                <ng-content></ng-content>
+              </div>
+              <div *ngIf="(type == 'encoded')" #content class="ui-lightbox-content ui-corner-all" #content [ngClass]="{'ui-lightbox-loading': loading}"
+              [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
+                <img #img [src]="'data:image/'+(format)+';base64,' +currentImage?.source" (load)="onImageLoad($event,content)" style="display:none">
                 <ng-content></ng-content>
               </div>
               <a class="ui-state-default ui-lightbox-nav-right ui-corner-left ui-helper-hidden" [style.zIndex]="zindex + 1" (click)="next(img)"
@@ -46,7 +56,9 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     @Input() easing: 'ease-out';
     
     @Input() effectDuration: any = '500ms';
-                
+
+    @Input() format: string = 'png';
+
     protected visible: boolean;
     
     protected loading: boolean;
