@@ -13,7 +13,7 @@ import {TemplateWrapper} from '../common';
                 <span class="ui-carousel-button ui-carousel-prev-button fa fa-arrow-circle-left" (click)="onPrevNav()" 
                         [ngClass]="{'ui-state-disabled':(page === 0 && !circular)}"></span>
                 <div *ngIf="displayPageLinks" class="ui-carousel-page-links">
-                    <a href="#" class="ui-carousel-page-link fa fa-circle-o" *ngFor="let links of anchorPageLinks;let i=index" [ngClass]="{'fa-dot-circle-o':page===i}"></a>
+                    <a class="ui-carousel-page-link fa fa-circle-o" *ngFor="let links of anchorPageLinks;let i=index" (click)="setPage(i)" [ngClass]="{'fa-dot-circle-o':page===i}"></a>
                 </div>
                 <select *ngIf="displayPageDropdown" class="ui-carousel-dropdown ui-widget ui-state-default ui-corner-left" [value]="page" (change)="onDropdownChange($event.target.value)">
                     <option *ngFor="let option of selectDropdownOptions" [value]="option" [selected]="value == option">{{option+1}}</option>
