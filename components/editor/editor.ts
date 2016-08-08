@@ -86,8 +86,6 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     onModelTouched: Function = () => {};
     
-    selfChange: boolean;
-
     quill: any;
     
     constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
@@ -110,7 +108,6 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         }
         
         this.quill.on('text-change', (delta, source) => {
-            this.selfChange = true;
             let html = editorElement.children[0].innerHTML;
             let text = this.quill.getText();
             if(html == '<p><br></p>') {
@@ -138,17 +135,12 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         
     writeValue(value: any) : void {
         this.value = value;
-        
+                
         if(this.quill) {
-            if(this.selfChange) {
-                this.selfChange = false;
-            }
-            else {
-                if(value)
-                    this.quill.pasteHTML(value);
-                else
-                    this.quill.setText('');
-            }
+            if(value)
+                this.quill.pasteHTML(value);
+            else
+                this.quill.setText('');
         }
     }
     
