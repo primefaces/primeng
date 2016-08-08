@@ -107,6 +107,8 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     @Input() locale: any;
     
     @Input() icon: string = 'fa-calendar';
+
+    @Input() yearRange: string;
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -145,6 +147,7 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
             defaultDate: this.defaultDate,
             minDate: this.minDate,
             maxDate: this.maxDate,
+            yearRange: this.yearRange,
             onSelect: (dateText: string) => {
                 this.zone.run(() => {
                     this.value = dateText;
