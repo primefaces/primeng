@@ -22,7 +22,9 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeydown($event)">
             </div>
-            <label class="ui-dropdown-label ui-inputtext ui-corner-all">{{label ? label : '&nbsp;'}}</label>
+            <label class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="!editable">{{label ? label : '&nbsp;'}}</label>
+            <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" 
+                        (click)="onInputClick($event)" (input)="onInputChange($event)" (focus)="hide()">
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
@@ -67,6 +69,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     @Input() autoWidth: boolean = true;
     
     @Input() required: boolean;
+    
+    @Input() editable: boolean;
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
@@ -188,7 +192,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     updateSelectedOption(val: any): void {
         this.selectedOption = this.findOption(val, this.optionsToDisplay);
-        if(!this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length) {
+        if(!this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
             this.selectedOption = this.optionsToDisplay[0];
         }
         this.selectedOptionUpdated = true;
@@ -235,6 +239,20 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                 this.show(this.panel,this.container);
             }
         }
+    }
+    
+    onInputClick(event) {
+        this.itemClick = true;
+    }
+    
+    onInputChange(event) {
+        this.value = event.target.value;
+        this.updateSelectedOption(this.value);                
+        this.onModelChange(this.value);
+        this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
     }
     
     show(panel,container) {

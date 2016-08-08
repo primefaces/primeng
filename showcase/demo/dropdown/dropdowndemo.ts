@@ -19,7 +19,9 @@ export class DropdownDemo {
 
     cars: SelectItem[];
 
-    selectedCar: string = 'BMW';
+    selectedCar: string;
+    
+    selectedCar2: string = 'BMW';
 
     constructor() {
         this.cities = [];

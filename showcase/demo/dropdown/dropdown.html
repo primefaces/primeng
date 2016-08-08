@@ -10,8 +10,12 @@
     <p-dropdown [options]="cities" [(ngModel)]="selectedCity"></p-dropdown>
     <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
     
+    <h3>Editable</h3>
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" editable="editable"></p-dropdown>
+    <p>Selected City: {{selectedCar||'none'}}</p>
+    
     <h3>Content with Filters</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" filter="filter">
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="filter">
         <template let-car>
             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/>
@@ -19,7 +23,7 @@
             </div>
         </template>
     </p-dropdown>
-    <p>Selected Car: {{selectedCar||'none'}}</p>
+    <p>Selected Car: {{selectedCar2||'none'}}</p>
 </div>
 
 <div class="ContentSideSections Source">
@@ -183,6 +187,12 @@ export class MyModel {
                             <td>false</td>
                             <td>When present, it specifies that the component should be disabled.</td>
                         </tr>
+                        <tr>
+                            <td>editable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, custom value instead of predefined options can be entered using the editable input field.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -273,10 +283,14 @@ export class MyModel {
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected City: {{selectedCity||'none'}}&lt;/p&gt;
+&lt;p&gt;Selected City: {{selectedCity ? selectedCity.name : 'none'}}&lt;/p&gt;
 
-&lt;h3&gt;Content with Filter&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" filter="filter"&gt;
+&lt;h3&gt;Editable&lt;/h3&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" editable="editable"&gt;&lt;/p-dropdown&gt;
+&lt;p&gt;Selected City: {{selectedCar||'none'}}&lt;/p&gt;
+
+&lt;h3&gt;Content with Filters&lt;/h3&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="filter"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
@@ -284,7 +298,7 @@ export class MyModel {
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: {{selectedCar||'none'}}&lt;/p&gt;
+&lt;p&gt;Selected Car: {{selectedCar2||'none'}}&lt;/p&gt;
 </code>
 </pre>
 
