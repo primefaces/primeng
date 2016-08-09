@@ -19,10 +19,10 @@ typings.json
 
 # config
 tsconfig.json
+webpack.config.js
 
 # misc
 *.log
-systemjs.config.js
 
 
 
