@@ -48,7 +48,9 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
     @Input() defaultView: string = 'month';
     
     @Input() allDaySlot: boolean = true;
-    
+
+    @Input() allDayText: string = 'all-day';
+
     @Input() slotDuration: any = '00:30:00';
     
     @Input() slotLabelInterval: any;
@@ -132,7 +134,8 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
             eventStartEditable: this.eventStartEditable,
             eventDurationEditable: this.eventDurationEditable,
             defaultView: this.defaultView,
-            allDayslot: this.allDaySlot,
+            allDaySlot: this.allDaySlot,
+            allDayText: this.allDayText,
             slotDuration: this.slotDuration,
             slotLabelInterval: this.slotLabelInterval,
             snapDuration: this.snapDuration,
