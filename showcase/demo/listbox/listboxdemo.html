@@ -13,7 +13,7 @@
 
     <h3>Multiple</h3>
     <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple"></p-listbox>
-    <p>Selected Cities: <span *ngFor="let c of selectedCities">{{c}} &nbsp;</span></p>
+    <p>Selected Cities: <span *ngFor="let c of selectedCities" style="margin-right: 10px">{{c}}</span></p>
 
     <h3>Content</h3>
     <p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px','max-height':'250px'}">
@@ -262,7 +262,7 @@ export class MyModel {
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple"&gt;&lt;/p-listbox&gt;
-&lt;p&gt;Selected Cities: &lt;span *ngFor="let c of selectedCities"&gt;{{c}} &nbsp;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Selected Cities: &lt;span *ngFor="let c of selectedCities" style="margin-right: 10px"&gt;{{c}}&lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Content&lt;/h3&gt;
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px','max-height':'250px'}"&gt;

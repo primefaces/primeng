@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <input id="in" type="text" size="30" pInputText [(ngModel)]="text" /> &nbsp; {{text}}
+    <input id="in" type="text" size="30" pInputText [(ngModel)]="text" /> {{text}}
 
     <h3>Disabled</h3>
     <input id="in" type="text" size="30" pInputText [disabled]="disabled" />
@@ -88,9 +88,9 @@ import {InputText} from 'primeng/primeng';
         </p-tabPanel>
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt; &amp;nbsp; <span>{</span><span>{</span>text<span>}</span><span>}</span>
+&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt;  {{text}}
 
 &lt;h3&gt;Disabled&lt;/h3&gt;
 &lt;input id="in" type="text" size="30" pInputText [disabled]="disabled" /&gt;

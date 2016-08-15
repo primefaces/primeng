@@ -22,7 +22,7 @@ const DROPDOWN_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeydown($event)">
             </div>
-            <label class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="!editable">{{label ? label : '&nbsp;'}}</label>
+            <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
             <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" 
                         (click)="onInputClick($event)" (input)="onInputChange($event)" (focus)="hide()">
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-focus':focus}">
