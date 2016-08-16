@@ -1,5 +1,10 @@
-import {Routes,RouterModule} from '@angular/router';
-import {ModuleWithProviders} from '@angular/core';
+import {NgModule} from '@angular/core';
+import {FormsModule}    from '@angular/forms';
+import {Component} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {AppRoutes} from './app.routes';
+
 import {SetupComponent} from './setup.component';
 import {HomePageComponent} from './homepage.component';
 import {ThemingComponent} from './theming.component';
@@ -93,100 +98,127 @@ import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
 
-export const routes: Routes = [
-    {path: '', component: HomePageComponent},
-    {path: 'setup', component: SetupComponent},
-    {path: 'theming', component: ThemingComponent},
-    {path: 'inputtext', component: InputTextDemo},
-    {path: 'button', component: ButtonDemo},
-    {path: 'spinner', component: SpinnerDemo},
-    {path: 'panel', component: PanelDemo},
-    {path: 'fieldset', component: FieldsetDemo},
-    {path: 'rating', component: RatingDemo},
-    {path: 'password', component: PasswordDemo},
-    {path: 'dialog', component: DialogDemo},
-    {path: 'togglebutton', component: ToggleButtonDemo},
-    {path: 'grid', component: GridDemo},
-    {path: 'tabview', component: TabViewDemo},
-    {path: 'radiobutton', component: RadioButtonDemo},
-    {path: 'accordion', component: AccordionDemo},
-    {path: 'inputtextarea', component: InputTextareaDemo},
-    {path: 'galleria', component: GalleriaDemo},
-    {path: 'checkbox', component: CheckboxDemo},
-    {path: 'listbox', component: ListboxDemo},
-    {path: 'messages', component: MessagesDemo},
-    {path: 'growl', component: GrowlDemo},
-    {path: 'carousel', component: CarouselDemo},
-    {path: 'inputswitch', component: InputSwitchDemo},
-    {path: 'selectbutton', component: SelectButtonDemo},
-    {path: 'calendar', component: CalendarDemo},
-    {path: 'dropdown', component: DropdownDemo},
-    {path: 'progressbar', component: ProgressBarDemo},
-    {path: 'chart', component: ChartDemo},
-    {path: 'piechart', component: PieChartDemo},
-    {path: 'doughnutchart', component: DoughnutChartDemo},
-    {path: 'linechart', component: LineChartDemo},
-    {path: 'barchart', component: BarChartDemo},
-    {path: 'radarchart', component: RadarChartDemo},
-    {path: 'polarareachart', component: PolarAreaChartDemo},
-    {path: 'menu', component: MenuDemo},
-    {path: 'tieredmenu', component: TieredMenuDemo},
-    {path: 'menubar', component: MenubarDemo},
-    {path: 'slidemenu', component: SlideMenuDemo},
-    {path: 'breadcrumb', component: BreadcrumbDemo},
-    {path: 'slider', component: SliderDemo},
-    {path: 'lightbox', component: LightboxDemo},
-    {path: 'paginator', component: PaginatorDemo},
-    {path: 'megamenu', component: MegaMenuDemo},
-    {path: 'panelmenu', component: PanelMenuDemo},
-    {path: 'datatable', component: DataTableDemo},
-    {path: 'datatablefacets', component: DataTableFacetsDemo},
-    {path: 'datatablepaginator', component: DataTablePaginatorDemo},
-    {path: 'datatablesort', component: DataTableSortDemo},
-    {path: 'datatableresponsive', component: DataTableResponsiveDemo},
-    {path: 'datatableselection', component: DataTableSelectionDemo},
-    {path: 'datatablefilter', component: DataTableFilterDemo},
-    {path: 'datatableeditable', component: DataTableEditableDemo},
-    {path: 'datatablecolresize', component: DataTableColResizeDemo},
-    {path: 'datatablecolreorder', component: DataTableColReorderDemo},
-    {path: 'datatablescroll', component: DataTableScrollDemo},
-    {path: 'datatablegroup', component: DataTableGroupDemo},
-    {path: 'datatablelazy', component: DataTableLazyDemo},
-    {path: 'datatablecrud', component: DataTableCrudDemo},
-    {path: 'datatabletemplating', component: DataTableTemplatingDemo},
-    {path: 'datatablecontextmenu', component: DataTableCMDemo},
-    {path: 'datatablecoltoggler', component: DataTableColTogglerDemo},
-    {path: 'datatablerowexpansion', component: DataTableRowExpansionDemo},
-    {path: 'codehighlighter', component: CodeHighlighterDemo},
-    {path: 'orderlist', component: OrderListDemo},
-    {path: 'picklist', component: PickListDemo},
-    {path: 'schedule', component: ScheduleDemo},
-    {path: 'datagrid', component: DataGridDemo},
-    {path: 'datalist', component: DataListDemo},
-    {path: 'datascroller', component: DataScrollerDemo},
-    {path: 'datascrollerinline', component: DataScrollerInlineDemo},
-    {path: 'datascrollerloader', component: DataScrollerLoaderDemo},
-    {path: 'datascrollerinfinite', component: DataScrollerInfiniteDemo},
-    {path: 'tree', component: TreeDemo},
-    {path: 'treetable', component: TreeTableDemo},
-    {path: 'terminal', component: TerminalDemo},
-    {path: 'splitbutton', component: SplitButtonDemo},
-    {path: 'overlaypanel', component: OverlayPanelDemo},
-    {path: 'autocomplete', component: AutoCompleteDemo},
-    {path: 'editor', component: EditorDemo},
-    {path: 'responsive', component: ResponsiveDemo},
-    {path: 'multiselect', component: MultiSelectDemo},
-    {path: 'gmap', component: GMapDemo},
-    {path: 'contextmenu', component: ContextMenuDemo},
-    {path: 'dragdrop', component: DragDropDemo},
-    {path: 'toolbar', component: ToolbarDemo},
-    {path: 'validation', component: ValidationDemo},
-    {path: 'datatableexport', component: DataTableExportDemo},
-    {path: 'tabmenu', component: TabMenuDemo},
-    {path: 'tooltip', component: TooltipDemo},
-    {path: 'menumodel', component: MenuModelApi},
-    {path: 'mask', component: InputMaskDemo}
-];
+@Component({
+    selector: 'primeng-showcase',
+    templateUrl: 'showcase/app.component.html'
+})
+export class AppComponent {
 
+    activeMenuId: string;
 
-export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes);;
+    themesVisible: boolean = false;
+
+    mobileMenuActive: boolean = false;
+
+    toggleMenu(e) {
+        this.mobileMenuActive = !this.mobileMenuActive;
+        e.preventDefault();
+    }
+}
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        FormsModule,
+        AppRoutes
+    ],
+    declarations: [
+        AppComponent,
+        SetupComponent,
+        HomePageComponent,
+        ThemingComponent,
+        InputTextDemo,
+        ButtonDemo,
+        SpinnerDemo,
+        PanelDemo,
+        FieldsetDemo,
+        RatingDemo,
+        PasswordDemo,
+        DialogDemo,
+        ToggleButtonDemo,
+        GridDemo,
+        TabViewDemo,
+        RadioButtonDemo,
+        AccordionDemo,
+        InputTextareaDemo,
+        GalleriaDemo,
+        CheckboxDemo,
+        ListboxDemo,
+        MessagesDemo,
+        GrowlDemo,
+        CarouselDemo,
+        InputSwitchDemo,
+        SelectButtonDemo,
+        CalendarDemo,
+        DropdownDemo,
+        ProgressBarDemo,
+        ChartDemo,
+        PieChartDemo,
+        DoughnutChartDemo,
+        LineChartDemo,
+        BarChartDemo,
+        RadarChartDemo,
+        PolarAreaChartDemo,
+        MenuDemo,
+        TieredMenuDemo,
+        MenubarDemo,
+        SlideMenuDemo,
+        BreadcrumbDemo,
+        SliderDemo,
+        LightboxDemo,
+        PaginatorDemo,
+        MegaMenuDemo,
+        PanelMenuDemo,
+        DataTableDemo,
+        DataTableEditableDemo,
+        DataTableFacetsDemo,
+        DataTablePaginatorDemo,
+        DataTableSortDemo,
+        DataTableResponsiveDemo,
+        DataTableSelectionDemo,
+        DataTableFilterDemo,
+        DataTableColResizeDemo,
+        DataTableColReorderDemo,
+        DataTableScrollDemo,
+        DataTableGroupDemo,
+        DataTableCrudDemo,
+        DataTableLazyDemo,
+        DataTableTemplatingDemo,
+        DataTableCMDemo,
+        DataTableColTogglerDemo,
+        DataTableRowExpansionDemo,
+        CodeHighlighterDemo,
+        OrderListDemo,
+        PickListDemo,
+        ScheduleDemo,
+        DataGridDemo,
+        DataListDemo,
+        DataScrollerDemo,
+        DataScrollerInlineDemo,
+        DataScrollerLoaderDemo,
+        DataScrollerInfiniteDemo,
+        TreeDemo,
+        TreeTableDemo,
+        TerminalDemo,
+        SplitButtonDemo,
+        OverlayPanelDemo,
+        AutoCompleteDemo,
+        EditorDemo,
+        ResponsiveDemo,
+        MultiSelectDemo,
+        GMapDemo,
+        ContextMenuDemo,
+        DragDropDemo,
+        ToolbarDemo,
+        ValidationDemo,
+        DataTableExportDemo,
+        TabMenuDemo,
+        TooltipDemo,
+        MenuModelApi,
+        InputMaskDemo
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);

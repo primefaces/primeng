@@ -4,7 +4,7 @@ module.exports = {
     entry: {
         'polyfills': './showcase/polyfills.js',
         'vendor': './showcase/vendor.js',
-        'app': './showcase/boot.js'
+        'application': './showcase/application.js'
     },
     output: {
         path: __dirname,
@@ -12,7 +12,7 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
+            name: ['application', 'vendor', 'polyfills']
         })
     ]
 };
