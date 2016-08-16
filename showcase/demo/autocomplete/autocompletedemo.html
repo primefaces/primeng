@@ -9,26 +9,26 @@
     <h3 class="first">Basic</h3>
     <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
         placeholder="Countries" [minLength]="1"></p-autoComplete>
-    <span style="margin-left:10px">Country: &#123;&#123;country ? country.name||country : 'none'&#125;&#125;</span>
+    <span style="margin-left:10px">Country: {{country ? country.name||country : 'none'}}</span>
     
     <h3>Advanced</h3>
     <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
         <template let-brand>
             <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
-                <img src="showcase/resources/demo/images/car/&#123;&#123;brand&#125;&#125;.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
-                <div style="font-size:18px;float:right;margin:10px 10px 0 0">&#123;&#123;brand&#125;&#125;</div>
+                <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
+                <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
             </div>
         </template>
     </p-autoComplete>
-    <span style="margin-left:50px">Brand: &#123;&#123;brand||'none'&#125;&#125;</span>
+    <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
     
     <h3>Multiple</h3>
     <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
         [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
     </p-autoComplete>
     <ul>
-        <li *ngFor="let c of countries">&#123;&#123;c.name&#125;&#125;</li>
+        <li *ngFor="let c of countries">{{c.name}}</li>
     </ul>
 </div>
 
@@ -169,8 +169,8 @@ export class AutoCompleteDemo &#123;
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
     &lt;template let-brand&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
-            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;brand&#125;&#125;.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
-            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;&#123;&#123;brand&#125;&#125;&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-autoComplete&gt;
@@ -387,26 +387,26 @@ export class AutoCompleteDemo &#123;
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
     placeholder="Countries" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
-&lt;span style="margin-left:10px"&gt;Country: &#123;&#123;country ? country.name||country : 'none'&#125;&#125;&lt;/span&gt;
+&lt;span style="margin-left:10px"&gt;Country: {{country ? country.name||country : 'none'}}&lt;/span&gt;
 
 &lt;h3&gt;Advanced&lt;/h3&gt;
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
     [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)"&gt;
     &lt;template let-brand&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
-            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;brand&#125;&#125;.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
-            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;&#123;&#123;brand&#125;&#125;&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-autoComplete&gt;
-&lt;span style="margin-left:50px"&gt;Brand: &#123;&#123;brand||'none'&#125;&#125;&lt;/span&gt;
+&lt;span style="margin-left:50px"&gt;Brand: {{brand||'none'}}&lt;/span&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
     [minLength]="1" placeholder="Countries" field="name" [multiple]="true"&gt;
 &lt;/p-autoComplete&gt;
 &lt;ul&gt;
-    &lt;li *ngFor="let c of countries"&gt;&#123;&#123;c.name&#125;&#125;&lt;/li&gt;
+    &lt;li *ngFor="let c of countries"&gt;{{c.name}}&lt;/li&gt;
 &lt;/ul&gt;
 </code>
 </pre>

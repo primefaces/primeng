@@ -22,7 +22,7 @@
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
-    Selected Node: &#123;&#123;selectedFile ? selectedFile.data.name : 'none'&#125;&#125;
+    Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
         
     <p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'30px'&#125;">
@@ -31,7 +31,7 @@
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
-    Selected Nodes: <span *ngFor="let file of selectedFiles">&#123;&#123;file.data.name&#125;&#125; </span>
+    Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.data.name}} </span>
     
     <p-treeTable [value]="files" [style]="&#123;'margin-top':'30px'&#125;">
         <header>Editable Cells with Templating</header>
@@ -686,7 +686,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
-Selected Node: &#123;&#123;selectedFile ? selectedFile.data.name : 'none'&#125;&#125;
+Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
     
 &lt;p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'30px'&#125;"&gt;
@@ -695,7 +695,7 @@ Selected Node: &#123;&#123;selectedFile ? selectedFile.data.name : 'none'&#125;&
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
-Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;&#123;&#123;file.data.name&#125;&#125; &lt;/span&gt;
+Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.data.name}} &lt;/span&gt;
 
 &lt;p-treeTable [value]="files" [style]="&#123;'margin-top':'30px'&#125;"&gt;
     &lt;header&gt;Editable Cells with Templating&lt;/header&gt;

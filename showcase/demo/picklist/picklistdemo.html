@@ -10,8 +10,8 @@
     <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;">
         <template let-car>
             <div class="ui-helper-clearfix">
-                <img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
-                <div style="font-size:14px;float:right;margin:15px 5px 0 0">&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;</div>
+                <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
+                <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
             </div>
         </template>
     </p-pickList>
@@ -36,8 +36,8 @@ import &#123;PickList&#125; from 'primeng/primeng';
 &lt;p-pickList [source]="list1" [target]="list2"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-pickList&gt;
@@ -198,8 +198,8 @@ export class MyComponent &#123;
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-pickList&gt;

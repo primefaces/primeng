@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Implementation">
     <p-multiSelect [options]="cars" [(ngModel)]="selectedCars"></p-multiSelect>
-    <p>Selected Cars: &#123;&#123;selectedCars&#125;&#125;</p>
+    <p>Selected Cars: {{selectedCars}}</p>
 </div>
 
 <div class="ContentSideSections Source">
@@ -196,7 +196,7 @@ export class MyModel &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars"&gt;&lt;/p-multiSelect&gt;
 
-&lt;p&gt;Selected Cars: &#123;&#123;selectedCars&#125;&#125;&lt;/p&gt;
+&lt;p&gt;Selected Cars: {{selectedCars}}&lt;/p&gt;
 </code>
 </pre>
 

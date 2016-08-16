@@ -6,10 +6,10 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <h3 class="first">Basic - &#123;&#123;checked1&#125;&#125;</h3>
+    <h3 class="first">Basic - {{checked1}}</h3>
     <p-inputSwitch [(ngModel)]="checked1"></p-inputSwitch>
 
-    <h3>Labels - &#123;&#123;checked2&#125;&#125;</h3>
+    <h3>Labels - {{checked2}}</h3>
     <p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="checked2"></p-inputSwitch>
 </div>
 
@@ -179,10 +179,10 @@ export class ModelComponent &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic - &#123;&#123;checked1&#125;&#125;&lt;/h3&gt;
+&lt;h3 class="first"&gt;Basic - {{checked1}}&lt;/h3&gt;
 &lt;p-inputSwitch [(ngModel)]="checked1"&gt;&lt;/p-inputSwitch&gt;
 
-&lt;h3&gt;Labels - &lt;span&gt; &#123;&#123;checked2&#125;&#125;&lt;/h3&gt;
+&lt;h3&gt;Labels - &lt;span&gt; {{checked2}}&lt;/h3&gt;
 &lt;p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="checked2"&gt;&lt;/p-inputSwitch&gt;
 </code>
 </pre>

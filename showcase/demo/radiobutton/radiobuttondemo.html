@@ -12,7 +12,7 @@
         <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val1"></p-radioButton></div>
         <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val1"></p-radioButton></div>
     </div>
-    Selected Value = &#123;&#123;val1||'none'&#125;&#125;
+    Selected Value = {{val1||'none'}}
 
     <h3>Preselection</h3>
     <div class="ui-g" style="width:250px;margin-bottom:10px">
@@ -20,7 +20,7 @@
         <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val2"></p-radioButton></div>
         <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val2"></p-radioButton></div>
     </div>
-    Selected Value = &#123;&#123;val2||'none'&#125;&#125;
+    Selected Value = {{val2||'none'}}
 </div>
 
 <div class="ContentSideSections Source">
@@ -185,7 +185,7 @@ export class ModelComponent &#123;
     &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
     &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;/div&gt;
-Selected Value = &#123;&#123;val1||'none'&#125;&#125;
+Selected Value = {{val1||'none'}}
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
 &lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
@@ -193,7 +193,7 @@ Selected Value = &#123;&#123;val1||'none'&#125;&#125;
     &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
     &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;/div&gt;
-Selected Value = &#123;&#123;val2||'none'&#125;&#125;
+Selected Value = {{val2||'none'}}
 </code>
 </pre>
 

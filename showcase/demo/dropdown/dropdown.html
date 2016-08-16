@@ -8,22 +8,22 @@
 <div class="ContentSideSections Implementation">
     <h3 class="first">Single</h3>
     <p-dropdown [options]="cities" [(ngModel)]="selectedCity"></p-dropdown>
-    <p>Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;</p>
+    <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
     
     <h3>Editable</h3>
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;" editable="editable"></p-dropdown>
-    <p>Selected City: &#123;&#123;selectedCar||'none'&#125;&#125;</p>
+    <p>Selected City: {{selectedCar||'none'}}</p>
     
     <h3>Content with Filters</h3>
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="filter">
         <template let-car>
             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
-                <img src="showcase/resources/demo/images/car/&#123;&#123;car.label&#125;&#125;.gif" style="width:24px;position:absolute;top:1px;left:5px"/>
-                <div style="font-size:14px;float:right;margin-top:4px">&#123;&#123;car.label&#125;&#125;</div>
+                <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/>
+                <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
             </div>
         </template>
     </p-dropdown>
-    <p>Selected Car: &#123;&#123;selectedCar2||'none'&#125;&#125;</p>
+    <p>Selected Car: {{selectedCar2||'none'}}</p>
 </div>
 
 <div class="ContentSideSections Source">
@@ -58,11 +58,11 @@ export class MyModel &#123;
     constructor() &#123;
         this.cities = [];
         this.cities.push(&#123;label:'Select City', value:null&#125;);
-        this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;);
-        this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;);
-        this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;);
-        this.cities.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;);
+        this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'}});
+        this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'}});
+        this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'}});
+        this.cities.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'}});
+        this.cities.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'}});
     &#125;
 
 &#125;
@@ -92,8 +92,8 @@ export class MyModel &#123;
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
-            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.label&#125;&#125;.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;{{car.label}}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-dropdown&gt;
@@ -283,22 +283,22 @@ export class MyModel &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;&lt;/p&gt;
+&lt;p&gt;Selected City: {{selectedCity ? selectedCity.name : 'none'}}&lt;/p&gt;
 
 &lt;h3&gt;Editable&lt;/h3&gt;
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;" editable="editable"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected City: &#123;&#123;selectedCar||'none'&#125;&#125;&lt;/p&gt;
+&lt;p&gt;Selected City: {{selectedCar||'none'}}&lt;/p&gt;
 
 &lt;h3&gt;Content with Filters&lt;/h3&gt;
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="filter"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
-            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.label&#125;&#125;.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;{{car.label}}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: &#123;&#123;selectedCar2||'none'&#125;&#125;&lt;/p&gt;
+&lt;p&gt;Selected Car: {{selectedCar2||'none'}}&lt;/p&gt;
 </code>
 </pre>
 
@@ -317,11 +317,11 @@ export class DropdownDemo &#123;
     constructor() &#123;
         this.cities = [];
         this.cities.push(&#123;label:'Select City', value:null&#125;);
-        this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;);
-        this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;);
-        this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;);
-        this.cities.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;);
+        this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'}});
+        this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'}});
+        this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'}});
+        this.cities.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'}});
+        this.cities.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'}});
 
         this.cars = [];
         this.cars.push(&#123;label: 'Audi', value: 'Audi'&#125;);

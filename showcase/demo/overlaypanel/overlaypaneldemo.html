@@ -41,7 +41,7 @@
     </p-dataTable>
     
     <p-overlayPanel #op3>
-        <img src="showcase/resources/demo/images/car/&#123;&#123;selectedCar.brand&#125;&#125;-big.gif" *ngIf="selectedCar"/>
+        <img src="showcase/resources/demo/images/car/{{selectedCar.brand}}-big.gif" *ngIf="selectedCar"/>
     </p-overlayPanel>
 </div>
 
@@ -277,7 +277,7 @@ import &#123;OverlayPanel&#125; from 'primeng/primeng';
 &lt;/p-dataTable&gt;
 
 &lt;p-overlayPanel #op3&gt;
-    &lt;img src="showcase/resources/demo/images/car/&#123;&#123;selectedCar.brand&#125;&#125;-big.gif" *ngIf="selectedCar"/&gt;
+    &lt;img src="showcase/resources/demo/images/car/{{selectedCar.brand}}-big.gif" *ngIf="selectedCar"/&gt;
 &lt;/p-overlayPanel&gt;
 </code>
 </pre>

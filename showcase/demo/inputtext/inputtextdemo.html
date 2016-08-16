@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <input id="in" type="text" size="30" pInputText [(ngModel)]="text" /> {{&#123;&#123;text&#125;&#125;}}
+    <input id="in" type="text" size="30" pInputText [(ngModel)]="text" /> {{text}}
 
     <h3>Disabled</h3>
     <input id="in" type="text" size="30" pInputText [disabled]="disabled" />
@@ -90,7 +90,7 @@ import &#123;InputText&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt;  &#123;&#123;text&#125;&#125;
+&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt;  {{text}}
 
 &lt;h3&gt;Disabled&lt;/h3&gt;
 &lt;input id="in" type="text" size="30" pInputText [disabled]="disabled" /&gt;
@@ -108,7 +108,7 @@ export class InputTextDemo &#123;
     disabled: boolean = true;
 
     toggleDisabled() &#123;
-    this.disabled = !this.disabled;
+        this.disabled = !this.disabled;
     &#125;
 &#125;
 </code>

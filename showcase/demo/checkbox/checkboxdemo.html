@@ -13,7 +13,7 @@
         <div class="ui-g-12"><p-checkbox name="group1" value="Los Angeles" label="Los Angeles" [(ngModel)]="selectedCities"></p-checkbox></div>
     </div>
 
-    Selected Cities: <span *ngFor="let city of selectedCities" style="margin-right:10px">&#123;&#123;city&#125;&#125;</span>
+    Selected Cities: <span *ngFor="let city of selectedCities" style="margin-right:10px">{{city}}</span>
 
     <h3>Preselection</h3>
     <div class="ui-g" style="width:250px;margin-bottom:10px">
@@ -23,9 +23,9 @@
         <div class="ui-g-12"><p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories"></p-checkbox></div>
     </div>
 
-    Selected Categories: <span *ngFor="let cat of selectedCategories" style="margin-right:10px">&#123;&#123;cat&#125;&#125;</span>
+    Selected Categories: <span *ngFor="let cat of selectedCategories" style="margin-right:10px">{{cat}}</span>
     
-    <h3>Boolean - &#123;&#123;checked&#125;&#125;</h3>
+    <h3>Boolean - {{checked}}</h3>
     <p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox>
 </div>
 
@@ -218,7 +218,7 @@ export class ModelComponent &#123;
     &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="Los Angeles" label="Los Angeles" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
 &lt;/div&gt;
 
-Selected Cities: &lt;span *ngFor="let city of selectedCities" style="margin-right:10px"&gt;&#123;&#123;city&#125;&#125;&lt;/span&gt;
+Selected Cities: &lt;span *ngFor="let city of selectedCities" style="margin-right:10px"&gt;{{city}}&lt;/span&gt;
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
 &lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
@@ -228,9 +228,9 @@ Selected Cities: &lt;span *ngFor="let city of selectedCities" style="margin-righ
     &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
 &lt;/div&gt;
 
-Selected Categories: &lt;span *ngFor="let cat of selectedCategories" style="margin-right:10px"&gt;&#123;&#123;cat&#125;&#125; &lt;/span&gt;
+Selected Categories: &lt;span *ngFor="let cat of selectedCategories" style="margin-right:10px"&gt;{{cat}} &lt;/span&gt;
 
-&lt;h3&gt;Boolean - &#123;&#123;checked&#125;&#125;&lt;/h3&gt;
+&lt;h3&gt;Boolean - {{checked}}&lt;/h3&gt;
 &lt;p-checkbox [(ngModel)]="checked" binary="true"&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>

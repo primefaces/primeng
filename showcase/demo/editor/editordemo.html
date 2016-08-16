@@ -8,7 +8,7 @@
 <div class="ContentSideSections Implementation">
     <h3 class="first">Default</h3>
     <p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"></p-editor>
-    <p>Value: &#123;&#123;text1||'empty'&#125;&#125;</p>
+    <p>Value: {{text1||'empty'}}</p>
     
     <button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"></button>
     
@@ -24,7 +24,7 @@
             </span>
         </header>
     </p-editor>
-    <p>Value: &#123;&#123;text2||'empty'&#125;&#125;</p>
+    <p>Value: {{text2||'empty'}}</p>
     
     <button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"></button>
 </div>
@@ -182,7 +182,7 @@ export class EditorDemo &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
-&lt;p&gt;Value: &#123;&#123;text1||'empty'&#125;&#125;&lt;/p&gt;
+&lt;p&gt;Value: {{text1||'empty'}}&lt;/p&gt;
 
 &lt;button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"&gt;&lt;/button&gt;
 
@@ -198,7 +198,7 @@ export class EditorDemo &#123;
         &lt;/span&gt;
     &lt;/header&gt;
 &lt;/p-editor&gt;
-&lt;p&gt;Value: &#123;&#123;text2||'empty'&#125;&#125;&lt;/p&gt;
+&lt;p&gt;Value: {{text2||'empty'}}&lt;/p&gt;
 
 &lt;button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"&gt;&lt;/button&gt;
 </code>
