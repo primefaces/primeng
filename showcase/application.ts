@@ -103,6 +103,8 @@ import {CountryService} from './demo/service/countryservice';
 import {EventService} from './demo/service/eventservice';
 import {NodeService} from './demo/service/nodeservice';
 
+import {AccordionModule} from '../components/accordion/accordion';
+
 @Component({
     selector: 'primeng-showcase',
     templateUrl: 'showcase/app.component.html'
@@ -126,7 +128,8 @@ export class AppComponent {
         BrowserModule,
         FormsModule,
         AppRoutes,
-        HttpModule
+        HttpModule,
+        AccordionModule
     ],
     declarations: [
         AppComponent,
