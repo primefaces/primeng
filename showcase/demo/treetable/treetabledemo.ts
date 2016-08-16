@@ -6,7 +6,6 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {HTTP_PROVIDERS}    from '@angular/http';
 import {NodeService} from '../service/nodeservice';
 import {Growl} from '../../../components/growl/growl';
 import {Message} from '../../../components/common';
@@ -14,8 +13,7 @@ import {Header} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/treetable/treetabledemo.html',
-    directives: [TreeTable,Column,TabView,Growl,TabPanel,Header,CodeHighlighter,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,NodeService]
+    directives: [TreeTable,Column,TabView,Growl,TabPanel,Header,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class TreeTableDemo implements OnInit {
     

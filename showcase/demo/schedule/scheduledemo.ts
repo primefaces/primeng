@@ -1,5 +1,4 @@
 import {Component,OnInit,ChangeDetectorRef} from '@angular/core';
-import {HTTP_PROVIDERS}    from '@angular/http';
 import {Schedule} from '../../../components/schedule/schedule';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
@@ -15,7 +14,6 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 @Component({
     templateUrl: 'showcase/demo/schedule/scheduledemo.html',
     directives: [Schedule,Button,InputText,Calendar,Dialog,Checkbox,TabPanel,TabView,Button,CodeHighlighter,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,EventService],
     styles: [`
         .ui-grid-row div {
           padding: 4px 10px

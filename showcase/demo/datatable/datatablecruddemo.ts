@@ -1,6 +1,5 @@
 import {Component,OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {HTTP_PROVIDERS}    from '@angular/http';
 import {DataTable} from '../../../components/datatable/datatable';
 import {Button} from '../../../components/button/button';
 import {InputText} from '../../../components/inputtext/inputtext';
@@ -18,7 +17,6 @@ import {Footer} from '../../../components/common';
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablecruddemo.html',
     directives: [DataTable,Column,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,Header,Footer,Dialog,Button,InputText,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,CarService],
     styles: [`
         .ui-grid-row div {
           padding: 4px 10px

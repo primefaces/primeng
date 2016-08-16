@@ -5,12 +5,10 @@ import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
 import {CountryService} from '../service/countryservice';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {HTTP_PROVIDERS}    from '@angular/http';
 
 @Component({
     templateUrl: 'showcase/demo/autocomplete/autocompletedemo.html',
-    directives: [AutoComplete,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,CountryService]
+    directives: [AutoComplete,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class AutoCompleteDemo {
 

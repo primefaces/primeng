@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
-import {FormsModule}    from '@angular/forms';
+import {FormsModule}    from '@angular/forms'
+import {HttpModule}    from '@angular/http';
 import {Component} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -97,6 +98,10 @@ import {TabMenuDemo} from "./demo/tabmenu/tabmenudemo";
 import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
+import {CarService} from './demo/service/carservice';
+import {CountryService} from './demo/service/countryservice';
+import {EventService} from './demo/service/eventservice';
+import {NodeService} from './demo/service/nodeservice';
 
 @Component({
     selector: 'primeng-showcase',
@@ -120,7 +125,8 @@ export class AppComponent {
     imports: [
         BrowserModule,
         FormsModule,
-        AppRoutes
+        AppRoutes,
+        HttpModule
     ],
     declarations: [
         AppComponent,
@@ -216,6 +222,9 @@ export class AppComponent {
         TooltipDemo,
         MenuModelApi,
         InputMaskDemo
+    ],
+    providers: [
+        CarService,CountryService,EventService,NodeService
     ],
     bootstrap: [AppComponent]
 })

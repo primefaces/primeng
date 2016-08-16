@@ -1,6 +1,5 @@
 import {Component,OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {HTTP_PROVIDERS}    from '@angular/http';
 import {DataTable} from '../../../components/datatable/datatable';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
@@ -14,8 +13,7 @@ import {CarService} from '../service/carservice';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablefilterdemo.html',
-    directives: [DataTable,Column,Header,InputText,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,CarService]
+    directives: [DataTable,Column,Header,InputText,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class DataTableFilterDemo implements OnInit {
 

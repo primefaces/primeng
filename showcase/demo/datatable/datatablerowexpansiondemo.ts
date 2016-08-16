@@ -1,6 +1,5 @@
 import {Component,OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {HTTP_PROVIDERS}    from '@angular/http';
 import {DataTable} from '../../../components/datatable/datatable';
 import {Dialog} from '../../../components/dialog/dialog';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
@@ -14,7 +13,6 @@ import {CarService} from '../service/carservice';
 @Component({
     templateUrl: 'showcase/demo/datatable/datatablerowexpansiondemo.html',
     directives: [DataTable,Column,DataTableSubmenu,Dialog,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,CarService],
     styles: [`
         .label {
             font-weight: bold

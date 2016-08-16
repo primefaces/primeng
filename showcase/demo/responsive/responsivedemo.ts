@@ -35,13 +35,11 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 import {NodeService} from '../service/nodeservice';
 import {CountryService} from '../service/countryservice';
-import {HTTP_PROVIDERS}    from '@angular/http';
 import {MenuItem} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/responsive/responsivedemo.html',
     directives: [PanelMenu,Menu,PickList,Carousel,OrderList,Tree,TreeNodeTemplateLoader,UITreeNode,UIChart,RadioButton,Password,SplitButton,SplitButtonItem,AutoComplete,Header,DataGrid,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES,InputText,InputTextarea,Button,Dropdown,Listbox,Dialog,Panel,DataTable,Column,Calendar],
-    providers: [HTTP_PROVIDERS,CarService,CountryService,NodeService],
     styles: [`
         .ui-grid-row .ui-grid-col-2,
         .ui-grid-row .ui-grid-col-10 {

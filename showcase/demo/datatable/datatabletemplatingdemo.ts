@@ -1,6 +1,5 @@
 import {Component,OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {HTTP_PROVIDERS}    from '@angular/http';
 import {DataTable} from '../../../components/datatable/datatable';
 import {Column} from '../../../components/column/column';
 import {Button} from '../../../components/button/button';
@@ -15,8 +14,7 @@ import {Message} from '../../../components/common';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatabletemplatingdemo.html',
-    directives: [DataTable,Column,Button,Growl,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,CarService]
+    directives: [DataTable,Column,Button,Growl,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class DataTableTemplatingDemo implements OnInit {
 

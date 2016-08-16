@@ -12,8 +12,7 @@ import {CarService} from '../service/carservice';
 
 @Component({
     templateUrl: 'showcase/demo/datatable/datatabledemo.html',
-    directives: [DataTable,Column,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,CarService]
+    directives: [DataTable,Column,DataTableSubmenu,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class DataTableDemo implements OnInit {
 
