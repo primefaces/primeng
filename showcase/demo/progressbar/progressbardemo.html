@@ -21,7 +21,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {ProgressBar} from 'primeng/primeng';
+import &#123;ProgressBar&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -35,11 +35,11 @@ import {ProgressBar} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
     value: number = 0;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -111,24 +111,24 @@ export class ModelComponent {
 
 <pre>
 <code class="language-typescript" pCode>
-export class ProgressBarDemo {
+export class ProgressBarDemo &#123;
 
     value: number = 0;
 
     msgs: Message[];
 
-    ngOnInit() {
-        let interval = setInterval(() => {
+    ngOnInit() &#123;
+        let interval = setInterval(() => &#123;
             this.value = this.value + Math.floor(Math.random() * 10) + 1;
-            if(this.value >= 100) {
+            if(this.value >= 100) &#123;
                 this.value = 100;
-                this.msgs = [{severity: 'info', summary: 'Success', detail: 'Process Completed'}];
+                this.msgs = [&#123;severity: 'info', summary: 'Success', detail: 'Process Completed'&#125;];
                 clearInterval(interval);
-            }
-        }, 2000);
-    }
+            &#125;
+        &#125;, 2000);
+    &#125;
 
-}
+&#125;
 </code>
 </pre>
         </p-tabPanel>

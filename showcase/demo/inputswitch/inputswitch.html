@@ -6,10 +6,10 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <h3 class="first">Basic - {{checked1}}</h3>
+    <h3 class="first">Basic - &#123;&#123;checked1&#125;&#125;</h3>
     <p-inputSwitch [(ngModel)]="checked1"></p-inputSwitch>
 
-    <h3>Labels - {{checked2}}</h3>
+    <h3>Labels - &#123;&#123;checked2&#125;&#125;</h3>
     <p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="checked2"></p-inputSwitch>
 </div>
 
@@ -19,7 +19,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {InputSwitch} from 'primeng/primeng';
+import &#123;InputSwitch&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -34,22 +34,22 @@ import {InputSwitch} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
     checked: boolean;
 
-}
+&#125;
 </code>
 </pre>
 
             <p>As model is two-way binding enabled, setting the bound value as true displays the state as checked by default.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
    checked: boolean = true;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -136,12 +136,12 @@ export class ModelComponent {
 </pre>
  <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
-    handleChange(e) {
+    handleChange(e) &#123;
         var isChecked = e.checked;
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -179,22 +179,22 @@ export class ModelComponent {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic - {{checked1}}&lt;/h3&gt;
+&lt;h3 class="first"&gt;Basic - &#123;&#123;checked1&#125;&#125;&lt;/h3&gt;
 &lt;p-inputSwitch [(ngModel)]="checked1"&gt;&lt;/p-inputSwitch&gt;
 
-&lt;h3&gt;Labels - &lt;span&gt; {{checked2}}&lt;/h3&gt;
+&lt;h3&gt;Labels - &lt;span&gt; &#123;&#123;checked2&#125;&#125;&lt;/h3&gt;
 &lt;p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="checked2"&gt;&lt;/p-inputSwitch&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class InputSwitchDemo {
+export class InputSwitchDemo &#123;
 
     checked1: boolean = false;
 
     checked2: boolean = true;
-}
+&#125;
 </code>
 </pre>
         </p-tabPanel>

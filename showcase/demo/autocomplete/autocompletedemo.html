@@ -9,26 +9,26 @@
     <h3 class="first">Basic</h3>
     <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
         placeholder="Countries" [minLength]="1"></p-autoComplete>
-    <span style="margin-left:10px">Country: {{country ? country.name||country : 'none'}}</span>
+    <span style="margin-left:10px">Country: &#123;&#123;country ? country.name||country : 'none'&#125;&#125;</span>
     
     <h3>Advanced</h3>
     <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
         <template let-brand>
             <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
-                <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
-                <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
+                <img src="showcase/resources/demo/images/car/&#123;&#123;brand&#125;&#125;.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
+                <div style="font-size:18px;float:right;margin:10px 10px 0 0">&#123;&#123;brand&#125;&#125;</div>
             </div>
         </template>
     </p-autoComplete>
-    <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
+    <span style="margin-left:50px">Brand: &#123;&#123;brand||'none'&#125;&#125;</span>
     
     <h3>Multiple</h3>
     <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
         [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
     </p-autoComplete>
     <ul>
-        <li *ngFor="let c of countries">{{c.name}}</li>
+        <li *ngFor="let c of countries">&#123;&#123;c.name&#125;&#125;</li>
     </ul>
 </div>
 
@@ -38,7 +38,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {AutoComplete} from 'primeng/primeng';
+import &#123;AutoComplete&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -53,19 +53,19 @@ import {AutoComplete} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
     
     text: string;
     
     results: string[];
     
-    search(event) {
-        this.mylookupservice.getResults(event.query).then(data => {
+    search(event) &#123;
+        this.mylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
-        });
-    }
+        &#125;);
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
 
@@ -89,23 +89,23 @@ export class AutoCompleteDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
     
     text: string;
     
     results: string[];
     
-    search(event) {
-        this.mylookupservice.getResults(event.query).then(data => {
+    search(event) &#123;
+        this.mylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
-        });
-    }
+        &#125;);
+    &#125;
     
-    handleDropdown(event) {
+    handleDropdown(event) &#123;
         //event.query = current value in input field
-    }
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
 
@@ -119,25 +119,25 @@ export class AutoCompleteDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
     
     texts: string[];
     
     results: string[];
     
-    search(event) {
-        this.mylookupservice.getResults(event.query).then(data => {
+    search(event) &#123;
+        this.mylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
-        });
-    }
+        &#125;);
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
 
             <h3>Objects</h3>
             <p>AutoComplete can also work with objects using the field property that defines the label to display as a suggestion. The value passed to the model would still be the
-            object instance of a suggestion. Here is an example with a Country object that has name and code fields such as {name:"United States",code:"USA"}.</p>
+            object instance of a suggestion. Here is an example with a Country object that has name and code fields such as &#123;name:"United States",code:"USA"&#125;.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)" field="name"&gt;&lt;/p-autoComplete&gt;
@@ -146,19 +146,19 @@ export class AutoCompleteDemo {
     
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
     
     val: country;
     
     results: country[];
     
-    search(event) {
-        this.countrylookupservice.getResults(event.query).then(data => {
+    search(event) &#123;
+        this.countrylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
-        });
-    }
+        &#125;);
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
     
@@ -169,8 +169,8 @@ export class AutoCompleteDemo {
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
     &lt;template let-brand&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
-            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;brand&#125;&#125;.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;&#123;&#123;brand&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-autoComplete&gt;
@@ -387,33 +387,33 @@ export class AutoCompleteDemo {
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
     placeholder="Countries" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
-&lt;span style="margin-left:10px"&gt;Country: {{country ? country.name||country : 'none'}}&lt;/span&gt;
+&lt;span style="margin-left:10px"&gt;Country: &#123;&#123;country ? country.name||country : 'none'&#125;&#125;&lt;/span&gt;
 
 &lt;h3&gt;Advanced&lt;/h3&gt;
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
     [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)"&gt;
     &lt;template let-brand&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
-            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;brand&#125;&#125;.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;&#123;&#123;brand&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-autoComplete&gt;
-&lt;span style="margin-left:50px"&gt;Brand: {{brand||'none'}}&lt;/span&gt;
+&lt;span style="margin-left:50px"&gt;Brand: &#123;&#123;brand||'none'&#125;&#125;&lt;/span&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
     [minLength]="1" placeholder="Countries" field="name" [multiple]="true"&gt;
 &lt;/p-autoComplete&gt;
 &lt;ul&gt;
-    &lt;li *ngFor="let c of countries"&gt;{{c.name}}&lt;/li&gt;
+    &lt;li *ngFor="let c of countries"&gt;&#123;&#123;c.name&#125;&#125;&lt;/li&gt;
 &lt;/ul&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
 
     country: any;
     
@@ -429,70 +429,70 @@ export class AutoCompleteDemo {
     
     brand: string;
     
-    constructor(private countryService: CountryService) { }
+    constructor(private countryService: CountryService) &#123; &#125;
     
-    filterCountrySingle(event) {
+    filterCountrySingle(event) &#123;
         let query = event.query;        
-        this.countryService.getCountries().then(countries => {
+        this.countryService.getCountries().then(countries => &#123;
             this.filteredCountriesSingle = this.filterCountry(query, countries);
-        });
-    }
+        &#125;);
+    &#125;
     
-    filterCountryMultiple(event) {
+    filterCountryMultiple(event) &#123;
         let query = event.query;
-        this.countryService.getCountries().then(countries => {
+        this.countryService.getCountries().then(countries => &#123;
             this.filteredCountriesMultiple = this.filterCountry(query, countries);
-        });
-    }
+        &#125;);
+    &#125;
     
-    filterCountry(query, countries: any[]):any[] {
+    filterCountry(query, countries: any[]):any[] &#123;
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered : any[] = [];
-        for(let i = 0; i < countries.length; i++) {
+        for(let i = 0; i < countries.length; i++) &#123;
             let country = countries[i];
-            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
                 filtered.push(country);
-            }
-        }
+            &#125;
+        &#125;
         return filtered;
-    }
+    &#125;
         
-    filterBrands(event) {
+    filterBrands(event) &#123;
         this.filteredBrands = [];
-        for(let i = 0; i < this.brands.length; i++) {
+        for(let i = 0; i < this.brands.length; i++) &#123;
             let brand = this.brands[i];
-            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
+            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) &#123;
                 this.filteredBrands.push(brand);
-            }
-        }
-    }
+            &#125;
+        &#125;
+    &#125;
     
-    handleDropdownClick() {
+    handleDropdownClick() &#123;
         this.filteredBrands = [];
         
         //mimic remote call
-        setTimeout(() => {
+        setTimeout(() => &#123;
             this.filteredBrands = this.brands;
-        }, 100)
-    }
-}
+        &#125;, 100)
+    &#125;
+&#125;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
 @Injectable()
-export class CountryService {
+export class CountryService &#123;
     
-    constructor(private http: Http) {}
+    constructor(private http: Http) &#123;&#125;
 
-    getCountries() {
+    getCountries() &#123;
         return this.http.get('showcase/resources/data/countries.json')
                     .toPromise()
                     .then(res => &lt;any[]&gt; res.json().data)
-                    .then(data => { return data; });
-    }
-}
+                    .then(data => &#123; return data; &#125;);
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

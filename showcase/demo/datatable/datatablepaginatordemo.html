@@ -23,16 +23,16 @@
         <p-tabPanel header="datatablepaginatordemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTablePaginatorDemo implements OnInit {
+export class DataTablePaginatorDemo implements OnInit &#123;
 
     cars: Car[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>

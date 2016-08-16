@@ -15,7 +15,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Terminal} from 'primeng/primeng';
+import &#123;Terminal&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -24,16 +24,16 @@ import {Terminal} from 'primeng/primeng';
             is passed to the handler by the event parameter and the response is sent back using a binding to the response property.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class TerminalDemo {
+export class TerminalDemo &#123;
     
     response: string;
 
-    onCommand(event) {
+    onCommand(event) &#123;
         //event.command = entered command
         //in a real application connect to remote service to process the command and update the response field in return
         this.response = 'Unknown command: ' +event.command;
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -154,17 +154,17 @@ export class TerminalDemo {
     
 <pre>
 <code class="language-typescript" pCode>
-export class TerminalDemo {
+export class TerminalDemo &#123;
     
     response: string;
 
-    onCommand(event) {
+    onCommand(event) &#123;
         if(event.command === 'date')
             this.response = new Date().toDateString();
         else
             this.response = 'Unknown command: ' + event.command;
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 </p-tabPanel>

@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Component,OnInit,ViewEncapsulation} from '@angular/core';
 import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 import {TabView} from '../../../components/tabview/tabview';
 import {TabPanel} from '../../../components/tabview/tabpanel';
@@ -41,7 +41,18 @@ import {MenuItem} from '../../../components/common';
 @Component({
     templateUrl: 'showcase/demo/responsive/responsivedemo.html',
     directives: [PanelMenu,Menu,PickList,Carousel,OrderList,Tree,TreeNodeTemplateLoader,UITreeNode,UIChart,RadioButton,Password,SplitButton,SplitButtonItem,AutoComplete,Header,DataGrid,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES,InputText,InputTextarea,Button,Dropdown,Listbox,Dialog,Panel,DataTable,Column,Calendar],
-    providers: [HTTP_PROVIDERS,CarService,CountryService,NodeService]
+    providers: [HTTP_PROVIDERS,CarService,CountryService,NodeService],
+    styles: [`
+        .ui-grid-row .ui-grid-col-2,
+        .ui-grid-row .ui-grid-col-10 {
+            padding: 0.5em 0;
+        }
+
+        .ui-datagrid .ui-datagrid-column {
+            text-align: center;
+        }
+    `],
+    encapsulation: ViewEncapsulation.None
 })
 export class ResponsiveDemo implements OnInit {
 

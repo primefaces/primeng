@@ -12,7 +12,7 @@
         <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val1"></p-radioButton></div>
         <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val1"></p-radioButton></div>
     </div>
-    Selected Value = {{val1||'none'}}
+    Selected Value = &#123;&#123;val1||'none'&#125;&#125;
 
     <h3>Preselection</h3>
     <div class="ui-g" style="width:250px;margin-bottom:10px">
@@ -20,7 +20,7 @@
         <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val2"></p-radioButton></div>
         <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val2"></p-radioButton></div>
     </div>
-    Selected Value = {{val2||'none'}}
+    Selected Value = &#123;&#123;val2||'none'&#125;&#125;
 </div>
 
 <div class="ContentSideSections Source">
@@ -29,7 +29,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {RadioButton} from 'primeng/primeng';
+import &#123;RadioButton&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -45,22 +45,22 @@ import {RadioButton} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
     selectedValue: string;
 
-}
+&#125;
 </code>
 </pre>
 
             <p>As model is two-way binding enabled, giving a default value to the model is enough to display a radio button as checked by default.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
     selectedValue: string = 'val1';
 
-}
+&#125;
 </code>
 </pre>
 
@@ -185,7 +185,7 @@ export class ModelComponent {
     &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
     &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val1"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;/div&gt;
-Selected Value = {{val1||'none'}}
+Selected Value = &#123;&#123;val1||'none'&#125;&#125;
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
 &lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
@@ -193,19 +193,19 @@ Selected Value = {{val1||'none'}}
     &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 2" label="Option 2" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
     &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 3" label="Option 3" [(ngModel)]="val2"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
 &lt;/div&gt;
-Selected Value = {{val2||'none'}}
+Selected Value = &#123;&#123;val2||'none'&#125;&#125;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class RadioButtonDemo {
+export class RadioButtonDemo &#123;
 
     val1: string;
 
     val2: string = 'Option 2';
     
-}
+&#125;
 </code>
 </pre>
         </p-tabPanel>

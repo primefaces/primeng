@@ -17,7 +17,7 @@
     <button pButton type="text" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"></button>
 
     <br /><br />
-    Number of clicks: {{clicks}}
+    Number of clicks: &#123;&#123;clicks&#125;&#125;
 </div>
 
 <div class="ContentSideSections Source">
@@ -26,7 +26,7 @@
                     <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Button} from 'primeng/primeng';
+import &#123;Button&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -50,13 +50,13 @@ import {Button} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class Model {
+export class Model &#123;
 
-onclick() {
+onclick() &#123;
 
-}
+&#125;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -146,19 +146,19 @@ onclick() {
 
 &lt;button pButton type="text" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
 
-Number of clicks: {{clicks}}
+Number of clicks: &#123;&#123;clicks&#125;&#125;
 </code>
 </pre>
 <pre>
 <code class="language-typescript" pCode>
-export class ButtonDemo {
+export class ButtonDemo &#123;
 
     clicks: number = 0;
 
-    count() {
+    count() &#123;
         this.clicks++;
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </ p-tabPanel>

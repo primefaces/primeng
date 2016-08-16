@@ -22,21 +22,21 @@ npm install primeui --save
     <p>Once PrimeNG is downloaded and configured, components and apis can be imported from 'primeng/primeng' in your application code.</p>
 <pre>
 <code class="language-typescript" pCode>
-import {Accordion} from 'primeng/primeng';
-import {Header} from 'primeng/primeng';
-import {MenuItem} from 'primeng/primeng';
+import &#123;Accordion&#125; from 'primeng/primeng';
+import &#123;Header&#125; from 'primeng/primeng';
+import &#123;MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
 
     <p>Importing from primeng/primeng will load all other components as well, to only import a specific component pattern would be;</p>
 <pre>
 <code class="language-typescript" pCode>
-//import {ComponentName} from 'primeng/components/componentname/componentname';
-//import {InterfaceName} from 'primeng/common';
+//import &#123;ComponentName&#125; from 'primeng/components/componentname/componentname';
+//import &#123;InterfaceName&#125; from 'primeng/common';
 
-import {Accordion} from 'primeng/components/accordion/accordion';
-import {Header} from 'primeng/common';
-import {MenuItem} from 'primeng/common';
+import &#123;Accordion&#125; from 'primeng/components/accordion/accordion';
+import &#123;Header&#125; from 'primeng/common';
+import &#123;MenuItem&#125; from 'primeng/common';
 </code>
 </pre>
 
@@ -102,19 +102,19 @@ import {MenuItem} from 'primeng/common';
     <h4>package.json</h4>
 <pre>
 <code class="language-js" pCode>
-{
+&#123;
   "name": "primeng-quickstart",
   "version": "v1.0.0-SNAPSHOT",
-  "scripts": {
+  "scripts": &#123;
     "postinstall": "npm run typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
     "start": "tsc &amp;&amp; concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "typings" : "typings"
-  },
+  &#125;,
   "license": "ISC",
-  "dependencies": {
+  "dependencies": &#123;
       "@angular/common": "2.0.0-rc.4",
       "@angular/compiler": "2.0.0-rc.4",
       "@angular/core": "2.0.0-rc.4",
@@ -132,14 +132,14 @@ import {MenuItem} from 'primeng/common';
       "angular2-in-memory-web-api": "0.0.14",
       "primeui": "^4.1.14",
       "primeng": "v1.0.0-beta.12"
-  },
-  "devDependencies": {
+  &#125;,
+  "devDependencies": &#123;
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
     "typescript": "^1.8.10",
     "typings":"^1.0.4"
-  }
-}
+  &#125;
+&#125;
 </code>
 </pre>
 
@@ -162,7 +162,7 @@ import {MenuItem} from 'primeng/common';
     &lt;script src="node_modules/systemjs/dist/system.src.js"&gt;&lt;/script&gt;
     &lt;script src="systemjs.config.js"&gt;&lt;/script&gt;
     &lt;script&gt;
-      System.import('app').catch(function(err){ console.error(err);  });
+      System.import('app').catch(function(err)&#123; console.error(err);  &#125;);
     &lt;/script&gt;
   &lt;/head&gt;
 
@@ -177,24 +177,24 @@ import {MenuItem} from 'primeng/common';
     <h4>systemjs.config.js</h4>
 <pre>
 <code class="language-javascript" pCode>
-(function(global) {
+(function(global) &#123;
 
   // map tells the System loader where to look for things
-  var map = {
+  var map = &#123;
     'app':                        'app', // 'dist',
     'rxjs':                       'node_modules/rxjs',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     '@angular':                   'node_modules/@angular',
     'primeng':                    'node_modules/primeng'
-  };
+  &#125;;
 
   // packages tells the System loader how to load when no filename and/or no extension
-  var packages = {
-    'app':                        { main: 'boot.js',  defaultExtension: 'js' },
-    'rxjs':                       { defaultExtension: 'js' },
-    'angular2-in-memory-web-api': { defaultExtension: 'js' },
-    'primeng':                    { defaultExtension: 'js' }
-  };
+  var packages = &#123;
+    'app':                        &#123; main: 'boot.js',  defaultExtension: 'js' &#125;,
+    'rxjs':                       &#123; defaultExtension: 'js' &#125;,
+    'angular2-in-memory-web-api': &#123; defaultExtension: 'js' &#125;,
+    'primeng':                    &#123; defaultExtension: 'js' &#125;
+  &#125;;
 
   var packageNames = [
     '@angular/common',
@@ -209,30 +209,30 @@ import {MenuItem} from 'primeng/common';
     '@angular/forms'
   ];
 
-  // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
-  packageNames.forEach(function(pkgName) {
-    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
-  });
+  // add package entries for angular packages in the form '@angular/common': &#123; main: 'index.js', defaultExtension: 'js' &#125;
+  packageNames.forEach(function(pkgName) &#123;
+    packages[pkgName] = &#123; main: 'index.js', defaultExtension: 'js' &#125;;
+  &#125;);
 
-  var config = {
+  var config = &#123;
     map: map,
     packages: packages
-  }
+  &#125;
 
   // filterSystemConfig - index.html's chance to modify config before we register it.
-  if (global.filterSystemConfig) { global.filterSystemConfig(config); }
+  if (global.filterSystemConfig) &#123; global.filterSystemConfig(config); &#125;
 
   System.config(config);
 
-})(this);
+&#125;)(this);
 </code>
 </pre>
 
     <h4>boot.ts</h4>
 <pre>
 <code class="language-typescript" pCode>
-import {bootstrap} from '@angular/platform-browser-dynamic';
-import {AppComponent} from './app.component';
+import &#123;bootstrap&#125; from '@angular/platform-browser-dynamic';
+import &#123;AppComponent&#125; from './app.component';
 
 bootstrap(AppComponent);
 </code>
@@ -242,20 +242,20 @@ bootstrap(AppComponent);
     <p>Sample app component uses PrimeNG InputText.</p>
 <pre>
 <code class="language-typescript" pCode>
-import {Component} from '@angular/core';
-import {InputText} from 'primeng/primeng';
+import &#123;Component&#125; from '@angular/core';
+import &#123;InputText&#125; from 'primeng/primeng';
 
-@Component({
+@Component(&#123;
 	selector: 'my-app',
 	template: `
         &lt;h1&gt;My First PrimeNG App&lt;/h1&gt;
         &lt;input type="text" pInputText/&gt;
     `,
     directives: [InputText]
-})
-export class AppComponent {
+&#125;)
+export class AppComponent &#123;
 
-}
+&#125;
 </code>
 </pre>
     <p>Running npm install and then npm start, starts the lite-server, opens up a browser and runs the application.</p>
@@ -266,10 +266,10 @@ export class AppComponent {
     <h4>package.json</h4>
 <pre>
 <code class="language-javascript" pCode>
-    {
+    &#123;
   "name": "primeng-quickstart-webpack",
   "version": "v1.0.0-SNAPSHOT",
-  "scripts": {
+  "scripts": &#123;
     "postinstall": "npm run typings install",
     "typings": "typings",
     "tsc": "tsc",
@@ -278,9 +278,9 @@ export class AppComponent {
     "webpack:w": "webpack -w",
     "webpack-dev-server": "webpack-dev-server",
     "start": "npm run tsc && npm run webpack-dev-server"
-  },
+  &#125;,
   "license": "ISC",
-  "dependencies": {
+  "dependencies": &#123;
       "@angular/common": "2.0.0-rc.4",
       "@angular/compiler": "2.0.0-rc.4",
       "@angular/core": "2.0.0-rc.4",
@@ -297,8 +297,8 @@ export class AppComponent {
       "angular2-in-memory-web-api": "0.0.14",
       "primeng": "^1.0.0-beta.11",
       "primeui": "^4.1.12"
-  },
-  "devDependencies": {
+  &#125;,
+  "devDependencies": &#123;
     "@ngrx/devtools": "^1.4.0",
     "source-map-loader": "^0.1.5",
     "script-loader": "^0.6.1",
@@ -306,8 +306,8 @@ export class AppComponent {
     "typescript": "^1.8.10",
     "typings": "^1.3.0",
     "webpack": "^1.13.1"
-  }
-}
+  &#125;
+&#125;
 </code>
 </pre>
 
@@ -318,22 +318,22 @@ export class AppComponent {
 <code class="language-javascript" pCode>
 var webpack = require("webpack");
 
-module.exports = {
-    entry: {
+module.exports = &#123;
+    entry: &#123;
         'polyfills': './app/polyfills.js',
         'vendor': './app/vendor.js',
         'app': './app/boot.js'
-    },
-    output: {
+    &#125;,
+    output: &#123;
         path: __dirname,
         filename: "./prod/[name].js"
-    },
+    &#125;,
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
+        new webpack.optimize.CommonsChunkPlugin(&#123;
             name: ['app', 'vendor', 'polyfills']
-        })
+        &#125;)
     ]
-};
+&#125;;
 </code>
 </pre>
 
@@ -383,18 +383,18 @@ import 'rxjs/Rx';
 <pre>
 <code class="language-typescript" pCode>
     //library imports: shims, pollyfills, etc
-    import {bootstrap} from '@angular/platform-browser-dynamic';
-    import {provide} from '@angular/core';
-    import {AppComponent} from './app.component';
-    import {enableProdMode} from '@angular/core';
-    import {LocationStrategy,HashLocationStrategy} from '@angular/common';
-    import {disableDeprecatedForms, provideForms} from '@angular/forms';
+    import &#123;bootstrap&#125; from '@angular/platform-browser-dynamic';
+    import &#123;provide&#125; from '@angular/core';
+    import &#123;AppComponent&#125; from './app.component';
+    import &#123;enableProdMode&#125; from '@angular/core';
+    import &#123;LocationStrategy,HashLocationStrategy&#125; from '@angular/common';
+    import &#123;disableDeprecatedForms, provideForms&#125; from '@angular/forms';
 
     //enableProdMode();
     bootstrap(AppComponent, [
       disableDeprecatedForms(),
       provideForms(),
-      provide(LocationStrategy, {useClass: HashLocationStrategy})
+      provide(LocationStrategy, &#123;useClass: HashLocationStrategy&#125;)
     ]);
 </code>
 </pre>

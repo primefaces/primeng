@@ -9,11 +9,11 @@
     <h3 class="first">Single</h3>
     <p-selectButton [options]="types" [(ngModel)]="selectedType"></p-selectButton>
 
-    <p>Selected Type: {{selectedType}}</p>
+    <p>Selected Type: &#123;&#123;selectedType&#125;&#125;</p>
 
     <h3>Multiple</h3>
     <p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"></p-selectButton>
-    <p>Selected Types: <span *ngFor="let type of selectedTypes">{{type}} </span></p>
+    <p>Selected Types: <span *ngFor="let type of selectedTypes">&#123;&#123;type&#125;&#125; </span></p>
 
     <hr />
 
@@ -26,7 +26,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {SelectButton} from 'primeng/primeng';
+import &#123;SelectButton&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -41,24 +41,24 @@ import {SelectButton} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-import {SelectItem} from 'primeng/primeng';
+import &#123;SelectItem&#125; from 'primeng/primeng';
 
-export class MyModel {
+export class MyModel &#123;
 
     cities: SelectItem[];
 
     selectedCity: string;
 
-    constructor() {
+    constructor() &#123;
         this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
-    }
+        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
+        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
+        this.cities.push(&#123;label:'London', value:'London'&#125;);
+        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
+        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+    &#125;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -73,24 +73,24 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-import {SelectItem} from 'primeng/primeng';
+import &#123;SelectItem&#125; from 'primeng/primeng';
 
-export class MyModel {
+export class MyModel &#123;
 
     cities: SelectItem[];
 
     selectedCities: string[] = [];
 
-    constructor() {
+    constructor() &#123;
         this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
-    }
+        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
+        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
+        this.cities.push(&#123;label:'London', value:'London'&#125;);
+        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
+        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+    &#125;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -180,11 +180,11 @@ export class MyModel {
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
 
-&lt;p&gt;Selected Type: {{selectedType}}&lt;/p&gt;
+&lt;p&gt;Selected Type: &#123;&#123;selectedType&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
-&lt;p&gt;Selected Types: &lt;span *ngFor="let type of selectedTypes"&gt;{{type}} &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Selected Types: &lt;span *ngFor="let type of selectedTypes"&gt;&#123;&#123;type&#125;&#125; &lt;/span&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -194,7 +194,7 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class SelectButtonDemo {
+export class SelectButtonDemo &#123;
 
     types: SelectItem[];
 
@@ -202,18 +202,18 @@ export class SelectButtonDemo {
 
     selectedTypes: string[] = ['Apartment','Studio'];
 
-    constructor() {
+    constructor() &#123;
         this.types = [];
-        this.types.push({label: 'Apartment', value: 'Apartment'});
-        this.types.push({label: 'House', value: 'House'});
-        this.types.push({label: 'Studio', value: 'Studio'});
-    }
+        this.types.push(&#123;label: 'Apartment', value: 'Apartment'&#125;);
+        this.types.push(&#123;label: 'House', value: 'House'&#125;);
+        this.types.push(&#123;label: 'Studio', value: 'Studio'&#125;);
+    &#125;
 
-    clear() {
+    clear() &#123;
         this.selectedType = null;
         this.selectedTypes = [];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

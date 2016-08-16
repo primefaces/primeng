@@ -23,7 +23,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Growl} from 'primeng/primeng';
+import &#123;Growl&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -38,13 +38,13 @@ import {Growl} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-import {Message} from 'primeng/primeng';
+import &#123;Message&#125; from 'primeng/primeng';
 
-export class MyModel {
+export class MyModel &#123;
 
     msgs: Message[] = [];
 
-}
+&#125;
 </code>
 </pre>
 
@@ -62,13 +62,13 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-show() {
-    this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
-}
+show() &#123;
+    this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);
+&#125;
 
-hide() {
+hide() &#123;
     this.msgs = [];
-}
+&#125;
 </code>
 </pre>
 
@@ -170,38 +170,38 @@ hide() {
 
 <pre>
 <code class="language-typescript" pCode>
-import {Message} from 'primeng/primeng';
+import &#123;Message&#125; from 'primeng/primeng';
 
-export class GrowlDemo {
+export class GrowlDemo &#123;
 
     msgs: Message[] = [];
 
-    showInfo() {
+    showInfo() &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});
-    }
+        this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);
+    &#125;
 
-    showWarn() {
+    showWarn() &#123;
         this.msgs = [];
-        this.msgs.push({severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'});
-    }
+        this.msgs.push(&#123;severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'&#125;);
+    &#125;
 
-    showError() {
+    showError() &#123;
         this.msgs = [];
-        this.msgs.push({severity:'error', summary:'Error Message', detail:'Validation failed'});
-    }
+        this.msgs.push(&#123;severity:'error', summary:'Error Message', detail:'Validation failed'&#125;);
+    &#125;
 
-    showMultiple() {
+    showMultiple() &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Message 1', detail:'PrimeNG rocks'});
-        this.msgs.push({severity:'info', summary:'Message 2', detail:'PrimeUI rocks'});
-        this.msgs.push({severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'});
-    }
+        this.msgs.push(&#123;severity:'info', summary:'Message 1', detail:'PrimeNG rocks'&#125;);
+        this.msgs.push(&#123;severity:'info', summary:'Message 2', detail:'PrimeUI rocks'&#125;);
+        this.msgs.push(&#123;severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'&#125;);
+    &#125;
 
-    clear() {
+    clear() &#123;
         this.msgs = [];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

@@ -23,16 +23,16 @@
         <p-tabPanel header="datatablefacetsdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableFacetsDemo implements OnInit {
+export class DataTableFacetsDemo implements OnInit &#123;
 
     cars: Car[];
 
-    constructor(private carService:CarService) {}
+    constructor(private carService:CarService) &#123;&#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>   
         </p-tabPanel>

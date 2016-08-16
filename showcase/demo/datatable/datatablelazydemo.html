@@ -26,7 +26,7 @@
         <p-tabPanel header="datatablelazydemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableLazyDemo implements OnInit {
+export class DataTableLazyDemo implements OnInit &#123;
 
     datasource: Car[];
     
@@ -34,14 +34,14 @@ export class DataTableLazyDemo implements OnInit {
     
     totalRecords: number;
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         //datasource imitation
-        this.carService.getCarsLarge().then(cars => {this.datasource = cars; this.totalRecords = this.datasource.length;});
-    }
+        this.carService.getCarsLarge().then(cars => &#123;this.datasource = cars; this.totalRecords = this.datasource.length;&#125;);
+    &#125;
     
-    loadCarsLazy(event: LazyLoadEvent) {
+    loadCarsLazy(event: LazyLoadEvent) &#123;
         //in a real application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
@@ -50,11 +50,11 @@ export class DataTableLazyDemo implements OnInit {
         //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
         
         //imitate db connection over a network
-        setTimeout(() => {
+        setTimeout(() => &#123;
             this.cars = this.datasource.slice(event.first, (event.first + event.rows));
-        }, 250);
-    }
-}
+        &#125;, 250);
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>

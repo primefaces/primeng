@@ -6,15 +6,15 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <h3 class="first">Basic {{val1}}</h3> 
+    <h3 class="first">Basic &#123;&#123;val1&#125;&#125;</h3> 
     <p-rating [(ngModel)]="val1"></p-rating>
     <br />
 
-    <h3>Callback {{val2}}</h3>
-    <p-rating [(ngModel)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"></p-rating> <span *ngIf="msg" style="margin-left:10px">{{msg}}</span>
+    <h3>Callback &#123;&#123;val2&#125;&#125;</h3>
+    <p-rating [(ngModel)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"></p-rating> <span *ngIf="msg" style="margin-left:10px">&#123;&#123;msg&#125;&#125;</span>
     <br />
 
-    <h3>No Cancel {{val3}}</h3> 
+    <h3>No Cancel &#123;&#123;val3&#125;&#125;</h3> 
     <p-rating [(ngModel)]="val3" [cancel]="false"></p-rating>
     <br />
 
@@ -33,7 +33,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Rating} from 'primeng/primeng';
+import &#123;Rating&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -48,22 +48,22 @@ import {Rating} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
     val: number;
 
-}
+&#125;
 </code>
 </pre>
 
             <p>Defining a default value would be enough to display the initial number of selected stars.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
     val: number = 3;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -180,13 +180,13 @@ export class ModelComponent {
                 <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic {{val1}}&lt;/h3&gt; 
+&lt;h3 class="first"&gt;Basic &#123;&#123;val1&#125;&#125;&lt;/h3&gt; 
 &lt;p-rating [(ngModel)]="val1"&gt;&lt;/p-rating&gt;
 
-&lt;h3&gt;Callback {{val2}}&lt;/h3&gt;
-&lt;p-rating [(ngModel)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"&gt;&lt;/p-rating&gt; &lt;span *ngIf="msg" style="margin-left:10px"&gt;{{msg}}&lt;/span&gt;
+&lt;h3&gt;Callback &#123;&#123;val2&#125;&#125;&lt;/h3&gt;
+&lt;p-rating [(ngModel)]="val2" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)"&gt;&lt;/p-rating&gt; &lt;span *ngIf="msg" style="margin-left:10px"&gt;&#123;&#123;msg&#125;&#125;&lt;/span&gt;
 
-&lt;h3&gt;No Cancel {{val3}}&lt;/h3&gt; 
+&lt;h3&gt;No Cancel &#123;&#123;val3&#125;&#125;&lt;/h3&gt; 
 &lt;p-rating [(ngModel)]="val3" [cancel]="false"&gt;&lt;/p-rating&gt;
 
 &lt;h3&gt;ReadOnly&lt;/h3&gt; 
@@ -199,7 +199,7 @@ export class ModelComponent {
 
 <pre>
 <code class="language-typescript" pCode>
-export class RatingDemo {
+export class RatingDemo &#123;
 
     val1: number;
 
@@ -211,14 +211,14 @@ export class RatingDemo {
 
     msg: string;
 
-    handleRate(event) {
+    handleRate(event) &#123;
         this.msg = "You have rated " + event.value;
-    }
+    &#125;
 
-    handleCancel(event) {
+    handleCancel(event) &#123;
         this.msg = "Rating Cancelled";
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
                 </p-tabPanel>

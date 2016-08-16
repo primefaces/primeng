@@ -13,7 +13,7 @@
         <div class="ui-g-12"><p-checkbox name="group1" value="Los Angeles" label="Los Angeles" [(ngModel)]="selectedCities"></p-checkbox></div>
     </div>
 
-    Selected Cities: <span *ngFor="let city of selectedCities" style="margin-right:10px">{{city}}</span>
+    Selected Cities: <span *ngFor="let city of selectedCities" style="margin-right:10px">&#123;&#123;city&#125;&#125;</span>
 
     <h3>Preselection</h3>
     <div class="ui-g" style="width:250px;margin-bottom:10px">
@@ -23,9 +23,9 @@
         <div class="ui-g-12"><p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories"></p-checkbox></div>
     </div>
 
-    Selected Categories: <span *ngFor="let cat of selectedCategories" style="margin-right:10px">{{cat}}</span>
+    Selected Categories: <span *ngFor="let cat of selectedCategories" style="margin-right:10px">&#123;&#123;cat&#125;&#125;</span>
     
-    <h3>Boolean - {{checked}}</h3>
+    <h3>Boolean - &#123;&#123;checked&#125;&#125;</h3>
     <p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox>
 </div>
 
@@ -35,7 +35,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Checkbox} from 'primeng/primeng';
+import &#123;Checkbox&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -53,11 +53,11 @@ import {Checkbox} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
     selectedValues: string[] = [];
 
-}
+&#125;
 </code>
 </pre>
 
@@ -65,11 +65,11 @@ export class ModelComponent {
             checkboxes as checked by default.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
     selectedValues: string[] = ['val1','val2'];
 
-}
+&#125;
 </code>
 </pre>
 
@@ -86,11 +86,11 @@ export class ModelComponent {
         <p>A single boolean value can be bound using the ngModel property as well by enabling the binary option.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class ModelComponent {
+export class ModelComponent &#123;
 
     value: boolean;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -218,7 +218,7 @@ export class ModelComponent {
     &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="Los Angeles" label="Los Angeles" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
 &lt;/div&gt;
 
-Selected Cities: &lt;span *ngFor="let city of selectedCities" style="margin-right:10px"&gt;{{city}}&lt;/span&gt;
+Selected Cities: &lt;span *ngFor="let city of selectedCities" style="margin-right:10px"&gt;&#123;&#123;city&#125;&#125;&lt;/span&gt;
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
 &lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
@@ -228,23 +228,23 @@ Selected Cities: &lt;span *ngFor="let city of selectedCities" style="margin-righ
     &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
 &lt;/div&gt;
 
-Selected Categories: &lt;span *ngFor="let cat of selectedCategories" style="margin-right:10px"&gt;{{cat}} &lt;/span&gt;
+Selected Categories: &lt;span *ngFor="let cat of selectedCategories" style="margin-right:10px"&gt;&#123;&#123;cat&#125;&#125; &lt;/span&gt;
 
-&lt;h3&gt;Boolean - {{checked}}&lt;/h3&gt;
+&lt;h3&gt;Boolean - &#123;&#123;checked&#125;&#125;&lt;/h3&gt;
 &lt;p-checkbox [(ngModel)]="checked" binary="true"&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class CheckboxDemo {
+export class CheckboxDemo &#123;
 
     selectedCities: string[] = [];
 
     selectedCategories: string[] = ['Technology', 'Sports'];
 
     checked: boolean = false;
-}
+&#125;
 </code>
 </pre>
         </p-tabPanel>

@@ -7,15 +7,15 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Default</h3>
-    <p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"></p-editor>
-    <p>Value: {{text1||'empty'}}</p>
+    <p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"></p-editor>
+    <p>Value: &#123;&#123;text1||'empty'&#125;&#125;</p>
     
     <button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"></button>
     
     <hr style="border-top:0px;border-color:#dde3e6">
     
     <h3>Custom Toolbar</h3>
-    <p-editor [(ngModel)]="text2" [style]="{'height':'320px'}">
+    <p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;">
         <header>
             <span class="ql-formats">
                 <button class="ql-bold"></button>
@@ -24,7 +24,7 @@
             </span>
         </header>
     </p-editor>
-    <p>Value: {{text2||'empty'}}</p>
+    <p>Value: &#123;&#123;text2||'empty'&#125;&#125;</p>
     
     <button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"></button>
 </div>
@@ -35,8 +35,8 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Editor} from 'primeng/primeng';
-import {Header} from 'primeng/primeng';
+import &#123;Editor&#125; from 'primeng/primeng';
+import &#123;Header&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -45,17 +45,17 @@ import {Header} from 'primeng/primeng';
             
 <pre>
 <code class="language-markup" pCode>
-&lt;p-editor [(ngModel)]="text" [style]="{'height':'320px'}"&gt;&lt;/p-editor&gt;
+&lt;p-editor [(ngModel)]="text" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class EditorDemo {
+export class EditorDemo &#123;
     
     text: string;
         
-}
+&#125;
 </code>
 </pre>
 
@@ -63,7 +63,7 @@ export class EditorDemo {
             <p>Editor can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-editor formControlName="description" [style]="{'height':'320px'}"&gt;&lt;/p-editor&gt;
+&lt;p-editor formControlName="description" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 </code>
 </pre>
 
@@ -71,7 +71,7 @@ export class EditorDemo {
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-editor [(ngModel)]="text2" [style]="{'height':'320px'}"&gt;
+&lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
     &lt;header&gt;
         &lt;span class="ql-format-group"&gt;
             &lt;span title="Bold" class="ql-format-button ql-bold"&gt;&lt;/span&gt;
@@ -181,15 +181,15 @@ export class EditorDemo {
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
-&lt;p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"&gt;&lt;/p-editor&gt;
-&lt;p&gt;Value: {{text1||'empty'}}&lt;/p&gt;
+&lt;p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
+&lt;p&gt;Value: &#123;&#123;text1||'empty'&#125;&#125;&lt;/p&gt;
 
 &lt;button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"&gt;&lt;/button&gt;
 
 &lt;hr style="border-top:0px;border-color:#dde3e6"&gt;
 
 &lt;h3&gt;Custom Toolbar&lt;/h3&gt;
-&lt;p-editor [(ngModel)]="text2" [style]="{'height':'320px'}"&gt;
+&lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
     &lt;header&gt;
         &lt;span class="ql-formats"&gt;
             &lt;button class="ql-bold"&gt;&lt;/button&gt;
@@ -198,7 +198,7 @@ export class EditorDemo {
         &lt;/span&gt;
     &lt;/header&gt;
 &lt;/p-editor&gt;
-&lt;p&gt;Value: {{text2||'empty'}}&lt;/p&gt;
+&lt;p&gt;Value: &#123;&#123;text2||'empty'&#125;&#125;&lt;/p&gt;
 
 &lt;button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"&gt;&lt;/button&gt;
 </code>
@@ -206,12 +206,12 @@ export class EditorDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class EditorDemo {
+export class EditorDemo &#123;
 
     text1: string = '&lt;div&gt;Hello World!&lt;/div&gt;&lt;div&gt;PrimeNG &lt;b&gt;Editor&lt;/b&gt; Rocks&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;';
     
     text2: string;
-}
+&#125;
 </code>
 </pre>
         </p-tabPanel>

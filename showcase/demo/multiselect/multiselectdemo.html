@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Implementation">
     <p-multiSelect [options]="cars" [(ngModel)]="selectedCars"></p-multiSelect>
-    <p>Selected Cars: {{selectedCars}}</p>
+    <p>Selected Cars: &#123;&#123;selectedCars&#125;&#125;</p>
 </div>
 
 <div class="ContentSideSections Source">
@@ -16,7 +16,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {MultiSelect} from 'primeng/primeng';
+import &#123;MultiSelect&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -31,24 +31,24 @@ import {MultiSelect} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-import {SelectItem} from 'primeng/primeng';
+import &#123;SelectItem&#125; from 'primeng/primeng';
 
-export class MyModel {
+export class MyModel &#123;
 
     cities: SelectItem[];
 
     selectedCity: string[];
 
-    constructor() {
+    constructor() &#123;
         this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
-    }
+        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
+        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
+        this.cities.push(&#123;label:'London', value:'London'&#125;);
+        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
+        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+    &#125;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -196,32 +196,32 @@ export class MyModel {
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars"&gt;&lt;/p-multiSelect&gt;
 
-&lt;p&gt;Selected Cars: {{selectedCars}}&lt;/p&gt;
+&lt;p&gt;Selected Cars: &#123;&#123;selectedCars&#125;&#125;&lt;/p&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class MultiSelectDemo {
+export class MultiSelectDemo &#123;
 
     cars: SelectItem[];
 
     selectedCars: string[] = [];
 
-    constructor() {
+    constructor() &#123;
         this.cars = [];
-        this.cars.push({label: 'Audi', value: 'Audi'});
-        this.cars.push({label: 'BMW', value: 'BMW'});
-        this.cars.push({label: 'Fiat', value: 'Fiat'});
-        this.cars.push({label: 'Ford', value: 'Ford'});
-        this.cars.push({label: 'Honda', value: 'Honda'});
-        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
-        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
-        this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'VW', value: 'VW'});
-        this.cars.push({label: 'Volvo', value: 'Volvo'});
-    }
-}
+        this.cars.push(&#123;label: 'Audi', value: 'Audi'&#125;);
+        this.cars.push(&#123;label: 'BMW', value: 'BMW'&#125;);
+        this.cars.push(&#123;label: 'Fiat', value: 'Fiat'&#125;);
+        this.cars.push(&#123;label: 'Ford', value: 'Ford'&#125;);
+        this.cars.push(&#123;label: 'Honda', value: 'Honda'&#125;);
+        this.cars.push(&#123;label: 'Jaguar', value: 'Jaguar'&#125;);
+        this.cars.push(&#123;label: 'Mercedes', value: 'Mercedes'&#125;);
+        this.cars.push(&#123;label: 'Renault', value: 'Renault'&#125;);
+        this.cars.push(&#123;label: 'VW', value: 'VW'&#125;);
+        this.cars.push(&#123;label: 'Volvo', value: 'Volvo'&#125;);
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

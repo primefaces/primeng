@@ -57,8 +57,8 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Accordion} from 'primeng/primeng';
-import {AccordionTab} from 'primeng/primeng';
+import &#123;Accordion&#125; from 'primeng/primeng';
+import &#123;AccordionTab&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -140,7 +140,7 @@ import {AccordionTab} from 'primeng/primeng';
             <p>Custom content can be placed at an accordion header with header element.</p>
 <pre>
 <code class="language-typescript" pCode>
-import {Header} from 'primeng/primeng';
+import &#123;Header&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -226,9 +226,9 @@ import {Header} from 'primeng/primeng';
 </pre>
  <pre>
 <code class="language-typescript" pCode>
-onTabShow(e) {
+onTabShow(e) &#123;
     var index = e.index;
-}
+&#125;
 </code>
 </pre>
 
@@ -316,20 +316,20 @@ onTabShow(e) {
 
 <pre>
 <code class="language-typescript" pCode>
-export class AccordionDemo {
+export class AccordionDemo &#123;
 
     msgs: Message[];
 
-    onTabClose(event) {
+    onTabClose(event) &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index});
-    }
+        this.msgs.push(&#123;severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index&#125;);
+    &#125;
     
-    onTabOpen(event) {
+    onTabOpen(event) &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
-    }
-}
+        this.msgs.push(&#123;severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index&#125;);
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

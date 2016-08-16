@@ -6,24 +6,24 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <h3 class="first">Basic: {{val1}}</h3>
-    <p-slider [(ngModel)]="val1" [style]="{'width':'200px'}"></p-slider>
+    <h3 class="first">Basic: &#123;&#123;val1&#125;&#125;</h3>
+    <p-slider [(ngModel)]="val1" [style]="&#123;'width':'200px'&#125;"></p-slider>
 
-    <h3>Input: {{val2}}</h3>
+    <h3>Input: &#123;&#123;val2&#125;&#125;</h3>
     <input type="text" pInputText [(ngModel)]="val2" style="width:190px" readonly/>
-    <p-slider [(ngModel)]="val2" [style]="{'width':'200px'}"></p-slider>
+    <p-slider [(ngModel)]="val2" [style]="&#123;'width':'200px'&#125;"></p-slider>
 
-    <h3>Animate: {{val3}}</h3>
-    <p-slider [(ngModel)]="val3" [style]="{'width':'200px'}" [animate]="true"></p-slider>
+    <h3>Animate: &#123;&#123;val3&#125;&#125;</h3>
+    <p-slider [(ngModel)]="val3" [style]="&#123;'width':'200px'&#125;" [animate]="true"></p-slider>
 
-    <h3>Step: {{val4}}</h3>
-    <p-slider [(ngModel)]="val4" [style]="{'width':'200px'}" [step]="10"></p-slider>
+    <h3>Step: &#123;&#123;val4&#125;&#125;</h3>
+    <p-slider [(ngModel)]="val4" [style]="&#123;'width':'200px'&#125;" [step]="10"></p-slider>
 
-    <h3>Range: {{rangeValues}}</h3>
-    <p-slider [(ngModel)]="rangeValues" [style]="{'width':'200px'}" [range]="true"></p-slider>
+    <h3>Range: &#123;&#123;rangeValues&#125;&#125;</h3>
+    <p-slider [(ngModel)]="rangeValues" [style]="&#123;'width':'200px'&#125;" [range]="true"></p-slider>
 
-    <h3>Vertical: {{val5}}</h3>
-    <p-slider [(ngModel)]="val5" [style]="{'height':'200px'}" orientation="vertical"></p-slider>
+    <h3>Vertical: &#123;&#123;val5&#125;&#125;</h3>
+    <p-slider [(ngModel)]="val5" [style]="&#123;'height':'200px'&#125;" orientation="vertical"></p-slider>
 </div>
 
 <div class="ContentSideSections Source">
@@ -32,7 +32,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Slider} from 'primeng/primeng';
+import &#123;Slider&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -46,11 +46,11 @@ import {Slider} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     val: number;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -88,11 +88,11 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     rangeValues: number[];
 
-}
+&#125;
 </code>
 </pre>
 
@@ -213,9 +213,9 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-handleChange(e) {
+handleChange(e) &#123;
     //e.value is the new value
-}
+&#125;
 </code>
 </pre>
 
@@ -249,30 +249,30 @@ handleChange(e) {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic: {{val1}}&lt;/h3&gt;
-&lt;p-slider [(ngModel)]="val1" [style]="{'width':'200px'}"&gt;&lt;/p-slider&gt;
+&lt;h3 class="first"&gt;Basic: &#123;&#123;val1&#125;&#125;&lt;/h3&gt;
+&lt;p-slider [(ngModel)]="val1" [style]="&#123;'width':'200px'&#125;"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Input: {{val2}}&lt;/h3&gt;
+&lt;h3&gt;Input: &#123;&#123;val2&#125;&#125;&lt;/h3&gt;
 &lt;input type="text" pInputText [(ngModel)]="val2" style="width:190px"/&gt;
-&lt;p-slider [(ngModel)]="val2" [style]="{'width':'200px'}"&gt;&lt;/p-slider&gt;
+&lt;p-slider [(ngModel)]="val2" [style]="&#123;'width':'200px'&#125;"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Animate: {{val3}}&lt;/h3&gt;
-&lt;p-slider [(ngModel)]="val3" [style]="{'width':'200px'}" [animate]="true"&gt;&lt;/p-slider&gt;
+&lt;h3&gt;Animate: &#123;&#123;val3&#125;&#125;&lt;/h3&gt;
+&lt;p-slider [(ngModel)]="val3" [style]="&#123;'width':'200px'&#125;" [animate]="true"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Step: {{val4}}&lt;/h3&gt;
-&lt;p-slider [(ngModel)]="val4" [style]="{'width':'200px'}" [step]="10"&gt;&lt;/p-slider&gt;
+&lt;h3&gt;Step: &#123;&#123;val4&#125;&#125;&lt;/h3&gt;
+&lt;p-slider [(ngModel)]="val4" [style]="&#123;'width':'200px'&#125;" [step]="10"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Range: {{rangeValues}}&lt;/h3&gt;
-&lt;p-slider [(ngModel)]="rangeValues" [style]="{'width':'200px'}" [range]="true"&gt;&lt;/p-slider&gt;
+&lt;h3&gt;Range: &#123;&#123;rangeValues&#125;&#125;&lt;/h3&gt;
+&lt;p-slider [(ngModel)]="rangeValues" [style]="&#123;'width':'200px'&#125;" [range]="true"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Vertical: {{val5}}&lt;/h3&gt;
-&lt;p-slider [(ngModel)]="val5" [style]="{'height':'200px'}" orientation="vertical"&gt;&lt;/p-slider&gt;
+&lt;h3&gt;Vertical: &#123;&#123;val5&#125;&#125;&lt;/h3&gt;
+&lt;p-slider [(ngModel)]="val5" [style]="&#123;'height':'200px'&#125;" orientation="vertical"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class SliderDemo {
+export class SliderDemo &#123;
 
     val1: number;
 
@@ -285,7 +285,7 @@ export class SliderDemo {
     val5: number;
 
     rangeValues: number[] = [20,80];
-}
+&#125;
 </code>
 </pre>
         </p-tabPanel>

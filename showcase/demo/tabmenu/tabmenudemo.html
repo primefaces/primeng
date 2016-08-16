@@ -15,7 +15,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {TabMenu,MenuItem} from 'primeng/primeng';
+import &#123;TabMenu,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -32,20 +32,20 @@ import {TabMenu,MenuItem} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class TabMenuDemo {
+export class TabMenuDemo &#123;
     
     private items: MenuItem[];
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.items = [
-            {label: 'Stats', icon: 'fa-bar-chart'},
-            {label: 'Calendar', icon: 'fa-calendar'},
-            {label: 'Documentation', icon: 'fa-book'},
-            {label: 'Support', icon: 'fa-support'},
-            {label: 'Social', icon: 'fa-twitter'}
+            &#123;label: 'Stats', icon: 'fa-bar-chart'&#125;,
+            &#123;label: 'Calendar', icon: 'fa-calendar'&#125;,
+            &#123;label: 'Documentation', icon: 'fa-book'&#125;,
+            &#123;label: 'Support', icon: 'fa-support'&#125;,
+            &#123;label: 'Social', icon: 'fa-twitter'&#125;
         ];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -59,24 +59,24 @@ export class TabMenuDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class TabMenuDemo {
+export class TabMenuDemo &#123;
     
     private items: MenuItem[];
     
     private activeItem: MenuItem;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.items = [
-            {label: 'Stats', icon: 'fa-bar-chart'},
-            {label: 'Calendar', icon: 'fa-calendar'},
-            {label: 'Documentation', icon: 'fa-book'},
-            {label: 'Support', icon: 'fa-support'},
-            {label: 'Social', icon: 'fa-twitter'}
+            &#123;label: 'Stats', icon: 'fa-bar-chart'&#125;,
+            &#123;label: 'Calendar', icon: 'fa-calendar'&#125;,
+            &#123;label: 'Documentation', icon: 'fa-book'&#125;,
+            &#123;label: 'Support', icon: 'fa-support'&#125;,
+            &#123;label: 'Social', icon: 'fa-twitter'&#125;
         ];
         
         this.activeItem = this.items[2];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -172,20 +172,20 @@ export class TabMenuDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class TabMenuDemo {
+export class TabMenuDemo &#123;
     
     private items: MenuItem[];
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.items = [
-            {label: 'Stats', icon: 'fa-bar-chart'},
-            {label: 'Calendar', icon: 'fa-calendar'},
-            {label: 'Documentation', icon: 'fa-book'},
-            {label: 'Support', icon: 'fa-support'},
-            {label: 'Social', icon: 'fa-twitter'}
+            &#123;label: 'Stats', icon: 'fa-bar-chart'&#125;,
+            &#123;label: 'Calendar', icon: 'fa-calendar'&#125;,
+            &#123;label: 'Documentation', icon: 'fa-book'&#125;,
+            &#123;label: 'Support', icon: 'fa-support'&#125;,
+            &#123;label: 'Social', icon: 'fa-twitter'&#125;
         ];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

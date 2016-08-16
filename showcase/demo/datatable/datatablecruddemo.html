@@ -50,7 +50,7 @@
         <p-tabPanel header="datatablecruddemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableCrudDemo implements OnInit {
+export class DataTableCrudDemo implements OnInit &#123;
 
     displayDialog: boolean;
 
@@ -62,19 +62,19 @@ export class DataTableCrudDemo implements OnInit {
 
     cars: Car[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-    }
+    &#125;
     
-    showDialogToAdd() {
+    showDialogToAdd() &#123;
         this.newCar = true;
         this.car = new PrimeCar();
         this.displayDialog = true;
-    }
+    &#125;
     
-    save() {
+    save() &#123;
         if(this.newCar)
             this.cars.push(this.car);
         else
@@ -82,37 +82,37 @@ export class DataTableCrudDemo implements OnInit {
         
         this.car = null;
         this.displayDialog = false;
-    }
+    &#125;
     
-    delete() {
+    delete() &#123;
         this.cars.splice(this.findSelectedCarIndex(), 1);
         this.car = null;
         this.displayDialog = false;
-    }    
+    &#125;    
     
-    onRowSelect(event) {
+    onRowSelect(event) &#123;
         this.newCar = false;
         this.car = this.cloneCar(event.data);
         this.displayDialog = true;
-    }
+    &#125;
     
-    cloneCar(c: Car): Car {
+    cloneCar(c: Car): Car &#123;
         let car = new PrimeCar();
-        for(let prop in c) {
+        for(let prop in c) &#123;
             car[prop] = c[prop];
-        }
+        &#125;
         return car;
-    }
+    &#125;
     
-    findSelectedCarIndex(): number {
+    findSelectedCarIndex(): number &#123;
         return this.cars.indexOf(this.selectedCar);
-    }
-}
+    &#125;
+&#125;
 
-class PrimeCar implements Car {
+class PrimeCar implements Car &#123;
     
-    constructor(public vin?, public year?, public brand?, public color?) {}
-}
+    constructor(public vin?, public year?, public brand?, public color?) &#123;&#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>

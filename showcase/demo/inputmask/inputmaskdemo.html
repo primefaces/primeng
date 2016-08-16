@@ -16,19 +16,19 @@
         </div>
         
         <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="numeric" [options]="{groupSeparator:'',digits:2,prefix:'$',digitsOptional:false,autoGroup:true}" [(ngModel)]="val3" placeholder="Currency" slotChar="0"></p-inputMask>
+            <p-inputMask alias="numeric" [options]="&#123;groupSeparator:'',digits:2,prefix:'$',digitsOptional:false,autoGroup:true&#125;" [(ngModel)]="val3" placeholder="Currency" slotChar="0"></p-inputMask>
         </div>
         
         <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="decimal" [options]="{groupSeparator:',',autoGroup:true}" [(ngModel)]="val4" placeholder="Decimal"></p-inputMask>
+            <p-inputMask alias="decimal" [options]="&#123;groupSeparator:',',autoGroup:true&#125;" [(ngModel)]="val4" placeholder="Decimal"></p-inputMask>
         </div>
         
         <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="regex" [options]="{regex: '[0-9]*'}" placeholder="Regex (Integer only)"></p-inputMask>
+            <p-inputMask alias="regex" [options]="&#123;regex: '[0-9]*'&#125;" placeholder="Regex (Integer only)"></p-inputMask>
         </div>
         
         <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask mask="*{1,20}@*{1,20}.*{1,3}" placeholder="Email"></p-inputMask>
+            <p-inputMask mask="*&#123;1,20&#125;@*&#123;1,20&#125;.*&#123;1,3&#125;" placeholder="Email"></p-inputMask>
         </div>
     </div>
 </div>
@@ -40,7 +40,7 @@
             <p>InputMask is based on <a href="https://github.com/RobinHerbots/jquery.inputmask">jquery mask</a> plugin so include the inputmask bundle script in your application and then import the component from PrimeNG.</p>
 <pre>
 <code class="language-typescript" pCode>
-import {InputMask} from 'primeng/primeng';
+import &#123;InputMask&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -93,7 +93,7 @@ import {InputMask} from 'primeng/primeng';
             please refer to <a href="https://github.com/RobinHerbots/jquery.inputmask">extensions documentation</a>.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-inputMask alias="decimal" [options]="{groupSeparator:',',autoGroup:true}"&gt;&lt;/p-inputMask&gt;
+&lt;p-inputMask alias="decimal" [options]="&#123;groupSeparator:',',autoGroup:true&#125;"&gt;&lt;/p-inputMask&gt;
 </code>
 </pre>    
 
@@ -101,7 +101,7 @@ import {InputMask} from 'primeng/primeng';
             <p>A regular expression can be used as a mask as well by defining an alias as "regex" and providing the expression in options.</p>
             <pre>
             <code class="language-markup" pCode>
-&lt;p-inputMask alias="regex" [options]="{regex: '[0-9]*'}" placeholder="Regex (Integer only)"&gt;&lt;/p-inputMask&gt;
+&lt;p-inputMask alias="regex" [options]="&#123;regex: '[0-9]*'&#125;" placeholder="Regex (Integer only)"&gt;&lt;/p-inputMask&gt;
             </code>
             </pre>   
             
@@ -258,19 +258,19 @@ import {InputMask} from 'primeng/primeng';
     &lt;/div&gt;
     
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
-        &lt;p-inputMask alias="numeric" [options]="{groupSeparator:'',digits:2,prefix:'$',digitsOptional:false,autoGroup:true}" [(ngModel)]="val3" placeholder="Currency" slotChar="0"&gt;&lt;/p-inputMask&gt;
+        &lt;p-inputMask alias="numeric" [options]="&#123;groupSeparator:'',digits:2,prefix:'$',digitsOptional:false,autoGroup:true&#125;" [(ngModel)]="val3" placeholder="Currency" slotChar="0"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
-        &lt;p-inputMask alias="decimal" [options]="{groupSeparator:',',autoGroup:true}" [(ngModel)]="val4" placeholder="Decimal"&gt;&lt;/p-inputMask&gt;
+        &lt;p-inputMask alias="decimal" [options]="&#123;groupSeparator:',',autoGroup:true&#125;" [(ngModel)]="val4" placeholder="Decimal"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
-        &lt;p-inputMask alias="regex" [options]="{regex: '[0-9]*'}" placeholder="Regex (Integer only)"&gt;&lt;/p-inputMask&gt;
+        &lt;p-inputMask alias="regex" [options]="&#123;regex: '[0-9]*'&#125;" placeholder="Regex (Integer only)"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
-        &lt;p-inputMask mask="*{1,20}@*{1,20}.*{1,3}" placeholder="Email"&gt;&lt;/p-inputMask&gt;
+        &lt;p-inputMask mask="*&#123;1,20&#125;@*&#123;1,20&#125;.*&#123;1,3&#125;" placeholder="Email"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 </code>
@@ -278,7 +278,7 @@ import {InputMask} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class InputMaskDemo {
+export class InputMaskDemo &#123;
 
     val1: string;
 
@@ -292,7 +292,7 @@ export class InputMaskDemo {
     
     val6: string;
     
-}
+&#125;
 </code>
 </pre>
         </p-tabPanel>

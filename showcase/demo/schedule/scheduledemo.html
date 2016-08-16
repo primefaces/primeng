@@ -43,7 +43,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Schedule} from 'primeng/primeng';
+import &#123;Schedule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -58,69 +58,69 @@ import {Schedule} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     events: any[];
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.events = [
-            {
+            &#123;
                 "title": "All Day Event",
                 "start": "2016-01-01"
-            },
-            {
+            &#125;,
+            &#123;
                 "title": "Long Event",
                 "start": "2016-01-07",
                 "end": "2016-01-10"
-            },
-            {
+            &#125;,
+            &#123;
                 "title": "Repeating Event",
                 "start": "2016-01-09T16:00:00"
-            },
-            {
+            &#125;,
+            &#123;
                 "title": "Repeating Event",
                 "start": "2016-01-16T16:00:00"
-            },
-            {
+            &#125;,
+            &#123;
                 "title": "Conference",
                 "start": "2016-01-11",
                 "end": "2016-01-13"
-            }
+            &#125;
         ];
-    }
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
             <p>In a real application, it is likely to populate the events by making a service call, when the events are updated, schedule component will detect the change and render them.</p>
 <pre>
 <code class="language-typescript" pCode>
 @Injectable()
-export class EventService {
+export class EventService &#123;
     
-    constructor(private http: Http) {}
+    constructor(private http: Http) &#123;&#125;
 
-    getEvents() {
+    getEvents() &#123;
         return this.http.get('showcase/resources/data/scheduleevents.json')
                     .toPromise()
                     .then(res =&gt; &lt;any[]&gt; res.json().data)
-                    .then(data =&gt; { return data; });
-    }
-}
+                    .then(data =&gt; &#123; return data; &#125;);
+    &#125;
+&#125;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     events: any[];
 
-    ngOnInit() {
-        this.eventService.getEvents().then(events => {this.events = events;});
-    }
+    ngOnInit() &#123;
+        this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
 
@@ -131,11 +131,11 @@ export class MyModel {
             <p>Header is customized using the header property that takes an object as its value. Default configuration is;</p>
 <pre>
 <code class="language-javascript" pCode>
-{
+&#123;
     left:   'title',
     center: '',
     right:  'today prev,next'
-}
+&#125;
 </code>
 </pre>
 
@@ -148,21 +148,21 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     events: any[];
     
     headerConfig: any;
 
-    ngOnInit() {
-        this.headerConfig = {
+    ngOnInit() &#123;
+        this.headerConfig = &#123;
 			left: 'prev,next today',
 			center: 'title',
 			right: 'month,agendaWeek,agendaDay'
-		};
-    }
+		&#125;;
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
 
@@ -177,17 +177,17 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     es: any;
 
-    ngOnInit() {
-        this.es = {
+    ngOnInit() &#123;
+        this.es = &#123;
             monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
                 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-        };
-    }
-}
+        &#125;;
+    &#125;
+&#125;
 </code>
 </pre>
             <p>Visit the <a href="http://fullcalendar.io/docs/text/">fullcalendar documentation</a> for the available options. 
@@ -435,15 +435,15 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
-    handleEventClick(e) {
+    handleEventClick(e) &#123;
         //e.event = Selected event
         //e.jsEvent = Browser click event
         //e.view = Current view object
-    }
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
             
@@ -512,13 +512,13 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
-    back(fc) {
+    back(fc) &#123;
         fc.prev();
-    }
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
             
@@ -563,7 +563,7 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class ScheduleDemo implements OnInit {
+export class ScheduleDemo implements OnInit &#123;
 
     events: any[];
     
@@ -575,111 +575,111 @@ export class ScheduleDemo implements OnInit {
     
     idGen: number = 100;
     
-    constructor(private eventService: EventService, private cd: ChangeDetectorRef) { }
+    constructor(private eventService: EventService, private cd: ChangeDetectorRef) &#123; &#125;
 
-    ngOnInit() {
-        this.eventService.getEvents().then(events => {this.events = events;});
+    ngOnInit() &#123;
+        this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
         
-        this.header = {
+        this.header = &#123;
 			left: 'prev,next today',
 			center: 'title',
 			right: 'month,agendaWeek,agendaDay'
-		};
-    }
+		&#125;;
+    &#125;
     
-    handleDayClick(event) {
+    handleDayClick(event) &#123;
         this.event = new MyEvent();
         this.event.start = event.date.format();
         this.dialogVisible = true;
         
         //trigger detection manually as somehow only moving the mouse quickly after click triggers the automatic detection
         this.cd.detectChanges();
-    }
+    &#125;
     
-    handleEventClick(e) {
+    handleEventClick(e) &#123;
         this.event = new MyEvent();
         this.event.title = e.calEvent.title;
         
         let start = e.calEvent.start;
         let end = e.calEvent.end;
-        if(e.view.name === 'month') {
+        if(e.view.name === 'month') &#123;
             start.stripTime();
-        }
+        &#125;
         
-        if(end) {
+        if(end) &#123;
             end.stripTime();
             this.event.end = end.format();
-        }
+        &#125;
 
         this.event.id = e.calEvent.id;
         this.event.start = start.format();
         this.event.allDay = e.calEvent.allDay;
         this.dialogVisible = true;
-    }
+    &#125;
     
-    saveEvent() {
+    saveEvent() &#123;
         //update
-        if(this.event.id) {
+        if(this.event.id) &#123;
             let index: number = this.findEventIndexById(this.event.id);
-            if(index >= 0) {
+            if(index >= 0) &#123;
                 this.events[index] = this.event;
-            }
-        }
+            &#125;
+        &#125;
         //new
-        else {
+        else &#123;
             this.event.id = this.idGen;
             this.events.push(this.event);
             this.event = null;
-        }
+        &#125;
         
         this.dialogVisible = false;
-    }
+    &#125;
     
-    deleteEvent() {
+    deleteEvent() &#123;
         let index: number = this.findEventIndexById(this.event.id);
-        if(index >= 0) {
+        if(index >= 0) &#123;
             this.events.splice(index, 1);
-        }
+        &#125;
         this.dialogVisible = false;
-    }
+    &#125;
     
-    findEventIndexById(id: number) {
+    findEventIndexById(id: number) &#123;
         let index = -1;
-        for(let i = 0; i < this.events.length; i++) {
-            if(id == this.events[i].id) {
+        for(let i = 0; i < this.events.length; i++) &#123;
+            if(id == this.events[i].id) &#123;
                 index = i;
                 break;
-            }
-        }
+            &#125;
+        &#125;
         
         return index;
-    }
-}
+    &#125;
+&#125;
 
-export class MyEvent {
+export class MyEvent &#123;
     id: number;
     title: string;
     start: string;
     end: string;
     allDay: boolean = true;
-}
+&#125;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
 @Injectable()
-export class EventService {
+export class EventService &#123;
     
-    constructor(private http: Http) {}
+    constructor(private http: Http) &#123;&#125;
 
-    getEvents() {
+    getEvents() &#123;
         return this.http.get('showcase/resources/data/scheduleevents.json')
                     .toPromise()
                     .then(res =&gt; &lt;any[]&gt; res.json().data)
-                    .then(data =&gt; { return data; });
-    }
-}
+                    .then(data =&gt; &#123; return data; &#125;);
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

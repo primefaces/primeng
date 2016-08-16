@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
-    <input id="in" type="text" size="30" pInputText [(ngModel)]="text" /> {{text}}
+    <input id="in" type="text" size="30" pInputText [(ngModel)]="text" /> {{&#123;&#123;text&#125;&#125;}}
 
     <h3>Disabled</h3>
     <input id="in" type="text" size="30" pInputText [disabled]="disabled" />
@@ -21,7 +21,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {InputText} from 'primeng/primeng';
+import &#123;InputText&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -90,7 +90,7 @@ import {InputText} from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt;  {{text}}
+&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text" /&gt;  &#123;&#123;text&#125;&#125;
 
 &lt;h3&gt;Disabled&lt;/h3&gt;
 &lt;input id="in" type="text" size="30" pInputText [disabled]="disabled" /&gt;
@@ -101,16 +101,16 @@ import {InputText} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class InputTextDemo {
+export class InputTextDemo &#123;
 
     text: string;
 
     disabled: boolean = true;
 
-    toggleDisabled() {
+    toggleDisabled() &#123;
     this.disabled = !this.disabled;
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

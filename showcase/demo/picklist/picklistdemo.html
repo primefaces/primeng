@@ -7,11 +7,11 @@
 
 <div class="ContentSideSections Implementation">
     
-    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;">
         <template let-car>
             <div class="ui-helper-clearfix">
-                <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
-                <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
+                <img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
+                <div style="font-size:14px;float:right;margin:15px 5px 0 0">&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;</div>
             </div>
         </template>
     </p-pickList>
@@ -24,7 +24,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {PickList} from 'primeng/primeng';
+import &#123;PickList&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -36,8 +36,8 @@ import {PickList} from 'primeng/primeng';
 &lt;p-pickList [source]="list1" [target]="list2"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-pickList&gt;
@@ -46,17 +46,17 @@ import {PickList} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyComponent {
+export class MyComponent &#123;
 
     list1: any[];
     
     list2: any[];
     
-    ngOnInit() {
+    ngOnInit() &#123;
         this.list1 = //initialize list 1
         this.list2 = //initialize list 2
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
             <h3>Responsive</h3>
@@ -195,11 +195,11 @@ export class MyComponent {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}"&gt;
+&lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-pickList&gt;
@@ -208,19 +208,19 @@ export class MyComponent {
 
 <pre>
 <code class="language-typescript" pCode>
-export class PickListDemo {
+export class PickListDemo &#123;
 
     sourceCars: Car[];
     
     targetCars: Car[];
     
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.sourceCars = cars);
         this.targetCars = [];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

@@ -14,15 +14,15 @@
     <h3>Single Selection</h3>
     <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
-    Selected Node: {{selectedFile ? selectedFile.label : 'none'}}
+    Selected Node: &#123;&#123;selectedFile ? selectedFile.label : 'none'&#125;&#125;
     
     <h3>Multiple Selection with Metakey</h3>
     <p-tree [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
-    Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}} </span>
+    Selected Nodes: <span *ngFor="let file of selectedFiles">&#123;&#123;file.label&#125;&#125; </span>
     
     <h3>Lazy Loading</h3>
-    <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="{'max-height':'200px','overflow':'auto'}"></p-tree>
+    <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"></p-tree>
     
     <h3>Template</h3>
     <p-tree [value]="files">
@@ -43,8 +43,8 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Tree} from 'primeng/primeng';
-import {TreeNode} from 'primeng/primeng';
+import &#123;Tree&#125; from 'primeng/primeng';
+import &#123;TreeNode&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -124,74 +124,74 @@ import {TreeNode} from 'primeng/primeng';
 <pre>
 <code class="language-javascript" pCode>
 @Injectable()
-export class NodeService {
+export class NodeService &#123;
     
-    constructor(private http: Http) {}
+    constructor(private http: Http) &#123;&#125;
 
-    getFiles() {
+    getFiles() &#123;
         return this.http.get('showcase/resources/data/files.json')
                     .toPromise()
                     .then(res =&gt; &lt;TreeNode[]&gt; res.json().data)
-                    .then(data =&gt; { return data; });
-    }
-}
+                    .then(data =&gt; &#123; return data; &#125;);
+    &#125;
+&#125;
 </code>
 </pre>
         
         <p>The files.json file consists of sample data. In a real application, this should be a dynamic response generated from the remote call.</p>
 <pre>
 <code class="language-javascript" pCode>
-{
+&#123;
     "data": 
     [
-        {
+        &#123;
             "label": "Documents",
             "data": "Documents Folder",
             "expandedIcon": "fa-folder-open",
             "collapsedIcon": "fa-folder",
-            "children": [{
+            "children": [&#123;
                     "label": "Work",
                     "data": "Work Folder",
                     "expandedIcon": "fa-folder-open",
                     "collapsedIcon": "fa-folder",
-                    "children": [{"label": "Expenses.doc", "icon": "fa-file-word-o", "data": "Expenses Document"}, {"label": "Resume.doc", "icon": "fa-file-word-o", "data": "Resume Document"}]
-                },
-                {
+                    "children": [&#123;"label": "Expenses.doc", "icon": "fa-file-word-o", "data": "Expenses Document"&#125;, &#123;"label": "Resume.doc", "icon": "fa-file-word-o", "data": "Resume Document"&#125;]
+                &#125;,
+                &#123;
                     "label": "Home",
                     "data": "Home Folder",
                     "expandedIcon": "fa-folder-open",
                     "collapsedIcon": "fa-folder",
-                    "children": [{"label": "Invoices.txt", "icon": "fa-file-word-o", "data": "Invoices for this month"}]
-                }]
-        },
-        {
+                    "children": [&#123;"label": "Invoices.txt", "icon": "fa-file-word-o", "data": "Invoices for this month"&#125;]
+                &#125;]
+        &#125;,
+        &#123;
             "label": "Pictures",
             "data": "Pictures Folder",
             "expandedIcon": "fa-folder-open",
             "collapsedIcon": "fa-folder",
             "children": [
-                {"label": "barcelona.jpg", "icon": "fa-file-image-o", "data": "Barcelona Photo"},
-                {"label": "logo.jpg", "icon": "fa-file-image-o", "data": "PrimeFaces Logo"},
-                {"label": "primeui.png", "icon": "fa-file-image-o", "data": "PrimeUI Logo"}]
-        },
-        {
+                &#123;"label": "barcelona.jpg", "icon": "fa-file-image-o", "data": "Barcelona Photo"&#125;,
+                &#123;"label": "logo.jpg", "icon": "fa-file-image-o", "data": "PrimeFaces Logo"&#125;,
+                &#123;"label": "primeui.png", "icon": "fa-file-image-o", "data": "PrimeUI Logo"&#125;]
+        &#125;,
+        &#123;
             "label": "Movies",
             "data": "Movies Folder",
             "expandedIcon": "fa-folder-open",
             "collapsedIcon": "fa-folder",
-            "children": [{
+            "children": [&#123;
                     "label": "Al Pacino",
                     "data": "Pacino Movies",
-                    "children": [{"label": "Scarface", "icon": "fa-file-video-o", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "fa-file-video-o", "data": "Serpico Movie"}]
-                },
-                {
+                    "children": [&#123;"label": "Scarface", "icon": "fa-file-video-o", "data": "Scarface Movie"&#125;, &#123;"label": "Serpico", "icon": "fa-file-video-o", "data": "Serpico Movie"&#125;]
+                &#125;,
+                &#123;
                     "label": "Robert De Niro",
                     "data": "De Niro Movies",
-                    "children": [{"label": "Goodfellas", "icon": "fa-file-video-o", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "fa-file-video-o", "data": "Untouchables Movie"}]
-                }]
-        }
+                    "children": [&#123;"label": "Goodfellas", "icon": "fa-file-video-o", "data": "Goodfellas Movie"&#125;, &#123;"label": "Untouchables", "icon": "fa-file-video-o", "data": "Untouchables Movie"&#125;]
+                &#125;]
+        &#125;
     ]
-}
+&#125;
 </code>
 </pre>  
 
@@ -199,17 +199,17 @@ export class NodeService {
 
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemoComponent implements OnInit {
+export class TreeDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
 
-    constructor(private nodeService: NodeService) {}
+    constructor(private nodeService: NodeService) &#123;&#125;
     
-    ngOnInit() {
+    ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files = files);
-    }
+    &#125;
 
-}
+&#125;
 </code>
 </pre>         
                   
@@ -224,19 +224,19 @@ export class TreeDemoComponent implements OnInit {
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemoComponent implements OnInit {
+export class TreeDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
     
     selectedFile: TreeNode;
 
-    constructor(private nodeService: NodeService) {}
+    constructor(private nodeService: NodeService) &#123;&#125;
     
-    ngOnInit() {
+    ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files = files);
-    }
+    &#125;
 
-}
+&#125;
 </code>
 </pre>
 <pre>
@@ -248,19 +248,19 @@ export class TreeDemoComponent implements OnInit {
 <p>In multiple mode, selection property should be an array.</p>
 <pre>
 <code class="language-typescript" pCode>
-    export class TreeDemoComponent implements OnInit {
+    export class TreeDemoComponent implements OnInit &#123;
         
         files: TreeNode[];
         
         selectedFiles: TreeNode[];
 
-        constructor(private nodeService: NodeService) {}
+        constructor(private nodeService: NodeService) &#123;&#125;
         
-        ngOnInit() {
+        ngOnInit() &#123;
             this.nodeService.getFiles().then(files => this.files = files);
-        }
+        &#125;
 
-    }
+    &#125;
 </code>
 </pre>
 
@@ -279,23 +279,23 @@ export class TreeDemoComponent implements OnInit {
 
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemoComponent implements OnInit {
+export class TreeDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
     
     selectedFiles: TreeNode[];
 
-    constructor(private nodeService: NodeService) {}
+    constructor(private nodeService: NodeService) &#123;&#125;
     
-    ngOnInit() {
+    ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files = files);
-    }
+    &#125;
     
-    nodeSelect(event) {
+    nodeSelect(event) &#123;
         //event.node = selected node
-    }
+    &#125;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -342,59 +342,59 @@ export class TreeDemoComponent implements OnInit {
 
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemoComponent implements OnInit {
+export class TreeDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
     
     selectedFiles: TreeNode[];
 
-    constructor(private nodeService: NodeService) {}
+    constructor(private nodeService: NodeService) &#123;&#125;
     
-    ngOnInit() {
+    ngOnInit() &#123;
         //initial nodes
         this.nodeService.getFiles().then(files => this.files = files);
-    }
+    &#125;
     
-    loadNode(event) {
-        if(event.node) {
+    loadNode(event) &#123;
+        if(event.node) &#123;
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
             this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
-        }
-    }
+        &#125;
+    &#125;
 
-}
+&#125;
 </code>
 </pre>
 
             <p>Assume at ngOnInit tree is initialized with a data like below that has nodes having no actual children but leaf property is set false.</p>
 <pre>
 <code class="language-javascript" pCode>
-{
+&#123;
     "data": 
     [
-        {
+        &#123;
             "label": "Lazy Node 0",
             "data": "Node 0",
             "expandedIcon": "fa-folder-open",
             "collapsedIcon": "fa-folder",
             "leaf": false
-        },
-        {
+        &#125;,
+        &#123;
             "label": "Lazy Node 1",
             "data": "Node 1",
             "expandedIcon": "fa-folder-open",
             "collapsedIcon": "fa-folder",
             "leaf": false
-        },
-        {
+        &#125;,
+        &#123;
             "label": "Lazy Node 1",
             "data": "Node 2",
             "expandedIcon": "fa-folder-open",
             "collapsedIcon": "fa-folder",
             "leaf": false
-        }
+        &#125;
     ]
-}
+&#125;
 </code>
 </pre>  
 
@@ -557,15 +557,15 @@ export class TreeDemoComponent implements OnInit {
 &lt;h3&gt;Single Selection&lt;/h3&gt;
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" 
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-Selected Node: {{selectedFile ? selectedFile.label : 'none'}}
+Selected Node: &#123;&#123;selectedFile ? selectedFile.label : 'none'&#125;&#125;
 
 &lt;h3&gt;Multiple Selection with Metakey&lt;/h3&gt;
 &lt;p-tree [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &lt;/span&gt;
+Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;&#123;&#123;file.label&#125;&#125; &lt;/span&gt;
 
 &lt;h3&gt;Lazy Loading&lt;/h3&gt;
-&lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="{'max-height':'200px','overflow':'auto'}"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
@@ -583,7 +583,7 @@ Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &l
 
 <pre>
 <code class="language-typescript" pCode>
-export class TreeDemo implements OnInit {
+export class TreeDemo implements OnInit &#123;
     
     msgs: Message[];
     
@@ -599,44 +599,44 @@ export class TreeDemo implements OnInit {
     
     items: MenuItem[];
         
-    constructor(private nodeService: NodeService) { }
+    constructor(private nodeService: NodeService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files = files);
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
         
         this.items = [
-            {label: 'View', icon: 'fa-search', command: (event) => this.viewFile(this.selectedFile2)},
-            {label: 'Unselect', icon: 'fa-close', command: (event) => this.unselectFile()}
+            &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewFile(this.selectedFile2)&#125;,
+            &#123;label: 'Unselect', icon: 'fa-close', command: (event) => this.unselectFile()&#125;
         ];
-    }
+    &#125;
     
-    nodeSelect(event) {
+    nodeSelect(event) &#123;
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Node Selected', detail: event.node.label});
-    }
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: event.node.label&#125;);
+    &#125;
     
-    nodeUnselect(event) {
+    nodeUnselect(event) &#123;
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
-    }
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.label&#125;);
+    &#125;
     
-    nodeExpand(event) {
-        if(event.node) {
+    nodeExpand(event) &#123;
+        if(event.node) &#123;
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
             this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
-        }
-    }
+        &#125;
+    &#125;
     
-    viewFile(file: TreeNode) {
+    viewFile(file: TreeNode) &#123;
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Node Selected with Right Click', detail: file.label});
-    }
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected with Right Click', detail: file.label&#125;);
+    &#125;
     
-    unselectFile() {
+    unselectFile() &#123;
         this.selectedFile2 = null;
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

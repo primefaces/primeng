@@ -22,8 +22,8 @@
                     <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {SplitButton} from 'primeng/primeng';
-import {SplitButtonItem} from 'primeng/primeng';
+import &#123;SplitButton&#125; from 'primeng/primeng';
+import &#123;SplitButtonItem&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -217,25 +217,25 @@ import {SplitButtonItem} from 'primeng/primeng';
 </pre>
 <pre>
 <code class="language-typescript" pCode>
-export class SplitButtonDemo {
+export class SplitButtonDemo &#123;
 
     msgs: Message[] = [];
 
-    save() {
+    save() &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Data Saved'});
-    }
+        this.msgs.push(&#123;severity:'info', summary:'Success', detail:'Data Saved'&#125;);
+    &#125;
     
-    update() {
+    update() &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Data Updated'});
-    }
+        this.msgs.push(&#123;severity:'info', summary:'Success', detail:'Data Updated'&#125;);
+    &#125;
     
-    delete() {
+    delete() &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Data Deleted'});
-    }
-}
+        this.msgs.push(&#123;severity:'info', summary:'Success', detail:'Data Deleted'&#125;);
+    &#125;
+&#125;
 </code>
 </pre>
         </ p-tabPanel>

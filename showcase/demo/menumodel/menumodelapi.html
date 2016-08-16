@@ -18,33 +18,33 @@
 
 <pre>
 <code class="language-typescript" pCode>
-import {Menu,MenuItem} from 'primeng/primeng';
+import &#123;Menu,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class MenuDemo {
+export class MenuDemo &#123;
     
     private items: MenuItem[];
 
-    ngOnInit() {
-        this.items = [{
+    ngOnInit() &#123;
+        this.items = [&#123;
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa-plus'},
-                {label: 'Open', icon: 'fa-download'}
+                &#123;label: 'New', icon: 'fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa-download'&#125;
             ]
-        },
-        {
+        &#125;,
+        &#123;
             label: 'Edit',
             items: [
-                {label: 'Undo', icon: 'fa-refresh'},
-                {label: 'Redo', icon: 'fa-repeat'}
+                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
             ]
-        }];
-    }
-}
+        &#125;];
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -104,21 +104,21 @@ export class MenuDemo {
     <p>The function to invoke when an item is clicked is defined using the command property.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class MenuDemo {
+export class MenuDemo &#123;
     
     private items: MenuItem[];
 
-    ngOnInit() {
-        this.items = [{
+    ngOnInit() &#123;
+        this.items = [&#123;
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa-plus': command: (event) => {
+                &#123;label: 'New', icon: 'fa-plus': command: (event) => &#123;
                     //process event
-                }}
+                &#125;&#125;
             ]
-        }
-    }
-}
+        &#125;
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -126,20 +126,20 @@ export class MenuDemo {
     <p>Navigation is specified using url property for external links and with routerLink for internal ones.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class MenuDemo {
+export class MenuDemo &#123;
     
     private items: MenuItem[];
 
-    ngOnInit() {
-        this.items = [{
+    ngOnInit() &#123;
+        this.items = [&#123;
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa-plus', url: 'http://www.primefaces.org/primeng'},
-                {label: 'Open', icon: 'fa-download', routerLink: ['/pagename']}
+                &#123;label: 'New', icon: 'fa-plus', url: 'http://www.primefaces.org/primeng'&#125;,
+                &#123;label: 'Open', icon: 'fa-download', routerLink: ['/pagename']&#125;
             ]
-        }
-    }
-}
+        &#125;
+    &#125;
+&#125;
 </code>
 </pre>
 

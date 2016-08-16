@@ -20,7 +20,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {SlideMenu,MenuItem} from 'primeng/primeng';
+import &#123;SlideMenu,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -37,37 +37,37 @@ import {SlideMenu,MenuItem} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class SlideMenuDemo {
+export class SlideMenuDemo &#123;
 
     private items: MenuItem[];
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.items = [
-            {
+            &#123;
                 label: 'File',
-                items: [{
+                items: [&#123;
                         label: 'New', 
                         icon: 'fa-plus',
                         items: [
-                            {label: 'Project'},
-                            {label: 'Other'},
+                            &#123;label: 'Project'&#125;,
+                            &#123;label: 'Other'&#125;,
                         ]
-                    },
-                    {label: 'Open'},
-                    {label: 'Quit'}
+                    &#125;,
+                    &#123;label: 'Open'&#125;,
+                    &#123;label: 'Quit'&#125;
                 ]
-            },
-            {
+            &#125;,
+            &#123;
                 label: 'Edit',
                 icon: 'fa-edit',
                 items: [
-                    {label: 'Undo', icon: 'fa-mail-forward'},
-                    {label: 'Redo', icon: 'fa-mail-reply'}
+                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
                 ]
-            }
+            &#125;
         ];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -260,87 +260,87 @@ export class SlideMenuDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class SlideMenuDemo {
+export class SlideMenuDemo &#123;
 
     private items: MenuItem[];
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.items = [
-            {
+            &#123;
                 label: 'File',
                 icon: 'fa-file-o',
-                items: [{
+                items: [&#123;
                         label: 'New', 
                         icon: 'fa-plus',
                         items: [
-                            {label: 'Project'},
-                            {label: 'Other'},
+                            &#123;label: 'Project'&#125;,
+                            &#123;label: 'Other'&#125;,
                         ]
-                    },
-                    {label: 'Open'},
-                    {label: 'Quit'}
+                    &#125;,
+                    &#123;label: 'Open'&#125;,
+                    &#123;label: 'Quit'&#125;
                 ]
-            },
-            {
+            &#125;,
+            &#123;
                 label: 'Edit',
                 icon: 'fa-edit',
                 items: [
-                    {label: 'Undo', icon: 'fa-mail-forward'},
-                    {label: 'Redo', icon: 'fa-mail-reply'}
+                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
                 ]
-            },
-            {
+            &#125;,
+            &#123;
                 label: 'Help',
                 icon: 'fa-question',
                 items: [
-                    {
+                    &#123;
                         label: 'Contents'
-                    },
-                    {
+                    &#125;,
+                    &#123;
                         label: 'Search', 
                         icon: 'fa-search', 
                         items: [
-                            {
+                            &#123;
                                 label: 'Text', 
                                 items: [
-                                    {
+                                    &#123;
                                         label: 'Workspace'
-                                    }
+                                    &#125;
                                 ]
-                            },
-                            {
+                            &#125;,
+                            &#123;
                                 label: 'File'
-                            }
-                    ]}
+                            &#125;
+                    ]&#125;
                 ]
-            },
-            {
+            &#125;,
+            &#123;
                 label: 'Actions',
                 icon: 'fa-gear',
                 items: [
-                    {
+                    &#123;
                         label: 'Edit',
                         icon: 'fa-refresh',
                         items: [
-                            {label: 'Save', icon: 'fa-save'},
-                            {label: 'Update', icon: 'fa-save'},
+                            &#123;label: 'Save', icon: 'fa-save'&#125;,
+                            &#123;label: 'Update', icon: 'fa-save'&#125;,
                         ]
-                    },
-                    {
+                    &#125;,
+                    &#123;
                         label: 'Other',
                         icon: 'fa-phone',
                         items: [
-                            {label: 'Delete', icon: 'fa-minus'}
+                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
                         ]
-                    }
+                    &#125;
                 ]
-            },
-            {
+            &#125;,
+            &#123;
                 label: 'Quit', icon: 'fa-minus'
-            }
+            &#125;
         ];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

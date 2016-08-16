@@ -23,7 +23,7 @@
         <p-tabPanel header="datatablecoltogglerdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableColTogglerDemo implements OnInit {
+export class DataTableColTogglerDemo implements OnInit &#123;
 
     cars: Car[];
     
@@ -31,24 +31,24 @@ export class DataTableColTogglerDemo implements OnInit {
     
     columnOptions: SelectItem[];
         
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
         
         this.cols = [
-            {field: 'vin', header: 'Vin'},
-            {field: 'year', header: 'Year'},
-            {field: 'brand', header: 'Brand'},
-            {field: 'color', header: 'Color'}
+            &#123;field: 'vin', header: 'Vin'&#125;,
+            &#123;field: 'year', header: 'Year'&#125;,
+            &#123;field: 'brand', header: 'Brand'&#125;,
+            &#123;field: 'color', header: 'Color'&#125;
         ];
         
         this.columnOptions = [];
-        for(let i = 0; i < this.cols.length; i++) {
-            this.columnOptions.push({label: this.cols[i].header, value: this.cols[i]});
-        }
-    }
-}
+        for(let i = 0; i < this.cols.length; i++) &#123;
+            this.columnOptions.push(&#123;label: this.cols[i].header, value: this.cols[i]&#125;);
+        &#125;
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>

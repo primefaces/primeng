@@ -12,7 +12,7 @@
 <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {UIChart} from 'primeng/primeng';
+import &#123;UIChart&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -82,26 +82,26 @@ import {UIChart} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class LineChartDemo {
+export class LineChartDemo &#123;
 
     data: any;
     
-    constructor() {
-        this.data = {
+    constructor() &#123;
+        this.data = &#123;
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
-                {
+                &#123;
                     label: 'First Dataset',
                     data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
+                &#125;,
+                &#123;
                     label: 'Second Dataset',
                     data: [28, 48, 40, 19, 86, 27, 90]
-                }
+                &#125;
             ]
-        }
-    }
-}
+        &#125;
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -117,39 +117,39 @@ export class LineChartDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class LineChartDemo {
+export class LineChartDemo &#123;
 
     data: any;
     
     options: any;
     
-    constructor() {
-        this.data = {
+    constructor() &#123;
+        this.data = &#123;
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
-                {
+                &#123;
                     label: 'First Dataset',
                     data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
+                &#125;,
+                &#123;
                     label: 'Second Dataset',
                     data: [28, 48, 40, 19, 86, 27, 90]
-                }
+                &#125;
             ]
-        }
+        &#125;
         
-        this.options = {
-            title: {
+        this.options = &#123;
+            title: &#123;
                 display: true,
                 text: 'My Title',
                 fontSize: 16
-            },
-            legend: {
+            &#125;,
+            legend: &#123;
                 position: 'bottom'
-            }
-        };
-    }
-}
+            &#125;
+        &#125;;
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -163,12 +163,12 @@ export class LineChartDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-selectData(event) {
+selectData(event) &#123;
     //event.dataset = Selected dataset
     //event.element = Selected element
     //event.element._datasetIndex = Index of the dataset in data
     //event.element_index = Index of the data in dataset
-}
+&#125;
 </code>
 </pre>  
 
