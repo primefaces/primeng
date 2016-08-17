@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {FormsModule}    from '@angular/forms'
+import {FormsModule,ReactiveFormsModule}    from '@angular/forms'
 import {HttpModule}    from '@angular/http';
 import {Component} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
@@ -122,6 +122,7 @@ import {DataScrollerModule} from '../components/datascroller/datascroller';
 import {DataTableModule} from '../components/datatable/datatable';
 import {DialogModule} from '../components/dialog/dialog';
 import {DragDropModule} from '../components/dragdrop/dragdrop';
+import {DropdownModule} from '../components/dropdown/dropdown';
 import {EditorModule} from '../components/editor/editor';
 import {FieldsetModule} from '../components/fieldset/fieldset';
 import {GalleriaModule} from '../components/galleria/galleria';
@@ -186,6 +187,7 @@ export class AppComponent {
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         AppRoutes,
         HttpModule,
         AccordionModule,
@@ -205,6 +207,7 @@ export class AppComponent {
         DataTableModule,
         DialogModule,
         DragDropModule,
+        DropdownModule,
         EditorModule,
         FieldsetModule,
         GalleriaModule,
@@ -312,6 +315,7 @@ export class AppComponent {
         DataTableCMDemo,
         DataTableColTogglerDemo,
         DataTableRowExpansionDemo,
+        DataTableSubmenu,
         CodeHighlighterDemo,
         OrderListDemo,
         PickListDemo,
@@ -322,6 +326,7 @@ export class AppComponent {
         DataScrollerInlineDemo,
         DataScrollerLoaderDemo,
         DataScrollerInfiniteDemo,
+        DataScrollerSubMenu,
         TreeDemo,
         TreeTableDemo,
         TerminalDemo,

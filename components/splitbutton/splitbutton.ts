@@ -1,7 +1,6 @@
 import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {Router,ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     selector: 'p-splitButtonItem',
@@ -55,8 +54,7 @@ export class SplitButtonItem {
             </div>
         </div>
     `,
-    providers: [DomHandler],
-    directives: [ROUTER_DIRECTIVES]
+    providers: [DomHandler]
 })
 export class SplitButton implements OnInit,OnDestroy {
 
@@ -96,7 +94,7 @@ export class SplitButton implements OnInit,OnDestroy {
     
     protected documentClickListener: any;
 
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer, protected router: Router) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
     
     ngOnInit() {
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
@@ -125,7 +123,7 @@ export class SplitButton implements OnInit,OnDestroy {
         item.onClick.emit(event);
         
         if(item.routerLink) {
-            this.router.navigate(item.routerLink);
+            //this.router.navigate(item.routerLink);
         }         
     }
     

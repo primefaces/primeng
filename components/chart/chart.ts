@@ -88,7 +88,7 @@ export class UIChart implements AfterViewInit, OnDestroy, DoCheck {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Chart],
-    declarations: [Chart]
+    exports: [UIChart],
+    declarations: [UIChart]
 })
 export class ChartModule { }

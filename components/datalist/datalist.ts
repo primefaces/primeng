@@ -144,7 +144,7 @@ export class DataList implements AfterViewInit,DoCheck {
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule],
+    imports: [CommonModule,SharedModule,PaginatorModule],
     exports: [DataList],
     declarations: [DataList]
 })

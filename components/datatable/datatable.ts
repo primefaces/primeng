@@ -1,6 +1,7 @@
 import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,
         Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -1385,7 +1386,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule],
+    imports: [CommonModule,SharedModule,PaginatorModule,FormsModule],
     exports: [DataTable],
     declarations: [DataTable,DTRadioButton,DTCheckbox,RowExpansionLoader]
 })

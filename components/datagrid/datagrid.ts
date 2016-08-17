@@ -141,7 +141,7 @@ export class DataGrid implements AfterViewInit,DoCheck {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,PaginatorModule],
     exports: [DataGrid],
     declarations: [DataGrid]
 })
