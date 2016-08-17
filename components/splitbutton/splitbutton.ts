@@ -1,7 +1,25 @@
-import {Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from '@angular/core';
-import {SplitButtonItem} from './splitbuttonitem';
+import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {Router,ROUTER_DIRECTIVES} from '@angular/router';
+
+@Component({
+    selector: 'p-splitButtonItem',
+    template: `` 
+})
+export class SplitButtonItem {
+
+    @Input() icon: string;
+        
+    @Input() label: string;
+    
+    @Input() url: string;
+    
+    @Input() routerLink: any;
+    
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
+            
+}
 
 @Component({
     selector: 'p-splitButton',
@@ -115,3 +133,10 @@ export class SplitButton implements OnInit,OnDestroy {
         this.documentClickListener();
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [SplitButton,SplitButtonItem],
+    declarations: [SplitButton,SplitButtonItem]
+})
+export class SplitButtonModule { }

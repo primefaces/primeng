@@ -1,7 +1,8 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
-import {Header} from '../common';
-import {Footer} from '../common';
-import {Paginator} from '../paginator/paginator';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Header} from '../common/shared';
+import {Footer} from '../common/shared';
+import {PaginatorModule} from '../paginator/paginator';
 
 @Component({
     selector: 'p-dataGrid',
@@ -21,8 +22,7 @@ import {Paginator} from '../paginator/paginator';
                 <ng-content select="footer"></ng-content>
             </div>
         </div>
-    `,
-    directives: [Paginator]
+    `
 })
 export class DataGrid implements AfterViewInit,DoCheck {
 
@@ -139,3 +139,10 @@ export class DataGrid implements AfterViewInit,DoCheck {
         };
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [DataGrid],
+    declarations: [DataGrid]
+})
+export class DataGridModule { }

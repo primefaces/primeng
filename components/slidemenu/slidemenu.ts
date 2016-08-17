@@ -1,6 +1,7 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common';
+import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 
@@ -22,8 +23,7 @@ import {Router} from '@angular/router';
                 </li>
             </template>
         </ul>
-    `,
-    directives: [SlideMenuSub]
+    `
 })
 export class SlideMenuSub implements OnDestroy {
 
@@ -91,8 +91,7 @@ export class SlideMenuSub implements OnDestroy {
             </div>
         </div>
     `,
-    providers: [DomHandler],
-    directives: [SlideMenuSub]
+    providers: [DomHandler]
 })
 export class SlideMenu implements AfterViewInit,OnDestroy {
 
@@ -189,3 +188,10 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [SlideMenu],
+    declarations: [SlideMenu,SlideMenuSub]
+})
+export class SlideMenuModule { }

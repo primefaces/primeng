@@ -1,5 +1,6 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider,NgZone} from '@angular/core';
-import {Button} from '../button/button';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider,NgZone} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ButtonModule} from '../button/button';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const CALENDAR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
@@ -19,7 +20,6 @@ const CALENDAR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
         ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)" class="ui-datepicker-trigger"></button></span>
         <div *ngIf="inline"></div>
     `,
-    directives: [Button],
     providers: [CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueAccessor {
@@ -232,3 +232,10 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
         input.focus();
     }
 }
+
+@NgModule({
+    imports: [CommonModule,ButtonModule],
+    exports: [Calendar],
+    declarations: [Calendar]
+})
+export class CalendarModule { }

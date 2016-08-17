@@ -1,4 +1,5 @@
-import {Component,Input} from '@angular/core';
+import {NgModule,Component,Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-progressBar',
@@ -14,3 +15,10 @@ export class ProgressBar {
     @Input() value: any;
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [ProgressBar],
+    declarations: [ProgressBar]
+})
+export class ProgressBarModule { }

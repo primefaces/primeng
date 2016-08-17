@@ -1,4 +1,5 @@
-import {Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,Output,IterableDiffers,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,Output,IterableDiffers,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -235,3 +236,10 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Galleria],
+    declarations: [Galleria]
+})
+export class GalleriaModule { }

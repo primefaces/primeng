@@ -1,14 +1,11 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
-import {Column} from '../column/column';
-import {ColumnTemplateLoader} from '../column/columntemplateloader';
-import {RowExpansionLoader} from './rowexpansionloader';
-import {Header} from '../common';
-import {Footer} from '../common';
-import {Paginator} from '../paginator/paginator';
-import {InputText} from '../inputtext/inputtext';
-import {LazyLoadEvent} from '../common';
-import {FilterMetadata} from '../common';
-import {SortMeta} from '../common';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SharedModule} from '../common/shared';
+import {PaginatorModule} from '../paginator/paginator';
+import {InputTextModule} from '../inputtext/inputtext';
+import {Column,Header,Footer,ColumnTemplateLoader} from '../common/shared';
+import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -66,6 +63,25 @@ export class DTCheckbox {
             this.onChange.emit({originalEvent: event, checked: !this.checked});
         }
 
+    }
+}
+
+@Component({
+    selector: 'p-rowExpansionLoader',
+    template: ``
+})
+export class RowExpansionLoader {
+        
+    @Input() template: TemplateRef<any>;
+    
+    @Input() rowData: any;
+    
+    constructor(protected viewContainer: ViewContainerRef) {}
+    
+    ngOnInit() {
+        let view = this.viewContainer.createEmbeddedView(this.template, {
+            '\$implicit': this.rowData
+        });
     }
 }
 
@@ -211,7 +227,6 @@ export class DTCheckbox {
             </div>
         </div>
     `,
-    directives: [Paginator,InputText,ColumnTemplateLoader,RowExpansionLoader,DTRadioButton,DTCheckbox],
     providers: [DomHandler]
 })
 export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,OnDestroy {
@@ -1368,3 +1383,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
         }
     }
 }
+
+@NgModule({
+    imports: [CommonModule,SharedModule],
+    exports: [DataTable],
+    declarations: [DataTable,DTRadioButton,DTCheckbox,RowExpansionLoader]
+})
+export class ChartModule { }

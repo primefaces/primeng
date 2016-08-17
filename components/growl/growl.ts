@@ -1,5 +1,6 @@
-import {Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,IterableDiffers} from '@angular/core';
-import {Message} from '../common';
+import {NgModule,Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,IterableDiffers} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Message} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -118,3 +119,10 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Growl],
+    declarations: [Growl]
+})
+export class GrowlModule { }

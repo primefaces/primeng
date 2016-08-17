@@ -1,6 +1,95 @@
-import {Component,Input,Output,EventEmitter,ContentChild,TemplateRef} from '@angular/core';
-import {TreeNode} from '../common';
-import {UITreeNode} from './uitreenode';
+import {NgModule,Component,Input,Output,EventEmitter,OnInit,ViewContainerRef,ContentChild,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {TreeNode} from '../common/api';
+
+@Component({
+    selector: 'p-treeNodeTemplateLoader',
+    template: ``
+})
+export class TreeNodeTemplateLoader implements OnInit {
+        
+    @Input() node: any;
+    
+    @Input() template: TemplateRef<any>;
+        
+    constructor(protected viewContainer: ViewContainerRef) {}
+    
+    ngOnInit() {
+        let view = this.viewContainer.createEmbeddedView(this.template, {
+            '\$implicit': this.node
+        });
+    }
+}
+
+@Component({
+    selector: 'p-treeNode',
+    template: `
+        <li class="ui-treenode" *ngIf="node">
+            <div class="ui-treenode-content" [ngClass]="{'ui-treenode-selectable': tree.selectionMode}" 
+                (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
+                <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!expanded,'fa-caret-down':expanded}" *ngIf="!isLeaf()"
+                        (click)="toggle($event)"></span
+                ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
+                ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
+                ><span class="ui-treenode-label ui-corner-all" 
+                    [ngClass]="{'ui-state-hover':hover&&tree.selectionMode,'ui-state-highlight':isSelected()}">
+                        <span *ngIf="!tree.template">{{node.label}}</span>
+                        <p-treeNodeTemplateLoader [node]="node" [template]="tree.template" *ngIf="tree.template"></p-treeNodeTemplateLoader>
+                    </span>
+            </div>
+            <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children" [style.display]="expanded ? 'block' : 'none'">
+                <p-treeNode *ngFor="let childNode of node.children" [node]="childNode"></p-treeNode>
+            </ul>
+        </li>
+    `
+})
+export class UITreeNode {
+
+    static ICON_CLASS: string = 'ui-treenode-icon fa fa-fw';
+
+    @Input() node: TreeNode;
+        
+    hover: boolean = false;
+        
+    expanded: boolean = false;
+    
+    constructor(@Inject(forwardRef(() => Tree)) protected tree:Tree) {}
+        
+    getIcon() {
+        let icon;
+        if(this.node.icon)
+            icon = this.node.icon;
+        else
+            icon = this.expanded ? this.node.expandedIcon : this.node.collapsedIcon;
+        
+        return UITreeNode.ICON_CLASS + ' ' + icon;
+    }
+    
+    isLeaf() {
+        return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);
+    }
+    
+    toggle(event) {
+        if(this.expanded)
+            this.tree.onNodeCollapse.emit({originalEvent: event, node: this.node});
+        else
+            this.tree.onNodeExpand.emit({originalEvent: event, node: this.node});
+
+        this.expanded = !this.expanded
+    }
+    
+    onNodeClick(event) {
+        this.tree.onNodeClick(event, this.node);
+    }
+    
+    onNodeRightClick(event) {
+        this.tree.onNodeRightClick(event, this.node);
+    }
+    
+    isSelected() {
+        return this.tree.isSelected(this.node);
+    }
+}
 
 @Component({
     selector: 'p-tree',
@@ -10,8 +99,7 @@ import {UITreeNode} from './uitreenode';
                 <p-treeNode *ngFor="let node of value" [node]="node"></p-treeNode>
             </ul>
         </div>
-    `,
-    directives: [UITreeNode]
+    `
 })
 export class Tree {
 
@@ -130,3 +218,11 @@ export class Tree {
         return this.selectionMode && this.selectionMode == 'multiple';
     }
 }
+
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Tree],
+    declarations: [Tree,UITreeNode,TreeNodeTemplateLoader]
+})
+export class TreeModule { }

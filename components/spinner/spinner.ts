@@ -1,5 +1,6 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
-import {InputText} from '../inputtext/inputtext';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -31,7 +32,6 @@ const SPINNER_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             </a>
         </span>
     `,
-    directives: [InputText],
     providers: [DomHandler,SPINNER_VALUE_ACCESSOR]
 })
 export class Spinner implements AfterViewInit,ControlValueAccessor {
@@ -264,3 +264,11 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         this.onModelTouched = fn;
     }
 }
+
+
+@NgModule({
+    imports: [CommonModule,InputTextModule],
+    exports: [Spinner],
+    declarations: [Spinner]
+})
+export class SpinnerModule { }

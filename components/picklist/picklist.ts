@@ -1,7 +1,8 @@
-import {Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
-import {Button} from '../button/button';
+import {NgModule,Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ButtonModule} from '../button/button';
+import {SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
-import {TemplateWrapper} from '../common';
 
 @Component({
     selector: 'p-pickList',
@@ -272,3 +273,10 @@ export class PickList implements OnDestroy,AfterViewChecked {
 
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [PickList],
+    declarations: [PickList]
+})
+export class PickListModule { }

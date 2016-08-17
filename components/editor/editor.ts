@@ -1,5 +1,6 @@
-import {Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef,Provider} from '@angular/core';
-import {Header} from '../common'
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef,Provider} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Header} from '../common/shared'
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -61,7 +62,6 @@ const EDITOR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             <div class="ui-editor-content" [ngStyle]="style"></div>
         </div>
     `,
-    directives: [Header],
     providers: [DomHandler,EDITOR_VALUE_ACCESSOR]
 })
 export class Editor implements AfterViewInit,ControlValueAccessor {
@@ -152,3 +152,10 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         this.onModelTouched = fn;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Editor],
+    declarations: [Editor]
+})
+export class EditorModule { }

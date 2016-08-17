@@ -1,6 +1,7 @@
-import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChild,Renderer} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChild,Renderer} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
-import {TemplateWrapper} from '../common';
+import {SharedModule} from '../common/shared';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-carousel',
@@ -33,8 +34,7 @@ import {TemplateWrapper} from '../common';
             </div>
         </div>
     `,
-    providers: [DomHandler],
-    directives: [TemplateWrapper]
+    providers: [DomHandler]
 })
 export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,OnDestroy{
     
@@ -297,5 +297,11 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.stopAutoplay();
         }
     }
-    
 }
+
+@NgModule({
+    imports: [CommonModule,SharedModule],
+    exports: [Carousel],
+    declarations: [Carousel]
+})
+export class CarouselModule { }

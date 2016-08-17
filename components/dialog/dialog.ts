@@ -1,6 +1,7 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {Header} from '../common';
+import {Header} from '../common/shared';
 
 @Component({
     selector: 'p-dialog',
@@ -26,7 +27,6 @@ import {Header} from '../common';
                 (mousedown)="initResize($event)"></div>
         </div>
     `,
-    directives: [Header],
     providers: [DomHandler]
 })
 export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
@@ -318,3 +318,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Dialog],
+    declarations: [Dialog]
+})
+export class DialogModule { }

@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Header} from '../common';
+import {Header} from '../common/shared';
 
 @Component({
     selector: 'p-accordion',

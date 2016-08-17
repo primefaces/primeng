@@ -1,5 +1,6 @@
-import {Component,ElementRef,OnDestroy,Input,EventEmitter} from '@angular/core';
-import {MenuItem} from '../common';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 
@@ -18,8 +19,7 @@ import {Router} from '@angular/router';
                 <p-panelMenuSub [item]="child" [expanded]="isActive(child)" *ngIf="child.items"></p-panelMenuSub>
             </li>
         </ul>
-    `,
-    directives: [PanelMenuSub]
+    `
 })
 export class PanelMenuSub {
     
@@ -86,8 +86,7 @@ export class PanelMenuSub {
                 </div>
             </div>
         </div>
-    `,
-    directives: [PanelMenuSub]
+    `
 })
 export class PanelMenu {
     
@@ -139,3 +138,10 @@ export class PanelMenu {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [PanelMenu],
+    declarations: [PanelMenu,PanelMenuSub]
+})
+export class PanelMenuModule { }

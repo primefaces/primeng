@@ -1,5 +1,6 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange} from '@angular/core';
-import {Message} from '../common';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Message} from '../common/api';
 
 @Component({
     selector: 'p-messages',
@@ -39,3 +40,10 @@ export class Messages {
         event.preventDefault();
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Messages],
+    declarations: [Messages]
+})
+export class MessagesModule { }

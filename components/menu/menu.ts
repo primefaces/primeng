@@ -1,6 +1,7 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common';
+import {MenuItem} from '../common/api';
 import {Router} from '@angular/router';
 
 @Component({
@@ -154,3 +155,10 @@ export class Menu implements AfterViewInit,OnDestroy {
         }
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Menu],
+    declarations: [Menu]
+})
+export class MenuModule { }

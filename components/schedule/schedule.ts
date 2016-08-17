@@ -1,5 +1,5 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
-import {SelectItem} from '../common';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-schedule',
@@ -288,3 +288,10 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Schedule],
+    declarations: [Schedule]
+})
+export class ScheduleModule { }

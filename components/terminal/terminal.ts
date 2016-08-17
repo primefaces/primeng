@@ -1,4 +1,5 @@
-import {Component,AfterViewInit,AfterViewChecked,Input,Output,EventEmitter,Query,QueryList,ElementRef} from '@angular/core';
+import {NgModule,Component,AfterViewInit,AfterViewChecked,Input,Output,EventEmitter,Query,QueryList,ElementRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -77,3 +78,10 @@ export class Terminal implements AfterViewInit,AfterViewChecked {
     }
     
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Terminal],
+    declarations: [Terminal]
+})
+export class TerminalModule { }

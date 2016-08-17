@@ -1,4 +1,5 @@
-import {Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const TOGGLEBUTTON_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
@@ -73,3 +74,10 @@ export class ToggleButton implements ControlValueAccessor {
         this.onModelTouched = fn;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [ToggleButton],
+    declarations: [ToggleButton]
+})
+export class ToggleButtonModule { }

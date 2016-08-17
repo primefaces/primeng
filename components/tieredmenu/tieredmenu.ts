@@ -1,6 +1,7 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common';
+import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 
@@ -22,7 +23,6 @@ import {Router} from '@angular/router';
             </template>
         </ul>
     `,
-    directives: [TieredMenuSub],
     providers: [DomHandler]
 })
 export class TieredMenuSub {
@@ -88,8 +88,7 @@ export class TieredMenuSub {
             <p-tieredMenuSub [item]="model" root="root"></p-tieredMenuSub>
         </div>
     `,
-    providers: [DomHandler],
-    directives: [TieredMenuSub]
+    providers: [DomHandler]
 })
 export class TieredMenu implements AfterViewInit,OnDestroy {
 
@@ -166,3 +165,10 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [TieredMenu],
+    declarations: [TieredMenu,TieredMenuSub]
+})
+export class TieredMenuModule { }

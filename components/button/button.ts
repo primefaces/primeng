@@ -1,5 +1,6 @@
-import {Directive,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
+import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
+import {CommonModule} from '@angular/common';
 
 @Directive({
     selector: '[pButton]',
@@ -120,3 +121,10 @@ export class Button implements AfterViewInit, OnDestroy {
         this.initialized = false;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Button],
+    declarations: [Button]
+})
+export class ButtonModule { }

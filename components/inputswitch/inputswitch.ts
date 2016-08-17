@@ -1,4 +1,5 @@
-import {Component,ElementRef,AfterViewInit,OnChanges,Input,forwardRef,Provider,EventEmitter,Output} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnChanges,Input,forwardRef,Provider,EventEmitter,Output} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
 import {DomHandler} from '../dom/domhandler';
 
@@ -173,3 +174,10 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
         this.onModelTouched = fn;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [InputSwitch],
+    declarations: [InputSwitch]
+})
+export class InputSwitchModule { }

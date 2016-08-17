@@ -1,4 +1,5 @@
-import {Directive,ElementRef,HostListener,Input} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Directive({
     selector: '[pInputText]',
@@ -44,3 +45,10 @@ export class InputText {
         return this.el.nativeElement.disabled;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [InputText],
+    declarations: [InputText]
+})
+export class InputTextModule { }

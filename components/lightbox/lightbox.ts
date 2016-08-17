@@ -1,4 +1,5 @@
-import {Component,ElementRef,Input,Output,Renderer,AfterViewInit,OnDestroy} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,Renderer,AfterViewInit,OnDestroy} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -203,3 +204,10 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     }
         
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Lightbox],
+    declarations: [Lightbox]
+})
+export class LightboxModule { }

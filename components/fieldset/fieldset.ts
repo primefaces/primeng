@@ -1,4 +1,5 @@
-import {Component,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-fieldset',
@@ -67,3 +68,10 @@ export class Fieldset {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Fieldset],
+    declarations: [Fieldset]
+})
+export class FieldsetModule { }

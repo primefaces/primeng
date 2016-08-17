@@ -1,4 +1,5 @@
-import {Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-paginator',
@@ -150,3 +151,10 @@ export class Paginator {
         this.changePageToFirst();
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Paginator],
+    declarations: [Paginator]
+})
+export class PaginatorModule { }
