@@ -1,14 +1,8 @@
 import {Component} from '@angular/core';
-import {TabView} from '../../../components/tabview/tabview';
-import {Growl} from '../../../components/growl/growl';
-import {Message} from '../../../components/common';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/tabview/tabviewdemo.html',
-    directives: [TabView,TabPanel,Growl,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/tabview/tabviewdemo.html'
 })
 export class TabViewDemo {
 

@@ -1389,4 +1389,4 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     exports: [DataTable],
     declarations: [DataTable,DTRadioButton,DTCheckbox,RowExpansionLoader]
 })
-export class ChartModule { }
+export class DataTableModule { }

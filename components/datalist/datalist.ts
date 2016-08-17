@@ -148,4 +148,4 @@ export class DataList implements AfterViewInit,DoCheck {
     exports: [DataList],
     declarations: [DataList]
 })
-export class ChartModule { }
+export class DataListModule { }

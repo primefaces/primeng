@@ -1,14 +1,8 @@
 import {Component} from '@angular/core';
-import {Menubar} from '../../../components/menubar/menubar';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-import {MenuItem} from '../../../components/common';
+import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/menubar/menubardemo.html',
-    directives: [Menubar,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/menubar/menubardemo.html'
 })
 export class MenubarDemo {
 

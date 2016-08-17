@@ -1,15 +1,8 @@
 import {Component} from '@angular/core';
-import {Dropdown} from '../../../components/dropdown/dropdown';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Button} from '../../../components/button/button';
-import {SelectItem} from '../../../components/common';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {SelectItem} from '../../../components/common/api';
 
 @Component({
     templateUrl: 'showcase/demo/dropdown/dropdown.html',
-    directives: [Dropdown,TabPanel,TabView,Button,CodeHighlighter,ROUTER_DIRECTIVES]
 })
 export class DropdownDemo {
 

@@ -1,17 +1,8 @@
 import {Component,OnInit} from '@angular/core';
-import {Messages} from '../../../components/messages/messages';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ProgressBar} from '../../../components/progressbar/progressbar';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {SelectItem} from '../../../components/common';
-import {Message} from '../../../components/common';
-import {Growl} from '../../../components/growl/growl';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/progressbar/progressbardemo.html',
-    directives: [Messages,TabPanel,TabView,ProgressBar,CodeHighlighter,ROUTER_DIRECTIVES,Growl]
+    templateUrl: 'showcase/demo/progressbar/progressbardemo.html'
 })
 export class ProgressBarDemo {
 

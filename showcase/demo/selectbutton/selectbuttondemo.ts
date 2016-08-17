@@ -1,15 +1,8 @@
 import {Component} from '@angular/core';
-import {SelectButton} from '../../../components/selectbutton/selectbutton';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Button} from '../../../components/button/button';
-import {SelectItem} from '../../../components/common';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {SelectItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/selectbutton/selectbuttondemo.html',
-    directives: [SelectButton, TabPanel, TabView, Button,CodeHighlighter, ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/selectbutton/selectbuttondemo.html'
 })
 export class SelectButtonDemo {
 

@@ -1,19 +1,9 @@
 import {Component,OnInit} from '@angular/core';
-import {TreeTable} from '../../../components/treetable/treetable';
-import {Column} from '../../../components/column/column';
-import {TreeNode} from '../../../components/common';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router';
 import {NodeService} from '../service/nodeservice';
-import {Growl} from '../../../components/growl/growl';
-import {Message} from '../../../components/common';
-import {Header} from '../../../components/common';
+import {Message,TreeNode} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/treetable/treetabledemo.html',
-    directives: [TreeTable,Column,TabView,Growl,TabPanel,Header,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/treetable/treetabledemo.html'
 })
 export class TreeTableDemo implements OnInit {
     

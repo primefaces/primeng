@@ -1,15 +1,7 @@
 import {Component} from '@angular/core';
-import {Editor} from '../../../components/editor/editor';
-import {Header} from '../../../components/common';
-import {Button} from '../../../components/button/button';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
-    templateUrl: 'showcase/demo/editor/editordemo.html',
-    directives: [Editor,Header,Button,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/editor/editordemo.html'
 })
 export class EditorDemo {
 

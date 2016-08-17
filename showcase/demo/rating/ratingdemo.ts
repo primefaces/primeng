@@ -1,13 +1,7 @@
 import {Component} from '@angular/core';
-import {Rating} from '../../../components/rating/rating';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
-    templateUrl: 'showcase/demo/rating/ratingdemo.html',
-    directives: [Rating,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/rating/ratingdemo.html'
 })
 export class RatingDemo {
 

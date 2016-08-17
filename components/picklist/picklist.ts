@@ -52,7 +52,6 @@ import {DomHandler} from '../dom/domhandler';
             </div>
         </div>
     `,
-    directives: [Button,TemplateWrapper],
     providers: [DomHandler]
 })
 export class PickList implements OnDestroy,AfterViewChecked {
@@ -275,7 +274,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,ButtonModule,SharedModule],
     exports: [PickList],
     declarations: [PickList]
 })

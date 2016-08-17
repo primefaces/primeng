@@ -1,45 +1,12 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-import {InputText} from '../../../components/inputtext/inputtext';
-import {InputTextarea} from '../../../components/inputtextarea/inputtextarea';
-import {Button} from '../../../components/button/button';
-import {Dropdown} from '../../../components/dropdown/dropdown';
-import {SelectItem} from '../../../components/common';
-import {Listbox} from '../../../components/listbox/listbox';
-import {Dialog} from '../../../components/dialog/dialog';
-import {Panel} from '../../../components/panel/panel';
-import {DataTable} from '../../../components/datatable/datatable';
-import {DataGrid} from '../../../components/datagrid/datagrid';
-import {AutoComplete} from '../../../components/autocomplete/autocomplete';
-import {Calendar} from '../../../components/calendar/calendar';
-import {SplitButton} from '../../../components/splitbutton/splitbutton';
-import {SplitButtonItem} from '../../../components/splitbutton/splitbuttonitem';
-import {Password} from '../../../components/password/password';
-import {RadioButton} from '../../../components/radiobutton/radiobutton';
-import {UIChart} from '../../../components/chart/chart';
-import {Tree} from '../../../components/tree/tree';
-import {Menu} from '../../../components/menu/menu';
-import {PanelMenu} from '../../../components/panelmenu/panelmenu';
-import {PickList} from '../../../components/picklist/picklist';
-import {Carousel} from '../../../components/carousel/carousel';
-import {OrderList} from '../../../components/orderlist/orderlist';
-import {TreeNode} from '../../../components/common';
-import {UITreeNode} from '../../../components/tree/uitreenode';
-import {TreeNodeTemplateLoader} from '../../../components/tree/treenodetemplateloader';
-import {Header} from '../../../components/common';
-import {Column} from '../../../components/column/column';
 import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 import {NodeService} from '../service/nodeservice';
 import {CountryService} from '../service/countryservice';
-import {MenuItem} from '../../../components/common';
+import {SelectItem,MenuItem,TreeNode} from '../../../components/common/api';
 
 @Component({
     templateUrl: 'showcase/demo/responsive/responsivedemo.html',
-    directives: [PanelMenu,Menu,PickList,Carousel,OrderList,Tree,TreeNodeTemplateLoader,UITreeNode,UIChart,RadioButton,Password,SplitButton,SplitButtonItem,AutoComplete,Header,DataGrid,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES,InputText,InputTextarea,Button,Dropdown,Listbox,Dialog,Panel,DataTable,Column,Calendar],
     styles: [`
         .ui-grid-row .ui-grid-col-2,
         .ui-grid-row .ui-grid-col-10 {

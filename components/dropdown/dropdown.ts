@@ -389,6 +389,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
 @NgModule({
     imports: [CommonModule,SharedModule],
     exports: [Dropdown],
-    declarations: [DropdownModule]
+    declarations: [Dropdown]
 })
-export class InputTextModule { }
+export class DropdownModule { }

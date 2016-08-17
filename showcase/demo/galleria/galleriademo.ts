@@ -1,13 +1,7 @@
 import {Component} from '@angular/core';
-import {Galleria} from '../../../components/galleria/galleria';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
-    templateUrl: 'showcase/demo/galleria/galleriademo.html',
-    directives: [Galleria,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/galleria/galleriademo.html'
 })
 export class GalleriaDemo {
     

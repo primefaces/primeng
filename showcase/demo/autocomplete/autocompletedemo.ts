@@ -1,14 +1,8 @@
 import {Component} from '@angular/core';
-import {AutoComplete} from '../../../components/autocomplete/autocomplete';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
 import {CountryService} from '../service/countryservice';
-import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
-    templateUrl: 'showcase/demo/autocomplete/autocompletedemo.html',
-    directives: [AutoComplete,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/autocomplete/autocompletedemo.html'
 })
 export class AutoCompleteDemo {
 

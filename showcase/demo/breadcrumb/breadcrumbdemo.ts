@@ -1,15 +1,8 @@
 import {Component,OnInit,EventEmitter} from '@angular/core';
-import {Breadcrumb} from '../../../components/breadcrumb/breadcrumb';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {Button} from '../../../components/button/button';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {MenuItem} from '../../../components/common';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/breadcrumb/breadcrumbdemo.html',
-    directives: [Breadcrumb,Button,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/breadcrumb/breadcrumbdemo.html'
 })
 export class BreadcrumbDemo implements OnInit {
 

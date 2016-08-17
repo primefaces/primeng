@@ -124,4 +124,4 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     exports: [InputMask],
     declarations: [InputMask]
 })
-export class InputSwitchModule { }
+export class InputMaskModule { }

@@ -1,13 +1,8 @@
 import {Component} from '@angular/core';
-import {Growl} from '../../../components/growl/growl';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Message} from '../../../components/common';
+import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/accordion/accordiondemo.html',
-    directives: [Growl,TabView,TabPanel,CodeHighlighter]
+    templateUrl: 'showcase/demo/accordion/accordiondemo.html'
 })
 export class AccordionDemo {
 

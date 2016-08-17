@@ -135,4 +135,4 @@ export class GMap implements AfterViewInit,DoCheck {
     exports: [GMap],
     declarations: [GMap]
 })
-export class GmapModule { }
+export class GMapModule { }

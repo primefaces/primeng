@@ -165,4 +165,4 @@ export class Listbox implements ControlValueAccessor {
     exports: [Listbox],
     declarations: [Listbox]
 })
-export class InputTextModule { }
+export class ListboxModule { }
