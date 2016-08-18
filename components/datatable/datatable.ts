@@ -816,7 +816,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
 
         if(this.selection) {
             for(let i = 0; i  < this.selection.length; i++) {
-                if(this.selection[i] == rowData) {
+                if(JSON.stringify(this.selection[i]) == JSON.stringify(rowData)) {
                     index = i;
                     break;
                 }
