@@ -1,12 +1,28 @@
-import {Component} from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 import {Message} from '../../../components/common/api';
+import {MenuItem} from '../../../components/common/api';
 
 @Component({
     templateUrl: 'showcase/demo/splitbutton/splitbuttondemo.html'
 })
-export class SplitButtonDemo {
+export class SplitButtonDemo implements OnInit {
 
     msgs: Message[] = [];
+    
+    items: MenuItem[];
+    
+    ngOnInit() {
+        this.items = [
+            {label: 'Update', icon: 'fa-refresh', command: () => {
+                this.update();
+            }},
+            {label: 'Delete', icon: 'fa-close', command: () => {
+                this.delete();
+            }},
+            {label: 'Angular.io', icon: 'fa-link', url: 'http://angular.io'},
+            {label: 'Theming', icon: 'fa-paint-brush', routerLink: ['/theming']}
+        ];
+    }
 
     save() {
         this.msgs = [];

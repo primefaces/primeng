@@ -8,12 +8,7 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-splitButton label="Save" icon="fa-check" (onClick)="save()">
-        <p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"></p-splitButtonItem>
-        <p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"></p-splitButtonItem>
-        <p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"></p-splitButtonItem>
-        <p-splitButtonItem icon="fa-paint-brush" label="Theming" [url]="['Theming']"></p-splitButtonItem>
-    </p-splitButton>
+    <p-splitButton label="Save" icon="fa-check" (onClick)="save()" [model]="items"></p-splitButton>
 </div>
 
 <div class="ContentSideSections Source">
