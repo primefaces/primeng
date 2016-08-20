@@ -1125,39 +1125,43 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     }
     
     onColumnDragover(event) {
-        event.preventDefault();
-        let dropHeader = this.findParentHeader(event.target);
-        
-        if(this.draggedColumn != dropHeader) {
-            let targetPosition = dropHeader.getBoundingClientRect();
-            let targetLeft = targetPosition.left + document.body.scrollLeft;
-            let targetTop =  targetPosition.top + document.body.scrollTop;
-            let columnCenter = targetLeft + dropHeader.offsetWidth / 2;
+        if(this.reorderableColumns && this.draggedColumn) {
+            event.preventDefault();
+            let dropHeader = this.findParentHeader(event.target);
             
-            this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
-            this.reorderIndicatorDown.style.top = targetTop + dropHeader.offsetHeight + 'px';
+            if(this.draggedColumn != dropHeader) {
+                let targetPosition = dropHeader.getBoundingClientRect();
+                let targetLeft = targetPosition.left + document.body.scrollLeft;
+                let targetTop =  targetPosition.top + document.body.scrollTop;
+                let columnCenter = targetLeft + dropHeader.offsetWidth / 2;
+                
+                this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
+                this.reorderIndicatorDown.style.top = targetTop + dropHeader.offsetHeight + 'px';
 
-            if(event.pageX > columnCenter) {
-                this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
-                this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8)+ 'px';
+                if(event.pageX > columnCenter) {
+                    this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
+                    this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8)+ 'px';
+                }
+                else {
+                    this.reorderIndicatorUp.style.left = (targetLeft - 8) + 'px';
+                    this.reorderIndicatorDown.style.left = (targetLeft - 8)+ 'px';
+                }
+                
+                this.reorderIndicatorUp.style.display = 'block';
+                this.reorderIndicatorDown.style.display = 'block';
             }
             else {
-                this.reorderIndicatorUp.style.left = (targetLeft - 8) + 'px';
-                this.reorderIndicatorDown.style.left = (targetLeft - 8)+ 'px';
+                event.dataTransfer.dropEffect = 'none';
             }
-            
-            this.reorderIndicatorUp.style.display = 'block';
-            this.reorderIndicatorDown.style.display = 'block';
-        }
-        else {
-            event.dataTransfer.dropEffect = 'none';
         }
     }
     
     onColumnDragleave(event) {
-        event.preventDefault();
-        this.reorderIndicatorUp.style.display = 'none';
-        this.reorderIndicatorDown.style.display = 'none';
+        if(this.reorderableColumns && this.draggedColumn) {
+            event.preventDefault();
+            this.reorderIndicatorUp.style.display = 'none';
+            this.reorderIndicatorDown.style.display = 'none';
+        }
     }
     
     onColumnDrop(event) {
