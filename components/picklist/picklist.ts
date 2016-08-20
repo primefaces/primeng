@@ -275,7 +275,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
 
 @NgModule({
     imports: [CommonModule,ButtonModule,SharedModule],
-    exports: [PickList],
+    exports: [PickList,SharedModule],
     declarations: [PickList]
 })
 export class PickListModule { }

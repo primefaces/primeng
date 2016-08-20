@@ -202,7 +202,7 @@ export class TreeTable {
 
 @NgModule({
     imports: [CommonModule,SharedModule],
-    exports: [TreeTable],
+    exports: [TreeTable,SharedModule],
     declarations: [TreeTable,UITreeRow]
 })
 export class TreeTableModule { }

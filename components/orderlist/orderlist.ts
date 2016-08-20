@@ -201,7 +201,7 @@ export class OrderList implements AfterViewChecked {
 
 @NgModule({
     imports: [CommonModule,ButtonModule,SharedModule],
-    exports: [OrderList],
+    exports: [OrderList,SharedModule],
     declarations: [OrderList]
 })
 export class OrderListModule { }

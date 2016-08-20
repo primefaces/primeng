@@ -301,7 +301,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
 
 @NgModule({
     imports: [CommonModule,SharedModule],
-    exports: [Carousel],
+    exports: [Carousel,SharedModule],
     declarations: [Carousel]
 })
 export class CarouselModule { }

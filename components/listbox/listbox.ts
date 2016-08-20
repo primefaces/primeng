@@ -162,7 +162,7 @@ export class Listbox implements ControlValueAccessor {
 
 @NgModule({
     imports: [CommonModule,SharedModule],
-    exports: [Listbox],
+    exports: [Listbox,SharedModule],
     declarations: [Listbox]
 })
 export class ListboxModule { }

@@ -388,7 +388,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
 
 @NgModule({
     imports: [CommonModule,InputTextModule,ButtonModule,SharedModule],
-    exports: [AutoComplete],
+    exports: [AutoComplete,SharedModule],
     declarations: [AutoComplete]
 })
 export class AutoCompleteModule { }

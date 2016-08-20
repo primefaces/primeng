@@ -165,7 +165,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
 
 @NgModule({
     imports: [CommonModule,SharedModule],
-    exports: [DataScroller],
+    exports: [DataScroller,SharedModule],
     declarations: [DataScroller]
 })
 export class DataScrollerModule { }
