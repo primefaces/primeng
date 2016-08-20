@@ -12,11 +12,11 @@ import {Router} from '@angular/router';
                 <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
                     [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-hover':(hoveredLink==link)}" (click)="onClick($event,child)"
                     (mouseenter)="hoveredLink=link" (mouseleave)="hoveredLink=null">
-                    <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!isActive(child),'fa-caret-down':isActive(child)}" *ngIf="child.items"></span>
+                    <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!child.expanded,'fa-caret-down':child.expanded}" *ngIf="child.items"></span>
                     <span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span>
                     <span class="ui-menuitem-text">{{child.label}}</span>
                 </a>
-                <p-panelMenuSub [item]="child" [expanded]="isActive(child)" *ngIf="child.items"></p-panelMenuSub>
+                <p-panelMenuSub [item]="child" [expanded]="child.expanded" *ngIf="child.items"></p-panelMenuSub>
             </li>
         </ul>
     `
@@ -28,18 +28,10 @@ export class PanelMenuSub {
     @Input() expanded: boolean;
     
     constructor(protected router: Router) {}
-        
-    activeItems: MenuItem[] = [];
-        
-    onClick(event,item: MenuItem) {
+                
+    onClick(event, item: MenuItem) {
         if(item.items) {
-            let index = this.activeItems.indexOf(item);
-            
-            if(index == -1)
-                this.activeItems.push(item);
-            else
-                this.activeItems.splice(index, 1);
-
+            item.expanded = !item.expanded;
             event.preventDefault();
         }
         else {
@@ -61,10 +53,6 @@ export class PanelMenuSub {
             }
         }
     }
-    
-    isActive(item: MenuItem): boolean {
-        return this.activeItems.indexOf(item) != -1;
-    }
 }
 
 @Component({
@@ -72,16 +60,16 @@ export class PanelMenuSub {
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-panelmenu ui-widget'">
             <div *ngFor="let item of model" class="ui-panelmenu-panel">
-                <div tabindex="0" [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-all':!isActive(item),
-                    'ui-state-active ui-corner-top':isActive(item),'ui-state-hover':(item == hoveredItem)}" (click)="headerClick($event,item)">
-                    <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!isActive(item),'fa-caret-down':isActive(item)}"></span>
+                <div tabindex="0" [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-all':!item.expanded,
+                    'ui-state-active ui-corner-top':item.expanded,'ui-state-hover':(item == hoveredItem)}" (click)="headerClick($event,item)">
+                    <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span>
                     <a [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
                         <span class="ui-menuitem-icon fa fa-fw" [ngClass]="item.icon" *ngIf="item.icon"></span>
                         <span>{{item.label}}</span>
                     </a>
                 </div>
-                <div class="ui-panelmenu-content ui-widget-content" [style.display]="isActive(item) ? 'block' : 'none'">
+                <div class="ui-panelmenu-content ui-widget-content" [style.display]="item.expanded ? 'block' : 'none'">
                     <p-panelMenuSub [item]="item" [expanded]="true"></p-panelMenuSub>
                 </div>
             </div>
@@ -96,20 +84,8 @@ export class PanelMenu {
 
     @Input() styleClass: string;
     
-    activeItems: MenuItem[];
-
-    constructor(protected el: ElementRef) {
-        this.activeItems = [];
-    }
-
     headerClick(event, item ) {
-        let index = this.activeItems.indexOf(item);
-        
-        if(index == -1)
-            this.activeItems.push(item);
-        else
-            this.activeItems.splice(index, 1);
-        
+        item.expanded = !item.expanded;
         event.preventDefault();
     }
         
@@ -124,11 +100,7 @@ export class PanelMenu {
             }
         }
     }
-    
-    isActive(item: MenuItem): boolean {
-        return this.activeItems.indexOf(item) != -1;
-    }
-        
+            
     ngOnDestroy() {        
         if(this.model) {
             for(let item of this.model) {

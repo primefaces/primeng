@@ -27,6 +27,7 @@ export interface MenuItem {
     routerLink?: any;
     eventEmitter?: EventEmitter<any>;
     items?: MenuItem[];
+    expanded?: boolean;
 }
 
 export interface Message {
