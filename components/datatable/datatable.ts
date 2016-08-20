@@ -816,7 +816,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
 
         if(this.selection) {
             for(let i = 0; i  < this.selection.length; i++) {
-                if(this.selection[i] == rowData) {
+                if(this.domHandler.equals(rowData, this.selection[i])) {
                     index = i;
                     break;
                 }
@@ -827,7 +827,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     }
 
     isSelected(rowData) {
-        return ((rowData && rowData == this.selection) || this.findIndexInSelection(rowData) != -1);
+        return ((rowData && this.domHandler.equals(rowData, this.selection)) || this.findIndexInSelection(rowData) != -1);
     }
     
     get allSelected() {
