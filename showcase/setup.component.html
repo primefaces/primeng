@@ -282,8 +282,6 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 </code>
 </pre>
 
-
-    
     <p>Running npm install and then npm start, starts the lite-server, opens up a browser and runs the application.</p>
 
     <h3>Quickstart with Webpack</h3>
@@ -292,8 +290,8 @@ platformBrowserDynamic().bootstrapModule(AppModule);
     <h4>package.json</h4>
 <pre>
 <code class="language-javascript" pCode>
-    &#123;
-  "name": "primeng-quickstart-webpack",
+&#123;
+  "name": "primeng-quickstart-&#123;webpack&#125;",
   "version": "v1.0.0-SNAPSHOT",
   "scripts": &#123;
     "postinstall": "npm run typings install",
@@ -307,28 +305,25 @@ platformBrowserDynamic().bootstrapModule(AppModule);
   &#125;,
   "license": "ISC",
   "dependencies": &#123;
-      "@angular/common": "2.0.0-rc.4",
-      "@angular/compiler": "2.0.0-rc.4",
-      "@angular/core": "2.0.0-rc.4",
-      "@angular/forms": "0.2.0",
-      "@angular/http": "2.0.0-rc.4",
-      "@angular/platform-browser": "2.0.0-rc.4",
-      "@angular/platform-browser-dynamic": "2.0.0-rc.4",
-      "@angular/router": "3.0.0-beta.2",
-      "@angular/upgrade": "2.0.0-rc.4",
-      "core-js": "^2.4.0",
-      "reflect-metadata": "^0.1.3",
-      "rxjs": "5.0.0-beta.6",
-      "zone.js": "^0.6.12",
-      "angular2-in-memory-web-api": "0.0.14",
-      "primeng": "^1.0.0-beta.11",
-      "primeui": "^4.1.12"
+    "@angular/common": "2.0.0-rc.5",
+    "@angular/compiler": "2.0.0-rc.5",
+    "@angular/core": "2.0.0-rc.5",
+    "@angular/forms": "0.3.0",
+    "@angular/http": "2.0.0-rc.5",
+    "@angular/platform-browser": "2.0.0-rc.5",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.5",
+    "@angular/router": "3.0.0-rc.1",
+    "@angular/upgrade": "2.0.0-rc.5",
+    "systemjs": "0.19.27",
+    "core-js": "^2.4.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "5.0.0-beta.6",
+    "zone.js": "^0.6.12",
+    "angular2-in-memory-web-api": "0.0.15",
+    "primeui": "^4.1.14",
+    "primeng": "^1.0.0-beta.13"
   &#125;,
   "devDependencies": &#123;
-    "@ngrx/devtools": "^1.4.0",
-    "source-map-loader": "^0.1.5",
-    "script-loader": "^0.6.1",
-    "ts-loader": "^0.8.1",
     "typescript": "^1.8.10",
     "typings": "^1.3.0",
     "webpack": "^1.13.1"
@@ -340,28 +335,6 @@ platformBrowserDynamic().bootstrapModule(AppModule);
     <h4>webpack.config.js</h4>
     <p>3 bundles are generated, one for polyfills, another one that includes Angular with PrimeNG and last one with application only code. CommonsChunkPlugin
     is enabled to avoid having duplicated modules. For further optimization like compression for production, visit webpack <a href="https://github.com/webpack/docs/wiki/optimization">tutorial</a>.</p>
-<pre>
-<code class="language-javascript" pCode>
-var webpack = require("webpack");
-
-module.exports = &#123;
-    entry: &#123;
-        'polyfills': './app/polyfills.js',
-        'vendor': './app/vendor.js',
-        'app': './app/boot.js'
-    &#125;,
-    output: &#123;
-        path: __dirname,
-        filename: "./prod/[name].js"
-    &#125;,
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin(&#123;
-            name: ['app', 'vendor', 'polyfills']
-        &#125;)
-    ]
-&#125;;
-</code>
-</pre>
 
     <h4>polyfills.ts</h4>
     <p>Includes libraries to run Angular2 in older browsers</p>
@@ -385,6 +358,7 @@ import 'core-js/es6/weak-set';
 import 'core-js/es6/typed';
 import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
+import 'zone.js/dist/zone';
 </code>
 </pre>
 
@@ -404,24 +378,74 @@ import 'rxjs/Rx';
 </code>
 </pre>
 
-    <h4>boot.ts</h4>
-    <p>Entry point for application code only bundle.</p>
+    <h4>app.component.ts</h4>
+    <p>Sample app component uses PrimeNG InputText.</p>
 <pre>
 <code class="language-typescript" pCode>
-    //library imports: shims, pollyfills, etc
-    import &#123;bootstrap&#125; from '@angular/platform-browser-dynamic';
-    import &#123;provide&#125; from '@angular/core';
-    import &#123;AppComponent&#125; from './app.component';
-    import &#123;enableProdMode&#125; from '@angular/core';
-    import &#123;LocationStrategy,HashLocationStrategy&#125; from '@angular/common';
-    import &#123;disableDeprecatedForms, provideForms&#125; from '@angular/forms';
+import &#123;Component&#125; from '@angular/core';
 
-    //enableProdMode();
-    bootstrap(AppComponent, [
-      disableDeprecatedForms(),
-      provideForms(),
-      provide(LocationStrategy, &#123;useClass: HashLocationStrategy&#125;)
-    ]);
+@Component(&#123;
+selector: 'my-app',
+template: `
+    &lt;h1&gt;My First PrimeNG App&lt;/h1&gt;
+    &lt;input type="text" pInputText/&gt;
+`,
+&#125;)
+export class AppComponent &#123;
+
+&#125;
+</code>
+</pre>
+
+    <h4>app.module.ts</h4>
+<pre>
+<code class="language-typescript" pCode>
+import &#123;NgModule&#125;      from '@angular/core';
+import &#123;BrowserModule&#125; from '@angular/platform-browser';
+
+import &#123;AppComponent&#125;  from './app.component';
+import &#123;InputTextModule&#125; from 'primeng/primeng';
+
+@NgModule(&#123;
+    imports:      [BrowserModule,InputTextModule],
+    declarations: [AppComponent],
+    bootstrap:    [AppComponent]
+&#125;)
+    export class AppModule &#123; &#125;
+</code>
+</pre>
+
+    <h4>main.ts</h4>
+<pre>
+<code class="language-typescript" pCode>
+import &#123;platformBrowserDynamic&#125; from '@angular/platform-browser-dynamic';
+import &#123;AppModule&#125; from './app.module';
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+</code>
+</pre>
+
+    <h4>webpack.config.ts</h4>
+<pre>
+<code class="language-javascript" pCode>
+var webpack = require("webpack");
+
+module.exports = &#123;
+    entry: &#123;
+        'polyfills': './app/polyfills.js',
+        'vendor': './app/vendor.js',
+        'app': './app/main.js'
+    &#125;,
+    output: &#123;
+        path: __dirname,
+        filename: "./prod/[name].js"
+    &#125;,
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin(&#123;
+            name: ['app', 'vendor', 'polyfills']
+        &#125;)
+    ]
+&#125;;
 </code>
 </pre>
 
@@ -435,16 +459,15 @@ import 'rxjs/Rx';
     &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
-    
-    &lt;script src="node_modules/zone.js/dist/zone.min.js"&gt;&lt;/script&gt;
-    &lt;script src="prod/polyfills.js"&gt;&lt;/script&gt;
-    &lt;script src="prod/vendor.js"&gt;&lt;/script&gt;        
-    &lt;script src="prod/app.js"&gt;&lt;/script&gt;
   &lt;/head&gt;
 
   &lt;!-- 3. Display the application --&gt;
   &lt;body&gt;
     &lt;my-app&gt;Loading...&lt;/my-app&gt;
+    
+    &lt;script src="prod/polyfills.js"&gt;&lt;/script&gt;
+    &lt;script src="prod/vendor.js"&gt;&lt;/script&gt;        
+    &lt;script src="prod/app.js"&gt;&lt;/script&gt;
   &lt;/body&gt;
 
 &lt;/html&gt;
