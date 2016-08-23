@@ -70,8 +70,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {TabView} from 'primeng/primeng';
-import {TabPanel} from 'primeng/primeng';
+import &#123;TabViewModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -275,9 +274,9 @@ import {TabPanel} from 'primeng/primeng';
 </pre>
  <pre>
 <code class="language-typescript" pCode>
-handleChange(e) {
+handleChange(e) &#123;
     var index = e.index;
-}
+&#125;
 </code>
 </pre>
 
@@ -386,15 +385,15 @@ handleChange(e) {
 
 <pre>
 <code class="language-typescript" pCode>
-export class TabViewDemo {
+export class TabViewDemo &#123;
 
     msgs: Message[];
     
-    onTabChange(event) {
+    onTabChange(event) &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
-    }
-}
+        this.msgs.push(&#123;severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index&#125;);
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

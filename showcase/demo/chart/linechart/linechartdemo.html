@@ -16,37 +16,37 @@
         <p-tabPanel header="linechartdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class LineChartDemo {
+export class LineChartDemo &#123;
 
     data: any;
     
     msgs: Message[];
 
-    constructor() {
-        this.data = {
+    constructor() &#123;
+        this.data = &#123;
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
-                {
+                &#123;
                     label: 'First Dataset',
                     data: [65, 59, 80, 81, 56, 55, 40],
                     fill: false,
                     borderColor: '#4bc0c0'
-                },
-                {
+                &#125;,
+                &#123;
                     label: 'Second Dataset',
                     data: [28, 48, 40, 19, 86, 27, 90],
                     fill: false,
                     borderColor: '#565656'
-                }
+                &#125;
             ]
-        }
-    }
+        &#125;
+    &#125;
 
-    selectData(event) {
+    selectData(event) &#123;
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]});
-    }
-}
+        this.msgs.push(&#123;severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]&#125;);
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>

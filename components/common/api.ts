@@ -1,5 +1,4 @@
-import {EventEmitter,Directive,ViewContainerRef,Input,TemplateRef,OnInit} from '@angular/core';
-import {Component} from '@angular/core';
+import {EventEmitter} from '@angular/core';
 
 export interface SortMeta {
     field: string;
@@ -28,6 +27,7 @@ export interface MenuItem {
     routerLink?: any;
     eventEmitter?: EventEmitter<any>;
     items?: MenuItem[];
+    expanded?: boolean;
 }
 
 export interface Message {
@@ -49,34 +49,4 @@ export interface TreeNode {
     collapsedIcon?: any;
     children?: TreeNode[];
     leaf?: boolean;
-}
-
-@Component({
-    selector: 'header',
-    template: '<ng-content></ng-content>'
-})
-export class Header {}
-
-@Component({
-    selector: 'footer',
-    template: '<ng-content></ng-content>'
-})
-export class Footer {}
-
-@Directive({
-    selector: '[pTemplateWrapper]'
-})
-export class TemplateWrapper implements OnInit {
-    
-    @Input() item: any;
-    
-    @Input('pTemplateWrapper') templateRef: TemplateRef<any>;
-    
-    constructor(protected viewContainer: ViewContainerRef) {}
-    
-    ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.templateRef, {
-            '\$implicit': this.item
-        });
-    }
 }

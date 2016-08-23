@@ -1,8 +1,9 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,Renderer,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
-import {Header} from '../common';
-import {Footer} from '../common';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,Renderer,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Header} from '../common/shared';
+import {Footer} from '../common/shared';
+import {SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
-import {TemplateWrapper} from '../common';
 
 @Component({
     selector: 'p-dataScroller',
@@ -23,8 +24,7 @@ import {TemplateWrapper} from '../common';
         </div>
     </div>
     `,
-    providers: [DomHandler],
-    directives: [TemplateWrapper]
+    providers: [DomHandler]
 })
 export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
 
@@ -162,3 +162,11 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
         }
     }
 }
+
+@NgModule({
+    imports: [CommonModule,SharedModule],
+    exports: [DataScroller,SharedModule],
+    declarations: [DataScroller]
+})
+export class DataScrollerModule { }
+

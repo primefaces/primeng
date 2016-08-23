@@ -32,23 +32,23 @@
         <p-tabPanel header="datatabletemplatingdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableTemplatingDemo implements OnInit {
+export class DataTableTemplatingDemo implements OnInit &#123;
 
     cars: Car[];
     
     msgs: Message[] = [];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-    }
+    &#125;
     
-    selectCar(car: Car) {
+    selectCar(car: Car) &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Car Select', detail:'Vin: ' + car.vin});
-    }
-}
+        this.msgs.push(&#123;severity:'info', summary:'Car Select', detail:'Vin: ' + car.vin&#125;);
+    &#125;
+&#125;
 </code>
 </pre>   
         </p-tabPanel>

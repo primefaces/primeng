@@ -1,4 +1,5 @@
-import {Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const CHECKBOX_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
@@ -132,3 +133,10 @@ export class Checkbox implements ControlValueAccessor {
         this.onModelTouched = fn;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Checkbox],
+    declarations: [Checkbox]
+})
+export class CheckboxModule { }

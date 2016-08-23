@@ -1,7 +1,8 @@
-import {Component,ElementRef,AfterViewChecked,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
-import {Button} from '../button/button';
+import {NgModule,Component,ElementRef,AfterViewChecked,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ButtonModule} from '../button/button';
+import {SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
-import {TemplateWrapper} from '../common';
 
 @Component({
     selector: 'p-orderList',
@@ -27,7 +28,6 @@ import {TemplateWrapper} from '../common';
             </div>
         </div>
     `,
-    directives: [Button,TemplateWrapper],
     providers: [DomHandler]
 })
 export class OrderList implements AfterViewChecked {
@@ -198,3 +198,10 @@ export class OrderList implements AfterViewChecked {
         }
     }
 }
+
+@NgModule({
+    imports: [CommonModule,ButtonModule,SharedModule],
+    exports: [OrderList,SharedModule],
+    declarations: [OrderList]
+})
+export class OrderListModule { }

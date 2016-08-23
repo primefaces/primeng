@@ -1,6 +1,7 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common';
+import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 
@@ -22,7 +23,6 @@ import {Router} from '@angular/router';
             </template>
         </ul>
     `,
-    directives: [ContextMenuSub],
     providers: [DomHandler]
 })
 export class ContextMenuSub {
@@ -88,8 +88,7 @@ export class ContextMenuSub {
             <p-contextMenuSub [item]="model" root="root"></p-contextMenuSub>
         </div>
     `,
-    providers: [DomHandler],
-    directives: [ContextMenuSub]
+    providers: [DomHandler]
 })
 export class ContextMenu implements AfterViewInit,OnDestroy {
 
@@ -176,3 +175,10 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [ContextMenu],
+    declarations: [ContextMenu,ContextMenuSub]
+})
+export class ContextMenuModule { }

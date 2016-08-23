@@ -13,30 +13,30 @@
         <p-tabPanel header="datascrollerinfinitedemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataScrollerInfiniteDemo {
+export class DataScrollerInfiniteDemo &#123;
 
     cars: Car[];
     
     msgs: Message[] = [];
     
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
     
-    loadData(event) {
+    loadData(event) &#123;
         //initialize
-        if(!this.cars) {
+        if(!this.cars) &#123;
             this.carService.getCarsSmall().then(cars => this.cars = cars);
-        }
+        &#125;
         //in real application, newArray should be loaded from a remote datasource
-        else {
+        else &#123;
             let newArray = this.cars.slice(0);
-            for(let i = 0; i < newArray.length; i++) {
+            for(let i = 0; i < newArray.length; i++) &#123;
                 this.cars.push(newArray[i]);
-            }
+            &#125;
             this.msgs = [];
-            this.msgs.push({severity:'info', summary:'Data Loaded', detail:'Between ' + event.first + ' and ' + (event.first + event.rows)});
-        }        
-    }
-}
+            this.msgs.push(&#123;severity:'info', summary:'Data Loaded', detail:'Between ' + event.first + ' and ' + (event.first + event.rows)&#125;);
+        &#125;        
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>
@@ -46,7 +46,7 @@ export class DataScrollerInfiniteDemo {
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;p-dataScroller [value]="cars" [paginator]="true" [rows]="10" (onLazyLoad)="loadData($event)" [lazy]="true"&gt;
+&lt;p-dataScroller [value]="cars" [rows]="10" (onLazyLoad)="loadData($event)" [lazy]="true"&gt;
     &lt;header&gt;
         Scroll Down to to Load More
     &lt;/header&gt;
@@ -87,7 +87,7 @@ export class DataScrollerInfiniteDemo {
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-dataScroller [value]="cars" [paginator]="true" [rows]="10" (onLazyLoad)="loadData($event)" [lazy]="true">
+    <p-dataScroller [value]="cars" [rows]="10" (onLazyLoad)="loadData($event)" [lazy]="true">
         <header>
             Scroll Down to to Load More
         </header>

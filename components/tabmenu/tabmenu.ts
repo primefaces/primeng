@@ -1,6 +1,7 @@
-import {Component,ElementRef,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common';
+import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 
@@ -87,3 +88,10 @@ export class TabMenu implements OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [TabMenu],
+    declarations: [TabMenu]
+})
+export class TabMenuModule { }

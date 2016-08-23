@@ -1,17 +1,9 @@
 import {Component} from '@angular/core';
-import {Carousel} from '../../../components/carousel/carousel';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Button} from '../../../components/button/button';
-import {Growl} from '../../../components/growl/growl';
-import {Message} from '../../../components/common';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Message} from '../../../components/common/api';
 import {Car} from '../domain/car';
 
 @Component({
     templateUrl: 'showcase/demo/carousel/carouseldemo.html',
-    directives: [Carousel,TabPanel,TabView,Button,Growl,CodeHighlighter,ROUTER_DIRECTIVES],
     styles: [`
         .ui-grid-row {
             text-align: center;

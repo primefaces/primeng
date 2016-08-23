@@ -99,7 +99,7 @@
         <p-tabPanel header="validationdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class ValidationDemo {
+export class ValidationDemo &#123;
     
     msgs: Message[] = [];
     
@@ -111,30 +111,30 @@ export class ValidationDemo {
         
     description: string;
     
-    constructor(fb: FormBuilder) {
-        this.userform = fb.group({
+    constructor(fb: FormBuilder) &#123;
+        this.userform = fb.group(&#123;
             'firstname': new Control('', Validators.required),
             'lastname': new Control('', Validators.required),
             'password': new Control('', Validators.compose([Validators.required, Validators.minLength(6)])),
             'description': new Control(''),
             'gender': new Control('', Validators.required)
-        });
+        &#125;);
         
         this.genders = [];
-        this.genders.push({label:'Select Gender', value:''});
-        this.genders.push({label:'Male', value:'Male'});
-        this.genders.push({label:'Female', value:'Female'});
-    }
+        this.genders.push(&#123;label:'Select Gender', value:''&#125;);
+        this.genders.push(&#123;label:'Male', value:'Male'&#125;);
+        this.genders.push(&#123;label:'Female', value:'Female'&#125;);
+    &#125;
     
-    onSubmit(value: string) {
+    onSubmit(value: string) &#123;
         this.submitted = true;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Form Submitted'});
-    }
+        this.msgs.push(&#123;severity:'info', summary:'Success', detail:'Form Submitted'&#125;);
+    &#125;
     
-    get diagnostic() { return JSON.stringify(this.userform.value); }
+    get diagnostic() &#123; return JSON.stringify(this.userform.value); &#125;
     
-}
+&#125;
 </code>
 </pre>            
         </p-tabPanel>

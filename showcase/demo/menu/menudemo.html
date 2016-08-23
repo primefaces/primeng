@@ -20,7 +20,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Menu,MenuItem} from 'primeng/primeng';
+import &#123;MenuModule,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -37,18 +37,18 @@ import {Menu,MenuItem} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class MenuDemo {
+export class MenuDemo &#123;
     
     private items: MenuItem[];
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.items = [
-                    {label: 'New', icon: 'fa-plus'},
-                    {label: 'Open', icon: 'fa-download'},
-                    {label: 'Undo', icon: 'fa-refresh'}
+                    &#123;label: 'New', icon: 'fa-plus'&#125;,
+                    &#123;label: 'Open', icon: 'fa-download'&#125;,
+                    &#123;label: 'Undo', icon: 'fa-refresh'&#125;
                 ];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -56,27 +56,27 @@ export class MenuDemo {
             <p>Menu supports 1 level of nesting via subitems of an item.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class MenuDemo {
+export class MenuDemo &#123;
     
     private items: MenuItem[];
 
-    ngOnInit() {
-        this.items = [{
+    ngOnInit() &#123;
+        this.items = [&#123;
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa-plus'},
-                {label: 'Open', icon: 'fa-download'}
+                &#123;label: 'New', icon: 'fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa-download'&#125;
             ]
-        },
-        {
+        &#125;,
+        &#123;
             label: 'Edit',
             items: [
-                {label: 'Undo', icon: 'fa-refresh'},
-                {label: 'Redo', icon: 'fa-repeat'}
+                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
             ]
-        }];
-    }
-}
+        &#125;];
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -219,27 +219,27 @@ export class MenuDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class MenuDemo {
+export class MenuDemo &#123;
     
     private items: MenuItem[];
 
-    ngOnInit() {
-        this.items = [{
+    ngOnInit() &#123;
+        this.items = [&#123;
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa-plus'},
-                {label: 'Open', icon: 'fa-download'}
+                &#123;label: 'New', icon: 'fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa-download'&#125;
             ]
-        },
-        {
+        &#125;,
+        &#123;
             label: 'Edit',
             items: [
-                {label: 'Undo', icon: 'fa-refresh'},
-                {label: 'Redo', icon: 'fa-repeat'}
+                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
             ]
-        }];
-    }
-}
+        &#125;];
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

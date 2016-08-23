@@ -1,6 +1,7 @@
-import {Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChild,Renderer} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChild,Renderer} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
-import {TemplateWrapper} from '../common';
+import {SharedModule} from '../common/shared';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-carousel',
@@ -13,7 +14,7 @@ import {TemplateWrapper} from '../common';
                 <span class="ui-carousel-button ui-carousel-prev-button fa fa-arrow-circle-left" (click)="onPrevNav()" 
                         [ngClass]="{'ui-state-disabled':(page === 0 && !circular)}"></span>
                 <div *ngIf="displayPageLinks" class="ui-carousel-page-links">
-                    <a href="#" class="ui-carousel-page-link fa fa-circle-o" *ngFor="let links of anchorPageLinks;let i=index" [ngClass]="{'fa-dot-circle-o':page===i}"></a>
+                    <a href="#" (click)="setPageWithLink($event,i)" class="ui-carousel-page-link fa fa-circle-o" *ngFor="let links of anchorPageLinks;let i=index" [ngClass]="{'fa-dot-circle-o':page===i}"></a>
                 </div>
                 <select *ngIf="displayPageDropdown" class="ui-carousel-dropdown ui-widget ui-state-default ui-corner-left" [value]="page" (change)="onDropdownChange($event.target.value)">
                     <option *ngFor="let option of selectDropdownOptions" [value]="option" [selected]="value == option">{{option+1}}</option>
@@ -33,8 +34,7 @@ import {TemplateWrapper} from '../common';
             </div>
         </div>
     `,
-    providers: [DomHandler],
-    directives: [TemplateWrapper]
+    providers: [DomHandler]
 })
 export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,OnDestroy{
     
@@ -220,6 +220,11 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.setPage(this.totalPages - 1);
     }
     
+    setPageWithLink(event, p: number) {
+        this.setPage(p);
+        event.preventDefault();
+    }
+    
     setPage(p, enforce?: boolean) {
         if(p !== this.page || enforce) {
             this.page = p;
@@ -292,5 +297,11 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.stopAutoplay();
         }
     }
-    
 }
+
+@NgModule({
+    imports: [CommonModule,SharedModule],
+    exports: [Carousel,SharedModule],
+    declarations: [Carousel]
+})
+export class CarouselModule { }

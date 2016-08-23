@@ -26,22 +26,22 @@
         <p-tabPanel header="datatableresponsivedemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableResponsiveDemo implements OnInit {
+export class DataTableResponsiveDemo implements OnInit &#123;
 
     cars: Car[];
     
     stacked: boolean;
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
-    }
+    &#125;
     
-    toggle() {
+    toggle() &#123;
         this.stacked = !this.stacked;
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>

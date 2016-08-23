@@ -1,4 +1,5 @@
-import {Directive,ElementRef,HostListener,Input,OnInit} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Directive({
     selector: '[pInputTextarea]',
@@ -87,3 +88,10 @@ export class InputTextarea implements OnInit {
         this.rows = (linesCount >= this.rowsDefault) ? (linesCount + 1) : this.rowsDefault;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [InputTextarea],
+    declarations: [InputTextarea]
+})
+export class InputTextareaModule { }

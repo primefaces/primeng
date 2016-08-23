@@ -1,17 +1,17 @@
-import {Component} from '@angular/core';
-import {Toolbar} from '../../../components/toolbar/toolbar';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Button} from '../../../components/button/button';
-import {SplitButton} from '../../../components/splitbutton/splitbutton';
-import {SplitButtonItem} from '../../../components/splitbutton/splitbuttonitem';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Component,OnInit} from '@angular/core';
+import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/toolbar/toolbardemo.html',
-    directives: [Toolbar,Button,SplitButton,SplitButtonItem,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/toolbar/toolbardemo.html'
 })
-export class ToolbarDemo {
+export class ToolbarDemo implements OnInit {
 
+    items: MenuItem[];
+    
+    ngOnInit() {
+        this.items = [
+            {label: 'Angular.io', icon: 'fa-link', url: 'http://angular.io'},
+            {label: 'Theming', icon: 'fa-paint-brush', routerLink: ['/theming']}
+        ];
+    }
 }

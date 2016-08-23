@@ -31,19 +31,19 @@
         <p-tabPanel header="datatablesortdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableSortDemo implements OnInit {
+export class DataTableSortDemo implements OnInit &#123;
 
     cars1: Car[];
     
     cars2: Car[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars1 = cars);
         this.carService.getCarsSmall().then(cars => this.cars2 = cars);
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>

@@ -1,16 +1,8 @@
 import {Component} from '@angular/core';
-import {Messages} from '../../../components/messages/messages';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Button} from '../../../components/button/button';
-import {SelectItem} from '../../../components/common';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-import {Message} from '../../../components/common';
+import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/messages/messagesdemo.html',
-    directives: [Messages,TabPanel,TabView,Button,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/messages/messagesdemo.html'
 })
 export class MessagesDemo {
 

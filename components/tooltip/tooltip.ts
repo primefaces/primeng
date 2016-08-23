@@ -1,4 +1,5 @@
-import {Directive,ElementRef,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
+import {NgModule,Directive,ElementRef,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
 @Directive({
@@ -115,3 +116,10 @@ export class Tooltip implements OnDestroy {
         this.container = null;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Tooltip],
+    declarations: [Tooltip]
+})
+export class TooltipModule { }

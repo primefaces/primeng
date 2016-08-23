@@ -1,7 +1,4 @@
 import {Component} from '@angular/core';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
 
 @Component ({
     styles:[`
@@ -11,8 +8,7 @@ import {CodeHighlighter} from '../../../components/codehighlighter/codehighlight
             border: 1px solid #fafafa;
         }
     `],
-    templateUrl: 'showcase/demo/grid/griddemo.html',
-    directives: [TabView,TabPanel,CodeHighlighter]
+    templateUrl: 'showcase/demo/grid/griddemo.html'
 })
 export class GridDemo {
 

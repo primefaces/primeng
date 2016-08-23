@@ -1,20 +1,28 @@
-import {Component} from '@angular/core';
-import {TabView} from '../../../components/tabview/tabview';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {SplitButton} from '../../../components/splitbutton/splitbutton';
-import {SplitButtonItem} from '../../../components/splitbutton/splitbuttonitem';
-import {Growl} from '../../../components/growl/growl';
-import {Message} from '../../../components/common';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Component,OnInit} from '@angular/core';
+import {Message} from '../../../components/common/api';
+import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/splitbutton/splitbuttondemo.html',
-    directives: [SplitButton,SplitButtonItem,Growl,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/splitbutton/splitbuttondemo.html'
 })
-export class SplitButtonDemo {
+export class SplitButtonDemo implements OnInit {
 
     msgs: Message[] = [];
+    
+    items: MenuItem[];
+    
+    ngOnInit() {
+        this.items = [
+            {label: 'Update', icon: 'fa-refresh', command: () => {
+                this.update();
+            }},
+            {label: 'Delete', icon: 'fa-close', command: () => {
+                this.delete();
+            }},
+            {label: 'Angular.io', icon: 'fa-link', url: 'http://angular.io'},
+            {label: 'Theming', icon: 'fa-paint-brush', routerLink: ['/theming']}
+        ];
+    }
 
     save() {
         this.msgs = [];

@@ -1,5 +1,6 @@
-import {Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
-import {SelectItem} from '../common';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SelectItem} from '../common/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const SELECTBUTTON_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
@@ -94,3 +95,10 @@ export class SelectButton implements ControlValueAccessor {
         return index;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [SelectButton],
+    declarations: [SelectButton]
+})
+export class SelectButtonModule { }

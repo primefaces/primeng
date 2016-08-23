@@ -1,6 +1,7 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common';
+import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 
@@ -156,3 +157,10 @@ export class MegaMenu implements OnDestroy {
         return columnClass;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [MegaMenu],
+    declarations: [MegaMenu]
+})
+export class MegaMenuModule { }

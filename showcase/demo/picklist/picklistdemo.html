@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Implementation">
     
-    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;">
         <template let-car>
             <div class="ui-helper-clearfix">
                 <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -24,7 +24,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {PickList} from 'primeng/primeng';
+import &#123;PickListModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -46,17 +46,17 @@ import {PickList} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyComponent {
+export class MyComponent &#123;
 
     list1: any[];
     
     list2: any[];
     
-    ngOnInit() {
+    ngOnInit() &#123;
         this.list1 = //initialize list 1
         this.list2 = //initialize list 2
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
             <h3>Responsive</h3>
@@ -221,7 +221,7 @@ export class MyComponent {
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}"&gt;
+&lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
@@ -234,19 +234,19 @@ export class MyComponent {
 
 <pre>
 <code class="language-typescript" pCode>
-export class PickListDemo {
+export class PickListDemo &#123;
 
     sourceCars: Car[];
     
     targetCars: Car[];
     
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.sourceCars = cars);
         this.targetCars = [];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

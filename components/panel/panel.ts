@@ -1,4 +1,5 @@
-import {Component,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-panel',
@@ -60,3 +61,10 @@ export class Panel {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Panel],
+    declarations: [Panel]
+})
+export class PanelModule { }

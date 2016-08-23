@@ -9,7 +9,7 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-gmap #gmap [style]="{'width':'100%','height':'320px'}" [options]="options" [overlays]="overlays" 
+    <p-gmap #gmap [style]="&#123;'width':'100%','height':'320px'&#125;" [options]="options" [overlays]="overlays" 
         (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"></p-gmap>
     <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"></button>
     <button type="button" pButton label="Reset" icon="fa-map-marker" (click)="initOverlays()" style="margin-top:10px"></button>
@@ -49,7 +49,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {GMap} from 'primeng/primeng';
+import &#123;GMapModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -57,26 +57,26 @@ import {GMap} from 'primeng/primeng';
             <p>A map is initialized with options and dimensions. Refer to the google maps api for the list of available options.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-gmap [options]="options" [style]="{'width':'100%','height':'320px'}" &gt;&lt;/p-gmap&gt;
+&lt;p-gmap [options]="options" [style]="&#123;'width':'100%','height':'320px'&#125;" &gt;&lt;/p-gmap&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     options: any;
     
     overlays: any[];
     
-    ngOnInit() {
-        this.options = {
-            center: {lat: 36.890257, lng: 30.707417},
+    ngOnInit() &#123;
+        this.options = &#123;
+            center: &#123;lat: 36.890257, lng: 30.707417&#125;,
             zoom: 12
-        };
-    }
+        &#125;;
+    &#125;
 
-}
+&#125;
 </code>
 </pre>
 
@@ -85,37 +85,37 @@ export class MyModel {
             of one-way binding so whenever the array changes, gmap updates itself.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'320px'}" &gt;&lt;/p-gmap&gt;
+&lt;p-gmap [options]="options" [overlays]="overlays" [style]="&#123;'width':'100%','height':'320px'&#125;" &gt;&lt;/p-gmap&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     options: any;
     
     overlays: any[];
     
-    ngOnInit() {
-        this.options = {
-            center: {lat: 36.890257, lng: 30.707417},
+    ngOnInit() &#123;
+        this.options = &#123;
+            center: &#123;lat: 36.890257, lng: 30.707417&#125;,
             zoom: 12
-        };
+        &#125;;
         
         this.overlays = [
-            new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
-            new google.maps.Marker({position: {lat: 36.883707, lng: 30.689216}, title:"Ataturk Park"}),
-            new google.maps.Marker({position: {lat: 36.885233, lng: 30.702323}, title:"Oldtown"}),
-            new google.maps.Polygon({paths: [
-                {lat: 36.9177, lng: 30.7854},{lat: 36.8851, lng: 30.7802},{lat: 36.8829, lng: 30.8111},{lat: 36.9177, lng: 30.8159}
+            new google.maps.Marker(&#123;position: &#123;lat: 36.879466, lng: 30.667648&#125;, title:"Konyaalti"&#125;),
+            new google.maps.Marker(&#123;position: &#123;lat: 36.883707, lng: 30.689216&#125;, title:"Ataturk Park"&#125;),
+            new google.maps.Marker(&#123;position: &#123;lat: 36.885233, lng: 30.702323&#125;, title:"Oldtown"&#125;),
+            new google.maps.Polygon(&#123;paths: [
+                &#123;lat: 36.9177, lng: 30.7854&#125;,&#123;lat: 36.8851, lng: 30.7802&#125;,&#123;lat: 36.8829, lng: 30.8111&#125;,&#123;lat: 36.9177, lng: 30.8159&#125;
             ], strokeOpacity: 0.5, strokeWeight: 1,fillColor: '#1976D2', fillOpacity: 0.35
-            }),
-            new google.maps.Circle({center: {lat: 36.90707, lng: 30.56533}, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500}),
-            new google.maps.Polyline({path: [{lat: 36.86149, lng: 30.63743},{lat: 36.86341, lng: 30.72463}], geodesic: true, strokeColor: '#FF0000', strokeOpacity: 0.5, strokeWeight: 2})
+            &#125;),
+            new google.maps.Circle(&#123;center: &#123;lat: 36.90707, lng: 30.56533&#125;, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500&#125;),
+            new google.maps.Polyline(&#123;path: [&#123;lat: 36.86149, lng: 30.63743&#125;,&#123;lat: 36.86341, lng: 30.72463&#125;], geodesic: true, strokeColor: '#FF0000', strokeOpacity: 0.5, strokeWeight: 2&#125;)
         ];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -123,48 +123,48 @@ export class MyModel {
             <p>GMap provides common callbacks to hook into events including map click, overlay click and overlay dragging.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'320px'}"
+&lt;p-gmap [options]="options" [overlays]="overlays" [style]="&#123;'width':'100%','height':'320px'&#125;"
             (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)"&gt;&lt;/p-gmap&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     options: any;
     
     overlays: any[];
     
-    ngOnInit() {
-        this.options = {
-            center: {lat: 36.890257, lng: 30.707417},
+    ngOnInit() &#123;
+        this.options = &#123;
+            center: &#123;lat: 36.890257, lng: 30.707417&#125;,
             zoom: 12
-        };
+        &#125;;
         
         this.overlays = [
-            new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
-            new google.maps.Marker({position: {lat: 36.883707, lng: 30.689216}, title:"Ataturk Park"}),
-            new google.maps.Marker({position: {lat: 36.885233, lng: 30.702323}, title:"Oldtown"}),
-            new google.maps.Polygon({paths: [
-                {lat: 36.9177, lng: 30.7854},{lat: 36.8851, lng: 30.7802},{lat: 36.8829, lng: 30.8111},{lat: 36.9177, lng: 30.8159}
+            new google.maps.Marker(&#123;position: &#123;lat: 36.879466, lng: 30.667648&#125;, title:"Konyaalti"&#125;),
+            new google.maps.Marker(&#123;position: &#123;lat: 36.883707, lng: 30.689216&#125;, title:"Ataturk Park"&#125;),
+            new google.maps.Marker(&#123;position: &#123;lat: 36.885233, lng: 30.702323&#125;, title:"Oldtown"&#125;),
+            new google.maps.Polygon(&#123;paths: [
+                &#123;lat: 36.9177, lng: 30.7854&#125;,&#123;lat: 36.8851, lng: 30.7802&#125;,&#123;lat: 36.8829, lng: 30.8111&#125;,&#123;lat: 36.9177, lng: 30.8159&#125;
             ], strokeOpacity: 0.5, strokeWeight: 1,fillColor: '#1976D2', fillOpacity: 0.35
-            }),
-            new google.maps.Circle({center: {lat: 36.90707, lng: 30.56533}, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500}),
-            new google.maps.Polyline({path: [{lat: 36.86149, lng: 30.63743},{lat: 36.86341, lng: 30.72463}], geodesic: true, strokeColor: '#FF0000', strokeOpacity: 0.5, strokeWeight: 2})
+            &#125;),
+            new google.maps.Circle(&#123;center: &#123;lat: 36.90707, lng: 30.56533&#125;, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500&#125;),
+            new google.maps.Polyline(&#123;path: [&#123;lat: 36.86149, lng: 30.63743&#125;,&#123;lat: 36.86341, lng: 30.72463&#125;], geodesic: true, strokeColor: '#FF0000', strokeOpacity: 0.5, strokeWeight: 2&#125;)
         ];
-    }
+    &#125;
     
-    handleMapClick(event) {
+    handleMapClick(event) &#123;
         //event: MouseEvent of Google Maps api
-    }
+    &#125;
     
-    handleOverlayClick(event) {
+    handleOverlayClick(event) &#123;
         //event.originalEvent: MouseEvent of Google Maps api
         //event.overlay: Clicked overlay     
         //event.map: Map instance   
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -180,23 +180,23 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
 
     options: any;
     
     overlays: any[];
     
-    ngOnInit() {
-        this.options = {
-            center: {lat: 36.890257, lng: 30.707417},
+    ngOnInit() &#123;
+        this.options = &#123;
+            center: &#123;lat: 36.890257, lng: 30.707417&#125;,
             zoom: 12
-        };
-    }
+        &#125;;
+    &#125;
     
-    zoomIn(map) {
+    zoomIn(map) &#123;
         map.setZoom(map.getZoom()+1);
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -297,7 +297,7 @@ export class MyModel {
 <code class="language-markup" pCode>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;p-gmap #gmap [style]="{'width':'100%','height':'320px'}" [options]="options" [overlays]="overlays" 
+&lt;p-gmap #gmap [style]="&#123;'width':'100%','height':'320px'&#125;" [options]="options" [overlays]="overlays" 
     (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"&gt;&lt;/p-gmap&gt;
 &lt;button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"&gt;&lt;/button&gt;
 &lt;button type="button" pButton label="Reset" icon="fa-map-marker" (click)="initOverlays()" style="margin-top:10px"&gt;&lt;/button&gt;
@@ -334,7 +334,7 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class GMapDemo implements OnInit {
+export class GMapDemo implements OnInit &#123;
 
     options: any;
     
@@ -352,78 +352,78 @@ export class GMapDemo implements OnInit {
     
     msgs: Message[] = [];
 
-    ngOnInit() {
-        this.options = {
-            center: {lat: 36.890257, lng: 30.707417},
+    ngOnInit() &#123;
+        this.options = &#123;
+            center: &#123;lat: 36.890257, lng: 30.707417&#125;,
             zoom: 12
-        };
+        &#125;;
         
         this.initOverlays();
         
         this.infoWindow = new google.maps.InfoWindow();
-    }
+    &#125;
     
-    handleMapClick(event) {
+    handleMapClick(event) &#123;
         this.dialogVisible = true;
         this.selectedPosition = event.latLng;
-    }
+    &#125;
     
-    handleOverlayClick(event) {
+    handleOverlayClick(event) &#123;
         this.msgs = [];
         let isMarker = event.overlay.getTitle != undefined;
         
-        if(isMarker) {
+        if(isMarker) &#123;
             let title = event.overlay.getTitle();
             this.infoWindow.setContent('<div>' + title + '</div>');
             this.infoWindow.open(event.map, event.overlay);
             event.map.setCenter(event.overlay.getPosition());
             
-            this.msgs.push({severity:'info', summary:'Marker Selected', detail: title});
-        }
-        else {
-            this.msgs.push({severity:'info', summary:'Shape Selected', detail: ''});
-        }        
-    }
+            this.msgs.push(&#123;severity:'info', summary:'Marker Selected', detail: title&#125;);
+        &#125;
+        else &#123;
+            this.msgs.push(&#123;severity:'info', summary:'Shape Selected', detail: ''&#125;);
+        &#125;        
+    &#125;
     
-    addMarker() {
-        this.overlays.push(new google.maps.Marker({position:{lat: this.selectedPosition.lat(), lng: this.selectedPosition.lng()}, title:this.markerTitle, draggable: this.draggable}));
+    addMarker() &#123;
+        this.overlays.push(new google.maps.Marker(&#123;position:&#123;lat: this.selectedPosition.lat(), lng: this.selectedPosition.lng()&#125;, title:this.markerTitle, draggable: this.draggable&#125;));
         this.markerTitle = null;
         this.dialogVisible = false;
-    }
+    &#125;
     
-    handleDragEnd(event) {
+    handleDragEnd(event) &#123;
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Marker Dragged', detail: event.overlay.getTitle()});
-    }
+        this.msgs.push(&#123;severity:'info', summary:'Marker Dragged', detail: event.overlay.getTitle()&#125;);
+    &#125;
     
-    initOverlays() {
-        if(!this.overlays||!this.overlays.length) {
+    initOverlays() &#123;
+        if(!this.overlays||!this.overlays.length) &#123;
             this.overlays = [
-                new google.maps.Marker({position: {lat: 36.879466, lng: 30.667648}, title:"Konyaalti"}),
-                new google.maps.Marker({position: {lat: 36.883707, lng: 30.689216}, title:"Ataturk Park"}),
-                new google.maps.Marker({position: {lat: 36.885233, lng: 30.702323}, title:"Oldtown"}),
-                new google.maps.Polygon({paths: [
-                    {lat: 36.9177, lng: 30.7854},{lat: 36.8851, lng: 30.7802},{lat: 36.8829, lng: 30.8111},{lat: 36.9177, lng: 30.8159}
+                new google.maps.Marker(&#123;position: &#123;lat: 36.879466, lng: 30.667648&#125;, title:"Konyaalti"&#125;),
+                new google.maps.Marker(&#123;position: &#123;lat: 36.883707, lng: 30.689216&#125;, title:"Ataturk Park"&#125;),
+                new google.maps.Marker(&#123;position: &#123;lat: 36.885233, lng: 30.702323&#125;, title:"Oldtown"&#125;),
+                new google.maps.Polygon(&#123;paths: [
+                    &#123;lat: 36.9177, lng: 30.7854&#125;,&#123;lat: 36.8851, lng: 30.7802&#125;,&#123;lat: 36.8829, lng: 30.8111&#125;,&#123;lat: 36.9177, lng: 30.8159&#125;
                 ], strokeOpacity: 0.5, strokeWeight: 1,fillColor: '#1976D2', fillOpacity: 0.35
-                }),
-                new google.maps.Circle({center: {lat: 36.90707, lng: 30.56533}, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500}),
-                new google.maps.Polyline({path: [{lat: 36.86149, lng: 30.63743},{lat: 36.86341, lng: 30.72463}], geodesic: true, strokeColor: '#FF0000', strokeOpacity: 0.5, strokeWeight: 2})
+                &#125;),
+                new google.maps.Circle(&#123;center: &#123;lat: 36.90707, lng: 30.56533&#125;, fillColor: '#1976D2', fillOpacity: 0.35, strokeWeight: 1, radius: 1500&#125;),
+                new google.maps.Polyline(&#123;path: [&#123;lat: 36.86149, lng: 30.63743&#125;,&#123;lat: 36.86341, lng: 30.72463&#125;], geodesic: true, strokeColor: '#FF0000', strokeOpacity: 0.5, strokeWeight: 2&#125;)
             ];
-        }
-    }
+        &#125;
+    &#125;
     
-    zoomIn(map) {
+    zoomIn(map) &#123;
         map.setZoom(map.getZoom()+1);
-    }
+    &#125;
     
-    zoomOut(map) {
+    zoomOut(map) &#123;
         map.setZoom(map.getZoom()-1);
-    }
+    &#125;
     
-    clear() {
+    clear() &#123;
         this.overlays = [];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

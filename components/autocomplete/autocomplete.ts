@@ -1,8 +1,9 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,Renderer,forwardRef,Provider} from '@angular/core';
-import {InputText} from '../inputtext/inputtext';
-import {Button} from '../button/button';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,Renderer,forwardRef,Provider} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {InputTextModule} from '../inputtext/inputtext';
+import {ButtonModule} from '../button/button';
+import {SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
-import {TemplateWrapper} from '../common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
@@ -39,7 +40,6 @@ const AUTOCOMPLETE_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             </div>
         </span>
     `,
-    directives: [InputText,Button,TemplateWrapper],
     providers: [DomHandler,AUTOCOMPLETE_VALUE_ACCESSOR]
 })
 export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,ControlValueAccessor {
@@ -385,3 +385,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         }
     }
 }
+
+@NgModule({
+    imports: [CommonModule,InputTextModule,ButtonModule,SharedModule],
+    exports: [AutoComplete,SharedModule],
+    declarations: [AutoComplete]
+})
+export class AutoCompleteModule { }

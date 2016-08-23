@@ -1,6 +1,7 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {MenuItem} from '../common';
+import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 
@@ -22,7 +23,6 @@ import {Router} from '@angular/router';
             </template>
         </ul>
     `,
-    directives: [MenubarSub],
     providers: [DomHandler]
 })
 export class MenubarSub {
@@ -98,8 +98,7 @@ export class MenubarSub {
             <p-menubarSub [item]="model" root="root"></p-menubarSub>
         </div>
     `,
-    providers: [DomHandler],
-    directives: [MenubarSub]
+    providers: [DomHandler]
 })
 export class Menubar implements OnDestroy {
 
@@ -132,3 +131,10 @@ export class Menubar implements OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Menubar],
+    declarations: [Menubar,MenubarSub]
+})
+export class MenubarModule { }

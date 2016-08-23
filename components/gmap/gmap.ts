@@ -1,4 +1,5 @@
-import {Component,ElementRef,OnInit,AfterViewInit,DoCheck,OnDestroy,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,DoCheck,OnDestroy,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 declare var google: any;
 
@@ -128,3 +129,10 @@ export class GMap implements AfterViewInit,DoCheck {
         return this.map;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [GMap],
+    declarations: [GMap]
+})
+export class GMapModule { }

@@ -1,5 +1,36 @@
-import {Component,ElementRef,Input,Output,EventEmitter,Query,QueryList} from '@angular/core';
-import {TabPanel} from './tabpanel';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,Query,QueryList} from '@angular/core';
+import {CommonModule} from '@angular/common';
+
+@Component({
+    selector: 'p-tabPanel',
+    template: `
+        <div class="ui-tabview-panel ui-widget-content" [style.display]="selected ? 'block' : 'none'" *ngIf="!closed">
+            <ng-content></ng-content>
+        </div>
+    `,
+})
+export class TabPanel {
+
+    @Input() header: string;
+
+    @Input() selected: boolean;
+    
+    @Input() disabled: boolean;
+    
+    @Input() closable: boolean;
+    
+    @Input() headerStyle: any;
+    
+    @Input() headerStyleClass: string;
+    
+    @Input() leftIcon: string;
+    
+    @Input() rightIcon: string;
+    
+    public hoverHeader: boolean;
+    
+    public closed: boolean;
+}
 
 @Component({
     selector: 'p-tabView',
@@ -113,3 +144,11 @@ export class TabView {
         return styleClass;
     }
 }
+
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [TabView,TabPanel],
+    declarations: [TabView,TabPanel]
+})
+export class TabViewModule { }

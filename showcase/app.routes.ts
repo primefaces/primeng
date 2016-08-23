@@ -1,4 +1,5 @@
-import {provideRouter,RouterConfig} from '@angular/router';
+import {Routes,RouterModule} from '@angular/router';
+import {ModuleWithProviders} from '@angular/core';
 import {SetupComponent} from './setup.component';
 import {HomePageComponent} from './homepage.component';
 import {ThemingComponent} from './theming.component';
@@ -92,7 +93,7 @@ import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
 
-export const routes: RouterConfig = [
+export const routes: Routes = [
     {path: '', component: HomePageComponent},
     {path: 'setup', component: SetupComponent},
     {path: 'theming', component: ThemingComponent},
@@ -187,6 +188,5 @@ export const routes: RouterConfig = [
     {path: 'mask', component: InputMaskDemo}
 ];
 
-export const APP_ROUTER_PROVIDERS = [
-  provideRouter(routes)
-];
+
+export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes);;

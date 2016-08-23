@@ -1,20 +1,9 @@
 import {Component,OnInit} from '@angular/core';
-import {Tree} from '../../../components/tree/tree';
-import {TreeNode} from '../../../components/common';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-import {HTTP_PROVIDERS}    from '@angular/http';
 import {NodeService} from '../service/nodeservice';
-import {Growl} from '../../../components/growl/growl';
-import {Message,MenuItem} from '../../../components/common';
-import {ContextMenu} from '../../../components/contextmenu/contextmenu';
+import {Message,MenuItem,TreeNode} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/tree/treedemo.html',
-    directives: [Tree,TabView,Growl,TabPanel,ContextMenu,CodeHighlighter,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,NodeService]
+    templateUrl: 'showcase/demo/tree/treedemo.html'
 })
 export class TreeDemo implements OnInit {
     

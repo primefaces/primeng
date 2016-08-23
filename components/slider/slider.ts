@@ -1,4 +1,5 @@
-import {Component, ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {NgModule,Component, ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const SLIDER_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
@@ -107,3 +108,10 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
         this.initialized = false;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Slider],
+    declarations: [Slider]
+})
+export class SliderModule { }

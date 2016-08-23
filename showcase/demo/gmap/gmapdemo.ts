@@ -1,22 +1,10 @@
 import {Component,OnInit} from '@angular/core';
-import {GMap} from '../../../components/gmap/gmap';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Button} from '../../../components/button/button';
-import {Dialog} from '../../../components/dialog/dialog';
-import {Growl} from '../../../components/growl/growl';
-import {Checkbox} from '../../../components/checkbox/checkbox';
-import {InputText} from '../../../components/inputtext/inputtext';
-import {Footer} from '../../../components/common';
-import {Message} from '../../../components/common';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Message} from '../../../components/common/api';
 
 declare var google: any;
 
 @Component({
-    templateUrl: 'showcase/demo/gmap/gmapdemo.html',
-    directives: [GMap,TabPanel,TabView,Button,Dialog,InputText,Checkbox,Growl,Footer,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/gmap/gmapdemo.html'
 })
 export class GMapDemo implements OnInit {
 

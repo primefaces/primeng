@@ -1,16 +1,8 @@
 import {Component} from '@angular/core';
-import {UIChart} from '../../../../components/chart/chart';
-import {CodeHighlighter} from '../../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../../components/tabview/tabview';
-import {TabPanel} from '../../../../components/tabview/tabpanel';
-import {Growl} from '../../../../components/growl/growl';
-import {Button} from '../../../../components/button/button';
-import {Message} from '../../../../components/common';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Message} from '../../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/chart/linechart/linechartdemo.html',
-    directives: [UIChart,Button,Growl,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/chart/linechart/linechartdemo.html'
 })
 export class LineChartDemo {
 

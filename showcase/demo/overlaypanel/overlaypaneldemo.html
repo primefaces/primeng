@@ -19,7 +19,7 @@
     <i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
     
     <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
-        <p-dataTable [value]="cars1" [style]="{'width':'500px'}">
+        <p-dataTable [value]="cars1" [style]="&#123;'width':'500px'&#125;">
             <p-column field="vin" header="Vin" [sortable]="true"></p-column>
             <p-column field="year" header="Year" [sortable]="true"></p-column>
             <p-column field="brand" header="Brand" [sortable]="true"></p-column>
@@ -29,7 +29,7 @@
     
     <h3>DataTable Integration</h3>
     <p-dataTable [value]="cars2">
-        <p-column [style]="{'width':'10%','text-align':'center'}" header="Logo">
+        <p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo">
             <template let-car="rowData">
                 <button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"></button>
             </template>
@@ -51,7 +51,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {OverlayPanel} from 'primeng/primeng';
+import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -255,7 +255,7 @@ import {OverlayPanel} from 'primeng/primeng';
 &lt;i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
 
 &lt;p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false"&gt;
-    &lt;p-dataTable [value]="cars1" [style]="{'width':'500px'}"&gt;
+    &lt;p-dataTable [value]="cars1" [style]="&#123;'width':'500px'&#125;"&gt;
         &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
         &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
         &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
@@ -265,7 +265,7 @@ import {OverlayPanel} from 'primeng/primeng';
 
 &lt;h3&gt;DataTable Integration&lt;/h3&gt;
 &lt;p-dataTable [value]="cars2"&gt;
-    &lt;p-column [style]="{'width':'10%','text-align':'center'}" header="Logo"&gt;
+    &lt;p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo"&gt;
         &lt;template let-car="rowData"&gt;
             &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"&gt;&lt;/button&gt;
         &lt;/template&gt;
@@ -284,7 +284,7 @@ import {OverlayPanel} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class OverlayPanelDemo {
+export class OverlayPanelDemo &#123;
 
     cars1: Car[];
     
@@ -292,18 +292,18 @@ export class OverlayPanelDemo {
     
     selectedCar: Car;
     
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars1 = cars);
         this.carService.getCarsSmall().then(cars => this.cars2 = cars);
-    }
+    &#125;
     
-    selectCar(event,car: Car, overlaypanel: OverlayPanel) {
+    selectCar(event,car: Car, overlaypanel: OverlayPanel) &#123;
         this.selectedCar = car;
         overlaypanel.toggle(event);
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

@@ -1,4 +1,5 @@
-import {Component,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-toolbar',
@@ -15,3 +16,10 @@ export class Toolbar {
     @Input() styleClass: string;
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Toolbar],
+    declarations: [Toolbar]
+})
+export class ToolbarModule { }

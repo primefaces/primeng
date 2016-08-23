@@ -1,4 +1,5 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 declare var Chart: any;
 
@@ -84,3 +85,10 @@ export class UIChart implements AfterViewInit, OnDestroy, DoCheck {
         }
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [UIChart],
+    declarations: [UIChart]
+})
+export class ChartModule { }

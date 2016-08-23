@@ -1,5 +1,6 @@
-import {Component,Input,OnDestroy,EventEmitter} from '@angular/core';
-import {MenuItem} from '../common';
+import {NgModule,Component,Input,OnDestroy,EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 
@@ -61,3 +62,10 @@ export class Breadcrumb implements OnDestroy {
     }
 
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Breadcrumb],
+    declarations: [Breadcrumb]
+})
+export class BreadcrumbModule { }

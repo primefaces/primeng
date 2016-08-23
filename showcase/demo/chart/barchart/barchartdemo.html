@@ -14,30 +14,30 @@
         <p-tabPanel header="barchartdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class BarChartDemo {
+export class BarChartDemo &#123;
 
     data: any;
 
-    constructor() {
-        this.data = {
+    constructor() &#123;
+        this.data = &#123;
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
-                {
+                &#123;
                     label: 'My First dataset',
                     backgroundColor: '#42A5F5',
                     borderColor: '#1E88E5',
                     data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
+                &#125;,
+                &#123;
                     label: 'My Second dataset',
                     backgroundColor: '#9CCC65',
                     borderColor: '#7CB342',
                     data: [28, 48, 40, 19, 86, 27, 90]
-                }
+                &#125;
             ]
-        }
-    }
-}
+        &#125;
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>

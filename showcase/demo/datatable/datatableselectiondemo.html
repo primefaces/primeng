@@ -53,7 +53,7 @@
     <p-dataTable [value]="cars" [(selection)]="selectedCar3">
         <header>Single Selection</header>
         <footer><div style="text-align: left">Selected Car: {{selectedCar3 ? selectedCar3.vin + ' - ' + selectedCar3.brand + ' - ' + selectedCar3.year + ' - ' + selectedCar3.color: 'none'}}</div></footer>
-        <p-column [style]="{'width':'38px'}" selectionMode="single"></p-column>
+        <p-column [style]="&#123;'width':'38px'&#125;" selectionMode="single"></p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -64,7 +64,7 @@
     <p>Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".</p>
     <p-dataTable [value]="cars" [(selection)]="selectedCars2">
         <header>Single Selection</header>
-        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+        <p-column [style]="&#123;'width':'38px'&#125;" selectionMode="multiple"></p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -82,7 +82,7 @@
         <p-tabPanel header="datatableselectiondemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableSelectionDemo implements OnInit {
+export class DataTableSelectionDemo implements OnInit &#123;
 
     msgs: Message[];
 
@@ -94,22 +94,22 @@ export class DataTableSelectionDemo implements OnInit {
 
     selectedCars: Car[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-    }
+    &#125;
 
-    onRowSelect(event) {
+    onRowSelect(event) &#123;
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Car Selected', detail: event.data.vin + ' - ' + event.data.brand});
-    }
+        this.msgs.push(&#123;severity: 'info', summary: 'Car Selected', detail: event.data.vin + ' - ' + event.data.brand&#125;);
+    &#125;
 
-    onRowUnselect(event) {
+    onRowUnselect(event) &#123;
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Car Unselected', detail: event.data.vin + ' - ' + event.data.brand});
-    }
-}
+        this.msgs.push(&#123;severity: 'info', summary: 'Car Unselected', detail: event.data.vin + ' - ' + event.data.brand&#125;);
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>
@@ -160,7 +160,7 @@ export class DataTableSelectionDemo implements OnInit {
 &lt;p-dataTable [value]="cars" [(selection)]="selectedCar3"&gt;
     &lt;header&gt;Single Selection&lt;/header&gt;
     &lt;footer&gt;&lt;div style="text-align: left"&gt;Selected Car: {{selectedCar3 ? selectedCar3.vin + ' - ' + selectedCar3.brand + ' - ' + selectedCar3.year + ' - ' + selectedCar3.color: 'none'}}&lt;/div&gt;&lt;/footer&gt;
-    &lt;p-column [style]="{'width':'38px'}" selectionMode="single"&gt;&lt;/p-column&gt;
+    &lt;p-column [style]="&#123;'width':'38px'&#125;" selectionMode="single"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
@@ -171,7 +171,7 @@ export class DataTableSelectionDemo implements OnInit {
 &lt;p&gt;Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".&lt;/p&gt;
 &lt;p-dataTable [value]="cars" [(selection)]="selectedCars2"&gt;
     &lt;header&gt;Single Selection&lt;/header&gt;
-    &lt;p-column [style]="{'width':'38px'}" selectionMode="multiple"&gt;&lt;/p-column&gt;
+    &lt;p-column [style]="&#123;'width':'38px'&#125;" selectionMode="multiple"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;

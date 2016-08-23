@@ -1,4 +1,5 @@
-import {Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
 @Directive({
@@ -151,3 +152,10 @@ export class Password implements AfterViewInit,OnDestroy {
         this.info = null;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Password],
+    declarations: [Password]
+})
+export class PasswordModule { }

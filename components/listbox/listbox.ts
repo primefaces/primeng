@@ -1,5 +1,7 @@
-import {Component,ElementRef,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef,Provider} from '@angular/core';
-import {SelectItem,TemplateWrapper} from '../common';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef,Provider} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SelectItem} from '../common/api';
+import {SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -22,8 +24,7 @@ const LISTBOX_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
             </ul>
         </div>
     `,
-    providers: [DomHandler,LISTBOX_VALUE_ACCESSOR],
-    directives: [TemplateWrapper]
+    providers: [DomHandler,LISTBOX_VALUE_ACCESSOR]
 })
 export class Listbox implements ControlValueAccessor {
 
@@ -158,3 +159,10 @@ export class Listbox implements ControlValueAccessor {
         return index;
     }
 }
+
+@NgModule({
+    imports: [CommonModule,SharedModule],
+    exports: [Listbox,SharedModule],
+    declarations: [Listbox]
+})
+export class ListboxModule { }

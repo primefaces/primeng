@@ -1,4 +1,5 @@
-import {Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const RATING_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
@@ -82,3 +83,10 @@ export class Rating implements ControlValueAccessor {
         this.onModelTouched = fn;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [Rating],
+    declarations: [Rating]
+})
+export class RatingModule { }

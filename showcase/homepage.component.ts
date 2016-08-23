@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     template: `
@@ -115,7 +114,6 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
             <div style="text-align:center"><a href="mailto:primeng@primetek.com.tr"><img src="showcase/resources/images/quote.png" alt="Get a Quote"></a></div>
         </div>
     `,
-    directives: [ROUTER_DIRECTIVES]
 })
 export class HomePageComponent {
 

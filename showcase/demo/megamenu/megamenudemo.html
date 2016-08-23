@@ -19,7 +19,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {MegaMenu} from 'primeng/primeng';
+import &#123;MegaMenuModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -36,76 +36,76 @@ import {MegaMenu} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-    export class MegaMenuDemo {
+    export class MegaMenuDemo &#123;
 
         private items: MenuItem[];
 
-        ngOnInit() {
+        ngOnInit() &#123;
             this.items = [
-                {
+                &#123;
                     label: 'TV', icon: 'fa-check',
                     items: [
                         [
-                            {
+                            &#123;
                                 label: 'TV 1',
-                                items: [{label: 'TV 1.1'},{label: 'TV 1.2'}]
-                            },
-                            {
+                                items: [&#123;label: 'TV 1.1'&#125;,&#123;label: 'TV 1.2'&#125;]
+                            &#125;,
+                            &#123;
                                 label: 'TV 2',
-                                items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
-                            }
+                                items: [&#123;label: 'TV 2.1'&#125;,&#123;label: 'TV 2.2'&#125;]
+                            &#125;
                         ],
                         [
-                            {
+                            &#123;
                                 label: 'TV 3',
-                                items: [{label: 'TV 3.1'},{label: 'TV 3.2'}]
-                            },
-                            {
+                                items: [&#123;label: 'TV 3.1'&#125;,&#123;label: 'TV 3.2'&#125;]
+                            &#125;,
+                            &#123;
                                 label: 'TV 4',
-                                items: [{label: 'TV 4.1'},{label: 'TV 4.2'}]
-                            }    
+                                items: [&#123;label: 'TV 4.1'&#125;,&#123;label: 'TV 4.2'&#125;]
+                            &#125;    
                         ]
                     ]
-                },
-                {
+                &#125;,
+                &#123;
                     label: 'Sports', icon: 'fa-soccer-ball-o',
                     items: [
                         [
-                            {
+                            &#123;
                                 label: 'Sports 1',
-                                items: [{label: 'Sports 1.1'},{label: 'Sports 1.2'}]
-                            },
-                            {
+                                items: [&#123;label: 'Sports 1.1'&#125;,&#123;label: 'Sports 1.2'&#125;]
+                            &#125;,
+                            &#123;
                                 label: 'Sports 2',
-                                items: [{label: 'Sports 2.1'},{label: 'Sports 2.2'}]
-                            },
+                                items: [&#123;label: 'Sports 2.1'&#125;,&#123;label: 'Sports 2.2'&#125;]
+                            &#125;,
 
                         ],
                         [
-                            {
+                            &#123;
                                 label: 'Sports 3',
-                                items: [{label: 'Sports 3.1'},{label: 'Sports 3.2'}]
-                            },
-                            {
+                                items: [&#123;label: 'Sports 3.1'&#125;,&#123;label: 'Sports 3.2'&#125;]
+                            &#125;,
+                            &#123;
                                 label: 'Sports 4',
-                                items: [{label: 'Sports 4.1'},{label: 'Sports 4.2'}]
-                            }
+                                items: [&#123;label: 'Sports 4.1'&#125;,&#123;label: 'Sports 4.2'&#125;]
+                            &#125;
                         ],
                         [
-                            {
+                            &#123;
                                 label: 'Sports 5',
-                                items: [{label: 'Sports 5.1'},{label: 'Sports 5.2'}]
-                            },
-                            {
+                                items: [&#123;label: 'Sports 5.1'&#125;,&#123;label: 'Sports 5.2'&#125;]
+                            &#125;,
+                            &#123;
                                 label: 'Sports 6',
-                                items: [{label: 'Sports 6.1'},{label: 'Sports 6.2'}]
-                            }
+                                items: [&#123;label: 'Sports 6.1'&#125;,&#123;label: 'Sports 6.2'&#125;]
+                            &#125;
                         ]
                     ]
-                }
+                &#125;
             ];
-        }
-    }
+        &#125;
+    &#125;
 </code>
 </pre>
 
@@ -201,126 +201,126 @@ import {MegaMenu} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class MegaMenuDemo {
+export class MegaMenuDemo &#123;
 
     private items: MenuItem[];
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.items = [
-            {
+            &#123;
                 label: 'TV', icon: 'fa-check',
                 items: [
                     [
-                        {
+                        &#123;
                             label: 'TV 1',
-                            items: [{label: 'TV 1.1'},{label: 'TV 1.2'}]
-                        },
-                        {
+                            items: [&#123;label: 'TV 1.1'&#125;,&#123;label: 'TV 1.2'&#125;]
+                        &#125;,
+                        &#123;
                             label: 'TV 2',
-                            items: [{label: 'TV 2.1'},{label: 'TV 2.2'}]
-                        }
+                            items: [&#123;label: 'TV 2.1'&#125;,&#123;label: 'TV 2.2'&#125;]
+                        &#125;
                     ],
                     [
-                        {
+                        &#123;
                             label: 'TV 3',
-                            items: [{label: 'TV 3.1'},{label: 'TV 3.2'}]
-                        },
-                        {
+                            items: [&#123;label: 'TV 3.1'&#125;,&#123;label: 'TV 3.2'&#125;]
+                        &#125;,
+                        &#123;
                             label: 'TV 4',
-                            items: [{label: 'TV 4.1'},{label: 'TV 4.2'}]
-                        }    
+                            items: [&#123;label: 'TV 4.1'&#125;,&#123;label: 'TV 4.2'&#125;]
+                        &#125;    
                     ]
                 ]
-            },
-            {
+            &#125;,
+            &#123;
                 label: 'Sports', icon: 'fa-soccer-ball-o',
                 items: [
                     [
-                        {
+                        &#123;
                             label: 'Sports 1',
-                            items: [{label: 'Sports 1.1'},{label: 'Sports 1.2'}]
-                        },
-                        {
+                            items: [&#123;label: 'Sports 1.1'&#125;,&#123;label: 'Sports 1.2'&#125;]
+                        &#125;,
+                        &#123;
                             label: 'Sports 2',
-                            items: [{label: 'Sports 2.1'},{label: 'Sports 2.2'}]
-                        },
+                            items: [&#123;label: 'Sports 2.1'&#125;,&#123;label: 'Sports 2.2'&#125;]
+                        &#125;,
 
                     ],
                     [
-                        {
+                        &#123;
                             label: 'Sports 3',
-                            items: [{label: 'Sports 3.1'},{label: 'Sports 3.2'}]
-                        },
-                        {
+                            items: [&#123;label: 'Sports 3.1'&#125;,&#123;label: 'Sports 3.2'&#125;]
+                        &#125;,
+                        &#123;
                             label: 'Sports 4',
-                            items: [{label: 'Sports 4.1'},{label: 'Sports 4.2'}]
-                        }
+                            items: [&#123;label: 'Sports 4.1'&#125;,&#123;label: 'Sports 4.2'&#125;]
+                        &#125;
                     ],
                     [
-                        {
+                        &#123;
                             label: 'Sports 5',
-                            items: [{label: 'Sports 5.1'},{label: 'Sports 5.2'}]
-                        },
-                        {
+                            items: [&#123;label: 'Sports 5.1'&#125;,&#123;label: 'Sports 5.2'&#125;]
+                        &#125;,
+                        &#123;
                             label: 'Sports 6',
-                            items: [{label: 'Sports 6.1'},{label: 'Sports 6.2'}]
-                        }
+                            items: [&#123;label: 'Sports 6.1'&#125;,&#123;label: 'Sports 6.2'&#125;]
+                        &#125;
                     ]
                 ]
-            },
-            {
+            &#125;,
+            &#123;
                 label: 'Entertainment', icon: 'fa-child',
                 items: [
                     [
-                        {
+                        &#123;
                             label: 'Entertainment 1',
-                            items: [{label: 'Entertainment 1.1'},{label: 'Entertainment 1.2'}]
-                        },
-                        {
+                            items: [&#123;label: 'Entertainment 1.1'&#125;,&#123;label: 'Entertainment 1.2'&#125;]
+                        &#125;,
+                        &#123;
                             label: 'Entertainment 2',
-                            items: [{label: 'Entertainment 2.1'},{label: 'Entertainment 2.2'}]
-                        }
+                            items: [&#123;label: 'Entertainment 2.1'&#125;,&#123;label: 'Entertainment 2.2'&#125;]
+                        &#125;
                     ],
                     [
-                        {
+                        &#123;
                             label: 'Entertainment 3',
-                            items: [{label: 'Entertainment 3.1'},{label: 'Entertainment 3.2'}]
-                        },
-                        {
+                            items: [&#123;label: 'Entertainment 3.1'&#125;,&#123;label: 'Entertainment 3.2'&#125;]
+                        &#125;,
+                        &#123;
                             label: 'Entertainment 4',
-                            items: [{label: 'Entertainment 4.1'},{label: 'Entertainment 4.2'}]
-                        }    
+                            items: [&#123;label: 'Entertainment 4.1'&#125;,&#123;label: 'Entertainment 4.2'&#125;]
+                        &#125;    
                     ]
                 ]
-            },
-            {
+            &#125;,
+            &#123;
                 label: 'Technology', icon: 'fa-gears',
                 items: [
                     [
-                        {
+                        &#123;
                             label: 'Technology 1',
-                            items: [{label: 'Technology 1.1'},{label: 'Technology 1.2'}]
-                        },
-                        {
+                            items: [&#123;label: 'Technology 1.1'&#125;,&#123;label: 'Technology 1.2'&#125;]
+                        &#125;,
+                        &#123;
                             label: 'Technology 2',
-                            items: [{label: 'Technology 2.1'},{label: 'Technology 2.2'}]
-                        },
-                        {
+                            items: [&#123;label: 'Technology 2.1'&#125;,&#123;label: 'Technology 2.2'&#125;]
+                        &#125;,
+                        &#123;
                             label: 'Technology 3',
-                            items: [{label: 'Technology 3.1'},{label: 'Technology 3.2'}]
-                        }
+                            items: [&#123;label: 'Technology 3.1'&#125;,&#123;label: 'Technology 3.2'&#125;]
+                        &#125;
                     ],
                     [
-                        {
+                        &#123;
                             label: 'Technology 4',
-                            items: [{label: 'Technology 4.1'},{label: 'Technology 4.2'}]
-                        }  
+                            items: [&#123;label: 'Technology 4.1'&#125;,&#123;label: 'Technology 4.2'&#125;]
+                        &#125;  
                     ]
                 ]
-            }
+            &#125;
         ];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 </p-tabPanel>

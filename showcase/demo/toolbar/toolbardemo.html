@@ -13,13 +13,7 @@
                 
             <i class="fa fa-bars"></i>
             
-            <p-splitButton label="Save" icon="fa-check" (onClick)="save()">
-                <p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"></p-splitButtonItem>
-                <p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"></p-splitButtonItem>
-                <p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"></p-splitButtonItem>
-                <p-splitButtonItem icon="fa-paint-brush" label="Theming" [url]="['Theming']"></p-splitButtonItem>
-            </p-splitButton>
-            
+            <p-splitButton label="Save" icon="fa-check" (onClick)="save()" [model]="items"></p-splitButton>
         </div>
         
         <div class="ui-toolbar-group-right">
@@ -37,7 +31,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Toolbar} from 'primeng/primeng';
+import &#123;ToolbarModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -53,13 +47,7 @@ import {Toolbar} from 'primeng/primeng';
             
         &lt;i class="fa fa-bars"&gt;&lt;/i&gt;
         
-        &lt;p-splitButton label="Save" icon="fa-check" (onClick)="save()"&gt;
-            &lt;p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"&gt;&lt;/p-splitButtonItem&gt;
-            &lt;p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"&gt;&lt;/p-splitButtonItem&gt;
-            &lt;p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"&gt;&lt;/p-splitButtonItem&gt;
-            &lt;p-splitButtonItem icon="fa-paint-brush" label="Theming" [url]="['Theming']"&gt;&lt;/p-splitButtonItem&gt;
-        &lt;/p-splitButton&gt;
-        
+        &lt;p-splitButton label="Save" icon="fa-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-toolbar-group-right"&gt;
@@ -143,13 +131,7 @@ import {Toolbar} from 'primeng/primeng';
             
         &lt;i class="fa fa-bars"&gt;&lt;/i&gt;
         
-        &lt;p-splitButton label="Save" icon="fa-check" (onClick)="save()"&gt;
-            &lt;p-splitButtonItem icon="fa-close" label="Delete" (onClick)="delete()"&gt;&lt;/p-splitButtonItem&gt;
-            &lt;p-splitButtonItem icon="fa-refresh" label="Update" (onClick)="update()"&gt;&lt;/p-splitButtonItem&gt;
-            &lt;p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"&gt;&lt;/p-splitButtonItem&gt;
-            &lt;p-splitButtonItem icon="fa-paint-brush" label="Theming" [url]="['Theming']"&gt;&lt;/p-splitButtonItem&gt;
-        &lt;/p-splitButton&gt;
-        
+        &lt;p-splitButton label="Save" icon="fa-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-toolbar-group-right"&gt;

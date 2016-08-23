@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     selector: 'datatable-demos',
@@ -27,8 +26,7 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
                 <li><a [routerLink]="['/datatableexport']">&#9679; Export</a></li>
             </ul>
         </div>
-    `,
-    directives: [ROUTER_DIRECTIVES]
+    `
 })
 export class DataTableSubmenu {
 }

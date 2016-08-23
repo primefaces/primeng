@@ -10,74 +10,75 @@
         <div class="ui-grid-row">
             <div class="ui-grid-col-4">
                 <h3>Basic</h3>
-                <p-calendar [(ngModel)]="date1"></p-calendar> &nbsp; {{date1}}
+                <p-calendar [(ngModel)]="date1"></p-calendar> {{date1}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>Spanish</h3>
-                <p-calendar [(ngModel)]="date2" [locale]="es"></p-calendar> &nbsp; {{date2}}
+                <p-calendar [(ngModel)]="date2" [locale]="es"></p-calendar> {{date2}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>ShowAnim and Icon</h3>
-                <p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"></p-calendar> &nbsp; {{date3}}
+                <p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"></p-calendar> {{date3}}
             </div>
         </div>
         
         <div class="ui-grid-row">
             <div class="ui-grid-col-4">
                 <h3>ButtonPanel</h3>
-                <p-calendar [(ngModel)]="date4" [showButtonPanel]="true"></p-calendar> &nbsp; {{date4}}
+                <p-calendar [(ngModel)]="date4" [showButtonPanel]="true"></p-calendar> {{date4}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>Navigators</h3>
-                <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"></p-calendar> &nbsp; {{date5}}
+                <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"></p-calendar> {{date5}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>Multiple Months</h3>
-                <p-calendar [(ngModel)]="date6" [numberOfMonths]="3"></p-calendar> &nbsp; {{date6}}
+                <p-calendar [(ngModel)]="date6" [numberOfMonths]="3"></p-calendar> {{date6}}
             </div>
         </div>
         
         <div class="ui-grid-row">
             <div class="ui-grid-col-4">
                 <h3>Show Weeks-Months</h3>
-                <p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"></p-calendar> &nbsp; {{date7}}
+                <p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"></p-calendar> {{date7}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>Restrict</h3>
-                <p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"></p-calendar> &nbsp; {{date8}}
+                <p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"></p-calendar> {{date8}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>Default Date</h3>
-                <p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"></p-calendar> &nbsp; {{date9}}
+                <p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"></p-calendar> {{date9}}
             </div>
         </div>
         
         <div class="ui-grid-row">
             <div class="ui-grid-col-4">
                 <h3>DateTime</h3>
-                <p-calendar [(ngModel)]="date10" dateFormat="mm/dd/yy" timeFormat="HH:mm"></p-calendar> &nbsp; {{date10}}
+                <p-calendar [(ngModel)]="date10" dateFormat="mm/dd/yy" timeFormat="HH:mm"></p-calendar> {{date10}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>Custom Time</h3>
-                <p-calendar [(ngModel)]="date11" dateFormat="mm/dd/yy" timeFormat="hh:mm tt z" timeControlType="select" [horizontalTimeControls]="true"></p-calendar> &nbsp; {{date11}}
+                <p-calendar [(ngModel)]="date11" dateFormat="mm/dd/yy" timeFormat="hh:mm tt z" timeControlType="select" [horizontalTimeControls]="true"></p-calendar> {{date11}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>Time Only</h3>
-                <p-calendar [(ngModel)]="date12" dateFormat="mm/dd/yy" timeFormat="HH:mm:ss" [timeOnly]="true"></p-calendar> &nbsp; {{date12}}
+                <p-calendar [(ngModel)]="date12" dateFormat="mm/dd/yy" timeFormat="HH:mm:ss" [timeOnly]="true"></p-calendar> {{date12}}
             </div>
         </div>
     </div>
     
     <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date13" [inline]="true"></p-calendar> &nbsp; {{date13}}
+    <p>{{date13||'Date not selected'}}</p>
+    <p-calendar [(ngModel)]="date13" [inline]="true"></p-calendar> 
 </div>
 
 <div class="ContentSideSections Source">
@@ -86,7 +87,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Calendar} from 'primeng/primeng';
+import &#123;CalendarModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -101,9 +102,9 @@ import {Calendar} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
     dateValue:string;
-}
+&#125;
 </code>
 </pre>
 
@@ -170,12 +171,12 @@ export class MyModel {
 
 <pre>
 <code class="language-typescript" pCode>
-export class MyModel {
+export class MyModel &#123;
     
     es: any;
     
-    ngOnInit() {
-        this.es = {
+    ngOnInit() &#123;
+        this.es = &#123;
             //date
             closeText: "Cerrar",
         	prevText: "&#x3C;Ant",
@@ -208,9 +209,9 @@ export class MyModel {
     		timeSuffix: '',
     		amNames: ['a.m.', 'AM', 'A'],
     		pmNames: ['p.m.', 'PM', 'P'],
-        };
-    }
-}
+        &#125;;
+    &#125;
+&#125;
 </code>
 </pre>
             <p>Translations for datepicker are available at <a href="https://github.com/jquery/jquery-ui/tree/master/ui/i18n">here</a> and for the timepicker,
@@ -467,7 +468,7 @@ export class MyModel {
                             <td>timezoneList</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>An array of timezones used to populate the timezone select. Can be an array of values or an array of objects: { label: "EDT", value: -240 }. 
+                            <td>An array of timezones used to populate the timezone select. Can be an array of values or an array of objects: &#123; label: "EDT", value: -240 &#125;. 
                                 The value should be the offset number in minutes. So "-0400" which is the format "-hhmm", would equate to -240 minutes.</td>
                         </tr>
                         <tr>
@@ -481,6 +482,12 @@ export class MyModel {
                             <td>string</td>
                             <td>fa-calendar</td>
                             <td>Icon of the calendar button.</td>
+                        </tr>
+                        <tr>
+                            <td>yearRange</td>
+                            <td>string</td>
+                            <td>fa-calendar</td>
+                            <td>The range of years displayed in the year drop-down: either relative to today's year ("-nn:+nn"), relative to the currently selected year ("c-nn:c+nn"), absolute ("nnnn:nnnn"), or combinations of these formats ("nnnn:-nn").</td>
                         </tr>
                     </tbody>
                 </table>
@@ -547,81 +554,82 @@ export class MyModel {
     &lt;div class="ui-grid-row"&gt;
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;Basic&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt; &nbsp; {{date1}}
+            &lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt; {{date1}}
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;Spanish&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date2" [locale]="es"&gt;&lt;/p-calendar&gt; &nbsp; {{date2}}
+            &lt;p-calendar [(ngModel)]="date2" [locale]="es"&gt;&lt;/p-calendar&gt; {{date2}}
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;ShowAnim and Icon&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date3}}
+            &lt;p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"&gt;&lt;/p-calendar&gt; {{date3}}
         &lt;/div&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-grid-row"&gt;
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;ButtonPanel&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date4}}
+            &lt;p-calendar [(ngModel)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; {{date4}}
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;Navigators&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date5}}
+            &lt;p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"&gt;&lt;/p-calendar&gt; {{date5}}
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;Multiple Months&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date6" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt; &nbsp; {{date6}}
+            &lt;p-calendar [(ngModel)]="date6" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt; {{date6}}
         &lt;/div&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-grid-row"&gt;
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;Show Weeks-Months&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date7}}
+            &lt;p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"&gt;&lt;/p-calendar&gt; {{date7}}
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;Restrict&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date8}}
+            &lt;p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"&gt;&lt;/p-calendar&gt; {{date8}}
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;Default Date&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"&gt;&lt;/p-calendar&gt; &nbsp; {{date9}}
+            &lt;p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"&gt;&lt;/p-calendar&gt; {{date9}}
         &lt;/div&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-grid-row"&gt;
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;DateTime&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date10" dateFormat="mm/dd/yy" timeFormat="HH:mm"&gt;&lt;/p-calendar&gt; &nbsp; {{date10}}
+            &lt;p-calendar [(ngModel)]="date10" dateFormat="mm/dd/yy" timeFormat="HH:mm"&gt;&lt;/p-calendar&gt; {{date10}}
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;Custom Time&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date11" dateFormat="mm/dd/yy" timeFormat="hh:mm tt z" timeControlType="select" [horizontalTimeControls]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date11}}
+            &lt;p-calendar [(ngModel)]="date11" dateFormat="mm/dd/yy" timeFormat="hh:mm tt z" timeControlType="select" [horizontalTimeControls]="true"&gt;&lt;/p-calendar&gt; {{date11}}
         &lt;/div&gt;
         
         &lt;div class="ui-grid-col-4"&gt;
             &lt;h3&gt;Time Only&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date12" dateFormat="mm/dd/yy" timeFormat="HH:mm:ss" [timeOnly]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date12}}
+            &lt;p-calendar [(ngModel)]="date12" dateFormat="mm/dd/yy" timeFormat="HH:mm:ss" [timeOnly]="true"&gt;&lt;/p-calendar&gt; {{date12}}
             
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date12" [inline]="true"&gt;&lt;/p-calendar&gt; &nbsp; {{date13}}
+&lt;p&gt;{{date13||'Date not selected'}}&lt;/p&gt;
+&lt;p-calendar [(ngModel)]="date12" [inline]="true"&gt;&lt;/p-calendar&gt; 
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class CalendarDemo {
+export class CalendarDemo &#123;
 
     date1: string;
 
@@ -651,8 +659,8 @@ export class CalendarDemo {
     
     es: any;
     
-    ngOnInit() {
-        this.es = {
+    ngOnInit() &#123;
+        this.es = &#123;
             closeText: "Cerrar",
         	prevText: "&#x3C;Ant",
         	nextText: "Sig&#x3E;",
@@ -670,9 +678,9 @@ export class CalendarDemo {
         	isRTL: false,
         	showMonthAfterYear: false,
         	yearSuffix: "" 
-        };
-    }
-}
+        &#125;;
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

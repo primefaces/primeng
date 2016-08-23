@@ -38,7 +38,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {AutoComplete} from 'primeng/primeng';
+import &#123;AutoCompleteModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -53,19 +53,19 @@ import {AutoComplete} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
     
     text: string;
     
     results: string[];
     
-    search(event) {
-        this.mylookupservice.getResults(event.query).then(data => {
+    search(event) &#123;
+        this.mylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
-        });
-    }
+        &#125;);
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
 
@@ -89,23 +89,23 @@ export class AutoCompleteDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
     
     text: string;
     
     results: string[];
     
-    search(event) {
-        this.mylookupservice.getResults(event.query).then(data => {
+    search(event) &#123;
+        this.mylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
-        });
-    }
+        &#125;);
+    &#125;
     
-    handleDropdown(event) {
+    handleDropdown(event) &#123;
         //event.query = current value in input field
-    }
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
 
@@ -119,25 +119,25 @@ export class AutoCompleteDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
     
     texts: string[];
     
     results: string[];
     
-    search(event) {
-        this.mylookupservice.getResults(event.query).then(data => {
+    search(event) &#123;
+        this.mylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
-        });
-    }
+        &#125;);
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
 
             <h3>Objects</h3>
             <p>AutoComplete can also work with objects using the field property that defines the label to display as a suggestion. The value passed to the model would still be the
-            object instance of a suggestion. Here is an example with a Country object that has name and code fields such as {name:"United States",code:"USA"}.</p>
+            object instance of a suggestion. Here is an example with a Country object that has name and code fields such as &#123;name:"United States",code:"USA"&#125;.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)" field="name"&gt;&lt;/p-autoComplete&gt;
@@ -146,19 +146,19 @@ export class AutoCompleteDemo {
     
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
     
     val: country;
     
     results: country[];
     
-    search(event) {
-        this.countrylookupservice.getResults(event.query).then(data => {
+    search(event) &#123;
+        this.countrylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
-        });
-    }
+        &#125;);
+    &#125;
     
-}
+&#125;
 </code>
 </pre>
     
@@ -413,7 +413,7 @@ export class AutoCompleteDemo {
 
 <pre>
 <code class="language-typescript" pCode>
-export class AutoCompleteDemo {
+export class AutoCompleteDemo &#123;
 
     country: any;
     
@@ -429,70 +429,70 @@ export class AutoCompleteDemo {
     
     brand: string;
     
-    constructor(private countryService: CountryService) { }
+    constructor(private countryService: CountryService) &#123; &#125;
     
-    filterCountrySingle(event) {
+    filterCountrySingle(event) &#123;
         let query = event.query;        
-        this.countryService.getCountries().then(countries => {
+        this.countryService.getCountries().then(countries => &#123;
             this.filteredCountriesSingle = this.filterCountry(query, countries);
-        });
-    }
+        &#125;);
+    &#125;
     
-    filterCountryMultiple(event) {
+    filterCountryMultiple(event) &#123;
         let query = event.query;
-        this.countryService.getCountries().then(countries => {
+        this.countryService.getCountries().then(countries => &#123;
             this.filteredCountriesMultiple = this.filterCountry(query, countries);
-        });
-    }
+        &#125;);
+    &#125;
     
-    filterCountry(query, countries: any[]):any[] {
+    filterCountry(query, countries: any[]):any[] &#123;
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered : any[] = [];
-        for(let i = 0; i < countries.length; i++) {
+        for(let i = 0; i < countries.length; i++) &#123;
             let country = countries[i];
-            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
                 filtered.push(country);
-            }
-        }
+            &#125;
+        &#125;
         return filtered;
-    }
+    &#125;
         
-    filterBrands(event) {
+    filterBrands(event) &#123;
         this.filteredBrands = [];
-        for(let i = 0; i < this.brands.length; i++) {
+        for(let i = 0; i < this.brands.length; i++) &#123;
             let brand = this.brands[i];
-            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
+            if(brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) &#123;
                 this.filteredBrands.push(brand);
-            }
-        }
-    }
+            &#125;
+        &#125;
+    &#125;
     
-    handleDropdownClick() {
+    handleDropdownClick() &#123;
         this.filteredBrands = [];
         
         //mimic remote call
-        setTimeout(() => {
+        setTimeout(() => &#123;
             this.filteredBrands = this.brands;
-        }, 100)
-    }
-}
+        &#125;, 100)
+    &#125;
+&#125;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
 @Injectable()
-export class CountryService {
+export class CountryService &#123;
     
-    constructor(private http: Http) {}
+    constructor(private http: Http) &#123;&#125;
 
-    getCountries() {
+    getCountries() &#123;
         return this.http.get('showcase/resources/data/countries.json')
                     .toPromise()
                     .then(res => &lt;any[]&gt; res.json().data)
-                    .then(data => { return data; });
-    }
-}
+                    .then(data => &#123; return data; &#125;);
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

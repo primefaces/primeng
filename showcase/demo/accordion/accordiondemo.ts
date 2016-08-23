@@ -1,16 +1,8 @@
 import {Component} from '@angular/core';
-import {Accordion} from '../../../components/accordion/accordion';
-import {AccordionTab} from '../../../components/accordion/accordiontab';
-import {Growl} from '../../../components/growl/growl';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {Message} from '../../../components/common';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/accordion/accordiondemo.html',
-    directives: [Accordion,AccordionTab,Growl,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/accordion/accordiondemo.html'
 })
 export class AccordionDemo {
 

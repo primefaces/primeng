@@ -1,13 +1,7 @@
 import {Component} from '@angular/core';
-import {Lightbox} from '../../../components/lightbox/lightbox';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
-import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
-    templateUrl: 'showcase/demo/lightbox/lightboxdemo.html',
-    directives: [Lightbox,TabView,TabPanel,CodeHighlighter,ROUTER_DIRECTIVES]
+    templateUrl: 'showcase/demo/lightbox/lightboxdemo.html'
 })
 export class LightboxDemo {
 

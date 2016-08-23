@@ -1,24 +1,10 @@
 import {Component,OnInit} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-import {HTTP_PROVIDERS}    from '@angular/http';
-import {DataScroller} from '../../../components/datascroller/datascroller';
-import {Header} from '../../../components/common';
-import {Footer} from '../../../components/common';
-import {Growl} from '../../../components/growl/growl';
-import {Button} from '../../../components/button/button';
-import {Dialog} from '../../../components/dialog/dialog';
-import {CodeHighlighter} from '../../../components/codehighlighter/codehighlighter';
-import {TabView} from '../../../components/tabview/tabview';
-import {TabPanel} from '../../../components/tabview/tabpanel';
 import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
-import {DataScrollerSubMenu} from './datascrollersubmenu';
-import {Message} from '../../../components/common';
+import {Message} from '../../../components/common/api';
 
 @Component({
     templateUrl: 'showcase/demo/datascroller/datascrollerinfinitedemo.html',
-    directives: [DataScroller,Header,Footer,Dialog,Growl,DataScrollerSubMenu,Button,TabPanel,TabView,CodeHighlighter,ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS,CarService],
     styles: [`
         .ui-grid-row > div {
             padding: 4px 10px;

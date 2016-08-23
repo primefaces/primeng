@@ -8,7 +8,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataScroller [value]="cars" [paginator]="true" [rows]="5" [loader]="loadButton">
+    <p-dataScroller [value]="cars" [rows]="5" [loader]="loadButton">
         <header>
             Click Load Button at Footer to Load More
         </header>
@@ -74,7 +74,7 @@
         <p-tabPanel header="datascrollerloaderdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataScrollerLoaderDemo implements OnInit {
+export class DataScrollerLoaderDemo implements OnInit &#123;
 
     cars: Car[];
     
@@ -82,21 +82,21 @@ export class DataScrollerLoaderDemo implements OnInit {
     
     displayDialog: boolean;
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
-    }
+    &#125;
     
-    selectCar(car: Car) {
+    selectCar(car: Car) &#123;
         this.selectedCar = car;
         this.displayDialog = true;
-    }
+    &#125;
     
-    onDialogHide() {
+    onDialogHide() &#123;
         this.selectedCar = null;
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>            
         </p-tabPanel>
@@ -104,7 +104,7 @@ export class DataScrollerLoaderDemo implements OnInit {
         <p-tabPanel header="datascrollerinlinedemo.html">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataScroller [value]="cars" [paginator]="true" [rows]="5" [loader]="loadButton"&gt;
+&lt;p-dataScroller [value]="cars" [rows]="5" [loader]="loadButton"&gt;
     &lt;header&gt;
         Click Load Button at Footer to Load More
     &lt;/header&gt;

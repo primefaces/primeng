@@ -28,8 +28,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {DataTable} from 'primeng/primeng';
-import {Column} from 'primeng/primeng';
+import &#123;DataTableModule,SharedModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -40,49 +39,49 @@ import {Column} from 'primeng/primeng';
             </p>
 <pre>
 <code class="language-typescript" pCode>
-export interface Car {
+export interface Car &#123;
     vin;
     year;
     brand;
     color;
-}
+&#125;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-import {Injectable} from 'angular2/core';
-import {Http, Response} from 'angular2/http';
-import {Car} from '../domain/car';
+import &#123;Injectable&#125; from 'angular2/core';
+import &#123;Http, Response&#125; from 'angular2/http';
+import &#123;Car&#125; from '../domain/car';
     
 @Injectable()
-export class CarService {
+export class CarService &#123;
     
-    constructor(private http: Http) {}
+    constructor(private http: Http) &#123;&#125;
 
-    getCarsSmall() {
+    getCarsSmall() &#123;
         return this.http.get('/showcase/resources/data/cars-small.json')
                     .toPromise()
                     .then(res => &lt;Car[]&gt; res.json().data)
-                    .then(data => { return data; });
-    }
-}
+                    .then(data => &#123; return data; &#125;);
+    &#125;
+&#125;
 </code>
 </pre>
             <p>Following sample datatable has 4 columns and retrieves the data from a service on init.</p>
 
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableDemo implements OnInit {
+export class DataTableDemo implements OnInit &#123;
 
     cars: Car[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -216,25 +215,25 @@ export class DataTableDemo implements OnInit {
             <p>Columns can be instantiated using an array as well by iterating with ngFor.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableDemo implements OnInit {
+export class DataTableDemo implements OnInit &#123;
 
     cars: Car[];
     
     cols: any[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
         
         this.cols = [
-            {field: 'vin', header: 'Vin'},
-            {field: 'year', header: 'Year'},
-            {field: 'brand', header: 'Brand'},
-            {field: 'color', header: 'Color'}
+            &#123;field: 'vin', header: 'Vin'&#125;,
+            &#123;field: 'year', header: 'Year'&#125;,
+            &#123;field: 'brand', header: 'Brand'&#125;,
+            &#123;field: 'color', header: 'Color'&#125;
         ];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 
@@ -270,8 +269,8 @@ export class DataTableDemo implements OnInit {
             <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
 <pre>
 <code class="language-typescript" pCode>
-import {Header} from 'primeng/primeng';
-import {Footer} from 'primeng/primeng';
+import &#123;Header&#125; from 'primeng/primeng';
+import &#123;Footer&#125; from 'primeng/primeng';
 </code>
 </pre>
 <pre>
@@ -304,26 +303,26 @@ import {Footer} from 'primeng/primeng';
 <pre>
 <code class="language-typescript" pCode>
 this.headerRows = [
-    {
+    &#123;
         columns: [
-            {headerText: 'Brand', rowspan: 3},
-            {headerText: 'Sale Rate', colspan: 4}
+            &#123;headerText: 'Brand', rowspan: 3&#125;,
+            &#123;headerText: 'Sale Rate', colspan: 4&#125;
         ]
-    },
-    {
+    &#125;,
+    &#123;
         columns: [
-            {headerText: 'Brand', colspan: 2},
-            {headerText: 'Sale Rate', colspan: 2}
+            &#123;headerText: 'Brand', colspan: 2&#125;,
+            &#123;headerText: 'Sale Rate', colspan: 2&#125;
         ]
-    },
-    {
+    &#125;,
+    &#123;
         columns: [
-            {headerText: 'Last Year'},
-            {headerText: 'This Year'},
-            {headerText: 'Last Year'},
-            {headerText: 'This Year'}
+            &#123;headerText: 'Last Year'&#125;,
+            &#123;headerText: 'This Year'&#125;,
+            &#123;headerText: 'Last Year'&#125;,
+            &#123;headerText: 'This Year'&#125;
         ]
-    }
+    &#125;
 ];
 </code>
 </pre>
@@ -385,8 +384,8 @@ this.headerRows = [
 <pre>
 <code class="language-typescript" pCode>
 this.multiSortMeta = [];
-this.multiSortMeta.push({field: 'year', order: 1});
-this.multiSortMeta.push({field: 'brand', order: -1});
+this.multiSortMeta.push(&#123;field: 'year', order: 1&#125;);
+this.multiSortMeta.push(&#123;field: 'brand', order: -1&#125;);
 </code>
 </pre>        
 
@@ -404,10 +403,10 @@ this.multiSortMeta.push({field: 'brand', order: -1});
 
 <pre>
 <code class="language-typescript" pCode>
-mysort(event) {
+mysort(event) &#123;
     //event.field = Field to sort
     //event.order = Sort order
-}
+&#125;
 </code>
 </pre> 
             
@@ -441,18 +440,18 @@ mysort(event) {
             <p>In single mode, selection binding is an object reference.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableDemo implements OnInit {
+export class DataTableDemo implements OnInit &#123;
 
     cars: Car[];
     
     selectedCar: Car;
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 <pre>
@@ -469,18 +468,18 @@ export class DataTableDemo implements OnInit {
         <p>In multiple mode, selection binding should be an array.</p>
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableDemo implements OnInit {
+export class DataTableDemo implements OnInit &#123;
 
     cars: Car[];
     
     selectedCars: Car[];
 
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 <pre>
@@ -671,7 +670,7 @@ export class DataTableDemo implements OnInit {
             
 <pre>
 <code class="language-typescript" pCode>
-loadData(event: LazyLoadEvent) {
+loadData(event: LazyLoadEvent) &#123;
     //event.first = First row offset
     //event.rows = Number of rows per page
     //event.sortField = Field name to sort in single sort mode
@@ -679,7 +678,7 @@ loadData(event: LazyLoadEvent) {
     //multiSortMeta: An array of SortMeta objects used in multiple columns sorting. Each SortMeta has field and order properties.
     //filters: Filters object having field as key and filter value, filter matchMode as value
     this.cars = //do a request to a remote datasource using a service and return the cars that match the lazy load criteria
-}
+&#125;
 </code>
 </pre>
             <p>See the <a [routerLink]="['/datatablelay']">live example.</a></p>
@@ -704,7 +703,7 @@ loadData(event: LazyLoadEvent) {
             set the style of the column to allow overflow.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-column field="color" style="{'overflow':'visible'}"&gt;
+&lt;p-column field="color" style="&#123;'overflow':'visible'&#125;"&gt;
     &lt;template let-col #car="rowData"&gt;
         &lt;p-dropdown&gt;&lt;/p-dropdown&gt;
     &lt;/template&gt;
@@ -1062,9 +1061,9 @@ loadData(event: LazyLoadEvent) {
 
 <pre>
 <code class="language-typescript" pCode>
-handleRowSelect(event) {
+handleRowSelect(event) &#123;
     //event.data = Selected row data
-}
+&#125;
 </code>
 </pre>
 
@@ -1108,9 +1107,9 @@ handleRowSelect(event) {
 
 <pre>
 <code class="language-typescript" pCode>
-update(dt: DataTable) {
+update(dt: DataTable) &#123;
     dt.reset();
-}
+&#125;
 </code>
 </pre>
 
@@ -1201,25 +1200,25 @@ update(dt: DataTable) {
 
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableDemo implements OnInit {
+export class DataTableDemo implements OnInit &#123;
 
     cars: Car[];
     
     cols: any[];
     
-    constructor(private carService: CarService) { }
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() {
+    ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
         
         this.cols = [
-            {field: 'vin', header: 'Vin'},
-            {field: 'year', header: 'Year'},
-            {field: 'brand', header: 'Brand'},
-            {field: 'color', header: 'Color'}
+            &#123;field: 'vin', header: 'Vin'&#125;,
+            &#123;field: 'year', header: 'Year'&#125;,
+            &#123;field: 'brand', header: 'Brand'&#125;,
+            &#123;field: 'color', header: 'Color'&#125;
         ];
-    }
-}
+    &#125;
+&#125;
 </code>
 </pre>
 

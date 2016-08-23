@@ -1,4 +1,5 @@
-import {Component,Input,Output,OnInit,AfterViewInit,OnDestroy,EventEmitter,Renderer,ElementRef} from '@angular/core';
+import {NgModule,Component,Input,Output,OnInit,AfterViewInit,OnDestroy,EventEmitter,Renderer,ElementRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -149,3 +150,10 @@ export class OverlayPanel implements OnInit,AfterViewInit,OnDestroy {
         this.target = null;
     }
 }
+
+@NgModule({
+    imports: [CommonModule],
+    exports: [OverlayPanel],
+    declarations: [OverlayPanel]
+})
+export class OverlayPanelModule { }

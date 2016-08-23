@@ -1,8 +1,9 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
-import {Header} from '../common';
-import {Footer} from '../common';
-import {Paginator} from '../paginator/paginator';
-import {TemplateWrapper} from '../common';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Header} from '../common/shared';
+import {Footer} from '../common/shared';
+import {SharedModule} from '../common/shared';
+import {PaginatorModule} from '../paginator/paginator';
 
 @Component({
     selector: 'p-dataList',
@@ -26,8 +27,7 @@ import {TemplateWrapper} from '../common';
                 <ng-content select="footer"></ng-content>
             </div>
         </div>
-    `,
-    directives: [Paginator,TemplateWrapper]
+    `
 })
 export class DataList implements AfterViewInit,DoCheck {
 
@@ -142,3 +142,10 @@ export class DataList implements AfterViewInit,DoCheck {
         };
     }
 }
+
+@NgModule({
+    imports: [CommonModule,SharedModule,PaginatorModule],
+    exports: [DataList,SharedModule],
+    declarations: [DataList]
+})
+export class DataListModule { }

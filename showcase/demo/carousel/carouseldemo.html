@@ -43,7 +43,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode>
-import {Carousel} from 'primeng/primeng';
+import &#123;CarouselModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -280,32 +280,32 @@ import {Carousel} from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode>
-export class CarouselDemo {
+export class CarouselDemo &#123;
 
     cars: Car[];
 
     msgs: Message[];
 
-    constructor() {
+    constructor() &#123;
         this.msgs = [];
         this.cars = [
-            {vin: 'r3278r2', year: 2010, brand: 'Audi', color: 'Black'},
-            {vin: 'jhto2g2', year: 2015, brand: 'BMW', color: 'White'},
-            {vin: 'h453w54', year: 2012, brand: 'Honda', color: 'Blue'},
-            {vin: 'g43gwwg', year: 1998, brand: 'Renault', color: 'White'},
-            {vin: 'gf45wg5', year: 2011, brand: 'VW', color: 'Red'},
-            {vin: 'bhv5y5w', year: 2015, brand: 'Jaguar', color: 'Blue'},
-            {vin: 'ybw5fsd', year: 2012, brand: 'Ford', color: 'Yellow'},
-            {vin: '45665e5', year: 2011, brand: 'Mercedes', color: 'Brown'},
-            {vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black'}
+            &#123;vin: 'r3278r2', year: 2010, brand: 'Audi', color: 'Black'&#125;,
+            &#123;vin: 'jhto2g2', year: 2015, brand: 'BMW', color: 'White'&#125;,
+            &#123;vin: 'h453w54', year: 2012, brand: 'Honda', color: 'Blue'&#125;,
+            &#123;vin: 'g43gwwg', year: 1998, brand: 'Renault', color: 'White'&#125;,
+            &#123;vin: 'gf45wg5', year: 2011, brand: 'VW', color: 'Red'&#125;,
+            &#123;vin: 'bhv5y5w', year: 2015, brand: 'Jaguar', color: 'Blue'&#125;,
+            &#123;vin: 'ybw5fsd', year: 2012, brand: 'Ford', color: 'Yellow'&#125;,
+            &#123;vin: '45665e5', year: 2011, brand: 'Mercedes', color: 'Brown'&#125;,
+            &#123;vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black'&#125;
         ];
-    }
+    &#125;
 
-    selectCar(car: Car) {
+    selectCar(car: Car) &#123;
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'Car Selected', detail: 'Vin:' + car.vin});
-    }
-}
+        this.msgs.push(&#123;severity: 'info', summary: 'Car Selected', detail: 'Vin:' + car.vin&#125;);
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>

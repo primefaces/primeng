@@ -1,14 +1,12 @@
-import {Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
-import {Column} from '../column/column';
-import {ColumnTemplateLoader} from '../column/columntemplateloader';
-import {RowExpansionLoader} from './rowexpansionloader';
-import {Header} from '../common';
-import {Footer} from '../common';
-import {Paginator} from '../paginator/paginator';
-import {InputText} from '../inputtext/inputtext';
-import {LazyLoadEvent} from '../common';
-import {FilterMetadata} from '../common';
-import {SortMeta} from '../common';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms'
+import {SharedModule} from '../common/shared';
+import {PaginatorModule} from '../paginator/paginator';
+import {InputTextModule} from '../inputtext/inputtext';
+import {Column,Header,Footer,ColumnTemplateLoader} from '../common/shared';
+import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -70,6 +68,25 @@ export class DTCheckbox {
 }
 
 @Component({
+    selector: 'p-rowExpansionLoader',
+    template: ``
+})
+export class RowExpansionLoader {
+        
+    @Input() template: TemplateRef<any>;
+    
+    @Input() rowData: any;
+    
+    constructor(protected viewContainer: ViewContainerRef) {}
+    
+    ngOnInit() {
+        let view = this.viewContainer.createEmbeddedView(this.template, {
+            '\$implicit': this.rowData
+        });
+    }
+}
+
+@Component({
     selector: 'p-dataTable',
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
@@ -88,7 +105,7 @@ export class DTCheckbox {
                                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
                                 'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
                                 [draggable]="reorderableColumns" (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)">
-                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)">&nbsp;</span>
+                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
                                 <span class="ui-column-title" *ngIf="!col.selectionMode">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
@@ -101,7 +118,7 @@ export class DTCheckbox {
                                 (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
                                 'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}">
-                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)">&nbsp;</span>
+                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
                                 <span class="ui-column-title">{{col.header}}</span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
@@ -164,7 +181,7 @@ export class DTCheckbox {
                                     (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                     [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
                                     'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}">
-                                    <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')">&nbsp;</span>
+                                    <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')"></span>
                                     <span class="ui-column-title">{{col.header}}</span>
                                     <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                          [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
@@ -211,7 +228,6 @@ export class DTCheckbox {
             </div>
         </div>
     `,
-    directives: [Paginator,InputText,ColumnTemplateLoader,RowExpansionLoader,DTRadioButton,DTCheckbox],
     providers: [DomHandler]
 })
 export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,OnDestroy {
@@ -800,7 +816,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
 
         if(this.selection) {
             for(let i = 0; i  < this.selection.length; i++) {
-                if(this.selection[i] == rowData) {
+                if(this.domHandler.equals(rowData, this.selection[i])) {
                     index = i;
                     break;
                 }
@@ -811,7 +827,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     }
 
     isSelected(rowData) {
-        return ((rowData && rowData == this.selection) || this.findIndexInSelection(rowData) != -1);
+        return ((rowData && this.domHandler.equals(rowData, this.selection)) || this.findIndexInSelection(rowData) != -1);
     }
     
     get allSelected() {
@@ -1109,39 +1125,43 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     }
     
     onColumnDragover(event) {
-        event.preventDefault();
-        let dropHeader = this.findParentHeader(event.target);
-        
-        if(this.draggedColumn != dropHeader) {
-            let targetPosition = dropHeader.getBoundingClientRect();
-            let targetLeft = targetPosition.left + document.body.scrollLeft;
-            let targetTop =  targetPosition.top + document.body.scrollTop;
-            let columnCenter = targetLeft + dropHeader.offsetWidth / 2;
+        if(this.reorderableColumns && this.draggedColumn) {
+            event.preventDefault();
+            let dropHeader = this.findParentHeader(event.target);
             
-            this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
-            this.reorderIndicatorDown.style.top = targetTop + dropHeader.offsetHeight + 'px';
+            if(this.draggedColumn != dropHeader) {
+                let targetPosition = dropHeader.getBoundingClientRect();
+                let targetLeft = targetPosition.left + document.body.scrollLeft;
+                let targetTop =  targetPosition.top + document.body.scrollTop;
+                let columnCenter = targetLeft + dropHeader.offsetWidth / 2;
+                
+                this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
+                this.reorderIndicatorDown.style.top = targetTop + dropHeader.offsetHeight + 'px';
 
-            if(event.pageX > columnCenter) {
-                this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
-                this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8)+ 'px';
+                if(event.pageX > columnCenter) {
+                    this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
+                    this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8)+ 'px';
+                }
+                else {
+                    this.reorderIndicatorUp.style.left = (targetLeft - 8) + 'px';
+                    this.reorderIndicatorDown.style.left = (targetLeft - 8)+ 'px';
+                }
+                
+                this.reorderIndicatorUp.style.display = 'block';
+                this.reorderIndicatorDown.style.display = 'block';
             }
             else {
-                this.reorderIndicatorUp.style.left = (targetLeft - 8) + 'px';
-                this.reorderIndicatorDown.style.left = (targetLeft - 8)+ 'px';
+                event.dataTransfer.dropEffect = 'none';
             }
-            
-            this.reorderIndicatorUp.style.display = 'block';
-            this.reorderIndicatorDown.style.display = 'block';
-        }
-        else {
-            event.dataTransfer.dropEffect = 'none';
         }
     }
     
     onColumnDragleave(event) {
-        event.preventDefault();
-        this.reorderIndicatorUp.style.display = 'none';
-        this.reorderIndicatorDown.style.display = 'none';
+        if(this.reorderableColumns && this.draggedColumn) {
+            event.preventDefault();
+            this.reorderIndicatorUp.style.display = 'none';
+            this.reorderIndicatorDown.style.display = 'none';
+        }
     }
     
     onColumnDrop(event) {
@@ -1368,3 +1388,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
         }
     }
 }
+
+@NgModule({
+    imports: [CommonModule,SharedModule,PaginatorModule,FormsModule],
+    exports: [DataTable,SharedModule],
+    declarations: [DataTable,DTRadioButton,DTCheckbox,RowExpansionLoader]
+})
+export class DataTableModule { }

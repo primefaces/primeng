@@ -1,5 +1,6 @@
-import {Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider,NgZone} from '@angular/core';
-import {Button} from '../button/button';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,Provider,NgZone} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ButtonModule} from '../button/button';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 const CALENDAR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
@@ -16,10 +17,10 @@ const CALENDAR_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
                 [disabled]="disabled" (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="handleBlur($event)"
                 [ngClass]="{'ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,
                     'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}"
-        ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)" class="ui-datepicker-trigger"></button></span>
+        ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)" 
+                [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button></span>
         <div *ngIf="inline"></div>
     `,
-    directives: [Button],
     providers: [CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueAccessor {
@@ -107,6 +108,8 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     @Input() locale: any;
     
     @Input() icon: string = 'fa-calendar';
+
+    @Input() yearRange: string;
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -145,6 +148,7 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
             defaultDate: this.defaultDate,
             minDate: this.minDate,
             maxDate: this.maxDate,
+            yearRange: this.yearRange,
             onSelect: (dateText: string) => {
                 this.zone.run(() => {
                     this.value = dateText;
@@ -229,3 +233,10 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
         input.focus();
     }
 }
+
+@NgModule({
+    imports: [CommonModule,ButtonModule],
+    exports: [Calendar],
+    declarations: [Calendar]
+})
+export class CalendarModule { }
