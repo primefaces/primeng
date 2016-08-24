@@ -9,32 +9,47 @@
     <p-growl [value]="msgs"></p-growl>
     
     <h3 class="first">Basic</h3>
-    <p-tree [value]="files"></p-tree>
+    <p-tree [value]="filesTree1"></p-tree>
+
     
     <h3>Single Selection</h3>
-    <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" 
+    <p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
     Selected Node: {{selectedFile ? selectedFile.label : 'none'}}
     
+    
     <h3>Multiple Selection with Metakey</h3>
-    <p-tree [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
+    <p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
     Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}} </span>
+    
+
     
     <h3>Lazy Loading</h3>
     <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"></p-tree>
     
     <h3>Template</h3>
-    <p-tree [value]="files">
+    <p-tree [value]="filesTree4">
         <template let-node>
             <input [(ngModel)]="node.label" type="text" style="width:100%">
         </template>
     </p-tree>
     
     <h3>Context Menu</h3>
-    <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
+    <p-tree [value]="filesTree5" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
     
     <p-contextMenu #cm [model]="items"></p-contextMenu>
+
+    <h3>Programatic Tree Expansion</h3>
+    <p-tree #expandingTree [value]="filesTree6"></p-tree>
+
+    <div style="margin-top: 5px">
+        <button pButton type="text" label="Expand all" (click)="expandAll()"></button>
+        <button pButton type="text" label="Collapse all" (click)="collapseAll()"></button>
+    </div>
+    <div style="margin-top: 5px">
+        <button pButton type="text" label="Expand to 'Invoices.txt'" (click)="expandToNode()"></button>
+    </div>
 </div>
 
 <div class="ContentSideSections Source">
@@ -114,6 +129,12 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the node.</td>
+                        </tr>
+                        <tr>
+                            <td>expanded</td>
+                            <td>boolean</td>
+                            <td>null</td>
+                            <td>Whether the node is in an expanded or collapsed state.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -551,15 +572,17 @@ export class TreeDemoComponent implements OnInit &#123;
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-tree [value]="files"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="filesTree1"&gt;&lt;/p-tree&gt;
+
 
 &lt;h3&gt;Single Selection&lt;/h3&gt;
-&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" 
+&lt;p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile" 
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
 Selected Node: {{selectedFile ? selectedFile.label : 'none'}}
 
+
 &lt;h3&gt;Multiple Selection with Metakey&lt;/h3&gt;
-&lt;p-tree [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
+&lt;p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles" 
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
 Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &lt;/span&gt;
 
@@ -567,16 +590,28 @@ Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &l
 &lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="files"&gt;
+&lt;p-tree [value]="filesTree4"&gt;
     &lt;template let-node&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
 
 &lt;h3&gt;Context Menu&lt;/h3&gt;
-&lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="filesTree5" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
 
 &lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
+
+&lt;h3&gt;Programatic Tree Expansion&lt;/h3&gt;
+&lt;p-tree #expandingTree [value]="filesTree6"&gt;&lt;/p-tree&gt;
+
+&lt;div style="margin-top: 5px"&gt;
+    &lt;button pButton type="text" label="Expand all" (click)="expandAll()"&gt;&lt;/button&gt;
+    &lt;button pButton type="text" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div style="margin-top: 5px"&gt;
+    &lt;button pButton type="text" label="Expand to 'Invoices.txt'" (click)="expandToNode()"&gt;&lt;/button&gt;
+&lt;/div&gt;
+
 </code>
 </pre>
 
@@ -585,8 +620,16 @@ Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &l
 export class TreeDemo implements OnInit &#123;
     
     msgs: Message[];
-    
-    files: TreeNode[];
+
+    @ViewChild('expandingTree')
+    expandingTree: Tree;
+
+    filesTree1: TreeNode[];
+    filesTree2: TreeNode[];
+    filesTree3: TreeNode[];
+    filesTree4: TreeNode[];
+    filesTree5: TreeNode[];
+    filesTree6: TreeNode[];
     
     lazyFiles: TreeNode[];
     
@@ -601,7 +644,13 @@ export class TreeDemo implements OnInit &#123;
     constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.nodeService.getFiles().then(files => this.files = files);
+        this.nodeService.getFiles().then(files => this.filesTree1 = files);
+        this.nodeService.getFiles().then(files => this.filesTree2 = files);
+        this.nodeService.getFiles().then(files => this.filesTree3 = files);
+        this.nodeService.getFiles().then(files => this.filesTree4 = files);
+        this.nodeService.getFiles().then(files => this.filesTree5 = files);
+        this.nodeService.getFiles().then(files => this.filesTree6 = files);
+
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
         
         this.items = [
@@ -619,6 +668,11 @@ export class TreeDemo implements OnInit &#123;
         this.msgs = [];
         this.msgs.push(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.label&#125;);
     &#125;
+
+    nodeExpandMessage(event) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Expanded', detail: event.node.label&#125;);
+    &#125;
     
     nodeExpand(event) &#123;
         if(event.node) &#123;
@@ -635,6 +689,33 @@ export class TreeDemo implements OnInit &#123;
     unselectFile() &#123;
         this.selectedFile2 = null;
     &#125;
+
+    expandToNode()&#123;
+        const invoicesNode: TreeNode = this.filesTree6[0].children[1].children[0]
+        this.expandingTree.expandToNode(invoicesNode);
+    &#125;
+
+    expandAll()&#123;
+        this.filesTree6.forEach( node => &#123;
+            this.expandRecursive(node, true);
+        &#125; );
+    &#125;
+
+    collapseAll()&#123;
+        this.filesTree6.forEach( node => &#123;
+            this.expandRecursive(node, false);
+        &#125; );
+    &#125;
+
+    private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
+        node.expanded = isExpand;
+        if(node.children)&#123;
+            node.children.forEach( childNode => &#123;
+                this.expandRecursive(childNode, isExpand);
+            &#125; );
+        &#125;
+    &#125;
+
 &#125;
 </code>
 </pre>
