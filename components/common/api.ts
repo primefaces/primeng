@@ -49,4 +49,5 @@ export interface TreeNode {
     collapsedIcon?: any;
     children?: TreeNode[];
     leaf?: boolean;
+    expanded?: boolean; // Currently only supported by tree.ts (not treeTable)
 }
