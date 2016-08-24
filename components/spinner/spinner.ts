@@ -104,7 +104,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         else
             this.value = currentValue + step;
     
-        if(this.max !== undefined && this.value.toString().length > this.maxlength) {
+        if(this.maxlength !== undefined && this.value.toString().length > this.maxlength) {
             this.value = currentValue;
         }
     
