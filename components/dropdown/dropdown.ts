@@ -73,6 +73,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     @Input() editable: boolean;
     
+    @Input() appendTo: any;
+    
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
     constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer, differs: IterableDiffers) {
@@ -147,6 +149,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         
         this.updateDimensions();
         this.initialized = true;
+        
+        if(this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.container);
+            else
+                this.appendTo.appendChild(this.container);
+        }
     }
     
     get label(): string {
@@ -382,8 +391,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     ngOnDestroy() {
         this.documentClickListener();
         this.initialized = false;
+        
+        if(this.appendTo) {
+            this.el.nativeElement.appendChild(this.container);
+        }
     }
-
 }
 
 @NgModule({
