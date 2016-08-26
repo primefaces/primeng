@@ -1,12 +1,14 @@
 <div class="ContentSideSections">
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">FileUpload</span>
-        <span class="defaultText">.</span>
+        <span class="defaultText">FileUpload is an advanced uploader.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-fileUpload></p-fileUpload>
+    <p-growl [value]="msgs"></p-growl>
+        
+    <p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" multiple="multiple"></p-fileUpload>
 </div>
 
 <div class="ContentSideSections Source">
