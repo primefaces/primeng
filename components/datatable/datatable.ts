@@ -710,20 +710,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
             || (this.domHandler.hasClass(event.target, 'ui-c'))) {
             return;
         }
-
-        let selectionIndex = this.findIndexInSelection(rowData);
-        let selected = selectionIndex != -1;
-
-        if(selected) {
+        
+        if(this.isSelected(rowData)) {
             if(this.isSingleSelectionMode()) {
                 this.selection = null;
                 this.selectionChange.emit(null);
             }
             else {
-                this.selection.splice(selectionIndex,1);
+                this.selection.splice(this.findIndexInSelection(rowData), 1);
                 this.selectionChange.emit(this.selection);
             }
-
+            
             this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
         }
         else {
@@ -813,7 +810,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
 
     findIndexInSelection(rowData: any) {
         let index: number = -1;
-
         if(this.selection) {
             for(let i = 0; i  < this.selection.length; i++) {
                 if(this.domHandler.equals(rowData, this.selection[i])) {
