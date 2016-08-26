@@ -92,6 +92,7 @@ import {TabMenuDemo} from "./demo/tabmenu/tabmenudemo";
 import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
+import {FileUploadDemo} from './demo/fileupload/fileuploaddemo';
 
 export const routes: Routes = [
     {path: '', component: HomePageComponent},
@@ -185,7 +186,8 @@ export const routes: Routes = [
     {path: 'tabmenu', component: TabMenuDemo},
     {path: 'tooltip', component: TooltipDemo},
     {path: 'menumodel', component: MenuModelApi},
-    {path: 'mask', component: InputMaskDemo}
+    {path: 'mask', component: InputMaskDemo},
+    {path: 'fileupload', component: FileUploadDemo}
 ];
 
 

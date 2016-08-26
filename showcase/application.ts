@@ -15,6 +15,7 @@ import {ButtonDemo} from './demo/button/buttondemo';
 import {SpinnerDemo} from './demo/spinner/spinnerdemo';
 import {PanelDemo} from './demo/panel/paneldemo';
 import {FieldsetDemo} from './demo/fieldset/fieldsetdemo';
+import {FileUploadDemo} from './demo/fileupload/fileuploaddemo';
 import {RatingDemo} from './demo/rating/ratingdemo';
 import {PasswordDemo} from './demo/password/passworddemo';
 import {DialogDemo} from './demo/dialog/dialogdemo';
@@ -126,6 +127,7 @@ import {DragDropModule} from '../components/dragdrop/dragdrop';
 import {DropdownModule} from '../components/dropdown/dropdown';
 import {EditorModule} from '../components/editor/editor';
 import {FieldsetModule} from '../components/fieldset/fieldset';
+import {FileUploadModule} from '../components/fileupload/fileupload';
 import {GalleriaModule} from '../components/galleria/galleria';
 import {GMapModule} from '../components/gmap/gmap';
 import {GrowlModule} from '../components/growl/growl';
@@ -211,6 +213,7 @@ export class AppComponent {
         DropdownModule,
         EditorModule,
         FieldsetModule,
+        FileUploadModule,
         GalleriaModule,
         GMapModule,
         GrowlModule,
@@ -261,6 +264,7 @@ export class AppComponent {
         SpinnerDemo,
         PanelDemo,
         FieldsetDemo,
+        FileUploadDemo,
         RatingDemo,
         PasswordDemo,
         DialogDemo,
