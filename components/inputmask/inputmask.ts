@@ -63,7 +63,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         let cfg = {
             mask: this.mask,
             alias: this.alias,
-            placeholder: this.slotChar,
+            placeholder: this.placeholder,
             clearIncomplete: this.clearIncomplete,
             clearMaskOnLostFocus: this.clearMaskOnLostFocus,
 			onKeyDown: (event, buffer, caretPos, opts) => {
