@@ -61,10 +61,10 @@ export class PanelMenuSub {
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-panelmenu ui-widget'">
             <div *ngFor="let item of model" class="ui-panelmenu-panel">
                 <div tabindex="0" [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-all':!item.expanded,
-                    'ui-state-active ui-corner-top':item.expanded,'ui-state-hover':(item == hoveredItem)}" (click)="headerClick($event,item)">
-                    <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span>
+                    'ui-state-active ui-corner-top':item.expanded,'ui-state-hover':(item == hoveredItem)}">
                     <a [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}"
-                        (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
+                        (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="headerClick($event,item)">
+                        <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span>
                         <span class="ui-menuitem-icon fa fa-fw" [ngClass]="item.icon" *ngIf="item.icon"></span>
                         <span>{{item.label}}</span>
                     </a>
@@ -84,9 +84,30 @@ export class PanelMenu {
 
     @Input() styleClass: string;
     
+    constructor(protected router: Router) {}
+    
     headerClick(event, item ) {
-        item.expanded = !item.expanded;
-        event.preventDefault();
+        if(item.items) {
+            item.expanded = !item.expanded;
+        }
+        else {
+            if(!item.url||item.routerLink) {
+                event.preventDefault();
+            }
+                       
+            if(item.command) {
+                if(!item.eventEmitter) {
+                    item.eventEmitter = new EventEmitter();
+                    item.eventEmitter.subscribe(item.command);
+                }
+                
+                item.eventEmitter.emit(event);
+            }
+            
+            if(item.routerLink) {
+                this.router.navigate(item.routerLink);
+            }
+        }
     }
         
     unsubscribe(item: any) {
