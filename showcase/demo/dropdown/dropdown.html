@@ -11,11 +11,11 @@
     <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
     
     <h3>Editable</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;" editable="editable"></p-dropdown>
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" editable="editable"></p-dropdown>
     <p>Selected City: {{selectedCar||'none'}}</p>
     
     <h3>Content with Filters</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="filter">
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="filter">
         <template let-car>
             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/>
