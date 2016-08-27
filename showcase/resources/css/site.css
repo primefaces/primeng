@@ -630,6 +630,7 @@ pre {
 
 .ui-fileupload-buttonbar {
     padding: 8px;
+    border-bottom: 0 none;
 }
 
 .ui-fileupload-buttonbar .ui-button {
@@ -638,9 +639,13 @@ pre {
 }
 
 .ui-fileupload-content {
-    padding: 8px 16px;
-    border-top-width: 0;
+    padding: 16px;
     position: relative;
+    transition: border-color .3s;
+}
+
+.ui-fileupload-content.ui-fileupload-highlight {
+    border-color: #156090;
 }
 
 .ui-fileupload-files img {

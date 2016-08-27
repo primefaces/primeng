@@ -16,10 +16,11 @@ import {ProgressBarModule} from '../progressbar/progressbar';
                 <button type="button" label="Upload" icon="fa-upload" pButton (click)="upload()"></button>
                 <button type="button" label="Cancel" icon="fa-close" pButton (click)="clear()"></button>
             </div>
-            <div class="ui-fileupload-content ui-widget-content ui-corner-bottom" *ngIf="files && files.length">
-                <p-progressBar [value]="progress" [showValue]="false"></p-progressBar>
-            
-                <div class="ui-fileupload-files">
+            <div [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true,'ui-fileupload-highlight':dragHighlight}" 
+                (dragenter)="onDragEnter($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+                <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
+                
+                <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div class="ui-fileupload-row" *ngFor="let file of files;let i = index;">
                         <div><img [src]="file.objectURL" *ngIf="isImage(file)" width="50" /></div>
                         <div>{{file.name}}</div>
@@ -29,7 +30,7 @@ import {ProgressBarModule} from '../progressbar/progressbar';
                 </div>
             </div>
         </div>
-    `,
+    `
 })
 export class FileUpload implements OnInit {
     
@@ -53,6 +54,8 @@ export class FileUpload implements OnInit {
     
     progress: number = 0;
     
+    dragHighlight: boolean;
+    
     constructor(private sanitizer:DomSanitizationService){}
     
     ngOnInit() {
@@ -60,7 +63,7 @@ export class FileUpload implements OnInit {
     }
     
     onFileSelect(event) {
-        let files = event.target.files;
+        let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
             if(this.isImage(file)) {
@@ -119,6 +122,32 @@ export class FileUpload implements OnInit {
     
     remove(index: number) {
         this.files.splice(index, 1);
+    }
+    
+    hasFiles(): boolean {
+        return this.files && this.files.length > 0;
+    }
+    
+    onDragEnter(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    
+    onDragOver(e) {
+        this.dragHighlight = true;
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    
+    onDragLeave(e) {
+        this.dragHighlight = false;
+    }
+    
+    onDrop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        this.onFileSelect(e);
     }
 }
 
