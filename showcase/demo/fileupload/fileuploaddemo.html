@@ -68,6 +68,18 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
                 <li>invalidFileSizeMessageDetail: string = 'maximum upload size is &#123;0&#125;.'</li>
             </ul>
             
+            <h3>Content</h3>
+            <p>Custom content can be placed inside the content section as well, this can be useful to implement a user interface
+                to manage the uploaded files such as removing them.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
+        accept="image/*" maxFileSize="1000000"&gt;
+        &lt;div&gt;Custom UI to manage uploaded files&lt;/div&gt;
+&lt;/p-fileUpload&gt;
+</code>
+</pre>
+            
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">

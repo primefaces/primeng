@@ -32,6 +32,8 @@ import {Message} from '../common/api';
                         <div><button type="button" icon="fa-close" pButton (click)="remove(i)"></button></div>
                     </div>
                 </div>
+                
+                <ng-content></ng-content>
             </div>
         </div>
     `
