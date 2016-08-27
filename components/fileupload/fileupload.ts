@@ -26,7 +26,7 @@ import {Message} from '../common/api';
                 
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div class="ui-fileupload-row" *ngFor="let file of files;let i = index;">
-                        <div><img [src]="file.objectURL" *ngIf="isImage(file)" width="50" /></div>
+                        <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" [height]="previewHeight" /></div>
                         <div>{{file.name}}</div>
                         <div>{{formatSize(file.size)}}</div>
                         <div><button type="button" icon="fa-close" pButton (click)="remove(i)"></button></div>
@@ -60,6 +60,8 @@ export class FileUpload implements OnInit {
     
     @Input() styleClass: string;
     
+    @Input() previewWidth: number = 50;
+        
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
         
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
