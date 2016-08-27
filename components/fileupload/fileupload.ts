@@ -9,7 +9,7 @@ import {Message} from '../common/api';
 @Component({
     selector: 'p-fileUpload',
     template: `
-        <div class="ui-fileupload ui-widget">
+        <div [ngClass]="{'ui-fileupload ui-widget'}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
                 <button type="button" label="Choose" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="fileinput.value=null" [disabled]="disabled"> 
                     <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
@@ -47,14 +47,16 @@ export class FileUpload implements OnInit {
     @Input() accept: string;
     
     @Input() disabled: boolean;
-    
-    @Input() maxFileCount: number;
-    
+        
     @Input() maxFileSize: number;
     
     @Input() invalidFileSizeMessageSummary: string = '{0}: Invalid file size, ';
     
     @Input() invalidFileSizeMessageDetail: string = 'maximum upload size is {0}.';
+    
+    @Input() style: string;
+    
+    @Input() styleClass: string;
         
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
