@@ -691,5 +691,8 @@ pre {
     width: 2.4em;
 }
 
+.ui-panel-content-wrapper-overflown {
+    overflow: hidden;
+}
 
 
