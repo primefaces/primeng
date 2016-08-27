@@ -9,7 +9,8 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
         
-    <p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" multiple="multiple" accept="image/*"></p-fileUpload>
+    <p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" 
+            multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
 </div>
 
 <div class="ContentSideSections Source">

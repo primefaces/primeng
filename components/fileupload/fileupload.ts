@@ -2,7 +2,9 @@ import {NgModule,Component,OnInit,Input,Output,EventEmitter} from '@angular/core
 import {CommonModule} from '@angular/common';
 import {DomSanitizationService} from '@angular/platform-browser';
 import {ButtonModule} from '../button/button';
+import {MessagesModule} from '../messages/messages';
 import {ProgressBarModule} from '../progressbar/progressbar';
+import {Message} from '../common/api';
 
 @Component({
     selector: 'p-fileUpload',
@@ -19,6 +21,8 @@ import {ProgressBarModule} from '../progressbar/progressbar';
             <div [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true,'ui-fileupload-highlight':dragHighlight}" 
                 (dragenter)="onDragEnter($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
                 <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
+                
+                <p-messages [value]="msgs"></p-messages>
                 
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div class="ui-fileupload-row" *ngFor="let file of files;let i = index;">
@@ -44,6 +48,14 @@ export class FileUpload implements OnInit {
     
     @Input() disabled: boolean;
     
+    @Input() maxFileCount: number;
+    
+    @Input() maxFileSize: number;
+    
+    @Input() invalidFileSizeMessageSummary: string = '{0}: Invalid file size, ';
+    
+    @Input() invalidFileSizeMessageDetail: string = 'maximum upload size is {0}.';
+        
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
     @Output() onError: EventEmitter<any> = new EventEmitter();
@@ -58,6 +70,8 @@ export class FileUpload implements OnInit {
     
     dragHighlight: boolean;
     
+    msgs: Message[];
+    
     constructor(private sanitizer:DomSanitizationService){}
     
     ngOnInit() {
@@ -65,17 +79,33 @@ export class FileUpload implements OnInit {
     }
     
     onFileSelect(event) {
+        this.msgs = [];
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
-            if(this.isImage(file)) {
-                file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+            if(this.validate(file)) {
+                if(this.isImage(file)) {
+                    file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                }
+                
+                this.files.push(files[i]);
             }
-            
-            this.files.push(files[i]);
         }
         
         this.onSelect.emit({originalEvent: event, files: files});
+    }
+    
+    validate(file: File): boolean {
+        if(this.maxFileSize  && file.size > this.maxFileSize) {
+            this.msgs.push({
+                severity: 'error', 
+                summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name), 
+                detail: this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))
+            });
+            return false;
+        }
+        
+        return true;
     }
     
     isImage(file: File): boolean {
@@ -87,6 +117,7 @@ export class FileUpload implements OnInit {
     }
     
     upload() {
+        this.msgs = [];
         let xhr = new XMLHttpRequest(),
         formData = new FormData();
         
@@ -174,8 +205,8 @@ export class FileUpload implements OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,ProgressBarModule],
-    exports: [FileUpload,ButtonModule,ProgressBarModule],
+    imports: [CommonModule,ButtonModule,ProgressBarModule,MessagesModule],
+    exports: [FileUpload,ButtonModule,ProgressBarModule,MessagesModule],
     declarations: [FileUpload]
 })
 export class FileUploadModule { }
