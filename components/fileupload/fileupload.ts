@@ -9,12 +9,12 @@ import {ProgressBarModule} from '../progressbar/progressbar';
     template: `
         <div class="ui-fileupload ui-widget">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <button type="button" label="Choose" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="fileinput.value=null"> 
-                    <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept">
+                <button type="button" label="Choose" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="fileinput.value=null" [disabled]="disabled"> 
+                    <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
                 </button>
 
-                <button type="button" label="Upload" icon="fa-upload" pButton (click)="upload()"></button>
-                <button type="button" label="Cancel" icon="fa-close" pButton (click)="clear()"></button>
+                <button type="button" label="Upload" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
+                <button type="button" label="Cancel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
             </div>
             <div [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true,'ui-fileupload-highlight':dragHighlight}" 
                 (dragenter)="onDragEnter($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
@@ -41,6 +41,8 @@ export class FileUpload implements OnInit {
     @Input() multiple: boolean;
     
     @Input() accept: string;
+    
+    @Input() disabled: boolean;
     
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
@@ -129,25 +131,33 @@ export class FileUpload implements OnInit {
     }
     
     onDragEnter(e) {
-        e.stopPropagation();
-        e.preventDefault();
+        if(!this.disabled) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
     }
     
     onDragOver(e) {
-        this.dragHighlight = true;
-        e.stopPropagation();
-        e.preventDefault();
+        if(!this.disabled) {
+            this.dragHighlight = true;
+            e.stopPropagation();
+            e.preventDefault();
+        }
     }
     
     onDragLeave(e) {
-        this.dragHighlight = false;
+        if(!this.disabled) {
+            this.dragHighlight = false;
+        }
     }
     
     onDrop(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        
-        this.onFileSelect(e);
+        if(!this.disabled) {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            this.onFileSelect(e);
+        }
     }
     
     formatSize(bytes) {
