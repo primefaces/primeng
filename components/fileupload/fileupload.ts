@@ -9,7 +9,7 @@ import {Message} from '../common/api';
 @Component({
     selector: 'p-fileUpload',
     template: `
-        <div [ngClass]="{'ui-fileupload ui-widget'}" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
                 <button type="button" label="Choose" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="fileinput.value=null" [disabled]="disabled"> 
                     <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
