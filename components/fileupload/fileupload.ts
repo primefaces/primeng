@@ -59,6 +59,8 @@ export class FileUpload implements OnInit {
     @Input() style: string;
     
     @Input() styleClass: string;
+    
+    @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
         
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
@@ -147,6 +149,11 @@ export class FileUpload implements OnInit {
                 this.clear();
             }
         };
+        
+        this.onBeforeUpload.emit({
+            'xhr': xhr,
+            'formData': formData 
+        });
         
         xhr.open('POST', this.url, true);
         xhr.send(formData);
