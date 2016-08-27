@@ -24,7 +24,7 @@ import {ProgressBarModule} from '../progressbar/progressbar';
                     <div class="ui-fileupload-row" *ngFor="let file of files;let i = index;">
                         <div><img [src]="file.objectURL" *ngIf="isImage(file)" width="50" /></div>
                         <div>{{file.name}}</div>
-                        <div>{{file.size}}</div>
+                        <div>{{formatSize(file.size)}}</div>
                         <div><button type="button" icon="fa-close" pButton (click)="remove(i)"></button></div>
                     </div>
                 </div>
@@ -148,6 +148,18 @@ export class FileUpload implements OnInit {
         e.preventDefault();
         
         this.onFileSelect(e);
+    }
+    
+    formatSize(bytes) {
+        if(bytes == 0) {
+            return '0 B';
+        }
+        let k = 1000,
+        dm = 3,
+        sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+        
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 }
 
