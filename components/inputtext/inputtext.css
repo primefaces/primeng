@@ -1,0 +1,18 @@
+.ui-inputtext {
+    margin: 0;
+    outline: medium none;
+    padding: 4px;
+    font-weight: normal;
+}
+
+.ui-widget-header .ui-inputtext,
+.ui-widget-content .ui-inputtext {
+    font-weight: normal;
+}
+
+.ui-fluid .ui-inputtext {
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}

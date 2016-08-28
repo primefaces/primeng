@@ -1,0 +1,117 @@
+.ui-datagrid .ui-paginator {
+	text-align: center;
+    border-top: 0px none;
+}
+
+.ui-datagrid-column {
+	padding: 3px;
+}
+
+.ui-datagrid-content-empty {
+    padding: 4px 10px;
+}
+
+.ui-datagrid .ui-datagrid-header,
+.ui-datagrid .ui-datagrid-footer {
+    text-align:center;
+    padding:4px 10px;
+}
+
+.ui-datagrid .ui-datagrid-header {
+    border-bottom: 0px none;
+}
+
+.ui-datagrid .ui-datagrid-footer {
+    border-top: 0px none;
+}
+
+.ui-datagrid .ui-paginator-top {
+    border-bottom: 0px none;
+}
+
+.ui-datagrid .ui-paginator-bottom {
+    border-top: 0px none;
+}
+
+.ui-datagrid-content  {
+    display: -webkit-flex;
+   display: flex;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+   -webkit-flex-wrap: wrap;
+   flex-wrap: wrap;
+   -webkit-flex-flow: row wrap;
+   flex-flow: row wrap;
+   -webkit-align-content: flex-end;
+   align-content: flex-end;
+}
+
+.ui-datagrid-content > div {
+    box-sizing: border-box;
+}
+
+.ui-datagrid-col-1 > div {
+ 	width: 100%
+}
+
+.ui-datagrid-col-2 > div {
+ 	width: 50%
+}
+
+.ui-datagrid-col-3 > div {
+ 	width: 33.33333%;
+}
+
+.ui-datagrid-col-4 > div {
+ 	width: 25%
+}
+
+.ui-datagrid-col-5 > div {
+ 	width: 20%
+}
+
+.ui-datagrid-col-6 > div {
+ 	width: 16.66666%;
+}
+
+.ui-datagrid-col-7 > div {
+ 	width: 14.28571%
+}
+
+.ui-datagrid-col-8 > div {
+ 	width: 12.5%
+}
+
+.ui-datagrid-col-9 > div {
+ 	width: 11.11111%
+}
+
+.ui-datagrid-col-10 > div {
+ 	width: 10%
+}
+
+@media (max-width: 640px) {   
+    .ui-datagrid-content  { 
+        display: block;
+    }
+     
+    .ui-datagrid-col-1 > div,
+    .ui-datagrid-col-2 > div,
+    .ui-datagrid-col-3 > div,
+    .ui-datagrid-col-4 > div,
+    .ui-datagrid-col-5 > div,
+    .ui-datagrid-col-6 > div,
+    .ui-datagrid-col-7 > div,
+    .ui-datagrid-col-8 > div,
+    .ui-datagrid-col-9 > div,
+    .ui-datagrid-col-10 > div,
+    .ui-datagrid-col-11 > div,
+    .ui-datagrid-col-12 > div {
+        width: 100%;
+    }
+}
+

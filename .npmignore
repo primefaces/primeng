@@ -23,6 +23,7 @@ webpack.config.js
 
 # misc
 *.log
+prod
 
 
 

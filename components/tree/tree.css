@@ -1,0 +1,82 @@
+.ui-tree {
+    width: 300px;
+}
+
+.ui-tree .ui-tree-container {
+    height: 100%;
+    margin: 0;
+    overflow: auto;
+    padding: 3px;
+    white-space: nowrap;
+}
+
+.ui-tree .ui-treenode-children {
+    margin: 0;
+    padding: 0 0 0 16px;
+}
+
+.ui-tree .ui-treenode {
+    background-attachment: scroll;
+    background-color: transparent;
+    background-image: none;
+    background-position: 0 0;
+    background-repeat: repeat-y;
+    list-style: none outside none;
+    margin: 0;
+    padding: 1px 0 0;
+}
+
+.ui-tree .ui-treenode-content {
+
+}
+
+.ui-tree .ui-tree-toggler {
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+.ui-tree .ui-treenode-icon {
+    display: inline-block;
+    margin-top: 3px;
+}
+
+.ui-tree .ui-treenode-label {
+    display: inline-block;
+    margin: 2px 0 0 0;
+    padding: 0 3px;
+}
+
+.ui-tree .ui-treenode-selectable .ui-treenode-label,
+.ui-tree .ui-treenode-selectable .ui-treenode-icon {
+    cursor: pointer;
+}
+
+.ui-tree .ui-treenode-label.ui-state-hover,
+.ui-tree .ui-treenode-label.ui-state-highlight {
+    font-weight: normal;
+    border: 0 none;
+}
+
+.ui-tree .ui-treenode-leaf-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.ui-tree .ui-chkbox-box {
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    float: left;
+}
+
+.ui-tree .ui-chkbox {
+    display: inline-block;
+    zoom: 1;
+}
+
+/** Fluid **/
+.ui-fluid .ui-tree {
+    width: 100%;
+}

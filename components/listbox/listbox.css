@@ -1,0 +1,22 @@
+.ui-listbox {
+    overflow:auto;
+    padding:2px;
+    width:125px;
+}
+
+.ui-listbox .ui-listbox-list {
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+}
+
+.ui-listbox .ui-listbox-item {
+    padding:2px;
+    border:0 none;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.ui-listbox.ui-state-disabled .ui-listbox-item {
+    cursor: default;
+}

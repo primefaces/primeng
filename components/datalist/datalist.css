@@ -1,0 +1,27 @@
+.ui-datalist .ui-datalist-header,
+.ui-datalist .ui-datalist-footer {
+    text-align:center;
+    padding:4px 10px;
+}
+
+.ui-datalist .ui-datalist-header {
+    border-bottom: 0px none;
+}
+
+.ui-datalist .ui-datalist-footer {
+    border-top: 0px none;
+}
+
+.ui-datalist .ui-paginator {
+    border-top: 0px none;
+}
+
+.ui-datalist .ui-datalist-data {
+    margin: 0;
+    padding: 0;
+}
+
+.ui-datalist .ui-datalist-data > li {
+    list-style-type: none;
+    
+}

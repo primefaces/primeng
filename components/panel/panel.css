@@ -1,0 +1,55 @@
+.ui-panel {
+	padding: 0.2em;
+}
+
+.ui-panel .ui-panel-titlebar {
+	padding: 0.5em 1em 0.3em;
+}
+
+.ui-panel .ui-panel-title {
+	margin: 0.1em 16px 0.2em 0;
+}
+
+.ui-panel .ui-panel-titlebar-icon {
+	float: right;
+    cursor: pointer;
+}
+
+.ui-panel .ui-panel-titlebar-icon,
+.ui-panel .ui-panel-titlebar-icon:hover,
+.ui-panel .ui-panel-titlebar-icon:focus {
+	margin-left:0.2em;
+    margin-top:-0.1em;
+    *margin:-1.5em 0em 0em 0.2em;
+}
+
+.ui-panel .ui-panel-content {
+	border: 0;
+    background: none;
+	padding: 0.5em 1em;
+}
+
+.ui-panel .ui-panel-footer {
+	border-width:1px 0 0;
+	margin:0.5em 0 0;
+	padding:0.5em 1em;
+	text-align:left;
+}
+
+.ui-panel-collapsed-h .ui-panel-titlebar-icon,
+.ui-panel-collapsed-h .ui-panel-titlebar-icon:hover,
+.ui-panel-collapsed-h .ui-panel-titlebar-icon:focus {
+    *margin:-0.2em 0em 0em 0.1em;
+}
+
+.ui-panel.ui-panel-collapsed-h {
+    width: 42px;
+}
+
+.ui-panel.ui-panel-collapsed-h .ui-panel-title {
+    display:none;
+}       
+
+.ui-panel-content-wrapper-overflown {
+    overflow: hidden;
+}     

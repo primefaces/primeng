@@ -1,0 +1,35 @@
+.ui-splitbutton {
+    position: relative;
+    padding-right: 2em;
+}
+
+.ui-splitbutton .ui-button.ui-splitbutton-menubutton {
+    width: 32px;
+    position: absolute;
+    top: 0px;
+    margin-left: -1px;
+    right: 0px;
+}
+
+.ui-splitbutton {
+    display: inline-block;
+    zoom: 1;
+}
+
+.ui-fluid .ui-splitbutton {
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}
+
+.ui-fluid .ui-splitbutton .ui-button {
+    width: 100%;
+}
+
+.ui-fluid .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
+    width: 32px;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}

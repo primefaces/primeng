@@ -1,0 +1,422 @@
+.ui-menu {
+    width: 12.5em;
+    padding:0.3em;
+    position:relative;
+}
+
+.ui-menu.ui-menu-dynamic {
+    position: absolute;
+    display: none;
+    z-index: 100000;
+}
+
+.ui-menu-list {
+    position:static;
+}
+
+.ui-menu .ui-menu-list .ui-menuitem {
+    border:none;
+}
+
+.ui-menu .ui-menu-list .ui-widget-header {
+    clear:both;
+    float:left;
+    width:98%;
+    margin:1px 0;
+}
+
+.ui-menu .ui-menuitem {
+    width:100%;
+    float:left;
+    clear:both;
+    margin:1px 0;
+    padding:0;
+}
+
+.ui-menu .ui-menuitem-parent {
+    width:100%;
+    float:left;
+    clear:both;
+    margin:1px 0;
+    padding:0;
+}
+
+.ui-menu .ui-menuitem-link {
+    display:block;
+    width:92%;
+    outline:none;
+    text-decoration:none;
+    font-weight:400;
+    border:solid 1px transparent;
+    float:left;
+    line-height:16px;
+    padding:0.3em;
+    cursor: pointer;
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon {
+    display:inline-block;
+    float:left;
+}
+
+.ui-menu .ui-menuitem-text {
+    float:left;
+}
+
+.ui-menu .ui-widget-header h1,
+.ui-menu .ui-widget-header h2,
+.ui-menu .ui-widget-header h3,
+.ui-menu .ui-widget-header h4,
+.ui-menu .ui-widget-header h5,
+.ui-menu .ui-widget-header h6 {
+    float:left;
+    display:block;
+    font-size:1em;
+    margin:0 auto;
+    padding:0.3em 3%;
+}
+
+.ui-menu .ui-menu-parent .ui-menu-child {
+    display:none;
+    width:12.5em;
+    padding:0.3em;
+    position:absolute;
+    margin:0; 
+    outline:0; 
+    line-height:1.3; 
+    text-decoration:none; 
+    font-size:100%; 
+    list-style:none;
+}
+
+.ui-menu .ui-menu-parent {
+    position:relative;
+}
+
+.ui-menu .ui-menu-parent .ui-submenu-icon {
+    float:right;
+    margin-right: -5px;
+}
+
+.ui-menubutton {
+    padding:0;
+}
+
+.ui-menubutton .ui-button {
+    margin:0;
+}
+
+/** Menubar **/
+.ui-menubar {
+    width:auto;
+}
+
+.ui-menubar .ui-menuitem {
+    width:auto;
+    clear:none;
+}
+
+.ui-menubar .ui-menu-child .ui-menuitem {
+    width:100%;
+}
+
+.ui-menubar .ui-menu-child {
+    top:25px;
+    left:0;
+}
+
+.ui-menubar .ui-menuitem-link {
+    width:auto;
+    padding:0.4em 0.3em;
+}
+
+.ui-menubar .ui-menu-child .ui-menuitem-link {
+    width:92%;
+}
+
+.ui-menubar .ui-widget-header {
+    clear:none;
+    width:auto;
+    margin:0 3px 0 0;
+}
+
+.ui-menubar .ui-widget-header h1,
+.ui-menubar .ui-widget-header h2,
+.ui-menubar .ui-widget-header h3,
+.ui-menubar .ui-widget-header h4,
+.ui-menubar .ui-widget-header h5,
+.ui-menubar .ui-widget-header h6 {
+    padding:0.4em 0.3em;
+}
+
+.ui-menubar .ui-menubar-options {
+    float: right;
+}
+
+.ui-menu .ui-separator {
+    width:98%;
+    height:0px;
+    float:left;
+    clear:both;
+    margin:1px 0 0 0;
+    padding:0;
+    border-top: 0px none;
+}
+
+/** Breadcrumb **/
+.ui-breadcrumb {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    padding: 5px 5px 7px 5px;
+}
+
+.ui-breadcrumb ul {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.ui-breadcrumb ul li {
+    display: block;
+    float: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.ui-breadcrumb ul li span {
+    display: block;
+    overflow: hidden;
+}
+
+.ui-breadcrumb ul li .ui-menuitem-link {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    float: left; 
+    margin-top:3px;
+}
+
+.ui-breadcrumb ul li.fa {
+    padding: 0;
+    margin: 4px 3px 0px 3px;
+}
+
+.ui-breadcrumb-chevron {
+    float:left;
+}
+           
+/** SlideMenu **/
+.ui-slidemenu .ui-slidemenu-wrapper {
+    position: relative;
+}
+
+.ui-slidemenu .ui-slidemenu-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+.ui-slidemenu .ui-menu-list {
+    position: absolute;
+    top: 0;
+}
+
+.ui-slidemenu .ui-menu-parent {
+    position: static;
+}
+
+.ui-slidemenu .ui-menu-child {
+    box-shadow : none;
+    border: 0 none;
+    background: none repeat scroll 0 0 transparent;
+}
+
+.ui-slidemenu-backward {
+    position: absolute;
+    bottom: 0;
+    width: 95%;
+    margin-bottom: 0.4em;
+    padding: 0.2em;
+    cursor: pointer;
+    display: none;
+}
+
+.ui-slidemenu-backward .fa {
+    float:left;
+    margin-top: 1px;
+}
+
+/** Fluid **/
+.ui-fluid .ui-menu {
+    width: 100%;
+}
+
+
+/** MegaMenu **/
+.ui-megamenu .ui-megamenu-panel.ui-menu-child {
+    width: auto;
+}
+
+.ui-megamenu .ui-megamenu-panel .ui-menu-list {
+    width: 12.5em;
+}
+
+.ui-megamenu-vertical {
+    width: 12.5em;
+}
+
+.ui-megamenu-vertical .ui-menuitem-link,
+.ui-megamenu-vertical .ui-menu-list .ui-menuitem {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/** PanelMenu **/
+.ui-panelmenu {
+    width: auto;
+}
+
+.ui-panelmenu .ui-panelmenu-panel {
+    padding: 0;
+    margin: 0;
+}
+
+.ui-panelmenu .ui-panelmenu-header {
+    cursor: pointer;
+    position: relative;
+    margin: 0;
+    zoom: 1;
+}
+
+.ui-panelmenu .ui-panelmenu-header a {
+    display: block;
+    padding: .5em .5em .5em 2.2em;
+}
+
+.ui-panelmenu .ui-panelmenu-header .fa {
+    position: absolute;
+    left: .5em;
+    top: 50%;
+    margin-top: -8px;
+}
+
+.ui-panelmenu .ui-panelmenu-header .ui-menuitem-icon.fa {
+    left: 1.5em;
+}
+
+.ui-panelmenu .ui-panelmenu-content {
+    padding: 0.2em 0;
+    border-top: 0;
+    margin-top: -2px;
+    position: relative;
+    top: 1px;
+    overflow: auto;
+    zoom: 1;
+    outline: none;
+}
+
+.ui-panelmenu .ui-panelmenu-header.ui-state-disabled,
+.ui-panelmenu .ui-panelmenu-header.ui-state-disabled a {
+    cursor: default;
+}
+
+.ui-panelmenu .ui-menu-list {
+    position: static;
+}
+
+.ui-panelmenu .ui-menuitem {
+    margin:1px 0;
+    padding:0;
+}
+
+.ui-panelmenu .ui-menuitem-link {
+    display:block;
+    outline:none;
+    text-decoration:none;
+    font-weight:400;
+    border:solid 1px transparent;
+    line-height:16px;
+    cursor: pointer;
+    position: relative;
+    padding: 0.3em 0.3em 0.3em 2em;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-menuitem-link-hasicon,
+.ui-panelmenu .ui-panelmenu-header a.ui-panelmenu-headerlink-hasicon {
+    padding-left: 2.8em;
+}
+
+.ui-panelmenu .fa {
+    position: absolute;
+    right: auto;
+    top: 4px;
+    bottom: 0;
+    margin: auto 0;
+    left: 0.5em;
+}
+
+.ui-panelmenu .ui-menu-parent > .ui-menuitem-link > .fa {
+    left: 1.5em;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-panelmenu-icon.fa {
+    left: 0.5em;
+}
+
+.ui-panelmenu .ui-menuitem-text {
+    float: none;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-menu-list {
+    margin-left: 20px;
+}
+
+/** MegaMenu and TieredMenus **/
+.ui-menuitem-active > .ui-submenu > ul,
+.ui-menuitem-active > .ui-megamenu-panel {
+    display: block !important;
+}
+
+.ui-menuitem-outline {
+    outline: 1px dotted;
+    z-index: 1;
+}
+
+/** TabMenu **/
+.ui-tabmenu { 
+    position: relative; 
+    zoom: 1; 
+}
+
+.ui-tabmenu .ui-tabmenu-nav { 
+    margin: 0;
+    padding: .2em .2em 0; 
+}
+
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem { 
+    list-style: none; 
+    float: left; 
+    position: relative; 
+    margin: 0 .2em 1px 0;  
+    padding: 0; 
+    white-space: nowrap;
+    display: block;
+    border-bottom: 0;
+    top: 1px; 
+}
+
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem a { 
+    float: left; 
+    padding: 0.5em 1em;
+    text-decoration: none; 
+}
+
+.ui-tabmenu .ui-tabmenu-nav a { 
+    padding: 0.5em 1em;
+}
+
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem .ui-icon { 
+    float: left; 
+    cursor: pointer; 
+}

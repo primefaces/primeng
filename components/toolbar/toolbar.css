@@ -1,0 +1,11 @@
+.ui-toolbar {
+    padding:.2em
+}
+
+.ui-toolbar-group-left {
+    float:left
+}
+
+.ui-toolbar-group-right {
+    float:right
+}
