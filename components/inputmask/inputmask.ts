@@ -67,12 +67,12 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             clearIncomplete: this.clearIncomplete,
             clearMaskOnLostFocus: this.clearMaskOnLostFocus,
 			onKeyDown: (event, buffer, caretPos, opts) => {
-				let val = this.unmask ? jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue') : event.target.value;
+				let val = this.unmask ? this.getUnmasekd() : event.target.value;
 				this.onModelChange(val);
 			},
 			onBeforeWrite: (event, buffer, caretPos, opts) => {
 				if(event.target != null){
-					let val = this.unmask ? jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue') : event.target.value;
+					let val = this.unmask ? this.getUnmasekd() : event.target.value;
 					this.onModelChange(val);
 				}
             },
@@ -97,7 +97,15 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         else
             jQuery(this.el.nativeElement.children[0])['inputmask'](cfg);
     }
-    
+    getUnmasekd():string {
+        let unmaskedVal = jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue');
+        let decimalRegex = /currency|decimal/g;
+        if (decimalRegex.test(this.alias) && unmaskedVal && this.options && this.options.radixPoint) {
+            unmaskedVal = Number(unmaskedVal.replace(this.options.radixPoint, '.'))
+        }
+
+        return unmaskedVal || "";
+    }
     writeValue(value: any) : void {
         this.value = value;
     }
