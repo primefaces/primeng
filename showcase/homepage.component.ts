@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
         <div class="ContentSideSections overHidden">
             <div class="Content33 floatLeft overHidden TextShadow">
                 <div class="defaultTopic">PrimeNG</div>
-                <div class="defaultText">PrimeNG is a collection of rich UI components for AngularJS2. PrimeNG is a sibling of the popular JavaServer Faces Component Suite, <a href="http://www.primefaces.org">PrimeFaces</a>.</div>
+                <div class="defaultText">PrimeNG is a collection of rich UI components for Angular 2. PrimeNG is a sibling of the popular JavaServer Faces Component Suite, <a href="http://www.primefaces.org">PrimeFaces</a>.</div>
                 <br />
                 <div class="defaultText">All widgets are open source and free to use under Apache License 2.0, a commercial friendly license.</div>
                 <br />

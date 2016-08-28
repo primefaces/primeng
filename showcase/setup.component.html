@@ -1,17 +1,16 @@
 <div class="ContentSideSections">
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Setup</span>
-        <span class="defaultText">PrimeNG is a rich set of native Angular2 UI components that depend on PrimeUI for CSS.</span>
+        <span class="defaultText">PrimeNG is a rich set of open source native Angular2 UI components.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Source">
     <h3 style="margin-top:0px">Download</h3>
-    <p>PrimeNG is available at npm, if you have an existing application run the following commands to download the modules to your project.</p>
+    <p>PrimeNG is available at npm, if you have an existing application run the following command to download it to your project.</p>
 <pre>
 <code class="language-markup" pCode>
 npm install primeng --save
-npm install primeui --save
 </code>
 </pre>
 
@@ -19,7 +18,7 @@ npm install primeui --save
     <p>PrimeNG is distributed in commonjs format, a module manager of your choice is required and this guide provides a sample for SystemJS and Webpack.</p>
 
     <h3>Import</h3>
-    <p>UI components are configured as modules, once PrimeNG is downloaded and configured, modules and apis can be imported from 'primeng/primeng' in your application code.</p>
+    <p>UI components are configured as modules, once PrimeNG is downloaded and configured, modules and apis can be imported from 'primeng/primeng' shorthand in your application code.</p>
 <pre>
 <code class="language-typescript" pCode>
 import &#123;AccordionModule&#125; from 'primeng/primeng';     //accordion and accordion tab
@@ -39,56 +38,63 @@ import &#123;MenuItem&#125; from 'primeng/common/api';
 </pre>
 
     <h3>Dependencies</h3>
-    <p>Majority of PrimeNG components are native and there are some exceptions having 3rd party dependencies. The native components require structural and skinning css files
-        from PrimeUI which are primeui-ng.all.css and a theme of your choice like omega. Components also require font-awesome for icons.</p>
+    <p>Majority of PrimeNG components are native and there are some exceptions having 3rd party dependencies. In addition, components require font-awesome for icons.</p>
 
-    <p>The required css dependencies are as follows;</p>
+    <p>The css dependencies are as follows, note that you may change the theme with another one of your choice.</p>
 <pre>
-<code class="language-typescript" pCode>
-&lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css" /&gt;
+<code class="language-html" pCode>
+&lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/omega/theme.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="YOUR_PATH/font-awesome.min.css" /&gt;
-&lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
 </code>
 </pre>
 
-    <p>Here is the list of components with 3rd party dependencies. The css for calendar and slider is included in primeui-ng-all.min.css so there is no need to add them
-    separately. For others both javascipt and css dependencies should be added such as css and js of quill. If you prefer a bundle of jquery, calendar and slider use <i>node_modules/primeui/primeui-ng-all.min.js</i> from PrimeUI.</p>
+    <p>Here is the list of components with 3rd party dependencies. The css for calendar and slider is included in primeng.min.css so there is no need to add them
+    separately, as a side note these two components will be reimplemented as native Angular2 components in near future. For others both javascipt and css dependencies should be added such as css and js of quill.</p>
     <div class="doc-tablewrapper">
         <table class="doc-table">
             <thead>
                 <tr>
                     <th>Component</th>
                     <th>Dependency</th>
+                    <th>Roadmap</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Calendar</td>
                     <td>jQuery, jQuery UI Datepicker, jQuery UI Timepicker</td>
+                    <td>Reimplement as native.</td>
                 </tr>
                 <tr>
                     <td>Slider</td>
                     <td>jQuery, jQuery UI Slider</td>
+                    <td>Reimplement as native.</td>
                 </tr>
                 <tr>
                     <td>Schedule</td>
                     <td>FullCalendar and Moment.js</td>
+                    <td>Keep.</td>
                 </tr>
                 <tr>
                     <td>InputMask</td>
                     <td>jQuery InputMask plugin</td>
+                    <td>Reimplement as native.</td>
                 </tr>
                 <tr>
                     <td>Editor</td>
                     <td>Quill Editor</td>
+                    <td>Keep.</td>
                 </tr>
                 <tr>
                     <td>GMap</td>
                     <td>Google Maps</td>
+                    <td>Keep.</td>
                 </tr>
                 <tr>
                     <td>Charts</td>
                     <td>Charts.js 2.1.x</td>
+                    <td>Keep.</td>
                 </tr>
             </tbody>
         </table>
@@ -129,8 +135,7 @@ import &#123;MenuItem&#125; from 'primeng/common/api';
     "rxjs": "5.0.0-beta.6",
     "zone.js": "^0.6.12",
     "angular2-in-memory-web-api": "0.0.15",
-    "primeui": "^4.1.15",
-    "primeng": "^1.0.0-beta.13"
+    "primeng": "^1.0.0-beta.14"
   &#125;,
   "devDependencies": &#123;
     "concurrently": "^2.0.0",
@@ -151,9 +156,9 @@ import &#123;MenuItem&#125; from 'primeng/common/api';
     &lt;meta charset="UTF-8"&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
     
-    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/themes/omega/theme.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
-    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/primeng.min.css" /&gt;
 
     &lt;!-- 1. Load libraries --&gt;
      &lt;!-- Polyfill(s) for older browsers --&gt;
@@ -161,10 +166,7 @@ import &#123;MenuItem&#125; from 'primeng/common/api';
     &lt;script src="node_modules/zone.js/dist/zone.js"&gt;&lt;/script&gt;
     &lt;script src="node_modules/reflect-metadata/Reflect.js"&gt;&lt;/script&gt;
     &lt;script src="node_modules/systemjs/dist/system.src.js"&gt;&lt;/script&gt;
-    
-    &lt;!-- Optional if a jquery dependant widget is used --&gt;
-    &lt;script src="node_modules/primeui/primeui-ng-all.min.js"&gt;&lt;/script&gt;
-    
+        
     &lt;!-- 2. Configure SystemJS --&gt;
     &lt;script src="systemjs.config.js"&gt;&lt;/script&gt;
     &lt;script&gt;
@@ -320,8 +322,7 @@ platformBrowserDynamic().bootstrapModule(AppModule);
     "rxjs": "5.0.0-beta.6",
     "zone.js": "^0.6.12",
     "angular2-in-memory-web-api": "0.0.15",
-    "primeui": "^4.1.14",
-    "primeng": "^1.0.0-beta.13"
+    "primeng": "^1.0.0-beta.14"
   &#125;,
   "devDependencies": &#123;
     "typescript": "^1.8.10",
@@ -456,9 +457,9 @@ module.exports = &#123;
   &lt;head>
     &lt;title&gt;PrimeNG QuickStart with Webpack&lt;/title&gt;
 
-    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/themes/omega/theme.css" /&gt;
     &lt;link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" /&gt;
-    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/primeng.min.css" /&gt;
   &lt;/head&gt;
 
   &lt;!-- 3. Display the application --&gt;
