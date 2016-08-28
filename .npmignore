@@ -20,6 +20,7 @@ typings.json
 # config
 tsconfig.json
 webpack.config.js
+gulpfile.js
 
 # misc
 *.log
