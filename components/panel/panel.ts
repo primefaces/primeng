@@ -13,7 +13,7 @@ import {CommonModule} from '@angular/common';
                     <span class="fa fa-fw" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
                 </a>
             </div>
-            <div class="ui-panel-content-wrapper" @panelContent="collapsed ? 'hidden' : 'visible'" 
+            <div class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" 
                 [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}">
                 <div class="ui-panel-content ui-widget-content">
                     <ng-content></ng-content>

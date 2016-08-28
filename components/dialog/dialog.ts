@@ -7,7 +7,7 @@ import {Header} from '../common/shared';
     selector: 'p-dialog',
     template: `
         <div [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" 
-            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" @dialogState="visible ? 'visible' : 'hidden'">
+            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
@@ -35,8 +35,8 @@ import {Header} from '../common/shared';
             state('visible', style({
                 opacity: 1
             })),
-            transition('visible => hidden', animate('250ms ease-in')),
-            transition('hidden => visible', animate('250ms ease-out'))
+            transition('visible => hidden', animate('400ms ease-in')),
+            transition('hidden => visible', animate('400ms ease-out'))
         ])
     ],
     providers: [DomHandler]
