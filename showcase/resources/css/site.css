@@ -73,8 +73,6 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 
 .PropertyBox{width:27%; height:280px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
     -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
-.PropertyBox:hover, .MOBILE .PropertyBox:hover{background-color:#e0e5e9;
-    -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
 .PropertyBox img{width:60%;}
 .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:18px; margin-bottom:10px;}
 .PropertyBox .PropertyText{display:block; color:#414D52; font-size:14px; line-height: 22px;}
