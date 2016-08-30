@@ -80,6 +80,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     @Input() readOnly: boolean;
     
+    @Input() formats: string[];
+    
     value: string;
     
     onModelChange: Function = () => {};
@@ -100,7 +102,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
           },
           placeholder: this.placeholder,
           readOnly: this.readOnly,
-          theme: 'snow'
+          theme: 'snow',
+          formats: this.formats
         });
                 
         if(this.value) {
