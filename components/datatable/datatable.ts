@@ -106,7 +106,10 @@ export class RowExpansionLoader {
                                 'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
                                 [draggable]="reorderableColumns" (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)">
                                 <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
-                                <span class="ui-column-title" *ngIf="!col.selectionMode">{{col.header}}</span>
+                                <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
+                                <span class="ui-column-title" *ngIf="col.headerTemplate">
+                                    <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
+                                </span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
                                 <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>

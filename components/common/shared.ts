@@ -1,4 +1,4 @@
-import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,TemplateRef,OnInit,AfterContentInit,QueryList} from '@angular/core';
+import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,ContentChild,TemplateRef,OnInit,AfterContentInit,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
 
@@ -13,6 +13,18 @@ export class Header {}
     template: '<ng-content></ng-content>'
 })
 export class Footer {}
+
+@Directive({
+    selector: '[pTemplate]',
+    host: {
+    }
+})
+export class PrimeTemplate {
+    
+    @Input() type: string;
+    
+    constructor(protected template: TemplateRef<any>) {}
+}
 
 @Directive({
     selector: '[pTemplateWrapper]'
@@ -52,14 +64,35 @@ export class Column implements AfterContentInit{
     @Input() expander: boolean;
     @Input() selectionMode: string;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
-    @ContentChildren(TemplateRef) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChild(TemplateRef) template: TemplateRef<any>;
     
     protected bodyTemplate: TemplateRef<any>;
     protected headerTemplate: TemplateRef<any>;
     
-    ngAfterContentInit():void {        
-        this.bodyTemplate = this.templates.first;
-        //todo: find a way to differantiate header and body cell templates
+    ngAfterContentInit():void {
+        if(this.templates.length) {
+            this.templates.forEach((item) => {
+                switch(item.type) {
+                    case 'header':
+                        this.headerTemplate = item.template;
+                    break;
+                    
+                    case 'body':
+                        this.bodyTemplate = item.template;
+                    break;
+                    
+                    default:
+                        this.bodyTemplate = item.template;
+                    break;
+                }
+            });
+        }
+        //backward compatibility, deprecated and will be removed later
+        else {
+            console.log('Templates without type attribute is deprecated, apply pTemplate directive on template element with type="header|body|footer" instead.');
+            this.bodyTemplate = this.template;
+        }
     }
 }
 
@@ -105,7 +138,7 @@ export class ColumnHeaderTemplateLoader {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader],
-    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader]
+    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,PrimeTemplate],
+    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,PrimeTemplate]
 })
 export class SharedModule { }
