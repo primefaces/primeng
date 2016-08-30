@@ -246,17 +246,24 @@ export class DataTableDemo implements OnInit &#123;
 </pre>
 
             <h3>Templates</h3>
-            <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating. The implicit variable is the column definition and data of current row can be accessed using
-            rowData property. In addition index of the current can be access using the optional rowIndex variable.</p>
+            <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating where the implicit variable passed to the template 
+                is the column definition and data of current row is the rowData property. In addition index of the current can be accessed using the optional rowIndex variable. 
+                Similarly, custom content can be placed at the header and footer of a column with templating.</p>
+            
+            <p>A template inside a column must be decorated with pTemplate directive along with the type property to indicate where the template belongs to. Possible values 
+            are "header", "body" and "footer".</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-column field="color" header="Color"&gt;
-    &lt;template let-col #car="rowData" #ri="rowIndex"&gt;
+    &lt;template let-col #car="rowData" #ri="rowIndex" pTemplate type="body"&gt;
         &lt;span"&gt;{{car[col.field]}}&lt;/span&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;
 &lt;p-column&gt;
-    &lt;template let-car="rowData"&gt;
+    &lt;template pTemplate type="header"&gt;
+        &lt;button type="button" pButton (click)="selectAllCars()" icon="fa-check"&gt;&lt;/button&gt;
+    &lt;/template&gt;
+    &lt;template let-car="rowData" pTemplate type="body"&gt;
         &lt;button type="button" pButton (click)="selectCar(car)" icon="fa-search"&gt;&lt;/button&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;

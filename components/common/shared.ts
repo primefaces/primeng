@@ -67,32 +67,30 @@ export class Column implements AfterContentInit{
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     @ContentChild(TemplateRef) template: TemplateRef<any>;
     
-    protected bodyTemplate: TemplateRef<any>;
     protected headerTemplate: TemplateRef<any>;
+    protected bodyTemplate: TemplateRef<any>;    
+    protected footerTemplate: TemplateRef<any>;
     
     ngAfterContentInit():void {
-        if(this.templates.length) {
-            this.templates.forEach((item) => {
-                switch(item.type) {
-                    case 'header':
-                        this.headerTemplate = item.template;
-                    break;
-                    
-                    case 'body':
-                        this.bodyTemplate = item.template;
-                    break;
-                    
-                    default:
-                        this.bodyTemplate = item.template;
-                    break;
-                }
-            });
-        }
-        //backward compatibility, deprecated and will be removed later
-        else {
-            console.log('Templates without type attribute is deprecated, apply pTemplate directive on template element with type="header|body|footer" instead.');
-            this.bodyTemplate = this.template;
-        }
+        this.templates.forEach((item) => {
+            switch(item.type) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                break;
+                
+                case 'body':
+                    this.bodyTemplate = item.template;
+                break;
+                
+                case 'footer':
+                    this.footerTemplate = item.template;
+                break;
+                
+                default:
+                    this.bodyTemplate = item.template;
+                break;
+            }
+        });
     }
 }
 
@@ -136,9 +134,26 @@ export class ColumnHeaderTemplateLoader {
     }
 }
 
+@Component({
+    selector: 'p-columnFooterTemplateLoader',
+    template: ``
+})
+export class ColumnFooterTemplateLoader {
+        
+    @Input() column: any;
+            
+    constructor(protected viewContainer: ViewContainerRef) {}
+    
+    ngOnInit() {
+        let view = this.viewContainer.createEmbeddedView(this.column.footerTemplate, {
+            '\$implicit': this.column
+        });
+    }
+}
+
 @NgModule({
     imports: [CommonModule],
-    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,PrimeTemplate],
-    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,PrimeTemplate]
+    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate],
+    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate]
 })
 export class SharedModule { }

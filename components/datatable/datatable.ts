@@ -131,7 +131,12 @@ export class RowExpansionLoader {
                     </thead>
                     <tfoot *ngIf="hasFooter()">
                         <tr *ngIf="!footerRows">
-                            <th *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}" [style.display]="col.hidden ? 'none' : 'table-cell'">{{col.footer}}</th>
+                            <th *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}" [style.display]="col.hidden ? 'none' : 'table-cell'">
+                                <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
+                                <span class="ui-column-footer" *ngIf="col.footerTemplate">
+                                    <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>
+                                </span>
+                            </th>
                         </tr>
                         <tr *ngFor="let footerRow of footerRows">
                             <th *ngFor="let col of footerRow.columns" [ngStyle]="col.style" [class]="col.styleClass"
