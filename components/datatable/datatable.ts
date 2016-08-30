@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {InputTextModule} from '../inputtext/inputtext';
-import {Column,Header,Footer,ColumnTemplateLoader} from '../common/shared';
+import {Column,Header,Footer} from '../common/shared';
 import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
@@ -144,9 +144,9 @@ export class RowExpansionLoader {
                                 <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                     <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                    <span class="ui-cell-data" *ngIf="!col.template && !col.expander && !col.selectionMode">{{resolveFieldData(rowData,col.field)}}</span>
-                                    <span class="ui-cell-data" *ngIf="col.template">
-                                        <p-columnTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnTemplateLoader>
+                                    <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{resolveFieldData(rowData,col.field)}}</span>
+                                    <span class="ui-cell-data" *ngIf="col.bodyTemplate">
+                                        <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                                     </span>
                                     <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
@@ -202,9 +202,9 @@ export class RowExpansionLoader {
                             <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 [ngClass]="{'ui-editable-column':col.editable}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                 <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                <span class="ui-cell-data" *ngIf="!col.template">{{resolveFieldData(rowData,col.field)}}</span>
-                                <span class="ui-cell-data" *ngIf="col.template">
-                                    <p-columnTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnTemplateLoader>
+                                <span class="ui-cell-data" *ngIf="!col.bodyTemplate">{{resolveFieldData(rowData,col.field)}}</span>
+                                <span class="ui-cell-data" *ngIf="col.bodyTemplate">
+                                    <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                                 </span>
                                 <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
                                         (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>

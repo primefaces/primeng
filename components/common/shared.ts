@@ -1,4 +1,4 @@
-import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChild,TemplateRef,OnInit} from '@angular/core';
+import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,TemplateRef,OnInit,AfterContentInit,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
 
@@ -36,7 +36,7 @@ export class TemplateWrapper implements OnInit {
     selector: 'p-column',
     template: ``
 })
-export class Column {
+export class Column implements AfterContentInit{
     @Input() field: string;
     @Input() header: string;
     @Input() footer: string;
@@ -52,17 +52,25 @@ export class Column {
     @Input() expander: boolean;
     @Input() selectionMode: string;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
-    @ContentChild(TemplateRef) template: TemplateRef<any>;
+    @ContentChildren(TemplateRef) templates: QueryList<any>;
+    
+    protected bodyTemplate: TemplateRef<any>;
+    protected headerTemplate: TemplateRef<any>;
+    
+    ngAfterContentInit():void {        
+        this.bodyTemplate = this.templates.first;
+        //todo: find a way to differantiate header and body cell templates
+    }
 }
 
 @Component({
-    selector: 'p-columnTemplateLoader',
+    selector: 'p-columnBodyTemplateLoader',
     template: ``
 })
-export class ColumnTemplateLoader {
+export class ColumnBodyTemplateLoader {
         
     @Input() column: any;
-    
+        
     @Input() rowData: any;
     
     @Input() rowIndex: number;
@@ -70,7 +78,7 @@ export class ColumnTemplateLoader {
     constructor(protected viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.column.template, {
+        let view = this.viewContainer.createEmbeddedView(this.column.bodyTemplate, {
             '\$implicit': this.column,
             'rowData': this.rowData,
             'rowIndex': this.rowIndex
@@ -78,9 +86,26 @@ export class ColumnTemplateLoader {
     }
 }
 
+@Component({
+    selector: 'p-columnHeaderTemplateLoader',
+    template: ``
+})
+export class ColumnHeaderTemplateLoader {
+        
+    @Input() column: any;
+            
+    constructor(protected viewContainer: ViewContainerRef) {}
+    
+    ngOnInit() {
+        let view = this.viewContainer.createEmbeddedView(this.column.headerTemplate, {
+            '\$implicit': this.column
+        });
+    }
+}
+
 @NgModule({
     imports: [CommonModule],
-    exports: [Header,Footer,Column,TemplateWrapper,ColumnTemplateLoader],
-    declarations: [Header,Footer,Column,TemplateWrapper,ColumnTemplateLoader]
+    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader],
+    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader]
 })
 export class SharedModule { }

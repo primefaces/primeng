@@ -15,12 +15,15 @@
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color">
-            <template let-col let-car="rowData">
+            <template let-col let-car="rowData" type="body">
+                <span [style.color]="car[col.field]">{{car[col.field]}}</span>
+            </template>
+            <template let-col type="header">
                 <span [style.color]="car[col.field]">{{car[col.field]}}</span>
             </template>
         </p-column>
         <p-column styleClass="col-button">
-            <template let-car="rowData">
+            <template let-car="rowData" type="body">
                 <button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>
             </template>
         </p-column>

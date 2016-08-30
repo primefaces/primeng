@@ -15,7 +15,7 @@ import {DomHandler} from '../dom/domhandler';
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"></span>
                 <span *ngIf="!col.template">{{node.data[col.field]}}</span>
-                <p-columnTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnTemplateLoader>
+                <p-columnBodyTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnBodyTemplateLoader>
             </td>
         </div>
         <div *ngIf="node.children" class="ui-treetable-row" [style.display]="expanded ? 'table-row' : 'none'">
