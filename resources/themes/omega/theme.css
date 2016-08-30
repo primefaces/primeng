@@ -296,8 +296,8 @@
  */
 .ui-accordion .ui-accordion-header a { display: block; font-size: 1em; padding: .5em .5em .5em .7em; font-weight: bold; }
 .ui-accordion .ui-accordion-header {
-	border: 1px solid #d9d9d9;
 	background: #f6f7f9;
+	border-top: 1px solid #d9d9d9;
 }
 
 .ui-accordion .ui-accordion-header.ui-state-hover {
@@ -308,9 +308,14 @@
     background: #ffffff;
     border-left: 0px none;
     border-right: 0px none;
+    border-bottom: 0px none;
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
+}
+
+.ui-accordion .ui-accordion-content.ui-widget-content {
+    border: 0 none;
 }
 
 /* Tabview */
