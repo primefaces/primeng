@@ -32,7 +32,7 @@ import {CommonModule} from '@angular/common';
             transition('visible => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
             transition('hidden => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
-    ],
+    ]
 })
 export class Panel {
 
