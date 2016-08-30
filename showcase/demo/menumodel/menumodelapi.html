@@ -119,7 +119,8 @@ export class MenuDemo &#123;
             label: 'File',
             items: [
                 &#123;label: 'New', icon: 'fa-plus': command: (event) => &#123;
-                    //process event
+                    //event.originalEvent: Browser event
+                    //event.item: menuitem metadata
                 }}
             ]
         &#125;

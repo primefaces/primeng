@@ -72,7 +72,10 @@ export class MenubarSub {
                 item.eventEmitter.subscribe(item.command);
             }
             
-            item.eventEmitter.emit(event);
+            item.eventEmitter.emit({
+                originalEvent: event,
+                item: item
+            });
         }
 
         if(item.routerLink) {
