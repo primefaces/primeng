@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -10,11 +10,26 @@ import {CommonModule} from '@angular/common';
                 <span *ngIf="toggleable" class="ui-fieldset-toggler fa fa-w" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
                 {{legend}}
             </legend>
-            <div class="ui-fieldset-content" [style.display]="collapsed ? 'none' : 'block'">
-                <ng-content></ng-content>
+            <div class="ui-fieldset-content-wrapper" [@fieldsetContent]="collapsed ? 'hidden' : 'visible'" 
+                        [ngClass]="{'ui-fieldset-content-wrapper-overflown': collapsed||animating}">
+                <div class="ui-fieldset-content">
+                    <ng-content></ng-content>
+                </div>
             </div>
         </fieldset>
     `,
+    animations: [
+        trigger('fieldsetContent', [
+            state('hidden', style({
+                height: '0px'
+            })),
+            state('visible', style({
+                height: '*'
+            })),
+            transition('visible => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
+            transition('hidden => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+        ])
+    ]
 })
 export class Fieldset {
 
@@ -34,6 +49,8 @@ export class Fieldset {
     
     protected hover: boolean;
     
+    protected animating: boolean;
+    
     onLegendMouseenter(event) {
         if(this.toggleable) {
             this.hover = true;
@@ -48,6 +65,7 @@ export class Fieldset {
     
     toggle(event) {
         if(this.toggleable) {
+            this.animating = true;
             this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
             
             if(this.collapsed)
@@ -56,6 +74,11 @@ export class Fieldset {
                 this.collapse(event);
                 
             this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});   
+            
+            //TODO: Use onDone of animate callback instead with RC6
+            setTimeout(() => {
+                this.animating = false;
+            }, 400);
         }
     }
     

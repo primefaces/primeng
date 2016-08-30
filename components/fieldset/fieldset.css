@@ -13,3 +13,7 @@
     margin-top: 0.1em;
     float:left;
 }
+
+.ui-fieldset .ui-fieldset-content-wrapper-overflown {
+    overflow: hidden;
+} 
