@@ -144,9 +144,9 @@ export class FileUpload implements OnInit {
                 this.progress = 0;
                 
                 if(xhr.status == 200)
-                    this.onUpload.emit({xhr: xhr});
+                    this.onUpload.emit({xhr: xhr, files: this.files});
                 else
-                    this.onError.emit({xhr: xhr});
+                    this.onError.emit({xhr: xhr, files: this.files});
                 
                 this.clear();
             }
