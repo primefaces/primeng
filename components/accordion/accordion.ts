@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChild,
+trigger,state,transition,style,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
 
@@ -42,10 +43,25 @@ export class Accordion {
                 <ng-content select="header"></ng-content>
             </a>
         </div>
-        <div class="ui-accordion-content ui-helper-reset ui-widget-content" [style.display]="selected ? 'block' : 'none'">
-            <ng-content></ng-content>
+        <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" 
+            [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}">
+            <div class="ui-accordion-content ui-helper-reset ui-widget-content">
+                <ng-content></ng-content>
+            </div>
         </div>
-    `
+    `,
+    animations: [
+        trigger('tabContent', [
+            state('hidden', style({
+                height: '0px'
+            })),
+            state('visible', style({
+                height: '*'
+            })),
+            transition('visible => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
+            transition('hidden => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+        ])
+    ]
 })
 export class AccordionTab {
 
@@ -56,6 +72,8 @@ export class AccordionTab {
     @Input() disabled: boolean;
 
     @ContentChild(Header) headerFacet;
+    
+    protected animating: boolean;
 
     constructor(protected accordion: Accordion) {
         this.accordion.addTab(this);
@@ -63,10 +81,10 @@ export class AccordionTab {
 
     toggle(event) {
         if(this.disabled) {
-            event.preventDefault();
             return;
         }
-
+        
+        this.animating = true;
         let index = this.findTabIndex();
 
         if(this.selected) {
@@ -81,9 +99,13 @@ export class AccordionTab {
             }
 
             this.selected = true;
-
             this.accordion.onOpen.emit({originalEvent: event, index: index});
         }
+        
+        //TODO: Use onDone of animate callback instead with RC6
+        setTimeout(() => {
+            this.animating = false;
+        }, 400);
 
         event.preventDefault();
     }

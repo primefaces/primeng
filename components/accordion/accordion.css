@@ -37,3 +37,7 @@
 .ui-accordion .ui-accordion-header.ui-state-disabled a { 
     cursor: default; 
 }
+
+.ui-accordion-content-wrapper-overflown {
+    overflow: hidden;
+}
