@@ -12,7 +12,7 @@
     <p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" 
             multiple="multiple" accept="image/*" maxFileSize="1000000">
             
-            <ul *ngIf="uploadedFiles">
+            <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
             </ul>
     </p-fileUpload>
@@ -61,8 +61,8 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <p>Maximium file size can be restricted using maxFileSize property defined in bytes.</p>
 <pre>
 <code class="language-markup" pCode>
-    &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
-            accept="image/*" maxFileSize="1000000"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
+        accept="image/*" maxFileSize="1000000"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
 
@@ -249,13 +249,13 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
     
 &lt;p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" 
         multiple="multiple" accept="image/*" maxFileSize="1000000"&gt;
-    &lt;ul *ngIf="uploadedFiles"&gt;
-        &lt;li *ngFor="let file of uploadedFiles"&gt;{{file.name}} - {{file.size}} bytes&lt;/li&gt;
+    &lt;ul *ngIf="uploadedFiles.length"&gt;
+        &lt;li *ngFor="let file of uploadedFiles"&gt;&#123;&#123;file.name&#125;&#125; - &#123;&#123;file.size&#125;&#125; bytes&lt;/li&gt;
     &lt;/ul&gt;        
 &lt;/p-fileUpload&gt;
 </code>
