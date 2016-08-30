@@ -35,7 +35,7 @@ export class Accordion {
 @Component({
     selector: 'p-accordionTab',
     template: `
-        <div class="ui-accordion-header ui-helper-reset ui-state-default" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}"
+        <div class="ui-accordion-header ui-state-default" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}"
             (click)="toggle($event)" (mouseenter)="hover = true" (mouseleave)="hover=false">
             <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
             <a href="#" *ngIf="!headerFacet">{{header}}</a>
@@ -45,7 +45,7 @@ export class Accordion {
         </div>
         <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" 
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}">
-            <div class="ui-accordion-content ui-helper-reset ui-widget-content">
+            <div class="ui-accordion-content ui-widget-content">
                 <ng-content></ng-content>
             </div>
         </div>

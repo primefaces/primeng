@@ -25,10 +25,6 @@
 .ui-accordion .ui-accordion-content { 
     padding: 1em 2.2em; 
     border-top: 0; 
-    margin-top: -2px; 
-    position: relative; 
-    top: 1px; 
-    margin-bottom: 2px; 
     overflow: auto; 
     zoom: 1; 
 }
