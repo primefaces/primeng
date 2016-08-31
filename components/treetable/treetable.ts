@@ -74,13 +74,21 @@ export class UITreeRow {
                         <tr class="ui-state-default">
                             <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" 
                                 [ngClass]="'ui-state-default ui-unselectable-text'">
-                                <span class="ui-column-title">{{col.header}}</span>
+                                <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>
+                                <span class="ui-column-title" *ngIf="col.headerTemplate">
+                                    <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
+                                </span>
                             </th>
                         </tr>
                     </thead>
                     <tfoot *ngIf="hasFooter()">
                         <tr>
-                            <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</td>
+                            <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}">
+                                <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
+                                <span class="ui-column-footer" *ngIf="col.footerTemplate">
+                                    <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>
+                                </span>
+                            </td>
                         </tr>
                     </tfoot>
                     <tbody pTreeRow *ngFor="let node of value" [node]="node" [level]="0"></tbody>

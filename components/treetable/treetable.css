@@ -78,3 +78,7 @@
 .ui-treetable tbody .ui-treetable-row td {
     border: 0px none;
 }
+
+.ui-treetable tbody .ui-treetable-row td input {
+    outline: 0 none;
+}

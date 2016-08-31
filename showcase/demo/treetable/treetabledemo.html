@@ -36,17 +36,17 @@
     <p-treeTable [value]="files" [style]="&#123;'margin-top':'30px'&#125;">
         <header>Editable Cells with Templating</header>
         <p-column field="name" header="Name">
-            <template let-node="rowData">
+            <template let-node="rowData" pTemplate type="body">
                 <input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
             </template>
         </p-column>
         <p-column field="size" header="Size">
-            <template let-node="rowData">
+            <template let-node="rowData" pTemplate type="body">
                 <input type="text" [(ngModel)]="node.data.size" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
             </template>
         </p-column>
         <p-column field="type" header="Type">
-            <template let-node="rowData">
+            <template let-node="rowData" pTemplate type="body">
                 <input type="text" [(ngModel)]="node.data.type" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
             </template>
         </p-column>
@@ -466,14 +466,18 @@ export class TreeTableDemoComponent implements OnInit &#123;
                 
             <h3>Templating</h3>
             <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a template inside a column that gets 
-                the column as an implicit variable and rowData as the node instance. Example below places an input field to create editable treenodes.</p>
+                the column as an implicit variable and rowData as the node instance. Similarly, custom content can be placed at the header and footer of a column with templating.
+                Example below places an input field to create editable treenodes.</p>
 
 <pre>
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-treeTable [value]="files"&gt;
     &lt;p:column&gt;
-        &lt;template let-col #node="rowData"&gt;
+        &lt;template let-col #node="rowData" pTemplate type="header"&gt;
+            &lt;button type="button" pButton label="Refresh"&gt;&lt;/button&gt;
+        &lt;/template&gt;
+        &lt;template let-col #node="rowData" pTemplate type="body"&gt;
             &lt;input [(ngModel)]="node.data.name" type="text" style="width:100%"&gt;
         &lt;/template&gt;
     &lt;/p:column&gt;
@@ -698,17 +702,17 @@ Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.data.name}
 &lt;p-treeTable [value]="files" [style]="&#123;'margin-top':'30px'&#125;"&gt;
     &lt;header&gt;Editable Cells with Templating&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;
-        &lt;template let-node="rowData"&gt;
+        &lt;template let-node="rowData" pTemplate type="body"&gt;
             &lt;input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;
-        &lt;template let-node="rowData"&gt;
+        &lt;template let-node="rowData" pTemplate type="body"&gt;
             &lt;input type="text" [(ngModel)]="node.data.size" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;
-        &lt;template let-node="rowData"&gt;
+        &lt;template let-node="rowData" pTemplate type="body"&gt;
             &lt;input type="text" [(ngModel)]="node.data.type" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
