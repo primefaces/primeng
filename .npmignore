@@ -4,6 +4,7 @@ node_modules
 # demo
 showcase
 index.html
+upload.php
 
 # typescript
 *.ts
