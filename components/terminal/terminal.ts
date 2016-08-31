@@ -61,16 +61,16 @@ export class Terminal implements AfterViewInit,AfterViewChecked {
     @Input()
     set response(value: string) {
         if(value) {
-            this.commands.push({text: this.command, response: value});
-            this.command = null;
+            this.commands[this.commands.length - 1].response = value;
             this.commandProcessed = true;
-            this.responseChange.emit(null);
         }
     }
     
     handleCommand(event,container) {
         if(event.keyCode == 13) {
+            this.commands.push({text: this.command});                    
             this.handler.emit({originalEvent: event, command: this.command});
+            this.command = '';
         }
     }
     
