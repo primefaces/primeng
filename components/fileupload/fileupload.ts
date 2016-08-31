@@ -197,6 +197,7 @@ export class FileUpload implements OnInit {
     
     onDrop(e) {
         if(!this.disabled) {
+            this.dragHighlight = false;
             e.stopPropagation();
             e.preventDefault();
             
