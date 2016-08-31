@@ -78,6 +78,8 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
     @Input() eventConstraint: any;
     
     @Input() locale: any;
+
+    @Input() eventRender: Function;
     
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
@@ -149,6 +151,7 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
             dragScroll: this.dragScroll,
             eventOverlap: this.eventOverlap,
             eventConstraint: this.eventConstraint,
+            eventRender: this.eventRender,
             events: (start, end, timezone, callback) => {
                 callback(this.events);
             },
