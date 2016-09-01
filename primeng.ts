@@ -19,6 +19,7 @@ export * from './components/dragdrop/dragdrop';
 export * from './components/dropdown/dropdown';
 export * from './components/editor/editor';
 export * from './components/fieldset/fieldset';
+export * from './components/fileupload/fileupload';
 export * from './components/galleria/galleria';
 export * from './components/gmap/gmap';
 export * from './components/growl/growl';
