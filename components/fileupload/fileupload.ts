@@ -11,7 +11,7 @@ import {Message} from '../common/api';
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <button type="button" label="Choose" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="fileinput.value=null" [disabled]="disabled"> 
+                <button type="button" label="Choose" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="onChooseClick($event, fileinput)" [disabled]="disabled"> 
                     <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
                 </button>
 
@@ -84,6 +84,11 @@ export class FileUpload implements OnInit {
     
     ngOnInit() {
         this.files = [];
+    }
+    
+    onChooseClick(event, fileInput) {
+        fileInput.value = null;
+        fileInput.click();
     }
     
     onFileSelect(event) {
