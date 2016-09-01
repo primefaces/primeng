@@ -1,7 +1,7 @@
 <div class="ContentSideSections">
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">FileUpload</span>
-        <span class="defaultText">FileUpload is an advanced uploader with dragdrop support, multi file uploads, progress tracking and
+        <span class="defaultText">FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and
             validations.</span>
     </div>
 </div>
@@ -46,6 +46,15 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
 
             <h3>DragDrop</h3>
             <p>File selection can also be done by dragging and dropping one or more to the content section of the component.</p>
+            
+            <h3>Auto Uploads</h3>
+            <p>When auto property is enabled, upload begins as soon as file selection is completed or a file is dropped on the drop area.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
+        accept="image/*" auto="auto"&gt;&lt;/p-fileUpload&gt;
+</code>
+</pre>
 
             <h3>File Types</h3>
             <p>Selectable file types can be restricted with accept property, example below only allows images to be uploaded.

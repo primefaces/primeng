@@ -49,6 +49,8 @@ export class FileUpload implements OnInit {
     @Input() accept: string;
     
     @Input() disabled: boolean;
+    
+    @Input() auto: boolean;
         
     @Input() maxFileSize: number;
     
@@ -106,6 +108,10 @@ export class FileUpload implements OnInit {
         }
         
         this.onSelect.emit({originalEvent: event, files: files});
+        
+        if(this.files && this.auto) {
+            this.upload();
+        }
     }
     
     validate(file: File): boolean {
