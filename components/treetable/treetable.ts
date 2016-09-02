@@ -14,7 +14,7 @@ import {DomHandler} from '../dom/domhandler';
                 <span *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':expanded,'fa-caret-right':!expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"></span>
-                <span *ngIf="!col.template">{{node.data[col.field]}}</span>
+                <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
                 <p-columnBodyTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnBodyTemplateLoader>
             </td>
         </div>
@@ -58,6 +58,25 @@ export class UITreeRow {
     
     onRowClick(event) {
         this.treeTable.onRowClick(event, this.node);
+    }
+    
+    resolveFieldData(data: any, field: string): any {
+        if(data && field) {
+            if(field.indexOf('.') == -1) {
+                return data[field];
+            }
+            else {
+                let fields: string[] = field.split('.');
+                let value = data;
+                for(var i = 0, len = fields.length; i < len; ++i) {
+                    value = value[fields[i]];
+                }
+                return value;
+            }
+        }
+        else {
+            return null;
+        }
     }
 }
 
