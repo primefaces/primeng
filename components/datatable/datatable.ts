@@ -1394,7 +1394,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,PaginatorModule,FormsModule],
+    imports: [CommonModule,SharedModule,PaginatorModule,FormsModule,InputTextModule],
     exports: [DataTable,SharedModule,PaginatorModule,FormsModule],
     declarations: [DataTable,DTRadioButton,DTCheckbox,RowExpansionLoader]
 })
