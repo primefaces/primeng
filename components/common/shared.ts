@@ -151,9 +151,26 @@ export class ColumnFooterTemplateLoader {
     }
 }
 
+@Component({
+    selector: 'p-templateLoader',
+    template: ``
+})
+export class TemplateLoader {
+        
+    @Input() template: TemplateRef<any>;
+            
+    constructor(protected viewContainer: ViewContainerRef) {}
+    
+    ngOnInit() {
+        if(this.template) {
+            this.viewContainer.createEmbeddedView(this.template, {});
+        }
+    }
+}
+
 @NgModule({
     imports: [CommonModule],
-    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate],
-    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate]
+    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate,TemplateLoader],
+    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate,TemplateLoader]
 })
 export class SharedModule { }

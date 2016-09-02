@@ -9,12 +9,13 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
         
-    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" 
-            multiple="multiple" accept="image/*" maxFileSize="1000000">
-            
-            <ul *ngIf="uploadedFiles.length">
-                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-            </ul>
+    <p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" 
+            multiple="multiple" accept="image/*" maxFileSize="1000000"> 
+            <template pTemplate type="content">
+                <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                </ul>
+            </template>    
     </p-fileUpload>
 </div>
 
@@ -82,14 +83,20 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
                 <li>invalidFileSizeMessageDetail: string = 'maximum upload size is &#123;0&#125;.'</li>
             </ul>
             
-            <h3>Content</h3>
-            <p>Custom content can be placed inside the content section as well, this can be useful to implement a user interface
-                to manage the uploaded files such as removing them.</p>
+            <h3>Templating</h3>
+            <p>File list UI is customizable using a template called "file" and another template named "content" can be used to place custom content 
+                inside the content section as well which would be useful to implement a user interface to manage the uploaded files such as removing them. The file
+            template gets the <a href="https://www.w3.org/TR/FileAPI/">File</a> instance a the implicit variable.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;
-        &lt;div&gt;Custom UI to manage uploaded files&lt;/div&gt;
+        &lt;template let-file pTemplate type="file"&gt;
+            &lt;div&gt;Custom UI to display a file&lt;/div&gt;
+        &lt;/template&gt; 
+        &lt;template pTemplate type="content"&gt;
+            &lt;div&gt;Custom UI to manage uploaded files&lt;/div&gt;
+        &lt;/template&gt;  
 &lt;/p-fileUpload&gt;
 </code>
 </pre>
@@ -263,9 +270,11 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
     
 &lt;p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" 
         multiple="multiple" accept="image/*" maxFileSize="1000000"&gt;
-    &lt;ul *ngIf="uploadedFiles.length"&gt;
-        &lt;li *ngFor="let file of uploadedFiles"&gt;&#123;&#123;file.name&#125;&#125; - &#123;&#123;file.size&#125;&#125; bytes&lt;/li&gt;
-    &lt;/ul&gt;        
+    &lt;template pTemplate type="content"&gt;
+        &lt;ul *ngIf="uploadedFiles.length"&gt;
+            &lt;li *ngFor="let file of uploadedFiles"&gt;&#123;&#123;file.name&#125;&#125; - &#123;&#123;file.size&#125;&#125; bytes&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/template&gt;        
 &lt;/p-fileUpload&gt;
 </code>
 </pre>

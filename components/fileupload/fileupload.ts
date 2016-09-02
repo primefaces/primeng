@@ -1,10 +1,11 @@
-import {NgModule,Component,OnInit,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,EventEmitter,TemplateRef,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizationService} from '@angular/platform-browser';
 import {ButtonModule} from '../button/button';
 import {MessagesModule} from '../messages/messages';
 import {ProgressBarModule} from '../progressbar/progressbar';
 import {Message} from '../common/api';
+import {PrimeTemplate,SharedModule} from '../common/shared';
 
 @Component({
     selector: 'p-fileUpload',
@@ -25,20 +26,25 @@ import {Message} from '../common/api';
                 <p-messages [value]="msgs"></p-messages>
                 
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
-                    <div class="ui-fileupload-row" *ngFor="let file of files;let i = index;">
-                        <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
-                        <div>{{file.name}}</div>
-                        <div>{{formatSize(file.size)}}</div>
-                        <div><button type="button" icon="fa-close" pButton (click)="remove(i)"></button></div>
+                    <div *ngIf="!fileTemplate">
+                        <div class="ui-fileupload-row" *ngFor="let file of files">
+                            <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
+                            <div>{{file.name}}</div>
+                            <div>{{formatSize(file.size)}}</div>
+                            <div><button type="button" icon="fa-close" pButton (click)="remove(i)"></button></div>
+                        </div>
+                    </div>
+                    <div *ngIf="fileTemplate">
+                        <template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></template>
                     </div>
                 </div>
                 
-                <ng-content></ng-content>
+                <p-templateLoader [template]="contentTemplate"></p-templateLoader>
             </div>
         </div>
     `
 })
-export class FileUpload implements OnInit {
+export class FileUpload implements OnInit,AfterContentInit {
     
     @Input() name: string;
     
@@ -73,19 +79,43 @@ export class FileUpload implements OnInit {
     @Output() onClear: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
+    
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
      
-    files: File[];
+    protected files: File[];
     
-    progress: number = 0;
+    protected progress: number = 0;
     
-    dragHighlight: boolean;
+    protected dragHighlight: boolean;
     
-    msgs: Message[];
+    protected msgs: Message[];
     
+    protected fileTemplate: TemplateRef<any>;
+    
+    protected contentTemplate: TemplateRef<any>; 
+        
     constructor(private sanitizer:DomSanitizationService){}
     
     ngOnInit() {
         this.files = [];
+    }
+    
+    ngAfterContentInit():void {
+        this.templates.forEach((item) => {
+            switch(item.type) {
+                case 'file':
+                    this.fileTemplate = item.template;
+                break;
+                
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+                
+                default:
+                    this.fileTemplate = item.template;
+                break;
+            }
+        });
     }
     
     onChooseClick(event, fileInput) {
@@ -230,8 +260,8 @@ export class FileUpload implements OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,ProgressBarModule,MessagesModule],
-    exports: [FileUpload,ButtonModule,ProgressBarModule,MessagesModule],
+    imports: [CommonModule,SharedModule,ButtonModule,ProgressBarModule,MessagesModule],
+    exports: [FileUpload,SharedModule,ButtonModule,ProgressBarModule,MessagesModule],
     declarations: [FileUpload]
 })
 export class FileUploadModule { }
