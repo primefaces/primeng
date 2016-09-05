@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ContentChildren,QueryList} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -56,7 +56,7 @@ export class TabPanel {
         </div>
     `,
 })
-export class TabView {
+export class TabView implements AfterContentInit {
 
     @Input() orientation: string = 'top';
     
@@ -74,14 +74,22 @@ export class TabView {
     
     tabs: TabPanel[];
 
-    constructor(protected el: ElementRef) {
+    constructor(protected el: ElementRef) {}
+    
+    ngAfterContentInit() {
+        this.initTabs();
+        
         this.tabPanels.changes.subscribe(_ => {
-            this.tabs = this.tabPanels.toArray();
-            let selectedTab: TabPanel = this.findSelectedTab();
-            if(!selectedTab && this.tabs.length) {
-                this.tabs[0].selected = true;
-            }
+            this.initTabs();
         });
+    }
+    
+    initTabs(): void {
+        this.tabs = this.tabPanels.toArray();
+        let selectedTab: TabPanel = this.findSelectedTab();
+        if(!selectedTab && this.tabs.length) {
+            this.tabs[0].selected = true;
+        }
     }
             
     open(event, tab: TabPanel) {
