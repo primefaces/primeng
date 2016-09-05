@@ -61,11 +61,7 @@
                         SplitButton
                     </div>
                     <div class="ui-grid-col-8">
-                        <p-splitButton label="Save" icon="fa-check">
-                            <p-splitButtonItem icon="fa-close" label="Delete"></p-splitButtonItem>
-                            <p-splitButtonItem icon="fa-refresh" label="Update"></p-splitButtonItem>
-                            <p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"></p-splitButtonItem>
-                        </p-splitButton>
+                        <p-splitButton label="Save" icon="fa-check" [model]="splitButtonItems"></p-splitButton>
                     </div>
                 </div>
             </div>
@@ -286,11 +282,7 @@
                 SplitButton
             &lt;/div&gt;
             &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-splitButton label="Save" icon="fa-check"&gt;
-                    &lt;p-splitButtonItem icon="fa-close" label="Delete"&gt;&lt;/p-splitButtonItem&gt;
-                    &lt;p-splitButtonItem icon="fa-refresh" label="Update"&gt;&lt;/p-splitButtonItem&gt;
-                    &lt;p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"&gt;&lt;/p-splitButtonItem&gt;
-                &lt;/p-splitButton&gt;
+            &lt;p-splitButton label="Save" icon="fa-check" [model]="splitButtonItems"&gt;&lt;/p-splitButton&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
