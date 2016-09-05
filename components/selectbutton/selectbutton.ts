@@ -1,12 +1,13 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,Provider} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
-const SELECTBUTTON_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
-    useExisting: forwardRef(() => SelectButton),
-    multi: true
-});
+export const SELECTBUTTON_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SelectButton),
+  multi: true
+};
 
 @Component({
     selector: 'p-selectButton',

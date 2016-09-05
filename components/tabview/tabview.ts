@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,Query,QueryList} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -63,6 +63,8 @@ export class TabView {
     @Input() style: any;
     
     @Input() styleClass: string;
+    
+    @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -72,9 +74,9 @@ export class TabView {
     
     tabs: TabPanel[];
 
-    constructor(protected el: ElementRef,@Query(TabPanel) tabPanels: QueryList<TabPanel>) {
-        tabPanels.changes.subscribe(_ => {
-            this.tabs = tabPanels.toArray();
+    constructor(protected el: ElementRef) {
+        this.tabPanels.changes.subscribe(_ => {
+            this.tabs = this.tabPanels.toArray();
             let selectedTab: TabPanel = this.findSelectedTab();
             if(!selectedTab && this.tabs.length) {
                 this.tabs[0].selected = true;

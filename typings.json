@@ -1,8 +1,8 @@
 {
   "globalDependencies": {
-    "core-js": "registry:dt/core-js#0.0.0+20160602141332",
+    "core-js": "registry:dt/core-js#0.0.0+20160725163759",
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
-    "node": "registry:dt/node#6.0.0+20160807145350",
+    "node": "registry:dt/node#6.0.0+20160831021119",
     "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#470954c4f427e0805a2d633636a7c6aa7170def8",
     "jqueryui": "github:DefinitelyTyped/DefinitelyTyped/jqueryui/jqueryui.d.ts#a3a5cd5554dc2c0ff8955d1db0673879af3095bc",
     "fullcalendar": "github:DefinitelyTyped/DefinitelyTyped/fullCalendar/fullCalendar.d.ts#4de74cb527395c13ba20b438c3a7a419ad931f1c",

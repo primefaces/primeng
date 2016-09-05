@@ -1,13 +1,14 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input,forwardRef,Provider,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input,forwardRef,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {InputTextModule} from '../inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
-const INPUTMASK_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
-    useExisting: forwardRef(() => InputMask),
-    multi: true
-});
+export const INPUTMASK_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => InputMask),
+  multi: true
+};
 
 @Component({
     selector: 'p-inputMask',

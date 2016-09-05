@@ -1,6 +1,6 @@
 import {NgModule,Component,OnInit,Input,Output,EventEmitter,TemplateRef,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomSanitizationService} from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 import {ButtonModule} from '../button/button';
 import {MessagesModule} from '../messages/messages';
 import {ProgressBarModule} from '../progressbar/progressbar';
@@ -94,7 +94,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     protected contentTemplate: TemplateRef<any>; 
         
-    constructor(private sanitizer:DomSanitizationService){}
+    constructor(private sanitizer: DomSanitizer){}
     
     ngOnInit() {
         this.files = [];
