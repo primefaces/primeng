@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,
-        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,Query,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
@@ -352,6 +352,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
     
+    @ContentChildren(Column) cols: QueryList<Column>;
+    
     protected dataToRender: any[];
 
     protected first: number = 0;
@@ -415,10 +417,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     columnsSubscription: Subscription;
 
     constructor(protected el: ElementRef, protected domHandler: DomHandler, differs: IterableDiffers, 
-        @Query(Column) cols: QueryList<Column>, protected renderer: Renderer, changeDetector: ChangeDetectorRef) {
+            protected renderer: Renderer, changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
-        this.columnsSubscription = cols.changes.subscribe(_ => {
-            this.columns = cols.toArray();
+        this.columnsSubscription = this.cols.changes.subscribe(_ => {
+            this.columns = this.cols.toArray();
             this.columnsUpdated = true;
             changeDetector.markForCheck();
         });
