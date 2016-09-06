@@ -193,12 +193,13 @@ export class FileUpload implements OnInit,AfterContentInit {
             }
         };
         
+        xhr.open('POST', this.url, true);
+
         this.onBeforeUpload.emit({
             'xhr': xhr,
             'formData': formData 
         });
         
-        xhr.open('POST', this.url, true);
         xhr.send(formData);
     }
 
