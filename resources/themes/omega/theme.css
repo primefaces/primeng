@@ -631,6 +631,11 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
      border-width: 0 0 1px 0;
 }
 
+.ui-panel.ui-widget .ui-panel-titlebar-icon span {
+    position: relative;
+    top: 1px;
+}
+
 /* TreeTable */
 .ui-treetable th {
     font-weight: bold;
