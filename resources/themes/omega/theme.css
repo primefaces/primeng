@@ -306,9 +306,9 @@
 
 .ui-accordion .ui-accordion-header.ui-state-active {
     background: #ffffff;
-    border-left: 0px none;
-    border-right: 0px none;
-    border-bottom: 0px none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
