@@ -30,7 +30,7 @@
     <h3>DataTable Integration</h3>
     <p-dataTable [value]="cars2">
         <p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo">
-            <template let-car="rowData">
+            <template let-car="rowData" pTemplate type="body">
                 <button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"></button>
             </template>
         </p-column>
@@ -266,7 +266,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
 &lt;h3&gt;DataTable Integration&lt;/h3&gt;
 &lt;p-dataTable [value]="cars2"&gt;
     &lt;p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo"&gt;
-        &lt;template let-car="rowData"&gt;
+        &lt;template let-car="rowData" pTemplate type="body"&gt;
             &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"&gt;&lt;/button&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
