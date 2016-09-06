@@ -16,7 +16,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     selector: 'p-autoComplete',
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" [ngStyle]="style" [class]="styleClass">
-            <input *ngIf="!multiple" #in pInputText type="text" [ngStyle]="inputStyle" [class]="inputStyleClass" 
+            <input *ngIf="!multiple" #in pInputText type="text" [ngStyle]="inputStyle" [class]="inputStyleClass" (focus)="focus.emit($event)"
             [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [disabled]="disabled" 
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple ui-widget ui-inputtext ui-state-default ui-corner-all" (click)="multiIn.focus()">
@@ -25,7 +25,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <span class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()">
+                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()" (focus)="focus.emit($event)">
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
@@ -76,6 +76,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     @Output() onUnselect: EventEmitter<any> = new EventEmitter();
     
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() focus: EventEmitter<any> = new EventEmitter();
     
     @Input() field: string;
     
