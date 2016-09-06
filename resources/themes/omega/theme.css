@@ -689,7 +689,7 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 
 .ui-dropdown.ui-widget .ui-dropdown-trigger .fa,
 .ui-multiselect.ui-widget .ui-multiselect-trigger .fa {
-    margin-top: 6px;
+    margin-top: 5px;
 }
 
 .ui-multiselect-header a.ui-multiselect-close {
