@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,
+import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,
         Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
@@ -238,7 +238,7 @@ export class RowExpansionLoader {
     `,
     providers: [DomHandler]
 })
-export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,OnDestroy {
+export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,DoCheck,OnDestroy {
 
     @Input() value: any[];
 
@@ -417,13 +417,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
     columnsSubscription: Subscription;
 
     constructor(protected el: ElementRef, protected domHandler: DomHandler, differs: IterableDiffers, 
-            protected renderer: Renderer, changeDetector: ChangeDetectorRef) {
+            protected renderer: Renderer, private changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
-        this.columnsSubscription = this.cols.changes.subscribe(_ => {
-            this.columns = this.cols.toArray();
-            this.columnsUpdated = true;
-            changeDetector.markForCheck();
-        });
     }
 
     ngOnInit() {
@@ -437,6 +432,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
                 multiSortMeta: this.multiSortMeta
             });
         }
+    }
+    
+    ngAfterContentInit() {
+        this.initColumns();
+        
+        this.columnsSubscription = this.cols.changes.subscribe(_ => {
+            this.initColumns();
+            this.changeDetector.markForCheck();
+        });
     }
 
     ngAfterViewChecked() {
@@ -487,6 +491,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,OnInit,DoCheck,
             
             this.updateDataToRender(this.filteredValue||this.value);
         }
+    }
+    
+    initColumns(): void {
+        this.columns = this.cols.toArray();
+        this.columnsUpdated = true;
     }
 
     resolveFieldData(data: any, field: string): any {

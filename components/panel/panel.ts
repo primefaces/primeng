@@ -45,6 +45,8 @@ export class Panel {
     @Input() style: any;
         
     @Input() styleClass: string;
+    
+    @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
@@ -77,10 +79,12 @@ export class Panel {
     
     expand(event) {
         this.collapsed = false;
+        this.collapsedChange.emit(this.collapsed);
     }
     
     collapse(event) {
         this.collapsed = true;
+        this.collapsedChange.emit(this.collapsed);
     }
 
 }

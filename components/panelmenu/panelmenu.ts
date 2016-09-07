@@ -9,30 +9,27 @@ export class BasePanelMenuItem {
     constructor(protected router: Router) {}
     
     handleClick(event, item) {
-        if(item.items) {
-            item.expanded = !item.expanded;
+        item.expanded = !item.expanded;
+        event.preventDefault();
+        
+        if(!item.url||item.routerLink) {
             event.preventDefault();
         }
-        else {
-            if(!item.url||item.routerLink) {
-                event.preventDefault();
-            }
-                       
-            if(item.command) {
-                if(!item.eventEmitter) {
-                    item.eventEmitter = new EventEmitter();
-                    item.eventEmitter.subscribe(item.command);
-                }
-                
-                item.eventEmitter.emit({
-                    originalEvent: event,
-                    item: item
-                });
+                   
+        if(item.command) {
+            if(!item.eventEmitter) {
+                item.eventEmitter = new EventEmitter();
+                item.eventEmitter.subscribe(item.command);
             }
             
-            if(item.routerLink) {
-                this.router.navigate(item.routerLink);
-            }
+            item.eventEmitter.emit({
+                originalEvent: event,
+                item: item
+            });
+        }
+        
+        if(item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
     }
 }

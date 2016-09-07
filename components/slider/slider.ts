@@ -83,8 +83,9 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
         this.value = value;
         
         if(this.initialized) {
+            let sliderValue = this.value||0;
             let optionName = this.range ? 'values' : 'value';
-            jQuery(this.el.nativeElement.children[0]).slider('option', optionName, this.value);                
+            jQuery(this.el.nativeElement.children[0]).slider('option', optionName, sliderValue);                
         }
     }
     
