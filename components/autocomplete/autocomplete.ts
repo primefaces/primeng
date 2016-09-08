@@ -25,7 +25,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <span class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()">
+                    <input #multiIn type="text" pInputText (input)="onInput($event)" (keydown)="onKeydown($event)" (blur)="onModelTouched()" autocomplete="off">
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
