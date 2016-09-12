@@ -59,22 +59,12 @@ import {Component} from '@angular/core';
         </div>
 
         <div class="ContentSideSections overHidden PFLayouts">
-            <div class="logoBlueText fontSize30">Premium Layouts and Themes for PrimeNG</div>
+            <div class="logoBlueText fontSize30">Coming Soon - Ultima Material Admin Template</div>
             <p class="defaultText" style="margin-bottom:10px">Create awesome applications in no time, impress your users.</p>
-            <div style="padding:30px">
-                <div class="Content50 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/olympos-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/olympos.png" style="width:100%" /></a>
-                </div>
-                <div class="Content50 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/modena-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/modena.png" style="width:100%" /></a>
-                </div>
-                <div class="Content50 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/rio-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/rio.png" style="width:100%" /></a>
-                </div>
-                <div class="Content50 floatLeft overHidden">
-                    <a href="http://www.primefaces.org/layouts/adamantium-primeng" target="_blank"><img src="http://www.primefaces.org/images/highlights/adamantium.png" style="width:100%" /></a>
-                </div>
-            </div>
+            <p class="defaultText" style="margin-bottom:10px">Check out <a href="http://www.primefaces.org/layouts/ultima">Ultima</a> for PrimeFaces for a preview until Ultima is ported to PrimeNG.</p>
+            <a href="http://www.primefaces.org/layouts/ultima">
+                <img alt="Ultima" src="http://www.primefaces.org/images/market/ultima/ultima_layout_biggest.png" style="width:100%"/> 
+            </a>
         </div>
         
         <div class="ContentSideSections overHidden defaultText">
