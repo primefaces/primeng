@@ -389,6 +389,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         
     }
     
+    applyFocus(): void {
+        if(this.editable)
+            this.domHandler.findSingle(this.el.nativeElement, '.ui-dropdown-label.ui-inputtext').focus();
+        else
+            this.domHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
+    }
+    
     ngOnDestroy() {
         this.documentClickListener();
         this.initialized = false;
