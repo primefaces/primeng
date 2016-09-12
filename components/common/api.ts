@@ -28,6 +28,7 @@ export interface MenuItem {
     eventEmitter?: EventEmitter<any>;
     items?: MenuItem[];
     expanded?: boolean;
+    disabled?: boolean;
 }
 
 export interface Message {

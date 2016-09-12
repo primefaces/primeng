@@ -9,6 +9,11 @@ export class BasePanelMenuItem {
     constructor(protected router: Router) {}
     
     handleClick(event, item) {
+        if(item.disabled) {
+            event.preventDefault();
+            return;
+        }
+        
         item.expanded = !item.expanded;
         event.preventDefault();
         
@@ -40,7 +45,8 @@ export class BasePanelMenuItem {
         <ul class="ui-menu-list ui-helper-reset" [style.display]="expanded ? 'block' : 'none'">
             <li *ngFor="let child of item.items" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}">
                 <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
-                    [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-hover':(hoveredLink==link)}" (click)="handleClick($event,child)"
+                    [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-hover':(hoveredLink==link&&!child.disabled),'ui-state-disabled':child.disabled}" 
+                    (click)="handleClick($event,child)"
                     (mouseenter)="hoveredLink=link" (mouseleave)="hoveredLink=null">
                     <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!child.expanded,'fa-caret-down':child.expanded}" *ngIf="child.items"></span>
                     <span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span>
@@ -68,7 +74,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-panelmenu ui-widget'">
             <div *ngFor="let item of model" class="ui-panelmenu-panel">
                 <div tabindex="0" [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-all':!item.expanded,
-                    'ui-state-active ui-corner-top':item.expanded,'ui-state-hover':(item == hoveredItem)}">
+                    'ui-state-active ui-corner-top':item.expanded,'ui-state-hover':(item == hoveredItem && !item.disabled),'ui-state-disabled':item.disabled}">
                     <a [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="handleClick($event,item)">
                         <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span>

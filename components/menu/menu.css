@@ -418,5 +418,8 @@
 
 .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem .ui-icon { 
     float: left; 
-    cursor: pointer; 
 }
+
+.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-disabled a {
+     cursor: default;
+} 
