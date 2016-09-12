@@ -6,7 +6,7 @@ import {SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {InputTextModule} from '../inputtext/inputtext';
 import {Column,Header,Footer} from '../common/shared';
-import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
+import {LazyLoadEvent,FilterMetadata,SortMeta, SelectItem} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -112,7 +112,12 @@ export class RowExpansionLoader {
                                 </span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
-                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter && !col.filterValues" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                <span class="ui-column-filter" *ngIf="col.filter && col.filterValues">
+                                      <select [value]="filters[col.field] ? filters[col.field].value : ''" (change)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)">
+                                          <option [ngValue]="elem.value" *ngFor="let elem of col.filterValues">{{elem.label}}</option>
+                                      </select>
+                                </span>
                                 <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
                             </th>
                         </tr>

@@ -17,7 +17,8 @@
         <header>List of Cars</header>
         <p-column field="vin" header="Vin (startsWith)" [filter]="true"></p-column>
         <p-column field="year" header="Year (contains)" [filter]="true" filterMatchMode="contains"></p-column>
-        <p-column field="brand" header="Brand (startsWith)" [filter]="true"></p-column>
+        <p-column field="brand" header="Brand (select)" [filter]="true" [filterValues]="brands">
+        </p-column>
         <p-column field="color" header="Color (endsWith)" [filter]="true" filterMatchMode="endsWith"></p-column>
     </p-dataTable>
 </div>
@@ -30,11 +31,29 @@
 export class DataTableFilterDemo implements OnInit &#123;
 
     cars: Car[];
+    brands: SelectItem[] = [];
 
     constructor(private carService: CarService) &#123;&#125;
 
     ngOnInit() &#123;
-        this.carService.getCarsMedium().then(cars => this.cars = cars);
+         this.carService.getCarsMedium().then(cars =&gt;&#123;
+            this.cars = cars;
+            this.brands = [];
+            this.brands.push(&#123;label:&#39;&#39;, value:null&#125;)
+            this.cars.forEach(car =&gt; &#123;
+                let selectItem:SelectItem = &#123;label:car.brand, value:car.brand&#125;
+                this.addBrandIfNotExists(selectItem);
+            &#125;)
+        &#125;);
+    &#125;
+    
+     addBrandIfNotExists(item:SelectItem):void &#123;
+      let found = this.brands.some(function (elem:SelectItem) &#123;
+        return elem.label === item.label && elem.value === item.value ;
+      &#125;);
+      if (!found) &#123; 
+        this.brands.push(item); 
+      &#125;
     &#125;
 &#125;
 </code>
@@ -52,7 +71,7 @@ export class DataTableFilterDemo implements OnInit &#123;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;p-column field="vin" header="Vin (startsWith)" [filter]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year (contains)" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand (startsWith)" [filter]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand (select)" [filter]="true" [filterValues]="brands" &gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color (endsWith)" [filter]="true" filterMatchMode="endsWith"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
