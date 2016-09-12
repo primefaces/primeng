@@ -215,6 +215,10 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
 
     ngOnChanges(changes: {[key: string]: SimpleChange}) {
         if (this.initialized) {

@@ -37,7 +37,7 @@ export class Listbox implements ControlValueAccessor {
 
     @Input() styleClass: string;
     
-    @Input() disabled: string;
+    @Input() disabled: boolean;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -65,6 +65,10 @@ export class Listbox implements ControlValueAccessor {
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
+    }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
     }
                 
     onOptionClick(event, option) {

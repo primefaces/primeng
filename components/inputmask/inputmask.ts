@@ -119,6 +119,10 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.onModelTouched = fn;
     }
     
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
+    
     onBlur() {
         this.onModelTouched();
     }

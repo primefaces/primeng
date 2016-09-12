@@ -174,6 +174,10 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
 }
 
 @NgModule({

@@ -264,6 +264,10 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
 }
 
 

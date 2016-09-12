@@ -74,6 +74,10 @@ export class RadioButton implements ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
 }
 
 @NgModule({

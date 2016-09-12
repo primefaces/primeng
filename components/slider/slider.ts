@@ -96,6 +96,10 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
 
     ngOnChanges(changes: { [key: string]: SimpleChange }) {
         if (this.initialized) {

@@ -168,6 +168,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         this.onModelTouched = fn;
     }
     
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
+    
     onItemClick(event, value) {
         let selectionIndex = this.findSelectionIndex(value);
         if(selectionIndex != -1) {

@@ -171,6 +171,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         this.onModelTouched = fn;
     }
     
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
+    
     onInput(event) {
         let value = event.target.value;
         if(!this.multiple) {

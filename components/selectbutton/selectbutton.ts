@@ -58,6 +58,10 @@ export class SelectButton implements ControlValueAccessor {
         this.onModelTouched = fn;
     }
     
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
+    
     onItemClick(event, option: SelectItem) {
         if(this.disabled) {
             return;
