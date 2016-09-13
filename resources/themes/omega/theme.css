@@ -762,7 +762,7 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 /* PanelMenu */
 .ui-panelmenu .ui-panelmenu-header.ui-state-active,
 .ui-panelmenu .ui-panelmenu-header.ui-state-active a {
-    border: 1px solid #156090; 
+    border-color: #156090; 
     background: #186ba0; 
     color: #FFFFFF;
 }
