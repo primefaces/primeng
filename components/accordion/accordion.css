@@ -15,6 +15,10 @@
     padding: .5em .5em .5em 2.2em; 
 }
 
+.ui-accordion .ui-accordion-header a:focus {
+    outline: dotted thin;
+} 
+
 .ui-accordion .ui-accordion-header .fa {
     position: absolute; 
     left: .5em; 
