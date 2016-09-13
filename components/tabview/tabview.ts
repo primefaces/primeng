@@ -43,7 +43,7 @@ export class TabPanel {
                         [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-hover': tab.hoverHeader&&!tab.disabled, 'ui-state-disabled': tab.disabled}"
                         (mouseenter)="tab.hoverHeader=true" (mouseleave)="tab.hoverHeader=false" (click)="open($event,tab)" *ngIf="!tab.closed"
                         [attr.aria-expanded]="tab.selected" [attr.aria-selected]="tab.selected">
-                        <a href="#" (keydown)="onHeaderKeyDown($event,tab)">
+                        <a href="#">
                             <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                             {{tab.header}}
                             <span class="ui-tabview-right-icon fa" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
@@ -154,13 +154,6 @@ export class TabView implements AfterContentInit {
             styleClass = styleClass + " " + tab.headerStyleClass;
         }
         return styleClass;
-    }
-    
-    onHeaderKeyDown(event, tab: TabPanel) {
-        if(event.keyCode == 13 || event.keyCode == 32) {
-            this.open(event, tab);
-            event.preventDefault();
-        }
     }
 }
 

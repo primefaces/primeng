@@ -23,10 +23,6 @@
     text-decoration: none; 
 }
 
-.ui-tabview .ui-tabview-nav li a:focus {
-    outline: dotted thin;
-} 
-
 .ui-tabview .ui-tabview-nav li.ui-tabview-selected a, 
 .ui-tabview .ui-tabview-nav li.ui-state-disabled a, 
 .ui-tabview .ui-tabview-nav li.ui-state-processing a { 

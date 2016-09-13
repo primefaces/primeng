@@ -37,9 +37,9 @@ export class Accordion {
     template: `
         <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}">
             <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
-            <a href="#" *ngIf="!headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected" (keydown)="onHeaderKeydown($event)"
+            <a href="#" *ngIf="!headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected"
                 (click)="toggle($event)" (mouseenter)="hover = true" (mouseleave)="hover=false">{{header}}</a>
-            <a href="#" *ngIf="headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected" (keydown)="onHeaderKeydown($event)"
+            <a href="#" *ngIf="headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected"
                 (click)="toggle($event)" (mouseenter)="hover = true" (mouseleave)="hover=false">
                 <ng-content select="header"></ng-content>
             </a>
@@ -120,13 +120,6 @@ export class AccordionTab {
             }
         }
         return index;
-    }
-    
-    onHeaderKeydown(event) {
-        if(event.keyCode == 13 || event.keyCode == 32) {
-            this.toggle(event);
-            event.preventDefault();
-        }
     }
 }
 
