@@ -110,7 +110,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .cursorPointer{cursor:pointer;}
 
 /* OTHERS */
-a{ text-decoration:none; outline:none;color: #25AAE1}
+a{ text-decoration:none; color: #25AAE1}
 .dispBlock{display:block !important;}
 .TextShadow{text-shadow: 0 1px 0 #ffffff}
 .TextShadowNone{text-shadow:none;}
