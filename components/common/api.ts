@@ -50,4 +50,5 @@ export interface TreeNode {
     collapsedIcon?: any;
     children?: TreeNode[];
     leaf?: boolean;
+    type?: string;
 }

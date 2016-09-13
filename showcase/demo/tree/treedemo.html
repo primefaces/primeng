@@ -26,7 +26,7 @@
     
     <h3>Template</h3>
     <p-tree [value]="files">
-        <template let-node>
+        <template let-node pTemplate type="default">
             <input [(ngModel)]="node.label" type="text" style="width:100%">
         </template>
     </p-tree>
@@ -114,6 +114,12 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the node.</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Type of the node to match template type.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -303,14 +309,30 @@ export class TreeDemoComponent implements OnInit &#123;
                 expandedIcon and collapsedIcon instead.</p>
                 
             <h3>Templating</h3>
-            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a template that gets 
+            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a pTemplate that gets 
                 the treenode as an implicit variable. Example below places an input field to create editable treenodes.</p>
 
 <pre>
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
-    &lt;template let-node&gt;
+    &lt;template let-node  pTemplate type="default"&gt;
+        &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
+    &lt;/template&gt;
+&lt;/p-tree&gt;
+</code>
+</pre>
+
+            <p>Multiple templates are supported by matching the type property of the TreeNode with the type of pTemplate. If a node as no type, 
+            then default template is used.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;h3&gt;Template&lt;/h3&gt;
+&lt;p-tree [value]="files"&gt;
+    &lt;template let-node  pTemplate type="picture"&gt;
+        &lt;img [attrs.src]="picture.path"&gt;
+    &lt;/template&gt;
+    &lt;template let-node  pTemplate type="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
@@ -567,7 +589,7 @@ Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &l
 &lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="files"&gt;
+&lt;p-tree [value]="files" pTemplate type="default"&gt;
     &lt;template let-node&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;

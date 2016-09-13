@@ -1,6 +1,7 @@
-import {NgModule,Component,Input,Output,EventEmitter,OnInit,ViewContainerRef,ContentChild,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
+import {NgModule,Component,Input,AfterContentInit,Output,EventEmitter,OnInit,ViewContainerRef,ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
+import {PrimeTemplate} from '../common/shared';
 
 @Component({
     selector: 'p-treeNodeTemplateLoader',
@@ -33,8 +34,10 @@ export class TreeNodeTemplateLoader implements OnInit {
                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                 ><span class="ui-treenode-label ui-corner-all" 
                     [ngClass]="{'ui-state-hover':hover&&tree.selectionMode,'ui-state-highlight':isSelected()}">
-                        <span *ngIf="!tree.template">{{node.label}}</span>
-                        <p-treeNodeTemplateLoader [node]="node" [template]="tree.template" *ngIf="tree.template"></p-treeNodeTemplateLoader>
+                        <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
+                        <span *ngIf="tree.getTemplateForNode(node)">
+                            <p-treeNodeTemplateLoader [node]="node" [template]="tree.getTemplateForNode(node)"></p-treeNodeTemplateLoader>
+                        </span>
                     </span>
             </div>
             <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children" [style.display]="expanded ? 'block' : 'none'">
@@ -101,7 +104,7 @@ export class UITreeNode {
         </div>
     `
 })
-export class Tree {
+export class Tree implements AfterContentInit {
 
     @Input() value: TreeNode[];
         
@@ -127,8 +130,20 @@ export class Tree {
     
     @Input() contextMenu: any;
     
-    @ContentChild(TemplateRef) template: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
+    protected templateMap: any;
+    
+    ngAfterContentInit() {
+        if(this.templates.length) {
+            this.templateMap = {};
+        }
+        
+        this.templates.forEach((item) => {
+            this.templateMap[item.type] = item.template;
+        });
+    }
+     
     onNodeClick(event, node: TreeNode) {
         if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {
             return;
@@ -216,6 +231,13 @@ export class Tree {
     
     isMultipleSelectionMode() {
         return this.selectionMode && this.selectionMode == 'multiple';
+    }
+    
+    getTemplateForNode(node: TreeNode): TemplateRef<any> {
+        if(this.templateMap)
+            return node.type ? this.templateMap[node.type] : this.templateMap['default'];
+        else
+            return null;
     }
 }
 
