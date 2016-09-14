@@ -551,12 +551,22 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 
 /* Checkbox and Radio */
 .ui-chkbox-box.ui-state-active,
-.ui-chkbox-box.ui-state-focus.ui-state-active,
 .ui-radiobutton-box.ui-state-active,
 .ui-radiobutton-box.ui-state-focus.ui-state-active{
     border: 1px solid #156090; 
     background: #186ba0; 
     color: #FFFFFF;
+}
+
+.ui-chkbox-box.ui-state-focus {
+    -moz-box-shadow: 0px 0px 5px #1f89ce;
+	-webkit-box-shadow: 0px 0px 5px #1f89ce;
+	box-shadow: 0px 0px 5px #1f89ce;
+    background-color: #ffffff;
+}
+
+.ui-chkbox-box.ui-state-focus.ui-state-active {
+    background: #186ba0; 
 }
 
 /* Inputs */
