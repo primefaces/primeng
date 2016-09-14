@@ -71,6 +71,8 @@ export class AccordionTab {
     @Input() selected: boolean;
 
     @Input() disabled: boolean;
+    
+    @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(Header) headerFacet;
     
@@ -89,19 +91,22 @@ export class AccordionTab {
         let index = this.findTabIndex();
 
         if(this.selected) {
-            this.selected = !this.selected;
+            this.selected = false;
             this.accordion.onClose.emit({originalEvent: event, index: index});
         }
         else {
             if(!this.accordion.multiple) {
                 for(var i = 0; i < this.accordion.tabs.length; i++) {
                     this.accordion.tabs[i].selected = false;
+                    this.accordion.tabs[i].selectedChange.emit(false);
                 }
             }
 
             this.selected = true;
             this.accordion.onOpen.emit({originalEvent: event, index: index});
         }
+        
+        this.selectedChange.emit(this.selected);
         
         //TODO: Use onDone of animate callback instead with RC6
         setTimeout(() => {
