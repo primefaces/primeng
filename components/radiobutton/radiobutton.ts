@@ -16,13 +16,13 @@ export const RADIO_VALUE_ACCESSOR: any = {
                 <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked" (change)="onChange($event,value)"
                     (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
-            <div (click)="onClick()" (mouseenter)="hover=true" (mouseleave)="hover=false"
+            <div (click)="handleClick()" (mouseenter)="hover=true" (mouseleave)="hover=false"
                 [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
                 'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':checked}"></span>
             </div>
         </div>
-        <label class="ui-radiobutton-label" (click)="onClick()" *ngIf="label">{{label}}</label>
+        <label class="ui-radiobutton-label" (click)="select()" *ngIf="label">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR]
 })
@@ -36,7 +36,7 @@ export class RadioButton implements ControlValueAccessor {
     
     @Input() label: string;
 
-    @Output() click: EventEmitter<any> = new EventEmitter();
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     protected model: any;
     
@@ -50,9 +50,9 @@ export class RadioButton implements ControlValueAccessor {
     
     protected focused: boolean;
 
-    onClick() {
+    handleClick() {
         if(!this.disabled) {
-            this.click.emit(null);
+            this.onClick.emit(null);
             this.select();
         }
     }
