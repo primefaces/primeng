@@ -19,6 +19,7 @@ import {FileUploadDemo} from './demo/fileupload/fileuploaddemo';
 import {RatingDemo} from './demo/rating/ratingdemo';
 import {PasswordDemo} from './demo/password/passworddemo';
 import {DialogDemo} from './demo/dialog/dialogdemo';
+import {ConfirmDialogDemo} from './demo/confirmdialog/confirmdialogdemo';
 import {ToggleButtonDemo} from './demo/togglebutton/togglebuttondemo';
 import {GridDemo} from './demo/grid/griddemo';
 import {TabViewDemo} from './demo/tabview/tabviewdemo';
@@ -117,6 +118,7 @@ import {ChartModule} from '../components/chart/chart';
 import {CheckboxModule} from '../components/checkbox/checkbox';
 import {CodeHighlighterModule} from '../components/codehighlighter/codehighlighter';
 import {SharedModule} from '../components/common/shared';
+import {ConfirmDialogModule} from '../components/confirmdialog/confirmdialog';
 import {ContextMenuModule} from '../components/contextmenu/contextmenu';
 import {DataGridModule} from '../components/datagrid/datagrid';
 import {DataListModule} from '../components/datalist/datalist';
@@ -209,6 +211,7 @@ export class AppComponent {
         DataScrollerModule,
         DataTableModule,
         DialogModule,
+        ConfirmDialogModule,
         DragDropModule,
         DropdownModule,
         EditorModule,
@@ -268,6 +271,7 @@ export class AppComponent {
         RatingDemo,
         PasswordDemo,
         DialogDemo,
+        ConfirmDialogDemo,
         ToggleButtonDemo,
         GridDemo,
         TabViewDemo,

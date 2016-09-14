@@ -44,3 +44,18 @@
 .ui-dialog-draggable .ui-dialog-titlebar {
     cursor: move;
 }
+
+/* ConfirmDialog */
+.ui-confirmdialog.ui-dialog .ui-dialog-content {
+    padding: 1em 2em;
+}
+
+.ui-confirmdialog .ui-dialog-content .fa {
+    font-size: 24px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.ui-confirmdialog .ui-dialog-content .ui-confirmdialog-message {
+    vertical-align: middle;
+}

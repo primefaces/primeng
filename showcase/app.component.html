@@ -67,6 +67,7 @@
 
             <span id="menu_overlay" #overlaymenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id"><img src="showcase/resources/images/mono/overlay.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['/confirmdialog']" (click)="mobileMenuActive = false">&#9679; ConfirmDialog</a>
                 <a class="SubMenuLink" [routerLink]="['/dialog']" (click)="mobileMenuActive = false">&#9679; Dialog</a>
                 <a class="SubMenuLink" [routerLink]="['/lightbox']" (click)="mobileMenuActive = false">&#9679; Lightbox</a>
                 <a class="SubMenuLink" [routerLink]="['/overlaypanel']" (click)="mobileMenuActive = false">&#9679; OverlayPanel</a>
