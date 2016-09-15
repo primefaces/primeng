@@ -1,0 +1,59 @@
+/* ie6 */
+* html .ui-growl {
+	position:absolute; 
+}
+* html .ui-growl-item {
+	padding-bottom:0;
+}
+* html .ui-growl-icon-close {
+	top:7px;
+	right:7px;
+}
+
+.ui-growl {
+	position:fixed;
+	top:20px;
+	right:20px;
+	width:301px;
+}
+.ui-growl-item-container {
+	position:relative;
+	margin:0 0 10px 0;
+	opacity:0.85;
+	filter:alpha(opacity=85);
+}
+.ui-growl-item {
+	display:block;
+	padding:10px 15px;
+}
+.ui-growl-item p {
+	padding:0;
+	margin:0;
+}
+.ui-growl-icon-close {
+	position:absolute;
+	top:5px;
+	right:3px;
+	cursor:pointer;
+}
+.ui-growl-title {
+	font-weight:bold;
+	padding:0 0 7px 0;
+	display:block;
+}
+.ui-growl-image {
+	float:left;
+    margin-left: 5px;
+    padding:0;
+    display: block;
+}
+
+.ui-growl-message {
+	padding:0 0 5px 0;
+	width:220px;
+	float:right;
+}
+
+.ui-growl-message p {
+	font-weight: normal;
+}

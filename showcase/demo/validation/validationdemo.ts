@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {Validators,FormControl,FormGroup} from '@angular/forms';
+import {Component,OnInit} from '@angular/core';
+import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {Message,SelectItem} from '../../../components/common/api';
 
 @Component({
     templateUrl: 'showcase/demo/validation/validationdemo.html'
 })
-export class ValidationDemo {
+export class ValidationDemo implements OnInit {
     
     msgs: Message[] = [];
     
@@ -17,8 +17,10 @@ export class ValidationDemo {
         
     description: string;
     
+    constructor(private fb: FormBuilder) {}
+    
     ngOnInit() {
-        this.userform = new FormGroup({
+        this.userform = this.fb.group({
             'firstname': new FormControl('', Validators.required),
             'lastname': new FormControl('', Validators.required),
             'password': new FormControl('', [Validators.required, Validators.minLength(6)]),

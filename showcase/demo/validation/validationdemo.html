@@ -99,7 +99,7 @@
         <p-tabPanel header="validationdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class ValidationDemo &#123;
+export class ValidationDemo implements OnInit &#123;
     
     msgs: Message[] = [];
     
@@ -111,8 +111,10 @@ export class ValidationDemo &#123;
         
     description: string;
     
-    constructor(fb: FormBuilder) &#123;
-        this.userform = fb.group(&#123;
+    constructor(private fb: FormBuilder) &#123;&#125;
+    
+    ngOnInit() &#123;
+        this.userform = this.fb.group(&#123;
             'firstname': new Control('', Validators.required),
             'lastname': new Control('', Validators.required),
             'password': new Control('', Validators.compose([Validators.required, Validators.minLength(6)])),

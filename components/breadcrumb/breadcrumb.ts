@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
                 <li class="fa fa-home"></li>
                 <template ngFor let-item let-end="last" [ngForOf]="model">
                     <li role="menuitem">
-                        <a [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)">
+                        <a [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)" [ngClass]="{'ui-state-disabled':item.disabled}">
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </li>
@@ -33,6 +33,11 @@ export class Breadcrumb implements OnDestroy {
     constructor(protected router: Router) {}
     
     itemClick(event, item: MenuItem) {
+        if(item.disabled) {
+            event.preventDefault();
+            return;
+        }
+        
         if(!item.url||item.routerLink) {
             event.preventDefault();
         }
@@ -43,7 +48,10 @@ export class Breadcrumb implements OnDestroy {
                 item.eventEmitter.subscribe(item.command);
             }
             
-            item.eventEmitter.emit(event);
+            item.eventEmitter.emit({
+                originalEvent: event,
+                item: item
+            });
         }
                 
         if(item.routerLink) {

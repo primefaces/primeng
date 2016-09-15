@@ -1,0 +1,84 @@
+.ui-treetable table {
+	border-collapse:collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.ui-treetable .ui-treetable-header,
+.ui-treetable .ui-treetable-footer {
+    text-align:center;
+    padding: 4px 10px;
+}
+
+.ui-treetable .ui-treetable-header {
+    border-bottom: 0px none;
+}
+
+.ui-treetable .ui-treetable-footer {
+    border-top: 0px none;
+}
+
+.ui-treetable th, .ui-treetable tfoot td {
+    text-align: center;
+}
+
+.ui-treetable thead th,
+.ui-treetable tbody td,
+.ui-treetable tfoot td {
+    padding: 4px 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.ui-treetable tbody td {
+    border-color: inherit;
+}
+
+.ui-treetable .ui-treetable-toggler {
+    float: left;
+    cursor: pointer;
+}
+
+.ui-treetable .ui-treetable-data tr.ui-state-highlight,
+.ui-treetable .ui-treetable-data tr.ui-state-hover,
+.ui-treetable .ui-treetable-row.ui-state-highlight,
+.ui-treetable .ui-treetable-row.ui-state-hover {
+    cursor: pointer;
+}
+      
+.ui-treetable tr.ui-state-hover {
+    border-color: inherit;
+    font-weight: inherit;
+}
+
+.ui-treetable .ui-treetable-indent {
+    width: 16px;
+    height: 16px;
+    float: left;
+}
+
+/* PrimeNG */
+.ui-treetable td.ui-treetable-child-table-container {
+    padding: 0px;
+    border: 0px none;
+}
+
+.ui-treetable .ui-treetable-row {
+    display:table-row;
+    border-bottom:0px transparent
+}
+
+.ui-treetable .ui-treetable-row.ui-state-hover,
+.ui-treetable .ui-treetable-row.ui-state-highlight {
+    border: 0px none;
+}
+
+.ui-treetable tbody .ui-treetable-row td {
+    border: 0px none;
+}
+
+.ui-treetable tbody .ui-treetable-row td input {
+    outline: 0 none;
+}

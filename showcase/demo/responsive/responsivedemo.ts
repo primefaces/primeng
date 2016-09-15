@@ -58,6 +58,8 @@ export class ResponsiveDemo implements OnInit {
     items1: MenuItem[];
     
     items2: MenuItem[];
+    
+    splitMenuItems: MenuItem[];
 
     showDialog() {
         this.display = true;
@@ -210,6 +212,13 @@ export class ResponsiveDemo implements OnInit {
                     }
                 ]
             }
+        ];
+        
+        this.splitMenuItems = [
+            {label: 'Update', icon: 'fa-refresh'},
+            {label: 'Delete', icon: 'fa-close'},
+            {label: 'Angular.io', icon: 'fa-link', url: 'http://angular.io'},
+            {label: 'Theming', icon: 'fa-paint-brush', routerLink: ['/theming']}
         ];
     }
 

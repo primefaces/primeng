@@ -1,13 +1,14 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input,forwardRef,Provider,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostListener,Input,forwardRef,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {InputTextModule} from '../inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
-const INPUTMASK_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
-    useExisting: forwardRef(() => InputMask),
-    multi: true
-});
+export const INPUTMASK_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => InputMask),
+  multi: true
+};
 
 @Component({
     selector: 'p-inputMask',
@@ -67,12 +68,12 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             clearIncomplete: this.clearIncomplete,
             clearMaskOnLostFocus: this.clearMaskOnLostFocus,
 			onKeyDown: (event, buffer, caretPos, opts) => {
-				let val = this.unmask ? jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue') : event.target.value;
+				let val = this.unmask ? this.getUnmasekd() : event.target.value;
 				this.onModelChange(val);
 			},
 			onBeforeWrite: (event, buffer, caretPos, opts) => {
 				if(event.target != null){
-					let val = this.unmask ? jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue') : event.target.value;
+					let val = this.unmask ? this.getUnmasekd() : event.target.value;
 					this.onModelChange(val);
 				}
             },
@@ -97,7 +98,15 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         else
             jQuery(this.el.nativeElement.children[0])['inputmask'](cfg);
     }
-    
+    getUnmasekd():string {
+        let unmaskedVal = jQuery(this.el.nativeElement.children[0])['inputmask']('unmaskedvalue');
+        let decimalRegex = /currency|decimal/g;
+        if (decimalRegex.test(this.alias) && unmaskedVal && this.options && this.options.radixPoint) {
+            unmaskedVal = Number(unmaskedVal.replace(this.options.radixPoint, '.'))
+        }
+
+        return unmaskedVal || "";
+    }
     writeValue(value: any) : void {
         this.value = value;
     }
@@ -108,6 +117,10 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
+    }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
     }
     
     onBlur() {

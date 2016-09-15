@@ -5,6 +5,7 @@ import {Component} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {LocationStrategy,HashLocationStrategy} from '@angular/common';
+import {enableProdMode} from '@angular/core';
 import {AppRoutes} from './app.routes';
 
 import {SetupComponent} from './setup.component';
@@ -15,9 +16,11 @@ import {ButtonDemo} from './demo/button/buttondemo';
 import {SpinnerDemo} from './demo/spinner/spinnerdemo';
 import {PanelDemo} from './demo/panel/paneldemo';
 import {FieldsetDemo} from './demo/fieldset/fieldsetdemo';
+import {FileUploadDemo} from './demo/fileupload/fileuploaddemo';
 import {RatingDemo} from './demo/rating/ratingdemo';
 import {PasswordDemo} from './demo/password/passworddemo';
 import {DialogDemo} from './demo/dialog/dialogdemo';
+import {ConfirmDialogDemo} from './demo/confirmdialog/confirmdialogdemo';
 import {ToggleButtonDemo} from './demo/togglebutton/togglebuttondemo';
 import {GridDemo} from './demo/grid/griddemo';
 import {TabViewDemo} from './demo/tabview/tabviewdemo';
@@ -116,6 +119,7 @@ import {ChartModule} from '../components/chart/chart';
 import {CheckboxModule} from '../components/checkbox/checkbox';
 import {CodeHighlighterModule} from '../components/codehighlighter/codehighlighter';
 import {SharedModule} from '../components/common/shared';
+import {ConfirmDialogModule} from '../components/confirmdialog/confirmdialog';
 import {ContextMenuModule} from '../components/contextmenu/contextmenu';
 import {DataGridModule} from '../components/datagrid/datagrid';
 import {DataListModule} from '../components/datalist/datalist';
@@ -126,6 +130,7 @@ import {DragDropModule} from '../components/dragdrop/dragdrop';
 import {DropdownModule} from '../components/dropdown/dropdown';
 import {EditorModule} from '../components/editor/editor';
 import {FieldsetModule} from '../components/fieldset/fieldset';
+import {FileUploadModule} from '../components/fileupload/fileupload';
 import {GalleriaModule} from '../components/galleria/galleria';
 import {GMapModule} from '../components/gmap/gmap';
 import {GrowlModule} from '../components/growl/growl';
@@ -207,10 +212,12 @@ export class AppComponent {
         DataScrollerModule,
         DataTableModule,
         DialogModule,
+        ConfirmDialogModule,
         DragDropModule,
         DropdownModule,
         EditorModule,
         FieldsetModule,
+        FileUploadModule,
         GalleriaModule,
         GMapModule,
         GrowlModule,
@@ -261,9 +268,11 @@ export class AppComponent {
         SpinnerDemo,
         PanelDemo,
         FieldsetDemo,
+        FileUploadDemo,
         RatingDemo,
         PasswordDemo,
         DialogDemo,
+        ConfirmDialogDemo,
         ToggleButtonDemo,
         GridDemo,
         TabViewDemo,
@@ -356,4 +365,5 @@ export class AppComponent {
 })
 export class AppModule { }
 
+//enableProdMode();
 platformBrowserDynamic().bootstrapModule(AppModule);

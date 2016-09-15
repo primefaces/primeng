@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChild,
+trigger,state,transition,style,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
 
@@ -34,18 +35,34 @@ export class Accordion {
 @Component({
     selector: 'p-accordionTab',
     template: `
-        <div class="ui-accordion-header ui-helper-reset ui-state-default" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}"
-            (click)="toggle($event)" (mouseenter)="hover = true" (mouseleave)="hover=false">
+        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}">
             <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
-            <a href="#" *ngIf="!headerFacet">{{header}}</a>
-            <a href="#" *ngIf="headerFacet">
+            <a href="#" *ngIf="!headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected"
+                (click)="toggle($event)" (mouseenter)="hover = true" (mouseleave)="hover=false">{{header}}</a>
+            <a href="#" *ngIf="headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected"
+                (click)="toggle($event)" (mouseenter)="hover = true" (mouseleave)="hover=false">
                 <ng-content select="header"></ng-content>
             </a>
         </div>
-        <div class="ui-accordion-content ui-helper-reset ui-widget-content" [style.display]="selected ? 'block' : 'none'">
-            <ng-content></ng-content>
+        <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" 
+            [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" role="tabpanel" [attr.aria-hidden]="!selected">
+            <div class="ui-accordion-content ui-widget-content">
+                <ng-content></ng-content>
+            </div>
         </div>
-    `
+    `,
+    animations: [
+        trigger('tabContent', [
+            state('hidden', style({
+                height: '0px'
+            })),
+            state('visible', style({
+                height: '*'
+            })),
+            transition('visible => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
+            transition('hidden => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+        ])
+    ]
 })
 export class AccordionTab {
 
@@ -54,8 +71,12 @@ export class AccordionTab {
     @Input() selected: boolean;
 
     @Input() disabled: boolean;
+    
+    @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(Header) headerFacet;
+    
+    protected animating: boolean;
 
     constructor(protected accordion: Accordion) {
         this.accordion.addTab(this);
@@ -63,27 +84,34 @@ export class AccordionTab {
 
     toggle(event) {
         if(this.disabled) {
-            event.preventDefault();
             return;
         }
-
+        
+        this.animating = true;
         let index = this.findTabIndex();
 
         if(this.selected) {
-            this.selected = !this.selected;
+            this.selected = false;
             this.accordion.onClose.emit({originalEvent: event, index: index});
         }
         else {
             if(!this.accordion.multiple) {
                 for(var i = 0; i < this.accordion.tabs.length; i++) {
                     this.accordion.tabs[i].selected = false;
+                    this.accordion.tabs[i].selectedChange.emit(false);
                 }
             }
 
             this.selected = true;
-
             this.accordion.onOpen.emit({originalEvent: event, index: index});
         }
+        
+        this.selectedChange.emit(this.selected);
+        
+        //TODO: Use onDone of animate callback instead with RC6
+        setTimeout(() => {
+            this.animating = false;
+        }, 400);
 
         event.preventDefault();
     }

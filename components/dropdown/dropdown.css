@@ -1,0 +1,118 @@
+.ui-dropdown {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    zoom: 1;
+    cursor: pointer;
+    padding-right: 2em;
+}
+
+.ui-dropdown .ui-dropdown-trigger {
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    cursor: pointer;
+    width: 16px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 3px;
+}
+
+.ui-dropdown .ui-dropdown-trigger .fa {
+    margin-top: 4px;
+    margin-left: -1px;
+}
+
+.ui-dropdown .ui-dropdown-label  {
+    display: block;
+    border: none;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: normal;
+    width: 100%;
+    float:left;
+}
+
+.ui-dropdown .ui-dropdown-label-empty {
+    text-indent: -9999px;   
+}
+
+.ui-dropdown.ui-state-disabled .ui-dropdown-trigger,
+.ui-dropdown.ui-state-disabled .ui-dropdown-label {
+    cursor: default;
+}
+
+.ui-dropdown label.ui-dropdown-label  {
+    cursor: pointer;
+}
+
+.ui-dropdown input.ui-dropdown-label  {
+    cursor: default;
+}
+
+.ui-dropdown .ui-dropdown-panel {
+    min-width: 100%;
+}
+
+.ui-dropdown-panel {
+    position: absolute;
+    height: auto;
+}
+
+.ui-dropdown-panel .ui-dropdown-items-wrapper {
+    overflow: auto;
+}
+
+.ui-dropdown-panel .ui-dropdown-item {
+    font-weight: normal;
+    border:0px none;
+    cursor:pointer;
+    margin:1px 0;
+    padding:3px 5px;
+    text-align:left;
+}
+
+.ui-dropdown-panel .ui-dropdown-item-group {
+    font-weight: bold;
+}
+
+.ui-dropdown-panel .ui-dropdown-list {
+    padding: 0.4em;
+    border: 0 none;
+}
+
+.ui-dropdown-panel .ui-dropdown-filter {
+    width: 100%;
+    padding-right:18px;
+    box-sizing: border-box;
+}
+
+.ui-dropdown-panel .ui-dropdown-filter-container {
+    position: relative;
+    margin: 0;
+    padding: 0.4em;
+    display: inline-block;
+}
+
+.ui-dropdown-panel .ui-dropdown-filter-container .fa {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+}
+
+/** Dropdown **/
+.ui-fluid .ui-dropdown {
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}
+.ui-fluid .ui-dropdown .ui-dropdown-trigger {
+    width: 32px;
+    padding: 0 6px;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}

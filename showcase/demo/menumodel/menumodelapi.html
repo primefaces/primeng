@@ -102,6 +102,12 @@ export class MenuDemo &#123;
                     <td>false</td>
                     <td>Visibility of submenu.</td>
                 </tr>
+                <tr>
+                    <td>disabled</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>When set as true, disables the menuitem.</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -119,7 +125,8 @@ export class MenuDemo &#123;
             label: 'File',
             items: [
                 &#123;label: 'New', icon: 'fa-plus': command: (event) => &#123;
-                    //process event
+                    //event.originalEvent: Browser event
+                    //event.item: menuitem metadata
                 }}
             ]
         &#125;

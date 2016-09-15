@@ -1,0 +1,139 @@
+/** MultiSelect **/
+.ui-multiselect {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    zoom: 1;
+    cursor: pointer;
+}
+
+.ui-multiselect .ui-multiselect-trigger {
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    cursor: pointer;
+    width: 16px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 3px;
+}
+
+.ui-multiselect .ui-multiselect-trigger  .fa {
+    margin-top: 5px;
+}
+
+.ui-multiselect .ui-multiselect-label-container  {
+    overflow: hidden;
+}
+
+.ui-multiselect .ui-multiselect-label  {
+    display: block;
+    padding: 3px 26px 3px 5px;
+    width: auto;
+    border: none;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ui-multiselect.ui-state-disabled .ui-multiselect-trigger,
+.ui-multiselect.ui-state-disabled .ui-multiselect-label {
+    cursor: auto
+}
+
+.ui-multiselect .ui-multiselect-panel {
+    padding: 0.2em;
+    position: absolute;
+    min-width: 100%;
+}
+
+.ui-multiselect-panel .ui-multiselect-items-wrapper {
+    overflow: auto;
+    position: relative;
+    padding: 0.2em 0;
+}
+
+.ui-multiselect-panel .ui-multiselect-list {
+    border: 0 none;
+}
+
+.ui-multiselect-panel .ui-multiselect-item {
+    border:0px none;
+    cursor:pointer;
+    font-weight:normal;
+    margin:1px 0;
+    padding:4px;
+    text-align:left;
+    white-space: nowrap;
+    display: block;
+    position: relative;
+}
+
+.ui-multiselect-panel .ui-multiselect-item .ui-chkbox {
+    position: absolute;
+    top:50%;
+    margin-top:-8px;
+}
+
+.ui-multiselect-panel .ui-multiselect-item label {
+    display: block;
+    padding-left: 25px;
+    padding-top: 3px;
+    cursor:pointer;
+}
+
+.ui-multiselect-header {
+    margin-bottom: 0.3em;
+    padding: 0.3em 0 0.3em 0.4em;
+    position: relative;
+}
+
+.ui-multiselect-header .ui-chkbox {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor:pointer;
+}
+
+.ui-multiselect-header .ui-multiselect-filter-container {
+    position: relative;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.ui-multiselect-header .ui-multiselect-filter-container .fa {
+    position: absolute;
+    left: 5px;
+    top: 3px;
+}
+            
+.ui-multiselect-header .ui-inputtext {
+    padding: 1px 1px 1px 25px;
+}
+
+.ui-multiselect-header .ui-multiselect-close {
+    position: absolute;
+    right: 2px;
+    top: 4px;
+    display: block;
+    font-size: 18px;
+    border: 0px none;
+}
+
+.ui-multiselect-header a.ui-multiselect-all,
+.ui-multiselect-header a.ui-multiselect-none {
+    float:left;
+    margin-right: 10px;
+    display: block;
+}
+
+.ui-multiselect-header .ui-multiselect-close.ui-state-hover {
+    padding:0px;
+}
+
+.ui-fluid .ui-multiselect {
+    width: 100%;
+    box-sizing: border-box;
+}

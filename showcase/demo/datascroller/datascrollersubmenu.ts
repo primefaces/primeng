@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
     selector: 'datascroller-demos',
@@ -12,8 +11,7 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
                 <li><a [routerLink]="['/datascrollerinfinite']">&#9679; Infinite</a></li>
             </ul>
         </div>
-    `,
-    directives: [ROUTER_DIRECTIVES]
+    `
 })
 export class DataScrollerSubMenu {
 }

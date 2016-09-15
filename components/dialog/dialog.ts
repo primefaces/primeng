@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild,trigger,state,style,transition,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {Header} from '../common/shared';
@@ -7,7 +7,7 @@ import {Header} from '../common/shared';
     selector: 'p-dialog',
     template: `
         <div [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" 
-            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()">
+            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
@@ -27,6 +27,18 @@ import {Header} from '../common/shared';
                 (mousedown)="initResize($event)"></div>
         </div>
     `,
+    animations: [
+        trigger('dialogState', [
+            state('hidden', style({
+                opacity: 0
+            })),
+            state('visible', style({
+                opacity: 1
+            })),
+            transition('visible => hidden', animate('400ms ease-in')),
+            transition('hidden => visible', animate('400ms ease-out'))
+        ])
+    ],
     providers: [DomHandler]
 })
 export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
@@ -119,9 +131,6 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             }
             
             this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
-            
-            if(this.showEffect == 'fade')
-                this.domHandler.fadeIn(this.el.nativeElement.children[0], 250);
                 
             this.shown = true;
         } 

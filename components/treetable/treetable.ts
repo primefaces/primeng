@@ -14,8 +14,8 @@ import {DomHandler} from '../dom/domhandler';
                 <span *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':expanded,'fa-caret-right':!expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"></span>
-                <span *ngIf="!col.template">{{node.data[col.field]}}</span>
-                <p-columnTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnTemplateLoader>
+                <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
+                <p-columnBodyTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnBodyTemplateLoader>
             </td>
         </div>
         <div *ngIf="node.children" class="ui-treetable-row" [style.display]="expanded ? 'table-row' : 'none'">
@@ -59,6 +59,25 @@ export class UITreeRow {
     onRowClick(event) {
         this.treeTable.onRowClick(event, this.node);
     }
+    
+    resolveFieldData(data: any, field: string): any {
+        if(data && field) {
+            if(field.indexOf('.') == -1) {
+                return data[field];
+            }
+            else {
+                let fields: string[] = field.split('.');
+                let value = data;
+                for(var i = 0, len = fields.length; i < len; ++i) {
+                    value = value[fields[i]];
+                }
+                return value;
+            }
+        }
+        else {
+            return null;
+        }
+    }
 }
 
 @Component({
@@ -74,13 +93,21 @@ export class UITreeRow {
                         <tr class="ui-state-default">
                             <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" 
                                 [ngClass]="'ui-state-default ui-unselectable-text'">
-                                <span class="ui-column-title">{{col.header}}</span>
+                                <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>
+                                <span class="ui-column-title" *ngIf="col.headerTemplate">
+                                    <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
+                                </span>
                             </th>
                         </tr>
                     </thead>
                     <tfoot *ngIf="hasFooter()">
                         <tr>
-                            <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}">{{col.footer}}</td>
+                            <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}">
+                                <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
+                                <span class="ui-column-footer" *ngIf="col.footerTemplate">
+                                    <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>
+                                </span>
+                            </td>
                         </tr>
                     </tfoot>
                     <tbody pTreeRow *ngFor="let node of value" [node]="node" [level]="0"></tbody>

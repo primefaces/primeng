@@ -1,0 +1,28 @@
+.ui-datascroller {
+}
+
+.ui-datascroller .ui-datascroller-header {
+    text-align: center;
+    padding: 4px 10px;
+    border-bottom: 0px none;
+}
+
+.ui-datascroller .ui-datascroller-footer {
+    text-align: center;
+    padding: 4px 10px;
+    border-top: 0px none;
+}
+
+.ui-datascroller .ui-datascroller-content {
+    padding:4px 10px;
+}
+
+.ui-datascroller-inline .ui-datascroller-content {
+    overflow: auto;
+}
+
+.ui-datascroller .ui-datascroller-list {
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+}

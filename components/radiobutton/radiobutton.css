@@ -1,0 +1,32 @@
+.ui-radiobutton {
+    position: relative;
+    width: 16px;
+    margin: 2px 0;
+    line-height: 16px;
+    cursor: pointer;
+}
+
+.ui-radiobutton .ui-radiobutton-box {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.ui-radiobutton-icon {
+    font-size: 8px;
+    margin-top: 4px;
+    margin-left: 3px;
+    display: block;
+}
+ 
+.ui-radiobutton, .ui-radiobutton-label {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.ui-radiobutton-label {
+    margin-left: 3px;
+}

@@ -3,7 +3,8 @@
 <div class="ContentSideSections">
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">Templating</span></span>
-        <span class="defaultText">Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating.</span>
+        <span class="defaultText">Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating. Similarly,
+            custom content can be placed at the header and footer of a column with templating.</span>
     </div>
 </div>
 
@@ -15,12 +16,15 @@
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color">
-            <template let-col let-car="rowData">
+            <template let-col let-car="rowData" pTemplate type="body">
                 <span [style.color]="car[col.field]">{{car[col.field]}}</span>
             </template>
         </p-column>
         <p-column styleClass="col-button">
-            <template let-car="rowData">
+            <template pTemplate type="header">
+                <button type="button" pButton icon="fa-refresh"></button>
+            </template>
+            <template let-car="rowData" pTemplate type="body">
                 <button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>
             </template>
         </p-column>
@@ -63,12 +67,15 @@ export class DataTableTemplatingDemo implements OnInit &#123;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;
-        &lt;template let-col let-car="rowData"&gt;
-            &lt;span [style.color]="car[col.field]"&gt;{{car[col.field]}}&lt;/span&gt;
+        &lt;template let-col let-car="rowData" pTemplate type="body"&gt;
+            &lt;span [style.color]="car[col.field]"&gt;&#123;&#123;car[col.field]&#125;&#125;&lt;/span&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
     &lt;p-column styleClass="col-button"&gt;
-        &lt;template let-car="rowData"&gt;
+        &lt;template pTemplate type="header"&gt;
+            &lt;button type="button" pButton icon="fa-refresh"&gt;&lt;/button&gt;
+        &lt;/template&gt;
+        &lt;template let-car="rowData" pTemplate type="body"&gt;
             &lt;button type="button" pButton (click)="selectCar(car)" icon="fa-search"&gt;&lt;/button&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;

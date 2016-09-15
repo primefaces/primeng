@@ -278,6 +278,9 @@ export class DomHandler {
     }
     
     public equals(obj1: any, obj2: any): boolean {
+        if(obj1 == null && obj2 == null){
+            return true;
+        }
         if(obj1 == null || obj2 == null) {
             return false;
         }

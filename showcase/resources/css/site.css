@@ -15,7 +15,7 @@
 
 /*  ----------------------------------------------------------------------------------------------------- */
 
-body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#20272a; font-family: 'Roboto', "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:normal;color:#404C51}
+body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#20272a; font-family: 'Roboto', "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:normal;color:#404C51; -webkit-font-smoothing: antialiased;}
 
 #LOGOTEXTSIDE{display:block;width:290px; float:left; height:auto; z-index:999; margin:-23px 0px 0px 0px; padding-top:25px; line-height:30px;}
 #LOGOTEXTSIDE img{width:245px;}
@@ -73,8 +73,6 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 
 .PropertyBox{width:27%; height:280px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
     -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
-.PropertyBox:hover, .MOBILE .PropertyBox:hover{background-color:#e0e5e9;
-    -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
 .PropertyBox img{width:60%;}
 .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:18px; margin-bottom:10px;}
 .PropertyBox .PropertyText{display:block; color:#414D52; font-size:14px; line-height: 22px;}
@@ -112,7 +110,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .cursorPointer{cursor:pointer;}
 
 /* OTHERS */
-a{ text-decoration:none; outline:none;color: #25AAE1}
+a{ text-decoration:none; color: #25AAE1}
 .dispBlock{display:block !important;}
 .TextShadow{text-shadow: 0 1px 0 #ffffff}
 .TextShadowNone{text-shadow:none;}
@@ -603,7 +601,4 @@ pre {
     width: 38px;
     text-align: center;
 }
-
-
-
 

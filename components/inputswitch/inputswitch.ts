@@ -1,12 +1,13 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnChanges,Input,forwardRef,Provider,EventEmitter,Output} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnChanges,Input,forwardRef,EventEmitter,Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
 import {DomHandler} from '../dom/domhandler';
 
-const INPUTSWITCH_VALUE_ACCESSOR: Provider = new Provider(NG_VALUE_ACCESSOR, {
-    useExisting: forwardRef(() => InputSwitch),
-    multi: true
-});
+export const INPUTSWITCH_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => InputSwitch),
+  multi: true
+};
 
 @Component({
     selector: 'p-inputSwitch',
@@ -172,6 +173,10 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
+    }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
     }
 }
 

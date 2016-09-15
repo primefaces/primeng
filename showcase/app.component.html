@@ -17,6 +17,7 @@
                 <a class="SubMenuLink" [routerLink]="['/checkbox']" (click)="mobileMenuActive = false">&#9679; Checkbox</a>
                 <a class="SubMenuLink" [routerLink]="['/dropdown']" (click)="mobileMenuActive = false">&#9679; Dropdown</a>
                 <a class="SubMenuLink" [routerLink]="['/editor']" (click)="mobileMenuActive = false">&#9679; Editor</a>
+                <a class="SubMenuLink" [routerLink]="['/fileupload']" (click)="mobileMenuActive = false">&#9679; FileUpload</a>
                 <a class="SubMenuLink" [routerLink]="['/inputswitch']" (click)="mobileMenuActive = false">&#9679; InputSwitch</a>
                 <a class="SubMenuLink" [routerLink]="['/inputtext']" (click)="mobileMenuActive = false">&#9679; InputText</a>
                 <a class="SubMenuLink" [routerLink]="['/inputtextarea']" (click)="mobileMenuActive = false">&#9679; InputTextArea</a>
@@ -66,6 +67,7 @@
 
             <span id="menu_overlay" #overlaymenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id"><img src="showcase/resources/images/mono/overlay.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['/confirmdialog']" (click)="mobileMenuActive = false">&#9679; ConfirmDialog</a>
                 <a class="SubMenuLink" [routerLink]="['/dialog']" (click)="mobileMenuActive = false">&#9679; Dialog</a>
                 <a class="SubMenuLink" [routerLink]="['/lightbox']" (click)="mobileMenuActive = false">&#9679; Lightbox</a>
                 <a class="SubMenuLink" [routerLink]="['/overlaypanel']" (click)="mobileMenuActive = false">&#9679; OverlayPanel</a>
@@ -199,16 +201,6 @@
                     </div>
                 </span>
                 
-                <span class="PFTopLinks floatRight cursorPointer" id="PremiumLayouts" (mouseenter)="premiumVisible = true" (mouseleave)="premiumVisible = false">
-                    <img src="showcase/resources/images/layouts.svg" /><span class="PFDarkText">Premium</span>
-                    <div id="PremiumLayoutsPanel" class="navOverlay" [style.display]="premiumVisible ? 'block' : 'none'" style="margin-top:10px">
-                        <a href="http://www.primefaces.org/layouts/rio-primeng" target="_blank"><span class="ui-text">Rio</span></a>
-                        <a href="http://www.primefaces.org/layouts/modena-primeng" target="_blank"><span class="ui-text">Modena</span></a>
-                        <a href="http://www.primefaces.org/layouts/adamantium-primeng" target="_blank"><span class="ui-text">Adamantium</span></a>
-                        <a href="http://www.primefaces.org/layouts/olympos-primeng" target="_blank"><span class="ui-text">Olympos</span></a>
-                    </div>
-                </span>
-
                 <a href="setup.html" class="PFTopLinks floatRight hashed" [routerLink]="['/setup']"><img alt="mockosx" src="showcase/resources/images/setup.svg" /><span class="PFDarkText">Setup</span></a>
 
                 <div class="mobileLogoCover">

@@ -11,6 +11,10 @@ showcase/demo/**/*.js
 # production showcase bundle
 prod
 
+# distribution resources
+resources/*.css
+resources/images
+
 # type definition
 typings
 *.d.ts
@@ -18,3 +22,4 @@ typings
 
 # misc 
 *.log
+.DS_STORE

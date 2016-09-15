@@ -61,11 +61,7 @@
                         SplitButton
                     </div>
                     <div class="ui-grid-col-8">
-                        <p-splitButton label="Save" icon="fa-check">
-                            <p-splitButtonItem icon="fa-close" label="Delete"></p-splitButtonItem>
-                            <p-splitButtonItem icon="fa-refresh" label="Update"></p-splitButtonItem>
-                            <p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"></p-splitButtonItem>
-                        </p-splitButton>
+                        <p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"></p-splitButton>
                     </div>
                 </div>
             </div>
@@ -286,11 +282,7 @@
                 SplitButton
             &lt;/div&gt;
             &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-splitButton label="Save" icon="fa-check"&gt;
-                    &lt;p-splitButtonItem icon="fa-close" label="Delete"&gt;&lt;/p-splitButtonItem&gt;
-                    &lt;p-splitButtonItem icon="fa-refresh" label="Update"&gt;&lt;/p-splitButtonItem&gt;
-                    &lt;p-splitButtonItem icon="fa-link" label="Angular.io" url="http://angular.io"&gt;&lt;/p-splitButtonItem&gt;
-                &lt;/p-splitButton&gt;
+            &lt;p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"&gt;&lt;/p-splitButton&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -561,6 +553,12 @@ export class ResponsiveDemo implements OnInit &#123;
     text: string;
 
     filteredCountriesSingle: any[];
+    
+    items1: MenuItem[];
+    
+    items2: MenuItem[];
+    
+    splitMenuItems: MenuItem[];
 
     showDialog() &#123;
         this.display = true;
@@ -627,6 +625,100 @@ export class ResponsiveDemo implements OnInit &#123;
         this.carService.getCarsSmall().then(cars1 => this.cars1 = cars1);
         this.carService.getCarsSmall().then(cars3 => this.sourceCars = cars3);
         this.targetCars = [];
+        
+        this.items1 = [&#123;
+            label: 'File',
+            items: [
+                &#123;label: 'New', icon: 'fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa-download'&#125;
+            ]
+        &#125;,
+        &#123;
+            label: 'Edit',
+            items: [
+                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
+            ]
+        &#125;];
+        
+        this.items2 = [
+            &#123;
+                label: 'File',
+                icon: 'fa-file-o',
+                items: [&#123;
+                        label: 'New', 
+                        icon: 'fa-plus',
+                        items: [
+                            &#123;label: 'Project'&#125;,
+                            &#123;label: 'Other'&#125;,
+                        ]
+                    &#125;,
+                    &#123;label: 'Open'&#125;,
+                    &#123;label: 'Quit'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Edit',
+                icon: 'fa-edit',
+                items: [
+                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Help',
+                icon: 'fa-question',
+                items: [
+                    &#123;
+                        label: 'Contents'
+                    &#125;,
+                    &#123;
+                        label: 'Search', 
+                        icon: 'fa-search', 
+                        items: [
+                            &#123;
+                                label: 'Text', 
+                                items: [
+                                    &#123;
+                                        label: 'Workspace'
+                                    &#125;
+                                ]
+                            &#125;,
+                            &#123;
+                                label: 'File'
+                            &#125;
+                    ]&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Actions',
+                icon: 'fa-gear',
+                items: [
+                    &#123;
+                        label: 'Edit',
+                        icon: 'fa-refresh',
+                        items: [
+                            &#123;label: 'Save', icon: 'fa-save'&#125;,
+                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                        ]
+                    &#125;,
+                    &#123;
+                        label: 'Other',
+                        icon: 'fa-phone',
+                        items: [
+                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                        ]
+                    &#125;
+                ]
+            &#125;
+        ];
+        
+        this.splitMenuItems = [
+            &#123;label: 'Update', icon: 'fa-refresh'&#125;,
+            &#123;label: 'Delete', icon: 'fa-close'&#125;,
+            &#123;label: 'Angular.io', icon: 'fa-link', url: 'http://angular.io'&#125;,
+            &#123;label: 'Theming', icon: 'fa-paint-brush', routerLink: ['/theming']&#125;
+        ];
     &#125;
 
     filterCountrySingle(event) &#123;

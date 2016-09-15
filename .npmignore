@@ -4,6 +4,7 @@ node_modules
 # demo
 showcase
 index.html
+upload.php
 
 # typescript
 *.ts
@@ -20,9 +21,11 @@ typings.json
 # config
 tsconfig.json
 webpack.config.js
+gulpfile.js
 
 # misc
 *.log
+prod
 
 
 
