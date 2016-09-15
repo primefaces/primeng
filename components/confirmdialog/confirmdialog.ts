@@ -1,7 +1,10 @@
 import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild,trigger,state,style,transition,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {Header} from '../common/shared';
+import {Header,Footer} from '../common/shared';
+import {ButtonModule} from '../button/button';
+import {ConfirmationService,Confirmation} from '../common/api';
+import {Subscription}   from 'rxjs/Subscription';
 
 @Component({
     selector: 'p-confirmDialog',
@@ -15,13 +18,16 @@ import {Header} from '../common/shared';
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
-            <div class="ui-dialog-content ui-widget-content" [style.height.px]="contentHeight">
+            <div class="ui-dialog-content ui-widget-content">
                 <i [class]="icon"></i>
                 <span class="ui-confirmdialog-message">{{message}}</span>
             </div>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" label="No"></button>
-                <button type="button" pButton icon="fa-check" label="Yes"></button>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="footer">
+                <ng-content select="footer"></ng-content>
+            </div>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="!footer">
+                <button type="button" pButton [icon]="reject" [label]="rejectLabel" (click)="reject()"></button>
+                <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()"></button>
             </div>
         </div>
     `,
@@ -40,31 +46,39 @@ import {Header} from '../common/shared';
     providers: [DomHandler]
 })
 export class ConfirmDialog implements AfterViewInit,OnDestroy {
-
+    
     @Input() header: string;
     
     @Input() icon: string;
     
     @Input() message: string;
     
+    @Input() acceptIcon: string = 'fa-check';
+    
+    @Input() acceptLabel: string = 'Yes';
+
+    @Input() rejectIcon: string = 'fa-close';
+    
+    @Input() rejectLabel: string = 'No';
+        
     @Input() width: any;
 
     @Input() height: any;
     
-    @Input() contentHeight: any;
-
     @Input() closeOnEscape: boolean = true;
 
     @Input() rtl: boolean;
 
     @Input() closable: boolean = true;
 
-    @Input() responsive: boolean;
+    @Input() responsive: boolean = true;
     
     @Input() appendTo: any;
+        
+    @ContentChild(Footer) footer;
     
-    @Output() visibleChange:EventEmitter<any> = new EventEmitter();
-    
+    confirmation: Confirmation;
+        
     _visible: boolean;
     
     documentEscapeListener: any;
@@ -76,8 +90,30 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     contentContainer: any;
     
     positionInitialized: boolean;
+    
+    subscription: Subscription;
             
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, 
+            protected renderer: Renderer, private confirmationService: ConfirmationService) {
+        this.subscription = confirmationService.requireConfirmation$.subscribe(confirmation => {
+            this.confirmation = confirmation;
+            this.message = this.message||this.confirmation.message;
+            this.icon = this.icon||this.confirmation.icon;
+            this.header = this.header||this.confirmation.header;
+            
+            if(this.confirmation.accept) {
+                this.confirmation.acceptEvent = new EventEmitter();
+                this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
+            }
+            
+            if(this.confirmation.reject) {
+                this.confirmation.rejectEvent = new EventEmitter();
+                this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
+            }
+
+            this.visible = true;
+        });         
+    }
     
     @Input() get visible(): boolean {
         return this._visible;
@@ -164,9 +200,12 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
         }
     }
     
-    hide(event) {
-        this.visibleChange.emit(false);
-        event.preventDefault();
+    hide(event?:Event) {
+        this.visible = false;
+        
+        if(event) {
+            event.preventDefault();
+        }
     }
     
     moveOnTop() {
@@ -187,13 +226,32 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
         if(this.appendTo && this.appendTo === 'body') {
             document.body.removeChild(this.el.nativeElement);
         }
+        
+        this.subscription.unsubscribe();
     }
-
+    
+    accept() {
+        if(this.confirmation.acceptEvent) {
+            this.confirmation.acceptEvent.emit();
+        }
+        
+        this.hide();
+        this.confirmation = null;
+    }
+    
+    reject() {
+        if(this.confirmation.rejectEvent) {
+            this.confirmation.rejectEvent.emit();
+        }
+        
+        this.hide();
+        this.confirmation = null;
+    }
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [ConfirmDialog],
+    imports: [CommonModule,ButtonModule],
+    exports: [ConfirmDialog,ButtonModule],
     declarations: [ConfirmDialog]
 })
 export class ConfirmDialogModule { }

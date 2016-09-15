@@ -369,6 +369,7 @@
 .ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
 .ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
 .ui-draggable .ui-dialog-titlebar { cursor: move; }
+.ui-confirmdialog .ui-dialog-content .fa {color: #757575}
 /*
  * jQuery UI Slider 1.8.16
  *

@@ -1,4 +1,6 @@
-import {EventEmitter} from '@angular/core';
+import {EventEmitter,Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
 
 export interface SortMeta {
     field: string;
@@ -51,4 +53,33 @@ export interface TreeNode {
     children?: TreeNode[];
     leaf?: boolean;
     type?: string;
+}
+
+export interface Confirmation {
+    message: string;
+    icon?: string;
+    header?: string;
+    accept?: Function;
+    reject?: Function;
+    acceptEvent?: EventEmitter<any>;
+    rejectEvent?: EventEmitter<any>;
+}
+
+@Injectable()
+export class ConfirmationService {
+    
+    private requireConfirmationSource = new Subject<Confirmation>();
+    private acceptConfirmationSource = new Subject<Confirmation>();
+    
+    requireConfirmation$ = this.requireConfirmationSource.asObservable();
+    accept = this.acceptConfirmationSource.asObservable();
+    
+    confirm(confirmation: Confirmation) {
+        this.requireConfirmationSource.next(confirmation);
+        return this;
+    }
+    
+    onAccept() {
+        this.acceptConfirmationSource.next();
+    }
 }
