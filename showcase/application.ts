@@ -5,6 +5,7 @@ import {Component} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {LocationStrategy,HashLocationStrategy} from '@angular/common';
+import {enableProdMode} from '@angular/core';
 import {AppRoutes} from './app.routes';
 
 import {SetupComponent} from './setup.component';
@@ -364,4 +365,5 @@ export class AppComponent {
 })
 export class AppModule { }
 
+//enableProdMode();
 platformBrowserDynamic().bootstrapModule(AppModule);
