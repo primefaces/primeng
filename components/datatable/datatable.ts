@@ -1149,6 +1149,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     onColumnDragStart(event) {
         this.draggedColumn = this.findParentHeader(event.target);
+        event.dataTransfer.setData('a', 'b'); // Firefox requires this to make dragging possible
     }
     
     onColumnDragover(event) {
