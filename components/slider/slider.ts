@@ -1,5 +1,6 @@
-import {NgModule,Component, ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component, ElementRef,AfterViewInit,OnDestroy,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
@@ -11,21 +12,24 @@ export const SLIDER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-slider',
     template: `
-        <div [ngStyle]="style" [class]="styleClass"></div>
+        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-slider ui-widget ui-widget-content ui-corner-all':true,
+            'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical'}">
+            <span class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" [ngStyle]="{'left':value + '%'}"></span>
+        </div>
     `,
-    providers: [SLIDER_VALUE_ACCESSOR]
+    providers: [SLIDER_VALUE_ACCESSOR,DomHandler]
 })
-export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAccessor {
+export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
     @Input() animate: boolean;
 
     @Input() disabled: boolean;
 
-    @Input() min: number;
+    @Input() min: number = 0;
 
-    @Input() max: number;
+    @Input() max: number = 100;
 
-    @Input() orientation: string;
+    @Input() orientation: string = 'horizontal';
 
     @Input() step: number;
 
@@ -39,54 +43,53 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
     
     @Output() onSlideEnd: EventEmitter<any> = new EventEmitter();
     
-    value: any;
+    protected value: number;
+        
+    protected onModelChange: Function = () => {};
     
-    onModelChange: Function = () => {};
+    protected onModelTouched: Function = () => {};
     
-    onModelTouched: Function = () => {};
-
-    initialized: boolean;
-
-    constructor(protected el: ElementRef) {
-        this.initialized = false;
+    protected dragging: boolean;
+    
+    protected dragListener: any;
+    
+    protected mouseupListener: any;
+        
+    protected initX: number;
+    
+    protected barWidth: number;
+    
+    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
+    
+    onMouseDown(event) {
+        this.dragging = true;
+        this.initX = this.el.nativeElement.children[0].getBoundingClientRect().left;
+        this.barWidth = this.el.nativeElement.children[0].offsetWidth;
     }
 
     ngAfterViewInit() {
-        jQuery(this.el.nativeElement.children[0]).slider({
-            animate: this.animate,
-            disabled: this.disabled,
-            max: this.max,
-            min: this.min,
-            orientation: this.orientation,
-            range: this.range,
-            step: this.step,
-            value: this.value,
-            values: this.value,
-            slide: (event: Event, ui: any) => {
-                if(this.range) {
-                    this.onModelChange(ui.values);
-                    this.onChange.emit({originalEvent: event, values: ui.values});
-                }
-                else {
-                    this.onModelChange(ui.value);
-                    this.onChange.emit({originalEvent: event, value: ui.value});
-                }
-            },
-            stop: (event: Event, ui: any) => {
-                this.onSlideEnd.emit({originalEvent: event, value: ui.value});
+        this.dragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            if(this.dragging) {
+                let value = (((event.pageX - this.initX) * 100) / (this.barWidth));
+                if(event.pageX < this.initX)
+                    value = this.min;
+                else if (event.pageX > (this.initX + this.barWidth))
+                    value = this.max;
+                
+                this.value = value;
+                this.onModelChange(Math.floor(this.value));
             }
         });
-        this.initialized = true;
+        
+        this.mouseupListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
+            if(this.dragging) {
+                this.dragging = false;
+            }
+        });
     }
     
     writeValue(value: any) : void {
-        this.value = value;
-        
-        if(this.initialized) {
-            let sliderValue = this.value||0;
-            let optionName = this.range ? 'values' : 'value';
-            jQuery(this.el.nativeElement.children[0]).slider('option', optionName, sliderValue);                
-        }
+        this.value = value||0;
     }
     
     registerOnChange(fn: Function): void {
@@ -101,17 +104,8 @@ export class Slider implements AfterViewInit,OnDestroy,OnChanges,ControlValueAcc
         this.disabled = val;
     }
 
-    ngOnChanges(changes: { [key: string]: SimpleChange }) {
-        if (this.initialized) {
-            for (var key in changes) {
-                jQuery(this.el.nativeElement.children[0]).slider('option', key, changes[key].currentValue);
-            }
-        }
-    }
-
     ngOnDestroy() {
-        jQuery(this.el.nativeElement.children[0]).slider('destroy');
-        this.initialized = false;
+        this.dragListener();
     }
 }
 
