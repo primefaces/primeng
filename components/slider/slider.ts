@@ -13,8 +13,10 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     selector: 'p-slider',
     template: `
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-slider ui-widget ui-widget-content ui-corner-all':true,
-            'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical'}">
-            <span class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" [ngStyle]="{'left':value + '%'}"></span>
+            'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical','ui-slider-animate':animate}"
+            (click)="onBarClick($event)">
+            <span class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" [ngStyle]="{'left':value + '%'}"
+                 [style.transition]="dragging ? 'none': null"></span>
         </div>
     `,
     providers: [SLIDER_VALUE_ACCESSOR,DomHandler]
@@ -59,18 +61,30 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     protected barWidth: number;
     
+    protected sliderHandleClick: boolean;
+    
     constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
     
     onMouseDown(event) {
         this.dragging = true;
         this.initX = this.el.nativeElement.children[0].getBoundingClientRect().left;
         this.barWidth = this.el.nativeElement.children[0].offsetWidth;
+        this.sliderHandleClick = true;
+    }
+    
+    onBarClick(event) {
+        if(!this.sliderHandleClick) {
+            this.value = this.calculateValue(event);
+            this.onModelChange(Math.floor(this.value));
+        }
+        
+        this.sliderHandleClick = false;
     }
 
     ngAfterViewInit() {
         this.dragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
             if(this.dragging) {
-                let value = (((event.pageX - this.initX) * 100) / (this.barWidth));
+                let value = this.calculateValue(event);
                 if(event.pageX < this.initX)
                     value = this.min;
                 else if (event.pageX > (this.initX + this.barWidth))
@@ -86,6 +100,10 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
                 this.dragging = false;
             }
         });
+    }
+    
+    calculateValue(event): number {
+        return ((event.pageX - this.initX) * 100) / (this.barWidth);
     }
     
     writeValue(value: any) : void {
