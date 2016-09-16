@@ -26,7 +26,7 @@ export class TreeTableDemo implements OnInit {
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {
-        this.nodeService.getFilesystem().then(files => this.files1 = files;);
+        this.nodeService.getFilesystem().then(files => this.files1 = files);
         this.nodeService.getFilesystem().then(files => this.files2 = files);
         this.nodeService.getFilesystem().then(files => this.files3 = files);
         this.nodeService.getFilesystem().then(files => this.files4 = files);
