@@ -97,8 +97,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     focus: boolean;
     
     differ: any;
+	
+	get dropdownOpen(): boolean {
+		return this.panelVisible;
+	}
     
-    panelVisible: boolean = false;
+    protected panelVisible: boolean = false;
     
     protected documentClickListener: any;
     
