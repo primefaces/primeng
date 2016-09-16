@@ -98,7 +98,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     differ: any;
     
-    protected panelVisible: boolean = false;
+    panelVisible: boolean = false;
     
     protected documentClickListener: any;
     
@@ -251,7 +251,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             if(this.panelVisible)
                 this.hide();
             else {
-                this.show(this.panel,this.container);
+                this.show();
             }
         }
     }
@@ -270,12 +270,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         });
     }
     
-    show(panel,container) {
+    show() {
         if(this.options && this.options.length) {
             this.panelVisible = true;
-            panel.style.zIndex = ++DomHandler.zindex;
-            this.domHandler.relativePosition(panel, container);
-            this.domHandler.fadeIn(panel,250);
+            this.panel.style.zIndex = ++DomHandler.zindex;
+            this.domHandler.relativePosition(this.panel, this.container);
+            this.domHandler.fadeIn(this.panel,250);
         }
     }
     
@@ -299,7 +299,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             //down
             case 40:
                 if(!this.panelVisible && event.altKey) {
-                    this.show(this.panel, this.container);
+                    this.show();
                 }
                 else {
                     if(selectedItemIndex != -1) {
