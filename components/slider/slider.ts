@@ -16,10 +16,10 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical','ui-slider-animate':animate}"
             (click)="onBarClick($event)">
             <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" [style.transition]="dragging ? 'none': null"
-                [ngStyle]="{'left': orientation == 'horizontal' ? value + '%' : null,'bottom': orientation == 'vertical' ? value + '%' : null}"></span>
-            <span *ngIf="range" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'left':values[0] + '%',width: (values[1] - values[0] + '%')}"></span>
-            <span *ngIf="range" (mousedown)="onMouseDown($event,0)" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all" [ngStyle]="{'left':values[0] + '%'}"></span>
-            <span *ngIf="range" (mousedown)="onMouseDown($event,1)" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all" [ngStyle]="{'left':values[1] + '%'}"></span>
+                [ngStyle]="{'left': orientation == 'horizontal' ? handleValue + '%' : null,'bottom': orientation == 'vertical' ? handleValue + '%' : null}"></span>
+            <span *ngIf="range" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'left':handleValues[0] + '%',width: (handleValues[1] - handleValues[0] + '%')}"></span>
+            <span *ngIf="range" (mousedown)="onMouseDown($event,0)" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all" [ngStyle]="{'left':handleValues[0] + '%'}"></span>
+            <span *ngIf="range" (mousedown)="onMouseDown($event,1)" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all" [ngStyle]="{'left':handleValues[1] + '%'}"></span>
         </div>
     `,
     providers: [SLIDER_VALUE_ACCESSOR,DomHandler]
@@ -53,6 +53,8 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     protected values: number;
     
     protected handleValue: number;
+    
+    protected handleValues: number[] = [];
         
     protected onModelChange: Function = () => {};
     
@@ -88,16 +90,18 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     onBarClick(event) {
         if(!this.sliderHandleClick) {
             this.updateDomData();
-            let value = this.calculateValue(event);
-            
+
             if(this.range) {
-                this.values[this.handleIndex] = this.validateRangeValue(value);
+                this.handleValues[this.handleIndex] = this.calculateHandleValue(event);
+                let value = (this.max - this.min) * (this.handleValues[this.handleIndex] / 100);
+                this.values[this.handleIndex] = Math.floor(this.validateRangeValue(value));
                 this.onModelChange(this.values);
                 this.onChange.emit({event: event, values: this.values});
             }
             else {
-                this.value = value;
-                this.onModelChange(this.value);
+                this.handleValue = this.calculateHandleValue(event);
+                let value = (this.max - this.min) * (this.handleValue / 100);
+                this.updateValue(value);
             }
         }
         
@@ -106,31 +110,18 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
     ngAfterViewInit() {
         this.dragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
-            if(this.dragging) {
-                let value = this.calculateValue(event);
-                                
+            if(this.dragging) {                                
                 if(this.range) {                        
-                    this.values[this.handleIndex] = this.validateRangeValue(value);
+                    this.handleValues[this.handleIndex] = this.calculateHandleValue(event);
+                    let value = (this.max - this.min) * (this.handleValues[this.handleIndex] / 100);
+                    this.values[this.handleIndex] = Math.floor(this.validateRangeValue(value));
                     this.onModelChange(this.values);
                     this.onChange.emit({event: event, values: this.values});
                 }
                 else {
-                    if(this.orientation == 'horizontal') {
-                        if(value < this.min)
-                            value = this.min;
-                        else if (value > this.max)
-                            value = this.max;
-                    } 
-                    else {
-                        if(event.pageY < this.initY)
-                            value = this.max;
-                        else if (event.pageY > (this.initY + this.barHeight))
-                            value = this.min;
-                    }
-                    
-                    this.value = value
-                    this.onModelChange(Math.floor(this.value));
-                    this.onChange.emit({event: event, value: this.value});
+                    this.handleValue = this.calculateHandleValue(event);
+                    let value = (this.max - this.min) * (this.handleValue / 100);
+                    this.updateValue(value);
                 }
             }
         });
@@ -143,7 +134,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         });
     }
     
-    calculateValue(event): number {
+    calculateHandleValue(event): number {
         if(this.orientation === 'horizontal')
             return Math.floor(((event.pageX - this.initX) * 100) / (this.barWidth));
         else
@@ -155,6 +146,8 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
             this.values = value||[0,0];
         else
             this.value = value||0;
+        
+        this.updateHandleValue();
     }
     
     registerOnChange(fn: Function): void {
@@ -177,24 +170,57 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.barHeight = this.el.nativeElement.children[0].offsetHeight;
     }
     
+    updateHandleValue(): void {
+        if(this.range) {
+            this.handleValues[0] = this.values[0] * 100 / (this.max - this.min);
+            this.handleValues[1] = this.values[1] * 100 / (this.max - this.min);
+        }
+        else {
+            this.handleValue = this.value * 100 / (this.max - this.min);
+        }
+    }
+    
+    updateValue(value: number): void {
+        if(value < this.min) {
+            value = this.min;
+            this.handleValue = 0;
+        }
+        else if (value > this.max) {
+            value = this.max;
+            this.handleValue = 100;
+        }
+        
+        this.value = Math.floor(value);
+        this.onModelChange(this.value);
+        this.onChange.emit({event: event, value: this.value});
+    }
+    
     validateRangeValue(val: number): number {
         let value = val;
         if(this.handleIndex == 0) {
-            if(value < this.min)
+            if(value < this.min) {
                 value = this.min;
-            else if (value > this.values[1])
+                this.handleValues[0] = 0;
+            }
+            else if (value > this.values[1]) {
                 value = this.values[1];
+                this.handleValues[0] = this.values[1] * 100 / (this.max - this.min);
+            }
         }
         else {
-            if(value > this.max)
+            if(value > this.max) {
                 value = this.max;
-            else if (value < this.values[0])
+                this.handleValues[1] = 100;
+            }
+            else if (value < this.values[0]) {
                 value = this.values[0];
+                this.handleValues[1] = this.values[0] * 100 / (this.max - this.min);
+            }
         }
-        
+                
         return value;
     }
-
+    
     ngOnDestroy() {
         this.dragListener();
     }
