@@ -15,8 +15,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-slider ui-widget ui-widget-content ui-corner-all':true,
             'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical','ui-slider-animate':animate}"
             (click)="onBarClick($event)">
-            <span class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" [ngStyle]="{'left':value + '%'}"
-                 [style.transition]="dragging ? 'none': null"></span>
+            <span class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" [style.transition]="dragging ? 'none': null"
+                [ngStyle]="{'left': orientation == 'horizontal' ? value + '%' : null,'bottom': orientation == 'vertical' ? value + '%' : null}"></span>
         </div>
     `,
     providers: [SLIDER_VALUE_ACCESSOR,DomHandler]
@@ -46,6 +46,8 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     @Output() onSlideEnd: EventEmitter<any> = new EventEmitter();
     
     protected value: number;
+    
+    protected handleValue: number;
         
     protected onModelChange: Function = () => {};
     
@@ -59,7 +61,11 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         
     protected initX: number;
     
+    protected initY: number;
+    
     protected barWidth: number;
+    
+    protected barHeight: number;
     
     protected sliderHandleClick: boolean;
     
@@ -67,8 +73,11 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     onMouseDown(event) {
         this.dragging = true;
-        this.initX = this.el.nativeElement.children[0].getBoundingClientRect().left;
+        let rect = this.el.nativeElement.children[0].getBoundingClientRect();
+        this.initX = rect.left + this.domHandler.getWindowScrollLeft();
+        this.initY = rect.top + + this.domHandler.getWindowScrollTop();
         this.barWidth = this.el.nativeElement.children[0].offsetWidth;
+        this.barHeight = this.el.nativeElement.children[0].offsetHeight;
         this.sliderHandleClick = true;
     }
     
@@ -85,10 +94,19 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.dragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
             if(this.dragging) {
                 let value = this.calculateValue(event);
-                if(event.pageX < this.initX)
-                    value = this.min;
-                else if (event.pageX > (this.initX + this.barWidth))
-                    value = this.max;
+                                
+                if(this.orientation == 'horizontal') {
+                    if(event.pageX < this.initX)
+                        value = this.min;
+                    else if (event.pageX > (this.initX + this.barWidth))
+                        value = this.max;
+                } 
+                else {
+                    if(event.pageY < this.initY)
+                        value = this.max;
+                    else if (event.pageY > (this.initY + this.barHeight))
+                        value = this.min;
+                }
                 
                 this.value = value;
                 this.onModelChange(Math.floor(this.value));
@@ -103,7 +121,10 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     }
     
     calculateValue(event): number {
-        return ((event.pageX - this.initX) * 100) / (this.barWidth);
+        if(this.orientation === 'horizontal')
+            return ((event.pageX - this.initX) * 100) / (this.barWidth);
+        else
+            return (((this.initY + this.barHeight) - event.pageY) * 100) / (this.barHeight);
     }
     
     writeValue(value: any) : void {
