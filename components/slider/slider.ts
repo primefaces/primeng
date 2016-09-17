@@ -80,19 +80,25 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     onMouseDown(event:Event,index?:number) {
         this.dragging = true;
-        let rect = this.el.nativeElement.children[0].getBoundingClientRect();
-        this.initX = rect.left + this.domHandler.getWindowScrollLeft();
-        this.initY = rect.top + + this.domHandler.getWindowScrollTop();
-        this.barWidth = this.el.nativeElement.children[0].offsetWidth;
-        this.barHeight = this.el.nativeElement.children[0].offsetHeight;
+        this.updateDomData();
         this.sliderHandleClick = true;
         this.handleIndex = index;
     }
     
     onBarClick(event) {
         if(!this.sliderHandleClick) {
-            this.value = this.calculateValue(event);
-            this.onModelChange(Math.floor(this.value));
+            this.updateDomData();
+            let value = this.calculateValue(event);
+            
+            if(this.range) {
+                this.values[this.handleIndex] = this.validateRangeValue(value);
+                this.onModelChange(this.values);
+                this.onChange.emit({event: event, values: this.values});
+            }
+            else {
+                this.value = value;
+                this.onModelChange(this.value);
+            }
         }
         
         this.sliderHandleClick = false;
@@ -102,23 +108,9 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.dragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
             if(this.dragging) {
                 let value = this.calculateValue(event);
-                let otherHandleIndex = this.handleIndex == 0 ? 1 : 0;
                                 
-                if(this.range) {
-                    if(this.handleIndex == 0) {
-                        if(value < this.min)
-                            value = this.min;
-                        else if (value > this.values[1])
-                            value = this.values[1];
-                    }
-                    else {
-                        if(value > this.max)
-                            value = this.max;
-                        else if (value < this.values[0])
-                            value = this.values[0];
-                    }
-                        
-                    this.values[this.handleIndex] = value;
+                if(this.range) {                        
+                    this.values[this.handleIndex] = this.validateRangeValue(value);
                     this.onModelChange(this.values);
                     this.onChange.emit({event: event, values: this.values});
                 }
@@ -175,6 +167,32 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+    }
+    
+    updateDomData(): void {
+        let rect = this.el.nativeElement.children[0].getBoundingClientRect();
+        this.initX = rect.left + this.domHandler.getWindowScrollLeft();
+        this.initY = rect.top + this.domHandler.getWindowScrollTop();
+        this.barWidth = this.el.nativeElement.children[0].offsetWidth;
+        this.barHeight = this.el.nativeElement.children[0].offsetHeight;
+    }
+    
+    validateRangeValue(val: number): number {
+        let value = val;
+        if(this.handleIndex == 0) {
+            if(value < this.min)
+                value = this.min;
+            else if (value > this.values[1])
+                value = this.values[1];
+        }
+        else {
+            if(value > this.max)
+                value = this.max;
+            else if (value < this.values[0])
+                value = this.values[0];
+        }
+        
+        return value;
     }
 
     ngOnDestroy() {
