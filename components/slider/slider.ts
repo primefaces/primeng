@@ -112,13 +112,41 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     }
     
     handleChange(event: Event) {
-        if(this.range) {                        
-            this.handleValues[this.handleIndex] = this.calculateHandleValue(event);            
-            this.updateRangeValue(this.getValueFromHandle(this.handleValues[this.handleIndex]));
+        let handleValue = this.calculateHandleValue(event);
+        let newValue = this.getValueFromHandle(handleValue);
+        
+        if(this.range) {
+            if(this.step) {
+                this.handleStepChange(newValue, this.values[this.handleIndex]);
+            }
+            else {
+                this.handleValues[this.handleIndex] = handleValue;          
+                this.updateValue(newValue);
+            }
         }
-        else {
-            this.handleValue = this.calculateHandleValue(event);
-            this.updateValue(this.getValueFromHandle(this.handleValue));
+        else {            
+            if(this.step) {
+                this.handleStepChange(newValue, this.value);
+            } 
+            else {
+                this.handleValue = handleValue;
+                this.updateValue(newValue);
+            }         
+        }
+    }
+    
+    handleStepChange(newValue: number, oldValue: number) {
+        let diff = (newValue - oldValue);
+
+        if(diff < 0 && (-1 * diff) >= this.step / 2) {
+            newValue = oldValue - this.step;
+            this.updateValue(newValue);
+            this.updateHandleValue();
+        }
+        else if(diff > 0 && diff >= this.step / 2) {
+            newValue = oldValue + this.step;
+            this.updateValue(newValue);
+            this.updateHandleValue();
         }
     }
     
@@ -168,50 +196,51 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }
     }
     
-    updateValue(value: number): void {
-        if(value < this.min) {
-            value = this.min;
-            this.handleValue = 0;
-        }
-        else if (value > this.max) {
-            value = this.max;
-            this.handleValue = 100;
-        }
-        
-        this.value = Math.floor(value);
-        this.onModelChange(this.value);
-        this.onChange.emit({event: event, value: this.value});
-    }
-    
-    updateRangeValue(val: number): void {
-        let value = val;
-        
-        if(this.handleIndex == 0) {
-            if(value < this.min) {
-                value = this.min;
-                this.handleValues[0] = 0;
+    updateValue(val: number): void {
+        if(this.range) {
+            let value = val;
+            
+            if(this.handleIndex == 0) {
+                if(value < this.min) {
+                    value = this.min;
+                    this.handleValues[0] = 0;
+                }
+                else if (value > this.values[1]) {
+                    value = this.values[1];
+                    this.handleValues[0] = this.values[1] * 100 / (this.max - this.min);
+                }
             }
-            else if (value > this.values[1]) {
-                value = this.values[1];
-                this.handleValues[0] = this.values[1] * 100 / (this.max - this.min);
+            else {
+                if(value > this.max) {
+                    value = this.max;
+                    this.handleValues[1] = 100;
+                }
+                else if (value < this.values[0]) {
+                    value = this.values[0];
+                    this.handleValues[1] = this.values[0] * 100 / (this.max - this.min);
+                }
             }
+            
+            this.values[this.handleIndex] = Math.floor(value);
+            this.onModelChange(this.values);
+            this.onChange.emit({event: event, values: this.values});
         }
         else {
-            if(value > this.max) {
-                value = this.max;
-                this.handleValues[1] = 100;
+            if(val < this.min) {
+                val = this.min;
+                this.handleValue = 0;
             }
-            else if (value < this.values[0]) {
-                value = this.values[0];
-                this.handleValues[1] = this.values[0] * 100 / (this.max - this.min);
+            else if (val > this.max) {
+                val = this.max;
+                this.handleValue = 100;
             }
+            
+            this.value = Math.floor(val);
+            this.onModelChange(this.value);
+            this.onChange.emit({event: event, value: this.value});
         }
-        
-        this.values[this.handleIndex] = Math.floor(value);
-        this.onModelChange(this.values);
-        this.onChange.emit({event: event, values: this.values});
     }
-        
+            
     getValueFromHandle(handleValue: number): number {
         return (this.max - this.min) * (handleValue / 100);
     }
