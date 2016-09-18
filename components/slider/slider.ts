@@ -122,7 +122,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
             }
             else {
                 this.handleValues[this.handleIndex] = handleValue;          
-                this.updateValue(newValue);
+                this.updateValue(newValue, event);
             }
         }
         else {            
@@ -131,7 +131,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
             } 
             else {
                 this.handleValue = handleValue;
-                this.updateValue(newValue);
+                this.updateValue(newValue, event);
             }         
         }
     }
@@ -197,7 +197,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }
     }
     
-    updateValue(val: number): void {
+    updateValue(val: number, event?: Event): void {
         if(this.range) {
             let value = val;
             
