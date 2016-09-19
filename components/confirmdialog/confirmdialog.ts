@@ -26,7 +26,7 @@ import {Subscription}   from 'rxjs/Subscription';
                 <ng-content select="footer"></ng-content>
             </div>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="!footer">
-                <button type="button" pButton [icon]="reject" [label]="rejectLabel" (click)="reject()"></button>
+                <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()"></button>
                 <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()"></button>
             </div>
         </div>
