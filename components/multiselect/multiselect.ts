@@ -19,9 +19,16 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
-            <div class="ui-multiselect-label-container" [title]="valuesAsString">
+            <div *ngIf="plainLabel" class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label [ngClass]="{'ui-multiselect-label ui-corner-all':true,'ui-state-hover':hover,'ui-state-focus':focus}">{{valuesAsString}}</label>
             </div>
+            <ul *ngIf="!plainLabel" class="ui-multiselect-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" >
+                <label *ngIf="value === undefined || value.length == 0" [ngClass]="{'ui-multiselect-label ui-corner-all':true,'ui-state-hover':hover}">{{defaultLabel}}</label>
+                <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
+                  <!--  <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)"></span> -->
+                    <span class="ui-autocomplete-token-label">{{findLabelByValue(val)}}</span>
+                </li>
+            </ul>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true,'ui-state-hover':hover,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down"></span>
             </div>
@@ -84,7 +91,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() disabled: boolean;
     
     @Input() overlayVisible: boolean;
-    
+
+    @Input() plainLabel: boolean = true;
+
     value: any[];
     
     onModelChange: Function = () => {};

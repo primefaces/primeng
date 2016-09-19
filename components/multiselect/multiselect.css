@@ -108,7 +108,7 @@
     left: 5px;
     top: 3px;
 }
-            
+
 .ui-multiselect-header .ui-inputtext {
     padding: 1px 1px 1px 25px;
 }
@@ -136,4 +136,7 @@
 .ui-fluid .ui-multiselect {
     width: 100%;
     box-sizing: border-box;
+}
+.ui-multiselect-multiple-container {
+    border: 0;
 }
