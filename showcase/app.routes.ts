@@ -74,6 +74,7 @@ import {DataScrollerDemo} from "./demo/datascroller/datascrollerdemo";
 import {DataScrollerInlineDemo} from "./demo/datascroller/datascrollerinlinedemo";
 import {DataScrollerLoaderDemo} from "./demo/datascroller/datascrollerloaderdemo";
 import {DataScrollerInfiniteDemo} from "./demo/datascroller/datascrollerinfinitedemo";
+import {DataTableIntegrationDemo} from "./demo/datatable/datatableintegrationdemo";
 import {TreeDemo} from "./demo/tree/treedemo";
 import {TreeTableDemo} from "./demo/treetable/treetabledemo";
 import {TerminalDemo} from "./demo/terminal/terminaldemo";
@@ -185,6 +186,7 @@ export const routes: Routes = [
     {path: 'toolbar', component: ToolbarDemo},
     {path: 'validation', component: ValidationDemo},
     {path: 'datatableexport', component: DataTableExportDemo},
+    {path: 'datatableintegration', component: DataTableIntegrationDemo},
     {path: 'tabmenu', component: TabMenuDemo},
     {path: 'tooltip', component: TooltipDemo},
     {path: 'menumodel', component: MenuModelApi},
