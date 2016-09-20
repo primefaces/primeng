@@ -56,6 +56,26 @@ export class DomHandler {
         return element.querySelector(selector);
     }
 
+    public closestClass(element: any, className: string, includeSelf: boolean = false) {
+        return this.closest(element, (parent) => {
+            return !this.hasClass(parent, className);
+        }, includeSelf);
+    }
+
+    public closestTag(element: any, nodeName: string, includeSelf: boolean = false) {
+        return this.closest(element, (parent) => {
+            return parent.nodeName != nodeName;
+        }, includeSelf);
+    }
+
+    private closest(element: any, continuePredicate: Function, includeSelf: boolean) {
+        let parent = includeSelf ? element : element.parentElement;
+        while(continuePredicate(parent)) {
+            parent = parent.parentElement;
+        }
+        return parent;
+    }
+
     public index(element: any): number {
         let children = element.parentNode.childNodes;
         let num = 0;
