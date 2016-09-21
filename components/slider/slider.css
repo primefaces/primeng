@@ -1,4 +1,3 @@
-/* Slider */
 .ui-slider {
 	position: relative;
 	text-align: left;
@@ -19,12 +18,6 @@
 	display: block;
 	border: 0;
 	background-position: 0 0;
-}
-
-/* support: IE8 - See #6727 */
-.ui-slider.ui-state-disabled .ui-slider-handle,
-.ui-slider.ui-state-disabled .ui-slider-range {
-	filter: inherit;
 }
 
 .ui-slider-horizontal {
@@ -63,4 +56,8 @@
 }
 .ui-slider-vertical .ui-slider-range-max {
 	top: 0;
+}
+
+.ui-slider-animate .ui-slider-handle {
+    transition: left .3s;
 }

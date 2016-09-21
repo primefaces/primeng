@@ -28,7 +28,7 @@ export class TreeNodeTemplateLoader implements OnInit {
         <li class="ui-treenode" *ngIf="node">
             <div class="ui-treenode-content" [ngClass]="{'ui-treenode-selectable': tree.selectionMode}" 
                 (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
-                <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!expanded,'fa-caret-down':expanded}" *ngIf="!isLeaf()"
+                <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}" *ngIf="!isLeaf()"
                         (click)="toggle($event)"></span
                 ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
@@ -40,7 +40,7 @@ export class TreeNodeTemplateLoader implements OnInit {
                         </span>
                     </span>
             </div>
-            <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children" [style.display]="expanded ? 'block' : 'none'">
+            <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children" [style.display]="node.expanded ? 'block' : 'none'">
                 <p-treeNode *ngFor="let childNode of node.children" [node]="childNode"></p-treeNode>
             </ul>
         </li>
@@ -54,8 +54,6 @@ export class UITreeNode {
         
     hover: boolean = false;
         
-    expanded: boolean = false;
-    
     constructor(@Inject(forwardRef(() => Tree)) protected tree:Tree) {}
         
     getIcon() {
@@ -63,7 +61,7 @@ export class UITreeNode {
         if(this.node.icon)
             icon = this.node.icon;
         else
-            icon = this.expanded ? this.node.expandedIcon : this.node.collapsedIcon;
+            icon = this.node.expanded ? this.node.expandedIcon : this.node.collapsedIcon;
         
         return UITreeNode.ICON_CLASS + ' ' + icon;
     }
@@ -73,12 +71,12 @@ export class UITreeNode {
     }
     
     toggle(event) {
-        if(this.expanded)
+        if(this.node.expanded)
             this.tree.onNodeCollapse.emit({originalEvent: event, node: this.node});
         else
             this.tree.onNodeExpand.emit({originalEvent: event, node: this.node});
 
-        this.expanded = !this.expanded
+        this.node.expanded = !this.node.expanded
     }
     
     onNodeClick(event) {
@@ -232,7 +230,38 @@ export class Tree implements AfterContentInit {
     isMultipleSelectionMode() {
         return this.selectionMode && this.selectionMode == 'multiple';
     }
-    
+
+    expandToNode(node: TreeNode): void {
+        const pathToNode: TreeNode[] = this.findPathToNode(node);
+        if(pathToNode) {
+            pathToNode.forEach( node => node.expanded=true );
+        }
+    }
+
+    findPathToNode(node: TreeNode): TreeNode[] {
+        return Tree.findPathToNodeRecursive(node, this.value);
+    }
+
+    private static findPathToNodeRecursive(searchingFor: TreeNode, searchingIn: TreeNode[]): TreeNode[] {
+
+        if(!searchingIn || searchingIn.length == 0){
+            return undefined;
+        }
+
+        for(let i=0; i<searchingIn.length; i++){
+            if(searchingFor == searchingIn[i]){
+                return [ searchingIn[i] ];
+            }
+            const path: TreeNode[] = Tree.findPathToNodeRecursive( searchingFor, searchingIn[i].children );
+            if(path) {
+                path.unshift(searchingIn[i]);
+                return path;
+            }
+        }
+
+        return undefined;
+    }
+
     getTemplateForNode(node: TreeNode): TemplateRef<any> {
         if(this.templateMap)
             return node.type ? this.templateMap[node.type] : this.templateMap['default'];
@@ -240,8 +269,6 @@ export class Tree implements AfterContentInit {
             return null;
     }
 }
-
-
 @NgModule({
     imports: [CommonModule],
     exports: [Tree],
