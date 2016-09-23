@@ -1,0 +1,164 @@
+<datatable-demos></datatable-demos>
+
+<div class="ContentSideSections">
+	<div>
+		<span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable</span>
+		<span class="defaultText">Demo presents combined usage of properties: resizableColumns, reorderableColumns,
+			scrollable, sortable, columnResizeMode, scrollHeight, scrollWidth, header, footer, filter, paginator, selectionMode,
+			expandableRows with inner table and column toggler.</span>
+	</div>
+</div>
+
+<div class="ContentSideSections Implementation">
+	<h3 class="first">Fit Mode</h3>
+	<p-dataTable [value]="cars1" resizableColumns="true" reorderableColumns="true" scrollable="true" scrollHeight="200px"
+		[paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" rows="10" selectionMode="single" expandableRows="true">
+		<header>
+			<div style="text-align:left">
+				<p-multiSelect [options]="columnOptions1" [(ngModel)]="cols1"></p-multiSelect>
+			</div>
+		</header>
+		<footer>Footer</footer>
+		<template let-car>
+			<p-dataTable [value]="cars3">
+				<p-column field="vin" header="Vin"></p-column>
+				<p-column field="year" header="Year"></p-column>
+				<p-column field="brand" header="Brand"></p-column>
+				<p-column field="color" header="Color"></p-column>
+			</p-dataTable>
+		</template>
+		<p-column expander="true" styleClass="col-icon"></p-column>
+		<p-column *ngFor="let col of cols1 let i = index" [field]="col.field" [header]="col.header" sortable="true" [filter]="i % 2"></p-column>
+	</p-dataTable>
+
+	<h3>Expand Mode</h3>
+	<p-dataTable [value]="cars2" resizableColumns="true" reorderableColumns="true" scrollable="true" columnResizeMode="expand"
+		scrollHeight="200px" scrollWidth="75%" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" rows="10" selectionMode="multiple"
+		expandableRows="true">
+		<header>
+			<div style="text-align:left">
+				<p-multiSelect [options]="columnOptions2" [(ngModel)]="cols2"></p-multiSelect>
+			</div>
+		</header>
+		<footer>Footer</footer>
+		<template let-car>
+			<p-dataTable [value]="cars3">
+				<p-column field="vin" header="Vin"></p-column>
+				<p-column field="year" header="Year"></p-column>
+				<p-column field="brand" header="Brand"></p-column>
+				<p-column field="color" header="Color"></p-column>
+			</p-dataTable>
+		</template>
+		<p-column expander="true" styleClass="col-icon"></p-column>
+		<p-column *ngFor="let col of cols2; let i = index" [field]="col.field" [header]="col.header" sortable="true" [filter]="i % 2"></p-column>
+	</p-dataTable>
+</div>
+
+<div class="ContentSideSections Source">
+	<p-tabView effect="fade">
+		<p-tabPanel header="datatableintegrationdemo.ts">
+<pre>
+<code class="language-typescript" pCode>
+export class DataTableIntegrationDemo implements OnInit &#123;
+
+    cars1: Car[];
+
+    cols1: any[];
+
+    columnOptions1: SelectItem[];
+
+    cars2: Car[];
+
+    cols2: any[];
+
+    cars3: Car[];
+
+    columnOptions2: SelectItem[];
+
+    constructor(private carService: CarService) &#123;
+    &#125;
+
+    ngOnInit(): void &#123;
+        this.cars1 = this.carService.getCarsMedium();
+        this.cols1 = [
+            &#123;field: 'vin', header: 'Vin'&#125;,
+            &#123;field: 'year', header: 'Year'&#125;,
+            &#123;field: 'brand', header: 'Brand'&#125;,
+            &#123;field: 'color', header: 'Color'&#125;
+        ];
+        this.columnOptions1 = [];
+        this.initTable(this.cars1, this.cols1, this.columnOptions1);
+
+        this.cars2 = this.carService.getCarsMedium();
+        this.cols2 = [
+            &#123;field: 'vin', header: 'Vin'&#125;,
+            &#123;field: 'year', header: 'Year'&#125;,
+            &#123;field: 'brand', header: 'Brand'&#125;,
+            &#123;field: 'color', header: 'Color'&#125;
+        ];
+        this.columnOptions2 = [];
+        this.initTable(this.cars2, this.cols2, this.columnOptions2);
+
+        this.cars3 = this.carService.getCarsSmall();
+    &#125;
+
+    private initTable(cars: Car[], cols: any[], columnOptions: SelectItem[]): void &#123;
+        for(let i = 0; i < cols.length; i++) &#123;
+            columnOptions.push(&#123;label: cols[i].header, value: cols[i]&#125;);
+        &#125;
+    &#125;
+&#125;
+</code>
+</pre>
+		</p-tabPanel>
+
+		<p-tabPanel header="datatableintegrationdemo.html">
+<pre>
+<code class="language-markup" pCode>
+&lt;h3 class="first"&gt;Fit Mode&lt;/h3&gt;
+&lt;p-dataTable [value]="cars1" resizableColumns="true" reorderableColumns="true" scrollable="true" scrollHeight="200px"
+	[paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" rows="10" selectionMode="single" expandableRows="true"&gt;
+	&lt;header&gt;
+		&lt;div style="text-align:left"&gt;
+			&lt;p-multiSelect [options]="columnOptions1" [(ngModel)]="cols1"&gt;&lt;/p-multiSelect&gt;
+		&lt;/div&gt;
+	&lt;/header&gt;
+	&lt;footer&gt;Footer&lt;/footer&gt;
+	&lt;template let-car&gt;
+		&lt;p-dataTable [value]="cars3"&gt;
+			&lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+			&lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+			&lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+			&lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+		&lt;/p-dataTable&gt;
+	&lt;/template&gt;
+	&lt;p-column expander="true" styleClass="col-icon"&gt;&lt;/p-column&gt;
+	&lt;p-column *ngFor="let col of cols1 let i = index" [field]="col.field" [header]="col.header" sortable="true" [filter]="i % 2"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;h3&gt;Expand Mode&lt;/h3&gt;
+&lt;p-dataTable [value]="cars2" resizableColumns="true" reorderableColumns="true" scrollable="true" columnResizeMode="expand"
+	scrollHeight="200px" scrollWidth="75%" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" rows="10" selectionMode="multiple"
+	expandableRows="true"&gt;
+	&lt;header&gt;
+		&lt;div style="text-align:left"&gt;
+			&lt;p-multiSelect [options]="columnOptions2" [(ngModel)]="cols2"&gt;&lt;/p-multiSelect&gt;
+		&lt;/div&gt;
+	&lt;/header&gt;
+	&lt;footer&gt;Footer&lt;/footer&gt;
+	&lt;template let-car&gt;
+		&lt;p-dataTable [value]="cars3"&gt;
+			&lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+			&lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+			&lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+			&lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+		&lt;/p-dataTable&gt;
+	&lt;/template&gt;
+	&lt;p-column expander="true" styleClass="col-icon"&gt;&lt;/p-column&gt;
+	&lt;p-column *ngFor="let col of cols2; let i = index" [field]="col.field" [header]="col.header" sortable="true" [filter]="i % 2"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+		</p-tabPanel>
+	</p-tabView>
+</div>

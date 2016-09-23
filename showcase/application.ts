@@ -85,6 +85,7 @@ import {DataScrollerInlineDemo} from "./demo/datascroller/datascrollerinlinedemo
 import {DataScrollerLoaderDemo} from "./demo/datascroller/datascrollerloaderdemo";
 import {DataScrollerInfiniteDemo} from "./demo/datascroller/datascrollerinfinitedemo";
 import {DataScrollerSubMenu} from "./demo/datascroller/datascrollersubmenu";
+import {DataTableIntegrationDemo} from "./demo/datatable/datatableintegrationdemo";
 import {TreeDemo} from "./demo/tree/treedemo";
 import {TreeTableDemo} from "./demo/treetable/treetabledemo";
 import {TerminalDemo} from "./demo/terminal/terminaldemo";
@@ -326,6 +327,7 @@ export class AppComponent {
         DataTableColTogglerDemo,
         DataTableRowExpansionDemo,
         DataTableSubmenu,
+        DataTableIntegrationDemo,
         CodeHighlighterDemo,
         OrderListDemo,
         PickListDemo,
