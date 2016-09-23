@@ -10,6 +10,190 @@ import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
 
+export interface SortState {
+
+    sortField: string;
+
+    sortOrder: number;
+
+    multiSortMeta: SortMeta[]
+}
+
+export interface PaginationState {
+
+    rows: number;
+
+    pageLinkSize: number;
+
+    first: number;
+}
+
+export interface FiltersState {
+
+    globalFilter?: any;
+
+    filters?: {[s: string]: FilterMetadata;};
+}
+
+export interface State {
+
+    sortState?: SortState;
+
+    visibleColumnsState?: Array<Column>;
+
+    filtersState?: FiltersState;
+
+    paginationState?: PaginationState;
+}
+
+abstract class StatePersister {
+
+    constructor(protected dataTable: DataTable) {
+    }
+
+    public saveState(): void {
+        if (!this.isUsable()) {
+            return;
+        }
+
+        let state: State = this.readOrCreateState();
+        this.updateSortState(state);
+        this.updateVisibleColumnsState(state);
+        this.updateFiltersState(state);
+        this.updatePaginationState(state);
+        this.persistState(state);
+    }
+
+    public applyState(): void {
+        if (!this.isUsable()) {
+            return;
+        }
+
+        let state: State = this.readState();
+        if (!state) {
+            return;
+        }
+
+        this.applySortState(state);
+        this.applyVisibleColumnsState(state);
+        this.applyFiltersState(state);
+        this.applyPaginationState(state);
+    }
+
+    public applyLazyEventState(): void {
+        if (!this.isUsable()) {
+            return;
+        }
+
+        let state: State = this.readState();
+        if (!state) {
+            return;
+        }
+
+        this.applySortState(state);
+        this.applyFiltersState(state);
+        this.applyPaginationState(state);
+    }
+
+    private updateSortState(state: State): void {
+        state.sortState = {
+            sortField: this.dataTable.sortField,
+            sortOrder: this.dataTable.sortOrder,
+            multiSortMeta: this.dataTable.multiSortMeta
+        };
+    }
+
+    private updateVisibleColumnsState(state: State): void {
+        state.visibleColumnsState = [];
+        this.dataTable.updateColumnsState(state);
+    }
+
+    private updateFiltersState(state: State): void {
+        this.dataTable.updateFiltersState(state);
+    }
+
+    private updatePaginationState(state: State): void {
+        if (this.dataTable.paginator) {
+            state.paginationState = {
+                rows: this.dataTable.rows,
+                pageLinkSize: this.dataTable.pageLinks,
+                first: this.dataTable.first
+            };
+        } else {
+            state.paginationState = null;
+        }
+    }
+
+    private readOrCreateState(): State {
+        let state: State = this.readState();
+        if (state) {
+            return state;
+        }
+        return {};
+    }
+
+    private isUsable(): boolean {
+        return this.supported() && this.dataTable.lazy;
+    }
+
+    private applySortState(state: State): void {
+        let sortState: SortState = state.sortState;
+        this.dataTable.sortField = sortState.sortField;
+        this.dataTable.sortOrder = sortState.sortOrder;
+        this.dataTable.multiSortMeta = sortState.multiSortMeta;
+    }
+
+    private applyVisibleColumnsState(state: State): void {
+        this.dataTable.applyColumnsState(state);
+    }
+
+    private applyFiltersState(state: State): void {
+        this.dataTable.applyFiltersState(state);
+    }
+
+    private applyPaginationState(state: State): void {
+        if (this.dataTable.paginator) {
+            let paginationState: PaginationState = state.paginationState;
+            this.dataTable.pageLinks = paginationState.pageLinkSize;
+            this.dataTable.rows = paginationState.rows;
+            this.dataTable.first = paginationState.first;
+        }
+    }
+
+    public abstract readState(): State;
+
+    protected abstract persistState(state: State): void;
+
+    public abstract supported(): boolean;
+
+    public abstract removeState(): void;
+}
+
+class LocalStorageStatePersister extends StatePersister {
+
+    public readState(): State {
+        let state: string = localStorage.getItem(this.dataTable.persistedStateId);
+        if (state) {
+            return JSON.parse(state);
+        }
+        return null;
+    }
+
+    protected persistState(state: State): void {
+        localStorage.setItem(this.dataTable.persistedStateId, JSON.stringify(state));
+    }
+
+    public supported(): boolean {
+        return !!window.localStorage && !!this.dataTable.persistedStateId;
+    }
+
+    public removeState(): void {
+        if (this.supported()) {
+            localStorage.removeItem(this.dataTable.persistedStateId);
+        }
+    }
+}
+
 @Component({
     selector: 'p-dtRadioButton',
     template: `
@@ -25,6 +209,7 @@ import {Subscription} from 'rxjs/Subscription';
         </div>
     `
 })
+
 export class DTRadioButton {
     
     @Input() checked: boolean;
@@ -279,6 +464,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
+    @Output() onPersistentStateApplied: EventEmitter<any> = new EventEmitter();
+
     @Input() filterDelay: number = 300;
 
     @Input() lazy: boolean;
@@ -350,6 +537,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() expandableRows: boolean;
     
     @Input() tabindex: number = 1;
+
+    @Input() first: number = 0;
+
+    @Input() persistedStateId: string;
     
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
@@ -360,8 +551,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @ContentChildren(Column) cols: QueryList<Column>;
     
     protected dataToRender: any[];
-
-    protected first: number = 0;
 
     protected page: number = 0;
 
@@ -421,30 +610,33 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     columnsSubscription: Subscription;
 
+    private statePersister: StatePersister;
+
     constructor(protected el: ElementRef, protected domHandler: DomHandler, differs: IterableDiffers, 
             protected renderer: Renderer, private changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
     }
 
     ngOnInit() {
+        this.statePersister = new LocalStorageStatePersister(this);
+
         if(this.lazy) {
-            this.onLazyLoad.emit({
-                first: this.first,
-                rows: this.rows,
-                sortField: this.sortField,
-                sortOrder: this.sortOrder,
-                filters: null,
-                multiSortMeta: this.multiSortMeta
-            });
+            this.statePersister.applyLazyEventState();
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
     }
     
     ngAfterContentInit() {
         this.initColumns();
+        if (this.statePersister.supported()) {
+            this.statePersister.applyState();
+            this.onPersistentStateApplied.emit({state: this.statePersister.readState()});
+        }
         
         this.columnsSubscription = this.cols.changes.subscribe(_ => {
             this.initColumns();
             this.changeDetector.markForCheck();
+            this.statePersister.saveState();
         });
     }
 
@@ -463,6 +655,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
 
             this.columnsUpdated = false;
+            this.statePersister.applyState();
         }
     }
 
@@ -496,6 +689,38 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             
             this.updateDataToRender(this.filteredValue||this.value);
         }
+    }
+
+    public removePersistentState(): void {
+        this.statePersister.removeState();
+    }
+
+    applyFiltersState(state: State): void {
+        let filtersState: FiltersState = state.filtersState;
+        if (!state.filtersState) {
+            return;
+        }
+
+        this.globalFilter = filtersState.globalFilter;
+        this.filters = filtersState.filters;
+    }
+
+    updateFiltersState(state: State): void {
+        state.filtersState = {
+            filters: this.filters,
+            globalFilter: this.globalFilter
+        };
+    }
+
+    applyColumnsState(state: State): void {
+        this.columns.splice(0, this.columns.length);
+        for (let i = 0;i < state.visibleColumnsState.length;i++) {
+            this.columns.push(state.visibleColumnsState[i]);
+        }
+    }
+
+    updateColumnsState(state: State): void {
+        state.visibleColumnsState = this.columns;
     }
     
     initColumns(): void {
@@ -546,6 +771,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             first: this.first,
             rows: this.rows
         });
+        this.statePersister.saveState();
     }
 
     updateDataToRender(datasource) {
@@ -604,6 +830,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             order: this.sortOrder,
             multisortmeta: this.multiSortMeta
         });
+        this.statePersister.saveState();
     }
 
     sortSingle() {
@@ -950,6 +1177,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.onFilter.emit({
             filters: this.filters
         });
+        this.statePersister.saveState();
     }
 
     hasFilter() {
@@ -1129,6 +1357,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 element: this.resizeColumn,
                 delta: delta
             });
+            this.statePersister.saveState();
         }
                 
         this.resizerHelper.style.display = 'none';
@@ -1205,6 +1434,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 dropIndex: dropIndex,
                 columns: this.columns
             });
+            this.statePersister.saveState();
         }
         
         this.reorderIndicatorUp.style.display = 'none';
