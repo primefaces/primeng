@@ -10,7 +10,8 @@ import {CommonModule} from '@angular/common';
         '[class.ui-widget]': 'true',
         '[class.ui-state-hover]': 'hover',
         '[class.ui-state-focus]': 'focus',
-        '[class.ui-state-disabled]': 'isDisabled()'
+        '[class.ui-state-disabled]': 'disabled',
+        '[class.ui-state-filled]': 'filled'
     }
 })
 export class InputText {
@@ -41,8 +42,12 @@ export class InputText {
         this.focus = false;
     }
     
-    isDisabled() {
+    get disabled(): boolean {
         return this.el.nativeElement.disabled;
+    }
+    
+    get filled(): boolean {
+        return this.el.nativeElement.value&&this.el.nativeElement.value.length;
     }
 }
 
