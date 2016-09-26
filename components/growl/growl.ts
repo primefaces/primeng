@@ -7,12 +7,10 @@ import {DomHandler} from '../dom/domhandler';
     selector: 'p-growl',
     template: `
         <div class="ui-growl ui-widget" [style.zIndex]="zIndex">
-            <div #msgel *ngFor="let msg of value" class="ui-growl-item-container ui-state-highlight ui-corner-all ui-shadow" aria-live="polite"
-                [ngClass]="{'ui-growl-message-info ':msg.severity == 'info','ui-growl-message-warn':msg.severity == 'warn','ui-growl-message-error':msg.severity == 'error'}">
+            <div #msgel *ngFor="let msg of value" class="ui-growl-item-container ui-state-highlight ui-corner-all ui-shadow ui-growl-message-{{msg.severity}}" aria-live="polite"
                 <div class="ui-growl-item">
                      <div class="ui-growl-icon-close fa fa-close" (click)="remove(msg,msgel)"></div>
-                     <span class="ui-growl-image fa fa-2x ui-growl-image-info"
-                        [ngClass]="{'fa-info-circle':msg.severity == 'info','fa-warning':msg.severity == 'warn','fa-close':msg.severity == 'error'}"></span>
+                     <span class="ui-growl-image fa fa-2x ui-growl-image-info"></span>
                      <div class="ui-growl-message">
                         <span class="ui-growl-title">{{msg.summary}}</span>
                         <p>{{msg.detail}}</p>
