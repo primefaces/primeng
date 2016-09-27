@@ -730,42 +730,39 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     handleRowClick(event, rowData) {
-        this.onRowClick.next({originalEvent: event, data: rowData});
-        
-        if(!this.selectionMode) {
-            return;
-        }
-        
         let targetNode = event.target.nodeName;
-        if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' 
-            || (this.domHandler.hasClass(event.target, 'ui-c'))) {
-            return;
-        }
-        
-        if(this.isSelected(rowData)) {
-            if(this.isSingleSelectionMode()) {
-                this.selection = null;
-                this.selectionChange.emit(null);
-            }
-            else {
-                this.selection.splice(this.findIndexInSelection(rowData), 1);
-                this.selectionChange.emit(this.selection);
+        if(targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
+            this.onRowClick.next({originalEvent: event, data: rowData});
+            
+            if(!this.selectionMode) {
+                return;
             }
             
-            this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
-        }
-        else {
-            if(this.isSingleSelectionMode()) {
-                this.selection = rowData;
-                this.selectionChange.emit(rowData);
+            if(this.isSelected(rowData)) {
+                if(this.isSingleSelectionMode()) {
+                    this.selection = null;
+                    this.selectionChange.emit(null);
+                }
+                else {
+                    this.selection.splice(this.findIndexInSelection(rowData), 1);
+                    this.selectionChange.emit(this.selection);
+                }
+                
+                this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
             }
-            else if(this.isMultipleSelectionMode()) {
-                this.selection = this.selection||[];
-                this.selection.push(rowData);
-                this.selectionChange.emit(this.selection);
-            }
+            else {
+                if(this.isSingleSelectionMode()) {
+                    this.selection = rowData;
+                    this.selectionChange.emit(rowData);
+                }
+                else if(this.isMultipleSelectionMode()) {
+                    this.selection = this.selection||[];
+                    this.selection.push(rowData);
+                    this.selectionChange.emit(this.selection);
+                }
 
-            this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+                this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+            }
         }
     }
     
