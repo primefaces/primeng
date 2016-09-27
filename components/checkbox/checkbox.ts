@@ -12,7 +12,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     selector: 'p-checkbox',
     template: `
         <div class="ui-chkbox ui-widget">
-            <div class="ui-helper-hidden-accesdsible">
+            <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [name]="name" value="{{value}}" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)"
                 [ngClass]="{'ui-state-focus':focused}" (change)="handleChange($event)">
             </div>
