@@ -29,7 +29,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     `,
     providers: [INPUTSWITCH_VALUE_ACCESSOR,DomHandler]
 })
-export class InputSwitch implements ControlValueAccessor, AfterViewInit {
+export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterViewChecked {
 
     @Input() onLabel: string = 'On';
 
@@ -76,7 +76,15 @@ export class InputSwitch implements ControlValueAccessor, AfterViewInit {
         this.offContainer = this.domHandler.findSingle(this.container,'div.ui-inputswitch-off');
         this.onLabelChild = this.domHandler.findSingle(this.onContainer,'span.ui-inputswitch-onlabel');
         this.offLabelChild = this.domHandler.findSingle(this.offContainer,'span.ui-inputswitch-offlabel');
-
+    }
+    
+    ngAfterViewChecked() {
+        if(this.container.offsetParent && !this.initialized) {
+            this.render();
+        }
+    }
+    
+    render() {
         let	onContainerWidth =  this.domHandler.width(this.onContainer),
             offContainerWidth = this.domHandler.width(this.offContainer),
             spanPadding	= this.domHandler.innerWidth(this.offLabelChild) - this.domHandler.width(this.offLabelChild),
