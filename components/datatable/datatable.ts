@@ -576,34 +576,37 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(!column.sortable) {
             return;
         }
+        
+        let targetNode = event.target.nodeName;
+        if(targetNode == 'TH' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
+            this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
+            this.sortField = column.field;
+            this.sortColumn = column;
+            let metaKey = event.metaKey||event.ctrlKey;
 
-        this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
-        this.sortField = column.field;
-        this.sortColumn = column;
-        let metaKey = event.metaKey||event.ctrlKey;
-
-        if(this.lazy) {
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-        else {
-            if(this.sortMode == 'multiple') {
-                if(!this.multiSortMeta||!metaKey) {
-                    this.multiSortMeta = [];
-                }
-
-                this.addSortMeta({field: this.sortField, order: this.sortOrder});
-                this.sortMultiple();
+            if(this.lazy) {
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else {
-                this.sortSingle();
+                if(this.sortMode == 'multiple') {
+                    if(!this.multiSortMeta||!metaKey) {
+                        this.multiSortMeta = [];
+                    }
+
+                    this.addSortMeta({field: this.sortField, order: this.sortOrder});
+                    this.sortMultiple();
+                }
+                else {
+                    this.sortSingle();
+                }
             }
+            
+            this.onSort.emit({
+                field: this.sortField,
+                order: this.sortOrder,
+                multisortmeta: this.multiSortMeta
+            });
         }
-        
-        this.onSort.emit({
-            field: this.sortField,
-            order: this.sortOrder,
-            multisortmeta: this.multiSortMeta
-        });
     }
 
     sortSingle() {
