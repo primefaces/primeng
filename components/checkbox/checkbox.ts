@@ -60,7 +60,14 @@ export class Checkbox implements ControlValueAccessor {
         }
         
         this.checked = !this.checked;
-
+        this.updateModel();
+        
+        if(focus) {
+            checkbox.focus();
+        }
+    }
+    
+    updateModel() {
         if(!this.binary) {
             if(this.checked)
                 this.addValue(this.value);
@@ -74,14 +81,11 @@ export class Checkbox implements ControlValueAccessor {
         }
         
         this.onChange.emit(this.checked);
-        
-        if(focus) {
-            checkbox.focus();
-        }
     }
     
     handleChange(event) {
         this.checked = event.target.checked;
+        this.updateModel();
     }
 
     isChecked(): boolean {
