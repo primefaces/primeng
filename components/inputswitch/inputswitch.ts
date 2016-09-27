@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnChanges,Input,forwardRef,EventEmitter,Output} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnChanges,Input,forwardRef,EventEmitter,Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
 import {DomHandler} from '../dom/domhandler';
