@@ -928,6 +928,17 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>bottom</td>
                             <td>Position of the paginator, options are "top","bottom" or "both".</td>
                         </tr>
+                        <tr>
+                            <td>persistedStateId</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>
+                                Allows persisting pagination, column styles(useful when resizable), filters sorting.
+                                LocalStorage is used if browser supports it.
+                                persistedStateId is used for remembering state as localStorage.setItem(persistedStateId, state);
+                                Currently should be used only when lazy = true
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1050,6 +1061,11 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>onRowCollapse</td>
                             <td>row: Row data to collapse.<br></td>
                             <td>Callback to invoke when a row is collapsed.</td>
+                        </tr>
+                        <tr>
+                            <td>onPersistentStateApplied</td>
+                            <td>state: Persistent state that was applied.<br></td>
+                            <td>Callback to invoke when persistent state is applied.</td>
                         </tr>
                     </tbody>
                 </table>
