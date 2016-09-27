@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,
-        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,QueryList,TemplateRef,ChangeDetectorRef, Directive} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
@@ -9,6 +9,13 @@ import {Column,Header,Footer} from '../common/shared';
 import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
+
+@Directive({
+    selector: '[pRowExpansion]'
+})
+export class DTRowExpansion {
+    constructor(public template: TemplateRef<any>) {}
+}
 
 @Component({
     selector: 'p-dtRadioButton',
@@ -32,6 +39,7 @@ export class DTRadioButton {
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     handleClick(event) {
+        event.stopPropagation();
         this.onClick.emit(event);
     }
 }
@@ -60,6 +68,7 @@ export class DTCheckbox {
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     handleClick(event) {
+        event.stopPropagation();
         if(!this.disabled) {
             this.onChange.emit({originalEvent: event, checked: !this.checked});
         }
@@ -73,14 +82,14 @@ export class DTCheckbox {
 })
 export class RowExpansionLoader {
         
-    @Input() template: TemplateRef<any>;
+    @Input() rowExpansion: DTRowExpansion;
     
     @Input() rowData: any;
     
     constructor(protected viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.template, {
+        let view = this.viewContainer.createEmbeddedView(this.rowExpansion.template, {
             '\$implicit': this.rowData
         });
     }
@@ -162,13 +171,13 @@ export class RowExpansionLoader {
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
-                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
-                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
+                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
+                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event, rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="visibleColumns().length">
-                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
+                                    <p-rowExpansionLoader [rowData]="rowData" [rowExpansion]="rowExpansion"></p-rowExpansionLoader>
                                 </td>
                             </tr>
                         </template>
@@ -225,7 +234,7 @@ export class RowExpansionLoader {
                         </tr>
                         <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                             <td [attr.colspan]="visibleColumns().length">
-                                <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
+                                <p-rowExpansionLoader [rowData]="rowData" [rowExpansion]="rowExpansion"></p-rowExpansionLoader>
                             </td>
                         </tr>
                     </template>
@@ -355,7 +364,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
+    @ContentChild(DTRowExpansion) rowExpansion: DTRowExpansion;
     
     @ContentChildren(Column) cols: QueryList<Column>;
     
@@ -769,7 +778,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    selectRowWithRadio(rowData:any) {
+    selectRowWithRadio(event, rowData:any) {
         if(this.selection != rowData) {
             this.selection = rowData;
             this.selectionChange.emit(this.selection);
@@ -777,13 +786,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    toggleRowWithCheckbox(event,rowData) {
+    toggleRowWithCheckbox(event, rowData) {
         let selectionIndex = this.findIndexInSelection(rowData);
         this.selection = this.selection||[];
         
         if(selectionIndex != -1) {
             this.selection.splice(selectionIndex, 1);
-            this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
+            this.onRowUnselect.emit({originalEvent: event.originalEvent, data: rowData, type: 'checkbox'});
         }
             
         else {
@@ -1191,7 +1200,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.reorderIndicatorDown.style.display = 'none';
         }
     }
-    
+
     onColumnDrop(event) {
         event.preventDefault();
         let dragIndex = this.domHandler.index(this.draggedColumn);
@@ -1419,7 +1428,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
 @NgModule({
     imports: [CommonModule,SharedModule,PaginatorModule,FormsModule,InputTextModule],
-    exports: [DataTable,SharedModule],
-    declarations: [DataTable,DTRadioButton,DTCheckbox,RowExpansionLoader]
+    exports: [DataTable,DTRowExpansion,SharedModule],
+    declarations: [DataTable,DTRadioButton,DTCheckbox,RowExpansionLoader, DTRowExpansion]
 })
 export class DataTableModule { }
