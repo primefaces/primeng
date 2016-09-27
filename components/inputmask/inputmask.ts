@@ -71,6 +71,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     @Input() readonly: boolean;
     
+    @Input() unmask: boolean;
+    
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
         
     value: any;
@@ -339,13 +341,16 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
             this.clearBuffer(begin, end);
 			this.shiftL(begin, end - 1);
+            this.updateModel(e);
 
             e.preventDefault();
         } else if( k === 13 ) { // enter
             this.onBlur(e);
+            this.updateModel(e);
         } else if (k === 27) { // escape
             this.input.value = this.focusText;
             this.caret(0, this.checkVal());
+            this.updateModel(e);
             e.preventDefault();
         }
     }
@@ -396,6 +401,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             }
             e.preventDefault();
         }
+        
+        this.updateModel(e);
     }
     
     clearBuffer(start, end) {
@@ -488,7 +495,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }, 10);
     }
     
-    onInput(event) {        
+    onInput(event) { 
         if (this.androidChrome)
             this.handleAndroidInput(event);
         else
@@ -505,6 +512,22 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             this.caret(pos);
             this.tryFireCompleted();
         }, 0);
+    }
+    
+    getUnmaskedValue() {
+        let unmaskedBuffer = [];
+        for(let i = 0; i < this.buffer.length; i++) {
+            let c = this.buffer[i];
+            if(this.tests[i] && c != this.getPlaceholder(i)) {
+                unmaskedBuffer.push(c);
+            }
+        }
+        
+        return unmaskedBuffer.join('');
+    }
+    
+    updateModel(e) {
+        this.onModelChange(this.unmask ? this.getUnmaskedValue() : e.target.value);
     }
     
     ngOnDestroy() {
