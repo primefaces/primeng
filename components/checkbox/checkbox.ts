@@ -12,9 +12,9 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     selector: 'p-checkbox',
     template: `
         <div class="ui-chkbox ui-widget">
-            <div class="ui-helper-hidden-accessible">
-                <input #cb type="checkbox" name="{{name}}" value="{{value}}" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)"
-                [ngClass]="{'ui-state-focus':focused}" (keydown.space)="onClick($event,cb,false)">
+            <div class="ui-helper-hidden-accesdsible">
+                <input #cb type="checkbox" [name]="name" value="{{value}}" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)"
+                [ngClass]="{'ui-state-focus':focused}" (change)="handleChange($event)">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,cb,true)"
                         (mouseover)="hover=true" (mouseout)="hover=false" 
@@ -78,6 +78,10 @@ export class Checkbox implements ControlValueAccessor {
         if(focus) {
             checkbox.focus();
         }
+    }
+    
+    handleChange(event) {
+        this.checked = event.target.checked;
     }
 
     isChecked(): boolean {
