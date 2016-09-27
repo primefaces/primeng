@@ -323,4 +323,8 @@ export class DomHandler {
         
     	return false;
     }
+    
+    getUserAgent(): string {
+        return navigator.userAgent;
+    }
 }

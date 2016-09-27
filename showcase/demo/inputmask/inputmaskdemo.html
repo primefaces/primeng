@@ -6,31 +6,13 @@
 </div>
 
 <div class="ContentSideSections Implementation">
+
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-6 ui-lg-4">
             <p-inputMask mask="99-999999" [(ngModel)]="val1" placeholder="99-999999"></p-inputMask>
         </div>
-        
-        <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="datetime" [(ngModel)]="val2" placeholder="DateTime"></p-inputMask>
-        </div>
-        
-        <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="numeric" [options]="&#123;groupSeparator:'',digits:2,prefix:'$',digitsOptional:false,autoGroup:true&#125;" [(ngModel)]="val3" placeholder="Currency" slotChar="0"></p-inputMask>
-        </div>
-        
-        <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="decimal" [options]="&#123;groupSeparator:',',autoGroup:true&#125;" [(ngModel)]="val4" placeholder="Decimal"></p-inputMask>
-        </div>
-        
-        <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="regex" [options]="&#123;regex: '[0-9]*'&#125;" placeholder="Regex (Integer only)"></p-inputMask>
-        </div>
-        
-        <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask mask="*&#123;1,20&#125;@*&#123;1,20&#125;.*&#123;1,3&#125;" placeholder="Email"></p-inputMask>
-        </div>
     </div>
+    
 </div>
 
 <div class="ContentSideSections Source">
