@@ -7,6 +7,11 @@ import {Message} from '../../../components/common/api';
 export class MessagesDemo {
 
     msgs: Message[] = [];
+    
+    showSuccess() {
+        this.msgs = [];
+        this.msgs.push({severity:'success', summary:'Success Message', detail:'Order submitted'});
+    }
 
     showInfo() {
         this.msgs = [];

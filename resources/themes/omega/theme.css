@@ -723,8 +723,13 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 }
 
 .ui-growl-item-container.ui-state-highlight.ui-growl-message-warn {
-    background-color: #ff9800;
-    border-color :#ff9800;
+    background-color: #FFB300;
+    border-color :#FFB300;
+}
+
+.ui-growl-item-container.ui-state-highlight.ui-growl-message-success {
+    background-color: #4CAF50;
+    border-color :#4CAF50;
 }
 
 /* TabMenu */

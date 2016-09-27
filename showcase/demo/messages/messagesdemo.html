@@ -9,6 +9,7 @@
     <p-messages [value]="msgs"></p-messages>
 
     <div>
+        <button type="button" pButton (click)="showSuccess()" label="Success"></button>
         <button type="button" pButton (click)="showInfo()" label="Info"></button>
         <button type="button" pButton (click)="showWarn()" label="Warn"></button>
         <button type="button" pButton (click)="showError()" label="Error"></button>
@@ -127,6 +128,10 @@ hide() &#123;
                         <tr>
                             <td>ui-messages-error</td>
                             <td>Container element when displaying error messages.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-messages-success</td>
+                            <td>Container element when displaying success messages.</td>
                         </tr>
                         <tr>
                             <td>ui-messages-close</td>

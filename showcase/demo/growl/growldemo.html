@@ -9,6 +9,7 @@
     <p-growl [value]="msgs" sticky="sticky"></p-growl>
 
     <div>
+        <button type="button" pButton (click)="showSuccess()" label="Success"></button>
         <button type="button" pButton (click)="showInfo()" label="Info"></button>
         <button type="button" pButton (click)="showWarn()" label="Warn"></button>
         <button type="button" pButton (click)="showError()" label="Error"></button>
