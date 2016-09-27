@@ -450,7 +450,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
         pos = this.checkVal();
 
-        this.caretTimeoutId = setTimeout(function(){
+        this.caretTimeoutId = setTimeout(() => {
             if(this.input !== document.activeElement){
                 return;
             }
