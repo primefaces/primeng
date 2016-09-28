@@ -307,6 +307,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     onBlur(e) {
         this.onModelTouched();
         this.checkVal();
+        this.updateModel(e);
 
         if (this.input.value != this.focusText) {
             let event = document.createEvent('HTMLEvents');
