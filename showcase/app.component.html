@@ -31,6 +31,7 @@
                 <a class="SubMenuLink" [routerLink]="['/spinner']" (click)="mobileMenuActive = false">&#9679; Spinner</a>
                 <a class="SubMenuLink" [routerLink]="['/selectbutton']" (click)="mobileMenuActive = false">&#9679; SelectButton</a>
                 <a class="SubMenuLink" [routerLink]="['/togglebutton']" (click)="mobileMenuActive = false">&#9679; ToggleButton</a>
+                <a class="SubMenuLink" [routerLink]="['/tristatecheckbox']" (click)="mobileMenuActive = false">&#9679; TriStateCheckbox</a>
             </div>
 
             <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="showcase/resources/images/mono/button.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/buttonBlue.svg" /><span class="MainLinkText">Button</span></span>
