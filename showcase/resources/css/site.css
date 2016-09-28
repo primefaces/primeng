@@ -35,7 +35,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .MenuSideMainLink img{width:20px; height:auto; float:left;}
 .MainLinkText{color:#9ba5ac; font-size:16px; margin:0px 0px 0px 30px; display:block;}
 
-.SubMenuLinkContainer{width:auto; padding:20px; overflow:hidden; background-color:#20282b;}
+.SubMenuLinkContainer{width:auto; padding:20px 15px; overflow:hidden; background-color:#20282b;}
 .SubMenuLink{width:50%; display:inline-block; float:left; padding:6px; box-sizing:border-box; cursor:pointer; border-radius:4px; -webkit-border-radius:4px; color:#659eb3; font-size:14px;
 }
 .SubMenuLink:hover{background-color:#101517; color:#8dc5d9;}
@@ -71,17 +71,10 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 #openMenuBtn img,
 #openMobileMenuBtn img{width:30px;height: 25px;}
 
-.PropertyBox{width:27%; height:280px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
-    -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+.PropertyBox{width:27%; height:280px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;}
 .PropertyBox img{width:60%;}
 .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:18px; margin-bottom:10px;}
 .PropertyBox .PropertyText{display:block; color:#414D52; font-size:14px; line-height: 22px;}
-
-.MOBILE .PropertyBox{width:27%; height:250px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
-    -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
-.MOBILE .PropertyBox img{width:80%;}
-.MOBILE .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:12px;}
-.MOBILE .PropertyBox .PropertyText{display:block; color:#8c9aa5; font-size:11px;}
 
 .widgetsLink{width:90%; height:auto; background-image:url(../images/widgetIconCover.svg); background-position:top; background-repeat:no-repeat; background-size:contain; display:table;
     text-align:center; padding:5%;}
