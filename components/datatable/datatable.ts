@@ -493,7 +493,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 else if(this.sortMode == 'multiple')
                     this.sortMultiple();
             }
-            
+            if(this.hasFilter()) {
+                this.filter();
+            }
             this.updateDataToRender(this.filteredValue||this.value);
         }
     }
