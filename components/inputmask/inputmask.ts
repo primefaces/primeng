@@ -163,6 +163,13 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     writeValue(value: any) : void {
         this.value = value;
+        
+        if(this.input) {
+            if(this.value == undefined || this.value == null) {
+                this.input.value = '';
+            }
+            this.checkVal();
+        }
     }
     
     registerOnChange(fn: Function): void {
