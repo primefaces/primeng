@@ -90,7 +90,7 @@ export class RowExpansionLoader {
     selector: 'p-dataTable',
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
-            [ngClass]="{'ui-datatable ui-widget': true, 'ui-datatable-reflow':responsive, 'ui-datatable-stacked': stacked, 'ui-datatable-resizable': resizableColumns}">
+            [ngClass]="{'ui-datatable ui-widget':true,'ui-datatable-reflow':responsive,'ui-datatable-stacked':stacked,'ui-datatable-resizable':resizableColumns,'ui-datatable-scrollable':scrollable}">
             <div class="ui-datatable-header ui-widget-header" *ngIf="header" [ngStyle]="{'width': scrollWidth}">
                 <ng-content select="header"></ng-content>
             </div>
