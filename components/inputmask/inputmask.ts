@@ -39,7 +39,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: 'p-inputMask',
-    template: `<input pInputText type="text" [value]="value||''" [ngStyle]="style" [ngClass]="styleClass" [placeholder]="placeholder"
+    template: `<input pInputText type="text" [name]="name" [value]="value||''" [ngStyle]="style" [ngClass]="styleClass" [placeholder]="placeholder"
         [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [disabled]="disabled" [readonly]="readonly"
         (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)"
         (input)="onInput($event)" (paste)="handleInputChange($event)">`,
@@ -52,9 +52,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     @Input() slotChar: string = '_';
     
     @Input() autoClear: boolean = true;
-    
-    @Input() dataName: string = 'pInputMask';
-    
+        
     @Input() style: string;
     
     @Input() styleClass: string;
@@ -72,6 +70,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     @Input() readonly: boolean;
     
     @Input() unmask: boolean;
+    
+    @Input() name: string;
     
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
         

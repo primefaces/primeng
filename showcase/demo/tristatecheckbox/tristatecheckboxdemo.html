@@ -7,7 +7,7 @@
 
 <div class="ContentSideSections Implementation">
     <h3 class="first">Value: {{value}}</h3>
-    <p-triStateCheckbox [(ngModel)]="value" disabled="disabled"></p-triStateCheckbox>
+    <p-triStateCheckbox [(ngModel)]="value"></p-triStateCheckbox>
 </div>
 
 <div class="ContentSideSections Source">
@@ -21,71 +21,28 @@ import &#123;TriStateCheckboxModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Checkbox can either be used in multiple selection with other checkboxes or as a single checkbox to provide a boolean value.</p>
+            <p>TriStateCheckbox is defined using p-triStateCheckbox element and requires a value binding via ngModel.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-triStateCheckbox [(ngModel)]="value"&gt;&lt;/p-triStateCheckbox&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class ModelComponent &#123;
+
+    value: any;
+
+&#125;
+</code>
+</pre>
             
-            <h4>Multiple Values</h4>
-            <p>Multiple mode is enabled by default, ngModel property refers to an array to bind the selected values.</p>
+            <h3>Model Driven Forms</h3>
+            <p>TriStateCheckbox can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
-&lt;p-checkbox name="groupname" value="val2" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode>
-export class ModelComponent &#123;
-
-    selectedValues: string[] = [];
-
-&#125;
-</code>
-</pre>
-
-            <p>As ngModel is two-way binding enabled, prepopulating the model array with values is enough to display the related
-            checkboxes as checked by default.</p>
-<pre>
-<code class="language-typescript" pCode>
-export class ModelComponent &#123;
-
-    selectedValues: string[] = ['val1','val2'];
-
-&#125;
-</code>
-</pre>
-
-        <h4>Label</h4>
-        <p>The label attribute provides a label text for the checkbox. This label is also clickable and toggles the checked state.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
-&lt;p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"&gt;&lt;/p-checkbox&gt;
-</code>
-</pre>
-
-        <h4>Boolean Value</h4>
-        <p>A single boolean value can be bound using the ngModel property as well by enabling the binary option.</p>
-<pre>
-<code class="language-typescript" pCode>
-export class ModelComponent &#123;
-
-    value: boolean;
-
-&#125;
-</code>
-</pre>
-
-<pre>
-<code class="language-markup" pCode>
-&lt;p-checkbox [(ngModel)]="value" binary="true"&gt;&lt;/p-checkbox&gt;
-</code>
-</pre>
-
-        <h3>Model Driven Forms</h3>
-        <p>Checkbox can be used in a model driven form as well.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;p-checkbox formControlName="agreed"&gt;&lt;/p-checkbox&gt;
+&lt;p-triStateCheckbox formControlName="property"&gt;&lt;/p-triStateCheckbox&gt;
 </code>
 </pre>
 
@@ -105,31 +62,13 @@ export class ModelComponent &#123;
                             <td>name</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Name of the checkbox group.</td>
-                        </tr>
-                        <tr>
-                            <td>value</td>
-                            <td>any</td>
-                            <td>null</td>
-                            <td>Value of the checkbox.</td>
-                        </tr>
-                        <tr>
-                            <td>label</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Label of the checkbox.</td>
+                            <td>Name of the component.</td>
                         </tr>
                         <tr>
                             <td>disabled</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that the element should be disabled.</td>
-                        </tr>
-                        <tr>
-                            <td>binary</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Allows to select a boolean value instead of multiple values.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -148,8 +87,9 @@ export class ModelComponent &#123;
                     <tbody>
                         <tr>
                             <td>onChange</td>
-                            <td>checked: Boolean value to represent new state of checkbox.</td>
-                            <td>Callback to invoke on checkbox click.</td>
+                            <td>event.originalEvent: Original browser event <br />
+                                event.value: Current value.</td>
+                            <td>Callback to invoke on value change.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -171,16 +111,16 @@ export class ModelComponent &#123;
                             <td>Container element</td>
                         </tr>
                         <tr>
+                            <td>ui-tristatechkbox</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
                             <td>ui-chkbox-box</td>
                             <td>Container of icon.</td>
                         </tr>
                         <tr>
                             <td>ui-chkbox-icon</td>
                             <td>Icon element.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-chkbox-label</td>
-                            <td>Label element.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -192,39 +132,17 @@ export class ModelComponent &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="New York" label="New York" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="San Francisco" label="San Francisco" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="Los Angeles" label="Los Angeles" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-Selected Cities: &lt;span *ngFor="let city of selectedCities" style="margin-right:10px"&gt;{{city}}&lt;/span&gt;
-
-&lt;h3&gt;Preselection&lt;/h3&gt;
-&lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Technology" label="Technology" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Finance" label="Finance" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Sports" label="Sports" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-Selected Categories: &lt;span *ngFor="let cat of selectedCategories" style="margin-right:10px"&gt;{{cat}} &lt;/span&gt;
-
-&lt;h3&gt;Boolean - {{checked}}&lt;/h3&gt;
-&lt;p-checkbox [(ngModel)]="checked" binary="true"&gt;&lt;/p-checkbox&gt;
+&lt;h3 class="first">Value: {{value}}&lt;/h3&gt;
+&lt;p-triStateCheckbox [(ngModel)]="value"&gt;&lt;/p-triStateCheckbox&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-export class CheckboxDemo &#123;
+export class TriStateCheckboxDemo &#123;
 
-    selectedCities: string[] = [];
-
-    selectedCategories: string[] = ['Technology', 'Sports'];
-
-    checked: boolean = false;
+    value: any;
+    
 &#125;
 </code>
 </pre>
