@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/editor/editordemo.html'
+    templateUrl: './editordemo.html'
 })
 export class EditorDemo {
 

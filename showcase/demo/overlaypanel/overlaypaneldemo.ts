@@ -4,7 +4,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/overlaypanel/overlaypaneldemo.html'
+    templateUrl: './overlaypaneldemo.html'
 })
 export class OverlayPanelDemo {
 

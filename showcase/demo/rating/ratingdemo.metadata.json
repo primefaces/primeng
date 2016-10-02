@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":1,"metadata":{"RatingDemo":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Component"},"arguments":[{"templateUrl":"./ratingdemo.html"}]}],"members":{"handleRate":[{"__symbolic":"method"}],"handleCancel":[{"__symbolic":"method"}]}}}}

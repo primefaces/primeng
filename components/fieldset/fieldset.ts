@@ -47,9 +47,9 @@ export class Fieldset {
         
     @Input() styleClass: string
     
-    protected hover: boolean;
+    public hover: boolean;
     
-    protected animating: boolean;
+    public animating: boolean;
     
     onLegendMouseenter(event) {
         if(this.toggleable) {

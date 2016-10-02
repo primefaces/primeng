@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":1,"metadata":{"DialogDemo":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Component"},"arguments":[{"templateUrl":"./dialogdemo.html"}]}],"members":{"showDialog":[{"__symbolic":"method"}],"hideDialog":[{"__symbolic":"method"}]}}}}

@@ -2,7 +2,7 @@ import {Component,OnInit} from '@angular/core';
 import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/progressbar/progressbardemo.html'
+    templateUrl: './progressbardemo.html'
 })
 export class ProgressBarDemo {
 

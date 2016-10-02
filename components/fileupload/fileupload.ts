@@ -86,13 +86,13 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     protected progress: number = 0;
     
-    protected dragHighlight: boolean;
+    public dragHighlight: boolean;
     
-    protected msgs: Message[];
+    public msgs: Message[];
     
     protected fileTemplate: TemplateRef<any>;
     
-    protected contentTemplate: TemplateRef<any>; 
+    public contentTemplate: TemplateRef<any>; 
         
     constructor(private sanitizer: DomSanitizer){}
     

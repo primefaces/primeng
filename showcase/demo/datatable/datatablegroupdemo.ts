@@ -1,7 +1,7 @@
 import {Component,OnInit} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablegroupdemo.html'
+    templateUrl: './datatablegroupdemo.html'
 })
 export class DataTableGroupDemo implements OnInit {
 

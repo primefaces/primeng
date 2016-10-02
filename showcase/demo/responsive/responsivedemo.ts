@@ -6,7 +6,7 @@ import {CountryService} from '../service/countryservice';
 import {SelectItem,MenuItem,TreeNode} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/responsive/responsivedemo.html',
+    templateUrl: './responsivedemo.html',
     styles: [`
         .ui-grid-row .ui-grid-col-2,
         .ui-grid-row .ui-grid-col-10 {
@@ -60,6 +60,10 @@ export class ResponsiveDemo implements OnInit {
     items2: MenuItem[];
     
     splitMenuItems: MenuItem[];
+
+    selectedOptions:any;
+
+    country:any;
 
     showDialog() {
         this.display = true;

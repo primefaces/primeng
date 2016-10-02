@@ -2,11 +2,11 @@ import {Component,OnInit,EventEmitter} from '@angular/core';
 import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/breadcrumb/breadcrumbdemo.html'
+    templateUrl: './breadcrumbdemo.html'
 })
 export class BreadcrumbDemo implements OnInit {
 
-    private items: MenuItem[];
+    items: MenuItem[];
     
     ngOnInit() {
         this.items = [];

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/chart/piechart/piechartdemo.html'
+    templateUrl: './piechartdemo.html'
 })
 export class PieChartDemo {
 

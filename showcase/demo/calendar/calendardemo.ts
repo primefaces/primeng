@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/calendar/calendardemo.html'
+    templateUrl: './calendardemo.html'
 })
 export class CalendarDemo {
 

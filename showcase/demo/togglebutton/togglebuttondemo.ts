@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/togglebutton/togglebuttondemo.html'
+    templateUrl: './togglebuttondemo.html'
 })
 export class ToggleButtonDemo {
     

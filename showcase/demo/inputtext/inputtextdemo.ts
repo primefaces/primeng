@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 @Component({
-    templateUrl: 'showcase/demo/inputtext/inputtextdemo.html'
+    templateUrl: './inputtextdemo.html'
 })
 export class InputTextDemo {
 

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {SelectItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/listbox/listboxdemo.html'
+    templateUrl: './listboxdemo.html'
 })
 export class ListboxDemo {
 

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Message} from '../../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/chart/linechart/linechartdemo.html'
+    templateUrl: './linechartdemo.html'
 })
 export class LineChartDemo {
 

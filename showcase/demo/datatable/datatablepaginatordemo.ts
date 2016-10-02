@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablepaginatordemo.html',
+    templateUrl: './datatablepaginatordemo.html',
 })
 export class DataTablePaginatorDemo implements OnInit {
 

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/paginator/paginatordemo.html'
+    templateUrl: './paginatordemo.html'
 })
 export class PaginatorDemo {
 

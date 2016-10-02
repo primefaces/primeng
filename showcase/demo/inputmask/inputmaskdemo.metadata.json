@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":1,"metadata":{"InputMaskDemo":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Component"},"arguments":[{"templateUrl":"./inputmaskdemo.html","styles":["\n        .ui-g-12 > span {\n            display: block;\n            margin-bottom: 4px;\n        }\n    "]}]}]}}}

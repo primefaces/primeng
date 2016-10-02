@@ -40,7 +40,7 @@ export class Rating implements ControlValueAccessor {
     
     onModelTouched: Function = () => {};
     
-    protected starsArray: number[];
+    public starsArray: number[];
     
     protected hoverCancel: boolean;
 

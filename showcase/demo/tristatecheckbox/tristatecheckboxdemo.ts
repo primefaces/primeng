@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/tristatecheckbox/tristatecheckboxdemo.html',
+    templateUrl: './tristatecheckboxdemo.html',
 })
 export class TriStateCheckboxDemo {
 

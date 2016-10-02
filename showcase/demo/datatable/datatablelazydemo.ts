@@ -5,7 +5,7 @@ import {LazyLoadEvent} from '../../../components/common/api';
 import {FilterMetadata} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablelazydemo.html',
+    templateUrl: './datatablelazydemo.html',
 })
 export class DataTableLazyDemo implements OnInit {
 

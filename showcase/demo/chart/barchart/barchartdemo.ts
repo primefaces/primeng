@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/chart/barchart/barchartdemo.html'
+    templateUrl: './barchartdemo.html'
 })
 export class BarChartDemo {
 

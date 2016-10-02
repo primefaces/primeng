@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/checkbox/checkboxdemo.html',
+    templateUrl: './checkboxdemo.html',
     styles: [`
         .ui-grid .ui-grid-col-1,
         .ui-grid .ui-grid-col-11 {

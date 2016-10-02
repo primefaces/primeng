@@ -8,7 +8,7 @@ import {Component} from '@angular/core';
             border: 1px solid #fafafa;
         }
     `],
-    templateUrl: 'showcase/demo/grid/griddemo.html'
+    templateUrl: './griddemo.html'
 })
 export class GridDemo {
 

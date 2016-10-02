@@ -3,7 +3,7 @@ import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {Message,SelectItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/validation/validationdemo.html'
+    templateUrl: './validationdemo.html'
 })
 export class ValidationDemo implements OnInit {
     

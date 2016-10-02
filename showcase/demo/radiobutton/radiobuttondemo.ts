@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/radiobutton/radiobuttondemo.html',
+    templateUrl: './radiobuttondemo.html',
     styles: [`
         .ui-grid label {
             display: inline-block;

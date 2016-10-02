@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/orderlist/orderlistdemo.html'
+    templateUrl: './orderlistdemo.html'
 })
 export class OrderListDemo {
 

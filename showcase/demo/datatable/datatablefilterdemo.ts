@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablefilterdemo.html'
+    templateUrl: './datatablefilterdemo.html'
 })
 export class DataTableFilterDemo implements OnInit {
 

@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/tabmenu/tabmenudemo.html'
+    templateUrl: './tabmenudemo.html'
 })
 export class TabMenuDemo {
     
-    private items: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [

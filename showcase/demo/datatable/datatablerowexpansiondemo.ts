@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablerowexpansiondemo.html',
+    templateUrl: './datatablerowexpansiondemo.html',
     styles: [`
         .label {
             font-weight: bold

@@ -46,6 +46,8 @@ export class Paginator {
     
     @Input() rowsPerPageOptions: number[];
 
+    public hoveredItem:any;
+
     pageLinks: number[];
 
     _totalRecords: number = 0;

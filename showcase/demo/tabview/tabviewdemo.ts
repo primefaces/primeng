@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/tabview/tabviewdemo.html'
+    templateUrl: './tabviewdemo.html'
 })
 export class TabViewDemo {
 

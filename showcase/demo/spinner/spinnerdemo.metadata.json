@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":1,"metadata":{"SpinnerDemo":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Component"},"arguments":[{"templateUrl":"./spinnerdemo.html"}]}]}}}

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {CountryService} from '../service/countryservice';
 
 @Component({
-    templateUrl: 'showcase/demo/autocomplete/autocompletedemo.html'
+    templateUrl: './autocompletedemo.html'
 })
 export class AutoCompleteDemo {
 

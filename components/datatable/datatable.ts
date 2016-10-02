@@ -31,6 +31,8 @@ export class DTRadioButton {
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
+    public hover:boolean;
+
     handleClick(event) {
         this.onClick.emit(event);
     }
@@ -59,6 +61,8 @@ export class DTCheckbox {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
+    public hover:boolean;
+
     handleClick(event) {
         if(!this.disabled) {
             this.onChange.emit({originalEvent: event, checked: !this.checked});
@@ -359,6 +363,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @ContentChildren(Column) cols: QueryList<Column>;
     
+    public hover:boolean;
+
     protected dataToRender: any[];
 
     protected first: number = 0;
@@ -624,7 +630,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     let result = null;
 
                     if (value1 instanceof String && value2 instanceof String)
-                        result = value1.localeCompare(value2);
+                        result = value1.localeCompare(<string>value2);
                     else
                         result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
 

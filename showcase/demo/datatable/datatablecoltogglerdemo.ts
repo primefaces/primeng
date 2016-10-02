@@ -4,7 +4,7 @@ import {CarService} from '../service/carservice';
 import {SelectItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablecoltogglerdemo.html'
+    templateUrl: './datatablecoltogglerdemo.html'
 })
 export class DataTableColTogglerDemo implements OnInit {
 

@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datagrid/datagriddemo.html'
+    templateUrl: './datagriddemo.html'
 })
 export class DataGridDemo implements OnInit {
 

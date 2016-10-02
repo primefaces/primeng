@@ -54,7 +54,7 @@ export class Panel {
     
     protected hoverToggler: boolean;
     
-    protected animating: boolean;
+    public animating: boolean;
     
     toggle(event) {
         this.animating = true;

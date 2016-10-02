@@ -3,7 +3,7 @@ import {NodeService} from '../service/nodeservice';
 import {Message,TreeNode} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/treetable/treetabledemo.html'
+    templateUrl: './treetabledemo.html'
 })
 export class TreeTableDemo implements OnInit {
     

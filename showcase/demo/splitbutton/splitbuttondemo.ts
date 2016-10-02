@@ -3,7 +3,7 @@ import {Message} from '../../../components/common/api';
 import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/splitbutton/splitbuttondemo.html'
+    templateUrl: './splitbuttondemo.html'
 })
 export class SplitButtonDemo implements OnInit {
 

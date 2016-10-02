@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datascroller/datascrollerinlinedemo.html',
+    templateUrl: './datascrollerinlinedemo.html',
     styles: [`
         .ui-grid-row > div {
             padding: 4px 10px;

@@ -3,7 +3,7 @@ import {ConfirmationService} from '../../../components/common/api';
 import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/confirmdialog/confirmdialogdemo.html',
+    templateUrl: './confirmdialogdemo.html',
     providers: [ConfirmationService]
 })
 export class ConfirmDialogDemo {
