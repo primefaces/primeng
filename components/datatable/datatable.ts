@@ -1165,6 +1165,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 
                 this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
                 this.reorderIndicatorDown.style.top = targetTop + dropHeader.offsetHeight + 'px';
+                var indicatorParentLeft = this.reorderIndicatorUp.parentNode.getBoundingClientRect().left;
+                targetLeft -= indicatorParentLeft;
 
                 if(event.pageX > columnCenter) {
                     this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
