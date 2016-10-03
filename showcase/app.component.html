@@ -156,8 +156,11 @@
                 <a href="http://forum.primefaces.org/viewforum.php?f=35" class="PFTopLinks floatRight"><img alt="mockosx" src="showcase/resources/images/community.svg" /><span class="PFDarkText">Forum</span></a>
 
                 <span class="PFTopLinks floatRight cursorPointer" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
-                    <img src="showcase/resources/images/themeswitcher.svg" /><span class="PFDarkText">Free Themes</span>
+                    <img src="showcase/resources/images/themeswitcher.svg" /><span class="PFDarkText">Themes</span>
                     <div id="GlobalThemeSwitcher" class="navOverlay" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px">
+                        <span>Premium</span>
+                        <a href="http://www.primeface.org/layouts/ultima-ng"><span class="ui-text">Ultima</span></a>
+                        <span>Free</span>
                         <a href="#" data-theme="afterdark"  onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afterdark"></span><span class="ui-text">Afterdark</span></a>
                         <a href="#" data-theme="afternoon" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afternoon"></span><span class="ui-text">Afternoon</span></a>
                         <a href="#" data-theme="afterwork" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afterwork"></span><span class="ui-text">Afterwork</span></a>
