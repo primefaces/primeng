@@ -9,7 +9,7 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+    <p-confirmDialog width="425"></p-confirmDialog>
 
     <button type="button" (click)="confirm1()" pButton icon="fa-check" label="Confirm"></button>
     
@@ -164,6 +164,12 @@ export class ConfirmDialogDemo &#123;
                           <td>Icon of the accept button.</td>
                         </tr>
                         <tr>
+                          <td>acceptVisible</td>
+                          <td>string</td>
+                          <td>fa-check</td>
+                          <td>Visibility of the accept button.</td>
+                        </tr>
+                        <tr>
                           <td>rejectLabel</td>
                           <td>string</td>
                           <td>fa-close</td>
@@ -174,6 +180,12 @@ export class ConfirmDialogDemo &#123;
                           <td>string</td>
                           <td>No</td>
                           <td>Icon of the reject button.</td>
+                        </tr>
+                        <tr>
+                          <td>rejectVisible</td>
+                          <td>boolean</td>
+                          <td>true</td>
+                          <td>Visibility of the reject button.</td>
                         </tr>
                         <tr>
                             <td>width</td>
@@ -273,7 +285,7 @@ export class ConfirmDialogDemo &#123;
 <code class="language-markup" pCode>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
     
-&lt;p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"&gt;&lt;/p-confirmDialog&gt;
+&lt;p-confirmDialog width="425"&gt;&lt;/p-confirmDialog&gt;
 
 &lt;button type="button" (click)="confirm1()" pButton icon="fa-check" label="Confirm"&gt;&lt;/button&gt;
 
