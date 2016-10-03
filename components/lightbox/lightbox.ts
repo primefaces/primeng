@@ -102,6 +102,7 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     displayImage(image) {
         setTimeout(() => {
             this.currentImage = image;
+            this.captionText = image.title;
         }, 1000);
     }
     

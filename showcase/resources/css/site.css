@@ -99,6 +99,12 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .navOverlay a:hover{ color:#fdd106;}
 .navOverlay a span.ui-theme{width:30px; height:27px; float:left; border:solid 1px #D7DCE0; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;}
 .navOverlay a span.ui-text{ display:inline-block; margin-top:7px; margin-left:10px; font-size: 14px;}
+.navOverlay > span {
+    font-weight: bold;
+    font-size: 18px;
+    display: inline-block;
+    margin-top: 5px;
+}
 /* cursor */
 .cursorPointer{cursor:pointer;}
 

@@ -26,7 +26,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 <input #in type="text" readonly (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeydown($event)">
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
-            <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" 
+            <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [value]="label"
                         (click)="onInputClick($event)" (input)="onInputChange($event)" (focus)="hide()">
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down ui-c"></span>
