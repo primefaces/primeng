@@ -4,7 +4,8 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'p-tabPanel',
     template: `
-        <div class="ui-tabview-panel ui-widget-content" [style.display]="selected ? 'block' : 'none'" *ngIf="!closed">
+        <div class="ui-tabview-panel ui-widget-content" [style.display]="selected ? 'block' : 'none'" 
+            *ngIf="!closed" role="tabpanel" [attr.aria-hidden]="!selected">
             <ng-content></ng-content>
         </div>
     `,
@@ -36,11 +37,12 @@ export class TabPanel {
     selector: 'p-tabView',
     template: `
         <div [ngClass]="'ui-tabview ui-widget ui-widget-content ui-corner-all ui-tabview-' + orientation" [ngStyle]="style" [class]="styleClass">
-            <ul class="ui-tabview-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <ul class="ui-tabview-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
                 <template ngFor let-tab [ngForOf]="tabs">
-                    <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle"
+                    <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="tab"
                         [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-hover': tab.hoverHeader&&!tab.disabled, 'ui-state-disabled': tab.disabled}"
-                        (mouseenter)="tab.hoverHeader=true" (mouseleave)="tab.hoverHeader=false" (click)="open($event,tab)" *ngIf="!tab.closed">
+                        (mouseenter)="tab.hoverHeader=true" (mouseleave)="tab.hoverHeader=false" (click)="open($event,tab)" *ngIf="!tab.closed"
+                        [attr.aria-expanded]="tab.selected" [attr.aria-selected]="tab.selected">
                         <a href="#">
                             <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                             {{tab.header}}

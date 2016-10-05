@@ -137,7 +137,7 @@
                 but given to ruthless violence whenever anything stands against the good of the family.</p>
         </p-dialog>
 
-        <p-panel header="Panel" [style]="&#123;'margin-top':'20px'&#125;">
+        <p-panel header="Panel" [style]="{'margin-top':'20px'}">
             The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
             His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
             Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
@@ -145,7 +145,7 @@
             but given to ruthless violence whenever anything stands against the good of the family.
         </p-panel>
 
-        <p-dataTable [style]="&#123;'margin-top':'20px'&#125;" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true">
+        <p-dataTable [style]="{'margin-top':'20px'}" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true">
             <header>Cars</header>
             <p-column field="vin" header="Vin"></p-column>
             <p-column field="year" header="Year"></p-column>
@@ -153,13 +153,13 @@
             <p-column field="color" header="Color"></p-column>
         </p-dataTable>
 
-        <p-dataGrid [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [value]="cars" [columns]="5" [paginator]="true" [rows]="20">
+        <p-dataGrid [style]="{'margin-top':'20px','margin-bottom':'20px'}" [value]="cars" [paginator]="true" [rows]="20">
             <header>
                 Datagrid
             </header>
             <template let-car>
-                <div style="padding:3px">
-                    <p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;">
+                <div style="padding:3px" class="ui-g-12 ui-md-3">
+                    <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                         <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
                         <div class="car-detail">{{car.year}} - {{car.color}}</div>
                         <hr class="ui-widget-content" style="border-top:0">
@@ -168,9 +168,9 @@
             </template>
         </p-dataGrid>
 
-        <p-tree [value]="files" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;"></p-tree>
+        <p-tree [value]="files" [style]="{'margin-top':'20px','margin-bottom':'20px'}"></p-tree>
 
-        <p-orderList [value]="cars" [listStyle]="&#123;'height':'250px'&#125;" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [responsive]="true" header="Responsive Cars">
+        <p-orderList [value]="cars" [listStyle]="{'height':'250px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}" [responsive]="true" header="Responsive Cars">
             <template let-car>
                 <li class="ui-orderlist-item ui-helper-clearfix">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -179,7 +179,7 @@
             </template>
         </p-orderList>
 
-        <p-carousel headerText="Cars" [value]="cars2" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;">
+        <p-carousel headerText="Cars" [value]="cars2" [style]="{'margin-top':'20px','margin-bottom':'20px'}">
             <template let-car>
                 <li class="ui-carousel-item ui-widget-content ui-corner-all">
                     <div class="ui-grid ui-grid-responsive ui-grid-pad" style="text-align:center">
@@ -204,7 +204,7 @@
         </p-carousel>
 
         <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" 
-            [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;">
+            [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}">
             <template let-car>
                 <li class="ui-picklist-item ui-helper-clearfix">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -374,7 +374,7 @@
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-dataGrid [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [value]="cars" [columns]="5" [paginator]="true" [rows]="20"&gt;
+&lt;p-dataGrid [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [value]="cars" [paginator]="true" [rows]="20"&gt;
     &lt;header&gt;
         Datagrid
     &lt;/header&gt;

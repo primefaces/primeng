@@ -1,7 +1,13 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/inputmask/inputmaskdemo.html'
+    templateUrl: 'showcase/demo/inputmask/inputmaskdemo.html',
+    styles: [`
+        .ui-g-12 > span {
+            display: block;
+            margin-bottom: 4px;
+        }
+    `]
 })
 export class InputMaskDemo {
 

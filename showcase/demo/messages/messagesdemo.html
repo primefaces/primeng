@@ -9,6 +9,7 @@
     <p-messages [value]="msgs"></p-messages>
 
     <div>
+        <button type="button" pButton (click)="showSuccess()" label="Success"></button>
         <button type="button" pButton (click)="showInfo()" label="Info"></button>
         <button type="button" pButton (click)="showWarn()" label="Warn"></button>
         <button type="button" pButton (click)="showError()" label="Error"></button>
@@ -35,6 +36,16 @@ import &#123;MessagesModule&#125; from 'primeng/primeng';
 &lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
+            
+            <h3>Severities</h3>
+            <p>Here are the possible values for the severity of a message.</p>
+            <ul>
+                <li>success</li>
+                <li>info</li>
+                <li>warn</li>
+                <li>error</li>
+            </ul>
+
             <h3>Showing Messages</h3>
             <p>Adding messages to the array is enough to display them. Similarly removing a message from the array is also removed from the UI.</p>
 <pre>
@@ -129,6 +140,10 @@ hide() &#123;
                             <td>Container element when displaying error messages.</td>
                         </tr>
                         <tr>
+                            <td>ui-messages-success</td>
+                            <td>Container element when displaying success messages.</td>
+                        </tr>
+                        <tr>
                             <td>ui-messages-close</td>
                             <td>Close icon.</td>
                         </tr>
@@ -149,7 +164,7 @@ hide() &#123;
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires css of PrimeUI Messages.</p>
+            <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">

@@ -19,8 +19,8 @@
 .ui-growl-item-container {
 	position:relative;
 	margin:0 0 10px 0;
-	opacity:0.85;
-	filter:alpha(opacity=85);
+	opacity:0.95;
+	filter:alpha(opacity=95);
 }
 .ui-growl-item {
 	display:block;

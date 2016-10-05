@@ -1230,7 +1230,7 @@ a {
 }
 
 .ui-menu, .ui-menu .ui-menu-child {
-    background: #c4c4c4 url(ui-bg_highlight-hard_80_c4c4c4_1x100.png) top repeat-x;
+    background: #c4c4c4 url(images/ui-bg_highlight-hard_80_c4c4c4_1x100.png) top repeat-x;
     background: #c4c4c4 linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0));
     background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
     background: #c4c4c4 -moz-linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0));
@@ -1254,6 +1254,7 @@ a {
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
 p-calendar.ng-dirty.ng-invalid > .ui-inputtext,
+p-inputmask.ng-dirty.ng-invalid > .ui-inputtext,
 p-checkbox.ng-dirty.ng-invalid .ui-chkbox-box,
 p-radiobutton.ng-dirty.ng-invalid .ui-radiobutton-box,
 p-inputswitch.ng-dirty.ng-invalid .ui-inputswitch,

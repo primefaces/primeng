@@ -52,7 +52,7 @@
 .ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #cd0a0a; }
 .ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }
 .ui-priority-secondary, .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
-.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled { opacity: .50; filter:Alpha(Opacity=50); background-image: none; }
 
 /* Icons
 ----------------------------------*/
@@ -317,7 +317,7 @@
 .ui-accordion .ui-accordion-content.ui-widget-content {
     border: 0 none;
 }
-
+ 
 /* Tabview */
 .ui-tabview.ui-widget-content {
     border:0px none;
@@ -369,6 +369,7 @@
 .ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
 .ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
 .ui-draggable .ui-dialog-titlebar { cursor: move; }
+.ui-confirmdialog .ui-dialog-content .fa {color: #757575}
 /*
  * jQuery UI Slider 1.8.16
  *
@@ -520,7 +521,7 @@ td.ui-datepicker-unselectable {
 }
 
 .ui-progressbar .ui-progressbar-label {
-	color: #1f89ce;
+	color: #d27519;
 }
 
 .ui-button {
@@ -551,12 +552,21 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 
 /* Checkbox and Radio */
 .ui-chkbox-box.ui-state-active,
-.ui-chkbox-box.ui-state-focus.ui-state-active,
-.ui-radiobutton-box.ui-state-active,
-.ui-radiobutton-box.ui-state-focus.ui-state-active{
+.ui-radiobutton-box.ui-state-active {
     border: 1px solid #156090; 
     background: #186ba0; 
     color: #FFFFFF;
+}
+
+.ui-chkbox-box.ui-state-focus,
+.ui-radiobutton-box.ui-state-focus  {
+    -moz-box-shadow: 0px 0px 5px #1f89ce;
+	-webkit-box-shadow: 0px 0px 5px #1f89ce;
+	box-shadow: 0px 0px 5px #1f89ce;
+}
+
+.ui-chkbox-box.ui-state-focus.ui-state-active {
+    background: #186ba0; 
 }
 
 /* Inputs */
@@ -713,8 +723,13 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 }
 
 .ui-growl-item-container.ui-state-highlight.ui-growl-message-warn {
-    background-color: #ff9800;
-    border-color :#ff9800;
+    background-color: #FFB300;
+    border-color :#FFB300;
+}
+
+.ui-growl-item-container.ui-state-highlight.ui-growl-message-success {
+    background-color: #4CAF50;
+    border-color :#4CAF50;
 }
 
 /* TabMenu */
@@ -762,7 +777,7 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 /* PanelMenu */
 .ui-panelmenu .ui-panelmenu-header.ui-state-active,
 .ui-panelmenu .ui-panelmenu-header.ui-state-active a {
-    border: 1px solid #156090; 
+    border-color: #156090; 
     background: #186ba0; 
     color: #FFFFFF;
 }
@@ -772,6 +787,7 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
 p-calendar.ng-dirty.ng-invalid > .ui-inputtext,
+p-inputmask.ng-dirty.ng-invalid > .ui-inputtext,
 p-checkbox.ng-dirty.ng-invalid .ui-chkbox-box,
 p-radiobutton.ng-dirty.ng-invalid .ui-radiobutton-box,
 p-inputswitch.ng-dirty.ng-invalid .ui-inputswitch,

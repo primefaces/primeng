@@ -7,20 +7,22 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'p-splitButton',
     template: `
-        <div #container [ngClass]="'ui-splitbutton ui-buttonset ui-widget'" [ngStyle]="style" [class]="styleClass">
+        <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn type="button" class="ui-button ui-widget ui-state-default ui-corner-left"
                 [ngClass]="{'ui-button-text-only':(!icon&&label),'ui-button-icon-only':(icon&&!label),
                 'ui-button-text-icon-left':(icon&&label&&iconPos=='left'),'ui-button-text-icon-right':(icon&&label&&iconPos=='right'),
-                'ui-state-hover':hoverDefaultBtn,'ui-state-focus':focusDefaultBtn,'ui-state-active':activeDefaultBtn}"
-                (mouseenter)="hoverDefaultBtn=true" (mouseleave)="hoverDefaultBtn=false"  (focus)="focusDefaultBtn=true" (blur)="focusDefaultBtn=false"
-                (mousedown)="activeDefaultBtn=true" (mouseup)="activeDefaultBtn=false" (click)="onDefaultButtonClick($event)">
+                'ui-state-hover':hoverDefaultBtn&&!disabled,'ui-state-focus':focusDefaultBtn&&!disabled,'ui-state-active':activeDefaultBtn&&!disabled}"
+                (mouseenter)="hoverDefaultBtn=true" (mouseleave)="hoverDefaultBtn=false" (focus)="focusDefaultBtn=true" (blur)="focusDefaultBtn=false"
+                (mousedown)="activeDefaultBtn=true" (mouseup)="activeDefaultBtn=false" (click)="onDefaultButtonClick($event)"
+                [disabled]="disabled">
                 <span [ngClass]="'ui-button-icon-left ui-c fa fa-fw'" [class]="icon"></span>
                 <span class="ui-button-text ui-c">{{label}}</span>
             </button>
             <button class="ui-splitbutton-menubutton ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-right" type="button"
-                [ngClass]="{'ui-state-hover':hoverDropdown,'ui-state-focus':focusDropdown,'ui-state-active':activeDropdown}"
+                [ngClass]="{'ui-state-hover':hoverDropdown&&!disabled,'ui-state-focus':focusDropdown&&!disabled,'ui-state-active':activeDropdown&&!disabled}"
                 (mouseenter)="hoverDropdown=true" (mouseleave)="hoverDropdown=false" (focus)="focusDropdown=true" (blur)="focusDropdown=false"
-                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="onDropdownClick($event,menu,container)">
+                (mousedown)="activeDropdown=true" (mouseup)="activeDropdown=false" (click)="onDropdownClick($event,menu,container)"
+                [disabled]="disabled">
                 <span class="ui-button-icon-left ui-c fa fa-fw fa-caret-down"></span>
                 <span class="ui-button-text ui-c">ui-button</span>
             </button>
@@ -29,7 +31,9 @@ import {Router} from '@angular/router';
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of model"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
-                        <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)" [ngClass]="{'ui-state-hover':(hoveredItem==item)}">
+                        <a [href]="item.url||'#'" 
+                        [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-hover':(hoveredItem==item&&!item.disabled),'ui-state-disabled':item.disabled}" 
+                        (click)="itemClick($event,item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
@@ -59,6 +63,8 @@ export class SplitButton implements OnInit,OnDestroy {
     @Input() menuStyle: any;
     
     @Input() menuStyleClass: string;
+    
+    @Input() disabled: boolean;
         
     protected hoverDefaultBtn: boolean;
     
@@ -91,6 +97,11 @@ export class SplitButton implements OnInit,OnDestroy {
     }
     
     itemClick(event, item: MenuItem) {
+        if(item.disabled) {
+            event.preventDefault();
+            return;
+        }
+        
         if(!item.url||item.routerLink) {
             event.preventDefault();
         }

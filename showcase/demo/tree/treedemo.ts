@@ -1,6 +1,8 @@
-import {Component,OnInit} from '@angular/core';
+import {Component,OnInit,ViewChild} from '@angular/core';
 import {NodeService} from '../service/nodeservice';
 import {Message,MenuItem,TreeNode} from '../../../components/common/api';
+import {Tree} from '../../../components/tree/tree';
+
 
 @Component({
     templateUrl: 'showcase/demo/tree/treedemo.html'
@@ -8,8 +10,16 @@ import {Message,MenuItem,TreeNode} from '../../../components/common/api';
 export class TreeDemo implements OnInit {
     
     msgs: Message[];
-    
-    files: TreeNode[];
+
+    @ViewChild('expandingTree')
+    expandingTree: Tree;
+
+    filesTree1: TreeNode[];
+    filesTree2: TreeNode[];
+    filesTree3: TreeNode[];
+    filesTree4: TreeNode[];
+    filesTree5: TreeNode[];
+    filesTree6: TreeNode[];
     
     lazyFiles: TreeNode[];
     
@@ -24,7 +34,13 @@ export class TreeDemo implements OnInit {
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {
-        this.nodeService.getFiles().then(files => this.files = files);
+        this.nodeService.getFiles().then(files => this.filesTree1 = files);
+        this.nodeService.getFiles().then(files => this.filesTree2 = files);
+        this.nodeService.getFiles().then(files => this.filesTree3 = files);
+        this.nodeService.getFiles().then(files => this.filesTree4 = files);
+        this.nodeService.getFiles().then(files => this.filesTree5 = files);
+        this.nodeService.getFiles().then(files => this.filesTree6 = files);
+
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
         
         this.items = [
@@ -42,6 +58,11 @@ export class TreeDemo implements OnInit {
         this.msgs = [];
         this.msgs.push({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
     }
+
+    nodeExpandMessage(event) {
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'Node Expanded', detail: event.node.label});
+    }
     
     nodeExpand(event) {
         if(event.node) {
@@ -58,4 +79,31 @@ export class TreeDemo implements OnInit {
     unselectFile() {
         this.selectedFile2 = null;
     }
+
+    expandToNode(){
+        const invoicesNode: TreeNode = this.filesTree6[0].children[1].children[0]
+        this.expandingTree.expandToNode(invoicesNode);
+    }
+
+    expandAll(){
+        this.filesTree6.forEach( node => {
+            this.expandRecursive(node, true);
+        } );
+    }
+
+    collapseAll(){
+        this.filesTree6.forEach( node => {
+            this.expandRecursive(node, false);
+        } );
+    }
+
+    private expandRecursive(node:TreeNode, isExpand:boolean){
+        node.expanded = isExpand;
+        if(node.children){
+            node.children.forEach( childNode => {
+                this.expandRecursive(childNode, isExpand);
+            } );
+        }
+    }
+
 }

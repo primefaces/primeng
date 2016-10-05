@@ -10,6 +10,7 @@ import {PanelDemo} from './demo/panel/paneldemo';
 import {FieldsetDemo} from './demo/fieldset/fieldsetdemo';
 import {RatingDemo} from './demo/rating/ratingdemo';
 import {PasswordDemo} from './demo/password/passworddemo';
+import {ConfirmDialogDemo} from './demo/confirmdialog/confirmdialogdemo';
 import {DialogDemo} from './demo/dialog/dialogdemo';
 import {ToggleButtonDemo} from './demo/togglebutton/togglebuttondemo';
 import {GridDemo} from './demo/grid/griddemo';
@@ -93,6 +94,7 @@ import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
 import {FileUploadDemo} from './demo/fileupload/fileuploaddemo';
+import {TriStateCheckboxDemo} from './demo/tristatecheckbox/tristatecheckboxdemo';
 
 export const routes: Routes = [
     {path: '', component: HomePageComponent},
@@ -105,6 +107,7 @@ export const routes: Routes = [
     {path: 'fieldset', component: FieldsetDemo},
     {path: 'rating', component: RatingDemo},
     {path: 'password', component: PasswordDemo},
+    {path: 'confirmdialog', component: ConfirmDialogDemo},
     {path: 'dialog', component: DialogDemo},
     {path: 'togglebutton', component: ToggleButtonDemo},
     {path: 'grid', component: GridDemo},
@@ -187,7 +190,8 @@ export const routes: Routes = [
     {path: 'tooltip', component: TooltipDemo},
     {path: 'menumodel', component: MenuModelApi},
     {path: 'mask', component: InputMaskDemo},
-    {path: 'fileupload', component: FileUploadDemo}
+    {path: 'fileupload', component: FileUploadDemo},
+    {path: 'tristatecheckbox', component: TriStateCheckboxDemo}
 ];
 
 

@@ -18,7 +18,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <ul class="ui-listbox-list">
                 <li #item *ngFor="let option of options"
                     [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(option)}"
-                    (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onOptionClick($event,option)">
+                    (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)">
                     <span *ngIf="!itemTemplate">{{option.label}}</span>
                     <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></template>
                 </li>
@@ -37,9 +37,11 @@ export class Listbox implements ControlValueAccessor {
 
     @Input() styleClass: string;
     
-    @Input() disabled: string;
+    @Input() disabled: boolean;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onDblClick: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
     
@@ -65,6 +67,10 @@ export class Listbox implements ControlValueAccessor {
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
+    }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
     }
                 
     onOptionClick(event, option) {
@@ -158,6 +164,13 @@ export class Listbox implements ControlValueAccessor {
         }
                 
         return index;
+    }
+    
+    onDoubleClick(event: Event, option: SelectItem): any {
+        this.onDblClick.emit({
+            originalEvent: event,
+            value: option
+        })
     }
 }
 

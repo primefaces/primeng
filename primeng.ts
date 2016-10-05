@@ -14,6 +14,7 @@ export * from './components/datagrid/datagrid';
 export * from './components/datalist/datalist';
 export * from './components/datascroller/datascroller';
 export * from './components/datatable/datatable';
+export * from './components/confirmdialog/confirmdialog';
 export * from './components/dialog/dialog';
 export * from './components/dragdrop/dragdrop';
 export * from './components/dropdown/dropdown';
@@ -59,4 +60,5 @@ export * from './components/toolbar/toolbar';
 export * from './components/tooltip/tooltip';
 export * from './components/tree/tree';
 export * from './components/treetable/treetable';
+export * from './components/tristatecheckbox/tristatecheckbox';
 

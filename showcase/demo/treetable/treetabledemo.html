@@ -8,14 +8,14 @@
 <div class="ContentSideSections Implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-treeTable [value]="files" [style]="&#123;'margin-bottom':'30px'&#125;">
+    <p-treeTable [value]="files1" [style]="&#123;'margin-bottom':'30px'&#125;">
         <header>Basic</header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
         
-    <p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile"
+    <p-treeTable [value]="files2" selectionMode="single" [(selection)]="selectedFile"
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
         <header>Singe Selection</header>
         <p-column field="name" header="Name"></p-column>
@@ -24,7 +24,7 @@
     </p-treeTable>
     Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
         
-    <p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
+    <p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'30px'&#125;">
         <header>Multiple Selection</header>
         <p-column field="name" header="Name"></p-column>
@@ -33,7 +33,7 @@
     </p-treeTable>
     Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.data.name}} </span>
     
-    <p-treeTable [value]="files" [style]="&#123;'margin-top':'30px'&#125;">
+    <p-treeTable [value]="files4" [style]="&#123;'margin-top':'30px'&#125;">
         <header>Editable Cells with Templating</header>
         <p-column field="name" header="Name">
             <template let-node="rowData" pTemplate type="body">
@@ -666,7 +666,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires the css of PrimeUI TreeTable.</p>
+            <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -674,14 +674,14 @@ export class TreeTableDemoComponent implements OnInit &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;p-treeTable [value]="files" [style]="&#123;'margin-bottom':'30px'&#125;"&gt;
+&lt;p-treeTable [value]="files1" [style]="&#123;'margin-bottom':'30px'&#125;"&gt;
     &lt;header&gt;Basic&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
     
-&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile"
+&lt;p-treeTable [value]="files2" selectionMode="single" [(selection)]="selectedFile"
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;
     &lt;header&gt;Singe Selection&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
@@ -690,7 +690,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 &lt;/p-treeTable&gt;
 Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
     
-&lt;p-treeTable [value]="files" selectionMode="multiple" [(selection)]="selectedFiles" 
+&lt;p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles" 
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'30px'&#125;"&gt;
     &lt;header&gt;Multiple Selection&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
@@ -699,7 +699,7 @@ Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
 &lt;/p-treeTable&gt;
 Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.data.name}} &lt;/span&gt;
 
-&lt;p-treeTable [value]="files" [style]="&#123;'margin-top':'30px'&#125;"&gt;
+&lt;p-treeTable [value]="files4" [style]="&#123;'margin-top':'30px'&#125;"&gt;
     &lt;header&gt;Editable Cells with Templating&lt;/header&gt;
     &lt;p-column field="name" header="Name"&gt;
         &lt;template let-node="rowData" pTemplate type="body"&gt;
@@ -734,7 +734,13 @@ export class TreeTableDemo implements OnInit &#123;
     
     msgs: Message[];
     
-    files: TreeNode[];
+    files1: TreeNode[];
+    
+    files2: TreeNode[];
+    
+    files3: TreeNode[];
+    
+    files4: TreeNode[];
     
     lazyFiles: TreeNode[];
         

@@ -13,14 +13,16 @@ export const RADIO_VALUE_ACCESSOR: any = {
     template: `
         <div class="ui-radiobutton ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked" (blur)="onModelTouched()">
+                <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked" (change)="onChange($event,value)"
+                    (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
-            <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="onclick()"
-                        (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled}">
+            <div (click)="handleClick()" (mouseenter)="hover=true" (mouseleave)="hover=false"
+                [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
+                'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':checked}"></span>
             </div>
         </div>
-        <label class="ui-radiobutton-label" (click)="onclick()" *ngIf="label">{{label}}</label>
+        <label class="ui-radiobutton-label" (click)="select()" *ngIf="label">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR]
 })
@@ -34,34 +36,32 @@ export class RadioButton implements ControlValueAccessor {
     
     @Input() label: string;
 
-    @Output() click: EventEmitter<any> = new EventEmitter();
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
     
-    model: any;
+    protected model: any;
     
-    onModelChange: Function = () => {};
+    protected onModelChange: Function = () => {};
     
-    onModelTouched: Function = () => {};
+    protected onModelTouched: Function = () => {};
     
-    checked: boolean;
+    protected checked: boolean;
     
     protected hover: boolean;
+    
+    protected focused: boolean;
 
-    onclick() {
+    handleClick() {
         if(!this.disabled) {
-            this.click.emit(null);
-            this.checked = true;
-            this.onModelChange(this.value);
+            this.onClick.emit(null);
+            this.select();
         }
     }
     
-    onMouseEnter() {
-        this.hover = true;
+    select() {
+        this.checked = true;
+        this.onModelChange(this.value);
     }
-    
-    onMouseLeave() {
-        this.hover = false;
-    }
-        
+            
     writeValue(model: any) : void {
         this.model = model;
         this.checked = (this.model == this.value);
@@ -73,6 +73,23 @@ export class RadioButton implements ControlValueAccessor {
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
+    }
+    
+    setDisabledState(val: boolean): void {
+        this.disabled = val;
+    }
+    
+    onFocus(event) {
+        this.focused = true;
+    }
+
+    onBlur(event) {
+        this.focused = false;
+        this.onModelTouched();
+    }
+    
+    onChange(event) {
+        this.select();
     }
 }
 

@@ -1,5 +1,3 @@
-<datatable-demos></datatable-demos>
-
 <div class="ContentSideSections">
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataGrid</span>
@@ -8,12 +6,12 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataGrid [value]="cars" [columns]="5" [paginator]="true" [rows]="20">
+    <p-dataGrid [value]="cars" [paginator]="true" [rows]="20">
         <header>
             List of Cars
         </header>
         <template let-car>
-            <div style="padding:3px">
+            <div style="padding:3px" class="ui-g-12 ui-md-3">
                 <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
                     <div class="car-detail">{{car.year}} - {{car.color}}</div>
@@ -60,7 +58,9 @@ import &#123;DataGridModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>DataGrid requires a collection of items as its value and a template to display each item. Template should contain a div element as a wrapper. Number of columns is defined with colums option.</p><p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the datagrid. Cars are loaded by a CarService that connects to a server to fetch the cars with a Promise.</p>
+            <p>DataGrid requires a collection of items as its value and a template to display each item. Template should contain a div element as a wrapper with <a [routerLink]="['/grid']">Grid CSS</a> style class of your choice to 
+                define the grid layout. 
+            </p><p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the datagrid. Cars are loaded by a CarService that connects to a server to fetch the cars with a Promise.</p>
 <pre>
 <code class="language-typescript" pCode>
 export interface Car &#123;
@@ -111,9 +111,9 @@ export class DataGridDemo implements OnInit &#123;
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataGrid [value]="cars" [columns]="3"&gt;
+&lt;p-dataGrid [value]="cars"&gt;
     &lt;template let-car&gt;
-        &lt;div&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
     &lt;/template&gt;
@@ -131,11 +131,11 @@ import &#123;Footer&#125; from 'primeng/primeng';
 </pre>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataGrid [value]="cars" [columns]="5"&gt;
+&lt;p-dataGrid [value]="cars"&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;footer&gt;Choose from the list.&lt;/footer&gt;
     &lt;template let-car&gt;
-        &lt;div&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
     &lt;/template&gt;
@@ -148,9 +148,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
                 of page links to display.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataGrid [value]="cars" [columns]="3" [paginator]="true" [rows]="9"&gt;
+&lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="9"&gt;
     &lt;template let-car&gt;
-        &lt;div&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
     &lt;/template&gt;
@@ -166,9 +166,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataGrid [value]="cars" [columns]="3" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
+&lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
     &lt;template let-car&gt;
-        &lt;div&gt;
+        &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
     &lt;/template&gt;
@@ -205,12 +205,6 @@ loadData(event) &#123;
                             <td>array</td>
                             <td>null</td>
                             <td>An array of objects to display.</td>
-                        </tr>
-                        <tr>
-                            <td>columns</td>
-                            <td>number</td>
-                            <td>3</td>
-                            <td>Number of .</td>
                         </tr>
                         <tr>
                             <td>rows</td>
@@ -323,18 +317,18 @@ loadData(event) &#123;
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires css of PrimeUI DataGrid.</p>
+            <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataGrid [value]="cars" [columns]="5" [paginator]="true" [rows]="20"&gt;
+&lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="20"&gt;
     &lt;header&gt;
         List of Cars
     &lt;/header&gt;
     &lt;template let-car&gt;
-        &lt;div style="padding:3px"&gt;
+        &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
             &lt;p-panel [header]="car.vin" [paginator]="true" [style]="&#123;'text-align':'center'&#125;"&gt;
                 &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;
                 &lt;div class="car-detail"&gt;{{car.year}} - {{car.color}}&lt;/div&gt;

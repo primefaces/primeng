@@ -5,6 +5,7 @@ import {Component} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {LocationStrategy,HashLocationStrategy} from '@angular/common';
+import {enableProdMode} from '@angular/core';
 import {AppRoutes} from './app.routes';
 
 import {SetupComponent} from './setup.component';
@@ -19,6 +20,7 @@ import {FileUploadDemo} from './demo/fileupload/fileuploaddemo';
 import {RatingDemo} from './demo/rating/ratingdemo';
 import {PasswordDemo} from './demo/password/passworddemo';
 import {DialogDemo} from './demo/dialog/dialogdemo';
+import {ConfirmDialogDemo} from './demo/confirmdialog/confirmdialogdemo';
 import {ToggleButtonDemo} from './demo/togglebutton/togglebuttondemo';
 import {GridDemo} from './demo/grid/griddemo';
 import {TabViewDemo} from './demo/tabview/tabviewdemo';
@@ -102,6 +104,7 @@ import {TabMenuDemo} from "./demo/tabmenu/tabmenudemo";
 import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
+import {TriStateCheckboxDemo} from "./demo/tristatecheckbox/tristatecheckboxdemo";
 import {CarService} from './demo/service/carservice';
 import {CountryService} from './demo/service/countryservice';
 import {EventService} from './demo/service/eventservice';
@@ -117,6 +120,7 @@ import {ChartModule} from '../components/chart/chart';
 import {CheckboxModule} from '../components/checkbox/checkbox';
 import {CodeHighlighterModule} from '../components/codehighlighter/codehighlighter';
 import {SharedModule} from '../components/common/shared';
+import {ConfirmDialogModule} from '../components/confirmdialog/confirmdialog';
 import {ContextMenuModule} from '../components/contextmenu/contextmenu';
 import {DataGridModule} from '../components/datagrid/datagrid';
 import {DataListModule} from '../components/datalist/datalist';
@@ -167,6 +171,7 @@ import {ToolbarModule} from '../components/toolbar/toolbar';
 import {TooltipModule} from '../components/tooltip/tooltip';
 import {TreeModule} from '../components/tree/tree';
 import {TreeTableModule} from '../components/treetable/treetable';
+import {TriStateCheckboxModule} from '../components/tristatecheckbox/tristatecheckbox';
 
 @Component({
     selector: 'primeng-showcase',
@@ -209,6 +214,7 @@ export class AppComponent {
         DataScrollerModule,
         DataTableModule,
         DialogModule,
+        ConfirmDialogModule,
         DragDropModule,
         DropdownModule,
         EditorModule,
@@ -252,7 +258,8 @@ export class AppComponent {
         ToolbarModule,
         TooltipModule,
         TreeModule,
-        TreeTableModule
+        TreeTableModule,
+        TriStateCheckboxModule
     ],
     declarations: [
         AppComponent,
@@ -268,6 +275,7 @@ export class AppComponent {
         RatingDemo,
         PasswordDemo,
         DialogDemo,
+        ConfirmDialogDemo,
         ToggleButtonDemo,
         GridDemo,
         TabViewDemo,
@@ -350,7 +358,8 @@ export class AppComponent {
         TabMenuDemo,
         TooltipDemo,
         MenuModelApi,
-        InputMaskDemo
+        InputMaskDemo,
+        TriStateCheckboxDemo
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -360,4 +369,5 @@ export class AppComponent {
 })
 export class AppModule { }
 
+//enableProdMode();
 platformBrowserDynamic().bootstrapModule(AppModule);

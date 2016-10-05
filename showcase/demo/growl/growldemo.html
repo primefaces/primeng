@@ -9,6 +9,7 @@
     <p-growl [value]="msgs" sticky="sticky"></p-growl>
 
     <div>
+        <button type="button" pButton (click)="showSuccess()" label="Success"></button>
         <button type="button" pButton (click)="showInfo()" label="Info"></button>
         <button type="button" pButton (click)="showWarn()" label="Warn"></button>
         <button type="button" pButton (click)="showError()" label="Error"></button>
@@ -47,6 +48,15 @@ export class MyModel &#123;
 &#125;
 </code>
 </pre>
+
+            <h3>Severities</h3>
+            <p>Here are the possible values for the severity of a message.</p>
+            <ul>
+                <li>success</li>
+                <li>info</li>
+                <li>warn</li>
+                <li>error</li>
+            </ul>
 
             <h3>Showing Messages</h3>
             <p>Adding messages to the array is enough to display them via growl. Similary removing a message
@@ -150,7 +160,7 @@ hide() &#123;
             </div>
 
             <h3>Dependencies</h3>
-            <p>Native component that requires the css of PrimeUI Growl.</p>
+            <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
