@@ -64,7 +64,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     }
     
     toggle(event) {
-        if(this.value == null)
+        if(this.value == null || this.value == undefined)
             this.value = true;
         else if(this.value == true)
             this.value = false;
@@ -96,7 +96,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     }
 
     writeValue(value: any) : void {
-        this.value = value||null;
+        this.value = value;
     }
     
     setDisabledState(disabled: boolean): void {
