@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablecolreorderdemo.html'
+    templateUrl: './datatablecolreorderdemo.html'
 })
 export class DataTableColReorderDemo implements OnInit {
 

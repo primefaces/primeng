@@ -35,7 +35,7 @@ export class UITreeRow {
             
     hover: boolean;
     
-    constructor(@Inject(forwardRef(() => TreeTable)) protected treeTable:TreeTable) {}
+    constructor(@Inject(forwardRef(() => TreeTable)) public treeTable:TreeTable) {}
     
     toggle(event) {
         if(this.node.expanded)
@@ -50,7 +50,7 @@ export class UITreeRow {
         return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);
     }
     
-    isSelected() {
+    isSelected(node) {
         return this.treeTable.isSelected(this.node);
     }
     

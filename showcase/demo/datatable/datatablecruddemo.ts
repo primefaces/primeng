@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablecruddemo.html',
+    templateUrl: './datatablecruddemo.html',
     styles: [`
         .ui-grid-row div {
           padding: 4px 10px

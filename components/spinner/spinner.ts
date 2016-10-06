@@ -57,19 +57,21 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     onModelTouched: Function = () => {};
         
-    protected hoverUp: boolean;
+    public hoverUp: boolean;
     
-    protected activeUp: boolean;
+    public activeUp: boolean;
     
-    protected hoverDown: boolean;
+    public hoverDown: boolean;
     
-    protected activeDown: boolean;
+    public activeDown: boolean;
 
     protected precision: number;
     
     protected timer: any;
     
     protected inputtext: any;
+
+    public readonly:boolean;
     
     constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
     

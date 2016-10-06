@@ -3,7 +3,7 @@ import {Message} from '../../../components/common/api';
 import {Car} from '../domain/car';
 
 @Component({
-    templateUrl: 'showcase/demo/carousel/carouseldemo.html',
+    templateUrl: './carouseldemo.html',
     styles: [`
         .ui-grid-row {
             text-align: center;

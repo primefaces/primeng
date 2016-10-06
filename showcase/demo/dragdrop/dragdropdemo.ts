@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/dragdrop/dragdropdemo.html',
+    templateUrl: './dragdropdemo.html',
     styles: [`
         .ui-grid li {
             list-style-type: none;

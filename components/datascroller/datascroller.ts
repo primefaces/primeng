@@ -54,7 +54,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     
     @Input() loader: any;
 
-    protected dataToRender: any[] = [];
+    public dataToRender: any[] = [];
 
     protected first: number = 0;
     

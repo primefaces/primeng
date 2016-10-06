@@ -3,7 +3,7 @@ import {Message} from '../../../components/common/api';
 import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/panel/paneldemo.html'
+    templateUrl: './paneldemo.html'
 })
 export class PanelDemo implements OnInit {
 

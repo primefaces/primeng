@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/messages/messagesdemo.html'
+    templateUrl: './messagesdemo.html'
 })
 export class MessagesDemo {
 

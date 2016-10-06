@@ -4,7 +4,7 @@ import {Message} from '../../../components/common/api';
 declare var google: any;
 
 @Component({
-    templateUrl: 'showcase/demo/gmap/gmapdemo.html'
+    templateUrl: './gmapdemo.html'
 })
 export class GMapDemo implements OnInit {
 

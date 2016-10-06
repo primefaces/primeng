@@ -5,7 +5,7 @@ import {Tree} from '../../../components/tree/tree';
 
 
 @Component({
-    templateUrl: 'showcase/demo/tree/treedemo.html'
+    templateUrl: './treedemo.html'
 })
 export class TreeDemo implements OnInit {
     

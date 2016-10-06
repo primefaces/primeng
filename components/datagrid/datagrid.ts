@@ -56,7 +56,7 @@ export class DataGrid implements AfterViewInit,DoCheck {
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
-    protected dataToRender: any[];
+    public dataToRender: any[];
 
     protected first: number = 0;
     

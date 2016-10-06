@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/lightbox/lightboxdemo.html'
+    templateUrl: './lightboxdemo.html'
 })
 export class LightboxDemo {
 

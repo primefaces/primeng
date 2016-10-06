@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/tooltip/tooltipdemo.html'
+    templateUrl: './tooltipdemo.html'
 })
 export class TooltipDemo {
 

@@ -23,3 +23,6 @@ typings
 # misc 
 *.log
 .DS_STORE
+
+#aot compiled ngfactories
+compiled

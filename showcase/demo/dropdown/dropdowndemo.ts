@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {SelectItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/dropdown/dropdown.html',
+    templateUrl: './dropdown.html',
 })
 export class DropdownDemo {
 

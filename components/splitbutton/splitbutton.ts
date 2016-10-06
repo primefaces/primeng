@@ -66,21 +66,21 @@ export class SplitButton implements OnInit,OnDestroy {
     
     @Input() disabled: boolean;
         
-    protected hoverDefaultBtn: boolean;
+    public hoverDefaultBtn: boolean;
     
-    protected focusDefaultBtn: boolean;
+    public focusDefaultBtn: boolean;
     
-    protected activeDefaultBtn: boolean;
+    public activeDefaultBtn: boolean;
     
-    protected hoverDropdown: boolean;
+    public hoverDropdown: boolean;
     
-    protected focusDropdown: boolean;
+    public focusDropdown: boolean;
     
-    protected activeDropdown: boolean;
+    public activeDropdown: boolean;
     
     protected hoveredItem: any;
     
-    protected menuVisible: boolean = false;
+    public menuVisible: boolean = false;
     
     protected documentClickListener: any;
 

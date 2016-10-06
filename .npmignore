@@ -28,4 +28,5 @@ gulpfile.js
 prod
 
 
-
+#aot compiled ngfactories
+compiled

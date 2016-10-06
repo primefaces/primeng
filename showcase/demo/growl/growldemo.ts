@@ -3,7 +3,7 @@ import {SelectItem} from '../../../components/common/api';
 import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/growl/growldemo.html'
+    templateUrl: './growldemo.html'
 })
 export class GrowlDemo {
 

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/accordion/accordiondemo.html'
+    templateUrl: './accordiondemo.html'
 })
 export class AccordionDemo {
 

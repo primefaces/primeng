@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/chart/polarareachart/polarareachartdemo.html'
+    templateUrl: './polarareachartdemo.html'
 })
 export class PolarAreaChartDemo {
 

@@ -4,7 +4,7 @@ import {CarService} from '../service/carservice';
 import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatableselectiondemo.html',
+    templateUrl: './datatableselectiondemo.html',
 })
 export class DataTableSelectionDemo implements OnInit {
 

@@ -2,7 +2,7 @@ import {Component,OnInit,ChangeDetectorRef} from '@angular/core';
 import {EventService} from '../service/eventservice';
 
 @Component({
-    templateUrl: 'showcase/demo/schedule/scheduledemo.html',
+    templateUrl: './scheduledemo.html',
     styles: [`
         .ui-grid-row div {
           padding: 4px 10px

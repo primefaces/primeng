@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {SelectItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/multiselect/multiselectdemo.html'
+    templateUrl: './multiselectdemo.html'
 })
 export class MultiSelectDemo {
 

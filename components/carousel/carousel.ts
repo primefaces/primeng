@@ -68,7 +68,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
         
     protected container: any;    
     
-    protected left: any = 0;
+    public left: any = 0;
     
     protected viewport: any;
     
@@ -78,7 +78,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     
     protected columns: any;
         
-    protected page: number;
+    public page: number;
                     
     protected valuesChanged: any;
     

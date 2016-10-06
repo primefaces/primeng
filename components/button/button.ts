@@ -20,11 +20,11 @@ export class Button implements AfterViewInit, OnDestroy {
         
     protected _label: string;
     
-    protected hover: boolean;
+    public hover: boolean;
     
-    protected focus: boolean;
+    public focus: boolean;
     
-    protected active: boolean;
+    public active: boolean;
     
     protected initialized: boolean;
 

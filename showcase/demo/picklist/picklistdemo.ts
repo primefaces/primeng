@@ -3,7 +3,7 @@ import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
 @Component({
-    templateUrl: 'showcase/demo/picklist/picklistdemo.html'
+    templateUrl: './picklistdemo.html'
 })
 export class PickListDemo {
 

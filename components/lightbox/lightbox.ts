@@ -48,15 +48,15 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     
     @Input() effectDuration: any = '500ms';
                 
-    protected visible: boolean;
+    public visible: boolean;
     
-    protected loading: boolean;
+    public loading: boolean;
         
-    protected currentImage: any;
+    public currentImage: any;
     
-    protected captionText: string;
+    public captionText: string;
     
-    protected zindex: any;
+    public zindex: any;
     
     protected panel: any;
     
@@ -64,7 +64,7 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     
     protected mask: any;
     
-    protected preventDocumentClickListener: boolean;
+    public preventDocumentClickListener: boolean;
     
     protected documentClickListener: any;
 

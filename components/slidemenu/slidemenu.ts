@@ -40,7 +40,7 @@ export class SlideMenuSub implements OnDestroy {
         
     @Input() easing: string = 'ease-out';
         
-    constructor(@Inject(forwardRef(() => SlideMenu)) protected slideMenu: SlideMenu, protected router: Router) {}
+    constructor(@Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu, protected router: Router) {}
     
     activeItem: any;
         

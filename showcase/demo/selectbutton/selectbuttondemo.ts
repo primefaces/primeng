@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {SelectItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/selectbutton/selectbuttondemo.html'
+    templateUrl: './selectbuttondemo.html'
 })
 export class SelectButtonDemo {
 

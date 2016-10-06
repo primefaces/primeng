@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/spinner/spinnerdemo.html'
+    templateUrl: './spinnerdemo.html'
 })
 export class SpinnerDemo {
 

@@ -4,7 +4,7 @@ import {CarService} from '../service/carservice';
 import {Message} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/datascroller/datascrollerinfinitedemo.html',
+    templateUrl: './datascrollerinfinitedemo.html',
     styles: [`
         .ui-grid-row > div {
             padding: 4px 10px;

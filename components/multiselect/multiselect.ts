@@ -91,11 +91,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     onModelTouched: Function = () => {};
     
-    protected valuesAsString: string;
+    public valuesAsString: string;
     
-    protected hover: boolean;
+    public hover: boolean;
     
-    protected focus: boolean;
+    public focus: boolean;
     
     protected documentClickListener: any;
     
@@ -105,13 +105,15 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     protected selfClick: boolean;
     
-    protected panelClick: boolean;
+    public panelClick: boolean;
     
     protected filterValue: string;
     
     protected visibleOptions: SelectItem[];
     
     protected filtered: boolean;
+
+    public hoverToggleAll:boolean;
     
     differ: any;
     

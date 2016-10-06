@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {MenuItem} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/menubar/menubardemo.html'
+    templateUrl: './menubardemo.html'
 })
 export class MenubarDemo {
 
-    private items: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [
