@@ -9,6 +9,11 @@ export class GrowlDemo {
 
     msgs: Message[] = [];
 
+    showSuccess() {
+        this.msgs = [];
+        this.msgs.push({severity:'success', summary:'Success Message', detail:'Order submitted'});
+    }
+
     showInfo() {
         this.msgs = [];
         this.msgs.push({severity:'info', summary:'Info Message', detail:'PrimeNG rocks'});

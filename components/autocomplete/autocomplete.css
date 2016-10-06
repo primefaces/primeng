@@ -9,10 +9,15 @@
     display: inline-block;
 }
 
+.ui-autocomplete-input.ui-autocomplete-dd-input {
+    padding-right: 2.4em;
+}
+
 .ui-autocomplete .ui-autocomplete-dropdown {
     position: absolute;
     height: 100%;
     width: 2.4em;
+    right: -2px;
 }
 
 .ui-autocomplete-query {
@@ -55,7 +60,7 @@
 }
 
 /* Multiple Selection */
-.ui-autocomplete-multiple {
+.ui-autocomplete-multiple-container {
     clear: left;
     cursor: text;
     list-style-type: none;
@@ -64,7 +69,7 @@
     overflow: hidden;
 }
 
-.ui-autocomplete-multiple-container.ui-inputfield {
+.ui-autocomplete-multiple-container.ui-inputtext {
     padding:0;
 }
 

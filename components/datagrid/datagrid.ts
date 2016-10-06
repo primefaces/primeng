@@ -13,8 +13,10 @@ import {PaginatorModule} from '../paginator/paginator';
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
-            <div class="ui-datagrid-content ui-widget-content" [ngClass]="'ui-datagrid-col-' + columns">
-                <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
+            <div class="ui-datagrid-content ui-widget-content">
+                <div class="ui-g">
+                    <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
+                </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
@@ -32,8 +34,6 @@ export class DataGrid implements AfterViewInit,DoCheck {
 
     @Input() rows: number;
     
-    @Input() columns: number = 3;
-
     @Input() totalRecords: number;
 
     @Input() pageLinks: number = 5;
@@ -49,7 +49,7 @@ export class DataGrid implements AfterViewInit,DoCheck {
     @Input() styleClass: string;
     
     @Input() paginatorPosition: string = 'bottom';
-        
+            
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
@@ -63,7 +63,7 @@ export class DataGrid implements AfterViewInit,DoCheck {
     protected page: number = 0;
 
     differ: any;
-
+    
     constructor(protected el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }

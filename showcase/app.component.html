@@ -3,7 +3,7 @@
         <div id="MENUSIDEindent">
             <span id="LOGO" class="">
                 <a href="#" [routerLink]="['/']">
-                    <img alt="logo" src="showcase/resources/images/primeng.svg" />
+                    <img alt="logo" src="showcase/resources/images/primeng-sidebar.svg" />
                 </a>
                 <a href="#" id="openMobileMenuBtn" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
                     <img alt="logo" src="showcase/resources/images/menuicon.svg"/>
@@ -31,6 +31,7 @@
                 <a class="SubMenuLink" [routerLink]="['/spinner']" (click)="mobileMenuActive = false">&#9679; Spinner</a>
                 <a class="SubMenuLink" [routerLink]="['/selectbutton']" (click)="mobileMenuActive = false">&#9679; SelectButton</a>
                 <a class="SubMenuLink" [routerLink]="['/togglebutton']" (click)="mobileMenuActive = false">&#9679; ToggleButton</a>
+                <a class="SubMenuLink" [routerLink]="['/tristatecheckbox']" (click)="mobileMenuActive = false">&#9679; TriStateCheckbox</a>
             </div>
 
             <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="showcase/resources/images/mono/button.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/buttonBlue.svg" /><span class="MainLinkText">Button</span></span>
@@ -148,10 +149,6 @@
 
             <!-- header bar start-->
             <div class="ContentSideSections" id="PFTopLinksCover" style="height:30px;">
-                <a id="LOGOTEXTSIDE" [routerLink]="['/']">
-                    <img alt="logo" src="showcase/resources/images/primengfull.svg"/>
-                </a>
-
                 <a href="#" id="openMenuBtn" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
                     <img alt="logo" src="showcase/resources/images/menuicon.svg"/>
                 </a>
@@ -159,8 +156,11 @@
                 <a href="http://forum.primefaces.org/viewforum.php?f=35" class="PFTopLinks floatRight"><img alt="mockosx" src="showcase/resources/images/community.svg" /><span class="PFDarkText">Forum</span></a>
 
                 <span class="PFTopLinks floatRight cursorPointer" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
-                    <img src="showcase/resources/images/themeswitcher.svg" /><span class="PFDarkText">Free Themes</span>
+                    <img src="showcase/resources/images/themeswitcher.svg" /><span class="PFDarkText">Themes</span>
                     <div id="GlobalThemeSwitcher" class="navOverlay" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px">
+                        <span>Premium</span>
+                        <a href="http://www.primefaces.org/layouts/ultima-ng"><span class="ui-text">Ultima</span></a>
+                        <span>Free</span>
                         <a href="#" data-theme="afterdark"  onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afterdark"></span><span class="ui-text">Afterdark</span></a>
                         <a href="#" data-theme="afternoon" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afternoon"></span><span class="ui-text">Afternoon</span></a>
                         <a href="#" data-theme="afterwork" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afterwork"></span><span class="ui-text">Afterwork</span></a>
@@ -204,8 +204,7 @@
                 <a href="setup.html" class="PFTopLinks floatRight hashed" [routerLink]="['/setup']"><img alt="mockosx" src="showcase/resources/images/setup.svg" /><span class="PFDarkText">Setup</span></a>
 
                 <div class="mobileLogoCover">
-                    <img src="showcase/resources/images/primengdark.svg" style="height:30px;" class="floatLeft marginRight10" />
-                    <span class="dispBlock logoDarkText fontSize18 floatRight" style="margin:-5px 0px 0px 5px;">PrimeNG <span class="dispBlock logoBlueText fontSize14">SHOWCASE</span></span>
+                    <img src="showcase/resources/images/primeng-sidebar.svg" style="height:30px;"/>
                 </div>
             </div>
             <!-- header bar end-->

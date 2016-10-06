@@ -86,8 +86,13 @@ export class Menu implements AfterViewInit,OnDestroy {
     }
     
     show(event) {
+        let target = event.target;
+        if(target.parentElement.nodeName == 'BUTTON') {
+            target = target.parentElement;
+        }
+        
         this.container.style.display = 'block';
-        this.domHandler.absolutePosition(this.container, event.target);
+        this.domHandler.absolutePosition(this.container, target);
         this.domHandler.fadeIn(this.container, 250);
     }
     

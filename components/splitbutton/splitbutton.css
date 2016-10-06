@@ -1,6 +1,8 @@
 .ui-splitbutton {
     position: relative;
     padding-right: 2em;
+    display: inline-block;
+    zoom: 1;
 }
 
 .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
@@ -11,9 +13,8 @@
     right: 0px;
 }
 
-.ui-splitbutton {
-    display: inline-block;
-    zoom: 1;
+.ui-splitbutton.ui-state-disabled button {
+    cursor: default;
 }
 
 .ui-fluid .ui-splitbutton {

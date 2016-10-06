@@ -25,8 +25,8 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 /* menu side style*/
 #MENUSIDE{width:85px; float:left; background-color:#313b3f; border-right:solid 1px #151d21; overflow:hidden; width: 299px;}
 #MENUSIDEindent{width:100%; height:auto;}
-#LOGO{height:65px; display:block; padding:20px 0 5px 0px; z-index:997; background-color:#313b3f; text-align:center;}
-#LOGO img{width:120px; height:auto;}
+#LOGO{height:65px; display:block; padding:10px 0 15px 0; z-index:997; background-color:#313b3f; text-align:center;}
+#LOGO img {height: 70px;}
 .MenuSideMainLink{width:100%; height:37px; display:block; padding:15px 0px 0px 27px; cursor:pointer;}
 .MenuSideMainLink input{ padding:6px; background-color:#354044; outline:none; border:0px; border:none; color:#9ba5ac; border-radius:20px;
     -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5); -moz-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5); box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5);}
@@ -35,7 +35,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .MenuSideMainLink img{width:20px; height:auto; float:left;}
 .MainLinkText{color:#9ba5ac; font-size:16px; margin:0px 0px 0px 30px; display:block;}
 
-.SubMenuLinkContainer{width:auto; padding:20px; overflow:hidden; background-color:#20282b;}
+.SubMenuLinkContainer{width:auto; padding:20px 15px; overflow:hidden; background-color:#20282b;}
 .SubMenuLink{width:50%; display:inline-block; float:left; padding:6px; box-sizing:border-box; cursor:pointer; border-radius:4px; -webkit-border-radius:4px; color:#659eb3; font-size:14px;
 }
 .SubMenuLink:hover{background-color:#101517; color:#8dc5d9;}
@@ -64,24 +64,17 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .PFGrayText{color:#aab7c1;}
 .PFDarkText{color:#313b3f;}
 
-#openMenuBtn{float:left; padding:10px; margin-top:-9px; border-radius:5px; display:none;}
+#openMenuBtn{float:left; padding: 10px 10px 5px 10px; margin-top:-9px; border-radius:5px; display:none;}
 #openMobileMenuBtn {float: left; padding: 10px 10px 5px 10px; margin-left: 23px; margin-top: 5px; border-radius: 5px; display: none;}
 #openMenuBtn.active, #openMenuBtn:hover, #openMenuBtn:focus,
 #openMobileMenuBtn:hover, #openMobileMenuBtn:focus{background-color:#2F88E0;}
 #openMenuBtn img,
-#openMobileMenuBtn img{width:30px;}
+#openMobileMenuBtn img{width:30px;height: 25px;}
 
-.PropertyBox{width:27%; height:280px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
-    -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+.PropertyBox{width:27%; height:280px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;}
 .PropertyBox img{width:60%;}
 .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:18px; margin-bottom:10px;}
 .PropertyBox .PropertyText{display:block; color:#414D52; font-size:14px; line-height: 22px;}
-
-.MOBILE .PropertyBox{width:27%; height:250px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
-    -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
-.MOBILE .PropertyBox img{width:80%;}
-.MOBILE .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:12px;}
-.MOBILE .PropertyBox .PropertyText{display:block; color:#8c9aa5; font-size:11px;}
 
 .widgetsLink{width:90%; height:auto; background-image:url(../images/widgetIconCover.svg); background-position:top; background-repeat:no-repeat; background-size:contain; display:table;
     text-align:center; padding:5%;}
@@ -106,6 +99,12 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 .navOverlay a:hover{ color:#fdd106;}
 .navOverlay a span.ui-theme{width:30px; height:27px; float:left; border:solid 1px #D7DCE0; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;}
 .navOverlay a span.ui-text{ display:inline-block; margin-top:7px; margin-left:10px; font-size: 14px;}
+.navOverlay > span {
+    font-weight: bold;
+    font-size: 18px;
+    display: inline-block;
+    margin-top: 5px;
+}
 /* cursor */
 .cursorPointer{cursor:pointer;}
 
@@ -425,7 +424,8 @@ input.searchInput {
     }
 
     .mobileLogoCover {
-        display: block
+        display: block;
+        float: right;
     }
 
     #MENUSIDE {
@@ -453,13 +453,11 @@ input.searchInput {
         padding:14px 24px;
     }
 
-    #openMenuBtn{display:inline-block; float:left; padding:10px; margin-top:-6px; margin-right: 5px; border-radius:5px; position:relative; z-index:1000;}
+    #openMenuBtn{display:inline-block; float:left; margin-top:-6px; margin-right: 5px; border-radius:5px; position:relative; z-index:1000;}
     #openMenuBtn.active {display: none;}
     #openMobileMenuBtn.active{display: inline-block; background-color:#1976D2;}
     #openMenuBtn:hover, #openMenuBtn:focus,
     #openMobileMenuBtn:hover, #openMobileMenuBtn:focus{background-color:#2F88E0;}
-    #openMenuBtn img, 
-    #openMobileMenuBtn img{width:20px;}
 
     .Content33 {
         width: 100%;

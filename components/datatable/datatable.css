@@ -39,17 +39,15 @@
     border-width: 0px;
 }
 
-.ui-datatable thead th {
+.ui-datatable thead th,
+.ui-datatable tfoot td,
+.ui-datatable tbody td {
     border-color: inherit;
     box-sizing: border-box;
 }
 
 .ui-datatable tbody {
     outline: 0;
-}
-
-.ui-datatable tbody td {
-    border-color: inherit;
 }
 
 .ui-datatable .ui-sortable-column {

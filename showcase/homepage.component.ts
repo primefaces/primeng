@@ -59,10 +59,9 @@ import {Component} from '@angular/core';
         </div>
 
         <div class="ContentSideSections overHidden PFLayouts">
-            <div class="logoBlueText fontSize30">Coming Soon - Ultima Material Admin Template</div>
+            <div class="logoBlueText fontSize30">Ultima Material Admin Template for PrimeNG</div>
             <p class="defaultText" style="margin-bottom:10px">Create awesome applications in no time, impress your users.</p>
-            <p class="defaultText" style="margin-bottom:10px">Ultima for PrimeNG will be available at the end of September. Check out <a href="http://www.primefaces.org/layouts/ultima">PrimeFaces version </a> for a live preview.</p>
-            <a href="http://www.primefaces.org/layouts/ultima">
+            <a href="http://www.primefaces.org/layouts/ultima-ng">
                 <img alt="Ultima" src="http://www.primefaces.org/images/market/ultima/ultima_layout_biggest.png" style="width:100%"/> 
             </a>
         </div>

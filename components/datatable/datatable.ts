@@ -90,7 +90,7 @@ export class RowExpansionLoader {
     selector: 'p-dataTable',
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
-            [ngClass]="{'ui-datatable ui-widget': true, 'ui-datatable-reflow':responsive, 'ui-datatable-stacked': stacked, 'ui-datatable-resizable': resizableColumns}">
+            [ngClass]="{'ui-datatable ui-widget':true,'ui-datatable-reflow':responsive,'ui-datatable-stacked':stacked,'ui-datatable-resizable':resizableColumns,'ui-datatable-scrollable':scrollable}">
             <div class="ui-datatable-header ui-widget-header" *ngIf="header" [ngStyle]="{'width': scrollWidth}">
                 <ng-content select="header"></ng-content>
             </div>
@@ -576,34 +576,37 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(!column.sortable) {
             return;
         }
+        
+        let targetNode = event.target.nodeName;
+        if(targetNode == 'TH' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
+            this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
+            this.sortField = column.field;
+            this.sortColumn = column;
+            let metaKey = event.metaKey||event.ctrlKey;
 
-        this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
-        this.sortField = column.field;
-        this.sortColumn = column;
-        let metaKey = event.metaKey||event.ctrlKey;
-
-        if(this.lazy) {
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-        else {
-            if(this.sortMode == 'multiple') {
-                if(!this.multiSortMeta||!metaKey) {
-                    this.multiSortMeta = [];
-                }
-
-                this.addSortMeta({field: this.sortField, order: this.sortOrder});
-                this.sortMultiple();
+            if(this.lazy) {
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else {
-                this.sortSingle();
+                if(this.sortMode == 'multiple') {
+                    if(!this.multiSortMeta||!metaKey) {
+                        this.multiSortMeta = [];
+                    }
+
+                    this.addSortMeta({field: this.sortField, order: this.sortOrder});
+                    this.sortMultiple();
+                }
+                else {
+                    this.sortSingle();
+                }
             }
+            
+            this.onSort.emit({
+                field: this.sortField,
+                order: this.sortOrder,
+                multisortmeta: this.multiSortMeta
+            });
         }
-        
-        this.onSort.emit({
-            field: this.sortField,
-            order: this.sortOrder,
-            multisortmeta: this.multiSortMeta
-        });
     }
 
     sortSingle() {
@@ -730,42 +733,39 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     handleRowClick(event, rowData) {
-        this.onRowClick.next({originalEvent: event, data: rowData});
-        
-        if(!this.selectionMode) {
-            return;
-        }
-        
         let targetNode = event.target.nodeName;
-        if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' 
-            || (this.domHandler.hasClass(event.target, 'ui-c'))) {
-            return;
-        }
-        
-        if(this.isSelected(rowData)) {
-            if(this.isSingleSelectionMode()) {
-                this.selection = null;
-                this.selectionChange.emit(null);
-            }
-            else {
-                this.selection.splice(this.findIndexInSelection(rowData), 1);
-                this.selectionChange.emit(this.selection);
+        if(targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
+            this.onRowClick.next({originalEvent: event, data: rowData});
+            
+            if(!this.selectionMode) {
+                return;
             }
             
-            this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
-        }
-        else {
-            if(this.isSingleSelectionMode()) {
-                this.selection = rowData;
-                this.selectionChange.emit(rowData);
+            if(this.isSelected(rowData)) {
+                if(this.isSingleSelectionMode()) {
+                    this.selection = null;
+                    this.selectionChange.emit(null);
+                }
+                else {
+                    this.selection.splice(this.findIndexInSelection(rowData), 1);
+                    this.selectionChange.emit(this.selection);
+                }
+                
+                this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
             }
-            else if(this.isMultipleSelectionMode()) {
-                this.selection = this.selection||[];
-                this.selection.push(rowData);
-                this.selectionChange.emit(this.selection);
-            }
+            else {
+                if(this.isSingleSelectionMode()) {
+                    this.selection = rowData;
+                    this.selectionChange.emit(rowData);
+                }
+                else if(this.isMultipleSelectionMode()) {
+                    this.selection = this.selection||[];
+                    this.selection.push(rowData);
+                    this.selectionChange.emit(this.selection);
+                }
 
-            this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+                this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+            }
         }
     }
     

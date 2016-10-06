@@ -104,6 +104,7 @@ import {TabMenuDemo} from "./demo/tabmenu/tabmenudemo";
 import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
+import {TriStateCheckboxDemo} from "./demo/tristatecheckbox/tristatecheckboxdemo";
 import {CarService} from './demo/service/carservice';
 import {CountryService} from './demo/service/countryservice';
 import {EventService} from './demo/service/eventservice';
@@ -170,6 +171,7 @@ import {ToolbarModule} from '../components/toolbar/toolbar';
 import {TooltipModule} from '../components/tooltip/tooltip';
 import {TreeModule} from '../components/tree/tree';
 import {TreeTableModule} from '../components/treetable/treetable';
+import {TriStateCheckboxModule} from '../components/tristatecheckbox/tristatecheckbox';
 
 @Component({
     selector: 'primeng-showcase',
@@ -256,7 +258,8 @@ export class AppComponent {
         ToolbarModule,
         TooltipModule,
         TreeModule,
-        TreeTableModule
+        TreeTableModule,
+        TriStateCheckboxModule
     ],
     declarations: [
         AppComponent,
@@ -355,7 +358,8 @@ export class AppComponent {
         TabMenuDemo,
         TooltipDemo,
         MenuModelApi,
-        InputMaskDemo
+        InputMaskDemo,
+        TriStateCheckboxDemo
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

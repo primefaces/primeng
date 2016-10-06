@@ -94,6 +94,7 @@ import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
 import {FileUploadDemo} from './demo/fileupload/fileuploaddemo';
+import {TriStateCheckboxDemo} from './demo/tristatecheckbox/tristatecheckboxdemo';
 
 export const routes: Routes = [
     {path: '', component: HomePageComponent},
@@ -189,7 +190,8 @@ export const routes: Routes = [
     {path: 'tooltip', component: TooltipDemo},
     {path: 'menumodel', component: MenuModelApi},
     {path: 'mask', component: InputMaskDemo},
-    {path: 'fileupload', component: FileUploadDemo}
+    {path: 'fileupload', component: FileUploadDemo},
+    {path: 'tristatecheckbox', component: TriStateCheckboxDemo}
 ];
 
 

@@ -6,38 +6,45 @@
 </div>
 
 <div class="ContentSideSections Implementation">
+
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-6 ui-lg-4">
+            <span>Basic</span>
             <p-inputMask mask="99-999999" [(ngModel)]="val1" placeholder="99-999999"></p-inputMask>
         </div>
         
         <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="datetime" [(ngModel)]="val2" placeholder="DateTime"></p-inputMask>
+            <span>SSN</span>
+            <p-inputMask mask="999-99-9999" [(ngModel)]="val2" placeholder="999-99-9999"></p-inputMask>
         </div>
         
         <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="numeric" [options]="&#123;groupSeparator:'',digits:2,prefix:'$',digitsOptional:false,autoGroup:true&#125;" [(ngModel)]="val3" placeholder="Currency" slotChar="0"></p-inputMask>
+            <span>Date</span>
+            <p-inputMask mask="99/99/9999" [(ngModel)]="val3" placeholder="99/99/9999" slotChar="mm/dd/yyyy"></p-inputMask>
         </div>
         
         <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="decimal" [options]="&#123;groupSeparator:',',autoGroup:true&#125;" [(ngModel)]="val4" placeholder="Decimal"></p-inputMask>
+            <span>Phone</span>
+            <p-inputMask mask="(999) 999-9999" [(ngModel)]="val4" placeholder="(999) 999-9999"></p-inputMask>
         </div>
         
         <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask alias="regex" [options]="&#123;regex: '[0-9]*'&#125;" placeholder="Regex (Integer only)"></p-inputMask>
+            <span>Phone Ext</span>
+            <p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="val5" placeholder="(999) 999-9999? x99999"></p-inputMask>
         </div>
         
         <div class="ui-g-12 ui-md-6 ui-lg-4">
-            <p-inputMask mask="*&#123;1,20&#125;@*&#123;1,20&#125;.*&#123;1,3&#125;" placeholder="Email"></p-inputMask>
+            <span>Serial Number</span>
+            <p-inputMask mask="a*-999-a999" [(ngModel)]="val6" placeholder="a*-999-a999"></p-inputMask>
         </div>
     </div>
+    
 </div>
 
 <div class="ContentSideSections Source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
-            <p>InputMask is based on <a href="https://github.com/RobinHerbots/jquery.inputmask">jquery mask</a> plugin so include the inputmask bundle script in your application and then import the component from PrimeNG.</p>
 <pre>
 <code class="language-typescript" pCode>
 import &#123;InputMaskModule&#125; from 'primeng/primeng';
@@ -45,73 +52,45 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Component is defined with p-inputMask element and two-way value binding is enabled with standard ngModel directive.</p>     
+            <p>Component is defined using p-inputMask element with a mask and two-way value binding is enabled with standard ngModel directive.</p>   
 <pre>
 <code class="language-markup" pCode>
-&lt;p-inputMask [(ngModel)]="val"&gt;&lt;/p-inputMask&gt;
+&lt;p-inputMask [(ngModel)]="val" mask="99-9999"&gt;&lt;/p-inputMask&gt;
 </code>
 </pre>
 
+            <h3>Mask</h3>
+            <p>Mask format can be a combination of the the following built-in definitions.</p>
+            <ul>
+                <li>a - Alpha character (A-Z,a-z)</li>
+                <li>9 - Numeric character (0-9)</li>
+                <li>* - Alpha numberic character (A-Z,a-z,0-9)</li>
+            </ul>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-inputMask [(ngModel)]="val" mask="a*-999-a999"&gt;&lt;/p-inputMask&gt;
+</code>
+</pre>
+            
+            <h3>SlotChar</h3>
+            <p>Underscore is the default placeholder for a mask and this can be customized using slotChart option.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-inputMask [(ngModel)]="val" mask="99-9999" slotChar=" "&gt;&lt;/p-inputMask&gt;
+</code>
+</pre>
+            
+            <h3>Optional Values</h3>
+            <p>If the input does not complete the mask definition, it is cleared by default. Use autoClear property to control this behavior. In addition,
+            certain part of a mask can be made optional by using ? symbol where anything after the question mark becomes optional.</p>
+                        
             <h3>Model Driven Forms</h3>
             <p>InputMask can be used in a model driven form as well.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-inputMask formControlName="age"&gt;&lt;/p-inputMask&gt;
+&lt;p-inputMask formControlName="username" mask="(999) 999-9999? x99999"&gt;&lt;/p-inputMask&gt;
 </code>
 </pre>
-                
-            <h3>Mask Types</h3>
-            <p>A mask is defined with the following syntax.</p>
-            <ul>
-                <li>9: numeric</li>
-                <li>a: alphabetical</li>
-                <li>*: alphanumeric</li>
-            </ul>
-<pre>
-<code class="language-markup" pCode>
-&lt;p-inputMask mask="aaa-99"&gt;&lt;/p-inputMask&gt;
-&lt;p-inputMask mask="999999"&gt;&lt;/p-inputMask&gt;
-&lt;p-inputMask mask="**"&gt;&lt;/p-inputMask&gt;
-</code>
-</pre>
-
-            <h3>Aliases</h3>
-            <p>An alis is a shortcut for commonly used masks such as dates and numbers.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;p-inputMask alias="date"&gt;&lt;/p-inputMask&gt;
-&lt;p-inputMask alias="currency"&gt;&lt;/p-inputMask&gt;
-&lt;p-inputMask alias="email"&gt;&lt;/p-inputMask&gt;
-&lt;p-inputMask alias="integer"&gt;&lt;/p-inputMask&gt;
-&lt;p-inputMask alias="date"&gt;&lt;/p-inputMask&gt;
-&lt;p-inputMask alias="datetime"&gt;&lt;/p-inputMask&gt;
-&lt;p-inputMask alias="dd/mm/yyyy"&gt;&lt;/p-inputMask&gt;
-</code>
-</pre>
-
-            <p>An alias is configured using options property. Each alias can have a different set of options. For full list of options
-            please refer to <a href="https://github.com/RobinHerbots/jquery.inputmask">extensions documentation</a>.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;p-inputMask alias="decimal" [options]="&#123;groupSeparator:',',autoGroup:true&#125;"&gt;&lt;/p-inputMask&gt;
-</code>
-</pre>    
-
-            <h3>Regex</h3>
-            <p>A regular expression can be used as a mask as well by defining an alias as "regex" and providing the expression in options.</p>
-            <pre>
-            <code class="language-markup" pCode>
-&lt;p-inputMask alias="regex" [options]="&#123;regex: '[0-9]*'&#125;" placeholder="Regex (Integer only)"&gt;&lt;/p-inputMask&gt;
-            </code>
-            </pre>   
-            
-            <h3>Optional Mask</h3>
-            <p>Certain parts of a mask can be optional with [] syntax. In following example values like 143 or 14 are accepted.</p>
-            <pre>
-            <code class="language-markup" pCode>
-&lt;p-inputMask mask="99[9]"&gt;&lt;/p-inputMask&gt;
-            </code>
-            </pre> 
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -132,6 +111,24 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
                             <td>Mask pattern.</td>
                         </tr>
                         <tr>
+                            <td>slotChar</td>
+                            <td>string</td>
+                            <td>_</td>
+                            <td>Placeholder character in mask, default is underscore.</td>
+                        </tr>
+                        <tr>
+                            <td>autoClear</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Clears the incomplete value on blur.</td>
+                        </tr>
+                        <tr>
+                            <td>unmask</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value.</td>
+                        </tr>
+                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -150,54 +147,6 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
                             <td>Advisory information to display on input.</td>
                         </tr>
                         <tr>
-                            <td>slotChar</td>
-                            <td>string</td>
-                            <td>_</td>
-                            <td>Placeholder character in mask, default is underscore.</td>
-                        </tr>
-                        <tr>
-                            <td>alias</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Shorthand for a predefined mask.</td>
-                        </tr>
-                        <tr>
-                            <td>options</td>
-                            <td>Object</td>
-                            <td>null</td>
-                            <td>Configuration for mask alias.</td>
-                        </tr>
-                        <tr>
-                            <td>unmask</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value.</td>
-                        </tr>
-                        <tr>
-                            <td>clearMaskOnLostFocus</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Remove the empty mask on blur or when not empty removes the optional trailing part. Default is true.</td>
-                        </tr>
-                        <tr>
-                            <td>clearIncomplete</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Clears the incomplete input on blur.</td>
-                        </tr>
-                        <tr>
-                            <td>disabled</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When present, it specifies that the element should be disabled.</td>
-                        </tr>
-                        <tr>
-                            <td>disabled</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When present, it specifies that the element value cannot be altered.</td>
-                        </tr>
-                        <tr>
                             <td>size</td>
                             <td>number</td>
                             <td>null</td>
@@ -208,6 +157,30 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
                             <td>number</td>
                             <td>null</td>
                             <td>Maximum number of character allows in the input field.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Specifies tab order of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the element value cannot be altered.</td>
+                        </tr>
+                        <tr>
+                            <td>readonly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that an input field is read-only.</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the input field.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -227,12 +200,7 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
                         <tr>
                             <td>onComplete</td>
                             <td>-</td>
-                            <td>Callback to invoke on when user completes mask pattern.</td>
-                        </tr>
-                        <tr>
-                            <td>onInComplete</td>
-                            <td></td>
-                            <td>Callback to invoke on when user leaves the field without completing mask pattern.</td>
+                            <td>Callback to invoke on when user completes the mask pattern.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -242,7 +210,7 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
             <p>Styling is same as <a href="#" [routerLink]="['/inputtext']">inputtext component</a>, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
 
             <h3>Dependencies</h3>
-            <p>jQuery input mask plugin.</p>
+            <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
@@ -250,27 +218,33 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
 <code class="language-markup" pCode>
 &lt;div class="ui-g ui-fluid"&gt;
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
+        &lt;span&gt;Basic&lt;/span&gt;
         &lt;p-inputMask mask="99-999999" [(ngModel)]="val1" placeholder="99-999999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
-        &lt;p-inputMask alias="datetime" [(ngModel)]="val2" placeholder="DateTime"&gt;&lt;/p-inputMask&gt;
+        &lt;span&gt;SSN&lt;/span&gt;
+        &lt;p-inputMask mask="999-99-9999" [(ngModel)]="val2" placeholder="999-99-9999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
-        &lt;p-inputMask alias="numeric" [options]="&#123;groupSeparator:'',digits:2,prefix:'$',digitsOptional:false,autoGroup:true&#125;" [(ngModel)]="val3" placeholder="Currency" slotChar="0"&gt;&lt;/p-inputMask&gt;
+        &lt;span&gt;Date&lt;/span&gt;
+        &lt;p-inputMask mask="99/99/9999" [(ngModel)]="val3" placeholder="99/99/9999" slotChar="mm/dd/yyyy"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
-        &lt;p-inputMask alias="decimal" [options]="&#123;groupSeparator:',',autoGroup:true&#125;" [(ngModel)]="val4" placeholder="Decimal"&gt;&lt;/p-inputMask&gt;
+        &lt;span&gt;Phone&lt;/span&gt;
+        &lt;p-inputMask mask="(999) 999-9999" [(ngModel)]="val4" placeholder="(999) 999-9999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
-        &lt;p-inputMask alias="regex" [options]="&#123;regex: '[0-9]*'&#125;" placeholder="Regex (Integer only)"&gt;&lt;/p-inputMask&gt;
+        &lt;span&gt;Phone Ext&lt;/span&gt;
+        &lt;p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="val5" placeholder="(999) 999-9999? x99999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
     
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
-        &lt;p-inputMask mask="*&#123;1,20&#125;@*&#123;1,20&#125;.*&#123;1,3&#125;" placeholder="Email"&gt;&lt;/p-inputMask&gt;
+        &lt;span&gt;Serial Number&lt;/span&gt;
+        &lt;p-inputMask mask="a*-999-a999" [(ngModel)]="val6" placeholder="a*-999-a999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 </code>
