@@ -623,7 +623,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     let value2 = this.resolveFieldData(data2, this.sortField);
                     let result = null;
 
-                    if (value1 instanceof String && value2 instanceof String)
+                    if (typeof value1 === 'string' && typeof value2 === 'string')
                         result = value1.localeCompare(value2);
                     else
                         result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;

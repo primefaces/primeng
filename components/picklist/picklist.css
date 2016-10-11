@@ -126,6 +126,10 @@
     width: 35%;
 }
 
+.ui-picklist.ui-picklist-responsive .ui-picklist-listwrapper.ui-picklist-listwrapper-nocontrols {
+    width: 45%;
+}
+
 .ui-picklist.ui-picklist-responsive .ui-picklist-buttons {
     width: 10%;
 }
