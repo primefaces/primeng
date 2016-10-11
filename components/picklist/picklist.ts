@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {SharedModule} from '../common/shared';
@@ -73,6 +73,10 @@ export class PickList implements OnDestroy,AfterViewChecked {
     @Input() sourceStyle: any;
 
     @Input() targetStyle: any;
+    
+    @Output() onMovetoSource: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onMoveToTarget: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
     
@@ -209,15 +213,21 @@ export class PickList implements OnDestroy,AfterViewChecked {
                     this.target.push(this.source.splice(this.findIndexInList(selectedItem, this.source),1)[0]);
                 }
             }
+            this.onMoveToTarget.emit({
+                items: this.selectedItems
+            });
             this.selectedItems = [];
         }
     }
 
     moveAllRight() {
-        if(this.selectedItems) {
+        if(this.source) {
             for(let i = 0; i < this.source.length; i++) {
                 this.target.push(this.source[i]);
             }
+            this.onMoveToTarget.emit({
+                items: this.source
+            });
             this.source.splice(0, this.source.length);
             this.selectedItems = [];
         }
@@ -231,15 +241,21 @@ export class PickList implements OnDestroy,AfterViewChecked {
                     this.source.push(this.target.splice(this.findIndexInList(selectedItem, this.target),1)[0]);
                 }
             }
+            this.onMovetoSource.emit({
+                items: this.selectedItems
+            });
             this.selectedItems = [];
         }
     }
 
     moveAllLeft() {
-        if(this.selectedItems) {
+        if(this.target) {
             for(let i = 0; i < this.target.length; i++) {
                 this.source.push(this.target[i]);
             }
+            this.onMovetoSource.emit({
+                items: this.target
+            });
             this.target.splice(0, this.target.length);
             this.selectedItems = [];
         }
