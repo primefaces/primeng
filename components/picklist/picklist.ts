@@ -128,7 +128,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveUp(listElement, list) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -150,7 +150,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveTop(listElement, list) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -169,7 +169,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveDown(listElement, list) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = this.selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -191,7 +191,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveBottom(listElement, list) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = this.selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -210,7 +210,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveRight(targetListElement) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
                 if(this.findIndexInList(selectedItem, this.target) == -1) {
@@ -238,7 +238,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveLeft(sourceListElement) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
                 if(this.findIndexInList(selectedItem, this.source) == -1) {
