@@ -7,7 +7,8 @@
 
 <div class="ContentSideSections Implementation">
     
-    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;">
+    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" 
+        [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [showSourceControls]="false" [showTargetControls]="false">
         <template let-car>
             <div class="ui-helper-clearfix">
                 <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -140,6 +141,18 @@ export class MyComponent &#123;
                         <td>boolean</td>
                         <td>false</td>
                         <td>When enabled orderlist adjusts its controls based on screen size.</td>
+                    </tr>
+                    <tr>
+                        <td>showSourceControls</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>Whether to show buttons of source list.</td>
+                    </tr>
+                    <tr>
+                        <td>showTargetControls</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>Whether to show buttons of target list.</td>
                     </tr>
                     </tbody>
                 </table>

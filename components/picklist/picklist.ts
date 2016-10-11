@@ -7,8 +7,8 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-pickList',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true, 'ui-picklist-responsive': responsive}">
-            <div class="ui-picklist-source-controls ui-picklist-buttons">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true,'ui-picklist-responsive': responsive}">
+            <div class="ui-picklist-source-controls ui-picklist-buttons" *ngIf="showSourceControls">
                 <div class="ui-picklist-buttons-cell">
                     <button type="button" pButton icon="fa-angle-up" (click)="moveUp(sourcelist,source)"></button>
                     <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(sourcelist,source)"></button>
@@ -16,7 +16,7 @@ import {DomHandler} from '../dom/domhandler';
                     <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(sourcelist,source)"></button>
                 </div>
             </div>
-            <div class="ui-picklist-listwrapper ui-picklist-source-wrapper">
+            <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle">
                     <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
@@ -33,7 +33,7 @@ import {DomHandler} from '../dom/domhandler';
                     <button type="button" pButton icon="fa-angle-double-left" (click)="moveAllLeft()"></button>
                 </div>
             </div>
-            <div class="ui-picklist-listwrapper ui-picklist-target-wrapper">
+            <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle">
                     <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
@@ -42,7 +42,7 @@ import {DomHandler} from '../dom/domhandler';
                     </li>
                 </ul>
             </div>
-            <div class="ui-picklist-target-controls ui-picklist-buttons">
+            <div class="ui-picklist-target-controls ui-picklist-buttons" *ngIf="showTargetControls">
                 <div class="ui-picklist-buttons-cell">
                     <button type="button" pButton icon="fa-angle-up" (click)="moveUp(targetlist,target)"></button>
                     <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(targetlist,target)"></button>
@@ -73,6 +73,10 @@ export class PickList implements OnDestroy,AfterViewChecked {
     @Input() sourceStyle: any;
 
     @Input() targetStyle: any;
+    
+    @Input() showSourceControls: boolean = true;
+    
+    @Input() showTargetControls: boolean = true;
     
     @Output() onMovetoSource: EventEmitter<any> = new EventEmitter();
     
