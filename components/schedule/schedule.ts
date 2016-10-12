@@ -77,7 +77,9 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
         
     @Input() eventConstraint: any;
     
-    @Input() locale: any;
+    @Input() locale: string = 'en';
+
+    @Input() timezone: any;
 
     @Input() eventRender: Function;
     
@@ -144,6 +146,8 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
             scrollTime: this.scrollTime,
             minTime: this.minTime,
             maxTime: this.maxTime,
+            timezone: this.timezone,
+            locale: this.locale,
             slotEventOverlap: this.slotEventOverlap,
             nowIndicator: this.nowIndicator,
             dragRevertDuration: this.dragRevertDuration,
@@ -236,12 +240,6 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
                 });
             }
         };
-        
-        if(this.locale) {
-            for(var prop in this.locale) {
-                options[prop] = this.locale[prop];
-            }
-        }
         
         this.schedule.fullCalendar(options);
         this.initialized = true;
