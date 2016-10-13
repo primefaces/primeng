@@ -43,8 +43,9 @@ export interface LocaleSettings {
                 </thead>
                 <tbody>
                     <tr *ngFor="let week of dates">
-                        <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth}">
-                            <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true">{{date.day}}</a>
+                        <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,'ui-datepicker-current-day':isSelected(date)}">
+                            <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" [ngClass]="{'ui-state-active':isSelected(date)}"
+                                    (click)="onDateSelect($event,date)">{{date.day}}</a>
                         </td>
                     </tr>
                 </tbody>
@@ -265,6 +266,23 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         event.preventDefault();
     }
     
+    onDateSelect(event,dateMeta) {
+        if(dateMeta.otherMonth) {
+            if(this.selectOtherMonths)
+                this.selectDate(dateMeta);
+        }
+        else {
+             this.selectDate(dateMeta);
+        }
+        
+        event.preventDefault();
+    }
+    
+    selectDate(dateMeta) {
+        this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        this.onModelChange(this.value);
+    }
+    
     getFirstDayOfMonthIndex(month: number, year: number) {
         let day = new Date();
         day.setDate(1);
@@ -315,6 +333,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     getSundayIndex() {
         return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
+    }
+    
+    isSelected(dateMeta): boolean {        
+        if(this.value)
+            return this.value.getDate() === dateMeta.day && this.value.getMonth() === dateMeta.month && this.value.getFullYear() === dateMeta.year;
+        else
+            return false;
     }
     
     ngAfterViewInit() {
