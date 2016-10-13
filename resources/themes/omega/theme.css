@@ -433,7 +433,7 @@
 	box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset;
 }
 
-.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; width: 16px; height: 16px; cursor: pointer; }
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; width: 16px; height: 16px; cursor: pointer; color: #e8e9ea;}
 .ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 2px !important; }
 .ui-datepicker .ui-datepicker-prev { left: 2px !important; }
 .ui-datepicker .ui-datepicker-next { right: 2px !important; }

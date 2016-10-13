@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange,EventEmitter,forwardRef,NgZone} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -9,24 +9,53 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+export interface LocaleSettings {
+    firstDayOfWeek?: number;
+    dayNames: string[];
+	dayNamesShort: string[];
+	dayNamesMin: string[];
+    monthNames: string[];
+    monthNamesShort: string[];
+}
+
 @Component({
     selector: 'p-calendar',
     template:  `
-        <span [ngStyle]="style" [class]="styleClass" [ngClass]="'ui-calendar'" *ngIf="!inline">
-        <input #in type="text" [attr.placeholder]="placeholder" [ngStyle]="inputStyle" [class]="inputStyleClass"
-                [value]="value||''" (input)="onInput($event)" [readonly]="readonlyInput"
-                [disabled]="disabled" (mouseenter)="hovered=true" (mouseleave)="hovered=false" (focus)="focused=true" (blur)="handleBlur($event)"
-                [ngClass]="{'ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,
-                    'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}"
-        ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)" 
-                [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button></span>
-        <div *ngIf="inline"></div>
+        <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display:block">
+            <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+                <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
+                    <span class="fa fa-angle-left"></span>
+                </a>
+                <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)">
+                    <span class="fa fa-angle-right"></span>
+                </a>
+                <div class="ui-datepicker-title">
+                    <span class="ui-datepicker-month">{{currentMonthText}}</span>&nbsp;<span class="ui-datepicker-year">{{currentYear}}</span>
+                </div>
+            </div>
+            <table class="ui-datepicker-calendar">
+                <thead>
+                    <tr>
+                        <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
+                            <span>{{weekDay}}</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let week of dates">
+                        <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth}">
+                            <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true">{{date.day}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     `,
     providers: [CALENDAR_VALUE_ACCESSOR]
 })
-export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueAccessor {
+export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
 
-    @Input() readonlyInput: boolean;
+    /*@Input() readonlyInput: boolean;
 
     @Input() style: any;
 
@@ -37,8 +66,6 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     @Input() inputStyleClass: string;
 
     @Input() placeholder: string;
-
-    @Input() inline: boolean = false;
 
     @Input() showAnim: string;
 
@@ -54,11 +81,7 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
 
     @Input() showWeek: boolean;
 
-    @Input() showOtherMonths: boolean;
-
-    @Input() selectOtherMonths: boolean;
-
-    @Input() defaultDate: any;
+    @Input() defaultDate: Date;
 
     @Input() minDate: any;
 
@@ -114,94 +137,188 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
-    @Output() onSelect: EventEmitter<any> = new EventEmitter();
+    @Output() onSelect: EventEmitter<any> = new EventEmitter();*/
     
-    value: string;
+    @Input() defaultDate: Date;
+    
+    @Input() disabled: any;
+    
+    @Input() locale: LocaleSettings = {
+        firstDayOfWeek: 0,
+        dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
+        monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
+        monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+    };
+    
+    @Input() inline: boolean = false;
+    
+    @Input() showOtherMonths: boolean = true;
+
+    @Input() selectOtherMonths: boolean;
+    
+    value: Date;
+    
+    dates: any[];
+    
+    weekDays: string[] = [];
+    
+    currentMonthText: string;
+    
+    currentMonth: number;
+    
+    currentYear: number;
     
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
-
-    hovered: boolean;
-
-    focused: boolean;
-
-    initialized: boolean;
     
     calendarElement: any;
 
     constructor(protected el: ElementRef, protected zone:NgZone) {
-        this.initialized = false;
+        
     }
 
+    ngOnInit() {
+        let today = new Date();
+        let date = this.defaultDate||new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        
+        let dayIndex = this.locale.firstDayOfWeek;
+        for(let i = 0; i < 7; i++) {
+            this.weekDays.push(this.locale.dayNamesMin[dayIndex]);
+            dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
+        }
+                
+        this.currentMonth = month;
+        this.currentYear = year;
+        this.createMonth(this.currentMonth, this.currentYear);
+    }
+    
+    createMonth(month: number, year: number) {
+        this.dates = [];
+        this.currentMonthText = this.locale.monthNames[month];
+        let firstDay = this.getFirstDayOfMonthIndex(month, year);
+        let daysLength = this.getDaysCountInMonth(month, year);
+        let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
+        let sundayIndex = this.getSundayIndex();
+        let dayNo = 1;
+                
+        for(let i = 0; i < 6; i++) {
+            let week = [];
+            
+            if(i == 0) {
+                for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
+                    let prev = this.getPreviousMonthAndYear(month, year);
+                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true});
+                }
+                
+                let remainingDaysLength = 7 - week.length;
+                for(let j = 0; j < remainingDaysLength; j++) {
+                    week.push({day: dayNo, month: month, year: year});
+                    dayNo++;
+                }
+            }
+            else {
+                for (var j = 0; j < 7; j++) {
+                    if(dayNo > daysLength) {
+                        let next = this.getPreviousMonthAndYear(month, year);
+                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true});
+                    }
+                    else {
+                        week.push({day: dayNo, month: month, year: year});
+                    }
+                    
+                    dayNo++;
+                }
+            }
+            
+            this.dates.push(week);
+        }
+    }
+    
+    prevMonth(event) {
+        if(this.currentMonth === 0) {
+            this.currentMonth = 11;
+            this.currentYear--;
+        }
+        else {
+            this.currentMonth--;
+        }
+        
+        this.createMonth(this.currentMonth, this.currentYear);
+        event.preventDefault();
+    }
+    
+    nextMonth(event) {
+        if(this.currentMonth === 11) {
+            this.currentMonth = 0;
+            this.currentYear++;
+        }
+        else {
+            this.currentMonth++;
+        }
+        
+        this.createMonth(this.currentMonth, this.currentYear);
+        event.preventDefault();
+    }
+    
+    getFirstDayOfMonthIndex(month: number, year: number) {
+        let day = new Date();
+        day.setDate(1);
+        day.setMonth(month);
+        day.setFullYear(year);
+        
+        let dayIndex = day.getDay() + this.getSundayIndex();
+        return dayIndex >= 7 ? dayIndex - 7 : dayIndex;
+    }
+    
+    getDaysCountInMonth(month: number, year: number) {
+        return 32 - (new Date(year, month, 32).getDate()); 
+    }
+    
+    getDaysCountInPrevMonth(month: number, year: number) {
+        let prev = this.getPreviousMonthAndYear(month, year);
+        return this.getDaysCountInMonth(prev.month, prev.year); 
+    }
+    
+    getPreviousMonthAndYear(month: number, year: number) {
+        let m, y;
+        
+        if(month === 0) {
+            m = 11;
+            y = year - 1;
+        }
+        else {
+            m = month - 1;
+            y = year;
+        }
+        
+        return {'month':m,'year':y};
+    }
+    
+    getNextMonthAndYear(month: number, year: number) {
+        let m, y;
+        
+        if(month === 11) {
+            m = 0;
+            y = year + 1;
+        }
+        else {
+            m = month + 1;
+        }
+        
+        return {'month':m,'year':y};
+    }
+    
+    getSundayIndex() {
+        return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
+    }
+    
     ngAfterViewInit() {
-        this.calendarElement = this.inline ? jQuery(this.el.nativeElement.children[0]) : jQuery(this.el.nativeElement.children[0].children[0]);
-        let options = {
-            showAnim: this.showAnim,
-            dateFormat: this.dateFormat,
-            showButtonPanel: this.showButtonPanel,
-            changeMonth: this.monthNavigator,
-            changeYear: this.yearNavigator,
-            numberOfMonths: this.numberOfMonths,
-            showWeek: this.showWeek,
-            showOtherMonths: this.showOtherMonths,
-            selectOtherMonths: this.selectOtherMonths,
-            defaultDate: this.defaultDate,
-            minDate: this.minDate,
-            maxDate: this.maxDate,
-            yearRange: this.yearRange,
-            onSelect: (dateText: string) => {
-                this.zone.run(() => {
-                    this.value = dateText;
-                    this.onModelChange(this.value);
-                    this.onSelect.emit(this.value);
-                });
-            }
-        };
         
-        if(this.locale) {
-            for(var prop in this.locale) {
-                options[prop] = this.locale[prop];
-            }
-        }
-        
-        if(this.timeFormat||this.timeOnly) {
-            options['timeFormat'] = this.timeFormat;
-            options['timeOnly'] = this.timeOnly;
-            options['stepHour'] = this.stepHour;
-            options['stepMinute'] = this.stepMinute;
-            options['stepSecond'] = this.stepSecond;
-            options['hourMin'] = this.hourMin;
-            options['hourMax'] = this.hourMax;
-            options['minuteMin'] = this.minuteMin;
-            options['minuteMax'] = this.minuteMax;
-            options['secondMin'] = this.secondMin;
-            options['secondMax'] = this.secondMax;
-            options['hourGrid'] = this.hourGrid;
-            options['minuteGrid'] = this.minuteGrid;
-            options['secondGrid'] = this.secondGrid;
-            options['controlType'] = this.timeControlType;
-            options['oneLine'] = this.horizontalTimeControls;
-            options['minTime'] = this.minTime;
-            options['maxTime'] = this.maxTime;
-            options['timezoneList'] = this.timezoneList;
-            this.calendarElement.datetimepicker(options);
-        }
-        else
-            this.calendarElement.datepicker(options);
-        
-        this.initialized = true;
-    }
-    
-    onInput(event) {
-        this.onModelChange(event.target.value);
-    }
-    
-    handleBlur(event) {
-        this.value = event.target.value;
-        this.onModelTouched();
-        this.focused=false;
-        this.onBlur.emit(event);
     }
     
     writeValue(value: any) : void {
@@ -220,22 +337,8 @@ export class Calendar implements AfterViewInit,OnChanges,OnDestroy,ControlValueA
         this.disabled = val;
     }
 
-    ngOnChanges(changes: {[key: string]: SimpleChange}) {
-        if (this.initialized) {
-            for (var key in changes) {
-                this.calendarElement.datepicker('option', key, changes[key].currentValue);
-            }
-        }
-    }
-
     ngOnDestroy() {
-        this.calendarElement.datepicker('destroy');
-        this.calendarElement = null;
-        this.initialized = false;
-    }
-    
-    onButtonClick(event,input) {
-        input.focus();
+        
     }
 }
 

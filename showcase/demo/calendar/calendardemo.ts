@@ -33,6 +33,8 @@ export class CalendarDemo {
     
     es: any;
     
+    tr: any;
+    
     ngOnInit() {
         this.es = {
             closeText: "Cerrar",
@@ -48,10 +50,14 @@ export class CalendarDemo {
         	dayNamesMin: [ "D","L","M","X","J","V","S" ],
         	weekHeader: "Sm",
         	dateFormat: "dd/mm/yy",
-        	firstDay: 1,
+        	firstDayOfWeek: 1,
         	isRTL: false,
         	showMonthAfterYear: false,
         	yearSuffix: "" 
+        };
+        
+        this.tr = {
+            firstDayOfWeek : 1
         };
     }
 }

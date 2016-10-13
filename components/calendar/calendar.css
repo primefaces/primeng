@@ -52,9 +52,14 @@
 	display: block;
 	position: absolute;
 	left: 50%;
-	margin-left: -8px;
 	top: 50%;
 	margin-top: -8px;
+}
+.ui-datepicker .ui-datepicker-prev span {
+	margin-left: -2px;
+}
+.ui-datepicker .ui-datepicker-next span {
+	margin-left: -4px;
 }
 .ui-datepicker .ui-datepicker-title {
 	margin: 0 2.3em;
