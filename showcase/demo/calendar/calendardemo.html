@@ -10,17 +10,17 @@
         <div class="ui-grid-row">
             <div class="ui-grid-col-4">
                 <h3>Basic</h3>
-                <p-calendar [(ngModel)]="date1"></p-calendar> {{date1}}
+                <p-calendar [(ngModel)]="date1"></p-calendar> {{date1|date}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>Spanish</h3>
-                <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar> {{date2}}
+                <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar> {{date2|date}}
             </div>
             
             <div class="ui-grid-col-4">
                 <h3>Icon</h3>
-                <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar> {{date3}}
+                <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
             </div>
         </div>
         
@@ -76,8 +76,7 @@
         </div>-->
     </div>
     
-    <h3>Inline</h3>
-    <p>{{date13||'Date not selected'}}</p>
+    <h3>Inline {{date13|date}}</h3>
     <p-calendar [(ngModel)]="date13" [inline]="true"></p-calendar> 
 </div>
 
