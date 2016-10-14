@@ -74,6 +74,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     @Input() name: string;
     
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
+
+    @Output() blur: EventEmitter<any> = new EventEmitter();
         
     value: any;
     
@@ -320,7 +322,9 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             let event = document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
             this.input.dispatchEvent(event);
-        }    
+        }
+
+        this.blur.emit(e);    
     }
     
     onKeyDown(e) {
