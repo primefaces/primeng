@@ -72,6 +72,44 @@ export interface LocaleSettings {
                         </tr>
                     </tbody>
                 </table>
+                <div class="ui-timepicker" *ngIf="showTime">
+                    <div class="ui-hour-picker">
+                        <a href="#" (click)="incrementHour($event)">
+                            <span class="fa fa-chevron-up"></span>
+                        </a>
+                        <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
+                        <a href="#" (click)="decrementHour($event)">
+                            <span class="fa fa-chevron-down"></span>
+                        </a>
+                    </div>
+                    <div class="ui-separator">
+                        <a href="#">
+                            <span class="fa fa-chevron-up"></span>
+                        </a>
+                        <span>:</span>
+                        <a href="#">
+                            <span class="fa fa-chevron-down"></span>
+                        </a>
+                    </div>
+                    <div class="ui-minute-picker">
+                        <a href="#" (click)="incrementMinute($event)">
+                            <span class="fa fa-chevron-up"></span>
+                        </a>
+                        <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
+                        <a href="#" (click)="decrementMinute($event)">
+                            <span class="fa fa-chevron-down"></span>
+                        </a>
+                    </div>
+                    <div class="ui-ampm-picker" *ngIf="hourFormat=='12'">
+                        <a href="#" (click)="toggleAMPM($event)">
+                            <span class="fa fa-chevron-up"></span>
+                        </a>
+                        <span>{{pm ? 'PM' : 'AM'}}</span>
+                        <a href="#" (click)="toggleAMPM($event)">
+                            <span class="fa fa-chevron-down"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </span>
     `,
@@ -111,6 +149,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     @Input() yearRange: string;
     
+    @Input() showTime: boolean;
+    
+    @Input() hourFormat: string = '24';
+    
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
@@ -135,6 +177,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     currentMonth: number;
     
     currentYear: number;
+    
+    currentHour: number;
+    
+    currentMinute: number;
+    
+    pm: boolean;
     
     overlay: HTMLDivElement;
     
@@ -162,18 +210,25 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     ngOnInit() {
         let today = new Date();
-        let date = this.defaultDate||new Date();
-        let year = date.getFullYear();
-        let month = date.getMonth();
-        
+        let date = this.defaultDate||new Date();        
         let dayIndex = this.locale.firstDayOfWeek;
         for(let i = 0; i < 7; i++) {
             this.weekDays.push(this.locale.dayNamesMin[dayIndex]);
             dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
         }
                 
-        this.currentMonth = month;
-        this.currentYear = year;
+        this.currentMonth = date.getMonth();
+        this.currentYear = date.getFullYear();
+        if(this.showTime) {
+            this.currentMinute = date.getMinutes();
+            this.pm = this.currentHour > 11;
+            
+            if(this.hourFormat == '12')
+                this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
+            else
+                this.currentHour = date.getHours();
+        }
+
         this.createMonth(this.currentMonth, this.currentYear);
         
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
@@ -310,14 +365,26 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         this.dateClick = true;
-        if(this.inputfield) {
-            this.inputfield.value = this.formatDate(this.value, this.dateFormat);
-        }
+        this.updateInputfield();
         event.preventDefault();
+    }
+    
+    updateInputfield() {
+        if(this.inputfield) {
+            let formattedValue = this.formatDate(this.value, this.dateFormat);
+            if(this.showTime) {
+                formattedValue += ' ' + this.formatTime(this.value);
+            }
+            this.inputfield.value = formattedValue;
+        }
     }
     
     selectDate(dateMeta) {
         this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        if(this.showTime) {
+            this.value.setHours(this.currentHour);
+            this.value.setMinutes(this.currentMinute);
+        }
         this.onModelChange(this.value);
         this.onSelect.emit(this.value);
     }
@@ -461,6 +528,77 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.createMonth(this.currentMonth, this.currentYear);
     }
     
+    incrementHour(event) {
+        if(this.hourFormat == '24') {
+            if(this.currentHour === 23) {
+                this.currentHour = 0;
+            }
+            this.currentHour++;
+        }
+        else if(this.hourFormat == '12') {
+            if(this.currentHour === 12) {
+                this.currentHour = 0;
+            }
+            this.currentHour++;
+        }
+        
+        this.updateTime();
+                
+        event.preventDefault();
+    }
+    
+    decrementHour(event) {
+        if(this.hourFormat == '24') {
+            if(this.currentHour === 0) {
+                this.currentHour = 23;
+            }
+            this.currentHour--;
+        }
+        else if(this.hourFormat == '12') {
+            if(this.currentHour === 12) {
+                this.currentHour = 0;
+            }
+            this.currentHour--;
+        }
+        
+        this.updateTime();
+
+        event.preventDefault();
+    }
+    
+    incrementMinute(event) {
+        if(this.currentMinute === 59) {
+            this.currentMinute = 0;
+        }
+        this.currentMinute++;
+        this.updateTime();
+                
+        event.preventDefault();
+    }
+    
+    decrementMinute(event) {
+        if(this.currentMinute === 0) {
+            this.currentMinute = 59;
+        }
+        this.currentMinute--;
+        this.updateTime();
+            
+        event.preventDefault();
+    }
+    
+    updateTime() {
+        this.value = this.value||new Date();
+        this.value.setHours(this.currentHour);
+        this.value.setMinutes(this.currentMinute);
+        this.onModelChange(this.value);
+        this.updateInputfield();
+    }
+    
+    toggleAMPM(event) {
+        this.pm = !this.pm;
+        event.preventDefault();
+    }
+    
     parseInputDate(event) {
         try {
             this.value = this.parseDate(event.target.value, this.dateFormat);
@@ -502,7 +640,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
-    
+        
     formatDate(date, format) {
 		if(!date) {
 			return '';
@@ -511,7 +649,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let formatIndex = {
             i: 0
         };
-        let output = "";
+        let output = '';
         let literal = false;
 
 		if(date) {
@@ -565,6 +703,22 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 		}
 		return output;
 	}
+    
+    formatTime(date) {
+        if(!date) {
+            return '';
+        }
+        
+        let output = '';
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        
+        output += (hours < 10) ? '0' + hours : hours;
+        output += ':';
+        output += (minutes < 10) ? '0' + minutes : minutes;
+        
+        return output;
+    }
     
     parseDate(value,format) {
 		if(format == null || value == null) {

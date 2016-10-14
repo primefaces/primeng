@@ -397,8 +397,13 @@
 .ui-slider-vertical .ui-slider-range-max { top: 0; }
 
 .ui-datepicker {padding: 0px !important;}
-.ui-datepicker .ui-datepicker-header, .ui-datepicker .ui-timepicker-div > .ui-widget-header { position: relative; padding:.4em 0; border: 1px solid #3b3e40; }
-.ui-datepicker .ui-datepicker-header, .ui-datepicker .ui-timepicker-div > .ui-widget-header {
+.ui-datepicker .ui-datepicker-header{ 
+    position: relative; 
+    padding:.4em 0; 
+    border: 1px solid #3b3e40; 
+}
+.ui-datepicker .ui-datepicker-header,
+.ui-datepicker .ui-timepicker {
 	background: #595c5d; /* Old browsers */
 	background: -moz-linear-gradient(top,  #595c5d 0%, #474a4b 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#595c5d), color-stop(100%,#474a4b)); /* Chrome,Safari4+ */
@@ -413,6 +418,11 @@
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
+}
+
+.ui-datepicker .ui-timepicker a,
+.ui-datepicker .ui-timepicker span {
+    color: #ffffff;
 }
 
 .ui-datepicker th {

@@ -31,10 +31,15 @@
             <h3>Navigators</h3>
             <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar> {{date5|date}}
         </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Time</h3>
+            <p-calendar [(ngModel)]="date6" [showTime]="true"></p-calendar> {{date6|date}}
+        </div>
     </div>
     
-    <h3>Inline {{date6|date}}</h3>
-    <p-calendar [(ngModel)]="date6" [inline]="true"></p-calendar> 
+    <h3>Inline {{date7|date}}</h3>
+    <p-calendar [(ngModel)]="date7" [inline]="true"></p-calendar> 
 </div>
 
 <div class="ContentSideSections Source">

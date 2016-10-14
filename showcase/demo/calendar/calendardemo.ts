@@ -17,6 +17,8 @@ export class CalendarDemo {
 
     date6: Date;
     
+    date7: Date;
+    
     minDate: Date;
     
     maxDate: Date;
