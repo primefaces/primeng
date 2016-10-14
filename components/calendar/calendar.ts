@@ -25,18 +25,19 @@ export interface LocaleSettings {
     selector: 'p-calendar',
     template:  `
         <span [ngClass]="'ui-calendar'" [ngStyle]="style" [class]="styleClass">
-            <input type="text" pInputText *ngIf="!inline" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false"
-                    [readonly]="readonlyInput" (input)="parseInputDate($event)"><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
+            <input type="text" pInputText *ngIf="!inline" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+                    [readonly]="readonlyInput" (input)="parseInputDate($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
+                    ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
-            <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline}" 
+            <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled}" 
                 [ngStyle]="{'display': inline ? true : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)">
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (mouseenter)="hoverPrev=true" (mouseleave)="hoverPrev=false"
-                            [ngClass]="{'ui-state-hover ui-datepicker-prev-hover':hoverPrev}">
+                            [ngClass]="{'ui-state-hover ui-datepicker-prev-hover':hoverPrev&&!disabled}">
                         <span class="fa fa-angle-left"></span>
                     </a>
                     <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)" (mouseenter)="hoverNext=true" (mouseleave)="hoverNext=false"
-                            [ngClass]="{'ui-state-hover ui-datepicker-next-hover':hoverNext}">
+                            [ngClass]="{'ui-state-hover ui-datepicker-next-hover':hoverNext&&!disabled}">
                         <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="ui-datepicker-title">
@@ -53,9 +54,10 @@ export interface LocaleSettings {
                     </thead>
                     <tbody>
                         <tr *ngFor="let week of dates">
-                            <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,'ui-datepicker-current-day':isSelected(date)}">
+                            <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
+                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date)}">
                                 <a #cell class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
-                                        [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell)}"
+                                        [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell && !disabled),'ui-state-highlight':isToday(date)}"
                                         (click)="onDateSelect($event,date)" (mouseenter)="hoverCell=cell" (mouseleave)="hoverCell=null">{{date.day}}</a>
                             </td>
                         </tr>
@@ -68,87 +70,17 @@ export interface LocaleSettings {
 })
 export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
 
-    /*@Input() readonlyInput: boolean;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-    
-    @Input() inputStyle: any;
-
-    @Input() inputStyleClass: string;
-
-    @Input() placeholder: string;
-
-    @Input() showAnim: string;
-
-    @Input() dateFormat: string;
-
-    @Input() showButtonPanel: boolean;
-
+    /*
     @Input() monthNavigator: boolean;
 
     @Input() yearNavigator: boolean;
 
-    @Input() numberOfMonths: number;
-
-    @Input() showWeek: boolean;
-
-    @Input() defaultDate: Date;
-
     @Input() minDate: any;
 
     @Input() maxDate: any;
-
-    @Input() disabled: any;
     
-    @Input() timeFormat: string;
-    
-    @Input() timeOnly: boolean;
-    
-    @Input() stepHour: number = 1;
-    
-    @Input() stepMinute: number = 1;
-    
-    @Input() stepSecond: number = 1;
-    
-    @Input() hourMin: number = 0;
-        
-    @Input() hourMax: number = 23;
-        
-    @Input() minuteMin: number = 0;
-    
-    @Input() minuteMax: number = 59;
-    
-    @Input() secondMin: number = 0;
-    
-    @Input() secondMax: number = 59;
-    
-    @Input() hourGrid: number = 0;
-    
-    @Input() minuteGrid: number = 0;
-    
-    @Input() secondGrid: number = 0;
-
-    @Input() timeControlType: string;
-    
-    @Input() horizontalTimeControls: boolean;
-    
-    @Input() minTime: string;
-    
-    @Input() maxTime: string;
-    
-    @Input() timezoneList: string[];
-    
-    @Input() locale: any;
-    
-    @Input() icon: string = 'fa-calendar';
-
     @Input() yearRange: string;
-    
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-    
-    @Output() onSelect: EventEmitter<any> = new EventEmitter();*/
+*/
     
     @Input() defaultDate: Date;
     
@@ -180,6 +112,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() readonlyInput: boolean;
     
     @Input() shortYearCutoff: any = '+10';
+    
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
     value: Date;
     
@@ -303,6 +239,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     prevMonth(event) {
+        if(this.disabled) {
+            event.preventDefault();
+            return;
+        }
+        
         if(this.currentMonth === 0) {
             this.currentMonth = 11;
             this.currentYear--;
@@ -316,6 +257,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     nextMonth(event) {
+        if(this.disabled) {
+            event.preventDefault();
+            return;
+        }
+        
         if(this.currentMonth === 11) {
             this.currentMonth = 0;
             this.currentYear++;
@@ -329,6 +275,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     onDateSelect(event,dateMeta) {
+        if(this.disabled) {
+            event.preventDefault();
+            return;
+        }
+        
         if(dateMeta.otherMonth) {
             if(this.selectOtherMonths)
                 this.selectDate(dateMeta);
@@ -347,6 +298,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     selectDate(dateMeta) {
         this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
         this.onModelChange(this.value);
+        this.onSelect.emit(this.value);
     }
     
     getFirstDayOfMonthIndex(month: number, year: number) {
@@ -408,6 +360,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             return false;
     }
     
+    isToday(dateMeta): boolean {     
+        let today = new Date();
+        
+        return today.getDate() === dateMeta.day && today.getMonth() === dateMeta.month && today.getFullYear() === dateMeta.year;
+    }
+    
     onInputFocus(event) {
         this.showOverlay();
     }
@@ -427,6 +385,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         if(event.keyCode === 9) {
             this.overlayVisible = false;
         }
+    }
+    
+    onInputBlur(event) {
+        this.onBlur.emit(event);
     }
     
     parseInputDate(event) {

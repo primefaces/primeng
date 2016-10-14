@@ -464,14 +464,14 @@
 	box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset;
 }
 
+.ui-datepicker-today a {
+	background: #cccccc !important;
+}
+
 .ui-datepicker-current-day a {
 	background: #186ba0 !important;
 	filter: none !important;
 	color: #FFFFFF !important;
-}
-
-.ui-datepicker-today a.ui-state-highlight {
-	border: 1px solid #156090 !important;
 }
 
 .ui-datepicker td a.ui-state-default.ui-state-hover {
