@@ -31,10 +31,12 @@ export interface LocaleSettings {
             <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline}" 
                 [ngStyle]="{'display': inline ? true : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)">
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-                    <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
+                    <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (mouseenter)="hoverPrev=true" (mouseleave)="hoverPrev=false"
+                            [ngClass]="{'ui-state-hover ui-datepicker-prev-hover':hoverPrev}">
                         <span class="fa fa-angle-left"></span>
                     </a>
-                    <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)">
+                    <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)" (mouseenter)="hoverNext=true" (mouseleave)="hoverNext=false"
+                            [ngClass]="{'ui-state-hover ui-datepicker-next-hover':hoverNext}">
                         <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="ui-datepicker-title">
@@ -52,8 +54,9 @@ export interface LocaleSettings {
                     <tbody>
                         <tr *ngFor="let week of dates">
                             <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,'ui-datepicker-current-day':isSelected(date)}">
-                                <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" [ngClass]="{'ui-state-active':isSelected(date)}"
-                                        (click)="onDateSelect($event,date)">{{date.day}}</a>
+                                <a #cell class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
+                                        [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell)}"
+                                        (click)="onDateSelect($event,date)" (mouseenter)="hoverCell=cell" (mouseleave)="hoverCell=null">{{date.day}}</a>
                             </td>
                         </tr>
                     </tbody>
