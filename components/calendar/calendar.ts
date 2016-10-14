@@ -26,7 +26,7 @@ export interface LocaleSettings {
     template:  `
         <span class="ui-calendar">
             <input type="text" pInputText *ngIf="!inline" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false"
-                ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)"
+                ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline}" 
                 [ngStyle]="{'display': overlayVisible ? 'block' : 'none'}" (click)="onDatePickerClick($event)">
@@ -151,6 +151,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Input() disabled: any;
     
+    @Input() dateFormat: string = 'mm/dd/yy';
+    
     @Input() locale: LocaleSettings = {
         firstDayOfWeek: 0,
         dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -186,6 +188,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     overlay: HTMLDivElement;
     
+    inputfield: HTMLInputElement;
+    
     overlayVisible: boolean;
     
     closeOverlay: boolean = true;
@@ -199,6 +203,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     calendarElement: any;
     
     documentClickListener: any;
+    
+    ticksTo1970: number;
 
     constructor(protected el: ElementRef, protected domHandler: DomHandler,protected renderer: Renderer) {}
 
@@ -226,10 +232,17 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             this.closeOverlay = true;
             this.dateClick = false;
         });
+        
+        this.ticksTo1970 = ( ( ( 1970 - 1 ) * 365 + Math.floor( 1970 / 4 ) - Math.floor( 1970 / 100 ) +
+    		Math.floor( 1970 / 400 ) ) * 24 * 60 * 60 * 10000000 );
     }
     
     ngAfterViewInit() {
         this.overlay = this.domHandler.findSingle(this.el.nativeElement, '.ui-datepicker');
+        
+        if(!this.inline) {
+            this.inputfield = this.el.nativeElement.children[0].children[0];
+        }
         
         if(!this.inline && this.appendTo) {
             if(this.appendTo === 'body')
@@ -317,6 +330,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         this.dateClick = true;
+        if(this.inputfield) {
+            this.inputfield.value = this.formatDate(this.value, this.dateFormat);
+        }
         event.preventDefault();
     }
     
@@ -385,14 +401,18 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     onInputFocus(event) {
-        if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, event.target);
-        else
-            this.domHandler.relativePosition(this.overlay, event.target);
+        this.showOverlay();
+    }
+    
+    onButtonClick(event) {
+        this.closeOverlay = false;
         
-        this.overlayVisible = true;
-        this.overlay.style.zIndex = String(++DomHandler.zindex);
-        this.domHandler.fadeIn(this.overlay, 250);
+        if(!this.overlay.offsetParent) {
+            this.inputfield.focus();
+        }
+        else {
+            this.closeOverlay = true;
+        }
     }
     
     onInputKeydown(event) {
@@ -404,7 +424,18 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     onDatePickerClick(event) {
         this.closeOverlay = this.dateClick;
     }
+    
+    showOverlay() {
+        if(this.appendTo)
+            this.domHandler.absolutePosition(this.overlay, event.target);
+        else
+            this.domHandler.relativePosition(this.overlay, event.target);
         
+        this.overlayVisible = true;
+        this.overlay.style.zIndex = String(++DomHandler.zindex);
+        this.domHandler.fadeIn(this.overlay, 250);
+    }
+
     writeValue(value: any) : void {
         this.value = value;
     }
@@ -420,7 +451,92 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
+    
+    formatDate(date, format) {
+		if (!date ) {
+			return '';
+		}
 
+        let formatIndex = {
+            i: 0
+        };
+        let output = "";
+        let literal = false;
+
+		if(date) {
+			for(0; formatIndex.i < format.length; formatIndex.i++) {
+				if(literal) {
+					if(format.charAt(formatIndex.i) === "'" && !this.lookAhead("'",format,formatIndex) ) {
+						literal = false;
+					} else {
+						output += format.charAt(formatIndex.i);
+					}
+				} else {
+					switch (format.charAt(formatIndex.i) ) {
+						case "d":
+							output += this.formatNumber("d", date.getDate(), 2, format, formatIndex);
+							break;
+						case "D":
+							output += this.formatName("D", date.getDay(), this.locale.dayNamesShort, this.locale.dayNames,format, formatIndex);
+							break;
+						case "o":
+							output += this.formatNumber("o",
+								Math.round((new Date(date.getFullYear(), date.getMonth(), date.getDate() ).getTime() - new Date(date.getFullYear(), 0, 0 ).getTime() ) / 86400000), 3, format, formatIndex);
+							break;
+						case "m":
+							output += this.formatNumber("m", date.getMonth() + 1, 2, format, formatIndex);
+							break;
+						case "M":
+							output += this.formatName("M", date.getMonth(), this.locale.monthNamesShort, this.locale.monthNames, format, formatIndex);
+							break;
+						case "y":
+							output += (this.lookAhead("y",format,formatIndex) ? date.getFullYear() :
+								(date.getFullYear() % 100 < 10 ? "0" : "" ) + date.getFullYear() % 100 );
+							break;
+						case "@":
+							output += date.getTime();
+							break;
+						case "!":
+							output += date.getTime() * 10000 + this.ticksTo1970;
+							break;
+						case "'":
+							if (this.lookAhead("'",format,formatIndex)) {
+								output += "'";
+							} else {
+								literal = true;
+							}
+							break;
+						default:
+							output += format.charAt(formatIndex.i);
+					}
+				}
+			}
+		}
+		return output;
+	}
+    
+    lookAhead(match,format,formatIndex) {
+        var matches = (formatIndex.i + 1 < format.length && format.charAt(formatIndex.i + 1 ) === match );
+        if (matches ) {
+            formatIndex.i++;
+        }
+        return matches;
+    }
+
+    formatNumber(match,value,len,format,formatIndex) {
+        var num = '' + value;
+        if(this.lookAhead(match,format,formatIndex)) {
+            while (num.length < len ) {
+                num = '0' + num;
+            }
+        }
+        return num;
+    }
+    
+    formatName(match,value,shortNames,longNames,format,formatIndex) {
+        return (this.lookAhead(match,format,formatIndex) ? longNames[ value ] : shortNames[ value ] );
+    }
+    
     ngOnDestroy() {
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlay);
