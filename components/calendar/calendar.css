@@ -19,6 +19,11 @@
 	width: 17em;
 	padding: .2em .2em 0;
 	display: none;
+    position: absolute;
+}
+.ui-datepicker.ui-datepicker-inline {
+    display: block;
+    position: static;
 }
 .ui-datepicker .ui-datepicker-header {
 	position: relative;

@@ -1,7 +1,10 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,NgZone} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
+import {InputTextModule} from '../inputtext/inputtext';
+import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -21,38 +24,44 @@ export interface LocaleSettings {
 @Component({
     selector: 'p-calendar',
     template:  `
-        <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display:block">
-            <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-                <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
-                    <span class="fa fa-angle-left"></span>
-                </a>
-                <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)">
-                    <span class="fa fa-angle-right"></span>
-                </a>
-                <div class="ui-datepicker-title">
-                    <span class="ui-datepicker-month">{{currentMonthText}}</span>&nbsp;<span class="ui-datepicker-year">{{currentYear}}</span>
+        <span class="ui-calendar">
+            <input type="text" pInputText *ngIf="!inline" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false"
+                ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,in)"
+                    [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
+            <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline}" 
+                [ngStyle]="{'display': overlayVisible ? 'block' : 'none'}" (click)="onDatePickerClick($event)">
+                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+                    <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
+                        <span class="fa fa-angle-left"></span>
+                    </a>
+                    <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)">
+                        <span class="fa fa-angle-right"></span>
+                    </a>
+                    <div class="ui-datepicker-title">
+                        <span class="ui-datepicker-month">{{currentMonthText}}</span>&nbsp;<span class="ui-datepicker-year">{{currentYear}}</span>
+                    </div>
                 </div>
+                <table class="ui-datepicker-calendar">
+                    <thead>
+                        <tr>
+                            <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
+                                <span>{{weekDay}}</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let week of dates">
+                            <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,'ui-datepicker-current-day':isSelected(date)}">
+                                <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" [ngClass]="{'ui-state-active':isSelected(date)}"
+                                        (click)="onDateSelect($event,date)">{{date.day}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <table class="ui-datepicker-calendar">
-                <thead>
-                    <tr>
-                        <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
-                            <span>{{weekDay}}</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let week of dates">
-                        <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,'ui-datepicker-current-day':isSelected(date)}">
-                            <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" [ngClass]="{'ui-state-active':isSelected(date)}"
-                                    (click)="onDateSelect($event,date)">{{date.day}}</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        </span>
     `,
-    providers: [CALENDAR_VALUE_ACCESSOR]
+    providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
 
@@ -89,8 +98,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() maxDate: any;
 
     @Input() disabled: any;
-    
-    @Input() showIcon: boolean;
     
     @Input() timeFormat: string;
     
@@ -159,6 +166,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     @Input() selectOtherMonths: boolean;
     
+    @Input() showIcon: boolean;
+    
+    @Input() icon: string = 'fa-calendar';
+    
+    @Input() appendTo: any;
+    
     value: Date;
     
     dates: any[];
@@ -171,15 +184,23 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     currentYear: number;
     
+    overlay: HTMLDivElement;
+    
+    overlayVisible: boolean;
+    
+    closeOverlay: boolean = true;
+    
+    dateClick: boolean;
+        
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
     
     calendarElement: any;
+    
+    documentClickListener: any;
 
-    constructor(protected el: ElementRef, protected zone:NgZone) {
-        
-    }
+    constructor(protected el: ElementRef, protected domHandler: DomHandler,protected renderer: Renderer) {}
 
     ngOnInit() {
         let today = new Date();
@@ -196,6 +217,26 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.currentMonth = month;
         this.currentYear = year;
         this.createMonth(this.currentMonth, this.currentYear);
+        
+        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            if(this.closeOverlay) {
+                this.overlayVisible = false;
+            }
+            
+            this.closeOverlay = true;
+            this.dateClick = false;
+        });
+    }
+    
+    ngAfterViewInit() {
+        this.overlay = this.domHandler.findSingle(this.el.nativeElement, '.ui-datepicker');
+        
+        if(!this.inline && this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.overlay);
+            else
+                this.appendTo.appendChild(this.overlay);
+        }
     }
     
     createMonth(month: number, year: number) {
@@ -275,6 +316,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
              this.selectDate(dateMeta);
         }
         
+        this.dateClick = true;
         event.preventDefault();
     }
     
@@ -342,10 +384,27 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             return false;
     }
     
-    ngAfterViewInit() {
+    onInputFocus(event) {
+        if(this.appendTo)
+            this.domHandler.absolutePosition(this.overlay, event.target);
+        else
+            this.domHandler.relativePosition(this.overlay, event.target);
         
+        this.overlayVisible = true;
+        this.overlay.style.zIndex = String(++DomHandler.zindex);
+        this.domHandler.fadeIn(this.overlay, 250);
     }
     
+    onInputKeydown(event) {
+        if(event.keyCode === 9) {
+            this.overlayVisible = false;
+        }
+    }
+    
+    onDatePickerClick(event) {
+        this.closeOverlay = this.dateClick;
+    }
+        
     writeValue(value: any) : void {
         this.value = value;
     }
@@ -363,13 +422,15 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
 
     ngOnDestroy() {
-        
+        if(!this.inline && this.appendTo) {
+            this.el.nativeElement.appendChild(this.overlay);
+        }
     }
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
-    exports: [Calendar],
+    imports: [CommonModule,ButtonModule,InputTextModule],
+    exports: [Calendar,ButtonModule,InputTextModule],
     declarations: [Calendar]
 })
 export class CalendarModule { }
