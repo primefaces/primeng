@@ -465,7 +465,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         if (allow) {
             this.writeBuffer();
         } else if (lastMatch + 1 < this.partialPosition) {
-            if (this.autoClear || this.buffer.join('') === this.defaultBuffer) {
+            if (this.autoClear && this.buffer.join('') === this.defaultBuffer) {
                 // Invalid value. Remove it and replace it with the
                 // mask, which is the default behavior.
                 if(this.input.value) this.input.value = '';
