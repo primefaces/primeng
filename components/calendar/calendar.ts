@@ -530,16 +530,16 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     incrementHour(event) {
         if(this.hourFormat == '24') {
-            if(this.currentHour === 23) {
+            if(this.currentHour === 23)
                 this.currentHour = 0;
-            }
-            this.currentHour++;
+            else
+                this.currentHour++;            
         }
         else if(this.hourFormat == '12') {
-            if(this.currentHour === 12) {
+            if(this.currentHour === 12)
                 this.currentHour = 0;
-            }
-            this.currentHour++;
+            else
+                this.currentHour++;
         }
         
         this.updateTime();
@@ -549,16 +549,16 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     decrementHour(event) {
         if(this.hourFormat == '24') {
-            if(this.currentHour === 0) {
+            if(this.currentHour === 0)
                 this.currentHour = 23;
-            }
-            this.currentHour--;
+            else
+                this.currentHour--;
         }
         else if(this.hourFormat == '12') {
-            if(this.currentHour === 12) {
+            if(this.currentHour === 12)
                 this.currentHour = 0;
-            }
-            this.currentHour--;
+            else
+                this.currentHour--;
         }
         
         this.updateTime();
@@ -567,20 +567,22 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     incrementMinute(event) {
-        if(this.currentMinute === 59) {
+        if(this.currentMinute === 59)
             this.currentMinute = 0;
-        }
-        this.currentMinute++;
+        else
+            this.currentMinute++;
+            
         this.updateTime();
                 
         event.preventDefault();
     }
     
     decrementMinute(event) {
-        if(this.currentMinute === 0) {
+        if(this.currentMinute === 0)
             this.currentMinute = 59;
-        }
-        this.currentMinute--;
+        else
+            this.currentMinute--;
+            
         this.updateTime();
             
         event.preventDefault();
