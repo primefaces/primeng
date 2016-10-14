@@ -24,7 +24,7 @@ export interface LocaleSettings {
 @Component({
     selector: 'p-calendar',
     template:  `
-        <span [ngClass]="'ui-calendar'" [ngStyle]="style" [class]="styleClass">
+        <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':true}" [ngStyle]="style" [class]="styleClass">
             <input type="text" pInputText *ngIf="!inline" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="parseInputDate($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
@@ -57,7 +57,8 @@ export interface LocaleSettings {
                             <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date)}">
                                 <a #cell class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
-                                        [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell && !disabled),'ui-state-highlight':isToday(date)}"
+                                        [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell && !disabled && date.selectable),
+                                            'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
                                         (click)="onDateSelect($event,date)" (mouseenter)="hoverCell=cell" (mouseleave)="hoverCell=null">{{date.day}}</a>
                             </td>
                         </tr>
@@ -75,10 +76,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     @Input() yearNavigator: boolean;
 
-    @Input() minDate: any;
-
-    @Input() maxDate: any;
-    
     @Input() yearRange: string;
 */
     
@@ -112,6 +109,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() readonlyInput: boolean;
     
     @Input() shortYearCutoff: any = '+10';
+    
+    @Input() minDate: Date;
+
+    @Input() maxDate: Date;
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -211,12 +212,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             if(i == 0) {
                 for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
-                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true});
+                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, selectable: this.isSelectable(j, prev.month, prev.year)});
                 }
                 
                 let remainingDaysLength = 7 - week.length;
                 for(let j = 0; j < remainingDaysLength; j++) {
-                    week.push({day: dayNo, month: month, year: year});
+                    week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
                     dayNo++;
                 }
             }
@@ -224,10 +225,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 for (var j = 0; j < 7; j++) {
                     if(dayNo > daysLength) {
                         let next = this.getPreviousMonthAndYear(month, year);
-                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true});
+                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true, 
+                                    selectable: this.isSelectable((dayNo - daysLength), next.month, next.year)});
                     }
                     else {
-                        week.push({day: dayNo, month: month, year: year});
+                        week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
                     }
                     
                     dayNo++;
@@ -275,7 +277,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     onDateSelect(event,dateMeta) {
-        if(this.disabled) {
+        if(this.disabled || !dateMeta.selectable) {
             event.preventDefault();
             return;
         }
@@ -364,6 +366,45 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let today = new Date();
         
         return today.getDate() === dateMeta.day && today.getMonth() === dateMeta.month && today.getFullYear() === dateMeta.year;
+    }
+    
+    isSelectable(day, month, year): boolean {
+        let validMin = true;
+        let validMax = true;
+        
+        if(this.minDate) {
+             if(this.minDate.getFullYear() > year) {
+                 validMin = false;
+             }
+             else if(this.minDate.getFullYear() === year) {
+                 if(this.minDate.getMonth() > month) {
+                     validMin = false;
+                 }
+                 else if(this.minDate.getMonth() === month) {
+                     if(this.minDate.getDate() > day) {
+                         validMin = false;
+                     }
+                 }
+             }  
+        }
+        
+        if(this.maxDate) {
+             if(this.maxDate.getFullYear() < year) {
+                 validMax = false;
+             }
+             else if(this.maxDate.getFullYear() === year) {
+                 if(this.maxDate.getMonth() < month) {
+                     validMax = false;
+                 }
+                 else if(this.maxDate.getMonth() === month) {
+                     if(this.maxDate.getDate() < day) {
+                         validMax = false;
+                     }
+                 }
+             }  
+        }
+        
+        return validMin && validMax;
     }
     
     onInputFocus(event) {

@@ -31,6 +31,10 @@ export class CalendarDemo {
     
     date13: string;
     
+    minDate: Date;
+    
+    maxDate: Date;
+    
     es: any;
     
     tr: any;
@@ -59,5 +63,14 @@ export class CalendarDemo {
         this.tr = {
             firstDayOfWeek : 1
         };
+        
+        let today = new Date();
+        let month = today.getMonth();
+        let prevMonth = (month === 0) ? 11 : month -1;
+        let nextMonth = (month === 11) ? 0 : month + 1;
+        this.minDate = new Date();
+        this.minDate.setMonth(prevMonth);
+        this.maxDate = new Date();
+        this.maxDate.setMonth(nextMonth);
     }
 }

@@ -191,6 +191,17 @@
 	border-left-width: 1px;
 }
 
+.ui-calendar.ui-calendar-w-btn input {
+    -moz-border-radius-topright: 0px; 
+    -webkit-border-top-right-radius: 0px; 
+    -khtml-border-top-right-radius: 0px; 
+    border-top-right-radius: 0px;
+    -moz-border-radius-bottomright: 0px; 
+    -webkit-border-bottom-right-radius: 0px; 
+    -khtml-border-bottom-right-radius: 0px; 
+    border-bottom-right-radius: 0px;
+}
+
 /* TimePicker */
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }

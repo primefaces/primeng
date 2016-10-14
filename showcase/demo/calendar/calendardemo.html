@@ -6,38 +6,31 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <div class="ui-grid ui-grid-responsive ui-grid-pad">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4">
-                <h3>Basic</h3>
-                <p-calendar [(ngModel)]="date1"></p-calendar> {{date1|date}}
-            </div>
-            
-            <div class="ui-grid-col-4">
-                <h3>Spanish</h3>
-                <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar> {{date2|date}}
-            </div>
-            
-            <div class="ui-grid-col-4">
-                <h3>Icon</h3>
-                <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
-            </div>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+            <h3>Basic</h3>
+            <p-calendar [(ngModel)]="date1"></p-calendar> {{date1|date}}
         </div>
         
-        <!--<div class="ui-grid-row">
-            <div class="ui-grid-col-4">
-                <h3>ButtonPanel</h3>
-                <p-calendar [(ngModel)]="date4" [showButtonPanel]="true"></p-calendar> {{date4}}
-            </div>
-            
+        <div class="ui-g-12 ui-md-4">
+            <h3>Spanish</h3>
+            <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar> {{date2|date}}
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Icon</h3>
+            <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Restrict</h3>
+            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar> {{date8}}
+        </div>
+        
+        <!--<div class="ui-grid-row">            
             <div class="ui-grid-col-4">
                 <h3>Navigators</h3>
                 <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"></p-calendar> {{date5}}
-            </div>
-            
-            <div class="ui-grid-col-4">
-                <h3>Multiple Months</h3>
-                <p-calendar [(ngModel)]="date6" [numberOfMonths]="3"></p-calendar> {{date6}}
             </div>
         </div>
         
@@ -77,7 +70,7 @@
     </div>
     
     <h3>Inline {{date13|date}}</h3>
-    <p-calendar [(ngModel)]="date13" [inline]="true" disabled="disabled"></p-calendar> 
+    <p-calendar [(ngModel)]="date13" [inline]="true"></p-calendar> 
 </div>
 
 <div class="ContentSideSections Source">
