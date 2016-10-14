@@ -24,53 +24,17 @@
         
         <div class="ui-g-12 ui-md-4">
             <h3>Restrict</h3>
-            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar> {{date8}}
+            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar> {{date4|date}}
         </div>
         
-        <!--<div class="ui-grid-row">            
-            <div class="ui-grid-col-4">
-                <h3>Navigators</h3>
-                <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"></p-calendar> {{date5}}
-            </div>
+        <div class="ui-g-12 ui-md-4">
+            <h3>Navigators</h3>
+            <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar> {{date5|date}}
         </div>
-        
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4">
-                <h3>Show Weeks-Months</h3>
-                <p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"></p-calendar> {{date7}}
-            </div>
-            
-            <div class="ui-grid-col-4">
-                <h3>Restrict</h3>
-                <p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"></p-calendar> {{date8}}
-            </div>
-            
-            <div class="ui-grid-col-4">
-                <h3>Default Date</h3>
-                <p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"></p-calendar> {{date9}}
-            </div>
-        </div>
-        
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-4">
-                <h3>DateTime</h3>
-                <p-calendar [(ngModel)]="date10" dateFormat="mm/dd/yy" timeFormat="HH:mm"></p-calendar> {{date10}}
-            </div>
-            
-            <div class="ui-grid-col-4">
-                <h3>Custom Time</h3>
-                <p-calendar [(ngModel)]="date11" dateFormat="mm/dd/yy" timeFormat="hh:mm tt z" timeControlType="select" [horizontalTimeControls]="true"></p-calendar> {{date11}}
-            </div>
-            
-            <div class="ui-grid-col-4">
-                <h3>Time Only</h3>
-                <p-calendar [(ngModel)]="date12" dateFormat="mm/dd/yy" timeFormat="HH:mm:ss" [timeOnly]="true"></p-calendar> {{date12}}
-            </div>
-        </div>-->
     </div>
     
-    <h3>Inline {{date13|date}}</h3>
-    <p-calendar [(ngModel)]="date13" [inline]="true"></p-calendar> 
+    <h3>Inline {{date6|date}}</h3>
+    <p-calendar [(ngModel)]="date6" [inline]="true"></p-calendar> 
 </div>
 
 <div class="ContentSideSections Source">

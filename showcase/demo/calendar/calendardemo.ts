@@ -5,31 +5,17 @@ import {Component} from '@angular/core';
 })
 export class CalendarDemo {
 
-    date1: string;
+    date1: Date;
 
-    date2: string;
+    date2: Date;
 
-    date3: string;
+    date3: Date;
 
-    date4: string;
+    date4: Date;
 
-    date5: string;
+    date5: Date;
 
-    date6: string;
-
-    date7: string;
-
-    date8: string;
-
-    date9: string;
-
-    date10: string;
-    
-    date11: string;
-    
-    date12: string;
-    
-    date13: string;
+    date6: Date;
     
     minDate: Date;
     

@@ -24,7 +24,7 @@ export interface LocaleSettings {
 @Component({
     selector: 'p-calendar',
     template:  `
-        <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':true}" [ngStyle]="style" [class]="styleClass">
+        <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <input type="text" pInputText *ngIf="!inline" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="parseInputDate($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
@@ -41,7 +41,15 @@ export interface LocaleSettings {
                         <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="ui-datepicker-title">
-                        <span class="ui-datepicker-month">{{currentMonthText}}</span>&nbsp;<span class="ui-datepicker-year">{{currentYear}}</span>
+                        <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{currentMonthText}}</span>
+                        <select class="ui-datepicker-month" *ngIf="monthNavigator" (change)="onMonthDropdownChange($event.target.value)">
+                            <option [value]="i" *ngFor="let month of locale.monthNames;let i = index" [selected]="i == currentMonth">{{month}}</option>
+                        </select>
+                        &nbsp;
+                        <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event.target.value)">
+                            <option [value]="year" *ngFor="let year of yearOptions" [selected]="year == currentYear">{{year}}</option>
+                        </select>
+                        <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
                     </div>
                 </div>
                 <table class="ui-datepicker-calendar">
@@ -70,30 +78,13 @@ export interface LocaleSettings {
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
-
-    /*
-    @Input() monthNavigator: boolean;
-
-    @Input() yearNavigator: boolean;
-
-    @Input() yearRange: string;
-*/
     
     @Input() defaultDate: Date;
     
     @Input() disabled: any;
     
     @Input() dateFormat: string = 'mm/dd/yy';
-    
-    @Input() locale: LocaleSettings = {
-        firstDayOfWeek: 0,
-        dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-        dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
-        monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
-        monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-    };
-    
+        
     @Input() inline: boolean = false;
     
     @Input() showOtherMonths: boolean = true;
@@ -114,9 +105,24 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     @Input() maxDate: Date;
     
+    @Input() monthNavigator: boolean;
+
+    @Input() yearNavigator: boolean;
+
+    @Input() yearRange: string;
+    
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
+    
+    @Input() locale: LocaleSettings = {
+        firstDayOfWeek: 0,
+        dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
+        monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
+        monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+    };
     
     value: Date;
     
@@ -149,6 +155,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     documentClickListener: any;
     
     ticksTo1970: number;
+    
+    yearOptions: number[];
 
     constructor(protected el: ElementRef, protected domHandler: DomHandler,protected renderer: Renderer) {}
 
@@ -179,6 +187,17 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         
         this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) +
     		Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
+            
+        if(this.yearNavigator && this.yearRange) {
+            this.yearOptions = [];
+            let years = this.yearRange.split(':'),
+            yearStart = parseInt(years[0]),
+            yearEnd = parseInt(years[1]);
+            
+            for(let i = yearStart; i <= yearEnd; i++) {
+                this.yearOptions.push(i);
+            }
+        }
     }
     
     ngAfterViewInit() {
@@ -355,7 +374,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
     }
     
-    isSelected(dateMeta): boolean {        
+    isSelected(dateMeta): boolean {     
         if(this.value)
             return this.value.getDate() === dateMeta.day && this.value.getMonth() === dateMeta.month && this.value.getFullYear() === dateMeta.year;
         else
@@ -430,6 +449,16 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     onInputBlur(event) {
         this.onBlur.emit(event);
+    }
+    
+    onMonthDropdownChange(m: string) {
+        this.currentMonth = parseInt(m);
+        this.createMonth(this.currentMonth, this.currentYear);
+    }
+    
+    onYearDropdownChange(y: string) {
+        this.currentYear = parseInt(y);
+        this.createMonth(this.currentMonth, this.currentYear);
     }
     
     parseInputDate(event) {
