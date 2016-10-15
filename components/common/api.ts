@@ -68,6 +68,10 @@ export interface Confirmation {
     rejectEvent?: EventEmitter<any>;
 }
 
+export interface BlockableUI {
+    getBlockableElement(): HTMLElement;
+}
+
 @Injectable()
 export class ConfirmationService {
     

@@ -1,5 +1,6 @@
-import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {BlockableUI} from '../common/api';
 
 @Component({
     selector: 'p-panel',
@@ -34,7 +35,7 @@ import {CommonModule} from '@angular/common';
         ])
     ]
 })
-export class Panel {
+export class Panel implements BlockableUI {
 
     @Input() toggleable: boolean;
 
@@ -55,6 +56,8 @@ export class Panel {
     protected hoverToggler: boolean;
     
     protected animating: boolean;
+    
+    constructor(private el: ElementRef) {}
     
     toggle(event) {
         this.animating = true;
@@ -85,6 +88,10 @@ export class Panel {
     collapse(event) {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
+    }
+    
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
 
 }
