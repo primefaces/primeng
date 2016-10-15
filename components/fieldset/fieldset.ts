@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BlockableUI} from '../common/api';
 
@@ -51,6 +51,8 @@ export class Fieldset implements BlockableUI {
     protected hover: boolean;
     
     protected animating: boolean;
+    
+    constructor(private el: ElementRef) {}
     
     onLegendMouseenter(event) {
         if(this.toggleable) {
