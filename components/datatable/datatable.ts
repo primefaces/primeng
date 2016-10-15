@@ -9,6 +9,7 @@ import {Column,Header,Footer} from '../common/shared';
 import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
+import {BlockableUI} from '../common/api';
 
 @Component({
     selector: 'p-dtRadioButton',
@@ -241,7 +242,7 @@ export class RowExpansionLoader {
     `,
     providers: [DomHandler]
 })
-export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,DoCheck,OnDestroy {
+export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,DoCheck,OnDestroy,BlockableUI {
 
     @Input() value: any[];
 
@@ -1389,6 +1390,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         });
         
         window.open(encodeURI(csv));
+    }
+    
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
 
     ngOnDestroy() {
