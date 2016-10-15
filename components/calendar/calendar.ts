@@ -5,7 +5,6 @@ import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
-
 export const CALENDAR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => Calendar),
@@ -26,7 +25,7 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <input type="text" pInputText *ngIf="!inline" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
-                    [readonly]="readonlyInput" (input)="parseInputDate($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
+                    [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled}" 
@@ -229,7 +228,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.currentYear = date.getFullYear();
         if(this.showTime) {
             this.currentMinute = date.getMinutes();
-            this.pm = this.currentHour > 11;
+            this.pm = date.getHours() > 11;
             
             if(this.hourFormat == '12')
                 this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
@@ -390,7 +389,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     selectDate(dateMeta) {
         this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
         if(this.showTime) {
-            this.value.setHours(this.currentHour);
+            if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
+                this.value.setHours(this.currentHour + 12);
+            else
+                this.value.setHours(this.currentHour);
+
             this.value.setMinutes(this.currentMinute);
         }
         this.onModelChange(this.value);
@@ -598,7 +601,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     updateTime() {
         this.value = this.value||new Date();
-        this.value.setHours(this.currentHour);
+        if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
+            this.value.setHours(this.currentHour + 12);
+        else
+            this.value.setHours(this.currentHour);
+        
         this.value.setMinutes(this.currentMinute);
         this.onModelChange(this.value);
         this.updateInputfield();
@@ -606,14 +613,38 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     toggleAMPM(event) {
         this.pm = !this.pm;
+        this.updateTime();
         event.preventDefault();
     }
     
-    parseInputDate(event) {
+    onInput(event) {
         try {
-            this.value = this.parseDate(event.target.value, this.dateFormat);
+            let rawValue = event.target.value;
+            let parsedValue;
+            if(this.showTime) {
+                let parts: string[] = rawValue.split(' ');
+                parsedValue = this.parseDate(parts[0], this.dateFormat);
+                let time = this.parseTime(parts[1]);
+                if(this.hourFormat == '12' && parts[2] && parts[2].toLowerCase() === 'PM' && time.hour != 12)
+                    parsedValue.setHours(time.hour + 12);
+                else
+                    parsedValue.setHours(time.hour);
+
+                parsedValue.setMinutes(time.minute);
+            }
+            else {
+                 parsedValue = this.parseDate(event.target.value, this.dateFormat);
+            }
+            
+            this.value = parsedValue;
             this.onModelChange(this.value);
+            
+            //update ui
             this.createMonth(this.value.getMonth(), this.value.getFullYear());
+            if(this.showTime) {
+                this.currentHour = this.value.getHours();
+                this.currentMinute = this.value.getMinutes();
+            }
         } 
         catch(err) {
             //invalid date
@@ -741,11 +772,29 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let hours = date.getHours();
         let minutes = date.getMinutes();
         
+        if(this.hourFormat == '12' && this.pm && hours != 12) {
+            hours-=12;
+        }
+        
         output += (hours < 10) ? '0' + hours : hours;
         output += ':';
         output += (minutes < 10) ? '0' + minutes : minutes;
         
+        if(this.hourFormat == '12') {
+            output += this.pm ? ' PM' : ' AM';
+        }
+        
         return output;
+    }
+    
+    parseTime(value) {
+        let tokens: string[] = value.split(':');
+        let h = parseInt(tokens[0]);
+        if(this.hourFormat == '12' && h !== 12) {
+            h+= 12;
+        }
+        let m = parseInt(tokens[1]);
+        return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1])};
     }
     
     // Ported from jquery-ui datepicker parseDate 
