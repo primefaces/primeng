@@ -53,18 +53,20 @@ import &#123;CalendarModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Two-way value binding is defined using the standard ngModel directive.</p>
+            <p>Two-way value binding is defined using the standard ngModel directive referencing to a Date property.</p>
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(ngModel)]="dateValue"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="value"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
 export class MyModel &#123;
-    dateValue:string;
+
+    value: Date;
+    
 &#125;
 </code>
 </pre>
@@ -78,55 +80,66 @@ export class MyModel &#123;
 </pre>
 
             <h3>Popup and Inline</h3>
-            <p>Calendar is displayed in a popup by default, enable inline option for inline display.</p>
+            <p>Calendar is displayed in a popup by default and inline property needs to be enabled for inline mode.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(ngModel)]="dateValue" [inline]="true"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="value" [inline]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
             <h3>DateFormat</h3>
-            <p>Default date format is mm/dd/yy, to customize this use dateFormat property. See <a href="http://api.jqueryui.com/datepicker/#utility-formatDate">here</a>
-            for the date format patterns.</p>
+            <p>Default date format is mm/dd/yy, to customize this use dateFormat property.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-calendar [(ngModel)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
-            <h3>Time</h3>
-            <p>TimePicker is enabled if timeOnly or timeFormat properties are defined.  See <a href="http://trentrichardson.com/examples/timepicker/#tp-formatting">here</a>
-            for available timeformat options.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;p-calendar [(ngModel)]="dateTimeValue" dateFormat="dd.mm.yy" timeFormat="HH:mm"&gt;&lt;/p-calendar&gt;
-</code>
-</pre>
+            <p>Following options can be a part of the format.</p>
+            <ul>
+    			<li>d - day of month (no leading zero)</li>
+    			<li>dd - day of month (two digit)</li>
+    			<li>o - day of the year (no leading zeros)</li>
+    			<li>oo - day of the year (three digit)</li>
+    			<li>D - day name short</li>
+    			<li>DD - day name long</li>
+    			<li>m - month of year (no leading zero)</li>
+    			<li>mm - month of year (two digit)</li>
+    			<li>M - month name short</li>
+    			<li>MM - month name long</li>
+    			<li>y - year (two digit)</li>
+    			<li>yy - year (four digit)</li>
+    			<li>@ - Unix timestamp (ms since 01/01/1970)</li>
+    			<li> ! - Windows ticks (100ns since 01/01/0001)</li>
+    			<li>'...' - literal text</li>
+    			<li>'' - single quote</li>
+    			<li>anything else - literal text</li>
+		    </ul>
 
-            <h3>Show Effect</h3>
-            <p>Calendar popup can be displayed with various effects. fadeIn is the default and other available options are
-                slideDown, slide and clip.</p>
+            <h3>Time</h3>
+            <p>TimePicker is enabled with showTime property and 24 (default) or 12 hour mode is configured using hourFormat option.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(ngModel)]="dateValue" showAnim="slideDown"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="value" showTime="showTime" hourFormat="12"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="value" showTime="showTime" hourFormat="24"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
             <h3>Date Restriction</h3>
             <p>To disable entering dates manually, set readonlyInput to true and to restrict selectable dates use minDate
-                and maxDate options. minDate and maxDate allow values such as a string in dateFormat or values like "+1m +7d".</p>
+                and maxDate options..</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(ngModel)]="dateValue" minDate="-1m" maxDate="+1m" [readonlyInput]="true">&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="+maxDateValue" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
             <h3>Localization</h3>
-            <p>Localization for different languages and formats is defined by binding the settings object to the locale property. Following is a Spanish calendar.
+            <p>Localization for different languages and formats is defined by binding the locale settings object to the locale property. Following is the default values for English.
             </p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(ngModel)]="dateValue" [locale]="es"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" [locale]="en"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -134,50 +147,21 @@ export class MyModel &#123;
 <code class="language-typescript" pCode>
 export class MyModel &#123;
     
-    es: any;
+    en: any;
     
     ngOnInit() &#123;
-        this.es = &#123;
-            //date
-            closeText: "Cerrar",
-        	prevText: "&#x3C;Ant",
-        	nextText: "Sig&#x3E;",
-        	currentText: "Hoy",
-        	monthNames: [ "enero","febrero","marzo","abril","mayo","junio",
-        	"julio","agosto","septiembre","octubre","noviembre","diciembre" ],
-        	monthNamesShort: [ "ene","feb","mar","abr","may","jun",
-        	"jul","ago","sep","oct","nov","dic" ],
-        	dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
-        	dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
-        	dayNamesMin: [ "D","L","M","X","J","V","S" ],
-        	weekHeader: "Sm",
-        	dateFormat: "dd/mm/yy",
-        	firstDay: 1,
-        	isRTL: false,
-        	showMonthAfterYear: false,
-        	yearSuffix: "" 
-            
-            //time
-            timeOnlyTitle: 'Elegir una hora',
-    		timeText: 'Hora',
-    		hourText: 'Horas',
-    		minuteText: 'Minutos',
-    		secondText: 'Segundos',
-    		millisecText: 'Milisegundos',
-    		microsecText: 'Microsegundos',
-    		timezoneText: 'Uso horario',
-    		timeFormat: 'HH:mm',
-    		timeSuffix: '',
-    		amNames: ['a.m.', 'AM', 'A'],
-    		pmNames: ['p.m.', 'PM', 'P'],
+        this.en = &#123;
+            firstDayOfWeek: 0,
+            dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
+            monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
+            monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
         &#125;;
     &#125;
 &#125;
 </code>
 </pre>
-            <p>Translations for datepicker are available at <a href="https://github.com/jquery/jquery-ui/tree/master/ui/i18n">here</a> and for the timepicker,
-                <a href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.1/i18n/jquery-ui-timepicker-addon-i18n.js">here</a>.
-            </p>
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -192,10 +176,10 @@ export class MyModel &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>readonlyInput</td>
+                            <td>defaultDate</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>When specified, prevents entering the date manually with keyboard.</td>
+                            <td>Set the date to highlight on first opening if the field is blank.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -228,22 +212,10 @@ export class MyModel &#123;
                             <td>Placeholder text for the input.</td>
                         </tr>
                         <tr>
-                            <td>inline</td>
+                            <td>disabled</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When enabled, displays the calendar as inline. Default is false for popup mode.</td>
-                        </tr>
-                        <tr>
-                            <td>showAnim</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Effect to show when displaying the popup.</td>
-                        </tr>
-                        <tr>
-                            <td>showIcon</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When enabled, displays a button with icon next to input.</td>
+                            <td>When specified, disables the component.</td>
                         </tr>
                         <tr>
                             <td>dateFormat</td>
@@ -252,34 +224,10 @@ export class MyModel &#123;
                             <td>Format of the date.</td>
                         </tr>
                         <tr>
-                            <td>showButtonPanel</td>
-                            <td>boolean</td>
-                            <td>null</td>
-                            <td>Whether to display a button pane underneath the calendar.</td>
-                        </tr>
-                        <tr>
-                            <td>monthNavigator</td>
+                            <td>inline</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Whether the month should be rendered as a dropdown instead of text.</td>
-                        </tr>
-                        <tr>
-                            <td>yearNavigator</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Whether the year should be rendered as a dropdown instead of text.</td>
-                        </tr>
-                        <tr>
-                            <td>numberOfMonths</td>
-                            <td>number</td>
-                            <td>1</td>
-                            <td>The number of months to show at once.</td>
-                        </tr>
-                        <tr>
-                            <td>showWeek</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When true, a column is added to show the week of the year.</td>
+                            <td>When enabled, displays the calendar as inline. Default is false for popup mode.</td>
                         </tr>
                         <tr>
                             <td>showOtherMonths</td>
@@ -294,10 +242,34 @@ export class MyModel &#123;
                             <td>Whether days in other months shown before or after the current month are selectable. This only applies if the showOtherMonths option is set to true.</td>
                         </tr>
                         <tr>
-                            <td>defaultDate</td>
+                            <td>showIcon</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, displays a button with icon next to input.</td>
+                        </tr>
+                        <tr>
+                            <td>icon</td>
+                            <td>string</td>
+                            <td>fa-calendar</td>
+                            <td>Icon of the calendar button.</td>
+                        </tr>
+                        <tr>
+                            <td>appendTo</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>readonlyInput</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Set the date to highlight on first opening if the field is blank.</td>
+                            <td>When specified, prevents entering the date manually with keyboard.</td>
+                        </tr>
+                        <tr>
+                            <td>shortYearCuto</td>
+                            <td>string</td>
+                            <td>+10</td>
+                            <td>The cutoff year for determining the century for a date.</td>
                         </tr>
                         <tr>
                             <td>minDate</td>
@@ -312,143 +284,40 @@ export class MyModel &#123;
                             <td>The Maximum selectable date.</td>
                         </tr>
                         <tr>
-                            <td>disabled</td>
+                            <td>monthNavigator</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When specified, disables the component.</td>
+                            <td>Whether the month should be rendered as a dropdown instead of text.</td>
                         </tr>
                         <tr>
-                            <td>timeFormat</td>
-                            <td>string</td>
-                            <td>HH:mm</td>
-                            <td>String of format tokens to be replaced with the time.</td>
-                        </tr>
-                        <tr>
-                            <td>timeOnly</td>
+                            <td>yearNavigator</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Hides the datepicker and only provide a time interface.</td>
-                        </tr>
+                            <td>Whether the year should be rendered as a dropdown instead of text.</td>
+                        </tr>                        
                         <tr>
-                            <td>stepHour</td>
-                            <td>number</td>
-                            <td>1</td>
-                            <td>Hours per step the slider makes.</td>
-                        </tr>
-                        <tr>
-                            <td>stepMinute</td>
-                            <td>number</td>
-                            <td>1</td>
-                            <td>Minutes per step the slider makes.</td>
-                        </tr>
-                        <tr>
-                            <td>stepSecond</td>
-                            <td>number</td>
-                            <td>1</td>
-                            <td>Seconds per step the slider makes.</td>
-                        </tr>
-                        <tr>
-                            <td>hourMin</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>The minimum hour allowed.</td>
-                        </tr>
-                        <tr>
-                            <td>hourMax</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>The maximum hour allowed.</td>
-                        </tr>
-                        <tr>
-                            <td>minuteMin</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>The minimum minute allowed.</td>
-                        </tr>
-                        <tr>
-                            <td>minuteMax</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>The maximum minute allowed.</td>
-                        </tr>
-                        <tr>
-                            <td>secondMin</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>The minimum second allowed.</td>
-                        </tr>
-                        <tr>
-                            <td>secondMax</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>The maximum second allowed.</td>
-                        </tr>
-                        <tr>
-                            <td>hourGrid</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>Intervals hours scaler.</td>
-                        </tr>
-                        <tr>
-                            <td>minuteGrid</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>Intervals minutes scaler.</td>
-                        </tr>
-                        <tr>
-                            <td>secondGrid</td>
-                            <td>number</td>
-                            <td>0</td>
-                            <td>Intervals secons scaler.</td>
-                        </tr>
-                        <tr>
-                            <td>timeControlType</td>
+                            <td>yearRange</td>
                             <td>string</td>
-                            <td>slider</td>
-                            <td>Defines the ui controls for time input, valid values are slider and select.</td>
+                            <td>fa-calendar</td>
+                            <td>The range of years displayed in the year drop-down: either relative to today's year ("-nn:+nn"), relative to the currently selected year ("c-nn:c+nn"), absolute ("nnnn:nnnn"), or combinations of these formats ("nnnn:-nn").</td>
                         </tr>
                         <tr>
-                            <td>horizontalTimeControls</td>
+                            <td>showTime</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Displays select elements horizontally when timeControlType is set to select.</td>
+                            <td>Whether to display timepicker.</td>
                         </tr>
                         <tr>
-                            <td>minTime</td>
+                            <td>hourFormat</td>
                             <td>string</td>
-                            <td>null</td>
-                            <td>String of the minimum time allowed. '8:00 am' will restrict to times after 8am.</td>
-                        </tr>
-                        <tr>
-                            <td>maxTime</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>String of the maximum time allowed. '8:00 pm' will restrict to times before 8pm.</td>
-                        </tr>
-                        <tr>
-                            <td>timezoneList</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>An array of timezones used to populate the timezone select. Can be an array of values or an array of objects: &#123; label: "EDT", value: -240 &#125;. 
-                                The value should be the offset number in minutes. So "-0400" which is the format "-hhmm", would equate to -240 minutes.</td>
+                            <td>24</td>
+                            <td>Specifies 12 or 24 hour format.</td>
                         </tr>
                         <tr>
                             <td>locale</td>
                             <td>object</td>
                             <td>null</td>
                             <td>An object having regional configuration properties for the calendar.</td>
-                        </tr>
-                        <tr>
-                            <td>icon</td>
-                            <td>string</td>
-                            <td>fa-calendar</td>
-                            <td>Icon of the calendar button.</td>
-                        </tr>
-                        <tr>
-                            <td>yearRange</td>
-                            <td>string</td>
-                            <td>fa-calendar</td>
-                            <td>The range of years displayed in the year drop-down: either relative to today's year ("-nn:+nn"), relative to the currently selected year ("c-nn:c+nn"), absolute ("nnnn:nnnn"), or combinations of these formats ("nnnn:-nn").</td>
                         </tr>
                     </tbody>
                 </table>
@@ -505,86 +374,46 @@ export class MyModel &#123;
             </div>
 
             <h3>Dependencies</h3>
-            <p>jQuery UI Datepicker and DateTimePicker</p>
+            <p>None.</p>
         </p-tabPanel>
 
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;div class="ui-grid ui-grid-responsive ui-grid-pad"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;Basic&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt; {{date1}}
-        &lt;/div&gt;
-        
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;Spanish&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date2" [locale]="es"&gt;&lt;/p-calendar&gt; {{date2}}
-        &lt;/div&gt;
-        
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;ShowAnim and Icon&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date3" showAnim="slideDown" [showIcon]="true"&gt;&lt;/p-calendar&gt; {{date3}}
-        &lt;/div&gt;
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Basic&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt; &#123;&#123;date1|date&#125;&#125;
     &lt;/div&gt;
     
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;ButtonPanel&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date4" [showButtonPanel]="true"&gt;&lt;/p-calendar&gt; {{date4}}
-        &lt;/div&gt;
-        
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;Navigators&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true"&gt;&lt;/p-calendar&gt; {{date5}}
-        &lt;/div&gt;
-        
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;Multiple Months&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date6" [numberOfMonths]="3"&gt;&lt;/p-calendar&gt; {{date6}}
-        &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Spanish&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"&gt;&lt;/p-calendar&gt; &#123;&#123;date2|date&#125;&#125;
     &lt;/div&gt;
     
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;Show Weeks-Months&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date7" [showWeek]="true" [showOtherMonths]="true" [selectOtherMonths]="true"&gt;&lt;/p-calendar&gt; {{date7}}
-        &lt;/div&gt;
-        
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;Restrict&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date8" minDate="-1m" maxDate="+1m" [readonlyInput]="true"&gt;&lt;/p-calendar&gt; {{date8}}
-        &lt;/div&gt;
-        
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;Default Date&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date9" defaultDate="+1m +7d"&gt;&lt;/p-calendar&gt; {{date9}}
-        &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Icon&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date3" [showIcon]="true"&gt;&lt;/p-calendar&gt; &lt;span style="margin-left:35px"&gt;&#123;&#123;date3|date&#125;&#125;&lt;/span&gt;
     &lt;/div&gt;
     
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;DateTime&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date10" dateFormat="mm/dd/yy" timeFormat="HH:mm"&gt;&lt;/p-calendar&gt; {{date10}}
-        &lt;/div&gt;
-        
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;Custom Time&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date11" dateFormat="mm/dd/yy" timeFormat="hh:mm tt z" timeControlType="select" [horizontalTimeControls]="true"&gt;&lt;/p-calendar&gt; {{date11}}
-        &lt;/div&gt;
-        
-        &lt;div class="ui-grid-col-4"&gt;
-            &lt;h3&gt;Time Only&lt;/h3&gt;
-            &lt;p-calendar [(ngModel)]="date12" dateFormat="mm/dd/yy" timeFormat="HH:mm:ss" [timeOnly]="true"&gt;&lt;/p-calendar&gt; {{date12}}
-            
-        &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Restrict&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"&gt;&lt;/p-calendar&gt; &#123;&#123;date4|date&#125;&#125;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Navigators&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt; &#123;&#123;date5|date&#125;&#125;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Time&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date6" [showTime]="true"&gt;&lt;/p-calendar&gt; &#123;&#123;date6&#125;&#125;
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p&gt;{{date13||'Date not selected'}}&lt;/p&gt;
-&lt;p-calendar [(ngModel)]="date12" [inline]="true"&gt;&lt;/p-calendar&gt; 
+&lt;h3&gt;Inline &#123;&#123;date7|date&#125;&#125;&lt;/h3&gt;
+&lt;p-calendar [(ngModel)]="date7" [inline]="true"&gt;&lt;/p-calendar&gt; 
 </code>
 </pre>
 
@@ -592,54 +421,48 @@ export class MyModel &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class CalendarDemo &#123;
 
-    date1: string;
+    date1: Date;
 
-    date2: string;
+    date2: Date;
 
-    date3: string;
+    date3: Date;
 
-    date4: string;
+    date4: Date;
 
-    date5: string;
+    date5: Date;
 
-    date6: string;
-
-    date7: string;
-
-    date8: string;
-
-    date9: string;
-
-    date10: string;
+    date6: Date;
     
-    date11: string;
+    date7: Date;
     
-    date12: string;
+    minDate: Date;
     
-    date13: string;
+    maxDate: Date;
     
     es: any;
-    
+        
     ngOnInit() &#123;
         this.es = &#123;
-            closeText: "Cerrar",
-        	prevText: "&#x3C;Ant",
-        	nextText: "Sig&#x3E;",
-        	currentText: "Hoy",
-        	monthNames: [ "enero","febrero","marzo","abril","mayo","junio",
-        	"julio","agosto","septiembre","octubre","noviembre","diciembre" ],
-        	monthNamesShort: [ "ene","feb","mar","abr","may","jun",
-        	"jul","ago","sep","oct","nov","dic" ],
-        	dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
-        	dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
-        	dayNamesMin: [ "D","L","M","X","J","V","S" ],
-        	weekHeader: "Sm",
-        	dateFormat: "dd/mm/yy",
-        	firstDay: 1,
-        	isRTL: false,
-        	showMonthAfterYear: false,
-        	yearSuffix: "" 
-        &#125;;
+            firstDayOfWeek: 1,
+            dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+            dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+            dayNamesMin: [ "D","L","M","X","J","V","S" ],
+            monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+            monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ]
+        &#125;
+        
+        this.tr = &#123;
+            firstDayOfWeek : 1
+        &#125;
+        
+        let today = new Date();
+        let month = today.getMonth();
+        let prevMonth = (month === 0) ? 11 : month -1;
+        let nextMonth = (month === 11) ? 0 : month + 1;
+        this.minDate = new Date();
+        this.minDate.setMonth(prevMonth);
+        this.maxDate = new Date();
+        this.maxDate.setMonth(nextMonth);
     &#125;
 &#125;
 </code>
