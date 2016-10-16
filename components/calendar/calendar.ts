@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,trigger,state,style,transition,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -29,7 +29,7 @@ export interface LocaleSettings {
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled}" 
-                [ngStyle]="{'display': inline ? true : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)">
+                [ngStyle]="{'display': inline ? true : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (mouseenter)="hoverPrev=true" (mouseleave)="hoverPrev=false"
                             [ngClass]="{'ui-state-hover ui-datepicker-prev-hover':hoverPrev&&!disabled}">
@@ -74,44 +74,56 @@ export interface LocaleSettings {
                 <div class="ui-timepicker ui-widget-header" *ngIf="showTime">
                     <div class="ui-hour-picker">
                         <a href="#" (click)="incrementHour($event)">
-                            <span class="fa fa-chevron-up"></span>
+                            <span class="fa fa-angle-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
                         <a href="#" (click)="decrementHour($event)">
-                            <span class="fa fa-chevron-down"></span>
+                            <span class="fa fa-angle-down"></span>
                         </a>
                     </div>
                     <div class="ui-separator">
                         <a href="#">
-                            <span class="fa fa-chevron-up"></span>
+                            <span class="fa fa-angle-up"></span>
                         </a>
                         <span>:</span>
                         <a href="#">
-                            <span class="fa fa-chevron-down"></span>
+                            <span class="fa fa-angle-down"></span>
                         </a>
                     </div>
                     <div class="ui-minute-picker">
                         <a href="#" (click)="incrementMinute($event)">
-                            <span class="fa fa-chevron-up"></span>
+                            <span class="fa fa-angle-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
                         <a href="#" (click)="decrementMinute($event)">
-                            <span class="fa fa-chevron-down"></span>
+                            <span class="fa fa-angle-down"></span>
                         </a>
                     </div>
                     <div class="ui-ampm-picker" *ngIf="hourFormat=='12'">
                         <a href="#" (click)="toggleAMPM($event)">
-                            <span class="fa fa-chevron-up"></span>
+                            <span class="fa fa-angle-up"></span>
                         </a>
                         <span>{{pm ? 'PM' : 'AM'}}</span>
                         <a href="#" (click)="toggleAMPM($event)">
-                            <span class="fa fa-chevron-down"></span>
+                            <span class="fa fa-angle-down"></span>
                         </a>
                     </div>
                 </div>
             </div>
         </span>
     `,
+    animations: [
+        trigger('overlayState', [
+            state('hidden', style({
+                opacity: 0
+            })),
+            state('visible', style({
+                opacity: 1
+            })),
+            transition('visible => hidden', animate('400ms ease-in')),
+            transition('hidden => visible', animate('400ms ease-out'))
+        ])
+    ],
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
@@ -665,7 +677,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         
         this.overlayVisible = true;
         this.overlay.style.zIndex = String(++DomHandler.zindex);
-        this.domHandler.fadeIn(this.overlay, 250);
     }
 
     writeValue(value: any) : void {
