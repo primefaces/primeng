@@ -71,7 +71,7 @@ export interface LocaleSettings {
                         </tr>
                     </tbody>
                 </table>
-                <div class="ui-timepicker" *ngIf="showTime">
+                <div class="ui-timepicker ui-widget-header" *ngIf="showTime">
                     <div class="ui-hour-picker">
                         <a href="#" (click)="incrementHour($event)">
                             <span class="fa fa-chevron-up"></span>
