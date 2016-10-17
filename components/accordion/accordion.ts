@@ -2,6 +2,7 @@ import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter
 trigger,state,transition,style,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
+import {BlockableUI} from '../common/api';
 
 @Component({
     selector: 'p-accordion',
@@ -11,7 +12,7 @@ import {Header} from '../common/shared';
         </div>
     `,
 })
-export class Accordion {
+export class Accordion implements BlockableUI {
     
     @Input() multiple: boolean;
     
@@ -29,18 +30,21 @@ export class Accordion {
 
     addTab(tab: AccordionTab) {
         this.tabs.push(tab);
-    }    
+    }   
+    
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
+    } 
 }
 
 @Component({
     selector: 'p-accordionTab',
     template: `
-        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}">
+        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}"
+            (mouseenter)="hover = true" (mouseleave)="hover=false" (click)="toggle($event)">
             <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
-            <a href="#" *ngIf="!headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected"
-                (click)="toggle($event)" (mouseenter)="hover = true" (mouseleave)="hover=false">{{header}}</a>
-            <a href="#" *ngIf="headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected"
-                (click)="toggle($event)" (mouseenter)="hover = true" (mouseleave)="hover=false">
+            <a href="#" *ngIf="!headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">{{header}}</a>
+            <a href="#" *ngIf="headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">
                 <ng-content select="header"></ng-content>
             </a>
         </div>

@@ -12,6 +12,7 @@ import {SetupComponent} from './setup.component';
 import {HomePageComponent} from './homepage.component';
 import {ThemingComponent} from './theming.component';
 import {InputTextDemo} from './demo/inputtext/inputtextdemo';
+import {BlockUIDemo} from './demo/blockui/blockuidemo';
 import {ButtonDemo} from './demo/button/buttondemo';
 import {SpinnerDemo} from './demo/spinner/spinnerdemo';
 import {PanelDemo} from './demo/panel/paneldemo';
@@ -113,6 +114,7 @@ import {NodeService} from './demo/service/nodeservice';
 import {AccordionModule} from '../components/accordion/accordion';
 import {AutoCompleteModule} from '../components/autocomplete/autocomplete';
 import {BreadcrumbModule} from '../components/breadcrumb/breadcrumb';
+import {BlockUIModule} from '../components/blockui/blockui';
 import {ButtonModule} from '../components/button/button';
 import {CalendarModule} from '../components/calendar/calendar';
 import {CarouselModule} from '../components/carousel/carousel';
@@ -259,7 +261,8 @@ export class AppComponent {
         TooltipModule,
         TreeModule,
         TreeTableModule,
-        TriStateCheckboxModule
+        TriStateCheckboxModule,
+        BlockUIModule
     ],
     declarations: [
         AppComponent,
@@ -359,7 +362,8 @@ export class AppComponent {
         TooltipDemo,
         MenuModelApi,
         InputMaskDemo,
-        TriStateCheckboxDemo
+        TriStateCheckboxDemo,
+        BlockUIDemo
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

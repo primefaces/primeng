@@ -1,5 +1,6 @@
 import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {BlockableUI} from '../common/api';
 
 @Component({
     selector: 'p-tabPanel',
@@ -79,7 +80,7 @@ export interface TabButton {
         </div>
     `,
 })
-export class TabView implements AfterContentInit {
+export class TabView implements AfterContentInit,BlockableUI {
 
     @Input() orientation: string = 'top';
     
@@ -194,6 +195,10 @@ export class TabView implements AfterContentInit {
         }
         event.preventDefault();
         event.stopPropagation();
+    }
+    
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
 }
 

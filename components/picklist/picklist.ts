@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {SharedModule} from '../common/shared';
@@ -7,8 +7,8 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-pickList',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true, 'ui-picklist-responsive': responsive}">
-            <div class="ui-picklist-source-controls ui-picklist-buttons">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true,'ui-picklist-responsive': responsive}">
+            <div class="ui-picklist-source-controls ui-picklist-buttons" *ngIf="showSourceControls">
                 <div class="ui-picklist-buttons-cell">
                     <button type="button" pButton icon="fa-angle-up" (click)="moveUp(sourcelist,source)"></button>
                     <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(sourcelist,source)"></button>
@@ -16,7 +16,7 @@ import {DomHandler} from '../dom/domhandler';
                     <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(sourcelist,source)"></button>
                 </div>
             </div>
-            <div class="ui-picklist-listwrapper ui-picklist-source-wrapper">
+            <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle">
                     <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
@@ -33,7 +33,7 @@ import {DomHandler} from '../dom/domhandler';
                     <button type="button" pButton icon="fa-angle-double-left" (click)="moveAllLeft()"></button>
                 </div>
             </div>
-            <div class="ui-picklist-listwrapper ui-picklist-target-wrapper">
+            <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle">
                     <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
@@ -42,7 +42,7 @@ import {DomHandler} from '../dom/domhandler';
                     </li>
                 </ul>
             </div>
-            <div class="ui-picklist-target-controls ui-picklist-buttons">
+            <div class="ui-picklist-target-controls ui-picklist-buttons" *ngIf="showTargetControls">
                 <div class="ui-picklist-buttons-cell">
                     <button type="button" pButton icon="fa-angle-up" (click)="moveUp(targetlist,target)"></button>
                     <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(targetlist,target)"></button>
@@ -73,6 +73,14 @@ export class PickList implements OnDestroy,AfterViewChecked {
     @Input() sourceStyle: any;
 
     @Input() targetStyle: any;
+    
+    @Input() showSourceControls: boolean = true;
+    
+    @Input() showTargetControls: boolean = true;
+    
+    @Output() onMovetoSource: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onMoveToTarget: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
     
@@ -120,7 +128,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveUp(listElement, list) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -142,7 +150,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveTop(listElement, list) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -161,7 +169,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveDown(listElement, list) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = this.selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -183,7 +191,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveBottom(listElement, list) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = this.selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = this.selectedItems[i];
                 let selectedItemIndex: number = this.findIndexInList(selectedItem, list);
@@ -202,44 +210,56 @@ export class PickList implements OnDestroy,AfterViewChecked {
     }
 
     moveRight(targetListElement) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
                 if(this.findIndexInList(selectedItem, this.target) == -1) {
                     this.target.push(this.source.splice(this.findIndexInList(selectedItem, this.source),1)[0]);
                 }
             }
+            this.onMoveToTarget.emit({
+                items: this.selectedItems
+            });
             this.selectedItems = [];
         }
     }
 
     moveAllRight() {
-        if(this.selectedItems) {
+        if(this.source) {
             for(let i = 0; i < this.source.length; i++) {
                 this.target.push(this.source[i]);
             }
+            this.onMoveToTarget.emit({
+                items: this.source
+            });
             this.source.splice(0, this.source.length);
             this.selectedItems = [];
         }
     }
 
     moveLeft(sourceListElement) {
-        if(this.selectedItems) {
+        if(this.selectedItems && this.selectedItems.length) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
                 if(this.findIndexInList(selectedItem, this.source) == -1) {
                     this.source.push(this.target.splice(this.findIndexInList(selectedItem, this.target),1)[0]);
                 }
             }
+            this.onMovetoSource.emit({
+                items: this.selectedItems
+            });
             this.selectedItems = [];
         }
     }
 
     moveAllLeft() {
-        if(this.selectedItems) {
+        if(this.target) {
             for(let i = 0; i < this.target.length; i++) {
                 this.source.push(this.target[i]);
             }
+            this.onMovetoSource.emit({
+                items: this.target
+            });
             this.target.splice(0, this.target.length);
             this.selectedItems = [];
         }

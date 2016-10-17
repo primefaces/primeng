@@ -135,6 +135,7 @@
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (misctitle.id == activeMenuId), 'submenuhide': (misctitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/responsive']" (click)="mobileMenuActive = false">&#9679; Responsive</a>
+                <a class="SubMenuLink" [routerLink]="['/blockui']" (click)="mobileMenuActive = false">&#9679; BlockUI</a>
                 <a class="SubMenuLink" [routerLink]="['/validation']" (click)="mobileMenuActive = false">&#9679; Validation</a>
                 <a class="SubMenuLink" [routerLink]="['/theming']" (click)="mobileMenuActive = false">&#9679; Theming</a>
                 <a class="SubMenuLink" [routerLink]="['/progressbar']" (click)="mobileMenuActive = false">&#9679; ProgressBar</a>

@@ -12,7 +12,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-slider',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-slider ui-widget ui-widget-content ui-corner-all':true,
+        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-slider ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled,
             'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical','ui-slider-animate':animate}"
             (click)="onBarClick($event)">
             <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" [style.transition]="dragging ? 'none': null"
@@ -82,6 +82,10 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
     
     onMouseDown(event:Event,index?:number) {
+        if(this.disabled) {
+            return;
+        }
+        
         this.dragging = true;
         this.updateDomData();
         this.sliderHandleClick = true;
@@ -89,6 +93,10 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     }
     
     onBarClick(event) {
+        if(this.disabled) {
+            return;
+        }
+        
         if(!this.sliderHandleClick) {
             this.updateDomData();
             this.handleChange(event);
@@ -98,6 +106,10 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     }
 
     ngAfterViewInit() {
+        if(this.disabled) {
+            return;
+        }
+        
         this.dragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
             if(this.dragging) {                                
                 this.handleChange(event);
@@ -189,11 +201,16 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     updateHandleValue(): void {
         if(this.range) {
-            this.handleValues[0] = this.values[0] * 100 / (this.max - this.min);
-            this.handleValues[1] = this.values[1] * 100 / (this.max - this.min);
+            this.handleValues[0] = (this.values[0] < this.min ? this.min : this.values[0]) * 100 / (this.max - this.min);
+            this.handleValues[1] = (this.values[1] > this.max ? this.max : this.values[1]) * 100 / (this.max - this.min);
         }
         else {
-            this.handleValue = this.value * 100 / (this.max - this.min);
+            if(this.value < this.min)
+                this.handleValue = this.min;
+            else if(this.value > this.max)
+                this.handleValue = this.max;
+            else
+                this.handleValue = this.value * 100 / (this.max - this.min);
         }
     }
     
@@ -247,7 +264,13 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     }
     
     ngOnDestroy() {
-        this.dragListener();
+        if(this.dragListener) {
+            this.dragListener();
+        }
+        
+        if(this.mouseupListener) {
+            this.mouseupListener();
+        }
     }
 }
 
