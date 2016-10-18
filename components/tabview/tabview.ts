@@ -66,6 +66,8 @@ export class TabView implements AfterContentInit,BlockableUI {
     @Input() style: any;
     
     @Input() styleClass: string;
+
+    @Input() canClose: (payload: any) => boolean;
     
     @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
 
@@ -112,7 +114,13 @@ export class TabView implements AfterContentInit,BlockableUI {
         event.preventDefault();
     }
     
-    close(event, tab: TabPanel) {        
+    close(event, tab: TabPanel) {
+        let index = this.findTabIndex(tab);
+        if (typeof this.canClose === 'function' && ! this.canClose({originalEvent: event, index: index})) {
+            event.stopPropagation();
+            return;
+        }
+
         if(tab.selected) {
             tab.selected = false;
             for(let i = 0; i < this.tabs.length; i++) {
@@ -125,7 +133,7 @@ export class TabView implements AfterContentInit,BlockableUI {
         }
         
         tab.closed = true;
-        this.onClose.emit({originalEvent: event, index: this.findTabIndex(tab)});
+        this.onClose.emit({originalEvent: event, index: index});
         event.stopPropagation();
     }
     
@@ -148,15 +156,15 @@ export class TabView implements AfterContentInit,BlockableUI {
         }
         return index;
     }
-    
+
     getDefaultHeaderClass(tab:TabPanel) {
-        let styleClass = 'ui-state-default ui-corner-' + this.orientation; 
+        let styleClass = 'ui-state-default ui-corner-' + this.orientation;
         if(tab.headerStyleClass) {
             styleClass = styleClass + " " + tab.headerStyleClass;
         }
         return styleClass;
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
