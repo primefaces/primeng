@@ -1096,18 +1096,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.domHandler.addClass(container, 'ui-unselectable-text');
         this.resizerHelper.style.height = container.offsetHeight - 4 + 'px';
         this.resizerHelper.style.top = container.offsetTop + 'px';
-        let offsetLeft = container.getBoundingClientRect().left;
-        if(event.pageX > offsetLeft && event.pageX < (offsetLeft + container.offsetWidth)) {
-            this.resizerHelper.style.left = (event.pageX - offsetLeft) + 'px';
+        if(event.pageX > container.offsetLeft && event.pageX < (container.offsetLeft + container.offsetWidth)) {
+            this.resizerHelper.style.left = event.pageX + 'px';
         }
         
         this.resizerHelper.style.display = 'block';
     }
     
     onColumnResizeEnd(event) {
-        var container = this.el.nativeElement.children[0];
-        var containerBoundingRect = container.getBoundingClientRect();
-        let delta = this.resizerHelper.offsetLeft + containerBoundingRect.left - this.lastPageX;
+        let delta = this.resizerHelper.offsetLeft - this.lastPageX;
         let columnWidth = this.resizeColumn.offsetWidth;
         let newColumnWidth = columnWidth + delta;
         let minWidth = this.resizeColumn.style.minWidth||15;
@@ -1169,8 +1166,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 
                 this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
                 this.reorderIndicatorDown.style.top = targetTop + dropHeader.offsetHeight + 'px';
-                var indicatorParentLeft = this.reorderIndicatorUp.parentNode.getBoundingClientRect().left;
-                targetLeft -= indicatorParentLeft;
 
                 if(event.pageX > columnCenter) {
                     this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
