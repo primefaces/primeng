@@ -67,12 +67,14 @@ export class TabView implements AfterContentInit,BlockableUI {
     
     @Input() styleClass: string;
     
+    @Input() controlClose: boolean;
+    
     @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
-
+    
     initialized: boolean;
     
     tabs: TabPanel[];
@@ -112,7 +114,28 @@ export class TabView implements AfterContentInit,BlockableUI {
         event.preventDefault();
     }
     
-    close(event, tab: TabPanel) {        
+    close(event, tab: TabPanel) {  
+        if(this.controlClose) {
+            this.onClose.emit({
+                originalEvent: event, 
+                index: this.findTabIndex(tab),
+                close: () => {
+                    this.closeTab(tab);
+                }}
+            );
+        }
+        else {
+            this.closeTab(tab);
+            this.onClose.emit({
+                originalEvent: event, 
+                index: this.findTabIndex(tab)
+            });
+        }
+        
+        event.stopPropagation();
+    }
+    
+    closeTab(tab: TabPanel) {
         if(tab.selected) {
             tab.selected = false;
             for(let i = 0; i < this.tabs.length; i++) {
@@ -125,8 +148,6 @@ export class TabView implements AfterContentInit,BlockableUI {
         }
         
         tab.closed = true;
-        this.onClose.emit({originalEvent: event, index: this.findTabIndex(tab)});
-        event.stopPropagation();
     }
     
     findSelectedTab() {
