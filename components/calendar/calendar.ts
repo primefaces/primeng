@@ -639,10 +639,16 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 let parts: string[] = rawValue.split(' ');
                 parsedValue = this.parseDate(parts[0], this.dateFormat);
                 let time = this.parseTime(parts[1]);
-                if(this.hourFormat == '12' && parts[2] && parts[2].toLowerCase() === 'PM' && time.hour != 12)
-                    parsedValue.setHours(time.hour + 12);
-                else
+                
+                if(this.hourFormat == '12') {
+                    if(!parts[2])
+                        throw 'Invalid Time';
+                    else if(parts[2].toLowerCase() === 'PM' && time.hour != 12)
+                        parsedValue.setHours(time.hour + 12);
+                }
+                else {
                     parsedValue.setHours(time.hour);
+                }
 
                 parsedValue.setMinutes(time.minute);
             }
@@ -802,12 +808,22 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     parseTime(value) {
         let tokens: string[] = value.split(':');
-        let h = parseInt(tokens[0]);
-        if(this.hourFormat == '12' && h !== 12) {
-            h+= 12;
+        if(tokens.length !== 2) {
+            throw "Invalid time";
         }
+        
+        let h = parseInt(tokens[0]);
         let m = parseInt(tokens[1]);
-        return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1])};
+        if(isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12)) {
+            throw "Invalid time";
+        }
+        else {
+            if(this.hourFormat == '12' && h !== 12) {
+                h+= 12;
+            }
+
+            return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1])};
+        }
     }
     
     // Ported from jquery-ui datepicker parseDate 

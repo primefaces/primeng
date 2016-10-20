@@ -703,6 +703,17 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
     padding: 8px;
 }
 
+.ui-datepicker.ui-widget .ui-datepicker-calendar td a.ui-state-highlight {
+    background-color: #d6d6d6;
+    color: #212121;
+}
+
+.ui-datepicker.ui-widget .ui-datepicker-calendar td a.ui-state-active {
+    background-color: #186ba0;
+    color: #ffffff;
+}
+
+
 .ui-datepicker.ui-widget .ui-timepicker {
     border-bottom: 0 none;
     border-left: 0 none;
