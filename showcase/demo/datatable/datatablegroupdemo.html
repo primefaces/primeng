@@ -9,12 +9,37 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="sales" [headerRows]="headerRows" [footerRows]="footerRows">
+    <p-dataTable [value]="sales">
+        <p-headerColumnGroup>
+            <p-row>
+                <p-column header="Brand" rowspan="3"></p-column>
+                <p-column header="Sale Rate" colspan="4"></p-column>
+            </p-row>
+            <p-row>
+                <p-column header="Sales" colspan="2"></p-column>
+                <p-column header="Profits" colspan="2"></p-column>
+            </p-row>
+            <p-row>
+                <p-column header="Last Year"></p-column>
+                <p-column header="This Year"></p-column>
+                <p-column header="Last Year"></p-column>
+                <p-column header="This Year"></p-column>
+            </p-row>
+        </p-headerColumnGroup>
+        
         <p-column field="brand"></p-column>
         <p-column field="lastYearSale"></p-column>
         <p-column field="thisYearSale"></p-column>
         <p-column field="lastYearProfit"></p-column>
         <p-column field="thisYearProfit"></p-column>
+        
+        <p-footerColumnGroup>
+            <p-row>
+                <p-column footer="Totals:" colspan="3"></p-column>
+                <p-column footer="$506,202"></p-column>
+                <p-column footer="$531,020"></p-column>
+            </p-row>
+        </p-footerColumnGroup>
     </p-dataTable>
 </div>
 
@@ -26,10 +51,6 @@
 export class DataTableGroupDemo implements OnInit &#123;
 
     sales: any[];
-
-    headerRows: any[];
-    
-    footerRows: any[];
 
     ngOnInit() &#123;
         this.sales = [
@@ -44,39 +65,6 @@ export class DataTableGroupDemo implements OnInit &#123;
             &#123;brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'&#125;,
             &#123;brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'&#125;
         ];
-        
-        this.headerRows = [
-            &#123;
-                columns: [
-                    &#123;header: 'Brand', rowspan: 3&#125;,
-                    &#123;header: 'Sale Rate', colspan: 4&#125;
-                ]
-            &#125;,
-            &#123;
-                columns: [
-                    &#123;header: 'Brand', colspan: 2&#125;,
-                    &#123;header: 'Sale Rate', colspan: 2&#125;
-                ]
-            &#125;,
-            &#123;
-                columns: [
-                    &#123;header: 'Last Year'&#125;,
-                    &#123;header: 'This Year'&#125;,
-                    &#123;header: 'Last Year'&#125;,
-                    &#123;header: 'This Year'&#125;
-                ]
-            &#125;
-        ];
-        
-        this.footerRows = [
-            &#123;
-                columns: [
-                    &#123;footer: 'Totals:', colspan: 3&#125;,
-                    &#123;footer: '$506,202'&#125;,
-                    &#123;footer: '$531,020'&#125;
-                ]
-            &#125;
-        ];
     &#125;
 &#125;
 </code>
@@ -86,12 +74,37 @@ export class DataTableGroupDemo implements OnInit &#123;
         <p-tabPanel header="datatablegroupdemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="sales" [headerRows]="headerRows" [footerRows]="footerRows"&gt;
+&lt;p-dataTable [value]="sales"&gt;
+    &lt;p-headerColumnGroup&gt;
+        &lt;p-row&gt;
+            &lt;p-column header="Brand" rowspan="3"&gt;&lt;/p-column&gt;
+            &lt;p-column header="Sale Rate" colspan="4"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+        &lt;p-row&gt;
+            &lt;p-column header="Sales" colspan="2"&gt;&lt;/p-column&gt;
+            &lt;p-column header="Profits" colspan="2"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+        &lt;p-row&gt;
+            &lt;p-column header="Last Year"&gt;&lt;/p-column&gt;
+            &lt;p-column header="This Year"&gt;&lt;/p-column&gt;
+            &lt;p-column header="Last Year"&gt;&lt;/p-column&gt;
+            &lt;p-column header="This Year"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+    &lt;/p-headerColumnGroup&gt;
+    
     &lt;p-column field="brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="lastYearSale"&gt;&lt;/p-column&gt;
     &lt;p-column field="thisYearSale"&gt;&lt;/p-column&gt;
     &lt;p-column field="lastYearProfit"&gt;&lt;/p-column&gt;
     &lt;p-column field="thisYearProfit"&gt;&lt;/p-column&gt;
+    
+    &lt;p-footerColumnGroup&gt;
+        &lt;p-row&gt;
+            &lt;p-column footer="Totals:" colspan="3"&gt;&lt;/p-column&gt;
+            &lt;p-column footer="$506,202"&gt;&lt;/p-column&gt;
+            &lt;p-column footer="$531,020"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+    &lt;/p-footerColumnGroup&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>

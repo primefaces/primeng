@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {InputTextModule} from '../inputtext/inputtext';
-import {Column,Header,Footer} from '../common/shared';
+import {Column,Header,Footer,HeaderColumnGroup,FooterColumnGroup} from '../common/shared';
 import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
@@ -100,7 +100,7 @@ export class RowExpansionLoader {
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table>
                     <thead>
-                        <tr *ngIf="!headerRows" class="ui-state-default">
+                        <tr *ngIf="!headerColumnGroup" class="ui-state-default">
                             <th #headerCell *ngFor="let col of columns;let lastCol = last" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                 (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-state-focus': headerCell === focusedHeader && col.sortable,
@@ -118,22 +118,27 @@ export class RowExpansionLoader {
                                 <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
                             </th>
                         </tr>
-                        <tr *ngFor="let headerRow of headerRows" class="ui-state-default">
-                            <th #headerCell *ngFor="let col of headerRow.columns" [ngStyle]="col.style" [class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
-                                (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
-                                'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}"
-                                [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
-                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
-                                <span class="ui-column-title">{{col.header}}</span>
-                                <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
-                                     [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
-                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
-                            </th>
-                        </tr>
+                        <template [ngIf]="headerColumnGroup">
+                            <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default">
+                                <th #headerCell *ngFor="let col of headerRow.columns" [ngStyle]="col.style" [class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
+                                    (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
+                                    'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}"
+                                    [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
+                                    <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
+                                    <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
+                                    <span class="ui-column-title" *ngIf="col.headerTemplate">
+                                        <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
+                                    </span>
+                                    <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
+                                         [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
+                                    <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                </th>
+                            </tr>
+                        </template>
                     </thead>
                     <tfoot *ngIf="hasFooter()">
-                        <tr *ngIf="!footerRows">
+                        <tr *ngIf="!footerColumnGroup">
                             <th *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}" [style.display]="col.hidden ? 'none' : 'table-cell'">
                                 <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
                                 <span class="ui-column-footer" *ngIf="col.footerTemplate">
@@ -141,11 +146,18 @@ export class RowExpansionLoader {
                                 </span>
                             </th>
                         </tr>
-                        <tr *ngFor="let footerRow of footerRows">
-                            <th *ngFor="let col of footerRow.columns" [ngStyle]="col.style" [class]="col.styleClass"
-                                [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                [ngClass]="{'ui-state-default':true}">{{col.footer}}</th>
-                        </tr>
+                        <template [ngIf]="footerColumnGroup">
+                            <tr *ngFor="let footerRow of footerColumnGroup.rows">
+                                <th *ngFor="let col of footerRow.columns" [ngStyle]="col.style" [class]="col.styleClass"
+                                    [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                    [ngClass]="{'ui-state-default':true}">
+                                    <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
+                                    <span class="ui-column-footer" *ngIf="col.footerTemplate">
+                                        <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>
+                                    </span>
+                                </th>
+                            </tr>
+                        </template>
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
@@ -302,10 +314,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() scrollWidth: any;
 
-    @Input() headerRows: any;
-
-    @Input() footerRows: any;
-
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -359,6 +367,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
     
     @ContentChildren(Column) cols: QueryList<Column>;
+    
+    @ContentChild(HeaderColumnGroup) headerColumnGroup: HeaderColumnGroup;
+    
+    @ContentChild(FooterColumnGroup) footerColumnGroup: FooterColumnGroup;
     
     protected dataToRender: any[];
 
@@ -1275,7 +1287,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     hasFooter() {
-        if(this.footerRows) {
+        if(this.footerColumnGroup) {
             return true;
         }
         else {

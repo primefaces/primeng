@@ -95,6 +95,34 @@ export class Column implements AfterContentInit{
 }
 
 @Component({
+    selector: 'p-row',
+    template: ``
+})
+export class Row {
+    
+    @ContentChildren(Column) columns: QueryList<Column>;
+    
+}
+
+@Component({
+    selector: 'p-headerColumnGroup',
+    template: ``
+})
+export class HeaderColumnGroup {
+        
+    @ContentChildren(Row) rows: QueryList<any>;
+}
+
+@Component({
+    selector: 'p-footerColumnGroup',
+    template: ``
+})
+export class FooterColumnGroup {
+        
+    @ContentChildren(Row) rows: QueryList<any>;
+}
+
+@Component({
     selector: 'p-columnBodyTemplateLoader',
     template: ``
 })
@@ -170,7 +198,7 @@ export class TemplateLoader {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate,TemplateLoader],
-    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate,TemplateLoader]
+    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate,TemplateLoader,Row,HeaderColumnGroup,FooterColumnGroup],
+    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,PrimeTemplate,TemplateLoader,Row,HeaderColumnGroup,FooterColumnGroup]
 })
 export class SharedModule { }
