@@ -6,7 +6,7 @@ import {SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {InputTextModule} from '../inputtext/inputtext';
 import {Column,Header,Footer} from '../common/shared';
-import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
+import {LazyLoadEvent,FilterMetadata,SortMeta, SelectItem} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
 import {BlockableUI} from '../common/api';
@@ -114,7 +114,10 @@ export class RowExpansionLoader {
                                 </span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
-                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter && !col.filterValues" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                <select class="ui-column-filter" *ngIf="col.filter && col.filterValues" (change)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)" (click)="onFilterInputClick($event)">
+                                   <option [ngValue]="elem.value" [value]="elem.value" *ngFor="let elem of col.filterValues">{{elem.label}}</option>
+                                </select>
                                 <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
                             </th>
                         </tr>

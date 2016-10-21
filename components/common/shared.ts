@@ -1,6 +1,7 @@
 import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,ContentChild,TemplateRef,OnInit,AfterContentInit,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
+import {SelectItem} from './api';
 
 @Component({
     selector: 'header',
@@ -56,6 +57,7 @@ export class Column implements AfterContentInit{
     @Input() editable: boolean;
     @Input() filter: boolean;
     @Input() filterMatchMode: string;
+    @Input() filterValues: SelectItem[];
     @Input() rowspan: number;
     @Input() colspan: number;
     @Input() style: any;
