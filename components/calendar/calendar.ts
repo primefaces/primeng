@@ -540,6 +540,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     onInputBlur(event) {
         this.onBlur.emit(event);
+        this.onModelTouched();
     }
     
     onMonthDropdownChange(m: string) {
@@ -656,8 +657,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             }
             
             this.value = parsedValue;
-            this.onModelChange(this.value);
-            
+
             //update ui
             this.createMonth(this.value.getMonth(), this.value.getFullYear());
             if(this.showTime) {
@@ -667,7 +667,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         } 
         catch(err) {
             //invalid date
+            this.value = null;
         }
+        
+        this.onModelChange(this.value);
     }
     
     onDatePickerClick(event) {
