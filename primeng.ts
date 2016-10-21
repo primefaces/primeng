@@ -2,6 +2,7 @@ export * from './components/common/api';
 export * from './components/common/shared';
 export * from './components/accordion/accordion';
 export * from './components/autocomplete/autocomplete';
+export * from './components/blockui/blockui';
 export * from './components/breadcrumb/breadcrumb';
 export * from './components/button/button';
 export * from './components/calendar/calendar';
