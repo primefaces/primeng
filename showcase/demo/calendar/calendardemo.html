@@ -37,9 +37,18 @@
             <p-calendar [(ngModel)]="date6" [showTime]="true"></p-calendar> {{date6}}
         </div>
     </div>
+
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-6">
+            <h3>Inline</h3>
+            <p-calendar [(ngModel)]="date7" [inline]="true"></p-calendar> {{date7|date}}
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <h3>Initial value</h3>
+            <p-calendar [(ngModel)]="date8"></p-calendar> {{date8|date}}
+        </div>
+    </div>
     
-    <h3>Inline {{date7|date}}</h3>
-    <p-calendar [(ngModel)]="date7" [inline]="true"></p-calendar> 
 </div>
 
 <div class="ContentSideSections Source">
@@ -412,8 +421,17 @@ export class MyModel &#123;
     &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Inline &#123;&#123;date7|date&#125;&#125;&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date7" [inline]="true"&gt;&lt;/p-calendar&gt; 
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;h3&gt;Inline&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date7" [inline]="true"&gt;&lt;/p-calendar&gt; &#123;&#123;date7|date&#125;&#125;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;h3&gt;Initial value&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date8"&gt;&lt;/p-calendar&gt; &#123;&#123;date8|date&#125;&#125;
+    &lt;/div&gt;
+&lt;/div&gt;
+
 </code>
 </pre>
 
@@ -434,6 +452,8 @@ export class CalendarDemo &#123;
     date6: Date;
     
     date7: Date;
+
+    date8: Date = new Date("2016-10-22");
     
     minDate: Date;
     
