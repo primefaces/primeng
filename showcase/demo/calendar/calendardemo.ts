@@ -18,6 +18,8 @@ export class CalendarDemo {
     date6: Date;
     
     date7: Date;
+
+    date8: Date = new Date("2016-10-22");
     
     minDate: Date;
     

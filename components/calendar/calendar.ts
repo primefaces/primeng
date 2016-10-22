@@ -61,10 +61,10 @@ export interface LocaleSettings {
                     <tbody>
                         <tr *ngFor="let week of dates">
                             <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
-                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date)}">
+                                'ui-datepicker-current-day':date.isSelected,'ui-datepicker-today':date.isToday}">
                                 <a #cell class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
-                                        [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell && !disabled && date.selectable),
-                                            'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
+                                        [ngClass]="{'ui-state-active':date.isSelected,'ui-state-hover':(hoverCell == cell && !disabled && date.selectable),
+                                            'ui-state-highlight':date.isToday,'ui-state-disabled':!date.selectable}"
                                         (click)="onDateSelect($event,date)" (mouseenter)="hoverCell=cell" (mouseleave)="hoverCell=null">{{date.day}}</a>
                             </td>
                         </tr>
@@ -229,27 +229,15 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     constructor(protected el: ElementRef, protected domHandler: DomHandler,protected renderer: Renderer) {}
 
     ngOnInit() {
-        let today = new Date();
-        let date = this.defaultDate||new Date();        
         let dayIndex = this.locale.firstDayOfWeek;
         for(let i = 0; i < 7; i++) {
             this.weekDays.push(this.locale.dayNamesMin[dayIndex]);
             dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
         }
                 
-        this.currentMonth = date.getMonth();
-        this.currentYear = date.getFullYear();
-        if(this.showTime) {
-            this.currentMinute = date.getMinutes();
-            this.pm = date.getHours() > 11;
-            
-            if(this.hourFormat == '12')
-                this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
-            else
-                this.currentHour = date.getHours();
-        }
+        let date = this.defaultDate || new Date();
+        this.updateInternalState(date);
 
-        this.createMonth(this.currentMonth, this.currentYear);
         
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             if(this.closeOverlay) {
@@ -288,6 +276,29 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             else
                 this.appendTo.appendChild(this.overlay);
         }
+
+        if (this.value) {
+            this.updateInternalState(this.value);
+            this.updateInputfield();
+        }
+    }
+
+    updateInternalState(date: Date) {
+        if (date) {
+            this.currentMonth = date.getMonth();
+            this.currentYear = date.getFullYear();
+            if (this.showTime) {
+                this.currentMinute = date.getMinutes();
+                this.pm = date.getHours() > 11;
+
+                if (this.hourFormat == '12')
+                    this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
+                else
+                    this.currentHour = date.getHours();
+            }
+
+            this.createMonth(this.currentMonth, this.currentYear);
+        }
     }
     
     createMonth(month: number, year: number) {
@@ -306,12 +317,33 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             if(i == 0) {
                 for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
-                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, selectable: this.isSelectable(j, prev.month, prev.year)});
+                    let date = {
+                        day: j,
+                        month: prev.month,
+                        year: prev.year,
+                        otherMonth: true,
+                        selectable: this.isSelectable(j, prev.month, prev.year),
+                        isSelected: false,
+                        isToday: false
+                    };
+                    date.isSelected = this.isSelected(date);
+                    date.isToday = this.isToday(date);
+                    week.push(date);
                 }
                 
                 let remainingDaysLength = 7 - week.length;
                 for(let j = 0; j < remainingDaysLength; j++) {
-                    week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                    let date = {
+                        day: dayNo,
+                        month: month,
+                        year: year,
+                        selectable: this.isSelectable(dayNo, month, year),
+                        isSelected: false,
+                        isToday: false
+                    };
+                    date.isSelected = this.isSelected(date);
+                    date.isToday = this.isToday(date);
+                    week.push(date);
                     dayNo++;
                 }
             }
@@ -319,11 +351,30 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 for (let j = 0; j < 7; j++) {
                     if(dayNo > daysLength) {
                         let next = this.getPreviousMonthAndYear(month, year);
-                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true, 
-                                    selectable: this.isSelectable((dayNo - daysLength), next.month, next.year)});
-                    }
-                    else {
-                        week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                        let date = {
+                            day: dayNo - daysLength,
+                            month: next.month,
+                            year: next.year,
+                            otherMonth: true,
+                            selectable: this.isSelectable((dayNo - daysLength), next.month, next.year),
+                            isSelected: false,
+                            isToday: false
+                        };
+                        date.isSelected = this.isSelected(date);
+                        date.isToday = this.isToday(date);
+                        week.push(date);
+                    } else {
+                        let date = {
+                            day: dayNo,
+                            month: month,
+                            year: year,
+                            selectable: this.isSelectable(dayNo, month, year),
+                            isSelected: false,
+                            isToday: false
+                        };
+                        date.isSelected = this.isSelected(date);
+                        date.isToday = this.isToday(date);
+                        week.push(date);
                     }
                     
                     dayNo++;
@@ -385,6 +436,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         this.dateClick = true;
+        this.updateInternalState(this.value);
         this.updateInputfield();
         event.preventDefault();
     }
@@ -464,7 +516,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     getSundayIndex() {
         return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
     }
-    
+
     isSelected(dateMeta): boolean {     
         if(this.value)
             return this.value.getDate() === dateMeta.day && this.value.getMonth() === dateMeta.month && this.value.getFullYear() === dateMeta.year;
@@ -689,6 +741,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     writeValue(value: any) : void {
         this.value = value;
+        this.updateInternalState(this.value);
+        this.updateInputfield();
     }
     
     registerOnChange(fn: Function): void {
