@@ -516,9 +516,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     getSundayIndex() {
         return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
     }
-    static x = 0
+
     isSelected(dateMeta): boolean {     
-        console.log(Calendar.x++)
         if(this.value)
             return this.value.getDate() === dateMeta.day && this.value.getMonth() === dateMeta.month && this.value.getFullYear() === dateMeta.year;
         else
