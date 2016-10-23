@@ -27,7 +27,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
             <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [value]="label"
-                        (click)="onInputClick($event)" (input)="onInputChange($event)" (focus)="hide()">
+                        (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onBlur($event)">
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down ui-c"></span>
             </div>
@@ -256,11 +256,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         }
     }
     
-    onInputClick(event) {
+    onEditableInputClick(event) {
         this.itemClick = true;
     }
     
-    onInputChange(event) {
+    onEditableInputFocus(event) {
+        this.focus = true;
+        this.hide();
+    }
+    
+    onEditableInputChange(event) {
         this.value = event.target.value;
         this.updateSelectedOption(this.value);                
         this.onModelChange(this.value);
@@ -293,7 +298,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     onKeydown(event) {
-        let selectedItemIndex = this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay);
+        let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
 
         switch(event.which) {
             //down
