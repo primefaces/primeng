@@ -80,3 +80,80 @@
 .ui-fluid .ui-tree {
     width: 100%;
 }
+
+/** Horizontal Tree **/
+.ui-tree-horizontal {
+    width:auto;
+    padding:10px 0px;
+    overflow:auto;
+}
+
+.ui-tree.ui-tree-horizontal table,
+.ui-tree.ui-tree-horizontal tr,
+.ui-tree.ui-tree-horizontal td {
+    border-collapse: collapse;
+    margin:0;
+    padding:0;
+    vertical-align: middle;
+}
+
+.ui-tree.ui-tree-horizontal .ui-tree-toggler {
+    vertical-align: middle;
+    margin: 0;
+}
+
+.ui-tree-horizontal .ui-treenode-content {
+    font-weight: normal;
+    padding: 0.4em 1em 0.4em 0.2em;
+}
+
+.ui-tree.ui-tree-horizontal .ui-tree-node-label {
+    margin: 0;
+}
+
+.ui-tree-horizontal .ui-treenode-content.ui-tree-selectable {
+    cursor: pointer;
+}
+
+.ui-tree-horizontal .ui-treenode-parent .ui-treenode-content {
+    font-weight: normal;
+    white-space: nowrap;
+}
+
+.ui-tree.ui-tree-horizontal .ui-treenode {
+    background: url("./images/line.gif") repeat-x scroll center center transparent;
+    padding: 5px 40px;
+}
+
+.ui-tree.ui-tree-horizontal .ui-treenode.ui-treenode-leaf,
+.ui-tree.ui-tree-horizontal .ui-treenode.ui-treenode-collapsed {
+    padding-right:0px;
+}
+
+.ui-tree.ui-tree-horizontal .ui-treenode-children {
+    padding:0;
+    margin:0;
+}
+
+.ui-tree.ui-tree-horizontal .ui-treenode-connector {
+    width: 1px;
+}
+
+.ui-tree.ui-tree-horizontal .ui-treenode-connector-table {
+    height: 100%;
+    width: 1px;
+}
+
+.ui-tree.ui-tree-horizontal .ui-treenode-connector-line {
+    background: url("./images/line.gif") repeat-y scroll 0 0 transparent;
+    width: 1px;
+}
+
+.ui-tree.ui-tree-horizontal table {
+	height:0px;
+}
+
+.ui-tree.ui-tree-horizontal .ui-chkbox {
+    vertical-align: bottom;
+    margin-right: 3px;
+}

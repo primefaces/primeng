@@ -11,7 +11,6 @@
     <h3 class="first">Basic</h3>
     <p-tree [value]="filesTree1"></p-tree>
 
-    
     <h3>Single Selection</h3>
     <p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
@@ -22,9 +21,7 @@
     <p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
     Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}} </span>
-    
 
-    
     <h3>Lazy Loading</h3>
     <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"></p-tree>
     
@@ -50,6 +47,9 @@
     <div style="margin-top: 5px">
         <button pButton type="text" label="Expand to 'Invoices.txt'" (click)="expandToNode()"></button>
     </div>
+    
+    <h3>Horizontal Tree</h3>
+    <p-tree [value]="filesTree7" layout="horizontal"></p-tree>
 </div>
 
 <div class="ContentSideSections Source">
