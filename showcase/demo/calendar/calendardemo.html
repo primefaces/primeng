@@ -36,10 +36,15 @@
             <h3>Time</h3>
             <p-calendar [(ngModel)]="date6" [showTime]="true"></p-calendar> {{date6}}
         </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Time Only</h3>
+            <p-calendar [(ngModel)]="date7" [timeOnly]="true"></p-calendar>
+        </div>
     </div>
     
-    <h3>Inline {{date7|date}}</h3>
-    <p-calendar [(ngModel)]="date7" [inline]="true"></p-calendar> 
+    <h3>Inline {{date8|date}}</h3>
+    <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar> 
 </div>
 
 <div class="ContentSideSections Source">
@@ -319,6 +324,12 @@ export class MyModel &#123;
                             <td>null</td>
                             <td>An object having regional configuration properties for the calendar.</td>
                         </tr>
+                        <tr>
+                            <td>timeOnly</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display timepicker only.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -410,10 +421,15 @@ export class MyModel &#123;
         &lt;h3&gt;Time&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date6" [showTime]="true"&gt;&lt;/p-calendar&gt; &#123;&#123;date6&#125;&#125;
     &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Time Only &lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date7" [timeOnly]="true"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline &#123;&#123;date7|date&#125;&#125;&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date7" [inline]="true"&gt;&lt;/p-calendar&gt; 
+&lt;p-calendar [(ngModel)]="date8" [inline]="true"&gt;&lt;/p-calendar&gt; 
 </code>
 </pre>
 
@@ -434,6 +450,8 @@ export class CalendarDemo &#123;
     date6: Date;
     
     date7: Date;
+    
+    date8: Date;
     
     minDate: Date;
     

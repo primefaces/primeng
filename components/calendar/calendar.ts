@@ -30,7 +30,7 @@ export interface LocaleSettings {
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled}" 
                 [ngStyle]="{'display': inline ? true : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
-                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly">
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (mouseenter)="hoverPrev=true" (mouseleave)="hoverPrev=false"
                             [ngClass]="{'ui-state-hover ui-datepicker-prev-hover':hoverPrev&&!disabled}">
                         <span class="fa fa-angle-left"></span>
@@ -50,7 +50,7 @@ export interface LocaleSettings {
                         <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
                     </div>
                 </div>
-                <table class="ui-datepicker-calendar">
+                <table class="ui-datepicker-calendar" *ngIf="!timeOnly">
                     <thead>
                         <tr>
                             <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
@@ -70,7 +70,7 @@ export interface LocaleSettings {
                         </tr>
                     </tbody>
                 </table>
-                <div class="ui-timepicker ui-widget-header" *ngIf="showTime">
+                <div class="ui-timepicker ui-widget-header" *ngIf="showTime||timeOnly">
                     <div class="ui-hour-picker">
                         <a href="#" (click)="incrementHour($event)">
                             <span class="fa fa-angle-up"></span>
@@ -173,6 +173,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Input() hourFormat: string = '24';
     
+    @Input() timeOnly: boolean;
+    
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
@@ -247,6 +249,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
             else
                 this.currentHour = date.getHours();
+        }
+        else if(this.timeOnly) {
+            this.currentMinute = 0;
+            this.currentHour = 0;
         }
 
         this.createMonth(this.currentMonth, this.currentYear);
@@ -391,10 +397,18 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     updateInputfield() {
         if(this.inputfield) {
-            let formattedValue = this.formatDate(this.value, this.dateFormat);
-            if(this.showTime) {
-                formattedValue += ' ' + this.formatTime(this.value);
+            let formattedValue;
+            
+            if(this.timeOnly) {
+                formattedValue = this.formatTime(this.value);
             }
+            else {
+                formattedValue = this.formatDate(this.value, this.dateFormat);
+                if(this.showTime) {
+                    formattedValue += ' ' + this.formatTime(this.value);
+                }
+            }
+            
             this.inputfield.value = formattedValue;
         }
     }
@@ -635,32 +649,27 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         try {
             let rawValue = event.target.value;
             let parsedValue;
-            if(this.showTime) {
-                let parts: string[] = rawValue.split(' ');
-                parsedValue = this.parseDate(parts[0], this.dateFormat);
-                let time = this.parseTime(parts[1]);
-                
-                if(this.hourFormat == '12') {
-                    if(!parts[2])
-                        throw 'Invalid Time';
-                    else if(parts[2].toLowerCase() === 'PM' && time.hour != 12)
-                        parsedValue.setHours(time.hour + 12);
-                }
-                else {
-                    parsedValue.setHours(time.hour);
-                }
-
-                parsedValue.setMinutes(time.minute);
+            let parts: string[] = rawValue.split(' ');
+            
+            if(this.timeOnly) {
+                parsedValue = new Date();
+                this.populateTime(parsedValue, parts[0], parts[1]);
             }
             else {
-                 parsedValue = this.parseDate(event.target.value, this.dateFormat);
+                if(this.showTime) {
+                    parsedValue = this.parseDate(parts[0], this.dateFormat);
+                    this.populateTime(parsedValue, parts[1], parts[2]);
+                }
+                else {
+                     parsedValue = this.parseDate(event.target.value, this.dateFormat);
+                }
             }
             
             this.value = parsedValue;
 
             //update ui
             this.createMonth(this.value.getMonth(), this.value.getFullYear());
-            if(this.showTime) {
+            if(this.showTime||this.timeOnly) {
                 this.currentHour = this.value.getHours();
                 this.currentMinute = this.value.getMinutes();
             }
@@ -671,6 +680,22 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         this.onModelChange(this.value);
+    }
+    
+    populateTime(value, timeString, ampm) {
+        let time = this.parseTime(timeString);
+        
+        if(this.hourFormat == '12') {
+            if(!ampm)
+                throw 'Invalid Time';
+            else if(ampm.toLowerCase() === 'PM' && time.hour != 12)
+                value.setHours(time.hour + 12);
+        }
+        else {
+            value.setHours(time.hour);
+        }
+
+        value.setMinutes(time.minute);
     }
     
     onDatePickerClick(event) {
