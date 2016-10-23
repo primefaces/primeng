@@ -27,7 +27,7 @@ export class TreeNodeTemplateLoader implements OnInit {
     template: `
         <template [ngIf]="node">
             <li class="ui-treenode" *ngIf="!tree.horizontal">
-                <div class="ui-treenode-content" [ngClass]="{'ui-treenode-selectable': tree.selectionMode}" 
+                <div class="ui-treenode-content"
                     (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
                     <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}" *ngIf="!isLeaf()"
                             (click)="toggle($event)"></span
@@ -61,13 +61,13 @@ export class TreeNodeTemplateLoader implements OnInit {
                             </table>
                         </td>
                         <td class="ui-treenode" [ngClass]="{'ui-treenode-collapsed':!node.expanded}">
-                            <div class="ui-treenode-content ui-state-default ui-corner-all"
+                            <div class="ui-treenode-content ui-state-default ui-corner-all" 
+                                [ngClass]="{'ui-state-hover':hover&&tree.selectionMode,'ui-state-highlight':isSelected()}"
                                 (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
                                 <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-plus':!node.expanded,'fa-minus':node.expanded}" *ngIf="!isLeaf()"
                                         (click)="toggle($event)"></span
                                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
-                                ><span class="ui-treenode-label ui-corner-all" 
-                                    [ngClass]="{'ui-state-hover':hover&&tree.selectionMode,'ui-state-highlight':isSelected()}">
+                                ><span class="ui-treenode-label ui-corner-all">
                                         <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
                                         <span *ngIf="tree.getTemplateForNode(node)">
                                             <p-treeNodeTemplateLoader [node]="node" [template]="tree.getTemplateForNode(node)"></p-treeNodeTemplateLoader>
@@ -142,12 +142,12 @@ export class UITreeNode {
 @Component({
     selector: 'p-tree',
     template: `
-        <div [ngClass]="'ui-tree ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal">
+        <div [ngClass]="{'ui-tree ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}" [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal">
             <ul class="ui-tree-container">
                 <p-treeNode *ngFor="let node of value" [node]="node"></p-treeNode>
             </ul>
         </div>
-        <div [ngClass]="'ui-tree ui-tree-horizontal ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
+        <div [ngClass]="{'ui-tree ui-tree-horizontal ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
             <table *ngIf="value&&value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
             </table>

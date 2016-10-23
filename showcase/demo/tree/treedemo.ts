@@ -28,6 +28,8 @@ export class TreeDemo implements OnInit {
     
     selectedFile2: TreeNode;
     
+    selectedFile3: TreeNode;
+    
     selectedFiles: TreeNode[];
     
     items: MenuItem[];

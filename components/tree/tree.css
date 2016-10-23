@@ -2,6 +2,10 @@
     width: 300px;
 }
 
+.ui-tree.ui-tree-selectable .ui-treenode-content {
+    cursor: pointer;
+}
+
 .ui-tree .ui-tree-container {
     height: 100%;
     margin: 0;
@@ -45,11 +49,6 @@
     display: inline-block;
     margin: 2px 0 0 0;
     padding: 0 3px;
-}
-
-.ui-tree .ui-treenode-selectable .ui-treenode-label,
-.ui-tree .ui-treenode-selectable .ui-treenode-icon {
-    cursor: pointer;
 }
 
 .ui-tree .ui-treenode-label.ui-state-hover,
@@ -109,10 +108,6 @@
 
 .ui-tree.ui-tree-horizontal .ui-tree-node-label {
     margin: 0;
-}
-
-.ui-tree-horizontal .ui-treenode-content.ui-tree-selectable {
-    cursor: pointer;
 }
 
 .ui-tree-horizontal .ui-treenode-parent .ui-treenode-content {
