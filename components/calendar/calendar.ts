@@ -666,13 +666,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             }
             
             this.value = parsedValue;
-
-            //update ui
-            this.createMonth(this.value.getMonth(), this.value.getFullYear());
-            if(this.showTime||this.timeOnly) {
-                this.currentHour = this.value.getHours();
-                this.currentMinute = this.value.getMinutes();
-            }
+            this.updateUI();
         } 
         catch(err) {
             //invalid date
@@ -698,6 +692,15 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         value.setMinutes(time.minute);
     }
     
+    updateUI() {
+        this.createMonth(this.value.getMonth(), this.value.getFullYear());
+        
+        if(this.showTime||this.timeOnly) {
+            this.currentHour = this.value.getHours();
+            this.currentMinute = this.value.getMinutes();
+        }
+    }
+    
     onDatePickerClick(event) {
         this.closeOverlay = this.dateClick;
     }
@@ -714,6 +717,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     writeValue(value: any) : void {
         this.value = value;
+        
+        if(this.inputfield && value != null) {
+            this.inputfield.value = this.formatDate(this.value, this.dateFormat);
+            this.updateUI();
+        }
     }
     
     registerOnChange(fn: Function): void {
