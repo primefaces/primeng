@@ -580,7 +580,6 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
     border-color: #ffffff;
 }
 
-.ui-multiselect.ui-state-focus .ui-multiselect-label,
 .ui-multiselect .ui-multiselect-label.ui-state-hover {
     background-color: #ffffff;
 }
@@ -592,6 +591,12 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 
 .ui-multiselect-header a.ui-multiselect-close {
     top:2px;
+}
+
+.ui-dropdown.ui-state-focus, .ui-multiselect.ui-state-focus {
+    -moz-box-shadow: 0px 0px 5px #1f89ce;
+    -webkit-box-shadow: 0px 0px 5px #1f89ce;
+    box-shadow: 0px 0px 5px #1f89ce;
 }
 
 /* Growl */
