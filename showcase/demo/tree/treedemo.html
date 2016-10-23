@@ -694,12 +694,12 @@ export class TreeDemo implements OnInit &#123;
         this.nodeService.getFiles().then(files => this.filesTree4 = files);
         this.nodeService.getFiles().then(files => this.filesTree5 = files);
         this.nodeService.getFiles().then(files => this.filesTree6 = files);
-        this.nodeService.getFiles().then(files => {
-            this.filesTree7 = [{
+        this.nodeService.getFiles().then(files => &#123;
+            this.filesTree7 = [&#123;
                 label: 'Root',
                 children: files
-            }];
-        });
+            &#125;];
+        &#125;);
 
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
         
