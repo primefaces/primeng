@@ -107,6 +107,7 @@ import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
 import {TriStateCheckboxDemo} from "./demo/tristatecheckbox/tristatecheckboxdemo";
 import {InplaceDemo} from "./demo/inplace/inplacedemo";
+import {StepsDemo} from "./demo/steps/stepsdemo";
 import {CarService} from './demo/service/carservice';
 import {CountryService} from './demo/service/countryservice';
 import {EventService} from './demo/service/eventservice';
@@ -166,6 +167,7 @@ import {SlideMenuModule} from '../components/slidemenu/slidemenu';
 import {SliderModule} from '../components/slider/slider';
 import {SpinnerModule} from '../components/spinner/spinner';
 import {SplitButtonModule} from '../components/splitbutton/splitbutton';
+import {StepsModule} from '../components/steps/steps';
 import {TabMenuModule} from '../components/tabmenu/tabmenu';
 import {TabViewModule} from '../components/tabview/tabview';
 import {TerminalModule} from '../components/terminal/terminal';
@@ -255,6 +257,7 @@ export class AppComponent {
         SliderModule,
         SpinnerModule,
         SplitButtonModule,
+        StepsModule,
         TabMenuModule,
         TabViewModule,
         TerminalModule,
@@ -367,7 +370,8 @@ export class AppComponent {
         MenuModelApi,
         InputMaskDemo,
         TriStateCheckboxDemo,
-        BlockUIDemo
+        BlockUIDemo,
+        StepsDemo
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
