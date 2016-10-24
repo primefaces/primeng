@@ -1,5 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {ButtonModule} from '../button/button';
 
 @Component({
     selector: 'p-inplaceDisplay',
@@ -17,30 +18,48 @@ export class InplaceContent {}
     selector: 'p-inplace',
     template: `
         <div [ngClass]="'ui-inplace ui-widget'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-inplace-display" (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="active=true"
+            <div class="ui-inplace-display" (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="activate($event)"
                 [ngClass]="{'ui-state-hover':hover}" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
             </div>
             <div class="ui-inplace-content" *ngIf="active">
                 <ng-content select="[pInplaceContent]"></ng-content>
+                <button type="button" icon="fa-close" pButton (click)="deactivate($event)" *ngIf="closable"></button>
             </div>
         </div>
     `
 })
 export class Inplace {
-    
+        
     @Input() active: boolean;
+    
+    @Input() closable: boolean;
 
     @Input() style: any;
         
     @Input() styleClass: string;
     
-    @Output() onOpen: EventEmitter<any> = new EventEmitter();
+    @Output() onActivate: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onDeactivate: EventEmitter<any> = new EventEmitter();
+    
+    hover: boolean;
+    
+    activate(event) {
+        this.active = true;
+        this.onActivate.emit(event);
+    }
+    
+    deactivate(event) {
+        this.active = false;
+        this.hover = false;
+        this.onDeactivate.emit(event);
+    }
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Inplace,InplaceDisplay,InplaceContent],
+    imports: [CommonModule,ButtonModule],
+    exports: [Inplace,InplaceDisplay,InplaceContent,ButtonModule],
     declarations: [Inplace,InplaceDisplay,InplaceContent]
 })
 export class InplaceModule { }
