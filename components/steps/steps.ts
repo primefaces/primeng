@@ -37,6 +37,10 @@ export class Steps {
     constructor(protected router: Router) {}
     
     itemClick(event, item: MenuItem, i: number) {
+        if(this.readonly) {
+            return;
+        }
+        
         this.activeIndexChange.emit(i);
         
         if(item.disabled) {
