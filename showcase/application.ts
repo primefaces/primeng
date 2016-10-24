@@ -106,6 +106,7 @@ import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
 import {MenuModelApi} from "./demo/menumodel/menumodelapi";
 import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
 import {TriStateCheckboxDemo} from "./demo/tristatecheckbox/tristatecheckboxdemo";
+import {InplaceDemo} from "./demo/inplace/inplacedemo";
 import {CarService} from './demo/service/carservice';
 import {CountryService} from './demo/service/countryservice';
 import {EventService} from './demo/service/eventservice';
@@ -137,6 +138,7 @@ import {FileUploadModule} from '../components/fileupload/fileupload';
 import {GalleriaModule} from '../components/galleria/galleria';
 import {GMapModule} from '../components/gmap/gmap';
 import {GrowlModule} from '../components/growl/growl';
+import {InplaceModule} from '../components/inplace/inplace';
 import {InputMaskModule} from '../components/inputmask/inputmask';
 import {InputSwitchModule} from '../components/inputswitch/inputswitch';
 import {InputTextModule} from '../components/inputtext/inputtext';
@@ -225,6 +227,7 @@ export class AppComponent {
         GalleriaModule,
         GMapModule,
         GrowlModule,
+        InplaceModule,
         InputMaskModule,
         InputSwitchModule,
         InputTextModule,
@@ -284,6 +287,7 @@ export class AppComponent {
         TabViewDemo,
         RadioButtonDemo,
         AccordionDemo,
+        InplaceDemo,
         InputTextareaDemo,
         GalleriaDemo,
         CheckboxDemo,

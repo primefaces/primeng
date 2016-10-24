@@ -96,6 +96,7 @@ import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
 import {FileUploadDemo} from './demo/fileupload/fileuploaddemo';
 import {TriStateCheckboxDemo} from './demo/tristatecheckbox/tristatecheckboxdemo';
 import {BlockUIDemo} from './demo/blockui/blockuidemo';
+import {InplaceDemo} from './demo/inplace/inplacedemo';
 
 export const routes: Routes = [
     {path: '', component: HomePageComponent},
@@ -193,7 +194,8 @@ export const routes: Routes = [
     {path: 'mask', component: InputMaskDemo},
     {path: 'fileupload', component: FileUploadDemo},
     {path: 'tristatecheckbox', component: TriStateCheckboxDemo},
-    {path: 'blockui', component: BlockUIDemo}
+    {path: 'blockui', component: BlockUIDemo},
+    {path: 'inplace', component: InplaceDemo}
 ];
 
 
