@@ -532,7 +532,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     onInputFocus(event) {
-        this.showOverlay();
+        this.showOverlay(event);
     }
     
     onButtonClick(event) {
@@ -705,7 +705,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.closeOverlay = this.dateClick;
     }
     
-    showOverlay() {
+    showOverlay(event) {
         if(this.appendTo)
             this.domHandler.absolutePosition(this.overlay, event.target);
         else
