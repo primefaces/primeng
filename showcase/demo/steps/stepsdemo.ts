@@ -5,8 +5,27 @@ import {Message} from '../../../components/common/api';
 @Component({
     templateUrl: 'showcase/demo/steps/stepsdemo.html',
     styles: [`
-        .steps-basic .ui-steps-item {
+        .ui-steps .ui-steps-item {
             width: 25%;
+        }
+        
+        .ui-steps.steps-custom {
+            margin-bottom: 30px;
+        }
+         
+        .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
+            height: 10px;
+            padding: 0 1em;
+        }
+         
+        .ui-steps.steps-custom .ui-steps-item .ui-steps-number {
+            background-color: #0081c2;
+            color: #FFFFFF;
+            display: inline-block;
+            width: 30px;
+            border-radius: 50%;
+            margin-top: -10px;
+            margin-bottom: 10px;
         }
     `],
     encapsulation: ViewEncapsulation.None
