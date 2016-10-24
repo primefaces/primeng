@@ -19,7 +19,7 @@ export class InplaceContent {}
     template: `
         <div [ngClass]="'ui-inplace ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-inplace-display" (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="activate($event)"
-                [ngClass]="{'ui-state-hover':hover}" *ngIf="!active">
+                [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
             </div>
             <div class="ui-inplace-content" *ngIf="active">
@@ -34,6 +34,8 @@ export class Inplace {
     @Input() active: boolean;
     
     @Input() closable: boolean;
+    
+    @Input() disabled: boolean;
 
     @Input() style: any;
         
@@ -46,14 +48,18 @@ export class Inplace {
     hover: boolean;
     
     activate(event) {
-        this.active = true;
-        this.onActivate.emit(event);
+        if(!this.disabled) {
+            this.active = true;
+            this.onActivate.emit(event);
+        }
     }
     
     deactivate(event) {
-        this.active = false;
-        this.hover = false;
-        this.onDeactivate.emit(event);
+        if(!this.disabled) {
+            this.active = false;
+            this.hover = false;
+            this.onDeactivate.emit(event);
+        }
     }
 }
 
