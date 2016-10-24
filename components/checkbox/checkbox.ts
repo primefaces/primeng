@@ -84,6 +84,12 @@ export class Checkbox implements ControlValueAccessor {
     }
     
     handleChange(event) {
+        event.preventDefault();
+        
+        if(this.disabled) {
+            return;
+        }
+        
         this.checked = event.target.checked;
         this.updateModel();
     }
