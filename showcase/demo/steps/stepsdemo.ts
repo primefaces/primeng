@@ -27,6 +27,10 @@ import {Message} from '../../../components/common/api';
             margin-top: -10px;
             margin-bottom: 10px;
         }
+        
+        .ui-steps.steps-custom .ui-steps-item .ui-steps-title {
+            color: #555555;
+        }
     `],
     encapsulation: ViewEncapsulation.None
 })
