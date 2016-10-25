@@ -21,5 +21,6 @@ typings
 !showcase/resources/primeui/primeui.d.ts
 
 # misc 
+aot
 *.log
 .DS_STORE

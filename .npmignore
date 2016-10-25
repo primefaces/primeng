@@ -24,6 +24,7 @@ webpack.config.js
 gulpfile.js
 
 # misc
+aot
 *.log
 prod
 
