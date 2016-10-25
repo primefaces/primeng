@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {FormsModule,ReactiveFormsModule}    from '@angular/forms'
 import {HttpModule}    from '@angular/http';
-import {Component} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {LocationStrategy,HashLocationStrategy} from '@angular/common';
+
 import {AppRoutes} from './app.routes';
 
+import {AppComponent} from './app.component';
 import {SetupComponent} from './setup.component';
 import {HomePageComponent} from './homepage.component';
 import {ThemingComponent} from './theming.component';
@@ -176,24 +177,6 @@ import {TooltipModule} from '../components/tooltip/tooltip';
 import {TreeModule} from '../components/tree/tree';
 import {TreeTableModule} from '../components/treetable/treetable';
 import {TriStateCheckboxModule} from '../components/tristatecheckbox/tristatecheckbox';
-
-@Component({
-    selector: 'primeng-showcase',
-    templateUrl: 'showcase/app.component.html'
-})
-export class AppComponent {
-
-    activeMenuId: string;
-
-    themesVisible: boolean = false;
-
-    mobileMenuActive: boolean = false;
-
-    toggleMenu(e) {
-        this.mobileMenuActive = !this.mobileMenuActive;
-        e.preventDefault();
-    }
-}
 
 @NgModule({
     imports: [

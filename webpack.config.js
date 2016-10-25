@@ -4,7 +4,7 @@ module.exports = {
     entry: {
         'polyfills': './showcase/polyfills.js',
         'vendor': './showcase/vendor.js',
-        'application': './showcase/application.js'
+        'application': './showcase/main.js'
     },
     output: {
         path: __dirname,

@@ -1,6 +1,8 @@
 import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
+declare var jQuery: any;
+
 @Component({
     selector: 'p-schedule',
     template: `
