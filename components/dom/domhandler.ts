@@ -300,7 +300,7 @@ export class DomHandler {
          
                 switch(typeof (obj1[p])) {
                     case 'object':
-                        if (obj1._$visited || !this.equals(obj1[p], obj2[p])) return false;
+                        if (obj1[p] && obj1[p]._$visited || !this.equals(obj1[p], obj2[p])) return false;
                         break;
 
                     case 'function':
