@@ -58,8 +58,10 @@ export class RadioButton implements ControlValueAccessor {
     }
     
     select() {
-        this.checked = true;
-        this.onModelChange(this.value);
+        if(!this.disabled) {
+            this.checked = true;
+            this.onModelChange(this.value);
+        }
     }
             
     writeValue(model: any) : void {
