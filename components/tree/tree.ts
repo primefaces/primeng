@@ -104,7 +104,8 @@ export class UITreeNode {
     constructor(@Inject(forwardRef(() => Tree)) protected tree:Tree) {}
         
     getIcon() {
-        let icon;
+        let icon: string;
+        
         if(this.node.icon)
             icon = this.node.icon;
         else
@@ -117,7 +118,7 @@ export class UITreeNode {
         return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);
     }
     
-    toggle(event) {
+    toggle(event: Event) {
         if(this.node.expanded)
             this.tree.onNodeCollapse.emit({originalEvent: event, node: this.node});
         else
@@ -126,11 +127,11 @@ export class UITreeNode {
         this.node.expanded = !this.node.expanded
     }
     
-    onNodeClick(event) {
+    onNodeClick(event: MouseEvent) {
         this.tree.onNodeClick(event, this.node);
     }
     
-    onNodeRightClick(event) {
+    onNodeRightClick(event: MouseEvent) {
         this.tree.onNodeRightClick(event, this.node);
     }
     
@@ -200,8 +201,10 @@ export class Tree implements AfterContentInit {
         });
     }
          
-    onNodeClick(event, node: TreeNode) {
-        if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {
+    onNodeClick(event: MouseEvent, node: TreeNode) {
+        let eventTarget = (<Element> event.target);
+        
+        if(eventTarget.className && eventTarget.className.indexOf('ui-tree-toggler') === 0) {
             return;
         }
         else {
@@ -235,9 +238,11 @@ export class Tree implements AfterContentInit {
         }
     }
     
-    onNodeRightClick(event, node: TreeNode) {
+    onNodeRightClick(event: MouseEvent, node: TreeNode) {
         if(this.contextMenu) {
-            if(event.target.className&&event.target.className.indexOf('ui-tree-toggler') === 0) {
+            let eventTarget = (<Element> event.target);
+            
+            if(eventTarget.className && eventTarget.className.indexOf('ui-tree-toggler') === 0) {
                 return;
             }
             else {
