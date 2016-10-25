@@ -18,7 +18,6 @@ resources/images
 # type definition
 typings
 *.d.ts
-!showcase/resources/primeui/primeui.d.ts
 
 # misc 
 aot
