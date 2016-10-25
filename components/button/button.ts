@@ -47,33 +47,33 @@ export class Button implements AfterViewInit, OnDestroy {
     }
         
     @HostListener('mouseenter', ['$event']) 
-    onMouseenter(e) {
+    onMouseenter(e: Event) {
         this.hover = true;
     }
     
     @HostListener('mouseleave', ['$event']) 
-    onMouseleave(e) {
+    onMouseleave(e: Event) {
         this.hover = false;
         this.active = false;
     }
     
     @HostListener('mousedown', ['$event']) 
-    onMouseDown(e) {
+    onMouseDown(e: Event) {
         this.active = true;
     }
     
     @HostListener('mouseup', ['$event']) 
-    onMouseUp(e) {
+    onMouseUp(e: Event) {
         this.active = false;
     }
     
     @HostListener('focus', ['$event']) 
-    onFocus(e) {
+    onFocus(e: Event) {
         this.focus = true;
     }
     
     @HostListener('blur', ['$event']) 
-    onBlur(e) {
+    onBlur(e: Event) {
         this.focus = false;
     }
     
