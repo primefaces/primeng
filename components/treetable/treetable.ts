@@ -147,7 +147,7 @@ export class TreeTable {
         
     onRowClick(event: MouseEvent, node: TreeNode) {
         let eventTarget = (<Element> event.target);
-        if(eventTarget.className&&eventTarget.className.indexOf('ui-treetable-toggler') === 0) {
+        if(eventTarget.className && eventTarget.className.indexOf('ui-treetable-toggler') === 0) {
             return;
         }
         else {
