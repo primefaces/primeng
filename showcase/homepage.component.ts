@@ -24,7 +24,7 @@ import {Component} from '@angular/core';
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/components.svg" />
                     <span class="PropertyTopic">WIDGETS</span>
-                    <span class="PropertyText">60+ Components<br />Easy to Use<br />Accessible</span>
+                    <span class="PropertyText">70+ Components<br />Easy to Use<br />Accessible</span>
                 </div>
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/productivity.svg" />
