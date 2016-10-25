@@ -37,7 +37,7 @@ export class UITreeRow {
     
     constructor(@Inject(forwardRef(() => TreeTable)) protected treeTable:TreeTable) {}
     
-    toggle(event) {
+    toggle(event: Event) {
         if(this.node.expanded)
             this.treeTable.onNodeCollapse.emit({originalEvent: event, node: this.node});
         else
@@ -54,7 +54,7 @@ export class UITreeRow {
         return this.treeTable.isSelected(this.node);
     }
     
-    onRowClick(event) {
+    onRowClick(event: MouseEvent) {
         this.treeTable.onRowClick(event, this.node);
     }
     
@@ -139,14 +139,15 @@ export class TreeTable {
         
     @Input() styleClass: string;
     
-    @ContentChild(Header) header;
+    @ContentChild(Header) header: Header;
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer) footer: Footer;
     
     @ContentChildren(Column) columns: QueryList<Column>;
         
-    onRowClick(event, node) {
-        if(event.target.className&&event.target.className.indexOf('ui-treetable-toggler') === 0) {
+    onRowClick(event: MouseEvent, node: TreeNode) {
+        let eventTarget = (<Element> event.target);
+        if(eventTarget.className&&eventTarget.className.indexOf('ui-treetable-toggler') === 0) {
             return;
         }
         else {
