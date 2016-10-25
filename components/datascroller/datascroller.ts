@@ -116,6 +116,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     reset() {
         this.first = 0;
         this.dataToRender = [];
+        this.load();
     }
 
     isEmpty() {
