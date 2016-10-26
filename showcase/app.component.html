@@ -22,7 +22,7 @@
                 <a class="SubMenuLink" [routerLink]="['/inputtext']" (click)="mobileMenuActive = false">&#9679; InputText</a>
                 <a class="SubMenuLink" [routerLink]="['/inputtextarea']" (click)="mobileMenuActive = false">&#9679; InputTextArea</a>
                 <a class="SubMenuLink" [routerLink]="['/listbox']" (click)="mobileMenuActive = false">&#9679; Listbox</a>
-                <a class="SubMenuLink" [routerLink]="['/mask']" (click)="mobileMenuActive = false">&#9679; Mask</a>
+                <a class="SubMenuLink" [routerLink]="['/inputmask']" (click)="mobileMenuActive = false">&#9679; Mask</a>
                 <a class="SubMenuLink" [routerLink]="['/multiselect']" (click)="mobileMenuActive = false">&#9679; MultiSelect</a>
                 <a class="SubMenuLink" [routerLink]="['/password']" (click)="mobileMenuActive = false">&#9679; Password</a>
                 <a class="SubMenuLink" [routerLink]="['/radiobutton']" (click)="mobileMenuActive = false">&#9679; RadioButton</a>
@@ -93,12 +93,12 @@
             <span id="menu_chart" #chartmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = chartmenutitle.id"><img src="showcase/resources/images/mono/charts.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/chartsBlue.svg" /><span class="MainLinkText">Charts</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (chartmenutitle.id == activeMenuId), 'submenuhide': (chartmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/chart']" (click)="mobileMenuActive = false">&#9679; ChartModel</a>
-                <a class="SubMenuLink" [routerLink]="['/barchart']" (click)="mobileMenuActive = false">&#9679; Bar</a>
-                <a class="SubMenuLink" [routerLink]="['/doughnutchart']" (click)="mobileMenuActive = false">&#9679; Doughnut</a>
-                <a class="SubMenuLink" [routerLink]="['/linechart']" (click)="mobileMenuActive = false">&#9679; Line</a>
-                <a class="SubMenuLink" [routerLink]="['/polarareachart']" (click)="mobileMenuActive = false">&#9679; PolarArea</a>
-                <a class="SubMenuLink" [routerLink]="['/piechart']" (click)="mobileMenuActive = false">&#9679; Pie</a>
-                <a class="SubMenuLink" [routerLink]="['/radarchart']" (click)="mobileMenuActive = false">&#9679; Radar</a>
+                <a class="SubMenuLink" [routerLink]="['/chart/bar']" (click)="mobileMenuActive = false">&#9679; Bar</a>
+                <a class="SubMenuLink" [routerLink]="['/chart/doughnut']" (click)="mobileMenuActive = false">&#9679; Doughnut</a>
+                <a class="SubMenuLink" [routerLink]="['/chart/line']" (click)="mobileMenuActive = false">&#9679; Line</a>
+                <a class="SubMenuLink" [routerLink]="['/chart/polararea']" (click)="mobileMenuActive = false">&#9679; PolarArea</a>
+                <a class="SubMenuLink" [routerLink]="['/chart/pie']" (click)="mobileMenuActive = false">&#9679; Pie</a>
+                <a class="SubMenuLink" [routerLink]="['/chart/radar']" (click)="mobileMenuActive = false">&#9679; Radar</a>
             </div>
 
             <span id="menu_messages" #messagesmenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="messagesmenutitle.id == activeMenuId"

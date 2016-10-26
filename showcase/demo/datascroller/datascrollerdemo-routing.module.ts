@@ -9,9 +9,9 @@ import {DataScrollerLoaderDemo} from './datascrollerloaderdemo';
 	imports: [
 		RouterModule.forChild([
 			{path: '',component: DataScrollerDemo},
-            {path: 'datascrollerinline', component: DataScrollerInlineDemo},
-            {path: 'datascrollerloader', component: DataScrollerLoaderDemo},
-            {path: 'datascrollerinfinite', component: DataScrollerInfiniteDemo}
+            {path: 'inline', component: DataScrollerInlineDemo},
+            {path: 'loader', component: DataScrollerLoaderDemo},
+            {path: 'infinite', component: DataScrollerInfiniteDemo}
 		])
 	],
 	exports: [
