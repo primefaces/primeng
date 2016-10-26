@@ -4,7 +4,7 @@ import {HttpModule}    from '@angular/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {LocationStrategy,HashLocationStrategy} from '@angular/common';
 
-import {AppRoutes} from './app.routes';
+import {AppRoutingModule} from './app-routing.module';
 
 import {AppComponent} from './app.component';
 import {SetupComponent} from './setup.component';
@@ -183,7 +183,7 @@ import {TriStateCheckboxModule} from '../components/tristatecheckbox/tristateche
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        AppRoutes,
+        AppRoutingModule,
         HttpModule,
         AccordionModule,
         AutoCompleteModule,
