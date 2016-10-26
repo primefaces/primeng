@@ -1,6 +1,5 @@
 import {Routes,RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {SetupComponent} from './setup.component';
 import {HomePageComponent} from './homepage.component';
 import {ThemingComponent} from './theming.component';
 import {InputTextDemo} from './demo/inputtext/inputtextdemo';
@@ -103,7 +102,7 @@ import {StepsDemo} from './demo/steps/stepsdemo';
     imports: [
         RouterModule.forRoot([
             {path: '', component: HomePageComponent},
-            {path: 'setup', component: SetupComponent},
+            {path: 'setup', loadChildren: './setup/setup.module#SetupModule'},
             {path: 'theming', component: ThemingComponent},
             {path: 'inputtext', component: InputTextDemo},
             {path: 'button', component: ButtonDemo},

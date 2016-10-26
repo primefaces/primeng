@@ -7,7 +7,6 @@ import {LocationStrategy,HashLocationStrategy} from '@angular/common';
 import {AppRoutingModule} from './app-routing.module';
 
 import {AppComponent} from './app.component';
-import {SetupComponent} from './setup.component';
 import {HomePageComponent} from './homepage.component';
 import {ThemingComponent} from './theming.component';
 import {InputTextDemo} from './demo/inputtext/inputtextdemo';
@@ -253,7 +252,6 @@ import {TriStateCheckboxModule} from '../components/tristatecheckbox/tristateche
     ],
     declarations: [
         AppComponent,
-        SetupComponent,
         HomePageComponent,
         ThemingComponent,
         InputTextDemo,

@@ -2,23 +2,36 @@ var webpack = require("webpack");
 
 module.exports = {
     entry: {
-        'polyfills': './showcase/polyfills.js',
-        'vendor': './showcase/vendor.js',
-        'application': './showcase/main.js'
+        'polyfills': './showcase/polyfills.ts',
+        'vendor': './showcase/vendor.ts',
+        'application': './showcase/main.ts'
     },
     output: {
         path: __dirname,
         filename: "./prod/[name].js"
     },
+    resolve: {
+        extensions: ['', '.ts', '.js']
+    },
+    module: {
+        loaders: [
+          {
+            test: /\.ts$/,
+            loaders: [
+              'awesome-typescript-loader', 'angular2-router-loader'
+            ]
+          }
+        ]    
+    },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
             name: ['application', 'vendor', 'polyfills']
-        }),
+        })/*,
         new webpack.optimize.UglifyJsPlugin({
             beautify: false,
             mangle: {screw_ie8: true, keep_fnames: true},
             compress: {screw_ie8: true},
             comments: false
-        })
+        })*/
     ]
 };

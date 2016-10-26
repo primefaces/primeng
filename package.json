@@ -17,14 +17,16 @@
   "devDependencies": {
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.45",
-    "typescript": "^2.0.3",
-    "webpack": "^1.13.1",
+    "angular2-router-loader": "^0.3.3",
+    "awesome-typescript-loader": "^2.2.4",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",
-    "gulp-uglifycss": "^1.0.6"
+    "gulp-uglifycss": "^1.0.6",
+    "typescript": "^2.0.3",
+    "webpack": "^1.13.1"
   }
 }
