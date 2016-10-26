@@ -8,7 +8,6 @@ import {AppRoutingModule} from './app-routing.module';
 
 import {AppComponent} from './app.component';
 import {HomePageComponent} from './homepage.component';
-import {ThemingComponent} from './theming.component';
 import {InputTextDemo} from './demo/inputtext/inputtextdemo';
 import {BlockUIDemo} from './demo/blockui/blockuidemo';
 import {ButtonDemo} from './demo/button/buttondemo';
@@ -253,7 +252,6 @@ import {TriStateCheckboxModule} from '../components/tristatecheckbox/tristateche
     declarations: [
         AppComponent,
         HomePageComponent,
-        ThemingComponent,
         InputTextDemo,
         ButtonDemo,
         SpinnerDemo,

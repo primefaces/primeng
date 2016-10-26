@@ -4,21 +4,22 @@ module.exports = {
     entry: {
         'polyfills': './showcase/polyfills.js',
         'vendor': './showcase/vendor.js',
-        'application': './showcase/application.js'
+        'application': './showcase/main.js'
     },
     output: {
         path: __dirname,
-        filename: "./prod/[name].js"
+        filename: "./prod/[name].js",
+        chunkFilename: "./prod/[id].js"
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
             name: ['application', 'vendor', 'polyfills']
-        }),
+        })/*,
         new webpack.optimize.UglifyJsPlugin({
             beautify: false,
             mangle: {screw_ie8: true, keep_fnames: true},
             compress: {screw_ie8: true},
             comments: false
-        })
+        })*/
     ]
 };

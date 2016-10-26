@@ -6,6 +6,8 @@ primeng.js
 components/**/*.js
 showcase/*.js
 showcase/demo/**/*.js
+showcase/setup/*.js
+showcase/theming/*.js
 *.map
 
 # production showcase bundle

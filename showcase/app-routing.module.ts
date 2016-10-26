@@ -1,7 +1,6 @@
 import {Routes,RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {HomePageComponent} from './homepage.component';
-import {ThemingComponent} from './theming.component';
 import {InputTextDemo} from './demo/inputtext/inputtextdemo';
 import {ButtonDemo} from './demo/button/buttondemo';
 import {SpinnerDemo} from './demo/spinner/spinnerdemo';
@@ -102,8 +101,16 @@ import {StepsDemo} from './demo/steps/stepsdemo';
     imports: [
         RouterModule.forRoot([
             {path: '', component: HomePageComponent},
-            {path: 'setup', loadChildren: './setup/setup.module#SetupModule'},
-            {path: 'theming', component: ThemingComponent},
+            {path: 'setup', loadChildren: () => new Promise(function (resolve) {
+                (require as any).ensure([], function (require: any) {
+                  resolve(require('./setup/setup.module')['SetupModule']);
+                });
+            })},
+            {path: 'theming', loadChildren: () => new Promise(function (resolve) {
+                (require as any).ensure([], function (require: any) {
+                  resolve(require('./theming/theming.module')['ThemingModule']);
+                });
+            })},
             {path: 'inputtext', component: InputTextDemo},
             {path: 'button', component: ButtonDemo},
             {path: 'spinner', component: SpinnerDemo},
