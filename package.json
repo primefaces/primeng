@@ -17,8 +17,6 @@
   "devDependencies": {
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.45",
-    "angular2-router-loader": "^0.3.3",
-    "awesome-typescript-loader": "^2.2.4",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
