@@ -1,7 +1,7 @@
 import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild,trigger,state,style,transition,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {Header} from '../common/shared';
+import {Header,SharedModule} from '../common/shared';
 
 @Component({
     selector: 'p-dialog',
@@ -330,7 +330,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Dialog],
+    exports: [Dialog,SharedModule],
     declarations: [Dialog]
 })
 export class DialogModule { }

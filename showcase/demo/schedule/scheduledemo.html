@@ -17,11 +17,11 @@
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="start">Start</label></div>
-                <div class="ui-grid-col-8"><p-calendar id="start" dateFormat="yy-mm-dd" [(ngModel)]="event.start"></p-calendar></div>
+                <div class="ui-grid-col-8"><p-inputMask id="start" mask="9999-99-99" [(ngModel)]="event.start" placeholder="99/99/9999" slotChar="yyyy-mm-dd"></p-inputMask></div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="end">End</label></div>
-                <div class="ui-grid-col-8"><p-calendar id="end" dateFormat="yy-mm-dd" [(ngModel)]="event.end" placeholder="Optional"></p-calendar></div>
+                <div class="ui-grid-col-8"><p-inputMask id="end" mask="9999-99-99" [(ngModel)]="event.end" placeholder="Optional" slotChar="yyyy-mm-dd"></p-inputMask></div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="allday">All Day</label></div>
@@ -550,11 +550,11 @@ export class MyModel &#123;
         &lt;/div&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-4"&gt;&lt;label for="start"&gt;Start&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar id="start" dateFormat="yy-mm-dd" [(ngModel)]="event.start"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;p-inputMask id="start" mask="9999-99-99" [(ngModel)]="event.start" placeholder="99/99/9999" slotChar="yyyy-mm-dd"&gt;&lt;/p-inputMask&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-4"&gt;&lt;label for="end"&gt;End&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar id="end" dateFormat="yy-mm-dd" [(ngModel)]="event.end" placeholder="Optional"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;p-inputMask id="end" mask="9999-99-99" [(ngModel)]="event.end" placeholder="Optional" slotChar="yyyy-mm-dd"&gt;&lt;/p-inputMask&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-4"&gt;&lt;label for="allday"&gt;All Day&lt;/label&gt;&lt;/div&gt;
