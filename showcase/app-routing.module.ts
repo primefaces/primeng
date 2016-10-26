@@ -1,101 +1,6 @@
 import {Routes,RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {HomePageComponent} from './homepage.component';
-import {InputTextDemo} from './demo/inputtext/inputtextdemo';
-import {ButtonDemo} from './demo/button/buttondemo';
-import {SpinnerDemo} from './demo/spinner/spinnerdemo';
-import {PanelDemo} from './demo/panel/paneldemo';
-import {FieldsetDemo} from './demo/fieldset/fieldsetdemo';
-import {RatingDemo} from './demo/rating/ratingdemo';
-import {PasswordDemo} from './demo/password/passworddemo';
-import {ConfirmDialogDemo} from './demo/confirmdialog/confirmdialogdemo';
-import {DialogDemo} from './demo/dialog/dialogdemo';
-import {ToggleButtonDemo} from './demo/togglebutton/togglebuttondemo';
-import {GridDemo} from './demo/grid/griddemo';
-import {TabViewDemo} from './demo/tabview/tabviewdemo';
-import {RadioButtonDemo} from './demo/radiobutton/radiobuttondemo';
-import {AccordionDemo} from './demo/accordion/accordiondemo';
-import {InputTextareaDemo} from './demo/inputtextarea/inputtextareademo';
-import {GalleriaDemo} from './demo/galleria/galleriademo';
-import {CheckboxDemo} from './demo/checkbox/checkboxdemo';
-import {ListboxDemo} from './demo/listbox/listboxdemo';
-import {MessagesDemo} from './demo/messages/messagesdemo';
-import {GrowlDemo} from './demo/growl/growldemo';
-import {CarouselDemo} from './demo/carousel/carouseldemo';
-import {InputSwitchDemo} from './demo/inputswitch/inputswitchdemo';
-import {SelectButtonDemo} from './demo/selectbutton/selectbuttondemo';
-import {CalendarDemo} from './demo/calendar/calendardemo';
-import {DropdownDemo} from './demo/dropdown/dropdowndemo';
-import {ProgressBarDemo} from './demo/progressbar/progressbardemo';
-import {ChartDemo} from './demo/chart/chartdemo';
-import {PieChartDemo} from './demo/chart/piechart/piechartdemo';
-import {DoughnutChartDemo} from './demo/chart/doughnutchart/doughnutchartdemo';
-import {LineChartDemo} from './demo/chart/linechart/linechartdemo';
-import {BarChartDemo} from './demo/chart/barchart/barchartdemo';
-import {RadarChartDemo} from './demo/chart/radarchart/radarchartdemo';
-import {PolarAreaChartDemo} from './demo/chart/polarareachart/polarareachartdemo';
-import {MenuDemo} from './demo/menu/menudemo';
-import {TieredMenuDemo} from './demo/tieredmenu/tieredmenudemo';
-import {MenubarDemo} from './demo/menubar/menubardemo';
-import {SlideMenuDemo} from './demo/slidemenu/slidemenudemo';
-import {BreadcrumbDemo} from './demo/breadcrumb/breadcrumbdemo';
-import {SliderDemo} from "./demo/slider/sliderdemo";
-import {LightboxDemo} from "./demo/lightbox/lightboxdemo";
-import {PaginatorDemo} from "./demo/paginator/paginatordemo";
-import {MegaMenuDemo} from "./demo/megamenu/megamenudemo";
-import {PanelMenuDemo} from "./demo/panelmenu/panelmenudemo";
-import {DataTableDemo} from "./demo/datatable/datatabledemo";
-import {DataTableEditableDemo} from "./demo/datatable/datatableeditabledemo";
-import {DataTableFacetsDemo} from "./demo/datatable/datatablefacetsdemo";
-import {DataTablePaginatorDemo} from "./demo/datatable/datatablepaginatordemo";
-import {DataTableSortDemo} from "./demo/datatable/datatablesortdemo";
-import {DataTableResponsiveDemo} from "./demo/datatable/datatableresponsivedemo";
-import {DataTableSelectionDemo} from "./demo/datatable/datatableselectiondemo";
-import {DataTableFilterDemo} from "./demo/datatable/datatablefilterdemo";
-import {DataTableColResizeDemo} from "./demo/datatable/datatablecolresizedemo";
-import {DataTableColReorderDemo} from "./demo/datatable/datatablecolreorderdemo";
-import {DataTableScrollDemo} from "./demo/datatable/datatablescrolldemo";
-import {DataTableGroupDemo} from "./demo/datatable/datatablegroupdemo";
-import {DataTableCrudDemo} from "./demo/datatable/datatablecruddemo";
-import {DataTableLazyDemo} from "./demo/datatable/datatablelazydemo";
-import {DataTableTemplatingDemo} from "./demo/datatable/datatabletemplatingdemo";
-import {DataTableCMDemo} from "./demo/datatable/datatablecmdemo";
-import {DataTableColTogglerDemo} from "./demo/datatable/datatablecoltogglerdemo";
-import {DataTableRowExpansionDemo} from "./demo/datatable/datatablerowexpansiondemo";
-import {CodeHighlighterDemo} from "./demo/codehighlighter/codehighlighterdemo";
-import {OrderListDemo} from "./demo/orderlist/orderlistdemo";
-import {PickListDemo} from "./demo/picklist/picklistdemo";
-import {ScheduleDemo} from "./demo/schedule/scheduledemo";
-import {DataGridDemo} from "./demo/datagrid/datagriddemo";
-import {DataListDemo} from "./demo/datalist/datalistdemo";
-import {DataScrollerDemo} from "./demo/datascroller/datascrollerdemo";
-import {DataScrollerInlineDemo} from "./demo/datascroller/datascrollerinlinedemo";
-import {DataScrollerLoaderDemo} from "./demo/datascroller/datascrollerloaderdemo";
-import {DataScrollerInfiniteDemo} from "./demo/datascroller/datascrollerinfinitedemo";
-import {TreeDemo} from "./demo/tree/treedemo";
-import {TreeTableDemo} from "./demo/treetable/treetabledemo";
-import {TerminalDemo} from "./demo/terminal/terminaldemo";
-import {SplitButtonDemo} from "./demo/splitbutton/splitbuttondemo";
-import {OverlayPanelDemo} from "./demo/overlaypanel/overlaypaneldemo";
-import {AutoCompleteDemo} from "./demo/autocomplete/autocompletedemo";
-import {EditorDemo} from "./demo/editor/editordemo";
-import {ResponsiveDemo} from "./demo/responsive/responsivedemo";
-import {MultiSelectDemo} from "./demo/multiselect/multiselectdemo";
-import {GMapDemo} from "./demo/gmap/gmapdemo";
-import {ContextMenuDemo} from "./demo/contextmenu/contextmenudemo";
-import {DragDropDemo} from "./demo/dragdrop/dragdropdemo";
-import {ToolbarDemo} from "./demo/toolbar/toolbardemo";
-import {ValidationDemo} from "./demo/validation/validationdemo";
-import {DataTableExportDemo} from "./demo/datatable/datatableexportdemo";
-import {TabMenuDemo} from "./demo/tabmenu/tabmenudemo";
-import {TooltipDemo} from "./demo/tooltip/tooltipdemo";
-import {MenuModelApi} from "./demo/menumodel/menumodelapi";
-import {InputMaskDemo} from "./demo/inputmask/inputmaskdemo";
-import {FileUploadDemo} from './demo/fileupload/fileuploaddemo';
-import {TriStateCheckboxDemo} from './demo/tristatecheckbox/tristatecheckboxdemo';
-import {BlockUIDemo} from './demo/blockui/blockuidemo';
-import {InplaceDemo} from './demo/inplace/inplacedemo';
-import {StepsDemo} from './demo/steps/stepsdemo';
 
 @NgModule({
     imports: [
@@ -111,101 +16,346 @@ import {StepsDemo} from './demo/steps/stepsdemo';
                   resolve(require('./theming/theming.module')['ThemingModule']);
                 });
             })},
-            {path: 'inputtext', component: InputTextDemo},
-            {path: 'button', component: ButtonDemo},
-            {path: 'spinner', component: SpinnerDemo},
-            {path: 'panel', component: PanelDemo},
-            {path: 'fieldset', component: FieldsetDemo},
-            {path: 'rating', component: RatingDemo},
-            {path: 'password', component: PasswordDemo},
-            {path: 'confirmdialog', component: ConfirmDialogDemo},
-            {path: 'dialog', component: DialogDemo},
-            {path: 'togglebutton', component: ToggleButtonDemo},
-            {path: 'grid', component: GridDemo},
-            {path: 'tabview', component: TabViewDemo},
-            {path: 'radiobutton', component: RadioButtonDemo},
-            {path: 'accordion', component: AccordionDemo},
-            {path: 'inputtextarea', component: InputTextareaDemo},
-            {path: 'galleria', component: GalleriaDemo},
-            {path: 'checkbox', component: CheckboxDemo},
-            {path: 'listbox', component: ListboxDemo},
-            {path: 'messages', component: MessagesDemo},
-            {path: 'growl', component: GrowlDemo},
-            {path: 'carousel', component: CarouselDemo},
-            {path: 'inputswitch', component: InputSwitchDemo},
-            {path: 'selectbutton', component: SelectButtonDemo},
-            {path: 'calendar', component: CalendarDemo},
-            {path: 'dropdown', component: DropdownDemo},
-            {path: 'progressbar', component: ProgressBarDemo},
-            {path: 'chart', component: ChartDemo},
-            {path: 'piechart', component: PieChartDemo},
-            {path: 'doughnutchart', component: DoughnutChartDemo},
-            {path: 'linechart', component: LineChartDemo},
-            {path: 'barchart', component: BarChartDemo},
-            {path: 'radarchart', component: RadarChartDemo},
-            {path: 'polarareachart', component: PolarAreaChartDemo},
-            {path: 'menu', component: MenuDemo},
-            {path: 'tieredmenu', component: TieredMenuDemo},
-            {path: 'menubar', component: MenubarDemo},
-            {path: 'slidemenu', component: SlideMenuDemo},
-            {path: 'breadcrumb', component: BreadcrumbDemo},
-            {path: 'slider', component: SliderDemo},
-            {path: 'lightbox', component: LightboxDemo},
-            {path: 'paginator', component: PaginatorDemo},
-            {path: 'megamenu', component: MegaMenuDemo},
-            {path: 'panelmenu', component: PanelMenuDemo},
-            {path: 'datatable', component: DataTableDemo},
-            {path: 'datatablefacets', component: DataTableFacetsDemo},
-            {path: 'datatablepaginator', component: DataTablePaginatorDemo},
-            {path: 'datatablesort', component: DataTableSortDemo},
-            {path: 'datatableresponsive', component: DataTableResponsiveDemo},
-            {path: 'datatableselection', component: DataTableSelectionDemo},
-            {path: 'datatablefilter', component: DataTableFilterDemo},
-            {path: 'datatableeditable', component: DataTableEditableDemo},
-            {path: 'datatablecolresize', component: DataTableColResizeDemo},
-            {path: 'datatablecolreorder', component: DataTableColReorderDemo},
-            {path: 'datatablescroll', component: DataTableScrollDemo},
-            {path: 'datatablegroup', component: DataTableGroupDemo},
-            {path: 'datatablelazy', component: DataTableLazyDemo},
-            {path: 'datatablecrud', component: DataTableCrudDemo},
-            {path: 'datatabletemplating', component: DataTableTemplatingDemo},
-            {path: 'datatablecontextmenu', component: DataTableCMDemo},
-            {path: 'datatablecoltoggler', component: DataTableColTogglerDemo},
-            {path: 'datatablerowexpansion', component: DataTableRowExpansionDemo},
-            {path: 'codehighlighter', component: CodeHighlighterDemo},
-            {path: 'orderlist', component: OrderListDemo},
-            {path: 'picklist', component: PickListDemo},
-            {path: 'schedule', component: ScheduleDemo},
-            {path: 'datagrid', component: DataGridDemo},
-            {path: 'datalist', component: DataListDemo},
-            {path: 'datascroller', component: DataScrollerDemo},
-            {path: 'datascrollerinline', component: DataScrollerInlineDemo},
-            {path: 'datascrollerloader', component: DataScrollerLoaderDemo},
-            {path: 'datascrollerinfinite', component: DataScrollerInfiniteDemo},
-            {path: 'tree', component: TreeDemo},
-            {path: 'treetable', component: TreeTableDemo},
-            {path: 'terminal', component: TerminalDemo},
-            {path: 'splitbutton', component: SplitButtonDemo},
-            {path: 'overlaypanel', component: OverlayPanelDemo},
-            {path: 'autocomplete', component: AutoCompleteDemo},
-            {path: 'editor', component: EditorDemo},
-            {path: 'responsive', component: ResponsiveDemo},
-            {path: 'multiselect', component: MultiSelectDemo},
-            {path: 'gmap', component: GMapDemo},
-            {path: 'contextmenu', component: ContextMenuDemo},
-            {path: 'dragdrop', component: DragDropDemo},
-            {path: 'toolbar', component: ToolbarDemo},
-            {path: 'validation', component: ValidationDemo},
-            {path: 'datatableexport', component: DataTableExportDemo},
-            {path: 'tabmenu', component: TabMenuDemo},
-            {path: 'tooltip', component: TooltipDemo},
-            {path: 'menumodel', component: MenuModelApi},
-            {path: 'mask', component: InputMaskDemo},
-            {path: 'fileupload', component: FileUploadDemo},
-            {path: 'tristatecheckbox', component: TriStateCheckboxDemo},
-            {path: 'blockui', component: BlockUIDemo},
-            {path: 'inplace', component: InplaceDemo},
-            {path: 'steps', component: StepsDemo}
+            {path: 'accordion', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/accordion/accordiondemo.module')['AccordionDemoModule']);
+              });
+            })},
+            {path: 'autocomplete', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/autocomplete/autocompletedemo.module')['AutoCompleteDemoModule']);
+              });
+            })},
+            {path: 'blockui', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/blockui/blockuidemo.module')['BlockUIDemoModule']);
+              });
+            })},
+            {path: 'breadcrumb', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/breadcrumb/breadcrumbdemo.module')['BreadcrumbDemoModule']);
+              });
+            })},
+            {path: 'button', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/button/buttondemo.module')['ButtonDemoModule']);
+              });
+            })},
+            {path: 'calendar', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/calendar/calendardemo.module')['CalendarDemoModule']);
+              });
+            })},
+            {path: 'carousel', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/carousel/carouseldemo.module')['CarouselDemoModule']);
+              });
+            })},
+            {path: 'chart', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/chart/chartdemo.module')['ChartDemoModule']);
+              });
+            })},
+            {path: 'checkbox', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/checkbox/checkboxdemo.module')['CheckboxDemoModule']);
+              });
+            })},
+            {path: 'codehighlighter', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/codehighlighter/codehighlighterdemo.module')['CodeHighlighterDemoModule']);
+              });
+            })},
+            {path: 'confirmdialog', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/confirmdialog/confirmdialogdemo.module')['ConfirmDialogDemoModule']);
+              });
+            })},
+            {path: 'contextmenu', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/contextmenu/contextmenudemo.module')['ContextMenuDemoModule']);
+              });
+            })},
+            {path: 'datagrid', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/datagrid/datagriddemo.module')['DataGridDemoModule']);
+              });
+            })},
+            {path: 'datalist', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/datalist/datalistdemo.module')['DataListDemoModule']);
+              });
+            })},
+            {path: 'datascroller', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/datascroller/datascrollerdemo.module')['DataScrollerDemoModule']);
+              });
+            })},
+            {path: 'datatable', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/datatable/datatabledemo.module')['DataTableDemoModule']);
+              });
+            })},
+            {path: 'dialog', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/dialog/dialogdemo.module')['DialogDemoModule']);
+              });
+            })},
+            {path: 'dragdrop', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/dragdrop/dragdropdemo.module')['DragDropDemoModule']);
+              });
+            })},
+            {path: 'dropdown', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/dropdown/dropdowndemo.module')['DropdownDemoModule']);
+              });
+            })},
+            {path: 'editor', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/editor/editordemo.module')['EditorDemoModule']);
+              });
+            })},
+            {path: 'fieldset', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/fieldset/fieldsetdemo.module')['FieldsetDemoModule']);
+              });
+            })},
+            {path: 'fileupload', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/fileupload/fileuploaddemo.module')['FileUploadDemoModule']);
+              });
+            })},
+            {path: 'galleria', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/galleria/galleriademo.module')['GalleriaDemoModule']);
+              });
+            })},
+            {path: 'gmap', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/gmap/gmapdemo.module')['GMapDemoModule']);
+              });
+            })},
+            {path: 'grid', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/grid/griddemo.module')['GridDemoModule']);
+              });
+            })},
+            {path: 'growl', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/growl/growldemo.module')['GrowlDemoModule']);
+              });
+            })},
+            {path: 'inplace', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/inplace/inplacedemo.module')['InplaceDemoModule']);
+              });
+            })},
+            {path: 'inputmask', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/inputmask/inputmaskdemo.module')['InputMaskDemoModule']);
+              });
+            })},
+            {path: 'inputswitch', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/inputswitch/inputswitchdemo.module')['InputSwitchDemoModule']);
+              });
+            })},
+            {path: 'inputtext', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/inputtext/inputtextdemo.module')['InputTextDemoModule']);
+              });
+            })},
+            {path: 'inputtextarea', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/inputtextarea/inputtextareademo.module')['InputTextareaDemoModule']);
+              });
+            })},
+            {path: 'lightbox', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/lightbox/lightboxdemo.module')['LightboxDemoModule']);
+              });
+            })},
+            {path: 'listbox', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/listbox/listboxdemo.module')['ListboxDemoModule']);
+              });
+            })},
+            {path: 'megamenu', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/megamenu/megamenudemo.module')['MegaMenuDemoModule']);
+              });
+            })},
+            {path: 'menu', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/menu/menudemo.module')['MenuDemoModule']);
+              });
+            })},
+            {path: 'menubar', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/menubar/menubardemo.module')['MenubarDemoModule']);
+              });
+            })},
+            {path: 'menumodel', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/menumodel/menumodeldemo.module')['MenuModelDemoModule']);
+              });
+            })},
+            {path: 'messages', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/messages/messagesdemo.module')['MessagesDemoModule']);
+              });
+            })},
+            {path: 'multiselect', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/multiselect/multiselectdemo.module')['MultiSelectDemoModule']);
+              });
+            })},
+            {path: 'orderlist', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/orderlist/orderlistdemo.module')['OrderListDemoModule']);
+              });
+            })},
+            {path: 'overlaypanel', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/overlaypanel/overlaypaneldemo.module')['OverlayPanelDemoModule']);
+              });
+            })},
+            {path: 'paginator', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/paginator/paginatordemo.module')['PaginatorDemoModule']);
+              });
+            })},
+            {path: 'panel', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/panel/paneldemo.module')['PanelDemoModule']);
+              });
+            })},
+            {path: 'panelmenu', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/panelmenu/panelmenudemo.module')['PanelMenuDemoModule']);
+              });
+            })},
+            {path: 'password', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/password/passworddemo.module')['PasswordDemoModule']);
+              });
+            })},
+            {path: 'picklist', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/picklist/picklistdemo.module')['PickListDemoModule']);
+              });
+            })},
+            {path: 'progressbar', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/progressbar/progressbardemo.module')['ProgressBarDemoModule']);
+              });
+            })},
+            {path: 'radiobutton', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/radiobutton/radiobuttondemo.module')['RadioButtonDemoModule']);
+              });
+            })},
+            {path: 'rating', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/rating/ratingdemo.module')['RatingDemoModule']);
+              });
+            })},
+            {path: 'responsive', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/responsive/responsivedemo.module')['ResponsiveDemoModule']);
+              });
+            })},
+            {path: 'schedule', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/schedule/scheduledemo.module')['ScheduleDemoModule']);
+              });
+            })},
+            {path: 'selectbutton', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/selectbutton/selectbuttondemo.module')['SelectButtonDemoModule']);
+              });
+            })},
+            {path: 'slidemenu', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/slidemenu/slidemenudemo.module')['SlideMenuDemoModule']);
+              });
+            })},
+            {path: 'slider', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/slider/sliderdemo.module')['SliderDemoModule']);
+              });
+            })},
+            {path: 'spinner', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/spinner/spinnerdemo.module')['SpinnerDemoModule']);
+              });
+            })},
+            {path: 'splitbutton', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/splitbutton/splitbuttondemo.module')['SplitButtonDemoModule']);
+              });
+            })},
+            {path: 'steps', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/steps/stepsdemo.module')['StepsDemoModule']);
+              });
+            })},
+            {path: 'tabmenu', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/tabmenu/tabmenudemo.module')['TabMenuDemoModule']);
+              });
+            })},
+            {path: 'tabview', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/tabview/tabviewdemo.module')['TabViewDemoModule']);
+              });
+            })},
+            {path: 'terminal', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/terminal/terminaldemo.module')['TerminalDemoModule']);
+              });
+            })},
+            {path: 'tieredmenu', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/tieredmenu/tieredmenudemo.module')['TieredMenuDemoModule']);
+              });
+            })},
+            {path: 'togglebutton', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/togglebutton/togglebuttondemo.module')['ToggleButtonDemoModule']);
+              });
+            })},
+            {path: 'toolbar', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/toolbar/toolbardemo.module')['ToolbarDemoModule']);
+              });
+            })},
+            {path: 'tooltip', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/tooltip/tooltipdemo.module')['TooltipDemoModule']);
+              });
+            })},
+            {path: 'tree', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/tree/treedemo.module')['TreeDemoModule']);
+              });
+            })},
+            {path: 'treetable', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/treetable/treetabledemo.module')['TreeTableDemoModule']);
+              });
+            })},
+            {path: 'tristatecheckbox', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/tristatecheckbox/tristatecheckboxdemo.module')['TriStateCheckboxDemoModule']);
+              });
+            })},
+            {path: 'validation', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/validation/validationdemo.module')['ValidationDemoModule']);
+              });
+            })}
         ])    
     ],
     exports: [RouterModule]
