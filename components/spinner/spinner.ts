@@ -50,6 +50,8 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     @Input() size: number;
 
     @Input() disabled: boolean;
+     
+    @Input() readonly: boolean;
     
     value: number;
     
