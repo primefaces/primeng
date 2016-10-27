@@ -80,7 +80,9 @@ export class AccordionTab {
 
     @ContentChild(Header) headerFacet;
     
-    protected animating: boolean;
+    public animating: boolean;
+    
+    public hover: boolean;
 
     constructor(protected accordion: Accordion) {
         this.accordion.addTab(this);
