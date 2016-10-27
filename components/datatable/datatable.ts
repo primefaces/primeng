@@ -384,6 +384,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     protected filteredValue: any[];
 
+    protected filtered: boolean = false;
+
     protected columns: Column[];
 
     protected columnsUpdated: boolean = false;
@@ -889,6 +891,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     onFilterKeyup(value, field, matchMode) {
+	this.filtered = false;
         if(this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
@@ -896,15 +899,19 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.filterTimeout = setTimeout(() => {
             this.filters[field] = {value: value, matchMode: matchMode};
             this.filter();
+            this.filtered = true;
             this.filterTimeout = null;
         }, this.filterDelay);
     }
 
     filter() {
-        this.first = 0;
+	if (!this.filtered)        
+		this.first = 0;
         
         if(this.lazy) {
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+		if (!this.filtered) {
+        	    this.onLazyLoad.emit(this.createLazyLoadMetadata());
+		}
         }
         else {
             this.filteredValue = [];
