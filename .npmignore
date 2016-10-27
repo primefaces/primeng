@@ -19,8 +19,10 @@ tsconfig.json
 webpack.config.js
 gulpfile.js
 
-# misc
+# aot
 aot
+
+# misc
 *.log
 prod
 

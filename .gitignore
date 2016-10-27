@@ -20,7 +20,10 @@ resources/images
 # type definition
 *.d.ts
 
-# misc 
+# aot
 aot
+components/**/*.metadata.json
+
+# misc 
 *.log
 .DS_STORE
