@@ -16,7 +16,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
         <span class="ui-spinner ui-widget ui-corner-all">
             <input #in pInputText type="text" class="ui-spinner-input"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.readonly]="readonly" [attr.disabled]="disabled"
-            (keydown)="onInputKeydown($event,in)" (input)="onInput($event)" (blur)="onBlur(in)" (change)="handleChange($event)">
+            (keydown)="onInputKeydown($event,in)" (input)="onInput($event,in)" (blur)="onBlur(in)" (change)="handleChange($event)">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp,'ui-state-disabled':disabled}"
                 (mouseenter)="onUpButtonMouseenter($event)" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
@@ -84,7 +84,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         }
     }
     
-    repeat(interval, dir, input) {
+    repeat(interval: number, dir: number, input: HTMLInputElement) {
         let i = interval||500;
 
         this.clearTimer();
@@ -95,10 +95,10 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         this.spin(dir, input);
     }
     
-    spin(dir: number,inputElement) {
+    spin(dir: number, inputElement: HTMLInputElement) {
         let step = this.step * dir;
         let currentValue = this.value||0;
-        let newValue = null;
+        let newValue: number = null;
         
         if(this.precision)
             this.value = parseFloat(this.toFixed(currentValue + step, this.precision));
@@ -117,7 +117,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
             this.value = this.max;
         }
         
-        inputElement.value = this.value;
+        inputElement.value = String(this.value);
         this.onModelChange(this.value);
     }
     
@@ -126,7 +126,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         return String(Math.round(value * power) / power);
     }
     
-    onUpButtonMousedown(event,input) {
+    onUpButtonMousedown(event: Event,input: HTMLInputElement) {
         if(!this.disabled) {
             input.focus();
             this.activeUp = true;
@@ -136,20 +136,20 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         }
     }
     
-    onUpButtonMouseup(event) {
+    onUpButtonMouseup(event: Event) {
         if(!this.disabled) {
             this.activeUp = false;
             this.clearTimer();
         }        
     }
     
-    onUpButtonMouseenter(event) {
+    onUpButtonMouseenter(event: Event) {
         if(!this.disabled) {
             this.hoverUp = true;
         }
     }
     
-    onUpButtonMouseleave(event) {
+    onUpButtonMouseleave(event: Event) {
         if(!this.disabled) {
             this.hoverUp = false;
             this.activeUp = false;
@@ -157,7 +157,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         }
     }
     
-    onDownButtonMousedown(event,input) {
+    onDownButtonMousedown(event: Event, input: HTMLInputElement) {
         if(!this.disabled) {
             input.focus();
             this.activeDown = true;
@@ -167,20 +167,20 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         }
     }
     
-    onDownButtonMouseup(event) {
+    onDownButtonMouseup(event: Event) {
         if(!this.disabled) {
             this.activeDown = false;
             this.clearTimer();
         }
     }
     
-    onDownButtonMouseenter(event) {
+    onDownButtonMouseenter(event: Event) {
         if(!this.disabled) {
             this.hoverDown = true;
         }
     }
     
-    onDownButtonMouseleave(event) {
+    onDownButtonMouseleave(event: Event) {
         if(!this.disabled) {
             this.hoverDown = false;
             this.activeDown = false;
@@ -188,7 +188,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         }
     }
     
-    onInputKeydown(event,inputElement) {  
+    onInputKeydown(event: KeyboardEvent, inputElement: HTMLInputElement) {  
         if(event.which == 38) {
             this.spin(1,inputElement);
             event.preventDefault();
@@ -199,14 +199,14 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         }    
     }
     
-    onInput(event) {
-        this.value = this.parseValue(event.target.value);        
+    onInput(event: Event, inputElement: HTMLInputElement) {
+        this.value = this.parseValue(inputElement.value);        
         this.onModelChange(this.value);
     }
     
-    onBlur(inputElement) {
+    onBlur(inputElement: HTMLInputElement) {
         if(this.value !== undefined && this.value !== null) {
-            inputElement.value = this.value;
+            inputElement.value = String(this.value);
         }
         this.onModelTouched();
     }
@@ -239,7 +239,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         return value;
     }
     
-    handleChange(event) {
+    handleChange(event: Event) {
         this.onChange.emit(event);
     }
         

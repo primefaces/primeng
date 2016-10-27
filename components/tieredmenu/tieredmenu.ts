@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
             (click)="listClick($event)">
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
-                    (mouseenter)="onItemMouseEnter($event, item, child)" (mouseleave)="onItemMouseLeave($event, item)">
+                    (mouseenter)="onItemMouseEnter($event, item, child)" (mouseleave)="onItemMouseLeave($event)">
                     <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
                         [ngClass]="{'ui-state-hover':link==activeLink&&!child.disabled,'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
@@ -34,33 +34,33 @@ export class TieredMenuSub {
     
     constructor(protected domHandler: DomHandler, protected router: Router, protected location: Location) {}
     
-    activeItem: any;
+    activeItem: Element;
     
-    activeLink: any;
+    activeLink: Element;
             
-    onItemMouseEnter(event, item, menuitem: MenuItem) {
+    onItemMouseEnter(event: Event, item: HTMLElement, menuitem: MenuItem) {
         if(menuitem.disabled) {
             return;
         }
         
         this.activeItem = item;
         this.activeLink = item.children[0];
-        let nextElement =  item.children[0].nextElementSibling;
+        let nextElement:  HTMLElement =  <HTMLElement> item.children[0].nextElementSibling;
         if(nextElement) {
-            let sublist = nextElement.children[0];
-            sublist.style.zIndex = ++DomHandler.zindex;
+            let sublist:  HTMLElement = <HTMLElement> nextElement.children[0];
+            sublist.style.zIndex = String(++DomHandler.zindex);
                         
             sublist.style.top = '0px';
             sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
         }
     }
     
-    onItemMouseLeave(event, link) {
+    onItemMouseLeave(event: Event) {
         this.activeItem = null;
         this.activeLink = null;
     }
     
-    itemClick(event, item: MenuItem) {
+    itemClick(event: Event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return true;
@@ -87,7 +87,7 @@ export class TieredMenuSub {
         }
     }
     
-    listClick(event) {
+    listClick(event: Event) {
         this.activeItem = null;
         this.activeLink = null;
     }
@@ -134,7 +134,7 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
         }
     }
     
-    toggle(event) {
+    toggle(event: Event) {
         if(this.container.offsetParent)
             this.hide();
         else
@@ -143,7 +143,7 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
         this.preventDocumentDefault = true;
     }
     
-    show(event) {
+    show(event: Event) {
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, event.target);
         this.domHandler.fadeIn(this.container, 250);

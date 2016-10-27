@@ -21,28 +21,28 @@ export class Tooltip implements OnDestroy {
     constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
         
     @HostListener('mouseenter', ['$event']) 
-    onMouseEnter(e) {
+    onMouseEnter(e: Event) {
         if(this.tooltipEvent === 'hover') {
             this.show();
         }
     }
     
     @HostListener('mouseleave', ['$event']) 
-    onMouseLeave(e) {
+    onMouseLeave(e: Event) {
         if(this.tooltipEvent === 'hover') {
             this.hide();
         }
     }
     
     @HostListener('focus', ['$event']) 
-    onFocus(e) {
+    onFocus(e: Event) {
         if(this.tooltipEvent === 'focus') {
             this.show();
         }
     }
     
     @HostListener('blur', ['$event']) 
-    onBlur(e) {
+    onBlur(e: Event) {
         if(this.tooltipEvent === 'focus') {
             this.hide();
         }
@@ -53,8 +53,8 @@ export class Tooltip implements OnDestroy {
         let rect = this.el.nativeElement.getBoundingClientRect();
         let targetTop = rect.top + document.body.scrollTop;
         let targetLeft = rect.left + document.body.scrollLeft;
-        let left;
-        let top;
+        let left: number;
+        let top: number;
         
         this.container.style.display = 'block';
 

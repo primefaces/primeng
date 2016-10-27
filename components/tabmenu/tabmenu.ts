@@ -46,7 +46,7 @@ export class TabMenu implements OnDestroy {
         }
     }
     
-    itemClick(event, item: MenuItem) {
+    itemClick(event: Event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;

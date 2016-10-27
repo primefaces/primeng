@@ -36,7 +36,7 @@ export class Steps {
     
     constructor(protected router: Router) {}
     
-    itemClick(event, item: MenuItem, i: number) {
+    itemClick(event: Event, item: MenuItem, i: number) {
         if(this.readonly) {
             return;
         }
