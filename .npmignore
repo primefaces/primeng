@@ -14,10 +14,6 @@ upload.php
 .git
 .gitignore
 
-# type definition
-typings
-typings.json
-
 # config
 tsconfig.json
 webpack.config.js

@@ -18,7 +18,6 @@ resources/*.css
 resources/images
 
 # type definition
-typings
 *.d.ts
 
 # misc 
