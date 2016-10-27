@@ -18,7 +18,7 @@ export class Tooltip implements OnDestroy {
         
     container: any;
         
-    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
         
     @HostListener('mouseenter', ['$event']) 
     onMouseEnter(e: Event) {

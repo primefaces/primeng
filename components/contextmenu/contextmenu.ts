@@ -32,7 +32,7 @@ export class ContextMenuSub {
     
     @Input() root: boolean;
     
-    constructor(protected domHandler: DomHandler, protected router: Router) {}
+    constructor(public domHandler: DomHandler, public router: Router) {}
     
     activeItem: any;
     
@@ -125,7 +125,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     documentRightClickListener: any;
         
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];

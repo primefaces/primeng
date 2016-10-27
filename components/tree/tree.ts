@@ -14,7 +14,7 @@ export class TreeNodeTemplateLoader implements OnInit {
     
     @Input() template: TemplateRef<any>;
         
-    constructor(protected viewContainer: ViewContainerRef) {}
+    constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.template, {
@@ -102,7 +102,7 @@ export class UITreeNode {
         
     hover: boolean = false;
         
-    constructor(@Inject(forwardRef(() => Tree)) protected tree:Tree) {}
+    constructor(@Inject(forwardRef(() => Tree)) public tree:Tree) {}
         
     getIcon() {
         let icon: string;
@@ -186,7 +186,7 @@ export class Tree implements AfterContentInit {
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    protected templateMap: any;
+    public templateMap: any;
     
     get horizontal(): boolean {
         return this.layout == 'horizontal';

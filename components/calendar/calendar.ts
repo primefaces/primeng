@@ -228,7 +228,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     yearOptions: number[];
 
-    constructor(protected el: ElementRef, protected domHandler: DomHandler,protected renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
     ngOnInit() {
         let today = new Date();

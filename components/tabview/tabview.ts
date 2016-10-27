@@ -79,7 +79,7 @@ export class TabView implements AfterContentInit,BlockableUI {
     
     tabs: TabPanel[];
 
-    constructor(protected el: ElementRef) {}
+    constructor(public el: ElementRef) {}
     
     ngAfterContentInit() {
         this.initTabs();

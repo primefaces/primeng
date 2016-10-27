@@ -34,7 +34,7 @@ export class Steps {
     
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
     
-    constructor(protected router: Router) {}
+    constructor(public router: Router) {}
     
     itemClick(event: Event, item: MenuItem, i: number) {
         if(this.readonly) {

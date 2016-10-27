@@ -23,9 +23,9 @@ export class Draggable {
     
     @Output() onDrag: EventEmitter<any> = new EventEmitter();
     
-    protected handle: any;
+    public handle: any;
         
-    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
     @HostListener('dragstart', ['$event']) 
     dragStart(event) {
@@ -89,7 +89,7 @@ export class Droppable {
     
     @Output() onDragOver: EventEmitter<any> = new EventEmitter();
 
-    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
             
     @HostListener('drop', ['$event'])
     drop(event) {

@@ -53,9 +53,9 @@ export class Panel implements BlockableUI {
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
     
-    protected hoverToggler: boolean;
+    public hoverToggler: boolean;
     
-    protected animating: boolean;
+    public animating: boolean;
     
     constructor(private el: ElementRef) {}
     

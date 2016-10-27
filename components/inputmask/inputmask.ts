@@ -107,7 +107,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     androidChrome: boolean;
             
-    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
         
     ngAfterViewInit() {
         this.input = this.el.nativeElement.children[0];

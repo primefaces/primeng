@@ -26,7 +26,7 @@ export class Accordion implements BlockableUI {
     
     public tabs: AccordionTab[] = [];
 
-    constructor(protected el: ElementRef) {}
+    constructor(public el: ElementRef) {}
 
     addTab(tab: AccordionTab) {
         this.tabs.push(tab);
@@ -84,7 +84,7 @@ export class AccordionTab {
     
     public hover: boolean;
 
-    constructor(protected accordion: Accordion) {
+    constructor(public accordion: Accordion) {
         this.accordion.addTab(this);
     }
 

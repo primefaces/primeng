@@ -78,7 +78,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer, differs: IterableDiffers) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
         
@@ -98,27 +98,27 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     differ: any;
     
-    protected panelVisible: boolean = false;
+    public panelVisible: boolean = false;
     
-    protected documentClickListener: any;
+    public documentClickListener: any;
     
-    protected optionsChanged: boolean;
+    public optionsChanged: boolean;
         
-    protected panel: any;
+    public panel: any;
     
-    protected container: any;
+    public container: any;
     
-    protected itemsWrapper: any;
+    public itemsWrapper: any;
     
-    protected initialized: boolean;
+    public initialized: boolean;
     
-    protected selfClick: boolean;
+    public selfClick: boolean;
     
-    protected itemClick: boolean;
+    public itemClick: boolean;
     
-    protected hoveredItem: any;
+    public hoveredItem: any;
     
-    protected selectedOptionUpdated: boolean;
+    public selectedOptionUpdated: boolean;
             
     ngOnInit() {
         this.optionsToDisplay = this.options;

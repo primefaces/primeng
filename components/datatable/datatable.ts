@@ -32,6 +32,8 @@ export class DTRadioButton {
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
+    public hover: boolean;
+    
     handleClick(event) {
         this.onClick.emit(event);
     }
@@ -60,6 +62,8 @@ export class DTCheckbox {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
+    public hover: boolean;
+    
     handleClick(event) {
         if(!this.disabled) {
             this.onChange.emit({originalEvent: event, checked: !this.checked});
@@ -78,7 +82,7 @@ export class RowExpansionLoader {
     
     @Input() rowData: any;
     
-    constructor(protected viewContainer: ViewContainerRef) {}
+    constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.template, {
@@ -372,59 +376,59 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @ContentChild(FooterColumnGroup) footerColumnGroup: FooterColumnGroup;
     
-    protected dataToRender: any[];
+    public dataToRender: any[];
 
-    protected first: number = 0;
+    public first: number = 0;
 
-    protected page: number = 0;
+    public page: number = 0;
 
-    protected filterTimeout: any;
+    public filterTimeout: any;
 
-    protected filters: {[s: string]: FilterMetadata;} = {};
+    public filters: {[s: string]: FilterMetadata;} = {};
 
-    protected filteredValue: any[];
+    public filteredValue: any[];
 
-    protected columns: Column[];
+    public columns: Column[];
 
-    protected columnsUpdated: boolean = false;
+    public columnsUpdated: boolean = false;
     
-    protected stopSortPropagation: boolean;
+    public stopSortPropagation: boolean;
     
-    protected sortColumn: Column;
+    public sortColumn: Column;
     
-    protected percentageScrollHeight: boolean;
+    public percentageScrollHeight: boolean;
         
-    protected scrollBody: any;
+    public scrollBody: any;
     
-    protected scrollHeader: any
+    public scrollHeader: any
     
-    protected scrollHeaderBox: any;
+    public scrollHeaderBox: any;
     
-    protected bodyScrollListener: any;
+    public bodyScrollListener: any;
     
-    protected headerScrollListener: any;
+    public headerScrollListener: any;
     
-    protected resizeScrollListener: any;
+    public resizeScrollListener: any;
     
-    protected columnResizing: boolean;
+    public columnResizing: boolean;
     
-    protected lastPageX: number;
+    public lastPageX: number;
         
-    protected documentColumnResizeListener: any;
+    public documentColumnResizeListener: any;
     
-    protected documentColumnResizeEndListener: any;
+    public documentColumnResizeEndListener: any;
     
-    protected resizerHelper: any;
+    public resizerHelper: any;
     
-    protected resizeColumn: any;
+    public resizeColumn: any;
     
-    protected reorderIndicatorUp: any;
+    public reorderIndicatorUp: any;
     
-    protected reorderIndicatorDown: any;
+    public reorderIndicatorDown: any;
     
-    protected draggedColumn: any;
+    public draggedColumn: any;
             
-    protected tbody: any;
+    public tbody: any;
 
     differ: any;
 
@@ -434,8 +438,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     columnsSubscription: Subscription;
 
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, differs: IterableDiffers, 
-            protected renderer: Renderer, private changeDetector: ChangeDetectorRef) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, 
+            public renderer: Renderer, private changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
     }
 

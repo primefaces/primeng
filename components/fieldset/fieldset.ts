@@ -48,9 +48,9 @@ export class Fieldset implements BlockableUI {
         
     @Input() styleClass: string
     
-    protected hover: boolean;
+    public hover: boolean;
     
-    protected animating: boolean;
+    public animating: boolean;
     
     constructor(private el: ElementRef) {}
     

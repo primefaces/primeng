@@ -18,7 +18,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     
     _mask: HTMLDivElement;
     
-    constructor(protected el: ElementRef,protected domHandler: DomHandler) {}
+    constructor(public el: ElementRef,public domHandler: DomHandler) {}
     
     @Input() get blocked(): boolean {
         return this._blocked;

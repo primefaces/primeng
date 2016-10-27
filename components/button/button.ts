@@ -18,17 +18,17 @@ export class Button implements AfterViewInit, OnDestroy {
 
     @Input() iconPos: string = 'left';
         
-    protected _label: string;
+    public _label: string;
     
-    protected hover: boolean;
+    public hover: boolean;
     
-    protected focus: boolean;
+    public focus: boolean;
     
-    protected active: boolean;
+    public active: boolean;
     
-    protected initialized: boolean;
+    public initialized: boolean;
 
-    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
     ngAfterViewInit() {
         this.domHandler.addMultipleClasses(this.el.nativeElement, this.getStyleClass());

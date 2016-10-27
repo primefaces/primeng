@@ -32,7 +32,7 @@ export class TieredMenuSub {
     
     @Input() root: boolean;
     
-    constructor(protected domHandler: DomHandler, protected router: Router, protected location: Location) {}
+    constructor(public domHandler: DomHandler, public router: Router, public location: Location) {}
     
     activeItem: Element;
     
@@ -119,7 +119,7 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     
     preventDocumentDefault: any;
     
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];

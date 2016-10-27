@@ -57,15 +57,15 @@ export class DataGrid implements AfterViewInit,DoCheck,BlockableUI {
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
-    protected dataToRender: any[];
+    public dataToRender: any[];
 
-    protected first: number = 0;
+    public first: number = 0;
     
-    protected page: number = 0;
+    public page: number = 0;
 
     differ: any;
     
-    constructor(protected el: ElementRef, differs: IterableDiffers) {
+    constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
 

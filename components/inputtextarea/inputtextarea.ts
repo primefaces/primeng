@@ -31,7 +31,7 @@ export class InputTextarea implements OnInit {
     
     colsDefault: number;
         
-    constructor(protected el: ElementRef) {}
+    constructor(public el: ElementRef) {}
     
     ngOnInit() {
         this.rowsDefault = this.rows;
