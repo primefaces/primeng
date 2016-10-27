@@ -1,6 +1,7 @@
 import {NgModule,Component,Input,AfterContentInit,Output,EventEmitter,OnInit,ViewContainerRef,ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
+import {SharedModule} from '../common/shared';
 import {PrimeTemplate} from '../common/shared';
 
 @Component({
@@ -334,7 +335,7 @@ export class Tree implements AfterContentInit {
 }
 @NgModule({
     imports: [CommonModule],
-    exports: [Tree],
+    exports: [Tree,SharedModule],
     declarations: [Tree,UITreeNode,TreeNodeTemplateLoader]
 })
 export class TreeModule { }
