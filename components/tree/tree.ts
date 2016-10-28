@@ -42,7 +42,7 @@ export class TreeNodeTemplateLoader implements OnInit {
                             </span>
                     </span>
                 </div>
-                <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children" [style.display]="node.expanded ? 'block' : 'none'">
+                <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children&&node.expanded" [style.display]="node.expanded ? 'block' : 'none'">
                     <p-treeNode *ngFor="let childNode of node.children" [node]="childNode"></p-treeNode>
                 </ul>
             </li>
@@ -76,7 +76,7 @@ export class TreeNodeTemplateLoader implements OnInit {
                                 </span>
                             </div>
                         </td>
-                        <td class="ui-treenode-children-container" *ngIf="node.children" [style.display]="node.expanded ? 'table-cell' : 'none'">
+                        <td class="ui-treenode-children-container" *ngIf="node.children&&node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
                             <div class="ui-treenode-children">
                                 <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last;" [node]="childNode" 
                                         [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
