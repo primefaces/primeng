@@ -219,10 +219,15 @@ export class DomHandler {
 
         if(margin) {
             let style = getComputedStyle(el);
-            width += parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+            width += parseInt(style.marginLeft) + parseInt(style.marginRight);
         }
         
         return width;
+    }
+    
+    public getHorizontalPadding(el) {
+        let style = getComputedStyle(el);
+        return parseInt(style.paddingLeft) + parseInt(style.paddingRight); 
     }
     
     public getHorizontalMargin(el) {
