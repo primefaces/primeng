@@ -298,8 +298,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     createMonth(month: number, year: number) {
         this.dates = [];
-        this.currentMonthText = this.locale.monthNames[month];
+        this.currentMonth = month;
         this.currentYear = year;
+        this.currentMonthText = this.locale.monthNames[month];
         let firstDay = this.getFirstDayOfMonthIndex(month, year);
         let daysLength = this.getDaysCountInMonth(month, year);
         let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
@@ -397,19 +398,24 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     updateInputfield() {
         if(this.inputfield) {
-            let formattedValue;
-            
-            if(this.timeOnly) {
-                formattedValue = this.formatTime(this.value);
+            if(this.value) {
+                let formattedValue;
+                
+                if(this.timeOnly) {
+                    formattedValue = this.formatTime(this.value);
+                }
+                else {
+                    formattedValue = this.formatDate(this.value, this.dateFormat);
+                    if(this.showTime) {
+                        formattedValue += ' ' + this.formatTime(this.value);
+                    }
+                }
+                
+                this.inputfield.value = formattedValue;
             }
             else {
-                formattedValue = this.formatDate(this.value, this.dateFormat);
-                if(this.showTime) {
-                    formattedValue += ' ' + this.formatTime(this.value);
-                }
+                this.inputfield.value = '';
             }
-            
-            this.inputfield.value = formattedValue;
         }
     }
     
@@ -693,11 +699,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     updateUI() {
-        this.createMonth(this.value.getMonth(), this.value.getFullYear());
+        let val = this.value||this.defaultDate||new Date();
+        this.createMonth(val.getMonth(), val.getFullYear());
         
         if(this.showTime||this.timeOnly) {
-            this.currentHour = this.value.getHours();
-            this.currentMinute = this.value.getMinutes();
+            this.currentHour = val.getHours();
+            this.currentMinute = val.getMinutes();
         }
     }
     
@@ -718,10 +725,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     writeValue(value: any) : void {
         this.value = value;
         
-        if(this.inputfield && value != null) {
-            this.inputfield.value = this.formatDate(this.value, this.dateFormat);
-            this.updateUI();
-        }
+        this.updateInputfield();
+        this.updateUI();
     }
     
     registerOnChange(fn: Function): void {
