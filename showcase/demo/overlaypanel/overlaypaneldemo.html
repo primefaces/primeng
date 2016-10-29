@@ -188,7 +188,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
                         <tr>
                             <td>toggle</td>
                             <td>event: browser event <br>
-                                target?: target element to align the panel to
+                                target?: target element to align the panel, defaults to event.target
                             </td>
                             <td>Toggles the visibility of the panel.</td>
                         </tr>
@@ -203,6 +203,13 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
                             <td>hide</td>
                             <td>-</td>
                             <td>Hides the panel.</td>
+                        </tr>
+                        <tr>
+                            <td>refreshPosition</td>
+                            <td>event: browser event <br>
+                                target?: target element to align the panel, defaults to event.target
+                            </td>
+                            <td>Recalculates the position the panel.</td>
                         </tr>
                     </tbody>
                 </table>
