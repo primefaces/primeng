@@ -71,14 +71,15 @@ export class DomHandler {
         let targetHeight = target.offsetHeight;
         let targetWidth = target.offsetWidth;
         let targetOffset = target.getBoundingClientRect();
+        let viewport = this.getViewport();
         let top, left;
 
-        if((targetOffset.top + targetHeight + elementDimensions.height) > window.innerHeight)
+        if((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height)
             top = -1* (elementDimensions.height);
         else
             top = targetHeight;
 
-        if((targetOffset.left + elementDimensions.width) > window.innerWidth)
+        if((targetOffset.left + elementDimensions.width) > viewport.width)
             left = targetWidth - elementDimensions.width;
         else
             left = 0;
@@ -96,14 +97,15 @@ export class DomHandler {
         let targetOffset = target.getBoundingClientRect();
         let windowScrollTop = this.getWindowScrollTop();
         let windowScrollLeft = this.getWindowScrollLeft();
+        let viewport = this.getViewport();
         let top,left;
 
-        if(targetOffset.top + targetOuterHeight + elementOuterHeight > window.innerHeight)
+        if(targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height)
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
         else
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
             
-        if(targetOffset.left + targetOuterWidth + elementOuterWidth > window.innerWidth)
+        if(targetOffset.left + targetOuterWidth + elementOuterWidth > viewport.width)
             left = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;
         else
             left = targetOffset.left + windowScrollLeft;
