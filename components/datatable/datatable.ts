@@ -1034,8 +1034,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 return false;
             }
 
-            let filterValue = filter.toLowerCase();
-            return value.indexOf(filterValue, value.length - filterValue.length) !== -1;
+            let filterValue = filter.toString().toLowerCase();
+            return value.toString().toLowerCase().indexOf(filterValue, value.toString().length - filterValue.length) !== -1;
         }
     }
 
