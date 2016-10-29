@@ -122,6 +122,14 @@ export class OverlayPanel implements OnInit,AfterViewInit,OnDestroy {
         }
     }
     
+    refreshPosition(event, target?) {
+        if(this.visible) {
+            let elementTarget = target||event.currentTarget||event.target;
+            let container = this.el.nativeElement.children[0];
+            this.domHandler.absolutePosition(container, elementTarget);
+        }
+    }
+    
     onPanelClick() {
         if(this.dismissable) {
             this.selfClick = true;
