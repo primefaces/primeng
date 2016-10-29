@@ -102,7 +102,7 @@ export class RowExpansionLoader {
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
                 (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
-                <table>
+                <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead>
                         <tr *ngIf="!headerColumnGroup" class="ui-state-default">
                             <th #headerCell *ngFor="let col of columns;let lastCol = last" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
@@ -201,7 +201,7 @@ export class RowExpansionLoader {
             </div>
             <div class="ui-widget-header ui-datatable-scrollable-header" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
                 <div class="ui-datatable-scrollable-header-box">
-                    <table>
+                    <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                         <thead>
                             <tr>
                                 <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
@@ -222,7 +222,7 @@ export class RowExpansionLoader {
                 </div>
             </div>
             <div class="ui-datatable-scrollable-body" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
-                <table>
+                <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
@@ -328,6 +328,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    @Input() tableStyle: any;
+
+    @Input() tableStyleClass: string;
 
     @Input() globalFilter: any;
 
