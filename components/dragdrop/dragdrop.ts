@@ -77,7 +77,7 @@ export class Draggable {
 })
 export class Droppable {
     
-    @Input('pDroppable') scope: string;
+    @Input('pDroppable') scope: string|string[];
         
     @Input() dropEffect: string;
         
@@ -124,17 +124,22 @@ export class Droppable {
     }
     
     allowDrop(event): boolean {
-        let allow = false;
         let types = event.dataTransfer.types;
         if(types && types.length) {
             for(let i = 0; i < types.length; i++) {
-                if(types[i] == this.scope) {
-                    allow = true;
-                    break;
+                if(typeof (this.scope) == "string" && types[i] == this.scope) {
+                    return true;
+                }
+                else if(this.scope instanceof Array) {
+                    for(let j = 0; j < this.scope.length; j++) {
+                        if(types[i] == this.scope[j]) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
-        return allow;
+        return false;
     }
 }
 
