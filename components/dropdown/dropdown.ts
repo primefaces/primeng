@@ -57,6 +57,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     @Input() options: SelectItem[];
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+  
+    @Output() fieldFocus: EventEmitter<any> = new EventEmitter();
+  
+    @Output() fieldBlur: EventEmitter<any> = new EventEmitter();
 
     @Input() scrollHeight: string = '200px';
 
@@ -262,6 +266,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     onEditableInputFocus(event) {
         this.focus = true;
+        this.fieldFocus.emit(event);
         this.hide();
     }
     
@@ -290,11 +295,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     onFocus(event) {
         this.focus = true;
+        this.fieldFocus.emit(event)
     }
     
     onBlur(event) {
         this.focus = false;
         this.onModelTouched();
+        this.fieldBlur.emit(event);
     }
     
     onKeydown(event) {
