@@ -23,7 +23,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
-                <input #in type="text" readonly (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeydown($event)">
+                <input #in type="text" readonly (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeydown($event)">
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
             <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [value]="label"
@@ -56,8 +56,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
 
     @Input() options: SelectItem[];
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-
     @Input() scrollHeight: string = '200px';
 
     @Input() filter: boolean;
@@ -75,6 +73,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     @Input() editable: boolean;
     
     @Input() appendTo: any;
+    
+    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
@@ -288,13 +292,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         this.panelVisible = false;
     }
     
-    onFocus(event) {
+    onInputFocus(event) {
         this.focus = true;
+        this.onFocus.emit(event);
     }
     
-    onBlur(event) {
+    onInputBlur(event) {
         this.focus = false;
         this.onModelTouched();
+        this.onBlur.emit(event);
     }
     
     onKeydown(event) {
