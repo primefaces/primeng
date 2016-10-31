@@ -220,13 +220,15 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }
     }
     
-    tryFireCompleted() {
+    isCompleted(): boolean {
+        let completed: boolean;
         for (let i = this.firstNonMaskPos; i <= this.lastRequiredNonMaskPos; i++) {
             if (this.tests[i] && this.buffer[i] === this.getPlaceholder(i)) {
-                return;
+                return false;
             }
         }
-        this.onComplete.emit();
+        
+        return true;
     }
     
     getPlaceholder(i: number) {
@@ -308,7 +310,9 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             this.caret(pos.begin,pos.begin);
         }
 
-        this.tryFireCompleted();
+        if(this.isCompleted()) {
+            this.onComplete.emit();
+        }
     }
     
     onBlur(e) {
@@ -372,7 +376,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             pos = this.caret(),
             p,
             c,
-            next;
+            next,
+            completed;
 
         if (e.ctrlKey || e.altKey || e.metaKey || k < 32) {//Ignore
             return;
@@ -403,7 +408,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
                         this.caret(next);
                     }
                     if(pos.begin <= this.lastRequiredNonMaskPos){
-                         this.tryFireCompleted();
+                         completed = this.isCompleted();
                      }
                 }
             }
@@ -411,6 +416,10 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }
         
         this.updateModel(e);
+        
+        if(completed) {
+            this.onComplete.emit();
+        }
     }
     
     clearBuffer(start, end) {
