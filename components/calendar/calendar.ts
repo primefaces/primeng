@@ -594,14 +594,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             this.currentHour = this.currentHour % parseInt(this.hourFormat);
         }
 
-
         this.updateTime();
 
         event.preventDefault();
     }
     
     incrementMinute(event) {
-
         this.currentMinute += this.stepMinute;
         this.currentMinute = this.currentMinute % 60;
 
