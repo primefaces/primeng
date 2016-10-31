@@ -60,7 +60,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     @Input() placeholder: string;
     
-    @Input() readonly: number;
+    @Input() readonly: boolean;
         
     @Input() disabled: boolean;
     
