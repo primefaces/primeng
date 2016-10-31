@@ -512,7 +512,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }, 10);
     }
     
-    onInput(event) { 
+    onInput(event) {         
         if (this.androidChrome)
             this.handleAndroidInput(event);
         else
@@ -524,10 +524,13 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             return;
         }
 
-        setTimeout(function() {
-            var pos=this.checkVal(true);
+        setTimeout(() => {
+            var pos = this.checkVal(true);
             this.caret(pos);
-            this.tryFireCompleted();
+            this.updateModel(event);
+            if(this.isCompleted()) {
+                this.onComplete.emit();
+            }
         }, 0);
     }
     
