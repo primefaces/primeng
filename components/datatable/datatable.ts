@@ -641,7 +641,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     sortSingle() {
         if(this.value) {
-            if(this.sortColumn && this.sortColumn.sortable === 'custom') {
+			if (this.sortColumn && this.sortColumn.sortable === 'custom' || this.sortField && this.columns.find(col => col.field === this.sortField && col.sortable === 'custom') != null) {
                 this.sortColumn.sortFunction.emit({
                     field: this.sortField,
                     order: this.sortOrder
