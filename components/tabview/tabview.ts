@@ -1,5 +1,6 @@
 import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {BlockableUI} from '../common/api';
 
 @Component({
     selector: 'p-tabPanel',
@@ -58,7 +59,7 @@ export class TabPanel {
         </div>
     `,
 })
-export class TabView implements AfterContentInit {
+export class TabView implements AfterContentInit,BlockableUI {
 
     @Input() orientation: string = 'top';
     
@@ -66,17 +67,19 @@ export class TabView implements AfterContentInit {
     
     @Input() styleClass: string;
     
+    @Input() controlClose: boolean;
+    
     @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
-
+    
     initialized: boolean;
     
     tabs: TabPanel[];
 
-    constructor(protected el: ElementRef) {}
+    constructor(public el: ElementRef) {}
     
     ngAfterContentInit() {
         this.initTabs();
@@ -94,7 +97,7 @@ export class TabView implements AfterContentInit {
         }
     }
             
-    open(event, tab: TabPanel) {
+    open(event: Event, tab: TabPanel) {
         if(tab.disabled) {
             event.preventDefault();
             return;
@@ -111,7 +114,28 @@ export class TabView implements AfterContentInit {
         event.preventDefault();
     }
     
-    close(event, tab: TabPanel) {        
+    close(event: Event, tab: TabPanel) {  
+        if(this.controlClose) {
+            this.onClose.emit({
+                originalEvent: event, 
+                index: this.findTabIndex(tab),
+                close: () => {
+                    this.closeTab(tab);
+                }}
+            );
+        }
+        else {
+            this.closeTab(tab);
+            this.onClose.emit({
+                originalEvent: event, 
+                index: this.findTabIndex(tab)
+            });
+        }
+        
+        event.stopPropagation();
+    }
+    
+    closeTab(tab: TabPanel) {
         if(tab.selected) {
             tab.selected = false;
             for(let i = 0; i < this.tabs.length; i++) {
@@ -124,8 +148,6 @@ export class TabView implements AfterContentInit {
         }
         
         tab.closed = true;
-        this.onClose.emit({originalEvent: event, index: this.findTabIndex(tab)});
-        event.stopPropagation();
     }
     
     findSelectedTab() {
@@ -154,6 +176,10 @@ export class TabView implements AfterContentInit {
             styleClass = styleClass + " " + tab.headerStyleClass;
         }
         return styleClass;
+    }
+    
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
 }
 

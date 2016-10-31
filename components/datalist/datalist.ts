@@ -4,6 +4,7 @@ import {Header} from '../common/shared';
 import {Footer} from '../common/shared';
 import {SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
+import {BlockableUI} from '../common/api';
 
 @Component({
     selector: 'p-dataList',
@@ -29,7 +30,7 @@ import {PaginatorModule} from '../paginator/paginator';
         </div>
     `
 })
-export class DataList implements AfterViewInit,DoCheck {
+export class DataList implements AfterViewInit,DoCheck,BlockableUI {
 
     @Input() value: any[];
 
@@ -59,15 +60,15 @@ export class DataList implements AfterViewInit,DoCheck {
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
-    protected dataToRender: any[];
+    public dataToRender: any[];
 
-    protected first: number = 0;
+    public first: number = 0;
     
-    protected page: number = 0;
+    public page: number = 0;
 
     differ: any;
 
-    constructor(protected el: ElementRef, differs: IterableDiffers) {
+    constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
 
@@ -140,6 +141,10 @@ export class DataList implements AfterViewInit,DoCheck {
             first: this.first,
             rows: this.rows
         };
+    }
+    
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
 }
 

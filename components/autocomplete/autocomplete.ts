@@ -114,7 +114,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     highlightOptionChanged: boolean;
     
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, differs: IterableDiffers, protected renderer: Renderer) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer) {
         this.differ = differs.find([]).create(null);
     }
     

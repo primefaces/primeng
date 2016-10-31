@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
@@ -32,8 +32,8 @@ export class ContextMenuSub {
     
     @Input() root: boolean;
     
-    constructor(protected domHandler: DomHandler, protected router: Router) {}
-    
+    constructor(public domHandler: DomHandler, public router: Router, @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) {}
+        
     activeItem: any;
     
     activeLink: any;
@@ -49,9 +49,7 @@ export class ContextMenuSub {
         if(nextElement) {
             let sublist = nextElement.children[0];
             sublist.style.zIndex = ++DomHandler.zindex;
-                        
-            sublist.style.top = '0px';
-            sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+            this.position(sublist, item);
         }
     }
     
@@ -91,13 +89,18 @@ export class ContextMenuSub {
         this.activeItem = null;
         this.activeLink = null;
     }
+    
+    position(sublist, item) {
+        sublist.style.top = '0px';
+        sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+    }
 }
 
 @Component({
     selector: 'p-contextMenu',
     template: `
         <div [ngClass]="'ui-contextmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-dynamic ui-shadow'" 
-            [class]="styleClass" [ngStyle]="style" [style.display]="visible ? 'block' : 'none'" [style.left.px]="left" [style.top.px]="top">
+            [class]="styleClass" [ngStyle]="style" [style.display]="visible ? 'block' : 'none'">
             <p-contextMenuSub [item]="model" root="root"></p-contextMenuSub>
         </div>
     `,
@@ -114,18 +117,14 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     @Input() styleClass: string;
     
     visible: boolean;
-    
-    left: number;
-    
-    top: number;
-    
+        
     container: any;
     
     documentClickListener: any;
     
     documentRightClickListener: any;
         
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];
@@ -141,17 +140,9 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
             });
         }
     }
-    
-    toggle(event) {
-        if(this.container.offsetParent)
-            this.hide();
-        else
-            this.show(event);
-    }
-    
-    show(event) {
-        this.left = event.pageX;
-        this.top = event.pageY;
+        
+    show(event: MouseEvent) {
+        this.position(event);
         this.visible = true;
         this.domHandler.fadeIn(this.container, 250);
         event.preventDefault();
@@ -159,6 +150,24 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     hide() {
         this.visible = false;
+    }
+    
+    position(event: MouseEvent) {
+        let left = event.pageX;
+        let top = event.pageY;
+        let width = this.container.offsetParent ? this.container.offsetWidth: this.domHandler.getHiddenElementOuterWidth(this.container);
+        let height = this.container.offsetParent ? this.container.offsetHeight: this.domHandler.getHiddenElementOuterHeight(this.container);
+
+        if(left + width > window.innerWidth) {
+            left -= width;
+        }
+        
+        if(top + height > window.innerHeight) {
+            top -= height;
+        }
+    
+        this.container.style.left = left + 'px';
+        this.container.style.top = top + 'px';
     }
 
     unsubscribe(item: any) {

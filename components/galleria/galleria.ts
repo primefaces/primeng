@@ -64,29 +64,29 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     
     slideshowActive: boolean;
     
-    protected container: any;
+    public container: any;
     
-    protected panelWrapper: any;
+    public panelWrapper: any;
     
-    protected panels: any;
+    public panels: any;
     
-    protected caption: any;
+    public caption: any;
     
-    protected stripWrapper: any;
+    public stripWrapper: any;
     
-    protected strip: any;
+    public strip: any;
     
-    protected frames: any;
+    public frames: any;
     
-    protected interval: any;
+    public interval: any;
     
-    protected stripLeft: number = 0;
+    public stripLeft: number = 0;
     
-    protected imagesChanged: boolean;
+    public imagesChanged: boolean;
     
-    protected initialized: boolean;
+    public initialized: boolean;
 
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, differs: IterableDiffers) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
     

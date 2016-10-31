@@ -30,7 +30,7 @@ export class Breadcrumb implements OnDestroy {
 
     @Input() styleClass: string;
     
-    constructor(protected router: Router) {}
+    constructor(public router: Router) {}
     
     itemClick(event, item: MenuItem) {
         if(item.disabled) {

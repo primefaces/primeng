@@ -66,25 +66,25 @@ export class SplitButton implements OnInit,OnDestroy {
     
     @Input() disabled: boolean;
         
-    protected hoverDefaultBtn: boolean;
+    public hoverDefaultBtn: boolean;
     
-    protected focusDefaultBtn: boolean;
+    public focusDefaultBtn: boolean;
     
-    protected activeDefaultBtn: boolean;
+    public activeDefaultBtn: boolean;
     
-    protected hoverDropdown: boolean;
+    public hoverDropdown: boolean;
     
-    protected focusDropdown: boolean;
+    public focusDropdown: boolean;
     
-    protected activeDropdown: boolean;
+    public activeDropdown: boolean;
     
-    protected hoveredItem: any;
+    public hoveredItem: any;
     
-    protected menuVisible: boolean = false;
+    public menuVisible: boolean = false;
     
-    protected documentClickListener: any;
+    public documentClickListener: any;
 
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer, protected router: Router) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public router: Router) {}
     
     ngOnInit() {
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
@@ -92,11 +92,11 @@ export class SplitButton implements OnInit,OnDestroy {
         });
     }
     
-    onDefaultButtonClick(event) {
+    onDefaultButtonClick(event: Event) {
         this.onClick.emit(event);
     }
     
-    itemClick(event, item: MenuItem) {
+    itemClick(event: Event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;
@@ -122,7 +122,7 @@ export class SplitButton implements OnInit,OnDestroy {
         }
     }
     
-    onDropdownClick(event, menu, container) {
+    onDropdownClick(event: Event, menu: Element, container: Element) {
         this.menuVisible= !this.menuVisible;
         this.domHandler.relativePosition(menu, container);
         this.domHandler.fadeIn(menu,25);

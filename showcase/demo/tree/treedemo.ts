@@ -20,12 +20,15 @@ export class TreeDemo implements OnInit {
     filesTree4: TreeNode[];
     filesTree5: TreeNode[];
     filesTree6: TreeNode[];
+    filesTree7: TreeNode[];
     
     lazyFiles: TreeNode[];
     
     selectedFile: TreeNode;
     
     selectedFile2: TreeNode;
+    
+    selectedFile3: TreeNode;
     
     selectedFiles: TreeNode[];
     
@@ -40,6 +43,12 @@ export class TreeDemo implements OnInit {
         this.nodeService.getFiles().then(files => this.filesTree4 = files);
         this.nodeService.getFiles().then(files => this.filesTree5 = files);
         this.nodeService.getFiles().then(files => this.filesTree6 = files);
+        this.nodeService.getFiles().then(files => {
+            this.filesTree7 = [{
+                label: 'Root',
+                children: files
+            }];
+        });
 
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
         

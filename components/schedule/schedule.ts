@@ -1,6 +1,8 @@
 import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
+declare var jQuery: any;
+
 @Component({
     selector: 'p-schedule',
     template: `
@@ -111,7 +113,7 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
     
     schedule: any;
 
-    constructor(protected el: ElementRef, differs: IterableDiffers) {
+    constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
         this.initialized = false;
     }

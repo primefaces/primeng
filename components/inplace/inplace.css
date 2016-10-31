@@ -1,0 +1,10 @@
+.ui-inplace .ui-inplace-display {
+    display: inline;
+    cursor: pointer;
+    border: 0 none;
+    padding: 4px;
+}
+
+.ui-inplace .ui-inplace-content {
+    display: inline;
+}

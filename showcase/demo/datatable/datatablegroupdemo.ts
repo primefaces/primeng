@@ -7,10 +7,6 @@ export class DataTableGroupDemo implements OnInit {
 
     sales: any[];
 
-    headerRows: any[];
-    
-    footerRows: any[];
-
     ngOnInit() {
         this.sales = [
             {brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342'},
@@ -23,39 +19,6 @@ export class DataTableGroupDemo implements OnInit {
             {brand: 'Panasonic', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322'},
             {brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'},
             {brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'}
-        ];
-        
-        this.headerRows = [
-            {
-                columns: [
-                    {header: 'Brand', rowspan: 3},
-                    {header: 'Sale Rate', colspan: 4}
-                ]
-            },
-            {
-                columns: [
-                    {header: 'Brand', colspan: 2},
-                    {header: 'Sale Rate', colspan: 2}
-                ]
-            },
-            {
-                columns: [
-                    {header: 'Last Year'},
-                    {header: 'This Year'},
-                    {header: 'Last Year'},
-                    {header: 'This Year'}
-                ]
-            }
-        ];
-        
-        this.footerRows = [
-            {
-                columns: [
-                    {footer: 'Totals:', colspan: 3},
-                    {footer: '$506,202'},
-                    {footer: '$531,020'}
-                ]
-            }
         ];
     }
 }

@@ -20,7 +20,7 @@ export class InputText {
     
     focus: boolean;
     
-    constructor(protected el: ElementRef) {}
+    constructor(public el: ElementRef) {}
     
     @HostListener('mouseover', ['$event']) 
     onMouseover(e) {

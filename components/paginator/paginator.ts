@@ -46,11 +46,13 @@ export class Paginator {
     
     @Input() rowsPerPageOptions: number[];
 
-    pageLinks: number[];
+    public pageLinks: number[];
 
-    _totalRecords: number = 0;
+    public _totalRecords: number = 0;
     
-    _first: number = 0;
+    public _first: number = 0;
+    
+    public hoveredItem: Element;
 
     @Input() get totalRecords(): number {
         return this._totalRecords;

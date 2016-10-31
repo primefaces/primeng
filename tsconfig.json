@@ -4,6 +4,7 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "sourceMap": true,
+        "inlineSources": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "removeComments": false,
@@ -15,5 +16,8 @@
     "filesGlob" : [
         "**/*.ts",
         "!node_modules/**"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }

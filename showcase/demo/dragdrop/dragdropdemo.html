@@ -30,7 +30,7 @@
                 </ul>
             </div>
             <div class="ui-grid-col-6 ui-widget-content" pDroppable="cars" (onDrop)="drop($event)"
-                    [ngClass]="&#123;'ui-state-highlight':draggedCar&#125;">
+                    [ngClass]="{'ui-state-highlight':draggedCar}">
                 <p-dataTable [value]="selectedCars">
                     <p-column field="vin" header="Vin"></p-column>
                     <p-column field="year" header="Year"></p-column>
@@ -54,7 +54,7 @@ import &#123;DragDropModule&#125; from 'primeng/primeng';
 
             <h3>Getting Started</h3>
             <p>pDraggable and pDroppable are attached to a target element to add drag-drop behavior. The value of a Directive attribute is required 
-            and it defines the scope to match draggables with droppables.</p>
+            and it defines the scope to match draggables with droppables. Droppable scope can also be an array to accept multiple droppables.</p>
             
 <pre>
 <code class="language-markup" pCode>
