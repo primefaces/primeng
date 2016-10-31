@@ -174,6 +174,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() hourFormat: string = '24';
     
     @Input() timeOnly: boolean;
+
+    @Input() stepHour: number = 1;
+
+    @Input() stepMinute: number = 1;
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -574,18 +578,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     incrementHour(event) {
-        if(this.hourFormat == '24') {
-            if(this.currentHour === 23)
-                this.currentHour = 0;
-            else
-                this.currentHour++;            
-        }
-        else if(this.hourFormat == '12') {
-            if(this.currentHour === 12)
-                this.currentHour = 0;
-            else
-                this.currentHour++;
-        }
+        this.currentHour+=this.stepHour;
+        this.currentHour = this.currentHour % parseInt(this.hourFormat);
         
         this.updateTime();
                 
@@ -593,41 +587,37 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     decrementHour(event) {
-        if(this.hourFormat == '24') {
-            if(this.currentHour === 0)
-                this.currentHour = 23;
-            else
-                this.currentHour--;
+        this.currentHour -= this.stepHour;
+        if(this.currentHour < 0 ){
+            this.currentHour = parseInt(this.hourFormat) - Math.abs(this.currentHour) % parseInt(this.hourFormat);
+        }else{
+            this.currentHour = this.currentHour % parseInt(this.hourFormat);
         }
-        else if(this.hourFormat == '12') {
-            if(this.currentHour === 0)
-                this.currentHour = 12;
-            else
-                this.currentHour--;
-        }
-        
+
+
         this.updateTime();
 
         event.preventDefault();
     }
     
     incrementMinute(event) {
-        if(this.currentMinute === 59)
-            this.currentMinute = 0;
-        else
-            this.currentMinute++;
-            
+
+        this.currentMinute += this.stepMinute;
+        this.currentMinute = this.currentMinute % 60;
+
         this.updateTime();
                 
         event.preventDefault();
     }
     
     decrementMinute(event) {
-        if(this.currentMinute === 0)
-            this.currentMinute = 59;
-        else
-            this.currentMinute--;
-            
+        this.currentMinute -= this.stepMinute;
+        if(this.currentMinute < 0){
+            this.currentMinute = 60 - Math.abs(this.currentMinute) % 60;
+        }else{
+            this.currentMinute = this.currentMinute % 60;
+        }
+
         this.updateTime();
             
         event.preventDefault();
