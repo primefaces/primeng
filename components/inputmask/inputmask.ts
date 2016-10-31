@@ -74,6 +74,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     @Input() name: string;
     
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
+
+    @Output() blur: EventEmitter<any> = new EventEmitter();
         
     value: any;
     
@@ -324,7 +326,9 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             let event = document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
             this.input.dispatchEvent(event);
-        }    
+        }
+
+        this.blur.emit(e);    
     }
     
     onKeyDown(e) {
@@ -470,7 +474,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         if (allow) {
             this.writeBuffer();
         } else if (lastMatch + 1 < this.partialPosition) {
-            if (this.autoClear || this.buffer.join('') === this.defaultBuffer) {
+            if (this.autoClear && this.buffer.join('') === this.defaultBuffer) {
                 // Invalid value. Remove it and replace it with the
                 // mask, which is the default behavior.
                 if(this.input.value) this.input.value = '';
