@@ -404,7 +404,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     public columns: Column[];
 
-    public columnsUpdated: boolean = false;
+    public columnsChanged: boolean = false;
+    
+    public dataChanged: boolean = false;
     
     public stopSortPropagation: boolean;
     
@@ -480,7 +482,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     ngAfterViewChecked() {
-        if(this.columnsUpdated) {
+        if(this.columnsChanged) {
             if(this.resizableColumns) {
                 this.initResizableColumns();
             }
@@ -490,10 +492,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
 
             if(this.scrollable) {
-                this.initScrolling();
+                this.refreshScrolling();
             }
 
-            this.columnsUpdated = false;
+            this.columnsChanged = false;
+        }
+        
+        if(this.dataChanged) {
+            if(this.scrollable) {
+                this.refreshScrolling();
+            }
+            
+            this.dataChanged = false;
         }
     }
 
@@ -506,11 +516,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 }, this.filterDelay);
             });
         }
+        
+        if(this.scrollable) {
+            this.initScrolling();
+        }
     }
 
     ngDoCheck() {
         let changes = this.differ.diff(this.value);
         if(changes) {
+            this.dataChanged = true;
+            
             if(this.paginator) {
                 this.updatePaginator();
             }
@@ -533,7 +549,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     initColumns(): void {
         this.columns = this.cols.toArray();
-        this.columnsUpdated = true;
+        this.columnsChanged = true;
     }
 
     resolveFieldData(data: any, field: string): any {
@@ -1274,20 +1290,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.scrollHeaderBox = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box');
         this.scrollBody = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-body');
         this.percentageScrollHeight = this.scrollHeight && (this.scrollHeight.indexOf('%') !== -1);
-        let tableHeader = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-header');
-
-        if(this.scrollHeight) {
-            if(this.percentageScrollHeight) {
-                let relativeHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100);
-                let headerHeight = this.domHandler.getOuterHeight(tableHeader) + this.domHandler.getOuterHeight(this.scrollHeader);
-                this.scrollBody.style.maxHeight = (relativeHeight - headerHeight) + 'px';
-            }
-            else {
-                this.scrollBody.style.maxHeight = this.scrollHeight;
-            }
-
-            this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
-        }
         
         this.bodyScrollListener = this.renderer.listen(this.scrollBody, 'scroll', () => {
             this.scrollHeaderBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
@@ -1303,6 +1305,25 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
     }
+    
+    refreshScrolling() {
+        let tableHeader = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-header');
+        
+        if(this.scrollHeight) {
+            if(this.percentageScrollHeight) {
+                let relativeHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100);
+                let headerHeight = this.domHandler.getOuterHeight(tableHeader) + this.domHandler.getOuterHeight(this.scrollHeader);
+                this.scrollBody.style.maxHeight = (relativeHeight - headerHeight) + 'px';
+            }
+            else {
+                this.scrollBody.style.maxHeight = this.scrollHeight;
+            }
+
+            if(this.hasVerticalOverflow()) {
+                this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
+            }
+        }
+    }
         
     calculateScrollbarWidth(): number {
         let scrollDiv = document.createElement("div");
@@ -1313,6 +1334,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         document.body.removeChild(scrollDiv);
         
         return scrollbarWidth;
+    }
+    
+    hasVerticalOverflow(): boolean {
+        return this.scrollHeight && this.domHandler.getOuterHeight(this.scrollBody.children[0]) > this.domHandler.getOuterHeight(this.scrollBody);
     }
 
     hasFooter() {
