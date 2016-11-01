@@ -1265,13 +1265,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.scrollHeaderBox = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box');
         this.scrollBody = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-body');
         this.percentageScrollHeight = this.scrollHeight && (this.scrollHeight.indexOf('%') !== -1);
-        
+        let tableHeader = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-header');
+
         if(this.scrollHeight) {
-            if(this.percentageScrollHeight)
-                this.scrollBody.style.maxHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100) + 'px';
-            else
+            if(this.percentageScrollHeight) {
+                let relativeHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100);
+                let headerHeight = this.domHandler.getOuterHeight(tableHeader) + this.domHandler.getOuterHeight(this.scrollHeader);
+                this.scrollBody.style.maxHeight = (relativeHeight - headerHeight) + 'px';
+            }
+            else {
                 this.scrollBody.style.maxHeight = this.scrollHeight;
-                
+            }
+
             this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
         }
         
