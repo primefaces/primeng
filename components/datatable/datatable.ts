@@ -559,6 +559,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 let fields: string[] = field.split('.');
                 let value = data;
                 for(var i = 0, len = fields.length; i < len; ++i) {
+                    if (value === undefined){
+                        return null;
+                    }
                     value = value[fields[i]];
                 }
                 return value;
