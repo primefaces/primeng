@@ -395,7 +395,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.optionsToDisplay = [];
             for(let i = 0; i < this.options.length; i++) {
                 let option = this.options[i];
-                if(option.label.toLowerCase().startsWith(val)) {
+                if(option.label.toLowerCase().search(val) > -1) {
                     this.optionsToDisplay.push(option);
                 }
             }
