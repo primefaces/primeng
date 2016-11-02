@@ -15,7 +15,6 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.45",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
