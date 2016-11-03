@@ -123,6 +123,10 @@ export interface LocaleSettings {
             transition('hidden => visible', animate('400ms ease-out'))
         ])
     ],
+    host: {
+        '[class.ui-inputwrapper-filled]': 'filled',
+        '[class.ui-inputwrapper-focus]': 'focus'
+    },
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
@@ -227,6 +231,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     ticksTo1970: number;
     
     yearOptions: number[];
+    
+    focus: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
@@ -538,7 +544,14 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     onInputFocus(event) {
+        this.focus = true;
         this.showOverlay(event);
+    }
+    
+    onInputBlur(event) {
+        this.focus = false;
+        this.onBlur.emit(event);
+        this.onModelTouched();
     }
     
     onButtonClick(event) {
@@ -556,11 +569,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         if(event.keyCode === 9) {
             this.overlayVisible = false;
         }
-    }
-    
-    onInputBlur(event) {
-        this.onBlur.emit(event);
-        this.onModelTouched();
     }
     
     onMonthDropdownChange(m: string) {
@@ -1032,6 +1040,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
         return date;
+    }
+    
+    get filled(): boolean {
+        return this.inputfield != undefined && this.inputfield.value != '';
     }
         
     ngOnDestroy() {

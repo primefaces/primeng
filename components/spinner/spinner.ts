@@ -16,7 +16,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
         <span class="ui-spinner ui-widget ui-corner-all">
             <input #in pInputText type="text" class="ui-spinner-input"
             [attr.size]="size" [maxLength]="maxlength" [disabled]="disabled" [readonly]="readonly"
-            (keydown)="onInputKeydown($event,in)" (input)="onInput($event,in)" (blur)="onBlur(in)" (change)="handleChange($event)">
+            (keydown)="onInputKeydown($event,in)" (input)="onInput($event,in)" (blur)="onBlur(in)" (change)="handleChange($event)" (focus)="onFocus()">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp,'ui-state-disabled':disabled}"
                 (mouseenter)="onUpButtonMouseenter($event)" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
@@ -33,7 +33,11 @@ export const SPINNER_VALUE_ACCESSOR: any = {
             </a>
         </span>
     `,
-    providers: [DomHandler,SPINNER_VALUE_ACCESSOR]
+    host: {
+        '[class.ui-inputwrapper-filled]': 'filled',
+        '[class.ui-inputwrapper-focus]': 'focus'
+    },
+    providers: [DomHandler,SPINNER_VALUE_ACCESSOR],
 })
 export class Spinner implements AfterViewInit,ControlValueAccessor {
         
@@ -72,6 +76,8 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     public timer: any;
     
     public inputtext: any;
+    
+    public focus: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
@@ -211,6 +217,11 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
             inputElement.value = String(this.value);
         }
         this.onModelTouched();
+        this.focus = false;
+    }
+    
+    onFocus() {
+        this.focus = true;
     }
     
     parseValue(val: string): number {
@@ -269,6 +280,10 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+    }
+    
+    get filled(): boolean {
+        return this.inputtext && this.inputtext.value != '';
     }
 }
 

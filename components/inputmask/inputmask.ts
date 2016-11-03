@@ -43,6 +43,10 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [disabled]="disabled" [readonly]="readonly"
         (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)"
         (input)="onInput($event)" (paste)="handleInputChange($event)">`,
+    host: {
+        '[class.ui-inputwrapper-filled]': 'filled',
+        '[class.ui-inputwrapper-focus]': 'focus'
+    },
     providers: [INPUTMASK_VALUE_ACCESSOR,DomHandler]
 })
 export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
@@ -106,6 +110,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     caretTimeoutId: any;
     
     androidChrome: boolean;
+    
+    focus: boolean;
             
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
         
@@ -316,6 +322,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     }
     
     onBlur(e) {
+        this.focus = false;
         this.onModelTouched();
         this.checkVal();
         this.updateModel(e);
@@ -491,6 +498,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         if (this.readonly){
             return;
         }
+        
+        this.focus = true;
 
         clearTimeout(this.caretTimeoutId);
         let pos;
@@ -544,6 +553,10 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }
         
         return unmaskedBuffer.join('');
+    }
+    
+    get filled(): boolean {
+        return this.input && this.input.value != '';
     }
     
     updateModel(e) {
