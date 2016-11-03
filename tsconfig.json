@@ -10,7 +10,8 @@
         "removeComments": false,
         "noImplicitAny": false,
         "declaration": true,
-        "lib": ["dom","es6"]
+        "lib": ["dom","es6"],
+        "types": ["node"]
     },
     "compileOnSave": false,
     "buildOnSave": false,
