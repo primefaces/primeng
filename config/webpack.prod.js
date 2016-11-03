@@ -12,7 +12,10 @@ module.exports = webpackMerge(commonConfig, {
           beautify: false,
           mangle: {screw_ie8: true, keep_fnames: true},
           compress: {screw_ie8: true},
-          comments: false
+          comments: false,
+          compressor: {
+              warnings: false
+          } 
         }),
         new webpack.DefinePlugin({
             'process.env': {
