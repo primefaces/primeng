@@ -18,6 +18,7 @@ upload.php
 tsconfig.json
 tsconfig-aot.json
 webpack.config.js
+config
 gulpfile.js
 
 # aot
