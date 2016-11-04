@@ -7,15 +7,12 @@
 }
 
 .ui-messages-icon {
-    display:block;
-    float:left;
-    margin-top:-5px;
+    display:inline-block;
     padding:0;
-    position: relative;
+    vertical-align: middle;
 }
 
 .ui-messages-summary {
-    margin-left:10px;
     font-weight:bold;
 }
 
@@ -48,9 +45,11 @@
 }
 
 .ui-messages ul {
-    margin: 0 25px;
+    margin:0;
     padding:0;
     list-style-type:none;
+    display:inline-block;
+    vertical-align: middle;
 }
 
 .ui-messages.ui-messages-noicon ul {

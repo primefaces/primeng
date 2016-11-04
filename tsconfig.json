@@ -9,7 +9,9 @@
         "experimentalDecorators": true,
         "removeComments": false,
         "noImplicitAny": false,
-        "declaration": true
+        "declaration": true,
+        "lib": ["dom","es6"],
+        "types": ["node"]
     },
     "compileOnSave": false,
     "buildOnSave": false,

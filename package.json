@@ -1,13 +1,15 @@
 {
   "name": "primeng",
-  "version": "1.0.0-rc.1-SNAPSHOT",
+  "version": "1.0.0-rc.4-SNAPSHOT",
   "scripts": {
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "webpack": "webpack",
     "webpack:w": "webpack -w",
-    "webpack-dev-server": "webpack-dev-server",
-    "start": "npm run tsc && npm run webpack-dev-server"
+    "webpack-dev-server": "webpack-dev-server --inline",
+    "build-prod": "webpack --config config/webpack.prod.js",
+    "build-dev": "webpack --config config/webpack.dev.js",
+    "start": "npm run webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -15,7 +17,6 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.45",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
@@ -26,6 +27,8 @@
     "gulp-uglifycss": "^1.0.6",
     "ts-loader": "^0.9.5",
     "typescript": "^2.0.3",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-merge": "^0.14.0",
+    "webpack-dev-server": "^1.16.2"
   }
 }

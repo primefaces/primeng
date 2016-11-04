@@ -210,7 +210,10 @@ export class RowExpansionLoader {
                                     'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}"
                                     [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
                                     <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')"></span>
-                                    <span class="ui-column-title">{{col.header}}</span>
+                                    <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
+                                    <span class="ui-column-title" *ngIf="col.headerTemplate">
+                                        <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
+                                    </span>
                                     <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                          [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
                                     <input type="text" pInputText class="ui-column-filter" *ngIf="col.filter" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
@@ -401,7 +404,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     public columns: Column[];
 
-    public columnsUpdated: boolean = false;
+    public columnsChanged: boolean = false;
+    
+    public dataChanged: boolean = false;
     
     public stopSortPropagation: boolean;
     
@@ -477,7 +482,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     ngAfterViewChecked() {
-        if(this.columnsUpdated) {
+        if(this.columnsChanged) {
             if(this.resizableColumns) {
                 this.initResizableColumns();
             }
@@ -487,10 +492,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
 
             if(this.scrollable) {
-                this.initScrolling();
+                this.refreshScrolling();
             }
 
-            this.columnsUpdated = false;
+            this.columnsChanged = false;
+        }
+        
+        if(this.dataChanged) {
+            if(this.scrollable) {
+                this.refreshScrolling();
+            }
+            
+            this.dataChanged = false;
         }
     }
 
@@ -503,11 +516,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 }, this.filterDelay);
             });
         }
+        
+        if(this.scrollable) {
+            this.initScrolling();
+        }
     }
 
     ngDoCheck() {
         let changes = this.differ.diff(this.value);
         if(changes) {
+            this.dataChanged = true;
+            
             if(this.paginator) {
                 this.updatePaginator();
             }
@@ -521,16 +540,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 else if(this.sortMode == 'multiple')
                     this.sortMultiple();
             }
-            if(this.hasFilter()) {
-                this.filter();
-            }
+
             this.updateDataToRender(this.filteredValue||this.value);
         }
     }
     
     initColumns(): void {
         this.columns = this.cols.toArray();
-        this.columnsUpdated = true;
+        this.columnsChanged = true;
     }
 
     resolveFieldData(data: any, field: string): any {
@@ -653,7 +670,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     let value2 = this.resolveFieldData(data2, this.sortField);
                     let result = null;
 
-                    if (typeof value1 === 'string' && typeof value2 === 'string')
+                    if (value1 == null && value2 != null)
+                        result = -1;
+                    else if (value1 != null && value2 == null)
+                        result = 1;
+                    else if (value1 == null && value2 == null)
+                        result = 0;
+                    else if (typeof value1 === 'string' && typeof value2 === 'string')
                         result = value1.localeCompare(value2);
                     else
                         result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
@@ -1178,6 +1201,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     onColumnDragStart(event) {
+        if (this.columnResizing) {
+            event.preventDefault();
+            return;
+        }
+
         this.draggedColumn = this.findParentHeader(event.target);
         event.dataTransfer.setData('a', 'b'); // Firefox requires this to make dragging possible
     }
@@ -1266,15 +1294,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.scrollBody = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-body');
         this.percentageScrollHeight = this.scrollHeight && (this.scrollHeight.indexOf('%') !== -1);
         
-        if(this.scrollHeight) {
-            if(this.percentageScrollHeight)
-                this.scrollBody.style.maxHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100) + 'px';
-            else
-                this.scrollBody.style.maxHeight = this.scrollHeight;
-                
-            this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
-        }
-        
         this.bodyScrollListener = this.renderer.listen(this.scrollBody, 'scroll', () => {
             this.scrollHeaderBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
         });
@@ -1289,6 +1308,25 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
     }
+    
+    refreshScrolling() {
+        let tableHeader = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-header');
+        
+        if(this.scrollHeight) {
+            if(this.percentageScrollHeight) {
+                let relativeHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100);
+                let headerHeight = this.domHandler.getOuterHeight(tableHeader) + this.domHandler.getOuterHeight(this.scrollHeader);
+                this.scrollBody.style.maxHeight = (relativeHeight - headerHeight) + 'px';
+            }
+            else {
+                this.scrollBody.style.maxHeight = this.scrollHeight;
+            }
+
+            if(this.hasVerticalOverflow()) {
+                this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
+            }
+        }
+    }
         
     calculateScrollbarWidth(): number {
         let scrollDiv = document.createElement("div");
@@ -1299,6 +1337,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         document.body.removeChild(scrollDiv);
         
         return scrollbarWidth;
+    }
+    
+    hasVerticalOverflow(): boolean {
+        return this.scrollHeight && this.domHandler.getOuterHeight(this.scrollBody.children[0]) > this.domHandler.getOuterHeight(this.scrollBody);
     }
 
     hasFooter() {

@@ -29,7 +29,7 @@ export interface LocaleSettings {
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled}" 
-                [ngStyle]="{'display': inline ? true : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
+                [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly">
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (mouseenter)="hoverPrev=true" (mouseleave)="hoverPrev=false"
                             [ngClass]="{'ui-state-hover ui-datepicker-prev-hover':hoverPrev&&!disabled}">
@@ -123,6 +123,10 @@ export interface LocaleSettings {
             transition('hidden => visible', animate('400ms ease-out'))
         ])
     ],
+    host: {
+        '[class.ui-inputwrapper-filled]': 'filled',
+        '[class.ui-inputwrapper-focus]': 'focus'
+    },
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
@@ -227,6 +231,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     ticksTo1970: number;
     
     yearOptions: number[];
+    
+    focus: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
@@ -538,7 +544,14 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     onInputFocus(event) {
+        this.focus = true;
         this.showOverlay(event);
+    }
+    
+    onInputBlur(event) {
+        this.focus = false;
+        this.onBlur.emit(event);
+        this.onModelTouched();
     }
     
     onButtonClick(event) {
@@ -556,11 +569,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         if(event.keyCode === 9) {
             this.overlayVisible = false;
         }
-    }
-    
-    onInputBlur(event) {
-        this.onBlur.emit(event);
-        this.onModelTouched();
     }
     
     onMonthDropdownChange(m: string) {
@@ -1032,6 +1040,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
         return date;
+    }
+    
+    get filled(): boolean {
+        return this.inputfield != undefined && this.inputfield.value != '';
     }
         
     ngOnDestroy() {

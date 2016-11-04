@@ -395,7 +395,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.optionsToDisplay = [];
             for(let i = 0; i < this.options.length; i++) {
                 let option = this.options[i];
-                if(option.label.toLowerCase().startsWith(val)) {
+                if(option.label.toLowerCase().indexOf(val) > -1) {
                     this.optionsToDisplay.push(option);
                 }
             }
@@ -412,8 +412,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     ngOnDestroy() {
-        this.documentClickListener();
         this.initialized = false;
+        
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
         
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.container);
