@@ -121,6 +121,26 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
+            <p>If you'd like to control whether a tab can be closed, enable controlClose property which gives you the control
+            to decide at onClose event. In this case, the event gets a 3rd parameter called close callback and invoking this function
+            actually closes the tab.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-tabPanel header="Header Text" [closable]="true" [controlClose]="true" (onClose)="handleClose($event)"&gt;
+    Content 1
+&lt;/p-tabPanel&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+handleClose(e) &#123;
+   if(condition)
+       e.close();
+&#125;
+</code>
+</pre>
+
             <h3>Disabled</h3>
             <p>A tab can be disabled to prevent the content to be displayed by setting the disabled property on a panel.</p>
 <pre>
@@ -232,6 +252,12 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
                             <td>null</td>
                             <td>Style class of the tab header.</td>
                         </tr>
+                        <tr>
+                            <td>controlClose</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether tab close is controlled at onClose event or not.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -260,7 +286,8 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
                             <td>onClose</td>
                             <td>
                                 event.originalEvent: Click event <br>
-                                event.index: Index of the closed tab
+                                event.index: Index of the closed tab <br >
+                                event.close: Callback to actually close the tab, only available if controlClose is enabled.
                             </td>
                             <td>Callback to invoke on tab close.</td>
                         </tr>
@@ -272,7 +299,8 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
 &lt;p-tabView (onChange)="handleChange($event)"&gt;
 </code>
 </pre>
- <pre>
+
+<pre>
 <code class="language-typescript" pCode>
 handleChange(e) &#123;
     var index = e.index;

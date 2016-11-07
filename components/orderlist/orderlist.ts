@@ -58,7 +58,7 @@ export class OrderList implements AfterViewChecked {
         
     listContainer: any;
         
-    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
          
     ngAfterViewInit() {
         this.listContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-orderlist-list');

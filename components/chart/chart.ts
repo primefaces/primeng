@@ -31,7 +31,7 @@ export class UIChart implements AfterViewInit, OnDestroy, DoCheck {
 
     differ: any;
 
-    constructor(protected el: ElementRef, differs: IterableDiffers) {
+    constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
     }
 

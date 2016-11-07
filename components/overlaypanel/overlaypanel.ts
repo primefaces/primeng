@@ -50,7 +50,7 @@ export class OverlayPanel implements OnInit,AfterViewInit,OnDestroy {
     
     target: any;
 
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
     ngOnInit() {
         if(this.dismissable) {
@@ -121,7 +121,7 @@ export class OverlayPanel implements OnInit,AfterViewInit,OnDestroy {
             this.onAfterHide.emit(null);
         }
     }
-    
+        
     onPanelClick() {
         if(this.dismissable) {
             this.selfClick = true;

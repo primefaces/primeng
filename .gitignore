@@ -6,6 +6,8 @@ primeng.js
 components/**/*.js
 showcase/*.js
 showcase/demo/**/*.js
+showcase/setup/*.js
+showcase/theming/*.js
 *.map
 
 # production showcase bundle
@@ -16,9 +18,11 @@ resources/*.css
 resources/images
 
 # type definition
-typings
 *.d.ts
-!showcase/resources/primeui/primeui.d.ts
+
+# aot
+aot
+components/**/*.metadata.json
 
 # misc 
 *.log

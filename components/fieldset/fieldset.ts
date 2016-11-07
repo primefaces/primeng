@@ -1,5 +1,6 @@
-import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {BlockableUI} from '../common/api';
 
 @Component({
     selector: 'p-fieldset',
@@ -31,7 +32,7 @@ import {CommonModule} from '@angular/common';
         ])
     ]
 })
-export class Fieldset {
+export class Fieldset implements BlockableUI {
 
     @Input() legend: string;
 
@@ -47,9 +48,11 @@ export class Fieldset {
         
     @Input() styleClass: string
     
-    protected hover: boolean;
+    public hover: boolean;
     
-    protected animating: boolean;
+    public animating: boolean;
+    
+    constructor(private el: ElementRef) {}
     
     onLegendMouseenter(event) {
         if(this.toggleable) {
@@ -88,6 +91,10 @@ export class Fieldset {
     
     collapse(event) {
         this.collapsed = true;
+    }
+    
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
     }
 
 }

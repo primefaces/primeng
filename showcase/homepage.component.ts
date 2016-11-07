@@ -7,7 +7,7 @@ import {Component} from '@angular/core';
                 <div class="defaultTopic">PrimeNG</div>
                 <div class="defaultText">PrimeNG is a collection of rich UI components for Angular 2. PrimeNG is a sibling of the popular JavaServer Faces Component Suite, <a href="http://www.primefaces.org">PrimeFaces</a>.</div>
                 <br />
-                <div class="defaultText">All widgets are open source and free to use under Apache License 2.0, a commercial friendly license.</div>
+                <div class="defaultText">All widgets are open source and free to use under MIT License.</div>
                 <br />
                 <div class="defaultText">PrimeNG is developed by <a href="http://www.primetek.com.tr">PrimeTek Informatics</a>, a company with years of expertise in developing open source UI components.
                  For project news and updates, follow us on <a href="https://twitter.com/prime_ng">twitter.</a></div>
@@ -24,7 +24,7 @@ import {Component} from '@angular/core';
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/components.svg" />
                     <span class="PropertyTopic">WIDGETS</span>
-                    <span class="PropertyText">60+ Components<br />Easy to Use<br />Accessible</span>
+                    <span class="PropertyText">70+ Components<br />Easy to Use<br />Accessible</span>
                 </div>
                 <div class="PropertyBox TextShadow">
                     <img src="showcase/resources/images/productivity.svg" />

@@ -1,0 +1,214 @@
+<div class="ContentSideSections">
+    <div>
+        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Inplace</span>
+        <span class="defaultText">Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <h3 class="first">Basic</h3>
+    <p-inplace closable="closable" [style]="{'min-height':'27px'}">
+        <span pInplaceDisplay>
+            Click to Edit
+        </span>
+        <span pInplaceContent>
+            <input type="text" value="PrimeNG" pInputText>
+        </span>
+    </p-inplace>
+    
+    <h3>Image</h3>
+    <p-inplace>
+        <span pInplaceDisplay>
+            <span class="fa fa-picture-o"></span><span style="margin-left:8px">View Picture</span>
+        </span>
+        <span pInplaceContent>
+            <img src="showcase/resources/demo/images/galleria/galleria5.jpg" alt="Nature">
+        </span>
+    </p-inplace>
+    
+    <h3>Data</h3>
+    <p-inplace>
+        <span pInplaceDisplay>
+            <span class="fa fa-table"></span><span style="margin-left:8px">View Data</span>
+        </span>
+        <span pInplaceContent>
+            <p-dataTable [value]="cars">
+                <p-column field="vin" header="Vin"></p-column>
+                <p-column field="year" header="Year"></p-column>
+                <p-column field="brand" header="Brand"></p-column>
+                <p-column field="color" header="Color"></p-column>
+            </p-dataTable>
+        </span>
+    </p-inplace>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode>
+import &#123;InplaceModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Inplace requires two child components having <i>pInplaceDisplay</i> and <i>pInplaceOutput</i> attributes respectively to define.</p>
+            
+<pre>
+<code class="language-markup" pCode>
+&lt;p-inplace&gt;
+    &lt;span pInplaceDisplay&gt;
+        Click to Edit
+    &lt;/span&gt;
+    &lt;span pInplaceContent&gt;
+        &lt;input type="text" value="PrimeNG" pInputText&gt;
+    &lt;/span&gt;
+&lt;/p-inplace&gt;
+</code>
+</pre>
+
+            <h3>Attributes</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>active</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the content is displayed or not.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the element should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>closable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Displays a button to switch back to display mode.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onActivate</td>
+                            <td>event.originalEvent: Click event</td>
+                            <td>Activates the content.</td>
+                        </tr>
+                        <tr>
+                            <td>onDeactivate</td>
+                            <td>event.originalEvent: Click event</td>
+                            <td>Deactivates the content.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-inplace</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-inplace-display</td>
+                            <td>Display container</td>
+                        </tr>
+                        <tr>
+                            <td>ui-inplace-content</td>
+                            <td>Content container</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+        
+        <p-tabPanel header="Source">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-inplace closable="closable"&gt;
+    &lt;span pInplaceDisplay&gt;
+        Click to Edit
+    &lt;/span&gt;
+    &lt;span pInplaceContent&gt;
+        &lt;input type="text" value="PrimeNG" pInputText&gt;
+    &lt;/span&gt;
+&lt;/p-inplace&gt;
+
+&lt;h3&gt;Image&lt;/h3&gt;
+&lt;p-inplace&gt;
+    &lt;span pInplaceDisplay&gt;
+        &lt;span class="fa fa-picture-o"&gt;&lt;/span&gt;&lt;span style="margin-left:8px"&gt;View Picture&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span pInplaceContent&gt;
+        &lt;img src="showcase/resources/demo/images/galleria/galleria5.jpg" alt="Nature"&gt;
+    &lt;/span&gt;
+&lt;/p-inplace&gt;
+
+&lt;h3&gt;Data&lt;/h3&gt;
+&lt;p-inplace&gt;
+    &lt;span pInplaceDisplay&gt;
+        &lt;span class="fa fa-table"&gt;&lt;/span&gt;&lt;span style="margin-left:8px"&gt;View Data&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span pInplaceContent&gt;
+        &lt;p-dataTable [value]="cars"&gt;
+            &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+            &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+            &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+            &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+        &lt;/p-dataTable&gt;
+    &lt;/span&gt;
+&lt;/p-inplace&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

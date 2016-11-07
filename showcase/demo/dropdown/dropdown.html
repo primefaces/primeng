@@ -214,13 +214,23 @@ export class MyModel &#123;
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>onChange</td>
-                        <td>event.originalEvent: Browser event<br />
-                            event.value: Selected option value
-                        </td>
-                        <td>Callback to invoke when value of dropdown changes.</td>
-                    </tr>
+                        <tr>
+                            <td>onChange</td>
+                            <td>event.originalEvent: Browser event<br />
+                                event.value: Selected option value
+                            </td>
+                            <td>Callback to invoke when value of dropdown changes.</td>
+                        </tr>
+                        <tr>
+                            <td>onFocus</td>
+                            <td>event: Browser event</td>
+                            <td>Callback to invoke when dropdown gets focus.</td>
+                        </tr>
+                        <tr>
+                            <td>onBlur</td>
+                            <td>event: Browser event</td>
+                            <td>Callback to invoke when dropdown loses focus.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

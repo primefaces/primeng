@@ -44,14 +44,14 @@ export class ToggleButton implements ControlValueAccessor {
     
     onModelTouched: Function = () => {};
     
-    protected hover: boolean;
+    public hover: boolean;
 
     getIconClass() {
         let baseClass = 'ui-button-icon-left fa fa-fw';
         return baseClass + ' ' + (this.checked ? this.onIcon : this.offIcon);
     }
     
-    toggle(event) {
+    toggle(event: Event) {
         if(!this.disabled) {
             this.checked = !this.checked;
             this.onModelChange(this.checked);

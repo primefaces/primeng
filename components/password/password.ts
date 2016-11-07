@@ -11,7 +11,8 @@ import {DomHandler} from '../dom/domhandler';
         '[class.ui-widget]': 'true',
         '[class.ui-state-hover]': 'hover',
         '[class.ui-state-focus]': 'focus',
-        '[class.ui-state-disabled]': 'isDisabled()'
+        '[class.ui-state-disabled]': 'disabled',
+        '[class.ui-state-filled]': 'filled'
     },
     providers: [DomHandler]
 })
@@ -35,7 +36,7 @@ export class Password implements AfterViewInit,OnDestroy {
     
     info: any;
     
-    constructor(protected el: ElementRef, protected domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
     ngAfterViewInit() {
         this.panel = document.createElement('div');
@@ -139,8 +140,12 @@ export class Password implements AfterViewInit,OnDestroy {
             return 1 + 0.5 * (x / (x + y/4));
     }
     
-    isDisabled() {
+    get disabled(): boolean {
         return this.el.nativeElement.disabled;
+    }
+    
+    get filled(): boolean {
+        return this.el.nativeElement.value != '';
     }
     
     ngOnDestroy() {

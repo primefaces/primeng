@@ -6,9 +6,9 @@ import {Component} from '@angular/core';
         <div id="datatable-submenu" class="ContentSideSections SubSubMenu ui-helper-clearfix">
             <ul>
                 <li><a [routerLink]="['/datascroller']">&#9679; Window</a></li>
-                <li><a [routerLink]="['/datascrollerinline']">&#9679; Inline</a></li>
-                <li><a [routerLink]="['/datascrollerloader']">&#9679; Loader</a></li>
-                <li><a [routerLink]="['/datascrollerinfinite']">&#9679; Infinite</a></li>
+                <li><a [routerLink]="['/datascroller/inline']">&#9679; Inline</a></li>
+                <li><a [routerLink]="['/datascroller/loader']">&#9679; Loader</a></li>
+                <li><a [routerLink]="['/datascroller/infinite']">&#9679; Infinite</a></li>
             </ul>
         </div>
     `

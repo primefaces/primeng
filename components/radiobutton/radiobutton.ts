@@ -13,7 +13,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
     template: `
         <div class="ui-radiobutton ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked" (change)="onChange($event,value)"
+                <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked" (change)="onChange($event)"
                     (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
             <div (click)="handleClick()" (mouseenter)="hover=true" (mouseleave)="hover=false"
@@ -38,17 +38,17 @@ export class RadioButton implements ControlValueAccessor {
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
-    protected model: any;
+    public model: any;
     
-    protected onModelChange: Function = () => {};
+    public onModelChange: Function = () => {};
     
-    protected onModelTouched: Function = () => {};
+    public onModelTouched: Function = () => {};
     
-    protected checked: boolean;
+    public checked: boolean;
     
-    protected hover: boolean;
+    public hover: boolean;
     
-    protected focused: boolean;
+    public focused: boolean;
 
     handleClick() {
         if(!this.disabled) {
@@ -58,8 +58,10 @@ export class RadioButton implements ControlValueAccessor {
     }
     
     select() {
-        this.checked = true;
-        this.onModelChange(this.value);
+        if(!this.disabled) {
+            this.checked = true;
+            this.onModelChange(this.value);
+        }
     }
             
     writeValue(model: any) : void {

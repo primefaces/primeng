@@ -14,14 +14,15 @@ upload.php
 .git
 .gitignore
 
-# type definition
-typings
-typings.json
-
 # config
 tsconfig.json
+tsconfig-aot.json
 webpack.config.js
+config
 gulpfile.js
+
+# aot
+aot
 
 # misc
 *.log

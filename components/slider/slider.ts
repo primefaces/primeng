@@ -49,37 +49,37 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     @Output() onSlideEnd: EventEmitter<any> = new EventEmitter();
     
-    protected value: number;
+    public value: number;
     
-    protected values: number;
+    public values: number;
     
-    protected handleValue: number;
+    public handleValue: number;
     
-    protected handleValues: number[] = [];
+    public handleValues: number[] = [];
         
-    protected onModelChange: Function = () => {};
+    public onModelChange: Function = () => {};
     
-    protected onModelTouched: Function = () => {};
+    public onModelTouched: Function = () => {};
     
-    protected dragging: boolean;
+    public dragging: boolean;
     
-    protected dragListener: any;
+    public dragListener: any;
     
-    protected mouseupListener: any;
+    public mouseupListener: any;
         
-    protected initX: number;
+    public initX: number;
     
-    protected initY: number;
+    public initY: number;
     
-    protected barWidth: number;
+    public barWidth: number;
     
-    protected barHeight: number;
+    public barHeight: number;
     
-    protected sliderHandleClick: boolean;
+    public sliderHandleClick: boolean;
     
-    protected handleIndex: number;
+    public handleIndex: number;
     
-    constructor(protected el: ElementRef, protected domHandler: DomHandler, protected renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
     
     onMouseDown(event:Event,index?:number) {
         if(this.disabled) {

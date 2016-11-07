@@ -13,7 +13,7 @@ import {Message} from '../common/api';
             <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
                 <i class="fa fa-close"></i>
             </a>
-            <span class="ui-messages-icon fa fa-2x fa-info-circle"></span>
+            <span class="ui-messages-icon fa fa-fw fa-2x" [ngClass]="icon"></span>
             <ul>
                 <li *ngFor="let msg of value">
                     <span class="ui-messages-summary">{{msg.summary}}</span>
@@ -41,6 +41,40 @@ export class Messages {
         this.value.splice(0, this.value.length);
 
         event.preventDefault();
+    }
+    
+    get icon(): string {
+        let icon: string = null;
+        if(this.hasMessages()) {
+            let msg = this.value[0];
+            switch(msg.severity) {
+                case 'success':
+                    icon = 'fa-check';
+                break;
+                
+                case 'info':
+                    icon = 'fa-info-circle';
+                break;
+                
+                case 'error':
+                    icon = 'fa-close';
+                break;
+                
+                case 'warn':
+                    icon = 'fa-warning';
+                break;
+                
+                case 'success':
+                    icon = 'fa-check';
+                break;
+                
+                default:
+                    icon = 'fa-info-circle';
+                break;
+            }
+        }
+        
+        return icon;
     }
 }
 

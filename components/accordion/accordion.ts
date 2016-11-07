@@ -2,6 +2,7 @@ import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter
 trigger,state,transition,style,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
+import {BlockableUI} from '../common/api';
 
 @Component({
     selector: 'p-accordion',
@@ -11,7 +12,7 @@ import {Header} from '../common/shared';
         </div>
     `,
 })
-export class Accordion {
+export class Accordion implements BlockableUI {
     
     @Input() multiple: boolean;
     
@@ -25,11 +26,15 @@ export class Accordion {
     
     public tabs: AccordionTab[] = [];
 
-    constructor(protected el: ElementRef) {}
+    constructor(public el: ElementRef) {}
 
     addTab(tab: AccordionTab) {
         this.tabs.push(tab);
-    }    
+    }   
+    
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
+    } 
 }
 
 @Component({
@@ -75,9 +80,11 @@ export class AccordionTab {
 
     @ContentChild(Header) headerFacet;
     
-    protected animating: boolean;
+    public animating: boolean;
+    
+    public hover: boolean;
 
-    constructor(protected accordion: Accordion) {
+    constructor(public accordion: Accordion) {
         this.accordion.addTab(this);
     }
 
