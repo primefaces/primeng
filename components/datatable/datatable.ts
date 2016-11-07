@@ -1315,7 +1315,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.scrollHeight) {
             if(this.percentageScrollHeight) {
                 let relativeHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100);
-                let headerHeight = this.domHandler.getOuterHeight(tableHeader) + this.domHandler.getOuterHeight(this.scrollHeader);
+                let headerHeight =  this.domHandler.getOuterHeight(this.scrollHeader);
+                if(tableHeader) {
+                    headerHeight += this.domHandler.getOuterHeight(tableHeader);
+                }
                 this.scrollBody.style.maxHeight = (relativeHeight - headerHeight) + 'px';
             }
             else {
