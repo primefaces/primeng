@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
     template: `
         <div class="ContentSideSections SubSubMenu ui-helper-clearfix">
             <ul>
-                <li><a [routerLink]="['']">&#9679; Basic</a></li>
+                <li><a [routerLink]="['/datatable']">&#9679; Basic</a></li>
                 <li><a [routerLink]="['/datatable/facets']">&#9679; Facets</a></li>
                 <li><a [routerLink]="['/datatable/templating']">&#9679; Templating</a></li>
                 <li><a [routerLink]="['/datatable/group']">&#9679; Group</a></li>
