@@ -83,6 +83,8 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
 
     @Input() eventRender: Function;
     
+    @Input() dayRender: Function;
+    
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onEventClick: EventEmitter<any> = new EventEmitter();
@@ -154,6 +156,7 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
             eventOverlap: this.eventOverlap,
             eventConstraint: this.eventConstraint,
             eventRender: this.eventRender,
+            dayRender: this.dayRender,
             events: (start, end, timezone, callback) => {
                 callback(this.events);
             },
