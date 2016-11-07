@@ -159,6 +159,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>null</td>
                             <td>Defines filterMatchMode; "startsWith", "contains" or "endsWidth".</td>
                         </tr>
+                         <tr>
+                            <td>filterPlaceholder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines placeholder of the input fields.</td>
+                        </tr>
                         <tr>
                             <td>rowspan</td>
                             <td>string</td>
@@ -436,7 +442,7 @@ mysort(event) &#123;
             using filterMatchMode property that also accepts "contains" and "endsWith".</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-column field="vin" header="Vin (startsWith)" [filter]="true"&gt;&lt;/p-column&gt;
+&lt;p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"&gt;&lt;/p-column&gt;
 &lt;p-column field="year" header="Year (contains)" [filter]="true" filterMatchMode="contains"&gt;&lt;/p-column&gt;
 &lt;p-column field="brand" header="Brand (startsWith)" [filter]="true"&gt;&lt;/p-column&gt;
 &lt;p-column field="color" header="Color (endsWith)" [filter]="true" filterMatchMode="endsWith"&gt;&lt;/p-column&gt;

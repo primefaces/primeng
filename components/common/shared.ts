@@ -63,6 +63,7 @@ export class Column implements AfterContentInit{
     @Input() hidden: boolean;
     @Input() expander: boolean;
     @Input() selectionMode: string;
+    @Input() filterPlaceholder: string;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     @ContentChild(TemplateRef) template: TemplateRef<any>;

@@ -15,7 +15,7 @@
     </div>
     <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb">
         <header>List of Cars</header>
-        <p-column field="vin" header="Vin (startsWith)" [filter]="true"></p-column>
+        <p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="year" header="Year (contains)" [filter]="true" filterMatchMode="contains"></p-column>
         <p-column field="brand" header="Brand (startsWith)" [filter]="true"></p-column>
         <p-column field="color" header="Color (endsWith)" [filter]="true" filterMatchMode="endsWith"></p-column>
