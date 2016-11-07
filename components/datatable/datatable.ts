@@ -191,7 +191,7 @@ export class RowExpansionLoader {
                         </template>
                         
                         <tr *ngIf="isEmpty()" class="ui-widget-content">
-                            <td [attr.colspan]="visibleColumns().length">{{emptyMessage}}</td>
+                            <td [attr.colspan]="visibleColumns().length" class="ui-datatable-emptymessage">{{emptyMessage}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -254,7 +254,7 @@ export class RowExpansionLoader {
                         </template>
                         
                         <tr *ngIf="isEmpty()" class="ui-widget-content">
-                            <td [attr.colspan]="visibleColumns().length">{{emptyMessage}}</td>
+                            <td [attr.colspan]="visibleColumns().length" class="ui-datatable-emptymessage">{{emptyMessage}}</td>
                         </tr>
                     </tbody>
                 </table>
