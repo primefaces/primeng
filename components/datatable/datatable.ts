@@ -1322,9 +1322,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this.scrollBody.style.maxHeight = this.scrollHeight;
             }
 
-            if(this.hasVerticalOverflow()) {
-                this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
-            }
+            let marginRight = this.hasVerticalOverflow() ? this.calculateScrollbarWidth() : 0;
+            this.scrollHeaderBox.style.marginRight = marginRight + 'px';
         }
     }
         
