@@ -124,22 +124,24 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         
         if(this._visible) {
             this.onBeforeShow.emit({});
-            
-            if(!this.positionInitialized) {
-                this.center();
-                this.positionInitialized = true;
-            }
-            
-            this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
-                
             this.shown = true;
         } 
         
+        if(this.modal && !this._visible) {
+            this.disableModality();
+        }
+    }
+    
+    show() {
+        if(!this.positionInitialized) {
+            this.center();
+            this.positionInitialized = true;
+        }
+        
+        this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
+        
         if(this.modal) {
-            if(this._visible)
-                this.enableModality();
-            else
-                this.disableModality();
+            this.enableModality();
         }
     }
     
@@ -190,6 +192,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     ngAfterViewChecked() {
         if(this.shown) {
+            this.show();
             this.onAfterShow.emit({});
             this.shown = false;
         }
