@@ -16,7 +16,7 @@ import {GrowlModule} from '../../../components/growl/growl';
         CalendarModule,
         TabViewModule,
         CodeHighlighterModule,
-		GrowlModule
+        GrowlModule
 	],
 	declarations: [
 		CalendarDemo
