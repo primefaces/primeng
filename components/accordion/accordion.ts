@@ -90,7 +90,7 @@ export class AccordionTab {
 
     toggle(event) {
         if(this.disabled) {
-            return;
+            return false;
         }
         
         this.animating = true;
