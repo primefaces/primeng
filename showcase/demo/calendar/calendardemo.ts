@@ -31,7 +31,7 @@ export class CalendarDemo {
     es: any;
     
     msgs: Message[] = [];
-
+    
     ngOnInit() {
         this.es = {
         	firstDayOfWeek: 1,
