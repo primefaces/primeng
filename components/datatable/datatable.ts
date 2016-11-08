@@ -168,7 +168,7 @@ export class RowExpansionLoader {
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                                <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                <td *ngFor="let col of columns;let colIndex = index" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                     <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                     <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{resolveFieldData(rowData,col.field)}}</span>
@@ -176,7 +176,7 @@ export class RowExpansionLoader {
                                         <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                                     </span>
                                     <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
-                                            (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
+                                            (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
                                     <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
@@ -231,7 +231,7 @@ export class RowExpansionLoader {
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                                <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                <td *ngFor="let col of columns; let colIndex = index;" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)">
                                     <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                     <span class="ui-cell-data" *ngIf="!col.bodyTemplate">{{resolveFieldData(rowData,col.field)}}</span>
@@ -239,7 +239,7 @@ export class RowExpansionLoader {
                                         <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                                     </span>
                                     <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
-                                            (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData)"/>
+                                            (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
                                     <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
@@ -447,6 +447,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public tbody: any;
     
     public rowTouch: boolean;
+    
+    public editingCell: any;
 
     differ: any;
 
@@ -1117,12 +1119,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     switchCellToEditMode(element: any, column: Column, rowData: any) {
         if(!this.selectionMode && this.editable && column.editable) {
-            this.onEditInit.emit({column: column, data: rowData});
             let cell = this.findCell(element);
-            if(!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
-                this.domHandler.addClass(cell, 'ui-cell-editing');
-                this.domHandler.addClass(cell, 'ui-state-highlight');
-                let editor = cell.querySelector('.ui-cell-editor').focus();
+            if(cell != this.editingCell) {
+                this.editingCell = cell;
+                this.onEditInit.emit({column: column, data: rowData});
+                if(!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
+                    this.domHandler.addClass(cell, 'ui-cell-editing');
+                    this.domHandler.addClass(cell, 'ui-state-highlight');
+                    let editor = cell.querySelector('.ui-cell-editor').focus();
+                }                
             }
         }
     }
@@ -1141,23 +1146,62 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 let cell = this.findCell(element);
                 this.domHandler.removeClass(cell, 'ui-cell-editing');
                 this.domHandler.removeClass(cell, 'ui-state-highlight');
+                this.editingCell = null;
             }
         }
     }
 
-    onCellEditorKeydown(event, column: Column, rowData: any) {
+    onCellEditorKeydown(event, column: Column, rowData: any, colIndex: number) {
         if(this.editable) {
             this.onEdit.emit({originalEvent: event,column: column, data: rowData});
-
+            
             //enter
             if(event.keyCode == 13) {
                 this.switchCellToViewMode(event.target, column, rowData, true);
                 this.preventBlurOnEdit = true;
+                event.preventDefault();
             }
+            
             //escape
-            if(event.keyCode == 27) {
+            else if(event.keyCode == 27) {
                 this.switchCellToViewMode(event.target, column, rowData, false);
                 this.preventBlurOnEdit = true;
+                event.preventDefault();
+            }
+            
+            //tab
+            else if(event.keyCode == 9) {
+                let currentCell = this.findCell(event.target);
+                let row = currentCell.parentElement;
+                let targetCell;
+                
+                if(event.shiftKey) {
+                    if(colIndex == 0) {
+                        let previousRow = row.previousElementSibling;
+                        if(previousRow) {
+                            targetCell = previousRow.lastElementChild;
+                        }
+                    }
+                    else {
+                        targetCell = row.children[colIndex - 1];
+                    }
+                }
+                else {
+                    if(colIndex == (row.children.length - 1)) {
+                        let nextRow = row.nextElementSibling;
+                        if(nextRow) {
+                            targetCell = nextRow.firstElementChild;
+                        }
+                    }
+                    else {
+                        targetCell = row.children[colIndex + 1];
+                    }
+                }
+                
+                if(targetCell) {
+                    this.renderer.invokeElementMethod(targetCell, 'click');
+                    event.preventDefault();
+                }
             }
         }
     }
