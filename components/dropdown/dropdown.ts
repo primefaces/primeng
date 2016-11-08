@@ -321,7 +321,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                             this.selectItem(event, this.selectedOption);
                         }
                     }
-                    else {
+                    else if(this.optionsToDisplay) {
                         this.selectedOption = this.optionsToDisplay[0];
                     }                    
                 }
