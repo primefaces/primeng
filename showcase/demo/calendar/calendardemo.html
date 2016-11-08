@@ -132,10 +132,10 @@ export class MyModel &#123;
 
             <h3>Date Restriction</h3>
             <p>To disable entering dates manually, set readonlyInput to true and to restrict selectable dates use minDate
-                and maxDate options..</p>
+                and maxDate options.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="+maxDateValue" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -278,15 +278,15 @@ export class MyModel &#123;
                         </tr>
                         <tr>
                             <td>minDate</td>
-                            <td>string</td>
+                            <td>Date</td>
                             <td>null</td>
                             <td>The minimum selectable date.</td>
                         </tr>
                         <tr>
                             <td>maxDate</td>
-                            <td>string</td>
+                            <td>Date</td>
                             <td>null</td>
-                            <td>The Maximum selectable date.</td>
+                            <td>The maximum selectable date.</td>
                         </tr>
                         <tr>
                             <td>monthNavigator</td>
