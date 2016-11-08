@@ -179,6 +179,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Input() timeOnly: boolean;
     
+    @Input() dataType: string = 'date';
+    
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
@@ -435,8 +437,15 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
             this.value.setMinutes(this.currentMinute);
         }
-        this.onModelChange(this.value);
+        this.updateModel();
         this.onSelect.emit(this.value);
+    }
+    
+    updateModel() {
+        if(this.dataType == 'date')
+            this.onModelChange(this.value);
+        else if(this.dataType == 'string')
+            this.onModelChange(this.formatDate(this.value, this.dateFormat));
     }
     
     getFirstDayOfMonthIndex(month: number, year: number) {
@@ -649,7 +658,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             this.value.setHours(this.currentHour);
         
         this.value.setMinutes(this.currentMinute);
-        this.onModelChange(this.value);
+        this.updateModel();
         this.updateInputfield();
     }
     
@@ -687,7 +696,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             this.value = null;
         }
         
-        this.onModelChange(this.value);
+        this.updateModel();
     }
     
     populateTime(value, timeString, ampm) {
