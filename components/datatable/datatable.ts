@@ -166,7 +166,7 @@ export class RowExpansionLoader {
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                    (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
+                                    (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)">
@@ -445,6 +445,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public draggedColumn: any;
             
     public tbody: any;
+    
+    public rowTouch: boolean;
 
     differ: any;
 
@@ -784,8 +786,59 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         return order;
     }
-
+    
     handleRowClick(event, rowData) {
+        if(this.rowTouch) {
+            this.rowTouch = false;
+            return false;
+        }
+        
+        let targetNode = event.target.nodeName;
+        if(targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
+            this.onRowClick.next({originalEvent: event, data: rowData});
+            
+            if(!this.selectionMode) {
+                return;
+            }
+            
+            let metaKey = event.metaKey||event.ctrlKey;
+            let selected = this.isSelected(rowData);
+            
+            if(selected && metaKey) {
+                if(this.isSingleSelectionMode()) {
+                    this.selection = null;
+                    this.selectionChange.emit(null);
+                }
+                else {
+                    this.selection.splice(this.findIndexInSelection(rowData), 1);
+                    this.selectionChange.emit(this.selection);
+                }
+                
+                this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
+            }
+            else {
+                if(this.isSingleSelectionMode()) {
+                    this.selection = rowData;
+                    this.selectionChange.emit(rowData);
+                }
+                else if(this.isMultipleSelectionMode()) {
+                    if(metaKey)
+                        this.selection = this.selection||[];
+                    else 
+                        this.selection = [];
+                    
+                    this.selection.push(rowData);
+                    this.selectionChange.emit(this.selection);
+                }
+
+                this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+            }
+        }
+    }
+
+    handleRowTap(event, rowData) {
+        this.rowTouch = true;
+        
         let targetNode = event.target.nodeName;
         if(targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
             this.onRowClick.next({originalEvent: event, data: rowData});

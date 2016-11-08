@@ -490,7 +490,8 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-        <p>In multiple mode, selection binding should be an array.</p>
+        <p>In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices
+        metakey is required.</p>
 <pre>
 <code class="language-typescript" pCode>
 export class DataTableDemo implements OnInit &#123;
@@ -1196,6 +1197,10 @@ update(dt: DataTable) &#123;
                         <tr>
                             <td>ui-datatable-responsive</td>
                             <td>Container element of a responsive datatable.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datatable-emptymessage</td>
+                            <td>Cell containing the empty message.</td>
                         </tr>
                     </tbody>
                 </table>
