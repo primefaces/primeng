@@ -6,6 +6,7 @@ import {CalendarDemoRoutingModule} from './calendardemo-routing.module';
 import {CalendarModule} from '../../../components/calendar/calendar';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {GrowlModule} from '../../../components/growl/growl';
 
 @NgModule({
 	imports: [
@@ -14,7 +15,8 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		CalendarDemoRoutingModule,
         CalendarModule,
         TabViewModule,
-        CodeHighlighterModule
+        CodeHighlighterModule,
+        GrowlModule
 	],
 	declarations: [
 		CalendarDemo

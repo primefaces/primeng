@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Message} from '../../../components/common/api';
 
 @Component({
     templateUrl: 'showcase/demo/calendar/calendardemo.html'
@@ -21,12 +22,16 @@ export class CalendarDemo {
     
     date8: Date;
     
+    date9: Date;
+    
     minDate: Date;
     
     maxDate: Date;
     
     es: any;
-
+    
+    msgs: Message[] = [];
+    
     ngOnInit() {
         this.es = {
         	firstDayOfWeek: 1,
@@ -46,4 +51,15 @@ export class CalendarDemo {
         this.maxDate = new Date();
         this.maxDate.setMonth(nextMonth);
     }
+    
+    onSelect(value) {
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'onSelect event', detail:'Event fired having value: '+value.toISOString()});
+    }
+    
+    onBlur(event) {
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'onBlur event', detail:'Event fired having type: '+event.type});
+    }
+    
 }

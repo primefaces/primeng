@@ -6,6 +6,8 @@
 </div>
 
 <div class="ContentSideSections Implementation">
+    <p-growl [value]="msgs" sticky="sticky"></p-growl>
+    
     <div class="ui-g">
         <div class="ui-g-12 ui-md-4">
             <h3>Basic</h3>
@@ -41,10 +43,15 @@
             <h3>Time Only</h3>
             <p-calendar [(ngModel)]="date7" [timeOnly]="true"></p-calendar>
         </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Events</h3>
+            <p-calendar [(ngModel)]="date8" [showTime]="true" (onSelect)="onSelect($event);" (onBlur)="onBlur($event);"></p-calendar>
+        </div>
     </div>
     
-    <h3>Inline {{date8|date}}</h3>
-    <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar> 
+    <h3>Inline {{date9|date}}</h3>
+    <p-calendar [(ngModel)]="date9" [inline]="true"></p-calendar>
 </div>
 
 <div class="ContentSideSections Source">
