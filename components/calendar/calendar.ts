@@ -670,25 +670,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     onInput(event) {
         try {
-            let rawValue = event.target.value;
-            let parsedValue;
-            let parts: string[] = rawValue.split(' ');
-            
-            if(this.timeOnly) {
-                parsedValue = new Date();
-                this.populateTime(parsedValue, parts[0], parts[1]);
-            }
-            else {
-                if(this.showTime) {
-                    parsedValue = this.parseDate(parts[0], this.dateFormat);
-                    this.populateTime(parsedValue, parts[1], parts[2]);
-                }
-                else {
-                     parsedValue = this.parseDate(event.target.value, this.dateFormat);
-                }
-            }
-            
-            this.value = parsedValue;
+            this.value = this.parseValueFromString(event.target.value);
             this.updateUI();
         } 
         catch(err) {
@@ -697,6 +679,27 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         this.updateModel();
+    }
+    
+    parseValueFromString(text: string): Date {
+        let dateValue;
+        let parts: string[] = text.split(' ');
+        
+        if(this.timeOnly) {
+            dateValue = new Date();
+            this.populateTime(dateValue, parts[0], parts[1]);
+        }
+        else {
+            if(this.showTime) {
+                dateValue = this.parseDate(parts[0], this.dateFormat);
+                this.populateTime(dateValue, parts[1], parts[2]);
+            }
+            else {
+                 dateValue = this.parseDate(text, this.dateFormat);
+            }
+        }
+        
+        return dateValue;
     }
     
     populateTime(value, timeString, ampm) {
@@ -741,6 +744,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     writeValue(value: any) : void {
         this.value = value;
+        if(this.value && typeof this.value === 'string') {
+            this.value = this.parseValueFromString(this.value);
+        }
         
         this.updateInputfield();
         this.updateUI();
