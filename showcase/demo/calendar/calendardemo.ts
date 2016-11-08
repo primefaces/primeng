@@ -17,21 +17,21 @@ export class CalendarDemo {
     date5: Date;
 
     date6: Date;
-
+    
     date7: Date;
-
+    
     date8: Date;
-
+    
     date9: Date;
-
+    
     minDate: Date;
-
+    
     maxDate: Date;
-
+    
     es: any;
-
+    
     msgs: Message[] = [];
-
+    
     ngOnInit() {
         this.es = {
             firstDayOfWeek: 1,
@@ -51,15 +51,15 @@ export class CalendarDemo {
         this.maxDate = new Date();
         this.maxDate.setMonth(nextMonth);
     }
-
+    
     onSelect(value) {
         this.msgs = [];
         this.msgs.push({severity:'info', summary:'onSelect event', detail:'Event fired having value: '+value.toISOString()});
     }
-
+    
     onBlur(event) {
         this.msgs = [];
         this.msgs.push({severity:'info', summary:'onBlur event', detail:'Event fired having type: '+event.type});
     }
-
+    
 }
