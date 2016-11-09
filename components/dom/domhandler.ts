@@ -273,6 +273,15 @@ export class DomHandler {
         return height;
     }
     
+    public getWidth(el): number {
+        let width = el.offsetWidth;
+        let style = getComputedStyle(el);
+
+        width -= parseInt(style.paddingLeft) + parseInt(style.paddingRight) + parseInt(style.borderLeftWidth) + parseInt(style.borderRightWidth);
+        
+        return width;
+    }
+    
     public getViewport(): any {
         let win = window,
         d = document,
