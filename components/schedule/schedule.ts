@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var jQuery: any;
@@ -9,7 +9,7 @@ declare var jQuery: any;
         <div [ngStyle]="style" [class]="styleClass"></div>
     `
 })
-export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
+export class Schedule implements AfterViewInit,DoCheck,OnDestroy,OnInit {
     
     @Input() events: any[];
     
@@ -115,14 +115,15 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
     
     schedule: any;
 
+    options: any;
+
     constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
         this.initialized = false;
     }
 
-    ngAfterViewInit() {
-        this.schedule = jQuery(this.el.nativeElement.children[0]);
-        let options = {
+    ngOnInit() {
+        this.options = {
             theme: true,
             header: this.header,
             isRTL: this.rtl,
@@ -244,11 +245,15 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
         
         if(this.locale) {
             for(var prop in this.locale) {
-                options[prop] = this.locale[prop];
+                this.options[prop] = this.locale[prop];
             }
         }
         
-        this.schedule.fullCalendar(options);
+    }
+
+    ngAfterViewInit() {
+        this.schedule = jQuery(this.el.nativeElement.children[0]);
+        this.schedule.fullCalendar(this.options);
         this.initialized = true;
     }
 
