@@ -200,11 +200,6 @@ input.searchInput {
 * html .clearfix { height:1%; }
 .clearfix { display:block; }
 
-/* override */
-.ui-widget {
-    font-size: 90%;
-}
-
 .Implementation {
     background-color:#FFFFFF;
     overflow: visible;
