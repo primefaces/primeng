@@ -110,7 +110,7 @@ export class RowExpansionLoader {
                                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-state-focus': headerCell === focusedHeader && col.sortable,
                                 'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
                                 [draggable]="reorderableColumns" (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)"
-                                [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
+                                [attr.tabindex]="col.sortable ? tabindex : null" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
                                 <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
                                 <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
                                 <span class="ui-column-title" *ngIf="col.headerTemplate">
@@ -1288,9 +1288,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     fixColumnWidths() {
         let columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
-        for(let col of columns) {
-            col.style.width = 'auto';
-        }
         
         for(let col of columns) {
             col.style.width = col.offsetWidth + 'px';
