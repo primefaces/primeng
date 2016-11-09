@@ -38,7 +38,11 @@ export class DataTableLazyDemo implements OnInit &#123;
 
     ngOnInit() &#123;
         //datasource imitation
-        this.carService.getCarsLarge().then(cars => &#123;this.datasource = cars; this.totalRecords = this.datasource.length;&#125;);
+        this.carService.getCarsLarge().then(cars => &#123;
+            this.datasource = cars; 
+            this.totalRecords = this.datasource.length;
+            this.cars = this.datasource.slice(0, 10);
+        &#125;);
     &#125;
     
     loadCarsLazy(event: LazyLoadEvent) &#123;
@@ -51,7 +55,9 @@ export class DataTableLazyDemo implements OnInit &#123;
         
         //imitate db connection over a network
         setTimeout(() => &#123;
-            this.cars = this.datasource.slice(event.first, (event.first + event.rows));
+            if(this.datasource) &#123;
+                this.cars = this.datasource.slice(event.first, (event.first + event.rows));
+            &#125;
         &#125;, 250);
     &#125;
 &#125;
