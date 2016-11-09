@@ -201,16 +201,16 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     updateHandleValue(): void {
         if(this.range) {
-            this.handleValues[0] = (this.values[0] < this.min ? this.min : this.values[0]) * 100 / (this.max - this.min);
-            this.handleValues[1] = (this.values[1] > this.max ? this.max : this.values[1]) * 100 / (this.max - this.min);
+            this.handleValues[0] = (this.values[0] < this.min ? 0 : this.values[0] - this.min) * 100 / (this.max - this.min);
+            this.handleValues[1] = (this.values[1] > this.max ? this.max - this.min : this.values[1] - this.min) * 100 / (this.max - this.min);
         }
         else {
             if(this.value < this.min)
                 this.handleValue = this.min;
-            else if(this.value > this.max)
+            else if (this.value > this.max)
                 this.handleValue = this.max;
             else
-                this.handleValue = this.value * 100 / (this.max - this.min);
+                this.handleValue = (this.value - this.min) * 100 / (this.max - this.min);
         }
     }
     
@@ -225,7 +225,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
                 }
                 else if (value > this.values[1]) {
                     value = this.values[1];
-                    this.handleValues[0] = this.values[1] * 100 / (this.max - this.min);
+                    this.handleValues[0] = (this.values[1] - this.min) * 100 / (this.max - this.min);
                 }
             }
             else {
@@ -235,7 +235,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
                 }
                 else if (value < this.values[0]) {
                     value = this.values[0];
-                    this.handleValues[1] = this.values[0] * 100 / (this.max - this.min);
+                    this.handleValues[1] = (this.values[0] - this.min) * 100 / (this.max - this.min);
                 }
             }
             
