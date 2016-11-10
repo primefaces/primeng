@@ -19,7 +19,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <select [required]="required" tabindex="-1">
-                    <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
+                    <option *ngFor="let option of options" [value]="option[optionValue]" [selected]="selectedOption == option">{{option[optionLabel]}}</option>
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
@@ -42,7 +42,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                         <li #item *ngFor="let option of optionsToDisplay;let i=index" 
                             [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-hover':hoveredItem == item,'ui-state-highlight':(selectedOption == option)}"
                             (click)="onItemClick($event, option)" (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
-                            <span *ngIf="!itemTemplate">{{option.label}}</span>
+                            <span *ngIf="!itemTemplate">{{option[optionLabel]}}</span>
                             <template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></template>
                         </li>
                     </ul>
@@ -54,7 +54,11 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 })
 export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
-    @Input() options: SelectItem[];
+    @Input() optionLabel:string = 'label';
+
+    @Input() optionValue:string = 'value';
+
+    @Input() options: any[];
 
     @Input() scrollHeight: string = '200px';
 
@@ -86,7 +90,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         this.differ = differs.find([]).create(null);
     }
         
-    selectedOption: SelectItem;
+    selectedOption: any;
     
     value: any;
     
@@ -94,7 +98,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     onModelTouched: Function = () => {};
 
-    optionsToDisplay: SelectItem[];
+    optionsToDisplay: any[];
     
     hover: boolean;
     
@@ -164,7 +168,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     get label(): string {
-        return this.selectedOption ? this.selectedOption.label : null;
+        return this.selectedOption ? this.selectedOption[this.optionLabel]: null;
     }
     
     onItemClick(event, option) {
@@ -176,7 +180,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     selectItem(event, option) {
         this.selectedOption = option;
-        this.value = option.value;
+        this.value = option[this.optionValue];
                 
         this.onModelChange(this.value);
         this.onChange.emit({
@@ -304,7 +308,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     onKeydown(event) {
-        let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
+        let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption[this.optionValue], this.optionsToDisplay) : -1;
 
         switch(event.which) {
             //down
@@ -374,7 +378,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         let index: number = -1;
         if(opts) {
             for(let i = 0; i < opts.length; i++) {
-                if((val == null && opts[i].value == null) || this.domHandler.equals(val, opts[i].value)) {
+                if((val == null && opts[i][this.optionValue] == null) || this.domHandler.equals(val, opts[i][this.optionValue])) {
                     index = i;
                     break;
                 }
@@ -395,7 +399,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.optionsToDisplay = [];
             for(let i = 0; i < this.options.length; i++) {
                 let option = this.options[i];
-                if(option.label.toLowerCase().indexOf(val) > -1) {
+                if(option[this.optionLabel].toLowerCase().indexOf(val) > -1) {
                     this.optionsToDisplay.push(option);
                 }
             }
