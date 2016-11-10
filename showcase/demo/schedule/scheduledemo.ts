@@ -1,4 +1,4 @@
-import {Component,OnInit,ChangeDetectorRef} from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 import {EventService} from '../service/eventservice';
 
 @Component({
@@ -25,7 +25,7 @@ export class ScheduleDemo implements OnInit {
     
     idGen: number = 100;
     
-    constructor(private eventService: EventService, private cd: ChangeDetectorRef) { }
+    constructor(private eventService: EventService) { }
 
     ngOnInit() {
         this.eventService.getEvents().then(events => {this.events = events;});
@@ -41,9 +41,6 @@ export class ScheduleDemo implements OnInit {
         this.event = new MyEvent();
         this.event.start = event.date.format();
         this.dialogVisible = true;
-        
-        //trigger detection manually as somehow only moving the mouse quickly after click triggers the automatic detection
-        this.cd.detectChanges();
     }
     
     handleEventClick(e) {

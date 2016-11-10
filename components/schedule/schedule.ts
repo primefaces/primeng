@@ -5,9 +5,7 @@ declare var jQuery: any;
 
 @Component({
     selector: 'p-schedule',
-    template: `
-        <div [ngStyle]="style" [class]="styleClass"></div>
-    `
+    template: '<div [ngStyle]="style" [class]="styleClass"></div>'
 })
 export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
     
