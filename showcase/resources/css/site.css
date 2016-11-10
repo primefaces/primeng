@@ -15,7 +15,18 @@
 
 /*  ----------------------------------------------------------------------------------------------------- */
 
-body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#20272a; font-family: 'Roboto', "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:normal;color:#404C51; -webkit-font-smoothing: antialiased;}
+body{
+    margin:0px; 
+    height:100%; 
+    overflow-x:hidden; 
+    overflow-y:auto; 
+    background-color:#20272a; 
+    font-family: 'Roboto', "Trebuchet MS", Arial, Helvetica, sans-serif; 
+    font-weight:normal;
+    color:#404C51; 
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+}
 
 #LOGOTEXTSIDE{display:block;width:290px; float:left; height:auto; z-index:999; margin:-23px 0px 0px 0px; padding-top:25px; line-height:30px;}
 #LOGOTEXTSIDE img{width:245px;}
@@ -199,11 +210,6 @@ input.searchInput {
 /* required comment for clearfix to work in Opera \*/
 * html .clearfix { height:1%; }
 .clearfix { display:block; }
-
-/* override */
-.ui-widget {
-    font-size: 90%;
-}
 
 .Implementation {
     background-color:#FFFFFF;
