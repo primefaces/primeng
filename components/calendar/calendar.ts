@@ -238,7 +238,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     filled: boolean;
 
-    inputFieldValue: String;
+    inputFieldValue: string = null;
 
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
