@@ -24,7 +24,7 @@ export interface LocaleSettings {
     selector: 'p-calendar',
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
-            <input type="text" pInputText *ngIf="!inline" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+            <input type="text" pInputText *ngIf="!inline" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
@@ -238,6 +238,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     filled: boolean;
 
+    inputFieldValue: String;
+
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
     ngOnInit() {
@@ -407,28 +409,26 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     updateInputfield() {
-        if(this.inputfield) {
-            if(this.value) {
-                let formattedValue;
-                
-                if(this.timeOnly) {
-                    formattedValue = this.formatTime(this.value);
-                }
-                else {
-                    formattedValue = this.formatDate(this.value, this.dateFormat);
-                    if(this.showTime) {
-                        formattedValue += ' ' + this.formatTime(this.value);
-                    }
-                }
-                
-                this.inputfield.value = formattedValue;
+        if(this.value) {
+            let formattedValue;
+            
+            if(this.timeOnly) {
+                formattedValue = this.formatTime(this.value);
             }
             else {
-                this.inputfield.value = '';
+                formattedValue = this.formatDate(this.value, this.dateFormat);
+                if(this.showTime) {
+                    formattedValue += ' ' + this.formatTime(this.value);
+                }
             }
             
-            this.updateFilledState();
+            this.inputFieldValue = formattedValue;
         }
+        else {
+            this.inputFieldValue = '';
+        }
+        
+        this.updateFilledState();
     }
     
     selectDate(dateMeta) {
@@ -1064,7 +1064,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     updateFilledState() {
-        this.filled = this.inputfield && this.inputfield.value != '';
+        this.filled = this.inputFieldValue && this.inputFieldValue != '';
     }
         
     ngOnDestroy() {
