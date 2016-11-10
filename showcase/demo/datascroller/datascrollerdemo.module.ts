@@ -8,6 +8,7 @@ import {DataScrollerLoaderDemo} from './datascrollerloaderdemo';
 import {DatascrollerDemoRoutingModule} from './datascrollerdemo-routing.module';
 import {DataScrollerModule} from '../../../components/datascroller/datascroller';
 import {DialogModule} from '../../../components/dialog/dialog';
+import {ButtonModule} from '../../../components/button/button';
 import {GrowlModule} from '../../../components/growl/growl';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
@@ -18,6 +19,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		DatascrollerDemoRoutingModule,
         DataScrollerModule,
         DialogModule,
+        ButtonModule,
         GrowlModule,
         TabViewModule,
         CodeHighlighterModule
