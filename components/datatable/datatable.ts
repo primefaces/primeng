@@ -545,7 +545,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     this.sortMultiple();
             }
             
-            if (this.filteredValue) {
+            if (!this.lazy && this.hasFilter()) {
                 this.filter();
             }
 
@@ -1065,15 +1065,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     hasFilter() {
-        let empty = true;
-        for(let prop in this.filters) {
-            if(this.filters.hasOwnProperty(prop)) {
-                empty = false;
-                break;
+        Object.keys(this.filters).forEach(key => {
+            if (this.filters[key].value.length) {
+                return true;
             }
-        }
-
-        return !empty;
+        }); 
+        return false;
     }
 
     onFilterInputClick(event) {
