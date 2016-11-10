@@ -120,6 +120,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     focus: boolean;
     
+    filled: boolean;
+    
     constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer) {
         this.differ = differs.find([]).create(null);
     }
@@ -168,6 +170,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     writeValue(value: any) : void {
         this.value = value;
+        this.filled = this.value && this.value != '';
     }
     
     registerOnChange(fn: Function): void {
@@ -206,6 +209,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         else {
             this.suggestions = null;
         }
+        this.updateFilledState();
     }
     
     search(event: any, query: string) {
@@ -400,8 +404,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         return index;
     }
     
-    get filled(): boolean {
-        return this.input && this.input.value != '';
+    updateFilledState() {
+        this.filled = this.input && this.input.value != '';
     }
     
     ngOnDestroy() {

@@ -79,6 +79,8 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     
     public focus: boolean;
     
+    public filled: boolean;
+    
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
     ngAfterViewInit() {
@@ -139,7 +141,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
             input.focus();
             this.activeUp = true;
             this.repeat(null, 1, input);
-            
+            this.updateFilledState();
             event.preventDefault();
         }
     }
@@ -170,6 +172,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
             input.focus();
             this.activeDown = true;
             this.repeat(null, -1, input);
+            this.updateFilledState();
             
             event.preventDefault();
         }
@@ -210,6 +213,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
     onInput(event: Event, inputElement: HTMLInputElement) {
         this.value = this.parseValue(inputElement.value);        
         this.onModelChange(this.value);
+        this.updateFilledState();
     }
     
     onBlur(inputElement: HTMLInputElement) {
@@ -268,6 +272,8 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         if(this.inputtext && (this.value !== null && this.value !== undefined)) {
             this.inputtext.value = this.value;
         }
+        
+        this.updateFilledState();
     }
     
     registerOnChange(fn: Function): void {
@@ -282,8 +288,8 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         this.disabled = val;
     }
     
-    get filled(): boolean {
-        return this.inputtext && this.inputtext.value != '';
+    updateFilledState() {
+        this.filled = this.inputtext && this.inputtext.value != '';
     }
 }
 
