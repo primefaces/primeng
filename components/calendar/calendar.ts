@@ -235,6 +235,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     yearOptions: number[];
     
     focus: boolean;
+    
+    filled: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
@@ -424,6 +426,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             else {
                 this.inputfield.value = '';
             }
+            
+            this.updateFilledState();
         }
     }
     
@@ -680,6 +684,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         this.updateModel();
+        this.updateFilledState();
     }
     
     parseValueFromString(text: string): Date {
@@ -1058,8 +1063,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         return date;
     }
     
-    get filled(): boolean {
-        return this.inputfield != undefined && this.inputfield.value != '';
+    updateFilledState() {
+        this.filled = this.inputfield && this.inputfield.value != '';
     }
         
     ngOnDestroy() {
