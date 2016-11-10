@@ -399,12 +399,12 @@
 
 
 .ui-progressbar .ui-progressbar-value {
-	 border: 1px solid #156090; 
-     background: #186ba0;
+	 border: 1px solid #3f94e9; 
+     background: #8ec5fc;
 }
 
 .ui-progressbar .ui-progressbar-label {
-	color: #d27519;
+	color: #222222;
 }
 
 .ui-button {
