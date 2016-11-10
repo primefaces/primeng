@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
                 (mouseenter)="hoverDefaultBtn=true" (mouseleave)="hoverDefaultBtn=false" (focus)="focusDefaultBtn=true" (blur)="focusDefaultBtn=false"
                 (mousedown)="activeDefaultBtn=true" (mouseup)="activeDefaultBtn=false" (click)="onDefaultButtonClick($event)"
                 [disabled]="disabled">
-                <span [ngClass]="'ui-button-icon-left ui-c fa fa-fw'" [class]="icon"></span>
+                <span *ngIf="icon" [ngClass]="'ui-button-icon-left ui-c fa fa-fw'" [class]="icon"></span>
                 <span class="ui-button-text ui-c">{{label}}</span>
             </button>
             <button class="ui-splitbutton-menubutton ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-right" type="button"
