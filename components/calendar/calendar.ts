@@ -25,7 +25,7 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <input type="text" pInputText *ngIf="!inline" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
-                    [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
+                    [readonly]="noTypeful || readonly" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled}" 
@@ -159,7 +159,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Input() appendTo: any;
     
-    @Input() readonlyInput: boolean;
+    @Input() noTypeful: boolean;
+
+    @Input() readonly: boolean;
     
     @Input() shortYearCutoff: any = '+10';
     
@@ -545,7 +547,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     onInputFocus(event) {
         this.focus = true;
-        this.showOverlay(event);
+
+        if(!this.readonly) {
+            this.showOverlay(event);
+        }
     }
     
     onInputBlur(event) {

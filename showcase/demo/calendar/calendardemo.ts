@@ -20,6 +20,8 @@ export class CalendarDemo {
     date7: Date;
     
     date8: Date;
+
+    date9: Date;
     
     minDate: Date;
     
@@ -45,5 +47,6 @@ export class CalendarDemo {
         this.minDate.setMonth(prevMonth);
         this.maxDate = new Date();
         this.maxDate.setMonth(nextMonth);
+        this.date9 = new Date();
     }
 }
