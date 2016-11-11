@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,AfterViewChecked} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,AfterViewChecked} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var jQuery: any;
@@ -7,7 +7,7 @@ declare var jQuery: any;
     selector: 'p-schedule',
     template: '<div [ngStyle]="style" [class]="styleClass"></div>'
 })
-export class Schedule implements AfterViewInit,DoCheck,OnDestroy,AfterViewChecked {
+export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     
     @Input() events: any[];
     
