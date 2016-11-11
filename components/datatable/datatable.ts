@@ -1067,7 +1067,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     hasFilter() {
         let empty = true;
         for(let prop in this.filters) {
-            if(this.filters.hasOwnProperty(prop) && this.filters[prop].value.length) {
+            if(this.filters.hasOwnProperty(prop) && this.filters[prop].value && this.filters[prop].value.length) {
                 empty = false;
                 break;
             }
