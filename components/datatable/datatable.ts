@@ -545,7 +545,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     this.sortMultiple();
             }
             
-            if (this.filteredValue) {
+            if (!this.lazy && this.filteredValue) {
                 this.filter();
             }
 
@@ -1067,7 +1067,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     hasFilter() {
         let empty = true;
         for(let prop in this.filters) {
-            if(this.filters.hasOwnProperty(prop)) {
+            if(this.filters.hasOwnProperty(prop) && this.filters[prop].value.length) {
                 empty = false;
                 break;
             }
