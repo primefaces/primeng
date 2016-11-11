@@ -14,7 +14,7 @@ export class ProgressBar {
 
     @Input() value: any;
     
-    @Input() unit: String = "%";
+    @Input() unit: string = '%';
     
     @Input() showValue: boolean = true;
 
@@ -25,5 +25,5 @@ export class ProgressBar {
     exports: [ProgressBar],
     declarations: [ProgressBar]
 })
-export class ProgressBarModule { }
 
+export class ProgressBarModule { }
