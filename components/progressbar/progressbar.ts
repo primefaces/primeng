@@ -14,10 +14,10 @@ export class ProgressBar {
 
     @Input() value: any;
     
-    @Input() unit: string = '%';
-    
     @Input() showValue: boolean = true;
 
+    @Input() unit: string = '%';
+    
 }
 
 @NgModule({
