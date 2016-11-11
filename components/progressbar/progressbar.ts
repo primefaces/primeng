@@ -26,3 +26,4 @@ export class ProgressBar {
     declarations: [ProgressBar]
 })
 export class ProgressBarModule { }
+
