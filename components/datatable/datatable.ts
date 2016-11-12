@@ -1562,8 +1562,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             type: 'text/csv;charset=utf-8;'
         });
         
-        if(window.navigator.msSaveBlob) {
-            navigator.msSaveBlob(blob, this.exportFilename + '.csv');
+        if(window.navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, this.exportFilename + '.csv');
         }
         else {
             let link = document.createElement("a");
