@@ -9,7 +9,7 @@
 
 <div class="ContentSideSections Implementation">
     
-    <p-dataTable #dt [value]="cars">
+    <p-dataTable #dt [value]="cars" exportFilename="cars">
         <header>
             <div class="ui-helper-clearfix">
                 <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:left"></button>
@@ -46,7 +46,7 @@ export class DataTableExportDemo implements OnInit &#123;
         <p-tabPanel header="datatableexportdemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable #dt [value]="cars"&gt;
+&lt;p-dataTable #dt [value]="cars" exportFilename="cars"&gt;
     &lt;header&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:left"&gt;&lt;/button&gt;
