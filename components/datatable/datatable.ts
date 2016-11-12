@@ -1567,18 +1567,19 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         else {
             let link = document.createElement("a");
+            link.style.display = 'none';
+            document.body.appendChild(link);
             if(link.download !== undefined) {
-                link.style.display = 'none';
                 link.setAttribute('href', URL.createObjectURL(blob));
                 link.setAttribute('download', this.exportFilename + '.csv');
                 document.body.appendChild(link);
                 link.click();
-                document.body.removeChild(link);
             }
             else {
                 csv = 'data:text/csv;charset=utf-8,' + csv;
                 window.open(encodeURI(csv));
             }
+            document.body.removeChild(link);
         }
     }
     
