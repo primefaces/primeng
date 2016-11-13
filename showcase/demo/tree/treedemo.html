@@ -48,7 +48,7 @@
     </div>
     
     <h3>Horizontal Tree</h3>
-    <p-tree [value]="filesTree7" layout="horizontal" selectionMode="single" [(selection)]="selectedFile" ></p-tree>
+    <p-tree [value]="filesTree7" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
     <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'}}</div>
 </div>
 
@@ -651,7 +651,7 @@ export class TreeDemoComponent implements OnInit &#123;
 &lt;/div&gt;
 
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;
-&lt;p-tree [value]="filesTree7" layout="horizontal" selectionMode="single" [(selection)]="selectedFile" &gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="filesTree7" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
 &lt;div style="margin-top:8px"&gt;Selected Node: &#123;&#123;selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;&lt;/div&gt;
 </code>
 </pre>
