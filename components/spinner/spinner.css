@@ -23,10 +23,10 @@
     text-align: center;
     vertical-align: middle;
     width: 16px;
-    z-index: 100;
+    box-sizing: border-box;
 }
 .ui-spinner .fa {
-    left: -1px;
+    left: -2px;
     margin-top: -8px;
     position: absolute;
     top: 50%;
