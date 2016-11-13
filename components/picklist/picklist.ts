@@ -78,7 +78,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     
     @Input() showTargetControls: boolean = true;
     
-    @Output() onMovetoSource: EventEmitter<any> = new EventEmitter();
+    @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
     
     @Output() onMoveToTarget: EventEmitter<any> = new EventEmitter();
 
@@ -249,7 +249,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
                     this.source.push(this.target.splice(this.findIndexInList(selectedItem, this.target),1)[0]);
                 }
             }
-            this.onMovetoSource.emit({
+            this.onMoveToSource.emit({
                 items: this.selectedItemsTarget
             });
             this.selectedItemsTarget = [];
@@ -261,7 +261,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
             for(let i = 0; i < this.target.length; i++) {
                 this.source.push(this.target[i]);
             }
-            this.onMovetoSource.emit({
+            this.onMoveToSource.emit({
                 items: this.target
             });
             this.target.splice(0, this.target.length);
