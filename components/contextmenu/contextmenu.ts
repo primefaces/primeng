@@ -152,35 +152,44 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         this.visible = false;
     }
     
-    position(event: MouseEvent) {
-        let left = event.pageX;
-        let top = event.pageY;
-        let width = this.container.offsetParent ? this.container.offsetWidth: this.domHandler.getHiddenElementOuterWidth(this.container);
-        let height = this.container.offsetParent ? this.container.offsetHeight: this.domHandler.getHiddenElementOuterHeight(this.container);
-        let viewport = this.domHandler.getViewport();
-        
-        //flip
-        if(left + width - document.body.scrollLeft > viewport.width) {
-            left -= width;
-        }
-        
-        //flip
-        if(top + height - document.body.scrollTop > viewport.height) {
-            top -= height;
-        }
-        
-        //fit
-        if(left < document.body.scrollLeft) {
-            left = document.body.scrollLeft;
-        }
-        
-        //fit
-        if(top < document.body.scrollTop) {
-            top = document.body.scrollTop;
-        }
+    toggle(event?: MouseEvent) {
+        if(this.visible)
+            this.hide();
+        else
+            this.show(event);
+    }
+    
+    position(event?: MouseEvent) {
+        if(event) {
+            let left = event.pageX;
+            let top = event.pageY;
+            let width = this.container.offsetParent ? this.container.offsetWidth: this.domHandler.getHiddenElementOuterWidth(this.container);
+            let height = this.container.offsetParent ? this.container.offsetHeight: this.domHandler.getHiddenElementOuterHeight(this.container);
+            let viewport = this.domHandler.getViewport();
             
-        this.container.style.left = left + 'px';
-        this.container.style.top = top + 'px';
+            //flip
+            if(left + width - document.body.scrollLeft > viewport.width) {
+                left -= width;
+            }
+            
+            //flip
+            if(top + height - document.body.scrollTop > viewport.height) {
+                top -= height;
+            }
+            
+            //fit
+            if(left < document.body.scrollLeft) {
+                left = document.body.scrollLeft;
+            }
+            
+            //fit
+            if(top < document.body.scrollTop) {
+                top = document.body.scrollTop;
+            }
+                
+            this.container.style.left = left + 'px';
+            this.container.style.top = top + 'px';
+        }
     }
 
     unsubscribe(item: any) {
