@@ -141,11 +141,14 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         }
     }
         
-    show(event: MouseEvent) {
+    show(event?: MouseEvent) {
         this.position(event);
         this.visible = true;
         this.domHandler.fadeIn(this.container, 250);
-        event.preventDefault();
+        
+        if(event) {
+            event.preventDefault();
+        }
     }
     
     hide() {
