@@ -17,6 +17,8 @@ export class Button implements AfterViewInit, OnDestroy {
     @Input() icon: string;
 
     @Input() iconPos: string = 'left';
+    
+    @Input() cornerStyleClass: string = 'ui-corner-all';
         
     public _label: string;
     
@@ -82,7 +84,7 @@ export class Button implements AfterViewInit, OnDestroy {
     }
     
     getStyleClass(): string {
-        let styleClass = 'ui-button ui-widget ui-state-default ui-corner-all';
+        let styleClass = 'ui-button ui-widget ui-state-default ' + this.cornerStyleClass;
         if(this.icon) {
             if(this.label != null && this.label != undefined) {
                 if(this.iconPos == 'left')
