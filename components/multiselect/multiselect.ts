@@ -328,7 +328,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         this.visibleOptions = [];
         for(let i = 0; i < this.options.length; i++) {
             let option = this.options[i];
-            if(option.label.toLowerCase().startsWith(this.filterValue.toLowerCase())) {
+            if(option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1) {
                 this.visibleOptions.push(option);
             }
         }
