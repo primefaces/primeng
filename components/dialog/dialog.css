@@ -1,4 +1,4 @@
-.ui-dialog { position: fixed; padding: 0; overflow: hidden; width: 300px;}
+.ui-dialog { position: fixed; padding: 0; overflow: hidden; }
 .ui-dialog .ui-dialog-titlebar { padding: .4em .4em .4em 1em; position: relative; border:0px; }
 .ui-dialog .ui-dialog-title { float: left; margin: .3em 16px .1em 0; } 
 .ui-dialog .ui-dialog-content {position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
