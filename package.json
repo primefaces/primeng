@@ -9,13 +9,14 @@
     "webpack-dev-server": "webpack-dev-server --inline",
     "build-prod": "webpack --config config/webpack.prod.js",
     "build-dev": "webpack --config config/webpack.dev.js",
-    "start": "npm run webpack-dev-server"
+
+    "start": "npm run webpack:w"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/primefaces/primeng.git"
   },
-  "license": "Apache-2.0",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^6.0.45",
     "del": "^2.2.0",
