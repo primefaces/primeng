@@ -12,12 +12,12 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <button type="button" label="Choose" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="onChooseClick($event, fileinput)" [disabled]="disabled"> 
+                <button type="button" [label]="chooseLabel" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="onChooseClick($event, fileinput)" [disabled]="disabled"> 
                     <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
                 </button>
 
-                <button type="button" label="Upload" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
-                <button type="button" label="Cancel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
+                <button type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
+                <button type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
             </div>
             <div [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true,'ui-fileupload-highlight':dragHighlight}" 
                 (dragenter)="onDragEnter($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
@@ -69,6 +69,12 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() styleClass: string;
     
     @Input() previewWidth: number = 50;
+    
+    @Input() chooseLabel: string = 'Choose';
+    
+    @Input() uploadLabel: string = 'Upload';
+    
+    @Input() cancelLabel: string = 'Cancel';
         
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
         

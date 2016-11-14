@@ -350,6 +350,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Input() csvSeparator: string = ',';
     
+    @Input() exportFilename: string = 'download';
+    
     @Input() emptyMessage: string = 'No records found';
     
     @Input() paginatorPosition: string = 'bottom';
@@ -1528,8 +1530,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     public exportCSV() {
-        let data = this.value,
-        csv = "data:text/csv;charset=utf-8,";
+        let data = this.value;
+        let csv = '';
         
         //headers
         for(let i = 0; i < this.columns.length; i++) {
@@ -1556,7 +1558,29 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         });
         
-        window.open(encodeURI(csv));
+        let blob = new Blob([csv],{
+            type: 'text/csv;charset=utf-8;'
+        });
+        
+        if(window.navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, this.exportFilename + '.csv');
+        }
+        else {
+            let link = document.createElement("a");
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            if(link.download !== undefined) {
+                link.setAttribute('href', URL.createObjectURL(blob));
+                link.setAttribute('download', this.exportFilename + '.csv');
+                document.body.appendChild(link);
+                link.click();
+            }
+            else {
+                csv = 'data:text/csv;charset=utf-8,' + csv;
+                window.open(encodeURI(csv));
+            }
+            document.body.removeChild(link);
+        }
     }
     
     getBlockableElement(): HTMLElement {

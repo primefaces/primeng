@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,trigger,state,style,transition,animate} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,trigger,state,style,transition,animate,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -24,11 +24,13 @@ export interface LocaleSettings {
     selector: 'p-calendar',
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
-            <input type="text" pInputText *ngIf="!inline" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+            <template [ngIf]="!inline">
+                <input #inputfield type="text" pInputText [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
-                    ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event)"
+                    ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
-            <div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled}" 
+            </template>
+            <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled}" 
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly">
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (mouseenter)="hoverPrev=true" (mouseleave)="hoverPrev=false"
@@ -194,6 +196,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
     };
     
+    @ViewChild('datepicker') overlayViewChild: ElementRef;
+    
     value: Date;
     
     dates: any[];
@@ -213,8 +217,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     pm: boolean;
     
     overlay: HTMLDivElement;
-    
-    inputfield: HTMLInputElement;
     
     overlayVisible: boolean;
     
@@ -294,12 +296,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     ngAfterViewInit() {
-        this.overlay = this.domHandler.findSingle(this.el.nativeElement, '.ui-datepicker');
-        
-        if(!this.inline) {
-            this.inputfield = this.el.nativeElement.children[0].children[0];
-        }
-        
+        this.overlay = <HTMLDivElement> this.overlayViewChild.nativeElement;
+                
         if(!this.inline && this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
@@ -567,15 +565,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.onModelTouched();
     }
     
-    onButtonClick(event) {
+    onButtonClick(event,inputfield) {
         this.closeOverlay = false;
         
-        if(!this.overlay.offsetParent) {
-            this.inputfield.focus();
-        }
-        else {
+        if(!this.overlay.offsetParent)
+            inputfield.focus();
+        else
             this.closeOverlay = true;
-        }
     }
     
     onInputKeydown(event) {

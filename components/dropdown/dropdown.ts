@@ -164,7 +164,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     get label(): string {
-        return this.selectedOption ? this.selectedOption.label : null;
+        return (this.editable && this.value) ? this.value : (this.selectedOption ? this.selectedOption.label : null);
     }
     
     onItemClick(event, option) {

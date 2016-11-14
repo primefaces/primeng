@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,AfterViewChecked} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var jQuery: any;
@@ -7,7 +7,7 @@ declare var jQuery: any;
     selector: 'p-schedule',
     template: '<div [ngStyle]="style" [class]="styleClass"></div>'
 })
-export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
+export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     
     @Input() events: any[];
     
@@ -117,8 +117,14 @@ export class Schedule implements AfterViewInit,DoCheck,OnDestroy {
         this.differ = differs.find([]).create(null);
         this.initialized = false;
     }
+    
+    ngAfterViewChecked() {
+        if(!this.initialized && this.el.nativeElement.offsetParent) {
+            this.initialize();
+        }
+    }
 
-    ngAfterViewInit() {
+    initialize() {
         this.schedule = jQuery(this.el.nativeElement.children[0]);
         let options = {
             theme: true,

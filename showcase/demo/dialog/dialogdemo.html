@@ -6,7 +6,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" showEffect="fade">
+    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="300">
         <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
@@ -147,12 +147,6 @@ export class ModelComponent &#123;
                             <td>Defines if background should be blocked when dialog is displayed.</td>
                         </tr>
                         <tr>
-                            <td>showEffect</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Effect to use when showing the dialog.</td>
-                        </tr>
-                        <tr>
                             <td>closeOnEscape</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -181,6 +175,18 @@ export class ModelComponent &#123;
                             <td>any</td>
                             <td>null</td>
                             <td>Target element to attach the dialog, valid values are "body" or a local template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -267,7 +273,7 @@ export class ModelComponent &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" showEffect="fade"&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="300"&gt;
     &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 

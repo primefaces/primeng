@@ -6,7 +6,7 @@ import {Header,SharedModule} from '../common/shared';
 @Component({
     selector: 'p-dialog',
     template: `
-        <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" 
+        <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" [ngStyle]="style" [class]="styleClass"
             [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)">
@@ -61,8 +61,6 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() modal: boolean;
 
-    @Input() showEffect: string;
-
     @Input() closeOnEscape: boolean = true;
 
     @Input() rtl: boolean;
@@ -72,6 +70,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() responsive: boolean;
     
     @Input() appendTo: any;
+    
+    @Input() style: any;
+        
+    @Input() styleClass: string;
     
     @ContentChild(Header) headerFacet;
     

@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
                     [ngClass]="{'ui-state-highlight':(i === activeIndex),'ui-state-default':(i !== activeIndex),
                         'ui-state-disabled':(i !== activeIndex && readonly),'ui-state-hover':(menuitem == hoveredItem&&!readonly)}">
                     <a class="ui-menuitem-link" (click)="itemClick($event, item, i)" (mouseenter)="hoveredItem=menuitem" (mouseleave)="hoveredItem=null">
-                        <span class="ui-steps-number">{{i}}</span>
+                        <span class="ui-steps-number">{{i + 1}}</span>
                         <span class="ui-steps-title">{{item.label}}</span>
                     </a>
                 </li>
