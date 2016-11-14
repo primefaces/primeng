@@ -86,7 +86,7 @@ export class UITreeRow {
                 <ng-content select="header"></ng-content>
             </div>
             <div class="ui-treetable-tablewrapper">
-                <table class="ui-widget-content" style="border:0 0 1px 0px">
+                <table class="ui-widget-content">
                     <thead>
                         <tr class="ui-state-default">
                             <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" 
