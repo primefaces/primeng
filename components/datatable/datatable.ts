@@ -1,17 +1,15 @@
-import {
-    NgModule, Component, ElementRef, AfterContentInit, AfterViewInit, AfterViewChecked, OnInit, OnDestroy, DoCheck, Input, ViewContainerRef,
-    Output, SimpleChange, EventEmitter, ContentChild, ContentChildren, Renderer, IterableDiffers, QueryList, TemplateRef, ChangeDetectorRef
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'
-import { SharedModule } from '../common/shared';
-import { PaginatorModule } from '../paginator/paginator';
-import { InputTextModule } from '../inputtext/inputtext';
-import { Column, Header, Footer, HeaderColumnGroup, FooterColumnGroup } from '../common/shared';
-import { LazyLoadEvent, FilterMetadata, SortMeta } from '../common/api';
-import { DomHandler } from '../dom/domhandler';
-import { Subscription } from 'rxjs/Subscription';
-import { BlockableUI } from '../common/api';
+import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms'
+import {SharedModule} from '../common/shared';
+import {PaginatorModule} from '../paginator/paginator';
+import {InputTextModule} from '../inputtext/inputtext';
+import {Column,Header,Footer,HeaderColumnGroup,FooterColumnGroup} from '../common/shared';
+import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
+import {DomHandler} from '../dom/domhandler';
+import {Subscription} from 'rxjs/Subscription';
+import {BlockableUI} from '../common/api';
 
 @Component({
     selector: 'p-dtRadioButton',
@@ -29,13 +27,13 @@ import { BlockableUI } from '../common/api';
     `
 })
 export class DTRadioButton {
-
+    
     @Input() checked: boolean;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
-
+    
     public hover: boolean;
-
+    
     handleClick(event) {
         this.onClick.emit(event);
     }
@@ -57,18 +55,18 @@ export class DTRadioButton {
     `
 })
 export class DTCheckbox {
-
+    
     @Input() checked: boolean;
-
+    
     @Input() disabled: boolean;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-
+    
     public hover: boolean;
-
+    
     handleClick(event) {
-        if (!this.disabled) {
-            this.onChange.emit({ originalEvent: event, checked: !this.checked });
+        if(!this.disabled) {
+            this.onChange.emit({originalEvent: event, checked: !this.checked});
         }
 
     }
@@ -79,13 +77,13 @@ export class DTCheckbox {
     template: ``
 })
 export class RowExpansionLoader {
-
+        
     @Input() template: TemplateRef<any>;
-
+    
     @Input() rowData: any;
-
-    constructor(public viewContainer: ViewContainerRef) { }
-
+    
+    constructor(public viewContainer: ViewContainerRef) {}
+    
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.template, {
             '\$implicit': this.rowData
@@ -270,7 +268,7 @@ export class RowExpansionLoader {
     `,
     providers: [DomHandler]
 })
-export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentInit, OnInit, DoCheck, OnDestroy, BlockableUI {
+export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,DoCheck,OnDestroy,BlockableUI {
 
     @Input() value: any[];
 
@@ -285,7 +283,7 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     @Input() rowsPerPageOptions: number[];
 
     @Input() responsive: boolean;
-
+    
     @Input() stacked: boolean;
 
     @Input() selectionMode: string;
@@ -295,7 +293,7 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() editable: boolean;
-
+    
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
@@ -303,9 +301,9 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();
-
+    
     @Output() onHeaderCheckboxToggle: EventEmitter<any> = new EventEmitter();
-
+    
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
     @Input() filterDelay: number = 300;
@@ -333,7 +331,7 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     @Input() style: any;
 
     @Input() styleClass: string;
-
+    
     @Input() tableStyle: any;
 
     @Input() tableStyleClass: string;
@@ -347,21 +345,21 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     @Input() sortOrder: number = 1;
 
     @Input() multiSortMeta: SortMeta[];
-
+    
     @Input() contextMenu: any;
-
+    
     @Input() csvSeparator: string = ',';
-
+    
     @Input() exportFilename: string = 'download';
-
+    
     @Input() emptyMessage: string = 'No records found';
-
+    
     @Input() paginatorPosition: string = 'bottom';
-
+    
     @Input() expandedRows: any[];
 
     @Input() ngForTrackBy: Function;
-
+    
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
@@ -369,33 +367,33 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     @Output() onEdit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
-
+    
     @Output() onPage: EventEmitter<any> = new EventEmitter();
-
+        
     @Output() onSort: EventEmitter<any> = new EventEmitter();
-
+            
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
-
+    
     @Input() expandableRows: boolean;
-
+    
     @Input() tabindex: number = 1;
-
+    
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
-
+    
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
-
+    
     @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
-
+    
     @ContentChildren(Column) cols: QueryList<Column>;
-
+    
     @ContentChild(HeaderColumnGroup) headerColumnGroup: HeaderColumnGroup;
-
+    
     @ContentChild(FooterColumnGroup) footerColumnGroup: FooterColumnGroup;
-
+    
     public dataToRender: any[];
 
     public first: number = 0;
@@ -404,56 +402,56 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
 
     public filterTimeout: any;
 
-    public filters: { [s: string]: FilterMetadata; } = {};
+    public filters: {[s: string]: FilterMetadata;} = {};
 
     public filteredValue: any[];
 
     public columns: Column[];
 
     public columnsChanged: boolean = false;
-
+    
     public dataChanged: boolean = false;
-
+    
     public stopSortPropagation: boolean;
-
+    
     public sortColumn: Column;
-
+    
     public percentageScrollHeight: boolean;
-
+        
     public scrollBody: any;
-
+    
     public scrollHeader: any
-
+    
     public scrollHeaderBox: any;
-
+    
     public bodyScrollListener: any;
-
+    
     public headerScrollListener: any;
-
+    
     public resizeScrollListener: any;
-
+    
     public columnResizing: boolean;
-
+    
     public lastPageX: number;
-
+        
     public documentColumnResizeListener: any;
-
+    
     public documentColumnResizeEndListener: any;
-
+    
     public resizerHelper: any;
-
+    
     public resizeColumn: any;
-
+    
     public reorderIndicatorUp: any;
-
+    
     public reorderIndicatorDown: any;
-
+    
     public draggedColumn: any;
-
+            
     public tbody: any;
-
+    
     public rowTouch: boolean;
-
+    
     public editingCell: any;
 
     differ: any;
@@ -461,16 +459,16 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     globalFilterFunction: any;
 
     preventBlurOnEdit: boolean;
-
+    
     columnsSubscription: Subscription;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers,
-        public renderer: Renderer, private changeDetector: ChangeDetectorRef) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, 
+            public renderer: Renderer, private changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
     }
 
     ngOnInit() {
-        if (this.lazy) {
+        if(this.lazy) {
             this.onLazyLoad.emit({
                 first: this.first,
                 rows: this.rows,
@@ -481,10 +479,10 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
             });
         }
     }
-
+    
     ngAfterContentInit() {
         this.initColumns();
-
+        
         this.columnsSubscription = this.cols.changes.subscribe(_ => {
             this.initColumns();
             this.changeDetector.markForCheck();
@@ -492,33 +490,33 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     }
 
     ngAfterViewChecked() {
-        if (this.columnsChanged) {
-            if (this.resizableColumns) {
+        if(this.columnsChanged) {
+            if(this.resizableColumns) {
                 this.initResizableColumns();
             }
 
-            if (this.reorderableColumns) {
+            if(this.reorderableColumns) {
                 this.initColumnReordering();
             }
 
-            if (this.scrollable) {
+            if(this.scrollable) {
                 this.refreshScrolling();
             }
 
             this.columnsChanged = false;
         }
-
-        if (this.dataChanged) {
-            if (this.scrollable) {
+        
+        if(this.dataChanged) {
+            if(this.scrollable) {
                 this.refreshScrolling();
             }
-
+            
             this.dataChanged = false;
         }
     }
 
     ngAfterViewInit() {
-        if (this.globalFilter) {
+        if(this.globalFilter) {
             this.globalFilterFunction = this.renderer.listen(this.globalFilter, 'keyup', () => {
                 this.filterTimeout = setTimeout(() => {
                     this.filter();
@@ -526,49 +524,49 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
                 }, this.filterDelay);
             });
         }
-
-        if (this.scrollable) {
+        
+        if(this.scrollable) {
             this.initScrolling();
         }
     }
 
     ngDoCheck() {
         let changes = this.differ.diff(this.value);
-        if (changes) {
+        if(changes) {
             this.dataChanged = true;
-
-            if (this.paginator) {
+            
+            if(this.paginator) {
                 this.updatePaginator();
             }
-
-            if (this.stopSortPropagation) {
+            
+            if(this.stopSortPropagation) {
                 this.stopSortPropagation = false;
             }
-            else if (!this.lazy && (this.sortField || this.multiSortMeta)) {
-                if (this.sortMode == 'single')
+            else if(!this.lazy && (this.sortField||this.multiSortMeta)) {                    
+                if(this.sortMode == 'single')
                     this.sortSingle();
-                else if (this.sortMode == 'multiple')
+                else if(this.sortMode == 'multiple')
                     this.sortMultiple();
             }
 
-            this.updateDataToRender(this.filteredValue || this.value);
+            this.updateDataToRender(this.filteredValue||this.value);
         }
     }
-
+    
     initColumns(): void {
         this.columns = this.cols.toArray();
         this.columnsChanged = true;
     }
 
     resolveFieldData(data: any, field: string): any {
-        if (data && field) {
-            if (field.indexOf('.') == -1) {
+        if(data && field) {
+            if(field.indexOf('.') == -1) {
                 return data[field];
             }
             else {
                 let fields: string[] = field.split('.');
                 let value = data;
-                for (var i = 0, len = fields.length; i < len; ++i) {
+                for(var i = 0, len = fields.length; i < len; ++i) {
                     value = value[fields[i]];
                 }
                 return value;
@@ -581,12 +579,12 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
 
     updatePaginator() {
         //total records
-        this.totalRecords = this.lazy ? this.totalRecords : (this.value ? this.value.length : 0);
+        this.totalRecords = this.lazy ? this.totalRecords : (this.value ? this.value.length: 0);
 
         //first
-        if (this.totalRecords && this.first >= this.totalRecords) {
-            let numberOfPages = Math.ceil(this.totalRecords / this.rows);
-            this.first = Math.max((numberOfPages - 1) * this.rows, 0);
+        if(this.totalRecords && this.first >= this.totalRecords) {
+            let numberOfPages = Math.ceil(this.totalRecords/this.rows);
+            this.first = Math.max((numberOfPages-1) * this.rows, 0);
         }
     }
 
@@ -594,11 +592,11 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
         this.first = event.first;
         this.rows = event.rows;
 
-        if (this.lazy)
+        if(this.lazy)
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         else
-            this.updateDataToRender(this.filteredValue || this.value);
-
+            this.updateDataToRender(this.filteredValue||this.value);
+        
         this.onPage.emit({
             first: this.first,
             rows: this.rows
@@ -606,11 +604,11 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     }
 
     updateDataToRender(datasource) {
-        if (this.paginator && datasource) {
+        if(this.paginator && datasource) {
             this.dataToRender = [];
             let startIndex = this.lazy ? 0 : this.first;
-            for (let i = startIndex; i < (startIndex + this.rows); i++) {
-                if (i >= datasource.length) {
+            for(let i = startIndex; i < (startIndex+ this.rows); i++) {
+                if(i >= datasource.length) {
                     break;
                 }
 
@@ -621,43 +619,43 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
             this.dataToRender = datasource;
         }
     }
-
+    
     onHeaderKeydown(event, column: Column) {
-        if (event.keyCode == 13) {
+        if(event.keyCode == 13) {
             this.sort(event, column);
             event.preventDefault();
         }
     }
 
     sort(event, column: Column) {
-        if (!column.sortable) {
+        if(!column.sortable) {
             return;
         }
-
+        
         let targetNode = event.target.nodeName;
-        if (targetNode == 'TH' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
-            this.sortOrder = (this.sortField === column.field) ? this.sortOrder * -1 : 1;
+        if(targetNode == 'TH' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
+            this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
             this.sortField = column.field;
             this.sortColumn = column;
-            let metaKey = event.metaKey || event.ctrlKey;
+            let metaKey = event.metaKey||event.ctrlKey;
 
-            if (this.lazy) {
+            if(this.lazy) {
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else {
-                if (this.sortMode == 'multiple') {
-                    if (!this.multiSortMeta || !metaKey) {
+                if(this.sortMode == 'multiple') {
+                    if(!this.multiSortMeta||!metaKey) {
                         this.multiSortMeta = [];
                     }
 
-                    this.addSortMeta({ field: this.sortField, order: this.sortOrder });
+                    this.addSortMeta({field: this.sortField, order: this.sortOrder});
                     this.sortMultiple();
                 }
                 else {
                     this.sortSingle();
                 }
             }
-
+            
             this.onSort.emit({
                 field: this.sortField,
                 order: this.sortOrder,
@@ -667,8 +665,8 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     }
 
     sortSingle() {
-        if (this.value) {
-            if (this.sortColumn && this.sortColumn.sortable === 'custom') {
+        if(this.value) {
+            if(this.sortColumn && this.sortColumn.sortable === 'custom') {
                 this.sortColumn.sortFunction.emit({
                     field: this.sortField,
                     order: this.sortOrder
@@ -694,34 +692,34 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
                     return (this.sortOrder * result);
                 });
             }
-
+            
             this.first = 0;
 
-            if (this.hasFilter()) {
+            if(this.hasFilter()) {
                 this.filter();
             }
         }
-
+        
         //prevent resort at ngDoCheck
         this.stopSortPropagation = true;
     }
 
     sortMultiple() {
-        if (this.value) {
-            this.value.sort((data1, data2) => {
+        if(this.value) {
+            this.value.sort((data1,data2) => {
                 return this.multisortField(data1, data2, this.multiSortMeta, 0);
             });
 
-            if (this.hasFilter()) {
+            if(this.hasFilter()) {
                 this.filter();
             }
         }
-
+        
         //prevent resort at ngDoCheck
         this.stopSortPropagation = true;
     }
 
-    multisortField(data1, data2, multiSortMeta, index) {
+    multisortField(data1,data2,multiSortMeta,index) {
         let value1 = this.resolveFieldData(data1, multiSortMeta[index].field);
         let value2 = this.resolveFieldData(data2, multiSortMeta[index].field);
         let result = null;
@@ -735,7 +733,7 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
             result = (value1 < value2) ? -1 : 1;
         }
 
-        if (value1 == value2) {
+        if(value1 == value2)  {
             return (multiSortMeta.length - 1) > (index) ? (this.multisortField(data1, data2, multiSortMeta, index + 1)) : 0;
         }
 
@@ -744,28 +742,28 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
 
     addSortMeta(meta) {
         var index = -1;
-        for (var i = 0; i < this.multiSortMeta.length; i++) {
-            if (this.multiSortMeta[i].field === meta.field) {
+        for(var i = 0; i < this.multiSortMeta.length; i++) {
+            if(this.multiSortMeta[i].field === meta.field) {
                 index = i;
                 break;
             }
         }
 
-        if (index >= 0)
+        if(index >= 0)
             this.multiSortMeta[index] = meta;
         else
             this.multiSortMeta.push(meta);
     }
 
     isSorted(column: Column) {
-        if (this.sortMode === 'single') {
+        if(this.sortMode === 'single') {
             return (this.sortField && column.field === this.sortField);
         }
-        else if (this.sortMode === 'multiple') {
+        else if(this.sortMode === 'multiple') {
             let sorted = false;
-            if (this.multiSortMeta) {
-                for (let i = 0; i < this.multiSortMeta.length; i++) {
-                    if (this.multiSortMeta[i].field == column.field) {
+            if(this.multiSortMeta) {
+                for(let i = 0; i < this.multiSortMeta.length; i++) {
+                    if(this.multiSortMeta[i].field == column.field) {
                         sorted = true;
                         break;
                     }
@@ -777,15 +775,15 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
 
     getSortOrder(column: Column) {
         let order = 0;
-        if (this.sortMode === 'single') {
-            if (this.sortField && column.field === this.sortField) {
+        if(this.sortMode === 'single') {
+            if(this.sortField && column.field === this.sortField) {
                 order = this.sortOrder;
             }
         }
-        else if (this.sortMode === 'multiple') {
-            if (this.multiSortMeta) {
-                for (let i = 0; i < this.multiSortMeta.length; i++) {
-                    if (this.multiSortMeta[i].field == column.field) {
+        else if(this.sortMode === 'multiple') {
+            if(this.multiSortMeta) {
+                for(let i = 0; i < this.multiSortMeta.length; i++) {
+                    if(this.multiSortMeta[i].field == column.field) {
                         order = this.multiSortMeta[i].order;
                         break;
                     }
@@ -794,26 +792,26 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
         }
         return order;
     }
-
+    
     handleRowClick(event, rowData) {
-        if (this.rowTouch) {
+        if(this.rowTouch) {
             this.rowTouch = false;
             return false;
         }
-
+        
         let targetNode = event.target.nodeName;
-        if (targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
-            this.onRowClick.next({ originalEvent: event, data: rowData });
-
-            if (!this.selectionMode) {
+        if(targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
+            this.onRowClick.next({originalEvent: event, data: rowData});
+            
+            if(!this.selectionMode) {
                 return;
             }
-
-            let metaKey = event.metaKey || event.ctrlKey;
+            
+            let metaKey = event.metaKey||event.ctrlKey;
             let selected = this.isSelected(rowData);
-
-            if (selected && metaKey) {
-                if (this.isSingleSelectionMode()) {
+            
+            if(selected && metaKey) {
+                if(this.isSingleSelectionMode()) {
                     this.selection = null;
                     this.selectionChange.emit(null);
                 }
@@ -821,42 +819,42 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
                     this.selection.splice(this.findIndexInSelection(rowData), 1);
                     this.selectionChange.emit(this.selection);
                 }
-
-                this.onRowUnselect.emit({ originalEvent: event, data: rowData, type: 'row' });
+                
+                this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
             }
             else {
-                if (this.isSingleSelectionMode()) {
+                if(this.isSingleSelectionMode()) {
                     this.selection = rowData;
                     this.selectionChange.emit(rowData);
                 }
-                else if (this.isMultipleSelectionMode()) {
-                    if (metaKey)
-                        this.selection = this.selection || [];
-                    else
+                else if(this.isMultipleSelectionMode()) {
+                    if(metaKey)
+                        this.selection = this.selection||[];
+                    else 
                         this.selection = [];
-
+                    
                     this.selection.push(rowData);
                     this.selectionChange.emit(this.selection);
                 }
 
-                this.onRowSelect.emit({ originalEvent: event, data: rowData, type: 'row' });
+                this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
             }
         }
     }
 
     handleRowTap(event, rowData) {
         this.rowTouch = true;
-
+        
         let targetNode = event.target.nodeName;
-        if (targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
-            this.onRowClick.next({ originalEvent: event, data: rowData });
-
-            if (!this.selectionMode) {
+        if(targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
+            this.onRowClick.next({originalEvent: event, data: rowData});
+            
+            if(!this.selectionMode) {
                 return;
             }
-
-            if (this.isSelected(rowData)) {
-                if (this.isSingleSelectionMode()) {
+            
+            if(this.isSelected(rowData)) {
+                if(this.isSingleSelectionMode()) {
                     this.selection = null;
                     this.selectionChange.emit(null);
                 }
@@ -864,85 +862,85 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
                     this.selection.splice(this.findIndexInSelection(rowData), 1);
                     this.selectionChange.emit(this.selection);
                 }
-
-                this.onRowUnselect.emit({ originalEvent: event, data: rowData, type: 'row' });
+                
+                this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
             }
             else {
-                if (this.isSingleSelectionMode()) {
+                if(this.isSingleSelectionMode()) {
                     this.selection = rowData;
                     this.selectionChange.emit(rowData);
                 }
-                else if (this.isMultipleSelectionMode()) {
-                    this.selection = this.selection || [];
+                else if(this.isMultipleSelectionMode()) {
+                    this.selection = this.selection||[];
                     this.selection.push(rowData);
                     this.selectionChange.emit(this.selection);
                 }
 
-                this.onRowSelect.emit({ originalEvent: event, data: rowData, type: 'row' });
+                this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
             }
         }
     }
-
-    selectRowWithRadio(rowData: any) {
-        if (this.selection != rowData) {
+    
+    selectRowWithRadio(rowData:any) {
+        if(this.selection != rowData) {
             this.selection = rowData;
             this.selectionChange.emit(this.selection);
-            this.onRowSelect.emit({ originalEvent: event, data: rowData, type: 'radiobutton' });
+            this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
         }
     }
-
-    toggleRowWithCheckbox(event, rowData) {
+    
+    toggleRowWithCheckbox(event,rowData) {
         let selectionIndex = this.findIndexInSelection(rowData);
-        this.selection = this.selection || [];
-
-        if (selectionIndex != -1) {
+        this.selection = this.selection||[];
+        
+        if(selectionIndex != -1) {
             this.selection.splice(selectionIndex, 1);
-            this.onRowUnselect.emit({ originalEvent: event, data: rowData, type: 'checkbox' });
+            this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
         }
-
+            
         else {
             this.selection.push(rowData);
-            this.onRowSelect.emit({ originalEvent: event, data: rowData, type: 'checkbox' });
+            this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
         }
-
+                 
         this.selectionChange.emit(this.selection);
     }
-
+    
     toggleRowsWithCheckbox(event) {
-        if (event.checked)
+        if(event.checked)
             this.selection = this.dataToRender.slice(0);
         else
             this.selection = [];
-
+            
         this.selectionChange.emit(this.selection);
-
-        this.onHeaderCheckboxToggle.emit({ originalEvent: event, checked: event.checked });
+        
+        this.onHeaderCheckboxToggle.emit({originalEvent: event, checked: event.checked});
     }
-
+    
     onRowRightClick(event, rowData) {
-        if (this.contextMenu) {
+        if(this.contextMenu) {
             let selectionIndex = this.findIndexInSelection(rowData);
             let selected = selectionIndex != -1;
-
-            if (!selected) {
-                if (this.isSingleSelectionMode()) {
+            
+            if(!selected) {
+                if(this.isSingleSelectionMode()) {
                     this.selection = rowData;
                     this.selectionChange.emit(rowData);
                 }
-                else if (this.isMultipleSelectionMode()) {
+                else if(this.isMultipleSelectionMode()) {
                     this.selection = [];
                     this.selection.push(rowData);
                     this.selectionChange.emit(this.selection);
                 }
             }
 
-            this.contextMenu.show(event);
-            this.onContextMenuSelect.emit({ originalEvent: event, data: rowData });
+            this.contextMenu.show(event);            
+            this.onContextMenuSelect.emit({originalEvent: event, data: rowData});
         }
     }
 
     rowDblclick(event, rowData) {
-        this.onRowDblclick.emit({ originalEvent: event, data: rowData });
+        this.onRowDblclick.emit({originalEvent: event, data: rowData});
     }
 
     isSingleSelectionMode() {
@@ -955,9 +953,9 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
 
     findIndexInSelection(rowData: any) {
         let index: number = -1;
-        if (this.selection) {
-            for (let i = 0; i < this.selection.length; i++) {
-                if (this.domHandler.equals(rowData, this.selection[i])) {
+        if(this.selection) {
+            for(let i = 0; i  < this.selection.length; i++) {
+                if(this.domHandler.equals(rowData, this.selection[i])) {
                     index = i;
                     break;
                 }
@@ -968,14 +966,14 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     }
 
     isSelected(rowData) {
-        return ((rowData && this.domHandler.equals(rowData, this.selection)) || this.findIndexInSelection(rowData) != -1);
+        return ((rowData && this.domHandler.equals(rowData, this.selection)) || this.findIndexInSelection(rowData) != -1);
     }
-
+    
     get allSelected() {
         let val = true;
-        if (this.dataToRender && this.selection && (this.dataToRender.length == this.selection.length)) {
-            for (let data of this.dataToRender) {
-                if (!this.isSelected(data)) {
+        if(this.dataToRender && this.selection && (this.dataToRender.length == this.selection.length)) {
+            for(let data of this.dataToRender) {
+                if(!this.isSelected(data)) {
                     val = false;
                     break;
                 }
@@ -988,12 +986,12 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     }
 
     onFilterKeyup(value, field, matchMode) {
-        if (this.filterTimeout) {
+        if(this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
 
         this.filterTimeout = setTimeout(() => {
-            this.filters[field] = { value: value, matchMode: matchMode };
+            this.filters[field] = {value: value, matchMode: matchMode};
             this.filter();
             this.filterTimeout = null;
         }, this.filterDelay);
@@ -1001,66 +999,66 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
 
     filter() {
         this.first = 0;
-
-        if (this.lazy) {
+        
+        if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
             this.filteredValue = [];
 
-            for (let i = 0; i < this.value.length; i++) {
+            for(let i = 0; i < this.value.length; i++) {
                 let localMatch = true;
                 let globalMatch = false;
 
-                for (let j = 0; j < this.columns.length; j++) {
+                for(let j = 0; j < this.columns.length; j++) {
                     let col = this.columns[j],
-                        filterMeta = this.filters[col.field];
+                    filterMeta = this.filters[col.field];
 
                     //local
-                    if (filterMeta) {
+                    if(filterMeta) {
                         let filterValue = filterMeta.value,
-                            filterField = col.field,
-                            filterMatchMode = filterMeta.matchMode || 'startsWith',
-                            dataFieldValue = this.resolveFieldData(this.value[i], filterField);
+                        filterField = col.field,
+                        filterMatchMode = filterMeta.matchMode||'startsWith',
+                        dataFieldValue = this.resolveFieldData(this.value[i], filterField);
 
                         let filterConstraint = this.filterConstraints[filterMatchMode];
 
-                        if (!filterConstraint(dataFieldValue, filterValue)) {
+                        if(!filterConstraint(dataFieldValue, filterValue)) {
                             localMatch = false;
                         }
 
-                        if (!localMatch) {
+                        if(!localMatch) {
                             break;
                         }
                     }
 
                     //global
-                    if (this.globalFilter && !globalMatch) {
+                    if(this.globalFilter && !globalMatch) {
                         globalMatch = this.filterConstraints['contains'](this.resolveFieldData(this.value[i], col.field), this.globalFilter.value);
                     }
                 }
 
                 let matches = localMatch;
-                if (this.globalFilter) {
-                    matches = localMatch && globalMatch;
+                if(this.globalFilter) {
+                    matches = localMatch&&globalMatch;
                 }
 
-                if (matches) {
+                if(matches) {
                     this.filteredValue.push(this.value[i]);
                 }
             }
 
-            if (this.filteredValue.length === this.value.length) {
+            if(this.filteredValue.length === this.value.length) {
                 this.filteredValue = null;
             }
 
-            if (this.paginator) {
-                this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+            if(this.paginator) {
+                this.totalRecords = this.filteredValue ? this.filteredValue.length: this.value ? this.value.length: 0;
             }
 
-            this.updateDataToRender(this.filteredValue || this.value);
+            this.updateDataToRender(this.filteredValue||this.value);
         }
-
+        
         this.onFilter.emit({
             filters: this.filters
         });
@@ -1068,8 +1066,8 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
 
     hasFilter() {
         let empty = true;
-        for (let prop in this.filters) {
-            if (this.filters.hasOwnProperty(prop)) {
+        for(let prop in this.filters) {
+            if(this.filters.hasOwnProperty(prop)) {
                 empty = false;
                 break;
             }
@@ -1085,11 +1083,11 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     filterConstraints = {
 
         startsWith(value, filter): boolean {
-            if (filter === undefined || filter === null || filter.trim() === '') {
+            if(filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
 
-            if (value === undefined || value === null) {
+            if(value === undefined || value === null) {
                 return false;
             }
 
@@ -1098,11 +1096,11 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
         },
 
         contains(value, filter): boolean {
-            if (filter === undefined || filter === null || filter.trim() === '') {
+            if(filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
 
-            if (value === undefined || value === null) {
+            if(value === undefined || value === null) {
                 return false;
             }
 
@@ -1110,11 +1108,11 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
         },
 
         endsWith(value, filter): boolean {
-            if (filter === undefined || filter === null || filter.trim() === '') {
+            if(filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
 
-            if (value === undefined || value === null) {
+            if(value === undefined || value === null) {
                 return false;
             }
 
@@ -1124,30 +1122,30 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     }
 
     switchCellToEditMode(element: any, column: Column, rowData: any) {
-        if (!this.selectionMode && this.editable && column.editable) {
+        if(!this.selectionMode && this.editable && column.editable) {
             let cell = this.findCell(element);
-            if (cell != this.editingCell) {
+            if(cell != this.editingCell) {
                 this.editingCell = cell;
-                this.onEditInit.emit({ column: column, data: rowData });
-                if (!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
+                this.onEditInit.emit({column: column, data: rowData});
+                if(!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
                     this.domHandler.addClass(cell, 'ui-cell-editing');
                     this.domHandler.addClass(cell, 'ui-state-highlight');
                     let editor = cell.querySelector('.ui-cell-editor').focus();
-                }
+                }                
             }
         }
     }
 
     switchCellToViewMode(element: any, column: Column, rowData: any, complete: boolean) {
-        if (this.editable) {
-            if (this.preventBlurOnEdit) {
+        if(this.editable) {
+            if(this.preventBlurOnEdit) {
                 this.preventBlurOnEdit = false;
             }
             else {
-                if (complete)
-                    this.onEditComplete.emit({ column: column, data: rowData });
+                if(complete)
+                    this.onEditComplete.emit({column: column, data: rowData});
                 else
-                    this.onEditCancel.emit({ column: column, data: rowData });
+                    this.onEditCancel.emit({column: column, data: rowData});
 
                 let cell = this.findCell(element);
                 this.domHandler.removeClass(cell, 'ui-cell-editing');
@@ -1158,33 +1156,33 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     }
 
     onCellEditorKeydown(event, column: Column, rowData: any, colIndex: number) {
-        if (this.editable) {
-            this.onEdit.emit({ originalEvent: event, column: column, data: rowData });
-
+        if(this.editable) {
+            this.onEdit.emit({originalEvent: event,column: column, data: rowData});
+            
             //enter
-            if (event.keyCode == 13) {
+            if(event.keyCode == 13) {
                 this.switchCellToViewMode(event.target, column, rowData, true);
                 this.preventBlurOnEdit = true;
                 event.preventDefault();
             }
-
+            
             //escape
-            else if (event.keyCode == 27) {
+            else if(event.keyCode == 27) {
                 this.switchCellToViewMode(event.target, column, rowData, false);
                 this.preventBlurOnEdit = true;
                 event.preventDefault();
             }
-
+            
             //tab
-            else if (event.keyCode == 9) {
+            else if(event.keyCode == 9) {
                 let currentCell = this.findCell(event.target);
                 let row = currentCell.parentElement;
                 let targetCell;
-
-                if (event.shiftKey) {
-                    if (colIndex == 0) {
+                
+                if(event.shiftKey) {
+                    if(colIndex == 0) {
                         let previousRow = row.previousElementSibling;
-                        if (previousRow) {
+                        if(previousRow) {
                             targetCell = previousRow.lastElementChild;
                         }
                     }
@@ -1193,9 +1191,9 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
                     }
                 }
                 else {
-                    if (colIndex == (row.children.length - 1)) {
+                    if(colIndex == (row.children.length - 1)) {
                         let nextRow = row.nextElementSibling;
-                        if (nextRow) {
+                        if(nextRow) {
                             targetCell = nextRow.firstElementChild;
                         }
                     }
@@ -1203,8 +1201,8 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
                         targetCell = row.children[colIndex + 1];
                     }
                 }
-
-                if (targetCell) {
+                
+                if(targetCell) {
                     this.renderer.invokeElementMethod(targetCell, 'click');
                     event.preventDefault();
                 }
@@ -1214,7 +1212,7 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
 
     findCell(element) {
         let cell = element;
-        while (cell.tagName != 'TD') {
+        while(cell.tagName != 'TD') {
             cell = cell.parentElement;
         }
 
@@ -1225,81 +1223,81 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
         this.tbody = this.domHandler.findSingle(this.el.nativeElement, 'tbody.ui-datatable-data');
         this.resizerHelper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
         this.fixColumnWidths();
-
+        
         this.documentColumnResizeListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
-            if (this.columnResizing) {
+            if(this.columnResizing) {
                 this.onColumnResize(event);
             }
         });
-
+        
         this.documentColumnResizeEndListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
-            if (this.columnResizing) {
+            if(this.columnResizing) {
                 this.columnResizing = false;
                 this.onColumnResizeEnd(event);
             }
         });
     }
-
+    
     initColumnResize(event) {
         this.resizeColumn = event.target.parentElement;
         this.columnResizing = true;
         this.lastPageX = event.pageX;
     }
-
+    
     onColumnResize(event) {
         let container = this.el.nativeElement.children[0];
         this.domHandler.addClass(container, 'ui-unselectable-text');
         this.resizerHelper.style.height = container.offsetHeight - 4 + 'px';
         this.resizerHelper.style.top = container.offsetTop + 'px';
-        if (event.pageX > container.offsetLeft && event.pageX < (container.offsetLeft + container.offsetWidth)) {
+        if(event.pageX > container.offsetLeft && event.pageX < (container.offsetLeft + container.offsetWidth)) {
             this.resizerHelper.style.left = event.pageX + 'px';
         }
-
+        
         this.resizerHelper.style.display = 'block';
     }
-
+    
     onColumnResizeEnd(event) {
         let delta = this.resizerHelper.offsetLeft - this.lastPageX;
         let columnWidth = this.resizeColumn.offsetWidth;
         let newColumnWidth = columnWidth + delta;
-        let minWidth = this.resizeColumn.style.minWidth || 15;
-
-        if (columnWidth + delta > parseInt(minWidth)) {
-            if (this.columnResizeMode === 'fit') {
+        let minWidth = this.resizeColumn.style.minWidth||15;
+        
+        if(columnWidth + delta > parseInt(minWidth)) {
+            if(this.columnResizeMode === 'fit') {
                 let nextColumn = this.resizeColumn.nextElementSibling;
                 let nextColumnWidth = nextColumn.offsetWidth - delta;
-
-                if (newColumnWidth > 15 && nextColumnWidth > 15) {
+                
+                if(newColumnWidth > 15 && nextColumnWidth > 15) {
                     this.resizeColumn.style.width = newColumnWidth + 'px';
-                    if (nextColumn) {
+                    if(nextColumn) {
                         nextColumn.style.width = nextColumnWidth + 'px';
                     }
                 }
             }
-            else if (this.columnResizeMode === 'expand') {
+            else if(this.columnResizeMode === 'expand') {
                 this.tbody.parentElement.style.width = this.tbody.parentElement.offsetWidth + delta + 'px';
                 this.resizeColumn.style.width = newColumnWidth + 'px';
-            }
-
+            }    
+            
             this.onColResize.emit({
                 element: this.resizeColumn,
                 delta: delta
             });
         }
-
+                
         this.resizerHelper.style.display = 'none';
         this.resizeColumn = null;
         this.domHandler.removeClass(this.el.nativeElement.children[0], 'ui-unselectable-text');
     }
-
+    
     fixColumnWidths() {
         let columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
-
-        for (let col of columns) {
+        
+        for(let col of columns) {
             col.style.width = col.offsetWidth + 'px';
         }
     }
-
+    
     onColumnDragStart(event) {
         if (this.columnResizing) {
             event.preventDefault();
@@ -1309,30 +1307,30 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
         this.draggedColumn = this.findParentHeader(event.target);
         event.dataTransfer.setData('a', 'b'); // Firefox requires this to make dragging possible
     }
-
+    
     onColumnDragover(event) {
-        if (this.reorderableColumns && this.draggedColumn) {
+        if(this.reorderableColumns && this.draggedColumn) {
             event.preventDefault();
             let dropHeader = this.findParentHeader(event.target);
-
-            if (this.draggedColumn != dropHeader) {
+            
+            if(this.draggedColumn != dropHeader) {
                 let targetPosition = dropHeader.getBoundingClientRect();
                 let targetLeft = targetPosition.left + document.body.scrollLeft;
-                let targetTop = targetPosition.top + document.body.scrollTop;
+                let targetTop =  targetPosition.top + document.body.scrollTop;
                 let columnCenter = targetLeft + dropHeader.offsetWidth / 2;
-
+                
                 this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
                 this.reorderIndicatorDown.style.top = targetTop + dropHeader.offsetHeight + 'px';
 
-                if (event.pageX > columnCenter) {
+                if(event.pageX > columnCenter) {
                     this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
-                    this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
+                    this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8)+ 'px';
                 }
                 else {
                     this.reorderIndicatorUp.style.left = (targetLeft - 8) + 'px';
-                    this.reorderIndicatorDown.style.left = (targetLeft - 8) + 'px';
+                    this.reorderIndicatorDown.style.left = (targetLeft - 8)+ 'px';
                 }
-
+                
                 this.reorderIndicatorUp.style.display = 'block';
                 this.reorderIndicatorDown.style.display = 'block';
             }
@@ -1341,21 +1339,21 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
             }
         }
     }
-
+    
     onColumnDragleave(event) {
-        if (this.reorderableColumns && this.draggedColumn) {
+        if(this.reorderableColumns && this.draggedColumn) {
             event.preventDefault();
             this.reorderIndicatorUp.style.display = 'none';
             this.reorderIndicatorDown.style.display = 'none';
         }
     }
-
+    
     onColumnDrop(event) {
         event.preventDefault();
         let dragIndex = this.domHandler.index(this.draggedColumn);
         let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
 
-        if (dragIndex != dropIndex) {
+        if(dragIndex != dropIndex) {
             this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
 
             this.onColReorder.emit({
@@ -1364,7 +1362,7 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
                 columns: this.columns
             });
         }
-
+        
         this.reorderIndicatorUp.style.display = 'none';
         this.reorderIndicatorDown.style.display = 'none';
         this.draggedColumn = null;
@@ -1374,14 +1372,14 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
         this.reorderIndicatorUp = this.domHandler.findSingle(this.el.nativeElement.children[0], 'span.ui-datatable-reorder-indicator-up');
         this.reorderIndicatorDown = this.domHandler.findSingle(this.el.nativeElement.children[0], 'span.ui-datatable-reorder-indicator-down');
     }
-
+    
     findParentHeader(element) {
-        if (element.nodeName == 'TH') {
+        if(element.nodeName == 'TH') {
             return element;
         }
         else {
             let parent = element.parentElement;
-            while (parent.nodeName != 'TH') {
+            while(parent.nodeName != 'TH') {
                 parent = parent.parentElement;
             }
             return parent;
@@ -1393,30 +1391,30 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
         this.scrollHeaderBox = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box');
         this.scrollBody = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-body');
         this.percentageScrollHeight = this.scrollHeight && (this.scrollHeight.indexOf('%') !== -1);
-
+        
         this.bodyScrollListener = this.renderer.listen(this.scrollBody, 'scroll', () => {
             this.scrollHeaderBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
         });
-
+        
         this.headerScrollListener = this.renderer.listen(this.scrollHeader, 'scroll', () => {
             this.scrollHeader.scrollLeft = 0;
         });
-
-        if (this.percentageScrollHeight) {
+        
+        if(this.percentageScrollHeight) {
             this.resizeScrollListener = this.renderer.listenGlobal('window', 'resize', () => {
                 this.scrollBody.style.maxHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100) + 'px';
             });
         }
     }
-
+    
     refreshScrolling() {
         let tableHeader = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-header');
-
-        if (this.scrollHeight) {
-            if (this.percentageScrollHeight) {
+        
+        if(this.scrollHeight) {
+            if(this.percentageScrollHeight) {
                 let relativeHeight = this.domHandler.getOuterHeight(this.el.nativeElement.parentElement) * (parseInt(this.scrollHeight) / 100);
-                let headerHeight = this.domHandler.getOuterHeight(this.scrollHeader);
-                if (tableHeader) {
+                let headerHeight =  this.domHandler.getOuterHeight(this.scrollHeader);
+                if(tableHeader) {
                     headerHeight += this.domHandler.getOuterHeight(tableHeader);
                 }
                 this.scrollBody.style.maxHeight = (relativeHeight - headerHeight) + 'px';
@@ -1429,7 +1427,7 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
             this.scrollHeaderBox.style.marginRight = marginRight + 'px';
         }
     }
-
+        
     calculateScrollbarWidth(): number {
         let scrollDiv = document.createElement("div");
         scrollDiv.className = "ui-scrollbar-measure";
@@ -1437,22 +1435,22 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
 
         let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
         document.body.removeChild(scrollDiv);
-
+        
         return scrollbarWidth;
     }
-
+    
     hasVerticalOverflow(): boolean {
         return this.scrollHeight && this.domHandler.getOuterHeight(this.scrollBody.children[0]) > this.domHandler.getOuterHeight(this.scrollBody);
     }
 
     hasFooter() {
-        if (this.footerColumnGroup) {
+        if(this.footerColumnGroup) {
             return true;
         }
         else {
-            if (this.columns) {
-                for (let i = 0; i < this.columns.length; i++) {
-                    if (this.columns[i].footer) {
+            if(this.columns) {
+                for(let i = 0; i  < this.columns.length; i++) {
+                    if(this.columns[i].footer) {
                         return true;
                     }
                 }
@@ -1463,7 +1461,7 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     }
 
     isEmpty() {
-        return !this.dataToRender || (this.dataToRender.length == 0);
+        return !this.dataToRender||(this.dataToRender.length == 0);
     }
 
     createLazyLoadMetadata(): LazyLoadEvent {
@@ -1476,15 +1474,15 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
             multiSortMeta: this.multiSortMeta
         };
     }
-
+    
     toggleRow(row: any) {
-        if (!this.expandedRows) {
+        if(!this.expandedRows) {
             this.expandedRows = [];
         }
-
+        
         let expandedRowIndex = this.findExpandedRowIndex(row);
-
-        if (expandedRowIndex != -1) {
+        
+        if(expandedRowIndex != -1) {
             this.expandedRows.splice(expandedRowIndex, 1);
             this.onRowCollapse.emit(row);
         }
@@ -1493,12 +1491,12 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
             this.onRowExpand.emit(row);
         }
     }
-
+    
     findExpandedRowIndex(row: any): number {
         let index = -1
-        if (this.expandedRows) {
-            for (let i = 0; i < this.expandedRows.length; i++) {
-                if (this.expandedRows[i] == row) {
+        if(this.expandedRows) {
+            for(let i = 0; i < this.expandedRows.length; i++) {
+                if(this.expandedRows[i] == row) {
                     index = i;
                     break;
                 }
@@ -1506,19 +1504,19 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
         }
         return index;
     }
-
+    
     isRowExpanded(row) {
         return this.findExpandedRowIndex(row) != -1;
     }
-
+        
     public reset() {
         this.sortField = null;
         this.sortOrder = 1;
-
+        
         this.filteredValue = null;
         this.filters = {};
 
-        if (this.paginator) {
+        if(this.paginator) {
             this.paginate({
                 first: 0,
                 rows: this.rows
@@ -1532,48 +1530,48 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
     visibleColumns() {
         return this.columns.filter(c => !c.hidden);
     }
-
+    
     public exportCSV() {
         let data = this.value;
         let csv = '';
-
+        
         //headers
-        for (let i = 0; i < this.columns.length; i++) {
-            if (this.columns[i].field) {
+        for(let i = 0; i < this.columns.length; i++) {
+            if(this.columns[i].field) {
                 csv += this.columns[i].field;
-
-                if (i < (this.columns.length - 1)) {
+                
+                if(i < (this.columns.length - 1)) {
                     csv += this.csvSeparator;
                 }
             }
         }
-
+        
         //body        
         this.value.forEach((record, i) => {
             csv += '\n';
-            for (let i = 0; i < this.columns.length; i++) {
-                if (this.columns[i].field) {
+            for(let i = 0; i < this.columns.length; i++) {
+                if(this.columns[i].field) {
                     csv += this.resolveFieldData(record, this.columns[i].field);
-
-                    if (i < (this.columns.length - 1)) {
+                    
+                    if(i < (this.columns.length - 1)) {
                         csv += this.csvSeparator;
                     }
                 }
             }
         });
-
-        let blob = new Blob([csv], {
+        
+        let blob = new Blob([csv],{
             type: 'text/csv;charset=utf-8;'
         });
-
-        if (window.navigator.msSaveOrOpenBlob) {
+        
+        if(window.navigator.msSaveOrOpenBlob) {
             navigator.msSaveOrOpenBlob(blob, this.exportFilename + '.csv');
         }
         else {
             let link = document.createElement("a");
             link.style.display = 'none';
             document.body.appendChild(link);
-            if (link.download !== undefined) {
+            if(link.download !== undefined) {
                 link.setAttribute('href', URL.createObjectURL(blob));
                 link.setAttribute('download', this.exportFilename + '.csv');
                 document.body.appendChild(link);
@@ -1586,40 +1584,40 @@ export class DataTable implements AfterViewChecked, AfterViewInit, AfterContentI
             document.body.removeChild(link);
         }
     }
-
-    getBlockableElement(): HTMLElement {
+    
+    getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
     ngOnDestroy() {
         //remove event listener
-        if (this.globalFilterFunction) {
+        if(this.globalFilterFunction) {
             this.globalFilterFunction();
         }
-
-        if (this.scrollable) {
+        
+        if(this.scrollable) {
             this.bodyScrollListener();
             this.headerScrollListener();
-
-            if (this.percentageScrollHeight) {
+            
+            if(this.percentageScrollHeight) {
                 this.resizeScrollListener();
             }
         }
-
-        if (this.resizableColumns) {
+        
+        if(this.resizableColumns) {
             this.documentColumnResizeListener();
             this.documentColumnResizeEndListener();
         }
-
-        if (this.columnsSubscription) {
+        
+        if(this.columnsSubscription) {
             this.columnsSubscription.unsubscribe();
         }
     }
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, PaginatorModule, FormsModule, InputTextModule],
-    exports: [DataTable, SharedModule],
-    declarations: [DataTable, DTRadioButton, DTCheckbox, RowExpansionLoader]
+    imports: [CommonModule,SharedModule,PaginatorModule,FormsModule,InputTextModule],
+    exports: [DataTable,SharedModule],
+    declarations: [DataTable,DTRadioButton,DTCheckbox,RowExpansionLoader]
 })
 export class DataTableModule { }
