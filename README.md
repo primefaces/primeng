@@ -8,7 +8,9 @@ See [PrimeNG homepage](http://www.primefaces.org/primeng) for live showcase and 
 * npm install
 * gulp build
 * npm start
+
 で動くはず。
 
 http://localhost:8080
+
 で表示される。
