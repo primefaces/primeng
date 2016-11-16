@@ -179,7 +179,7 @@ export class RowExpansionLoader {
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
-                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
+                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                     <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
                             </tr>
@@ -242,7 +242,7 @@ export class RowExpansionLoader {
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
-                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
+                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                     <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
                             </tr>
@@ -900,7 +900,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    selectRowWithRadio(rowData:any) {
+    selectRowWithRadio(event, rowData:any) {
         if(this.selection != rowData) {
             this.selection = rowData;
             this.selectionChange.emit(this.selection);
