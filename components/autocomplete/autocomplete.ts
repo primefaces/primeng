@@ -354,7 +354,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             }
         } else {
             if(event.which === 40 && this.suggestions) {
-                this.panelVisible = true;
+                this.search(event,this.value);
             }
         }
         
