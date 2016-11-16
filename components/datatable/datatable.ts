@@ -1339,8 +1339,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             
             if(this.draggedColumn != dropHeader) {
                 let targetPosition = dropHeader.getBoundingClientRect();
-                let targetLeft = targetPosition.left + document.body.scrollLeft;
-                let targetTop =  targetPosition.top + document.body.scrollTop;
+                let targetLeft = targetPosition.left + this.domHandler.getWindowScrollLeft();
+                let targetTop =  targetPosition.top + this.domHandler.getWindowScrollTop();
                 let columnCenter = targetLeft + dropHeader.offsetWidth / 2;
                 
                 this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
