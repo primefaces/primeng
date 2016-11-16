@@ -352,6 +352,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                     this.hide();
                 break;
             }
+        } else {
+            if(event.which === 40 && this.suggestions) {
+                this.panelVisible = true;
+            }
         }
         
         if(this.multiple) {
