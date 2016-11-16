@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
     template: `
         <ul [ngClass]="{'ui-helper-reset ui-menu-rootlist':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child':!root}" class="ui-menu-list"
             [style.width.px]="menuWidth" [style.left.px]="root ? slideMenu.left : slideMenu.menuWidth" 
-            [style.transitionProperty]="root ? 'left' : 'none'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
+            [style.transitionProperty]="root ? 'left' : 'none'" [style.transitionDuration]="effectDuration + 'ms'" [style.transitionTimingFunction]="easing">
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #listitem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':listitem==activeItem}">
                     <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
@@ -36,14 +36,14 @@ export class SlideMenuSub implements OnDestroy {
     
     @Input() menuWidth: string;
     
-    @Input() effectDuration: any = '1s';
+    @Input() effectDuration: any;
         
     @Input() easing: string = 'ease-out';
         
     constructor(@Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu, public router: Router) {}
-    
-    activeItem: any;
         
+    activeItem: any;
+            
     hoveredLink: any;
                 
     itemClick(event, item: MenuItem, listitem: any) {
@@ -55,9 +55,7 @@ export class SlideMenuSub implements OnDestroy {
         if(!item.url||item.routerLink) {
             event.preventDefault();
         }
-        
-        this.activeItem = listitem;
-        
+                
         if(item.command) {
             if(!item.eventEmitter && item.command) {
                 item.eventEmitter = new EventEmitter();
@@ -70,8 +68,11 @@ export class SlideMenuSub implements OnDestroy {
             });
         }
         
-        if(item.items) {
+        if(item.items && !this.slideMenu.animating) {
             this.slideMenu.left -= this.slideMenu.menuWidth;
+            this.activeItem = listitem;
+            this.slideMenu.animating = true;
+            setTimeout(() => this.slideMenu.animating = false, this.effectDuration);
         }
         
         if(item.routerLink) {
@@ -80,8 +81,8 @@ export class SlideMenuSub implements OnDestroy {
     }
         
     ngOnDestroy() {
-        this.hoveredLink = null;
         this.activeItem = null;
+        this.hoveredLink = null;
     }
 }
 
@@ -116,7 +117,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @Input() viewportHeight: number = 175;
     
-    @Input() effectDuration: any = '500ms';
+    @Input() effectDuration: any = 500;
         
     @Input() easing: string = 'ease-out';
     
@@ -129,6 +130,8 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     public preventDocumentDefault: any;
         
     public left: number = 0;
+    
+    public animating: boolean = false;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
