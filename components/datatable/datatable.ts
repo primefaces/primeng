@@ -109,7 +109,7 @@ export class RowExpansionLoader {
                                 (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-state-focus': headerCell === focusedHeader && col.sortable,
                                 'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
-                                [draggable]="reorderableColumns" (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)"
+                                (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)" (mousedown)="onHeaderMousedown($event,headerCell)"
                                 [attr.tabindex]="col.sortable ? tabindex : null" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
                                 <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
                                 <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
@@ -637,7 +637,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             event.preventDefault();
         }
     }
-
+    
+    onHeaderMousedown(event, header: any) {
+        if(event.target.nodeName !== 'INPUT') {
+            header.draggable = true;
+        }
+    }
+    
     sort(event, column: Column) {
         if(!column.sortable) {
             return;
@@ -1321,7 +1327,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
 
         this.draggedColumn = this.findParentHeader(event.target);
-        event.dataTransfer.setData('a', 'b'); // Firefox requires this to make dragging possible
+        event.dataTransfer.setData('text', 'b'); // Firefox requires this to make dragging possible
     }
     
     onColumnDragover(event) {
@@ -1381,6 +1387,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         this.reorderIndicatorUp.style.display = 'none';
         this.reorderIndicatorDown.style.display = 'none';
+        this.draggedColumn.draggable = false;
         this.draggedColumn = null;
     }
 
