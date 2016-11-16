@@ -455,6 +455,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public rowTouch: boolean;
     
     public editingCell: any;
+    
+    public filteredByUser: boolean;
 
     differ: any;
 
@@ -463,7 +465,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     preventBlurOnEdit: boolean;
     
     columnsSubscription: Subscription;
-
+    
     constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, 
             public renderer: Renderer, private changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
@@ -541,6 +543,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this.updatePaginator();
             }
             
+            if(this.hasFilter()) {
+                if(this.filteredByUser)
+                    this.filteredByUser = false;
+                else
+                    this.filter();
+            }
+                        
             if(this.stopSortPropagation) {
                 this.stopSortPropagation = false;
             }
@@ -993,9 +1002,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
 
         this.filterTimeout = setTimeout(() => {
-            this.filters[field] = {value: value, matchMode: matchMode};
+            if(value && value.trim().length)
+                this.filters[field] = {value: value, matchMode: matchMode};
+            else if(this.filters[field])
+                delete this.filters[field];
+            
+            this.filteredByUser = true;
             this.filter();
-            this.filterTimeout = null;
+            this.filterTimeout = null;            
         }, this.filterDelay);
     }
 
