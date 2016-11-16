@@ -50,7 +50,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
 })
 export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,ControlValueAccessor {
     
-    @Input() minLength: number = 3;
+    @Input() minLength: number = 1;
     
     @Input() delay: number = 300;
     
