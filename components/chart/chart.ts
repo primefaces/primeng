@@ -41,13 +41,22 @@ export class UIChart implements AfterViewInit, OnDestroy, DoCheck {
     }
 
     ngDoCheck() {
-        var changes = this.differ.diff(this.data.datasets);
-        if (changes && this.initialized) {
-            if(this.chart) {
-                this.chart.destroy();
+        if(this.data && this.data.datasets) {
+            let changed = false;
+            for(let i = 0; i < this.data.datasets.length; i++) {
+                if(this.differ.diff(this.data.datasets[i].data)) {
+                    changed = true;
+                    break;
+                }
             }
 
-            this.initChart();
+            if(changed && this.initialized) {
+                if(this.chart) {
+                    this.chart.destroy();
+                }
+
+                this.initChart();
+            }
         }
     }
 
