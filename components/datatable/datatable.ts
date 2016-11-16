@@ -449,6 +449,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public reorderIndicatorDown: any;
     
     public draggedColumn: any;
+    
+    public dropPosition: number;
             
     public tbody: any;
     
@@ -1347,10 +1349,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 if(event.pageX > columnCenter) {
                     this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
                     this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8)+ 'px';
+                    this.dropPosition = 1;
                 }
                 else {
                     this.reorderIndicatorUp.style.left = (targetLeft - 8) + 'px';
                     this.reorderIndicatorDown.style.left = (targetLeft - 8)+ 'px';
+                    this.dropPosition = -1;
                 }
                 
                 this.reorderIndicatorUp.style.display = 'block';
@@ -1374,8 +1378,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         event.preventDefault();
         let dragIndex = this.domHandler.index(this.draggedColumn);
         let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
-
-        if(dragIndex != dropIndex) {
+        let allowDrop = (dragIndex != dropIndex);
+        if(allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
+            allowDrop = false;
+        }
+    
+        if(allowDrop) {
             this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
 
             this.onColReorder.emit({
@@ -1389,6 +1397,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.reorderIndicatorDown.style.display = 'none';
         this.draggedColumn.draggable = false;
         this.draggedColumn = null;
+        this.dropPosition = null;
     }
 
     initColumnReordering() {
