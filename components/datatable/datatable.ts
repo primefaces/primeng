@@ -165,7 +165,7 @@ export class RowExpansionLoader {
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
-                            <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
+                            <tr #rowElement [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <td *ngFor="let col of columns;let colIndex = index" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
@@ -380,6 +380,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Input() tabindex: number = 1;
     
+    @Input() rowStyleClass: Function;
+    
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
@@ -488,7 +490,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     ngAfterViewChecked() {
-        if(this.columnsChanged) {
+        if(this.columnsChanged && this.el.nativeElement.offsetParent) {
             if(this.resizableColumns) {
                 this.initResizableColumns();
             }
@@ -1526,7 +1528,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     visibleColumns() {
-        return this.columns.filter(c => !c.hidden);
+        return this.columns ? this.columns.filter(c => !c.hidden): [];
     }
     
     public exportCSV() {
@@ -1585,6 +1587,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+    
+    getRowStyleClass(rowData: any, rowIndex: number) {
+        let styleClass = 'ui-widget-content';
+        if(this.rowStyleClass) {
+            let rowClass = this.rowStyleClass.call(this, rowData, rowIndex);
+            if(rowClass) {
+                styleClass += ' ' + rowClass;
+            }
+        }
+        return styleClass;
     }
 
     ngOnDestroy() {
