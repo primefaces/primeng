@@ -84,7 +84,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() disabled: boolean;
     
     @Input() overlayVisible: boolean;
-    
+
+    @Input() compareField: string;
+
     public value: any[];
     
     public onModelChange: Function = () => {};
@@ -197,7 +199,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         
         if(this.value) {
             for(let i = 0; i < this.value.length; i++) {
-                if(this.value[i] == val) {
+                if(this.compareValues(this.value[i], val)) {
                     index = i;
                     break;
                 }
@@ -205,6 +207,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         }
         
         return index;
+    }
+
+    private compareValues(val1:any, val2:any) {
+        if(this.compareField) {
+            return val1[this.compareField] == val2[this.compareField];
+        }
+
+        return val1 == val2;
     }
     
     toggleAll(event, checkbox) {
@@ -305,7 +315,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         let label = null;
         for(let i = 0; i < this.options.length; i++) {
             let option = this.options[i];
-            if(option.value == val) {
+            if(this.compareValues(option.value, val)) {
                 label = option.label;
                 break; 
             }
@@ -328,7 +338,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     isItemVisible(option: SelectItem): boolean {
         if(this.filterValue && this.filterValue.trim().length) {
             for(let i = 0; i < this.visibleOptions.length; i++) {
-                if(this.visibleOptions[i].value == option.value) {
+                if(this.compareValues(this.visibleOptions[i].value, option.value)) {
                     return true;
                 }
             }
