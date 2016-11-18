@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChild,ViewChild,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
 import {SharedModule} from '../common/shared';
@@ -14,7 +14,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-dropdown',
     template: `
-         <div [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
+         <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
             'ui-state-hover':hover&&!disabled,'ui-state-focus':focus,'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible}" 
             (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
@@ -31,13 +31,13 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right" [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-focus':focus}">
                 <span class="fa fa-fw fa-caret-down ui-c"></span>
             </div>
-            <div class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow" 
+            <div #panel class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow" 
                 [style.display]="panelVisible ? 'block' : 'none'">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
                     <span class="fa fa-search"></span>
                 </div>
-                <div class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
+                <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
                     <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                         <li #item *ngFor="let option of optionsToDisplay;let i=index" 
                             [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-hover':hoveredItem == item,'ui-state-highlight':(selectedOption == option)}"
@@ -81,6 +81,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    
+    @ViewChild('container') containerViewChild: ElementRef;
+    
+    @ViewChild('panel') panelViewChild: ElementRef;
+    
+    @ViewChild('itemswrapper') itemsWrapperViewChild: ElementRef;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -108,11 +114,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     public optionsChanged: boolean;
         
-    public panel: any;
+    public panel: HTMLDivElement;
     
-    public container: any;
+    public container: HTMLDivElement;
     
-    public itemsWrapper: any;
+    public itemsWrapper: HTMLDivElement;
     
     public initialized: boolean;
     
@@ -147,19 +153,19 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         }
     }
     
-    ngAfterViewInit() {    
-        this.container = this.el.nativeElement.children[0];
-        this.panel = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-dropdown-panel');
-        this.itemsWrapper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-dropdown-items-wrapper');
+    ngAfterViewInit() { 
+        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
+        this.panel = <HTMLDivElement> this.panelViewChild.nativeElement; 
+        this.itemsWrapper = <HTMLDivElement> this.itemsWrapperViewChild.nativeElement; 
         
         this.updateDimensions();
         this.initialized = true;
         
         if(this.appendTo) {
             if(this.appendTo === 'body')
-                document.body.appendChild(this.container);
+                document.body.appendChild(this.panel);
             else
-                this.appendTo.appendChild(this.container);
+                this.appendTo.appendChild(this.panel);
         }
     }
     
@@ -419,7 +425,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         }
         
         if(this.appendTo) {
-            this.el.nativeElement.appendChild(this.container);
+            this.el.nativeElement.appendChild(this.panel);
         }
     }
 }
