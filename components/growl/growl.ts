@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,IterableDiffers,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
@@ -6,7 +6,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-growl',
     template: `
-        <div class="ui-growl ui-widget" [style.zIndex]="zIndex">
+        <div #container class="ui-growl ui-widget" [style.zIndex]="zIndex">
             <div #msgel *ngFor="let msg of value" class="ui-growl-item-container ui-state-highlight ui-corner-all ui-shadow" aria-live="polite"
                 [ngClass]="{'ui-growl-message-info':msg.severity == 'info','ui-growl-message-warn':msg.severity == 'warn',
                     'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}">
@@ -33,12 +33,14 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     @Input() life: number = 3000;
 
     @Input() value: Message[];
+    
+    @ViewChild('container') containerViewChild: ElementRef;
         
     differ: any;
     
     zIndex: number;
     
-    container: any;
+    container: HTMLDivElement;
     
     stopDoCheckPropagation: boolean;
     
@@ -50,13 +52,12 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.container = this.el.nativeElement.children[0];
+        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
     }
     
     ngDoCheck() {
         let changes = this.differ.diff(this.value);
-        
-        if(changes) {
+        if(changes && this.container) {
             if(this.stopDoCheckPropagation) {
                 this.stopDoCheckPropagation = false;
             }

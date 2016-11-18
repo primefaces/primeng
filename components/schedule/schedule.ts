@@ -41,6 +41,8 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     
     @Input() editable: boolean;
     
+    @Input() droppable: boolean;
+    
     @Input() eventStartEditable: boolean;
     
     @Input() eventDurationEditable: boolean;
@@ -79,13 +81,13 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     
     @Input() locale: any;
 
-    @Input() firstDay: number;
-
     @Input() eventRender: Function;
     
     @Input() dayRender: Function;
     
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onDrop: EventEmitter<any> = new EventEmitter();
     
     @Output() onEventClick: EventEmitter<any> = new EventEmitter();
         
@@ -143,6 +145,7 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
             eventLimit: this.eventLimit,
             defaultDate: this.defaultDate,
             editable: this.editable,
+            droppable: this.droppable,
             eventStartEditable: this.eventStartEditable,
             eventDurationEditable: this.eventDurationEditable,
             defaultView: this.defaultView,
@@ -162,7 +165,6 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
             eventOverlap: this.eventOverlap,
             eventConstraint: this.eventConstraint,
             eventRender: this.eventRender,
-            firstDay: this.firstDay,
             dayRender: this.dayRender,
             events: (start, end, timezone, callback) => {
                 callback(this.events);
@@ -172,6 +174,13 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
                     'date': date,
                     'jsEvent': jsEvent,
                     'view': view
+                });
+            },
+            drop: (date, jsEvent, ui, resourceId) => {
+                this.onDrop.emit({
+                    'date': event,
+                    'jsEvent': jsEvent,
+                    'resourceId': resourceId
                 });
             },
             eventClick: (calEvent, jsEvent, view) => {

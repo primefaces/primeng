@@ -15,7 +15,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
             <input #in pInputText type="text" class="ui-spinner-input" [value]="(value === undefined || value == null) ? '' : value"
-            [attr.size]="size" [maxLength]="maxlength" [disabled]="disabled" [readonly]="readonly"
+            [attr.size]="size" [attr.maxlength]="maxlength" [disabled]="disabled" [readonly]="readonly"
             (keydown)="onInputKeydown($event)" (keyup)="onInput($event,in.value)" (blur)="onBlur()" (change)="handleChange($event)" (focus)="onFocus()">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp,'ui-state-disabled':disabled}"
