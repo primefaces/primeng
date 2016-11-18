@@ -22,4 +22,6 @@ export class InputMaskDemo {
     val5: string;
     
     val6: string;
+
+    val7: string;
 }

@@ -37,6 +37,12 @@
             <span>Serial Number</span>
             <p-inputMask mask="a*-999-a999" [(ngModel)]="val6" placeholder="a*-999-a999"></p-inputMask>
         </div>
+        
+        <div class="ui-g-12 ui-md-6 ui-lg-4">
+            <span>Styled</span>
+            <p-inputMask mask="99-999999" [(ngModel)]="val7" placeholder="99-999999" style='{"background-color": "#bde9ba", "text-align": "right"}'></p-inputMask>
+        </div>
+
     </div>
     
 </div>
@@ -132,7 +138,7 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Inline style of the input field.</td>
+                            <td>Inline style of the input field. Need JSON format string.</td>
                         </tr>
                         <tr>
                             <td>styleClass</td>
@@ -246,6 +252,11 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
         &lt;span&gt;Serial Number&lt;/span&gt;
         &lt;p-inputMask mask="a*-999-a999" [(ngModel)]="val6" placeholder="a*-999-a999"&gt;&lt;/p-inputMask&gt;
     &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
+        &lt;span&gt;Styled&lt;/span&gt;
+        &lt;p-inputMask mask="99-999999" [(ngModel)]="val7" placeholder="99-999999" style=&#039;&#123;&quot;background-color&quot;: &quot;#bde9ba&quot;, &quot;text-align&quot;: &quot;right&quot;&#125;&#039;&gt;&lt;/p-inputMask&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 </code>
 </pre>
@@ -266,6 +277,8 @@ export class InputMaskDemo &#123;
     
     val6: string;
     
+    val7: string;
+
 &#125;
 </code>
 </pre>
