@@ -39,7 +39,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: 'p-inputMask',
-    template: `<input pInputText type="text" [name]="name" [value]="value||''" [ngStyle]="style" [ngClass]="styleClass" [placeholder]="placeholder"
+    template: `<input pInputText type="text" [name]="name" [value]="value||''" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder"
         [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [disabled]="disabled" [readonly]="readonly"
         (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)"
         (input)="onInput($event)" (paste)="handleInputChange($event)">`,
