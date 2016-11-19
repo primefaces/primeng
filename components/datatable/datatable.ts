@@ -641,8 +641,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     onHeaderMousedown(event, header: any) {
-        if(event.target.nodeName !== 'INPUT') {
-            header.draggable = true;
+        if(this.reorderableColumns) {
+            if(event.target.nodeName !== 'INPUT') {
+                header.draggable = true;
+            } else if(event.target.nodeName === 'INPUT') {
+                header.draggable = false;
+            }
         }
     }
     
