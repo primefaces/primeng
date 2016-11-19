@@ -458,7 +458,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public editingCell: any;
     
-    public filteredByUser: boolean;
+    public lazyFilteredByUser: boolean;
 
     differ: any;
 
@@ -540,16 +540,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let changes = this.differ.diff(this.value);
         if(changes) {
             this.dataChanged = true;
-            
             if(this.paginator) {
                 this.updatePaginator();
             }
-            
+
             if(this.hasFilter()) {
-                if(this.filteredByUser)
-                    this.filteredByUser = false;
-                else
+                if(this.lazy) {
+                    //prevent loop
+                    if(this.lazyFilteredByUser)
+                        this.lazyFilteredByUser = false;
+                    else
+                        this.filter();
+                }
+                else {
                     this.filter();
+                }
             }
                         
             if(this.stopSortPropagation) {
@@ -1019,7 +1024,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             else if(this.filters[field])
                 delete this.filters[field];
             
-            this.filteredByUser = true;
+            if(this.lazy) {
+                this.lazyFilteredByUser = true;
+            }
+            
             this.filter();
             this.filterTimeout = null;            
         }, this.filterDelay);
