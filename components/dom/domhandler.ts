@@ -268,7 +268,7 @@ export class DomHandler {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
 
-        height -= parseInt(style.paddingTop) + parseInt(style.paddingBottom) + parseInt(style.borderTopWidth) + parseInt(style.borderBottomWidth);
+        height -= parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
 
         return height;
     }
