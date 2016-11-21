@@ -292,6 +292,18 @@ export class DomHandler {
 
         return { width: w, height: h };
     }
+    
+    public getOffset(el) {
+        let x = el.offsetLeft;
+        let y = el.offsetTop;
+
+        while (el = el.offsetParent) {
+            x += el.offsetLeft;
+            y += el.offsetTop;
+        }
+
+        return {left: x, top: y};
+    }
 
     public equals(obj1: any, obj2: any): boolean {
         if (obj1 == null && obj2 == null) {
