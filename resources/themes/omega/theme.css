@@ -29,7 +29,7 @@
 	background: -webkit-linear-gradient(top, #f6f7f9 0%,#ebedf0 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top, #f6f7f9 0%,#ebedf0 100%); /* Opera11.10+ */
 	background: -ms-linear-gradient(top, #f6f7f9 0%,#ebedf0 100%); /* IE10+ */
-	background: linear-gradient(top, #f6f7f9 0%,#ebedf0 100%); /* W3C */
+	background: linear-gradient(to bottom, #f6f7f9 0%,#ebedf0 100%); /* W3C */
 }
 .ui-widget-header a { color: #222222; }
 
@@ -654,7 +654,7 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
     background: -webkit-linear-gradient(top, #f6f7f9 0%,#ebedf0 100%); /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(top, #f6f7f9 0%,#ebedf0 100%); /* Opera11.10+ */
     background: -ms-linear-gradient(top, #f6f7f9 0%,#ebedf0 100%); /* IE10+ */
-    background: linear-gradient(top, #f6f7f9 0%,#ebedf0 100%); /* W3C */
+    background: linear-gradient(to bottom, #f6f7f9 0%,#ebedf0 100%); /* W3C */
 }
 
 .ui-menu a.ui-state-hover {
