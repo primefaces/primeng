@@ -43,8 +43,8 @@ export class Accordion implements BlockableUI {
         <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}"
             (mouseenter)="hover = true" (mouseleave)="hover=false" (click)="toggle($event)">
             <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
-            <a href="#" *ngIf="!headerFacet.length" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">{{header}}</a>
-            <a href="#" *ngIf="headerFacet.length" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">
+            <a href="#" *ngIf="!hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">{{header}}</a>
+            <a href="#" *ngIf="hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">
                 <ng-content select="header"></ng-content>
             </a>
         </div>
@@ -131,6 +131,10 @@ export class AccordionTab {
             }
         }
         return index;
+    }
+    
+    get hasHeaderFacet(): boolean {
+        return this.headerFacet && this.headerFacet.length > 0;
     }
 }
 
