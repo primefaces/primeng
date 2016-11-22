@@ -60,3 +60,8 @@
 .ui-confirmdialog .ui-dialog-content .ui-confirmdialog-message {
     vertical-align: middle;
 }
+
+/* Fluid */
+.ui-fluid .ui-dialog-buttonpane .ui-button {
+    width: auto;
+}
