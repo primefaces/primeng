@@ -1,6 +1,5 @@
 .ui-splitbutton {
     position: relative;
-    padding-right: 2em;
     display: inline-block;
     zoom: 1;
 }
@@ -20,8 +19,8 @@
     -moz-box-sizing: border-box;
 }
 
-.ui-fluid .ui-splitbutton .ui-button {
-    width: 100%;
+.ui-fluid .ui-splitbutton .ui-button:first-child {
+    width: calc(100% - 32px);
 }
 
 .ui-fluid .ui-splitbutton .ui-button.ui-splitbutton-menubutton {

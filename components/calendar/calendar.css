@@ -14,6 +14,12 @@
     width: 100%;
 }
 
+.ui-fluid .ui-datepicker-trigger.ui-button {
+    position: absolute;
+    right: -2px;
+    width: 2.4em;
+}
+
 /* Datepicker */
 .ui-datepicker {
 	width: 17em;
