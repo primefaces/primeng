@@ -185,7 +185,7 @@ export class RowExpansionLoader {
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="visibleColumns().length">
-                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
+                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate.first"></p-rowExpansionLoader>
                                 </td>
                             </tr>
                         </template>
@@ -248,7 +248,7 @@ export class RowExpansionLoader {
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="visibleColumns().length">
-                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
+                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate.first"></p-rowExpansionLoader>
                                 </td>
                             </tr>
                         </template>
@@ -388,7 +388,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
+    @ContentChildren(TemplateRef) rowExpansionTemplate: QueryList<TemplateRef<any>>;
     
     @ContentChildren(Column) cols: QueryList<Column>;
     
