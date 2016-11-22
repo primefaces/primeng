@@ -66,6 +66,13 @@ export class UIChart implements AfterViewInit, OnDestroy {
         return this.chart.toBase64Image();
     }
     
+    refresh() {
+        if(this.chart) {
+            this.chart.destroy();
+            this.initChart();
+        }
+    }
+    
     ngOnDestroy() {
         if(this.chart) {
             this.chart.destroy();
