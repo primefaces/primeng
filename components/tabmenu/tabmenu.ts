@@ -15,7 +15,7 @@ import {Router, RouterModule} from '@angular/router';
                         'ui-tabmenuitem-hasicon':item.icon,'ui-state-hover':hoveredItem==item,'ui-state-active':activeItem==item}"
                     (mouseenter)="hoveredItem=item&&!item.disabled" (mouseleave)="hoveredItem=null">
                     <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
-                        [routerLink]="item.routerLink" routerLinkActive="ui-state-active">
+                        [routerLink]="item.routerLink || []" [routerLinkActive]="item.routerLink ? 'ui-state-active' : ''">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
