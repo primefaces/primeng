@@ -1313,6 +1313,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             else if(this.columnResizeMode === 'expand') {
                 this.tbody.parentElement.style.width = this.tbody.parentElement.offsetWidth + delta + 'px';
                 this.resizeColumn.style.width = newColumnWidth + 'px';
+                
+                if(this.header) {
+                    let headerEL = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-header');
+                    headerEL.style.width = this.tbody.parentElement.style.width;
+                }
+                
+                if(this.footer) {
+                    let footerEL = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-footer');
+                    footerEL.style.width = this.tbody.parentElement.style.width;
+                }
             }    
             
             this.onColResize.emit({
