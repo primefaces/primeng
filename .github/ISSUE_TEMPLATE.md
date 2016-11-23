@@ -1,11 +1,12 @@
 <!--
-IF YOU DON'T FILL OUT THE FOLLOWING INFORMATION WE MIGHT CLOSE YOUR ISSUE WITHOUT INVESTIGATING
+- IF YOU DON'T FILL OUT THE FOLLOWING INFORMATION WE MIGHT CLOSE YOUR ISSUE WITHOUT INVESTIGATING.
+- IF YOU'D LIKE TO SECURE OUR RESPONSE, YOU MAY CONSIDER PRIMENG PRO SUPPORT WHERE SUPPORT IS PROVIDED WITHIN 4 hours.
 -->
 
 **I'm submitting a ...**  (check one with "x")
 ```
-[ ] bug report => search github for a similar issue or PR before submitting
-[ ] feature request
+[ ] bug report => Search github for a similar issue or PR before submitting
+[ ] feature request => Please check if request is not on the roadmap already https://github.com/primefaces/primeng/wiki/Roadmap
 [ ] support request => Please do not submit support request here, instead see http://forum.primefaces.org/viewforum.php?f=35
 ```
 
