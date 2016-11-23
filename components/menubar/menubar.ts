@@ -13,7 +13,7 @@ import {Router, RouterModule} from '@angular/router';
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event,item,child)" (mouseleave)="onItemMouseLeave($event,item)">
-                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [routerLink]="child.routerLink" routerLinkActive="ui-state-active"
+                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [routerLink]="child.routerLink || []" [routerLinkActive]="child.routerLink ? ['ui-state-active'] : ''"
                         [ngClass]="{'ui-state-hover':link==activeLink&&!child.disabled,'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw" *ngIf="child.items" [ngClass]="{'fa-caret-down':root,'fa-caret-right':!root}"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
