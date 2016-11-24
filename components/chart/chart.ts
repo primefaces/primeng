@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var Chart: any;
@@ -11,7 +11,7 @@ declare var Chart: any;
         </div>
     `
 })
-export class UIChart implements AfterViewInit, OnDestroy, DoCheck {
+export class UIChart implements AfterViewInit, OnDestroy {
 
     @Input() type: string;
 
@@ -40,26 +40,6 @@ export class UIChart implements AfterViewInit, OnDestroy, DoCheck {
         this.initialized = true;
     }
 
-    ngDoCheck() {
-        if(this.data && this.data.datasets) {
-            let changed = false;
-            for(let i = 0; i < this.data.datasets.length; i++) {
-                if(this.differ.diff(this.data.datasets[i].data)) {
-                    changed = true;
-                    break;
-                }
-            }
-
-            if(changed && this.initialized) {
-                if(this.chart) {
-                    this.chart.destroy();
-                }
-
-                this.initChart();
-            }
-        }
-    }
-
     onCanvasClick(event) {
         if(this.chart) {
             let element = this.chart.getElementAtEvent(event);
@@ -84,6 +64,13 @@ export class UIChart implements AfterViewInit, OnDestroy, DoCheck {
     
     getBase64Image() {
         return this.chart.toBase64Image();
+    }
+    
+    refresh() {
+        if(this.chart) {
+            this.chart.destroy();
+            this.initChart();
+        }
     }
     
     ngOnDestroy() {

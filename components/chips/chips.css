@@ -1,0 +1,52 @@
+.ui-chips > ul {
+    clear: left;
+    cursor: text;
+    list-style-type: none;
+    margin: 0;
+    min-height: 1px;
+    overflow: hidden;
+}
+
+.ui-chips > ul.ui-inputtext {
+    padding:0;
+}
+
+.ui-chips-token {
+    cursor: default;
+    float: left;
+    overflow: hidden;
+    padding: 1px 3px;
+    white-space: nowrap;
+    position: relative;
+    margin:2px;
+}
+
+.ui-chips-token .ui-chips-token-label {
+    display: block;
+    padding: 0em 2.1em 0em 0.5em;
+}
+
+.ui-chips-token .ui-chips-token-icon {
+    margin-top: -9px;
+    position: absolute;
+    right: 0.2em;
+    top: 50%;
+    cursor: pointer;
+}
+
+.ui-chips-input-token {
+    float: left;
+    list-style-type: none;
+    margin: 2px;
+    padding: 1px;
+}
+
+.ui-chips-input-token .ui-inputtext {
+    border: 0 none;
+    width: 140px;
+    outline: medium none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+}

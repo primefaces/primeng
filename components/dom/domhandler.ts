@@ -221,7 +221,7 @@ export class DomHandler {
 
         if (margin) {
             let style = getComputedStyle(el);
-            width += parseInt(style.marginLeft) + parseInt(style.marginRight);
+            width += parseFloat(style.marginLeft) + parseFloat(style.marginRight);
         }
 
         return width;
@@ -229,19 +229,19 @@ export class DomHandler {
 
     public getHorizontalPadding(el) {
         let style = getComputedStyle(el);
-        return parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+        return parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
     }
 
     public getHorizontalMargin(el) {
         let style = getComputedStyle(el);
-        return parseInt(style.marginLeft) + parseInt(style.marginRight);
+        return parseFloat(style.marginLeft) + parseFloat(style.marginRight);
     }
 
     public innerWidth(el) {
         let width = el.offsetWidth;
         let style = getComputedStyle(el);
 
-        width += parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+        width += parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
         return width;
     }
 
@@ -249,7 +249,7 @@ export class DomHandler {
         let width = el.offsetWidth;
         let style = getComputedStyle(el);
 
-        width -= parseInt(style.paddingLeft) + parseInt(style.paddingRight);
+        width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
         return width;
     }
 
@@ -258,7 +258,7 @@ export class DomHandler {
 
         if (margin) {
             let style = getComputedStyle(el);
-            height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+            height += parseFloat(style.marginTop) + parseFloat(style.marginBottom);
         }
 
         return height;
@@ -268,7 +268,7 @@ export class DomHandler {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
 
-        height -= parseInt(style.paddingTop) + parseInt(style.paddingBottom) + parseInt(style.borderTopWidth) + parseInt(style.borderBottomWidth);
+        height -= parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
 
         return height;
     }
@@ -277,7 +277,7 @@ export class DomHandler {
         let width = el.offsetWidth;
         let style = getComputedStyle(el);
 
-        width -= parseInt(style.paddingLeft) + parseInt(style.paddingRight) + parseInt(style.borderLeftWidth) + parseInt(style.borderRightWidth);
+        width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
 
         return width;
     }
@@ -291,6 +291,18 @@ export class DomHandler {
             h = win.innerHeight || e.clientHeight || g.clientHeight;
 
         return { width: w, height: h };
+    }
+    
+    public getOffset(el) {
+        let x = el.offsetLeft;
+        let y = el.offsetTop;
+
+        while (el = el.offsetParent) {
+            x += el.offsetLeft;
+            y += el.offsetTop;
+        }
+
+        return {left: x, top: y};
     }
 
     public equals(obj1: any, obj2: any): boolean {

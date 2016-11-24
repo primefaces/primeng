@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChild,
+import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChildren,QueryList,
 trigger,state,transition,style,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
@@ -43,8 +43,8 @@ export class Accordion implements BlockableUI {
         <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}"
             (mouseenter)="hover = true" (mouseleave)="hover=false" (click)="toggle($event)">
             <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
-            <a href="#" *ngIf="!headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">{{header}}</a>
-            <a href="#" *ngIf="headerFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">
+            <a href="#" *ngIf="!hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">{{header}}</a>
+            <a href="#" *ngIf="hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">
                 <ng-content select="header"></ng-content>
             </a>
         </div>
@@ -78,7 +78,7 @@ export class AccordionTab {
     
     @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(Header) headerFacet;
+    @ContentChildren(Header) headerFacet: QueryList<AccordionTab>;
     
     public animating: boolean;
     
@@ -131,6 +131,10 @@ export class AccordionTab {
             }
         }
         return index;
+    }
+    
+    get hasHeaderFacet(): boolean {
+        return this.headerFacet && this.headerFacet.length > 0;
     }
 }
 

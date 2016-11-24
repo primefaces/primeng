@@ -73,6 +73,7 @@
 .ui-carousel .ui-carousel-page-link {
     float: left;
     margin: 0 2px;
+    text-decoration: none;
 }
 
 .ui-carousel .ui-carousel-page-link, 

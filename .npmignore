@@ -25,6 +25,7 @@ gulpfile.js
 aot
 
 # misc
+.github
 *.log
 prod
 

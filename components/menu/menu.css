@@ -195,6 +195,7 @@
     overflow: hidden;
     float: left; 
     margin-top:3px;
+    text-decoration: none;
 }
 
 .ui-breadcrumb ul li.fa {

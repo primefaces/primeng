@@ -179,13 +179,13 @@ export class RowExpansionLoader {
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
-                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
+                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                     <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="visibleColumns().length">
-                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
+                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate.first"></p-rowExpansionLoader>
                                 </td>
                             </tr>
                         </template>
@@ -242,13 +242,13 @@ export class RowExpansionLoader {
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
-                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio(rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
+                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                     <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="visibleColumns().length">
-                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
+                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate.first"></p-rowExpansionLoader>
                                 </td>
                             </tr>
                         </template>
@@ -388,7 +388,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(TemplateRef) rowExpansionTemplate: TemplateRef<any>;
+    @ContentChildren(TemplateRef) rowExpansionTemplate: QueryList<TemplateRef<any>>;
     
     @ContentChildren(Column) cols: QueryList<Column>;
     
@@ -458,7 +458,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public editingCell: any;
     
-    public filteredByUser: boolean;
+    public lazyFilteredByUser: boolean;
 
     differ: any;
 
@@ -540,16 +540,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let changes = this.differ.diff(this.value);
         if(changes) {
             this.dataChanged = true;
-            
             if(this.paginator) {
                 this.updatePaginator();
             }
-            
+
             if(this.hasFilter()) {
-                if(this.filteredByUser)
-                    this.filteredByUser = false;
-                else
+                if(this.lazy) {
+                    //prevent loop
+                    if(this.lazyFilteredByUser)
+                        this.lazyFilteredByUser = false;
+                    else
+                        this.filter();
+                }
+                else {
                     this.filter();
+                }
             }
                         
             if(this.stopSortPropagation) {
@@ -641,8 +646,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     onHeaderMousedown(event, header: any) {
-        if(event.target.nodeName !== 'INPUT') {
-            header.draggable = true;
+        if(this.reorderableColumns) {
+            if(event.target.nodeName !== 'INPUT') {
+                header.draggable = true;
+            } else if(event.target.nodeName === 'INPUT') {
+                header.draggable = false;
+            }
         }
     }
     
@@ -900,7 +909,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    selectRowWithRadio(rowData:any) {
+    selectRowWithRadio(event, rowData:any) {
         if(this.selection != rowData) {
             this.selection = rowData;
             this.selectionChange.emit(this.selection);
@@ -1015,7 +1024,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             else if(this.filters[field])
                 delete this.filters[field];
             
-            this.filteredByUser = true;
+            if(this.lazy) {
+                this.lazyFilteredByUser = true;
+            }
+            
             this.filter();
             this.filterTimeout = null;            
         }, this.filterDelay);
@@ -1301,6 +1313,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             else if(this.columnResizeMode === 'expand') {
                 this.tbody.parentElement.style.width = this.tbody.parentElement.offsetWidth + delta + 'px';
                 this.resizeColumn.style.width = newColumnWidth + 'px';
+                
+                if(this.header) {
+                    let headerEL = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-header');
+                    headerEL.style.width = this.tbody.parentElement.style.width;
+                }
+                
+                if(this.footer) {
+                    let footerEL = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-footer');
+                    footerEL.style.width = this.tbody.parentElement.style.width;
+                }
             }    
             
             this.onColResize.emit({

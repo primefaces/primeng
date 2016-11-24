@@ -83,6 +83,11 @@ import &#123;MenuItem&#125; from 'primeng/common/api';
     <h3>Angular2 Seed Integration</h3>
     <p>Angular2 Seed is a modular starter project, there is an <a href="https://github.com/mgechev/angular2-seed/wiki/Add-PrimeNG">official entry</a> at the project wiki
         describing how to use PrimeNG with seed.</p>
+        
+        
+    <h3>Angular2 CLI Integration</h3>
+    <p>If you have an existing project visit the <a href="https://github.com/primefaces/primeng-quickstart-cli">PrimeNG CLI quickstart sample</a>. External articles
+    at the end of this page also includes tutorials on CLI integration.</p>
 
     <h3>Quickstart with System.js</h3>
     <p>An example starter application based on angular2-quickstart is available at <a href="https://github.com/primefaces/primeng-quickstart">GitHub</a>.</p>
@@ -91,40 +96,37 @@ import &#123;MenuItem&#125; from 'primeng/common/api';
 <pre>
 <code class="language-js" pCode>
 &#123;
-  "name": "angular2-quickstart",
-  "version": "1.0.0",
+  "name": "primeng-quickstart",
+  "version": "v1.0.0-SNAPSHOT",
   "scripts": &#123;
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "lite": "lite-server",
-    "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
+     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+     "lite": "lite-server",
+     "tsc": "tsc",
+     "tsc:w": "tsc -w"
   &#125;,
   "license": "ISC",
   "dependencies": &#123;
-    "@angular/common":  "~2.0.1",
-    "@angular/compiler":  "~2.0.1",
-    "@angular/core":  "~2.0.1",
-    "@angular/forms": "~2.0.1",
-    "@angular/http":  "~2.0.1",
-    "@angular/platform-browser":  "~2.0.1",
-    "@angular/platform-browser-dynamic":  "~2.0.1",
-    "@angular/router":  "~3.0.1",
-    "@angular/upgrade":  "~2.0.1",
-    "angular-in-memory-web-api": "~0.1.1",
-    "systemjs": "0.19.39",
-    "core-js": "^2.4.1",
-    "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.0-beta.12",
-    "zone.js": "^0.6.25",
-    "primeng": "^1.0.0-beta.16"
+      "@angular/common": "~2.2.0",
+      "@angular/compiler": "~2.2.0",
+      "@angular/core": "~2.2.0",
+      "@angular/forms": "~2.2.0",
+      "@angular/http": "~2.2.0",
+      "@angular/platform-browser": "~2.2.0",
+      "@angular/platform-browser-dynamic": "~2.2.0",
+      "@angular/router": "~3.2.0",
+      "angular-in-memory-web-api": "~0.1.15",
+      "systemjs": "0.19.40",
+      "core-js": "^2.4.1",
+      "reflect-metadata": "^0.1.8",
+      "rxjs": "5.0.0-beta.12",
+      "zone.js": "^0.6.26",
+      "primeng": "^1.0.0"
   &#125;,
   "devDependencies": &#123;
-    "concurrently": "^2.0.0",
-    "lite-server": "^2.2.0",
-    "typescript": "^1.8.10",
-    "typings":"^1.0.4"
+      "concurrently": "^3.1.0",
+      "lite-server": "^2.2.2",
+      "typescript": "^2.0.10",
+      "@types/node": "^6.0.46"
   &#125;
 &#125;
 </code>
@@ -167,55 +169,39 @@ import &#123;MenuItem&#125; from 'primeng/common/api';
     <h4>systemjs.config.js</h4>
 <pre>
 <code class="language-javascript" pCode>
-/**
- * System configuration for Angular 2 samples
- * Adjust as necessary for your application needs.
- */
-(function(global) &#123;
-  // map tells the System loader where to look for things
-  var map = &#123;
-    'app':                        'app', // 'dist',
-    '@angular':                   'node_modules/@angular',
-    'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
-    'rxjs':                       'node_modules/rxjs',
-    'primeng':                    'node_modules/primeng'
-  &#125;;
-  // packages tells the System loader how to load when no filename and/or no extension
-  var packages = &#123;
-    'app':                        &#123; main: 'main.js',  defaultExtension: 'js' &#125;,
-    'rxjs':                       &#123; defaultExtension: 'js' &#125;,
-    'angular2-in-memory-web-api': &#123; main: 'index.js', defaultExtension: 'js' &#125;,
-    'primeng':                    &#123; defaultExtension: 'js' &#125;
-  &#125;;
-  var ngPackageNames = [
-    'common',
-    'compiler',
-    'core',
-    'forms',
-    'http',
-    'platform-browser',
-    'platform-browser-dynamic',
-    'router',
-    'router-deprecated',
-    'upgrade',
-  ];
-  // Individual files (~300 requests):
-  function packIndex(pkgName) &#123;
-    packages['@angular/'+pkgName] = &#123; main: 'index.js', defaultExtension: 'js' &#125;;
-  &#125;
-  // Bundled (~40 requests):
-  function packUmd(pkgName) &#123;
-    packages['@angular/'+pkgName] = &#123; main: 'bundles/' + pkgName + '.umd.js', defaultExtension: 'js' &#125;;
-  &#125;
-  // Most environments should use UMD; some (Karma) need the individual index files
-  var setPackageConfig = System.packageWithIndex ? packIndex : packUmd;
-  // Add package entries for angular packages
-  ngPackageNames.forEach(setPackageConfig);
-  var config = &#123;
-    map: map,
-    packages: packages
-  &#125;;
-  System.config(config);
+(function (global) &#123;
+  System.config(&#123;
+    paths: &#123;
+      'npm:': 'node_modules/'
+    &#125;,
+    map: &#123;
+      app: 'app',
+      '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+      '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+      '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
+      '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
+      '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+      '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
+      '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
+      '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+      '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
+      'rxjs':                      'npm:rxjs',
+      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+      'primeng':                   'npm:primeng'                
+    &#125;,
+    packages: &#123;
+      app: &#123;
+        main: './main.js',
+        defaultExtension: 'js'
+      &#125;,
+      rxjs: &#123;
+        defaultExtension: 'js'
+      &#125;,
+      primeng: &#123;
+          defaultExtension: 'js'
+      &#125;
+    &#125;
+  &#125;);
 &#125;)(this);
 </code>
 </pre>
@@ -276,7 +262,7 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 <pre>
 <code class="language-javascript" pCode>
 &#123;
-  "name": "primeng-quickstart-&#123;webpack&#125;",
+  "name": "primeng-quickstart-webpack",
   "version": "v1.0.0-SNAPSHOT",
   "scripts": &#123;
     "postinstall": "npm run typings install",
@@ -290,27 +276,27 @@ platformBrowserDynamic().bootstrapModule(AppModule);
   &#125;,
   "license": "ISC",
   "dependencies": &#123;
-    "@angular/common":  "~2.0.1",
-    "@angular/compiler":  "~2.0.1",
-    "@angular/core":  "~2.0.1",
-    "@angular/forms": "~2.0.1",
-    "@angular/http":  "~2.0.1",
-    "@angular/platform-browser":  "~2.0.1",
-    "@angular/platform-browser-dynamic":  "~2.0.1",
-    "@angular/router":  "~3.0.1",
-    "@angular/upgrade":  "~2.0.1",
-    "angular-in-memory-web-api": "~0.1.1",
-    "systemjs": "0.19.39",
+    "@angular/common": "~2.2.0",
+    "@angular/compiler": "~2.2.0",
+    "@angular/core": "~2.2.0",
+    "@angular/forms": "~2.2.0",
+    "@angular/http": "~2.2.0",
+    "@angular/platform-browser": "~2.2.0",
+    "@angular/platform-browser-dynamic": "~2.2.0",
+    "@angular/router": "~3.2.0",
+    "angular-in-memory-web-api": "~0.1.15",
+    "systemjs": "0.19.40",
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
-    "zone.js": "^0.6.25",
-    "primeng": "^1.0.0-beta.16"
+    "zone.js": "^0.6.26",
+    "primeng": "^1.0.0"
   &#125;,
   "devDependencies": &#123;
-    "typescript": "^1.8.10",
-    "typings": "^1.3.0",
-    "webpack": "^1.13.1"
+    "typescript": "^2.0.10",
+    "@types/node": "^6.0.46",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.16.2"
   &#125;
 &#125;
 </code>

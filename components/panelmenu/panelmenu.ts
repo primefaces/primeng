@@ -77,12 +77,12 @@ export class PanelMenuSub extends BasePanelMenuItem {
                     'ui-state-active':item.expanded,'ui-state-hover':(item == hoveredItem && !item.disabled),'ui-state-disabled':item.disabled}">
                     <a [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}"
                         (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="handleClick($event,item)">
-                        <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span>
+                        <span *ngIf="item.items" class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span>
                         <span class="ui-menuitem-icon fa fa-fw" [ngClass]="item.icon" *ngIf="item.icon"></span>
                         <span>{{item.label}}</span>
                     </a>
                 </div>
-                <div class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'" 
+                <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'" 
                     [ngClass]="{'ui-panelmenu-content-wrapper-overflown': !item.expanded||animating}">
                     <div class="ui-panelmenu-content ui-widget-content">
                         <p-panelMenuSub [item]="item" [expanded]="true"></p-panelMenuSub>
