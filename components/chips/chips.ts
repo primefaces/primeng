@@ -38,7 +38,9 @@ export class Chips implements ControlValueAccessor {
     
     @Input() disabled: boolean;
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    @Output() onAdd: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onRemove: EventEmitter<any> = new EventEmitter();
     
     @Input() field: string;
     
@@ -105,12 +107,12 @@ export class Chips implements ControlValueAccessor {
     }
     
     removeItem(index: number): void {
-        this.value.splice(index, 1);
+        let removedItem = this.value.splice(index, 1);
         this.onModelChange(this.value);
+        this.onRemove.emit(removedItem);
     }
     
     onKeydown(event: KeyboardEvent, inputEL: HTMLInputElement): void {
-        
         switch(event.which) {
             case 8:
                 if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
@@ -124,6 +126,7 @@ export class Chips implements ControlValueAccessor {
                 if(!this.max||this.max > this.value.length) {
                     this.value.push(inputEL.value);
                     this.onModelChange(this.value);
+                    this.onAdd.emit(inputEL.value);
                 }                
                 inputEL.value = '';
                 event.preventDefault();
@@ -135,10 +138,6 @@ export class Chips implements ControlValueAccessor {
                 }
             break;
         }
-    }
-    
-    add(value: string): void {
-        
     }
     
     get maxedOut(): boolean {
