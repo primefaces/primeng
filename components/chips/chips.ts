@@ -15,7 +15,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     selector: 'p-chips',
     template: `
         <div [ngClass]="'ui-chips ui-widget'" [ngStyle]="style" [class]="styleClass">
-            <ul [ngClass]="{'ui-inputtext ui-state-default ui-corner-all':true,'ui-state-focus':focus}" (click)="inputtext.focus()">
+            <ul [ngClass]="{'ui-inputtext ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled':disabled}" (click)="inputtext.focus()">
                 <li #token *ngFor="let item of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all">
                     <span *ngIf="!itemTemplate" class="ui-chips-token-icon fa fa-fw fa-close" (click)="removeItem(i)"></span>
                     <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
@@ -23,7 +23,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" pInputText [attr.placeholder]="placeholder" (keydown)="onKeydown($event,inputtext)" (focus)="onFocus()" (blur)="onBlur()"
-                        [disabled]="maxedOut||disabled">
+                        [disabled]="maxedOut||disabled" [disabled]="disabled">
                 </li>
             </ul>
         </div>
@@ -107,6 +107,10 @@ export class Chips implements ControlValueAccessor {
     }
     
     removeItem(index: number): void {
+        if(this.disabled) {
+            return;
+        }
+        
         let removedItem = this.value.splice(index, 1);
         this.onModelChange(this.value);
         this.onRemove.emit(removedItem);
