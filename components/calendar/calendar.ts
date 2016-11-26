@@ -927,7 +927,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let minutes = date.getMinutes();
         
         if(this.hourFormat == '12' && this.pm && hours != 12) {
-        	hours-=12;
+            hours-=12;
         }
         
         output += (hours < 10) ? '0' + hours : hours;
@@ -935,14 +935,14 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         output += (minutes < 10) ? '0' + minutes : minutes;
         
         if(this.showSeconds) {
-        	let seconds = date.getSeconds();
+            let seconds = date.getSeconds();
         	
-        	output += ':';
-        	output += (seconds < 10) ? '0' + seconds : seconds;
+            output += ':';
+            output += (seconds < 10) ? '0' + seconds : seconds;
         }
         
         if(this.hourFormat == '12') {
-        	output += this.pm ? ' PM' : ' AM';
+            output += this.pm ? ' PM' : ' AM';
         }
         
         return output;
@@ -951,10 +951,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     parseTime(value) {
         let tokens: string[] = value.split(':');
         if(this.showSeconds && tokens.length !== 3) {
-        	throw "Invalid time";
+            throw "Invalid time";
         }
         else if(tokens.length !== 2) {
-        	throw "Invalid time";
+            throw "Invalid time";
         }
         
         let h = parseInt(tokens[0]);
@@ -962,14 +962,14 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let s = 0;
         
         if(this.showSeconds) {
-        	let s = parseInt(tokens[2]);
+            let s = parseInt(tokens[2]);
         }
         
         if(isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12)) {
-        	throw "Invalid time";
+            throw "Invalid time";
         }
         else if(this.showSeconds && s > 59) {
-        	throw "Invalid time";
+            throw "Invalid time";
         }
         else {
             if(this.hourFormat == '12' && h !== 12) {
