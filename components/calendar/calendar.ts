@@ -926,9 +926,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let hours = date.getHours();
         let minutes = date.getMinutes();
         
-		if(this.hourFormat == '12' && this.pm && hours != 12) {
-			hours-=12;
- 		}
+        if(this.hourFormat == '12' && this.pm && hours != 12) {
+        	hours-=12;
+        }
         
         output += (hours < 10) ? '0' + hours : hours;
         output += ':';
@@ -948,7 +948,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         return output;
     }
     
-    parseTime(value: string) {
+    parseTime(value) {
         let tokens: string[] = value.split(':');
         if(this.showSeconds && tokens.length !== 3) {
         	throw "Invalid time";
