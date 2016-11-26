@@ -28,3 +28,4 @@ components/**/*.metadata.json
 *.log
 .DS_STORE
 .idea
+config/dist/*
