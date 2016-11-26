@@ -717,7 +717,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.value.setMinutes(this.currentMinute);
         
         if(this.showSeconds) {
-        	this.value.setSeconds(this.currentSecond);
+            this.value.setSeconds(this.currentSecond);
         }
         
         this.updateModel();
@@ -782,7 +782,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         value.setMinutes(time.minute);
         
         if(this.showSeconds) {
-        	value.setSeconds(time.second);
+            value.setSeconds(time.second);
         }
     }
     
@@ -942,7 +942,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         if(this.hourFormat == '12') {
-            output += this.pm ? ' PM' : ' AM';
+        	output += this.pm ? ' PM' : ' AM';
         }
         
         return output;
@@ -954,7 +954,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         	throw "Invalid time";
         }
         else if(tokens.length !== 2) {
-            throw "Invalid time";
+        	throw "Invalid time";
         }
         
         let h = parseInt(tokens[0]);
@@ -962,11 +962,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let s = 0;
         
         if(this.showSeconds) {
-        	s = parseInt(tokens[2]);
+        	let s = parseInt(tokens[2]);
         }
         
         if(isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12)) {
-            throw "Invalid time";
+        	throw "Invalid time";
         }
         else if(this.showSeconds && s > 59) {
         	throw "Invalid time";
@@ -976,11 +976,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 h+= 12;
             }
 
-			if(this.showSeconds) {
-				return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1]), second: parseInt(tokens[2])};
-			}
-			else {
-            	return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1]), second: s};
+            if(this.showSeconds) {
+                return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1]), second: parseInt(tokens[2])};
+            }
+            else {
+                return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1]), second: s};
             }
         }
     }
