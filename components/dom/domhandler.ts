@@ -298,8 +298,8 @@ export class DomHandler {
         let y = el.offsetTop;
 
         while (el = el.offsetParent) {
-            x += el.offsetLeft;
-            y += el.offsetTop;
+            x += el.offsetLeft - el.scrollLeft;
+            y += el.offsetTop - el.scrollTop;
         }
 
         return {left: x, top: y};
