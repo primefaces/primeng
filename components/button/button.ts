@@ -44,7 +44,7 @@ export class Button implements AfterViewInit, OnDestroy {
 
         this.labelElement = document.createElement("span");
         this.labelElement.className = 'ui-button-text ui-c';
-        this.labelElement.innerText = this.label || 'ui-button';
+        this.labelElement.appendChild(document.createTextNode(this.label || 'ui-button'));
         this.el.nativeElement.appendChild(this.labelElement);
         this.initialized = true;
         this.applyIconStyle();
