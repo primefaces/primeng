@@ -578,17 +578,22 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     resolveFieldData(data: any, field: string): any {
         if(data && field) {
-            if(field.indexOf('.') == -1) {
-                return data[field];
-            }
-            else {
-                let fields: string[] = field.split('.');
-                let value = data;
-                for(var i = 0, len = fields.length; i < len; ++i) {
-                    value = value[fields[i]];
+            let fields: string[] = field.split('.');
+            let value = data;
+            for(var i = 0, len = fields.length; i < len; ++i) {
+                let currentValue;
+                if(fields[i].length > 0 && fields[i].indexOf('?') === fields[i].length-1) {
+                    currentValue = value[fields[i].substring(0, fields[i].length-1)];
+                    if(!currentValue) {
+                        return null;
+                    }
                 }
-                return value;
+                else {
+                    currentValue = value[fields[i]];
+                }
+                value = currentValue;
             }
+            return value;
         }
         else {
             return null;
