@@ -203,7 +203,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
     
     onInputKeyPress(event: KeyboardEvent) {
-        const pattern = /[0-9\+\-\.\ ]/;
+        const pattern = /[0-9\+\-\.]/;
         let inputChar = String.fromCharCode(event.charCode);
         if (!pattern.test(inputChar)) {
             event.preventDefault();
