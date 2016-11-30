@@ -165,10 +165,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Input() shortYearCutoff: any = '+10';
     
-    @Input() minDate: Date;
-
-    @Input() maxDate: Date;
-    
     @Input() monthNavigator: boolean;
 
     @Input() yearNavigator: boolean;
@@ -241,6 +237,28 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     filled: boolean;
 
     inputFieldValue: string = null;
+    
+    _minDate: Date;
+    
+    _maxDate: Date;
+    
+    @Input() get minDate(): Date {
+        return this._minDate;
+    }
+    
+    set minDate(date: Date) {
+        this._minDate = date;
+        this.createMonth(this.currentMonth, this.currentYear);
+    }
+    
+    @Input() get maxDate(): Date {
+        return this._maxDate;
+    }
+    
+    set maxDate(date: Date) {
+        this._maxDate = date;
+        this.createMonth(this.currentMonth, this.currentYear);
+    }
 
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
