@@ -599,7 +599,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         else if(this.hourFormat == '12') {
             if(this.currentHour === 12)
-                this.currentHour = 0;
+                this.currentHour = 1;
             else
                 this.currentHour++;
         }
@@ -617,7 +617,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 this.currentHour--;
         }
         else if(this.hourFormat == '12') {
-            if(this.currentHour === 0)
+            if(this.currentHour === 1)
                 this.currentHour = 12;
             else
                 this.currentHour--;
@@ -725,7 +725,22 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.createMonth(val.getMonth(), val.getFullYear());
         
         if(this.showTime||this.timeOnly) {
-            this.currentHour = val.getHours();
+            let hours = val.getHours();
+            
+            if(this.hourFormat === '12') {
+                if(hours >= 12) {
+                    this.pm = true;
+                    this.currentHour = (hours == 12) ? 12 : hours - 12;
+                }
+                else {
+                    this.pm = false;
+                    this.currentHour = (hours == 0) ? 12 : hours;
+                }
+            }
+            else {
+                this.currentHour = val.getHours();
+            }
+            
             this.currentMinute = val.getMinutes();
         }
     }
