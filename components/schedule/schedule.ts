@@ -178,7 +178,7 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
             },
             drop: (date, jsEvent, ui, resourceId) => {
                 this.onDrop.emit({
-                    'date': event,
+                    'date': date,
                     'jsEvent': jsEvent,
                     'resourceId': resourceId
                 });

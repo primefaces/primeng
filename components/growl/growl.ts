@@ -17,7 +17,7 @@ import {DomHandler} from '../dom/domhandler';
                                 'fa-close':msg.severity == 'error','fa-check':msg.severity == 'success'}"></span>
                      <div class="ui-growl-message">
                         <span class="ui-growl-title">{{msg.summary}}</span>
-                        <p>{{msg.detail}}</p>
+                        <p [innerHTML]="msg.detail"></p>
                      </div>
                      <div style="clear: both;"></div>
                 </div>
