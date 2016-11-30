@@ -37,18 +37,18 @@
 .ui-tree .ui-tree-toggler {
     cursor: pointer;
     display: inline-block;
-    margin-top: 3px;
+    vertical-align: middle;
 }
 
 .ui-tree .ui-treenode-icon {
     display: inline-block;
-    margin-top: 3px;
+    vertical-align: middle;
 }
 
 .ui-tree .ui-treenode-label {
     display: inline-block;
-    margin: 2px 0 0 0;
     padding: 0 3px;
+    vertical-align: middle;
 }
 
 .ui-tree .ui-treenode-label.ui-state-hover,
@@ -72,7 +72,7 @@
 
 .ui-tree .ui-chkbox {
     display: inline-block;
-    zoom: 1;
+    vertical-align: middle;
 }
 
 /** Fluid **/
