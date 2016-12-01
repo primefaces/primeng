@@ -1401,28 +1401,30 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     onColumnDrop(event) {
         event.preventDefault();
-        let dragIndex = this.domHandler.index(this.draggedColumn);
-        let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
-        let allowDrop = (dragIndex != dropIndex);
-        if(allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
-            allowDrop = false;
-        }
-    
-        if(allowDrop) {
-            this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
-
-            this.onColReorder.emit({
-                dragIndex: dragIndex,
-                dropIndex: dropIndex,
-                columns: this.columns
-            });
-        }
+        if(this.draggedColumn) {
+             let dragIndex = this.domHandler.index(this.draggedColumn);
+            let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
+            let allowDrop = (dragIndex != dropIndex);
+            if(allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
+                allowDrop = false;
+            }
         
-        this.reorderIndicatorUp.style.display = 'none';
-        this.reorderIndicatorDown.style.display = 'none';
-        this.draggedColumn.draggable = false;
-        this.draggedColumn = null;
-        this.dropPosition = null;
+            if(allowDrop) {
+                this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
+
+                this.onColReorder.emit({
+                    dragIndex: dragIndex,
+                    dropIndex: dropIndex,
+                    columns: this.columns
+                });
+            }
+            
+            this.reorderIndicatorUp.style.display = 'none';
+            this.reorderIndicatorDown.style.display = 'none';
+            this.draggedColumn.draggable = false;
+            this.draggedColumn = null;
+            this.dropPosition = null;
+        }
     }
 
     initColumnReordering() {
