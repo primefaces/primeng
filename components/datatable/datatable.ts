@@ -1025,12 +1025,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             clearTimeout(this.filterTimeout);
         }
 
+        if(value && value.trim().length)
+            this.filters[field] = {value: value, matchMode: matchMode};
+        else if(this.filters[field])
+            delete this.filters[field];
+
         this.filterTimeout = setTimeout(() => {
-            if(value && value.trim().length)
-                this.filters[field] = {value: value, matchMode: matchMode};
-            else if(this.filters[field])
-                delete this.filters[field];
-            
             if(this.lazy) {
                 this.stopFilterPropagation = true;
             }
