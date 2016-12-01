@@ -56,12 +56,16 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() disabled: boolean;
     
     @Input() readonly: boolean;
+    
+    @Input() decimalSeparator: string = '.';
             
     value: number;
     
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
+        
+    keyPattern: RegExp = /[0-9\+\-]/;
         
     public hoverUp: boolean;
     
@@ -199,13 +203,12 @@ export class Spinner implements OnInit,ControlValueAccessor {
         else if(event.which == 40) {
             this.spin(-1);
             event.preventDefault();
-        }    
+        }
     }
     
     onInputKeyPress(event: KeyboardEvent) {
-        const pattern = /[0-9\+\-\.]/;
         let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
+        if(!this.keyPattern.test(inputChar) && inputChar != this.decimalSeparator) {
             event.preventDefault();
         }    
     }
