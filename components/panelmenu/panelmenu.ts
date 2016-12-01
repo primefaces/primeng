@@ -15,7 +15,6 @@ export class BasePanelMenuItem {
         }
         
         item.expanded = !item.expanded;
-        event.preventDefault();
         
         if(!item.url||item.routerLink) {
             event.preventDefault();
