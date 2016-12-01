@@ -6,7 +6,7 @@ import {BlockableUI} from '../common/api';
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div class="ui-blockui ui-widget-overlay" [ngClass]="{'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}"></div>
+        <div class="ui-widget-overlay" [ngClass]="{'ui-blockui': target, 'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}"></div>
     `,
     providers: [DomHandler]
 })
