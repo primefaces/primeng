@@ -548,7 +548,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 if(this.lazy) {
                     //prevent loop
                     if(this.lazyFilteredByUser)
-                        this.lazyFilteredByUser = false;
+                        this.lazyFilteredByUser = true;
                     else
                         this.filter();
                 }
