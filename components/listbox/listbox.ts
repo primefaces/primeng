@@ -101,7 +101,10 @@ export class Listbox implements ControlValueAccessor {
         
         if(valueChanged) {
             this.onModelChange(this.value);
-            this.onChange.emit(event);
+            this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
         }
     }
     
@@ -128,7 +131,10 @@ export class Listbox implements ControlValueAccessor {
         
         if(valueChanged) {
             this.onModelChange(this.value);
-            this.onChange.emit(event);
+            this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
         }
     }
     
@@ -169,7 +175,7 @@ export class Listbox implements ControlValueAccessor {
     onDoubleClick(event: Event, option: SelectItem): any {
         this.onDblClick.emit({
             originalEvent: event,
-            value: option
+            value: this.value
         })
     }
 }
