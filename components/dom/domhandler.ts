@@ -190,11 +190,13 @@ export class DomHandler {
 
         let fading = setInterval(() => {
             opacity = opacity - gap;
-            element.style.opacity = opacity;
 
             if (opacity <= 0) {
+                opacity = 0;
                 clearInterval(fading);
             }
+            
+            element.style.opacity = opacity;
         }, interval);
     }
 
