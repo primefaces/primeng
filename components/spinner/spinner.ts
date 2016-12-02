@@ -219,7 +219,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
 
     onInput(event: Event, inputValue: string) {
-        this.value = this.parseValue(inputValue); 
+        this.value = this.parseValue(inputValue);
         this.formatValue();       
         this.onModelChange(this.value);
         this.updateFilledState();
@@ -266,7 +266,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
     
     formatValue(): void {
-        if(this.value) {
+        if(this.value !== null && this.value !== undefined) {
             let textValue = String(this.value).replace('.', this.decimalSeparator);
             textValue = textValue.replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
             this.valueAsString = textValue;
