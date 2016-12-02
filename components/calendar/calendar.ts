@@ -335,7 +335,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             else {
                 for (let j = 0; j < 7; j++) {
                     if(dayNo > daysLength) {
-                        let next = this.getPreviousMonthAndYear(month, year);
+                        let next = this.getNextMonthAndYear(month, year);
                         week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true, 
                                     selectable: this.isSelectable((dayNo - daysLength), next.month, next.year)});
                     }
