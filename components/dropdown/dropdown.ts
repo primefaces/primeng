@@ -23,7 +23,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
-                <input #in type="text" readonly (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeydown($event)">
+                <input #in type="text" readonly (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled">
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
             <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [value]="label" [disabled]="disabled"
