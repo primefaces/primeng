@@ -90,7 +90,7 @@ export class Spinner implements AfterViewInit,ControlValueAccessor {
         
         this.inputtext = this.domHandler.findSingle(this.el.nativeElement, 'input');
         if((this.value !== null && this.value !== undefined)) {
-            setTimeout(() => this.inputtext.value = this.value);
+            this.inputtext.value = this.value;
         }
     }
     
