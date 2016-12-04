@@ -100,7 +100,7 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
         this.onModelTouched();
     }
     
-    onChange(event,rb) {
+    onChange(event) {
         this.select();
     }
 }

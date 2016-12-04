@@ -458,7 +458,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public editingCell: any;
     
-    public lazyFilteredByUser: boolean;
+    public stopFilterPropagation: boolean;
 
     differ: any;
 
@@ -547,8 +547,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(this.hasFilter()) {
                 if(this.lazy) {
                     //prevent loop
-                    if(this.lazyFilteredByUser)
-                        this.lazyFilteredByUser = false;
+                    if(this.stopFilterPropagation)
+                        this.stopFilterPropagation = false;
                     else
                         this.filter();
                 }
@@ -585,6 +585,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 let fields: string[] = field.split('.');
                 let value = data;
                 for(var i = 0, len = fields.length; i < len; ++i) {
+                    if (value === undefined){
+                        return null;
+                    }
                     value = value[fields[i]];
                 }
                 return value;
@@ -610,11 +613,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.first = event.first;
         this.rows = event.rows;
 
-        if(this.lazy)
+        if(this.lazy) {
+            this.stopFilterPropagation = true;
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        else
+        }            
+        else {
             this.updateDataToRender(this.filteredValue||this.value);
-        
+        }
+
         this.onPage.emit({
             first: this.first,
             rows: this.rows
@@ -668,6 +674,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             let metaKey = event.metaKey||event.ctrlKey;
 
             if(this.lazy) {
+                this.stopFilterPropagation = true;
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else {
@@ -1025,7 +1032,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 delete this.filters[field];
             
             if(this.lazy) {
-                this.lazyFilteredByUser = true;
+                this.stopFilterPropagation = true;
             }
             
             this.filter();
@@ -1398,28 +1405,30 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     onColumnDrop(event) {
         event.preventDefault();
-        let dragIndex = this.domHandler.index(this.draggedColumn);
-        let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
-        let allowDrop = (dragIndex != dropIndex);
-        if(allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
-            allowDrop = false;
-        }
-    
-        if(allowDrop) {
-            this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
-
-            this.onColReorder.emit({
-                dragIndex: dragIndex,
-                dropIndex: dropIndex,
-                columns: this.columns
-            });
-        }
+        if(this.draggedColumn) {
+             let dragIndex = this.domHandler.index(this.draggedColumn);
+            let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
+            let allowDrop = (dragIndex != dropIndex);
+            if(allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
+                allowDrop = false;
+            }
         
-        this.reorderIndicatorUp.style.display = 'none';
-        this.reorderIndicatorDown.style.display = 'none';
-        this.draggedColumn.draggable = false;
-        this.draggedColumn = null;
-        this.dropPosition = null;
+            if(allowDrop) {
+                this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
+
+                this.onColReorder.emit({
+                    dragIndex: dragIndex,
+                    dropIndex: dropIndex,
+                    columns: this.columns
+                });
+            }
+            
+            this.reorderIndicatorUp.style.display = 'none';
+            this.reorderIndicatorDown.style.display = 'none';
+            this.draggedColumn.draggable = false;
+            this.draggedColumn = null;
+            this.dropPosition = null;
+        }
     }
 
     initColumnReordering() {

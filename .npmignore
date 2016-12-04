@@ -28,6 +28,7 @@ aot
 .github
 *.log
 prod
+.editorconfig
 
 
 
