@@ -14,9 +14,9 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #in pInputText type="text" class="ui-spinner-input" [value]="(value === undefined || value == null) ? '' : value"
+            <input #in pInputText type="text" class="ui-spinner-input" [value]="valueAsString"
             [attr.size]="size" [attr.maxlength]="maxlength" [disabled]="disabled" [readonly]="readonly"
-            (keydown)="onInputKeydown($event)" (keyup)="onInput($event,in.value)" (blur)="onBlur()" (change)="handleChange($event)" (focus)="onFocus()">
+            (keydown)="onInputKeydown($event)" (keyup)="onInput($event,in.value)" (keypress)="onInputKeyPress($event)" (blur)="onBlur()" (change)="handleChange($event)" (focus)="onFocus()">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp,'ui-state-disabled':disabled}"
                 (mouseenter)="onUpButtonMouseenter($event)" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
@@ -56,12 +56,20 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() disabled: boolean;
     
     @Input() readonly: boolean;
+    
+    @Input() decimalSeparator: string = '.';
+    
+    @Input() thousandSeparator: string = ',';
             
     value: number;
+    
+    valueAsString: string = '';
     
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
+        
+    keyPattern: RegExp = /[0-9\+\-]/;
         
     public hoverUp: boolean;
     
@@ -120,6 +128,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
             this.value = this.max;
         }
         
+        this.formatValue();
         this.onModelChange(this.value);
     }
     
@@ -199,11 +208,19 @@ export class Spinner implements OnInit,ControlValueAccessor {
         else if(event.which == 40) {
             this.spin(-1);
             event.preventDefault();
-        }    
+        }
     }
     
+    onInputKeyPress(event: KeyboardEvent) {
+        let inputChar = String.fromCharCode(event.charCode);
+        if(!this.keyPattern.test(inputChar) && inputChar != this.decimalSeparator) {
+            event.preventDefault();
+        }    
+    }
+
     onInput(event: Event, inputValue: string) {
-        this.value = this.parseValue(inputValue);        
+        this.value = this.parseValue(inputValue);
+        this.formatValue();       
         this.onModelChange(this.value);
         this.updateFilledState();
     }
@@ -219,14 +236,17 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     parseValue(val: string): number {
         let value: number;
+        val = val.split(this.thousandSeparator).join('');
         if(val.trim() === '') {
             value= this.min !== undefined ? this.min : null;
         }
         else {        
-            if(this.precision)
-                value = parseFloat(val);
-            else
+            if(this.precision) {
+                value = parseFloat(val.replace(',','.'));
+            }
+            else {
                 value = parseInt(val);
+            }
                             
             if(!isNaN(value)) {
                 if(this.max !== undefined && value > this.max) {
@@ -245,6 +265,17 @@ export class Spinner implements OnInit,ControlValueAccessor {
         return value;
     }
     
+    formatValue(): void {
+        if(this.value !== null && this.value !== undefined) {
+            let textValue = String(this.value).replace('.', this.decimalSeparator);
+            textValue = textValue.replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
+            this.valueAsString = textValue;
+        }
+        else {
+            this.valueAsString = '';
+        }
+    }
+    
     handleChange(event: Event) {
         this.onChange.emit(event);
     }
@@ -256,7 +287,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
     
     writeValue(value: any) : void {
-        this.value = value;        
+        this.value = value;    
+        this.formatValue();    
         this.updateFilledState();
     }
     

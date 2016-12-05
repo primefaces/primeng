@@ -54,6 +54,8 @@ export interface TreeNode {
     leaf?: boolean;
     expanded?: boolean;
     type?: string;
+    parent?: TreeNode;
+    partialSelected?: boolean;
 }
 
 export interface Confirmation {

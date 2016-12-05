@@ -576,7 +576,7 @@ export class DataTableDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" expandableRows="true"&gt;
-    &lt;p-column expander="true" style="width:22px"&gt;&lt;/p-column&gt;
+    &lt;p-column expander="true" [style]="&#123;'width':'22px'&#125;"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
@@ -729,7 +729,7 @@ loadData(event: LazyLoadEvent) &#123;
             set the style of the column to allow overflow.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-column field="color" style="&#123;'overflow':'visible'&#125;"&gt;
+&lt;p-column field="color" [style]="&#123;'overflow':'visible'&#125;"&gt;
     &lt;template let-col #car="rowData"&gt;
         &lt;p-dropdown&gt;&lt;/p-dropdown&gt;
     &lt;/template&gt;
