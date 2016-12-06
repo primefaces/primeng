@@ -1,6 +1,6 @@
 .ui-menu {
-    width: 12.5em;
-    padding:0.3em;
+    width: 200px;
+    padding: 4px;
     position:relative;
 }
 
@@ -21,7 +21,7 @@
 .ui-menu .ui-menu-list .ui-widget-header {
     clear:both;
     float:left;
-    width:98%;
+    width:100%;
     margin:1px 0;
 }
 
@@ -43,14 +43,14 @@
 
 .ui-menu .ui-menuitem-link {
     display:block;
-    width:92%;
+    width:100%;
     outline:none;
     text-decoration:none;
     font-weight:400;
     border:solid 1px transparent;
     float:left;
     line-height:16px;
-    padding:0.3em;
+    padding:4px;
     cursor: pointer;
 }
 
@@ -78,8 +78,8 @@
 
 .ui-menu .ui-menu-parent .ui-menu-child {
     display:none;
-    width:12.5em;
-    padding:0.3em;
+    width: 200px;
+    padding: 4px;
     position:absolute;
     margin:0; 
     outline:0; 
@@ -131,7 +131,7 @@
 }
 
 .ui-menubar .ui-menu-child .ui-menuitem-link {
-    width:92%;
+    width:100%;
 }
 
 .ui-menubar .ui-widget-header {
@@ -154,7 +154,7 @@
 }
 
 .ui-menu .ui-separator {
-    width:98%;
+    width:100%;
     height:0px;
     float:left;
     clear:both;
