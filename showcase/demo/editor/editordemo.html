@@ -194,6 +194,19 @@ export class EditorDemo &#123;
 
             <h3>Dependencies</h3>
             <p><a href="http://quilljs.com">Quill</a> Editor 1.0.</p>
+            <p>Resources of quill needs to be added to your application. Example setup with CLI is as follows;</p>
+<code class="language-markup" pCode ngNonBindable>
+npm install quill --save
+</code>
+            <p>Add Quill to scripts in angular-cli.json</p>  
+<code class="language-markup" pCode ngNonBindable>
+"scripts": [... "../node_modules/quill/dist/quill.js"],
+</code>
+            <p>Add Quill css to styles in angular-cli.json</p>  
+            <code class="language-markup" pCode ngNonBindable>
+"styles": [ ... "../node_modules/quill/dist/quill.core.css", "../node_modules/quill/dist/quill.snow.css"],
+            </code>         
+
         </p-tabPanel>
         <p-tabPanel header="Source">
 <pre>
