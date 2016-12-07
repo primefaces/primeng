@@ -229,7 +229,7 @@ export class RowExpansionLoader {
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
-                            <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
+                            <tr #rowElement [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <td *ngFor="let col of columns; let colIndex = index;" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
