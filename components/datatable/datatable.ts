@@ -118,7 +118,8 @@ export class RowExpansionLoader {
                                 </span>
                                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                      [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
-                                <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter&&!col.filterTemplate" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                <p-columnFilterTemplateLoader [column]="col" *ngIf="col.filterTemplate"></p-columnFilterTemplateLoader>
                                 <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
                             </th>
                         </tr>
@@ -525,7 +526,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.globalFilter) {
             this.globalFilterFunction = this.renderer.listen(this.globalFilter, 'keyup', () => {
                 this.filterTimeout = setTimeout(() => {
-                    this.filter();
+                    this._filter();
                     this.filterTimeout = null;
                 }, this.filterDelay);
             });
@@ -550,10 +551,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     if(this.stopFilterPropagation)
                         this.stopFilterPropagation = false;
                     else
-                        this.filter();
+                        this._filter();
                 }
                 else {
-                    this.filter();
+                    this._filter();
                 }
             }
                         
@@ -731,7 +732,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.first = 0;
 
             if(this.hasFilter()) {
-                this.filter();
+                this._filter();
             }
         }
         
@@ -746,7 +747,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
 
             if(this.hasFilter()) {
-                this.filter();
+                this._filter();
             }
         }
         
@@ -1026,21 +1027,35 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
 
         this.filterTimeout = setTimeout(() => {
-            if(value && value.trim().length)
-                this.filters[field] = {value: value, matchMode: matchMode};
-            else if(this.filters[field])
-                delete this.filters[field];
-            
-            if(this.lazy) {
-                this.stopFilterPropagation = true;
-            }
-            
-            this.filter();
+            this.filter(value, field, matchMode);
             this.filterTimeout = null;            
         }, this.filterDelay);
     }
+    
+    filter(value, field, matchMode) {
+        if(!this.isFilterBlank(value))
+            this.filters[field] = {value: value, matchMode: matchMode};
+        else if(this.filters[field])
+            delete this.filters[field];
+        
+        if(this.lazy) {
+            this.stopFilterPropagation = true;
+        }
+        
+        this._filter(); 
+    }
+    
+    isFilterBlank(filter: any): boolean {
+        if(filter !== null && filter !== undefined) {
+            if((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0))
+                return true;
+            else
+                return false;
+        } 
+        return true;
+    }
 
-    filter() {
+    _filter() {
         this.first = 0;
         
         if(this.lazy) {
@@ -1063,7 +1078,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         filterField = col.field,
                         filterMatchMode = filterMeta.matchMode||'startsWith',
                         dataFieldValue = this.resolveFieldData(this.value[i], filterField);
-
                         let filterConstraint = this.filterConstraints[filterMatchMode];
 
                         if(!filterConstraint(dataFieldValue, filterValue)) {
@@ -1139,15 +1153,30 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         },
 
         contains(value, filter): boolean {
-            if(filter === undefined || filter === null || filter.trim() === '') {
+            if(filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return true;
             }
 
             if(value === undefined || value === null) {
                 return false;
             }
-
-            return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+            
+            if(filter instanceof Array) {
+                if(filter.length) {
+                    for(let i = 0; i < filter.length; i++) {
+                        if(filter[i] === value)
+                            return true;
+                    }
+                    
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+            }
         },
 
         endsWith(value, filter): boolean {
@@ -1161,6 +1190,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
             let filterValue = filter.toString().toLowerCase();
             return value.toString().toLowerCase().indexOf(filterValue, value.toString().length - filterValue.length) !== -1;
+        },
+        
+        equals(value, filter): boolean {
+            if(filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+                return true;
+            }
+            
+            if(value === undefined || value === null) {
+                return false;
+            }
+            
+            return value.toString().toLowerCase() == filter.toString().toLowerCase();
         }
     }
 

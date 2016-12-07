@@ -132,6 +132,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             
     ngOnInit() {
         this.optionsToDisplay = this.options;
+        this.updateSelectedOption(null);
                 
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             if(!this.selfClick&&!this.itemClick) {

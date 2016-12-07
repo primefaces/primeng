@@ -456,6 +456,18 @@ mysort(event) &#123;
 &lt;p-dataTable [value]="cars" [rows]="10" [globalFilter]="gb"&gt;
 </code>
 </pre>
+
+            <p>By default, input fields are used as filter elements and this can be customized using templating. It is important to use the on change callback 
+                of the filter component to call the filter method of datatable by passing the value, field and matchmode properties.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-column field="brand" header="Brand (Custom)" [filter]="true" [style]="&#123;'overflow':'visible'&#125;" filterMatchMode="equals"&gt;
+    &lt;template pTemplate type="filter" let-col&gt;
+        &lt;p-dropdown [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-dropdown&gt;
+    &lt;/template&gt;
+&lt;/p-column&gt;
+</code>
+</pre>
         
             <p>See the <a [routerLink]="['/datatable/filter']">live example.</a></p>
 
