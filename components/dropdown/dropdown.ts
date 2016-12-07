@@ -74,6 +74,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     @Input() appendTo: any;
     
+    @Input() defaultValue: any;
+
+    @Input() formControlName: string;
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -130,9 +134,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     public selectedOptionUpdated: boolean;
             
+    private firstValue:boolean = true;
+
+    private defaultValueSet: boolean = false;
+
     ngOnInit() {
         this.optionsToDisplay = this.options;
-        this.updateSelectedOption(null);
                 
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             if(!this.selfClick&&!this.itemClick) {
@@ -208,12 +215,28 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     }
     
     writeValue(value: any): void {
+        // drop the first value set from setUpControl it is the control value which is null if we don't use model driven forms.
+        // otherwise we trigger a change event which overrides the data set from outside via ngModel.
+        // this outside data form ngModel is set in the second call to writeValue.
+        if(this.firstValue && ! this.formControlName){
+            this.firstValue = false;
+            return;
+        }
         this.value = value;
         this.updateSelectedOption(value);
     }
     
     updateSelectedOption(val: any): void {
         this.selectedOption = this.findOption(val, this.optionsToDisplay);
+        if(this.selectedOption && this.selectedOption.value != this.value && !this.editable){
+            this.value= this.selectedOption.value;
+            this.defaultValueSet = true;
+            this.onModelChange(this.value);
+            this.onChange.emit({
+                value: this.value
+            });
+        }
+
         if(!this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
             this.selectedOption = this.optionsToDisplay[0];
         }
@@ -222,6 +245,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
+        if(this.defaultValueSet){
+            // send the change events for default value
+            this.onModelChange(this.value);
+            this.onChange.emit({
+                value: this.value
+            });
+        }
     }
 
     registerOnTouched(fn: Function): void {
@@ -398,7 +428,23 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     findOption(val: any, opts: SelectItem[]): SelectItem {
         let index: number = this.findOptionIndex(val, opts);
-        return (index != -1) ? opts[index] : null;
+        if(index != -1){
+            return opts[index];
+        }
+        if(this.editable)
+            return null;
+
+        let defaultIndex: number = this.findOptionIndex(this.defaultValue, opts);
+        if(defaultIndex != -1){
+            return opts[defaultIndex];
+        }
+
+        let nullIndex: number = this.findOptionIndex(null, opts);
+        if(nullIndex != -1){
+            return opts[nullIndex];
+        }
+
+        return opts[0];
     }
     
     onFilter(event): void {

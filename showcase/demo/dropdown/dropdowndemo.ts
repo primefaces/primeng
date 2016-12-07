@@ -7,8 +7,11 @@ import {SelectItem} from '../../../components/common/api';
 export class DropdownDemo {
 
     cities: SelectItem[];
+    cities2: SelectItem[];
 
     selectedCity: any;
+    selectedCity2: any;
+    selectedCity3: any;
 
     cars: SelectItem[];
 
@@ -18,12 +21,14 @@ export class DropdownDemo {
 
     constructor() {
         this.cities = [];
+        this.cities2 = [];
         this.cities.push({label:'Select City', value:null});
-        this.cities.push({label:'New York', value:{id:1, name: 'New York', code: 'NY'}});
-        this.cities.push({label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}});
-        this.cities.push({label:'London', value:{id:3, name: 'London', code: 'LDN'}});
-        this.cities.push({label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}});
-        this.cities.push({label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}});
+        this.cities2.push({label:'New York', value:{id:1, name: 'New York', code: 'NY'}});
+        this.cities2.push({label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}});
+        this.cities2.push({label:'London', value:{id:3, name: 'London', code: 'LDN'}});
+        this.cities2.push({label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}});
+        this.cities2.push({label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}});
+        this.cities = this.cities.concat(this.cities2);
 
         this.cars = [];
         this.cars.push({label: 'Audi', value: 'Audi'});
