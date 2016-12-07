@@ -35,7 +35,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <li #item *ngFor="let option of options" [style.display]="isItemVisible(option) ? 'block' : 'none'"
                     [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(option)}"
                     (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)">
-                    <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
+                    <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick(option)">
                         <div class="ui-helper-hidden-accessible">
                             <input type="checkbox" [checked]="isSelected(option)">
                         </div>
@@ -90,6 +90,8 @@ export class Listbox implements ControlValueAccessor {
 
     valueChanged: boolean;
 
+    checkboxClick: boolean;
+
     hoveredItem: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler) { }
@@ -111,13 +113,17 @@ export class Listbox implements ControlValueAccessor {
     }
 
     onOptionClick(event, option) {
-        let metaKey = (event.metaKey || event.ctrlKey);
-        let selected = this.isSelected(option);
+        if(!this.checkboxClick) {
+            let metaKey = (event.metaKey || event.ctrlKey);
+            let selected = this.isSelected(option);
 
-        if (this.multiple)
-            this.onOptionClickMultiple(event, option);
-        else
-            this.onOptionClickSingle(event, option);
+            if (this.multiple)
+                this.onOptionClickMultiple(event, option);
+            else
+                this.onOptionClickSingle(event, option);
+        }
+        else 
+            this.checkboxClick = false;
     }
 
     onOptionClickSingle(event, option) {
@@ -280,6 +286,30 @@ export class Listbox implements ControlValueAccessor {
             originalEvent: event,
             value: this.value
         })
+    }
+    
+    onCheckboxClick(option: SelectItem) {
+        this.checkboxClick = true;
+        let selected = this.isSelected(option);
+        let valueChanged = false;
+
+        if (selected) {
+            this.value.splice(this.findIndex(option), 1);
+            valueChanged = true;
+        }
+        else {
+            this.value = this.value ? this.value || [] : [];
+            this.value.push(option.value);
+            valueChanged = true;
+        }
+
+        if (valueChanged) {
+            this.onModelChange(this.value);
+            this.onChange.emit({
+                originalEvent: event,
+                value: this.value
+            });
+        }
     }
 }
 
