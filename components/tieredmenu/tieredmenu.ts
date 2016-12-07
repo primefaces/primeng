@@ -140,10 +140,11 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
         else
             this.show(event);
             
-        this.preventDocumentDefault = true;
+        
     }
     
     show(event: Event) {
+        this.preventDocumentDefault = true;
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, event.target);
         this.domHandler.fadeIn(this.container, 250);
