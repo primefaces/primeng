@@ -437,9 +437,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public lastPageX: number;
         
-    public documentColumnResizeListener: any;
+    public documentColumnResizeListener: any = () => {};
     
-    public documentColumnResizeEndListener: any;
+    public documentColumnResizeEndListener: any = () => {};
     
     public resizerHelper: any;
     
