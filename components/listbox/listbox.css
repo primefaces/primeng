@@ -1,7 +1,7 @@
 .ui-listbox {
     overflow:auto;
     padding:2px;
-    width:125px;
+    width:130px;
 }
 
 .ui-listbox .ui-listbox-list {
@@ -24,4 +24,34 @@
 
 .ui-listbox.ui-state-disabled .ui-listbox-item {
     cursor: default;
+}
+
+.ui-listbox-header {
+    margin-bottom: 0.3em;
+    padding: 0.2em 0 0.2em 0.2em;
+    position: relative;
+    min-height: 20px;
+}
+
+.ui-listbox-header .ui-chkbox {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 1px;
+    cursor:pointer;
+}
+
+.ui-listbox-header .ui-listbox-filter-container {
+    display: inline-block;
+}
+
+.ui-listbox-header .ui-listbox-filter-container .fa {
+    position: absolute;
+    top: 5px;
+    margin-left: 2px;
+}
+
+.ui-listbox-header .ui-inputtext {
+    padding: 1px 1px 1px 0;
+    width: 95px;
+    text-indent: 20px;
 }
