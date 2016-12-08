@@ -8,85 +8,62 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" sortField="brand" rowGroupMode="subheader" groupField="brand">
+    <p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand">
         <header>Subheader</header>
-        <p-column field="brand" header="Brand"></p-column>
-        <p-column field="color" header="Color"></p-column>
-        <p-column field="year" header="Year"></p-column>
-        <p-column field="vin" header="Vin"></p-column>
+        <template pTemplate type="rowgroup" let-rowData>{{rowData['brand']&#125;&#125;</template>
+        <p-column field="color" header="Color" sortable="true"></p-column>
+        <p-column field="year" header="Year" sortable="true"></p-column>
+        <p-column field="vin" header="Vin" sortable="true"></p-column>
     </p-dataTable>
     
-    <p-dataTable [value]="cars" sortField="brand" rowGroupMode="rowspan" groupField="brand" [style]="{'margin-top':'50px'}">
+    <p-dataTable [value]="cars2" sortField="brand" rowGroupMode="rowspan" [style]="{'margin-top':'50px'}">
         <header>RowSpan</header>
-        <p-column field="brand" header="Brand"></p-column>
-        <p-column field="color" header="Color"></p-column>
-        <p-column field="year" header="Year"></p-column>
-        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="brand" header="Brand" sortable="true"></p-column>
+        <p-column field="color" header="Color" sortable="true"></p-column>
+        <p-column field="year" header="Year" sortable="true"></p-column>
+        <p-column field="vin" header="Vin" sortable="true"></p-column>
     </p-dataTable>
 </div>
 
 <div class="ContentSideSections Source">
     <p-tabView effect="fade">
-        <p-tabPanel header="datatablegroupdemo.ts">
+        <p-tabPanel header="datatablerowgroupdemo.ts">
 <pre>
-<code class="language-typescript" pCode>
-export class DataTableGroupDemo implements OnInit &#123;
+<code class="language-typescript" pCode ngNonBindable>
+export class DataTableRowGroupDemo implements OnInit &#123;
 
-    sales: any[];
+    cars1: Car[];
+    
+    cars2: Car[];
+    
+    constructor(private carService: CarService) &#123;&#125;
 
     ngOnInit() &#123;
-        this.sales = [
-            &#123;brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342'&#125;,
-            &#123;brand: 'Samsung', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122'&#125;,
-            &#123;brand: 'Microsoft', lastYearSale: '38%', thisYearSale: '5%', lastYearProfit: '$12,321', thisYearProfit: '$8,500'&#125;,
-            &#123;brand: 'Philips', lastYearSale: '49%', thisYearSale: '22%', lastYearProfit: '$745,232', thisYearProfit: '$650,323,'&#125;,
-            &#123;brand: 'Song', lastYearSale: '17%', thisYearSale: '79%', lastYearProfit: '$643,242', thisYearProfit: '500,332'&#125;,
-            &#123;brand: 'LG', lastYearSale: '52%', thisYearSale: ' 65%', lastYearProfit: '$421,132', thisYearProfit: '$150,005'&#125;,
-            &#123;brand: 'Sharp', lastYearSale: '82%', thisYearSale: '12%', lastYearProfit: '$131,211', thisYearProfit: '$100,214'&#125;,
-            &#123;brand: 'Panasonic', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322'&#125;,
-            &#123;brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'&#125;,
-            &#123;brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'&#125;
-        ];
+        this.carService.getCarsMedium().then(cars => this.cars1 = cars);
+        this.carService.getCarsMedium().then(cars => this.cars2 = cars);
     &#125;
 &#125;
 </code>
 </pre>            
         </p-tabPanel>
 
-        <p-tabPanel header="datatablegroupdemo.html">
+        <p-tabPanel header="datatablerowgroupdemo.html">
 <pre>
-<code class="language-markup" pCode>
-&lt;p-dataTable [value]="sales"&gt;
-    &lt;p-headerColumnGroup&gt;
-        &lt;p-row&gt;
-            &lt;p-column header="Brand" rowspan="3"&gt;&lt;/p-column&gt;
-            &lt;p-column header="Sale Rate" colspan="4"&gt;&lt;/p-column&gt;
-        &lt;/p-row&gt;
-        &lt;p-row&gt;
-            &lt;p-column header="Sales" colspan="2"&gt;&lt;/p-column&gt;
-            &lt;p-column header="Profits" colspan="2"&gt;&lt;/p-column&gt;
-        &lt;/p-row&gt;
-        &lt;p-row&gt;
-            &lt;p-column header="Last Year"&gt;&lt;/p-column&gt;
-            &lt;p-column header="This Year"&gt;&lt;/p-column&gt;
-            &lt;p-column header="Last Year"&gt;&lt;/p-column&gt;
-            &lt;p-column header="This Year"&gt;&lt;/p-column&gt;
-        &lt;/p-row&gt;
-    &lt;/p-headerColumnGroup&gt;
-    
-    &lt;p-column field="brand"&gt;&lt;/p-column&gt;
-    &lt;p-column field="lastYearSale"&gt;&lt;/p-column&gt;
-    &lt;p-column field="thisYearSale"&gt;&lt;/p-column&gt;
-    &lt;p-column field="lastYearProfit"&gt;&lt;/p-column&gt;
-    &lt;p-column field="thisYearProfit"&gt;&lt;/p-column&gt;
-    
-    &lt;p-footerColumnGroup&gt;
-        &lt;p-row&gt;
-            &lt;p-column footer="Totals:" colspan="3"&gt;&lt;/p-column&gt;
-            &lt;p-column footer="$506,202"&gt;&lt;/p-column&gt;
-            &lt;p-column footer="$531,020"&gt;&lt;/p-column&gt;
-        &lt;/p-row&gt;
-    &lt;/p-footerColumnGroup&gt;
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand"&gt;
+    &lt;header&gt;Subheader&lt;/header&gt;
+    &lt;template pTemplate type="rowgroup" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;p-column field="color" header="Color" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin" sortable="true"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-dataTable [value]="cars2" sortField="brand" rowGroupMode="rowspan" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;header&gt;RowSpan&lt;/header&gt;
+    &lt;p-column field="brand" header="Brand" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin" sortable="true"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>

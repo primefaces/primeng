@@ -8,11 +8,14 @@ import {SelectItem} from '../../../components/common/api';
 })
 export class DataTableRowGroupDemo implements OnInit {
 
-    cars: Car[];
-        
+    cars1: Car[];
+    
+    cars2: Car[];
+    
     constructor(private carService: CarService) {}
 
     ngOnInit() {
-        this.carService.getCarsMedium().then(cars => this.cars = cars);
+        this.carService.getCarsMedium().then(cars => this.cars1 = cars);
+        this.carService.getCarsMedium().then(cars => this.cars2 = cars);
     }
 }

@@ -209,12 +209,16 @@ export class ColumnFilterTemplateLoader {
 export class TemplateLoader {
         
     @Input() template: TemplateRef<any>;
+    
+    @Input() data: any;
             
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
         if(this.template) {
-            this.viewContainer.createEmbeddedView(this.template, {});
+            let view = this.viewContainer.createEmbeddedView(this.template, {
+                '\$implicit': this.data
+            });
         }
     }
 }
