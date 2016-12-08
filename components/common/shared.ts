@@ -39,7 +39,8 @@ export class TemplateWrapper implements OnInit {
     
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.templateRef, {
-            '\$implicit': this.item
+            '\$implicit': this.item,
+            'index': this.index
         });
     }
 }
