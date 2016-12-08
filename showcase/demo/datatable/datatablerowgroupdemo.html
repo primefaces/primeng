@@ -9,7 +9,15 @@
 
 <div class="ContentSideSections Implementation">
     <p-dataTable [value]="cars" sortField="brand" rowGroupMode="subheader" groupField="brand">
-        <header>List of Cars</header>
+        <header>Subheader</header>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="vin" header="Vin"></p-column>
+    </p-dataTable>
+    
+    <p-dataTable [value]="cars" sortField="brand" rowGroupMode="rowspan" groupField="brand" [style]="{'margin-top':'50px'}">
+        <header>RowSpan</header>
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color"></p-column>
         <p-column field="year" header="Year"></p-column>

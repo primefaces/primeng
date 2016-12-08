@@ -106,7 +106,7 @@ export class RowExpansionLoader {
                     <thead>
                         <tr *ngIf="!headerColumnGroup" class="ui-state-default">
                             <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
-                                <th #headerCell *ngIf="groupField!==col.field" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                <th #headerCell *ngIf="rowGroupMode!='subheader'||groupField!==col.field" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                     [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-state-focus': headerCell === focusedHeader && col.sortable,
                                     'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
@@ -175,8 +175,11 @@ export class RowExpansionLoader {
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
-                                    <td *ngIf="groupField!==col.field" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                        [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)">
+                                    <td *ngIf="!rowGroupMode || (rowGroupMode=='subheader' && groupField!=col.field) || 
+                                        (rowGroupMode=='rowspan' && ((groupField==col.field && rowGroupMetadata[resolveFieldData(rowData,groupField)].index == rowIndex) || (groupField!=col.field)))"
+                                        [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                        [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)"
+                                        [attr.rowspan]="(rowGroupMode=='rowspan' && groupField == col.field && rowGroupMetadata[resolveFieldData(rowData,groupField)].index == rowIndex) ? rowGroupMetadata[resolveFieldData(rowData,groupField)].size : null">
                                         <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
                                         <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{resolveFieldData(rowData,col.field)}}</span>
                                         <span class="ui-cell-data" *ngIf="col.bodyTemplate">
