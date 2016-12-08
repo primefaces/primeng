@@ -2,44 +2,18 @@
 
 <div class="ContentSideSections">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">Grouping</span></span>
-        <span class="defaultText">Columns can be grouped at header and footer using headerRows and footerRows properties that both define an array
-            of columns each having colspan and rowspan.</span>
+        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">Row Grouping</span></span>
+        <span class="defaultText">Rows can either be grouped by a separate grouping row or using rowspan.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="sales">
-        <p-headerColumnGroup>
-            <p-row>
-                <p-column header="Brand" rowspan="3"></p-column>
-                <p-column header="Sale Rate" colspan="4"></p-column>
-            </p-row>
-            <p-row>
-                <p-column header="Sales" colspan="2"></p-column>
-                <p-column header="Profits" colspan="2"></p-column>
-            </p-row>
-            <p-row>
-                <p-column header="Last Year"></p-column>
-                <p-column header="This Year"></p-column>
-                <p-column header="Last Year"></p-column>
-                <p-column header="This Year"></p-column>
-            </p-row>
-        </p-headerColumnGroup>
-        
-        <p-column field="brand"></p-column>
-        <p-column field="lastYearSale"></p-column>
-        <p-column field="thisYearSale"></p-column>
-        <p-column field="lastYearProfit"></p-column>
-        <p-column field="thisYearProfit"></p-column>
-        
-        <p-footerColumnGroup>
-            <p-row>
-                <p-column footer="Totals:" colspan="3"></p-column>
-                <p-column footer="$506,202"></p-column>
-                <p-column footer="$531,020"></p-column>
-            </p-row>
-        </p-footerColumnGroup>
+    <p-dataTable [value]="cars">
+        <header>List of Cars</header>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
     </p-dataTable>
 </div>
 

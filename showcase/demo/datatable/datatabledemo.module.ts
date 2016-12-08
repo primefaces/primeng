@@ -11,7 +11,8 @@ import {DataTableEditableDemo} from './datatableeditabledemo';
 import {DataTableExportDemo} from './datatableexportdemo';
 import {DataTableFacetsDemo} from './datatablefacetsdemo';
 import {DataTableFilterDemo} from './datatablefilterdemo';
-import {DataTableGroupDemo} from './datatablegroupdemo';
+import {DataTableColGroupDemo} from './datatablecolgroupdemo';
+import {DataTableRowGroupDemo} from './datatablerowgroupdemo';
 import {DataTableLazyDemo} from './datatablelazydemo';
 import {DataTablePaginatorDemo} from './datatablepaginatordemo';
 import {DataTableResponsiveDemo} from './datatableresponsivedemo';
@@ -62,7 +63,8 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         DataTableExportDemo,
         DataTableFacetsDemo,
         DataTableFilterDemo,
-        DataTableGroupDemo,
+        DataTableColGroupDemo,
+        DataTableRowGroupDemo,
         DataTableLazyDemo,
         DataTablePaginatorDemo,
         DataTableResponsiveDemo,

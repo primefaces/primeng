@@ -1,9 +1,9 @@
 import {Component,OnInit} from '@angular/core';
 
 @Component({
-    templateUrl: 'showcase/demo/datatable/datatablegroupdemo.html'
+    templateUrl: 'showcase/demo/datatable/datatablecolgroupdemo.html'
 })
-export class DataTableGroupDemo implements OnInit {
+export class DataTableColGroupDemo implements OnInit {
 
     sales: any[];
 
