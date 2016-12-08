@@ -1161,22 +1161,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 return false;
             }
             
-            if(filter instanceof Array) {
-                if(filter.length) {
-                    for(let i = 0; i < filter.length; i++) {
-                        if(filter[i] === value)
-                            return true;
-                    }
-                    
-                    return false;
-                }
-                else {
-                    return true;
-                }
-            }
-            else {
-                return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
-            }
+            return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
         },
 
         endsWith(value, filter): boolean {
@@ -1202,6 +1187,23 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
             
             return value.toString().toLowerCase() == filter.toString().toLowerCase();
+        },
+        
+        in(value, filter: any[]): boolean {
+            if(filter === undefined || filter === null || filter.length === 0) {
+                return true;
+            }
+
+            if(value === undefined || value === null) {
+                return false;
+            }
+            
+            for(let i = 0; i < filter.length; i++) {
+                if(filter[i] === value)
+                    return true;
+            }
+            
+            return false;
         }
     }
 

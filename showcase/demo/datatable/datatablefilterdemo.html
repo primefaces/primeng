@@ -4,7 +4,7 @@
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">Filter</span></span>
         <span class="defaultText">Filtering is enabled by setting the filter property as true in column object. Default match mode is "startsWith" and this can be configured
-        using filterMatchMode property of column object that also accepts "contains", "endsWith" and 'equals'. An optional global filter feature is available to search all fields with a keyword.
+        using filterMatchMode property of column object that also accepts "contains", "endsWith", "equals" and "in". An optional global filter feature is available to search all fields with a keyword.
         By default input fields are generated as filter elements and using templating any component can be used as a filter.
     </span>
     </div>
@@ -29,7 +29,7 @@
                 <p-dropdown [options]="brands" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
             </template>
         </p-column>
-        <p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="contains" [style]="{'overflow':'visible'}">
+        <p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in" [style]="{'overflow':'visible'}">
             <template pTemplate type="filter" let-col>
                 <p-multiSelect [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
             </template>
@@ -101,7 +101,7 @@ export class DataTableFilterDemo implements OnInit &#123;
             &lt;p-dropdown [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-dropdown&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
-    &lt;p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="contains" [style]="&#123;'overflow':'visible'&#125;"&gt;
+    &lt;p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in" [style]="&#123;'overflow':'visible'&#125;"&gt;
         &lt;template pTemplate type="filter" let-col&gt;
             &lt;p-multiSelect [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-multiSelect&gt;
         &lt;/template&gt;

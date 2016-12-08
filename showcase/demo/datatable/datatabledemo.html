@@ -157,7 +157,7 @@ export class DataTableDemo implements OnInit &#123;
                             <td>filterMatchMode</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Defines filterMatchMode; "startsWith", "contains" or "endsWidth".</td>
+                            <td>Defines filterMatchMode; "startsWith", "contains", "endsWidth", "equals" and "in".</td>
                         </tr>
                          <tr>
                             <td>filterPlaceholder</td>
@@ -439,7 +439,7 @@ mysort(event) &#123;
 
             <h3>Filtering</h3>
             <p>Filtering is enabled by setting the filter property as true on a column. Default match mode is "startsWith" and this can be configured
-            using filterMatchMode property that also accepts "contains" and "endsWith".</p>
+            using filterMatchMode property that also accepts "contains", "endsWith", "equals" and "in".</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"&gt;&lt;/p-column&gt;
