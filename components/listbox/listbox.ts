@@ -15,22 +15,21 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     selector: 'p-listbox',
     template: `
         <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="checkbox && multiple || filter">
-                    <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
-                        <div class="ui-helper-hidden-accessible">
-                            <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
-                        </div>
-                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-hover':hoverToggleAll, 'ui-state-active':isAllChecked()}"
-                            (mouseenter)="hoverToggleAll=true" (mouseleave)="hoverToggleAll=false" (click)="toggleAll($event,cb)">
-                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':isAllChecked()}"></span>
-                        </div>
+            <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple) || filter">
+                <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
+                    <div class="ui-helper-hidden-accessible">
+                        <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                     </div>
-                    <div class="ui-listbox-filter-container" *ngIf="filter">
-                        <input type="text" role="textbox" (input)="onFilter($event)"
-                                    class="ui-inputtext ui-widget ui-state-default ui-corner-all">
-                        <span class="fa fa-fw fa-search"></span>
+                    <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-hover':hoverToggleAll, 'ui-state-active':isAllChecked()}"
+                        (mouseenter)="hoverToggleAll=true" (mouseleave)="hoverToggleAll=false" (click)="toggleAll($event,cb)">
+                        <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':isAllChecked()}"></span>
                     </div>
                 </div>
+                <div class="ui-listbox-filter-container" *ngIf="filter">
+                    <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all">
+                    <span class="fa fa-fw fa-search"></span>
+                </div>
+            </div>
             <ul class="ui-listbox-list">
                 <li #item *ngFor="let option of options" [style.display]="isItemVisible(option) ? 'block' : 'none'"
                     [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(option)}"
@@ -39,8 +38,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         <div class="ui-helper-hidden-accessible">
                             <input type="checkbox" [checked]="isSelected(option)">
                         </div>
-                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"
-                                    [ngClass]="{'ui-state-active':isSelected(option)}">
+                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
                             <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':isSelected(option)}"></span>
                         </div>
                     </div>
@@ -88,8 +86,6 @@ export class Listbox implements ControlValueAccessor {
 
     onModelTouched: Function = () => { };
 
-    valueChanged: boolean;
-
     checkboxClick: boolean;
 
     hoveredItem: any;
@@ -122,8 +118,9 @@ export class Listbox implements ControlValueAccessor {
             else
                 this.onOptionClickSingle(event, option);
         }
-        else 
+        else {
             this.checkboxClick = false;
+        }
     }
 
     onOptionClickSingle(event, option) {
@@ -291,25 +288,20 @@ export class Listbox implements ControlValueAccessor {
     onCheckboxClick(option: SelectItem) {
         this.checkboxClick = true;
         let selected = this.isSelected(option);
-        let valueChanged = false;
 
-        if (selected) {
+        if(selected) {
             this.value.splice(this.findIndex(option), 1);
-            valueChanged = true;
         }
         else {
-            this.value = this.value ? this.value || [] : [];
+            this.value = this.value ? this.value : [];
             this.value.push(option.value);
-            valueChanged = true;
         }
 
-        if (valueChanged) {
-            this.onModelChange(this.value);
-            this.onChange.emit({
-                originalEvent: event,
-                value: this.value
-            });
-        }
+        this.onModelChange(this.value);
+        this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
     }
 }
 

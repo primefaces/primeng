@@ -6,17 +6,17 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <h3 class="first">Single</h3>
+    <h3 class="first">Basic</h3>
     <p-listbox [options]="cities" [(ngModel)]="selectedCity"></p-listbox>
 
     <p>Selected City: {{selectedCity}}</p>
 
-    <h3>Multiple</h3>
+    <h3>Advanced (Multiple, Checkbox and Filter)</h3>
     <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter"></p-listbox>
     <p>Selected Cities: <span *ngFor="let c of selectedCities" style="margin-right: 10px">{{c}}</span></p>
 
     <h3>Content</h3>
-    <p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'190px','max-height':'250px'&#125;">
+    <p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px','max-height':'250px'}">
         <template let-car>
             <div class="ui-helper-clearfix">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:5px 0 0 5px"/>
@@ -71,8 +71,8 @@ export class MyModel &#123;
 </code>
 </pre>
             <h3>Multiple</h3>
-            <p>Listbox allows selecting only one item, setting multiple option enables choosing more than one item. 
-                In multiple case, model property should be an array.</p>
+            <p>Listbox allows selecting only one item, setting multiple option enables choosing more than one item using metakey. 
+                and optional checkbox mode allows selection with checkboxes. In multiple case, model property should be an array.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-listbox&gt;
@@ -99,6 +99,14 @@ export class MyModel &#123;
     &#125;
 
 &#125;
+</code>
+</pre>
+
+            <h3>Filter</h3>
+            <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" filter="filter"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
@@ -181,13 +189,13 @@ export class MyModel &#123;
                             <td>checkbox</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When specified, allows selecting with checkboxes.</td>
+                            <td>When specified, allows selecting items with checkboxes.</td>
                         </tr>
                         <tr>
                             <td>filter</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When specified, allows filtering.</td>
+                            <td>When specified, displays a filter input at header.</td>
                         </tr>
                         <tr>
                             <td>disabled</td>
@@ -263,6 +271,14 @@ export class MyModel &#123;
                             <td>ui-listbox-item</td>
                             <td>An item in the list.</td>
                         </tr>
+                        <tr>
+                            <td>ui-listbox-header</td>
+                            <td>Header element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-listbox-filter-container</td>
+                            <td>Container of filter input in header.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -279,7 +295,7 @@ export class MyModel &#123;
 
 &lt;p&gt;Selected City: {{selectedCity}}&lt;/p&gt;
 
-&lt;h3&gt;Multiple&lt;/h3&gt;
+&lt;h3&gt;Advanced (Multiple, Checkbox and Filter)&lt;/h3&gt;
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter"&gt;&lt;/p-listbox&gt;
 &lt;p&gt;Selected Cities: &lt;span *ngFor="let c of selectedCities" style="margin-right: 10px"&gt;{{c}}&lt;/span&gt;&lt;/p&gt;
 
