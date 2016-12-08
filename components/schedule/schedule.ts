@@ -80,6 +80,8 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     @Input() eventConstraint: any;
     
     @Input() locale: any;
+    
+    @Input() firstDay: number;
 
     @Input() eventRender: Function;
     
@@ -165,6 +167,7 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
             eventOverlap: this.eventOverlap,
             eventConstraint: this.eventConstraint,
             eventRender: this.eventRender,
+            firstDay: this.firstDay,
             dayRender: this.dayRender,
             events: (start, end, timezone, callback) => {
                 callback(this.events);
