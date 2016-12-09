@@ -226,6 +226,10 @@
     margin-left: 0px;
 }
 
+.ui-timepicker > .ui-second-picker {
+    margin-left: 0px;
+}
+
 .ui-timepicker > .ui-separator {
     margin-left: 0px;
     min-width: 12px;
