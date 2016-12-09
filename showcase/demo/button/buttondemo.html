@@ -6,25 +6,27 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <button pButton type="text" (click)="count()" label="Click"></button>
 
-    <button pButton type="text" (click)="count()" icon="fa-check" label="Click"></button>
-    
-    <button pButton type="text" (click)="count()" icon="fa-check" iconPos="right" label="Click"></button>
-    
+    <button pButton type="text" (click)="count()" label="click"></button>
+
+    <button pButton type="text" (click)="count()" [label]="btnlabel"></button>
+
+    <button pButton type="text" (click)="count()" [icon]="btnicon" [label]="btnlabel"></button>
+
+    <button pButton type="text" (click)="count()" icon="fa-check" [iconPos]="btnIconpos" label="Click"></button>
+
     <button pButton type="text" (click)="count()" icon="fa-check"></button>
-    
+
     <button pButton type="text" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"></button>
 
-    <br /><br />
-    Number of clicks: {{clicks}}
+    <br /><br /> Number of clicks: {{clicks}}
 </div>
 
 <div class="ContentSideSections Source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
-                    <h3>Import</h3>
-<pre>
+            <h3>Import</h3>
+            <pre>
 <code class="language-typescript" pCode>
 import &#123;ButtonModule&#125; from 'primeng/primeng';
 </code>
@@ -32,8 +34,8 @@ import &#123;ButtonModule&#125; from 'primeng/primeng';
 
             <h3>Getting Started</h3>
             <p>Button is applied to a button element with pButton directive. Text of the button is defined using label property.</p>
-            
-<pre>
+
+            <pre>
 <code class="language-markup" pCode>
 &lt;button pButton type="button" label="Click"&gt;&lt;/button&gt;
 </code>
@@ -41,14 +43,14 @@ import &#123;ButtonModule&#125; from 'primeng/primeng';
 
             <h3>Events</h3>
             <p>Events are defined using standard notation.</p>
-            
-<pre>
+
+            <pre>
 <code class="language-markup" pCode>
 &lt;button pButton type="button" (click)="onclick()" label="Click"&gt;&lt;/button&gt;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode>
 export class Model &#123;
 
@@ -61,9 +63,8 @@ onclick() &#123;
 </pre>
 
             <h3>Icons</h3>
-            <p>Icon on a button is specified with icon attribute and position is customized using iconPos attribute. Default
-            icon position is left. To display only an icon, leave label as undefined.</p>
-<pre>
+            <p>Icon on a button is specified with icon attribute and position is customized using iconPos attribute. Default icon position is left. To display only an icon, leave label as undefined.</p>
+            <pre>
 <code class="language-markup" pCode>
 &lt;button pButton type="button" icon="fa-check" iconPos="left"&gt;&lt;/button&gt;
 </code>
@@ -134,13 +135,15 @@ onclick() &#123;
             <p>None.</p>
         </p-tabPanel>
         <p-tabPanel header="Source">
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="text" (click)="count()" label="Click"&gt;&lt;/button&gt;
 
-&lt;button pButton type="text" (click)="count()" icon="fa-check" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="text" (click)="count()" [label]="btnlabel"&gt;&lt;/button&gt;
 
-&lt;button pButton type="text" (click)="count()" icon="fa-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="text" (click)="count()" [icon]="btnicon" [label]="btnlabel"&gt;&lt;/button&gt;
+
+&lt;button pButton type="text" (click)="count()" icon="fa-check" [iconPos]="btnIconpos" label="Click"&gt;&lt;/button&gt;
 
 &lt;button pButton type="text" (click)="count()" icon="fa-check"&gt;&lt;/button&gt;
 
@@ -149,18 +152,30 @@ onclick() &#123;
 Number of clicks: {{clicks}}
 </code>
 </pre>
-<pre>
+            <pre>
 <code class="language-typescript" pCode>
 export class ButtonDemo &#123;
 
     clicks: number = 0;
+    btnicon: string = 'fa-check';
+    btnlabel = `click - $&#123;this.clicks&#125;`;
+    btnIconpos: string = 'right';
 
     count() &#123;
+    
         this.clicks++;
+        if (this.clicks % 2 === 0) &#123;
+            this.btnicon = 'fa-check';
+            this.btnIconpos = 'right';
+        &#125; else &#123;
+            this.btnicon = 'fa-times';
+            this.btnIconpos = 'left';
+        &#125;
+        this.btnlabel = `click - $&#123;this.clicks&#125;`
     &#125;
 &#125;
 </code>
 </pre>
-        </ p-tabPanel>
-     </p-tabView >
+            </ p-tabPanel>
+    </p-tabView>
 </div>
