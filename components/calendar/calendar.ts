@@ -464,6 +464,20 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     updateModel() {
         if(this.dataType == 'date')
             this.onModelChange(this.value);
+        else if (this.dataType == 'dateOnly')
+        {
+            var value = new Date(
+                Date.UTC(
+                    this.value.getFullYear(),
+                    this.value.getMonth(),
+                    this.value.getDate(),
+                    0,
+                    0,
+                    0
+                )
+            )
+            this.onModelChange(value);
+        }
         else if(this.dataType == 'string')
             this.onModelChange(this.formatDate(this.value, this.dateFormat));
     }
