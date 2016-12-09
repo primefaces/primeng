@@ -17,6 +17,8 @@ export class Tooltip implements OnDestroy {
     @Input() tooltipEvent: string = 'hover';
     
     @Input() appendTo: any = 'body';
+    
+    @Input() positionStyle: string;
         
     container: any;
         
@@ -94,8 +96,7 @@ export class Tooltip implements OnDestroy {
     
     hide() {
         this.container.style.display = 'none';
-        document.body.removeChild(this.container);
-        this.container = null;
+        this.ngOnDestroy();
     }
          
     create() {
@@ -110,6 +111,10 @@ export class Tooltip implements OnDestroy {
         tooltipText.className = 'ui-tooltip-text ui-shadow ui-corner-all';
         tooltipText.innerHTML = this.text;
         
+        if(this.positionStyle) {
+            this.container.style.position = this.positionStyle;
+        }
+        
         this.container.appendChild(tooltipText);
         
         if(this.appendTo === 'body')
@@ -123,7 +128,7 @@ export class Tooltip implements OnDestroy {
             if(this.appendTo === 'body')
                 document.body.removeChild(this.container);
             else
-                this.domHandler.appendChild(this.container, this.appendTo);
+                this.domHandler.removeChild(this.container, this.appendTo);
         }
         this.container = null;
     }
