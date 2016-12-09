@@ -100,6 +100,25 @@ export interface LocaleSettings {
                             <span class="fa fa-angle-down"></span>
                         </a>
                     </div>
+                    <div class="ui-separator" *ngIf="showSeconds">
+                       	<a href="#">
+                       	    <span class="fa fa-angle-up"></span>
+                   	    </a>
+               	        <span>:</span>
+           	            <a href="#">
+       	                    <span class="fa fa-angle-down"></span>
+   	                    </a>
+                    </div>
+                   	<div class="ui-second-picker" *ngIf="showSeconds">
+               	        <a href="#" (click)="incrementSecond($event)">
+           	                <span class="fa fa-angle-up"></span>
+       	                </a>
+   	                    <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
+                        <a href="#" (click)="decrementSecond($event)">
+                           	<span class="fa fa-angle-down"></span>
+                       	</a>
+                   	</div>
+
                     <div class="ui-ampm-picker" *ngIf="hourFormat=='12'">
                         <a href="#" (click)="toggleAMPM($event)">
                             <span class="fa fa-angle-up"></span>
@@ -179,6 +198,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     @Input() required: boolean;
     
+    @Input() showSeconds: boolean;
+    
     @Input() dataType: string = 'date';
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
@@ -211,6 +232,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     currentHour: number;
     
     currentMinute: number;
+    
+    currentSecond: number;
     
     pm: boolean;
     
@@ -282,11 +305,19 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             if(this.hourFormat == '12')
                 this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
             else
-                this.currentHour = date.getHours();
+                this.currentHour = date.getHours();  
+                
+            if(this.showSeconds) {
+            	this.currentSecond = date.getSeconds();
+            }              
         }
         else if(this.timeOnly) {
             this.currentMinute = 0;
             this.currentHour = 0;
+            
+            if(this.showSeconds) {
+            	this.currentSecond = 0;
+            }
         }
 
         this.createMonth(this.currentMonth, this.currentYear);
@@ -458,6 +489,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 this.value.setHours(this.currentHour);
 
             this.value.setMinutes(this.currentMinute);
+            
+            if(this.showSeconds) {
+            	this.value.setSeconds(this.currentSecond);
+            }
         }
         this.updateModel();
         this.onSelect.emit(this.value);
@@ -670,6 +705,28 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         event.preventDefault();
     }
     
+    incrementSecond(event) {
+    	if(this.currentSecond === 59)
+            this.currentSecond = 0;
+        else
+            this.currentSecond++;
+            
+        this.updateTime();
+                
+        event.preventDefault();
+    }
+    
+    decrementSecond(event) {
+        if(this.currentSecond === 0)
+            this.currentSecond = 59;
+        else
+            this.currentSecond--;
+            
+        this.updateTime();
+            
+        event.preventDefault();
+    }
+    
     updateTime() {
         this.value = this.value||new Date();
         if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
@@ -678,6 +735,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             this.value.setHours(this.currentHour);
         
         this.value.setMinutes(this.currentMinute);
+        
+        if(this.showSeconds) {
+            this.value.setSeconds(this.currentSecond);
+        }
+        
         this.updateModel();
         this.onSelect.emit(this.value);
         this.updateInputfield();
@@ -738,6 +800,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
 
         value.setMinutes(time.minute);
+        
+        if(this.showSeconds) {
+            value.setSeconds(time.second);
+        }
     }
     
     updateUI() {
@@ -762,6 +828,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             }
             
             this.currentMinute = val.getMinutes();
+            
+            if(this.showSeconds) {
+            	this.currentSecond = val.getSeconds();
+            }
         }
     }
     
@@ -899,6 +969,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         output += ':';
         output += (minutes < 10) ? '0' + minutes : minutes;
         
+        if(this.showSeconds) {
+            let seconds = date.getSeconds();
+        	
+            output += ':';
+            output += (seconds < 10) ? '0' + seconds : seconds;
+        }
+        
         if(this.hourFormat == '12') {
             output += this.pm ? ' PM' : ' AM';
         }
@@ -908,13 +985,25 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     parseTime(value) {
         let tokens: string[] = value.split(':');
-        if(tokens.length !== 2) {
+        if(this.showSeconds && tokens.length !== 3) {
+            throw "Invalid time";
+        }
+        else if(tokens.length !== 2) {
             throw "Invalid time";
         }
         
         let h = parseInt(tokens[0]);
         let m = parseInt(tokens[1]);
+        let s = 0;
+        
+        if(this.showSeconds) {
+            let s = parseInt(tokens[2]);
+        }
+        
         if(isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12)) {
+            throw "Invalid time";
+        }
+        else if(this.showSeconds && s > 59) {
             throw "Invalid time";
         }
         else {
@@ -922,7 +1011,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 h+= 12;
             }
 
-            return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1])};
+            if(this.showSeconds) {
+                return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1]), second: parseInt(tokens[2])};
+            }
+            else {
+                return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1]), second: s};
+            }
         }
     }
     
