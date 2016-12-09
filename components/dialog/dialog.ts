@@ -95,17 +95,17 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     dragging: boolean;
 
-    documentDragListener: any;
+    documentDragListener: any = () => {};
     
     resizing: boolean;
 
-    documentResizeListener: any;
+    documentResizeListener: any = () => {};
     
-    documentResizeEndListener: any;
+    documentResizeEndListener: any = () => {};
     
-    documentResponsiveListener: any;
+    documentResponsiveListener: any = () => {};
     
-    documentEscapeListener: any;
+    documentEscapeListener: any = () => {};
     
     lastPageX: number;
     
