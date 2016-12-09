@@ -249,4 +249,11 @@
 
 .ui-timepicker > div span {
     font-size: 16px;
+}}}
+
+.ui-datepicker-sunday .ui-state-default {
+	color: red;
+}
+.ui-datepicker-saturday .ui-state-default {
+	color: blue;
 }

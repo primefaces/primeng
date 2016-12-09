@@ -45,6 +45,9 @@
     
     <h3>Inline {{date8|date}}</h3>
     <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar> 
+
+    <h3>Mark up weekend {{date9|date}}</h3>
+    <p-calendar [(ngModel)]="date9" [inline]="true" [markupWeekend]="true"></p-calendar> 
 </div>
 
 <div class="ContentSideSections Source">
@@ -336,6 +339,12 @@ export class MyModel &#123;
                             <td>date</td>
                             <td>Type of the value to write back to ngModel, default is date and alternative is string.</td>
                         </tr>
+                        <tr>
+                            <td>markupWeekend</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Change color Sunday and Saturday.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -436,6 +445,9 @@ export class MyModel &#123;
 
 &lt;h3&gt;Inline &#123;&#123;date8|date&#125;&#125;&lt;/h3&gt;
 &lt;p-calendar [(ngModel)]="date8" [inline]="true"&gt;&lt;/p-calendar&gt; 
+
+&lt;h3&gt;Mark up weekend &#123;&#123;date9|date&#125;&#125;&lt;/h3&gt;
+&lt;p-calendar [(ngModel)]="date9" [inline]="true" [markupWeekend]="true"&gt;&lt;/p-calendar&gt; 
 </code>
 </pre>
 
@@ -458,6 +470,8 @@ export class CalendarDemo &#123;
     date7: Date;
     
     date8: Date;
+    
+    date9: Date;
     
     minDate: Date;
     

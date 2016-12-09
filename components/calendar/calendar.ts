@@ -63,7 +63,7 @@ export interface LocaleSettings {
                     <tbody>
                         <tr *ngFor="let week of dates">
                             <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
-                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date)}">
+                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date),'ui-datepicker-sunday':isSunday(date),'ui-datepicker-saturday':isSaturday(date)}">
                                 <a #cell class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
                                         [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell && !disabled && date.selectable),
                                             'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
@@ -180,6 +180,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() required: boolean;
     
     @Input() dataType: string = 'date';
+    
+    @Input() markupWeekend: boolean = false;
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -341,15 +343,18 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             let week = [];
             
             if(i == 0) {
+                let dayIdx = 0;
                 for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
-                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, selectable: this.isSelectable(j, prev.month, prev.year)});
+                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, selectable: this.isSelectable(j, prev.month, prev.year), dayOfWeek:this.getDayOfWeek(dayIdx, sundayIndex)});
+                    dayIdx++;
                 }
                 
                 let remainingDaysLength = 7 - week.length;
                 for(let j = 0; j < remainingDaysLength; j++) {
-                    week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                    week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year), dayOfWeek:this.getDayOfWeek(dayIdx, sundayIndex)});
                     dayNo++;
+                    dayIdx++;
                 }
             }
             else {
@@ -357,10 +362,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                     if(dayNo > daysLength) {
                         let next = this.getPreviousMonthAndYear(month, year);
                         week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true, 
-                                    selectable: this.isSelectable((dayNo - daysLength), next.month, next.year)});
+                                    selectable: this.isSelectable((dayNo - daysLength), next.month, next.year), dayOfWeek:this.getDayOfWeek(j, sundayIndex)});
                     }
                     else {
-                        week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                        week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year), dayOfWeek:this.getDayOfWeek(j, sundayIndex)});
                     }
                     
                     dayNo++;
@@ -534,7 +539,28 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         
         return today.getDate() === dateMeta.day && today.getMonth() === dateMeta.month && today.getFullYear() === dateMeta.year;
     }
-    
+
+    isSaturday(dateMeta): boolean {
+        return this.markupWeekend && dateMeta.dayOfWeek === 6;
+    }
+
+    isSunday(dateMeta): boolean {
+        return this.markupWeekend && dateMeta.dayOfWeek === 0;
+    }
+
+    getDayOfWeek(dayIndex:number, sundayIndex:number) {
+        if (sundayIndex - dayIndex == 0) {
+            return 0;
+        } else {
+            if (dayIndex > sundayIndex) {
+                return dayIndex - sundayIndex;
+            }
+            else {
+                return (sundayIndex - dayIndex -7) * -1;
+            }
+        }
+    }
+
     isSelectable(day, month, year): boolean {
         let validMin = true;
         let validMax = true;
