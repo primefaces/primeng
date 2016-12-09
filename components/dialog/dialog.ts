@@ -195,7 +195,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.container);
             else
-                this.appendTo.appendChild(this.container);
+                this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
     

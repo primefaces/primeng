@@ -64,7 +64,7 @@ export class Menu implements AfterViewInit,OnDestroy {
                 if(this.appendTo === 'body')
                     document.body.appendChild(this.el.nativeElement);
                 else
-                    this.appendTo.appendChild(this.el.nativeElement);
+                    this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
             }
                 
             this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {

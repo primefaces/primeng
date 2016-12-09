@@ -320,7 +320,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             if(this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.appendTo.appendChild(this.overlay);
+                this.domHandler.appendChild(this.overlay, this.appendTo);
         }
     }
     

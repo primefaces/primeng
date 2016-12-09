@@ -15,6 +15,8 @@ export class Tooltip implements OnDestroy {
     @Input() tooltipPosition: string = 'right';
     
     @Input() tooltipEvent: string = 'hover';
+    
+    @Input() appendTo: any = 'body';
         
     container: any;
         
@@ -110,12 +112,18 @@ export class Tooltip implements OnDestroy {
         
         this.container.appendChild(tooltipText);
         
-        document.body.appendChild(this.container);
+        if(this.appendTo === 'body')
+            document.body.appendChild(this.container);
+        else
+            this.domHandler.appendChild(this.container, this.appendTo);
     }
     
     ngOnDestroy() {
         if(this.container && this.container.parentElement) {
-            document.body.removeChild(this.container);
+            if(this.appendTo === 'body')
+                document.body.removeChild(this.container);
+            else
+                this.domHandler.appendChild(this.container, this.appendTo);
         }
         this.container = null;
     }

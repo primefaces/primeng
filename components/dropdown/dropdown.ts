@@ -166,7 +166,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             if(this.appendTo === 'body')
                 document.body.appendChild(this.panel);
             else
-                this.appendTo.appendChild(this.panel);
+                this.domHandler.appendChild(this.panel, this.appendTo);
         }
     }
     
