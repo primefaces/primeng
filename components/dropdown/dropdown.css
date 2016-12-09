@@ -70,6 +70,7 @@
     margin:1px 0;
     padding:3px 5px;
     text-align:left;
+    min-height: 1em;
 }
 
 .ui-dropdown-panel .ui-dropdown-item-group {
