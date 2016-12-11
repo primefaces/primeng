@@ -34,7 +34,7 @@ export class TreeNodeTemplateLoader implements OnInit {
                             (click)="toggle($event)"></span
                     ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
-                        <span class="ui-chkbox-icon ui-c fa fa-fw" 
+                        <span class="ui-chkbox-icon ui-c fa" 
                             [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                     ><span class="ui-treenode-label ui-corner-all" 

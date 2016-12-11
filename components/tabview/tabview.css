@@ -1,7 +1,6 @@
 .ui-tabview {
-    padding: .2em; 
-    zoom: 1; 
-} /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+    padding: .25em; 
+}
 
 .ui-tabview .ui-tabview-nav { 
     margin: 0;
@@ -11,7 +10,7 @@
     list-style: none; 
     float: left; 
     position: relative; 
-    margin: 0 .2em 1px 0;  
+    margin: 0 .125em 1px 0;  
     padding: 0; 
     white-space: nowrap; 
 }
@@ -31,11 +30,11 @@
 .ui-tabview .ui-tabview-nav li a, 
 .ui-tabview.ui-tabview-collapsible .ui-tabview-nav li.ui-tabview-selected a { 
     cursor: pointer; 
-} /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+}
 
 .ui-tabview .ui-tabview-panel { 
     border-width: 0; 
-    padding: 1em 1.4em; 
+    padding: 1em; 
     background: none; 
 }
 
@@ -84,15 +83,15 @@
 
 .ui-tabview-left > .ui-tabview-nav {
     float:left;
-    width:23%;
-    height:300px;
+    width: 25%;
+    height: 300px;
     background-image: none;
-    padding-top:1px;
+    padding-top: 1px;
 }
 
 .ui-tabview-left > .ui-tabview-panels {
     float:right;
-    width:75%;
+    width: 75%;
 }
 
 .ui-tabview.ui-tabview-left > .ui-tabview-nav li,
@@ -100,28 +99,28 @@
     display: block;
     float: right;
     white-space: normal;
-    width: 98%;
+    width: 99%;
 }
 
 .ui-tabview.ui-tabview-left > .ui-tabview-nav li {
-    margin:0 0 1px 0.2em;
+    margin: 0 0 1px 0;
     border-right:0 none;
 }
 
 .ui-tabview.ui-tabview-right > .ui-tabview-nav {
     float:right;
-    width:23%;
-    height:300px;
+    width: 25%;
+    height: 300px;
     background-image: none;
-    padding-top:1px;
+    padding-top: 1px;
 }
 
 .ui-tabview.ui-tabview-right > .ui-tabview-panels {
     float:left;
-    width:75%;
+    width: 75%;
 }
 
 .ui-tabview.ui-tabview-right > .ui-tabview-nav li {
-    margin:0 0.2em 1px 0;
+    margin: 0 0 1px 0;
     border-left:0 none;
 }

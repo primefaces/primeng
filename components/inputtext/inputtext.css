@@ -1,7 +1,7 @@
 .ui-inputtext {
     margin: 0;
     outline: medium none;
-    padding: 4px;
+    padding: .25em;
     font-weight: normal;
 }
 

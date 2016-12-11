@@ -1,24 +1,22 @@
 .ui-radiobutton {
-    position: relative;
-    margin: 2px 0;
-    line-height: 16px;
     cursor: pointer;
+    vertical-align:middle;
+    display:inline-block;
 }
 
 .ui-radiobutton .ui-radiobutton-box {
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+    width: 1.125em;
+    height: 1.125em;
+    line-height: 1.125em;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    text-align: center;
 }
 
 .ui-radiobutton-icon {
-    font-size: 8px;
-    margin-top: 4px;
-    margin-left: 3px;
-    display: block;
+    font-size: 1em;
+    line-height: inherit;
 }
  
 .ui-radiobutton, .ui-radiobutton-label {
@@ -27,5 +25,5 @@
 }
 
 .ui-radiobutton-label {
-    margin-left: 3px;
+    margin-left: .25em;
 }

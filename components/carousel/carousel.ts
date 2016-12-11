@@ -7,8 +7,8 @@ import {CommonModule} from '@angular/common';
     selector: 'p-carousel',
     template: `
         <div [ngClass]="{'ui-carousel ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-carousel-header ui-widget-header">
-                <div class="ui-carousel-header-title">{{headerText}}</div>
+            <div class="ui-carousel-header ui-widget-header ui-corner-all">
+                <span class="ui-carousel-header-title">{{headerText}}</span>
                 <span class="ui-carousel-button ui-carousel-next-button fa fa-arrow-circle-right" (click)="onNextNav()" 
                         [ngClass]="{'ui-state-disabled':(page === (totalPages-1)) && !circular}"></span>
                 <span class="ui-carousel-button ui-carousel-prev-button fa fa-arrow-circle-left" (click)="onPrevNav()" 

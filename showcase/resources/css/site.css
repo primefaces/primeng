@@ -25,7 +25,7 @@ body{
     font-weight:normal;
     color:#404C51; 
     -webkit-font-smoothing: antialiased;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #LOGOTEXTSIDE{display:block;width:290px; float:left; height:auto; z-index:999; margin:-23px 0px 0px 0px; padding-top:25px; line-height:30px;}
@@ -216,7 +216,7 @@ input.searchInput {
     overflow: visible;
 }
 
-.Implementation h3 {
+.Implementation > h3 {
     margin-top: 30px;
     color: #5C666A;
 }
