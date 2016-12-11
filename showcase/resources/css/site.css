@@ -25,7 +25,7 @@ body{
     font-weight:normal;
     color:#404C51; 
     -webkit-font-smoothing: antialiased;
-    font-size: 16px;
+    font-size: 1em;
 }
 
 #LOGOTEXTSIDE{display:block;width:290px; float:left; height:auto; z-index:999; margin:-23px 0px 0px 0px; padding-top:25px; line-height:30px;}

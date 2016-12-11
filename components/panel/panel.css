@@ -3,7 +3,7 @@
 }
 
 .ui-panel .ui-panel-titlebar {
-	padding: .25em .5em;
+	padding: .5em .75em;
 }
 
 .ui-panel .ui-panel-titlebar-icon {
@@ -19,7 +19,7 @@
 .ui-panel .ui-panel-content {
 	border: 0;
     background: none;
-    padding: 1em; 
+    padding: .75em 1em;
 }
 
 .ui-panel .ui-panel-footer {
