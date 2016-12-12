@@ -127,10 +127,7 @@ export class Chips implements ControlValueAccessor {
             
             case 13:
                 this.value = this.value||[];
-                if(inputEL.value || inputEL.value !== "" && (!this.max||this.max > this.value.length)) {
-                    if(/\s/.test(inputEL.value)) {
-                        return;
-                    }
+                if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
                     this.value.push(inputEL.value);
                     this.onModelChange(this.value);
                     this.onAdd.emit(inputEL.value);
