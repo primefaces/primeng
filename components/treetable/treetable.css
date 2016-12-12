@@ -7,7 +7,7 @@
 .ui-treetable .ui-treetable-header,
 .ui-treetable .ui-treetable-footer {
     text-align:center;
-    padding: .25em .5em;
+	padding: .5em .75em;
 }
 
 .ui-treetable .ui-treetable-header {

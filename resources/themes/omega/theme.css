@@ -14,12 +14,12 @@
 
 /* Component containers
 ----------------------------------*/
-.ui-widget { font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 1em; font-size: 1em; }
+.ui-widget { font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 1em; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Arial,Helvetica,sans-serif; font-size: 1em; }
 .ui-widget-content { border: 1px solid #D5D5D5; background: #ffffff; color: #222222; }
 .ui-widget-content a { color: #222222; }
-.ui-widget-header { border: 1px solid #D5D5D5; background: #cccccc; color: #222222; font-weight: bold; }
+.ui-widget-header { border: 1px solid #D5D5D5; background: #cccccc; color: #222222; }
 .ui-widget-header {
 	border: 1px solid #d9d9d9;
 	color: #1b1d1f;
@@ -418,9 +418,6 @@
 	color: #FFFFFF;
 	background: #2399e5;
 }
-.ui-button, .ui-button span, button.ui-button.ui-state-default span, .ui-button.ui-state-default span {
-	font-weight: bold;
-}
 button.ui-button.ui-state-hover, .ui-button.ui-state-hover,
 button.ui-button.ui-state-focus, .ui-button.ui-state-focus {
 	border: 1px solid #156090;
@@ -477,9 +474,6 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 }
 
 /* DataTable  */
-.ui-datatable th {
-    font-weight: bold;
-}
 .ui-datatable th.ui-state-default{
     background: #ebedf0;
     border-color: #d9d9d9;
@@ -530,9 +524,6 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 }
 
 /* TreeTable */
-.ui-treetable th {
-    font-weight: bold;
-}
 .ui-treetable th.ui-state-default{
     background: #ebedf0;
     border-color: #d9d9d9;

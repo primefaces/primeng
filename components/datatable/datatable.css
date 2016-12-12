@@ -8,7 +8,7 @@
 .ui-datatable .ui-datatable-caption,
 .ui-datatable .ui-datatable-footer {
     text-align: center;
-    padding: .25em .5em;
+	padding: .5em .75em;
     box-sizing: border-box;
 }
 
