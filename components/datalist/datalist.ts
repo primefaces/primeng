@@ -17,8 +17,8 @@ import {BlockableUI} from '../common/api';
             (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator  && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datalist-content ui-widget-content">
                 <ul class="ui-datalist-data">
-                    <li *ngFor="let item of dataToRender">
-                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    <li *ngFor="let item of dataToRender;let i = index">
+                        <template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></template>
                     </li>
                 </ul>
             </div>

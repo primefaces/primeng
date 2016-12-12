@@ -288,6 +288,17 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <p>Index of the row is available at the template.</p>
+<pre>
+<code class="language-markup" pCode>
+    &lt;p-column&gt;
+        &lt;template let-car="rowData" let-i="rowIndex" pTemplate type="body"&gt;
+            &lt;button type="button" pButton (click)="selectCar(i)" icon="fa-search"&gt;&lt;/button&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/datatable/templating']">live example.</a></p>
 
             <h3>Facets</h3>
