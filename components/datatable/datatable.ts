@@ -170,9 +170,14 @@ export class RowExpansionLoader {
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
                             <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex - 1],groupField)))"
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
-                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader></td>
+                                <td [attr.colspan]="columns.length">
+                                    <a href="#" *ngIf="expandableRowGroups" (click)="toggleRowGroup($event,rowData)">
+                                        <span class="fa fa-fw" [ngClass]="{'fa-chevron-circle-down':isRowGroupExpanded(rowData), 'fa-chevron-circle-right': !isRowGroupExpanded(rowData)}"></span>
+                                    </a>
+                                    <p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader>
+                                </td>
                             </tr>
-                            <tr #rowElement [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
+                            <tr #rowElement *ngIf="!expandableRowGroups||isRowGroupExpanded(rowData)" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
@@ -195,7 +200,7 @@ export class RowExpansionLoader {
                                     </td>
                                 </template>
                             </tr>
-                            <tr class="ui-widget-header" *ngIf="rowGroupFooterTemplate && rowGroupMode=='subheader' && ((rowIndex === dataToRender.length - 1)||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex + 1],groupField)))">
+                            <tr class="ui-widget-header" *ngIf="rowGroupFooterTemplate && rowGroupMode=='subheader' && ((rowIndex === dataToRender.length - 1)||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex + 1],groupField))) && (!expandableRowGroups || isRowGroupExpanded(rowData))">
                                 <p-templateLoader class="ui-helper-hidden" [data]="rowData" [template]="rowGroupFooterTemplate"></p-templateLoader>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
@@ -383,9 +388,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() emptyMessage: string = 'No records found';
     
     @Input() paginatorPosition: string = 'bottom';
-    
-    @Input() expandedRows: any[];
-    
+        
     @Input() rowTrackBy: Function;
     
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
@@ -407,6 +410,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @ContentChild(Footer) footer;
     
     @Input() expandableRows: boolean;
+    
+    @Input() expandedRows: any[];
+    
+    @Input() expandableRowGroups: boolean;
+    
+    @Input() public expandedRowsGroups: any[];
     
     @Input() tabindex: number = 1;
     
@@ -490,6 +499,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public rowTouch: boolean;
     
+    public rowGroupToggleClick: boolean;
+    
     public editingCell: any;
     
     public stopFilterPropagation: boolean;
@@ -501,7 +512,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public rowGroupFooterTemplate: TemplateRef<any>;
     
     public rowExpansionTemplate: TemplateRef<any>;
-
+    
     differ: any;
 
     globalFilterFunction: any;
@@ -918,6 +929,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     onRowGroupClick(event) {
+        if(this.rowGroupToggleClick) {
+            this.rowGroupToggleClick = false;
+            return;
+        }
+        
         if(this.sortableRowGroup) {
             let targetNode = event.target.nodeName;
             if((targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c')))) {
@@ -1715,8 +1731,40 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         return index;
     }
     
-    isRowExpanded(row) {
+    isRowExpanded(row: any): boolean {
         return this.findExpandedRowIndex(row) != -1;
+    }
+    
+    findExpandedRowGroupIndex(row: any): number {
+        let index = -1;
+        if(this.expandedRowsGroups && this.expandedRowsGroups.length) {
+            for(let i = 0; i < this.expandedRowsGroups.length; i++) {
+                let group = this.expandedRowsGroups[i];
+                let rowGroupField = this.resolveFieldData(row, this.groupField);
+                if(rowGroupField === group) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
+    }
+    
+    isRowGroupExpanded(row: any): boolean {
+        return this.findExpandedRowGroupIndex(row) != -1;
+    }
+    
+    toggleRowGroup(event: Event, row: any): void {
+        this.rowGroupToggleClick = true;
+        let index = this.findExpandedRowGroupIndex(row);
+        if(index >= 0) {
+            this.expandedRowsGroups.splice(index, 1);
+        }
+        else {
+            this.expandedRowsGroups = this.expandedRowsGroups||[],
+            this.expandedRowsGroups.push(this.resolveFieldData(row, this.groupField));
+        }
+        event.preventDefault();
     }
         
     public reset() {
