@@ -33,7 +33,7 @@ body {
     font-weight: normal;
     color: #404C51;
     -webkit-font-smoothing: antialiased;
-    font-size: 14px;
+    font-size: 1em;
 }
 #LOGOTEXTSIDE {
     display: block;
