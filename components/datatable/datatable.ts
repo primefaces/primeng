@@ -918,15 +918,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     onRowGroupClick(event) {
-        let targetNode = event.target.nodeName;
-        if((targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c')))) {
-            if(this.sortField != this.groupField) {
-                this.sortField = this.groupField;
-                this.sortSingle();
-            }
-            else {
-                this.sortOrder = -1 * this.sortOrder;
-                this.sortSingle();
+        if(this.sortableRowGroup) {
+            let targetNode = event.target.nodeName;
+            if((targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c')))) {
+                if(this.sortField != this.groupField) {
+                    this.sortField = this.groupField;
+                    this.sortSingle();
+                }
+                else {
+                    this.sortOrder = -1 * this.sortOrder;
+                    this.sortSingle();
+                }
             }
         }
     }
