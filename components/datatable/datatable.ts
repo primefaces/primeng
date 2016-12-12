@@ -468,9 +468,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public lastPageX: number;
         
-    public documentColumnResizeListener: any = () => {};
+    public documentColumnResizeListener: Function;
     
-    public documentColumnResizeEndListener: any = () => {};
+    public documentColumnResizeEndListener: Function;
     
     public resizerHelper: any;
     
@@ -1815,7 +1815,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
         
-        if(this.resizableColumns) {
+        if(this.resizableColumns && this.documentColumnResizeListener && this.documentColumnResizeEndListener) {
             this.documentColumnResizeListener();
             this.documentColumnResizeEndListener();
         }
