@@ -168,9 +168,9 @@ export class RowExpansionLoader {
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
-                            <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
+                            <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex - 1],groupField)))"
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
-                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupTemplate" [data]="rowData"></p-templateLoader></td>
+                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader></td>
                             </tr>
                             <tr #rowElement [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
@@ -194,7 +194,9 @@ export class RowExpansionLoader {
                                         <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                     </td>
                                 </template>
-                                
+                            </tr>
+                            <tr class="ui-widget-header" *ngIf="rowGroupFooterTemplate && rowGroupMode=='subheader' && ((rowIndex === dataToRender.length - 1)||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex + 1],groupField)))">
+                                <p-templateLoader class="ui-helper-hidden" [data]="rowData" [template]="rowGroupFooterTemplate"></p-templateLoader>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="visibleColumns().length">
@@ -245,7 +247,7 @@ export class RowExpansionLoader {
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
                             <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
-                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupTemplate" [data]="rowData"></p-templateLoader></td>
+                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader></td>
                             </tr>
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
@@ -494,7 +496,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public rowGroupMetadata: any;
     
-    public rowGroupTemplate: TemplateRef<any>;
+    public rowGroupHeaderTemplate: TemplateRef<any>;
+    
+    public rowGroupFooterTemplate: TemplateRef<any>;
     
     public rowExpansionTemplate: TemplateRef<any>;
 
@@ -538,8 +542,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     this.rowExpansionTemplate = item.template;
                 break;
                 
-                case 'rowgroup':
-                    this.rowGroupTemplate = item.template;
+                case 'rowgroupheader':
+                    this.rowGroupHeaderTemplate = item.template;
+                break;
+                
+                case 'rowgroupfooter':
+                    this.rowGroupFooterTemplate = item.template;
                 break;
             }
         });

@@ -10,10 +10,19 @@
 <div class="ContentSideSections Implementation">
     <p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand">
         <header>Subheader</header>
-        <template pTemplate type="rowgroup" let-rowData>{{rowData['brand']&#125;&#125;</template>
+        <template pTemplate type="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
         <p-column field="color" header="Color" sortable="true"></p-column>
         <p-column field="year" header="Year" sortable="true"></p-column>
         <p-column field="vin" header="Vin" sortable="true"></p-column>
+        <p-column field="price" header="Price" sortable="true">
+            <template let-col let-car="rowData" pTemplate type="body">
+                <span>{{car[col.field] | currency:'USD':true:'.0-0'}}</span>
+            </template>
+        </p-column>
+        <template pTemplate type="rowgroupfooter" let-car>
+            <td colspan="3" style="text-align:right">Total Price</td>
+            <td>{{calculateGroupTotal(car['brand']) | currency:'USD':true:'.0-0' }}</td>
+        </template>
     </p-dataTable>
     
     <p-dataTable [value]="cars2" sortField="brand" rowGroupMode="rowspan" [style]="{'margin-top':'50px'}">

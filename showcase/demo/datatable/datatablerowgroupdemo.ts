@@ -18,4 +18,18 @@ export class DataTableRowGroupDemo implements OnInit {
         this.carService.getCarsMedium().then(cars => this.cars1 = cars);
         this.carService.getCarsMedium().then(cars => this.cars2 = cars);
     }
+    
+    calculateGroupTotal(brand: string) {
+        let total = 0;
+        
+        if(this.cars1) {
+            for(let car of this.cars1) {
+                if(car.brand === brand) {
+                    total += car.price;
+                }
+            }
+        }
+
+        return total;
+    }
 }
