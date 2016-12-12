@@ -194,7 +194,7 @@ export class RowExpansionLoader {
                                         <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
                                                 (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                         <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
-                                            *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
+                                            *ngIf="col.expander" (click)="toggleRow($event,rowData)"></div>
                                         <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                         <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                     </td>
@@ -430,6 +430,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onRowGroupExpand: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onRowGroupCollapse: EventEmitter<any> = new EventEmitter();
         
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
     
@@ -1701,7 +1705,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         };
     }
     
-    toggleRow(row: any) {
+    toggleRow(event: Event, row: any) {
         if(!this.expandedRows) {
             this.expandedRows = [];
         }
@@ -1710,11 +1714,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         if(expandedRowIndex != -1) {
             this.expandedRows.splice(expandedRowIndex, 1);
-            this.onRowCollapse.emit(row);
+            this.onRowCollapse.emit({
+                originalEvent: event, 
+                data: row
+            });
         }
         else {
             this.expandedRows.push(row);
-            this.onRowExpand.emit(row);
+            this.onRowExpand.emit({
+                originalEvent: event, 
+                data: row
+            });
         }
     }
     
@@ -1757,12 +1767,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     toggleRowGroup(event: Event, row: any): void {
         this.rowGroupToggleClick = true;
         let index = this.findExpandedRowGroupIndex(row);
+        let rowGroupField = this.resolveFieldData(row, this.groupField);
         if(index >= 0) {
             this.expandedRowsGroups.splice(index, 1);
+            this.onRowGroupCollapse.emit({
+                originalEvent: event, 
+                group: rowGroupField
+            });
         }
         else {
             this.expandedRowsGroups = this.expandedRowsGroups||[],
-            this.expandedRowsGroups.push(this.resolveFieldData(row, this.groupField));
+            this.expandedRowsGroups.push(rowGroupField);
+            this.onRowGroupExpand.emit({
+                originalEvent: event, 
+                group: rowGroupField
+            });
         }
         event.preventDefault();
     }
