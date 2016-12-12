@@ -18,26 +18,26 @@
 .ui-widget { font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; font-size: 1em; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; font-size: 1em; }
-.ui-widget-content { border: 1px solid #d9d6c4; background: #eceadf url(images/ui-bg_fine-grain_10_eceadf_60x60.png) 50% 50% repeat; color: #1f1f1f; }
+.ui-widget-content { border: 1px solid #d9d6c4; background: #eceadf; color: #1f1f1f; }
 .ui-widget-content a { color: #1f1f1f; }
-.ui-widget-header { border: 1px solid #d4d1bf; background: #ffffff url(images/ui-bg_fine-grain_15_ffffff_60x60.png) 50% 50% repeat; color: #453821; font-weight: bold; }
+.ui-widget-header { border: 1px solid #d4d1bf; background: #ffffff; color: #453821; font-weight: bold; }
 .ui-widget-header a { color: #453821; }
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #cbc7bd; background: #f8f7f6 url(images/ui-bg_fine-grain_10_f8f7f6_60x60.png) 50% 50% repeat; font-weight: bold; color: #654b24; }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #cbc7bd; background: #f8f7f6; color: #654b24; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #654b24; text-decoration: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #654b24; background: #654b24 url(images/ui-bg_fine-grain_65_654b24_60x60.png) 50% 50% repeat; font-weight: bold; color: #ffffff; }
-.ui-state-hover a, .ui-state-hover a:hover { color: #ffffff; text-decoration: none; }
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #d9d6c4; background: #eceadf url(images/ui-bg_fine-grain_15_eceadf_60x60.png) 50% 50% repeat; font-weight: bold; color: #140f06; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #b2a266; background: #f7f3de; color: #3a3427; }
+.ui-state-hover a, .ui-state-hover a:hover { color: #3a3427; text-decoration: none; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #d9d6c4; background: #eceadf; font-weight: bold; color: #140f06; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #140f06; text-decoration: none; }
 .ui-widget :active { outline: none; }
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #b2a266; background: #f7f3de url(images/ui-bg_fine-grain_15_f7f3de_60x60.png) 50% 50% repeat; color: #3a3427; }
-.ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #3a3427; }
-.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #681818; background: #b83400 url(images/ui-bg_fine-grain_68_b83400_60x60.png) 50% 50% repeat; color: #ffffff; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #654b24; background: #654b24; color: #ffffff; }
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #ffffff; }
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #681818; background: #b83400; color: #ffffff; }
 .ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #ffffff; }
 .ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #ffffff; }
 .ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }

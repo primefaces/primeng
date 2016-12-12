@@ -33,7 +33,7 @@
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.05); border: 1px solid #723c9b; background: #65358a url(images/ui-bg_highlight-soft_15_65358a_1x100.png) 50% top repeat-x; color: #e3beff; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #723c9b; background: #65358a 50% top repeat-x; color: #ffffff; }
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #eaffb9; }
 .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #ca3838; background: #ca3838 url(images/ui-bg_highlight-soft_15_ca3838_1x100.png) 50% top repeat-x; color: #ff8f8f; }
 .ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #ff8f8f; }
