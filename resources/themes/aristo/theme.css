@@ -1217,16 +1217,13 @@ a {
 /* PrimeFaces Extensions */
 .ui-inputtext, .ui-widget-content .ui-inputtext, .ui-widget-header .ui-inputtext {
     background: #ffffff;
-    -moz-box-shadow: inset 0 2px 2px #8f8f8f;
-    -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
-    box-shadow: inset 0 2px 2px #8f8f8f;
     color: #313131;
 }
 
 .ui-inputtext.ui-state-focus, .ui-widget-content .ui-inputtext.ui-state-focus, .ui-widget-header .ui-inputtext.ui-state-focus {
-    -moz-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
-    -webkit-box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
-    box-shadow: 0px 0px 5px #85b2cb, inset 0 2px 2px #8f8f8f;
+    -moz-box-shadow: 0px 0px 5px #85b2cb;
+    -webkit-box-shadow: 0px 0px 5px #85b2cb;
+    box-shadow: 0px 0px 5px #85b2cb;
 }
 
 .ui-menu, .ui-menu .ui-menu-child {
