@@ -406,6 +406,11 @@ body {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
+.navOverlay a img {
+    float: left;
+    width: 30px;
+    height: 27px;
+}
 .navOverlay a span.ui-text {
     display: inline-block;
     margin-top: 7px;
