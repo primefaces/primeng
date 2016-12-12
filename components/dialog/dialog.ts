@@ -95,17 +95,17 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     dragging: boolean;
 
-    documentDragListener: any;
+    documentDragListener: any = () => {};
     
     resizing: boolean;
 
-    documentResizeListener: any;
+    documentResizeListener: any = () => {};
     
-    documentResizeEndListener: any;
+    documentResizeEndListener: any = () => {};
     
-    documentResponsiveListener: any;
+    documentResponsiveListener: any = () => {};
     
-    documentEscapeListener: any;
+    documentEscapeListener: any = () => {};
     
     lastPageX: number;
     
@@ -195,7 +195,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.container);
             else
-                this.appendTo.appendChild(this.container);
+                this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
     

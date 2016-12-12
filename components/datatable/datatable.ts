@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {InputTextModule} from '../inputtext/inputtext';
-import {Column,Header,Footer,HeaderColumnGroup,FooterColumnGroup} from '../common/shared';
+import {Column,Header,Footer,HeaderColumnGroup,FooterColumnGroup,PrimeTemplate} from '../common/shared';
 import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {Subscription} from 'rxjs/Subscription';
@@ -21,7 +21,7 @@ import {BlockableUI} from '../common/api';
             <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="handleClick($event)"
                         (mouseenter)="hover=true" (mouseleave)="hover=false"
                         [ngClass]="{'ui-state-hover':hover,'ui-state-active':checked}">
-                <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':checked}"></span>
+                <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-circle':checked}"></span>
             </div>
         </div>
     `
@@ -49,7 +49,7 @@ export class DTRadioButton {
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="handleClick($event)"
                         (mouseover)="hover=true" (mouseout)="hover=false" 
                         [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked&&!disabled,'ui-state-disabled':disabled}">
-                <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':checked}"></span>
+                <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':checked}"></span>
             </div>
         </div>
     `
@@ -105,22 +105,25 @@ export class RowExpansionLoader {
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead>
                         <tr *ngIf="!headerColumnGroup" class="ui-state-default">
-                            <th #headerCell *ngFor="let col of columns;let lastCol = last" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-state-focus': headerCell === focusedHeader && col.sortable,
-                                'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
-                                (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)" (mousedown)="onHeaderMousedown($event,headerCell)"
-                                [attr.tabindex]="col.sortable ? tabindex : null" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
-                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
-                                <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
-                                <span class="ui-column-title" *ngIf="col.headerTemplate">
-                                    <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
-                                </span>
-                                <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
-                                     [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
-                                <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
-                                <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
-                            </th>
+                            <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
+                                <th #headerCell [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                    (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
+                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-state-focus': headerCell === focusedHeader && col.sortable,
+                                    'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
+                                    (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)" (mousedown)="onHeaderMousedown($event,headerCell)"
+                                    [attr.tabindex]="col.sortable ? tabindex : null" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
+                                    <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
+                                    <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
+                                    <span class="ui-column-title" *ngIf="col.headerTemplate">
+                                        <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
+                                    </span>
+                                    <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
+                                         [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
+                                    <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter&&!col.filterTemplate" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                    <p-columnFilterTemplateLoader [column]="col" *ngIf="col.filterTemplate"></p-columnFilterTemplateLoader>
+                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
+                                </th>
+                            </template>
                         </tr>
                         <template [ngIf]="headerColumnGroup">
                             <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default">
@@ -165,27 +168,37 @@ export class RowExpansionLoader {
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
+                            <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
+                                (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
+                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupTemplate" [data]="rowData"></p-templateLoader></td>
+                            </tr>
                             <tr #rowElement [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                                <td *ngFor="let col of columns;let colIndex = index" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                    [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)">
-                                    <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                    <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{resolveFieldData(rowData,col.field)}}</span>
-                                    <span class="ui-cell-data" *ngIf="col.bodyTemplate">
-                                        <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
-                                    </span>
-                                    <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
-                                            (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
-                                    <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
-                                        *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
-                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
-                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
-                                </td>
+                                <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
+                                    <td *ngIf="!rowGroupMode || (rowGroupMode == 'subheader') ||
+                                        (rowGroupMode=='rowspan' && ((sortField==col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) || (sortField!=col.field)))"
+                                        [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                        [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)"
+                                        [attr.rowspan]="(rowGroupMode=='rowspan' && sortField == col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) ? rowGroupMetadata[resolveFieldData(rowData,sortField)].size : null">
+                                        <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
+                                        <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{resolveFieldData(rowData,col.field)}}</span>
+                                        <span class="ui-cell-data" *ngIf="col.bodyTemplate">
+                                            <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
+                                        </span>
+                                        <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
+                                                (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
+                                        <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
+                                            *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
+                                        <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
+                                        <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
+                                    </td>
+                                </template>
+                                
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="visibleColumns().length">
-                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate.first"></p-rowExpansionLoader>
+                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
                                 </td>
                             </tr>
                         </template>
@@ -204,21 +217,23 @@ export class RowExpansionLoader {
                     <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                         <thead>
                             <tr>
-                                <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                    (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
-                                    'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}"
-                                    [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
-                                    <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')"></span>
-                                    <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
-                                    <span class="ui-column-title" *ngIf="col.headerTemplate">
-                                        <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
-                                    </span>
-                                    <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
-                                         [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
-                                    <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
-                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
-                                </th>
+                                <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
+                                    <th #headerCell *ngIf="sortField!==col.field" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                        (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
+                                        [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
+                                        'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}"
+                                        [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
+                                        <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')"></span>
+                                        <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
+                                        <span class="ui-column-title" *ngIf="col.headerTemplate">
+                                            <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
+                                        </span>
+                                        <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
+                                             [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
+                                        <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                        <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
+                                    </th>
+                                </template>
                             </tr>
                         </thead>
                     </table>
@@ -228,13 +243,21 @@ export class RowExpansionLoader {
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
+                            <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
+                                (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
+                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupTemplate" [data]="rowData"></p-templateLoader></td>
+                            </tr>
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                                <td *ngFor="let col of columns; let colIndex = index;" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                    [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)">
+                                <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
+                                <td *ngIf="!rowGroupMode || (rowGroupMode == 'subheader') ||
+                                    (rowGroupMode=='rowspan' && ((sortField==col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) || (sortField!=col.field)))"
+                                    [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                    [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)"
+                                    [attr.rowspan]="(rowGroupMode=='rowspan' && sortField == col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) ? rowGroupMetadata[resolveFieldData(rowData,sortField)].size : null">
                                     <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                    <span class="ui-cell-data" *ngIf="!col.bodyTemplate">{{resolveFieldData(rowData,col.field)}}</span>
+                                    <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{resolveFieldData(rowData,col.field)}}</span>
                                     <span class="ui-cell-data" *ngIf="col.bodyTemplate">
                                         <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                                     </span>
@@ -245,10 +268,11 @@ export class RowExpansionLoader {
                                     <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                     <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
+                                </template>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="visibleColumns().length">
-                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate.first"></p-rowExpansionLoader>
+                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
                                 </td>
                             </tr>
                         </template>
@@ -343,6 +367,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() sortField: string;
 
     @Input() sortOrder: number = 1;
+    
+    @Input() groupField: string;
 
     @Input() multiSortMeta: SortMeta[];
     
@@ -384,11 +410,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Input() rowStyleClass: Function;
     
+    @Input() rowGroupMode: string; 
+    
+    @Input() sortableRowGroup: boolean = true; 
+    
+    @Input() sortFile: string; 
+        
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
-    
-    @ContentChildren(TemplateRef) rowExpansionTemplate: QueryList<TemplateRef<any>>;
+        
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
     
     @ContentChildren(Column) cols: QueryList<Column>;
     
@@ -436,9 +468,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public lastPageX: number;
         
-    public documentColumnResizeListener: any;
+    public documentColumnResizeListener: any = () => {};
     
-    public documentColumnResizeEndListener: any;
+    public documentColumnResizeEndListener: any = () => {};
     
     public resizerHelper: any;
     
@@ -459,6 +491,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public editingCell: any;
     
     public stopFilterPropagation: boolean;
+    
+    public rowGroupMetadata: any;
+    
+    public rowGroupTemplate: TemplateRef<any>;
+    
+    public rowExpansionTemplate: TemplateRef<any>;
 
     differ: any;
 
@@ -493,6 +531,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.initColumns();
             this.changeDetector.markForCheck();
         });
+        
+        this.templates.forEach((item) => {
+            switch(item.type) {
+                case 'rowexpansion':
+                    this.rowExpansionTemplate = item.template;
+                break;
+                
+                case 'rowgroup':
+                    this.rowGroupTemplate = item.template;
+                break;
+            }
+        });
     }
 
     ngAfterViewChecked() {
@@ -525,7 +575,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.globalFilter) {
             this.globalFilterFunction = this.renderer.listen(this.globalFilter, 'keyup', () => {
                 this.filterTimeout = setTimeout(() => {
-                    this.filter();
+                    this._filter();
                     this.filterTimeout = null;
                 }, this.filterDelay);
             });
@@ -550,10 +600,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     if(this.stopFilterPropagation)
                         this.stopFilterPropagation = false;
                     else
-                        this.filter();
+                        this._filter();
                 }
                 else {
-                    this.filter();
+                    this._filter();
                 }
             }
                         
@@ -585,7 +635,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 let fields: string[] = field.split('.');
                 let value = data;
                 for(var i = 0, len = fields.length; i < len; ++i) {
-                    if (value === undefined){
+                    if (value == undefined){
                         return null;
                     }
                     value = value[fields[i]];
@@ -597,7 +647,30 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             return null;
         }
     }
-
+    
+    updateRowGroupMetadata() {
+        this.rowGroupMetadata = {};
+        if(this.dataToRender) {
+            for(let i = 0; i < this.dataToRender.length; i++) {
+                let rowData = this.dataToRender[i];
+                let group = this.resolveFieldData(rowData, this.sortField);
+                if(i == 0) {
+                    this.rowGroupMetadata[group] = {index:0, size: 1};
+                }  
+                else {
+                    let previousRowData = this.dataToRender[i-1];
+                    let previousRowGroup = this.resolveFieldData(previousRowData, this.sortField);
+                    if(group === previousRowGroup) {
+                        this.rowGroupMetadata[group].size++;
+                    }
+                    else {
+                        this.rowGroupMetadata[group] = {index:i, size: 1};
+                    }
+                }
+            }
+        }
+    }
+    
     updatePaginator() {
         //total records
         this.totalRecords = this.lazy ? this.totalRecords : (this.value ? this.value.length: 0);
@@ -641,6 +714,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         else {
             this.dataToRender = datasource;
+        }
+        
+        if(this.rowGroupMode) {
+            this.updateRowGroupMetadata();
         }
     }
     
@@ -731,7 +808,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.first = 0;
 
             if(this.hasFilter()) {
-                this.filter();
+                this._filter();
             }
         }
         
@@ -746,7 +823,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
 
             if(this.hasFilter()) {
-                this.filter();
+                this._filter();
             }
         }
         
@@ -791,6 +868,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     isSorted(column: Column) {
+        if(!column.sortable) {
+            return false;
+        }
+        
         if(this.sortMode === 'single') {
             return (this.sortField && column.field === this.sortField);
         }
@@ -826,6 +907,20 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
         return order;
+    }
+    
+    onRowGroupClick(event) {
+        let targetNode = event.target.nodeName;
+        if((targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c')))) {
+            if(this.sortField != this.groupField) {
+                this.sortField = this.groupField;
+                this.sortSingle();
+            }
+            else {
+                this.sortOrder = -1 * this.sortOrder;
+                this.sortSingle();
+            }
+        }
     }
     
     handleRowClick(event, rowData) {
@@ -1026,21 +1121,35 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
 
         this.filterTimeout = setTimeout(() => {
-            if(value && value.trim().length)
-                this.filters[field] = {value: value, matchMode: matchMode};
-            else if(this.filters[field])
-                delete this.filters[field];
-            
-            if(this.lazy) {
-                this.stopFilterPropagation = true;
-            }
-            
-            this.filter();
+            this.filter(value, field, matchMode);
             this.filterTimeout = null;            
         }, this.filterDelay);
     }
+    
+    filter(value, field, matchMode) {
+        if(!this.isFilterBlank(value))
+            this.filters[field] = {value: value, matchMode: matchMode};
+        else if(this.filters[field])
+            delete this.filters[field];
+        
+        if(this.lazy) {
+            this.stopFilterPropagation = true;
+        }
+        
+        this._filter(); 
+    }
+    
+    isFilterBlank(filter: any): boolean {
+        if(filter !== null && filter !== undefined) {
+            if((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0))
+                return true;
+            else
+                return false;
+        } 
+        return true;
+    }
 
-    filter() {
+    _filter() {
         this.first = 0;
         
         if(this.lazy) {
@@ -1063,7 +1172,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         filterField = col.field,
                         filterMatchMode = filterMeta.matchMode||'startsWith',
                         dataFieldValue = this.resolveFieldData(this.value[i], filterField);
-
                         let filterConstraint = this.filterConstraints[filterMatchMode];
 
                         if(!filterConstraint(dataFieldValue, filterValue)) {
@@ -1139,14 +1247,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         },
 
         contains(value, filter): boolean {
-            if(filter === undefined || filter === null || filter.trim() === '') {
+            if(filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
                 return true;
             }
 
             if(value === undefined || value === null) {
                 return false;
             }
-
+            
             return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
         },
 
@@ -1161,6 +1269,35 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
             let filterValue = filter.toString().toLowerCase();
             return value.toString().toLowerCase().indexOf(filterValue, value.toString().length - filterValue.length) !== -1;
+        },
+        
+        equals(value, filter): boolean {
+            if(filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+                return true;
+            }
+            
+            if(value === undefined || value === null) {
+                return false;
+            }
+            
+            return value.toString().toLowerCase() == filter.toString().toLowerCase();
+        },
+        
+        in(value, filter: any[]): boolean {
+            if(filter === undefined || filter === null || filter.length === 0) {
+                return true;
+            }
+
+            if(value === undefined || value === null) {
+                return false;
+            }
+            
+            for(let i = 0; i < filter.length; i++) {
+                if(filter[i] === value)
+                    return true;
+            }
+            
+            return false;
         }
     }
 

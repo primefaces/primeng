@@ -1,7 +1,7 @@
 .ui-listbox {
     overflow:auto;
-    padding:2px;
-    width:125px;
+    padding: .25em;
+    width: 10em;
 }
 
 .ui-listbox .ui-listbox-list {
@@ -11,17 +11,53 @@
 }
 
 .ui-listbox .ui-listbox-item {
-    padding:2px;
-    border:0 none;
+    padding: .25em;
+    border: 0 none;
     cursor: pointer;
     font-weight: normal;
     margin-bottom: 1px;
 }
 
 .ui-listbox .ui-listbox-item:last-child {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .ui-listbox.ui-state-disabled .ui-listbox-item {
     cursor: default;
+}
+
+.ui-listbox-header {
+    margin-bottom: 0.3em;
+    padding: .125em .2em;
+    position: relative;
+}
+
+.ui-listbox-header .ui-chkbox {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.ui-listbox-header .ui-listbox-filter-container {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 7em;
+}
+
+.ui-listbox-header .ui-listbox-filter-container .fa {
+    position: absolute;
+    top: .25em;
+    left: .125em;
+}
+
+.ui-listbox-header .ui-inputtext {
+    padding: .125em .125em .125em 1.25em;
+    width: 100%;
+}
+
+/* Fluid */
+.ui-fluid .ui-listbox .ui-listbox-filter-container,
+.ui-fluid .ui-listbox .ui-listbox-filter-container input {
+    width: calc(100% - 32px);
 }

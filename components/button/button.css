@@ -12,7 +12,7 @@
 } 
 
 .ui-button-icon-only { 
-    width: 2.4em;
+    width: 2em;
 } 
 
 /*button text element */
@@ -44,12 +44,14 @@
 .ui-button-text-icon-right .fa {
     position: absolute; 
     top: 50%;
-    margin-top: -7px; 
+    margin-top: -.438em; 
 }
 
 .ui-button-icon-only .fa {
-    left: 50%; 
-    margin-left: -8px; 
+    top: 50%;
+    left: 50%;
+    margin-top: -.5em;
+    margin-left: -.6em;
 }
 
 .ui-button-icon-left {

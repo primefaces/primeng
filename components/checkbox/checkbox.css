@@ -5,21 +5,21 @@
 }
 
 .ui-chkbox .ui-chkbox-box {
-    float: left;
-    width: 16px;
-    height: 16px;
+    width: 1.125em;
+    height: 1.125em;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    margin-right: 3px;
+    margin-right: .25em;
 }
 
 .ui-chkbox .ui-chkbox-icon {
-    margin-top: 1px;
-    margin-left: -1px;
+    margin-top: .063em;
+    display: block;
 }
 
 .ui-chkbox-label {
-    vertical-align: middle;    
+    vertical-align: middle;  
+    margin-left: .25em;  
 }
 

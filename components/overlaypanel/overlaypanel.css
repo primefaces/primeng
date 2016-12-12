@@ -10,9 +10,9 @@
 
 .ui-overlaypanel-close {
     position: absolute;
-    top: -10px;
-    right: -10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+    top: -.5em;
+    right: -.5em;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
 }

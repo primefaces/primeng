@@ -8,7 +8,8 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/datatable']">&#9679; Basic</a></li>
                 <li><a [routerLink]="['/datatable/facets']">&#9679; Facets</a></li>
                 <li><a [routerLink]="['/datatable/templating']">&#9679; Templating</a></li>
-                <li><a [routerLink]="['/datatable/group']">&#9679; Group</a></li>
+                <li><a [routerLink]="['/datatable/colgroup']">&#9679; ColGroup</a></li>
+                <li><a [routerLink]="['/datatable/rowgroup']">&#9679; RowGroup</a></li>
                 <li><a [routerLink]="['/datatable/paginator']">&#9679; Paginator</a></li>
                 <li><a [routerLink]="['/datatable/sort']">&#9679; Sort</a></li>
                 <li><a [routerLink]="['/datatable/filter']">&#9679; Filter</a></li>

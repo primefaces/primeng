@@ -25,7 +25,7 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <template [ngIf]="!inline">
-                <input #inputfield type="text" pInputText [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+                <input #inputfield type="text" [required]="required" pInputText [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
@@ -176,6 +176,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() hourFormat: string = '24';
     
     @Input() timeOnly: boolean;
+
+    @Input() required: boolean;
     
     @Input() dataType: string = 'date';
     
@@ -320,7 +322,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             if(this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.appendTo.appendChild(this.overlay);
+                this.domHandler.appendChild(this.overlay, this.appendTo);
         }
     }
     

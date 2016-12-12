@@ -5,11 +5,11 @@
 }
 
 .ui-progressbar .ui-progressbar-value {
-    margin: -1px; 
     height: 100%;
     width: 0%;
     position: absolute;
     display: none;
+    border: 0 none;
 }
 
 .ui-progressbar .ui-progressbar-value-animate {

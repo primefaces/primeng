@@ -3,47 +3,47 @@
 }
 
 .ui-orderlist .ui-orderlist-caption {
-    width:200px;
+    width: 12.5em;
 }
 
 .ui-orderlist .ui-orderlist-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow:auto;
-    height:200px;
-    width:200px;
+    overflow: auto;
+    height: 12.5em;
+    width: 12.5em;
 }
 
 .ui-orderlist .ui-orderlist-list li {
     margin: 1px;
-    padding: 2px;
+    padding: .125em;
 }
 
 .ui-orderlist .ui-button {
-    display:block;
-    margin-bottom:0.3em;
+    display: block;
+    margin-bottom: 0.3em;
 }
 
 .ui-orderlist .ui-orderlist-button.ui-button-text-icon-primary {
-    width:100%;
+    width: 100%;
 }
 
 .ui-orderlist .ui-orderlist-item {
-    cursor:pointer;
-    border:0px none;
+    cursor: pointer;
+    border: 0 none;
     font-weight: inherit;
 }
 
 .ui-orderlist .ui-orderlist-caption {
     text-align: center;
-    padding:4px 0px;
-    border-bottom:0px none;
+    padding: .25em 0;
+    border-bottom: 0 none;
 }
 
 .ui-orderlist table {
-    width:100%;
-    border-collapse:collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 .ui-orderlist.ui-state-disabled .ui-orderlist-item,
@@ -62,7 +62,7 @@
 }
 
 .ui-orderlist.ui-grid-responsive .ui-orderlist-controls {
-    margin-right: 10px;
+    margin-right: .5em;
 }
 
 .ui-orderlist.ui-grid-responsive .ui-orderlist-list,
@@ -74,7 +74,7 @@
     width: 100%;
 }
 
-@media (max-width: 640px) { 
+@media (max-width: 40em) { 
     .ui-orderlist.ui-grid-responsive .ui-orderlist-controls {
         text-align: center;
     }

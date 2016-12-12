@@ -1,21 +1,21 @@
 .ui-tooltip {
     position:absolute;
     display:none;
-    padding:3px 5px;
+    padding: .25em .5em;
 }
 
 .ui-tooltip.ui-tooltip-right,
 .ui-tooltip.ui-tooltip-left {
-    padding: 0 5px;
+    padding: 0 .25em;
 }
 
 .ui-tooltip.ui-tooltip-top,
 .ui-tooltip.ui-tooltip-bottom {
-    padding: 5px 0px;
+    padding:.25em 0;
 }
 
 .ui-tooltip .ui-tooltip-text {
-   padding: 3px 10px;
+   padding: .125em .5em;
    background-color: rgb(76, 76, 76);
    color: #ffffff;
 }
@@ -31,35 +31,35 @@
 .ui-tooltip-right .ui-tooltip-arrow {
     top: 50%;
     left: 0;
-    margin-top: -5px;
-    border-width: 5px 5px 5px 0;
+    margin-top: -.25em;
+    border-width: .25em .25em .25em 0;
     border-right-color: rgb(76, 76, 76);
 }
 
 .ui-tooltip-left .ui-tooltip-arrow {
     top: 50%;
     right: 0;
-    margin-top: -5px;
-    border-width: 5px 0 5px 5px;
+    margin-top: -.25em;
+    border-width: .25em 0 .25em .25em;
     border-left-color: rgb(76, 76, 76);
 }
 
 .ui-tooltip.ui-tooltip-top {
-    padding: 5px 0;
+    padding: .25em 0;
 }
 
 .ui-tooltip-top .ui-tooltip-arrow {
     bottom: 0;
     left: 50%;
-    margin-left: -5px;
-    border-width: 5px 5px 0;
+    margin-left: -.25em;
+    border-width: .25em .25em 0;
     border-top-color: rgb(76, 76, 76);
 }
 
 .ui-tooltip-bottom .ui-tooltip-arrow {
     top: 0;
     left: 50%;
-    margin-left: -5px;
-    border-width: 0 5px 5px;
+    margin-left: -.25em;
+    border-width: 0 .25em .25em;
     border-bottom-color: rgb(76, 76, 76);
 }

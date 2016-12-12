@@ -1,0 +1,72 @@
+<datatable-demos></datatable-demos>
+
+<div class="ContentSideSections">
+    <div>
+        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">Row Grouping</span></span>
+        <span class="defaultText">Rows can either be grouped by a separate grouping row or using rowspan.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand">
+        <header>Subheader</header>
+        <template pTemplate type="rowgroup" let-rowData>{{rowData['brand']&#125;&#125;</template>
+        <p-column field="color" header="Color" sortable="true"></p-column>
+        <p-column field="year" header="Year" sortable="true"></p-column>
+        <p-column field="vin" header="Vin" sortable="true"></p-column>
+    </p-dataTable>
+    
+    <p-dataTable [value]="cars2" sortField="brand" rowGroupMode="rowspan" [style]="{'margin-top':'50px'}">
+        <header>RowSpan</header>
+        <p-column field="brand" header="Brand" sortable="true"></p-column>
+        <p-column field="color" header="Color" sortable="true"></p-column>
+        <p-column field="year" header="Year" sortable="true"></p-column>
+        <p-column field="vin" header="Vin" sortable="true"></p-column>
+    </p-dataTable>
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablerowgroupdemo.ts">
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataTableRowGroupDemo implements OnInit &#123;
+
+    cars1: Car[];
+    
+    cars2: Car[];
+    
+    constructor(private carService: CarService) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsMedium().then(cars => this.cars1 = cars);
+        this.carService.getCarsMedium().then(cars => this.cars2 = cars);
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablerowgroupdemo.html">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand"&gt;
+    &lt;header&gt;Subheader&lt;/header&gt;
+    &lt;template pTemplate type="rowgroup" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;p-column field="color" header="Color" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin" sortable="true"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-dataTable [value]="cars2" sortField="brand" rowGroupMode="rowspan" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;header&gt;RowSpan&lt;/header&gt;
+    &lt;p-column field="brand" header="Brand" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" sortable="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin" sortable="true"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

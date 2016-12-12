@@ -9,15 +9,10 @@
     display: inline-block;
 }
 
-.ui-autocomplete-input.ui-autocomplete-dd-input {
-    padding-right: 2.4em;
-}
-
 .ui-autocomplete .ui-autocomplete-dropdown {
     position: absolute;
     height: 100%;
-    width: 2.4em;
-    right: -2px;
+    width: 2em;
 }
 
 .ui-autocomplete-query {
@@ -35,28 +30,16 @@
 }
 
 .ui-autocomplete-panel .ui-autocomplete-list-item {
-    border:0px none;
-    cursor:pointer;
-    font-weight:normal;
-    margin:1px 0;
-    padding:3px 5px;
-    text-align:left;
+    border: 0 none;
+    cursor: pointer;
+    font-weight: normal;
+    margin: 1px 0;
+    padding: 0.186em 0.313em;
+    text-align: left;
 }
 
-.ui-autocomplete-panel .ui-autocomplete-table {
-    border-collapse:collapse;
-    width: 100%;
-}
-
-.ui-autocomplete-panel .ui-autocomplete-table td {
-    border-width: 1px;
-    border-style: solid;
-    border-color: inherit;
-    padding:4px 10px 4px 10px;
-}
-
-.ui-autocomplete .ui-button-icon-only .ui-button-text {
-    padding: 0.29em;
+.ui-autocomplete .ui-button-icon-only {
+    border-left: 0 none;
 }
 
 /* Multiple Selection */
@@ -65,31 +48,26 @@
     cursor: text;
     list-style-type: none;
     margin: 0;
-    min-height: 1px;
     overflow: hidden;
-}
-
-.ui-autocomplete-multiple-container.ui-inputtext {
-    padding:0;
 }
 
 .ui-autocomplete-token {
     cursor: default;
     float: left;
     overflow: hidden;
-    padding: 1px 3px;
+    padding: .063em .18em;
     white-space: nowrap;
     position: relative;
-    margin:2px;
+    margin-right: .125em;
 }
 
 .ui-autocomplete-token-label {
     display: block;
-    padding: 0em 2.1em 0em 0.5em;
+    margin-right: 2em;
 }
 
 .ui-autocomplete-token-icon {
-    margin-top: -9px;
+    margin-top: -.5em;
     position: absolute;
     right: 0.2em;
     top: 50%;
@@ -99,13 +77,13 @@
 .ui-autocomplete-input-token {
     float: left;
     list-style-type: none;
-    margin: 2px;
-    padding: 1px;
+    margin: .125em 0 0 .125em;
+    padding: .063em;
 }
 
 .ui-autocomplete-input-token .ui-inputtext {
     border: 0 none;
-    width: 140px;
+    width: 10em;
     outline: medium none;
     background-color: transparent;
     margin: 0;
@@ -113,29 +91,9 @@
     box-shadow: none;
 }
 
-.ui-autocomplete-itemtip-content {
-    display:none;
-}
-
-.ui-autocomplete-itemtip {
-    position: absolute;
-    display: none;
-    padding: 0.4em;
-}
-
-.ui-autocomplete-emptyMessage {
-    padding:3px 5px;
-}
-
-.ui-autocomplete-panel .ui-autocomplete-group {
-    font-weight: bold;
-    cursor: default;
-}
-
-/* ng */
 .ui-autocomplete-dd input.ui-corner-all {
-    -moz-border-radius-topright: 0px; 
-    -webkit-border-top-right-radius: 0px;
+     -moz-border-radius-topright: 0px; 
+     -webkit-border-top-right-radius: 0px;
      border-top-right-radius: 0px;
      -moz-border-radius-bottomright: 0px;
      -webkit-border-bottom-right-radius: 0px;
@@ -145,10 +103,10 @@
 .ui-autocomplete-dd .ui-autocomplete-dropdown.ui-corner-all {
      -moz-border-radius-topleft: 0px; 
      -webkit-border-top-left-radius: 0px;
-      border-top-left-radius: 0px;
-      -moz-border-radius-bottomleft: 0px;
-      -webkit-border-bottom-left-radius: 0px;
-      border-bottom-left-radius: 0px;
+     border-top-left-radius: 0px;
+     -moz-border-radius-bottomleft: 0px;
+     -webkit-border-bottom-left-radius: 0px;
+     border-bottom-left-radius: 0px;
 }
 
 /** AutoComplete **/
@@ -158,5 +116,5 @@
 }
 
 .ui-fluid .ui-autocomplete .ui-autocomplete-dropdown.ui-button {
-    width: 2.4em;
+    width: 2em;
 }

@@ -3,18 +3,18 @@
 
 .ui-datascroller .ui-datascroller-header {
     text-align: center;
-    padding: 4px 10px;
-    border-bottom: 0px none;
+    padding: .25em .625em;
+    border-bottom: 0 none;
 }
 
 .ui-datascroller .ui-datascroller-footer {
     text-align: center;
-    padding: 4px 10px;
+    padding: .25em .625em;
     border-top: 0px none;
 }
 
 .ui-datascroller .ui-datascroller-content {
-    padding:4px 10px;
+    padding: .25em .625em;
 }
 
 .ui-datascroller-inline .ui-datascroller-content {
