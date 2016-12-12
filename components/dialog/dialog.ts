@@ -95,17 +95,17 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     dragging: boolean;
 
-    documentDragListener: any = () => {};
+    documentDragListener: Function;
     
     resizing: boolean;
 
-    documentResizeListener: any = () => {};
+    documentResizeListener: Function;
     
-    documentResizeEndListener: any = () => {};
+    documentResizeEndListener: Function;
     
-    documentResponsiveListener: any = () => {};
+    documentResponsiveListener: Function;
     
-    documentEscapeListener: any = () => {};
+    documentEscapeListener: Function;
     
     lastPageX: number;
     
@@ -317,16 +317,16 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.documentDragListener();
         }
         
-        if(this.resizable) {
+        if(this.documentResizeListener && this.documentResizeEndListener) {
             this.documentResizeListener();
             this.documentResizeEndListener();
         }
         
-        if(this.responsive) {
+        if(this.documentResponsiveListener) {
             this.documentResponsiveListener();
         }
         
-        if(this.closeOnEscape && this.closable) {
+        if(this.documentEscapeListener) {
             this.documentEscapeListener();
         }
         
