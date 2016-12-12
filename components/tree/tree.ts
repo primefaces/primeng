@@ -207,7 +207,7 @@ export class Tree implements AfterContentInit {
         }
         
         this.templates.forEach((item) => {
-            this.templateMap[item.type] = item.template;
+            this.templateMap[item.getType()] = item.template;
         });
     }
          

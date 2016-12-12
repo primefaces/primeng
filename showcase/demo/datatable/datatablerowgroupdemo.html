@@ -12,16 +12,16 @@
     <p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"
             [sortableRowGroup]="false">
         <header>Toggleable Row Groups with Footers</header>
-        <template pTemplate type="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
+        <template pTemplate="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
         <p-column field="color" header="Color"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="price" header="Price">
-            <template let-col let-car="rowData" pTemplate type="body">
+            <template let-col let-car="rowData" pTemplate="body">
                 <span>{{car[col.field] | currency:'USD':true:'.0-0'}}</span>
             </template>
         </p-column>
-        <template pTemplate type="rowgroupfooter" let-car>
+        <template pTemplate="rowgroupfooter" let-car>
             <td colspan="3" style="text-align:right">Total Price</td>
             <td>{{calculateGroupTotal(car['brand']) | currency:'USD':true:'.0-0' }}</td>
         </template>
@@ -29,7 +29,7 @@
     
     <p-dataTable [value]="cars2" sortField="brand" rowGroupMode="subheader" groupField="brand" [style]="{'margin-top':'50px'}">
         <header>Subheader</header>
-        <template pTemplate type="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
+        <template pTemplate="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
         <p-column field="color" header="Color" sortable="true"></p-column>
         <p-column field="year" header="Year" sortable="true"></p-column>
         <p-column field="vin" header="Vin" sortable="true"></p-column>
@@ -89,16 +89,16 @@ export class DataTableRowGroupDemo implements OnInit &#123;
 &lt;p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"
         [sortableRowGroup]="false"&gt;
     &lt;header&gt;Toggleable Row Groups with Footers&lt;/header&gt;
-    &lt;template pTemplate type="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="price" header="Price"&gt;
-        &lt;template let-col let-car="rowData" pTemplate type="body"&gt;
+        &lt;template let-col let-car="rowData" pTemplate="body"&gt;
             &lt;span&gt;&#123;&#123;car[col.field] | currency:'USD':true:'.0-0'&#125;&#125;&lt;/span&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;
-    &lt;template pTemplate type="rowgroupfooter" let-car&gt;
+    &lt;template pTemplate="rowgroupfooter" let-car&gt;
         &lt;td colspan="3" style="text-align:right"&gt;Total Price&lt;/td&gt;
         &lt;td&gt;&#123;&#123;calculateGroupTotal(car['brand']) | currency:'USD':true:'.0-0' &#125;&#125;&lt;/td&gt;
     &lt;/template&gt;
@@ -106,7 +106,7 @@ export class DataTableRowGroupDemo implements OnInit &#123;
 
 &lt;p-dataTable [value]="cars2" sortField="brand" rowGroupMode="subheader" groupField="brand" [style]="&#123;'margin-top':'50px'&#125;"&gt;
     &lt;header&gt;Subheader&lt;/header&gt;
-    &lt;template pTemplate type="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
     &lt;p-column field="color" header="Color" sortable="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" sortable="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin" sortable="true"&gt;&lt;/p-column&gt;

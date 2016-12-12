@@ -552,7 +552,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         });
         
         this.templates.forEach((item) => {
-            switch(item.type) {
+            switch(item.getType()) {
                 case 'rowexpansion':
                     this.rowExpansionTemplate = item.template;
                 break;

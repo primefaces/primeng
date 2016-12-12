@@ -23,7 +23,19 @@ export class PrimeTemplate {
     
     @Input() type: string;
     
+    @Input('pTemplate') name: string;
+    
     constructor(public template: TemplateRef<any>) {}
+    
+    getType(): string {
+        if(this.type) {
+            console.log('Defining a pTemplate with type property is deprecated use pTemplate="type" instead.');
+            return this.type;
+        }
+        else {
+            return this.name;
+        }
+    }
 }
 
 @Directive({
@@ -78,7 +90,7 @@ export class Column implements AfterContentInit{
     
     ngAfterContentInit():void {
         this.templates.forEach((item) => {
-            switch(item.type) {
+            switch(item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
                 break;

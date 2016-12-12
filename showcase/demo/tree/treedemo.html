@@ -30,7 +30,7 @@
     
     <h3>Template</h3>
     <p-tree [value]="filesTree5">
-        <template let-node pTemplate type="default">
+        <template let-node pTemplate="default">
             <input [(ngModel)]="node.label" type="text" style="width:100%">
         </template>
     </p-tree>
@@ -353,7 +353,7 @@ export class TreeDemoComponent implements OnInit &#123;
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
-    &lt;template let-node  pTemplate type="default"&gt;
+    &lt;template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
@@ -366,10 +366,10 @@ export class TreeDemoComponent implements OnInit &#123;
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
-    &lt;template let-node  pTemplate type="picture"&gt;
+    &lt;template let-node  pTemplate="picture"&gt;
         &lt;img [attrs.src]="picture.path"&gt;
     &lt;/template&gt;
-    &lt;template let-node  pTemplate type="default"&gt;
+    &lt;template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
@@ -648,7 +648,7 @@ export class TreeDemoComponent implements OnInit &#123;
 &lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="filesTree4" pTemplate type="default"&gt;
+&lt;p-tree [value]="filesTree4" pTemplate="default"&gt;
     &lt;template let-node&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
