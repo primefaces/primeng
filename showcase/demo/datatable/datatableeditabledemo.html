@@ -9,7 +9,7 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars" [editable]="true">
+    <p-dataTable [value]="cars" [editable]="true" [cellIsEditable]="cellIsEditable">
         <p-column field="vin" header="Vin" [editable]="true"></p-column>
         <p-column field="year" header="Year" [editable]="true"></p-column>
         <p-column field="brand" header="Brand" [editable]="true"></p-column>
@@ -31,15 +31,20 @@ export class DataTableEditableDemo implements OnInit &#123;
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
     &#125;
+	
+    cellIsEditable(column: Column, rowData: any) &#123;
+        return rowData.color != 'Black' || column.field == 'color';
+    &#125;
 &#125;
 </code>
-</pre>            
+</pre>           
+<p>With function cellIsEditable, all lines with color 'Black' can't be edited, except column Color.</p> 
         </p-tabPanel>
 
         <p-tabPanel header="datatableeditabledemo.html">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dataTable [value]="cars" [editable]="true"&gt;
+&lt;p-dataTable [value]="cars" [editable]="true" [cellIsEditable]="cellIsEditable"&gt;
     &lt;p-column field="vin" header="Vin" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [editable]="true"&gt;&lt;/p-column&gt;

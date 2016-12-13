@@ -434,6 +434,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Output() onRowGroupExpand: EventEmitter<any> = new EventEmitter();
     
     @Output() onRowGroupCollapse: EventEmitter<any> = new EventEmitter();
+	
+	@Input() cellIsEditable: Function;
         
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
     
@@ -1333,6 +1335,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     switchCellToEditMode(element: any, column: Column, rowData: any) {
         if(!this.selectionMode && this.editable && column.editable) {
+			if(this.cellIsEditable && !this.cellIsEditable(column, rowData))
+				return;
             let cell = this.findCell(element);
             if(cell != this.editingCell) {
                 this.editingCell = cell;
