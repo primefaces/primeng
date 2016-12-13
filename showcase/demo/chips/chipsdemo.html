@@ -8,13 +8,25 @@
 <div class="ContentSideSections Implementation">
     <h3 class="first">Basic</h3>
     <p-chips [(ngModel)]="values1"></p-chips>
+
+    <h3>Validation (Numbers only, invalid input allowed (sets ng-dirty))</h3>
+    <p-chips [(ngModel)]="values2" pattern="[0-9]+"></p-chips>
+
+    <h3>Validation (Numbers only, invalid input not allowed)</h3>
+    <p-chips [(ngModel)]="values3" pattern="[0-9]+" [allowInvalid]="false"></p-chips>
+
+    <h3>Disabled</h3>
+    <p-chips [(ngModel)]="values4" [disabled]="true"></p-chips>
     
     <h3>Template</h3>
-    <p-chips [(ngModel)]="values2">
+    <p-chips [(ngModel)]="values5">
         <template let-item>
             {{item}} - (active) <i class="fa fa-user"></i>
         </template>
     </p-chips>
+
+    <h3>Custom Separator</h3>
+    <p-chips [(ngModel)]="values6" [separators]="[32,13]"></p-chips>
 </div>
 
 <div class="ContentSideSections Source">
@@ -110,6 +122,25 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Advisory information to display on input.</td>
+                        </tr>
+                        <tr>
+                            <td>pattern</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Regular expression pattern used by native Angular2 pattern directive</td>
+                        </tr>
+                        <tr>
+                            <td>allowInvalid</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>true: allows strings that do not match the pattern to be saved to the value array
+                            <br/>false: prevents strings to be saved to the value array</td>
+                        </tr>
+                        <tr>
+                            <td>allowDuplicates</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Allows duplicate entries. Exact match only</td>
                         </tr>
                     </tbody>
                 </table>

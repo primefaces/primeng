@@ -5,7 +5,12 @@ import {Component} from '@angular/core';
 })
 export class ChipsDemo {
 
-    values1: string[];
-    
+    values1: string[];    
     values2: string[];
+    values3: string[];
+    values4: string[];
+    values5: string[];
+    values6: string[];
+
+    validationPatter: RegExp = /\w*/;
 }
