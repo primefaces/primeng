@@ -9,7 +9,7 @@
     <div class="ui-g">
         <div class="ui-g-12 ui-md-4">
             <h3>Basic</h3>
-            <p-calendar [(ngModel)]="date1"></p-calendar> {{date1|date}}
+            <p-calendar [(ngModel)]="date1" tabindex="0"></p-calendar> {{date1|date}}
         </div>
         
         <div class="ui-g-12 ui-md-4">
@@ -341,6 +341,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>When present, it specifies that an input field must be filled out before submitting the form.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the element in tabbing order.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -26,7 +26,7 @@ export interface LocaleSettings {
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <template [ngIf]="!inline">
                 <input #inputfield type="text" [attr.required]="required" pInputText [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
-                    [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
+                    [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             </template>
@@ -193,6 +193,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
         monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
     };
+    
+    @Input() tabindex: number;
     
     @ViewChild('datepicker') overlayViewChild: ElementRef;
     
