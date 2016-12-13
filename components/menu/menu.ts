@@ -135,8 +135,8 @@ export class Menu implements AfterViewInit,OnDestroy {
         if(this.popup) {
             this.documentClickListener();
             
-            if(this.appendTo && this.appendTo === 'body') {
-                document.body.removeChild(this.el.nativeElement);
+            if(this.appendTo) {
+                this.el.nativeElement.appendChild(this.container);
             }
         }
         
