@@ -116,6 +116,8 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
 
     @Input() styleClass: string;
     
+    @Input() appendTo: any;
+    
     visible: boolean;
         
     container: any;
@@ -138,6 +140,13 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
                 this.show(event);
                 event.preventDefault();
             });
+        }
+        
+        if(this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.el.nativeElement);
+            else
+                this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
         }
     }
         
@@ -218,6 +227,10 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
             for(let item of this.model) {
                 this.unsubscribe(item);
             }
+        }
+        
+        if(this.appendTo) {
+            this.el.nativeElement.appendChild(this.container);
         }
     }
 
