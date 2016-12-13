@@ -10,7 +10,7 @@
                 </a>
             </span>
 
-            <span id="menu_input" #inputmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id"><img src="showcase/resources/images/mono/input.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/inputBlue.svg" /><span class="MainLinkText">Input</span></span>
+            <span id="menu_input" #inputmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id"><img src="showcase/resources/images/mono/input.svg" /><span class="MainLinkText">Input</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/autocomplete']" (click)="mobileMenuActive = false">&#9679; AutoComplete</a>
                 <a class="SubMenuLink" [routerLink]="['/calendar']" (click)="mobileMenuActive = false">&#9679; Calendar</a>
