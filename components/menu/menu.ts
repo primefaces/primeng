@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'p-menu',
     template: `
-        <div [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
+        <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
             <ul class="ui-menu-list ui-helper-reset">
                 <template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
@@ -48,7 +48,9 @@ export class Menu implements AfterViewInit,OnDestroy {
     
     @Input() appendTo: any;
     
-    container: any;
+    @ViewChild('container') containerViewChild: ElementRef;
+    
+    container: HTMLDivElement;
     
     documentClickListener: any;
     
@@ -57,7 +59,7 @@ export class Menu implements AfterViewInit,OnDestroy {
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public router: Router) {}
 
     ngAfterViewInit() {
-        this.container = this.el.nativeElement.children[0];
+        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         
         if(this.popup) {
             if(this.appendTo) {

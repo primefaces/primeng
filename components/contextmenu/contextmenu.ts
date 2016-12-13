@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
@@ -99,7 +99,7 @@ export class ContextMenuSub {
 @Component({
     selector: 'p-contextMenu',
     template: `
-        <div [ngClass]="'ui-contextmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-dynamic ui-shadow'" 
+        <div #container [ngClass]="'ui-contextmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-dynamic ui-shadow'" 
             [class]="styleClass" [ngStyle]="style" [style.display]="visible ? 'block' : 'none'">
             <p-contextMenuSub [item]="model" root="root"></p-contextMenuSub>
         </div>
@@ -118,6 +118,10 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     @Input() appendTo: any;
     
+    @ViewChild('container') containerViewChild: ElementRef;
+    
+    container: HTMLDivElement;
+    
     visible: boolean;
         
     container: any;
@@ -129,7 +133,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
     ngAfterViewInit() {
-        this.container = this.el.nativeElement.children[0];
+        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             this.hide();
