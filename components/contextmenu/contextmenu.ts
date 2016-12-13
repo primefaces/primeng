@@ -123,9 +123,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     container: HTMLDivElement;
     
     visible: boolean;
-        
-    container: any;
-    
+            
     documentClickListener: any;
     
     documentRightClickListener: any;
