@@ -32,6 +32,7 @@ export class PrimeTemplate {
 export class TemplateWrapper implements OnInit {
     
     @Input() item: any;
+    @Input() index: number;
     
     @Input('pTemplateWrapper') templateRef: TemplateRef<any>;
     
@@ -39,7 +40,8 @@ export class TemplateWrapper implements OnInit {
     
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.templateRef, {
-            '\$implicit': this.item
+            '\$implicit': this.item,
+            'index': this.index
         });
     }
 }
