@@ -103,3 +103,84 @@ button.ui-button::-moz-focus-inner {
         width: 100%;
     }
 }
+
+/* Severity Buttons */
+/* Secondary */
+.ui-button.ui-button-secondary.ui-state-default {
+    background-color: #ffffff;
+    border-color: #cccccc;
+    color: #373a3c;
+}
+
+.ui-button.ui-button-secondary.ui-state-hover,
+.ui-button.ui-button-secondary.ui-state-focus {
+    background-color: #f2f2f2;
+}
+
+.ui-button.ui-button-secondary.ui-state-active {
+    background-color: #e6e6e6;
+}
+
+/* Success */
+.ui-button.ui-button-success.ui-state-default {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+    color: #ffffff;
+}
+
+.ui-button.ui-button-success.ui-state-hover,
+.ui-button.ui-button-success.ui-state-focus {
+    background-color: #4cae4c;
+}
+
+.ui-button.ui-button-success.ui-state-active {
+    background-color: #449d44;
+}
+
+/* Info */
+.ui-button.ui-button-info.ui-state-default {
+    background-color: #5bc0de;
+    border-color: #5bc0de;
+    color: #ffffff;
+}
+
+.ui-button.ui-button-info.ui-state-hover,
+.ui-button.ui-button-info.ui-state-focus {
+    background-color: #46b8da;
+}
+
+.ui-button.ui-button-info.ui-state-active {
+    background-color: #31b0d5;
+}
+
+/* Warning */
+.ui-button.ui-button-warning.ui-state-default {
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+    color: #ffffff;
+}
+
+.ui-button.ui-button-warning.ui-state-hover,
+.ui-button.ui-button-warning.ui-state-focus {
+    background-color: #eea236;
+}
+
+.ui-button.ui-button-warning.ui-state-active {
+    background-color: #ec971f;
+}
+
+/* Danger */
+.ui-button.ui-button-danger.ui-state-default {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    color: #ffffff;
+}
+
+.ui-button.ui-button-danger.ui-state-hover,
+.ui-button.ui-button-danger.ui-state-focus {
+    background-color: #d43f3a;
+}
+
+.ui-button.ui-button-danger.ui-state-active {
+    background-color: #c9302c;
+}

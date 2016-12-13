@@ -16,6 +16,20 @@
     
     <button pButton type="text" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"></button>
 
+    <h3>Severity Buttons</h3>
+
+    <button pButton type="text" (click)="count()" label="Primary"></button>
+
+    <button pButton type="text" (click)="count()" label="Secondary" class="ui-button-secondary"></button>
+
+    <button pButton type="text" (click)="count()" label="Success" class="ui-button-success"></button>
+
+    <button pButton type="text" (click)="count()" label="Info"  class="ui-button-info"></button>
+
+    <button pButton type="text" (click)="count()" label="Warning"  class="ui-button-warning"></button>
+
+    <button pButton type="text" (click)="count()" label="Danger"  class="ui-button-danger"></button>
+
     <br /><br />
     Number of clicks: {{clicks}}
 </div>
