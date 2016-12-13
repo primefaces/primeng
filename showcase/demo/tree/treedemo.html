@@ -37,18 +37,13 @@
     
     <h3>Context Menu</h3>
     <p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
-    
     <p-contextMenu #cm [model]="items"></p-contextMenu>
 
     <h3>Programatic Tree Expansion</h3>
     <p-tree #expandingTree [value]="filesTree7"></p-tree>
-
     <div style="margin-top: 8px">
         <button pButton type="text" label="Expand all" (click)="expandAll()"></button>
         <button pButton type="text" label="Collapse all" (click)="collapseAll()"></button>
-    </div>
-    <div style="margin-top: 8px">
-        <button pButton type="text" label="Expand to 'Invoices.txt'" (click)="expandToNode()"></button>
     </div>
     
     <h3>Horizontal Tree</h3>
@@ -666,9 +661,6 @@ export class TreeDemoComponent implements OnInit &#123;
     &lt;button pButton type="text" label="Expand all" (click)="expandAll()"&gt;&lt;/button&gt;
     &lt;button pButton type="text" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
 &lt;/div&gt;
-&lt;div style="margin-top: 8px"&gt;
-    &lt;button pButton type="text" label="Expand to 'Invoices.txt'" (click)="expandToNode()"&gt;&lt;/button&gt;
-&lt;/div&gt;
 
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;
 &lt;p-tree [value]="filesTree7" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
@@ -764,11 +756,6 @@ export class TreeDemo implements OnInit &#123;
         this.selectedFile2 = null;
     &#125;
 
-    expandToNode()&#123;
-        const invoicesNode: TreeNode = this.filesTree6[0].children[1].children[0]
-        this.expandingTree.expandToNode(invoicesNode);
-    &#125;
-
     expandAll()&#123;
         this.filesTree6.forEach( node => &#123;
             this.expandRecursive(node, true);
@@ -779,15 +766,6 @@ export class TreeDemo implements OnInit &#123;
         this.filesTree6.forEach( node => &#123;
             this.expandRecursive(node, false);
         &#125; );
-    &#125;
-
-    private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
-        node.expanded = isExpand;
-        if(node.children)&#123;
-            node.children.forEach( childNode => &#123;
-                this.expandRecursive(childNode, isExpand);
-            &#125; );
-        &#125;
     &#125;
 
 &#125;
