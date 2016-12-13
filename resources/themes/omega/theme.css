@@ -714,6 +714,13 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
     border-bottom: 0 none;
     border-left: 0 none;
     border-right: 0 none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+.ui-datepicker-timeonly .ui-timepicker {
+    border-top: 0 none;
 }
 
 /* Steps */
