@@ -295,7 +295,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
             let containerWidth = this.domHandler.getOuterWidth(this.container);
-            let contentHeight = this.domHandler.getHeight(this.contentContainer);
+            let contentHeight = this.domHandler.getOuterHeight(this.contentContainer);
             let newWidth = containerWidth + deltaX;
             let newHeight = contentHeight + deltaY;
 
