@@ -8,13 +8,13 @@
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
-    height: 24px;
+    height: 1.5em;
 }
 
 .ui-inputswitch .ui-inputswitch-on,
 .ui-inputswitch .ui-inputswitch-off {
 	white-space: nowrap;
-    display: block;
+    display: inline-block;
     position: absolute;
 	top: 0;
     width: auto;
@@ -24,33 +24,25 @@
     -khtml-user-select: none;
     -webkit-user-select: none;
 	font-weight: bold;
-	height: 20px;
-	padding-top: 4px;
-}
-
-.ui-inputswitch .ui-inputswitch-off {
-	right: 0;
-	text-align: right;
-}
-
-.ui-inputswitch .ui-inputswitch-off span {
-	display: inline-block;
-	text-align: center;
-	padding-left: 2px;
-	padding-right: 3px;
+	height: 100%;
+    line-height: 1.5em;
 }
 
 .ui-inputswitch .ui-inputswitch-on {
 	left: 0;
-	padding-right: 4px;
     border: 0 none;
 }
 
-.ui-inputswitch .ui-inputswitch-on span {
+.ui-inputswitch .ui-inputswitch-off {
+	right: 0;
+}
+
+.ui-inputswitch .ui-inputswitch-on span,
+.ui-inputswitch .ui-inputswitch-off span {
 	display: inline-block;
 	text-align: center;
-	padding-left: 3px;
-	padding-right: 2px;
+	height: 100%;
+    line-height: inherit;
 }
 
 .ui-inputswitch .ui-inputswitch-handle {
@@ -59,7 +51,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-    height: 24px;
+    height: 100%;
     border-top: 0 none;
     border-bottom: 0 none;
 }
