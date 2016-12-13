@@ -767,6 +767,15 @@ export class TreeDemo implements OnInit &#123;
             this.expandRecursive(node, false);
         &#125; );
     &#125;
+    
+    private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
+        node.expanded = isExpand;
+        if(node.children)&#123;
+            node.children.forEach( childNode => &#123;
+                this.expandRecursive(childNode, isExpand);
+            &#125; );
+        &#125;
+    &#125;
 
 &#125;
 </code>
