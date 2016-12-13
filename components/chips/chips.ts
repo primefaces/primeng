@@ -17,7 +17,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
         <div [ngClass]="'ui-chips ui-widget'" [ngStyle]="style" [class]="styleClass">
             <ul [ngClass]="{'ui-inputtext ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled':disabled}" (click)="inputtext.focus()">
                 <li #token *ngFor="let item of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all">
-                    <span *ngIf="!itemTemplate" class="ui-chips-token-icon fa fa-fw fa-close" (click)="removeItem(i)"></span>
+                    <span *ngIf="!itemTemplate" class="ui-chips-token-icon fa fa-fw fa-close" (click)="removeItem($event,i)"></span>
                     <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
                     <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                 </li>
@@ -106,31 +106,43 @@ export class Chips implements ControlValueAccessor {
         this.onModelTouched();
     }
     
-    removeItem(index: number): void {
+    removeItem(event: Event, index: number): void {
         if(this.disabled) {
             return;
         }
         
         let removedItem = this.value.splice(index, 1);
         this.onModelChange(this.value);
-        this.onRemove.emit(removedItem);
+        this.onRemove.emit({
+            originalEvent: event,
+            value: removedItem
+        });
     }
     
     onKeydown(event: KeyboardEvent, inputEL: HTMLInputElement): void {
         switch(event.which) {
+            //backspace
             case 8:
                 if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
-                    this.value.pop();
+                    let removedItem = this.value.pop();
                     this.onModelChange(this.value);
+                    this.onRemove.emit({
+                        originalEvent: event,
+                        value: removedItem
+                    });
                 }
             break;
             
+            //enter
             case 13:
                 this.value = this.value||[];
                 if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
                     this.value.push(inputEL.value);
                     this.onModelChange(this.value);
-                    this.onAdd.emit(inputEL.value);
+                    this.onAdd.emit({
+                        originalEvent: event,
+                        value: inputEL.value
+                    });
                 }     
                 inputEL.value = '';
                 event.preventDefault();
