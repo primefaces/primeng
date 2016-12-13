@@ -149,13 +149,16 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    margin-bottom: 0.4em;
     padding: 0.2em;
     cursor: pointer;
     display: none;
 }
 
 .ui-slidemenu-backward .fa {
+    vertical-align: middle;
+}
+
+.ui-slidemenu-backward span {
     vertical-align: middle;
 }
 
