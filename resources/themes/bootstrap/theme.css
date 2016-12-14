@@ -719,11 +719,11 @@ body .ui-panel {
 body .ui-panel .ui-panel-titlebar {
     border: 0 none;
     border-bottom: 1px solid #e6e6e6;
-    padding: 0.375em 0.75em;
-    background-color: #f7f7f7;
+    padding: .75em 1.25em;
+    background-color: #f7facc7f7;
     -moz-border-radius-topleft: 0.25em;
     -webkit-border-top-left-radius: 0.25em;
-    border-top-left-radius: 0.25em;
+    border-top-left-radius: 0.25em;acc
     -moz-border-radius-topright: 0.25em;
     -webkit-border-top-right-radius: 0.25em;
     border-top-right-radius: 0.25em;
@@ -749,7 +749,7 @@ body .ui-panel .ui-panel-titlebar .ui-panel-titlebar-icon.ui-state-hover {
 body .ui-panel .ui-panel-content {
     height: 100%;
     box-sizing: border-box;
-    padding: 0.375em 0.75em;
+    padding: 1.25em;
 }
 body .ui-panel .ui-panel-footer {
     padding: 0.375em 0.75em;
@@ -791,7 +791,6 @@ body .ui-notificationbar {
 }
 body .ui-accordion .ui-accordion-header {
     background-color: #ffffff;
-    padding: 0.375em 0.75em;
     border: 1px solid #e6e6e6;
     color: #0275d8;
     -moz-transition: background-color 0.3s;
@@ -800,6 +799,11 @@ body .ui-accordion .ui-accordion-header {
     transition: background-color 0.3s;
     margin-top: 0.625em;
 }
+
+body .ui-accordion .ui-accordion-header a {
+    padding: .75em 1.25em .75em 2em;
+}
+
 body .ui-accordion .ui-accordion-header.ui-state-hover {
     background-color: #f4f3f4;
 }
@@ -822,7 +826,7 @@ body .ui-accordion .ui-accordion-header.ui-tabview-outline.ui-state-active {
     background-color: #0283f1;
 }
 body .ui-accordion .ui-accordion-content {
-    padding: 0.375em 0.75em;
+    padding: 1.25em;
 }
 body .ui-tabview {
     padding: 0;
