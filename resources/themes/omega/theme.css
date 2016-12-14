@@ -438,6 +438,10 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
     color: #FFFFFF;
 }
 
+.ui-chkbox .ui-chkbox-icon {
+    margin-left: -.125em;
+}
+
 .ui-chkbox-box.ui-state-focus,
 .ui-radiobutton-box.ui-state-focus  {
     -moz-box-shadow: 0px 0px 5px #1f89ce;
