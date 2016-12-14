@@ -195,17 +195,23 @@ export class EditorDemo &#123;
             <h3>Dependencies</h3>
             <p><a href="http://quilljs.com">Quill</a> Editor 1.0.</p>
             <p>Resources of quill needs to be added to your application. Example setup with CLI is as follows;</p>
+<pre>
 <code class="language-markup" pCode ngNonBindable>
 npm install quill --save
 </code>
+</pre>
             <p>Add Quill to scripts in angular-cli.json</p>  
+<pre>
 <code class="language-markup" pCode ngNonBindable>
 "scripts": [... "../node_modules/quill/dist/quill.js"],
 </code>
+</pre>
             <p>Add Quill css to styles in angular-cli.json</p>  
-            <code class="language-markup" pCode ngNonBindable>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
 "styles": [ ... "../node_modules/quill/dist/quill.core.css", "../node_modules/quill/dist/quill.snow.css"],
-            </code>         
+</code> 
+</pre>        
 
         </p-tabPanel>
         <p-tabPanel header="Source">
@@ -213,7 +219,7 @@ npm install quill --save
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
-&lt;p&gt;Value: {{text1||'empty'}}&lt;/p&gt;
+&lt;p&gt;Value: &#123;&#123;text1||'empty'&#125;&#125;&lt;/p&gt;
 
 &lt;button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"&gt;&lt;/button&gt;
 
@@ -229,7 +235,7 @@ npm install quill --save
         &lt;/span&gt;
     &lt;/header&gt;
 &lt;/p-editor&gt;
-&lt;p&gt;Value: {{text2||'empty'}}&lt;/p&gt;
+&lt;p&gt;Value: &#123;&#123;text2||'empty'&#125;&#125;&lt;/p&gt;
 
 &lt;button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"&gt;&lt;/button&gt;
 </code>
