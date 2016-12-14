@@ -1841,6 +1841,7 @@ body .ui-menu .ui-menu-list .ui-widget-header {
     width: 100%;
     box-sizing: border-box;
     border: 0 none;
+    background: #e6e6e6;
 }
 body .ui-menu .ui-menu-list .ui-widget-header h3 {
     padding: 0.375em 0.75em;
