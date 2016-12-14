@@ -365,6 +365,7 @@ body .ui-multiselect .ui-multiselect-item > td {
 }
 body .ui-listbox {
     padding: 0;
+    width: 12.5em;
 }
 body .ui-listbox .ui-listbox-item {
     margin: 0;
@@ -372,7 +373,6 @@ body .ui-listbox .ui-listbox-item {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 body .ui-listbox .ui-listbox-item:last-child {
     border-bottom: none;
@@ -387,6 +387,18 @@ body .ui-listbox .ui-listbox-item.ui-state-highlight {
 }
 body .ui-listbox .ui-listbox-item > td {
     padding: 0.375em 0.75em;
+}
+body .ui-listbox .ui-listbox-header {
+    padding: 0.375em 0.75em;
+    border-top: 0 none;
+    border-right: 0 none;
+    border-left: 0 none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+body .ui-listbox .ui-listbox-header .ui-listbox-filter-container {
+    width: 8em;
 }
 body .ui-multiselectlistbox {
     padding: 0;
