@@ -22,12 +22,12 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     </div>
                     <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-hover':hoverToggleAll, 'ui-state-active':isAllChecked()}"
                         (mouseenter)="hoverToggleAll=true" (mouseleave)="hoverToggleAll=false" (click)="toggleAll($event,cb)">
-                        <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':isAllChecked()}"></span>
+                        <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
                     </div>
                 </div>
                 <div class="ui-listbox-filter-container" *ngIf="filter">
                     <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all">
-                    <span class="fa fa-fw fa-search"></span>
+                    <span class="fa fa-search"></span>
                 </div>
             </div>
             <ul class="ui-listbox-list">
@@ -39,7 +39,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             <input type="checkbox" [checked]="isSelected(option)">
                         </div>
                         <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
-                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-fw fa-check':isSelected(option)}"></span>
+                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isSelected(option)}"></span>
                         </div>
                     </div>
                     <span *ngIf="!itemTemplate">{{option.label}}</span>
