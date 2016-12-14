@@ -80,10 +80,10 @@ export class Column implements AfterContentInit{
     @Input() selectionMode: string;
     @Input() filterPlaceholder: string;
 	@Input() editType: string = "text";
-	@Input() editMin: string;
-	@Input() editMax: string;
-	@Input() editStep: string;
-	@Input() editPattern: string;
+	@Input() editMin: string = "";
+	@Input() editMax: string = "";
+	@Input() editStep: string = "any";
+	@Input() editPattern: string = "";
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     @ContentChild(TemplateRef) template: TemplateRef<any>;
