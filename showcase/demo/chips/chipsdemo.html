@@ -20,13 +20,16 @@
     
     <h3>Template</h3>
     <p-chips [(ngModel)]="values5">
-        <template let-item>
-            {{item}} - (active) <i class="fa fa-user"></i>
+        <template let-item let-index="index">
+            {{index}} {{item}} - (active) <i class="fa fa-user"></i>
         </template>
     </p-chips>
 
     <h3>Custom Separator</h3>
     <p-chips [(ngModel)]="values6" [separators]="[32,13]"></p-chips>
+
+    <h3>Events</h3>
+    <p-chips [(ngModel)]="values7" (onAdd)="valueAdded($event)" (onRemove)="valueRemoved($event)"></p-chips>
 </div>
 
 <div class="ContentSideSections Source">
