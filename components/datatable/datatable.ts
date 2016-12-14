@@ -168,7 +168,7 @@ export class RowExpansionLoader {
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
-                            <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex - 1],groupField)))"
+                            <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex - 1],groupField)))"
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
                                 <td [attr.colspan]="columns.length">
                                     <a href="#" *ngIf="expandableRowGroups" (click)="toggleRowGroup($event,rowData)">
@@ -250,7 +250,7 @@ export class RowExpansionLoader {
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
-                            <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
+                            <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
                                 <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader></td>
                             </tr>

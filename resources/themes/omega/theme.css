@@ -351,25 +351,7 @@
  * http://docs.jquery.com/UI/Button#theming
  */
 .ui-button .ui-icon { background-image: url("images/ui-icons_ffffff_256x240.png"); }
-/*
- * jQuery UI Dialog 1.8.16
- *
- * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Dialog#theming
- */
-.ui-dialog { padding: .2em; width: 300px; overflow: visible; border: 0 none; -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.75); -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.75); box-shadow: 0 1px 4px rgba(0,0,0,0.75); }
-.ui-dialog .ui-dialog-titlebar { position: relative; background: transparent !important; padding: 0 0 8px 0; margin: 20px 20px 5px 20px; border: solid #e5e5e5; border-width: 0 0 1px 0; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
-.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; color: #353536; font-size: 20px !important; } 
-.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: 15px 20px 20px 20px; background: none; overflow: auto; zoom: 1; }
-.ui-dialog .ui-dialog-buttonpane { text-align: left; border: solid #e5e5e5; border-width: 1px 0 0 0; background: transparent; margin: 20px 20px 10px 20px; padding: 10px 0 0 0; }
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
-.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
-.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
-.ui-draggable .ui-dialog-titlebar { cursor: move; }
-.ui-confirmdialog .ui-dialog-content .fa {color: #757575}
+
 /*
  * jQuery UI Slider 1.8.16
  *
@@ -537,10 +519,6 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
     color: #ffffff;
 }
 
-.ui-treetable .ui-treetable-toggler {
-    margin-top: 2px;
-}
-
 /* Inputs */
 .ui-inputtext {
     -webkit-transition: .2s;
@@ -573,15 +551,6 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 
 .ui-multiselect .ui-multiselect-label.ui-state-hover {
     background-color: #ffffff;
-}
-
-.ui-dropdown.ui-widget .ui-dropdown-trigger .fa,
-.ui-multiselect.ui-widget .ui-multiselect-trigger .fa {
-    margin-top: 5px;
-}
-
-.ui-multiselect-header a.ui-multiselect-close {
-    top:2px;
 }
 
 .ui-dropdown.ui-state-focus, .ui-multiselect.ui-state-focus {
@@ -726,6 +695,19 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 /* Steps */
 .ui-steps .ui-steps-item.ui-state-highlight .ui-menuitem-link {
     color: #ffffff;
+}
+
+/* Dialog */
+.ui-dialog.ui-widget .ui-dialog-titlebar {
+    padding: 1em 1.5em;
+}
+
+.ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
+    font-size: 1.25em;
+}
+
+.ui-dialog.ui-widget .ui-dialog-content {
+    padding: 1em 1.5em;
 }
 
 /* Validation */

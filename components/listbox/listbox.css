@@ -18,6 +18,10 @@
     margin-bottom: 1px;
 }
 
+.ui-listbox .ui-listbox-item > span {
+    vertical-align: middle;
+}
+
 .ui-listbox .ui-listbox-item:last-child {
     margin-bottom: 0;
 }

@@ -1,7 +1,7 @@
 .ui-datalist .ui-datalist-header,
 .ui-datalist .ui-datalist-footer {
     text-align:center;
-    padding: .25em .625em;
+	padding: .5em .75em;
 }
 
 .ui-datalist .ui-datalist-header {
