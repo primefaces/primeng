@@ -789,7 +789,7 @@ input.searchInput {
     border-radius: 4px !important;
 }
 .Source .ui-tabview .ui-tabview-nav {
-    background: #1976D2;
+    background: #1976D2 !important;;
     margin-bottom: -1px;
     padding: 3px 3px 0px 3px !important;
     border-top-right-radius: 4px !important;
@@ -800,8 +800,8 @@ input.searchInput {
 .Source .ui-tabview .ui-tabview-nav li,
 .Source .ui-tabview .ui-tabview-nav li.ui-state-hover {
     border: 0px none !important;
-    background: #3F94E9;
-    border-color: #3F94E9;
+    background: #3F94E9 !important;;
+    border-color: #3F94E9 !important;;
     box-shadow: none !important;
     border-top-right-radius: 4px !important;
     border-top-left-radius: 4px !important;
@@ -812,34 +812,28 @@ input.searchInput {
 .Source .ui-tabview .ui-tabview-nav li.tab-doc {
     margin-right: 0;
 }
-.Source .ui-tabview .ui-tabview-nav li.ui-state-hover.ui-state-default a {
-    color: #fff;
-}
 .Source .ui-tabview .ui-tabview-nav li.ui-state-default a {
     color: #fff !important;
     font-weight: normal !important;
-    text-shadow: none;
+    text-shadow: none ;
 }
 .Source .ui-tabview .ui-tabview-nav li.ui-state-active a {
     color: #5C666A !important;
     font-weight: normal !important;
 }
 .Source .ui-tabview .ui-tabview-nav li.ui-state-hover {
-    box-shadow: none;
+    box-shadow: none !important;;
 }
 .Source .ui-tabview .ui-tabview-nav li.ui-tabview-selected {
-    background: #F5F6F7;
+    background: #F5F6F7 !important;
 }
 .Source .ui-tabview .ui-tabview-panels {
-    border-top: 1px solid #F5F6F7;
+    border-top: 1px solid #F5F6F7 !important;;
     color: #5C666A !important;
     background: #F5F6F7;
 }
 .Source .ui-tabview.ui-tabview-top > .ui-tabview-nav li {
     top: 0px !important;
-}
-.Source .ui-tabview.ui-tabview-top .ui-tabview-nav.ui-widget-header {
-    border-bottom: 0px none !important;
 }
 /** Responsive **/
 
