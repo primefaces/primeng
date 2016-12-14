@@ -699,7 +699,7 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 
 /* Dialog */
 .ui-dialog.ui-widget .ui-dialog-titlebar {
-    padding: 1em 2em;
+    padding: 1em 1.5em;
 }
 
 .ui-dialog.ui-widget .ui-dialog-titlebar .ui-dialog-title {
@@ -707,7 +707,7 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
 }
 
 .ui-dialog.ui-widget .ui-dialog-content {
-    padding: 1em 2em;
+    padding: 1em 1.5em;
 }
 
 /* Validation */
