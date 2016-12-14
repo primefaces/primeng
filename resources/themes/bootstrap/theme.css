@@ -621,13 +621,16 @@ body .ui-splitbutton.ui-buttonset .ui-button.ui-state-active {
     background-color: #025aa5;
     color: #ffffff;
 }
+body .ui-datepicker {
+    padding: 0;
+}
 body .ui-datepicker .ui-datepicker-header {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
     border: 0;
     border-bottom: 1px solid #c7c7c7;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev {
     cursor: pointer;
@@ -645,7 +648,7 @@ body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev {
     -o-transition: color 0.3s;
     -webkit-transition: color 0.3s;
     transition: color 0.3s;
-    top: .9em;
+    top: 1.25em;
 }
 body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev:before {
     content: "";
@@ -672,7 +675,7 @@ body .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
     -o-transition: color 0.3s;
     -webkit-transition: color 0.3s;
     transition: color 0.3s;
-    top: .9em;
+    top: 1.25em;
 }
 body .ui-datepicker .ui-datepicker-header .ui-datepicker-next:before {
     content: "";
@@ -688,9 +691,9 @@ body .ui-datepicker table {
 }
 body .ui-datepicker table td a {
     min-width: 1em;
-    display: inline-block;
     text-align: center;
     color: #373a3c;
+    font-size: .9em;
 }
 body .ui-datepicker table td a.ui-state-hover {
     background-color: #f4f3f4;
@@ -717,12 +720,16 @@ body .ui-inplace .ui-inplace-display {
     -webkit-border-radius: 0.25em;
     border-radius: 0.25em;
 }
+body .ui-inplace .ui-inplace-display.ui-state-hover {
+    background-color: #f4f3f4;
+}
 body .ui-fileupload .ui-fileupload-buttonbar {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
     border-bottom: 0 none;
 }
 body .ui-fileupload .ui-fileupload-content {
-    padding: 0.375em 0.75em;
+    padding: 1.25em;
 }
 body .ui-panel {
     padding: 0;
@@ -732,7 +739,7 @@ body .ui-panel .ui-panel-titlebar {
     border: 0 none;
     border-bottom: 1px solid #e6e6e6;
     padding: .75em 1.25em;
-    background-color: #f7facc7f7;
+    background-color: #f5f5f5;
     -moz-border-radius-topleft: 0.25em;
     -webkit-border-top-left-radius: 0.25em;
     border-top-left-radius: 0.25em;acc
@@ -1144,7 +1151,8 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-hover.ui-stat
 }
 body .ui-datatable .ui-datatable-header,
 body .ui-datatable .ui-datatable-footer {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
 }
 body .ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
     font-size: medium;
@@ -1154,7 +1162,7 @@ body .ui-datatable .ui-paginator {
 }
 body .ui-datatable thead th {
     background-color: #ffffff;
-    padding: 0.375em 0.75em;
+    padding: .75em;
     border-color: #c7c7c7;
     color: #373a3c;
 }
@@ -1202,7 +1210,7 @@ body .ui-datatable .ui-datatable-data tr.ui-row-editing.ui-datatable-even {
     border-bottom-color: #0275d8;
 }
 body .ui-datatable .ui-datatable-data tr td {
-    padding: 6px 12px;
+    padding: .75em;
 }
 body .ui-datatable .ui-datatable-data tr td.ui-editable-column input {
     width: 100%;
@@ -1226,27 +1234,38 @@ body .ui-datatable .ui-datatable-scrollable-body::-webkit-scrollbar {
 body .ui-datatable .ui-datatable-data tr.ui-rowgroup-header {
     font-weight: bold;
 }
+body .ui-datatable .ui-rowgroup-header {
+    color: #2d353c;
+}
+
+body .ui-datatable .ui-rowgroup-header a {
+    color: #2d353c;
+}
 
 body .ui-datagrid .ui-datagrid-header {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
 }
 body .ui-datagrid .ui-paginator {
     padding: 0.375em 0.75em;
 }
 body .ui-datalist .ui-datalist-header {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
 }
 body .ui-datalist .ui-paginator {
     padding: 0.375em 0.75em;
 }
 body .ui-datascroller .ui-datascroller-header {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
 }
 body .ui-picklist .ui-picklist-buttons button {
     font-size: 1.1em;
 }
 body .ui-picklist .ui-picklist-caption {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
 }
 body .ui-picklist .ui-picklist-filter-container {
     margin-bottom: 0.063em;
@@ -1276,7 +1295,8 @@ body .ui-orderlist .ui-orderlist-controls button {
     font-size: 1.1em;
 }
 body .ui-orderlist .ui-orderlist-caption {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
     box-sizing: border-box;
     width: 12.5em;
 }
@@ -1310,22 +1330,26 @@ body .ui-carousel {
     padding: 0;
 }
 body .ui-carousel .ui-carousel-header {
-    padding: 0.375em 0.75em;
     margin: 0;
     border: 0 none;
     border-bottom: 1px solid #e6e6e6;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 body .ui-carousel .ui-carousel-header .ui-carousel-header-title {
     padding: 0;
 }
 body .ui-carousel .ui-carousel-footer {
-    padding: 0.375em 0.75em;
     border: 0 none;
     border-top: 1px solid #e6e6e6;
     margin: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
 }
 body .ui-carousel .ui-carousel-button {
     margin-top: 0.2em;
@@ -1380,17 +1404,19 @@ body .ui-carousel .ui-carousel-page-links .ui-carousel-page-link.ui-icon-radio-o
     background-color: #767b7f;
 }
 body .ui-treetable .ui-treetable-header {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
 }
 body .ui-treetable .ui-treetable-footer {
-    padding: 0.375em 0.75em;
+    padding: .75em 1.25em;
+    background-color: #f5f5f5;
 }
 body .ui-treetable .ui-paginator {
     padding: 0.375em 0.75em;
 }
 body .ui-treetable thead th {
     background-color: #ffffff;
-    padding: 0.375em 0.75em;
+    padding: .75em;
     border-color: #c7c7c7;
     color: #373a3c;
 }
@@ -1405,7 +1431,7 @@ body .ui-treetable thead th.ui-state-active {
 }
 body .ui-treetable tfoot td {
     background-color: #ffffff;
-    padding: 0.375em 0.75em;
+    padding: .75em;
     border-color: #e6e6e6;
 }
 body .ui-treetable .ui-treetable-data tr.ui-state-hover {
@@ -1424,6 +1450,9 @@ body .ui-treetable .ui-treetable-data tr td .ui-chkbox {
     vertical-align: middle;
     display: inline-block;
     position: relative;
+}
+body .ui-treetable tbody td{
+    padding: .75em;
 }
 body .ui-treetable .ui-treetable-data tr td .ui-chkbox .ui-chkbox-icon {
     color: #0275d8;
@@ -2089,4 +2118,11 @@ body .ui-galleria .ui-galleria-nav-next {
 }
 body .ui-galleria .ui-galleria-nav-next:hover {
     color: #2d353c;
+}
+
+body .ui-slidemenu .ui-slidemenu-backward {
+    border: 0 none;
+    background-color: #f5f5f5;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
