@@ -341,6 +341,18 @@ body .ui-multiselect .ui-multiselect-trigger .fa {
 body .ui-multiselect .ui-multiselect-trigger.ui-state-hover {
     background-color: #d9d9d9;
 }
+body .ui-multiselect .ui-multiselect-panel {
+    padding: 0;
+}
+body .ui-multiselect .ui-multiselect-header {
+    border-top: 0 none;
+    border-left: 0 none;
+    border-right: 0 none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    padding: 0.375em 0.75em;
+}
 body .ui-multiselect .ui-multiselect-header .ui-multiselect-close {
     color: #373a3c;
 }
@@ -1846,6 +1858,9 @@ body .ui-menu .ui-menu-list .ui-widget-header {
     box-sizing: border-box;
     border: 0 none;
     background: #e6e6e6;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 body .ui-menu .ui-menu-list .ui-widget-header h3 {
     padding: 0.375em 0.75em;
