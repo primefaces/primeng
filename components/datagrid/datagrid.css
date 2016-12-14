@@ -14,7 +14,7 @@
 .ui-datagrid .ui-datagrid-header,
 .ui-datagrid .ui-datagrid-footer {
     text-align:center;
-    padding: .25em .625em;
+	padding: .5em .75em;
 }
 
 .ui-datagrid .ui-datagrid-header {
