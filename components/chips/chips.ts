@@ -16,10 +16,10 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="'ui-chips ui-widget'" [ngStyle]="style" [class]="styleClass">
             <ul [ngClass]="{'ui-inputtext ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled':disabled}" (click)="inputtext.focus()">
-                <li #token *ngFor="let listItem of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all">
+                <li #token *ngFor="let item of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all">
                     <span *ngIf="!itemTemplate && !disabled" class="ui-chips-token-icon fa fa-fw fa-close" (click)="removeItem(i)"></span>
-                    <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(listItem,field) : item}}</span>
-                    <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="listItem" index="{{i}}"></template>
+                    <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
+                    <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item" index="{{i}}"></template>
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" pInputText [attr.placeholder]="placeholder" (keydown)="onKeydown($event,inputtext)" (focus)="onFocus()" (blur)="onBlur()"
@@ -136,8 +136,7 @@ export class Chips implements ControlValueAccessor, OnChanges {
         if(event.which == 8) {
             // backspace
             if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
-                this.value.pop();
-                this.onModelChange(this.value);
+                this.removeItem(this.value.length - 1);
             }
             return;
         }
