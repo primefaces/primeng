@@ -294,11 +294,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.resizing) {
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
-            let containerWidth = this.domHandler.getOuterWidth(this.container);
+            let containerWidth = this.domHandler.getWidth(this.container);
             let contentHeight = this.domHandler.getOuterHeight(this.contentContainer);
             let newWidth = containerWidth + deltaX;
             let newHeight = contentHeight + deltaY;
-
+            
             if(newWidth > this.minWidth)
                 this.container.style.width = newWidth + 'px';
                 
