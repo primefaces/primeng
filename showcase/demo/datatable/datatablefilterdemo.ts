@@ -32,7 +32,6 @@ export class DataTableFilterDemo implements OnInit {
         this.brands.push({label: 'Volvo', value: 'Volvo'});
         
         this.colors = [];
-        this.colors.push({label: 'All Colors', value: null});
         this.colors.push({label: 'White', value: 'White'});
         this.colors.push({label: 'Green', value: 'Green'});
         this.colors.push({label: 'Silver', value: 'Silver'});
