@@ -11,7 +11,7 @@
 <div class="ContentSideSections Implementation">
     <p-dataTable [value]="cars" [editable]="true" [cellIsEditable]="cellIsEditable">
         <p-column field="vin" header="Vin" [editable]="true"></p-column>
-        <p-column field="year" header="Year" [editable]="true"></p-column>
+        <p-column field="year" header="Year" [editable]="true" editType="number" editMin="1900" editStep="1"></p-column>
         <p-column field="brand" header="Brand" [editable]="true"></p-column>
         <p-column field="color" header="Color" [editable]="true"></p-column>
     </p-dataTable>
@@ -46,7 +46,7 @@ export class DataTableEditableDemo implements OnInit &#123;
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [editable]="true" [cellIsEditable]="cellIsEditable"&gt;
     &lt;p-column field="vin" header="Vin" [editable]="true"&gt;&lt;/p-column&gt;
-    &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" [editable]="true" editType="number" editMin="1900" editStep="1"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color" [editable]="true"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
