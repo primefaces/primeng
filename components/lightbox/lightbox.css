@@ -8,23 +8,23 @@
 
 .ui-lightbox-content {
     position: relative;
-    margin:0;
+    margin: 0;
     padding: 0;
     background-color: #000000;
 }
 
 .ui-lightbox-nav-right, .ui-lightbox-nav-left {
    position: absolute;
-   top:50%;
+   top: 50%;
    cursor: pointer;
 }
 
 .ui-lightbox-nav-left {
-   left:0;
+   left: 0;
 }
 
 .ui-lightbox-nav-right {
-   right:0;
+   right: 0;
 }
 
 .ui-lightbox-loading {
@@ -43,8 +43,8 @@
 
 .ui-lightbox-close {
     float:right;
-    margin:0;
-    padding:1px;
+    margin: 0;
+    padding: .125em;
 }
 
 .ui-lightbox-close.ui-state-hover {

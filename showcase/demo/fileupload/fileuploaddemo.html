@@ -11,7 +11,7 @@
         
     <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" 
             multiple="multiple" accept="image/*" maxFileSize="1000000"> 
-            <template pTemplate type="content">
+            <template pTemplate="content">
                 <ul *ngIf="uploadedFiles.length">
                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
                 </ul>
@@ -91,10 +91,10 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
 <code class="language-markup" pCode>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;
-        &lt;template let-file pTemplate type="file"&gt;
+        &lt;template let-file pTemplate="file"&gt;
             &lt;div&gt;Custom UI to display a file&lt;/div&gt;
         &lt;/template&gt; 
-        &lt;template pTemplate type="content"&gt;
+        &lt;template pTemplate="content"&gt;
             &lt;div&gt;Custom UI to manage uploaded files&lt;/div&gt;
         &lt;/template&gt;  
 &lt;/p-fileUpload&gt;

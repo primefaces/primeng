@@ -108,7 +108,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     ngAfterContentInit():void {
         this.templates.forEach((item) => {
-            switch(item.type) {
+            switch(item.getType()) {
                 case 'file':
                     this.fileTemplate = item.template;
                 break;
@@ -145,7 +145,7 @@ export class FileUpload implements OnInit,AfterContentInit {
         
         this.onSelect.emit({originalEvent: event, files: files});
         
-        if(this.files && this.auto) {
+        if(this.hasFiles() && this.auto) {
             this.upload();
         }
     }
@@ -170,16 +170,21 @@ export class FileUpload implements OnInit,AfterContentInit {
     onImageLoad(img: any) {
         window.URL.revokeObjectURL(img.src);
     }
-    
+
     upload() {
         this.msgs = [];
         let xhr = new XMLHttpRequest(),
         formData = new FormData();
-        
+
+		this.onBeforeUpload.emit({
+            'xhr': xhr,
+            'formData': formData 
+        });
+
         for(let i = 0; i < this.files.length; i++) {
             formData.append(this.name, this.files[i], this.files[i].name);
         }
-        
+
         xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
             if(e.lengthComputable) {
               this.progress = Math.round((e.loaded * 100) / e.total);
@@ -200,11 +205,6 @@ export class FileUpload implements OnInit,AfterContentInit {
         };
         
         xhr.open('POST', this.url, true);
-
-        this.onBeforeUpload.emit({
-            'xhr': xhr,
-            'formData': formData 
-        });
         
         xhr.send(formData);
     }

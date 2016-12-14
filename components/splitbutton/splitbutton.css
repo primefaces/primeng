@@ -5,7 +5,7 @@
 }
 
 .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
-    width: 32px;
+    width: 1.5em;
 }
 
 .ui-splitbutton.ui-state-disabled button {
@@ -20,11 +20,11 @@
 }
 
 .ui-fluid .ui-splitbutton .ui-button:first-child {
-    width: calc(100% - 32px);
+    width: calc(100% - 1.5em);
 }
 
 .ui-fluid .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
-    width: 32px;
+    width: 1.5em;
     box-sizing: border-box;
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;

@@ -30,25 +30,20 @@
     
     <h3>Template</h3>
     <p-tree [value]="filesTree5">
-        <template let-node pTemplate type="default">
+        <template let-node pTemplate="default">
             <input [(ngModel)]="node.label" type="text" style="width:100%">
         </template>
     </p-tree>
     
     <h3>Context Menu</h3>
     <p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
-    
     <p-contextMenu #cm [model]="items"></p-contextMenu>
 
     <h3>Programatic Tree Expansion</h3>
     <p-tree #expandingTree [value]="filesTree7"></p-tree>
-
     <div style="margin-top: 8px">
         <button pButton type="text" label="Expand all" (click)="expandAll()"></button>
         <button pButton type="text" label="Collapse all" (click)="collapseAll()"></button>
-    </div>
-    <div style="margin-top: 8px">
-        <button pButton type="text" label="Expand to 'Invoices.txt'" (click)="expandToNode()"></button>
     </div>
     
     <h3>Horizontal Tree</h3>
@@ -353,7 +348,7 @@ export class TreeDemoComponent implements OnInit &#123;
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
-    &lt;template let-node  pTemplate type="default"&gt;
+    &lt;template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
@@ -366,10 +361,10 @@ export class TreeDemoComponent implements OnInit &#123;
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
-    &lt;template let-node  pTemplate type="picture"&gt;
+    &lt;template let-node  pTemplate="picture"&gt;
         &lt;img [attrs.src]="picture.path"&gt;
     &lt;/template&gt;
-    &lt;template let-node  pTemplate type="default"&gt;
+    &lt;template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
@@ -648,7 +643,7 @@ export class TreeDemoComponent implements OnInit &#123;
 &lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="filesTree4" pTemplate type="default"&gt;
+&lt;p-tree [value]="filesTree4" pTemplate="default"&gt;
     &lt;template let-node&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
@@ -665,9 +660,6 @@ export class TreeDemoComponent implements OnInit &#123;
 &lt;div style="margin-top: 8px"&gt;
     &lt;button pButton type="text" label="Expand all" (click)="expandAll()"&gt;&lt;/button&gt;
     &lt;button pButton type="text" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
-&lt;/div&gt;
-&lt;div style="margin-top: 8px"&gt;
-    &lt;button pButton type="text" label="Expand to 'Invoices.txt'" (click)="expandToNode()"&gt;&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;
@@ -764,11 +756,6 @@ export class TreeDemo implements OnInit &#123;
         this.selectedFile2 = null;
     &#125;
 
-    expandToNode()&#123;
-        const invoicesNode: TreeNode = this.filesTree6[0].children[1].children[0]
-        this.expandingTree.expandToNode(invoicesNode);
-    &#125;
-
     expandAll()&#123;
         this.filesTree6.forEach( node => &#123;
             this.expandRecursive(node, true);
@@ -780,7 +767,7 @@ export class TreeDemo implements OnInit &#123;
             this.expandRecursive(node, false);
         &#125; );
     &#125;
-
+    
     private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
         node.expanded = isExpand;
         if(node.children)&#123;

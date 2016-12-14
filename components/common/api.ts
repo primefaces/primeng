@@ -17,7 +17,7 @@ export interface LazyLoadEvent {
 }
 
 export interface FilterMetadata {
-    value?: string;
+    value?: any;
     matchMode?: string;
 }
 

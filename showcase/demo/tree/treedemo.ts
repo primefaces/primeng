@@ -93,11 +93,6 @@ export class TreeDemo implements OnInit {
         this.selectedFile2 = null;
     }
 
-    expandToNode(){
-        const invoicesNode: TreeNode = this.filesTree6[0].children[1].children[0]
-        this.expandingTree.expandToNode(invoicesNode);
-    }
-
     expandAll(){
         this.filesTree6.forEach( node => {
             this.expandRecursive(node, true);
@@ -109,7 +104,7 @@ export class TreeDemo implements OnInit {
             this.expandRecursive(node, false);
         } );
     }
-
+    
     private expandRecursive(node:TreeNode, isExpand:boolean){
         node.expanded = isExpand;
         if(node.children){
@@ -118,5 +113,4 @@ export class TreeDemo implements OnInit {
             } );
         }
     }
-
 }

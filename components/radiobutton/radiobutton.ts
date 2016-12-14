@@ -19,7 +19,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
             <div (click)="handleClick()" (mouseenter)="hover=true" (mouseleave)="hover=false"
                 [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
                 'ui-state-hover':hover&&!disabled,'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
-                <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':rb.checked}"></span>
+                <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-circle':rb.checked}"></span>
             </div>
         </div>
         <label class="ui-radiobutton-label" (click)="select()" *ngIf="label">{{label}}</label>

@@ -3,7 +3,6 @@
     display: inline-block;
     position: relative;
     width: auto;
-    zoom: 1;
     cursor: pointer;
 }
 
@@ -12,16 +11,17 @@
     border-top: none;
     border-bottom: none;
     cursor: pointer;
-    width: 16px;
+    width: 1.5em;
     height: 100%;
     position: absolute;
     right: 0;
     top: 0;
-    padding: 0 3px;
+    padding: 0 .25em;
 }
 
 .ui-multiselect .ui-multiselect-trigger  .fa {
-    margin-top: 5px;
+    margin-top: .4em;
+    margin-left: -.125em;
 }
 
 .ui-multiselect .ui-multiselect-label-container  {
@@ -30,7 +30,7 @@
 
 .ui-multiselect .ui-multiselect-label  {
     display: block;
-    padding: 3px 26px 3px 5px;
+    padding: .25em 2em .25em .25em;
     width: auto;
     border: none;
     cursor: pointer;
@@ -46,7 +46,8 @@
 .ui-multiselect .ui-multiselect-panel {
     padding: 0.2em;
     position: absolute;
-    min-width: 100%;
+    min-width: 10em;
+    width: 100%;
 }
 
 .ui-multiselect-panel .ui-multiselect-items-wrapper {
@@ -60,66 +61,65 @@
 }
 
 .ui-multiselect-panel .ui-multiselect-item {
-    border:0px none;
-    cursor:pointer;
-    font-weight:normal;
-    margin:1px 0;
-    padding:4px;
-    text-align:left;
+    border: 0 none;
+    cursor: pointer;
+    font-weight: normal;
+    margin: 1px 0;
+    padding: .125em .25em;
+    text-align: left;
     white-space: nowrap;
     display: block;
     position: relative;
 }
 
 .ui-multiselect-panel .ui-multiselect-item .ui-chkbox {
-    position: absolute;
-    top:50%;
-    margin-top:-8px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .ui-multiselect-panel .ui-multiselect-item label {
-    display: block;
-    padding-left: 25px;
-    padding-top: 3px;
-    cursor:pointer;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .ui-multiselect-header {
     margin-bottom: 0.3em;
-    padding: 0.3em 0 0.3em 0.4em;
+    padding: .25em;
     position: relative;
+    text-align: left;
 }
 
 .ui-multiselect-header .ui-chkbox {
-    position: absolute;
-    top: 5px;
-    left: 5px;
+    display: inline-block;
+    vertical-align: middle;
     cursor:pointer;
 }
 
 .ui-multiselect-header .ui-multiselect-filter-container {
     position: relative;
-    margin-left: 20px;
-    margin-right: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 65%;
 }
 
 .ui-multiselect-header .ui-multiselect-filter-container .fa {
     position: absolute;
-    left: 5px;
-    top: 3px;
+    top: .25em;
+    left: .125em;
 }
             
 .ui-multiselect-header .ui-inputtext {
-    padding: 1px 1px 1px 25px;
+    padding: .125em .125em .125em 1.25em;
+    width: 100%;
 }
 
 .ui-multiselect-header .ui-multiselect-close {
     position: absolute;
-    right: 2px;
-    top: 4px;
+    right: .375em;
+    top: .375em;
     display: block;
-    font-size: 18px;
-    border: 0px none;
+    font-size: 1em;
+    border: 0 none;
 }
 
 .ui-multiselect-header a.ui-multiselect-all,

@@ -38,7 +38,7 @@
 }
 
 /* Responsive */
-@media (max-width: 640px) {    
+@media (max-width: 40em) {    
     .ui-steps .ui-steps-item .ui-menuitem-link {
         padding: 0.5em;
     }

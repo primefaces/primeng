@@ -30,7 +30,7 @@
     <h3>DataTable Integration</h3>
     <p-dataTable [value]="cars2">
         <p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo">
-            <template let-car="rowData" pTemplate type="body">
+            <template let-car="rowData" pTemplate="body">
                 <button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"></button>
             </template>
         </p-column>
@@ -161,12 +161,12 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
                             <td>Callback to invoke after overlay is shown.</td>
                         </tr>
                         <tr>
-                            <td>onBeforeShow</td>
+                            <td>onBeforeHide</td>
                             <td>-</td>
                             <td>Callback to invoke before overlay is hidden.</td>
                         </tr>
                         <tr>
-                            <td>onAfterShow</td>
+                            <td>onAfterHide</td>
                             <td>-</td>
                             <td>Callback to invoke after overlay is hidden.</td>
                         </tr>
@@ -266,7 +266,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
 &lt;h3&gt;DataTable Integration&lt;/h3&gt;
 &lt;p-dataTable [value]="cars2"&gt;
     &lt;p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo"&gt;
-        &lt;template let-car="rowData" pTemplate type="body"&gt;
+        &lt;template let-car="rowData" pTemplate="body"&gt;
             &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"&gt;&lt;/button&gt;
         &lt;/template&gt;
     &lt;/p-column&gt;

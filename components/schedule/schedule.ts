@@ -309,6 +309,10 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     incrementDate(duration: any) {
         this.schedule.fullCalendar('incrementDate', duration);
     }
+     
+    changeView(viewName: string) {
+        this.schedule.fullCalendar('changeView', viewName);   
+    }
     
     getDate() {
         return this.schedule.fullCalendar('getDate');

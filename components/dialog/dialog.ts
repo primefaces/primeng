@@ -95,17 +95,17 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     dragging: boolean;
 
-    documentDragListener: any;
+    documentDragListener: Function;
     
     resizing: boolean;
 
-    documentResizeListener: any;
+    documentResizeListener: Function;
     
-    documentResizeEndListener: any;
+    documentResizeEndListener: Function;
     
-    documentResponsiveListener: any;
+    documentResponsiveListener: Function;
     
-    documentEscapeListener: any;
+    documentEscapeListener: Function;
     
     lastPageX: number;
     
@@ -195,7 +195,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.container);
             else
-                this.appendTo.appendChild(this.container);
+                this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
     
@@ -294,11 +294,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.resizing) {
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
-            let containerWidth = this.domHandler.getOuterWidth(this.container);
-            let contentHeight = this.domHandler.getHeight(this.contentContainer);
+            let containerWidth = this.domHandler.getWidth(this.container);
+            let contentHeight = this.domHandler.getOuterHeight(this.contentContainer);
             let newWidth = containerWidth + deltaX;
             let newHeight = contentHeight + deltaY;
-
+            
             if(newWidth > this.minWidth)
                 this.container.style.width = newWidth + 'px';
                 
@@ -317,16 +317,16 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.documentDragListener();
         }
         
-        if(this.resizable) {
+        if(this.documentResizeListener && this.documentResizeEndListener) {
             this.documentResizeListener();
             this.documentResizeEndListener();
         }
         
-        if(this.responsive) {
+        if(this.documentResponsiveListener) {
             this.documentResponsiveListener();
         }
         
-        if(this.closeOnEscape && this.closable) {
+        if(this.documentEscapeListener) {
             this.documentEscapeListener();
         }
         

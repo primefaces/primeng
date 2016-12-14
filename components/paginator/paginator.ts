@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'p-paginator',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-paginator ui-widget-header ui-unselectable-text':true}">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-paginator ui-widget ui-widget-header ui-unselectable-text'">
             <a href="#" #firstlink class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all" (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null"
                         (click)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage(),'ui-state-hover':(firstlink === hoveredItem && !isFirstPage())}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="fa fa-step-backward"></span>

@@ -46,7 +46,7 @@ export class TabPanel {
                         [attr.aria-expanded]="tab.selected" [attr.aria-selected]="tab.selected">
                         <a href="#">
                             <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
-                            {{tab.header}}
+                            <span class="ui-tabview-title">{{tab.header}}</span>
                             <span class="ui-tabview-right-icon fa" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
                         </a>
                         <span *ngIf="tab.closable" class="ui-tabview-close fa fa-close" (click)="close($event,tab)"></span>

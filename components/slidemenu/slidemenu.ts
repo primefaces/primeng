@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
@@ -89,14 +89,14 @@ export class SlideMenuSub implements OnDestroy {
 @Component({
     selector: 'p-slideMenu',
     template: `
-        <div [ngClass]="{'ui-menu ui-slidemenu ui-widget ui-widget-content ui-corner-all':true,'ui-menu-dynamic ui-shadow':popup}" 
+        <div #container [ngClass]="{'ui-menu ui-slidemenu ui-widget ui-widget-content ui-corner-all':true,'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="onClick($event)">
             <div class="ui-slidemenu-wrapper" [style.height.px]="viewportHeight">
-                <div class="ui-slidemenu-content" [style.height.px]="viewportHeight - 30">
+                <div class="ui-slidemenu-content" [style.height.px]="viewportContentHeight">
                     <p-slideMenuSub [item]="model" root="root" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
-                <div class="ui-slidemenu-backward ui-widget-header ui-corner-all" [style.display]="left ? 'block' : 'none'" (click)="goBack()">
-                    <span class="fa fa-fw fa-caret-left"></span>{{backLabel}}
+                <div #backward class="ui-slidemenu-backward ui-widget-header ui-corner-all" [style.display]="left ? 'block' : 'none'" (click)="goBack()">
+                    <span class="fa fa-fw fa-caret-left"></span><span>{{backLabel}}</span>
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
 
     @Input() styleClass: string;
     
-    @Input() menuWidth: number = 180;
+    @Input() menuWidth: number = 200;
     
     @Input() viewportHeight: number = 175;
     
@@ -123,7 +123,13 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @Input() backLabel: string = 'Back';
     
-    public container: any;
+    @ViewChild('container') containerViewChild: ElementRef;
+    
+    @ViewChild('backward') backwardViewChild: ElementRef;
+    
+    public container: HTMLDivElement;
+    
+    public backwardElement: HTMLDivElement;
     
     public documentClickListener: any;
     
@@ -132,11 +138,15 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     public left: number = 0;
     
     public animating: boolean = false;
+    
+    public viewportContentHeight: number;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
     ngAfterViewInit() {
-        this.container = this.el.nativeElement.children[0];
+        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
+        this.backwardElement = <HTMLDivElement> this.backwardViewChild.nativeElement;
+        this.viewportContentHeight = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardElement);
         
         if(this.popup) {
             this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
@@ -188,7 +198,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     }
         
     ngOnDestroy() {
-        if(this.popup) {
+        if(this.documentClickListener) {
             this.documentClickListener();
         }
         

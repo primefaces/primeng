@@ -3,8 +3,8 @@
 }
 
 .ui-picklist .ui-picklist-buttons {
-    height: 200px;
-    padding: 0px 5px;
+    height: 12.5em;
+    padding: 0 .25em;
 }
 
 .ui-picklist .ui-picklist-list {
@@ -12,18 +12,18 @@
     margin: 0;
     padding: 0;
     overflow:auto;
-    height:200px;
-    width:200px;
+    height: 12.5em;
+    width: 12.5em;
 }
 
 .ui-picklist .ui-picklist-list li {
     margin: 1px;
-    padding: 2px;
+    padding: .125em;
 }
 
 .ui-picklist .ui-button {
     display:block;
-    margin-bottom:0.3em;
+    margin-bottom: 0.25em;
 }
 
 .ui-picklist .ui-button-text-icon-left {
@@ -31,24 +31,24 @@
 }
 
 .ui-picklist .ui-picklist-item {
-    cursor:pointer;
-    border:0px none;
+    cursor: pointer;
+    border: 0 none;
     font-weight: inherit;
 }
 
 .ui-picklist .ui-picklist-caption {
     text-align: center;
-    padding: 4px 0px;
-    border-bottom:0px none;
+	padding: .5em .75em;
+    border-bottom:0 none;
 }
 
 .ui-picklist table {
-    width:100%;
+    width: 100%;
     border-collapse:collapse;
 }
 
 .ui-picklist .ui-picklist-filter {
-    padding-right: 15px;
+    padding-right: 1em;
     width: 100%;
     box-sizing: border-box;
 }
@@ -61,8 +61,8 @@
 
 .ui-picklist .ui-picklist-filter-container .fa {
     position: absolute;
-    top: 5px;
-    right: 2px;
+    top: .25em;
+    right: .125em;
 }
 
 .ui-picklist {
@@ -100,7 +100,7 @@
 }
 
 .ui-picklist.ui-picklist-vertical .ui-button {
-    margin-top: 0.3em;
+    margin-top: 0.25em;
 }
 
 .ui-picklist-outline {
@@ -141,14 +141,9 @@
 .ui-picklist.ui-picklist-responsive .ui-picklist-list {
     width: auto;
 }
-
-.ui-picklist.ui-picklist-responsive .ui-chkbox-box {
-    width: 18px;
-    height: 18px;
-}
         
 /* Responsive */
-@media (max-width: 640px) {
+@media (max-width: 40em) {
     .ui-picklist.ui-picklist-responsive {
         display: block;
     }
@@ -161,20 +156,21 @@
     .ui-picklist.ui-picklist-responsive .ui-picklist-buttons {
         text-align: center;
         height: auto;
-        padding: 5px 0px;
+        padding: .4em 0;
     }
     
     .ui-picklist.ui-picklist-responsive .ui-picklist-buttons button {
         display: inline;
         width: 20%;
+        margin-bottom: 0;
     }
     
     .ui-picklist.ui-picklist-responsive .ui-picklist-source-controls.ui-picklist-buttons {
-        padding-bottom: 5px;
+        padding-bottom: .4em;
     }
     
     .ui-picklist.ui-picklist-responsive .ui-picklist-target-controls.ui-picklist-buttons {
-        padding-top: 5px;
+        padding-top: .4em;
     }
     
     .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-right:before {

@@ -20,16 +20,12 @@ export const SPINNER_VALUE_ACCESSOR: any = {
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp,'ui-state-disabled':disabled}"
                 (mouseenter)="onUpButtonMouseenter($event)" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
-                <span class="ui-button-text">
-                    <span class="fa fa-fw fa-caret-up"></span>
-                </span>
+                <span class="fa fa-caret-up"></span>
             </a>
             <a class="ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-hover':hoverDown,'ui-state-active':activeDown,'ui-state-disabled':disabled}"
                 (mouseenter)="onDownButtonMouseenter($event)" (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event,in)" (mouseup)="onDownButtonMouseup($event)">
-                <span class="ui-button-text">
-                    <span class="fa fa-fw fa-caret-down"></span>
-                </span>
+                <span class="fa fa-caret-down"></span>
             </a>
         </span>
     `,

@@ -1,0 +1,20 @@
+/** Breadcrumb **/
+.ui-breadcrumb {
+    margin: 0;
+    padding: 0;
+    padding: .3em;
+}
+
+.ui-breadcrumb ul {
+    margin: 0;
+    padding: 0;
+}
+
+.ui-breadcrumb ul li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ui-breadcrumb ul li .ui-menuitem-link {
+    text-decoration: none;
+}

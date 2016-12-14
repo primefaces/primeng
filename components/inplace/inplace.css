@@ -2,7 +2,8 @@
     display: inline;
     cursor: pointer;
     border: 0 none;
-    padding: 4px;
+    padding: .25em;
+    font-weight: normal;
 }
 
 .ui-inplace .ui-inplace-content {

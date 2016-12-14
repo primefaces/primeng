@@ -34,7 +34,7 @@ export class TreeNodeTemplateLoader implements OnInit {
                             (click)="toggle($event)"></span
                     ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
-                        <span class="ui-chkbox-icon ui-c fa fa-fw" 
+                        <span class="ui-chkbox-icon ui-c fa" 
                             [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                     ><span class="ui-treenode-label ui-corner-all" 
@@ -207,7 +207,7 @@ export class Tree implements AfterContentInit {
         }
         
         this.templates.forEach((item) => {
-            this.templateMap[item.type] = item.template;
+            this.templateMap[item.getType()] = item.template;
         });
     }
          
@@ -385,37 +385,6 @@ export class Tree implements AfterContentInit {
     
     isCheckboxSelectionMode() {
         return this.selectionMode && this.selectionMode == 'checkbox';
-    }
-
-    expandToNode(node: TreeNode): void {
-        const pathToNode: TreeNode[] = this.findPathToNode(node);
-        if(pathToNode) {
-            pathToNode.forEach( node => node.expanded=true );
-        }
-    }
-
-    findPathToNode(node: TreeNode): TreeNode[] {
-        return Tree.findPathToNodeRecursive(node, this.value);
-    }
-
-    private static findPathToNodeRecursive(searchingFor: TreeNode, searchingIn: TreeNode[]): TreeNode[] {
-
-        if(!searchingIn || searchingIn.length == 0){
-            return undefined;
-        }
-
-        for(let i=0; i<searchingIn.length; i++){
-            if(searchingFor == searchingIn[i]){
-                return [ searchingIn[i] ];
-            }
-            const path: TreeNode[] = Tree.findPathToNodeRecursive( searchingFor, searchingIn[i].children );
-            if(path) {
-                path.unshift(searchingIn[i]);
-                return path;
-            }
-        }
-
-        return undefined;
     }
 
     getTemplateForNode(node: TreeNode): TemplateRef<any> {

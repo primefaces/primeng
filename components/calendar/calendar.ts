@@ -25,12 +25,12 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <template [ngIf]="!inline">
-                <input #inputfield type="text" pInputText [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
-                    [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled"
+                <input #inputfield type="text" [attr.required]="required" pInputText [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+                    [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             </template>
-            <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled}" 
+            <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}" 
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly">
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (mouseenter)="hoverPrev=true" (mouseleave)="hoverPrev=false"
@@ -72,7 +72,7 @@ export interface LocaleSettings {
                         </tr>
                     </tbody>
                 </table>
-                <div class="ui-timepicker ui-widget-header" *ngIf="showTime||timeOnly">
+                <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
                     <div class="ui-hour-picker">
                         <a href="#" (click)="incrementHour($event)">
                             <span class="fa fa-angle-up"></span>
@@ -176,6 +176,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() hourFormat: string = '24';
     
     @Input() timeOnly: boolean;
+
+    @Input() required: boolean;
     
     @Input() dataType: string = 'date';
     
@@ -191,6 +193,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
         monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
     };
+    
+    @Input() tabindex: number;
     
     @ViewChild('datepicker') overlayViewChild: ElementRef;
     
@@ -320,7 +324,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             if(this.appendTo === 'body')
                 document.body.appendChild(this.overlay);
             else
-                this.appendTo.appendChild(this.overlay);
+                this.domHandler.appendChild(this.overlay, this.appendTo);
         }
     }
     
