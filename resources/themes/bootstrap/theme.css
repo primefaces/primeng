@@ -1090,7 +1090,7 @@ body .ui-paginator .ui-paginator-last {
     -webkit-transition: background-color 0.3s;
     transition: background-color 0.3s;
     min-height: 0.875em;
-    width: 1em;
+    min-width: 2em;
     padding: 0.5em 0.5em;
     vertical-align: top;
 }
@@ -1113,11 +1113,6 @@ body .ui-paginator .ui-paginator-first {
     border-radius: 0;
 }
 body .ui-paginator .ui-paginator-prev {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
@@ -1137,7 +1132,7 @@ body .ui-paginator .ui-paginator-pages {
 }
 body .ui-paginator .ui-paginator-pages .ui-paginator-page {
     padding: 0.5em 0.625em;
-    width: 1em;
+    min-width: 2em;
     color: #0275d8;
     -moz-transition: background-color 0.3s;
     -o-transition: background-color 0.3s;
@@ -1163,7 +1158,7 @@ body .ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
     font-size: medium;
 }
 body .ui-datatable .ui-paginator {
-    padding: 0.375em 0.75em;
+    padding: 0;
 }
 body .ui-datatable thead th {
     background-color: #ffffff;
@@ -1249,14 +1244,14 @@ body .ui-datagrid .ui-datagrid-header {
     background-color: #f5f5f5;
 }
 body .ui-datagrid .ui-paginator {
-    padding: 0.375em 0.75em;
+    padding: 0;
 }
 body .ui-datalist .ui-datalist-header {
     padding: .75em 1.25em;
     background-color: #f5f5f5;
 }
 body .ui-datalist .ui-paginator {
-    padding: 0.375em 0.75em;
+    padding: 0;
 }
 body .ui-datascroller .ui-datascroller-header {
     padding: .75em 1.25em;
