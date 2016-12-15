@@ -12,8 +12,11 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-toggleButton',
     template: `
         <div [ngClass]="{'ui-button ui-togglebutton ui-widget ui-state-default ui-corner-all': true, 'ui-button-text-only': (!onIcon&&!offIcon), 'ui-button-text-icon-left': (onIcon&&offIcon),
-                'ui-state-active': checked, 'ui-state-hover': hover&&!disabled, 'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass" 
+                'ui-state-active': checked,'ui-state-focus': focus, 'ui-state-hover': hover&&!disabled, 'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass" 
                 (click)="toggle($event)" (mouseenter)="hover=true" (mouseleave)="hover=false">
+            <div class="ui-helper-hidden-accessible">
+                <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
+            </div>
             <span *ngIf="onIcon||offIcon" [class]="getIconClass()"></span>
             <span class="ui-button-text ui-unselectable-text">{{checked ? onLabel : offLabel}}</span>
         </div>
@@ -39,6 +42,8 @@ export class ToggleButton implements ControlValueAccessor {
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     checked: boolean = false;
+
+    focus: boolean = false;
     
     onModelChange: Function = () => {};
     
@@ -61,6 +66,15 @@ export class ToggleButton implements ControlValueAccessor {
                 checked: this.checked
             })
         }
+    }
+
+    onFocus() {
+        this.focus = true;
+    }
+    
+    onBlur() {
+        this.focus = false;
+        this.onModelTouched();
     }
     
     writeValue(value: any) : void {
