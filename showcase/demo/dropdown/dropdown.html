@@ -6,13 +6,13 @@
 </div>
 
 <div class="ContentSideSections Implementation">
-    <h3 class="first">Single</h3>
+    <h3 class="first">Single with null value</h3>
     <p-dropdown [options]="cities" [(ngModel)]="selectedCity"></p-dropdown>
-    <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
+    <p>Selected City: {{selectedCity ? selectedCity.name : 'null'}}</p>
     
     <h3>Editable</h3>
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" editable="editable"></p-dropdown>
-    <p>Selected Car: {{selectedCar||'none'}}</p>
+    <p>Selected Car: {{selectedCar||'null'}}</p>
     
     <h3>Content with Filters</h3>
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="filter">
@@ -23,7 +23,15 @@
             </div>
         </template>
     </p-dropdown>
-    <p>Selected Car: {{selectedCar2||'none'}}</p>
+    <p>Selected Car: {{selectedCar2||'null'}}</p>
+
+    <h3>Single without null value</h3>
+    <p-dropdown [options]="cities2" [(ngModel)]="selectedCity2"></p-dropdown>
+    <p>Selected City: {{selectedCity2 ? selectedCity2.name : 'null'}}</p>
+
+    <h3>Single with default value</h3>
+    <p-dropdown [options]="cities2" [(ngModel)]="selectedCity3" [defaultValue]="cities2[2].value"></p-dropdown>
+    <p>Selected City: {{selectedCity3 ? selectedCity3.name : 'null'}}</p>
 </div>
 
 <div class="ContentSideSections Source">
@@ -84,6 +92,17 @@ export class MyModel &#123;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
+
+            <h3>Default value</h3>
+            <p>A default value can be defined for the dropdown.</p>
+            <p>First the list of options will be checked for an option matching the value of ngModel. If none of the values match, the default value is applied and reflected in ngModel.</p>
+            <p>The default Value function is ignored for editable Dropdown</p>
+            <pre>
+<code class="language-markup" pCode>
+&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [defaultValue]="cities2[2].value"&gt;&lt;/p-dropdown&gt;
+</code>
+</pre>
+
 
             <h3>Custom Content</h3>
             <p>Label of an option is used as the display text of an item by default, for custom content support define a template that gets the SelectItem as the local template variable.</p>
@@ -199,6 +218,12 @@ export class MyModel &#123;
                             <td>null</td>
                             <td>Target element to attach the overlay, valid values are "body" or a local template variable of another element.</td>
                         </tr>
+                        <tr>
+                            <td>defaultValue</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Value of the option to select as default.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -297,47 +322,68 @@ export class MyModel &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Single&lt;/h3&gt;
+&lt;h3 class="first"&gt;Single with null value&lt;/h3&gt;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected City: {{selectedCity ? selectedCity.name : 'none'}}&lt;/p&gt;
+&lt;p&gt;Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'null'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Editable&lt;/h3&gt;
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;" editable="editable"&gt;&lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: {{selectedCar||'none'}}&lt;/p&gt;
+&lt;p&gt;Selected Car: &#123;&#123;selectedCar||'null'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Content with Filters&lt;/h3&gt;
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="filter"&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
-            &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
-            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;{{car.label}}&lt;/div&gt;
+            &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.label&#125;&#125;.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
+            &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
 &lt;/p-dropdown&gt;
-&lt;p&gt;Selected Car: {{selectedCar2||'none'}}&lt;/p&gt;
+&lt;p&gt;Selected Car: &#123;&#123;selectedCar2||'null'&#125;&#125;&lt;/p&gt;
+
+&lt;h3&gt;Single without null value&lt;/h3&gt;
+&lt;p-dropdown [options]="cities2" [(ngModel)]="selectedCity2"&gt;&lt;/p-dropdown&gt;
+&lt;p&gt;Selected City: &#123;&#123;selectedCity2 ? selectedCity2.name : 'null'&#125;&#125;&lt;/p&gt;
+
+&lt;h3&gt;Single with default value&lt;/h3&gt;
+&lt;p-dropdown [options]="cities2" [(ngModel)]="selectedCity3" [defaultValue]="cities2[2].value"&gt;&lt;/p-dropdown&gt;
+&lt;p&gt;Selected City: &#123;&#123;selectedCity3 ? selectedCity3.name : 'null'&#125;&#125;&lt;/p&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
+import &#123;Component&#125; from '@angular/core';
+import &#123;SelectItem&#125; from '../../../components/common/api';
+
+@Component(&#123;
+    templateUrl: 'showcase/demo/dropdown/dropdown.html',
+&#125;)
 export class DropdownDemo &#123;
 
     cities: SelectItem[];
+    cities2: SelectItem[];
 
-    selectedCity: string;
+    selectedCity: any;
+    selectedCity2: any;
+    selectedCity3: any;
 
     cars: SelectItem[];
 
-    selectedCar: string = 'BMW';
+    selectedCar: string;
+    
+    selectedCar2: string = 'BMW';
 
     constructor() &#123;
         this.cities = [];
+        this.cities2 = [];
         this.cities.push(&#123;label:'Select City', value:null&#125;);
-        this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'}});
-        this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'}});
-        this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'}});
-        this.cities.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'}});
-        this.cities.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'}});
+        this.cities2.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;);
+        this.cities2.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;);
+        this.cities2.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;);
+        this.cities2.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;);
+        this.cities2.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;);
+        this.cities = this.cities.concat(this.cities2);
 
         this.cars = [];
         this.cars.push(&#123;label: 'Audi', value: 'Audi'&#125;);
