@@ -1222,14 +1222,11 @@ body .ui-datatable .ui-datatable-data tr td.ui-editable-column input {
 }
 body .ui-datatable .ui-datatable-scrollable-header,
 body .ui-datatable .ui-datatable-scrollable-footer {
-    background-color: #f0f3f5;
+    background-color: #f5f5f5;
 }
 body .ui-datatable .ui-datatable-scrollable-header .ui-datatable-scrollable-header-box td,
 body .ui-datatable .ui-datatable-scrollable-footer .ui-datatable-scrollable-header-box td {
     color: #373a3c;
-}
-body .ui-datatable .ui-datatable-scrollable-body::-webkit-scrollbar {
-    background-color: #f7f7f7;
 }
 body .ui-datatable .ui-datatable-data tr.ui-rowgroup-header {
     font-weight: bold;
