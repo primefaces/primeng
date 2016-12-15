@@ -193,8 +193,9 @@ export class RowExpansionLoader {
                                         </span>
                                         <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
                                                 (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
-                                        <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
-                                            *ngIf="col.expander" (click)="toggleRow($event,rowData)"></div>
+                                        <a href="#" *ngIf="col.expander" (click)="toggleRow($event,rowData)">
+                                            <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"></span>
+                                        </a>
                                         <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                         <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                     </td>
@@ -270,8 +271,9 @@ export class RowExpansionLoader {
                                     </span>
                                     <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
-                                    <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
-                                        *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
+                                    <a href="#" *ngIf="col.expander" (click)="toggleRow($event,rowData)">
+                                        <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"></span>
+                                    </a>
                                     <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                     <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
@@ -1728,6 +1730,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 data: row
             });
         }
+        event.preventDefault();
     }
     
     findExpandedRowIndex(row: any): number {
