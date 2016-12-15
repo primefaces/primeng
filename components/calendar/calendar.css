@@ -20,7 +20,7 @@
 /* Datepicker */
 .ui-datepicker {
 	width: 17em;
-	padding: .2em .2em 0;
+	padding: .2em;
 	display: none;
     position: absolute;
 }
@@ -69,9 +69,11 @@
 	font-size: 1em;
 	margin: .125em 0;
 }
-.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-month {
+    width: 55%;
+}
 .ui-datepicker select.ui-datepicker-year {
-	width: 45%;
+	width: 35%;
 }
 .ui-datepicker select.ui-datepicker-month {
     margin-right: .25em;

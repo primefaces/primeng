@@ -8,7 +8,7 @@
 .ui-datatable .ui-datatable-caption,
 .ui-datatable .ui-datatable-footer {
     text-align: center;
-    padding: .25em .5em;
+	padding: .5em .75em;
     box-sizing: border-box;
 }
 
@@ -84,7 +84,8 @@
     min-height: 0%;
 }
 
-.ui-datatable .ui-datatable-data tr.ui-state-hover {
+.ui-datatable .ui-datatable-data tr.ui-state-hover,
+.ui-datatable .ui-datatable-data tr.ui-state-highlight {
     border-color: inherit;
     font-weight: inherit;
     cursor: pointer;

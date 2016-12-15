@@ -23,7 +23,19 @@ export class PrimeTemplate {
     
     @Input() type: string;
     
+    @Input('pTemplate') name: string;
+    
     constructor(public template: TemplateRef<any>) {}
+    
+    getType(): string {
+        if(this.type) {
+            console.log('Defining a pTemplate with type property is deprecated use pTemplate="type" instead.');
+            return this.type;
+        }
+        else {
+            return this.name;
+        }
+    }
 }
 
 @Directive({
@@ -33,13 +45,16 @@ export class TemplateWrapper implements OnInit {
     
     @Input() item: any;
     
+    @Input() index: number;
+    
     @Input('pTemplateWrapper') templateRef: TemplateRef<any>;
     
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.templateRef, {
-            '\$implicit': this.item
+            '\$implicit': this.item,
+            'index': this.index
         });
     }
 }
@@ -75,7 +90,7 @@ export class Column implements AfterContentInit{
     
     ngAfterContentInit():void {
         this.templates.forEach((item) => {
-            switch(item.type) {
+            switch(item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
                 break;

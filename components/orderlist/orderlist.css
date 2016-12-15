@@ -37,7 +37,7 @@
 
 .ui-orderlist .ui-orderlist-caption {
     text-align: center;
-    padding: .25em 0;
+	padding: .5em .75em;
     border-bottom: 0 none;
 }
 

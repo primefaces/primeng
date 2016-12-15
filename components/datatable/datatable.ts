@@ -168,13 +168,18 @@ export class RowExpansionLoader {
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
-                            <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
+                            <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex - 1],groupField)))"
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
-                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupTemplate" [data]="rowData"></p-templateLoader></td>
+                                <td [attr.colspan]="columns.length">
+                                    <a href="#" *ngIf="expandableRowGroups" (click)="toggleRowGroup($event,rowData)">
+                                        <span class="fa fa-fw" [ngClass]="{'fa-chevron-circle-down':isRowGroupExpanded(rowData), 'fa-chevron-circle-right': !isRowGroupExpanded(rowData)}"></span>
+                                    </a>
+                                    <p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader>
+                                </td>
                             </tr>
-                            <tr #rowElement [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
+                            <tr #rowElement *ngIf="!expandableRowGroups||isRowGroupExpanded(rowData)" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
-                                    [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
+                                    [ngClass]="{'ui-datatable-even':even&&rowGroupMode!='rowspan','ui-datatable-odd':odd&&rowGroupMode!='rowspan','ui-state-hover': (selectionMode && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
                                     <td *ngIf="!rowGroupMode || (rowGroupMode == 'subheader') ||
                                         (rowGroupMode=='rowspan' && ((sortField==col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) || (sortField!=col.field)))"
@@ -189,12 +194,14 @@ export class RowExpansionLoader {
                                         <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
                                                 (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                         <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
-                                            *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
+                                            *ngIf="col.expander" (click)="toggleRow($event,rowData)"></div>
                                         <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                         <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                     </td>
                                 </template>
-                                
+                            </tr>
+                            <tr class="ui-widget-header" *ngIf="rowGroupFooterTemplate && rowGroupMode=='subheader' && ((rowIndex === dataToRender.length - 1)||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex + 1],groupField))) && (!expandableRowGroups || isRowGroupExpanded(rowData))">
+                                <p-templateLoader class="ui-helper-hidden" [data]="rowData" [template]="rowGroupFooterTemplate"></p-templateLoader>
                             </tr>
                             <tr *ngIf="expandableRows && isRowExpanded(rowData)">
                                 <td [attr.colspan]="visibleColumns().length">
@@ -243,9 +250,9 @@ export class RowExpansionLoader {
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <tbody class="ui-datatable-data ui-widget-content">
                         <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
-                            <tr #rowGroupElement class="ui-widget-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
+                            <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
-                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupTemplate" [data]="rowData"></p-templateLoader></td>
+                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader></td>
                             </tr>
                             <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
@@ -381,9 +388,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() emptyMessage: string = 'No records found';
     
     @Input() paginatorPosition: string = 'bottom';
-    
-    @Input() expandedRows: any[];
-    
+        
     @Input() rowTrackBy: Function;
     
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
@@ -406,6 +411,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Input() expandableRows: boolean;
     
+    @Input() expandedRows: any[];
+    
+    @Input() expandableRowGroups: boolean;
+    
+    @Input() public expandedRowsGroups: any[];
+    
     @Input() tabindex: number = 1;
     
     @Input() rowStyleClass: Function;
@@ -419,6 +430,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onRowGroupExpand: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onRowGroupCollapse: EventEmitter<any> = new EventEmitter();
         
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
     
@@ -468,9 +483,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public lastPageX: number;
         
-    public documentColumnResizeListener: any = () => {};
+    public documentColumnResizeListener: Function;
     
-    public documentColumnResizeEndListener: any = () => {};
+    public documentColumnResizeEndListener: Function;
     
     public resizerHelper: any;
     
@@ -488,16 +503,20 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public rowTouch: boolean;
     
+    public rowGroupToggleClick: boolean;
+    
     public editingCell: any;
     
     public stopFilterPropagation: boolean;
     
     public rowGroupMetadata: any;
     
-    public rowGroupTemplate: TemplateRef<any>;
+    public rowGroupHeaderTemplate: TemplateRef<any>;
+    
+    public rowGroupFooterTemplate: TemplateRef<any>;
     
     public rowExpansionTemplate: TemplateRef<any>;
-
+    
     differ: any;
 
     globalFilterFunction: any;
@@ -533,13 +552,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         });
         
         this.templates.forEach((item) => {
-            switch(item.type) {
+            switch(item.getType()) {
                 case 'rowexpansion':
                     this.rowExpansionTemplate = item.template;
                 break;
                 
-                case 'rowgroup':
-                    this.rowGroupTemplate = item.template;
+                case 'rowgroupheader':
+                    this.rowGroupHeaderTemplate = item.template;
+                break;
+                
+                case 'rowgroupfooter':
+                    this.rowGroupFooterTemplate = item.template;
                 break;
             }
         });
@@ -635,7 +658,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 let fields: string[] = field.split('.');
                 let value = data;
                 for(var i = 0, len = fields.length; i < len; ++i) {
-                    if (value == undefined){
+                    if (value == null) {
                         return null;
                     }
                     value = value[fields[i]];
@@ -910,15 +933,22 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     onRowGroupClick(event) {
-        let targetNode = event.target.nodeName;
-        if((targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c')))) {
-            if(this.sortField != this.groupField) {
-                this.sortField = this.groupField;
-                this.sortSingle();
-            }
-            else {
-                this.sortOrder = -1 * this.sortOrder;
-                this.sortSingle();
+        if(this.rowGroupToggleClick) {
+            this.rowGroupToggleClick = false;
+            return;
+        }
+        
+        if(this.sortableRowGroup) {
+            let targetNode = event.target.nodeName;
+            if((targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c')))) {
+                if(this.sortField != this.groupField) {
+                    this.sortField = this.groupField;
+                    this.sortSingle();
+                }
+                else {
+                    this.sortOrder = -1 * this.sortOrder;
+                    this.sortSingle();
+                }
             }
         }
     }
@@ -1675,7 +1705,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         };
     }
     
-    toggleRow(row: any) {
+    toggleRow(event: Event, row: any) {
         if(!this.expandedRows) {
             this.expandedRows = [];
         }
@@ -1684,11 +1714,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         if(expandedRowIndex != -1) {
             this.expandedRows.splice(expandedRowIndex, 1);
-            this.onRowCollapse.emit(row);
+            this.onRowCollapse.emit({
+                originalEvent: event, 
+                data: row
+            });
         }
         else {
             this.expandedRows.push(row);
-            this.onRowExpand.emit(row);
+            this.onRowExpand.emit({
+                originalEvent: event, 
+                data: row
+            });
         }
     }
     
@@ -1705,8 +1741,49 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         return index;
     }
     
-    isRowExpanded(row) {
+    isRowExpanded(row: any): boolean {
         return this.findExpandedRowIndex(row) != -1;
+    }
+    
+    findExpandedRowGroupIndex(row: any): number {
+        let index = -1;
+        if(this.expandedRowsGroups && this.expandedRowsGroups.length) {
+            for(let i = 0; i < this.expandedRowsGroups.length; i++) {
+                let group = this.expandedRowsGroups[i];
+                let rowGroupField = this.resolveFieldData(row, this.groupField);
+                if(rowGroupField === group) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
+    }
+    
+    isRowGroupExpanded(row: any): boolean {
+        return this.findExpandedRowGroupIndex(row) != -1;
+    }
+    
+    toggleRowGroup(event: Event, row: any): void {
+        this.rowGroupToggleClick = true;
+        let index = this.findExpandedRowGroupIndex(row);
+        let rowGroupField = this.resolveFieldData(row, this.groupField);
+        if(index >= 0) {
+            this.expandedRowsGroups.splice(index, 1);
+            this.onRowGroupCollapse.emit({
+                originalEvent: event, 
+                group: rowGroupField
+            });
+        }
+        else {
+            this.expandedRowsGroups = this.expandedRowsGroups||[],
+            this.expandedRowsGroups.push(rowGroupField);
+            this.onRowGroupExpand.emit({
+                originalEvent: event, 
+                group: rowGroupField
+            });
+        }
+        event.preventDefault();
     }
         
     public reset() {
@@ -1815,7 +1892,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
         
-        if(this.resizableColumns) {
+        if(this.resizableColumns && this.documentColumnResizeListener && this.documentColumnResizeEndListener) {
             this.documentColumnResizeListener();
             this.documentColumnResizeEndListener();
         }

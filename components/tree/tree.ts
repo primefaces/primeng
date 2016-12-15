@@ -207,7 +207,7 @@ export class Tree implements AfterContentInit {
         }
         
         this.templates.forEach((item) => {
-            this.templateMap[item.type] = item.template;
+            this.templateMap[item.getType()] = item.template;
         });
     }
          
@@ -385,37 +385,6 @@ export class Tree implements AfterContentInit {
     
     isCheckboxSelectionMode() {
         return this.selectionMode && this.selectionMode == 'checkbox';
-    }
-
-    expandToNode(node: TreeNode): void {
-        const pathToNode: TreeNode[] = this.findPathToNode(node);
-        if(pathToNode) {
-            pathToNode.forEach( node => node.expanded=true );
-        }
-    }
-
-    findPathToNode(node: TreeNode): TreeNode[] {
-        return Tree.findPathToNodeRecursive(node, this.value);
-    }
-
-    private static findPathToNodeRecursive(searchingFor: TreeNode, searchingIn: TreeNode[]): TreeNode[] {
-
-        if(!searchingIn || searchingIn.length == 0){
-            return undefined;
-        }
-
-        for(let i=0; i<searchingIn.length; i++){
-            if(searchingFor == searchingIn[i]){
-                return [ searchingIn[i] ];
-            }
-            const path: TreeNode[] = Tree.findPathToNodeRecursive( searchingFor, searchingIn[i].children );
-            if(path) {
-                path.unshift(searchingIn[i]);
-                return path;
-            }
-        }
-
-        return undefined;
     }
 
     getTemplateForNode(node: TreeNode): TemplateRef<any> {

@@ -86,6 +86,7 @@
     margin-bottom: 0.3em;
     padding: .25em;
     position: relative;
+    text-align: left;
 }
 
 .ui-multiselect-header .ui-chkbox {
@@ -98,7 +99,7 @@
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    width: 6em;
+    width: 65%;
 }
 
 .ui-multiselect-header .ui-multiselect-filter-container .fa {

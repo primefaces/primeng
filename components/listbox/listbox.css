@@ -18,6 +18,10 @@
     margin-bottom: 1px;
 }
 
+.ui-listbox .ui-listbox-item > span {
+    vertical-align: middle;
+}
+
 .ui-listbox .ui-listbox-item:last-child {
     margin-bottom: 0;
 }
@@ -48,7 +52,7 @@
 .ui-listbox-header .ui-listbox-filter-container .fa {
     position: absolute;
     top: .25em;
-    left: .125em;
+    left: .25em;
 }
 
 .ui-listbox-header .ui-inputtext {

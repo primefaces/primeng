@@ -22,9 +22,9 @@ import {Message} from '../../../components/common/api';
             background-color: #0081c2;
             color: #FFFFFF;
             display: inline-block;
-            width: 30px;
+            width: 36px;
             border-radius: 50%;
-            margin-top: -10px;
+            margin-top: -14px;
             margin-bottom: 10px;
         }
         

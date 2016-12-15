@@ -139,6 +139,17 @@ export class DataListDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <p>Index of the row is available at the template.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataList [value]="cars"&gt;
+    &lt;template let-car let-i="index"&gt;
+        Car content for {{i}}
+    &lt;/template&gt;
+&lt;/p-dataList&gt;
+</code>
+</pre>
+
             <h3>Facets</h3>
             <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
 <pre>

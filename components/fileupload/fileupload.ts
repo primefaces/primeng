@@ -108,7 +108,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     ngAfterContentInit():void {
         this.templates.forEach((item) => {
-            switch(item.type) {
+            switch(item.getType()) {
                 case 'file':
                     this.fileTemplate = item.template;
                 break;
@@ -145,7 +145,7 @@ export class FileUpload implements OnInit,AfterContentInit {
         
         this.onSelect.emit({originalEvent: event, files: files});
         
-        if(this.files && this.auto) {
+        if(this.hasFiles() && this.auto) {
             this.upload();
         }
     }

@@ -3,20 +3,39 @@
 <div class="ContentSideSections">
     <div>
         <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">Row Grouping</span></span>
-        <span class="defaultText">Rows can either be grouped by a separate grouping row or using rowspan.</span>
+        <span class="defaultText">Rows can either be grouped by a separate grouping row or using rowspan. Additional optional features
+        are toggleable groups and footer rows.</span>
     </div>
 </div>
 
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand">
+    <p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"
+            [sortableRowGroup]="false">
+        <header>Toggleable Row Groups with Footers</header>
+        <template pTemplate="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
+        <p-column field="color" header="Color"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="price" header="Price">
+            <template let-col let-car="rowData" pTemplate="body">
+                <span>{{car[col.field] | currency:'USD':true:'.0-0'}}</span>
+            </template>
+        </p-column>
+        <template pTemplate="rowgroupfooter" let-car>
+            <td colspan="3" style="text-align:right">Total Price</td>
+            <td>{{calculateGroupTotal(car['brand']) | currency:'USD':true:'.0-0' }}</td>
+        </template>
+    </p-dataTable>
+    
+    <p-dataTable [value]="cars2" sortField="brand" rowGroupMode="subheader" groupField="brand" [style]="{'margin-top':'50px'}">
         <header>Subheader</header>
-        <template pTemplate type="rowgroup" let-rowData>{{rowData['brand']&#125;&#125;</template>
+        <template pTemplate="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
         <p-column field="color" header="Color" sortable="true"></p-column>
         <p-column field="year" header="Year" sortable="true"></p-column>
         <p-column field="vin" header="Vin" sortable="true"></p-column>
     </p-dataTable>
     
-    <p-dataTable [value]="cars2" sortField="brand" rowGroupMode="rowspan" [style]="{'margin-top':'50px'}">
+    <p-dataTable [value]="cars3" sortField="brand" rowGroupMode="rowspan" [style]="{'margin-top':'50px'}">
         <header>RowSpan</header>
         <p-column field="brand" header="Brand" sortable="true"></p-column>
         <p-column field="color" header="Color" sortable="true"></p-column>
@@ -36,11 +55,28 @@ export class DataTableRowGroupDemo implements OnInit &#123;
     
     cars2: Car[];
     
+    cars3: Car[];
+    
     constructor(private carService: CarService) &#123;&#125;
 
     ngOnInit() &#123;
         this.carService.getCarsMedium().then(cars => this.cars1 = cars);
         this.carService.getCarsMedium().then(cars => this.cars2 = cars);
+        this.carService.getCarsMedium().then(cars => this.cars3 = cars);
+    &#125;
+    
+    calculateGroupTotal(brand: string) &#123;
+        let total = 0;
+        
+        if(this.cars1) &#123;
+            for(let car of this.cars1) &#123;
+                if(car.brand === brand) &#123;
+                    total += car.price;
+                &#125;
+            &#125;
+        &#125;
+
+        return total;
     &#125;
 &#125;
 </code>
@@ -50,15 +86,33 @@ export class DataTableRowGroupDemo implements OnInit &#123;
         <p-tabPanel header="datatablerowgroupdemo.html">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand"&gt;
+&lt;p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"
+        [sortableRowGroup]="false"&gt;
+    &lt;header&gt;Toggleable Row Groups with Footers&lt;/header&gt;
+    &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="price" header="Price"&gt;
+        &lt;template let-col let-car="rowData" pTemplate="body"&gt;
+            &lt;span&gt;&#123;&#123;car[col.field] | currency:'USD':true:'.0-0'&#125;&#125;&lt;/span&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
+    &lt;template pTemplate="rowgroupfooter" let-car&gt;
+        &lt;td colspan="3" style="text-align:right"&gt;Total Price&lt;/td&gt;
+        &lt;td&gt;&#123;&#123;calculateGroupTotal(car['brand']) | currency:'USD':true:'.0-0' &#125;&#125;&lt;/td&gt;
+    &lt;/template&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-dataTable [value]="cars2" sortField="brand" rowGroupMode="subheader" groupField="brand" [style]="&#123;'margin-top':'50px'&#125;"&gt;
     &lt;header&gt;Subheader&lt;/header&gt;
-    &lt;template pTemplate type="rowgroup" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
     &lt;p-column field="color" header="Color" sortable="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" sortable="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin" sortable="true"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-dataTable [value]="cars2" sortField="brand" rowGroupMode="rowspan" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+&lt;p-dataTable [value]="cars3" sortField="brand" rowGroupMode="rowspan" [style]="&#123;'margin-top':'50px'&#125;"&gt;
     &lt;header&gt;RowSpan&lt;/header&gt;
     &lt;p-column field="brand" header="Brand" sortable="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color" sortable="true"&gt;&lt;/p-column&gt;

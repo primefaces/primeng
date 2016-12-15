@@ -268,23 +268,34 @@ export class DataTableDemo implements OnInit &#123;
                 is the column definition and data of current row is the rowData property. In addition index of the current can be accessed using the optional rowIndex variable. 
                 Similarly, custom content can be placed at the header and footer of a column with templating.</p>
             
-            <p>A template inside a column must be decorated with pTemplate directive along with the type property to indicate where the template belongs to. Possible values 
+            <p>A template inside a column must be decorated with pTemplate directive along with the type to indicate where the template belongs to. Possible values 
             are "header", "body" and "footer".</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-column field="color" header="Color"&gt;
-    &lt;template let-col #car="rowData" #ri="rowIndex" pTemplate type="body"&gt;
+    &lt;template let-col #car="rowData" #ri="rowIndex" pTemplate="body"&gt;
         &lt;span&gt;{{car[col.field]}}&lt;/span&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;
 &lt;p-column&gt;
-    &lt;template pTemplate type="header"&gt;
+    &lt;template pTemplate="header"&gt;
         &lt;button type="button" pButton (click)="selectAllCars()" icon="fa-check"&gt;&lt;/button&gt;
     &lt;/template&gt;
-    &lt;template let-car="rowData" pTemplate type="body"&gt;
+    &lt;template let-car="rowData" pTemplate="body"&gt;
         &lt;button type="button" pButton (click)="selectCar(car)" icon="fa-search"&gt;&lt;/button&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;
+</code>
+</pre>
+
+            <p>Index of the row is available at the template.</p>
+<pre>
+<code class="language-markup" pCode>
+    &lt;p-column&gt;
+        &lt;template let-car="rowData" let-i="rowIndex" pTemplate="body"&gt;
+            &lt;button type="button" pButton (click)="selectCar(i)" icon="fa-search"&gt;&lt;/button&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
 </code>
 </pre>
 
@@ -359,7 +370,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand"&gt;
     &lt;header&gt;Subheader&lt;/header&gt;
-    &lt;template pTemplate type="rowgroup" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
@@ -374,6 +385,47 @@ import &#123;Footer&#125; from 'primeng/primeng';
 &lt;/p-dataTable&gt;
 </code>
 </pre>
+
+            <p>Visibility of a group can be toggled using an icon placed next to the group name using expandableRowGroups property.
+            By default all groups are collapsed and expandadRowGroups property needs to be populated with the group field values
+            to show particular groups as expanded by default.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"&gt;
+    &lt;header&gt;Subheader&lt;/header&gt;
+    &lt;template pTemplate="rowgroup" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>       
+
+            <p>A footer for a row can be defined using the rowgroupfooter template.</p> 
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"
+        [sortableRowGroup]="false"&gt;
+    &lt;header&gt;Toggleable Row Groups with Footers&lt;/header&gt;
+    &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="price" header="Price"&gt;
+        &lt;template let-col let-car="rowData" pTemplate="body"&gt;
+            &lt;span&gt;&#123;&#123;car[col.field] | currency:'USD':true:'.0-0'&#125;&#125;&lt;/span&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
+    &lt;template pTemplate="rowgroupfooter" let-car&gt;
+        &lt;td colspan="3" style="text-align:right"&gt;Total Price&lt;/td&gt;
+        &lt;td&gt;&#123;&#123;calculateGroupTotal(car['brand']) | currency:'USD':true:'.0-0' &#125;&#125;&lt;/td&gt;
+    &lt;/template&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>    
+
+            <p>Clicking a row group sorts the data according to the group field, you can control this behavior using sortableRowGroup property.</p> 
+    
             <p>See the <a [routerLink]="['/datatable/rowgroup']">live example.</a></p>
 
             <h3>Paginator</h3>
@@ -485,7 +537,7 @@ mysort(event) &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-column field="brand" header="Brand (Custom)" [filter]="true" [style]="&#123;'overflow':'visible'&#125;" filterMatchMode="equals"&gt;
-    &lt;template pTemplate type="filter" let-col&gt;
+    &lt;template pTemplate="filter" let-col&gt;
         &lt;p-dropdown [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-dropdown&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;
@@ -607,7 +659,7 @@ export class DataTableDemo implements OnInit &#123;
 
             <h3>Expandable Rows</h3>
             <p>Row expansion allows displaying detailed content for a particular row. To use this feature, enable expandableRows property, add an expander column and
-            to declare the expanded content provide a pTemplate with "rowexpansion" as the type.</p>
+            to declare the expanded content provide a pTemplate with "rowexpansion" as the value.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" expandableRows="true"&gt;
@@ -616,7 +668,7 @@ export class DataTableDemo implements OnInit &#123;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
-    &lt;template let-car provide a pTemplate &gt;
+    &lt;template let-car pTemplate="rowexpansion"&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;
@@ -648,6 +700,8 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
+            <p>By default all rows are collapsed and expandadRows property needs to be populated 
+                with the row data instances to show particular rows as expanded by default.</p>
             <p>See the <a [routerLink]="['/datatable/rowexpansion']">live example.</a></p>
 
             <h3>Column Resize</h3>
@@ -873,6 +927,18 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to sort the data if the row group subheader is clicked.</td>
+                        </tr>
+                        <tr>
+                            <td>expandableRowGroups</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, adds a clickable icon at group header to expand or collapse the group.</td>
+                        </tr>
+                        <tr>
+                            <td>expandedRowGroups</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>Collection of group field values to show a group as expanded by default.</td>
                         </tr>
                         <tr>
                             <td>responsive</td>
@@ -1139,13 +1205,27 @@ loadData(event: LazyLoadEvent) &#123;
                         </tr>
                         <tr>
                             <td>onRowExpand</td>
-                            <td>row: Row data to expand.<br></td>
+                            <td>event.originalEvent: Browser event<br>
+                                data: Row data to expand.</td>
                             <td>Callback to invoke when a row is expanded.</td>
                         </tr>
                         <tr>
                             <td>onRowCollapse</td>
-                            <td>row: Row data to collapse.<br></td>
+                            <td>event.originalEvent: Browser event<br>
+                                data: Row data to collapse.</td>
                             <td>Callback to invoke when a row is collapsed.</td>
+                        </tr>
+                        <tr>
+                            <td>onRowGroupExpand</td>
+                            <td>event.originalEvent: Browser event<br>
+                                group: Value of the group.</td>
+                            <td>Callback to invoke when a row group is expanded.</td>
+                        </tr>
+                        <tr>
+                            <td>onRowGroupCollapse</td>
+                            <td>event.originalEvent: Browser event<br>
+                                group: Value of the group.</td>
+                            <td>Callback to invoke when a row group is collapsed.</td>
                         </tr>
                     </tbody>
                 </table>

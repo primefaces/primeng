@@ -10,7 +10,7 @@
                 </a>
             </span>
 
-            <span id="menu_input" #inputmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id"><img src="showcase/resources/images/mono/input.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/inputBlue.svg" /><span class="MainLinkText">Input</span></span>
+            <span id="menu_input" #inputmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id"><img src="showcase/resources/images/mono/input.svg" /><span class="MainLinkText">Input</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/autocomplete']" (click)="mobileMenuActive = false">&#9679; AutoComplete</a>
                 <a class="SubMenuLink" [routerLink]="['/calendar']" (click)="mobileMenuActive = false">&#9679; Calendar</a>
@@ -18,7 +18,6 @@
                 <a class="SubMenuLink" [routerLink]="['/chips']" (click)="mobileMenuActive = false">&#9679; Chips</a>
                 <a class="SubMenuLink" [routerLink]="['/dropdown']" (click)="mobileMenuActive = false">&#9679; Dropdown</a>
                 <a class="SubMenuLink" [routerLink]="['/editor']" (click)="mobileMenuActive = false">&#9679; Editor</a>
-                <a class="SubMenuLink" [routerLink]="['/fileupload']" (click)="mobileMenuActive = false">&#9679; FileUpload</a>
                 <a class="SubMenuLink" [routerLink]="['/inputswitch']" (click)="mobileMenuActive = false">&#9679; InputSwitch</a>
                 <a class="SubMenuLink" [routerLink]="['/inputtext']" (click)="mobileMenuActive = false">&#9679; InputText</a>
                 <a class="SubMenuLink" [routerLink]="['/inputtextarea']" (click)="mobileMenuActive = false">&#9679; InputTextArea</a>
@@ -35,13 +34,13 @@
                 <a class="SubMenuLink" [routerLink]="['/tristatecheckbox']" (click)="mobileMenuActive = false">&#9679; TriStateCheckbox</a>
             </div>
 
-            <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="showcase/resources/images/mono/button.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/buttonBlue.svg" /><span class="MainLinkText">Button</span></span>
+            <span id="button_menutitle" #buttonmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id"><img src="showcase/resources/images/mono/button.svg" /><span class="MainLinkText">Button</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (buttonmenutitle.id == activeMenuId), 'submenuhide': (buttonmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/button']" (click)="mobileMenuActive = false">&#9679; Button</a>
                 <a class="SubMenuLink" [routerLink]="['/splitbutton']" (click)="mobileMenuActive = false">&#9679; SplitButton</a>
             </div>
 
-            <span id="data_menutitle" #datamenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="datamenutitle.id == activeMenuId" (click)="activeMenuId = datamenutitle.id"><img src="showcase/resources/images/mono/data.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/dataBlue.svg" /><span class="MainLinkText">Data</span></span>
+            <span id="data_menutitle" #datamenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="datamenutitle.id == activeMenuId" (click)="activeMenuId = datamenutitle.id"><img src="showcase/resources/images/mono/data.svg" /><span class="MainLinkText">Data</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (datamenutitle.id == activeMenuId), 'submenuhide': (datamenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/carousel']" (click)="mobileMenuActive = false">&#9679; Carousel</a>
                 <a class="SubMenuLink" [routerLink]="['/datagrid']" (click)="mobileMenuActive = false">&#9679; DataGrid</a>
@@ -57,7 +56,7 @@
                 <a class="SubMenuLink" [routerLink]="['/treetable']" (click)="mobileMenuActive = false">&#9679; TreeTable</a>
             </div>
 
-            <span id="menu_panel" #panelmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = panelmenutitle.id"><img src="showcase/resources/images/mono/panel.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></span>
+            <span id="menu_panel" #panelmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = panelmenutitle.id"><img src="showcase/resources/images/mono/panel.svg" /><span class="MainLinkText">Panel</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (panelmenutitle.id == activeMenuId), 'submenuhide': (panelmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/accordion']" (click)="mobileMenuActive = false">&#9679; Accordion</a>
                 <a class="SubMenuLink" [routerLink]="['/fieldset']" (click)="mobileMenuActive = false">&#9679; Fieldset</a>
@@ -67,7 +66,7 @@
                 <a class="SubMenuLink" [routerLink]="['/toolbar']" (click)="mobileMenuActive = false">&#9679; Toolbar</a>
             </div>
 
-            <span id="menu_overlay" #overlaymenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id"><img src="showcase/resources/images/mono/overlay.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></span>
+            <span id="menu_overlay" #overlaymenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id"><img src="showcase/resources/images/mono/overlay.svg" /><span class="MainLinkText">Overlay</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/confirmdialog']" (click)="mobileMenuActive = false">&#9679; ConfirmDialog</a>
                 <a class="SubMenuLink" [routerLink]="['/dialog']" (click)="mobileMenuActive = false">&#9679; Dialog</a>
@@ -75,8 +74,13 @@
                 <a class="SubMenuLink" [routerLink]="['/overlaypanel']" (click)="mobileMenuActive = false">&#9679; OverlayPanel</a>
                 <a class="SubMenuLink" [routerLink]="['/tooltip']" (click)="mobileMenuActive = false">&#9679; Tooltip</a>
             </div>
+            
+            <span id="menu_file" #filemenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="filemenutitle.id == activeMenuId" (click)="activeMenuId = filemenutitle.id"><img src="showcase/resources/images/mono/file.svg" /><span class="MainLinkText">File</span></span>
+            <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (filemenutitle.id == activeMenuId), 'submenuhide': (filemenutitle.id != activeMenuId)}">
+                <a class="SubMenuLink" [routerLink]="['/fileupload']" (click)="mobileMenuActive = false">&#9679; Upload</a>
+            </div>
 
-            <span id="menu_menu" #menumenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="menumenutitle.id == activeMenuId" (click)="activeMenuId = menumenutitle.id"><img src="showcase/resources/images/mono/menu.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/menuBlue.svg" /><span class="MainLinkText">Menu</span></span>
+            <span id="menu_menu" #menumenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="menumenutitle.id == activeMenuId" (click)="activeMenuId = menumenutitle.id"><img src="showcase/resources/images/mono/menu.svg" /><span class="MainLinkText">Menu</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (menumenutitle.id == activeMenuId), 'submenuhide': (menumenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/menumodel']" (click)="mobileMenuActive = false">&#9679; MenuModel</a>
                 <a class="SubMenuLink" [routerLink]="['/breadcrumb']" (click)="mobileMenuActive = false">&#9679; Breadcrumb</a>
@@ -91,7 +95,7 @@
                 <a class="SubMenuLink" [routerLink]="['/tieredmenu']" (click)="mobileMenuActive = false">&#9679; TieredMenu</a>
             </div>
 
-            <span id="menu_chart" #chartmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = chartmenutitle.id"><img src="showcase/resources/images/mono/charts.svg" /><img class="hiddenIcons" src="showcase/resources/images/mono/chartsBlue.svg" /><span class="MainLinkText">Charts</span></span>
+            <span id="menu_chart" #chartmenutitle class="MenuSideMainLink bordersOfMenuSide" [class.MenuSideMainLinkDark]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = chartmenutitle.id"><img src="showcase/resources/images/mono/charts.svg" /><span class="MainLinkText">Charts</span></span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (chartmenutitle.id == activeMenuId), 'submenuhide': (chartmenutitle.id != activeMenuId)}">
                 <a class="SubMenuLink" [routerLink]="['/chart']" (click)="mobileMenuActive = false">&#9679; ChartModel</a>
                 <a class="SubMenuLink" [routerLink]="['/chart/bar']" (click)="mobileMenuActive = false">&#9679; Bar</a>
@@ -104,7 +108,6 @@
 
             <span id="menu_messages" #messagesmenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="messagesmenutitle.id == activeMenuId"
                               (click)="activeMenuId = messagesmenutitle.id"><img src="showcase/resources/images/mono/message.svg">
-                    <img class="hiddenIcons" src="showcase/resources/images/mono/messageBlue.svg">
                     <span class="MainLinkText">Messages</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (messagesmenutitle.id == activeMenuId), 'submenuhide': (messagesmenutitle.id != activeMenuId)}">
@@ -114,7 +117,6 @@
 
             <span id="menu_multimedia" #multimediamenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="multimediamenutitle.id == activeMenuId"
                   (click)="activeMenuId = multimediamenutitle.id"><img src="showcase/resources/images/mono/multimedia.svg">
-                    <img class="hiddenIcons" src="showcase/resources/images/mono/multimediaBlue.svg" style="opacity: 0;">
                     <span class="MainLinkText">Multimedia</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (multimediamenutitle.id == activeMenuId), 'submenuhide': (multimediamenutitle.id != activeMenuId)}">
@@ -123,7 +125,6 @@
             
             <span id="menu_dnd" #dndmenutitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="dndmenutitle.id == activeMenuId"
                   (click)="activeMenuId = dndmenutitle.id"><img src="showcase/resources/images/mono/dragdrop.svg">
-                    <img class="hiddenIcons" src="showcase/resources/images/mono/dragdrop.svg" style="opacity: 0;">
                     <span class="MainLinkText">DragDrop</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (dndmenutitle.id == activeMenuId), 'submenuhide': (dndmenutitle.id != activeMenuId)}">
@@ -132,7 +133,6 @@
             
             <span id="menu_misc" #misctitle class="MenuSideMainLink bordersOfMenuSide MenuSideMainLinkDark" [class.MenuSideMainLinkDark]="misctitle.id == activeMenuId"
                   (click)="activeMenuId = misctitle.id"><img src="showcase/resources/images/mono/misc.svg">
-                    <img class="hiddenIcons" src="showcase/resources/images/mono/miscBlue.svg" style="opacity: 0;">
                     <span class="MainLinkText">Misc</span>
             </span>
             <div class="SubMenuLinkContainer" [ngClass]="{'submenushow': (misctitle.id == activeMenuId), 'submenuhide': (misctitle.id != activeMenuId)}">
@@ -162,47 +162,26 @@
                 <span class="PFTopLinks floatRight cursorPointer" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
                     <img src="showcase/resources/images/themeswitcher.svg" /><span class="PFDarkText">Themes</span>
                     <div id="GlobalThemeSwitcher" class="navOverlay" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px">
-                        <span>Premium</span>
-                        <a href="http://www.primefaces.org/layouts/ultima-ng"><span class="ui-text">Ultima</span></a>
-                        <a href="http://www.primefaces.org/layouts/omega-ng"><span class="ui-text">Omega</span></a>
-                        <span>Free</span>
-                        <a href="#" data-theme="afterdark"  onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afterdark"></span><span class="ui-text">Afterdark</span></a>
-                        <a href="#" data-theme="afternoon" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afternoon"></span><span class="ui-text">Afternoon</span></a>
-                        <a href="#" data-theme="afterwork" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-afterwork"></span><span class="ui-text">Afterwork</span></a>
-                        <a href="#" data-theme="aristo" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-aristo"></span><span class="ui-text">Aristo</span></a>
-                        <a href="#" data-theme="black-tie" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-black-tie"></span><span class="ui-text">Black-Tie</span></a>
-                        <a href="#" data-theme="bluesky" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-bluesky"></span><span class="ui-text">Bluesky</span></a>
-                        <a href="#" data-theme="bootstrap" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-bootstrap"></span><span class="ui-text">Bootstrap</span></a>
-                        <a href="#" data-theme="casablanca" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-casablanca"></span><span class="ui-text">Casablanca</span></a>
-                        <a href="#" data-theme="cruze" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-cruze"></span><span class="ui-text">Cruze</span></a>
-                        <a href="#" data-theme="dark-hive" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-dark-hive"></span><span class="ui-text">Dark-Hive</span></a>
-                        <a href="#" data-theme="delta" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-delta"></span><span class="ui-text">Delta</span></a>
-                        <a href="#" data-theme="dot-luv" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-dot-luv"></span><span class="ui-text">Dot-Lov</span></a>
-                        <a href="#" data-theme="eggplant" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-eggplant"></span><span class="ui-text">Eggplant</span></a>
-                        <a href="#" data-theme="excite-bike" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-excite-bike"></span><span class="ui-text">Excite-Bike</span></a>
-                        <a href="#" data-theme="flick" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-flick"></span><span class="ui-text">Flick</span></a>
-                        <a href="#" data-theme="glass-x" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-glass-x"></span><span class="ui-text">Glass-X</span></a>
-                        <a href="#" data-theme="home" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-home"></span><span class="ui-text">Home</span></a>
-                        <a href="#" data-theme="hot-sneaks" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-hot-sneaks"></span><span class="ui-text">Hot-Sneaks</span></a>
-                        <a href="#" data-theme="humanity" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-humanity"></span><span class="ui-text">Humanity</span></a>
-                        <a href="#" data-theme="le-frog" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-le-frog"></span><span class="ui-text">Le-Forg</span></a>
-                        <a href="#" data-theme="midnight" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-midnight"></span><span class="ui-text">Midnight</span></a>
-                        <a href="#" data-theme="mint-choc" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-mint-choc"></span><span class="ui-text">Mint-Choc</span></a>
+                        <span>Premium Templates</span>
+                        <a href="http://www.primefaces.org/layouts/ultima-ng"><img src="showcase/resources/images/themeswitcher-ultima.png" alt="Ultima Template"><span class="ui-text">Ultima</span></a>
+                        <a href="http://www.primefaces.org/layouts/omega-ng"><img src="showcase/resources/images/themeswitcher-omega.png" alt="Omega Template"><span class="ui-text">Omega</span></a>
+                        <span>Free Themes</span>
                         <a href="#" data-theme="omega" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-omega"></span><span class="ui-text">Omega</span></a>
-                        <a href="#" data-theme="overcast" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-overcast"></span><span class="ui-text">Overcast</span></a>
+                        <a href="#" data-theme="bootstrap" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-bootstrap"></span><span class="ui-text">Bootstrap</span></a>
+                        <a href="#" data-theme="aristo" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-aristo"></span><span class="ui-text">Aristo</span></a>
+                        <a href="#" data-theme="cupertino" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-cupertino"></span><span class="ui-text">Cupertino</span></a>
+                        <a href="#" data-theme="cruze" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-cruze"></span><span class="ui-text">Cruze</span></a>
+                        <a href="#" data-theme="darkness" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-ui-darkness"></span><span class="ui-text">Darkness</span></a>
+                        <a href="#" data-theme="delta" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-delta"></span><span class="ui-text">Delta</span></a>
+                        <a href="#" data-theme="flick" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-flick"></span><span class="ui-text">Flick</span></a>
+                        <a href="#" data-theme="home" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-home"></span><span class="ui-text">Home</span></a>
+                        <a href="#" data-theme="lightness" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-ui-lightness"></span><span class="ui-text">Lightness</span></a>
                         <a href="#" data-theme="pepper-grinder" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-pepper-grinder"></span><span class="ui-text">Pepper-Grinder</span></a>
                         <a href="#" data-theme="redmond" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-redmond"></span><span class="ui-text">Redmond</span></a>
                         <a href="#" data-theme="rocket" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-rocket"></span><span class="ui-text">Rocket</span></a>
-                        <a href="#" data-theme="sam" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-sam"></span><span class="ui-text">Sam</span></a>
-                        <a href="#" data-theme="smoothness" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-smoothness"></span><span class="ui-text">Smoothness</span></a>
                         <a href="#" data-theme="south-street" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-south-street"></span><span class="ui-text">South-Street</span></a>
                         <a href="#" data-theme="start" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-start"></span><span class="ui-text">Start</span></a>
-                        <a href="#" data-theme="sunny" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-sunny"></span><span class="ui-text">Sunny</span></a>
-                        <a href="#" data-theme="swanky-purse" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-swanky-purse"></span><span class="ui-text">Swanky-Purse</span></a>
                         <a href="#" data-theme="trontastic" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-trontastic"></span><span class="ui-text">Trontastic</span></a>
-                        <a href="#" data-theme="ui-darkness" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-ui-darkness"></span><span class="ui-text">UI-Darkness</span></a>
-                        <a href="#" data-theme="ui-lightness" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-ui-lightness"></span><span class="ui-text">UI-Lightness</span></a>
-                        <a href="#" data-theme="vader" onclick="DemoApp.changeTheme(event, this)"><span class="ui-theme ui-theme-var"></span><span class="ui-text">Vader</span></a>
                     </div>
                 </span>
                 
