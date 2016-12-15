@@ -191,7 +191,7 @@ export class RowExpansionLoader {
                                         <span class="ui-cell-data" *ngIf="col.bodyTemplate">
                                             <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                                         </span>
-                                        <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
+                                        <input [type]="col.editType" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" [min]="col.editMin" [max]="col.editMax" [step]="col.editStep" [pattern]="col.editPattern"
                                                 (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                         <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                             *ngIf="col.expander" (click)="toggleRow($event,rowData)"></div>
@@ -268,7 +268,7 @@ export class RowExpansionLoader {
                                     <span class="ui-cell-data" *ngIf="col.bodyTemplate">
                                         <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                                     </span>
-                                    <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
+                                    <input [type]="col.editType" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]" [min]="col.editMin" [max]="col.editMax" [step]="col.editStep" [pattern]="col.editPattern"
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
                                     <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
                                         *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
@@ -434,6 +434,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Output() onRowGroupExpand: EventEmitter<any> = new EventEmitter();
     
     @Output() onRowGroupCollapse: EventEmitter<any> = new EventEmitter();
+	
+	@Input() cellIsEditable: Function;
         
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
     
@@ -1333,6 +1335,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     switchCellToEditMode(element: any, column: Column, rowData: any) {
         if(!this.selectionMode && this.editable && column.editable) {
+			if(this.cellIsEditable && !this.cellIsEditable(column, rowData))
+				return;
             let cell = this.findCell(element);
             if(cell != this.editingCell) {
                 this.editingCell = cell;
