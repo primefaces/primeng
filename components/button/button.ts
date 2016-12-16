@@ -2,6 +2,8 @@ import {NgModule,Directive,ElementRef,AfterViewInit,OnDestroy,HostBinding,HostLi
 import {DomHandler} from '../dom/domhandler';
 import {CommonModule} from '@angular/common';
 
+const Event = (global as any).Event as Event;
+
 @Directive({
     selector: '[pButton]',
     host: {
