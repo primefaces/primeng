@@ -9,8 +9,7 @@
     "webpack-dev-server": "webpack-dev-server --inline",
     "build-prod": "webpack --config config/webpack.prod.js",
     "build-dev": "webpack --config config/webpack.dev.js",
-
-    "start": "npm run webpack:w"
+    "start": "npm run webpack-dev-server"
   },
   "repository": {
     "type": "git",
