@@ -145,6 +145,11 @@ body .ui-button.raised-btn {
     -webkit-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
     box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
 }
+body .ui-togglebutton.ui-button.ui-state-focus {
+    -moz-box-shadow: 0px 0px 5px #1f89ce;
+	-webkit-box-shadow: 0px 0px 5px #1f89ce;
+	box-shadow: 0px 0px 5px #1f89ce;
+}
 body .ui-chips .ui-chips-token .ui-chips-token-label {
     padding: 0.125em;
 }
@@ -1085,7 +1090,7 @@ body .ui-paginator .ui-paginator-last {
     -webkit-transition: background-color 0.3s;
     transition: background-color 0.3s;
     min-height: 0.875em;
-    width: 1em;
+    min-width: 2em;
     padding: 0.5em 0.5em;
     vertical-align: top;
 }
@@ -1108,11 +1113,6 @@ body .ui-paginator .ui-paginator-first {
     border-radius: 0;
 }
 body .ui-paginator .ui-paginator-prev {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
@@ -1132,7 +1132,7 @@ body .ui-paginator .ui-paginator-pages {
 }
 body .ui-paginator .ui-paginator-pages .ui-paginator-page {
     padding: 0.5em 0.625em;
-    width: 1em;
+    min-width: 2em;
     color: #0275d8;
     -moz-transition: background-color 0.3s;
     -o-transition: background-color 0.3s;
@@ -1158,7 +1158,7 @@ body .ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
     font-size: medium;
 }
 body .ui-datatable .ui-paginator {
-    padding: 0.375em 0.75em;
+    padding: 0;
 }
 body .ui-datatable thead th {
     background-color: #ffffff;
@@ -1222,14 +1222,11 @@ body .ui-datatable .ui-datatable-data tr td.ui-editable-column input {
 }
 body .ui-datatable .ui-datatable-scrollable-header,
 body .ui-datatable .ui-datatable-scrollable-footer {
-    background-color: #f0f3f5;
+    background-color: #f5f5f5;
 }
 body .ui-datatable .ui-datatable-scrollable-header .ui-datatable-scrollable-header-box td,
 body .ui-datatable .ui-datatable-scrollable-footer .ui-datatable-scrollable-header-box td {
     color: #373a3c;
-}
-body .ui-datatable .ui-datatable-scrollable-body::-webkit-scrollbar {
-    background-color: #f7f7f7;
 }
 body .ui-datatable .ui-datatable-data tr.ui-rowgroup-header {
     font-weight: bold;
@@ -1247,14 +1244,14 @@ body .ui-datagrid .ui-datagrid-header {
     background-color: #f5f5f5;
 }
 body .ui-datagrid .ui-paginator {
-    padding: 0.375em 0.75em;
+    padding: 0;
 }
 body .ui-datalist .ui-datalist-header {
     padding: .75em 1.25em;
     background-color: #f5f5f5;
 }
 body .ui-datalist .ui-paginator {
-    padding: 0.375em 0.75em;
+    padding: 0;
 }
 body .ui-datascroller .ui-datascroller-header {
     padding: .75em 1.25em;

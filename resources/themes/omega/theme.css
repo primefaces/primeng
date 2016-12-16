@@ -543,6 +543,12 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
    border: 1px solid #156090; background: #186ba0; color: #FFFFFF;
 }
 
+.ui-togglebutton.ui-button.ui-state-focus {
+    -moz-box-shadow: 0px 0px 5px #1f89ce;
+	-webkit-box-shadow: 0px 0px 5px #1f89ce;
+	box-shadow: 0px 0px 5px #1f89ce;
+}
+
 /* SelectOneMenu */
 .ui-dropdown .ui-dropdown-trigger,
 .ui-multiselect .ui-multiselect-trigger {
