@@ -254,7 +254,7 @@ export class RowExpansionLoader {
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
                                 <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader></td>
                             </tr>
-                            <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
+                            <tr #rowElement class="ui-widget-content" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': ( (rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
