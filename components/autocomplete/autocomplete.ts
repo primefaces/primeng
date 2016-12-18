@@ -31,7 +31,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
                 (click)="handleDropdownClick($event)" *ngIf="dropdown" (focus)="onDropdownFocus($event)" (blur)="onDropdownBlur($event)"></button>
-            <div class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="'100%'" [style.max-height]="scrollHeight">
+            <div class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                     <li *ngFor="let option of suggestions" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
                         (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
@@ -73,7 +73,9 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     @Input() size: number;
     
     @Input() suggestions: any[];
-    
+
+    @Input() appendTo: any;
+
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
@@ -152,6 +154,13 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             this.hide();
         });
+
+        if(this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.panel);
+            else
+                this.domHandler.appendChild(this.panel, this.appendTo);
+        }
     }
     
     ngAfterViewChecked() {
@@ -254,10 +263,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     }
     
     align() {
-        if(this.multiple)
-            this.domHandler.relativePosition(this.panel, this.multipleContainer);
+        if(this.appendTo)
+            this.domHandler.absolutePosition(this.panel, (this.multiple ? this.multipleContainer : this.input));
         else
-            this.domHandler.relativePosition(this.panel, this.input);
+            this.domHandler.relativePosition(this.panel, (this.multiple ? this.multipleContainer : this.input));
     }
     
     hide() {
@@ -424,6 +433,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     ngOnDestroy() {
         if(this.documentClickListener) {
             this.documentClickListener();
+        }
+
+        if(this.appendTo) {
+            this.el.nativeElement.appendChild(this.panel);
         }
     }
 }
