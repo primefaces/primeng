@@ -1,14 +1,14 @@
 <datascroller-demos></datascroller-demos>
 
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataScroller  - <span class="subitem">Infinite</span></span>
-        <span class="defaultText">DataScroller supports lazy loading so that each scroll event fetches new chunk of data from a remote datasource. This example generates
-        the new records on-the-fly and scrolling is infinite.</span><br><span class="defaultText">Scroll to the bottom of this page to see the demo.</span>
+        <span class="feature-title">DataScroller  - <span class="subitem">Infinite</span></span>
+        <span>DataScroller supports lazy loading so that each scroll event fetches new chunk of data from a remote datasource. This example generates
+        the new records on-the-fly and scrolling is infinite.</span><br><span>Scroll to the bottom of this page to see the demo.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="datascrollerinfinitedemo.ts">
 <pre>
@@ -84,7 +84,7 @@ export class DataScrollerInfiniteDemo &#123;
     </p-tabView>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
     
     <p-dataScroller [value]="cars" [rows]="10" (onLazyLoad)="loadData($event)" [lazy]="true">

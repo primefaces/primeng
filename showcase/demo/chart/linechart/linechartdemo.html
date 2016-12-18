@@ -1,17 +1,17 @@
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">LineChart</span>
-        <span class="defaultText">A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</span>
+        <span class="feature-title">LineChart</span>
+        <span>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
 
     <p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="linechartdemo.ts">
 <pre>

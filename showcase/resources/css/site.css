@@ -134,14 +134,13 @@ body {
     max-height: 500px;
 }
 
-
 #layout-sidebar > div a {
     width: 50%;
     float: left;
     padding: 6px;
     box-sizing: border-box;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 4homepapx;
     -webkit-border-radius: 4px;
     color: #659eb3;
     font-size: 14px;
@@ -157,31 +156,38 @@ body {
     background-color: #FFFFFF;
 }
 
-.ContentSideSections {
+.content-section {
     display: block;
     border-bottom: solid 1px #dde3e6;
     padding: 30px;
     overflow: hidden;
     background-color: #f5f7f8;
 }
-.MOBILE .ContentSideSections {
-    padding: 14px 24px;
+
+.feature-title {
+    font-size: 30px;
+    margin-bottom: 20px;
+    display: block;
+    color: #fca752;
 }
-#PFTopLinksCover {
+
+#topbar {
     background-color: #1976D2;
+    box-sizing: border-box;
+    display: block;
+    border-bottom: solid 1px #dde3e6;
+    padding: 15px;
+    overflow: hidden;
 }
-#PFMobileTopLinksCover {
-    position: inherit;
-}
-.PFTopLinks {
+
+.topbar-link {
+    float: right;
     width: 80px;
-    display: inline-block;
     text-align: center;
     padding: 10px 5px;
     border-radius: 5px;
     font-size: 12px;
     -webkit-border-radius: 5px;
-    margin-top: -17px;
     background-color: rgb(246, 249, 251);
     margin-left: 5px;
     -webkit-transition: all 0.5s ease;
@@ -190,9 +196,9 @@ body {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     overflow: hidden;
+    color:#313b3f;
 }
-.PFTopLinks:hover,
-.PFTopLinksMobile:hover {
+.topbar-link:hover {
     background-color: rgba(255, 255, 255, 0.8);
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -200,150 +206,79 @@ body {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-.PFTopLinksMobile {
-    width: 20%;
-    display: inline-block;
-    text-align: center;
-    padding: 1%;
-    border-radius: 5px;
-    font-size: 11px;
-    -webkit-border-radius: 5px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    overflow: hidden;
-}
-.PFTopLinks img,
-.PFTopLinksMobile img {
+.topbar-link img {
     width: 80%;
     height: 30px;
 }
+/*
 .PFGrayText {
     color: #aab7c1;
 }
 .PFDarkText {
     color: #313b3f;
-}
-#openMenuBtn {
+}*/
+
+#menu-button {
     float: left;
     padding: 10px 10px 5px 10px;
-    margin-top: -9px;
     border-radius: 5px;
     display: none;
 }
-#openMobileMenuBtn {
+#menu-button-mobile {
     float: left;
     padding: 10px 10px 5px 10px;
-    margin-left: 23px;
-    margin-top: 5px;
     border-radius: 5px;
     display: none;
 }
-#openMenuBtn.active,
-#openMenuBtn:hover,
-#openMenuBtn:focus,
-#openMobileMenuBtn:hover,
-#openMobileMenuBtn:focus {
+#menu-button.active,
+#menu-button:hover,
+#menu-button:focus,
+#menu-button-mobile:hover,
+#menu-button-mobile:focus {
     background-color: #2F88E0;
 }
-#openMenuBtn img,
-#openMobileMenuBtn img {
+#menu-button img,
+#menu-button-mobile img {
     width: 30px;
     height: 25px;
 }
-.PropertyBox {
-    width: 27%;
+
+.property-box {
     height: 280px;
     float: left;
-    padding: 3%;
     overflow: hidden;
     text-align: center;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     display: block;
 }
-.PropertyBox img {
+.property-box img {
     width: 60%;
 }
-.PropertyBox .PropertyTopic {
+.property-box .property-topic {
     display: block;
     color: #25aae1;
     font-size: 18px;
     margin-bottom: 10px;
 }
-.PropertyBox .PropertyText {
+.property-box .property-text {
     display: block;
     color: #414D52;
     font-size: 14px;
     line-height: 22px;
 }
-.widgetsLink {
-    width: 90%;
-    height: auto;
-    background-image: url(../images/widgetIconCover.svg);
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: contain;
-    display: table;
-    text-align: center;
-    padding: 5%;
-}
-.widgetsLink img {
-    width: 40%;
-    height: auto;
-    margin-top: 5%;
-}
-.widgetsLink span {
-    width: 100%;
-    margin-top: 10px;
-    overflow: hidden;
-    height: 50px;
-    display: table;
+
+.footer {
     font-size: 14px;
+    color: #84939f;
 }
-.widgetsLink:hover span {
-    color: #fdd106;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-.MOBILE .widgetsLink img {
-    width: 40%;
-    height: auto;
-    margin-top: 1%;
-}
-.MOBILE .widgetsLink span {
-    width: 100%;
-    margin-top: 0px;
-    overflow: hidden;
-    height: 50px;
-    display: table;
-    font-size: 11px;
-}
-.BoxesIndent {
-    width: 85%;
+.footer span:last-child {
     float: right;
-    padding-top: 30px;
+
 }
-.brandLogo {
-    width: 70px;
-    height: 70px;
-    display: block;
-    margin: 10px 10px 10px 0px;
-    float: left;
-}
-.MOBILE .BoxesIndent {
-    width: 85%;
-    float: none;
-    margin: 0px auto;
-    padding-top: 30px;
-}
+
 /** ThemeSwitcher **/
-.navOverlay {
+#GlobalThemeSwitcher {
     display: block;
     text-align: left;
     width: 200px;
@@ -361,7 +296,7 @@ body {
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
     margin-left: -60px;
 }
-.navOverlay a {
+#GlobalThemeSwitcher  a {
     display: block;
     padding: 10px;
     border-bottom: solid 1px #dde3e7;
@@ -369,10 +304,10 @@ body {
     color: #87939B;
     overflow: hidden;
 }
-.navOverlay a:hover {
+#GlobalThemeSwitcher  a:hover {
     color: #fdd106;
 }
-.navOverlay a span.ui-theme {
+#GlobalThemeSwitcher  a span.ui-theme {
     width: 30px;
     height: 27px;
     float: left;
@@ -381,22 +316,31 @@ body {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
-.navOverlay a img {
+#GlobalThemeSwitcher  a img {
     float: left;
     width: 30px;
     height: 27px;
 }
-.navOverlay a span.ui-text {
+#GlobalThemeSwitcher  a span.ui-text {
     display: inline-block;
     margin-top: 7px;
     margin-left: 10px;
     font-size: 14px;
 }
-.navOverlay > span {
+#GlobalThemeSwitcher  > span {
     font-size: 18px;
     display: inline-block;
     margin: 20px 0 0 9px;
 }
+
+.topbar-link {
+    display: block
+}
+
+.mobile-logo {
+    display: none;
+}
+
 /* cursor */
 .cursorPointer {
     cursor: pointer;
@@ -464,26 +408,6 @@ a {
 .ContentX .PropertyBox .PropertyText {
     font-size: 12px;
 }
-.PFTopLinksCover {
-    padding-top: 130px !important;
-    height: auto !important;
-    min-height: 60px !important;
-    text-align: left !important;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-.PFTopLinksCover .PFTopLinks {
-    float: left !important;
-    margin-top: 0px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
 .wid50 {
     width: 50px;
 }
@@ -525,7 +449,6 @@ a {
     height: 121px;
 }
 /* display */
-
 .dispBlock {
     display: block;
 }
@@ -535,32 +458,14 @@ a {
 .overHidden {
     overflow: hidden;
 }
-/* floating */
 
+/* floating */
 .floatRight {
     float: right;
 }
 .floatLeft {
     float: left;
 }
-/* content boxes*/
-
-.Content33 {
-    width: 33%;
-}
-.Content50 {
-    width: 50%;
-}
-.Content66 {
-    width: 65%;
-    background-position: left top;
-    background-repeat: no-repeat;
-}
-.Content100 {
-    width: 100%;
-}
-/* general text styles */
-
 .defaultText {
     font-size: 16px;
     color: #404C51;
@@ -573,7 +478,6 @@ a {
     padding: 10px 0px 10px 0px;
 }
 /* buttons */
-
 .BigButton {
     width: 90%;
     box-sizing: border-box;
@@ -612,7 +516,6 @@ a {
     background-color: #feb66d;
 }
 /* text colors */
-
 .orange {
     color: #fca752;
 }
@@ -648,8 +551,8 @@ a {
 input.searchInput {
     padding-left: 30px;
 }
-/** ClearFix **/
 
+/** ClearFix **/
 .clearfix:after {
     content: ".";
     display: block;
@@ -661,27 +564,28 @@ input.searchInput {
     display: inline-block;
 }
 /* required comment for clearfix to work in Opera \*/
-
 * html .clearfix {
     height: 1%;
 }
 .clearfix {
     display: block;
 }
-.Implementation {
+
+.implementation {
     background-color: #FFFFFF;
     overflow: visible;
 }
-.Implementation > h3 {
+.implementation > h3 {
     margin-top: 30px;
     color: #5C666A;
 }
-.Implementation h3.first {
+.implementation h3.first {
     margin-top: 0px !important;
 }
-.Implementation h4 {
+.implementation h4 {
     color: #5C666A;
 }
+
 .SubSubMenu {
     padding: 15px 30px;
 }
@@ -699,35 +603,94 @@ input.searchInput {
 .SubSubMenu ul li a:hover {
     color: #fdd106
 }
-.Source .ui-tabview-panel {
+
+/* Source Section */
+.source .ui-tabview-panel {
     color: #404C51 !important;
 }
-.Source h3 {
+.source h3 {
     margin-top: 25px;
     margin-bottom: 0px;
     font-size: 24px;
     font-weight: normal;
 }
-.Source h4 {
+.source h4 {
     margin-top: 25px;
     margin-bottom: 0px;
     font-size: 20px;
     font-weight: normal;
 }
-.Source p {
+.source p {
     font-size: 16px;
     line-height: 24px;
     margin: 10px 0;
     opacity: .90;
 }
-.Source .doc-tablewrapper {
+.source .doc-tablewrapper {
     margin: 10px 0;
 }
-.Source a {
+.source a {
     color: #0273D4;
 }
-/* Docs Table */
+/* Tabs Source */
+.source .ui-tabview {
+    background: none;
+    border: 0 none;
+    color: #5C666A;
+    font-weight: lighter;
+    -moz-border-radius: 4px !important;
+    -webkit-border-radius: 4px !important;
+    border-radius: 4px !important;
+}
+.source .ui-tabview .ui-tabview-nav {
+    background: #1976D2 !important;;
+    margin-bottom: -1px;
+    padding: 3px 3px 0px 3px !important;
+    border-top-right-radius: 4px !important;
+    border-top-left-radius: 4px !important;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.source .ui-tabview .ui-tabview-nav li,
+.source .ui-tabview .ui-tabview-nav li.ui-state-hover {
+    border: 0px none !important;
+    background: #3F94E9 !important;;
+    border-color: #3F94E9 !important;;
+    box-shadow: none !important;
+    border-top-right-radius: 4px !important;
+    border-top-left-radius: 4px !important;
+}
+.source .ui-tabview .ui-tabview-nav li a {
+    padding: .5em 1em !important;
+}
+.source .ui-tabview .ui-tabview-nav li.tab-doc {
+    margin-right: 0;
+}
+.source .ui-tabview .ui-tabview-nav li.ui-state-default a {
+    color: #fff !important;
+    font-weight: normal !important;
+    text-shadow: none ;
+}
+.source .ui-tabview .ui-tabview-nav li.ui-state-active a {
+    color: #5C666A !important;
+    font-weight: normal !important;
+}
+.source .ui-tabview .ui-tabview-nav li.ui-state-hover {
+    box-shadow: none !important;;
+}
+.source .ui-tabview .ui-tabview-nav li.ui-tabview-selected {
+    background: #F5F6F7 !important;
+}
+.source .ui-tabview .ui-tabview-panels {
+    border-top: 1px solid #F5F6F7 !important;;
+    color: #5C666A !important;
+    background: #F5F6F7;
+}
+.source .ui-tabview.ui-tabview-top > .ui-tabview-nav li {
+    top: 0px !important;
+}ite.c
 
+/* Docs Table */
 .doc-table {
     border-collapse: collapse;
     width: 100%;
@@ -752,172 +715,76 @@ input.searchInput {
 .doc-table tbody tr:nth-child(odd) {
     background-color: #F3F6F9;
 }
-/* Tabs Source */
 
-.Source .ui-tabview {
-    background: none;
-    border: 0 none;
-    color: #5C666A;
-    font-weight: lighter;
-    -moz-border-radius: 4px !important;
-    -webkit-border-radius: 4px !important;
-    border-radius: 4px !important;
-}
-.Source .ui-tabview .ui-tabview-nav {
-    background: #1976D2 !important;;
-    margin-bottom: -1px;
-    padding: 3px 3px 0px 3px !important;
-    border-top-right-radius: 4px !important;
-    border-top-left-radius: 4px !important;
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-.Source .ui-tabview .ui-tabview-nav li,
-.Source .ui-tabview .ui-tabview-nav li.ui-state-hover {
-    border: 0px none !important;
-    background: #3F94E9 !important;;
-    border-color: #3F94E9 !important;;
-    box-shadow: none !important;
-    border-top-right-radius: 4px !important;
-    border-top-left-radius: 4px !important;
-}
-.Source .ui-tabview .ui-tabview-nav li a {
-    padding: .5em 1em !important;
-}
-.Source .ui-tabview .ui-tabview-nav li.tab-doc {
-    margin-right: 0;
-}
-.Source .ui-tabview .ui-tabview-nav li.ui-state-default a {
-    color: #fff !important;
-    font-weight: normal !important;
-    text-shadow: none ;
-}
-.Source .ui-tabview .ui-tabview-nav li.ui-state-active a {
-    color: #5C666A !important;
-    font-weight: normal !important;
-}
-.Source .ui-tabview .ui-tabview-nav li.ui-state-hover {
-    box-shadow: none !important;;
-}
-.Source .ui-tabview .ui-tabview-nav li.ui-tabview-selected {
-    background: #F5F6F7 !important;
-}
-.Source .ui-tabview .ui-tabview-panels {
-    border-top: 1px solid #F5F6F7 !important;;
-    color: #5C666A !important;
-    background: #F5F6F7;
-}
-.Source .ui-tabview.ui-tabview-top > .ui-tabview-nav li {
-    top: 0px !important;
-}
-/** Responsive **/
-
-@media (min-width: 961px) {
-    .PFTopLinks {
-        display: block
-    }
-    .selectmenu {
-        display: none;
-    }
-    .mobileLogoCover {
-        display: none;
-    }
-    .PFNextGen iframe {
-        margin-left: 100px;
-    }
-}
-@media (max-width: 1140px) {
-    #LOGOTEXTSIDE {
-        width: auto;
-        background: none;
-    }
-    #LOGOTEXTSIDE span {
-        font-size: 24px;
-    }
-    #PFTopLinksCover .PFTopLinks {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-@media (max-width: 960px) {
-    .PFTopLinks {
+@media screen and (max-width: 64em) {
+    .topbar-link {
         display: none
     }
-    #PFTopLinksCover {
-        padding: 15px 15px 15px 15px;
-    }
-    .selectmenu {
-        display: block;
-    }
-    .mobileLogoCover {
+    .mobile-logo {
         display: block;
         float: right;
+        margin-top: 6px;
     }
-    #MENUSIDE {
+    .mobile-logo img {
+        height: 30px;
+    }
+    #layout-sidebar {
         display: none;
         overflow-y: auto;
         z-index: 999;
     }
-    #MENUSIDE.active {
+    #layout-sidebar.active {
         display: block;
         width: 100%;
         height: 100%;
         overflow-y: auto;
         z-index: 999;
     }
-    #CONTENTSIDE {
+    .layout-logo {
+        padding: 15px;
+        height: 68px;
+        box-sizing: border-box;
+    }
+    .layout-logo .sidebar-logo {
+        display: none;
+    }
+
+    #layout-content {
         margin-left: 0
     }
-    #LOGOTEXTSIDE {
-        display: none
-    }
-    .ContentSideSections {
+    .content-section {
         padding: 14px 24px;
     }
-    #openMenuBtn {
+    #menu-button {
         display: inline-block;
-        float: left;
-        margin-top: -6px;
-        margin-right: 5px;
         border-radius: 5px;
         position: relative;
         z-index: 1000;
     }
-    #openMenuBtn.active {
+    #menu-button.active {
         display: none;
     }
-    #openMobileMenuBtn.active {
+    #menu-button-mobile.active {
         display: inline-block;
         background-color: #1976D2;
     }
-    #openMenuBtn:hover,
-    #openMenuBtn:focus,
-    #openMobileMenuBtn:hover,
-    #openMobileMenuBtn:focus {
+    #menu-button:hover,
+    #menu-button:focus,
+    #menu-button-mobile:hover,
+    #menu-button-mobile:focus {
         background-color: #2F88E0;
     }
-    .Content33 {
-        width: 100%;
-    }
-    .Content66 {
-        width: 100%;
-    }
+
     .ui-tabview.ui-tabview-top > .ui-tabview-nav li {
         width: 100%;
     }
     .BigButton {
         width: 100%;
     }
-    .PFNextGen iframe {
-        margin-left: 0;
-    }
     .SubSubMenu ul li {
         width: 50%
     }
-    .PropertyBox {
-        width: 44%;
-    }
-    .PropertyBox img {
+    .property-box img {
         width: 40%;
     }
 }
@@ -926,8 +793,8 @@ input.searchInput {
         word-break: break-word;
     }
 }
-/* Themes */
 
+/* Themes */
 .ui-theme {
     background: url("../images/themes.png") no-repeat top left;
     display: block;
@@ -1134,7 +1001,6 @@ input.searchInput {
 }
 
 /* Code Styles */
-
 pre {
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;

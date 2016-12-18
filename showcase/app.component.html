@@ -1,10 +1,10 @@
 <div class="layout-wrapper">
     <div id="layout-sidebar" [ngClass]="{'active':mobileMenuActive}">
         <span class="layout-logo">
-            <a href="#" [routerLink]="['/']">
+            <a href="#" class="sidebar-logo" [routerLink]="['/']">
                 <img alt="logo" src="showcase/resources/images/primeng-sidebar.svg" />
             </a>
-            <a href="#" id="openMobileMenuBtn" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
+            <a href="#" id="menu-button-mobile" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
                 <img alt="logo" src="showcase/resources/images/menuicon.svg"/>
             </a>
         </span>
@@ -174,16 +174,20 @@
     </div>
 
     <div id="layout-content">
-        <div class="ContentSideSections" id="PFTopLinksCover" style="height:30px;">
-            <a href="#" id="openMenuBtn" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
+        <div id="topbar">
+            <a href="#" id="menu-button" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
                 <img alt="logo" src="showcase/resources/images/menuicon.svg"/>
             </a>
 
-            <a href="http://forum.primefaces.org/viewforum.php?f=35" class="PFTopLinks floatRight"><img alt="mockosx" src="showcase/resources/images/community.svg" /><span class="PFDarkText">Forum</span></a>
+            <a href="http://forum.primefaces.org/viewforum.php?f=35" class="topbar-link">
+                <img alt="mockosx" src="showcase/resources/images/community.svg" />
+                <span>Forum</span>
+            </a>
 
-            <span class="PFTopLinks floatRight cursorPointer" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
-                <img src="showcase/resources/images/themeswitcher.svg" /><span class="PFDarkText">Themes</span>
-                <div id="GlobalThemeSwitcher" class="navOverlay" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px">
+            <span class="topbar-link" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
+                <img src="showcase/resources/images/themeswitcher.svg" />
+                <span>Themes</span>
+                <div id="GlobalThemeSwitcher" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px">
                     <span>Premium Templates</span>
                     <a href="http://www.primefaces.org/layouts/ultima-ng"><img src="showcase/resources/images/themeswitcher-ultima.png" alt="Ultima Template"><span class="ui-text">Ultima</span></a>
                     <a href="http://www.primefaces.org/layouts/omega-ng"><img src="showcase/resources/images/themeswitcher-omega.png" alt="Omega Template"><span class="ui-text">Omega</span></a>
@@ -207,26 +211,24 @@
                 </div>
             </span>
             
-            <a href="setup.html" class="PFTopLinks floatRight hashed" [routerLink]="['/setup']"><img alt="mockosx" src="showcase/resources/images/setup.svg" /><span class="PFDarkText">Setup</span></a>
+            <a href="setup.html" class="topbar-link" [routerLink]="['/setup']">
+                <img alt="mockosx" src="showcase/resources/images/setup.svg" />
+                <span>Setup</span>
+            </a>
 
-            <div class="mobileLogoCover">
-                <img src="showcase/resources/images/primeng-sidebar.svg" style="height:30px;"/>
+            <div class="mobile-logo">
+                <img src="showcase/resources/images/primeng-sidebar.svg" />
             </div>
         </div>
-        <!-- header bar end-->
 
         <div>
             <router-outlet></router-outlet>
         </div>
 
-
-        <!-- footer start-->
-        <div class="ContentSideSections">
-            <span class="floatLeft fontSize14 gray"><a href="http://www.primetek.com.tr">PrimeTek</a>, Copyright &copy; 2016</span>
-            <span class="floatRight fontSize14 gray">All rights reserved</span>
-            <div style="clear:both"></div>
+        <div class="content-section footer clearfix">
+            <span><a href="http://www.primetek.com.tr">PrimeTek</a>, Copyright &copy; 2016</span>
+            <span>All rights reserved</span>
         </div>
-        <!-- footer end-->
     </div>
 
 </div>

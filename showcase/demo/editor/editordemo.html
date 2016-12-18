@@ -1,11 +1,11 @@
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Editor</span>
-        <span class="defaultText">Editor is rich text editor component based on Quill.</span>
+        <span class="feature-title">Editor</span>
+        <span>Editor is rich text editor component based on Quill.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <h3 class="first">Default</h3>
     <p-editor [(ngModel)]="text1" [style]="&#123;'height':'320px'&#125;"></p-editor>
     <p>Value: {{text1||'empty'}}</p>
@@ -29,7 +29,7 @@
     <button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"></button>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
