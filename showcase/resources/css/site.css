@@ -164,6 +164,10 @@ body {
     background-color: #f5f7f8;
 }
 
+.content-section:first-of-type > div > span {
+    line-height: 1.5em;
+} 
+
 .feature-title {
     font-size: 30px;
     margin-bottom: 20px;
