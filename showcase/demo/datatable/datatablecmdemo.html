@@ -1,13 +1,13 @@
 <datatable-demos></datatable-demos>
 
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">ContextMenu</span></span>
-        <span class="defaultText">DataTable has exclusive integration with ContextMenu.</span>
+        <span class="feature-title">DataTable - <span class="subitem">ContextMenu</span></span>
+        <span>DataTable has exclusive integration with ContextMenu.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
 
     <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" [contextMenu]="cm">
@@ -21,7 +21,7 @@
     <p-contextMenu #cm [model]="items"></p-contextMenu>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="datatablecmdemo.ts">
 <pre>

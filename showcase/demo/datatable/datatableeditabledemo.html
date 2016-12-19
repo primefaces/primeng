@@ -1,14 +1,14 @@
 <datatable-demos></datatable-demos>
 
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable</span>
-        <span class="defaultText">Incell editing is enabled by setting editable property true both on datatable and columns, when a cell is clicked edit mode is activated, clicking outside of cell or hitting the enter key 
+        <span class="feature-title">DataTable</span>
+        <span>Incell editing is enabled by setting editable property true both on datatable and columns, when a cell is clicked edit mode is activated, clicking outside of cell or hitting the enter key 
         switches back to view mode after updating the value.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-dataTable [value]="cars" [editable]="true">
         <p-column field="vin" header="Vin" [editable]="true"></p-column>
         <p-column field="year" header="Year" [editable]="true"></p-column>
@@ -17,7 +17,7 @@
     </p-dataTable>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="datatableeditabledemo.ts">
 <pre>

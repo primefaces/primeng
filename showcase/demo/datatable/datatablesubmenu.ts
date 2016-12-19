@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
     selector: 'datatable-demos',
     template: `
-        <div class="ContentSideSections SubSubMenu ui-helper-clearfix">
+        <div class="content-section SubSubMenu ui-helper-clearfix">
             <ul>
                 <li><a [routerLink]="['/datatable']">&#9679; Basic</a></li>
                 <li><a [routerLink]="['/datatable/facets']">&#9679; Facets</a></li>

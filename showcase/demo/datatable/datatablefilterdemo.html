@@ -1,19 +1,19 @@
 <datatable-demos></datatable-demos>
 
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">Filter</span></span>
-        <span class="defaultText">Filtering is enabled by setting the filter property as true in column object. Default match mode is "startsWith" and this can be configured
+        <span class="feature-title">DataTable - <span class="subitem">Filter</span></span>
+        <span>Filtering is enabled by setting the filter property as true in column object. Default match mode is "startsWith" and this can be configured
         using filterMatchMode property of column object that also accepts "contains", "endsWith", "equals" and "in". An optional global filter feature is available to search all fields with a keyword.
         By default input fields are generated as filter elements and using templating any component can be used as a filter.
     </span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
-    <div class="ui-widget-header ui-helper-clearfix" style="padding:4px 10px;border-bottom: 0 none">
-        <i class="fa fa-search" style="float:left;margin:4px 4px 0 0"></i>
-        <input #gb type="text" pInputText size="50" style="float:left" placeholder="Global Filter">
+<div class="content-section implementation">
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Global Filter">
     </div>
     <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
         <header>List of Cars</header>
@@ -37,7 +37,7 @@
     </p-dataTable>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="datatablefilterdemo.ts">
 <pre>
@@ -85,11 +85,15 @@ export class DataTableFilterDemo implements OnInit &#123;
 
         <p-tabPanel header="datatablefilterdemo.html">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none"&gt;
+    &lt;i class="fa fa-search" style="margin:4px 4px 0 0"&gt;&lt;/i&gt;
+    &lt;input #gb type="text" pInputText size="50" placeholder="Global Filter"&gt;
+&lt;/div&gt;
 &lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt&gt;
     &lt;header&gt;List of Cars&lt;/header&gt;
     &lt;p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"&gt;&lt;/p-column&gt;
-    &lt;p-column field="year" header="Year (&#123;&#123;yearFilter||'No Filter'&#125;&#125;)" [filter]="true" filterMatchMode="equals"&gt;
+    &lt;p-column field="year" header="Year (&#123;&#123;yearFilter||'No Filter'&#125;&#125;" [filter]="true" filterMatchMode="equals"&gt;
         &lt;template pTemplate="filter" let-col&gt;
             &lt;i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"&gt;&lt;/i&gt;
             &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onSlideEnd)="dt.filter($event.value,col.field,col.filterMatchMode)"&gt;&lt;/p-slider&gt;

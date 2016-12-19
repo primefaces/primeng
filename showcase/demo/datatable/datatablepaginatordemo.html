@@ -1,14 +1,14 @@
 <datatable-demos></datatable-demos>
 
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">Paginator</span></span>
-        <span class="defaultText">Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
+        <span class="feature-title">DataTable - <span class="subitem">Paginator</span></span>
+        <span>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
             of page links to display.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
         <header>List of Cars</header>
         <p-column field="vin" header="Vin"></p-column>
@@ -18,7 +18,7 @@
     </p-dataTable>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="datatablepaginatordemo.ts">
 <pre>
