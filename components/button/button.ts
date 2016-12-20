@@ -14,13 +14,13 @@ import {CommonModule} from '@angular/common';
 })
 export class Button implements AfterViewInit, OnDestroy {
 
-    @Input() icon: string;
-
     @Input() iconPos: string = 'left';
     
     @Input() cornerStyleClass: string = 'ui-corner-all';
         
     public _label: string;
+    
+    public _info: string;
     
     public hover: boolean;
     
@@ -111,7 +111,20 @@ export class Button implements AfterViewInit, OnDestroy {
         this._label = val;
         
         if(this.initialized) {
-            this.domHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label;
+            this.domHandler.findSingle(this.el.nativeElement, '.ui-c').textContent = this._label;
+        }
+    }
+    
+    @Input() get icon(): string {
+        return this._icon;
+    }
+
+    set icon(val: string) {
+        this._icon = val;
+        
+        if(this.initialized) {
+            let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
+            this.domHandler.findSingle(this.el.nativeElement, '.fa').className = iconPosClass  + ' ui-c fa fa-fw ' + this.icon;
         }
     }
         
