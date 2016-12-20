@@ -37,7 +37,9 @@ body {
 }
 
 #layout-sidebar {
-    float: left;
+    position: absolute;
+    left: 0;
+    top: 0;
     background-color: #313b3f;
     border-right: solid 1px #151d21;
     overflow: hidden;
@@ -47,7 +49,7 @@ body {
 .layout-logo {
     height: 65px;
     display: block;
-    padding: 10px 0 15px 0;
+    padding: 15px 0 17px 0;
     z-index: 997;
     background-color: #313b3f;
     text-align: center;
