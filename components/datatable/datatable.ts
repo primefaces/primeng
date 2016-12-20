@@ -430,6 +430,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() sortFile: string; 
 
     @Input() rowHover: boolean;
+    
+    @Input() first: number = 0;
+    
+    @Input() public filters: {[s: string]: FilterMetadata;} = {};
         
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
@@ -446,12 +450,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @ContentChild(HeaderColumnGroup) headerColumnGroup: HeaderColumnGroup;
     
     @ContentChild(FooterColumnGroup) footerColumnGroup: FooterColumnGroup;
-    
-    @Input() public filters: {[s: string]: FilterMetadata;} = {};
-    
+        
     public dataToRender: any[];
-
-    public first: number = 0;
 
     public page: number = 0;
 
