@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,AfterViewChecked} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,OnInit,AfterViewChecked} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var jQuery: any;
@@ -7,7 +7,7 @@ declare var jQuery: any;
     selector: 'p-schedule',
     template: '<div [ngStyle]="style" [class]="styleClass"></div>'
 })
-export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
+export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     
     @Input() events: any[];
     
@@ -122,15 +122,8 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
         this.initialized = false;
     }
     
-    ngAfterViewChecked() {
-        if(!this.initialized && this.el.nativeElement.offsetParent) {
-            this.initialize();
-        }
-    }
-
-    initialize() {
-        this.schedule = jQuery(this.el.nativeElement.children[0]);
-        let options = {
+    ngOnInit() {
+        this.options = {
             theme: true,
             header: this.header,
             isRTL: this.rtl,
@@ -260,11 +253,20 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
         
         if(this.locale) {
             for(var prop in this.locale) {
-                options[prop] = this.locale[prop];
+                this.options[prop] = this.locale[prop];
             }
         }
-        
-        this.schedule.fullCalendar(options);
+    }
+    
+    ngAfterViewChecked() {
+        if(!this.initialized && this.el.nativeElement.offsetParent) {
+            this.initialize();
+        }
+    }
+
+    initialize() {
+        this.schedule = jQuery(this.el.nativeElement.children[0]);
+        this.schedule.fullCalendar(this.options);
         this.initialized = true;
     }
 
