@@ -25,6 +25,10 @@
     margin-right: 2em;
 }
 
+.ui-chips > .ui-state-disabled .ui-chips-token-label {
+    margin-right: 0;
+}
+
 .ui-chips-token .ui-chips-token-icon {
     margin-top: -.5em;
     position: absolute;
