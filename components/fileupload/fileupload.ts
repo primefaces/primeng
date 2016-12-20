@@ -77,6 +77,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() cancelLabel: string = 'Cancel';
         
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
+	
+	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
         
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
@@ -205,6 +207,11 @@ export class FileUpload implements OnInit,AfterContentInit {
         };
         
         xhr.open('POST', this.url, true);
+		
+		this.onBeforeSend.emit({
+			'xhr': xhr,
+            'formData': formData 
+		});
         
         xhr.send(formData);
     }
