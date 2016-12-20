@@ -81,6 +81,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
         
+    @Output() blur: EventEmitter<any> = new EventEmitter();
+        
     value: any;
     
     onModelChange: Function = () => {};
@@ -342,6 +344,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.checkVal();
         this.updateModel(e);
         this.updateFilledState();
+        this.blur.emit(e);
 
         if (this.input.value != this.focusText) {
             let event = document.createEvent('HTMLEvents');
