@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,AfterViewInit,ViewChild,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -15,7 +15,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                 'ui-state-active': checked,'ui-state-focus': focus, 'ui-state-hover': hover&&!disabled, 'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass" 
                 (click)="toggle($event)" (mouseenter)="hover=true" (mouseleave)="hover=false">
             <div class="ui-helper-hidden-accessible">
-                <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
+                <input #checkbox type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
             </div>
             <span *ngIf="onIcon||offIcon" [class]="getIconClass()"></span>
             <span class="ui-button-text ui-unselectable-text">{{checked ? onLabel : offLabel}}</span>
@@ -23,7 +23,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR]
 })
-export class ToggleButton implements ControlValueAccessor {
+export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 
     @Input() onLabel: string = 'Yes';
 
@@ -41,6 +41,10 @@ export class ToggleButton implements ControlValueAccessor {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
+    @ViewChild('checkbox') checkboxViewChild: ElementRef;
+    
+    checkbox: HTMLInputElement;
+    
     checked: boolean = false;
 
     focus: boolean = false;
@@ -50,6 +54,10 @@ export class ToggleButton implements ControlValueAccessor {
     onModelTouched: Function = () => {};
     
     public hover: boolean;
+    
+    ngAfterViewInit() {
+        this.checkbox = <HTMLInputElement> this.checkboxViewChild.nativeElement;
+    }
 
     getIconClass() {
         let baseClass = 'ui-button-icon-left fa fa-fw';
@@ -64,7 +72,8 @@ export class ToggleButton implements ControlValueAccessor {
             this.onChange.emit({
                 originalEvent: event,
                 checked: this.checked
-            })
+            });
+            this.checkbox.focus();
         }
     }
 

@@ -1174,6 +1174,9 @@ body .ui-datatable thead th.ui-state-active {
     border-color: #0267bf;
     color: #ffffff;
 }
+body .ui-datatable thead th.ui-state-active .ui-dropdown-item {
+    color: #373a3c;
+}
 body .ui-datatable thead th:focus {
     outline: 0 none;
     background-color: #f0f3f5;
