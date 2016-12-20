@@ -1132,7 +1132,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     get allSelected() {
         let val = true;
-        if(this.dataToRender && this.selection && (this.dataToRender.length == this.selection.length)) {
+        if(this.dataToRender && this.selection && (this.dataToRender.length <= this.selection.length)) {
             for(let data of this.dataToRender) {
                 if(!this.isSelected(data)) {
                     val = false;
