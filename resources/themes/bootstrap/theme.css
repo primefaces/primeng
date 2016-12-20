@@ -1,24 +1,5 @@
 @charset "UTF-8";
-/* Common */
-/******************************/
-/*           THEME            */
-/******************************/
-/* Headers */
-/* Contents */
-/* Forms */
-/* Buttons */
-/* List Items */
-/* Messages */
-/* Data */
-/* Menu */
-/* Panels */
-/* Predefined Colors */
 
-body {
-    font-size: 1em;
-    color: #373a3c;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
 body .ui-widget,
 body .ui-widget .ui-widget {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
