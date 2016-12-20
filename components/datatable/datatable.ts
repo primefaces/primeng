@@ -536,7 +536,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     ngOnInit() {
         if(this.lazy) {
-            this.onLazyLoad..emit(this.createLazyLoadMetadata());
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
     }
     
