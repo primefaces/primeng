@@ -447,6 +447,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @ContentChild(FooterColumnGroup) footerColumnGroup: FooterColumnGroup;
     
+    @Input() public filters: {[s: string]: FilterMetadata;} = {};
+    
     public dataToRender: any[];
 
     public first: number = 0;
@@ -454,8 +456,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public page: number = 0;
 
     public filterTimeout: any;
-
-    public filters: {[s: string]: FilterMetadata;} = {};
 
     public filteredValue: any[];
 
@@ -536,14 +536,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     ngOnInit() {
         if(this.lazy) {
-            this.onLazyLoad.emit({
-                first: this.first,
-                rows: this.rows,
-                sortField: this.sortField,
-                sortOrder: this.sortOrder,
-                filters: null,
-                multiSortMeta: this.multiSortMeta
-            });
+            this.onLazyLoad..emit(this.createLazyLoadMetadata());
         }
     }
     
