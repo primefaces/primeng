@@ -116,6 +116,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     differ: any;
     
     schedule: any;
+    
+    options: any;
 
     constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);

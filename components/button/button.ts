@@ -20,7 +20,7 @@ export class Button implements AfterViewInit, OnDestroy {
         
     public _label: string;
     
-    public _info: string;
+    public _icon: string;
     
     public hover: boolean;
     
