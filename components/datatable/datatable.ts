@@ -1255,7 +1255,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
 
-        return !empty;
+        return !empty || (this.globalFilter && this.globalFilter.value!=='');
     }
 
     onFilterInputClick(event) {
