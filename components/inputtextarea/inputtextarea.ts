@@ -13,7 +13,8 @@ import {CommonModule} from '@angular/common';
         '[class.ui-state-disabled]': 'disabled',
         '[class.ui-state-filled]': 'filled',
         '[attr.rows]': 'rows',
-        '[attr.cols]': 'cols'
+        '[attr.cols]': 'cols',
+        '[attr.placeholder]': 'placeholder'
     }
 })
 export class InputTextarea implements OnInit {
@@ -23,6 +24,8 @@ export class InputTextarea implements OnInit {
     @Input() rows: number;
     
     @Input() cols: number;
+
+    @Input() placeholder: string;
 
     hover: boolean;
     
