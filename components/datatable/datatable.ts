@@ -391,7 +391,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Input() paginatorPosition: string = 'bottom';
         
-    @Input() rowTrackBy: Function;
+    @Input() rowTrackBy: Function = () => {};
     
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
