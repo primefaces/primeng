@@ -707,6 +707,13 @@ button.ui-button.ui-state-active, .ui-button.ui-state-active {
     border-top: 0 none;
 }
 
+.ui-datepicker-sunday .ui-state-default {
+    color: #c92c2c;
+}
+.ui-datepicker-saturday .ui-state-default {
+    color: #1990b8;
+}
+
 /* Steps */
 .ui-steps .ui-steps-item.ui-state-highlight .ui-menuitem-link {
     color: #ffffff;
@@ -741,3 +748,4 @@ p-selectbutton.ng-dirty.ng-invalid .ui-button,
 p-togglebutton.ng-dirty.ng-invalid .ui-button {
     border-bottom-color: #f44336;
 }
+

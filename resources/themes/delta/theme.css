@@ -452,6 +452,13 @@
 	border: 1px solid #14A4FF !important;
 }
 
+.ui-datepicker-sunday .ui-state-default {
+    color: #c92c2c!important;
+}
+.ui-datepicker-saturday .ui-state-default {
+    color: #1990b8!important;
+}
+
 .ui-datepicker td a.ui-state-default.ui-state-hover {
 	background: #eeeeee;
 }

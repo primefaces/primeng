@@ -1186,6 +1186,13 @@ a {
     -moz-box-shadow: none;
 }
 
+.ui-datepicker-sunday .ui-state-default {
+    color: #c92c2c!important;
+}
+.ui-datepicker-saturday .ui-state-default {
+    color: #0000cd!important;
+}
+
 .ui-progressbar {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;

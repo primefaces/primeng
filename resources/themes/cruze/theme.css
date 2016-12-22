@@ -284,3 +284,11 @@ p-selectbutton.ng-dirty.ng-invalid .ui-button,
 p-togglebutton.ng-dirty.ng-invalid .ui-button {
     border-bottom-color: #ffb73d;
 }
+
+/* Datepicker */
+.ui-datepicker-sunday .ui-state-default {
+    color: #c92c2c;
+}
+.ui-datepicker-saturday .ui-state-default {
+    color: #1990b8;
+}

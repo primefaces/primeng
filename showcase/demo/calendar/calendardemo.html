@@ -42,9 +42,16 @@
             <p-calendar [(ngModel)]="date7" [timeOnly]="true"></p-calendar>
         </div>
     </div>
-    
-    <h3>Inline {{date8|date}}</h3>
-    <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar> 
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+            <h3>Inline {{date8|date}}</h3>
+            <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar> 
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <h3>Markup weekend {{date9|date}}</h3>
+            <p-calendar [(ngModel)]="date8" [inline]="true" [markupWeekend]="true"></p-calendar>
+        </div> 
+    </div>
 </div>
 
 <div class="content-section source">
@@ -337,6 +344,12 @@ export class MyModel &#123;
                             <td>Type of the value to write back to ngModel, default is date and alternative is string.</td>
                         </tr>
                         <tr>
+                            <td>markupWeekend</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Change color Sunday and Saturday.</td>
+                        </tr>
+                        <tr>
                             <td>required</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -445,9 +458,16 @@ export class MyModel &#123;
         &lt;p-calendar [(ngModel)]="date7" [timeOnly]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;h3&gt;Inline &#123;&#123;date8|date&#125;&#125;&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date8" [inline]="true"&gt;&lt;/p-calendar&gt; 
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Inline &#123;&#123;date8|date&#125;&#125;&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date8" [inline]="true"&gt;&lt;/p-calendar&gt; 
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Markup weekend &#123;&#123;date9|date&#125;&#125;&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date9" [inline]="true" [markupWeekend]="true"&gt;&lt;/p-calendar&gt; 
+    &lt;/div&gt;
+&lt;/div&gt;
 </code>
 </pre>
 
@@ -470,6 +490,8 @@ export class CalendarDemo &#123;
     date7: Date;
     
     date8: Date;
+    
+    date9: Date;
     
     minDate: Date;
     
