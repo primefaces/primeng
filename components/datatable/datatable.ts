@@ -178,7 +178,7 @@ export class RowExpansionLoader {
                                 </td>
                             </tr>
                             <tr #rowElement *ngIf="!expandableRowGroups||isRowGroupExpanded(rowData)" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                    (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
+                                    (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (tap)="handleRowTap($event, rowData)"
                                     [ngClass]="{'ui-datatable-even':even&&rowGroupMode!='rowspan','ui-datatable-odd':odd&&rowGroupMode!='rowspan','ui-state-hover': ((rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
                                     <td *ngIf="!rowGroupMode || (rowGroupMode == 'subheader') ||
