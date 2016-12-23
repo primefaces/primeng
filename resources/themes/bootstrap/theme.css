@@ -692,6 +692,12 @@ body .ui-datepicker table td a.ui-state-active {
     color: #ffffff;
     background-color: #0275d8;
 }
+body .ui-datepicker-sunday .ui-state-default {
+    color: #c92c2c;
+}
+body .ui-datepicker-saturday .ui-state-default {
+    color: #1990b8;
+}
 body .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
     -moz-border-radius-topleft: 0;
     -webkit-border-top-left-radius: 0;
