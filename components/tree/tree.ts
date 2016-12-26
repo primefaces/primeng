@@ -29,7 +29,8 @@ export class TreeNodeTemplateLoader implements OnInit {
         <template [ngIf]="node">
             <li class="ui-treenode" *ngIf="!tree.horizontal">
                 <div class="ui-treenode-content"
-                    (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
+                    (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
+                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode}">
                     <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}" *ngIf="!isLeaf()"
                             (click)="toggle($event)"></span
                     ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
