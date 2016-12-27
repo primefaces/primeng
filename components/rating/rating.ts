@@ -12,8 +12,7 @@ export const RATING_VALUE_ACCESSOR: any = {
     selector: 'p-rating',
     template: `
         <div class="ui-rating" [ngClass]="{'ui-state-disabled': disabled}">
-            <div class="ui-rating-cancel" *ngIf="cancel" (click)="clear($event)" [ngClass]="{'ui-rating-cancel-hover':hoverCancel}"
-             (mouseenter)="hoverCancel=true" (mouseleave)="hoverCancel=false"><a></a></div>
+            <div class="ui-rating-cancel" *ngIf="cancel" (click)="clear($event)"><a></a></div>
             <div class="ui-rating-star" *ngFor="let star of starsArray;let i=index" (click)="rate($event,i)"
              [ngClass]="{'ui-rating-star-on':(i < value)}"><a></a></div>
         </div>
@@ -42,8 +41,6 @@ export class Rating implements ControlValueAccessor {
     
     public starsArray: number[];
     
-    public hoverCancel: boolean;
-
     ngOnInit() {
         this.starsArray = [];
         for(let i = 0; i < this.stars; i++) {

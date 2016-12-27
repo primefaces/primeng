@@ -8,9 +8,8 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: '[pTreeRow]',
     template: `
-        <div class="ui-treetable-row" [ngClass]="{'ui-state-hover':hover&&treeTable.selectionMode,'ui-state-highlight':isSelected()}">
-            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass"
-                (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onRowClick($event)">
+        <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode}">
+            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)">
                 <span *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"></span>
@@ -32,9 +31,7 @@ export class UITreeRow {
     @Input() node: TreeNode;
     
     @Input() level: number = 0;
-            
-    public hover: boolean;
-    
+                
     constructor(@Inject(forwardRef(() => TreeTable)) public treeTable:TreeTable) {}
     
     toggle(event: Event) {

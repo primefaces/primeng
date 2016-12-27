@@ -6,8 +6,7 @@ import {BlockableUI} from '../common/api';
     selector: 'p-fieldset',
     template: `
         <fieldset [ngClass]="{'ui-fieldset ui-widget ui-widget-content ui-corner-all': true, 'ui-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
-            <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text" 
-                (mouseenter)="onLegendMouseenter($event)" (mouseleave)="onLegendMouseleave($event)" (click)="toggle($event)" [ngClass]="{'ui-state-hover':hover}">
+            <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text" (click)="toggle($event)">
                 <span *ngIf="toggleable" class="ui-fieldset-toggler fa fa-w" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
                 {{legend}}
             </legend>
@@ -48,24 +47,10 @@ export class Fieldset implements BlockableUI {
         
     @Input() styleClass: string
     
-    public hover: boolean;
-    
     public animating: boolean;
     
     constructor(private el: ElementRef) {}
-    
-    onLegendMouseenter(event) {
-        if(this.toggleable) {
-            this.hover = true;
-        }
-    } 
-    
-    onLegendMouseleave(event) {
-        if(this.toggleable) {
-            this.hover = false;
-        }
-    }
-    
+        
     toggle(event) {
         if(this.toggleable) {
             this.animating = true;

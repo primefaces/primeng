@@ -28,9 +28,7 @@ export class TabPanel {
     @Input() leftIcon: string;
     
     @Input() rightIcon: string;
-    
-    public hoverHeader: boolean;
-    
+        
     public closed: boolean;
 }
 
@@ -41,8 +39,8 @@ export class TabPanel {
             <ul *ngIf="orientation!='bottom'" class="ui-tabview-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
                 <template ngFor let-tab [ngForOf]="tabs">
                     <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="tab"
-                        [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-hover': tab.hoverHeader&&!tab.disabled, 'ui-state-disabled': tab.disabled}"
-                        (mouseenter)="tab.hoverHeader=true" (mouseleave)="tab.hoverHeader=false" (click)="open($event,tab)" *ngIf="!tab.closed"
+                        [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
+                        (click)="open($event,tab)" *ngIf="!tab.closed"
                         [attr.aria-expanded]="tab.selected" [attr.aria-selected]="tab.selected">
                         <a href="#">
                             <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
@@ -59,8 +57,8 @@ export class TabPanel {
             <ul *ngIf="orientation=='bottom'" class="ui-tabview-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
                 <template ngFor let-tab [ngForOf]="tabs">
                     <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="tab"
-                        [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-hover': tab.hoverHeader&&!tab.disabled, 'ui-state-disabled': tab.disabled}"
-                        (mouseenter)="tab.hoverHeader=true" (mouseleave)="tab.hoverHeader=false" (click)="open($event,tab)" *ngIf="!tab.closed"
+                        [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
+                        (click)="open($event,tab)" *ngIf="!tab.closed"
                         [attr.aria-expanded]="tab.selected" [attr.aria-selected]="tab.selected">
                         <a href="#">
                             <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>

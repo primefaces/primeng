@@ -4,12 +4,6 @@ import {CommonModule} from '@angular/common';
 
 @Directive({
     selector: '[pButton]',
-    host: {
-        '[class.ui-state-hover]': 'hover&&!isDisabled()',
-        '[class.ui-state-focus]': 'focus',
-        '[class.ui-state-active]': 'active',
-        '[class.ui-state-disabled]': 'isDisabled()'
-    },
     providers: [DomHandler]
 })
 export class Button implements AfterViewInit, OnDestroy {
@@ -21,13 +15,7 @@ export class Button implements AfterViewInit, OnDestroy {
     public _label: string;
     
     public _icon: string;
-    
-    public hover: boolean;
-    
-    public focus: boolean;
-    
-    public active: boolean;
-    
+            
     public initialized: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
@@ -48,41 +36,6 @@ export class Button implements AfterViewInit, OnDestroy {
         this.initialized = true;
     }
         
-    @HostListener('mouseenter', ['$event']) 
-    onMouseenter(e: Event) {
-        this.hover = true;
-    }
-    
-    @HostListener('mouseleave', ['$event']) 
-    onMouseleave(e: Event) {
-        this.hover = false;
-        this.active = false;
-    }
-    
-    @HostListener('mousedown', ['$event']) 
-    onMouseDown(e: Event) {
-        this.active = true;
-    }
-    
-    @HostListener('mouseup', ['$event']) 
-    onMouseUp(e: Event) {
-        this.active = false;
-    }
-    
-    @HostListener('focus', ['$event']) 
-    onFocus(e: Event) {
-        this.focus = true;
-    }
-    
-    @HostListener('blur', ['$event']) 
-    onBlur(e: Event) {
-        this.focus = false;
-    }
-    
-    isDisabled() {
-        return this.el.nativeElement.disabled;
-    }
-    
     getStyleClass(): string {
         let styleClass = 'ui-button ui-widget ui-state-default ' + this.cornerStyleClass;
         if(this.icon) {
