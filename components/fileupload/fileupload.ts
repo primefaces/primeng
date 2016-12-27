@@ -1,11 +1,22 @@
-import {NgModule,Component,OnInit,Input,Output,EventEmitter,TemplateRef,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ButtonModule} from '../button/button';
-import {MessagesModule} from '../messages/messages';
-import {ProgressBarModule} from '../progressbar/progressbar';
-import {Message} from '../common/api';
-import {PrimeTemplate,SharedModule} from '../common/shared';
+import {
+    NgModule,
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    TemplateRef,
+    AfterContentInit,
+    ContentChildren,
+    QueryList
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ButtonModule } from '../button/button';
+import { MessagesModule } from '../messages/messages';
+import { ProgressBarModule } from '../progressbar/progressbar';
+import { Message } from '../common/api';
+import { PrimeTemplate, SharedModule } from '../common/shared';
 
 @Component({
     selector: 'p-fileUpload',
@@ -166,7 +177,7 @@ export class FileUpload implements OnInit,AfterContentInit {
             return false;
         }
         
-        if(this.accept && this.getAcceptedTypes().indexOf(file.type) === -1) {
+        if(this.accept && !this.isFileTypeAcceptable(file.type)) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
@@ -178,7 +189,29 @@ export class FileUpload implements OnInit,AfterContentInit {
         return true;
     }
 
-    private getAcceptedTypes(): string[] {
+    private isFileTypeAcceptable(fileType: string): boolean {
+        for (let type of this.getAcceptableTypes()) {
+            let isAcceptable = this.isWildcard(type)
+              ? this.getTypeClass(fileType) === this.getTypeClass(type)
+              : fileType === type;
+
+            if (isAcceptable) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private getTypeClass(fileType: string): string {
+        return fileType.substring(0, fileType.indexOf('/'))
+    }
+
+    private isWildcard(fileType: string): boolean {
+        return fileType.indexOf('*') !== -1;
+    }
+
+    private getAcceptableTypes(): string[] {
         return this.accept.split(',');
     }
     
