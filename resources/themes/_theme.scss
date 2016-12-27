@@ -363,6 +363,16 @@
     }
 }
 
+.ui-rating {
+    a {
+        color: $inputTextColor;
+        
+        &:hover {
+            color: $stateHoverTextColor;
+        }
+    }
+}
+
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,

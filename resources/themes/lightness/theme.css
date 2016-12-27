@@ -283,6 +283,11 @@
   .fc .fc-toolbar .fc-next-button .ui-icon-circle-triangle-e:before {
     content: ""; }
 
+.ui-rating a {
+  color: #333333; }
+  .ui-rating a:hover {
+    color: #c77405; }
+
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
