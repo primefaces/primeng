@@ -159,8 +159,7 @@
     @include hover-element();
 }
 
-.ui-dropdown:not(.ui-state-disabled):hover,
-.ui-dropdown:not(.ui-state-disabled):hover .ui-dropdown-trigger {
+.ui-dropdown:not(.ui-state-disabled):hover {
     @include hover-element();
 }
 
@@ -172,8 +171,7 @@
     @include hover-element();
 }
 
-.ui-multiselect:not(.ui-state-disabled):hover,
-.ui-multiselect:not(.ui-state-disabled):hover .ui-multiselect-trigger {
+.ui-multiselect:not(.ui-state-disabled):hover {
     @include hover-element();
 }
 

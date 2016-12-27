@@ -9,7 +9,7 @@ $headerBorderColor: #d9d9d9;
 $headerBgColor: #f6f7f9;
 $headerTextColor: #1b1d1f;
 $headerFontWeight: normal;
-$headerIconTextColor: #ffffff;
+$headerIconTextColor: #1b1d1f;
 
 //Content
 $contentBorderWidth: 1px;
@@ -335,14 +335,10 @@ $invalidInputBorderColor: #f44336;
    color: #FFFFFF;
 }
 
-/* SelectOneMenu */
-.ui-dropdown .ui-dropdown-trigger,
-.ui-multiselect .ui-multiselect-trigger {
-    border-color: #ffffff;
-}
-
-.ui-multiselect:not(.ui-state-disabled):hover {
-    background-color: #ffffff;
+.ui-multiselect {
+    .ui-multiselect-label {
+        background-color: #ffffff;
+    }
 }
 
 .ui-dropdown.ui-state-focus, .ui-multiselect.ui-state-focus {
