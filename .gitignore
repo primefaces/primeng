@@ -29,3 +29,4 @@ components/**/*.metadata.json
 .DS_STORE
 .idea
 .vscode
+.sass-cache

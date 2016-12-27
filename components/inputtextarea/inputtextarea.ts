@@ -8,9 +8,6 @@ import {CommonModule} from '@angular/common';
         '[class.ui-corner-all]': 'true',
         '[class.ui-state-default]': 'true',
         '[class.ui-widget]': 'true',
-        '[class.ui-state-hover]': 'hover',
-        '[class.ui-state-focus]': 'focus',
-        '[class.ui-state-disabled]': 'disabled',
         '[class.ui-state-filled]': 'filled',
         '[attr.rows]': 'rows',
         '[attr.cols]': 'cols'
@@ -23,10 +20,6 @@ export class InputTextarea implements OnInit {
     @Input() rows: number;
     
     @Input() cols: number;
-
-    hover: boolean;
-    
-    focus: boolean;
     
     rowsDefault: number;
     
@@ -39,29 +32,15 @@ export class InputTextarea implements OnInit {
         this.colsDefault = this.cols;
     }
     
-    @HostListener('mouseover', ['$event']) 
-    onMouseover(e) {
-        this.hover = true;
-    }
-    
-    @HostListener('mouseout', ['$event']) 
-    onMouseout(e) {
-        this.hover = false;
-    }
-    
     @HostListener('focus', ['$event']) 
-    onFocus(e) {
-        this.focus = true;
-        
+    onFocus(e) {        
         if(this.autoResize) {
             this.resize();
         }
     }
     
     @HostListener('blur', ['$event']) 
-    onBlur(e) {
-        this.focus = false;
-        
+    onBlur(e) {        
         if(this.autoResize) {
             this.resize();
         }
@@ -84,11 +63,7 @@ export class InputTextarea implements OnInit {
 
         this.rows = (linesCount >= this.rowsDefault) ? (linesCount + 1) : this.rowsDefault;
     }
-    
-    get disabled(): boolean {
-        return this.el.nativeElement.disabled;
-    }
-    
+        
     get filled(): boolean {
         return this.el.nativeElement.value != '';
     }

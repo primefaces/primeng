@@ -17,6 +17,10 @@
     width: 100%;
 }
 
+.ui-fluid .ui-calendar button {
+    width: 2em;
+}
+
 /* Datepicker */
 .ui-datepicker {
 	width: 17em;

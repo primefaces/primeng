@@ -179,7 +179,7 @@ export class RowExpansionLoader {
                             </tr>
                             <tr #rowElement *ngIf="!expandableRowGroups||isRowGroupExpanded(rowData)" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
-                                    [ngClass]="{'ui-datatable-even':even&&rowGroupMode!='rowspan','ui-datatable-odd':odd&&rowGroupMode!='rowspan','ui-state-hover': ((rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
+                                    [ngClass]="{'ui-datatable-even':even&&rowGroupMode!='rowspan','ui-datatable-odd':odd&&rowGroupMode!='rowspan','ui-state-hover': ((rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData), 'ui-row-selectable': selectionMode}">
                                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
                                     <td *ngIf="!rowGroupMode || (rowGroupMode == 'subheader') ||
                                         (rowGroupMode=='rowspan' && ((sortField==col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) || (sortField!=col.field)))"
@@ -193,8 +193,9 @@ export class RowExpansionLoader {
                                         </span>
                                         <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
                                                 (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
-                                        <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
-                                            *ngIf="col.expander" (click)="toggleRow($event,rowData)"></div>
+                                        <a href="#" *ngIf="col.expander" (click)="toggleRow(rowData,$event)">
+                                            <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"></span>
+                                        </a>
                                         <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                         <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                     </td>
@@ -237,7 +238,7 @@ export class RowExpansionLoader {
                                         </span>
                                         <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                                              [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
-                                        <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                                        <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                                         <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
                                     </th>
                                 </template>
@@ -254,7 +255,7 @@ export class RowExpansionLoader {
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
                                 <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader></td>
                             </tr>
-                            <tr #rowElement class="ui-widget-content" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
+                            <tr #rowElement class="ui-widget-content" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
                                     [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': ((rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
@@ -270,8 +271,9 @@ export class RowExpansionLoader {
                                     </span>
                                     <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
                                             (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
-                                    <div class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"
-                                        *ngIf="col.expander" (click)="toggleRow(rowData)"></div>
+                                    <a href="#" *ngIf="col.expander" (click)="toggleRow(rowData,$event)">
+                                        <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"></span>
+                                    </a>
                                     <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
                                     <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
                                 </td>
@@ -389,7 +391,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Input() paginatorPosition: string = 'bottom';
         
-    @Input() rowTrackBy: Function;
+    @Input() rowTrackBy: Function = () => {};
     
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
@@ -428,6 +430,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() sortFile: string; 
 
     @Input() rowHover: boolean;
+    
+    @Input() first: number = 0;
+    
+    @Input() public filters: {[s: string]: FilterMetadata;} = {};
         
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
@@ -444,16 +450,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @ContentChild(HeaderColumnGroup) headerColumnGroup: HeaderColumnGroup;
     
     @ContentChild(FooterColumnGroup) footerColumnGroup: FooterColumnGroup;
-    
+        
     public dataToRender: any[];
-
-    public first: number = 0;
 
     public page: number = 0;
 
     public filterTimeout: any;
-
-    public filters: {[s: string]: FilterMetadata;} = {};
 
     public filteredValue: any[];
 
@@ -534,14 +536,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     ngOnInit() {
         if(this.lazy) {
-            this.onLazyLoad.emit({
-                first: this.first,
-                rows: this.rows,
-                sortField: this.sortField,
-                sortOrder: this.sortOrder,
-                filters: null,
-                multiSortMeta: this.multiSortMeta
-            });
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
     }
     
@@ -635,7 +630,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(this.stopSortPropagation) {
                 this.stopSortPropagation = false;
             }
-            else if(!this.lazy && (this.sortField||this.multiSortMeta)) {                    
+            else if(!this.lazy && (this.sortField||this.multiSortMeta)) {     
+                if(!this.sortColumn) {
+                    this.sortColumn = this.columns.find(col => col.field === this.sortField && col.sortable === 'custom');
+                }              
+                
                 if(this.sortMode == 'single')
                     this.sortSingle();
                 else if(this.sortMode == 'multiple')
@@ -1133,7 +1132,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     get allSelected() {
         let val = true;
-        if(this.dataToRender && this.selection && (this.dataToRender.length == this.selection.length)) {
+        if(this.dataToRender && this.selection && (this.dataToRender.length <= this.selection.length)) {
             for(let data of this.dataToRender) {
                 if(!this.isSelected(data)) {
                     val = false;
@@ -1256,7 +1255,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
 
-        return !empty;
+        return !empty || (this.globalFilter && this.globalFilter.value && this.globalFilter.value.trim().length);
     }
 
     onFilterInputClick(event) {
@@ -1707,7 +1706,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         };
     }
     
-    toggleRow(event: Event, row: any) {
+    toggleRow(row: any, event?: Event) {
         if(!this.expandedRows) {
             this.expandedRows = [];
         }
@@ -1727,6 +1726,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 originalEvent: event, 
                 data: row
             });
+        }
+        
+        if(event) {
+            event.preventDefault();
         }
     }
     

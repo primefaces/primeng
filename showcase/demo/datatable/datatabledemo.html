@@ -1090,6 +1090,12 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>false</td>
                             <td>Adds hover effect to rows without the need for selectionMode.</td>
                         </tr>
+                        <tr>
+                            <td>filters</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of FilterMetadata objects to provide external filters.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1276,6 +1282,11 @@ handleRowSelect(event) &#123;
                             <td>exportCSV</td>
                             <td>-</td>
                             <td>Exports the data in csv format.</td>
+                        </tr>
+                        <tr>
+                            <td>toggleRow</td>
+                            <td>data</td>
+                            <td>Toggles row expansion for given row data.</td>
                         </tr>
                     </tbody>
                 </table>

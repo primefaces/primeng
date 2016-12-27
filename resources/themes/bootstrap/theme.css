@@ -1,24 +1,5 @@
 @charset "UTF-8";
-/* Common */
-/******************************/
-/*           THEME            */
-/******************************/
-/* Headers */
-/* Contents */
-/* Forms */
-/* Buttons */
-/* List Items */
-/* Messages */
-/* Data */
-/* Menu */
-/* Panels */
-/* Predefined Colors */
 
-body {
-    font-size: 1em;
-    color: #373a3c;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
 body .ui-widget,
 body .ui-widget .ui-widget {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -747,7 +728,7 @@ body .ui-panel .ui-panel-titlebar {
     background-color: #f5f5f5;
     -moz-border-radius-topleft: 0.25em;
     -webkit-border-top-left-radius: 0.25em;
-    border-top-left-radius: 0.25em;acc
+    border-top-left-radius: 0.25em;
     -moz-border-radius-topright: 0.25em;
     -webkit-border-top-right-radius: 0.25em;
     border-top-right-radius: 0.25em;
