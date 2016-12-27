@@ -167,8 +167,18 @@
     @include hover-element();
 }
 
-.ui-listbox .ui-listbox-item:not(.ui-state-highlight):hover {
-    @include hover-element();
+.ui-listbox {
+    .ui-listbox-header {
+        .ui-listbox-filter-container {
+            .fa {
+                color: $inputTextColor;
+            }
+        }
+    }
+    
+    .ui-listbox-item:not(.ui-state-highlight):hover {
+        @include hover-element();
+    }
 }
 
 .ui-multiselect:not(.ui-state-disabled):hover {
