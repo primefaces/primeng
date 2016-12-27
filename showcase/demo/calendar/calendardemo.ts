@@ -20,10 +20,14 @@ export class CalendarDemo {
     date7: Date;
     
     date8: Date;
+
+    date9: Date;
     
     minDate: Date;
     
     maxDate: Date;
+        
+    invalidDates: Array<Date>;
     
     es: any;
 
@@ -41,6 +45,9 @@ export class CalendarDemo {
         let month = today.getMonth();
         let prevMonth = (month === 0) ? 11 : month -1;
         let nextMonth = (month === 11) ? 0 : month + 1;
+        let invalidDate = new Date();
+        invalidDate.setDate(today.getDate() - 1);
+        this.invalidDates = [today,invalidDate];
         this.minDate = new Date();
         this.minDate.setMonth(prevMonth);
         this.maxDate = new Date();

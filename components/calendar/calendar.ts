@@ -62,8 +62,8 @@ export interface LocaleSettings {
                     </thead>
                     <tbody>
                         <tr *ngFor="let week of dates">
-                            <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
-                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date)}">
+                            <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month':date.otherMonth,
+                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date), 'ui-datepicker-disabled-date':date.disabledDate, 'ui-datepicker-disabled-day':date.disabledDay,'ui-state-disabled':!date.selectable}">
                                 <a #cell class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
                                         [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell && !disabled && date.selectable),
                                             'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
@@ -148,6 +148,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() disabled: any;
     
     @Input() dateFormat: string = 'mm/dd/yy';
+    
+    @Input() disabledDates: Array<Date>;
+
+    @Input() disabledDays: Array<number>;
         
     @Input() inline: boolean = false;
     
@@ -345,12 +349,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             if(i == 0) {
                 for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
-                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, selectable: this.isSelectable(j, prev.month, prev.year)});
+                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, selectable:this.selectOtherMonths && this.isSelectable(j, prev.month, prev.year), disabledDate: this.isDateDisabled(j,prev.month,prev.year), disabledDay: this.isDayDisabled(j,prev.month,prev.year)});
                 }
                 
                 let remainingDaysLength = 7 - week.length;
                 for(let j = 0; j < remainingDaysLength; j++) {
-                    week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                    week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year), disabledDate: this.isDateDisabled(dayNo,month,year), disabledDay: this.isDayDisabled(dayNo,month,year)});
                     dayNo++;
                 }
             }
@@ -359,10 +363,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                     if(dayNo > daysLength) {
                         let next = this.getNextMonthAndYear(month, year);
                         week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true, 
-                                    selectable: this.isSelectable((dayNo - daysLength), next.month, next.year)});
+                                    selectable: this.selectOtherMonths && this.isSelectable((dayNo - daysLength), next.month, next.year), disabledDate: this.isDateDisabled(dayNo - daysLength,next.month,next.year), disabledDay: this.isDayDisabled(dayNo - daysLength,next.month,next.year)});
                     }
                     else {
-                        week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                        week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year), disabledDate: this.isDateDisabled(dayNo,month,year), disabledDay: this.isDayDisabled(dayNo,month,year)});
                     }
                     
                     dayNo++;
@@ -416,8 +420,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         if(dateMeta.otherMonth) {
-            if(this.selectOtherMonths)
+            if(this.selectOtherMonths) {
                 this.selectDate(dateMeta);
+            } else {
+                event.preventDefault();
+                return;
+            }
         }
         else {
              this.selectDate(dateMeta);
@@ -540,6 +548,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     isSelectable(day, month, year): boolean {
         let validMin = true;
         let validMax = true;
+        let validDate = true;
+        let validDay = true;
         
         if(this.minDate) {
              if(this.minDate.getFullYear() > year) {
@@ -573,7 +583,35 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
              }  
         }
         
-        return validMin && validMax;
+        if(this.disabledDates){
+            validDate = !this.isDateDisabled(day,month,year);
+        }
+        if (this.disabledDays){
+            validDay = !this.isDayDisabled(day,month,year)
+        }
+                
+        return validMin && validMax && validDate && validDay;
+    }
+    
+    isDateDisabled(day:number,month:number,year:number):boolean {
+        if(this.disabledDates){
+            for (let i = 0;i < this.disabledDates.length;i++){
+                if( this.disabledDates[i].getFullYear() === year &&
+                    this.disabledDates[i].getMonth() === month &&
+                    this.disabledDates[i].getDate() === day) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    
+    isDayDisabled(day:number,month:number,year:number):boolean {
+        if (this.disabledDays){
+            let weekday = new Date(year,month,day);
+            let weekdayNumber = weekday.getDay();
+            return this.disabledDays.indexOf(weekdayNumber) !== -1;
+        }
     }
     
     onInputFocus(event) {
@@ -784,7 +822,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     writeValue(value: any) : void {
         this.value = value;
         if(this.value && typeof this.value === 'string') {
-            this.value = this.parseValueFromString(this.value);
+            this.value = this.parseValueFromString(<string>this.value);
         }
         
         this.updateInputfield();
