@@ -1,22 +1,11 @@
-import {
-    NgModule,
-    Component,
-    OnInit,
-    Input,
-    Output,
-    EventEmitter,
-    TemplateRef,
-    AfterContentInit,
-    ContentChildren,
-    QueryList
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ButtonModule } from '../button/button';
-import { MessagesModule } from '../messages/messages';
-import { ProgressBarModule } from '../progressbar/progressbar';
-import { Message } from '../common/api';
-import { PrimeTemplate, SharedModule } from '../common/shared';
+import {NgModule,Component,OnInit,Input,Output,EventEmitter,TemplateRef,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {DomSanitizer} from '@angular/platform-browser';
+import {ButtonModule} from '../button/button';
+import {MessagesModule} from '../messages/messages';
+import {ProgressBarModule} from '../progressbar/progressbar';
+import {Message} from '../common/api';
+import {PrimeTemplate,SharedModule} from '../common/shared';
 
 @Component({
     selector: 'p-fileUpload',
