@@ -2,6 +2,10 @@
     border-color: $stateHoverBorderColor;
     background: $stateHoverBgColor;
     color: $stateHoverTextColor;
+    
+    a {
+        color: $stateHoverTextColor;
+    }
 }
 
 @mixin icon-override($icon) {
@@ -57,30 +61,50 @@
     border: $stateDefaultBorderWidth solid $stateDefaultBorderColor; 
     background: $stateDefaultBgColor; 
     color: $stateDefaultTextColor;
+    
+    a {
+        color: $stateDefaultTextColor;
+    }
 }
 
-.ui-state-active { 
+.ui-state-active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
     color: $stateActiveTextColor; 
+    
+    a {
+        color: $stateActiveTextColor;
+    }
 }
 
 .ui-state-highlight  {
     border-color: $stateHighlightBorderColor;
     background: $stateHighlightBgColor;
     color: $stateHighlightTextColor;
+    
+    a {
+        color: $stateHighlightTextColor;
+    }
 }
 
 .ui-state-focus {
     border-color: $stateFocusBorderColor;
     background: $stateFocusBgColor;
     color: $stateFocusTextColor;
+    
+    a {
+        color: $stateFocusTextColor;
+    }
 }
 
 .ui-state-error {
     border-color: $stateErrorBorderColor;
     background: $stateErrorBgColor;
     color: $stateErrorTextColor;
+    
+    a {
+        color: $stateErrorTextColor;
+    }
 }
 
 .ui-state-disabled,
@@ -88,6 +112,11 @@
     opacity: $disabledOpacity; 
     filter: Alpha(Opacity= $disabledOpacity * 100); 
     background-image: none; 
+    cursor: default !important;
+    
+    * {
+        cursor: default !important;
+    }
 }
 
 /* Forms */
@@ -232,7 +261,7 @@
 }
 
 .ui-accordion {
-    .ui-accordion-header:not(.ui-state-highlight):hover {
+    .ui-accordion-header:not(.ui-state-active):not(.ui-state-disabled):hover {
         @include hover-element();
     }
 }
@@ -254,9 +283,11 @@
 }
 
 .ui-tabview {
-    .ui-tabview-nav {
-        li:not(.ui-state-highlight):hover {
-            @include hover-element();
+    .ui-tabview-nav {        
+        li {            
+            &:not(.ui-state-active):not(.ui-state-disabled):hover {
+                @include hover-element();
+            }
         }
     }
 }
@@ -304,14 +335,14 @@
 
 .ui-tabmenu {
     .ui-tabmenu-nav {
-        li:not(.ui-state-highlight):hover {
+        li:not(.ui-state-active):hover {
             @include hover-element();
         }
     }
 }
 
 .ui-steps {
-    .ui-steps-item:not(.ui-state-highlight):hover {
+    .ui-steps-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
         @include hover-element();
     }
 }
@@ -341,6 +372,26 @@
                 @include hover-element();
                 border-color: transparent;
             }
+        }
+    }
+}
+
+.ui-datepicker {
+    .ui-datepicker-header {
+        a {
+            color: $headerTextColor;
+            
+            &:hover {
+                @include hover-element();
+            }
+        }
+    }
+    
+    .ui-datepicker-calendar {
+        td:not(.ui-state-disabled) {
+            a:hover {
+                @include hover-element();
+            }            
         }
     }
 }

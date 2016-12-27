@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
                 <template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                     <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
-                        <a[href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                        <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all"
                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
@@ -23,7 +23,7 @@ import {Router} from '@angular/router';
                 <template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li class="ui-menuitem ui-widget ui-corner-all">
                         <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
-                            [ngClass]="{ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
