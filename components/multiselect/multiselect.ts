@@ -154,6 +154,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     writeValue(value: any) : void {
         this.value = value;
+        this.updateLabel();
     }
     
     registerOnChange(fn: Function): void {
