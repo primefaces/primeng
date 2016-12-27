@@ -10,8 +10,9 @@ import {DomHandler} from '../dom/domhandler';
             <div class="ui-overlaypanel-content">
                 <ng-content></ng-content>
             </div>
-            <a href="#" *ngIf="showCloseIcon" class="ui-overlaypanel-close ui-state-default" [ngClass]="{'ui-state-hover':hoverCloseIcon}"
-                (mouseenter)="hoverCloseIcon=true" (mouseleave)="hoverCloseIcon=false" (click)="onCloseClick($event)"><span class="fa fa-fw fa-close"></span></a>
+            <a href="#" *ngIf="showCloseIcon" class="ui-overlaypanel-close ui-state-default" (click)="onCloseClick($event)">
+                <span class="fa fa-fw fa-close"></span>
+            </a>
         </div>
     `,
     providers: [DomHandler]
@@ -39,8 +40,6 @@ export class OverlayPanel implements OnInit,AfterViewInit,OnDestroy {
     container: any;
 
     visible: boolean = false;
-
-    hoverCloseIcon: boolean;
 
     documentClickListener: any;
     

@@ -14,10 +14,9 @@ import {Router} from '@angular/router';
             <div #menu [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
                     [ngStyle]="menuStyle" [class]="menuStyleClass">
                 <ul class="ui-menu-list ui-helper-reset">
-                    <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of model"
-                        (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
+                    <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of model">
                         <a [href]="item.url||'#'" 
-                        [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-hover':(hoveredItem==item&&!item.disabled),'ui-state-disabled':item.disabled}" 
+                        [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':item.disabled}" 
                         (click)="itemClick($event,item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
@@ -50,9 +49,7 @@ export class SplitButton implements OnInit,OnDestroy {
     @Input() menuStyleClass: string;
     
     @Input() disabled: boolean;
-            
-    public hoveredItem: any;
-    
+                
     public menuVisible: boolean = false;
     
     public documentClickListener: any;
