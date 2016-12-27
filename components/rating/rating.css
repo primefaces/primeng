@@ -23,11 +23,11 @@
     background-position: 0 -48px;
 }
 
-.ui-rating-star-hover a {
+.ui-rating-star:hover a {
     background-position: 0 -64px;
 }
 
-.ui-rating-cancel-hover a {
+.ui-rating-cancel:hover a {
     background-position: 0 -16px;
 }
 

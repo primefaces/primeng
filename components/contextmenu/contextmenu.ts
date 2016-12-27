@@ -13,8 +13,8 @@ import {Router} from '@angular/router';
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event,item,child)" (mouseleave)="onItemMouseLeave($event,item)">
-                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
-                        [ngClass]="{'ui-state-hover':link==activeLink&&!child.disabled,'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
+                    <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                        [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -35,16 +35,13 @@ export class ContextMenuSub {
     constructor(public domHandler: DomHandler, public router: Router, @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) {}
         
     activeItem: any;
-    
-    activeLink: any;
-            
+                
     onItemMouseEnter(event, item, menuitem) {
         if(menuitem.disabled) {
             return;
         }
         
         this.activeItem = item;
-        this.activeLink = item.children[0];
         let nextElement =  item.children[0].nextElementSibling;
         if(nextElement) {
             let sublist = nextElement.children[0];
@@ -55,7 +52,6 @@ export class ContextMenuSub {
     
     onItemMouseLeave(event, link) {
         this.activeItem = null;
-        this.activeLink = null;
     }
     
     itemClick(event, item: MenuItem) {
@@ -87,7 +83,6 @@ export class ContextMenuSub {
     
     listClick(event) {
         this.activeItem = null;
-        this.activeLink = null;
     }
     
     position(sublist, item) {

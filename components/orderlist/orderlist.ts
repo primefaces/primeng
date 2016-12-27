@@ -18,9 +18,8 @@ import {DomHandler} from '../dom/domhandler';
                 <div class="ui-grid-col-10">
                     <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                     <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle">
-                        <li *ngFor="let item of value" 
-                            [ngClass]="{'ui-orderlist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
-                            (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onItemClick($event,item)">
+                        <li *ngFor="let item of value" class="ui-orderlist-item"
+                            [ngClass]="{'ui-state-highlight':isSelected(item)}" (click)="onItemClick($event,item)">
                             <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                         </li>
                     </ul>
@@ -47,9 +46,7 @@ export class OrderList implements AfterViewChecked {
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
 
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
-    
-    hoveredItem: any;
-    
+        
     selectedItems: any[];
     
     movedUp: boolean;
