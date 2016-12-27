@@ -63,6 +63,10 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() invalidFileSizeMessageSummary: string = '{0}: Invalid file size, ';
     
     @Input() invalidFileSizeMessageDetail: string = 'maximum upload size is {0}.';
+
+    @Input() invalidFileTypeMessageSummary: string = '{0}: Invalid file type, ';
+
+    @Input() invalidFileTypeMessageDetail: string = 'allowed file types {0}.';
     
     @Input() style: string;
     
@@ -162,7 +166,20 @@ export class FileUpload implements OnInit,AfterContentInit {
             return false;
         }
         
+        if(this.accept && !this.getAcceptedTypes().includes(file.type)) {
+            this.msgs.push({
+                severity: 'error',
+                summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
+                detail: this.invalidFileTypeMessageDetail.replace('{0}', this.accept)
+            });
+            return false;
+        }
+        
         return true;
+    }
+
+    private getAcceptedTypes(): string[] {
+        return this.accept.split(',');
     }
     
     isImage(file: File): boolean {
