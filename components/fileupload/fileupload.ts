@@ -166,7 +166,7 @@ export class FileUpload implements OnInit,AfterContentInit {
             return false;
         }
         
-        if(this.accept && !this.getAcceptedTypes().includes(file.type)) {
+        if(this.accept && this.getAcceptedTypes().indexOf(file.type) === -1) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
