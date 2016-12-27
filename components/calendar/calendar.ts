@@ -33,12 +33,10 @@ export interface LocaleSettings {
             <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}" 
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly">
-                    <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (mouseenter)="hoverPrev=true" (mouseleave)="hoverPrev=false"
-                            [ngClass]="{'ui-state-hover ui-datepicker-prev-hover':hoverPrev&&!disabled}">
+                    <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
                         <span class="fa fa-angle-left"></span>
                     </a>
-                    <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)" (mouseenter)="hoverNext=true" (mouseleave)="hoverNext=false"
-                            [ngClass]="{'ui-state-hover ui-datepicker-next-hover':hoverNext&&!disabled}">
+                    <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)">
                         <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="ui-datepicker-title">
@@ -64,10 +62,9 @@ export interface LocaleSettings {
                         <tr *ngFor="let week of dates">
                             <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month':date.otherMonth,
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date), 'ui-datepicker-disabled-date':date.disabledDate, 'ui-datepicker-disabled-day':date.disabledDay,'ui-state-disabled':!date.selectable}">
-                                <a #cell class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
-                                        [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell && !disabled && date.selectable),
-                                            'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
-                                        (click)="onDateSelect($event,date)" (mouseenter)="hoverCell=cell" (mouseleave)="hoverCell=null">{{date.day}}</a>
+                                <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
+                                    [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
+                                    (click)="onDateSelect($event,date)">{{date.day}}</a>
                             </td>
                         </tr>
                     </tbody>

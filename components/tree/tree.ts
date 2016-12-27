@@ -28,8 +28,8 @@ export class TreeNodeTemplateLoader implements OnInit {
     template: `
         <template [ngIf]="node">
             <li class="ui-treenode" *ngIf="!tree.horizontal">
-                <div class="ui-treenode-content"
-                    (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
+                <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
+                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode}">
                     <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}" *ngIf="!isLeaf()"
                             (click)="toggle($event)"></span
                     ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
@@ -38,7 +38,7 @@ export class TreeNodeTemplateLoader implements OnInit {
                             [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                     ><span class="ui-treenode-label ui-corner-all" 
-                        [ngClass]="{'ui-state-hover':hover && tree.selectionMode,'ui-state-highlight':isSelected()}">
+                        [ngClass]="{'ui-state-highlight':isSelected()}">
                             <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
                             <span *ngIf="tree.getTemplateForNode(node)">
                                 <p-treeNodeTemplateLoader [node]="node" [template]="tree.getTemplateForNode(node)"></p-treeNodeTemplateLoader>
@@ -66,8 +66,7 @@ export class TreeNodeTemplateLoader implements OnInit {
                         </td>
                         <td class="ui-treenode" [ngClass]="{'ui-treenode-collapsed':!node.expanded}">
                             <div class="ui-treenode-content ui-state-default ui-corner-all" 
-                                [ngClass]="{'ui-state-hover':hover && tree.selectionMode,'ui-state-highlight':isSelected()}"
-                                (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
+                                [ngClass]="{'ui-state-highlight':isSelected()}" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
                                 <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-plus':!node.expanded,'fa-minus':node.expanded}" *ngIf="!isLeaf()"
                                         (click)="toggle($event)"></span
                                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
@@ -104,8 +103,6 @@ export class UITreeNode {
     @Input() firstChild: boolean;
     
     @Input() lastChild: boolean;
-        
-    hover: boolean = false;
         
     constructor(@Inject(forwardRef(() => Tree)) public tree:Tree) {}
     

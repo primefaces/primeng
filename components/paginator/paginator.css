@@ -50,3 +50,7 @@
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
+
+.ui-paginator a.ui-state-disabled {
+    outline: 0 none;
+}
