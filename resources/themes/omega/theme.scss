@@ -159,9 +159,11 @@ $invalidInputBorderColor: #f44336;
 /* AutoComplete */
 .ui-fluid {
     .ui-autocomplete {
-        .ui-autocomplete-input {
-            &.ui-inputtext {
-                width: calc(100% - 2em);
+        &.ui-autocomplete-dd {
+            .ui-autocomplete-input {
+                &.ui-inputtext {
+                    width: calc(100% - 2em);
+                }
             }
         }
     }
