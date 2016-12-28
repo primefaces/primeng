@@ -82,7 +82,7 @@ export class FileUpload implements OnInit,AfterContentInit {
         
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 	
-	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
+	  @Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
         
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
@@ -157,15 +157,6 @@ export class FileUpload implements OnInit,AfterContentInit {
     }
     
     validate(file: File): boolean {
-        if(this.maxFileSize  && file.size > this.maxFileSize) {
-            this.msgs.push({
-                severity: 'error', 
-                summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name), 
-                detail: this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))
-            });
-            return false;
-        }
-        
         if(this.accept && !this.isFileTypeAcceptable(file.type)) {
             this.msgs.push({
                 severity: 'error',
@@ -174,7 +165,16 @@ export class FileUpload implements OnInit,AfterContentInit {
             });
             return false;
         }
-        
+
+        if(this.maxFileSize  && file.size > this.maxFileSize) {
+            this.msgs.push({
+                severity: 'error', 
+                summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name), 
+                detail: this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))
+            });
+            return false;
+        }
+
         return true;
     }
 
