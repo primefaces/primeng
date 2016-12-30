@@ -312,8 +312,8 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars"&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
-    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
@@ -369,7 +369,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand"&gt;
-    &lt;header&gt;Subheader&lt;/header&gt;
+    &lt;p-header&gt;Subheader&lt;/p-header&gt;
     &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
@@ -377,7 +377,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 &lt;/p-dataTable&gt;
 
 &lt;p-dataTable [value]="cars2" sortField="brand" rowGroupMode="rowspan"&gt;
-    &lt;header&gt;RowSpan&lt;/header&gt;
+    &lt;p-header&gt;RowSpan&lt;/p-header&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
@@ -392,7 +392,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"&gt;
-    &lt;header&gt;Subheader&lt;/header&gt;
+    &lt;p-header&gt;Subheader&lt;/p-header&gt;
     &lt;template pTemplate="rowgroup" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
@@ -406,7 +406,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"
         [sortableRowGroup]="false"&gt;
-    &lt;header&gt;Toggleable Row Groups with Footers&lt;/header&gt;
+    &lt;p-header&gt;Toggleable Row Groups with Footers&lt;/p-header&gt;
     &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
@@ -628,7 +628,7 @@ export class DataTableDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" [contextMenu]="cm"&gt;
-    &lt;header&gt;Right Click on Rows for ContextMenu&lt;/header&gt;
+    &lt;p-header&gt;Right Click on Rows for ContextMenu&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;

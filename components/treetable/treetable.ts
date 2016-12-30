@@ -80,7 +80,7 @@ export class UITreeRow {
     template: `
         <div [ngClass]="'ui-treetable ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-treetable-header ui-widget-header" *ngIf="header">
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
             </div>
             <div class="ui-treetable-tablewrapper">
                 <table class="ui-widget-content">
@@ -109,7 +109,7 @@ export class UITreeRow {
                 </table>
             </div>
             <div class="ui-treetable-footer ui-widget-header" *ngIf="footer">
-                <ng-content select="footer"></ng-content>
+                <ng-content select="p-footer"></ng-content>
             </div>
         </div>
     `

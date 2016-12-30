@@ -9,9 +9,9 @@
 
 <div class="content-section implementation">
     <p-dataScroller [value]="cars" [rows]="10" [buffer]="0.4">
-        <header>
+        <p-header>
             Scroll Down to to Load More
-        </header>
+        </p-header>
         <template let-car>
             <li style="border-bottom:1px solid #D5D5D5;">
                 <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
@@ -154,8 +154,8 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
-    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
     &lt;template let-car&gt;
         Car content
     &lt;/template&gt;
@@ -342,9 +342,9 @@ loadData(event) &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [rows]="10" [buffer]="0.4"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         Scroll Down to to Load More
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;"&gt;
             &lt;div class="ui-grid-row"&gt;

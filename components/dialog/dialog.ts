@@ -12,7 +12,7 @@ import {Header,SharedModule} from '../common/shared';
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <span class="ui-dialog-title" *ngIf="headerFacet">
-                    <ng-content select="header"></ng-content>
+                    <ng-content select="p-header"></ng-content>
                 </span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="hide($event)">
                     <span class="fa fa-fw fa-close"></span>
@@ -21,7 +21,7 @@ import {Header,SharedModule} from '../common/shared';
             <div #content class="ui-dialog-content ui-widget-content" [style.height.px]="contentHeight">
                 <ng-content></ng-content>
             </div>
-            <ng-content select="footer"></ng-content>
+            <ng-content select="p-footer"></ng-content>
             <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
                 (mousedown)="initResize($event)"></div>
         </div>

@@ -9,7 +9,7 @@
     <p-growl [value]="msgs"></p-growl>
     
     <p-treeTable [value]="files1" [style]="&#123;'margin-bottom':'30px'&#125;">
-        <header>Basic</header>
+        <p-header>Basic</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
@@ -17,7 +17,7 @@
         
     <p-treeTable [value]="files2" selectionMode="single" [(selection)]="selectedFile"
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
-        <header>Singe Selection</header>
+        <p-header>Singe Selection</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
@@ -26,7 +26,7 @@
         
     <p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'30px'&#125;">
-        <header>Multiple Selection</header>
+        <p-header>Multiple Selection</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
@@ -34,7 +34,7 @@
     <p>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.data.name}} </span></p>
     
     <p-treeTable [value]="files4" [style]="&#123;'margin-top':'30px'&#125;">
-        <header>Editable Cells with Templating</header>
+        <p-header>Editable Cells with Templating</p-header>
         <p-column field="name" header="Name">
             <template let-node="rowData" pTemplate="body">
                 <input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
@@ -54,7 +54,7 @@
     
     <p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'30px'&#125;"
         (onNodeExpand)="nodeExpand($event)">
-        <header>Lazy Loading</header>
+        <p-header>Lazy Loading</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
@@ -375,8 +375,8 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-treeTable [value]="files"&gt;
-    &lt;header&gt;List of Files&lt;/header&gt;
-    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+    &lt;p-header&gt;List of Files&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
@@ -675,7 +675,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;p-treeTable [value]="files1" [style]="&#123;'margin-bottom':'30px'&#125;"&gt;
-    &lt;header&gt;Basic&lt;/header&gt;
+    &lt;p-header&gt;Basic&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
@@ -683,7 +683,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
     
 &lt;p-treeTable [value]="files2" selectionMode="single" [(selection)]="selectedFile"
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;
-    &lt;header&gt;Singe Selection&lt;/header&gt;
+    &lt;p-header&gt;Singe Selection&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
@@ -692,7 +692,7 @@ Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
     
 &lt;p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles" 
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'30px'&#125;"&gt;
-    &lt;header&gt;Multiple Selection&lt;/header&gt;
+    &lt;p-header&gt;Multiple Selection&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
@@ -700,7 +700,7 @@ Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
 Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.data.name}} &lt;/span&gt;
 
 &lt;p-treeTable [value]="files4" [style]="&#123;'margin-top':'30px'&#125;"&gt;
-    &lt;header&gt;Editable Cells with Templating&lt;/header&gt;
+    &lt;p-header&gt;Editable Cells with Templating&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;
         &lt;template let-node="rowData" pTemplate="body"&gt;
             &lt;input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
@@ -720,7 +720,7 @@ Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.data.name}
 
 &lt;p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'30px'&#125;"
     (onNodeExpand)="nodeExpand($event)"&gt;
-    &lt;header&gt;Lazy Loading&lt;/header&gt;
+    &lt;p-header&gt;Lazy Loading&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;

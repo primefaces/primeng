@@ -9,9 +9,9 @@
 
 <div class="content-section implementation">
     <p-dataScroller [value]="cars" [rows]="10" [inline]="true" scrollHeight="500px">
-        <header>
+        <p-header>
             Scroll Down to to Load More
-        </header>
+        </p-header>
         <template let-car>
             <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
                 <div class="ui-grid-row">
@@ -102,9 +102,9 @@ export class DataScrollerInlineDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [rows]="10" [inline]="true" scrollHeight="500px"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         Scroll Down to to Load More
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5"&gt;
             &lt;div class="ui-grid-row"&gt;

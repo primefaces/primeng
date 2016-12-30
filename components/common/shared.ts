@@ -3,13 +3,13 @@ import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
 
 @Component({
-    selector: 'header',
+    selector: 'p-header',
     template: '<ng-content></ng-content>'
 })
 export class Header {}
 
 @Component({
-    selector: 'footer',
+    selector: 'p-footer',
     template: '<ng-content></ng-content>'
 })
 export class Footer {}

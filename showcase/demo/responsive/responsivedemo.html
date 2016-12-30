@@ -146,7 +146,7 @@
         </p-panel>
 
         <p-dataTable [style]="{'margin-top':'20px'}" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true">
-            <header>Cars</header>
+            <p-header>Cars</p-header>
             <p-column field="vin" header="Vin"></p-column>
             <p-column field="year" header="Year"></p-column>
             <p-column field="brand" header="Brand"></p-column>
@@ -154,9 +154,9 @@
         </p-dataTable>
 
         <p-dataGrid [style]="{'margin-top':'20px','margin-bottom':'20px'}" [value]="cars" [paginator]="true" [rows]="20">
-            <header>
+            <p-header>
                 Datagrid
-            </header>
+            </p-header>
             <template let-car>
                 <div style="padding:3px" class="ui-g-12 ui-md-3">
                     <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
@@ -363,7 +363,7 @@
 &lt;/p-panel&gt;
 
 &lt;p-dataTable [style]="&#123;'margin-top':'20px'&#125;" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true"&gt;
-    &lt;header&gt;Cars&lt;/header&gt;
+    &lt;p-header&gt;Cars&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
@@ -371,9 +371,9 @@
 &lt;/p-dataTable&gt;
 
 &lt;p-dataGrid [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [value]="cars" [paginator]="true" [rows]="20"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         Datagrid
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     &lt;template let-car&gt;
         &lt;div style="padding:3px"&gt;
             &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
