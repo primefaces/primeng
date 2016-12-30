@@ -191,8 +191,11 @@ export class RowExpansionLoader {
                                         <span class="ui-cell-data" *ngIf="col.bodyTemplate">
                                             <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                                         </span>
-                                        <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
+                                        <div class="ui-cell-editor">
+                                            <input *ngIf="!col.editorTemplate&&col.editable" type="text" pInputText [(ngModel)]="rowData[col.field]" required="true"
                                                 (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
+                                            <p-columnEditorTemplateLoader *ngIf="col.editorTemplate&&col.editable" [column]="col" [rowData]="rowData"></p-columnEditorTemplateLoader>
+                                        </div>
                                         <a href="#" *ngIf="col.expander" (click)="toggleRow(rowData,$event)">
                                             <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"></span>
                                         </a>
@@ -1334,15 +1337,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     switchCellToEditMode(element: any, column: Column, rowData: any) {
         if(!this.selectionMode && this.editable && column.editable) {
-            let cell = this.findCell(element);
+            let cell = this.findCell(element);            
             if(cell != this.editingCell) {
+                if(this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
+                    this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
+                }
+                
                 this.editingCell = cell;
                 this.onEditInit.emit({column: column, data: rowData});
                 if(!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
                     this.domHandler.addClass(cell, 'ui-cell-editing');
-                    this.domHandler.addClass(cell, 'ui-state-highlight');
-                    let editor = cell.querySelector('.ui-cell-editor').focus();
-                }                
+                    let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input');
+                    if(focusable) {
+                        setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 100);
+                    }
+                }
             }
         }
     }
@@ -1356,12 +1365,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 if(complete)
                     this.onEditComplete.emit({column: column, data: rowData});
                 else
-                    this.onEditCancel.emit({column: column, data: rowData});
-
-                let cell = this.findCell(element);
-                this.domHandler.removeClass(cell, 'ui-cell-editing');
-                this.domHandler.removeClass(cell, 'ui-state-highlight');
-                this.editingCell = null;
+                    this.onEditCancel.emit({column: column, data: rowData});                
             }
         }
     }

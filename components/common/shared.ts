@@ -87,6 +87,7 @@ export class Column implements AfterContentInit{
     public bodyTemplate: TemplateRef<any>;    
     public footerTemplate: TemplateRef<any>;
     public filterTemplate: TemplateRef<any>;
+    public editorTemplate: TemplateRef<any>;
     
     ngAfterContentInit():void {
         this.templates.forEach((item) => {
@@ -105,6 +106,10 @@ export class Column implements AfterContentInit{
                 
                 case 'filter':
                     this.filterTemplate = item.template;
+                break;
+                
+                case 'editor':
+                    this.editorTemplate = item.template;
                 break;
                 
                 default:
@@ -218,6 +223,26 @@ export class ColumnFilterTemplateLoader {
 }
 
 @Component({
+    selector: 'p-columnEditorTemplateLoader',
+    template: ``
+})
+export class ColumnEditorTemplateLoader {
+            
+    @Input() column: any;
+    
+    @Input() rowData: any;
+            
+    constructor(public viewContainer: ViewContainerRef) {}
+    
+    ngOnInit() {
+        let view = this.viewContainer.createEmbeddedView(this.column.editorTemplate, {
+            '\$implicit': this.column,
+            'rowData': this.rowData
+        });
+    }
+}
+
+@Component({
     selector: 'p-templateLoader',
     template: ``
 })
@@ -240,7 +265,7 @@ export class TemplateLoader {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,ColumnFilterTemplateLoader,PrimeTemplate,TemplateLoader,Row,HeaderColumnGroup,FooterColumnGroup],
-    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,ColumnFilterTemplateLoader,PrimeTemplate,TemplateLoader,Row,HeaderColumnGroup,FooterColumnGroup]
+    exports: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,ColumnFilterTemplateLoader,PrimeTemplate,TemplateLoader,Row,HeaderColumnGroup,FooterColumnGroup,ColumnEditorTemplateLoader],
+    declarations: [Header,Footer,Column,TemplateWrapper,ColumnHeaderTemplateLoader,ColumnBodyTemplateLoader,ColumnFooterTemplateLoader,ColumnFilterTemplateLoader,PrimeTemplate,TemplateLoader,Row,HeaderColumnGroup,FooterColumnGroup,ColumnEditorTemplateLoader]
 })
 export class SharedModule { }
