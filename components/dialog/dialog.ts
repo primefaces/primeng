@@ -9,7 +9,7 @@ import {Header,SharedModule} from '../common/shared';
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" [ngStyle]="style" [class]="styleClass"
             [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
-                (mousedown)="initDrag($event)" (mouseup)="endDrag($event)">
+                (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <span class="ui-dialog-title" *ngIf="headerFacet">
                     <ng-content select="header"></ng-content>
@@ -73,6 +73,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() style: any;
         
     @Input() styleClass: string;
+    
+    @Input() showHeader: boolean = true;
     
     @ContentChild(Header) headerFacet;
     
