@@ -389,6 +389,10 @@ export class Tree implements AfterContentInit {
         return this.selectionMode && this.selectionMode == 'checkbox';
     }
 
+    isPropagateSelection(): string {       
+        return ((this.propagateSelection !== undefined) ? this.propagateSelection : 'true');   
+    }
+     
     getTemplateForNode(node: TreeNode): TemplateRef<any> {
         if(this.templateMap)
             return node.type ? this.templateMap[node.type] : this.templateMap['default'];
