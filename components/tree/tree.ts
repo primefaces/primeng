@@ -189,6 +189,8 @@ export class Tree implements AfterContentInit {
     @Input() contextMenu: any;
     
     @Input() layout: string = 'vertical';
+     
+    @Input() propagateSelection: string;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -310,6 +312,7 @@ export class Tree implements AfterContentInit {
     }
     
     propagateSelectionUp(node: TreeNode, select: boolean) {
+         if (this.isPropagateSelection() == 'true') {
         if(node.children && node.children.length) {
             let selectedCount: number = 0;
             let childPartialSelected: boolean = false;
@@ -346,6 +349,7 @@ export class Tree implements AfterContentInit {
         if(parent) {
             this.propagateSelectionUp(parent, select);
         }
+      }
     }
     
     propagateSelectionDown(node: TreeNode, select: boolean) {
@@ -360,10 +364,11 @@ export class Tree implements AfterContentInit {
         }
         
         node.partialSelected = false;
-        
-        if(node.children && node.children.length) {
-            for(let child of node.children) {
-                this.propagateSelectionDown(child, select);
+        if (this.isPropagateSelection() == 'true') {
+            if(node.children && node.children.length) {
+                for(let child of node.children) {
+                    this.propagateSelectionDown(child, select);
+                }
             }
         }
     }
