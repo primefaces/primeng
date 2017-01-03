@@ -14,9 +14,8 @@ showcase/theming/*.js
 prod
 
 # distribution resources
+resources/*.css
 resources/images
-resources/**/*.css
-!resources/bootstrap/theme.css
 
 # type definition
 *.d.ts
@@ -30,4 +29,3 @@ components/**/*.metadata.json
 .DS_STORE
 .idea
 .vscode
-.sass-cache
