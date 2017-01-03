@@ -167,7 +167,7 @@ export class RowExpansionLoader {
                         </template>
                     </tfoot>
                     <tbody class="ui-datatable-data ui-widget-content">
-                        <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
+                        <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
                             <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex - 1],groupField)))"
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
                                 <td [attr.colspan]="columns.length">
@@ -250,7 +250,7 @@ export class RowExpansionLoader {
             <div class="ui-datatable-scrollable-body" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <tbody class="ui-datatable-data ui-widget-content">
-                        <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="rowTrackBy">
+                        <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
                             <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
                                 (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
                                 <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader></td>
@@ -390,8 +390,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() emptyMessage: string = 'No records found';
     
     @Input() paginatorPosition: string = 'bottom';
-        
-    @Input() rowTrackBy: Function = () => {};
     
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
