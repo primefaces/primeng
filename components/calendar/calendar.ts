@@ -302,16 +302,40 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) +
     		Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
             
+        this.setYearOptions();
+    }
+
+    setYearOptions() {
         if(this.yearNavigator && this.yearRange) {
-            this.yearOptions = [];
-            let years = this.yearRange.split(':'),
-            yearStart = parseInt(years[0]),
-            yearEnd = parseInt(years[1]);
-            
+          let newYearOptions = [];
+          let years = this.yearRange.split(':');
+          if (years.length === 2) {
+            let yearStart = this.parseYear(years[0]);
+            let yearEnd = this.parseYear(years[1]);
             for(let i = yearStart; i <= yearEnd; i++) {
-                this.yearOptions.push(i);
+                newYearOptions.push(i);
             }
+          }
+          if (this.yearOptions == null || newYearOptions.length !== this.yearOptions.length || newYearOptions[0] !== this.yearOptions[0]) {
+            this.yearOptions = newYearOptions;
+          }
         }
+    }
+
+    parseYear(year: string): number {
+        let relativeCurrentTest = /^c([+-][0-9]+)$/;
+        let relativeTodayTest = /^([+-][0-9]+)$/;
+        let relativeCurrentTestExecResults = relativeCurrentTest.exec(year);
+        if (relativeCurrentTestExecResults != null) {
+          let relativeAmount = parseInt(relativeCurrentTestExecResults[1]);
+          return this.currentYear + relativeAmount;
+        }
+        let relativeTodayTestExecResults = relativeTodayTest.exec(year);
+        if (relativeTodayTestExecResults != null) {
+          let relativeAmount = parseInt(relativeTodayTestExecResults[1]);
+          return new Date().getFullYear() + relativeAmount;
+        }
+        return parseInt(year);
     }
     
     ngAfterViewInit() {
@@ -368,6 +392,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             
             this.dates.push(week);
         }
+        this.setYearOptions();
     }
     
     prevMonth(event) {
