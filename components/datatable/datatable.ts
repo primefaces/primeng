@@ -97,7 +97,7 @@ export class RowExpansionLoader {
         <div [ngStyle]="style" [class]="styleClass" 
             [ngClass]="{'ui-datatable ui-widget':true,'ui-datatable-reflow':responsive,'ui-datatable-stacked':stacked,'ui-datatable-resizable':resizableColumns,'ui-datatable-scrollable':scrollable}">
             <div class="ui-datatable-header ui-widget-header" *ngIf="header" [ngStyle]="{'width': scrollWidth}">
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
                 (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
@@ -108,7 +108,7 @@ export class RowExpansionLoader {
                             <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
                                 <th #headerCell [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                     (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,'ui-state-focus': headerCell === focusedHeader && col.sortable,
+                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': headerCell === hoveredHeader && col.sortable,'ui-state-focus': headerCell === focusedHeader && col.sortable,
                                     'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
                                     (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)" (mousedown)="onHeaderMousedown($event,headerCell)"
                                     [attr.tabindex]="col.sortable ? tabindex : null" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
@@ -129,7 +129,7 @@ export class RowExpansionLoader {
                             <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default">
                                 <th #headerCell *ngFor="let col of headerRow.columns" [ngStyle]="col.style" [class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
                                     (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
+                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': headerCell === hoveredHeader && col.sortable,
                                     'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}"
                                     [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
                                     <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
@@ -179,7 +179,7 @@ export class RowExpansionLoader {
                             </tr>
                             <tr #rowElement *ngIf="!expandableRowGroups||isRowGroupExpanded(rowData)" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (tap)="handleRowTap($event, rowData)"
-                                    [ngClass]="{'ui-datatable-even':even&&rowGroupMode!='rowspan','ui-datatable-odd':odd&&rowGroupMode!='rowspan','ui-state-hover': ((rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
+                                    [ngClass]="{'ui-datatable-even':even&&rowGroupMode!='rowspan','ui-datatable-odd':odd&&rowGroupMode!='rowspan','ui-datatable-hoverable-row': ((rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData), 'ui-row-selectable': selectionMode}">
                                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
                                     <td *ngIf="!rowGroupMode || (rowGroupMode == 'subheader') ||
                                         (rowGroupMode=='rowspan' && ((sortField==col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) || (sortField!=col.field)))"
@@ -191,8 +191,11 @@ export class RowExpansionLoader {
                                         <span class="ui-cell-data" *ngIf="col.bodyTemplate">
                                             <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                                         </span>
-                                        <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
+                                        <div class="ui-cell-editor">
+                                            <input *ngIf="!col.editorTemplate&&col.editable" type="text" pInputText [(ngModel)]="rowData[col.field]" required="true"
                                                 (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
+                                            <p-columnEditorTemplateLoader *ngIf="col.editorTemplate&&col.editable" [column]="col" [rowData]="rowData"></p-columnEditorTemplateLoader>
+                                        </div>
                                         <a href="#" *ngIf="col.expander" (click)="toggleRow(rowData,$event)">
                                             <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"></span>
                                         </a>
@@ -228,7 +231,7 @@ export class RowExpansionLoader {
                                 <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
                                     <th #headerCell *ngIf="sortField!==col.field" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                         (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                        [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-state-hover': headerCell === hoveredHeader && col.sortable,
+                                        [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': headerCell === hoveredHeader && col.sortable,
                                         'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}"
                                         [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
                                         <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')"></span>
@@ -257,7 +260,7 @@ export class RowExpansionLoader {
                             </tr>
                             <tr #rowElement class="ui-widget-content" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
                                     (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
-                                    [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-state-hover': ((rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
+                                    [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-datatable-hoverable-row': ((rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
                                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
                                 <td *ngIf="!rowGroupMode || (rowGroupMode == 'subheader') ||
                                     (rowGroupMode=='rowspan' && ((sortField==col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) || (sortField!=col.field)))"
@@ -295,7 +298,7 @@ export class RowExpansionLoader {
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
                 (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datatable-footer ui-widget-header" *ngIf="footer">
-                <ng-content select="footer"></ng-content>
+                <ng-content select="p-footer"></ng-content>
             </div>
         </div>
     `,
@@ -1334,15 +1337,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     switchCellToEditMode(element: any, column: Column, rowData: any) {
         if(!this.selectionMode && this.editable && column.editable) {
-            let cell = this.findCell(element);
+            let cell = this.findCell(element);            
             if(cell != this.editingCell) {
+                if(this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
+                    this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
+                }
+                
                 this.editingCell = cell;
                 this.onEditInit.emit({column: column, data: rowData});
                 if(!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
                     this.domHandler.addClass(cell, 'ui-cell-editing');
-                    this.domHandler.addClass(cell, 'ui-state-highlight');
-                    let editor = cell.querySelector('.ui-cell-editor').focus();
-                }                
+                    let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input');
+                    if(focusable) {
+                        setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 100);
+                    }
+                }
             }
         }
     }
@@ -1356,12 +1365,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 if(complete)
                     this.onEditComplete.emit({column: column, data: rowData});
                 else
-                    this.onEditCancel.emit({column: column, data: rowData});
-
-                let cell = this.findCell(element);
-                this.domHandler.removeClass(cell, 'ui-cell-editing');
-                this.domHandler.removeClass(cell, 'ui-state-highlight');
-                this.editingCell = null;
+                    this.onEditCancel.emit({column: column, data: rowData});                
             }
         }
     }

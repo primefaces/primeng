@@ -7,9 +7,9 @@
 
 <div class="content-section implementation">
     <p-dataGrid [value]="cars" [paginator]="true" [rows]="20">
-        <header>
+        <p-header>
             List of Cars
-        </header>
+        </p-header>
         <template let-car>
             <div style="padding:3px" class="ui-g-12 ui-md-3">
                 <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
@@ -146,8 +146,8 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars"&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
-    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
@@ -338,9 +338,9 @@ loadData(event) &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="20"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         List of Cars
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     &lt;template let-car&gt;
         &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
             &lt;p-panel [header]="car.vin" [paginator]="true" [style]="&#123;'text-align':'center'&#125;"&gt;

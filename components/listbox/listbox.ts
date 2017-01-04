@@ -20,8 +20,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <div class="ui-helper-hidden-accessible">
                         <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                     </div>
-                    <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-hover':hoverToggleAll, 'ui-state-active':isAllChecked()}"
-                        (mouseenter)="hoverToggleAll=true" (mouseleave)="hoverToggleAll=false" (click)="toggleAll($event,cb)">
+                    <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="toggleAll($event,cb)">
                         <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
                     </div>
                 </div>
@@ -31,9 +30,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </div>
             </div>
             <ul class="ui-listbox-list">
-                <li #item *ngFor="let option of options" [style.display]="isItemVisible(option) ? 'block' : 'none'"
-                    [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(option)}"
-                    (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)">
+                <li *ngFor="let option of options" [style.display]="isItemVisible(option) ? 'block' : 'none'"
+                    [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
+                    (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)">
                     <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick(option)">
                         <div class="ui-helper-hidden-accessible">
                             <input type="checkbox" [checked]="isSelected(option)">
@@ -78,17 +77,13 @@ export class Listbox implements ControlValueAccessor {
 
     public filtered: boolean;
 
-    public hoverToggleAll: boolean;
+    public value: any;
 
-    value: any;
+    public onModelChange: Function = () => { };
 
-    onModelChange: Function = () => { };
+    public onModelTouched: Function = () => { };
 
-    onModelTouched: Function = () => { };
-
-    checkboxClick: boolean;
-
-    hoveredItem: any;
+    public checkboxClick: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler) { }
 

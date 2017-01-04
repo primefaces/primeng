@@ -17,7 +17,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="'ui-widget ui-editor-container ui-corner-all'" [class]="styleClass">
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
             </div>
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="!toolbar">
                 <span class="ql-formats">

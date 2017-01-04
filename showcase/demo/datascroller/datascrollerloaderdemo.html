@@ -9,9 +9,9 @@
 
 <div class="content-section implementation">
     <p-dataScroller [value]="cars" [rows]="5" [loader]="loadButton">
-        <header>
+        <p-header>
             Click Load Button at Footer to Load More
-        </header>
+        </p-header>
         <template let-car>
             <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5">
                 <div class="ui-grid-row">
@@ -39,9 +39,9 @@
                 </div>
             </div>
         </template>
-        <footer>
+        <p-footer>
             <button #loadButton type="text" icon="fa-refresh" pButton label="Load"></button>
-        </footer>
+        </p-footer>
     </p-dataScroller>
         
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
@@ -105,9 +105,9 @@ export class DataScrollerLoaderDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [rows]="5" [loader]="loadButton"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         Click Load Button at Footer to Load More
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5"&gt;
             &lt;div class="ui-grid-row"&gt;
@@ -135,9 +135,9 @@ export class DataScrollerLoaderDemo implements OnInit &#123;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
-    &lt;footer&gt;
+    &lt;p-footer&gt;
         &lt;button #loadButton type="text" icon="fa-refresh" pButton label="Load"&gt;&lt;/button&gt;
-    &lt;/footer&gt;
+    &lt;/p-footer&gt;
 &lt;/p-dataScroller&gt;
     
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;

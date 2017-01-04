@@ -7,9 +7,9 @@
 
 <div class="content-section implementation">
     <p-dataList [value]="cars" [paginator]="true" [rows]="5">
-        <header>
+        <p-header>
             List of Cars
-        </header>
+        </p-header>
         <template let-car>
             <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
                 <div class="ui-grid-row">
@@ -161,8 +161,8 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars"&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
-    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
     &lt;template let-car&gt;
         Car content
     &lt;/template&gt;
@@ -348,9 +348,9 @@ loadData(event) &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="5"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         List of Cars
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     &lt;template let-car&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;"&gt;
             &lt;div class="ui-grid-row"&gt;
