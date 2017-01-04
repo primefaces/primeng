@@ -29,10 +29,16 @@ body .ui-icon {
     height: 1em;
     line-height: 1em;
 }
-body .ui-state-disabled {
-    opacity: .35;
-    filter: Alpha(Opacity=35);
-    background-image: none;
+body .ui-state-disabled,
+body .ui-widget:disabled {
+    opacity: .35; 
+    filter: Alpha(Opacity= 35); 
+    background-image: none; 
+    cursor: default !important;
+}
+body .ui-state-disabled *,
+body .ui-widget:disabled * {
+    cursor: default !important;
 }
 body .ui-corner-all {
     -moz-border-radius: 0.25em;
@@ -112,10 +118,10 @@ body .ui-button:focus {
     outline: 0 none;
     background-color: #0267bf;
 }
-body .ui-button:hover {
+body .ui-button:enabled:hover {
     background-color: #0267bf;
 }
-body .ui-button:active {
+body .ui-button:enabled:active {
     background-color: #025aa5;
     -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
