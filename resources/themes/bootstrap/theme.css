@@ -1181,12 +1181,9 @@ body .ui-datatable .ui-datatable-data tr.ui-datatable-even.ui-state-highlight {
 body .ui-datatable .ui-datatable-data tr.ui-state-highlight {
     border-color: #0267bf;
 }
-body .ui-datatable .ui-datatable-data tr.ui-datatable-hoverable-row:hover {
+body .ui-datatable .ui-datatable-data.ui-datatable-hoverable-rows > tr.ui-widget-content:not(.ui-state-highlight):hover {
     background-color: #e3e3e3;
     cursor: pointer;
-}
-body .ui-datatable .ui-datatable-data tr:hover.ui-state-highlight {
-    background-color: #0275d8;
 }
 body .ui-datatable .ui-datatable-data tr.ui-row-editing.ui-datatable-odd,
 body .ui-datatable .ui-datatable-data tr.ui-row-editing.ui-datatable-even {
