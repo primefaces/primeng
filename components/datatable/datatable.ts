@@ -229,7 +229,7 @@ export class RowExpansionLoader {
                         <thead>
                             <tr>
                                 <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
-                                    <th #headerCell *ngIf="sortField!==col.field" [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                                    <th #headerCell [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
                                         (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
                                         [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': headerCell === hoveredHeader && col.sortable,
                                         'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}"
