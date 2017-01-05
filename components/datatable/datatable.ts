@@ -122,6 +122,26 @@ export class ColumnHeaders {
 }
 
 @Component({
+    selector: '[pColumnFooters]',
+    template: `
+        <th *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass"
+            [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
+            [ngClass]="{'ui-state-default':true}" [style.display]="col.hidden ? 'none' : 'table-cell'">
+            <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
+            <span class="ui-column-footer" *ngIf="col.footerTemplate">
+                <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>
+            </span>
+        </th>
+    `
+})
+export class ColumnFooters {
+        
+    constructor(@Inject(forwardRef(() => DataTable)) private dt:DataTable) {}
+    
+    @Input("pColumnFooters") columns: Column[];
+}
+
+@Component({
     selector: 'p-dataTable',
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
@@ -140,25 +160,9 @@ export class ColumnHeaders {
                         </template>
                     </thead>
                     <tfoot *ngIf="hasFooter()">
-                        <tr *ngIf="!footerColumnGroup">
-                            <th *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}" [style.display]="col.hidden ? 'none' : 'table-cell'">
-                                <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
-                                <span class="ui-column-footer" *ngIf="col.footerTemplate">
-                                    <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>
-                                </span>
-                            </th>
-                        </tr>
+                        <tr *ngIf="!footerColumnGroup" [pColumnFooters]="columns"></tr>
                         <template [ngIf]="footerColumnGroup">
-                            <tr *ngFor="let footerRow of footerColumnGroup.rows">
-                                <th *ngFor="let col of footerRow.columns" [ngStyle]="col.style" [class]="col.styleClass"
-                                    [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                    [ngClass]="{'ui-state-default':true}">
-                                    <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
-                                    <span class="ui-column-footer" *ngIf="col.footerTemplate">
-                                        <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>
-                                    </span>
-                                </th>
-                            </tr>
+                            <tr *ngFor="let footerRow of footerColumnGroup.rows" [pColumnFooters]="footerRow.columns"></tr>
                         </template>
                     </tfoot>
                     <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (rowHover||selectionMode)}">
@@ -1908,6 +1912,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 @NgModule({
     imports: [CommonModule,SharedModule,PaginatorModule,FormsModule,InputTextModule],
     exports: [DataTable,SharedModule],
-    declarations: [DataTable,DTRadioButton,DTCheckbox,ColumnHeaders,RowExpansionLoader]
+    declarations: [DataTable,DTRadioButton,DTCheckbox,ColumnHeaders,ColumnFooters,RowExpansionLoader]
 })
 export class DataTableModule { }
