@@ -229,7 +229,8 @@ export class TableBody {
         </div>
     `,
     host:{
-        '[class.ui-datatable-scrollable-view]': 'true'
+        '[class.ui-datatable-scrollable-view]': 'true',
+        '[class.ui-datatable-frozen-view]': 'frozen'
     }
 })
 export class ScrollableView implements AfterViewInit, OnDestroy {
@@ -243,7 +244,9 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
     @ViewChild('scrollHeaderBox') scrollHeaderBoxViewChild: ElementRef;
     
     @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
-            
+    
+    @Input() frozen: boolean;
+                
     public scrollBody: any;
     
     public scrollHeader: any
@@ -271,7 +274,9 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
             this.scrollHeader.scrollLeft = 0;
         });
         
-        this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
+        if(!this.frozen) {
+            this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
+        }
     }
     
     calculateScrollbarWidth(): number {
@@ -327,8 +332,10 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
             </div>
             
             <template [ngIf]="scrollable">
-                <div *ngIf="frozenColumns && frozenColumns.length" [pScrollableView]="frozenColumns"></div>
-                <div [pScrollableView]="scrollableColumns"></div>
+                <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
+                    <div *ngIf="frozenColumns && frozenColumns.length" [pScrollableView]="frozenColumns" frozen="true" [ngStyle]="{'width':this.frozenWidth}"></div>
+                    <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.scrollWidth}"></div>
+                </div>
             </template>
             
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
@@ -399,6 +406,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() scrollHeight: any;
 
     @Input() scrollWidth: any;
+    
+    @Input() frozenWidth: any;
 
     @Input() style: any;
 
