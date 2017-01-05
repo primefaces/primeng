@@ -142,6 +142,67 @@ export class ColumnFooters {
 }
 
 @Component({
+    selector: '[pTableBody]',
+    template: `
+        <template ngFor let-rowData [ngForOf]="dt.dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
+            <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" 
+                *ngIf="dt.rowGroupMode=='subheader' && (rowIndex === 0||(dt.resolveFieldData(rowData,dt.groupField) !== dt.resolveFieldData(dt.dataToRender[rowIndex - 1], dt.groupField)))"
+                (click)="dt.onRowGroupClick($event)" [ngStyle]="{'cursor': dt.sortableRowGroup ? 'pointer' : 'auto'}">
+                <td [attr.colspan]="dt.columns.length">
+                    <a href="#" *ngIf="dt.expandableRowGroups" (click)="dt.toggleRowGroup($event,rowData)">
+                        <span class="fa fa-fw" [ngClass]="{'fa-chevron-circle-down':dt.isRowGroupExpanded(rowData), 'fa-chevron-circle-right': !dt.isRowGroupExpanded(rowData)}"></span>
+                    </a>
+                    <p-templateLoader [template]="dt.rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader>
+                </td>
+            </tr>
+            <tr #rowElement *ngIf="!dt.expandableRowGroups||dt.isRowGroupExpanded(rowData)" [class]="dt.getRowStyleClass(rowData,rowIndex)"
+                    (click)="dt.handleRowClick($event, rowData)" (dblclick)="dt.rowDblclick($event,rowData)" (contextmenu)="dt.onRowRightClick($event,rowData)" (touchstart)="dt.handleRowTap($event, rowData)"
+                    [ngClass]="{'ui-datatable-even':even&&dt.rowGroupMode!='rowspan','ui-datatable-odd':odd&&dt.rowGroupMode!='rowspan','ui-state-highlight': dt.isSelected(rowData)}">
+                <template ngFor let-col [ngForOf]="dt.columns" let-colIndex="index">
+                    <td *ngIf="!dt.rowGroupMode || (dt.rowGroupMode == 'subheader') ||
+                        (dt.rowGroupMode=='rowspan' && ((dt.sortField==col.field && dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].index == rowIndex) || (dt.sortField!=col.field)))"
+                        [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
+                        [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="dt.switchCellToEditMode($event.target,col,rowData)"
+                        [attr.rowspan]="(dt.rowGroupMode=='rowspan' && dt.sortField == col.field && dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].index == rowIndex) ? dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].size : null">
+                        <span class="ui-column-title" *ngIf="dt.responsive">{{col.header}}</span>
+                        <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{dt.resolveFieldData(rowData,col.field)}}</span>
+                        <span class="ui-cell-data" *ngIf="col.bodyTemplate">
+                            <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
+                        </span>
+                        <div class="ui-cell-editor">
+                            <input *ngIf="!col.editorTemplate&&col.editable" type="text" pInputText [(ngModel)]="rowData[col.field]" required="true"
+                                (blur)="dt.switchCellToViewMode($event.target,col,rowData,true)" (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex)"/>
+                            <p-columnEditorTemplateLoader *ngIf="col.editorTemplate&&col.editable" [column]="col" [rowData]="rowData"></p-columnEditorTemplateLoader>
+                        </div>
+                        <a href="#" *ngIf="col.expander" (click)="dt.toggleRow(rowData,$event)">
+                            <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':dt.isRowExpanded(rowData), 'fa-chevron-circle-right': !dt.isRowExpanded(rowData)}"></span>
+                        </a>
+                        <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="dt.selectRowWithRadio($event, rowData)" [checked]="dt.isSelected(rowData)"></p-dtRadioButton>
+                        <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="dt.toggleRowWithCheckbox($event,rowData)" [checked]="dt.isSelected(rowData)"></p-dtCheckbox>
+                    </td>
+                </template>
+            </tr>
+            <tr class="ui-widget-header" *ngIf="dt.rowGroupFooterTemplate && dt.rowGroupMode=='subheader' && ((rowIndex === dt.dataToRender.length - 1)||(dt.resolveFieldData(rowData,dt.groupField) !== dt.resolveFieldData(dt.dataToRender[rowIndex + 1],dt.groupField))) && (!dt.expandableRowGroups || dt.isRowGroupExpanded(rowData))">
+                <p-templateLoader class="ui-helper-hidden" [data]="rowData" [template]="dt.rowGroupFooterTemplate"></p-templateLoader>
+            </tr>
+            <tr *ngIf="dt.expandableRows && dt.isRowExpanded(rowData)">
+                <td [attr.colspan]="dt.visibleColumns().length">
+                    <p-rowExpansionLoader [rowData]="rowData" [template]="dt.rowExpansionTemplate"></p-rowExpansionLoader>
+                </td>
+            </tr>
+        </template>
+
+        <tr *ngIf="dt.isEmpty()" class="ui-widget-content">
+            <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">{{emptyMessage}}</td>
+        </tr>
+    `
+})
+export class TableBody {
+        
+    constructor(@Inject(forwardRef(() => DataTable)) private dt:DataTable) {}
+}
+
+@Component({
     selector: 'p-dataTable',
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
@@ -165,133 +226,28 @@ export class ColumnFooters {
                             <tr *ngFor="let footerRow of footerColumnGroup.rows" [pColumnFooters]="footerRow.columns"></tr>
                         </template>
                     </tfoot>
-                    <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (rowHover||selectionMode)}">
-                        <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
-                            <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex - 1],groupField)))"
-                                (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
-                                <td [attr.colspan]="columns.length">
-                                    <a href="#" *ngIf="expandableRowGroups" (click)="toggleRowGroup($event,rowData)">
-                                        <span class="fa fa-fw" [ngClass]="{'fa-chevron-circle-down':isRowGroupExpanded(rowData), 'fa-chevron-circle-right': !isRowGroupExpanded(rowData)}"></span>
-                                    </a>
-                                    <p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader>
-                                </td>
-                            </tr>
-                            <tr #rowElement *ngIf="!expandableRowGroups||isRowGroupExpanded(rowData)" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                    (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)" (touchstart)="handleRowTap($event, rowData)"
-                                    [ngClass]="{'ui-datatable-even':even&&rowGroupMode!='rowspan','ui-datatable-odd':odd&&rowGroupMode!='rowspan','ui-state-highlight': isSelected(rowData)}">
-                                <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
-                                    <td *ngIf="!rowGroupMode || (rowGroupMode == 'subheader') ||
-                                        (rowGroupMode=='rowspan' && ((sortField==col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) || (sortField!=col.field)))"
-                                        [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                        [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)"
-                                        [attr.rowspan]="(rowGroupMode=='rowspan' && sortField == col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) ? rowGroupMetadata[resolveFieldData(rowData,sortField)].size : null">
-                                        <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                        <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{resolveFieldData(rowData,col.field)}}</span>
-                                        <span class="ui-cell-data" *ngIf="col.bodyTemplate">
-                                            <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
-                                        </span>
-                                        <div class="ui-cell-editor">
-                                            <input *ngIf="!col.editorTemplate&&col.editable" type="text" pInputText [(ngModel)]="rowData[col.field]" required="true"
-                                                (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
-                                            <p-columnEditorTemplateLoader *ngIf="col.editorTemplate&&col.editable" [column]="col" [rowData]="rowData"></p-columnEditorTemplateLoader>
-                                        </div>
-                                        <a href="#" *ngIf="col.expander" (click)="toggleRow(rowData,$event)">
-                                            <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"></span>
-                                        </a>
-                                        <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
-                                        <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
-                                    </td>
-                                </template>
-                            </tr>
-                            <tr class="ui-widget-header" *ngIf="rowGroupFooterTemplate && rowGroupMode=='subheader' && ((rowIndex === dataToRender.length - 1)||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex + 1],groupField))) && (!expandableRowGroups || isRowGroupExpanded(rowData))">
-                                <p-templateLoader class="ui-helper-hidden" [data]="rowData" [template]="rowGroupFooterTemplate"></p-templateLoader>
-                            </tr>
-                            <tr *ngIf="expandableRows && isRowExpanded(rowData)">
-                                <td [attr.colspan]="visibleColumns().length">
-                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
-                                </td>
-                            </tr>
-                        </template>
-                        
-                        <tr *ngIf="isEmpty()" class="ui-widget-content">
-                            <td [attr.colspan]="visibleColumns().length" class="ui-datatable-emptymessage">{{emptyMessage}}</td>
-                        </tr>
-                    </tbody>
+                    <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (rowHover||selectionMode)}" pTableBody></tbody>
                 </table>
                 <div class="ui-column-resizer-helper ui-state-highlight" style="display:none"></div>
                 <span class="fa fa-arrow-down ui-datatable-reorder-indicator-up" style="position: absolute; display: none;"></span>
                 <span class="fa fa-arrow-up ui-datatable-reorder-indicator-down" style="position: absolute; display: none;"></span>
             </div>
+            
             <div class="ui-widget-header ui-datatable-scrollable-header" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
                 <div class="ui-datatable-scrollable-header-box">
                     <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                         <thead>
-                            <tr>
-                                <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
-                                    <th #headerCell [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                        (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                        [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': headerCell === hoveredHeader && col.sortable,
-                                        'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}"
-                                        [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
-                                        <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')"></span>
-                                        <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
-                                        <span class="ui-column-title" *ngIf="col.headerTemplate">
-                                            <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
-                                        </span>
-                                        <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
-                                             [ngClass]="{'fa-sort-desc': (col.field === sortField) && (sortOrder == -1),'fa-sort-asc': (col.field === sortField) && (sortOrder == 1)}"></span>
-                                        <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
-                                        <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
-                                    </th>
-                                </template>
-                            </tr>
+                            <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
+                            <template [ngIf]="headerColumnGroup">
+                                <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
+                            </template>
                         </thead>
                     </table>
                 </div>
             </div>
             <div class="ui-datatable-scrollable-body" *ngIf="scrollable" [ngStyle]="{'width': scrollWidth}">
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
-                    <tbody class="ui-datatable-data ui-widget-content">
-                        <template ngFor let-rowData [ngForOf]="dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
-                            <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" *ngIf="rowGroupMode=='subheader' && (rowIndex === 0||(resolveFieldData(rowData,groupField) !== resolveFieldData(dataToRender[rowIndex -1],groupField)))"
-                                (click)="onRowGroupClick($event)" [ngStyle]="{'cursor': sortableRowGroup ? 'pointer' : 'auto'}">
-                                <td [attr.colspan]="columns.length"><p-templateLoader [template]="rowGroupHeaderTemplate" [data]="rowData"></p-templateLoader></td>
-                            </tr>
-                            <tr #rowElement class="ui-widget-content" [class]="getRowStyleClass(rowData,rowIndex)" (mouseenter)="hoveredRow = $event.target" (mouseleave)="hoveredRow = null"
-                                    (click)="handleRowClick($event, rowData)" (dblclick)="rowDblclick($event,rowData)" (contextmenu)="onRowRightClick($event,rowData)"
-                                    [ngClass]="{'ui-datatable-even':even,'ui-datatable-odd':odd,'ui-datatable-hoverable-row': ((rowHover || selectionMode) && rowElement == hoveredRow), 'ui-state-highlight': isSelected(rowData)}">
-                                <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
-                                <td *ngIf="!rowGroupMode || (rowGroupMode == 'subheader') ||
-                                    (rowGroupMode=='rowspan' && ((sortField==col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) || (sortField!=col.field)))"
-                                    [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                    [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="switchCellToEditMode($event.target,col,rowData)"
-                                    [attr.rowspan]="(rowGroupMode=='rowspan' && sortField == col.field && rowGroupMetadata[resolveFieldData(rowData,sortField)].index == rowIndex) ? rowGroupMetadata[resolveFieldData(rowData,sortField)].size : null">
-                                    <span class="ui-column-title" *ngIf="responsive">{{col.header}}</span>
-                                    <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{resolveFieldData(rowData,col.field)}}</span>
-                                    <span class="ui-cell-data" *ngIf="col.bodyTemplate">
-                                        <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
-                                    </span>
-                                    <input type="text" class="ui-cell-editor ui-state-highlight" *ngIf="col.editable" [(ngModel)]="rowData[col.field]"
-                                            (blur)="switchCellToViewMode($event.target,col,rowData,true)" (keydown)="onCellEditorKeydown($event, col, rowData, colIndex)"/>
-                                    <a href="#" *ngIf="col.expander" (click)="toggleRow(rowData,$event)">
-                                        <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':isRowExpanded(rowData), 'fa-chevron-circle-right': !isRowExpanded(rowData)}"></span>
-                                    </a>
-                                    <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="selectRowWithRadio($event, rowData)" [checked]="isSelected(rowData)"></p-dtRadioButton>
-                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowWithCheckbox($event,rowData)" [checked]="isSelected(rowData)"></p-dtCheckbox>
-                                </td>
-                                </template>
-                            </tr>
-                            <tr *ngIf="expandableRows && isRowExpanded(rowData)">
-                                <td [attr.colspan]="visibleColumns().length">
-                                    <p-rowExpansionLoader [rowData]="rowData" [template]="rowExpansionTemplate"></p-rowExpansionLoader>
-                                </td>
-                            </tr>
-                        </template>
-                        
-                        <tr *ngIf="isEmpty()" class="ui-widget-content">
-                            <td [attr.colspan]="visibleColumns().length" class="ui-datatable-emptymessage">{{emptyMessage}}</td>
-                        </tr>
-                    </tbody>
+                    <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (rowHover||selectionMode)}" pTableBody></tbody>
                 </table>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
@@ -1912,6 +1868,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 @NgModule({
     imports: [CommonModule,SharedModule,PaginatorModule,FormsModule,InputTextModule],
     exports: [DataTable,SharedModule],
-    declarations: [DataTable,DTRadioButton,DTCheckbox,ColumnHeaders,ColumnFooters,RowExpansionLoader]
+    declarations: [DataTable,DTRadioButton,DTCheckbox,ColumnHeaders,ColumnFooters,TableBody,RowExpansionLoader]
 })
 export class DataTableModule { }
