@@ -35,6 +35,8 @@ export class ContextMenuSub {
     constructor(public domHandler: DomHandler, public router: Router, @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) {}
         
     activeItem: any;
+
+    containerLeft: any;
                 
     onItemMouseEnter(event, item, menuitem) {
         if(menuitem.disabled) {
@@ -86,8 +88,30 @@ export class ContextMenuSub {
     }
     
     position(sublist, item) {
+        this.containerLeft = this.domHandler.getOffset(item.parentElement)
+        let viewport = this.domHandler.getViewport();
+        let sublistWidth = sublist.offsetParent ? sublist.offsetWidth: this.domHandler.getHiddenElementOuterWidth(sublist);
+        let itemOuterWidth = this.domHandler.getOuterWidth(item.children[0]);
+
         sublist.style.top = '0px';
-        sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+
+        if((parseInt(this.containerLeft.left) + itemOuterWidth + sublistWidth) > (viewport.width - this.calculateScrollbarWidth())) {
+            sublist.style.left = -sublistWidth + 'px';
+        }
+        else {
+            sublist.style.left = itemOuterWidth + 'px';
+        }
+    }
+
+    calculateScrollbarWidth(): number {
+        let scrollDiv = document.createElement("div");
+        scrollDiv.className = "ui-scrollbar-measure";
+        document.body.appendChild(scrollDiv);
+
+        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        
+        return scrollbarWidth;
     }
 }
 

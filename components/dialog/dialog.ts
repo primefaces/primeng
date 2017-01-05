@@ -9,10 +9,10 @@ import {Header,SharedModule} from '../common/shared';
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" [ngStyle]="style" [class]="styleClass"
             [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
-                (mousedown)="initDrag($event)" (mouseup)="endDrag($event)">
+                (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
                 <span class="ui-dialog-title" *ngIf="headerFacet">
-                    <ng-content select="header"></ng-content>
+                    <ng-content select="p-header"></ng-content>
                 </span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="hide($event)">
                     <span class="fa fa-fw fa-close"></span>
@@ -21,7 +21,7 @@ import {Header,SharedModule} from '../common/shared';
             <div #content class="ui-dialog-content ui-widget-content" [style.height.px]="contentHeight">
                 <ng-content></ng-content>
             </div>
-            <ng-content select="footer"></ng-content>
+            <ng-content select="p-footer"></ng-content>
             <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
                 (mousedown)="initResize($event)"></div>
         </div>
@@ -73,6 +73,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() style: any;
         
     @Input() styleClass: string;
+    
+    @Input() showHeader: boolean = true;
     
     @ContentChild(Header) headerFacet;
     

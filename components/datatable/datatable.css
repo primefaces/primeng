@@ -183,14 +183,9 @@
 }
 
 /* Editing */
-.ui-datatable td.ui-cell-editing {
-    padding: 0px;
-}
-
-.ui-datatable td.ui-cell-editing input {
+.ui-datatable .ui-editable-column input {
     box-sizing: border-box;
     width: 100%;
-    border: 0 none;
     outline: 0;
 }
 
@@ -198,8 +193,12 @@
     display: none;
 }
 
+.ui-datatable .ui-editable-column.ui-cell-editing {
+    padding: 0;
+}
+
 .ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
-    display: inline;
+    display: block;
 }
 
 .ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-data {

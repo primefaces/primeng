@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
             <ul class="ui-tabmenu-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
                 <li *ngFor="let item of model" 
                     [ngClass]="{'ui-tabmenuitem ui-state-default ui-corner-top':true,'ui-state-disabled':item.disabled,
-                        'ui-tabmenuitem-hasicon':item.icon,ui-state-active':activeItem==item}">
+                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item}">
                     <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>

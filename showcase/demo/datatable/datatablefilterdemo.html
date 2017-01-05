@@ -16,7 +16,7 @@
         <input #gb type="text" pInputText size="50" placeholder="Global Filter">
     </div>
     <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
-        <header>List of Cars</header>
+        <p-header>List of Cars</p-header>
         <p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="year" header="Year ({{yearFilter||'No Filter'}})" [filter]="true" filterMatchMode="equals">
             <template pTemplate="filter" let-col>
@@ -91,7 +91,7 @@ export class DataTableFilterDemo implements OnInit &#123;
     &lt;input #gb type="text" pInputText size="50" placeholder="Global Filter"&gt;
 &lt;/div&gt;
 &lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year (&#123;&#123;yearFilter||'No Filter'&#125;&#125;" [filter]="true" filterMatchMode="equals"&gt;
         &lt;template pTemplate="filter" let-col&gt;

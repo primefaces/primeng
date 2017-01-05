@@ -10,11 +10,11 @@
 <div class="content-section implementation">
     
     <p-dataTable #dt [value]="cars" exportFilename="cars">
-        <header>
+        <p-header>
             <div class="ui-helper-clearfix">
                 <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:left"></button>
             </div>
-        </header>
+        </p-header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -47,11 +47,11 @@ export class DataTableExportDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable #dt [value]="cars" exportFilename="cars"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:left"&gt;&lt;/button&gt;
         &lt;/div&gt;
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;

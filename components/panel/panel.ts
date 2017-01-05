@@ -8,7 +8,7 @@ import {BlockableUI} from '../common/api';
         <div [ngClass]="'ui-panel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
                 <span class="ui-panel-title" *ngIf="header">{{header}}</span>
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
                 <a *ngIf="toggleable" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
                     (click)="toggle($event)">
                     <span class="fa fa-fw" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
