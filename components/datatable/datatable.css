@@ -40,6 +40,10 @@
     border-style: solid;
 }
 
+.ui-datatable .ui-datatable-thead > tr > th {
+    font-weight: normal;
+}
+
 .ui-datatable tbody {
     outline: 0;
 }
