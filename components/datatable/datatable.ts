@@ -168,10 +168,10 @@ export class ColumnFooters {
                         <span class="ui-cell-data" *ngIf="col.bodyTemplate">
                             <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + first"></p-columnBodyTemplateLoader>
                         </span>
-                        <div class="ui-cell-editor">
-                            <input *ngIf="!col.editorTemplate&&col.editable" type="text" pInputText [(ngModel)]="rowData[col.field]" required="true"
-                                (blur)="dt.switchCellToViewMode($event.target,col,rowData,true)" (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex)"/>
-                            <p-columnEditorTemplateLoader *ngIf="col.editorTemplate&&col.editable" [column]="col" [rowData]="rowData"></p-columnEditorTemplateLoader>
+                        <div class="ui-cell-editor" *ngIf="col.editable">
+                            <input *ngIf="!col.editorTemplate" type="text" pInputText [(ngModel)]="rowData[col.field]" required="true"
+                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex)"/>
+                            <p-columnEditorTemplateLoader *ngIf="col.editorTemplate" [column]="col" [rowData]="rowData"></p-columnEditorTemplateLoader>
                         </div>
                         <a href="#" *ngIf="col.expander" (click)="dt.toggleRow(rowData,$event)">
                             <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':dt.isRowExpanded(rowData), 'fa-chevron-circle-right': !dt.isRowExpanded(rowData)}"></span>
@@ -213,7 +213,7 @@ export class TableBody {
         <div #scrollHeader class="ui-widget-header ui-datatable-scrollable-header" [ngStyle]="{'width': dt.scrollWidth}">
             <div #scrollHeaderBox  class="ui-datatable-scrollable-header-box">
                 <table [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
-                    <thead>
+                    <thead class="ui-datatable-thead">
                         <tr *ngIf="!dt.headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
                         <template [ngIf]="dt.headerColumnGroup">
                             <tr *ngFor="let headerRow of dt.headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
@@ -312,13 +312,13 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
                 (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
-                    <thead>
+                    <thead class="ui-datatable-thead">
                         <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
                         <template [ngIf]="headerColumnGroup">
                             <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
                         </template>
                     </thead>
-                    <tfoot *ngIf="hasFooter()">
+                    <tfoot *ngIf="hasFooter()" class="ui-datatable-tfoot">
                         <tr *ngIf="!footerColumnGroup" [pColumnFooters]="columns"></tr>
                         <template [ngIf]="footerColumnGroup">
                             <tr *ngFor="let footerRow of footerColumnGroup.rows" [pColumnFooters]="footerRow.columns"></tr>
@@ -560,8 +560,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     differ: any;
 
     globalFilterFunction: any;
-
-    preventBlurOnEdit: boolean;
     
     columnsSubscription: Subscription;
     
@@ -1378,46 +1376,37 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 
                 this.editingCell = cell;
                 this.onEditInit.emit({column: column, data: rowData});
-                if(!this.domHandler.hasClass(cell, 'ui-cell-editing')) {
-                    this.domHandler.addClass(cell, 'ui-cell-editing');
-                    let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input');
-                    if(focusable) {
-                        setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 100);
-                    }
+                this.domHandler.addClass(cell, 'ui-cell-editing');
+                let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input');
+                if(focusable) {
+                    setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 100);
                 }
             }
         }
     }
 
-    switchCellToViewMode(element: any, column: Column, rowData: any, complete: boolean) {
-        if(this.editable) {
-            if(this.preventBlurOnEdit) {
-                this.preventBlurOnEdit = false;
-            }
-            else {
-                if(complete)
-                    this.onEditComplete.emit({column: column, data: rowData});
-                else
-                    this.onEditCancel.emit({column: column, data: rowData});                
-            }
-        }
+    switchCellToViewMode(element: any) {
+        let cell = this.findCell(element); 
+        this.domHandler.removeClass(cell, 'ui-cell-editing');
     }
 
     onCellEditorKeydown(event, column: Column, rowData: any, colIndex: number) {
         if(this.editable) {
-            this.onEdit.emit({originalEvent: event,column: column, data: rowData});
+            this.onEdit.emit({originalEvent: event, column: column, data: rowData});
             
             //enter
             if(event.keyCode == 13) {
-                this.switchCellToViewMode(event.target, column, rowData, true);
-                this.preventBlurOnEdit = true;
+                this.onEditComplete.emit({column: column, data: rowData});
+                this.renderer.invokeElementMethod(event.target, 'blur');
+                this.switchCellToViewMode(event.target);
                 event.preventDefault();
             }
             
             //escape
             else if(event.keyCode == 27) {
-                this.switchCellToViewMode(event.target, column, rowData, false);
-                this.preventBlurOnEdit = true;
+                this.onEditCancel.emit({column: column, data: rowData});
+                this.renderer.invokeElementMethod(event.target, 'blur');
+                this.switchCellToViewMode(event.target);
                 event.preventDefault();
             }
             

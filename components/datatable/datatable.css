@@ -25,25 +25,19 @@
     text-align: center;
 }
 
-.ui-datatable thead th,
-.ui-datatable tbody td,
-.ui-datatable tfoot td,
-.ui-datatable tfoot th{
-    padding: .25em .5em;
-    overflow: hidden;
-    border-width: 1px;
-    border-style: solid;
-}
-
 .ui-datatable thead tr {
     border-width: 0;
 }
 
-.ui-datatable thead th,
-.ui-datatable tfoot td,
-.ui-datatable tbody td {
+.ui-datatable .ui-datatable-thead > tr > th,
+.ui-datatable .ui-datatable-tfoot > tr > td,
+.ui-datatable .ui-datatable-data > tr > td {
     border-color: inherit;
     box-sizing: border-box;
+    padding: .25em .5em;
+    overflow: hidden;
+    border-width: 1px;
+    border-style: solid;
 }
 
 .ui-datatable tbody {
@@ -184,17 +178,20 @@
 
 /* Editing */
 .ui-datatable .ui-editable-column input {
-    box-sizing: border-box;
     width: 100%;
     outline: 0;
+}
+
+.ui-datatable .ui-datatable-data > tr > td.ui-editable-column {
+    padding: .5em;
 }
 
 .ui-datatable .ui-editable-column .ui-cell-editor {
     display: none;
 }
 
-.ui-datatable .ui-editable-column.ui-cell-editing {
-    padding: 0;
+.ui-datatable .ui-datatable-data > tr > td.ui-editable-column.ui-cell-editing {
+    padding: 1px;
 }
 
 .ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
