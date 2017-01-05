@@ -1462,6 +1462,9 @@ body .ui-treetable tfoot td {
 body .ui-treetable .ui-treetable-data tr:not(.ui-state-highlight):hover {
     background-color: #e3e3e3;
 }
+body .ui-treetable .ui-treetable-row.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
+    background-color: #e3e3e3;
+}
 body .ui-treetable .ui-treetable-data tr.ui-state-highlight {
     border-color: #0267bf;
 }
