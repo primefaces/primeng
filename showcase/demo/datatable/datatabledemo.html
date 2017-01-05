@@ -657,7 +657,7 @@ export class DataTableDemo implements OnInit &#123;
 
             <p>Simple input fields are used as the editor elements by default and this can be customized by adding a pTemplate named editor.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" [editable]="true"&gt;
     &lt;p-column field="vin" header="Vin" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;

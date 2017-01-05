@@ -210,7 +210,7 @@ export class TableBody {
 @Component({
     selector: '[pScrollableView]',
     template: `
-        <div #scrollHeader class="ui-widget-header ui-datatable-scrollable-header" [ngStyle]="{'width': dt.scrollWidth}">
+        <div #scrollHeader class="ui-widget-header ui-datatable-scrollable-header" [ngStyle]="{'width': width}">
             <div #scrollHeaderBox  class="ui-datatable-scrollable-header-box">
                 <table [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <thead class="ui-datatable-thead">
@@ -222,7 +222,7 @@ export class TableBody {
                 </table>
             </div>
         </div>
-        <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': dt.scrollWidth,'max-height':dt.scrollHeight}">
+        <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width,'max-height':dt.scrollHeight}">
             <table [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                 <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columns"></tbody>
             </table>
@@ -246,6 +246,8 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
     @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
     
     @Input() frozen: boolean;
+    
+    @Input() width: string;
                 
     public scrollBody: any;
     
@@ -303,9 +305,9 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
 @Component({
     selector: 'p-dataTable',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" 
+        <div [ngStyle]="style" [class]="styleClass" [style.width]="containerWidth"
             [ngClass]="{'ui-datatable ui-widget':true,'ui-datatable-reflow':responsive,'ui-datatable-stacked':stacked,'ui-datatable-resizable':resizableColumns,'ui-datatable-scrollable':scrollable}">
-            <div class="ui-datatable-header ui-widget-header" *ngIf="header" [ngStyle]="{'width': scrollWidth}">
+            <div class="ui-datatable-header ui-widget-header" *ngIf="header">
                 <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
@@ -333,8 +335,8 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
             
             <template [ngIf]="scrollable">
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
-                    <div *ngIf="frozenColumns && frozenColumns.length" [pScrollableView]="frozenColumns" frozen="true" [ngStyle]="{'width':this.frozenWidth}"></div>
-                    <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.scrollWidth}"></div>
+                    <div *ngIf="frozenColumns && frozenColumns.length" [pScrollableView]="frozenColumns" frozen="true" [width]="this.frozenWidth"></div>
+                    <div [pScrollableView]="scrollableColumns" [width]="this.scrollWidth"></div>
                 </div>
             </template>
             
@@ -1849,6 +1851,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     visibleColumns() {
         return this.columns ? this.columns.filter(c => !c.hidden): [];
+    }
+    
+    get containerWidth() {
+        if(this.scrollable && this.scrollWidth) {
+            var total = parseInt(this.scrollWidth);
+            return this.frozenWidth ? (total + parseInt(this.frozenWidth) + 'px') : total + 'px';
+        }
+        else {
+            return null;
+        }
     }
 
     ngOnDestroy() {
