@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,
-        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,QueryList,TemplateRef,ChangeDetectorRef} from '@angular/core';
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
@@ -92,6 +92,36 @@ export class RowExpansionLoader {
 }
 
 @Component({
+    selector: '[pColumnHeaders]',
+    template: `
+        <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
+            <th #headerCell [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'" (click)="dt.sort($event,col)" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
+                [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': col.sortable, 'ui-state-active': dt.isSorted(col), 'ui-resizable-column': dt.resizableColumns, 'ui-selection-column':col.selectionMode}" 
+                (dragstart)="dt.onColumnDragStart($event)" (dragover)="dt.onColumnDragover($event)" (dragleave)="dt.onColumnDragleave($event)" (drop)="dt.onColumnDrop($event)" (mousedown)="dt.onHeaderMousedown($event,headerCell)"
+                [attr.tabindex]="col.sortable ? tabindex : null" (keydown)="dt.onHeaderKeydown($event,col)">
+                <span class="ui-column-resizer" *ngIf="dt.resizableColumns && ((dt.columnResizeMode == 'fit' && !lastCol) || dt.columnResizeMode == 'expand')" (mousedown)="dt.initColumnResize($event)"></span>
+                <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
+                <span class="ui-column-title" *ngIf="col.headerTemplate">
+                    <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
+                </span>
+                <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
+                     [ngClass]="{'fa-sort-desc': (dt.getSortOrder(col) == -1),'fa-sort-asc': (dt.getSortOrder(col) == 1)}"></span>
+                <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter&&!col.filterTemplate" [value]="dt.filters[col.field] ? filters[col.field].value : ''" 
+                    (click)="dt.onFilterInputClick($event)" (keyup)="dt.onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
+                <p-columnFilterTemplateLoader [column]="col" *ngIf="col.filterTemplate"></p-columnFilterTemplateLoader>
+                <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="dt.toggleRowsWithCheckbox($event)" [checked]="dt.allSelected" [disabled]="dt.isEmpty()"></p-dtCheckbox>
+            </th>
+        </template>
+    `
+})
+export class ColumnHeaders {
+        
+    constructor(@Inject(forwardRef(() => DataTable)) private dt:DataTable) {}
+    
+    @Input("pColumnHeaders") columns: Column[];
+}
+
+@Component({
     selector: 'p-dataTable',
     template: `
         <div [ngStyle]="style" [class]="styleClass" 
@@ -104,44 +134,9 @@ export class RowExpansionLoader {
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead>
-                        <tr *ngIf="!headerColumnGroup" class="ui-state-default">
-                            <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
-                                <th #headerCell [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                    (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null"
-                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': headerCell === hoveredHeader && col.sortable,'ui-state-focus': headerCell === focusedHeader && col.sortable,
-                                    'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns,'ui-selection-column':col.selectionMode}" 
-                                    (dragstart)="onColumnDragStart($event)" (dragover)="onColumnDragover($event)" (dragleave)="onColumnDragleave($event)" (drop)="onColumnDrop($event)" (mousedown)="onHeaderMousedown($event,headerCell)"
-                                    [attr.tabindex]="col.sortable ? tabindex : null" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
-                                    <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
-                                    <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
-                                    <span class="ui-column-title" *ngIf="col.headerTemplate">
-                                        <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
-                                    </span>
-                                    <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
-                                         [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
-                                    <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter&&!col.filterTemplate" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
-                                    <p-columnFilterTemplateLoader [column]="col" *ngIf="col.filterTemplate"></p-columnFilterTemplateLoader>
-                                    <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="toggleRowsWithCheckbox($event)" [checked]="allSelected" [disabled]="isEmpty()"></p-dtCheckbox>
-                                </th>
-                            </template>
-                        </tr>
+                        <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
                         <template [ngIf]="headerColumnGroup">
-                            <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default">
-                                <th #headerCell *ngFor="let col of headerRow.columns" [ngStyle]="col.style" [class]="col.styleClass" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
-                                    (click)="sort($event,col)" (mouseenter)="hoveredHeader = $event.target" (mouseleave)="hoveredHeader = null" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                                    [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': headerCell === hoveredHeader && col.sortable,
-                                    'ui-sortable-column': col.sortable,'ui-state-active': isSorted(col), 'ui-resizable-column': resizableColumns}"
-                                    [tabindex]="col.sortable ? tabindex : -1" (focus)="focusedHeader=$event.target" (blur)="focusedHeader=null" (keydown)="onHeaderKeydown($event,col)">
-                                    <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
-                                    <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
-                                    <span class="ui-column-title" *ngIf="col.headerTemplate">
-                                        <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
-                                    </span>
-                                    <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
-                                         [ngClass]="{'fa-sort-desc': (getSortOrder(col) == -1),'fa-sort-asc': (getSortOrder(col) == 1)}"></span>
-                                    <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter" [value]="filters[col.field] ? filters[col.field].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
-                                </th>
-                            </tr>
+                            <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
                         </template>
                     </thead>
                     <tfoot *ngIf="hasFooter()">
@@ -1913,6 +1908,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 @NgModule({
     imports: [CommonModule,SharedModule,PaginatorModule,FormsModule,InputTextModule],
     exports: [DataTable,SharedModule],
-    declarations: [DataTable,DTRadioButton,DTCheckbox,RowExpansionLoader]
+    declarations: [DataTable,DTRadioButton,DTCheckbox,ColumnHeaders,RowExpansionLoader]
 })
 export class DataTableModule { }
