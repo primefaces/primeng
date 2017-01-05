@@ -1614,6 +1614,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             let marginRight = this.hasVerticalOverflow() ? this.calculateScrollbarWidth() : 0;
             this.scrollHeaderBox.style.marginRight = marginRight + 'px';
         }
+        
+        if(this.isEmpty()) {
+          this.scrollBody.getElementsByTagName('table')[0].style.width = this.scrollHeader.getElementsByTagName('table')[0].offsetWidth;
+        }
     }
         
     calculateScrollbarWidth(): number {
