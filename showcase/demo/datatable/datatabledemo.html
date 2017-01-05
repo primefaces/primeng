@@ -219,6 +219,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>null</td>
                             <td>Defines column based selection mode, options are "single" and "multiple".</td>
                         </tr>
+                        <tr>
+                            <td>frozen</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the column is fixed in horizontal scrolling or not.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -788,6 +794,18 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
+            <p>In horizontal scrolling, certain rows can be fixed as well by enabling the frozen property at column level.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataTable [value]="cars" [scrollable]="true" scrollHeight="200px" frozenWidth="100px" scrollWidth="600px"&gt;
+    &lt;p-column field="vin" header="Vin" frozen="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/datatable/scroll']">live example.</a></p>
             
             <h3>Lazy Loading</h3>
