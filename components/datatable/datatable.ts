@@ -248,7 +248,7 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
     @Input() frozen: boolean;
     
     @Input() width: string;
-                
+                    
     public scrollBody: any;
     
     public scrollHeader: any
@@ -266,19 +266,31 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
     initScrolling() {
         this.scrollHeader = <HTMLDivElement> this.scrollHeaderViewChild.nativeElement;
         this.scrollHeaderBox = <HTMLDivElement> this.scrollHeaderBoxViewChild.nativeElement;
-        this.scrollBody= <HTMLDivElement> this.scrollBodyViewChild.nativeElement;
-        
-        this.bodyScrollListener = this.renderer.listen(this.scrollBody, 'scroll', () => {
-            this.scrollHeaderBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
-        });
-        
-        this.headerScrollListener = this.renderer.listen(this.scrollHeader, 'scroll', () => {
-            this.scrollHeader.scrollLeft = 0;
-        });
+        this.scrollBody = <HTMLDivElement> this.scrollBodyViewChild.nativeElement;
         
         if(!this.frozen) {
-            this.scrollHeaderBox.style.marginRight = this.calculateScrollbarWidth() + 'px';
+            let frozenView = this.el.nativeElement.previousElementSibling;
+            if(frozenView) {
+                var frozenScrollBody = this.domHandler.findSingle(frozenView, '.ui-datatable-scrollable-body');
+            }
+            
+            this.bodyScrollListener = this.renderer.listen(this.scrollBody, 'scroll', () => {
+                this.scrollHeaderBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
+                if(frozenScrollBody) {
+                    frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
+                }
+            });
+            
+            this.headerScrollListener = this.renderer.listen(this.scrollHeader, 'scroll', () => {
+                this.scrollHeader.scrollLeft = 0;
+            });
         }
+        
+        let scrollBarWidth = this.calculateScrollbarWidth();
+        if(!this.frozen)
+            this.scrollHeaderBox.style.marginRight = scrollBarWidth + 'px';            
+        else
+            this.scrollBody.style.paddingBottom = scrollBarWidth + 'px';
     }
     
     calculateScrollbarWidth(): number {
