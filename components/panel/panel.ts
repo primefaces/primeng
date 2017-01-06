@@ -1,5 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {SharedModule} from '../common/shared'
 import {BlockableUI} from '../common/api';
 
 @Component({
@@ -96,7 +97,7 @@ export class Panel implements BlockableUI {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Panel],
+    exports: [Panel,SharedModule],
     declarations: [Panel]
 })
 export class PanelModule { }
