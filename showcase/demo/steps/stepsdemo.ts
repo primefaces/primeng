@@ -16,6 +16,7 @@ import {Message} from '../../../components/common/api';
         .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
             height: 10px;
             padding: 0 1em;
+            overflow: visible;
         }
          
         .ui-steps.steps-custom .ui-steps-item .ui-steps-number {
