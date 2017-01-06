@@ -219,6 +219,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>null</td>
                             <td>Defines column based selection mode, options are "single" and "multiple".</td>
                         </tr>
+                        <tr>
+                            <td>frozen</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the column is fixed in horizontal scrolling or not.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -642,8 +648,8 @@ export class DataTableDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/datatable/contextmenu']">live example.</a></p>
 
             <h3>Editing</h3>
-            <p>Incell editing is enabled by setting editable property true both on datatable and columns, when a cell is clicked edit mode is activated, clicking outside of cell or hitting the enter key 
-            switches back to view mode after updating the value.</p>
+            <p>Incell editing is enabled by setting editable property true both on datatable and columns. Clicking a cell switches to edit mode
+            and hitting enter key or clicking another cell switches it back to view mode.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [editable]="true"&gt;
@@ -651,6 +657,30 @@ export class DataTableDemo implements OnInit &#123;
     &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color" [editable]="true"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+
+            <p>Simple input fields are used as the editor elements by default and this can be customized by adding a pTemplate named editor.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars" [editable]="true"&gt;
+    &lt;p-column field="vin" header="Vin" [editable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand" [editable]="true" [style]="&#123;'overflow':'visible'&#125;"&gt;
+        &lt;template let-col let-car="rowData" pTemplate="editor"&gt;
+            &lt;p-dropdown [(ngModel)]="car[col.field]" [options]="brands" [autoWidth]="false" [style]="&#123;'width':'100%'&#125;" required="true"&gt;&lt;/p-dropdown&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [editable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="saleDate" header="Sale Date" [editable]="true" [style]=" &#123;'overflow':'visible' &#125;"&gt;
+        &lt;template let-col let-car="rowData" pTemplate="body"&gt;
+             &#123;&#123;car[col.field]|date &#125;&#125;
+        &lt;/template&gt;
+        &lt;template let-col let-car="rowData" pTemplate="editor"&gt;
+            &lt;p-calendar [(ngModel)]="car[col.field]"&gt;&lt;/p-calendar&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
@@ -764,6 +794,18 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
+            <p>In horizontal scrolling, certain rows can be fixed as well by enabling the frozen property at column level.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataTable [value]="cars" [scrollable]="true" scrollHeight="200px" frozenWidth="100px" scrollWidth="600px"&gt;
+    &lt;p-column field="vin" header="Vin" frozen="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+
             <p>See the <a [routerLink]="['/datatable/scroll']">live example.</a></p>
             
             <h3>Lazy Loading</h3>
