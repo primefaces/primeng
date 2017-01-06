@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef, OnChanges, SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../common/shared';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -19,34 +19,46 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 <li #token *ngFor="let item of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all">
                     <span *ngIf="!itemTemplate&&!disabled" class="ui-chips-token-icon fa fa-fw fa-close" (click)="removeItem($event,i)"></span>
                     <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
-                    <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item" index="{{i}}"></template>
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" pInputText [attr.placeholder]="placeholder" (keydown)="onKeydown($event,inputtext)" (focus)="onFocus()" (blur)="onBlur()"
-                        [disabled]="maxedOut||disabled" [disabled]="disabled">
+                        [disabled]="maxedOut||disabled" [disabled]="disabled" [pattern]="pattern">
                 </li>
             </ul>
         </div>
     `,
     providers: [DomHandler,CHIPS_VALUE_ACCESSOR]
 })
-export class Chips implements ControlValueAccessor {
+export class Chips implements ControlValueAccessor, OnChanges {
 
+    @Output() onAdd: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onRemove: EventEmitter<any> = new EventEmitter();
+
+    
     @Input() style: any;
 
     @Input() styleClass: string;
     
     @Input() disabled: boolean;
-
-    @Output() onAdd: EventEmitter<any> = new EventEmitter();
-    
-    @Output() onRemove: EventEmitter<any> = new EventEmitter();
     
     @Input() field: string;
     
     @Input() placeholder: string;
     
     @Input() max: number;
+
+    @Input() separators: Array<Number> = [13];
+
+    @Input() pattern: string;
+
+    @Input() allowInvalid: boolean = true;
+
+    @Input() allowDuplicates: boolean = true;
+
+    @Input() remove: Function;
+    
     
     @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
         
@@ -59,8 +71,12 @@ export class Chips implements ControlValueAccessor {
     valueChanged: boolean;
     
     focus: boolean;
+
+    patternRegEx: RegExp;
             
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler) {
+        this.patternRegEx = new RegExp(this.pattern);
+    }
     
     writeValue(value: any) : void {
         this.value = value;
@@ -120,23 +136,18 @@ export class Chips implements ControlValueAccessor {
     }
     
     onKeydown(event: KeyboardEvent, inputEL: HTMLInputElement): void {
-        switch(event.which) {
-            //backspace
-            case 8:
-                if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
-                    let removedItem = this.value.pop();
-                    this.onModelChange(this.value);
-                    this.onRemove.emit({
-                        originalEvent: event,
-                        value: removedItem
-                    });
-                }
-            break;
-            
-            //enter
-            case 13:
+        if(event.which == 8) {
+            // backspace
+            if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
+                this.removeItem(this.value.length - 1);
+            }
+            return;
+        }
+
+        for(let sep of this.separators) {
+            if (sep === event.which) {
                 this.value = this.value||[];
-                if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
+                if((!this.max || this.max > this.value.length) && this.isInputValid(inputEL.value)) {
                     this.value.push(inputEL.value);
                     this.onModelChange(this.value);
                     this.onAdd.emit({
@@ -146,18 +157,36 @@ export class Chips implements ControlValueAccessor {
                 }     
                 inputEL.value = '';
                 event.preventDefault();
-            break;
-            
-            default:
-                if(this.max && this.value && this.max === this.value.length) {
-                    event.preventDefault();
-                }
-            break;
+                return;
+            }
         }
+            
+        if(this.max && this.value && this.max === this.value.length) {
+            event.preventDefault();
+        }
+    }
+
+    isInputValid(input: string): boolean {
+        if (this.allowInvalid) { 
+            return true;
+        }
+        if (this.allowDuplicates == false) {
+            if (this.value.indexOf(input) > -1) {
+                return  false;
+            }
+        }
+        return this.patternRegEx.test(input);
     }
     
     get maxedOut(): boolean {
         return this.max && this.value && this.max === this.value.length;
+    }
+
+    ngOnChanges (changes: SimpleChanges) {
+        if (changes["pattern"]) {
+            this.pattern = changes["pattern"].currentValue;
+            this.patternRegEx = new RegExp(this.pattern);
+        }
     }
 }
 

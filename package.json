@@ -30,5 +30,28 @@
     "webpack": "^1.13.1",
     "webpack-merge": "^0.14.0",
     "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "@angular/common": "~2.3.0",
+    "@angular/compiler": "~2.3.0",
+    "@angular/compiler-cli": "^2.3.0",
+    "@angular/core": "~2.3.0",
+    "@angular/forms": "~2.3.0",
+    "@angular/http": "~2.3.0",
+    "@angular/platform-browser": "~2.3.0",
+    "@angular/platform-browser-dynamic": "~2.3.0",
+    "@angular/platform-server": "^2.3.0",
+    "@angular/router": "~3.3.0",
+    "@angular/upgrade": "~2.3.0",
+    "@types/jqueryui": "^1.11.31",
+    "@types/lodash": "^4.14.41",
+    "angular-in-memory-web-api": "~0.1.15",
+    "core-js": "^2.4.1",
+    "lodash": "^4.17.2",
+    "moment": "^2.17.1",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.0-rc.4",
+    "systemjs": "0.19.40",
+    "zone.js": "^0.7.2"
   }
 }

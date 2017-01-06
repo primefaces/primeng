@@ -44,6 +44,7 @@ export class PrimeTemplate {
 export class TemplateWrapper implements OnInit {
     
     @Input() item: any;
+    @Input() index: number;
     
     @Input() index: number;
     
