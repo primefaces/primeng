@@ -10,7 +10,7 @@
         <p-header>
             List of Cars
         </p-header>
-        <template let-car>
+        <template #itemTemplate let-car>
             <div style="padding:3px" class="ui-g-12 ui-md-3">
                 <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
@@ -112,7 +112,7 @@ export class DataGridDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars"&gt;
-    &lt;template let-car&gt;
+    &lt;template #itemTemplate let-car&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
@@ -125,7 +125,7 @@ export class DataGridDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars"&gt;
-    &lt;template let-car let-i="index"&gt;
+    &lt;template #itemTemplate let-car let-i="index"&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content for {{i}}
         &lt;/div&gt;
@@ -148,7 +148,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 &lt;p-dataGrid [value]="cars"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
-    &lt;template let-car&gt;
+    &lt;template #itemTemplate let-car&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
@@ -163,7 +163,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="9"&gt;
-    &lt;template let-car&gt;
+    &lt;template #itemTemplate let-car&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
@@ -181,7 +181,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
-    &lt;template let-car&gt;
+    &lt;template #itemTemplate let-car&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
@@ -341,7 +341,7 @@ loadData(event) &#123;
     &lt;p-header&gt;
         List of Cars
     &lt;/p-header&gt;
-    &lt;template let-car&gt;
+    &lt;template #itemTemplate let-car&gt;
         &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
             &lt;p-panel [header]="car.vin" [paginator]="true" [style]="&#123;'text-align':'center'&#125;"&gt;
                 &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;

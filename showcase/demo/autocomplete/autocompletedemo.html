@@ -14,7 +14,7 @@
     <h3>Advanced</h3>
     <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
-        <template let-brand>
+        <template #itemTemplate let-brand>
             <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                 <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
                 <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
@@ -22,7 +22,6 @@
         </template>
     </p-autoComplete>
     <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
-    
     <h3>Multiple</h3>
     <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
         [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
@@ -167,7 +166,7 @@ export class AutoCompleteDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
-    &lt;template let-brand&gt;
+    &lt;template #itemTemplate let-brand&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
@@ -398,7 +397,7 @@ export class AutoCompleteDemo &#123;
 &lt;h3&gt;Advanced&lt;/h3&gt;
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
     [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)"&gt;
-    &lt;template let-brand&gt;
+    &lt;template #itemTemplate let-brand&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
@@ -422,9 +421,9 @@ export class AutoCompleteDemo &#123;
 export class AutoCompleteDemo &#123;
 
     country: any;
-    
+
     countries: any[];
-        
+
     filteredCountriesSingle: any[];
     
     filteredCountriesMultiple: any[];

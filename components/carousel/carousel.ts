@@ -64,7 +64,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
 
     @Input() styleClass: string;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChild('itemTemplate') itemTemplate: TemplateRef<any>;
         
     public container: any;    
     

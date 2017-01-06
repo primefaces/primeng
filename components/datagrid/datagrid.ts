@@ -55,7 +55,7 @@ export class DataGrid implements AfterViewInit,DoCheck,BlockableUI {
 
     @ContentChild(Footer) footer;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChild('itemTemplate') itemTemplate: TemplateRef<any>;
 
     public dataToRender: any[];
 

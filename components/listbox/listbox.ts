@@ -69,7 +69,7 @@ export class Listbox implements ControlValueAccessor {
 
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChild('itemTemplate') itemTemplate: TemplateRef<any>;
 
     public filterValue: string;
     

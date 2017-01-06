@@ -92,7 +92,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     @Input() multiple: boolean;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChild('itemTemplate') itemTemplate: TemplateRef<any>;
     
     value: any;
     
