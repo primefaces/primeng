@@ -279,7 +279,7 @@ export class DataTableDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-column field="color" header="Color"&gt;
-    &lt;template let-col #car="rowData" #ri="rowIndex" pTemplate="body"&gt;
+    &lt;template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body"&gt;
         &lt;span&gt;{{car[col.field]}}&lt;/span&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;
@@ -861,7 +861,7 @@ loadData(event: LazyLoadEvent) &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-column field="color" [style]="&#123;'overflow':'visible'&#125;"&gt;
-    &lt;template let-col #car="rowData"&gt;
+    &lt;template let-col let-car="rowData"&gt;
         &lt;p-dropdown&gt;&lt;/p-dropdown&gt;
     &lt;/template&gt;
 &lt;/p-column&gt;
