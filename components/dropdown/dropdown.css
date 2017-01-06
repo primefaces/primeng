@@ -2,6 +2,7 @@
     display: inline-block;
     position: relative;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .ui-dropdown .ui-dropdown-trigger {

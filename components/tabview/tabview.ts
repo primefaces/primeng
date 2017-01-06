@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,HostListener,AfterContentInit,ContentChildren,QueryList,forwardRef,Inject} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,HostListener,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BlockableUI} from '../common/api';
 
@@ -15,32 +15,48 @@ import {BlockableUI} from '../common/api';
         <template ngFor let-tab [ngForOf]="tabs">
             <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="tab"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
-                (click)="tabView.open($event,tab)" *ngIf="!tab.closed"
+                (click)="clickTab($event,tab)" *ngIf="!tab.closed"
                 [attr.aria-expanded]="tab.selected" [attr.aria-selected]="tab.selected">
                 <a href="#">
                     <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                     <span class="ui-tabview-title">{{tab.header}}</span>
                     <span class="ui-tabview-right-icon fa" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
                 </a>
-                <span *ngIf="tab.closable" class="ui-tabview-close fa fa-close" (click)="tabView.close($event,tab)"></span>
+                <span *ngIf="tab.closable" class="ui-tabview-close fa fa-close" (click)="clickClose($event,tab)"></span>
             </li>
         </template>
     `,
 })
 export class TabViewNav {
-
-    constructor(@Inject(forwardRef(() => TabView)) public tabView:TabView) {}
     
     @Input() tabs: TabPanel[];
 
     @Input() orientation: string = 'top';
-
+    
+    @Output() onTabClick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onTabCloseClick: EventEmitter<any> = new EventEmitter();
+    
     getDefaultHeaderClass(tab:TabPanel) {
         let styleClass = 'ui-state-default ui-corner-' + this.orientation; 
         if(tab.headerStyleClass) {
             styleClass = styleClass + " " + tab.headerStyleClass;
         }
         return styleClass;
+    }
+    
+    clickTab(event, tab: TabPanel) {
+        this.onTabClick.emit({
+            originalEvent: event,
+            tab: tab
+        })
+    }
+    
+    clickClose(event, tab: TabPanel) {
+        this.onTabCloseClick.emit({
+            originalEvent: event,
+            tab: tab
+        })
     }
 }
 
@@ -78,13 +94,13 @@ export class TabPanel {
     selector: 'p-tabView',
     template: `
         <div [ngClass]="'ui-tabview ui-widget ui-widget-content ui-corner-all ui-tabview-' + orientation" [ngStyle]="style" [class]="styleClass">
-            <ul p-tabViewNav role="tablist" *ngIf="orientation!='bottom'" [tabs]="tabs" [orientation]="orientation"></ul>
-            
+            <ul p-tabViewNav role="tablist" *ngIf="orientation!='bottom'" [tabs]="tabs" [orientation]="orientation" 
+                (onTabClick)="open($event.originalEvent, $event.tab)" (onTabCloseClick)="close($event.originalEvent, $event.tab)"></ul>
             <div class="ui-tabview-panels">
                 <ng-content></ng-content>
             </div>
-            <ul p-tabViewNav role="tablist" *ngIf="orientation=='bottom'" [tabs]="tabs" [orientation]="orientation"></ul>
-            
+            <ul p-tabViewNav role="tablist" *ngIf="orientation=='bottom'" [tabs]="tabs" [orientation]="orientation"
+                (onTabClick)="open($event.originalEvent, $event.tab)" (onTabCloseClick)="close($event.originalEvent, $event.tab)"></ul>
         </div>
     `,
 })
