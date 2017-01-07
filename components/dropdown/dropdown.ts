@@ -134,15 +134,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     ngOnInit() {
         this.optionsToDisplay = this.options;
         this.updateSelectedOption(null);
-                
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            if(!this.selfClick&&!this.itemClick) {
-                this.panelVisible = false;
-            }
-            
-            this.selfClick = false;
-            this.itemClick = false;
-        });
     }
     
     ngDoCheck() {
@@ -180,6 +171,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
         this.selectItem(event, option);
                                 
         this.hide();
+        event.stopPropagation();
     }
     
     selectItem(event, option) {
@@ -290,10 +282,25 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                 this.domHandler.relativePosition(panel, container);
                 
             this.domHandler.fadeIn(panel,250);
+            if (!this.documentClickListener) {
+                this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+                    if (!this.selfClick && !this.itemClick) {
+                        this.hide();
+                    }
+                    this.selfClick = false;
+                    this.itemClick = false;
+                });
+            }
         }
     }
     
     hide() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+            this.itemClick = false;
+        }
+
         this.panelVisible = false;
     }
     
@@ -357,7 +364,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             //escape and tab
             case 27:
             case 9:
-                this.panelVisible = false;
+                this.hide();
             break;
         }
     }
