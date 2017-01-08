@@ -1,15 +1,15 @@
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Calendar</span>
-        <span class="defaultText">Calendar is an input component to select a date.</span>
+        <span class="feature-title">Calendar</span>
+        <span>Calendar is an input component to select a date.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <div class="ui-g">
         <div class="ui-g-12 ui-md-4">
             <h3>Basic</h3>
-            <p-calendar [(ngModel)]="date1"></p-calendar> {{date1|date}}
+            <p-calendar [(ngModel)]="date1" tabindex="0"></p-calendar> {{date1|date}}
         </div>
         
         <div class="ui-g-12 ui-md-4">
@@ -47,7 +47,7 @@
     <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar> 
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -252,6 +252,12 @@ export class MyModel &#123;
                             <td>false</td>
                             <td>When enabled, displays a button with icon next to input.</td>
                         </tr>
+                         <tr>
+                            <td>showOnFocus</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When disabled, datepicker will not be visible with input focus.</td>
+                        </tr>
                         <tr>
                             <td>icon</td>
                             <td>string</td>
@@ -341,6 +347,18 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>If true, sets the time part to "00:00:00" when dataType attribute is "date".</td>
+                        </tr>
+                        <tr>
+                            <td>required</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that an input field must be filled out before submitting the form.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the element in tabbing order.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -500,3 +518,158 @@ export class CalendarDemo &#123;
         </p-tabPanel>
     </p-tabView>
 </div>
+
+
+<div class="ContentSideSections">
+    <div>
+        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Calendar</span>
+        <span class="defaultText">Calendar is an input component to select a date.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+            <h3>Basic</h3>
+            <p-calendar [(ngModel)]="date1"></p-calendar> {{date1|date}}
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Spanish</h3>
+            <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar> {{date2|date}}
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Icon</h3>
+            <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Restrict</h3>
+            <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar> {{date4|date}}
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Navigators</h3>
+            <p-calendar [(ngModel)]="date5" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar> {{date5|date}}
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Time</h3>
+            <p-calendar [(ngModel)]="date6" [showTime]="true"></p-calendar> {{date6}}
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Time Only</h3>
+            <p-calendar [(ngModel)]="date7" [timeOnly]="true"></p-calendar>
+        </div>
+    </div>
+    
+    <h3>Inline {{date8|date}}</h3>
+    <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar> 
+</div>
+
+<div class="ContentSideSections Source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode>
+import &#123;CalendarModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Two-way value binding is defined using the standard ngModel directive referencing to a Date property.</p>
+
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar [(ngModel)]="value"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class MyModel &#123;
+
+    value: Date;
+    
+&#125;
+</code>
+</pre>
+
+            <h3>Model Driven Forms</h3>
+            <p>Calendar can be used in a model driven form as well.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar formControlName="date"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+            <h3>Popup and Inline</h3>
+            <p>Calendar is displayed in a popup by default and inline property needs to be enabled for inline mode.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar [(ngModel)]="value" [inline]="true"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+            <h3>DateFormat</h3>
+            <p>Default date format is mm/dd/yy, to customize this use dateFormat property.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar [(ngModel)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+            <p>Following options can be a part of the format.</p>
+            <ul>
+    			<li>d - day of month (no leading zero)</li>
+    			<li>dd - day of month (two digit)</li>
+    			<li>o - day of the year (no leading zeros)</li>
+    			<li>oo - day of the year (three digit)</li>
+    			<li>D - day name short</li>
+    			<li>DD - day name long</li>
+    			<li>m - month of year (no leading zero)</li>
+    			<li>mm - month of year (two digit)</li>
+    			<li>M - month name short</li>
+    			<li>MM - month name long</li>
+    			<li>y - year (two digit)</li>
+    			<li>yy - year (four digit)</li>
+    			<li>@ - Unix timestamp (ms since 01/01/1970)</li>
+    			<li> ! - Windows ticks (100ns since 01/01/0001)</li>
+    			<li>'...' - literal text</li>
+    			<li>'' - single quote</li>
+    			<li>anything else - literal text</li>
+		    </ul>
+
+            <h3>Time</h3>
+            <p>TimePicker is enabled with showTime property and 24 (default) or 12 hour mode is configured using hourFormat option.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar [(ngModel)]="value" showTime="showTime" hourFormat="12"&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="value" showTime="showTime" hourFormat="24"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+            <h3>Date Restriction</h3>
+            <p>To disable entering dates manually, set readonlyInput to true and to restrict selectable dates use minDate
+                and maxDate options.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+            <h3>Localization</h3>
+            <p>Localization for different languages and formats is defined by binding the locale settings object to the locale property. Following is the default values for English.
+            </p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-calendar [(ngModel)]="dateValue" [locale]="en"&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+
