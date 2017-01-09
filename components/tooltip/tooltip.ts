@@ -95,8 +95,6 @@ export class Tooltip implements OnDestroy {
     }
     
     hide() {
-        if(this.container) 
-            this.container.style.display = 'none';
         this.ngOnDestroy();
     }
          
