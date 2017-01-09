@@ -292,15 +292,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
         this.createMonth(this.currentMonth, this.currentYear);
         
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            if(this.closeOverlay) {
-                this.overlayVisible = false;
-            }
-            
-            this.closeOverlay = true;
-            this.dateClick = false;
-        });
-        
         this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) +
     		Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
             
@@ -782,6 +773,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         
         this.overlayVisible = true;
         this.overlay.style.zIndex = String(++DomHandler.zindex);
+        
+        this.bindDocumentClickListener();
     }
 
     writeValue(value: any) : void {
@@ -1102,8 +1095,29 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     updateFilledState() {
         this.filled = this.inputFieldValue && this.inputFieldValue != '';
     }
+    
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+                if(this.closeOverlay) {
+                    this.overlayVisible = false;
+                }
+                
+                this.closeOverlay = true;
+                this.dateClick = false;
+            });
+        }
+    }
+    
+    unbindDocumentClickListener() {
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
+    }
         
     ngOnDestroy() {
+        this.unbindDocumentClickListener();
+        
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlay);
         }
