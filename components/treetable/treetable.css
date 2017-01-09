@@ -41,7 +41,8 @@
 }
 
 .ui-treetable .ui-treetable-toggler {
-    display: inline-block;
+    border: none;
+    background: none;
     vertical-align: middle;
     cursor: pointer;
 }
