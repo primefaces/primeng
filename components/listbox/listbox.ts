@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
 import {SharedModule,PrimeTemplate} from '../common/shared';
@@ -49,7 +49,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     `,
     providers: [DomHandler, LISTBOX_VALUE_ACCESSOR]
 })
-export class Listbox implements AfterViewInit,ControlValueAccessor {
+export class Listbox implements AfterContentInit,ControlValueAccessor {
 
     @Input() options: SelectItem[];
 
