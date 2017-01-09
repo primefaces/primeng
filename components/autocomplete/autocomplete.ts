@@ -150,10 +150,6 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         if(this.multiple) {
             this.multipleContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-autocomplete-multiple-container');
         }
-        
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            this.hide();
-        });
 
         if(this.appendTo) {
             if(this.appendTo === 'body')
@@ -259,6 +255,12 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             this.panelVisible = true;
             this.panel.style.zIndex = ++DomHandler.zindex;
             this.domHandler.fadeIn(this.panel, 200);
+        }
+
+        if (!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+                this.hide();
+            });
         }        
     }
     
@@ -270,6 +272,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     }
     
     hide() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
         this.panelVisible = false;
     }
     
