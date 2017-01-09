@@ -19,6 +19,8 @@ export class Tooltip implements OnDestroy {
     @Input() appendTo: any = 'body';
     
     @Input() positionStyle: string;
+    
+    @Input() disabled: boolean;
         
     container: any;
         
@@ -53,7 +55,7 @@ export class Tooltip implements OnDestroy {
     }
     
     show() {
-        if(!this.text) {
+        if(!this.text || this.disabled) {
             return;
         }
         
