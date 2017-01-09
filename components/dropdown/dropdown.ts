@@ -432,7 +432,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     ngOnDestroy() {
         this.initialized = false;
         
-        unbindDocumentClickListener();
+        this.unbindDocumentClickListener();
         
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.panel);
