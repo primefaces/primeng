@@ -304,7 +304,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     hide() {
         this.panelVisible = false;
-        this.unbindDocumentClickListener();
     }
     
     onInputFocus(event) {
@@ -441,7 +440,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     unbindDocumentClickListener() {
         if(this.documentClickListener) {
-              this.documentClickListener;
+            this.documentClickListener();
+            this.documentClickListener = null;
         }
     }
      
