@@ -10,10 +10,11 @@ import {DomHandler} from '../dom/domhandler';
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode}">
             <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)">
-                <button *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
+                <a href="#" *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
-                    [title]="node.expanded ? labelCollapse : labelExpand"></button>
+                    [title]="node.expanded ? labelCollapse : labelExpand">
+                </a>
                 <span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
                 <p-columnBodyTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnBodyTemplateLoader>
             </td>
@@ -46,6 +47,8 @@ export class UITreeRow {
             this.treeTable.onNodeExpand.emit({originalEvent: event, node: this.node});
             
         this.node.expanded = !this.node.expanded;
+        
+        event.preventDefault();
     }
     
     isLeaf() {
