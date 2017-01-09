@@ -48,7 +48,7 @@ export class Chips implements ControlValueAccessor {
     
     @Input() max: number;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChild('itemTemplate') itemTemplate: TemplateRef<any>;
         
     value: any;
     

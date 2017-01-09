@@ -81,7 +81,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChild('itemTemplate') itemTemplate: TemplateRef<any>;
     
     @ViewChild('container') containerViewChild: ElementRef;
     

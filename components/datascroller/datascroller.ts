@@ -50,7 +50,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
 
     @ContentChild(Footer) footer;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChild('itemTemplate') itemTemplate: TemplateRef<any>;
     
     @Input() loader: any;
 

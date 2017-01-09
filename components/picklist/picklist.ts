@@ -82,7 +82,7 @@ export class PickList implements OnDestroy,AfterViewChecked {
     
     @Output() onMoveToTarget: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChild('itemTemplate') itemTemplate: TemplateRef<any>;
         
     selectedItemsSource: any[] = [];
     

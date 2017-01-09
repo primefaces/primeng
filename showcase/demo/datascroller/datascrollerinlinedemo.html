@@ -12,7 +12,7 @@
         <p-header>
             Scroll Down to to Load More
         </p-header>
-        <template let-car>
+        <template #itemTemplate let-car>
             <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"></div>
@@ -105,7 +105,7 @@ export class DataScrollerInlineDemo implements OnInit &#123;
     &lt;p-header&gt;
         Scroll Down to to Load More
     &lt;/p-header&gt;
-    &lt;template let-car&gt;
+    &lt;template #itemTemplate let-car&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;

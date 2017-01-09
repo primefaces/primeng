@@ -45,7 +45,7 @@ export class OrderList implements AfterViewChecked {
     
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChild('itemTemplate') itemTemplate: TemplateRef<any>;
         
     selectedItems: any[];
     
