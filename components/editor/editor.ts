@@ -33,17 +33,17 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     </select>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-bold"></button>
-                    <button class="ql-italic"></button>
-                    <button class="ql-underline"></button>
+                    <button class="ql-bold" aria-label="Bold"></button>
+                    <button class="ql-italic" aria-label="Italic"></button>
+                    <button class="ql-underline" aria-label="Underline"></button>
                 </span>
                 <span class="ql-formats">
                     <select class="ql-color"></select>
                     <select class="ql-background"></select>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-list" value="ordered"></button>
-                    <button class="ql-list" value="bullet"></button>
+                    <button class="ql-list" value="ordered" aria-label="ordered List"></button>
+                    <button class="ql-list" value="bullet" aria-label="unordered List"></button>
                     <select class="ql-align">
                         <option selected></option>
                         <option value="center"></option>
@@ -52,12 +52,12 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     </select>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-link"></button>
-                    <button class="ql-image"></button>
-                    <button class="ql-code-block"></button>
+                    <button class="ql-link" aria-label="Insert Link"></button>
+                    <button class="ql-image" aria-label="Insert Image"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block"></button>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-clean"></button>
+                    <button class="ql-clean" aria-label="Remove Styles"></button>
                 </span>
             </div>
             <div class="ui-editor-content" [ngStyle]="style"></div>
@@ -66,37 +66,37 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     providers: [DomHandler,EDITOR_VALUE_ACCESSOR]
 })
 export class Editor implements AfterViewInit,ControlValueAccessor {
-        
+
     @Output() onTextChange: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChild(Header) toolbar;
-    
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-    
+
     @Input() placeholder: string;
-    
+
     @Input() readOnly: boolean;
-    
+
     @Input() formats: string[];
-    
+
     value: string;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
+
     quill: any;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
 
     ngAfterViewInit() {
-        let editorElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content'); 
-        let toolbarElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar'); 
-        
+        let editorElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-content');
+        let toolbarElement = this.domHandler.findSingle(this.el.nativeElement ,'div.ui-editor-toolbar');
+
         this.quill = new Quill(editorElement, {
           modules: {
               toolbar: toolbarElement
@@ -106,11 +106,11 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
           theme: 'snow',
           formats: this.formats
         });
-                
+
         if(this.value) {
             this.quill.pasteHTML(this.value);
         }
-        
+
         this.quill.on('text-change', (delta, source) => {
             let html = editorElement.children[0].innerHTML;
             let text = this.quill.getText();
@@ -124,10 +124,10 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
                 delta: delta,
                 source: source
             });
-            
+
             this.onModelChange(html);
         });
-        
+
         this.quill.on('selection-change', (range, oldRange, source) => {
             this.onSelectionChange.emit({
                 range: range,
@@ -136,10 +136,10 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             });
         });
     }
-        
+
     writeValue(value: any) : void {
         this.value = value;
-                
+
         if(this.quill) {
             if(value)
                 this.quill.pasteHTML(value);
@@ -147,7 +147,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
                 this.quill.setText('');
         }
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
