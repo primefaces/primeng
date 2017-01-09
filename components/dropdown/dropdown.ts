@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChild,ViewChild,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChildren,QueryList,ViewChild,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
-import {SharedModule} from '../common/shared';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -53,7 +53,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     `,
     providers: [DomHandler,DROPDOWN_VALUE_ACCESSOR]
 })
-export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
+export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
     @Input() options: SelectItem[];
 
@@ -80,18 +80,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
-    
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
-    
+        
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('panel') panelViewChild: ElementRef;
     
     @ViewChild('itemswrapper') itemsWrapperViewChild: ElementRef;
-
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers) {
-        this.differ = differs.find([]).create(null);
-    }
+    
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
         
     selectedOption: SelectItem;
     
@@ -130,6 +128,24 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     public hoveredItem: any;
     
     public selectedOptionUpdated: boolean;
+    
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers) {
+        this.differ = differs.find([]).create(null);
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
+    }
             
     ngOnInit() {
         this.optionsToDisplay = this.options;

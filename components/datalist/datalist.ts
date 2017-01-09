@@ -1,8 +1,6 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,IterableDiffers,TemplateRef,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Header} from '../common/shared';
-import {Footer} from '../common/shared';
-import {SharedModule} from '../common/shared';
+import {SharedModule,Header,Footer,PrimeTemplate} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {BlockableUI} from '../common/api';
 
@@ -30,7 +28,7 @@ import {BlockableUI} from '../common/api';
         </div>
     `
 })
-export class DataList implements AfterViewInit,DoCheck,BlockableUI {
+export class DataList implements AfterViewInit,AfterContentInit,DoCheck,BlockableUI {
 
     @Input() value: any[];
 
@@ -58,7 +56,9 @@ export class DataList implements AfterViewInit,DoCheck,BlockableUI {
 
     @ContentChild(Footer) footer;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
 
     public dataToRender: any[];
 
@@ -70,6 +70,20 @@ export class DataList implements AfterViewInit,DoCheck,BlockableUI {
 
     constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
 
     ngAfterViewInit() {
