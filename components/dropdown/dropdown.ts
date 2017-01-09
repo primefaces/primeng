@@ -134,15 +134,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
     ngOnInit() {
         this.optionsToDisplay = this.options;
         this.updateSelectedOption(null);
-                
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            if(!this.selfClick&&!this.itemClick) {
-                this.panelVisible = false;
-            }
-            
-            this.selfClick = false;
-            this.itemClick = false;
-        });
     }
     
     ngDoCheck() {
@@ -290,11 +281,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
                 this.domHandler.relativePosition(panel, container);
                 
             this.domHandler.fadeIn(panel,250);
+            
+            this.bindDocumentClickListener();
         }
     }
     
     hide() {
         this.panelVisible = false;
+        this.unbindDocumentClickListener();
     }
     
     onInputFocus(event) {
@@ -416,12 +410,29 @@ export class Dropdown implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,O
             this.domHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
     }
     
-    ngOnDestroy() {
-        this.initialized = false;
-        
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+                if(!this.selfClick&&!this.itemClick) {
+                    this.panelVisible = false;
+                }
+                
+                this.selfClick = false;
+                this.itemClick = false;
+            });
+        }    
+    }
+    
+    unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
         }
+    }
+     
+    ngOnDestroy() {
+        this.initialized = false;
+        
+        unbindDocumentClickListener();
         
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.panel);
