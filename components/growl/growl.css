@@ -31,8 +31,8 @@
 
 .ui-growl-title {
 	font-weight: bold;
-	padding: 0 0 .5em 0;
-	display: block;
+	padding: 0.2em 0 .5em 0;
+	display: inline-block;
 }
 
 .ui-growl-image {
