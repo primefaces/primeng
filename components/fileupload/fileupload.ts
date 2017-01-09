@@ -141,6 +141,10 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     onFileSelect(event) {
         this.msgs = [];
+        if(!this.multiple) {
+            this.files = [];
+        }
+        
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
