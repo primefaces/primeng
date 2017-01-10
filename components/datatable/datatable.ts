@@ -1871,7 +1871,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             return this.frozenWidth ? (total + parseInt(this.frozenWidth) + 'px') : total + 'px';
         }
         else {
-            return null;
+            return this.style ? this.style.width : null;
         }
     }
 

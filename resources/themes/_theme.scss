@@ -42,6 +42,10 @@
     border: $contentBorderWidth solid $contentBorderColor; 
     background: $contentBgColor; 
     color: $contentTextColor;
+    
+    a {
+        color: $contentTextColor;
+    }
 }
 
 .ui-widget-header {
@@ -49,6 +53,10 @@
     background: $headerBgColor; 
     color: $headerTextColor; 
     font-weight: $headerFontWeight; 
+    
+    a {
+        color: $headerTextColor; 
+    }
 }
 
 .ui-widget-overlay { 

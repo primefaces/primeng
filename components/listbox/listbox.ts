@@ -1,9 +1,9 @@
-import { NgModule, Component, ElementRef, Input, Output, EventEmitter, ContentChild, TemplateRef, IterableDiffers, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SelectItem } from '../common/api';
-import { SharedModule } from '../common/shared';
-import { DomHandler } from '../dom/domhandler';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SelectItem} from '../common/api';
+import {SharedModule,PrimeTemplate} from '../common/shared';
+import {DomHandler} from '../dom/domhandler';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -49,7 +49,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     `,
     providers: [DomHandler, LISTBOX_VALUE_ACCESSOR]
 })
-export class Listbox implements ControlValueAccessor {
+export class Listbox implements AfterContentInit,ControlValueAccessor {
 
     @Input() options: SelectItem[];
 
@@ -69,7 +69,9 @@ export class Listbox implements ControlValueAccessor {
 
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
 
     public filterValue: string;
     
@@ -85,7 +87,21 @@ export class Listbox implements ControlValueAccessor {
 
     public checkboxClick: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) { }
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
+    }
 
     writeValue(value: any): void {
         this.value = value;

@@ -50,7 +50,7 @@ export class DataScrollerInfiniteDemo &#123;
     &lt;p-header&gt;
         Scroll Down to to Load More
     &lt;/p-header&gt;
-    &lt;template let-car&gt;
+    &lt;template let-car pTemplate="item"&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;
@@ -91,7 +91,7 @@ export class DataScrollerInfiniteDemo &#123;
         <p-header>
             Scroll Down to to Load More
         </p-header>
-        <template let-car>
+        <template let-car pTemplate="item">
             <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5">
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-3" style="text-align:center"><img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"></div>

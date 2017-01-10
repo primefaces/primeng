@@ -14,7 +14,7 @@
     <h3>Advanced</h3>
     <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
-        <template let-brand>
+        <template let-brand pTemplate="item">
             <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                 <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
                 <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
@@ -167,7 +167,7 @@ export class AutoCompleteDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
-    &lt;template let-brand&gt;
+    &lt;template let-brand pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
@@ -398,7 +398,7 @@ export class AutoCompleteDemo &#123;
 &lt;h3&gt;Advanced&lt;/h3&gt;
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
     [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)"&gt;
-    &lt;template let-brand&gt;
+    &lt;template let-brand pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;

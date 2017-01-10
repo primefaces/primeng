@@ -1,8 +1,8 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,Renderer,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,IterableDiffers,Renderer,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {ButtonModule} from '../button/button';
-import {SharedModule} from '../common/shared';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -92,7 +92,9 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     @Input() multiple: boolean;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
     
     value: any;
     
@@ -141,6 +143,20 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 this.hide();
             }
         }
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
     
     ngAfterViewInit() {
