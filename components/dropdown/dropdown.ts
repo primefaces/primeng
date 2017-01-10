@@ -34,7 +34,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div #panel class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow" 
                 [style.display]="panelVisible ? 'block' : 'none'">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
-                    <input type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
+                    <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
                     <span class="fa fa-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
@@ -86,6 +86,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @ViewChild('panel') panelViewChild: ElementRef;
     
     @ViewChild('itemswrapper') itemsWrapperViewChild: ElementRef;
+
+    @ViewChild('filter') filterViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -263,6 +265,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 this.hide();
             else {
                 this.show(this.panel,this.container);
+
+                if (this.filterViewChild != undefined) {
+                    setTimeout(() => {
+                        this.filterViewChild.nativeElement.focus();
+                    }, 200);
+                }
             }
         }
     }
