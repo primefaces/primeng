@@ -1216,10 +1216,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else if(this.filters[field])
             delete this.filters[field];
         
-        if(this.lazy) {
-            this.stopFilterPropagation = true;
-        }
-        
         this._filter(); 
     }
     
@@ -1237,6 +1233,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.first = 0;
         
         if(this.lazy) {
+            this.stopFilterPropagation = true;
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
