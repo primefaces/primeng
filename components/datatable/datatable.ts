@@ -666,8 +666,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(this.stopSortPropagation) {
                 this.stopSortPropagation = false;
             }
-            else if(!this.lazy && (this.sortField||this.multiSortMeta)) {     
-                if(!this.sortColumn) {
+            else if(!this.lazy && (this.sortField||this.multiSortMeta)) {  
+                if(!this.sortColumn && this.columns) {
                     this.sortColumn = this.columns.find(col => col.field === this.sortField && col.sortable === 'custom');
                 }              
                 
