@@ -17,7 +17,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
          <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
             'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focus}" 
             (click)="onMouseclick($event,in)" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-helper-hidden-accessible">
+            <div *ngIf="enableAccessibility" class="ui-helper-hidden-accessible">
                 <select [required]="required" tabindex="-1">
                     <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
                 </select>
@@ -38,7 +38,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                     <span class="fa fa-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
-                    <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
+                    <ul *ngIf="panelVisible" class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                         <li *ngFor="let option of optionsToDisplay;let i=index" 
                             [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-highlight':(selectedOption == option), 
                             'ui-dropdown-item-empty':!option.label||option.label.length === 0}"
@@ -74,6 +74,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() editable: boolean;
     
     @Input() appendTo: any;
+    
+    @Input() enableAccessibility: boolean = true;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
