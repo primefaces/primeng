@@ -456,7 +456,8 @@ import &#123;Footer&#125; from 'primeng/primeng';
             <p>See the <a [routerLink]="['/datatable/paginator']">live example.</a></p>
 
             <h3>Sorting</h3>
-            <p>Simply enabling sortable property at column object is enough to make a column sortable.</p>
+            <p>Simply enabling sortable property at column object is enough to make a column sortable. The property to use when 
+            sorting is field by default and this can be customized using sortField.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-column field="vin" header="Vin" sortable="true"&gt;&lt;/p-column&gt;
@@ -501,8 +502,7 @@ this.multiSortMeta.push(&#123;field: 'brand', order: -1&#125;);
 </code>
 </pre>        
 
-            <p>To customize sorting, set sortable option to <i>custom</i> and define a sortFunction that sorts the list. The property to use when 
-            sorting is field by default and this can be customized using sortField.</p>
+            <p>To customize sorting, set sortable option to <i>custom</i> and define a sortFunction that sorts the list.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [multiSortMeta]="multiSortMeta"&gt;
