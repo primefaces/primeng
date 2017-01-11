@@ -817,8 +817,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         let targetNode = event.target.nodeName;
         if(targetNode == 'TH' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
-            this.sortOrder = (this.sortField === column.field)  ? this.sortOrder * -1 : 1;
-            this.sortField = column.field;
+            let columnSortField = column.sortField||column.field;
+            this.sortOrder = (this.sortField === columnSortField)  ? this.sortOrder * -1 : 1;
+            this.sortField = columnSortField;
             this.sortColumn = column;
             let metaKey = event.metaKey||event.ctrlKey;
 
@@ -944,14 +945,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             return false;
         }
         
+        let columnSortField = column.sortField||column.field;
+        
         if(this.sortMode === 'single') {
-            return (this.sortField && column.field === this.sortField);
+            return (this.sortField && columnSortField === this.sortField);
         }
         else if(this.sortMode === 'multiple') {
             let sorted = false;
             if(this.multiSortMeta) {
                 for(let i = 0; i < this.multiSortMeta.length; i++) {
-                    if(this.multiSortMeta[i].field == column.field) {
+                    if(this.multiSortMeta[i].field == columnSortField) {
                         sorted = true;
                         break;
                     }
@@ -963,15 +966,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     getSortOrder(column: Column) {
         let order = 0;
+        let columnSortField = column.sortField||column.field;
+        
         if(this.sortMode === 'single') {
-            if(this.sortField && column.field === this.sortField) {
+            if(this.sortField && columnSortField === this.sortField) {
                 order = this.sortOrder;
             }
         }
         else if(this.sortMode === 'multiple') {
             if(this.multiSortMeta) {
                 for(let i = 0; i < this.multiSortMeta.length; i++) {
-                    if(this.multiSortMeta[i].field == column.field) {
+                    if(this.multiSortMeta[i].field == columnSortField) {
                         order = this.multiSortMeta[i].order;
                         break;
                     }
