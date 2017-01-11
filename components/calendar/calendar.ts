@@ -25,7 +25,7 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <template [ngIf]="!inline">
-                <input #inputfield type="text" [attr.required]="required" pInputText [value]="inputFieldValue" (focus)="onInputFocus(inputfield)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+                <input #inputfield type="text" [attr.required]="required" pInputText [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
@@ -179,6 +179,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() showOnFocus: boolean = true;
     
     @Input() dataType: string = 'date';
+    
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -566,11 +568,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         return validMin && validMax;
     }
     
-    onInputFocus(inputfield) {
+    onInputFocus(inputfield, event) {
         this.focus = true;
         if(this.showOnFocus) {
             this.showOverlay(inputfield);
         }
+        this.onFocus.emit(event);
     }
     
     onInputBlur(event) {
