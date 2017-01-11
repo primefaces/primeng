@@ -173,6 +173,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() hourFormat: string = '24';
     
     @Input() timeOnly: boolean;
+    
+    @Input() stepHour: number = 1;
+    
+    @Input() stepMinute: number = 1;
 
     @Input() required: boolean;
 
@@ -607,18 +611,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     incrementHour(event) {
-        if(this.hourFormat == '24') {
-            if(this.currentHour === 23)
-                this.currentHour = 0;
-            else
-                this.currentHour++;            
-        }
-        else if(this.hourFormat == '12') {
-            if(this.currentHour === 12)
-                this.currentHour = 1;
-            else
-                this.currentHour++;
-        }
+        let newHour = this.currentHour + this.stepHour;
+        if(this.hourFormat == '24')
+            this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;        
+        else if(this.hourFormat == '12')
+            this.currentHour = (newHour >= 13) ? (newHour - 12) : newHour;
         
         this.updateTime();
                 
@@ -626,29 +623,20 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     decrementHour(event) {
-        if(this.hourFormat == '24') {
-            if(this.currentHour === 0)
-                this.currentHour = 23;
-            else
-                this.currentHour--;
-        }
-        else if(this.hourFormat == '12') {
-            if(this.currentHour === 1)
-                this.currentHour = 12;
-            else
-                this.currentHour--;
-        }
-        
+        let newHour = this.currentHour - this.stepHour;
+        if(this.hourFormat == '24')
+            this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;        
+        else if(this.hourFormat == '12')
+            this.currentHour = (newHour <= 0) ? (12 + newHour) : newHour;
+            
         this.updateTime();
 
         event.preventDefault();
     }
     
     incrementMinute(event) {
-        if(this.currentMinute === 59)
-            this.currentMinute = 0;
-        else
-            this.currentMinute++;
+        let newMinute = this.currentMinute + this.stepMinute;
+        this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
             
         this.updateTime();
                 
@@ -656,10 +644,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     decrementMinute(event) {
-        if(this.currentMinute === 0)
-            this.currentMinute = 59;
-        else
-            this.currentMinute--;
+        let newMinute = this.currentMinute - this.stepMinute;
+        this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
             
         this.updateTime();
             
