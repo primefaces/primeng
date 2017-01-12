@@ -67,6 +67,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() disabled: boolean;
     
+    @Input() readonly: boolean;
+    
     @Input() autoWidth: boolean = true;
     
     @Input() required: boolean;
@@ -250,7 +252,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
         
     onMouseclick(event,input) {
-        if(this.disabled) {
+        if(this.disabled||this.readonly) {
             return;
         }
         
@@ -318,6 +320,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onKeydown(event) {
+        if(this.readonly) {
+            return;
+        }
+        
         let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
 
         switch(event.which) {
@@ -352,6 +358,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                     this.selectedOptionUpdated = true;
                     this.selectItem(event, this.selectedOption);
                 }
+                
+                event.preventDefault();
+            break;
+
+            //space
+            case 32:
+                this.panelVisible = !this.panelVisible;
                 
                 event.preventDefault();
             break;
