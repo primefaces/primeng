@@ -10,7 +10,7 @@
 
 <div class="content-section implementation">
     <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-        <header>List of Cars</header>
+        <p-header>List of Cars</p-header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -41,7 +41,7 @@ export class DataTablePaginatorDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;

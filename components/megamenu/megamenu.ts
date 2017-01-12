@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
                 <template ngFor let-category [ngForOf]="model">
                     <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':category.items,'ui-menuitem-active':item==activeItem}"
                         (mouseenter)="onItemMouseEnter($event, item, category)" (mouseleave)="onItemMouseLeave($event, item)">
-                        <a #link class="ui-menuitem-link ui-corner-all ui-submenu-link" [ngClass]="{'ui-state-hover':link==activeLink&&!category.disabled,'ui-state-disabled':category.disabled}">
+                        <a class="ui-menuitem-link ui-corner-all ui-submenu-link" [ngClass]="{'ui-state-disabled':category.disabled}">
                             <span class="ui-submenu-icon fa fa-fw" [ngClass]="{'fa-caret-down':orientation=='horizontal','fa-caret-right':orientation=='vertical'}"></span>
                             <span class="ui-menuitem-icon fa fa-fw" [ngClass]="category.icon"></span>
                             {{category.label}}
@@ -27,9 +27,8 @@ import {Router} from '@angular/router';
                                             <ul class="ui-menu-list ui-helper-reset">
                                                 <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                                                 <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
-                                                    <a #link [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
-                                                        [ngClass]="{'ui-state-hover':link==hoveredItem&&!item.disabled,'ui-state-disabled':item.disabled}"
-                                                        (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
+                                                    <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                                                        [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                         <span class="ui-menuitem-text">{{item.label}}</span>
                                                     </a>
@@ -58,9 +57,7 @@ export class MegaMenu implements OnDestroy {
     @Input() orientation: string = 'horizontal';
     
     activeItem: any;
-    
-    activeLink: any;
-            
+                
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public router: Router) {}
     
     onItemMouseEnter(event, item, menuitem: MenuItem) {
@@ -69,7 +66,6 @@ export class MegaMenu implements OnDestroy {
         }
         
         this.activeItem = item;
-        this.activeLink = item.children[0];
         let submenu =  item.children[0].nextElementSibling;
         if(submenu) {
             submenu.style.zIndex = ++DomHandler.zindex;
@@ -87,7 +83,6 @@ export class MegaMenu implements OnDestroy {
     
     onItemMouseLeave(event, link) {
         this.activeItem = null;
-        this.activeLink = null;
     }
     
     itemClick(event, item: MenuItem) {
@@ -117,7 +112,6 @@ export class MegaMenu implements OnDestroy {
         }
         
         this.activeItem = null;
-        this.activeLink = null;
     }
     
     unsubscribe(item: any) {

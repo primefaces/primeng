@@ -180,7 +180,8 @@
     min-width: 1.5em;
 }
 
-.ui-timepicker > .ui-minute-picker {
+.ui-timepicker > .ui-minute-picker,
+.ui-timepicker > .ui-second-picker {
     margin-left: 0;
 }
 

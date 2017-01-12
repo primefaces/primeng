@@ -25,7 +25,7 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <template [ngIf]="!inline">
-                <input #inputfield type="text" [attr.required]="required" pInputText [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+                <input #inputfield type="text" [attr.required]="required" pInputText [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
@@ -33,12 +33,10 @@ export interface LocaleSettings {
             <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}" 
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly">
-                    <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (mouseenter)="hoverPrev=true" (mouseleave)="hoverPrev=false"
-                            [ngClass]="{'ui-state-hover ui-datepicker-prev-hover':hoverPrev&&!disabled}">
+                    <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
                         <span class="fa fa-angle-left"></span>
                     </a>
-                    <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)" (mouseenter)="hoverNext=true" (mouseleave)="hoverNext=false"
-                            [ngClass]="{'ui-state-hover ui-datepicker-next-hover':hoverNext&&!disabled}">
+                    <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)">
                         <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="ui-datepicker-title">
@@ -64,10 +62,9 @@ export interface LocaleSettings {
                         <tr *ngFor="let week of dates">
                             <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date)}">
-                                <a #cell class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
-                                        [ngClass]="{'ui-state-active':isSelected(date),'ui-state-hover':(hoverCell == cell && !disabled && date.selectable),
-                                            'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
-                                        (click)="onDateSelect($event,date)" (mouseenter)="hoverCell=cell" (mouseleave)="hoverCell=null">{{date.day}}</a>
+                                <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
+                                    [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
+                                    (click)="onDateSelect($event,date)">{{date.day}}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -97,6 +94,24 @@ export interface LocaleSettings {
                         </a>
                         <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
                         <a href="#" (click)="decrementMinute($event)">
+                            <span class="fa fa-angle-down"></span>
+                        </a>
+                    </div>
+                    <div class="ui-separator" *ngIf="showSeconds">
+                        <a href="#">
+                            <span class="fa fa-angle-up"></span>
+                        </a>
+                        <span>:</span>
+                        <a href="#">
+                            <span class="fa fa-angle-down"></span>
+                        </a>
+                    </div>
+                    <div class="ui-second-picker" *ngIf="showSeconds">
+                        <a href="#" (click)="incrementSecond($event)">
+                            <span class="fa fa-angle-up"></span>
+                        </a>
+                        <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
+                        <a href="#" (click)="incrementSecond($event)">
                             <span class="fa fa-angle-down"></span>
                         </a>
                     </div>
@@ -176,10 +191,22 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() hourFormat: string = '24';
     
     @Input() timeOnly: boolean;
+    
+    @Input() stepHour: number = 1;
+    
+    @Input() stepMinute: number = 1;
+    
+    @Input() stepSecond: number = 1;
+    
+    @Input() showSeconds: number = 1;
 
     @Input() required: boolean;
+
+    @Input() showOnFocus: boolean = true;
     
     @Input() dataType: string = 'date';
+    
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -213,6 +240,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     currentHour: number;
     
     currentMinute: number;
+    
+    currentSecond: number;
     
     pm: boolean;
     
@@ -279,6 +308,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.currentYear = date.getFullYear();
         if(this.showTime) {
             this.currentMinute = date.getMinutes();
+            this.currentSecond = date.getSeconds();
             this.pm = date.getHours() > 11;
             
             if(this.hourFormat == '12')
@@ -289,18 +319,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         else if(this.timeOnly) {
             this.currentMinute = 0;
             this.currentHour = 0;
+            this.currentSecond = 0;
         }
 
         this.createMonth(this.currentMonth, this.currentYear);
-        
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            if(this.closeOverlay) {
-                this.overlayVisible = false;
-            }
-            
-            this.closeOverlay = true;
-            this.dateClick = false;
-        });
         
         this.ticksTo1970 = (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) +
     		Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000);
@@ -460,6 +482,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 this.value.setHours(this.currentHour);
 
             this.value.setMinutes(this.currentMinute);
+            this.value.setSeconds(this.currentSecond);
         }
         this.updateModel();
         this.onSelect.emit(this.value);
@@ -576,9 +599,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         return validMin && validMax;
     }
     
-    onInputFocus(event) {
+    onInputFocus(inputfield, event) {
         this.focus = true;
-        this.showOverlay(event);
+        if(this.showOnFocus) {
+            this.showOverlay(inputfield);
+        }
+        this.onFocus.emit(event);
     }
     
     onInputBlur(event) {
@@ -590,8 +616,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     onButtonClick(event,inputfield) {
         this.closeOverlay = false;
         
-        if(!this.overlay.offsetParent)
+        if(!this.overlay.offsetParent) {
             inputfield.focus();
+            this.showOverlay(inputfield);
+        }
         else
             this.closeOverlay = true;
     }
@@ -613,18 +641,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     incrementHour(event) {
-        if(this.hourFormat == '24') {
-            if(this.currentHour === 23)
-                this.currentHour = 0;
-            else
-                this.currentHour++;            
-        }
-        else if(this.hourFormat == '12') {
-            if(this.currentHour === 12)
-                this.currentHour = 1;
-            else
-                this.currentHour++;
-        }
+        let newHour = this.currentHour + this.stepHour;
+        if(this.hourFormat == '24')
+            this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;        
+        else if(this.hourFormat == '12')
+            this.currentHour = (newHour >= 13) ? (newHour - 12) : newHour;
         
         this.updateTime();
                 
@@ -632,29 +653,20 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     decrementHour(event) {
-        if(this.hourFormat == '24') {
-            if(this.currentHour === 0)
-                this.currentHour = 23;
-            else
-                this.currentHour--;
-        }
-        else if(this.hourFormat == '12') {
-            if(this.currentHour === 1)
-                this.currentHour = 12;
-            else
-                this.currentHour--;
-        }
-        
+        let newHour = this.currentHour - this.stepHour;
+        if(this.hourFormat == '24')
+            this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;        
+        else if(this.hourFormat == '12')
+            this.currentHour = (newHour <= 0) ? (12 + newHour) : newHour;
+            
         this.updateTime();
 
         event.preventDefault();
     }
     
     incrementMinute(event) {
-        if(this.currentMinute === 59)
-            this.currentMinute = 0;
-        else
-            this.currentMinute++;
+        let newMinute = this.currentMinute + this.stepMinute;
+        this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
             
         this.updateTime();
                 
@@ -662,10 +674,26 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     decrementMinute(event) {
-        if(this.currentMinute === 0)
-            this.currentMinute = 59;
-        else
-            this.currentMinute--;
+        let newMinute = this.currentMinute - this.stepMinute;
+        this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
+            
+        this.updateTime();
+            
+        event.preventDefault();
+    }
+    
+    incrementSecond(event) {
+        let newSecond = this.currentSecond + this.stepSecond;
+        this.currentSecond = (newSecond > 59) ? newSecond - 60 : newSecond;
+            
+        this.updateTime();
+                
+        event.preventDefault();
+    }
+    
+    decrementSecond(event) {
+        let newSecond = this.currentSecond - this.stepSecond;
+        this.currentSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
             
         this.updateTime();
             
@@ -688,6 +716,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         
         this.value.setMinutes(this.currentMinute);
         this.updateUI();
+        this.value.setSeconds(this.currentSecond);
         this.updateModel();
         this.onSelect.emit(this.value);
         this.updateInputfield();
@@ -756,6 +785,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
 
         value.setMinutes(time.minute);
+        value.setSeconds(time.second);
     }
     
     updateUI() {
@@ -780,6 +810,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             }
             
             this.currentMinute = val.getMinutes();
+            this.currentSecond = val.getSeconds();
         }
     }
     
@@ -787,14 +818,16 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.closeOverlay = this.dateClick;
     }
     
-    showOverlay(event) {
+    showOverlay(inputfield) {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, event.target);
+            this.domHandler.absolutePosition(this.overlay, inputfield);
         else
-            this.domHandler.relativePosition(this.overlay, event.target);
+            this.domHandler.relativePosition(this.overlay, inputfield);
         
         this.overlayVisible = true;
         this.overlay.style.zIndex = String(++DomHandler.zindex);
+        
+        this.bindDocumentClickListener();
     }
 
     writeValue(value: any) : void {
@@ -908,6 +941,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let output = '';
         let hours = date.getHours();
         let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
         
         if(this.hourFormat == '12' && this.pm && hours != 12) {
             hours-=12;
@@ -916,6 +950,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         output += (hours < 10) ? '0' + hours : hours;
         output += ':';
         output += (minutes < 10) ? '0' + minutes : minutes;
+        
+        if(this.showSeconds) {
+            output += ':';
+            output += (seconds < 10) ? '0' + seconds : seconds;
+        }
         
         if(this.hourFormat == '12') {
             output += this.pm ? ' PM' : ' AM';
@@ -926,21 +965,25 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     parseTime(value) {
         let tokens: string[] = value.split(':');
-        if(tokens.length !== 2) {
+        let validTokentLength = this.showSeconds ? 3 : 2;
+        
+        if(tokens.length !== validTokentLength) {
             throw "Invalid time";
         }
         
         let h = parseInt(tokens[0]);
         let m = parseInt(tokens[1]);
-        if(isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12)) {
+        let s = this.showSeconds ? parseInt(tokens[2]) : null;
+        
+        if(isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12) || (this.showSeconds && (isNaN(s) || s > 59))) {
             throw "Invalid time";
         }
         else {
             if(this.hourFormat == '12' && h !== 12) {
                 h+= 12;
             }
-
-            return {hour: parseInt(tokens[0]), minute: parseInt(tokens[1])};
+            
+            return {hour: h, minute: m, second: s};
         }
     }
     
@@ -1115,8 +1158,29 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     updateFilledState() {
         this.filled = this.inputFieldValue && this.inputFieldValue != '';
     }
+    
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+                if(this.closeOverlay) {
+                    this.overlayVisible = false;
+                }
+                
+                this.closeOverlay = true;
+                this.dateClick = false;
+            });
+        }
+    }
+    
+    unbindDocumentClickListener() {
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
+    }
         
     ngOnDestroy() {
+        this.unbindDocumentClickListener();
+        
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlay);
         }
