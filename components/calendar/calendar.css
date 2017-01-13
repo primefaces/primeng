@@ -17,6 +17,10 @@
     width: 100%;
 }
 
+.ui-fluid .ui-calendar button {
+    width: 2em;
+}
+
 /* Datepicker */
 .ui-datepicker {
 	width: 17em;
@@ -176,7 +180,8 @@
     min-width: 1.5em;
 }
 
-.ui-timepicker > .ui-minute-picker {
+.ui-timepicker > .ui-minute-picker,
+.ui-timepicker > .ui-second-picker {
     margin-left: 0;
 }
 

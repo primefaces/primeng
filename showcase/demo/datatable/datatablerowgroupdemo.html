@@ -11,7 +11,7 @@
 <div class="content-section implementation">
     <p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"
             [sortableRowGroup]="false">
-        <header>Toggleable Row Groups with Footers</header>
+        <p-header>Toggleable Row Groups with Footers</p-header>
         <template pTemplate="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
         <p-column field="color" header="Color"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -28,7 +28,7 @@
     </p-dataTable>
     
     <p-dataTable [value]="cars2" sortField="brand" rowGroupMode="subheader" groupField="brand" [style]="{'margin-top':'50px'}">
-        <header>Subheader</header>
+        <p-header>Subheader</p-header>
         <template pTemplate="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
         <p-column field="color" header="Color" sortable="true"></p-column>
         <p-column field="year" header="Year" sortable="true"></p-column>
@@ -36,7 +36,7 @@
     </p-dataTable>
     
     <p-dataTable [value]="cars3" sortField="brand" rowGroupMode="rowspan" [style]="{'margin-top':'50px'}">
-        <header>RowSpan</header>
+        <p-header>RowSpan</p-header>
         <p-column field="brand" header="Brand" sortable="true"></p-column>
         <p-column field="color" header="Color" sortable="true"></p-column>
         <p-column field="year" header="Year" sortable="true"></p-column>
@@ -88,7 +88,7 @@ export class DataTableRowGroupDemo implements OnInit &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"
         [sortableRowGroup]="false"&gt;
-    &lt;header&gt;Toggleable Row Groups with Footers&lt;/header&gt;
+    &lt;p-header&gt;Toggleable Row Groups with Footers&lt;/p-header&gt;
     &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
@@ -105,7 +105,7 @@ export class DataTableRowGroupDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 
 &lt;p-dataTable [value]="cars2" sortField="brand" rowGroupMode="subheader" groupField="brand" [style]="&#123;'margin-top':'50px'&#125;"&gt;
-    &lt;header&gt;Subheader&lt;/header&gt;
+    &lt;p-header&gt;Subheader&lt;/p-header&gt;
     &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
     &lt;p-column field="color" header="Color" sortable="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" sortable="true"&gt;&lt;/p-column&gt;
@@ -113,7 +113,7 @@ export class DataTableRowGroupDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 
 &lt;p-dataTable [value]="cars3" sortField="brand" rowGroupMode="rowspan" [style]="&#123;'margin-top':'50px'&#125;"&gt;
-    &lt;header&gt;RowSpan&lt;/header&gt;
+    &lt;p-header&gt;RowSpan&lt;/p-header&gt;
     &lt;p-column field="brand" header="Brand" sortable="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color" sortable="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" sortable="true"&gt;&lt;/p-column&gt;

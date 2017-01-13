@@ -116,8 +116,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     androidChrome: boolean;
     
     focus: boolean;
-    
-    filled: boolean;
             
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
         
@@ -191,8 +189,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
                 _this.checkVal();
             }, 10);
         }
-        
-        this.updateFilledState();
     }
     
     registerOnChange(fn: Function): void {
@@ -343,7 +339,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.onModelTouched();
         this.checkVal();
         this.updateModel(e);
-        this.updateFilledState();
         this.blur.emit(e);
 
         if (this.input.value != this.focusText) {
@@ -537,7 +532,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             } else {
                 this.caret(pos);
             }
-            this.updateFilledState();
         }, 10);
     }
     
@@ -578,10 +572,10 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     updateModel(e) {
         this.onModelChange(this.unmask ? this.getUnmaskedValue() : e.target.value);
     }
-    
-    updateFilledState() {
-        this.filled = this.input && this.input.value != '';
-    }
+	
+	get filled() {
+		return this.input && this.input.value != '';
+	}
     
     ngOnDestroy() {
         

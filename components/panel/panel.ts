@@ -1,5 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {SharedModule} from '../common/shared'
 import {BlockableUI} from '../common/api';
 
 @Component({
@@ -8,9 +9,9 @@ import {BlockableUI} from '../common/api';
         <div [ngClass]="'ui-panel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
                 <span class="ui-panel-title" *ngIf="header">{{header}}</span>
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
                 <a *ngIf="toggleable" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
-                    [ngClass]="{'ui-state-hover':hoverToggler}" (mouseenter)="hoverToggler=true" (mouseleave)="hoverToggler=false" (click)="toggle($event)">
+                    (click)="toggle($event)">
                     <span class="fa fa-fw" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
                 </a>
             </div>
@@ -52,9 +53,7 @@ export class Panel implements BlockableUI {
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
-    
-    public hoverToggler: boolean;
-    
+        
     public animating: boolean;
     
     constructor(private el: ElementRef) {}
@@ -98,7 +97,7 @@ export class Panel implements BlockableUI {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Panel],
+    exports: [Panel,SharedModule],
     declarations: [Panel]
 })
 export class PanelModule { }
