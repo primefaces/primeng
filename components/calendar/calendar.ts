@@ -469,6 +469,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
             this.value.setMinutes(this.currentMinute);
         }
+        this._isValid = true;
         this.updateModel();
         this.onSelect.emit(this.value);
     }
