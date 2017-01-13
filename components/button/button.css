@@ -112,12 +112,12 @@ button.ui-button::-moz-focus-inner {
     color: #373a3c;
 }
 
-.ui-button.ui-button-secondary.ui-state-hover,
-.ui-button.ui-button-secondary.ui-state-focus {
+.ui-button.ui-button-secondary:enabled:hover,
+.ui-button.ui-button-secondary:focus {
     background-color: #f2f2f2;
 }
 
-.ui-button.ui-button-secondary.ui-state-active {
+.ui-button.ui-button-secondary:enabled:active {
     background-color: #e6e6e6;
 }
 
@@ -128,12 +128,12 @@ button.ui-button::-moz-focus-inner {
     color: #ffffff;
 }
 
-.ui-button.ui-button-success.ui-state-hover,
-.ui-button.ui-button-success.ui-state-focus {
+.ui-button.ui-button-success:enabled:hover,
+.ui-button.ui-button-success:focus {
     background-color: #4cae4c;
 }
 
-.ui-button.ui-button-success.ui-state-active {
+.ui-button.ui-button-success:enabled:active {
     background-color: #449d44;
 }
 
@@ -144,12 +144,12 @@ button.ui-button::-moz-focus-inner {
     color: #ffffff;
 }
 
-.ui-button.ui-button-info.ui-state-hover,
-.ui-button.ui-button-info.ui-state-focus {
+.ui-button.ui-button-info:enabled:hover,
+.ui-button.ui-button-info:focus {
     background-color: #46b8da;
 }
 
-.ui-button.ui-button-info.ui-state-active {
+.ui-button.ui-button-info:enabled:active {
     background-color: #31b0d5;
 }
 
@@ -160,12 +160,12 @@ button.ui-button::-moz-focus-inner {
     color: #ffffff;
 }
 
-.ui-button.ui-button-warning.ui-state-hover,
-.ui-button.ui-button-warning.ui-state-focus {
+.ui-button.ui-button-warning:enabled:hover,
+.ui-button.ui-button-warning:focus {
     background-color: #eea236;
 }
 
-.ui-button.ui-button-warning.ui-state-active {
+.ui-button.ui-button-warning:enabled:active {
     background-color: #ec971f;
 }
 
@@ -176,11 +176,11 @@ button.ui-button::-moz-focus-inner {
     color: #ffffff;
 }
 
-.ui-button.ui-button-danger.ui-state-hover,
-.ui-button.ui-button-danger.ui-state-focus {
+.ui-button.ui-button-danger:enabled:hover,
+.ui-button.ui-button-danger:focus {
     background-color: #d43f3a;
 }
 
-.ui-button.ui-button-danger.ui-state-active {
+.ui-button.ui-button-danger:enabled:active {
     background-color: #c9302c;
 }

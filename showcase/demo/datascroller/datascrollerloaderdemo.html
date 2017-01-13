@@ -9,10 +9,10 @@
 
 <div class="content-section implementation">
     <p-dataScroller [value]="cars" [rows]="5" [loader]="loadButton">
-        <header>
+        <p-header>
             Click Load Button at Footer to Load More
-        </header>
-        <template let-car>
+        </p-header>
+        <template let-car pTemplate="item">
             <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5">
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"></div>
@@ -39,9 +39,9 @@
                 </div>
             </div>
         </template>
-        <footer>
+        <p-footer>
             <button #loadButton type="text" icon="fa-refresh" pButton label="Load"></button>
-        </footer>
+        </p-footer>
     </p-dataScroller>
         
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
@@ -105,10 +105,10 @@ export class DataScrollerLoaderDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [rows]="5" [loader]="loadButton"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         Click Load Button at Footer to Load More
-    &lt;/header&gt;
-    &lt;template let-car&gt;
+    &lt;/p-header&gt;
+    &lt;template let-car pTemplate="item"&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;
@@ -135,9 +135,9 @@ export class DataScrollerLoaderDemo implements OnInit &#123;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/template&gt;
-    &lt;footer&gt;
+    &lt;p-footer&gt;
         &lt;button #loadButton type="text" icon="fa-refresh" pButton label="Load"&gt;&lt;/button&gt;
-    &lt;/footer&gt;
+    &lt;/p-footer&gt;
 &lt;/p-dataScroller&gt;
     
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;

@@ -1,5 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,
-            ContentChild,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,IterableDiffers,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
@@ -14,15 +13,15 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-multiSelect',
     template: `
-        <div [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus': focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
-            (mouseenter)="onMouseenter($event)" (mouseleave)="onMouseleave($event)" (click)="onMouseclick($event,in)">
+        <div [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
+            (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
-                <label [ngClass]="{'ui-multiselect-label ui-corner-all':true,'ui-state-hover':hover,'ui-state-focus':focus}">{{valuesAsString}}</label>
+                <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
             </div>
-            <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true,'ui-state-hover':hover,'ui-state-focus':focus}">
+            <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
                 <span class="fa fa-fw fa-caret-down ui-c"></span>
             </div>
             <div class="ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow" [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
@@ -31,8 +30,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                         <div class="ui-helper-hidden-accessible">
                             <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
-                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-hover':hoverToggleAll}"
-                            (mouseenter)="hoverToggleAll=true" (mouseleave)="hoverToggleAll=false" (click)="toggleAll($event,cb)">
+                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="toggleAll($event,cb)">
                             <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
                         </div>
                     </div>
@@ -47,9 +45,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
-                        <li #item *ngFor="let option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
-                            [style.display]="isItemVisible(option) ? 'block' : 'none'"
-                            [ngClass]="{'ui-state-highlight':isSelected(option.value),'ui-state-hover':hoveredItem==item}" (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null">
+                        <li *ngFor="let option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
+                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':isSelected(option.value)}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
                                     <input type="checkbox" readonly="readonly" [checked]="isSelected(option.value)">
@@ -92,9 +89,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     public onModelTouched: Function = () => {};
     
     public valuesAsString: string;
-    
-    public hover: boolean;
-    
+        
     public focus: boolean;
     
     public documentClickListener: any;
@@ -112,9 +107,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     public visibleOptions: SelectItem[];
     
     public filtered: boolean;
-    
-    public hoverToggleAll: boolean;
-    
+        
     public differ: any;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers) {
@@ -247,17 +240,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         this.hide();
         event.preventDefault();
     }
-     
-    onMouseenter(event) {
-        if(!this.disabled) {
-            this.hover = true;
-        }
-    }
-    
-    onMouseleave(event) {
-        this.hover = false;
-    }
-    
+         
     onMouseclick(event,input) {
         if(this.disabled) {
             return;

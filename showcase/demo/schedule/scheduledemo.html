@@ -28,12 +28,12 @@
                 <div class="ui-grid-col-8"><p-checkbox [(ngModel)]="event.allDay" binary="checkbox"></p-checkbox></div>
             </div>
         </div>
-        <footer>
+        <p-footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                 <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
                 <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
             </div>
-        </footer>
+        </p-footer>
     </p-dialog>
 </div>
 
@@ -580,12 +580,12 @@ export class MyModel &#123;
             &lt;div class="ui-grid-col-8"&gt;&lt;p-checkbox [(ngModel)]="event.allDay" binary="binary"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;footer&gt;
+    &lt;p-footer&gt;
         &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
             &lt;button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"&gt;&lt;/button&gt;
             &lt;button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"&gt;&lt;/button&gt;
         &lt;/div&gt;
-    &lt;/footer&gt;
+    &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 </code>
 </pre>

@@ -16,9 +16,9 @@ export const RADIO_VALUE_ACCESSOR: any = {
                 <input #rb type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked" (change)="onChange($event)"
                     (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
-            <div (click)="handleClick()" (mouseenter)="hover=true" (mouseleave)="hover=false"
+            <div (click)="handleClick()"
                 [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
-                'ui-state-hover':hover&&!disabled,'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
+                'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-circle':rb.checked}"></span>
             </div>
         </div>
@@ -47,9 +47,7 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
     public onModelTouched: Function = () => {};
     
     public checked: boolean;
-    
-    public hover: boolean;
-    
+        
     public focused: boolean;
     
     ngAfterViewInit() {
