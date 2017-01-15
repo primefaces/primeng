@@ -35,53 +35,55 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() disabled: boolean;
 
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onRemove: EventEmitter<any> = new EventEmitter();
-    
+
     @Input() field: string;
-    
+
     @Input() placeholder: string;
-    
+
     @Input() max: number;
-    
+
+    @Input() separator: number[] = [13]; // Default is enter
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     public itemTemplate: TemplateRef<any>;
-        
+
     value: any;
-    
+
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-        
+
     valueChanged: boolean;
-    
+
     focus: boolean;
-            
+
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
             }
         });
     }
-    
+
     writeValue(value: any) : void {
         this.value = value;
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -89,11 +91,11 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
-    
+
     resolveFieldData(data: any, field: string): any {
         if(data && field) {
             if(field.indexOf('.') == -1) {
@@ -112,21 +114,21 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             return null;
         }
     }
-    
+
     onFocus() {
         this.focus = true;
     }
-    
+
     onBlur() {
         this.focus = false;
         this.onModelTouched();
     }
-    
+
     removeItem(event: Event, index: number): void {
         if(this.disabled) {
             return;
         }
-        
+
         let removedItem = this.value.splice(index, 1);
         this.onModelChange(this.value);
         this.onRemove.emit({
@@ -134,44 +136,37 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             value: removedItem
         });
     }
-    
+
     onKeydown(event: KeyboardEvent, inputEL: HTMLInputElement): void {
-        switch(event.which) {
-            //backspace
-            case 8:
-                if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
-                    let removedItem = this.value.pop();
-                    this.onModelChange(this.value);
-                    this.onRemove.emit({
-                        originalEvent: event,
-                        value: removedItem
-                    });
-                }
-            break;
-            
-            //enter
-            case 13:
-                this.value = this.value||[];
-                if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
-                    this.value.push(inputEL.value);
-                    this.onModelChange(this.value);
-                    this.onAdd.emit({
-                        originalEvent: event,
-                        value: inputEL.value
-                    });
-                }     
-                inputEL.value = '';
-                event.preventDefault();
-            break;
-            
-            default:
-                if(this.max && this.value && this.max === this.value.length) {
-                    event.preventDefault();
-                }
-            break;
+      // console.log(event.which);
+      if (event.which === 8) { //backspace
+        if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
+            let removedItem = this.value.pop();
+            this.onModelChange(this.value);
+            this.onRemove.emit({
+                originalEvent: event,
+                value: removedItem
+            });
         }
+      } else if (this.separator.indexOf(event.which) !== -1) {
+        this.value = this.value||[];
+        if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
+            this.value.push(inputEL.value);
+            this.onModelChange(this.value);
+            this.onAdd.emit({
+                originalEvent: event,
+                value: inputEL.value
+            });
+        }
+        inputEL.value = '';
+        event.preventDefault();
+      } else {
+        if(this.max && this.value && this.max === this.value.length) {
+            event.preventDefault();
+        }
+      }
     }
-    
+
     get maxedOut(): boolean {
         return this.max && this.value && this.max === this.value.length;
     }

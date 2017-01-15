@@ -8,13 +8,16 @@
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
     <p-chips [(ngModel)]="values1"></p-chips>
-    
+
     <h3>Template</h3>
     <p-chips [(ngModel)]="values2">
         <template let-item pTemplate="item">
             {{item}} - (active) <i class="fa fa-user"></i>
         </template>
     </p-chips>
+
+    <h3 class="first">Space seperator</h3>
+    <p-chips [(ngModel)]="values3" [separator]="[32]"></p-chips>
 </div>
 
 <div class="content-section source">
@@ -111,6 +114,12 @@ export class MyModel &#123;
                             <td>null</td>
                             <td>Advisory information to display on input.</td>
                         </tr>
+                        <tr>
+                            <td>separator</td>
+                            <td>number array</td>
+                            <td>[13]</td>
+                            <td>Specify seperator keys for chip input.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -195,6 +204,9 @@ export class MyModel &#123;
         &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user"&gt;&lt;/i&gt;
     &lt;/template&gt;
 &lt;/p-chips&gt;
+
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-chips [(ngModel)]="values1" [separator]="[32]"&gt;&lt;/p-chips&gt;
 </code>
 </pre>
 
@@ -203,8 +215,10 @@ export class MyModel &#123;
 export class ChipsDemo &#123;
 
     values1: string[];
-    
+
     values2: string[];
+
+    values3: string[];
 &#125;
 </code>
 </pre>
