@@ -16,15 +16,16 @@ import {Message} from '../../../components/common/api';
         .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
             height: 10px;
             padding: 0 1em;
+            overflow: visible;
         }
          
         .ui-steps.steps-custom .ui-steps-item .ui-steps-number {
             background-color: #0081c2;
             color: #FFFFFF;
             display: inline-block;
-            width: 30px;
+            width: 36px;
             border-radius: 50%;
-            margin-top: -10px;
+            margin-top: -14px;
             margin-bottom: 10px;
         }
         

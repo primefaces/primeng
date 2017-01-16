@@ -1,12 +1,12 @@
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">ConfirmDialog</span>
-        <span class="defaultText">ConfirmDialog is backed by a service utilizing Observables to display confirmation windows
+        <span class="feature-title">ConfirmDialog</span>
+        <span>ConfirmDialog is backed by a service utilizing Observables to display confirmation windows
             easily that can be shared by multiple actions on the same component.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
     
     <p-confirmDialog width="425"></p-confirmDialog>
@@ -16,7 +16,7 @@
     <button type="button" (click)="confirm2()" pButton icon="fa-trash" label="Delete"></button>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -113,10 +113,10 @@ export class ConfirmDialogDemo &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd&gt;
-    &lt;footer&gt;
+    &lt;p-footer&gt;
         &lt;button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"&gt;&lt;/button&gt;
         &lt;button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"&gt;&lt;/button&gt;
-    &lt;/footer&gt;
+    &lt;/p-footer&gt;
 &lt;/p-confirmDialog&gt;
 </code>
 </pre>

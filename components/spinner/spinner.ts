@@ -14,22 +14,16 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #in pInputText type="text" class="ui-spinner-input" [value]="(value === undefined || value == null) ? '' : value"
-            [attr.size]="size" [maxLength]="maxlength" [disabled]="disabled" [readonly]="readonly"
-            (keydown)="onInputKeydown($event)" (keyup)="onInput($event,in.value)" (blur)="onBlur()" (change)="handleChange($event)" (focus)="onFocus()">
+            <input #in pInputText type="text" class="ui-spinner-input" [value]="valueAsString"
+            [attr.size]="size" [attr.maxlength]="maxlength" [disabled]="disabled" [readonly]="readonly"
+            (keydown)="onInputKeydown($event)" (keyup)="onInput($event,in.value)" (keypress)="onInputKeyPress($event)" (blur)="onBlur()" (change)="handleChange($event)" (focus)="onFocus()">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
-                [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp,'ui-state-disabled':disabled}"
-                (mouseenter)="onUpButtonMouseenter($event)" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
-                <span class="ui-button-text">
-                    <span class="fa fa-fw fa-caret-up"></span>
-                </span>
+                (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
+                <span class="fa fa-caret-up"></span>
             </a>
             <a class="ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default ui-button-text-only"
-                [ngClass]="{'ui-state-hover':hoverDown,'ui-state-active':activeDown,'ui-state-disabled':disabled}"
-                (mouseenter)="onDownButtonMouseenter($event)" (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event,in)" (mouseup)="onDownButtonMouseup($event)">
-                <span class="ui-button-text">
-                    <span class="fa fa-fw fa-caret-down"></span>
-                </span>
+                (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event,in)" (mouseup)="onDownButtonMouseup($event)">
+                <span class="fa fa-caret-down"></span>
             </a>
         </span>
     `,
@@ -56,21 +50,21 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() disabled: boolean;
     
     @Input() readonly: boolean;
+    
+    @Input() decimalSeparator: string = '.';
+    
+    @Input() thousandSeparator: string = ',';
             
     value: number;
+    
+    valueAsString: string = '';
     
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
         
-    public hoverUp: boolean;
-    
-    public activeUp: boolean;
-    
-    public hoverDown: boolean;
-    
-    public activeDown: boolean;
-
+    keyPattern: RegExp = /[0-9\+\-]/;
+        
     public precision: number;
     
     public timer: any;
@@ -120,6 +114,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
             this.value = this.max;
         }
         
+        this.formatValue();
         this.onModelChange(this.value);
     }
     
@@ -131,7 +126,6 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onUpButtonMousedown(event: Event,input: HTMLInputElement) {
         if(!this.disabled) {
             input.focus();
-            this.activeUp = true;
             this.repeat(null, 1);
             this.updateFilledState();
             event.preventDefault();
@@ -140,21 +134,12 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     onUpButtonMouseup(event: Event) {
         if(!this.disabled) {
-            this.activeUp = false;
             this.clearTimer();
         }        
     }
-    
-    onUpButtonMouseenter(event: Event) {
-        if(!this.disabled) {
-            this.hoverUp = true;
-        }
-    }
-    
+        
     onUpButtonMouseleave(event: Event) {
         if(!this.disabled) {
-            this.hoverUp = false;
-            this.activeUp = false;
             this.clearTimer();
         }
     }
@@ -162,7 +147,6 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onDownButtonMousedown(event: Event, input: HTMLInputElement) {
         if(!this.disabled) {
             input.focus();
-            this.activeDown = true;
             this.repeat(null, -1);
             this.updateFilledState();
             
@@ -172,21 +156,12 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     onDownButtonMouseup(event: Event) {
         if(!this.disabled) {
-            this.activeDown = false;
             this.clearTimer();
         }
     }
-    
-    onDownButtonMouseenter(event: Event) {
-        if(!this.disabled) {
-            this.hoverDown = true;
-        }
-    }
-    
+        
     onDownButtonMouseleave(event: Event) {
         if(!this.disabled) {
-            this.hoverDown = false;
-            this.activeDown = false;
             this.clearTimer();
         }
     }
@@ -199,11 +174,19 @@ export class Spinner implements OnInit,ControlValueAccessor {
         else if(event.which == 40) {
             this.spin(-1);
             event.preventDefault();
-        }    
+        }
     }
     
+    onInputKeyPress(event: KeyboardEvent) {
+        let inputChar = String.fromCharCode(event.charCode);
+        if(!this.keyPattern.test(inputChar) && inputChar != this.decimalSeparator) {
+            event.preventDefault();
+        }    
+    }
+
     onInput(event: Event, inputValue: string) {
-        this.value = this.parseValue(inputValue);        
+        this.value = this.parseValue(inputValue);
+        this.formatValue();       
         this.onModelChange(this.value);
         this.updateFilledState();
     }
@@ -219,14 +202,17 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     parseValue(val: string): number {
         let value: number;
+        val = val.split(this.thousandSeparator).join('');
         if(val.trim() === '') {
             value= this.min !== undefined ? this.min : null;
         }
         else {        
-            if(this.precision)
-                value = parseFloat(val);
-            else
+            if(this.precision) {
+                value = parseFloat(val.replace(',','.'));
+            }
+            else {
                 value = parseInt(val);
+            }
                             
             if(!isNaN(value)) {
                 if(this.max !== undefined && value > this.max) {
@@ -245,6 +231,17 @@ export class Spinner implements OnInit,ControlValueAccessor {
         return value;
     }
     
+    formatValue(): void {
+        if(this.value !== null && this.value !== undefined) {
+            let textValue = String(this.value).replace('.', this.decimalSeparator);
+            textValue = textValue.replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
+            this.valueAsString = textValue;
+        }
+        else {
+            this.valueAsString = '';
+        }
+    }
+    
     handleChange(event: Event) {
         this.onChange.emit(event);
     }
@@ -256,7 +253,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     }
     
     writeValue(value: any) : void {
-        this.value = value;        
+        this.value = value;    
+        this.formatValue();    
         this.updateFilledState();
     }
     

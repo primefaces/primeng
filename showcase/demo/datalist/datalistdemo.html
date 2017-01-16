@@ -1,16 +1,16 @@
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataList</span>
-        <span class="defaultText">DataList displays data in list layout.</span>
+        <span class="feature-title">DataList</span>
+        <span>DataList displays data in list layout.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-dataList [value]="cars" [paginator]="true" [rows]="5">
-        <header>
+        <p-header>
             List of Cars
-        </header>
-        <template let-car>
+        </p-header>
+        <template let-car pTemplate="item">
             <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"></div>
@@ -64,7 +64,7 @@
     </p-dialog>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -132,8 +132,19 @@ export class DataListDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars"&gt;
-    &lt;template let-car&gt;
+    &lt;template let-car pTemplate="item"&gt;
         Car content
+    &lt;/template&gt;
+&lt;/p-dataList&gt;
+</code>
+</pre>
+
+            <p>Index of the row is available at the template.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dataList [value]="cars"&gt;
+    &lt;template let-car let-i="index" pTemplate="item"&gt;
+        Car content for {{i}}
     &lt;/template&gt;
 &lt;/p-dataList&gt;
 </code>
@@ -150,9 +161,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars"&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
-    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
-    &lt;template let-car&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
+    &lt;template let-car pTemplate="item"&gt;
         Car content
     &lt;/template&gt;
 &lt;/p-dataList&gt;
@@ -165,7 +176,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="10"&gt;
-    &lt;template let-car&gt;
+    &lt;template let-car pTemplate="item"&gt;
         Car content
     &lt;/template&gt;
 &lt;/p-dataList&gt;
@@ -181,7 +192,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
-    &lt;template let-car&gt;
+    &lt;template let-car pTemplate="item"&gt;
         Car content
     &lt;/template&gt;
 &lt;/p-dataList&gt;
@@ -337,10 +348,10 @@ loadData(event) &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="5"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         List of Cars
-    &lt;/header&gt;
-    &lt;template let-car&gt;
+    &lt;/p-header&gt;
+    &lt;template let-car pTemplate="item"&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;

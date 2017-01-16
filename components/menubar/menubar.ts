@@ -8,13 +8,13 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'p-menubarSub',
     template: `
-        <ul [ngClass]="{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
+        <ul [ngClass]="{'ui-menubar-root-list ui-helper-clearfix':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
             (click)="listClick($event)">
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event,item,child)" (mouseleave)="onItemMouseLeave($event,item)">
                     <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
-                        [ngClass]="{'ui-state-hover':link==activeLink&&!child.disabled,'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
+                        [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw" *ngIf="child.items" [ngClass]="{'fa-caret-down':root,'fa-caret-right':!root}"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -36,15 +36,12 @@ export class MenubarSub {
     
     activeItem: any;
     
-    activeLink: any;
-            
     onItemMouseEnter(event, item, menuitem: MenuItem) {
         if(menuitem.disabled) {
             return;
         }
         
         this.activeItem = item;
-        this.activeLink = item.children[0];
         let nextElement =  item.children[0].nextElementSibling;
         if(nextElement) {
             let sublist = nextElement.children[0];
@@ -63,7 +60,6 @@ export class MenubarSub {
     
     onItemMouseLeave(event, link) {
         this.activeItem = null;
-        this.activeLink = null;
     }
     
     itemClick(event, item: MenuItem) {
@@ -93,12 +89,10 @@ export class MenubarSub {
         }
         
         this.activeItem = null;
-        this.activeLink = null;
     }
         
     listClick(event) {
         this.activeItem = null;
-        this.activeLink = null;
     }
 
 }

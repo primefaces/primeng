@@ -1,57 +1,52 @@
-/* ie6 */
-* html .ui-growl {
-	position:absolute; 
-}
-* html .ui-growl-item {
-	padding-bottom:0;
-}
-* html .ui-growl-icon-close {
-	top:7px;
-	right:7px;
-}
-
 .ui-growl {
 	position:fixed;
-	top:20px;
-	right:20px;
-	width:301px;
+	top: 20px;
+	right: 20px;
+	width: 20em;
 }
+
 .ui-growl-item-container {
 	position:relative;
 	margin:0 0 10px 0;
 	opacity:0.95;
 	filter:alpha(opacity=95);
 }
+
 .ui-growl-item {
 	display:block;
-	padding:10px 15px;
+	padding: .5em 1em;
 }
+
 .ui-growl-item p {
-	padding:0;
-	margin:0;
+	padding: 0;
+	margin: 0;
 }
+
 .ui-growl-icon-close {
-	position:absolute;
-	top:5px;
-	right:3px;
-	cursor:pointer;
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	cursor: pointer;
 }
+
 .ui-growl-title {
-	font-weight:bold;
-	padding:0 0 7px 0;
-	display:block;
+	font-weight: bold;
+	padding: 0 0 .5em 0;
+	display: block;
 }
+
 .ui-growl-image {
-	float:left;
-    margin-left: 5px;
-    padding:0;
-    display: block;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: .25em;
+    margin-right: .5em;
+    padding: 0;
 }
 
 .ui-growl-message {
-	padding:0 0 5px 0;
-	width:220px;
-	float:right;
+	padding: 0 0 .25em 0;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .ui-growl-message p {

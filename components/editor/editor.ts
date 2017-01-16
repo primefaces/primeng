@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Header} from '../common/shared'
+import {SharedModule,Header} from '../common/shared'
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -17,7 +17,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="'ui-widget ui-editor-container ui-corner-all'" [class]="styleClass">
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
             </div>
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="!toolbar">
                 <span class="ql-formats">
@@ -159,7 +159,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Editor],
+    exports: [Editor,SharedModule],
     declarations: [Editor]
 })
 export class EditorModule { }

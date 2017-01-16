@@ -13,8 +13,7 @@ import {Subscription}   from 'rxjs/Subscription';
             [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <a [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true,'ui-state-hover':hoverCloseIcon}" href="#" role="button" *ngIf="closable" 
-                    (click)="hide($event)" (mouseenter)="hoverCloseIcon=true" (mouseleave)="hoverCloseIcon=false">
+                <a *ngIf="closable"  [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="hide($event)">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
@@ -23,7 +22,7 @@ import {Subscription}   from 'rxjs/Subscription';
                 <span class="ui-confirmdialog-message">{{message}}</span>
             </div>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="footer">
-                <ng-content select="footer"></ng-content>
+                <ng-content select="p-footer"></ng-content>
             </div>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="!footer">
                 <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" *ngIf="rejectVisible"></button>
@@ -104,8 +103,8 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
             this.message = this.confirmation.message||this.message;
             this.icon = this.confirmation.icon||this.icon;
             this.header = this.confirmation.header||this.header;
-            this.rejectVisible = this.confirmation.rejectVisible === false ? false : this.rejectVisible;
-            this.acceptVisible = this.confirmation.acceptVisible === false ? false : this.acceptVisible;
+            this.rejectVisible = this.confirmation.rejectVisible == null ? this.rejectVisible : this.confirmation.rejectVisible;
+            this.acceptVisible = this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible;
             
             if(this.confirmation.accept) {
                 this.confirmation.acceptEvent = new EventEmitter();
@@ -166,7 +165,7 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.el.nativeElement);
             else
-                this.appendTo.appendChild(this.el.nativeElement);
+                this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
         }
     }
         

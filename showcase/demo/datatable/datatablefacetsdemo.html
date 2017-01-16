@@ -1,16 +1,16 @@
 <datatable-demos></datatable-demos>
 
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataTable - <span class="subitem">Facets</span></span>
-        <span class="defaultText">DataTable provides header and footer sections.</span>
+        <span class="feature-title">DataTable - <span class="subitem">Facets</span></span>
+        <span>DataTable provides header and footer sections.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-dataTable [value]="cars">
-        <header>List of Cars</header>
-        <footer>There are 10 cars</footer>
+        <p-header>List of Cars</p-header>
+        <p-footer>There are 10 cars</p-footer>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -18,7 +18,7 @@
     </p-dataTable>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="datatablefacetsdemo.ts">
 <pre>
@@ -41,8 +41,8 @@ export class DataTableFacetsDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars"&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
-    &lt;footer&gt;There are 10 cars&lt;/footer&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-footer&gt;There are 10 cars&lt;/p-footer&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;

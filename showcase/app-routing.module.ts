@@ -61,6 +61,11 @@ import {HomePageComponent} from './homepage.component';
                 resolve(require('./demo/checkbox/checkboxdemo.module')['CheckboxDemoModule']);
               });
             })},
+            {path: 'chips', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/chips/chipsdemo.module')['ChipsDemoModule']);
+              });
+            })},
             {path: 'codehighlighter', loadChildren: () => new Promise(function (resolve) {
               (require as any).ensure([], function (require: any) {
                 resolve(require('./demo/codehighlighter/codehighlighterdemo.module')['CodeHighlighterDemoModule']);

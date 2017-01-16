@@ -16,9 +16,8 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 <input #input type="text" [name]="name" readonly [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,input)"
-                [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':value!=null,'ui-state-disabled':disabled,'ui-state-focus':focus}" 
-                    (mouseenter)="hover=true" (mouseleave)="hover=false">
-                <span class="ui-chkbox-icon fa fa-fw ui-c" [ngClass]="{'fa-check':value==true,'fa-close':value==false}"></span>
+                [ngClass]="{'ui-state-active':value!=null,'ui-state-disabled':disabled,'ui-state-focus':focus}">
+                <span class="ui-chkbox-icon fa ui-c" [ngClass]="{'fa-check':value==true,'fa-close':value==false}"></span>
             </div>
         </div>
     `,
@@ -31,9 +30,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     @Input() name: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-    
-    hover: boolean;
-    
+        
     focus: boolean;
 
     value: any;

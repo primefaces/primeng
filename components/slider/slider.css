@@ -9,6 +9,10 @@
 	cursor: default;
 	-ms-touch-action: none;
 	touch-action: none;
+    z-index: 1;
+}
+.ui-slider .ui-slider-handle.ui-slider-handle-active {
+    z-index: 2;
 }
 .ui-slider .ui-slider-range {
 	position: absolute;

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,AfterViewChecked} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,OnInit,AfterViewChecked} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var jQuery: any;
@@ -7,7 +7,7 @@ declare var jQuery: any;
     selector: 'p-schedule',
     template: '<div [ngStyle]="style" [class]="styleClass"></div>'
 })
-export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
+export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     
     @Input() events: any[];
     
@@ -40,6 +40,8 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     @Input() defaultDate: any;
     
     @Input() editable: boolean;
+    
+    @Input() droppable: boolean;
     
     @Input() eventStartEditable: boolean;
     
@@ -85,6 +87,8 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
+    @Output() onDrop: EventEmitter<any> = new EventEmitter();
+    
     @Output() onEventClick: EventEmitter<any> = new EventEmitter();
         
     @Output() onEventMouseover: EventEmitter<any> = new EventEmitter();
@@ -112,21 +116,16 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     differ: any;
     
     schedule: any;
+    
+    options: any;
 
     constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
         this.initialized = false;
     }
     
-    ngAfterViewChecked() {
-        if(!this.initialized && this.el.nativeElement.offsetParent) {
-            this.initialize();
-        }
-    }
-
-    initialize() {
-        this.schedule = jQuery(this.el.nativeElement.children[0]);
-        let options = {
+    ngOnInit() {
+        this.options = {
             theme: true,
             header: this.header,
             isRTL: this.rtl,
@@ -141,6 +140,7 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
             eventLimit: this.eventLimit,
             defaultDate: this.defaultDate,
             editable: this.editable,
+            droppable: this.droppable,
             eventStartEditable: this.eventStartEditable,
             eventDurationEditable: this.eventDurationEditable,
             defaultView: this.defaultView,
@@ -169,6 +169,13 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
                     'date': date,
                     'jsEvent': jsEvent,
                     'view': view
+                });
+            },
+            drop: (date, jsEvent, ui, resourceId) => {
+                this.onDrop.emit({
+                    'date': date,
+                    'jsEvent': jsEvent,
+                    'resourceId': resourceId
                 });
             },
             eventClick: (calEvent, jsEvent, view) => {
@@ -248,11 +255,20 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
         
         if(this.locale) {
             for(var prop in this.locale) {
-                options[prop] = this.locale[prop];
+                this.options[prop] = this.locale[prop];
             }
         }
-        
-        this.schedule.fullCalendar(options);
+    }
+    
+    ngAfterViewChecked() {
+        if(!this.initialized && this.el.nativeElement.offsetParent) {
+            this.initialize();
+        }
+    }
+
+    initialize() {
+        this.schedule = jQuery(this.el.nativeElement.children[0]);
+        this.schedule.fullCalendar(this.options);
         this.initialized = true;
     }
 
@@ -296,6 +312,10 @@ export class Schedule implements DoCheck,OnDestroy,AfterViewChecked {
     
     incrementDate(duration: any) {
         this.schedule.fullCalendar('incrementDate', duration);
+    }
+     
+    changeView(viewName: string) {
+        this.schedule.fullCalendar('changeView', viewName);   
     }
     
     getDate() {

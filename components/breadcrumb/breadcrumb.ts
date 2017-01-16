@@ -9,7 +9,8 @@ import {Router} from '@angular/router';
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'">
             <ul>
-                <li class="fa fa-home"></li>
+                <li class="fa fa-home" (click)="onHomeClick($event)"></li>
+                <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="model"></li>
                 <template ngFor let-item let-end="last" [ngForOf]="model">
                     <li role="menuitem">
                         <a [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)" [ngClass]="{'ui-state-disabled':item.disabled}">
@@ -29,6 +30,8 @@ export class Breadcrumb implements OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    @Input() home: MenuItem;
     
     constructor(public router: Router) {}
     
@@ -56,6 +59,12 @@ export class Breadcrumb implements OnDestroy {
                 
         if(item.routerLink) {
             this.router.navigate(item.routerLink);
+        }
+    }
+    
+    onHomeClick(event) {
+        if(this.home) {
+            this.itemClick(event, this.home);
         }
     }
         

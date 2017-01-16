@@ -18,8 +18,8 @@ export class InplaceContent {}
     selector: 'p-inplace',
     template: `
         <div [ngClass]="'ui-inplace ui-widget'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-inplace-display" (mouseenter)="hover=true" (mouseleave)="hover=false" (click)="activate($event)"
-                [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}" *ngIf="!active">
+            <div class="ui-inplace-display" (click)="activate($event)"
+                [ngClass]="{'ui-state-disabled':disabled}" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
             </div>
             <div class="ui-inplace-content" *ngIf="active">

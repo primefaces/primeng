@@ -4,26 +4,25 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'p-paginator',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-paginator ui-widget-header ui-unselectable-text':true}">
-            <a href="#" #firstlink class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all" (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null"
-                        (click)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage(),'ui-state-hover':(firstlink === hoveredItem && !isFirstPage())}" [tabindex]="isFirstPage() ? -1 : null">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-paginator ui-widget ui-widget-header ui-unselectable-text'">
+            <a href="#" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="fa fa-step-backward"></span>
             </a>
-            <a href="#" #prevlink class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all" (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null"
-                    (click)="changePageToPrev($event)" [ngClass]="{'ui-state-disabled':isFirstPage(),'ui-state-hover':(prevlink === hoveredItem && !isFirstPage())}" [tabindex]="isFirstPage() ? -1 : null">
+            <a href="#" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="changePageToPrev($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="fa fa-backward"></span>
             </a>
             <span class="ui-paginator-pages">
-                <a href="#" #plink *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
-                    (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null" (click)="changePage(pageLink - 1, $event)"
-                    [ngClass]="{'ui-state-hover':(plink === hoveredItem), 'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
+                <a href="#" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="changePage(pageLink - 1, $event)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
             </span>
-            <a href="#" #nextlink class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all" (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null"
-                    (click)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage(),'ui-state-hover':(nextlink === hoveredItem  && !isLastPage())}" [tabindex]="isLastPage() ? -1 : null">
+            <a href="#" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="fa fa-forward"></span>
             </a>
-            <a href="#" #lastlink class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all" (mouseenter)="hoveredItem = $event.target" (mouseleave)="hoveredItem = null"
-                    (click)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage(),'ui-state-hover':(lastlink === hoveredItem  && !isLastPage())}" [tabindex]="isLastPage() ? -1 : null">
+            <a href="#" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all"
+                    (click)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="fa fa-step-forward"></span>
             </a>
             <select class="ui-paginator-rpp-options ui-widget ui-state-default" *ngIf="rowsPerPageOptions" (change)="onRppChange($event)">
@@ -52,8 +51,6 @@ export class Paginator {
     
     public _first: number = 0;
     
-    public hoveredItem: Element;
-
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }

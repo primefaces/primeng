@@ -1,11 +1,11 @@
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Tree</span>
-        <span class="defaultText">Tree is used to display hierarchical data.</span>
+        <span class="feature-title">Tree</span>
+        <span>Tree is used to display hierarchical data.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
     
     <h3 class="first">Basic</h3>
@@ -20,39 +20,38 @@
     <p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
     <div>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}} </span></div>
+    
+    <h3>Multiple Selection with Checkbox</h3>
+    <p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"></p-tree>
+    <div>Selected Nodes: <span *ngFor="let file of selectedFiles2">{{file.label}} </span></div>
 
     <h3>Lazy Loading</h3>
     <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"></p-tree>
     
     <h3>Template</h3>
-    <p-tree [value]="filesTree4">
-        <template let-node pTemplate type="default">
+    <p-tree [value]="filesTree5">
+        <template let-node pTemplate="default">
             <input [(ngModel)]="node.label" type="text" style="width:100%">
         </template>
     </p-tree>
     
     <h3>Context Menu</h3>
-    <p-tree [value]="filesTree5" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
-    
+    <p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
     <p-contextMenu #cm [model]="items"></p-contextMenu>
 
     <h3>Programatic Tree Expansion</h3>
-    <p-tree #expandingTree [value]="filesTree6"></p-tree>
-
+    <p-tree #expandingTree [value]="filesTree7"></p-tree>
     <div style="margin-top: 8px">
         <button pButton type="text" label="Expand all" (click)="expandAll()"></button>
         <button pButton type="text" label="Collapse all" (click)="collapseAll()"></button>
     </div>
-    <div style="margin-top: 8px">
-        <button pButton type="text" label="Expand to 'Invoices.txt'" (click)="expandToNode()"></button>
-    </div>
     
     <h3>Horizontal Tree</h3>
-    <p-tree [value]="filesTree7" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
+    <p-tree [value]="filesTree8" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
     <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'}}</div>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -63,7 +62,7 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Tree component requires an array of TreeNode objects as its value. Let's begin with the TreeNode api.</p>
+            <p>Tree component requires an array of TreeNode objects as its value. Let's begin with the TreeNode api. Note that all of the properties are optional.</p>
             
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -143,10 +142,16 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
                             <td>Type of the node to match template type.</td>
                         </tr>
                         <tr>
-                            <td>orientation</td>
+                            <td>parent</td>
+                            <td>TreeNode</td>
+                            <td>null</td>
+                            <td>Parent of the node.</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
                             <td>string</td>
-                            <td>vertical</td>
-                            <td>Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'.</td>
+                            <td>null</td>
+                            <td>Type of the node to match template type.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -252,7 +257,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </pre>
 
             <h3>Selection</h3>
-            <p>Tree supports two selection methods, single and multiple. Selection is enabled by setting selectionMode property and providing a single TreeNode or
+            <p>Tree supports 3 selection methods, single, multiple and checkbox. Selection is enabled by setting selectionMode property and providing a single TreeNode or
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 <pre>
 <code class="language-typescript" pCode>
@@ -277,7 +282,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
-<p>In multiple mode, selection property should be an array.</p>
+<p>In multiple mode or checkbox mode, selection property should be an array.</p>
 <pre>
 <code class="language-typescript" pCode>
     export class TreeDemoComponent implements OnInit &#123;
@@ -343,7 +348,7 @@ export class TreeDemoComponent implements OnInit &#123;
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
-    &lt;template let-node  pTemplate type="default"&gt;
+    &lt;template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
@@ -356,10 +361,10 @@ export class TreeDemoComponent implements OnInit &#123;
 <code class="language-markup" pCode>
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
-    &lt;template let-node  pTemplate type="picture"&gt;
+    &lt;template let-node  pTemplate="picture"&gt;
         &lt;img [attrs.src]="picture.path"&gt;
     &lt;/template&gt;
-    &lt;template let-node  pTemplate type="default"&gt;
+    &lt;template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
 &lt;/p-tree&gt;
@@ -448,11 +453,11 @@ export class TreeDemoComponent implements OnInit &#123;
             <h3>Horizontal Orientation</h3>
             <p>Horizontal mode is the alternative option for orientation.</p>
 
-            <pre>
-            <code class="language-markup" pCode>
-&lt;p-tree [value]="files" orientation="horizontal"&gt;&lt;/p-tree&gt;
-            </code>
-            </pre>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-tree [value]="files" layout="horizontal"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -501,6 +506,12 @@ export class TreeDemoComponent implements OnInit &#123;
                             <td>ContextMenu</td>
                             <td>null</td>
                             <td>Context menu instance.</td>
+                        </tr>
+                        <tr>
+                            <td>orientation</td>
+                            <td>string</td>
+                            <td>vertical</td>
+                            <td>Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -624,11 +635,15 @@ export class TreeDemoComponent implements OnInit &#123;
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
 &lt;div style="margin-top:8px"Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &lt;/span&gt;&lt;/div&gt;
 
+&lt;h3&gt;Multiple Selection with Checkbox&lt;/h3&gt;
+&lt;p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"&gt;&lt;/p-tree&gt;
+&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles2"&gt;&#123;&#123;file.label&#125;&#125; &lt;/span&gt;&lt;/div&gt;
+
 &lt;h3&gt;Lazy Loading&lt;/h3&gt;
 &lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="filesTree4" pTemplate type="default"&gt;
+&lt;p-tree [value]="filesTree4" pTemplate="default"&gt;
     &lt;template let-node&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
     &lt;/template&gt;
@@ -645,9 +660,6 @@ export class TreeDemoComponent implements OnInit &#123;
 &lt;div style="margin-top: 8px"&gt;
     &lt;button pButton type="text" label="Expand all" (click)="expandAll()"&gt;&lt;/button&gt;
     &lt;button pButton type="text" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
-&lt;/div&gt;
-&lt;div style="margin-top: 8px"&gt;
-    &lt;button pButton type="text" label="Expand to 'Invoices.txt'" (click)="expandToNode()"&gt;&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;
@@ -672,6 +684,7 @@ export class TreeDemo implements OnInit &#123;
     filesTree5: TreeNode[];
     filesTree6: TreeNode[];
     filesTree7: TreeNode[];
+    filesTree8: TreeNode[];
     
     lazyFiles: TreeNode[];
     
@@ -682,6 +695,8 @@ export class TreeDemo implements OnInit &#123;
     selectedFile3: TreeNode;
     
     selectedFiles: TreeNode[];
+    
+    selectedFiles2: TreeNode[];
     
     items: MenuItem[];
         
@@ -694,8 +709,9 @@ export class TreeDemo implements OnInit &#123;
         this.nodeService.getFiles().then(files => this.filesTree4 = files);
         this.nodeService.getFiles().then(files => this.filesTree5 = files);
         this.nodeService.getFiles().then(files => this.filesTree6 = files);
+        this.nodeService.getFiles().then(files => this.filesTree7 = files);
         this.nodeService.getFiles().then(files => &#123;
-            this.filesTree7 = [&#123;
+            this.filesTree8 = [&#123;
                 label: 'Root',
                 children: files
             &#125;];
@@ -740,11 +756,6 @@ export class TreeDemo implements OnInit &#123;
         this.selectedFile2 = null;
     &#125;
 
-    expandToNode()&#123;
-        const invoicesNode: TreeNode = this.filesTree6[0].children[1].children[0]
-        this.expandingTree.expandToNode(invoicesNode);
-    &#125;
-
     expandAll()&#123;
         this.filesTree6.forEach( node => &#123;
             this.expandRecursive(node, true);
@@ -756,7 +767,7 @@ export class TreeDemo implements OnInit &#123;
             this.expandRecursive(node, false);
         &#125; );
     &#125;
-
+    
     private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
         node.expanded = isExpand;
         if(node.children)&#123;

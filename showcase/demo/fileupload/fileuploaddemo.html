@@ -1,17 +1,17 @@
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">FileUpload</span>
-        <span class="defaultText">FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and
+        <span class="feature-title">FileUpload</span>
+        <span>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and
             validations.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
         
     <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" 
             multiple="multiple" accept="image/*" maxFileSize="1000000"> 
-            <template pTemplate type="content">
+            <template pTemplate="content">
                 <ul *ngIf="uploadedFiles.length">
                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
                 </ul>
@@ -19,7 +19,7 @@
     </p-fileUpload>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -84,17 +84,20 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             </ul>
             
             <h3>Templating</h3>
-            <p>File list UI is customizable using a template called "file" and another template named "content" can be used to place custom content 
-                inside the content section as well which would be useful to implement a user interface to manage the uploaded files such as removing them. The file
-            template gets the <a href="https://www.w3.org/TR/FileAPI/">File</a> instance a the implicit variable.</p>
+            <p>File list UI is customizable using a template called "file" that gets the <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable.
+                Second template named "content" can be used to place custom content inside the content section which would be useful to implement a user interface to manage the uploaded files such as removing them.  
+                Third and final template option is "toolbar" to display custom content at toolbar.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;
-        &lt;template let-file pTemplate type="file"&gt;
+        &lt;template pTemplate="toolbar"&gt;
+            &lt;div&gt;Upload 3 Files&lt;/div&gt;
+        &lt;/template&gt;  
+        &lt;template let-file pTemplate="file"&gt;
             &lt;div&gt;Custom UI to display a file&lt;/div&gt;
         &lt;/template&gt; 
-        &lt;template pTemplate type="content"&gt;
+        &lt;template pTemplate="content"&gt;
             &lt;div&gt;Custom UI to manage uploaded files&lt;/div&gt;
         &lt;/template&gt;  
 &lt;/p-fileUpload&gt;
@@ -183,6 +186,24 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
                             <td>50</td>
                             <td>Width of the image thumbnail in pixels.</td>
                         </tr>
+                        <tr>
+                            <td>chooseLabel</td>
+                            <td>string</td>
+                            <td>Choose</td>
+                            <td>Label of the choose button.</td>
+                        </tr>
+                        <tr>
+                            <td>uploadLabel</td>
+                            <td>string</td>
+                            <td>Upload</td>
+                            <td>Label of the upload button.</td>
+                        </tr>
+                        <tr>
+                            <td>cancelLabel</td>
+                            <td>string</td>
+                            <td>Cancel</td>
+                            <td>Label of the cancel button.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -203,7 +224,14 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
                             <td>event.xhr: XmlHttpRequest instance. <br/>
                                 event.formData: FormData object.</td>
                             <td>Callback to invoke before file upload begins to customize the request
-                                such as adding header and post parameters.</td>
+                                such as post parameters before the files.</td>
+                        </tr>
+						<tr>
+                            <td>onBeforeSend</td>
+                            <td>event.xhr: XmlHttpRequest instance. <br/>
+                                event.formData: FormData object.</td>
+                            <td>Callback to invoke before file send begins to customize the request
+                                such as adding headers.</td>
                         </tr>
                         <tr>
                             <td>onUpload</td>

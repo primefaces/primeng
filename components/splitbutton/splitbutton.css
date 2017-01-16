@@ -1,16 +1,11 @@
 .ui-splitbutton {
     position: relative;
-    padding-right: 2em;
     display: inline-block;
     zoom: 1;
 }
 
 .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
-    width: 32px;
-    position: absolute;
-    top: 0px;
-    margin-left: -1px;
-    right: 0px;
+    width: 1.5em;
 }
 
 .ui-splitbutton.ui-state-disabled button {
@@ -24,12 +19,12 @@
     -moz-box-sizing: border-box;
 }
 
-.ui-fluid .ui-splitbutton .ui-button {
-    width: 100%;
+.ui-fluid .ui-splitbutton .ui-button:first-child {
+    width: calc(100% - 1.5em);
 }
 
 .ui-fluid .ui-splitbutton .ui-button.ui-splitbutton-menubutton {
-    width: 32px;
+    width: 1.5em;
     box-sizing: border-box;
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;

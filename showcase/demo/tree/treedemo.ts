@@ -21,6 +21,7 @@ export class TreeDemo implements OnInit {
     filesTree5: TreeNode[];
     filesTree6: TreeNode[];
     filesTree7: TreeNode[];
+    filesTree8: TreeNode[];
     
     lazyFiles: TreeNode[];
     
@@ -31,6 +32,8 @@ export class TreeDemo implements OnInit {
     selectedFile3: TreeNode;
     
     selectedFiles: TreeNode[];
+    
+    selectedFiles2: TreeNode[];
     
     items: MenuItem[];
         
@@ -43,8 +46,9 @@ export class TreeDemo implements OnInit {
         this.nodeService.getFiles().then(files => this.filesTree4 = files);
         this.nodeService.getFiles().then(files => this.filesTree5 = files);
         this.nodeService.getFiles().then(files => this.filesTree6 = files);
+        this.nodeService.getFiles().then(files => this.filesTree7 = files);
         this.nodeService.getFiles().then(files => {
-            this.filesTree7 = [{
+            this.filesTree8 = [{
                 label: 'Root',
                 children: files
             }];
@@ -89,11 +93,6 @@ export class TreeDemo implements OnInit {
         this.selectedFile2 = null;
     }
 
-    expandToNode(){
-        const invoicesNode: TreeNode = this.filesTree6[0].children[1].children[0]
-        this.expandingTree.expandToNode(invoicesNode);
-    }
-
     expandAll(){
         this.filesTree6.forEach( node => {
             this.expandRecursive(node, true);
@@ -105,7 +104,7 @@ export class TreeDemo implements OnInit {
             this.expandRecursive(node, false);
         } );
     }
-
+    
     private expandRecursive(node:TreeNode, isExpand:boolean){
         node.expanded = isExpand;
         if(node.children){
@@ -114,5 +113,4 @@ export class TreeDemo implements OnInit {
             } );
         }
     }
-
 }

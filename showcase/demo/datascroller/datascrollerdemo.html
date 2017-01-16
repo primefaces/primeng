@@ -1,18 +1,18 @@
 <datascroller-demos></datascroller-demos>
 
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">DataScroller</span>
-        <span class="defaultText">DataScroller displays data with on demand loading using scroll.</span>
+        <span class="feature-title">DataScroller</span>
+        <span>DataScroller displays data with on demand loading using scroll.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <p-dataScroller [value]="cars" [rows]="10" [buffer]="0.4">
-        <header>
+        <p-header>
             Scroll Down to to Load More
-        </header>
-        <template let-car>
+        </p-header>
+        <template let-car pTemplate="item">
             <li style="border-bottom:1px solid #D5D5D5;">
                 <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
                     <div class="ui-grid-row">
@@ -68,7 +68,7 @@
     </p-dialog>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -136,7 +136,7 @@ export class DataScrollertDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
-    &lt;template let-car&gt;
+    &lt;template let-car pTemplate="item"&gt;
         Car content
     &lt;/template&gt;
 &lt;/p-dataScroller&gt;
@@ -154,9 +154,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
-    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
-    &lt;template let-car&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
+    &lt;template let-car pTemplate="item"&gt;
         Car content
     &lt;/template&gt;
 &lt;/p-dataScroller&gt;
@@ -168,7 +168,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [inline]="true" [rows]="10"&gt;
-    &lt;template let-car&gt;
+    &lt;template let-car pTemplate="item"&gt;
         Car content
     &lt;/template&gt;
 &lt;/p-dataScroller&gt;
@@ -183,7 +183,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [rows]="10" [lazy]="true" (onLazyLoad)="loadData($event)"&gt;
-    &lt;template let-car&gt;
+    &lt;template let-car pTemplate="item"&gt;
         Car content
     &lt;/template&gt;
 &lt;/p-dataScroller&gt;
@@ -342,10 +342,10 @@ loadData(event) &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [rows]="10" [buffer]="0.4"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         Scroll Down to to Load More
-    &lt;/header&gt;
-    &lt;template let-car&gt;
+    &lt;/p-header&gt;
+    &lt;template let-car pTemplate="item"&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;

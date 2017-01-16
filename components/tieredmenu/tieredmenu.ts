@@ -13,8 +13,8 @@ import {Router} from '@angular/router';
             <template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event, item, child)" (mouseleave)="onItemMouseLeave($event)">
-                    <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
-                        [ngClass]="{'ui-state-hover':link==activeLink&&!child.disabled,'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
+                    <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                        [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -35,16 +35,13 @@ export class TieredMenuSub {
     constructor(public domHandler: DomHandler, public router: Router, public location: Location) {}
     
     activeItem: Element;
-    
-    activeLink: Element;
-            
+                
     onItemMouseEnter(event: Event, item: HTMLElement, menuitem: MenuItem) {
         if(menuitem.disabled) {
             return;
         }
         
         this.activeItem = item;
-        this.activeLink = item.children[0];
         let nextElement:  HTMLElement =  <HTMLElement> item.children[0].nextElementSibling;
         if(nextElement) {
             let sublist:  HTMLElement = <HTMLElement> nextElement.children[0];
@@ -57,7 +54,6 @@ export class TieredMenuSub {
     
     onItemMouseLeave(event: Event) {
         this.activeItem = null;
-        this.activeLink = null;
     }
     
     itemClick(event: Event, item: MenuItem) {
@@ -89,7 +85,6 @@ export class TieredMenuSub {
     
     listClick(event: Event) {
         this.activeItem = null;
-        this.activeLink = null;
     }
 }
 
@@ -140,10 +135,11 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
         else
             this.show(event);
             
-        this.preventDocumentDefault = true;
+        
     }
     
     show(event: Event) {
+        this.preventDocumentDefault = true;
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, event.target);
         this.domHandler.fadeIn(this.container, 250);

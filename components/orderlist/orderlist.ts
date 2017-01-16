@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,AfterViewChecked,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,AfterContentInit,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
-import {SharedModule} from '../common/shared';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -18,9 +18,8 @@ import {DomHandler} from '../dom/domhandler';
                 <div class="ui-grid-col-10">
                     <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                     <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle">
-                        <li *ngFor="let item of value" 
-                            [ngClass]="{'ui-orderlist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item)}"
-                            (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onItemClick($event,item)">
+                        <li *ngFor="let item of value" class="ui-orderlist-item"
+                            [ngClass]="{'ui-state-highlight':isSelected(item)}" (click)="onItemClick($event,item)">
                             <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                         </li>
                     </ul>
@@ -30,7 +29,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class OrderList implements AfterViewChecked {
+export class OrderList implements AfterViewChecked,AfterContentInit {
 
     @Input() value: any[];
     
@@ -46,10 +45,10 @@ export class OrderList implements AfterViewChecked {
     
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    hoveredItem: any;
-    
+    public itemTemplate: TemplateRef<any>;
+        
     selectedItems: any[];
     
     movedUp: boolean;
@@ -62,6 +61,20 @@ export class OrderList implements AfterViewChecked {
          
     ngAfterViewInit() {
         this.listContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-orderlist-list');
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
          
     ngAfterViewChecked() {

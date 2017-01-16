@@ -10,8 +10,8 @@ import {Router} from '@angular/router';
             <ul role="tablist">
                 <li *ngFor="let item of model; let i = index" class="ui-steps-item" #menuitem
                     [ngClass]="{'ui-state-highlight':(i === activeIndex),'ui-state-default':(i !== activeIndex),
-                        'ui-state-disabled':(i !== activeIndex && readonly),'ui-state-hover':(menuitem == hoveredItem&&!readonly)}">
-                    <a class="ui-menuitem-link" (click)="itemClick($event, item, i)" (mouseenter)="hoveredItem=menuitem" (mouseleave)="hoveredItem=null">
+                        'ui-state-disabled':(i !== activeIndex && readonly)}">
+                    <a class="ui-menuitem-link" (click)="itemClick($event, item, i)">
                         <span class="ui-steps-number">{{i + 1}}</span>
                         <span class="ui-steps-title">{{item.label}}</span>
                     </a>

@@ -1,10 +1,9 @@
 .ui-selectbutton{
     display: inline-block;
-    padding:1px;
 }
             
-.ui-selectbutton.ui-state-error{
-    padding:0px;
+.ui-selectbutton.ui-state-error {
+    padding: 0;
 }
 
 .ui-selectbutton .ui-button.ui-state-focus{

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
@@ -7,15 +7,14 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'p-menu',
     template: `
-        <div [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
+        <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
             <ul class="ui-menu-list ui-helper-reset">
                 <template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                     <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
-                        <a #link [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
-                            [ngClass]="{'ui-state-hover':link==hoveredItem&&!item.disabled,'ui-state-disabled':item.disabled}"
-                            (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
+                        <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all"
+                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
@@ -23,9 +22,8 @@ import {Router} from '@angular/router';
                 </template>
                 <template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li class="ui-menuitem ui-widget ui-corner-all">
-                        <a #link [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
-                            [ngClass]="{'ui-state-hover':link==hoveredItem&&!item.disabled,'ui-state-disabled':item.disabled}"
-                            (mouseenter)="hoveredItem=$event.target" (mouseleave)="hoveredItem=null" (click)="itemClick($event, item)">
+                        <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
@@ -48,7 +46,9 @@ export class Menu implements AfterViewInit,OnDestroy {
     
     @Input() appendTo: any;
     
-    container: any;
+    @ViewChild('container') containerViewChild: ElementRef;
+    
+    container: HTMLDivElement;
     
     documentClickListener: any;
     
@@ -57,14 +57,14 @@ export class Menu implements AfterViewInit,OnDestroy {
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public router: Router) {}
 
     ngAfterViewInit() {
-        this.container = this.el.nativeElement.children[0];
+        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         
         if(this.popup) {
             if(this.appendTo) {
                 if(this.appendTo === 'body')
                     document.body.appendChild(this.el.nativeElement);
                 else
-                    this.appendTo.appendChild(this.el.nativeElement);
+                    this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
             }
                 
             this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
@@ -135,8 +135,8 @@ export class Menu implements AfterViewInit,OnDestroy {
         if(this.popup) {
             this.documentClickListener();
             
-            if(this.appendTo && this.appendTo === 'body') {
-                document.body.removeChild(this.el.nativeElement);
+            if(this.appendTo) {
+                this.el.nativeElement.appendChild(this.container);
             }
         }
         

@@ -1,26 +1,40 @@
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Button</span>
-        <span class="defaultText">Button is an extension to standard input element with icons and theming.</span>
+        <span class="feature-title">Button</span>
+        <span>Button is an extension to standard input element with icons and theming.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
+<div class="content-section implementation">
     <button pButton type="text" (click)="count()" label="Click"></button>
 
     <button pButton type="text" (click)="count()" icon="fa-check" label="Click"></button>
     
     <button pButton type="text" (click)="count()" icon="fa-check" iconPos="right" label="Click"></button>
     
-    <button pButton type="text" (click)="count()" icon="fa-check"></button>
+    <button pButton type="text" (click)="count()" icon="fa-close"></button>
     
     <button pButton type="text" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"></button>
+
+    <h3>Severity Buttons</h3>
+
+    <button pButton type="text" (click)="count()" label="Primary"></button>
+
+    <button pButton type="text" (click)="count()" label="Secondary" class="ui-button-secondary"></button>
+
+    <button pButton type="text" (click)="count()" label="Success" class="ui-button-success"></button>
+
+    <button pButton type="text" (click)="count()" label="Info"  class="ui-button-info"></button>
+
+    <button pButton type="text" (click)="count()" label="Warning"  class="ui-button-warning"></button>
+
+    <button pButton type="text" (click)="count()" label="Danger"  class="ui-button-danger"></button>
 
     <br /><br />
     Number of clicks: {{clicks}}
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
                     <h3>Import</h3>
@@ -52,9 +66,9 @@ import &#123;ButtonModule&#125; from 'primeng/primeng';
 <code class="language-typescript" pCode>
 export class Model &#123;
 
-onclick() &#123;
-
-&#125;
+    onclick() &#123;
+        //execute action
+    &#125;
 
 &#125;
 </code>
@@ -66,6 +80,22 @@ onclick() &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;button pButton type="button" icon="fa-check" iconPos="left"&gt;&lt;/button&gt;
+</code>
+</pre>
+
+            <h3>Severity</h3>
+            <p>Different color options are available to define severity levels.</p>
+            
+            <ul>
+                <li>.ui-button-secondary</li>
+                <li>.ui-button-success</li>
+                <li>.ui-button-info</li>
+                <li>.ui-button-warning</li>
+                <li>.ui-button-danger</li>
+            </ul>
+<pre>
+<code class="language-markup" pCode>
+&lt;button pButton type="button" class="ui-button-info"&gt;&lt;/button&gt;
 </code>
 </pre>
 

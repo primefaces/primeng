@@ -1,14 +1,14 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChild,Renderer} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChildren,QueryList,Renderer} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
-import {SharedModule} from '../common/shared';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-carousel',
     template: `
         <div [ngClass]="{'ui-carousel ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-carousel-header ui-widget-header">
-                <div class="ui-carousel-header-title">{{headerText}}</div>
+            <div class="ui-carousel-header ui-widget-header ui-corner-all">
+                <span class="ui-carousel-header-title">{{headerText}}</span>
                 <span class="ui-carousel-button ui-carousel-next-button fa fa-arrow-circle-right" (click)="onNextNav()" 
                         [ngClass]="{'ui-state-disabled':(page === (totalPages-1)) && !circular}"></span>
                 <span class="ui-carousel-button ui-carousel-prev-button fa fa-arrow-circle-left" (click)="onPrevNav()" 
@@ -64,7 +64,9 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
 
     @Input() styleClass: string;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
         
     public container: any;    
     
@@ -98,6 +100,20 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
 
     constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer) {
         this.differ = differs.find([]).create(null);
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
     
     ngDoCheck() {

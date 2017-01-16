@@ -1,6 +1,6 @@
 .ui-carousel {
     position: relative;
-    padding: 1px;
+    padding: .063em;
 }
 
 .ui-carousel .ui-carousel-viewport .ui-carousel-items {
@@ -27,52 +27,46 @@
 
 .ui-carousel .ui-carousel-footer {
     margin: 1px 1px 0px 1px;
-    padding-top: 9px;
-    padding-bottom: 6px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding: .5em;
     overflow: hidden;
 }
 
 .ui-carousel .ui-carousel-header {
     margin: 0 1px;
     overflow: hidden;
-    padding-top: 7px;
-    padding-bottom: 8px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding: .625em;
 }
 
 .ui-carousel .ui-carousel-header .ui-carousel-header-title {
     display: inline-block;
-    padding-top: 2px;
     overflow: hidden;
 }
 
 .ui-carousel .ui-carousel-dropdown,
 .ui-carousel .ui-carousel-mobiledropdown {
     float: right;
-    margin: 0px 10px;
+    margin: 0px .625em;
     background-image: none;
 }
 
 .ui-carousel .ui-carousel-dropdown option,
 .ui-carousel .ui-carousel-mobiledropdown option{
     background-image: none;
-    border:0 none;
-    box-shadow:none;
+    border: 0 none;
+    box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
 
 .ui-carousel .ui-carousel-button {
     float: right;
-    margin: 2px;
+    margin: .125em;
 }
 
 .ui-carousel .ui-carousel-page-link {
     float: left;
-    margin: 0 2px;
+    margin: 0 .125em;
+    text-decoration: none;
 }
 
 .ui-carousel .ui-carousel-page-link, 
@@ -81,9 +75,8 @@
 }
 
 .ui-carousel .ui-carousel-page-links {
-    margin: 0px 9px;
-    margin-top: 2px;
-    display: inline-table;
+    margin: 0px .5em;
+    margin-top: .125em;
     float: right;
 }
 

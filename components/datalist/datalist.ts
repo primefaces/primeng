@@ -1,8 +1,6 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,IterableDiffers,TemplateRef,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Header} from '../common/shared';
-import {Footer} from '../common/shared';
-import {SharedModule} from '../common/shared';
+import {SharedModule,Header,Footer,PrimeTemplate} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {BlockableUI} from '../common/api';
 
@@ -11,26 +9,26 @@ import {BlockableUI} from '../common/api';
     template: `
         <div [ngClass]="'ui-datalist ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-datalist-header ui-widget-header ui-corner-top" *ngIf="header">
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
             (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator  && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datalist-content ui-widget-content">
                 <ul class="ui-datalist-data">
-                    <li *ngFor="let item of dataToRender">
-                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    <li *ngFor="let item of dataToRender;let i = index">
+                        <template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></template>
                     </li>
                 </ul>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
             (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator  && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datalist-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
-                <ng-content select="footer"></ng-content>
+                <ng-content select="p-footer"></ng-content>
             </div>
         </div>
     `
 })
-export class DataList implements AfterViewInit,DoCheck,BlockableUI {
+export class DataList implements AfterViewInit,AfterContentInit,DoCheck,BlockableUI {
 
     @Input() value: any[];
 
@@ -58,7 +56,9 @@ export class DataList implements AfterViewInit,DoCheck,BlockableUI {
 
     @ContentChild(Footer) footer;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
 
     public dataToRender: any[];
 
@@ -70,6 +70,20 @@ export class DataList implements AfterViewInit,DoCheck,BlockableUI {
 
     constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
 
     ngAfterViewInit() {

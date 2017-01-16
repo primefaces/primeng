@@ -16,8 +16,10 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                     <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
                 </button>
 
-                <button type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
-                <button type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
+                <button *ngIf="!auto" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
+                <button *ngIf="!auto" type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
+            
+                <p-templateLoader [template]="toolbarTemplate"></p-templateLoader>
             </div>
             <div [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true,'ui-fileupload-highlight':dragHighlight}" 
                 (dragenter)="onDragEnter($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
@@ -77,6 +79,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() cancelLabel: string = 'Cancel';
         
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
+	
+	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
         
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
@@ -99,6 +103,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     public fileTemplate: TemplateRef<any>;
     
     public contentTemplate: TemplateRef<any>; 
+    
+    public toolbarTemplate: TemplateRef<any>; 
         
     constructor(private sanitizer: DomSanitizer){}
     
@@ -108,13 +114,17 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     ngAfterContentInit():void {
         this.templates.forEach((item) => {
-            switch(item.type) {
+            switch(item.getType()) {
                 case 'file':
                     this.fileTemplate = item.template;
                 break;
                 
                 case 'content':
                     this.contentTemplate = item.template;
+                break;
+                
+                case 'toolbar':
+                    this.toolbarTemplate = item.template;
                 break;
                 
                 default:
@@ -131,6 +141,10 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     onFileSelect(event) {
         this.msgs = [];
+        if(!this.multiple) {
+            this.files = [];
+        }
+        
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
@@ -145,7 +159,7 @@ export class FileUpload implements OnInit,AfterContentInit {
         
         this.onSelect.emit({originalEvent: event, files: files});
         
-        if(this.files && this.auto) {
+        if(this.hasFiles() && this.auto) {
             this.upload();
         }
     }
@@ -170,16 +184,21 @@ export class FileUpload implements OnInit,AfterContentInit {
     onImageLoad(img: any) {
         window.URL.revokeObjectURL(img.src);
     }
-    
+
     upload() {
         this.msgs = [];
         let xhr = new XMLHttpRequest(),
         formData = new FormData();
-        
+
+		this.onBeforeUpload.emit({
+            'xhr': xhr,
+            'formData': formData 
+        });
+
         for(let i = 0; i < this.files.length; i++) {
             formData.append(this.name, this.files[i], this.files[i].name);
         }
-        
+
         xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
             if(e.lengthComputable) {
               this.progress = Math.round((e.loaded * 100) / e.total);
@@ -190,7 +209,7 @@ export class FileUpload implements OnInit,AfterContentInit {
             if(xhr.readyState == 4) {
                 this.progress = 0;
                 
-                if(xhr.status == 200)
+                if(xhr.status >= 200 && xhr.status < 300)
                     this.onUpload.emit({xhr: xhr, files: this.files});
                 else
                     this.onError.emit({xhr: xhr, files: this.files});
@@ -200,11 +219,11 @@ export class FileUpload implements OnInit,AfterContentInit {
         };
         
         xhr.open('POST', this.url, true);
-
-        this.onBeforeUpload.emit({
-            'xhr': xhr,
+		
+		this.onBeforeSend.emit({
+			'xhr': xhr,
             'formData': formData 
-        });
+		});
         
         xhr.send(formData);
     }

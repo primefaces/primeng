@@ -1,29 +1,29 @@
-<div class="ContentSideSections">
+<div class="content-section">
     <div>
-        <span class="fontSize30 TextShadow orange marginBottom20 dispBlock">Dialog</span>
-        <span class="defaultText">Dialog is a container to display content in an overlay window.</span>
+        <span class="feature-title">Dialog</span>
+        <span>Dialog is a container to display content in an overlay window.</span>
     </div>
 </div>
 
-<div class="ContentSideSections Implementation">
-    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="300">
-        <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+<div class="content-section implementation">
+    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="350" responsive="true">
+        <span>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
            kind and benevolent to those who give respect,
-           but given to ruthless violence whenever anything stands against the good of the family.</p>
-        <footer>
+           but given to ruthless violence whenever anything stands against the good of the family.</span>
+        <p-footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                 <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
                 <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
             </div>
-        </footer>
+        </p-footer>
     </p-dialog>
 
     <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button>
 </div>
 
-<div class="ContentSideSections Source">
+<div class="content-section source">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -69,13 +69,13 @@ export class ModelComponent &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dialog [(visible)]="display"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         Header content here
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     Content
-    &lt;footer&gt;
+    &lt;p-footer&gt;
         Footer content here
-    &lt;/footer&gt;
+    &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 </code>
 </pre>
@@ -188,6 +188,12 @@ export class ModelComponent &#123;
                             <td>null</td>
                             <td>Style class of the component.</td>
                         </tr>
+                        <tr>
+                            <td>showHeader</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show the header or not.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -273,18 +279,18 @@ export class ModelComponent &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="300"&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="300" responsive="true"&gt;
     &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
        kind and benevolent to those who give respect, 
        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
-        &lt;footer&gt;
+        &lt;p-footer&gt;
             &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
                 &lt;button type="button" pButton icon="fa-close" (click)="display=false" label="No"&gt;&lt;/button&gt;
                 &lt;button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"&gt;&lt;/button&gt;
             &lt;/div&gt;
-        &lt;/footer&gt;
+        &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 
 &lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;

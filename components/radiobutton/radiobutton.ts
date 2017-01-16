@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,Input,Output,AfterViewInit,ElementRef,EventEmitter,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -13,20 +13,20 @@ export const RADIO_VALUE_ACCESSOR: any = {
     template: `
         <div class="ui-radiobutton ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked" (change)="onChange($event)"
+                <input #rb type="radio" [attr.name]="name" [attr.value]="value" [checked]="checked" (change)="onChange($event)"
                     (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
-            <div (click)="handleClick()" (mouseenter)="hover=true" (mouseleave)="hover=false"
+            <div (click)="handleClick()"
                 [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
-                'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
-                <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-fw fa-circle':checked}"></span>
+                'ui-state-active':rb.checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
+                <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-circle':rb.checked}"></span>
             </div>
         </div>
         <label class="ui-radiobutton-label" (click)="select()" *ngIf="label">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR]
 })
-export class RadioButton implements ControlValueAccessor {
+export class RadioButton implements ControlValueAccessor,AfterViewInit {
 
     @Input() value: any;
 
@@ -38,17 +38,21 @@ export class RadioButton implements ControlValueAccessor {
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
-    public model: any;
+    @ViewChild('rb') inputViewChild: ElementRef;
     
+    public input: HTMLInputElement;
+        
     public onModelChange: Function = () => {};
     
     public onModelTouched: Function = () => {};
     
     public checked: boolean;
-    
-    public hover: boolean;
-    
+        
     public focused: boolean;
+    
+    ngAfterViewInit() {
+        this.input = <HTMLInputElement> this.inputViewChild.nativeElement;
+    }
 
     handleClick() {
         if(!this.disabled) {
@@ -59,14 +63,18 @@ export class RadioButton implements ControlValueAccessor {
     
     select() {
         if(!this.disabled) {
+            this.input.checked = true;
             this.checked = true;
             this.onModelChange(this.value);
         }
     }
             
-    writeValue(model: any) : void {
-        this.model = model;
-        this.checked = (this.model == this.value);
+    writeValue(value: any) : void {
+        this.checked = (value == this.value);
+        
+        if(this.input) {
+            this.input.checked = this.checked;
+        }
     }
     
     registerOnChange(fn: Function): void {

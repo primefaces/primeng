@@ -33,8 +33,8 @@ export class Draggable {
             if(this.dragEffect) {
                 event.dataTransfer.effectAllowed = this.dragEffect;
             }
-                
-            event.dataTransfer.setData(this.scope, this.scope);
+            event.dataTransfer.setData('text', this.scope);
+            
             this.onDragStart.emit(event);
         }
         else {
@@ -93,8 +93,10 @@ export class Droppable {
             
     @HostListener('drop', ['$event'])
     drop(event) {
-        event.preventDefault();
-        this.onDrop.emit(event);
+        if(this.allowDrop(event)) {
+            event.preventDefault();
+            this.onDrop.emit(event);
+        }
     }
     
     @HostListener('dragenter', ['$event']) 
@@ -117,25 +119,19 @@ export class Droppable {
     
     @HostListener('dragover', ['$event']) 
     dragOver(event) {
-        if(this.allowDrop(event)) {
-            event.preventDefault();
-            this.onDragOver.emit(event);
-        }
+        event.preventDefault();
+        this.onDragOver.emit(event);
     }
     
     allowDrop(event): boolean {
-        let types = event.dataTransfer.types;
-        if(types && types.length) {
-            for(let i = 0; i < types.length; i++) {
-                if(typeof (this.scope) == "string" && types[i] == this.scope) {
+        let dragScope = event.dataTransfer.getData('text');
+        if(typeof (this.scope) == "string" && dragScope == this.scope) {
+            return true;
+        }
+        else if(this.scope instanceof Array) {
+            for(let j = 0; j < this.scope.length; j++) {
+                if(dragScope == this.scope[j]) {
                     return true;
-                }
-                else if(this.scope instanceof Array) {
-                    for(let j = 0; j < this.scope.length; j++) {
-                        if(types[i] == this.scope[j]) {
-                            return true;
-                        }
-                    }
                 }
             }
         }
