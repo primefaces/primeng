@@ -198,7 +198,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Input() stepSecond: number = 1;
     
-    @Input() showSeconds: number = 1;
+    @Input() showSeconds: boolean = false;
 
     @Input() required: boolean;
 
