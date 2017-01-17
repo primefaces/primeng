@@ -340,9 +340,6 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
                     </tfoot>
                     <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (rowHover||selectionMode)}" [pTableBody]="columns"></tbody>
                 </table>
-                <div class="ui-column-resizer-helper ui-state-highlight" style="display:none"></div>
-                <span class="fa fa-arrow-down ui-datatable-reorder-indicator-up" style="position: absolute; display: none;"></span>
-                <span class="fa fa-arrow-up ui-datatable-reorder-indicator-down" style="position: absolute; display: none;"></span>
             </div>
             
             <template [ngIf]="scrollable">
@@ -357,6 +354,10 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
             <div class="ui-datatable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
+            
+            <div class="ui-column-resizer-helper ui-state-highlight" style="display:none"></div>
+            <span class="fa fa-arrow-down ui-datatable-reorder-indicator-up" style="position: absolute; display: none;"></span>
+            <span class="fa fa-arrow-up ui-datatable-reorder-indicator-down" style="position: absolute; display: none;"></span>
         </div>
     `,
     providers: [DomHandler]
@@ -535,7 +536,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public columnResizing: boolean;
     
-    public lastPageX: number;
+    public lastResizerHelperX: number;
         
     public documentColumnResizeListener: Function;
     
@@ -1492,25 +1493,28 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     initColumnResize(event) {
+        let container = this.el.nativeElement.children[0];
+        let containerLeft = this.domHandler.getOffset(container).left;
         this.resizeColumn = event.target.parentElement;
         this.columnResizing = true;
-        this.lastPageX = event.pageX;
+        this.lastResizerHelperX = (event.pageX - containerLeft);
     }
     
     onColumnResize(event) {
         let container = this.el.nativeElement.children[0];
+        let containerLeft = this.domHandler.getOffset(container).left;
         this.domHandler.addClass(container, 'ui-unselectable-text');
-        this.resizerHelper.style.height = container.offsetHeight - 4 + 'px';
-        this.resizerHelper.style.top = container.offsetTop + 'px';
-        if(event.pageX > container.offsetLeft && event.pageX < (container.offsetLeft + container.offsetWidth)) {
-            this.resizerHelper.style.left = event.pageX + 'px';
+        this.resizerHelper.style.height = container.offsetHeight + 'px';
+        this.resizerHelper.style.top = 0 + 'px';
+        if(event.pageX > containerLeft && event.pageX < (containerLeft + container.offsetWidth)) {
+            this.resizerHelper.style.left = (event.pageX - containerLeft) + 'px';
         }
         
         this.resizerHelper.style.display = 'block';
     }
     
     onColumnResizeEnd(event) {
-        let delta = this.resizerHelper.offsetLeft - this.lastPageX;
+        let delta = this.resizerHelper.offsetLeft - this.lastResizerHelperX;
         let columnWidth = this.resizeColumn.offsetWidth;
         let newColumnWidth = columnWidth + delta;
         let minWidth = this.resizeColumn.style.minWidth||15;
