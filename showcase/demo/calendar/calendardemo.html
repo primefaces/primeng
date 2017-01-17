@@ -14,7 +14,11 @@
         
         <div class="ui-g-12 ui-md-4">
             <h3>Spanish</h3>
-            <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar> {{date2|date}}
+            <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+            <button pButton type="text" (click)="onChangeLocaleES()" label="ES"></button>
+            <button pButton type="text" (click)="onChangeLocaleEN()" label="EN"></button>
+            <button pButton type="text" (click)="onChangeLocalePL()" label="PL"></button>
+            {{date2|date}}
         </div>
         
         <div class="ui-g-12 ui-md-4">
@@ -44,7 +48,9 @@
     </div>
     
     <h3>Inline {{date8|date}}</h3>
-    <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar> 
+    <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar>
+
+
 </div>
 
 <div class="content-section source">

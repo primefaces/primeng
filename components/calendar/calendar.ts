@@ -41,7 +41,7 @@ export interface LocaleSettings {
                         <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="ui-datepicker-title">
-                        <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{currentMonthText}}</span>
+                        <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{locale.monthNames[currentMonth]}}</span>
                         <select class="ui-datepicker-month" *ngIf="monthNavigator" (change)="onMonthDropdownChange($event.target.value)">
                             <option [value]="i" *ngFor="let month of locale.monthNames;let i = index" [selected]="i == currentMonth">{{month}}</option>
                         </select>
@@ -54,7 +54,7 @@ export interface LocaleSettings {
                 <table class="ui-datepicker-calendar" *ngIf="!timeOnly">
                     <thead>
                         <tr>
-                            <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
+                            <th scope="col" *ngFor="let weekDay of locale.dayNamesMin;let begin = first; let end = last">
                                 <span>{{weekDay}}</span>
                             </th>
                         </tr>
@@ -213,8 +213,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
-    
-    @Input() locale: LocaleSettings = {
+
+    _locale: LocaleSettings = {
         firstDayOfWeek: 0,
         dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -222,6 +222,15 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
         monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
     };
+    get locale() {
+        return this._locale;
+    }
+
+    @Input()
+    set locale(newLocale: LocaleSettings) {
+        this._locale = newLocale;
+        this.createMonth(this.currentMonth, this.currentYear);
+    }
     
     @Input() tabindex: number;
     
@@ -230,10 +239,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     value: Date;
     
     dates: any[];
-    
-    weekDays: string[] = [];
-    
-    currentMonthText: string;
     
     currentMonth: number;
     
@@ -298,14 +303,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
     ngOnInit() {
-        let today = new Date();
-        let date = this.defaultDate||new Date();        
-        let dayIndex = this.locale.firstDayOfWeek;
-        for(let i = 0; i < 7; i++) {
-            this.weekDays.push(this.locale.dayNamesMin[dayIndex]);
-            dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
-        }
-                
+        let date = this.defaultDate || new Date();
+
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
         if(this.showTime) {
@@ -356,11 +355,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.dates = [];
         this.currentMonth = month;
         this.currentYear = year;
-        this.currentMonthText = this.locale.monthNames[month];
         let firstDay = this.getFirstDayOfMonthIndex(month, year);
         let daysLength = this.getDaysCountInMonth(month, year);
         let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
-        let sundayIndex = this.getSundayIndex();
         let dayNo = 1;
                 
         for(let i = 0; i < 6; i++) {
