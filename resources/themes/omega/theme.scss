@@ -451,6 +451,13 @@ $invalidInputBorderColor: #f44336;
                 color: #ffffff;
             }
         }
+        
+        &.ui-menuitem-active {
+            > .ui-menuitem-link {
+                background-color: #a6a6a6;
+                color: #ffffff;
+            }
+        }
     }
 }
 
