@@ -409,4 +409,15 @@ export class DomHandler {
             obj && typeof obj === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string"
         );
     }
+    
+    calculateScrollbarWidth(): number {
+        let scrollDiv = document.createElement("div");
+        scrollDiv.className = "ui-scrollbar-measure";
+        document.body.appendChild(scrollDiv);
+
+        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        
+        return scrollbarWidth;
+    }
 }

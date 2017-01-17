@@ -224,6 +224,9 @@ export class TableBody {
         </div>
         <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width,'max-height':dt.scrollHeight}">
             <table [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
+                <colgroup class="ui-datatable-scrollable-colgroup">
+                    <col *ngFor="let col of dt.visibleColumns()" />
+                </colgroup>
                 <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columns"></tbody>
             </table>
         </div>
@@ -286,24 +289,13 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
             });
         }
         
-        let scrollBarWidth = this.calculateScrollbarWidth();
+        let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
         if(!this.frozen)
             this.scrollHeaderBox.style.marginRight = scrollBarWidth + 'px';            
         else
             this.scrollBody.style.paddingBottom = scrollBarWidth + 'px';
     }
-    
-    calculateScrollbarWidth(): number {
-        let scrollDiv = document.createElement("div");
-        scrollDiv.className = "ui-scrollbar-measure";
-        document.body.appendChild(scrollDiv);
-
-        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-        document.body.removeChild(scrollDiv);
-        
-        return scrollbarWidth;
-    }
-        
+            
     ngOnDestroy() {
         if(this.bodyScrollListener) {
             this.bodyScrollListener();
@@ -571,6 +563,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public rowGroupFooterTemplate: TemplateRef<any>;
     
     public rowExpansionTemplate: TemplateRef<any>;
+    
+    public scrollBarWidth: number;
     
     differ: any;
 
@@ -1529,20 +1523,32 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     if(nextColumn) {
                         nextColumn.style.width = nextColumnWidth + 'px';
                     }
+                    
+                    if(this.scrollable) {
+                        let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
+                        let resizeColumnIndex = this.domHandler.index(this.resizeColumn);
+                        colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
+                        
+                        if(nextColumn) {
+                            colGroup.children[resizeColumnIndex + 1].style.width = nextColumnWidth + 'px';
+                        }
+                    }
                 }
             }
             else if(this.columnResizeMode === 'expand') {
                 this.tbody.parentElement.style.width = this.tbody.parentElement.offsetWidth + delta + 'px';
                 this.resizeColumn.style.width = newColumnWidth + 'px';
+                let containerWidth = this.tbody.parentElement.style.width;
                 
-                if(this.header) {
-                    let headerEL = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-header');
-                    headerEL.style.width = this.tbody.parentElement.style.width;
+                if(this.scrollable) {
+                    this.scrollBarWidth = this.scrollBarWidth||this.domHandler.calculateScrollbarWidth();
+                    this.el.nativeElement.children[0].style.width = parseFloat(containerWidth) + this.scrollBarWidth + 'px';
+                    let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
+                    let resizeColumnIndex = this.domHandler.index(this.resizeColumn);
+                    colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
                 }
-                
-                if(this.footer) {
-                    let footerEL = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-footer');
-                    footerEL.style.width = this.tbody.parentElement.style.width;
+                else {
+                    this.el.nativeElement.children[0].style.width = containerWidth;
                 }
             }    
             
