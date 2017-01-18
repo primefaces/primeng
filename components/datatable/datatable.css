@@ -1,3 +1,7 @@
+.ui-datatable {
+    position: relative;
+}
+
 .ui-datatable table {
 	border-collapse:collapse;
     width: 100%;

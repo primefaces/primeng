@@ -347,6 +347,13 @@
                 border-color: transparent;
             }
         }
+        
+        &.ui-menuitem-active {
+            > .ui-menuitem-link {
+                @include hover-element();
+                border-color: transparent;
+            }
+        }
     }
 }
 

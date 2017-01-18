@@ -33,6 +33,7 @@ export interface LocaleSettings {
             <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}" 
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly">
+                    <ng-content select="p-header"></ng-content>
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
                         <span class="fa fa-angle-left"></span>
                     </a>
@@ -125,6 +126,7 @@ export interface LocaleSettings {
                         </a>
                     </div>
                 </div>
+                <ng-content select="p-footer"></ng-content>
             </div>
         </span>
     `,
