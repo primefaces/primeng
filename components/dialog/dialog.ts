@@ -62,7 +62,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() closeOnEscape: boolean = true;
 	
-    @Input() closeOnBackgroundClick: boolean = true;
+    @Input() dismissableMask: boolean;
 
     @Input() rtl: boolean;
 
@@ -236,10 +236,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
             this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
-			if (this.closable && this.closeOnBackgroundClick) {
-				this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
+            
+			if(this.closable && this.dismissableMask) {
+	             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
 					this.hide(event);
-				});
+	             });
 			}
             document.body.appendChild(this.mask);
         }
@@ -256,9 +257,14 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.onBeforeHide.emit(event);
         this.visibleChange.emit(false);
         this.onAfterHide.emit(event);
+        this.unbindMaskClickListener();
         event.preventDefault();
-		if (this.maskClickListener) {
+    }
+    
+    unbindMaskClickListener() {
+        if(this.maskClickListener) {
             this.maskClickListener();
+            this.maskClickListener = null;
 		}
     }
     
@@ -347,9 +353,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.el.nativeElement.appendChild(this.container);
         }
 		
-		if (this.maskClickListener) {
-            this.maskClickListener();
-		}
+		this.unbindMaskClickListener();
     }
 
 }
