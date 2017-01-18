@@ -6,7 +6,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: 'p-growl',
     template: `
-        <div #container class="ui-growl ui-widget" [style.zIndex]="zIndex">
+        <div #container class="ui-growl ui-widget" [style.zIndex]="zIndex" [ngStyle]="style">
             <div #msgel *ngFor="let msg of value" class="ui-growl-item-container ui-state-highlight ui-corner-all ui-shadow" aria-live="polite"
                 [ngClass]="{'ui-growl-message-info':msg.severity == 'info','ui-growl-message-warn':msg.severity == 'warn',
                     'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}">
@@ -33,6 +33,8 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     @Input() life: number = 3000;
 
     @Input() value: Message[];
+     
+    @Input() style: any;
     
     @ViewChild('container') containerViewChild: ElementRef;
         
