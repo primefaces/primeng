@@ -63,9 +63,9 @@ export interface LocaleSettings {
                     <tbody>
                         <tr *ngFor="let week of dates">
                             <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
-                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date)}">
+                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
-                                    [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
+                                    [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today,'ui-state-disabled':!date.selectable}"
                                     (click)="onDateSelect($event,date)">{{date.day}}</a>
                             </td>
                         </tr>
@@ -299,7 +299,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
     ngOnInit() {
-        let today = new Date();
         let date = this.defaultDate||new Date();        
         let dayIndex = this.locale.firstDayOfWeek;
         for(let i = 0; i < 7; i++) {
@@ -363,6 +362,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
         let sundayIndex = this.getSundayIndex();
         let dayNo = 1;
+        let today = new Date();
                 
         for(let i = 0; i < 6; i++) {
             let week = [];
@@ -370,12 +370,14 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             if(i == 0) {
                 for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
-                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, selectable: this.isSelectable(j, prev.month, prev.year)});
+                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, 
+                            today: this.isToday(today, j, prev.month, prev.year), selectable: this.isSelectable(j, prev.month, prev.year)});
                 }
                 
                 let remainingDaysLength = 7 - week.length;
                 for(let j = 0; j < remainingDaysLength; j++) {
-                    week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                    week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year), 
+                            selectable: this.isSelectable(dayNo, month, year)});
                     dayNo++;
                 }
             }
@@ -383,11 +385,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 for (let j = 0; j < 7; j++) {
                     if(dayNo > daysLength) {
                         let next = this.getNextMonthAndYear(month, year);
-                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true, 
+                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true,
+                                    today: this.isToday(today, dayNo - daysLength, next.month, next.year),
                                     selectable: this.isSelectable((dayNo - daysLength), next.month, next.year)});
                     }
                     else {
-                        week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                        week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
+                            selectable: this.isSelectable(dayNo, month, year)});
                     }
                     
                     dayNo++;
@@ -557,10 +561,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             return false;
     }
     
-    isToday(dateMeta): boolean {     
-        let today = new Date();
-        
-        return today.getDate() === dateMeta.day && today.getMonth() === dateMeta.month && today.getFullYear() === dateMeta.year;
+    isToday(today, day, month, year): boolean {     
+        return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
     
     isSelectable(day, month, year): boolean {
