@@ -15,7 +15,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                 'ui-state-active': checked,'ui-state-focus':focus,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass" 
                 (click)="toggle($event)">
             <div class="ui-helper-hidden-accessible">
-                <input #checkbox type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
+                <input #checkbox type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [attr.tabindex]="tabindex">
             </div>
             <span *ngIf="onIcon||offIcon" [class]="getIconClass()"></span>
             <span class="ui-button-text ui-unselectable-text">{{checked ? onLabel : offLabel}}</span>
@@ -38,6 +38,8 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() tabindex: number;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
