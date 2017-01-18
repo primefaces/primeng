@@ -32,7 +32,8 @@ export interface LocaleSettings {
             </template>
             <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}" 
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
-                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly">
+
+                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly && (overlayVisible || inline)">
                     <ng-content select="p-header"></ng-content>
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
                         <span class="fa fa-angle-left"></span>
@@ -51,7 +52,7 @@ export interface LocaleSettings {
                         <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
                     </div>
                 </div>
-                <table class="ui-datepicker-calendar" *ngIf="!timeOnly">
+                <table class="ui-datepicker-calendar" *ngIf="!timeOnly && (overlayVisible || inline)">
                     <thead>
                         <tr>
                             <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
