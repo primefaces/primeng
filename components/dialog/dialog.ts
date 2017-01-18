@@ -61,6 +61,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() modal: boolean;
 
     @Input() closeOnEscape: boolean = true;
+	
+    @Input() closeOnBackgroundClick: boolean = true;
 
     @Input() rtl: boolean;
 
@@ -107,6 +109,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     documentResponsiveListener: Function;
     
     documentEscapeListener: Function;
+	
+    maskClickListener: Function;
     
     lastPageX: number;
     
@@ -232,6 +236,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
             this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
+			if (this.closable && this.closeOnBackgroundClick) {
+				this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
+					this.hide(event);
+				});
+			}
             document.body.appendChild(this.mask);
         }
     }
@@ -248,6 +257,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.visibleChange.emit(false);
         this.onAfterHide.emit(event);
         event.preventDefault();
+		if (this.maskClickListener) {
+            this.maskClickListener();
+		}
     }
     
     moveOnTop() {
@@ -334,6 +346,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.container);
         }
+		
+		if (this.maskClickListener) {
+            this.maskClickListener();
+		}
     }
 
 }
