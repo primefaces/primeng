@@ -3,10 +3,16 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor} from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => Calendar),
+  multi: true
+};
+
+export const CALENDAR_VALIDATOR: any = {
+  provide: NG_VALIDATORS,
   useExisting: forwardRef(() => Calendar),
   multi: true
 };
@@ -147,7 +153,7 @@ export interface LocaleSettings {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
-    providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
+    providers: [DomHandler,CALENDAR_VALUE_ACCESSOR,CALENDAR_VALIDATOR]
 })
 export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
     
@@ -277,7 +283,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     _minDate: Date;
     
     _maxDate: Date;
-    
+
+    _isValid: boolean = true;
+
     @Input() get minDate(): Date {
         return this._minDate;
     }
@@ -491,6 +499,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             this.value.setMinutes(this.currentMinute);
             this.value.setSeconds(this.currentSecond);
         }
+        this._isValid = true;
         this.updateModel();
         this.onSelect.emit(this.value);
     }
@@ -725,14 +734,16 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         event.preventDefault();
     }
     
-    onInput(event) {
+    onInput(event) {        
         try {
             this.value = this.parseValueFromString(event.target.value);
             this.updateUI();
+            this._isValid = true;
         } 
         catch(err) {
             //invalid date
             this.value = null;
+            this._isValid = false;
         }
         
         this.updateModel();
@@ -1173,6 +1184,14 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlay);
         }
+    }
+
+    validate(c: AbstractControl) {
+        if (!this._isValid) {
+            return { invalidDate: true };
+        }
+
+        return null;
     }
 }
 
