@@ -21,7 +21,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
                     <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                 </li>
-                <li class="ui-chips-input-token">
+                <li class="ui-chips-input-token" *ngIf="!itemTemplate&&!disabled">
                     <input #inputtext type="text" pInputText [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
                         (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled">
                 </li>
