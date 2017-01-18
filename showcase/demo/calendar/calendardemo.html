@@ -26,6 +26,11 @@
             <h3>Restrict</h3>
             <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar> {{date4|date}}
         </div>
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Disable days and/or dates</h3>
+            <p-calendar [(ngModel)]="date8" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]" readonlyInput="readonlyInput"></p-calendar> {{date8|date}}
+        </div>
         
         <div class="ui-g-12 ui-md-4">
             <h3>Navigators</h3>
@@ -43,8 +48,8 @@
         </div>
     </div>
     
-    <h3>Inline {{date8|date}}</h3>
-    <p-calendar [(ngModel)]="date8" [inline]="true"></p-calendar> 
+    <h3>Inline {{date9|date}}</h3>
+    <p-calendar [(ngModel)]="date9" [inline]="true"></p-calendar> 
 </div>
 
 <div class="content-section source">
@@ -136,6 +141,14 @@ export class MyModel &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
+            <h3>Disable specific dates and/or days</h3>
+            <p>To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use disabledDates and/or disabledDays options.</p>
+            <pre>
+<code class="language-markup" pCode>
+&lt;p-calendar [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[0,6}" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -304,6 +317,18 @@ export class MyModel &#123;
                             <td>Date</td>
                             <td>null</td>
                             <td>The maximum selectable date.</td>
+                        </tr>
+                        <tr>
+                            <td>disabledDates</td>
+                            <td>Array&lt;Date&gt;</td>
+                            <td>null</td>
+                            <td>Array with dates that should be disabled (not selectable).</td>
+                        </tr>
+                        <tr>
+                            <td>disabledDays</td>
+                            <td>Array&lt;number&gt;</td>
+                            <td>null</td>
+                            <td>Array with weekday numbers that should be disabled (not selectable).</td>
                         </tr>
                         <tr>
                             <td>monthNavigator</td>
