@@ -252,6 +252,12 @@ export class MyModel &#123;
                             <td>false</td>
                             <td>When enabled, displays a button with icon next to input.</td>
                         </tr>
+                         <tr>
+                            <td>showOnFocus</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When disabled, datepicker will not be visible with input focus.</td>
+                        </tr>
                         <tr>
                             <td>icon</td>
                             <td>string</td>
@@ -348,6 +354,30 @@ export class MyModel &#123;
                             <td>null</td>
                             <td>Index of the element in tabbing order.</td>
                         </tr>
+                        <tr>
+                            <td>showSeconds</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to show the seconds in time picker.</td>
+                        </tr>
+                        <tr>
+                            <td>stepHour</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Hours to change per step.</td>
+                        </tr>
+                        <tr>
+                            <td>stepMinute</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Minutes to change per step.</td>
+                        </tr>
+                        <tr>
+                            <td>stepSecond</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Seconds to change per step.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -374,6 +404,12 @@ export class MyModel &#123;
                             <td>event: Blur event
                             </td>
                             <td>Callback to invoke on blur of input field.</td>
+                        </tr>
+                        <tr>
+                            <td>onFocus</td>
+                            <td>event: Focus event
+                            </td>
+                            <td>Callback to invoke on focus of input field.</td>
                         </tr>
                     </tbody>
                 </table>

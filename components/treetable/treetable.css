@@ -41,9 +41,9 @@
 }
 
 .ui-treetable .ui-treetable-toggler {
-    display: inline-block;
     vertical-align: middle;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .ui-treetable .ui-treetable-data tr.ui-state-highlight,

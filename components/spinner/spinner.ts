@@ -18,13 +18,11 @@ export const SPINNER_VALUE_ACCESSOR: any = {
             [attr.size]="size" [attr.maxlength]="maxlength" [disabled]="disabled" [readonly]="readonly"
             (keydown)="onInputKeydown($event)" (keyup)="onInput($event,in.value)" (keypress)="onInputKeyPress($event)" (blur)="onBlur()" (change)="handleChange($event)" (focus)="onFocus()">
             <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
-                [ngClass]="{'ui-state-hover':hoverUp,'ui-state-active':activeUp,'ui-state-disabled':disabled}"
-                (mouseenter)="onUpButtonMouseenter($event)" (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
+                (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
                 <span class="fa fa-caret-up"></span>
             </a>
             <a class="ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default ui-button-text-only"
-                [ngClass]="{'ui-state-hover':hoverDown,'ui-state-active':activeDown,'ui-state-disabled':disabled}"
-                (mouseenter)="onDownButtonMouseenter($event)" (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event,in)" (mouseup)="onDownButtonMouseup($event)">
+                (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event,in)" (mouseup)="onDownButtonMouseup($event)">
                 <span class="fa fa-caret-down"></span>
             </a>
         </span>
@@ -67,14 +65,6 @@ export class Spinner implements OnInit,ControlValueAccessor {
         
     keyPattern: RegExp = /[0-9\+\-]/;
         
-    public hoverUp: boolean;
-    
-    public activeUp: boolean;
-    
-    public hoverDown: boolean;
-    
-    public activeDown: boolean;
-
     public precision: number;
     
     public timer: any;
@@ -136,7 +126,6 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onUpButtonMousedown(event: Event,input: HTMLInputElement) {
         if(!this.disabled) {
             input.focus();
-            this.activeUp = true;
             this.repeat(null, 1);
             this.updateFilledState();
             event.preventDefault();
@@ -145,21 +134,12 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     onUpButtonMouseup(event: Event) {
         if(!this.disabled) {
-            this.activeUp = false;
             this.clearTimer();
         }        
     }
-    
-    onUpButtonMouseenter(event: Event) {
-        if(!this.disabled) {
-            this.hoverUp = true;
-        }
-    }
-    
+        
     onUpButtonMouseleave(event: Event) {
         if(!this.disabled) {
-            this.hoverUp = false;
-            this.activeUp = false;
             this.clearTimer();
         }
     }
@@ -167,7 +147,6 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onDownButtonMousedown(event: Event, input: HTMLInputElement) {
         if(!this.disabled) {
             input.focus();
-            this.activeDown = true;
             this.repeat(null, -1);
             this.updateFilledState();
             
@@ -177,21 +156,12 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     onDownButtonMouseup(event: Event) {
         if(!this.disabled) {
-            this.activeDown = false;
             this.clearTimer();
         }
     }
-    
-    onDownButtonMouseenter(event: Event) {
-        if(!this.disabled) {
-            this.hoverDown = true;
-        }
-    }
-    
+        
     onDownButtonMouseleave(event: Event) {
         if(!this.disabled) {
-            this.hoverDown = false;
-            this.activeDown = false;
             this.clearTimer();
         }
     }
