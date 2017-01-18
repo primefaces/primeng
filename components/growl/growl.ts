@@ -13,7 +13,7 @@ import {DomHandler} from '../dom/domhandler';
                 <div class="ui-growl-item">
                      <div class="ui-growl-icon-close fa fa-close" (click)="remove(msg,msgel)"></div>
                      <span class="ui-growl-image fa fa-2x"
-                        [ngClass]="{'fa-info-circle':msg.severity == 'info','fa-warning':msg.severity == 'warn',
+                        [ngClass]="{'fa-info-circle':msg.severity == 'info','fa-exclamation-circle':msg.severity == 'warn',
                                 'fa-close':msg.severity == 'error','fa-check':msg.severity == 'success'}"></span>
                      <div class="ui-growl-message">
                         <span class="ui-growl-title">{{msg.summary}}</span>
