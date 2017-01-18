@@ -31,8 +31,8 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="fa fa-fw fa-caret-down ui-c"></span>
             </div>
-            <div #panel class="ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow" 
-                [style.display]="panelVisible ? 'block' : 'none'">
+            <div #panel [ngClass]="{'ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow': true}" 
+                [style.display]="panelVisible ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
                     <span class="fa fa-search"></span>
@@ -62,8 +62,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() filter: boolean;
 
     @Input() style: any;
+    
+    @Input() panelStyle: any;
 
     @Input() styleClass: string;
+    
+    @Input() panelStyleClass: string;
     
     @Input() disabled: boolean;
     
