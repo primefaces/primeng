@@ -205,11 +205,11 @@
     color: $inputTextColor;
 }
 
-.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:hover {
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:hover {
     @include hover-element();
 }
 
-.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:active {
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
     color: $stateActiveTextColor;

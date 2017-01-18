@@ -136,11 +136,25 @@ $invalidInputBorderColor: #f44336;
 }
 
 /* Spinner */
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:hover {
+    border: 1px solid #1f89ce;
+    background: #1f89ce;
+    outline: 0 none;
+    color: #ffffff;
+}
+
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
+    border: 1px solid #156090;
+    background: #186ba0;
+    color: #ffffff,
+}
+
 .ui-spinner-button {
     &.ui-button {
         font-size: 1em;
     }
 }
+
 .ui-fluid {
     .ui-spinner {
         .ui-spinner-button {
@@ -208,14 +222,7 @@ $invalidInputBorderColor: #f44336;
         border: 1px solid #1f89ce;
     	background: #1f89ce;
     	outline: 0 none;
-        color: #ffffff,
-    }
-    
-    &:enabled:hover,
-    &:focus {
-        border: 1px solid #1f89ce;
-        background: #1f89ce;
-        outline: 0 none;
+        color: #ffffff;
     }
     
     &:enabled:active {
