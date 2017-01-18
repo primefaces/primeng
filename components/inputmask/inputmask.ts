@@ -417,8 +417,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
                     if(/android/i.test(this.domHandler.getUserAgent())){
                         //Path for CSP Violation on FireFox OS 1.1
-                        let proxy = function() {
-                            this.caret.bind(this,next)();
+                        let proxy = () => {
+                            this.caret(next);
                         };
 
                         setTimeout(proxy,0);
