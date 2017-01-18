@@ -50,6 +50,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Input() tabindex: number;
     
+    @Input() separator: number[] = [13]; // Default is enter
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
@@ -138,39 +140,31 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     }
     
     onKeydown(event: KeyboardEvent, inputEL: HTMLInputElement): void {
-        switch(event.which) {
-            //backspace
-            case 8:
-                if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
-                    let removedItem = this.value.pop();
-                    this.onModelChange(this.value);
-                    this.onRemove.emit({
-                        originalEvent: event,
-                        value: removedItem
-                    });
-                }
-            break;
-            
-            //enter
-            case 13:
-                this.value = this.value||[];
-                if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
-                    this.value.push(inputEL.value);
-                    this.onModelChange(this.value);
-                    this.onAdd.emit({
-                        originalEvent: event,
-                        value: inputEL.value
-                    });
-                }     
-                inputEL.value = '';
+        if(event.which === 8) { //backspace
+            if (inputEL.value.length === 0 && this.value && this.value.length > 0) {
+                let removedItem = this.value.pop();
+                this.onModelChange(this.value);
+                this.onRemove.emit({
+                    originalEvent: event,
+                    value: removedItem
+                });
+            }
+        } else if (this.separator.indexOf(event.which) !== -1) {
+            this.value = this.value || [];
+            if (inputEL.value && inputEL.value.trim().length && (!this.max || this.max > this.value.length)) {
+                this.value.push(inputEL.value);
+                this.onModelChange(this.value);
+                this.onAdd.emit({
+                    originalEvent: event,
+                    value: inputEL.value
+                });
+            }
+            inputEL.value = '';
+            event.preventDefault();
+        } else {
+            if (this.max && this.value && this.max === this.value.length) {
                 event.preventDefault();
-            break;
-            
-            default:
-                if(this.max && this.value && this.max === this.value.length) {
-                    event.preventDefault();
-                }
-            break;
+            }
         }
     }
     

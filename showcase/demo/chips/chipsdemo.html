@@ -15,6 +15,9 @@
             {{item}} - (active) <i class="fa fa-user"></i>
         </template>
     </p-chips>
+    
+    <h3 class="first">Space seperator</h3>
+    <p-chips [(ngModel)]="values3" [separator]="[32, 13]"></p-chips>
 </div>
 
 <div class="content-section source">
@@ -117,6 +120,12 @@ export class MyModel &#123;
                             <td>null</td>
                             <td>Index of the element in tabbing order.</td>
                         </tr>
+                        <tr>
+                            <td>separator</td>
+                            <td>number array</td>
+                            <td>[13]</td>
+                            <td>Specify seperator keys for chip input.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -201,6 +210,9 @@ export class MyModel &#123;
         &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user"&gt;&lt;/i&gt;
     &lt;/template&gt;
 &lt;/p-chips&gt;
+
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-chips [(ngModel)]="values3" [separator]="[32, 13]"&gt;&lt;/p-chips&gt;
 </code>
 </pre>
 
@@ -211,6 +223,8 @@ export class ChipsDemo &#123;
     values1: string[];
     
     values2: string[];
+    
+    values3: string[];
 &#125;
 </code>
 </pre>
