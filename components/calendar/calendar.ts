@@ -507,12 +507,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     updateModel() {
         if(this.dataType == 'date'){
             this.onModelChange(this.value);
-        }else if(this.dataType == 'string'){
-            if(this.timeOnly){
+        }
+        else if(this.dataType == 'string') {
+            if(this.timeOnly)
                 this.onModelChange(this.formatTime(this.value));
-            }else{
+            else
                 this.onModelChange(this.formatDate(this.value, this.dateFormat));
-            }
         }
     }
     
