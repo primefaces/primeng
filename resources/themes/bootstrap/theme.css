@@ -1947,10 +1947,6 @@ body .ui-menu .ui-menu-list .ui-menuitem {
     -webkit-border-radius: 0;
     border-radius: 0;
 }
-body .ui-menu .ui-menu-list .ui-menuitem:hover {
-    background-color: #0275d8;
-    color: #ffffff;
-}
 body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link {
     padding: 0.5em 0.75em;
     width: 100%;
@@ -1960,7 +1956,8 @@ body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link {
     border-radius: 0;
     color: #373a3c;
 }
-body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link:hover {
+body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link:hover,
+body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active > .ui-menuitem-link {
     background-color: #0275d8;
     color: #ffffff;
 }

@@ -417,8 +417,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
                     if(/android/i.test(this.domHandler.getUserAgent())){
                         //Path for CSP Violation on FireFox OS 1.1
-                        let proxy = function() {
-                            this.caret.bind(this,next)();
+                        let proxy = () => {
+                            this.caret(next);
                         };
 
                         setTimeout(proxy,0);
@@ -488,7 +488,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         if (allow) {
             this.writeBuffer();
         } else if (lastMatch + 1 < this.partialPosition) {
-            if (this.autoClear || this.buffer.join('') === this.defaultBuffer) {
+            if (this.autoClear && this.buffer.join('') === this.defaultBuffer) {
                 // Invalid value. Remove it and replace it with the
                 // mask, which is the default behavior.
                 if(this.input.value) this.input.value = '';

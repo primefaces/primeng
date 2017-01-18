@@ -16,7 +16,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         <div [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
-                <input #in type="text" readonly="readonly" (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled">
+                <input #in type="text" readonly="readonly" (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
@@ -81,6 +81,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() disabled: boolean;
     
     @Input() overlayVisible: boolean;
+
+    @Input() tabindex: number;
     
     public value: any[];
     
@@ -153,6 +155,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     writeValue(value: any) : void {
         this.value = value;
+        this.updateLabel();
     }
     
     registerOnChange(fn: Function): void {

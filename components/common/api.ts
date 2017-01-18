@@ -2,6 +2,8 @@ import {EventEmitter,Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 
+export {DomHandler} from '../dom/domhandler';
+
 export interface SortMeta {
     field: string;
     order: number;
@@ -76,18 +78,18 @@ export interface BlockableUI {
 
 @Injectable()
 export class ConfirmationService {
-    
+
     private requireConfirmationSource = new Subject<Confirmation>();
     private acceptConfirmationSource = new Subject<Confirmation>();
-    
+
     requireConfirmation$ = this.requireConfirmationSource.asObservable();
     accept = this.acceptConfirmationSource.asObservable();
-    
+
     confirm(confirmation: Confirmation) {
         this.requireConfirmationSource.next(confirmation);
         return this;
     }
-    
+
     onAccept() {
         this.acceptConfirmationSource.next();
     }
