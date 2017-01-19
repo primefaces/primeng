@@ -298,6 +298,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onEditableInputClick(event) {
         this.itemClick = true;
+        this.bindDocumentClickListener();
     }
     
     onEditableInputFocus(event) {
