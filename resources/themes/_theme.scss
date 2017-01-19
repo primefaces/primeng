@@ -65,16 +65,20 @@
     filter:Alpha(Opacity=50); 
 }
 
+.ui-widget-header .ui-state-default,
+.ui-widget-content .ui-state-default,
 .ui-state-default { 
     border: $stateDefaultBorderWidth solid $stateDefaultBorderColor; 
     background: $stateDefaultBgColor; 
     color: $stateDefaultTextColor;
     
     a {
-        color: $stateDefaultTextColor;
+        color: $stateDefaultTextColor ;
     }
 }
 
+.ui-widget-header .ui-state-active,
+.ui-widget-content .ui-state-active,
 .ui-state-active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
@@ -85,6 +89,8 @@
     }
 }
 
+.ui-widget-header .ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
 .ui-state-highlight  {
     border-color: $stateHighlightBorderColor;
     background: $stateHighlightBgColor;
@@ -95,6 +101,8 @@
     }
 }
 
+.ui-widget-header .ui-state-focus,
+.ui-widget-content .ui-state-focus,
 .ui-state-focus {
     border-color: $stateFocusBorderColor;
     background: $stateFocusBgColor;
@@ -105,6 +113,8 @@
     }
 }
 
+.ui-widget-header .ui-state-error,
+.ui-widget-content .ui-state-error,
 .ui-state-error {
     border-color: $stateErrorBorderColor;
     background: $stateErrorBgColor;
@@ -441,10 +451,6 @@
 .ui-rating {
     a {
         color: $inputTextColor;
-        
-        &:hover {
-            color: $stateHoverTextColor;
-        }
     }
 }
 
