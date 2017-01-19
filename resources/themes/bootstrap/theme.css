@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 body .ui-widget,
-body .ui-widget .ui-widget {
+body .ui-widget .ui-widget,
+body .ui-widget input, body .ui-widget select, body .ui-widget textarea, body .ui-widget button {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     text-decoration: none;
     font-size: 1em;
