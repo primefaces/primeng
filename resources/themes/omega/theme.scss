@@ -226,6 +226,7 @@ $invalidInputBorderColor: #f44336;
     transition: .2s;
 }
 
+.ui-inputtext.ui-state-focus,
 .ui-inputtext:focus {
 	-moz-box-shadow: 0px 0px 5px #1f89ce;
 	-webkit-box-shadow: 0px 0px 5px #1f89ce;
