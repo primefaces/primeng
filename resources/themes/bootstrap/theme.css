@@ -234,6 +234,7 @@ body .ui-selectbutton.ui-buttonset .ui-button {
 }
 body .ui-selectbutton.ui-buttonset .ui-button:not(.ui-state-disabled):not(.ui-state-active):hover {
     background-color: #e6e6e6;
+    color: #373a3c;
 }
 body .ui-selectbutton.ui-buttonset .ui-button.ui-state-active {
     background-color: #0275d8;
