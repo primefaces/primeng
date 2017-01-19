@@ -1584,28 +1584,32 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     onColumnDragover(event) {
         if(this.reorderableColumns && this.draggedColumn) {
             event.preventDefault();
+            let iconWidth = this.domHandler.getHiddenElementOuterWidth(this.reorderIndicatorUp);
+            let iconHeight = this.domHandler.getHiddenElementOuterHeight(this.reorderIndicatorUp);
             let dropHeader = this.findParentHeader(event.target);
+            let container = this.el.nativeElement.children[0];
+            let containerOffset = this.domHandler.getOffset(container);
+            let dropHeaderOffset = this.domHandler.getOffset(dropHeader);
             
             if(this.draggedColumn != dropHeader) {
-                let targetPosition = dropHeader.getBoundingClientRect();
-                let targetLeft = targetPosition.left + this.domHandler.getWindowScrollLeft();
-                let targetTop =  targetPosition.top + this.domHandler.getWindowScrollTop();
-                let columnCenter = targetLeft + dropHeader.offsetWidth / 2;
+                let targetLeft =  dropHeaderOffset.left - containerOffset.left;
+                let targetTop =  containerOffset.top - dropHeaderOffset.top;
+                let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
                 
-                this.reorderIndicatorUp.style.top = (targetTop - 16) + 'px';
-                this.reorderIndicatorDown.style.top = targetTop + dropHeader.offsetHeight + 'px';
+                this.reorderIndicatorUp.style.top = dropHeaderOffset.top - containerOffset.top - (iconHeight - 1) + 'px';
+                this.reorderIndicatorDown.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
 
                 if(event.pageX > columnCenter) {
-                    this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - 8) + 'px';
-                    this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - 8)+ 'px';
+                    this.reorderIndicatorUp.style.left = (targetLeft + dropHeader.offsetWidth - Math.ceil(iconWidth / 2)) + 'px';
+                    this.reorderIndicatorDown.style.left = (targetLeft + dropHeader.offsetWidth - Math.ceil(iconWidth / 2))+ 'px';
                     this.dropPosition = 1;
                 }
                 else {
-                    this.reorderIndicatorUp.style.left = (targetLeft - 8) + 'px';
-                    this.reorderIndicatorDown.style.left = (targetLeft - 8)+ 'px';
+                    this.reorderIndicatorUp.style.left = (targetLeft - Math.ceil(iconWidth / 2)) + 'px';
+                    this.reorderIndicatorDown.style.left = (targetLeft - Math.ceil(iconWidth / 2))+ 'px';
                     this.dropPosition = -1;
                 }
-                
+                                
                 this.reorderIndicatorUp.style.display = 'block';
                 this.reorderIndicatorDown.style.display = 'block';
             }
