@@ -15,16 +15,16 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
             <input #in pInputText type="text" class="ui-spinner-input" [value]="valueAsString"
-            [attr.size]="size" [attr.maxlength]="maxlength" [disabled]="disabled" [readonly]="readonly"
+            [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [disabled]="disabled" [readonly]="readonly"
             (keydown)="onInputKeydown($event)" (keyup)="onInput($event,in.value)" (keypress)="onInputKeyPress($event)" (blur)="onBlur()" (change)="handleChange($event)" (focus)="onFocus()">
-            <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only"
+            <button [ngClass]="{'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled"
                 (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
                 <span class="fa fa-caret-up"></span>
-            </a>
-            <a class="ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default ui-button-text-only"
+            </button>
+            <button [ngClass]="{'ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled"
                 (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event,in)" (mouseup)="onDownButtonMouseup($event)">
                 <span class="fa fa-caret-down"></span>
-            </a>
+            </button>
         </span>
     `,
     host: {
@@ -54,6 +54,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() decimalSeparator: string = '.';
     
     @Input() thousandSeparator: string = ',';
+
+    @Input() tabindex: number;
             
     value: number;
     
@@ -128,7 +130,6 @@ export class Spinner implements OnInit,ControlValueAccessor {
             input.focus();
             this.repeat(null, 1);
             this.updateFilledState();
-            event.preventDefault();
         }
     }
     
@@ -149,8 +150,6 @@ export class Spinner implements OnInit,ControlValueAccessor {
             input.focus();
             this.repeat(null, -1);
             this.updateFilledState();
-            
-            event.preventDefault();
         }
     }
     

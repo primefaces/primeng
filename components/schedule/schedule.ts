@@ -107,8 +107,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     
     @Output() onEventResize: EventEmitter<any> = new EventEmitter();
     
-    @Output() viewRender: EventEmitter<any> = new EventEmitter();
-    
+    @Output() onViewRender: EventEmitter<any> = new EventEmitter();
+        
     initialized: boolean;
     
     stopNgOnChangesPropagation: boolean;
@@ -161,9 +161,6 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
             eventConstraint: this.eventConstraint,
             eventRender: this.eventRender,
             dayRender: this.dayRender,
-            events: (start, end, timezone, callback) => {
-                callback(this.events);
-            },
             dayClick: (date, jsEvent, view) => {
                 this.onDayClick.emit({
                     'date': date,
@@ -246,7 +243,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
                 });
             },
             viewRender: (view, element) => {
-                this.viewRender.emit({
+                this.onViewRender.emit({
                     'view': view,
                     'element': element                    
                 });
@@ -276,9 +273,12 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
         let changes = this.differ.diff(this.events);
         
         if(this.schedule && changes) {
-            this.schedule.fullCalendar('refetchEvents');
+            this.schedule.fullCalendar('removeEventSources');
+            this.schedule.fullCalendar('addEventSource', this.events);
         }
     }
+    
+    
 
     ngOnDestroy() {
         jQuery(this.el.nativeElement.children[0]).fullCalendar('destroy');

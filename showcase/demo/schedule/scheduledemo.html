@@ -124,6 +124,25 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Lazy Loading</h3>
+            <p>onViewRender call is used to implement lazy loading which is triggered when a new date-range is rendered or when the view type changes.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-schedule [events]="events" (onViewRender)="loadEvents($event)"&gt;&lt;/p-schedule&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+loadEvents(event) &#123;
+    let start = event.view.start
+    let end = event.view.end
+    this.events = this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
+&#125;
+</code>
+</pre>
+            
+
             <h3>Event API</h3>
             <p>Event object has various properties to define an event, refer to <a href="http://fullcalendar.io/docs/event_data/Event_Object/">official documentation</a> for the whole list.</p>
 
@@ -440,7 +459,7 @@ export class MyModel &#123;
                             <td><a href="http://fullcalendar.io/docs/event_ui/eventResize/">Read more</a></td>
                         </tr>
                         <tr>
-                            <td>viewRender</td>
+                            <td>onViewRender</td>
                             <td><a href="http://fullcalendar.io/docs/display/viewRender/">Read more</a></td>
                         </tr>  
                         <tr>
