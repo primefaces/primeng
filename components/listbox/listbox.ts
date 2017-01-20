@@ -265,7 +265,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             let items = [];
             for(let i = 0; i < this.options.length; i++) {
                 let option = this.options[i];
-                if(option.label.toLowerCase().startsWith(this.filterValue.toLowerCase())) {
+                if(option.label.toLowerCase().includes(this.filterValue.toLowerCase())) {
                     items.push(option);
                 }
             }
