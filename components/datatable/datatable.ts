@@ -115,7 +115,7 @@ export class RowExpansionLoader {
 })
 export class ColumnHeaders {
         
-    constructor(@Inject(forwardRef(() => DataTable)) private dt:DataTable) {}
+    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable) {}
     
     @Input("pColumnHeaders") columns: Column[];
 }
@@ -135,7 +135,7 @@ export class ColumnHeaders {
 })
 export class ColumnFooters {
         
-    constructor(@Inject(forwardRef(() => DataTable)) private dt:DataTable) {}
+    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable) {}
     
     @Input("pColumnFooters") columns: Column[];
 }
@@ -198,7 +198,7 @@ export class ColumnFooters {
 })
 export class TableBody {
         
-    constructor(@Inject(forwardRef(() => DataTable)) private dt:DataTable) {}
+    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable) {}
     
     @Input("pTableBody") columns: Column[];
     
@@ -238,7 +238,7 @@ export class TableBody {
 })
 export class ScrollableView implements AfterViewInit, OnDestroy {
         
-    constructor(@Inject(forwardRef(() => DataTable)) private dt:DataTable, private domHandler: DomHandler, private el: ElementRef, public renderer: Renderer,) {}
+    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer,) {}
     
     @Input("pScrollableView") columns: Column[];
     
@@ -573,7 +573,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     columnsSubscription: Subscription;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, 
-            public renderer: Renderer, private changeDetector: ChangeDetectorRef) {
+            public renderer: Renderer, public changeDetector: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
     }
 
