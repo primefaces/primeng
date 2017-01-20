@@ -215,7 +215,7 @@
     display: none !important;
 }
 
-.ui-datatable-stacked .ui-datatable-data td {
+.ui-datatable.ui-datatable-stacked .ui-datatable-data > tr > td {
     text-align: left;
     display: block;
     border: 0 none;
@@ -227,7 +227,7 @@
     clear: left;
 }
 
-.ui-datatable-stacked .ui-datatable-data.ui-widget-content {
+.ui-datatable.ui-datatable-stacked .ui-datatable-data.ui-widget-content {
     border: 0 none;
 }
 
@@ -275,7 +275,7 @@
         display: none !important;
     }
 
-    .ui-datatable-reflow .ui-datatable-data td {
+    .ui-datatable-reflow .ui-datatable-data > tr > td {
         text-align: left;
         display: block;
         border: 0 none;
