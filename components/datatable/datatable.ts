@@ -192,7 +192,7 @@ export class ColumnFooters {
         </template>
 
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content">
-            <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">{{emptyMessage}}</td>
+            <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">{{dt.emptyMessage}}</td>
         </tr>
     `
 })
