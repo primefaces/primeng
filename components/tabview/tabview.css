@@ -44,7 +44,7 @@
 
 .ui-tabview .ui-tabview-nav li .ui-tabview-left-icon,
 .ui-tabview .ui-tabview-nav li .ui-tabview-right-icon,
-.ui-tabview .ui-tabview-nav li .ui-tabview-title, { 
+.ui-tabview .ui-tabview-nav li .ui-tabview-title { 
     vertical-align: middle;
 }
 
