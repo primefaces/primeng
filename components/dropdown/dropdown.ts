@@ -225,7 +225,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     ngAfterViewChecked() {
         if(this.optionsChanged) {
-            this.domHandler.relativePosition(this.panel, this.container);
+            if (this.appendTo) {
+                this.domHandler.absolutePosition(this.panel, this.container);
+            } else {
+                this.domHandler.relativePosition(this.panel, this.container);
+            }        
+        
             this.optionsChanged = false;
         }
         
