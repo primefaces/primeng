@@ -24,7 +24,7 @@
 .ui-accordion .ui-accordion-content { 
     padding: 1em;
     border-top: 0; 
-    overflow: auto; 
+    overflow: visible;
     zoom: 1; 
 }
 

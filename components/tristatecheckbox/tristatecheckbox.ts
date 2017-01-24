@@ -13,11 +13,10 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     template: `
         <div class="ui-chkbox ui-tristatechkbox ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input #input type="text" [name]="name" readonly [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
+                <input #input type="text" [name]="name" [attr.tabindex]="tabindex" readonly [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,input)"
-                [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':value!=null,'ui-state-disabled':disabled,'ui-state-focus':focus}" 
-                    (mouseenter)="hover=true" (mouseleave)="hover=false">
+                [ngClass]="{'ui-state-active':value!=null,'ui-state-disabled':disabled,'ui-state-focus':focus}">
                 <span class="ui-chkbox-icon fa ui-c" [ngClass]="{'fa-check':value==true,'fa-close':value==false}"></span>
             </div>
         </div>
@@ -29,11 +28,11 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     @Input() disabled: boolean;
     
     @Input() name: string;
+
+    @Input() tabindex: number;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-    
-    hover: boolean;
-    
+        
     focus: boolean;
 
     value: any;

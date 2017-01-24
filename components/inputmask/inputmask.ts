@@ -89,6 +89,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     input: HTMLInputElement;
     
+    filled: boolean;
+    
     defs: any;
     
     tests: any[];
@@ -114,8 +116,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     androidChrome: boolean;
     
     focus: boolean;
-    
-    filled: boolean;
             
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
         
@@ -183,14 +183,12 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
                 this.input.value = this.value;
                 this.checkVal();
             }
-
+            this.updateFilledState();
             setTimeout(() => {
                 _this.writeBuffer();
                 _this.checkVal();
             }, 10);
         }
-        
-        this.updateFilledState();
     }
     
     registerOnChange(fn: Function): void {
@@ -422,8 +420,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
                     if(/android/i.test(this.domHandler.getUserAgent())){
                         //Path for CSP Violation on FireFox OS 1.1
-                        let proxy = function() {
-                            this.caret.bind(this,next)();
+                        let proxy = () => {
+                            this.caret(next);
                         };
 
                         setTimeout(proxy,0);
@@ -439,6 +437,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }
         
         this.updateModel(e);
+        
+        this.updateFilledState();
         
         if(completed) {
             this.onComplete.emit();
@@ -534,7 +534,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
             } else {
                 this.caret(pos);
             }
-            this.updateFilledState();
         }, 10);
     }
     

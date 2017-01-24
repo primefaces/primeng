@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,OnDestroy,AfterViewInit,AfterViewChecked,DoCheck,Input,Output,ContentChild,TemplateRef,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
-import {SharedModule} from '../common/shared';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -19,8 +19,8 @@ import {DomHandler} from '../dom/domhandler';
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle">
-                    <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item,selectedItemsSource)}"
-                        (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onItemClick($event,item,selectedItemsSource)">
+                    <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
+                        (click)="onItemClick($event,item,selectedItemsSource)">
                         <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                     </li>
                 </ul>
@@ -36,8 +36,8 @@ import {DomHandler} from '../dom/domhandler';
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle">
-                    <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-hover':(hoveredItem==item),'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
-                        (mouseenter)="hoveredItem=item" (mouseleave)="hoveredItem=null" (click)="onItemClick($event,item,selectedItemsTarget)">
+                    <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
+                        (click)="onItemClick($event,item,selectedItemsTarget)">
                         <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                     </li>
                 </ul>
@@ -54,7 +54,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class PickList implements OnDestroy,AfterViewChecked {
+export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
 
     @Input() source: any[];
 
@@ -82,10 +82,10 @@ export class PickList implements OnDestroy,AfterViewChecked {
     
     @Output() onMoveToTarget: EventEmitter<any> = new EventEmitter();
 
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    hoveredItem: any;
-    
+    public itemTemplate: TemplateRef<any>;
+        
     selectedItemsSource: any[] = [];
     
     selectedItemsTarget: any[] = [];
@@ -97,6 +97,20 @@ export class PickList implements OnDestroy,AfterViewChecked {
     movedDown: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
+    }
         
     ngAfterViewChecked() {
         if(this.movedUp||this.movedDown) {

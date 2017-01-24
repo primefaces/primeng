@@ -24,6 +24,8 @@ export class Accordion implements BlockableUI {
     
     @Input() styleClass: string;
     
+    @Input() lazy: boolean;
+    
     public tabs: AccordionTab[] = [];
 
     constructor(public el: ElementRef) {}
@@ -40,17 +42,17 @@ export class Accordion implements BlockableUI {
 @Component({
     selector: 'p-accordionTab',
     template: `
-        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-hover':hover&&!disabled,'ui-state-disabled':disabled}"
-            (mouseenter)="hover = true" (mouseleave)="hover=false" (click)="toggle($event)">
+        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}"
+            (click)="toggle($event)">
             <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
             <a href="#" *ngIf="!hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">{{header}}</a>
             <a href="#" *ngIf="hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
             </a>
         </div>
         <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" 
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" role="tabpanel" [attr.aria-hidden]="!selected">
-            <div class="ui-accordion-content ui-widget-content">
+            <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
                 <ng-content></ng-content>
             </div>
         </div>
@@ -82,8 +84,6 @@ export class AccordionTab {
     
     public animating: boolean;
     
-    public hover: boolean;
-
     constructor(public accordion: Accordion) {
         this.accordion.addTab(this);
     }
@@ -131,6 +131,10 @@ export class AccordionTab {
             }
         }
         return index;
+    }
+    
+    get lazy(): boolean {
+        return this.accordion.lazy;
     }
     
     get hasHeaderFacet(): boolean {

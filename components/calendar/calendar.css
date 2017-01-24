@@ -13,12 +13,17 @@
     border-left: 0 none;
 }
 
+/* Fluid */
 .ui-fluid .ui-calendar {
     width: 100%;
 }
 
 .ui-fluid .ui-calendar button {
     width: 2em;
+}
+
+.ui-fluid .ui-calendar.ui-calendar-w-btn .ui-inputtext {
+    width: calc(100% - 2em);
 }
 
 /* Datepicker */
@@ -180,7 +185,8 @@
     min-width: 1.5em;
 }
 
-.ui-timepicker > .ui-minute-picker {
+.ui-timepicker > .ui-minute-picker,
+.ui-timepicker > .ui-second-picker {
     margin-left: 0;
 }
 

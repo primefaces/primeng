@@ -26,6 +26,7 @@ import {DatatableDemoRoutingModule} from './datatabledemo-routing.module';
 import {DataTableModule} from '../../../components/datatable/datatable';
 import {ButtonModule} from '../../../components/button/button';
 import {DropdownModule} from '../../../components/dropdown/dropdown';
+import {CalendarModule} from '../../../components/calendar/calendar';
 import {InputTextModule} from '../../../components/inputtext/inputtext';
 import {ContextMenuModule} from '../../../components/contextmenu/contextmenu';
 import {DialogModule} from '../../../components/dialog/dialog';
@@ -41,6 +42,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         FormsModule,
 		DatatableDemoRoutingModule,
         DataTableModule,
+        CalendarModule,
         ButtonModule,
         InputTextModule,
         ContextMenuModule,

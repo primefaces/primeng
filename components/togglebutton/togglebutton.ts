@@ -12,10 +12,10 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-toggleButton',
     template: `
         <div [ngClass]="{'ui-button ui-togglebutton ui-widget ui-state-default ui-corner-all': true, 'ui-button-text-only': (!onIcon&&!offIcon), 'ui-button-text-icon-left': (onIcon&&offIcon),
-                'ui-state-active': checked,'ui-state-focus': focus, 'ui-state-hover': hover&&!disabled, 'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass" 
-                (click)="toggle($event)" (mouseenter)="hover=true" (mouseleave)="hover=false">
+                'ui-state-active': checked,'ui-state-focus':focus,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass" 
+                (click)="toggle($event)">
             <div class="ui-helper-hidden-accessible">
-                <input #checkbox type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()">
+                <input #checkbox type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [attr.tabindex]="tabindex">
             </div>
             <span *ngIf="onIcon||offIcon" [class]="getIconClass()"></span>
             <span class="ui-button-text ui-unselectable-text">{{checked ? onLabel : offLabel}}</span>
@@ -39,6 +39,8 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
 
     @Input() styleClass: string;
 
+    @Input() tabindex: number;
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @ViewChild('checkbox') checkboxViewChild: ElementRef;
@@ -52,8 +54,6 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
-    
-    public hover: boolean;
     
     ngAfterViewInit() {
         this.checkbox = <HTMLInputElement> this.checkboxViewChild.nativeElement;

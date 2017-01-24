@@ -162,6 +162,10 @@
     vertical-align: middle;
 }
 
+.ui-slidemenu .ui-slidemenuitem-active > .ui-submenu > ul {
+    display: block !important;
+}
+
 /** MegaMenu **/
 .ui-megamenu .ui-g {
     flex-wrap: nowrap;

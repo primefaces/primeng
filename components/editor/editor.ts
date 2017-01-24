@@ -1,6 +1,6 @@
 import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,OnChanges,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Header} from '../common/shared'
+import {SharedModule,Header} from '../common/shared'
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -17,7 +17,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="'ui-widget ui-editor-container ui-corner-all'" [class]="styleClass">
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="toolbar">
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
             </div>
             <div class="ui-editor-toolbar ui-widget-header ui-corner-top" *ngIf="!toolbar">
                 <span class="ql-formats">
@@ -33,17 +33,17 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     </select>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-bold"></button>
-                    <button class="ql-italic"></button>
-                    <button class="ql-underline"></button>
+                    <button class="ql-bold" aria-label="Bold"></button>
+                    <button class="ql-italic" aria-label="Italic"></button>
+                    <button class="ql-underline" aria-label="Underline"></button>
                 </span>
                 <span class="ql-formats">
                     <select class="ql-color"></select>
                     <select class="ql-background"></select>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-list" value="ordered"></button>
-                    <button class="ql-list" value="bullet"></button>
+                    <button class="ql-list" value="ordered" aria-label="Ordered List"></button>
+                    <button class="ql-list" value="bullet" aria-label="Unordered List"></button>
                     <select class="ql-align">
                         <option selected></option>
                         <option value="center"></option>
@@ -52,12 +52,12 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                     </select>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-link"></button>
-                    <button class="ql-image"></button>
-                    <button class="ql-code-block"></button>
+                    <button class="ql-link" aria-label="Insert Link"></button>
+                    <button class="ql-image" aria-label="Insert Image"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block"></button>
                 </span>
                 <span class="ql-formats">
-                    <button class="ql-clean"></button>
+                    <button class="ql-clean" aria-label="Remove Styles"></button>
                 </span>
             </div>
             <div class="ui-editor-content" [ngStyle]="style"></div>
@@ -159,7 +159,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Editor],
+    exports: [Editor,SharedModule],
     declarations: [Editor]
 })
 export class EditorModule { }

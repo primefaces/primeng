@@ -1,6 +1,6 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule} from '../common/shared';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -22,15 +22,15 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                 </li>
                 <li class="ui-chips-input-token">
-                    <input #inputtext type="text" pInputText [attr.placeholder]="placeholder" (keydown)="onKeydown($event,inputtext)" (focus)="onFocus()" (blur)="onBlur()"
-                        [disabled]="maxedOut||disabled" [disabled]="disabled">
+                    <input #inputtext type="text" pInputText [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
+                        (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled">
                 </li>
             </ul>
         </div>
     `,
     providers: [DomHandler,CHIPS_VALUE_ACCESSOR]
 })
-export class Chips implements ControlValueAccessor {
+export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Input() style: any;
 
@@ -47,8 +47,12 @@ export class Chips implements ControlValueAccessor {
     @Input() placeholder: string;
     
     @Input() max: number;
+
+    @Input() tabindex: number;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
         
     value: any;
     
@@ -61,6 +65,20 @@ export class Chips implements ControlValueAccessor {
     focus: boolean;
             
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
+    }
     
     writeValue(value: any) : void {
         this.value = value;

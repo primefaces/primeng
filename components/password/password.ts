@@ -9,9 +9,6 @@ import {DomHandler} from '../dom/domhandler';
         '[class.ui-corner-all]': 'true',
         '[class.ui-state-default]': 'true',
         '[class.ui-widget]': 'true',
-        '[class.ui-state-hover]': 'hover',
-        '[class.ui-state-focus]': 'focus',
-        '[class.ui-state-disabled]': 'disabled',
         '[class.ui-state-filled]': 'filled'
     },
     providers: [DomHandler]
@@ -25,10 +22,6 @@ export class Password implements AfterViewInit,OnDestroy {
     @Input() mediumLabel: string = 'Medium';
 
     @Input() strongLabel: string = 'Strong';
-
-    hover: boolean;
-    
-    focus: boolean;
     
     panel: any;
     
@@ -52,30 +45,16 @@ export class Password implements AfterViewInit,OnDestroy {
         
         document.body.appendChild(this.panel);
     }
-    
-    @HostListener('mouseover', ['$event']) 
-    onMouseover(e) {
-        this.hover = true;
-    }
-    
-    @HostListener('mouseout', ['$event']) 
-    onMouseout(e) {
-        this.hover = false;
-    }
-    
-    @HostListener('focus', ['$event']) 
-    onFocus(e) {
-        this.focus = true;
         
+    @HostListener('focus', ['$event']) 
+    onFocus(e) {        
         this.domHandler.removeClass(this.panel, 'ui-helper-hidden');
         this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
         this.domHandler.fadeIn(this.panel, 250);
     }
     
     @HostListener('blur', ['$event']) 
-    onBlur(e) {
-        this.focus = false;
-        
+    onBlur(e) {        
         this.domHandler.addClass(this.panel, 'ui-helper-hidden');
     }
     

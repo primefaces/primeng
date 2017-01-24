@@ -14,11 +14,10 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         <div class="ui-chkbox ui-widget">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [name]="name" [value]="value" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)"
-                [ngClass]="{'ui-state-focus':focused}" (change)="handleChange($event)" [disabled]="disabled">
+                [ngClass]="{'ui-state-focus':focused}" (change)="handleChange($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,cb,true)"
-                        (mouseover)="hover=true" (mouseout)="hover=false" 
-                        [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
+                        [ngClass]="{'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
                 <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':checked}"></span>
             </div>
         </div>
@@ -37,6 +36,8 @@ export class Checkbox implements ControlValueAccessor {
     @Input() binary: string;
     
     @Input() label: string;
+
+    @Input() tabindex: number;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -45,9 +46,7 @@ export class Checkbox implements ControlValueAccessor {
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
-    
-    hover: boolean;
-    
+        
     focused: boolean = false;
     
     checked: boolean = false;

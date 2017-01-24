@@ -11,7 +11,7 @@
     
     <h3>Template</h3>
     <p-chips [(ngModel)]="values2">
-        <template let-item>
+        <template let-item pTemplate="item">
             {{item}} - (active) <i class="fa fa-user"></i>
         </template>
     </p-chips>
@@ -57,7 +57,7 @@ export class MyModel &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-chips [(ngModel)]="values"&gt;
-    &lt;template let-item&gt;
+    &lt;template let-item pTemplate="item"&gt;
         &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user"&gt;&lt;/i&gt;
     &lt;/template&gt;
 &lt;/p-chips&gt;
@@ -110,6 +110,12 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Advisory information to display on input.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the element in tabbing order.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -191,7 +197,7 @@ export class MyModel &#123;
 
 &lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-chips [(ngModel)]="values2"&gt;
-    &lt;template let-item&gt;
+    &lt;template let-item pTemplate="item"&gt;
         &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user"&gt;&lt;/i&gt;
     &lt;/template&gt;
 &lt;/p-chips&gt;

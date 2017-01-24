@@ -123,6 +123,10 @@
     width: 100%;
 }
 
+.ui-fluid .ui-autocomplete.ui-autocomplete-dd .ui-autocomplete-input {
+    width: calc(100% - 2em);
+}
+
 .ui-fluid .ui-autocomplete .ui-autocomplete-dropdown.ui-button {
     width: 2em;
 }
