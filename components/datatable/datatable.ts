@@ -230,11 +230,7 @@ export class TableBody {
                 <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columns"></tbody>
             </table>
         </div>
-    `,
-    host:{
-        '[class.ui-datatable-scrollable-view]': 'true',
-        '[class.ui-datatable-frozen-view]': 'frozen'
-    }
+    `
 })
 export class ScrollableView implements AfterViewInit, OnDestroy {
         
@@ -336,8 +332,11 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
             
             <template [ngIf]="scrollable">
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
-                    <div *ngIf="frozenColumns && frozenColumns.length" [pScrollableView]="frozenColumns" frozen="true" [width]="this.frozenWidth"></div>
-                    <div [pScrollableView]="scrollableColumns" [width]="this.scrollWidth"></div>
+                    <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
+                        [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
+                    <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
+                        class="ui-datatable-scrollable-view"
+                        [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}"></div>
                 </div>
             </template>
             
@@ -415,6 +414,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() scrollWidth: any;
     
     @Input() frozenWidth: any;
+    
+    @Input() unfrozenWidth: any;
 
     @Input() style: any;
 
@@ -680,13 +681,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.columns = this.cols.toArray();
         
         if(this.scrollable) {
-            this.frozenColumns = [];
             this.scrollableColumns = [];
             this.cols.forEach((col) => {
-                if(col.frozen)
+                if(col.frozen) {
+                    this.frozenColumns = this.frozenColumns||[];
                     this.frozenColumns.push(col);
-                else
+                } 
+                else {
                     this.scrollableColumns.push(col);
+                }
             });
         }
         
@@ -1814,7 +1817,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         //headers
         for(let i = 0; i < this.columns.length; i++) {
             if(this.columns[i].field) {
-                csv += this.columns[i].field;
+                csv += this.columns[i].header || this.columns[i].field;
                 
                 if(i < (this.columns.length - 1)) {
                     csv += this.csvSeparator;
@@ -1881,9 +1884,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     get containerWidth() {
-        if(this.scrollable && this.scrollWidth) {
-            var total = parseInt(this.scrollWidth);
-            return this.frozenWidth ? (total + parseInt(this.frozenWidth) + 'px') : total + 'px';
+        if(this.scrollable) {
+            if(this.scrollWidth) {
+                return this.scrollWidth;
+            }
+            else if(this.frozenWidth && this.unfrozenWidth) {
+                return parseFloat(this.frozenWidth) + parseFloat(this.unfrozenWidth) + 'px';
+            }
         }
         else {
             return this.style ? this.style.width : null;
