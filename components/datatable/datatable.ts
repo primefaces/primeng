@@ -332,11 +332,11 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
             
             <template [ngIf]="scrollable">
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
-                    <div *ngIf="frozenColumns && frozenColumns.length" [pScrollableView]="frozenColumns" frozen="true" 
+                    <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
-                    <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth||auto}"
+                    <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
                         class="ui-datatable-scrollable-view"
-                        [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns && frozenColumns.length}"></div>
+                        [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}"></div>
                 </div>
             </template>
             
@@ -681,13 +681,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.columns = this.cols.toArray();
         
         if(this.scrollable) {
-            this.frozenColumns = [];
             this.scrollableColumns = [];
             this.cols.forEach((col) => {
-                if(col.frozen)
+                if(col.frozen) {
+                    this.frozenColumns = this.frozenColumns||[];
                     this.frozenColumns.push(col);
-                else
+                } 
+                else {
                     this.scrollableColumns.push(col);
+                }
             });
         }
         
