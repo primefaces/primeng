@@ -262,11 +262,16 @@
 }
 
 .ui-datatable-scrollable-view {
-    float: left;
+    
 }
 
 .ui-datatable-frozen-view .ui-datatable-scrollable-body {
     overflow: hidden;
+}
+
+.ui-datatable-unfrozen-view {
+    position: absolute;
+    top: 0px;
 }
 
 @media ( max-width: 35em ) {
