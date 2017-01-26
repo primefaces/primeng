@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,AfterViewInit,ElementRef,EventEmitter,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,Input,Output,AfterViewInit,ElementRef,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -51,6 +51,8 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
     public checked: boolean;
         
     public focused: boolean;
+
+    constructor(private cd: ChangeDetectorRef) {}
     
     ngAfterViewInit() {
         this.input = <HTMLInputElement> this.inputViewChild.nativeElement;
@@ -77,6 +79,8 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
         if(this.input) {
             this.input.checked = this.checked;
         }
+
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {
