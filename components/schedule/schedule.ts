@@ -85,6 +85,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     
     @Input() dayRender: Function;
     
+    @Input() firstDay: any;
+    
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onDrop: EventEmitter<any> = new EventEmitter();
@@ -131,6 +133,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
             isRTL: this.rtl,
             weekends: this.weekends,
             hiddenDays: this.hiddenDays,
+            firstDay: this.firstDay,
             fixedWeekCount: this.fixedWeekCount,
             weekNumbers: this.weekNumbers,
             businessHours: this.businessHours,
