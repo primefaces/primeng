@@ -1394,6 +1394,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 if(focusable) {
                     setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 100);
                 }
+            } else {
+                this.domHandler.addClass(this.editingCell, 'ui-cell-editing');
             }
         }
     }
