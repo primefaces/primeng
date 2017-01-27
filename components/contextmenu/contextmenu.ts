@@ -238,9 +238,11 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     }
         
     ngOnDestroy() {
-        this.documentClickListener();
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
         
-        if(this.global) {
+        if(this.global && this.documentRightClickListener) {
             this.documentRightClickListener();    
         }
 

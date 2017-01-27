@@ -102,7 +102,9 @@ export class SplitButton implements OnInit,OnDestroy {
     }
         
     ngOnDestroy() {
-        this.documentClickListener();
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
     }
 }
 

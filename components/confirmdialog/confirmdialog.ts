@@ -220,11 +220,11 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     ngOnDestroy() {
         this.disableModality();
                         
-        if(this.responsive) {
+        if(this.responsive && this.documentResponsiveListener) {
             this.documentResponsiveListener();
         }
         
-        if(this.closeOnEscape && this.closable) {
+        if(this.closeOnEscape && this.closable && this.documentEscapeListener) {
             this.documentEscapeListener();
         }
         
