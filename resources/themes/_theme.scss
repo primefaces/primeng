@@ -143,8 +143,7 @@
     color: $inputTextColor;
 }
 
-.ui-inputtext:enabled:hover,
-.ui-inputtext:not(.ui-state-disabled):hover {
+.ui-inputtext:enabled:hover {
     border-color: $stateHoverBorderColor;
 }
 
@@ -155,6 +154,30 @@
     -moz-box-shadow: 0px 0px 5px $stateFocusBorderColor;
     -webkit-box-shadow: 0px 0px 5px $stateFocusBorderColor;
     box-shadow: 0px 0px 5px $stateFocusBorderColor;
+}
+
+.ui-autocomplete {
+    .ui-autocomplete-multiple-container:not(.ui-state-disabled) {
+        &:hover {
+            border-color: $stateHoverBorderColor;
+        }
+        
+        &.ui-state-focus {
+            border-color: $stateFocusBorderColor;
+        }
+    }
+}
+
+.ui-chips {
+    > ul:not(.ui-state-disabled) {
+        &:hover {
+            border-color: $stateHoverBorderColor;
+        }
+        
+        &.ui-state-focus {
+            border-color: $stateFocusBorderColor;
+        }
+    }
 }
 
 .ui-button:focus,
