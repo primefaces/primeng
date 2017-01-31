@@ -20,7 +20,7 @@ export class Tooltip implements OnDestroy {
     
     @Input() positionStyle: string;
     
-    @Input() disabled: boolean;
+    @Input("tooltipDisabled") disabled: boolean;
         
     container: any;
         
