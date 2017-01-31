@@ -256,7 +256,7 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
 
 @NgModule({
     imports: [CommonModule,ButtonModule],
-    exports: [ConfirmDialog,ButtonModule],
+    exports: [ConfirmDialog,ButtonModule,SharedModule],
     declarations: [ConfirmDialog]
 })
 export class ConfirmDialogModule { }
