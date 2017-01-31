@@ -721,12 +721,20 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     updateTime() {
         this.value = this.value||new Date();
-        if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
-            this.value.setHours(this.currentHour + 12);
-        else
+        if(this.hourFormat === '12'){
+            if(this.pm && this.currentHour != 12 && this.currentHour != 0)
+                this.value.setHours(this.currentHour + 12);
+            else if(this.pm && this.currentHour == 12)
+                this.value.setHours(this.currentHour);
+            else if(!this.pm && this.currentHour != 12)
+                this.value.setHours(this.currentHour);
+            else
+                this.value.setHours(0);
+        }else
             this.value.setHours(this.currentHour);
         
         this.value.setMinutes(this.currentMinute);
+        this.updateUI();
         this.value.setSeconds(this.currentSecond);
         this.updateModel();
         this.onSelect.emit(this.value);
@@ -778,12 +786,20 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     populateTime(value, timeString, ampm) {
         let time = this.parseTime(timeString);
-        
+
         if(this.hourFormat == '12') {
             if(!ampm)
                 throw 'Invalid Time';
-            else if(ampm.toLowerCase() === 'PM' && time.hour != 12)
-                value.setHours(time.hour + 12);
+            else if(ampm.toUpperCase() === 'PM' && time.hour != 0)
+                if(time.hour === 12)
+                    value.setHours(time.hour);
+                else
+                    value.setHours(time.hour + 12);
+            else if(ampm.toUpperCase() === 'AM' && time.hour != 12)
+                value.setHours(time.hour);
+            else 
+                throw "Invalid Time";
+                
         }
         else {
             value.setHours(time.hour);
@@ -807,7 +823,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 }
                 else {
                     this.pm = false;
-                    this.currentHour = (hours == 0) ? 12 : hours;
+                    this.currentHour = (hours == 0) ? 0 : hours;
                 }
             }
             else {
