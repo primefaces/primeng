@@ -85,6 +85,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     
     @Input() dayRender: Function;
     
+    @Input() droppable: boolean = false;
+    
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onDrop: EventEmitter<any> = new EventEmitter();
@@ -245,8 +247,16 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
             viewRender: (view, element) => {
                 this.onViewRender.emit({
                     'view': view,
-                    'element': element                    
+                    'element': element
                 });
+            },
+            drop: (date, jsEvent, ui, resourceId) => {
+              this.onDrop.emit({
+                'date': date,
+                'jsEvent': jsEvent,
+                'ui': ui,
+                'resourceId': resourceId
+              });
             }
         };
         
