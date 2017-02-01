@@ -85,6 +85,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     
     @Input() dayRender: Function;
     
+    @Input() options: any;
+    
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onDrop: EventEmitter<any> = new EventEmitter();
@@ -117,7 +119,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     
     schedule: any;
     
-    options: any;
+    config: any;
 
     constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -125,7 +127,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     }
     
     ngOnInit() {
-        this.options = {
+        this.config = {
             theme: true,
             header: this.header,
             isRTL: this.rtl,
@@ -251,8 +253,14 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
         };
         
         if(this.locale) {
-            for(var prop in this.locale) {
-                this.options[prop] = this.locale[prop];
+            for(let prop in this.locale) {
+                this.config[prop] = this.locale[prop];
+            }
+        }
+        
+        if(this.options) {
+            for(let prop in this.options) {
+                this.config[prop] = this.options[prop];
             }
         }
     }
@@ -265,7 +273,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
 
     initialize() {
         this.schedule = jQuery(this.el.nativeElement.children[0]);
-        this.schedule.fullCalendar(this.options);
+        this.schedule.fullCalendar(this.config);
         this.initialized = true;
     }
 
