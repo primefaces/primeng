@@ -18,6 +18,7 @@
    padding: .125em .5em;
    background-color: rgb(76, 76, 76);
    color: #ffffff;
+   white-space: nowrap;
 }
 
 .ui-tooltip-arrow {

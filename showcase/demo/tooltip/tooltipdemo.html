@@ -10,7 +10,7 @@
     <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
         <div class="ui-grid-row">
             <div class="ui-grid-col-3">
-                <input type="text" pInputText pTooltip="Enter your username" placeholder="Right">
+                <input type="text" pInputText pTooltip="Enter your username" placeholder="Right">                
             </div>
             <div class="ui-grid-col-3">
                 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top">
@@ -60,18 +60,20 @@ import &#123;TooltipModule&#125; from 'primeng/primeng';
             <h3>Events</h3>
             <p>Tooltip gets displayed on hover event of its target by default, other option is the focus event to display and blur to hide.</p>
 
-            <pre>
-            <code class="language-markup" pCode>
-            &lt;input type="text" pTooltip="Enter your username" tooltipPosition="top" tooltipEvent="focus"&gt;
-            </code>
-            </pre>
+<pre>
+<code class="language-markup" pCode>
+&lt;input type="text" pTooltip="Enter your username" tooltipPosition="top" tooltipEvent="focus"&gt;
+</code>
+</pre>
 
             <h3>Scrolling Containers</h3>
-            <p>When placed inside a scrolling container like an overflown div such as scrollable datatable cells, tooltip must be appended to another element that has
+            <p>When placed inside a scrolling container like an overflown div, tooltip must be appended to another element that has
                 relative positioning instead of document body which is the default.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;div pTooltip="Enter your username" appendTo="target" style="position:relative"&gt;
+&lt;div #container style="display:inline-block;position:relative"&gt;
+    &lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right" [appendTo]="container"&gt;
+&lt;/div&gt;
 </code>
 </pre>
             
