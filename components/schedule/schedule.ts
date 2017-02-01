@@ -285,8 +285,6 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
             this.schedule.fullCalendar('addEventSource', this.events);
         }
     }
-    
-    
 
     ngOnDestroy() {
         jQuery(this.el.nativeElement.children[0]).fullCalendar('destroy');
