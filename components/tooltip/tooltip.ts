@@ -27,7 +27,7 @@ export class Tooltip implements OnDestroy {
     container: any;
         
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
-        
+            
     @HostListener('mouseenter', ['$event']) 
     onMouseEnter(e: Event) {
         if(this.tooltipEvent === 'hover') {
@@ -117,7 +117,7 @@ export class Tooltip implements OnDestroy {
         
         let tooltipText = document.createElement('div');
         tooltipText.className = 'ui-tooltip-text ui-shadow ui-corner-all';
-        tooltipText.innerHTML = this.text;
+        tooltipText.appendChild(document.createTextNode(this.text));
         
         if(this.positionStyle) {
             this.container.style.position = this.positionStyle;
