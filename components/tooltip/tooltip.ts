@@ -20,6 +20,8 @@ export class Tooltip implements OnDestroy {
     
     @Input() positionStyle: string;
     
+    @Input() tooltipStyleClass: string;
+    
     @Input("tooltipDisabled") disabled: boolean;
         
     container: any;
@@ -101,8 +103,13 @@ export class Tooltip implements OnDestroy {
     }
          
     create() {
+        let styleClass = 'ui-widget ui-tooltip ui-tooltip-' + this.tooltipPosition;
         this.container = document.createElement('div');
-        this.container.className = 'ui-widget ui-tooltip ui-tooltip-' + this.tooltipPosition;
+        if(this.tooltipStyleClass) {
+            styleClass += ' ' + this.tooltipStyleClass;
+        }
+        
+        this.container.className = styleClass;
         
         let tooltipArrow = document.createElement('div');
         tooltipArrow.className = 'ui-tooltip-arrow';
