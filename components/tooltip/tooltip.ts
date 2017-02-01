@@ -20,7 +20,7 @@ export class Tooltip implements OnDestroy {
     
     @Input() positionStyle: string;
     
-    @Input() disabled: boolean;
+    @Input("tooltipDisabled") disabled: boolean;
         
     container: any;
         
@@ -60,7 +60,7 @@ export class Tooltip implements OnDestroy {
         }
         
         this.create();
-        let offset = this.domHandler.getOffset(this.el.nativeElement);
+        let offset = (this.appendTo === 'target') ? {left:0, top:0} : this.domHandler.getOffset(this.el.nativeElement);
         let targetTop = offset.top;
         let targetLeft = offset.left;
         let left: number;
@@ -120,6 +120,8 @@ export class Tooltip implements OnDestroy {
         
         if(this.appendTo === 'body')
             document.body.appendChild(this.container);
+        else if(this.appendTo === 'target')
+            this.domHandler.appendChild(this.container, this.el.nativeElement);
         else
             this.domHandler.appendChild(this.container, this.appendTo);
     }
@@ -128,6 +130,8 @@ export class Tooltip implements OnDestroy {
         if(this.container && this.container.parentElement) {
             if(this.appendTo === 'body')
                 document.body.removeChild(this.container);
+            else if(this.appendTo === 'target')
+                this.el.nativeElement.removeChild(this.container);
             else
                 this.domHandler.removeChild(this.container, this.appendTo);
         }
