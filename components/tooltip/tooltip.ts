@@ -65,6 +65,11 @@ export class Tooltip implements OnDestroy {
         let targetLeft = offset.left;
         let left: number;
         let top: number;
+		
+		if(typeof this.appendTo !== 'string'){
+			targetTop -= this.appendTo.scrollTop;
+			targetLeft -= this.appendTo.scrollLeft;
+		}
         
         this.container.style.display = 'block';
 
