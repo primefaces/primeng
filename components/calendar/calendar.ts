@@ -781,12 +781,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             throw 'Invalid Time';
         }
         
+        this.pm = (ampm === 'PM' || ampm === 'pm');
         let time = this.parseTime(timeString);
         value.setHours(time.hour);
         value.setMinutes(time.minute);
         value.setSeconds(time.second);
-        
-        this.pm = (ampm === 'PM' || ampm === 'pm');
     }
     
     updateUI() {
@@ -978,7 +977,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             throw "Invalid time";
         }
         else {
-            if(this.hourFormat == '12' && h !== 12) {
+            if(this.hourFormat == '12' && h !== 12 && this.pm) {
                 h+= 12;
             }
             
