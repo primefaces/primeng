@@ -305,7 +305,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     }
     
     ngOnDestroy() {
-        if(this.responsive) {
+        if(this.responsive && this.documentResponsiveListener) {
             this.documentResponsiveListener();
         }
         

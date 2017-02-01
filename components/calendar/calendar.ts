@@ -1184,7 +1184,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
         
     ngOnDestroy() {
-        this.unbindDocumentClickListener();
+        if(this.unbindDocumentClickListener) {
+            this.unbindDocumentClickListener();
+        }
         
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlay);
