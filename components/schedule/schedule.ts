@@ -274,6 +274,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     initialize() {
         this.schedule = jQuery(this.el.nativeElement.children[0]);
         this.schedule.fullCalendar(this.config);
+        this.schedule.fullCalendar('addEventSource', this.events);
         this.initialized = true;
     }
 
