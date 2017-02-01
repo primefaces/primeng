@@ -129,7 +129,9 @@ export class Menu implements AfterViewInit,OnDestroy {
     
     ngOnDestroy() {
         if(this.popup) {
-            this.documentClickListener();
+            if(this.documentClickListener) {
+                this.documentClickListener();
+            }
             
             if(this.appendTo) {
                 this.el.nativeElement.appendChild(this.container);

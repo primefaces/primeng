@@ -201,7 +201,9 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     }
     
     ngOnDestroy() {
-        this.documentClickListener();
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
     }
         
 }

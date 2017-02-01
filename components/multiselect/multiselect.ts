@@ -359,7 +359,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     }
 
     ngOnDestroy() {
-        this.documentClickListener();
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
         
         if(this.appendTo) {
             this.container.appendChild(this.panel);
