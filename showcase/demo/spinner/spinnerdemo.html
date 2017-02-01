@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
-    <p-spinner size="30" [(ngModel)]="val1" placeholder="Basic"></p-spinner>
+    <p-spinner size="30" [(ngModel)]="val1"></p-spinner>
 
     <h3>Min/Max</h3>
     <p-spinner size="30" [(ngModel)]="val2" [min]="0" [max]="100"></p-spinner>
@@ -33,7 +33,7 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
             <p>Two-way value binding is defined using standard ngModel directive.</p>     
 <pre>
 <code class="language-markup" pCode>
-&lt;p-spinner size="30" [(ngModel)]="val" placeholder="Basic"&gt;&lt;/p-spinner&gt;
+&lt;p-spinner size="30" [(ngModel)]="val"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
 
