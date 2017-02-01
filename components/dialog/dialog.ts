@@ -18,7 +18,7 @@ import {Header,SharedModule} from '../common/shared';
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
-            <div #content class="ui-dialog-content ui-widget-content" [style.height.px]="contentHeight">
+            <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
                 <ng-content></ng-content>
             </div>
             <ng-content select="p-footer"></ng-content>
@@ -55,8 +55,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() width: any;
 
     @Input() height: any;
-    
-    @Input() contentHeight: any;
+        
+    @Input() contentStyle: any;
 
     @Input() modal: boolean;
 

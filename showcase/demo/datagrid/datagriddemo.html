@@ -241,7 +241,7 @@ loadData(event) &#123;
                         <tr>
                             <td>pageLinks</td>
                             <td>number</td>
-                            <td>null</td>
+                            <td>5</td>
                             <td>Number of page links to display in paginator.</td>
                         </tr>
                         <tr>
@@ -343,7 +343,7 @@ loadData(event) &#123;
     &lt;/p-header&gt;
     &lt;template let-car pTemplate="item"&gt;
         &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
-            &lt;p-panel [header]="car.vin" [paginator]="true" [style]="&#123;'text-align':'center'&#125;"&gt;
+            &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
                 &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;
                 &lt;div class="car-detail"&gt;{{car.year}} - {{car.color}}&lt;/div&gt;
                 &lt;hr class="ui-widget-content" style="border-top:0"&gt;

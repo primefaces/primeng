@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChildren,
-        QueryList,ViewChild,TemplateRef,IterableDiffers,forwardRef,trigger,state,style,transition,animate} from '@angular/core';
+        QueryList,ViewChild,TemplateRef,IterableDiffers,forwardRef,trigger,state,style,transition,animate,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
 import {SharedModule,PrimeTemplate} from '../common/shared';
@@ -151,8 +151,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     public hoveredItem: any;
     
     public selectedOptionUpdated: boolean;
-    
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers) {
+        
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers, private cd: ChangeDetectorRef) {
         this.differ = differs.find([]).create(null);
     }
     
@@ -241,6 +241,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     writeValue(value: any): void {
         this.value = value;
         this.updateSelectedOption(value);
+        this.cd.markForCheck();
     }
     
     updateSelectedOption(val: any): void {

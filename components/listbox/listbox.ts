@@ -33,7 +33,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <li *ngFor="let option of options" [style.display]="isItemVisible(option) ? 'block' : 'none'"
                     [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
                     (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)">
-                    <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick(option)">
+                    <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
                         <div class="ui-helper-hidden-accessible">
                             <input type="checkbox" [checked]="isSelected(option)">
                         </div>
@@ -296,7 +296,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         })
     }
     
-    onCheckboxClick(option: SelectItem) {
+    onCheckboxClick(event: Event, option: SelectItem) {
         this.checkboxClick = true;
         let selected = this.isSelected(option);
 

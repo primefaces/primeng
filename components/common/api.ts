@@ -33,6 +33,7 @@ export interface MenuItem {
     items?: MenuItem[];
     expanded?: boolean;
     disabled?: boolean;
+    visible?: boolean;
 }
 
 export interface Message {
