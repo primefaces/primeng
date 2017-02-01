@@ -80,6 +80,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     @Input() eventConstraint: any;
     
     @Input() locale: any;
+    
+    @Input() timezone: boolean | string = false;
 
     @Input() eventRender: Function;
     
@@ -139,6 +141,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
             aspectRatio: this.aspectRatio,
             eventLimit: this.eventLimit,
             defaultDate: this.defaultDate,
+            timezone: this.timezone,
             editable: this.editable,
             droppable: this.droppable,
             eventStartEditable: this.eventStartEditable,
