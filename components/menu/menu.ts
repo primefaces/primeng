@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,HostListener,EventEmitter,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
@@ -32,7 +32,8 @@ import {Router} from '@angular/router';
             </ul>
         </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler],
+    host: {'(window:resize)': 'onResize($event)'}
 })
 export class Menu implements AfterViewInit,OnDestroy {
 
@@ -53,6 +54,8 @@ export class Menu implements AfterViewInit,OnDestroy {
     documentClickListener: any;
     
     preventDocumentDefault: any;
+
+    onResizeTarget: any;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public router: Router) {}
 
@@ -84,9 +87,16 @@ export class Menu implements AfterViewInit,OnDestroy {
             
         this.preventDocumentDefault = true;
     }
+
+    onResize(event) {
+        if(this.onResizeTarget && this.container.offsetParent) {
+            this.domHandler.absolutePosition(this.container, this.onResizeTarget);
+        }
+    }
     
     show(event) {
         let target = event.currentTarget;
+        this.onResizeTarget = event.currentTarget;
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, target);
         this.domHandler.fadeIn(this.container, 250);
