@@ -34,6 +34,7 @@ export interface MenuItem {
     expanded?: boolean;
     disabled?: boolean;
     visible?: boolean;
+    target?: string;
 }
 
 export interface Message {
