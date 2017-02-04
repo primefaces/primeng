@@ -1543,7 +1543,11 @@ body .ui-tree.ui-tree-horizontal .ui-treenode-content {
     background-color: #ffffff;
     border: 1px solid #c7c7c7;
 }
-body .ui-tree.ui-tree-horizontal .ui-treenode-content:hover {
+body .ui-tree.ui-tree-horizontal .ui-treenode-content.ui-treenode-selectable .ui-treenode-label:not(.ui-state-highlight):hover {
+    background-color: inherit;
+    color: inherit;
+}
+body .ui-tree.ui-tree-horizontal .ui-treenode-content.ui-treenode-selectable:not(.ui-state-highlight):hover {
     background-color: #f4f3f4;
     color: #373a3c;
 }
