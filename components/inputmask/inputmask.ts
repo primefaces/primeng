@@ -176,7 +176,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.value = value;
         
         if(this.input) {
-            if(this.value == undefined || this.value == null || this.len == this.value.length) {
+            if(this.value == undefined || this.value == null) {
                 this.input.value = '';
             }
             else {
@@ -454,7 +454,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    writeBuffer() { 
+    writeBuffer() {
         this.input.value = this.buffer.join(''); 
     }
     
