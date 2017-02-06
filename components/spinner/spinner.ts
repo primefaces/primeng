@@ -120,6 +120,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
         
         this.formatValue();
         this.onModelChange(this.value);
+        this.onChange.emit();
     }
     
     toFixed(value: number, precision: number) {
