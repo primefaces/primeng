@@ -89,8 +89,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     input: HTMLInputElement;
     
-    filled: boolean;
-    
     defs: any;
     
     tests: any[];
@@ -183,7 +181,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
                 this.input.value = this.value;
                 this.checkVal();
             }
-            this.updateFilledState();
             setTimeout(() => {
                 _this.writeBuffer();
                 _this.checkVal();
@@ -339,7 +336,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.onModelTouched();
         this.checkVal();
         this.updateModel(e);
-        this.updateFilledState();
 
         if (this.input.value != this.focusText) {
             let event = document.createEvent('HTMLEvents');
@@ -437,8 +433,6 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }
         
         this.updateModel(e);
-        
-        this.updateFilledState();
         
         if(completed) {
             this.onComplete.emit();
@@ -574,10 +568,10 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     updateModel(e) {
         this.onModelChange(this.unmask ? this.getUnmaskedValue() : e.target.value);
     }
-    
-    updateFilledState() {
-        this.filled = this.input && this.input.value != '';
-    }
+	
+	get filled() {
+		return this.input && this.input.value != '';
+	}
     
     ngOnDestroy() {
         
