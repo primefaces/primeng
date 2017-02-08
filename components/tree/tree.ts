@@ -27,12 +27,11 @@ export class TreeNodeTemplateLoader implements OnInit {
     selector: 'p-treeNode',
     template: `
         <template [ngIf]="node">
-            <li class="ui-treenode" *ngIf="!tree.horizontal">
+            <li class="ui-treenode" *ngIf="!tree.horizontal" [ngClass]="{'ui-treenode-leaf': isLeaf()}">
                 <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode}">
-                    <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}" *ngIf="!isLeaf()"
+                    <span class="ui-tree-toggler  fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
-                    ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
                         <span class="ui-chkbox-icon ui-c fa" 
                             [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
