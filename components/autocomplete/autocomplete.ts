@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,IterableDiffers,Renderer,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,PipeTransform,EventEmitter,ContentChildren,QueryList,TemplateRef,IterableDiffers,Renderer,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {ButtonModule} from '../button/button';
@@ -17,13 +17,13 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in pInputText type="text" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off"
-            [value]="value ? (field ? resolveFieldData(value)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()"
+            [value]="pipe.transform(value ? (field ? resolveFieldData(value)||value : value) : null)" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled"
             [ngClass]="{'ui-autocomplete-input':true,'ui-autocomplete-dd-input':dropdown}"
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
                     <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)"></span>
-                    <span class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
+                    <span class="ui-autocomplete-token-label">{{ pipe.transform(field ? val[field] : val)}}
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn type="text" [disabled]="disabled" pInputText [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()" autocomplete="off">
@@ -35,7 +35,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                     <li *ngFor="let option of suggestions" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
                         (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
-                        <span *ngIf="!itemTemplate">{{field ? option[field] : option}}</span>
+                        <span *ngIf="!itemTemplate">{{pipe.transform(field ? option[field] : option)}}</span>
                         <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></template>
                     </li>
                 </ul>
@@ -71,6 +71,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     @Input() maxlength: number;
     
     @Input() size: number;
+    
+    @Input() pipe: PipeTransform;
     
     @Input() suggestions: any[];
 
@@ -133,6 +135,15 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer) {
         this.differ = differs.find([]).create(null);
     }
+    
+    ngOnInit() {
+		if(!this.pipe){
+			// use identity pipe if none is specified
+			this.pipe = {
+				transform : (it : any) => it
+			}
+		}
+	}
     
     ngDoCheck() {
         let changes = this.differ.diff(this.suggestions);
@@ -262,7 +273,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             }
         }
         else {
-            this.input.value = this.field ? this.resolveFieldData(option): option;
+        	this.input.value = this.pipe.transform(this.field ? this.resolveFieldData(option): option);
             this.value = option;
             this.onModelChange(this.value);
         }
