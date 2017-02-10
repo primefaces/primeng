@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,IterableDiffers,Renderer,forwardRef} from '@angular/core';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,IterableDiffers,Renderer,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {ButtonModule} from '../button/button';
@@ -129,6 +129,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     dropdownFocus: boolean = false;
     
     filled: boolean;
+    
+    @ViewChild('in') inputEL: ElementRef;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer) {
         this.differ = differs.find([]).create(null);
@@ -411,6 +413,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     onDropdownFocus() {
         this.dropdownFocus = true;
+        this.inputEL.nativeElement.focus();
     }
     
     onDropdownBlur() {
