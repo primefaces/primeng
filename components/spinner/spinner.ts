@@ -181,7 +181,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     onInputKeyPress(event: KeyboardEvent) {
         let inputChar = String.fromCharCode(event.charCode);
-        if(!this.keyPattern.test(inputChar) && inputChar != this.decimalSeparator && event.keyCode != 9) {
+        if(!this.keyPattern.test(inputChar) && inputChar != this.decimalSeparator && event.keyCode != 9 && event.keyCode != 8 && event.keyCode != 37 && event.keyCode != 39 && event.keyCode != 46) {
             event.preventDefault();
         }    
     }
