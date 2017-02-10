@@ -1,4 +1,4 @@
-import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,ContentChild,TemplateRef,OnInit,AfterContentInit,QueryList} from '@angular/core';
+import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,ContentChild,TemplateRef,OnInit,OnChanges,AfterContentInit,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
 
@@ -154,22 +154,32 @@ export class FooterColumnGroup {
     selector: 'p-columnBodyTemplateLoader',
     template: ``
 })
-export class ColumnBodyTemplateLoader {
+export class ColumnBodyTemplateLoader implements OnInit, OnChanges {
         
     @Input() column: any;
         
     @Input() rowData: any;
     
     @Input() rowIndex: number;
+
+    private context: {'\$implicit': any, 'rowData': any, 'rowIndex': number};
     
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.column.bodyTemplate, {
+        this.context = {
             '\$implicit': this.column,
             'rowData': this.rowData,
             'rowIndex': this.rowIndex
-        });
+        };
+        let view = this.viewContainer.createEmbeddedView(this.column.bodyTemplate, this.context);
+    }
+
+    ngOnChanges() {
+        if (this.context) {
+            this.context.rowData = this.rowData;
+            this.context.rowIndex = this.rowIndex;
+        }
     }
 }
 
