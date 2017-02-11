@@ -60,6 +60,7 @@ export interface TreeNode {
     type?: string;
     parent?: TreeNode;
     partialSelected?: boolean;
+    styleClass?: string;
 }
 
 export interface Confirmation {
