@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,DoCheck,Input,Output,Renderer,EventEmitter,ContentChild,ContentChildren,QueryList,IterableDiffers,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,DoCheck,Input,Output,Renderer,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,IterableDiffers,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
@@ -10,7 +10,7 @@ import {DomHandler} from '../dom/domhandler';
         <div class="ui-datascroller-header ui-widget-header ui-corner-top" *ngIf="header">
             <ng-content select="p-header"></ng-content>
         </div>
-        <div class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
+        <div #content class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
             <ul class="ui-datascroller-list">
                 <li *ngFor="let item of dataToRender">
                     <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
@@ -45,6 +45,8 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     @Input() scrollHeight: any;
     
     @Input() loader: any;
+    
+    @ViewChild('content') contentViewChild: ElementRef;
         
     @ContentChild(Header) header;
 
@@ -62,7 +64,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     
     scrollFunction: any;
     
-    contentElement: any;
+    contentElement: HTMLDivElement;
 
     constructor(public el: ElementRef, differs: IterableDiffers, public renderer: Renderer, public domHandler: DomHandler) {
         this.differ = differs.find([]).create(null);
@@ -146,7 +148,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     
     bindScrollListener() {
         if(this.inline) {
-            this.contentElement = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datascroller-content');
+            this.contentElement = this.contentViewChild.nativeElement;
             
             this.scrollFunction = this.renderer.listen(this.contentElement, 'scroll', () => {
                 let scrollTop = this.contentElement.scrollTop;
