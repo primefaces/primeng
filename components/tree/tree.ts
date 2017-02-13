@@ -1,4 +1,5 @@
-import {NgModule,Component,Input,AfterContentInit,Output,EventEmitter,OnInit,ViewContainerRef,ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
+import {NgModule,Component,Input,AfterContentInit,Output,EventEmitter,OnInit,OnDestroy,EmbeddedViewRef,ViewContainerRef,ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
 import {SharedModule} from '../common/shared';
@@ -8,18 +9,24 @@ import {PrimeTemplate} from '../common/shared';
     selector: 'p-treeNodeTemplateLoader',
     template: ``
 })
-export class TreeNodeTemplateLoader implements OnInit {
+export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
         
     @Input() node: any;
     
     @Input() template: TemplateRef<any>;
+    
+    view: EmbeddedViewRef<any>;
         
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.template, {
+        this.view = this.viewContainer.createEmbeddedView(this.template, {
             '\$implicit': this.node
         });
+    }
+    
+    ngOnDestroy() {
+        this.view.destroy();
     }
 }
 
@@ -89,7 +96,7 @@ export class TreeNodeTemplateLoader implements OnInit {
         </template>
     `
 })
-export class UITreeNode {
+export class UITreeNode implements OnInit {
 
     static ICON_CLASS: string = 'ui-treenode-icon fa fa-fw';
 

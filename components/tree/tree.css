@@ -66,6 +66,10 @@
     vertical-align: middle;
 }
 
+.ui-tree .ui-chkbox .ui-chkbox-icon {
+    margin-left: 1px;
+}
+
 /** Fluid **/
 .ui-fluid .ui-tree {
     width: 100%;
