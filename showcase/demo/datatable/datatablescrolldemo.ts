@@ -8,10 +8,13 @@ import {CarService} from '../service/carservice';
 export class DataTableScrollDemo implements OnInit {
 
     cars: Car[];
+    
+    carsLarge: Car[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
+        this.carService.getCarsLarge().then(cars => this.carsLarge = cars);
     }
 }
