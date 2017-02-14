@@ -231,6 +231,7 @@ export class TableBody {
                     <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columns"></tbody>
                 </table>
             </div>
+            <div class="ui-widget-overlay ui-datatable-load-status" style="width:100%;height:100%px;left:0px;top:0px;" *ngIf="loading"></div>
         </div>
     `
 })
@@ -271,6 +272,10 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
     public scrollFunction: Function;
     
     public threshold: number = 28;
+    
+    public page: number = 1;
+    
+    public loading: boolean;
                     
     ngAfterViewInit() {
         this.initScrolling();
@@ -281,6 +286,7 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
         this.scrollHeaderBox = <HTMLDivElement> this.scrollHeaderBoxViewChild.nativeElement;
         this.scrollBody = <HTMLDivElement> this.scrollBodyViewChild.nativeElement;
         this.scrollTable = <HTMLDivElement> this.scrollTableViewChild.nativeElement;
+        this.page = 1;
         
         if(!this.frozen) {
             let frozenView = this.el.nativeElement.previousElementSibling;
@@ -293,19 +299,27 @@ export class ScrollableView implements AfterViewInit, OnDestroy {
                 if(frozenScrollBody) {
                     frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
                 }
-
+                //console.log(this.scrollBody.scrollTop);
                 let viewport = this.domHandler.getOuterHeight(this.scrollBody);
-                let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
                 let pageHeight = this.threshold * this.dt.rows;
-                let tableTop = parseFloat(this.scrollTable.style.top);
                 let virtualTableHeight = parseFloat(this.virtualTableHeight);
                 let pageCount = (virtualTableHeight / pageHeight)||1;
-                let page = Math.round((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
-                this.scrollTable.style.top = (((page - 1) * pageHeight)) / 2 + 'px';
+                let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
 
-                this.onVirtualScroll.emit({
-                    page: page
-                });
+                if(this.page !== page) {
+                    this.page = page;
+                    
+                    this.onVirtualScroll.emit({
+                        page: this.page
+                    });
+                    this.loading = true;
+                    
+                    setTimeout(() => {
+                        this.loading = false;
+                    }, 250)
+                    
+                    this.scrollTable.style.top = ((this.page - 1) * pageHeight) + 'px';
+                }
             });
             
             this.headerScrollListener = this.renderer.listen(this.scrollHeader, 'scroll', () => {
@@ -814,13 +828,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             
             if(this.virtualScroll) {
                 startIndex = this.lazy ? 0 : (this.first === 0 ? this.first : this.first - this.rows);
-                endIndex = this.first + this.rows;
+                endIndex = this.first + this.rows * 2;
             }
             else {
                 startIndex = this.lazy ? 0 : this.first;
                 endIndex = startIndex + this.rows;
             }
-            
+
             for(let i = startIndex; i < endIndex; i++) {
                 if(i >= datasource.length) {
                     break;
