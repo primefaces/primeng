@@ -237,7 +237,7 @@ export class TableBody {
 })
 export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy {
         
-    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer,) {}
+    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer) {}
     
     @Input("pScrollableView") columns: Column[];
     
@@ -333,6 +333,9 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 }
             });
             
+            //to trigger change detection
+            this.scrollBodyMouseWheelListener = this.renderer.listen(this.scrollBody, 'mousewheel', (event) => {});
+            
             this.headerScrollListener = this.renderer.listen(this.scrollHeader, 'scroll', () => {
                 this.scrollHeader.scrollLeft = 0;
             });
@@ -353,6 +356,10 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     ngOnDestroy() {
         if(this.bodyScrollListener) {
             this.bodyScrollListener();
+        }
+        
+        if(this.scrollbodyMouseWheelListener) {
+            this.scrollBodyMouseWheelListener();
         }
         
         if(this.headerScrollListener) {
