@@ -842,7 +842,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 startIndex = this.lazy ? 0 : this.first;
                 endIndex = startIndex + this.rows;
             }
-
+            
             for(let i = startIndex; i < endIndex; i++) {
                 if(i >= datasource.length) {
                     break;
@@ -1783,7 +1783,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     createLazyLoadMetadata(): LazyLoadEvent {
         return {
             first: this.first,
-            rows: this.rows,
+            rows: this.virtualScroll ? this.rows * 2 : this.rows,
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,

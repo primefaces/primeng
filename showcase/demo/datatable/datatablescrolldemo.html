@@ -17,8 +17,9 @@
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
     
-    <p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="{'margin-top':'30px'}">
-        <p-header>Virtual Scrolling</p-header>
+    <p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="{'margin-top':'30px'}" 
+        [lazy]="true" [totalRecords]="1000000" (onLazyLoad)="loadCarsLazy($event)">
+        <p-header>Virtual Scrolling - 1 Million Rows</p-header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -50,19 +51,65 @@
         <p-tabPanel header="datatablescrolldemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableScrollDemo implements OnInit &#123;
+export class DataTableScrollDemo implements OnInit &lt;
 
     cars: Car[];
     
     carsLarge: Car[];
 
-    constructor(private carService: CarService) &#123; &#125;
+    constructor(private carService: CarService) &lt; &gt;
 
-    ngOnInit() &#123;
+    ngOnInit() &lt;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
-        this.carService.getCarsLarge().then(cars => this.carsLarge = cars);
-    &#125;
-&#125;
+    &gt;
+    
+    loadCarsLazy(event: LazyLoadEvent) &lt;
+        //for demo purposes keep loading the same dataset 
+        //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
+        this.carsLarge = [
+            &lt;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&gt;,
+            &lt;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&gt;,
+            &lt;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&gt;,
+            &lt;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&gt;,
+            &lt;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&gt;,
+            &lt;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&gt;,
+            &lt;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&gt;,
+            &lt;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&gt;,
+            &lt;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&gt;,
+            &lt;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&gt;,
+            &lt;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&gt;,
+            &lt;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&gt;,
+            &lt;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&gt;,
+            &lt;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&gt;,
+            &lt;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&gt;,
+            &lt;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&gt;,
+            &lt;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&gt;,
+            &lt;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&gt;,
+            &lt;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&gt;,
+            &lt;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&gt;,
+            &lt;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&gt;,
+            &lt;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&gt;,
+            &lt;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&gt;,
+            &lt;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&gt;,
+            &lt;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&gt;,
+            &lt;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&gt;,
+            &lt;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&gt;,
+            &lt;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&gt;,
+            &lt;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&gt;,
+            &lt;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&gt;,
+            &lt;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&gt;,
+            &lt;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&gt;,
+            &lt;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&gt;,
+            &lt;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&gt;,
+            &lt;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&gt;,
+            &lt;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&gt;,
+            &lt;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&gt;,
+            &lt;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&gt;,
+            &lt;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&gt;,
+            &lt;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&gt;
+        ];
+    &gt;
+&gt;
 </code>
 </pre>
         </p-tabPanel>
@@ -78,8 +125,9 @@ export class DataTableScrollDemo implements OnInit &#123;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="&#123;'margin-top':'30px'&#125;"&gt;
-    &lt;p-header&gt;Virtual Scrolling&lt;/p-header&gt;
+&lt;p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="&#123;'margin-top':'30px'&#125;" 
+    [lazy]="true" [totalRecords]="1000000" (onLazyLoad)="loadCarsLazy($event)"&gt;
+    &lt;p-header&gt;Virtual Scrolling - 1 Million Rows&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
