@@ -12,15 +12,20 @@ export class DataTableScrollDemo implements OnInit {
     cars: Car[];
     
     carsLarge: Car[];
+    
+    totalRecords: number;
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
+        
+        this.totalRecords = 1000000;
     }
     
     loadCarsLazy(event: LazyLoadEvent) {
-        //in a real production application, this data should come from server by building the query with LazyLoadEvent options
+        //for demo purposes keep loading the same dataset 
+        //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
         this.carsLarge = [
             {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
             {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},

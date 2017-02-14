@@ -18,7 +18,7 @@
     </p-dataTable>
     
     <p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="{'margin-top':'30px'}" 
-        [lazy]="true" [totalRecords]="1000000" (onLazyLoad)="loadCarsLazy($event)">
+        [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
         <p-header>Virtual Scrolling - 1 Million Rows</p-header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -56,11 +56,15 @@ export class DataTableScrollDemo implements OnInit &lt;
     cars: Car[];
     
     carsLarge: Car[];
+    
+    totalRecords: number;
 
     constructor(private carService: CarService) &lt; &gt;
 
     ngOnInit() &lt;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
+        
+        this.totalRecords = 1000000;
     &gt;
     
     loadCarsLazy(event: LazyLoadEvent) &lt;
@@ -126,7 +130,7 @@ export class DataTableScrollDemo implements OnInit &lt;
 &lt;/p-dataTable&gt;
 
 &lt;p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="&#123;'margin-top':'30px'&#125;" 
-    [lazy]="true" [totalRecords]="1000000" (onLazyLoad)="loadCarsLazy($event)"&gt;
+    [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;p-header&gt;Virtual Scrolling - 1 Million Rows&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
