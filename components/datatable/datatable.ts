@@ -271,9 +271,11 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     
     public scrollTableWrapper: HTMLDivElement;
         
-    public bodyScrollListener: any;
+    public bodyScrollListener: Function;
     
-    public headerScrollListener: any;
+    public headerScrollListener: Function;
+    
+    public scrollBodyMouseWheelListener: Function;
     
     public scrollFunction: Function;
     
@@ -358,7 +360,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             this.bodyScrollListener();
         }
         
-        if(this.scrollbodyMouseWheelListener) {
+        if(this.scrollBodyMouseWheelListener) {
             this.scrollBodyMouseWheelListener();
         }
         
@@ -843,18 +845,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     updateDataToRender(datasource) {
         if((this.paginator || this.virtualScroll) && datasource) {
             this.dataToRender = [];
-            let startIndex: number;
-            let endIndex: number;
+            let startIndex: number = this.lazy ? 0 : this.first;
+            let endIndex: number = this.virtualScroll ? this.first + this.rows * 2 : startIndex + this.rows;
 
-            if(this.virtualScroll) {
-                startIndex = this.lazy ? 0 : this.first;
-                endIndex = this.first + this.rows * 2;
-            }
-            else {
-                startIndex = this.lazy ? 0 : this.first;
-                endIndex = startIndex + this.rows;
-            }
-            
             for(let i = startIndex; i < endIndex; i++) {
                 if(i >= datasource.length) {
                     break;
