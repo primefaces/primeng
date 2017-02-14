@@ -9,7 +9,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" *ngIf="false">
+    <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px">
         <p-header>Vertical</p-header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -25,7 +25,7 @@
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
 
-    <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" scrollWidth="600px" [style]="{'margin-top':'30px'}" *ngIf="false">
+    <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" scrollWidth="600px" [style]="{'margin-top':'30px'}">
         <p-header>Vertical and Horizontal</p-header>
         <p-column field="vin" header="Vin" [style]="{'width':'250px'}"></p-column>
         <p-column field="year" header="Year" [style]="{'width':'250px'}"></p-column>
@@ -33,7 +33,7 @@
         <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
     </p-dataTable>
     
-    <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" frozenWidth="200px" unfrozenWidth="600px" [style]="{'margin-top':'30px'}" *ngIf="false">
+    <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" frozenWidth="200px" unfrozenWidth="600px" [style]="{'margin-top':'30px'}">
         <p-header>Frozen Columns</p-header>
         <p-column field="vin" header="Vin" [style]="{'width':'200px'}" frozen="true"></p-column>
         <p-column field="year" header="Year" [style]="{'width':'250px'}"></p-column>

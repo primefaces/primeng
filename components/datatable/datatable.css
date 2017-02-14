@@ -281,6 +281,12 @@
     left: 0px;
 }
 
+.ui-datatable .ui-datatable-virtual-table {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
 @media ( max-width: 35em ) {
     .ui-datatable-reflow thead th,
     .ui-datatable-reflow tfoot td {

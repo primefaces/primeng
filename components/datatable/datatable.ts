@@ -223,8 +223,8 @@ export class TableBody {
             </div>
         </div>
         <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width,'max-height':dt.scrollHeight}">
-            <div [ngStyle]="{'height':virtualTableHeight}" style="position:relative">
-                <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle" style="position:absolute;left:0px;top:0px;">
+            <div #scrollTableWrapper style="position:relative" [ngStyle]="{'height':virtualTableHeight}">
+                <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle" [ngClass]="{'ui-datatable-virtual-table':virtualScroll}" style="top:0px">
                     <colgroup class="ui-datatable-scrollable-colgroup">
                         <col *ngFor="let col of dt.visibleColumns()" />
                     </colgroup>
@@ -248,6 +248,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
     
     @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
+    
+    @ViewChild('scrollTableWrapper') scrollTableWrapperViewChild: ElementRef;
         
     @Input() frozen: boolean;
     
@@ -266,6 +268,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     public scrollHeaderBox: HTMLDivElement;
     
     public scrollTable: HTMLDivElement;
+    
+    public scrollTableWrapper: HTMLDivElement;
         
     public bodyScrollListener: any;
     
@@ -280,9 +284,11 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     }
     
     ngAfterViewChecked() {
-        if(this.scrollTable.offsetParent && !this.rowHeight && this.domHandler.getOuterHeight(this.scrollTable) > 0) {
+        if(this.virtualScroll && !this.rowHeight) {
              let row = this.domHandler.findSingle(this.scrollTable, 'tr.ui-widget-content');
-             this.rowHeight = this.domHandler.getOuterHeight(row);
+             if(row) {
+                 this.rowHeight = this.domHandler.getOuterHeight(row);
+             }             
         }
     }
         
@@ -291,6 +297,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         this.scrollHeaderBox = <HTMLDivElement> this.scrollHeaderBoxViewChild.nativeElement;
         this.scrollBody = <HTMLDivElement> this.scrollBodyViewChild.nativeElement;
         this.scrollTable = <HTMLDivElement> this.scrollTableViewChild.nativeElement;
+        this.scrollTableWrapper = <HTMLDivElement> this.scrollTableWrapperViewChild.nativeElement;
         
         if(!this.frozen) {
             let frozenView = this.el.nativeElement.previousElementSibling;
@@ -304,19 +311,21 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                     frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
                 }
 
-                let viewport = this.domHandler.getOuterHeight(this.scrollBody);
-                let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
-                let pageHeight = this.rowHeight * this.dt.rows;
-                let virtualTableHeight = parseFloat(this.virtualTableHeight);
-                let pageCount = (virtualTableHeight / pageHeight)||1;
+                if(this.virtualScroll) {
+                    let viewport = this.domHandler.getOuterHeight(this.scrollBody);
+                    let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
+                    let pageHeight = this.rowHeight * this.dt.rows;
+                    let virtualTableHeight = parseFloat(this.virtualTableHeight);
+                    let pageCount = (virtualTableHeight / pageHeight)||1;
 
-                if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
-                    let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
-                    this.onVirtualScroll.emit({
-                        page: page
-                    });
-                    this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
-                }                
+                    if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
+                        let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
+                        this.onVirtualScroll.emit({
+                            page: page
+                        });
+                        this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+                    }          
+                }
             });
             
             this.headerScrollListener = this.renderer.listen(this.scrollHeader, 'scroll', () => {
@@ -332,8 +341,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     }
     
     get virtualTableHeight(): string {
-        let datasource = this.dt.filteredValue||this.dt.value;
-        return datasource ? (datasource.length * this.rowHeight) + 'px' : null;
+        let totalRecords = this.dt.lazy ? this.dt.totalRecords : (this.dt.value ? this.dt.value.length: 0);
+        return (totalRecords * this.rowHeight) + 'px';
     }
                 
     ngOnDestroy() {
