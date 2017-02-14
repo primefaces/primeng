@@ -865,7 +865,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     onVirtualScroll(event) {
         this.loading = true;
         this.first = (event.page - 1) * this.rows;
-        this.updateDataToRender(this.filteredValue||this.value);
+        
+        if(this.lazy) {
+            this.stopFilterPropagation = true;
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }            
+        else {
+            this.updateDataToRender(this.filteredValue||this.value);
+        }
     }
     
     onHeaderKeydown(event, column: Column) {
