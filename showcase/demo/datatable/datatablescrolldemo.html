@@ -53,11 +53,14 @@
 export class DataTableScrollDemo implements OnInit &#123;
 
     cars: Car[];
+    
+    carsLarge: Car[];
 
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
+        this.carService.getCarsLarge().then(cars => this.carsLarge = cars);
     &#125;
 &#125;
 </code>
