@@ -235,7 +235,7 @@ export class TableBody {
         </div>
     `
 })
-export class ScrollableView implements AfterViewInit,OnDestroy {
+export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy {
         
     constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer,) {}
     
@@ -273,10 +273,17 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     
     public scrollFunction: Function;
     
-    public threshold: number = 28;
+    public rowHeight: number;
                             
     ngAfterViewInit() {
         this.initScrolling();
+    }
+    
+    ngAfterViewChecked() {
+        if(this.scrollTable.offsetParent && !this.rowHeight && this.domHandler.getOuterHeight(this.scrollTable) > 0) {
+             let row = this.domHandler.findSingle(this.scrollTable, 'tr.ui-widget-content');
+             this.rowHeight = this.domHandler.getOuterHeight(row);
+        }
     }
         
     initScrolling() {
@@ -299,7 +306,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
                 let viewport = this.domHandler.getOuterHeight(this.scrollBody);
                 let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
-                let pageHeight = this.threshold * this.dt.rows;
+                let pageHeight = this.rowHeight * this.dt.rows;
                 let virtualTableHeight = parseFloat(this.virtualTableHeight);
                 let pageCount = (virtualTableHeight / pageHeight)||1;
 
@@ -326,7 +333,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
     
     get virtualTableHeight(): string {
         let datasource = this.dt.filteredValue||this.dt.value;
-        return datasource ? (datasource.length * this.threshold) + 'px' : null;
+        return datasource ? (datasource.length * this.rowHeight) + 'px' : null;
     }
                 
     ngOnDestroy() {
