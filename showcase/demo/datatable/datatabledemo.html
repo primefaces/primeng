@@ -801,7 +801,7 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
-            <p>In horizontal scrolling, certain rows can be fixed as well by enabling the frozen property at column level.</p>
+            <p>In horizontal scrolling, certain columns can be fixed as well by enabling the frozen property at column level.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [scrollable]="true" scrollHeight="200px" frozenWidth="100px" scrollWidth="600px"&gt;
@@ -812,6 +812,8 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
+
+            <p>In addition, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
 
             <p>See the <a [routerLink]="['/datatable/scroll']">live example.</a></p>
             
@@ -1078,6 +1080,12 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>number/string</td>
                             <td>null</td>
                             <td>Width of the scroll viewport, can be pixel as a number or a percentage.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
                         </tr>
                         <tr>
                             <td>style</td>

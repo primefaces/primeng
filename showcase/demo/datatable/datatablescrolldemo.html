@@ -4,7 +4,7 @@
     <div>
         <span class="feature-title">DataTable - <span class="subitem">Scroll</span></span>
         <span>Data scrolling with fixed header is available horizontally, vertically or both. ScrollHeight and ScrollWidth values can either
-        be fixed pixels or percentages. Certain columns can be fixed as well.</span>
+        be fixed pixels or percentages. Certain columns can be fixed as well. Virtual Scrolling mode is available to deal with large datasets by loading data on demand during scrolling.</span>
     </div>
 </div>
 
@@ -69,6 +69,14 @@ export class DataTableScrollDemo implements OnInit &#123;
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" scrollable="true" scrollHeight="200px"&gt;
     &lt;p-header&gt;Vertical&lt;/p-header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="&#123;'margin-top':'30px'&#125;"&gt;
+    &lt;p-header&gt;Virtual Scrolling&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
