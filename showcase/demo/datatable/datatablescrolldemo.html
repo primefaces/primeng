@@ -19,7 +19,7 @@
     
     <p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="{'margin-top':'30px'}" 
         [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
-        <p-header>Virtual Scrolling - 1 Million Rows</p-header>
+        <p-header>Virtual Scrolling - 500000 Rows</p-header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -131,7 +131,7 @@ export class DataTableScrollDemo implements OnInit &lt;
 
 &lt;p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="&#123;'margin-top':'30px'&#125;" 
     [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)"&gt;
-    &lt;p-header&gt;Virtual Scrolling - 1 Million Rows&lt;/p-header&gt;
+    &lt;p-header&gt;Virtual Scrolling - 500000 Rows&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;

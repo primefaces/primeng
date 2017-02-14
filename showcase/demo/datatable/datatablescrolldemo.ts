@@ -20,7 +20,7 @@ export class DataTableScrollDemo implements OnInit {
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
         
-        this.totalRecords = 1000000;
+        this.totalRecords = 500000;
     }
     
     loadCarsLazy(event: LazyLoadEvent) {
