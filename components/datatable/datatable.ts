@@ -278,6 +278,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     public scrollFunction: Function;
     
     public rowHeight: number;
+        
+    public scrollTimeout: number;
                             
     ngAfterViewInit() {
         this.initScrolling();
@@ -310,21 +312,24 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 if(frozenScrollBody) {
                     frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
                 }
-
+                
                 if(this.virtualScroll) {
-                    let viewport = this.domHandler.getOuterHeight(this.scrollBody);
-                    let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
-                    let pageHeight = this.rowHeight * this.dt.rows;
-                    let virtualTableHeight = parseFloat(this.virtualTableHeight);
-                    let pageCount = (virtualTableHeight / pageHeight)||1;
+                    clearTimeout(this.scrollTimeout);
+                    this.scrollTimeout = setTimeout(() => {
+                        let viewport = this.domHandler.getOuterHeight(this.scrollBody);
+                        let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
+                        let pageHeight = this.rowHeight * this.dt.rows;
+                        let virtualTableHeight = parseFloat(this.virtualTableHeight);
+                        let pageCount = (virtualTableHeight / pageHeight)||1;
 
-                    if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
-                        let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
-                        this.onVirtualScroll.emit({
-                            page: page
-                        });
-                        this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
-                    }          
+                        if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
+                            let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
+                            this.onVirtualScroll.emit({
+                                page: page
+                            });
+                            this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+                        }  
+                    }, 200);
                 }
             });
             
