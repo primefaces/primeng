@@ -281,7 +281,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     
     public rowHeight: number;
         
-    public scrollTimeout: number;
+    public scrollTimeout: any;
                             
     ngAfterViewInit() {
         this.initScrolling();
