@@ -441,6 +441,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() selectionMode: string;
 
+    @Input() selectionMeta: boolean = true;
+
     @Input() selection: any;
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
@@ -1107,11 +1109,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(!this.selectionMode) {
                 return;
             }
-            
+
             let metaKey = event.metaKey||event.ctrlKey;
             let selected = this.isSelected(rowData);
             
-            if(selected && metaKey) {
+            if(selected && (!this.selectionMeta || (this.selectionMeta && metaKey))) {
                 if(this.isSingleSelectionMode()) {
                     this.selection = null;
                     this.selectionChange.emit(null);
