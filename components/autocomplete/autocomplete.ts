@@ -98,6 +98,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
+    
     public selectedItemTemplate: TemplateRef<any>;
     
     value: any;
