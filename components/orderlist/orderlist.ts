@@ -20,7 +20,7 @@ import {DomHandler} from '../dom/domhandler';
                     <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle">
                         <li *ngFor="let item of value" class="ui-orderlist-item"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
-                            (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event,item)">
+                            (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)">
                             <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                         </li>
                     </ul>
@@ -127,7 +127,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         this.itemTouched = false;
     }
     
-    onItemTouchEnd(event, option) {
+    onItemTouchEnd(event) {
         this.itemTouched = true;
     }
     
