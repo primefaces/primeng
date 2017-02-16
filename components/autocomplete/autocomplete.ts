@@ -23,7 +23,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
                     <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)"></span>
-                    <span class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
+                    <span *ngIf="!selectedItemTemplate" class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
+                    <template *ngIf="selectedItemTemplate" [pTemplateWrapper]="selectedItemTemplate" [item]="val"></template>
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn type="text" [disabled]="disabled" pInputText [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()" autocomplete="off">
@@ -97,6 +98,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
+    public selectedItemTemplate: TemplateRef<any>;
     
     value: any;
     
@@ -154,6 +156,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                break;
+
+                case 'selectedItem':
+                    this.selectedItemTemplate = item.template;
                 break;
                 
                 default:
