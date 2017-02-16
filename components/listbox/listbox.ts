@@ -160,33 +160,23 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
 
     onOptionClickMultiple(event, option) {
-        let metaKey = (event.metaKey || event.ctrlKey);
         let selected = this.isSelected(option);
-        let valueChanged = false;
 
         if (selected) {
-            if (metaKey) {
-                this.value.splice(this.findIndex(option), 1);
-            }
-            else {
-                this.value = [];
-                this.value.push(option.value);
-            }
-            valueChanged = true;
+            this.value.splice(this.findIndex(option), 1);
         }
         else {
-            this.value = (metaKey) ? this.value || [] : [];
+            this.value = this.value || [];
             this.value.push(option.value);
-            valueChanged = true;
+
         }
 
-        if (valueChanged) {
-            this.onModelChange(this.value);
-            this.onChange.emit({
-                originalEvent: event,
-                value: this.value
-            });
-        }
+        this.onModelChange(this.value);
+        this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
+
     }
 
     isSelected(option: SelectItem) {
