@@ -590,8 +590,9 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-        <p>In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices
-        metakey is required.</p>
+        <p>In multiple mode, selection binding should be an array and multiple items can either be selected
+        using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+        devices metaKeySelection is turned off automatically.</p>
 <pre>
 <code class="language-typescript" pCode>
 export class DataTableDemo implements OnInit &#123;
@@ -1152,6 +1153,13 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>array</td>
                             <td>null</td>
                             <td>An array of FilterMetadata objects to provide external filters.</td>
+                        </tr>
+                        <tr>
+                            <td>metaKeySelection</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+                            can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -155,7 +155,7 @@ export class ColumnFooters {
                 </td>
             </tr>
             <tr #rowElement *ngIf="!dt.expandableRowGroups||dt.isRowGroupExpanded(rowData)" [class]="dt.getRowStyleClass(rowData,rowIndex)"
-                    (click)="dt.handleRowClick($event, rowData)" (dblclick)="dt.rowDblclick($event,rowData)" (contextmenu)="dt.onRowRightClick($event,rowData)" (touchstart)="dt.handleRowTap($event, rowData)"
+                    (click)="dt.handleRowClick($event, rowData)" (dblclick)="dt.rowDblclick($event,rowData)" (contextmenu)="dt.onRowRightClick($event,rowData)" (touchend)="dt.handleRowTouchEnd($event)"
                     [ngClass]="{'ui-datatable-even':even&&dt.rowGroupMode!='rowspan','ui-datatable-odd':odd&&dt.rowGroupMode!='rowspan','ui-state-highlight': dt.isSelected(rowData)}">
                 <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
                     <td #cell *ngIf="!dt.rowGroupMode || (dt.rowGroupMode == 'subheader') ||
@@ -516,6 +516,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() emptyMessage: string = 'No records found';
     
     @Input() paginatorPosition: string = 'bottom';
+    
+    @Input() metaKeySelection: boolean = true;
             
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
@@ -619,7 +621,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             
     public tbody: any;
     
-    public rowTouch: boolean;
+    public rowTouched: boolean;
     
     public rowGroupToggleClick: boolean;
     
@@ -1094,12 +1096,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    handleRowClick(event, rowData) {
-        if(this.rowTouch) {
-            this.rowTouch = false;
-            return false;
-        }
-        
+    handleRowClick(event, rowData) {        
         let targetNode = event.target.nodeName;
         if(targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
             this.onRowClick.next({originalEvent: event, data: rowData});
@@ -1108,78 +1105,74 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 return;
             }
             
-            let metaKey = event.metaKey||event.ctrlKey;
             let selected = this.isSelected(rowData);
+            let metaSelection = this.rowTouched ? false : this.metaKeySelection;
             
-            if(selected && metaKey) {
-                if(this.isSingleSelectionMode()) {
-                    this.selection = null;
-                    this.selectionChange.emit(null);
+            if(metaSelection) {
+                let metaKey = event.metaKey||event.ctrlKey;
+                
+                if(selected && metaKey) {
+                    if(this.isSingleSelectionMode()) {
+                        this.selection = null;
+                        this.selectionChange.emit(null);
+                    }
+                    else {
+                        this.selection.splice(this.findIndexInSelection(rowData), 1);
+                        this.selectionChange.emit(this.selection);
+                    }
+                    
+                    this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
                 }
                 else {
-                    this.selection.splice(this.findIndexInSelection(rowData), 1);
-                    this.selectionChange.emit(this.selection);
+                    if(this.isSingleSelectionMode()) {
+                        this.selection = rowData;
+                        this.selectionChange.emit(rowData);
+                    }
+                    else if(this.isMultipleSelectionMode()) {
+                        if(metaKey)
+                            this.selection = this.selection||[];
+                        else 
+                            this.selection = [];
+                        
+                        this.selection.push(rowData);
+                        this.selectionChange.emit(this.selection);
+                    }
+
+                    this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
                 }
-                
-                this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
             }
             else {
                 if(this.isSingleSelectionMode()) {
-                    this.selection = rowData;
-                    this.selectionChange.emit(rowData);
+                    if(selected) {
+                        this.selection = null;
+                        this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
+                    }
+                    else {
+                        this.selection = rowData;
+                        this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+                    }
                 }
-                else if(this.isMultipleSelectionMode()) {
-                    if(metaKey)
+                else {
+                    if(selected) {
+                        this.selection.splice(this.findIndexInSelection(rowData), 1);
+                        this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
+                    }
+                    else {
                         this.selection = this.selection||[];
-                    else 
-                        this.selection = [];
-                    
-                    this.selection.push(rowData);
-                    this.selectionChange.emit(this.selection);
+                        this.selection.push(rowData);
+                        this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+                    }
                 }
-
-                this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+                
+                this.selectionChange.emit(this.selection);
             }
         }
+        
+        this.rowTouched = false;
     }
 
-    handleRowTap(event, rowData) {
-        this.rowTouch = true;
-        
-        let targetNode = event.target.nodeName;
-        if(targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
-            this.onRowClick.next({originalEvent: event, data: rowData});
-            
-            if(!this.selectionMode) {
-                return;
-            }
-            
-            if(this.isSelected(rowData)) {
-                if(this.isSingleSelectionMode()) {
-                    this.selection = null;
-                    this.selectionChange.emit(null);
-                }
-                else {
-                    this.selection.splice(this.findIndexInSelection(rowData), 1);
-                    this.selectionChange.emit(this.selection);
-                }
-                
-                this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
-            }
-            else {
-                if(this.isSingleSelectionMode()) {
-                    this.selection = rowData;
-                    this.selectionChange.emit(rowData);
-                }
-                else if(this.isMultipleSelectionMode()) {
-                    this.selection = this.selection||[];
-                    this.selection.push(rowData);
-                    this.selectionChange.emit(this.selection);
-                }
-
-                this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
-            }
-        }
+    handleRowTouchEnd(event) {
+        this.rowTouched = true;
     }
     
     selectRowWithRadio(event, rowData:any) {
