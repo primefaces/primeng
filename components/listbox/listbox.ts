@@ -32,7 +32,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <ul class="ui-listbox-list">
                 <li *ngFor="let option of options" [style.display]="isItemVisible(option) ? 'block' : 'none'"
                     [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
-                    (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)">
+                    (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
                     <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
                         <div class="ui-helper-hidden-accessible">
                             <input type="checkbox" [checked]="isSelected(option)">
@@ -64,6 +64,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     @Input() checkbox: boolean = false;
 
     @Input() filter: boolean = false;
+    
+    @Input() metaKeySelection: boolean = true;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -86,6 +88,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     public onModelTouched: Function = () => { };
 
     public checkboxClick: boolean;
+    
+    public optionTouched: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
@@ -121,9 +125,6 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
 
     onOptionClick(event, option) {
         if(!this.checkboxClick) {
-            let metaKey = (event.metaKey || event.ctrlKey);
-            let selected = this.isSelected(option);
-
             if (this.multiple)
                 this.onOptionClickMultiple(event, option);
             else
@@ -132,25 +133,39 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         else {
             this.checkboxClick = false;
         }
+        
+        this.optionTouched = false;
+    }
+    
+    onOptionTouchEnd(event, option) {
+        this.optionTouched = true;
     }
 
-    onOptionClickSingle(event, option) {
-        let metaKey = (event.metaKey || event.ctrlKey);
+    onOptionClickSingle(event, option) {        
         let selected = this.isSelected(option);
         let valueChanged = false;
+        let metaSelection = this.optionTouched ? false : this.metaKeySelection;
 
-        if (selected) {
-            if (metaKey) {
-                this.value = null;
+        if(metaSelection) {
+            let metaKey = (event.metaKey || event.ctrlKey);
+            
+            if(selected) {
+                if(metaKey) {
+                    this.value = null;
+                    valueChanged = true;
+                }
+            }
+            else {
+                this.value = option.value;
                 valueChanged = true;
             }
         }
         else {
-            this.value = option.value;
+            this.value = selected ? null : option.value;            
             valueChanged = true;
         }
 
-        if (valueChanged) {
+        if(valueChanged) {
             this.onModelChange(this.value);
             this.onChange.emit({
                 originalEvent: event,
@@ -159,24 +174,39 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         }
     }
 
-    onOptionClickMultiple(event, option) {
-        let metaKey = (event.metaKey || event.ctrlKey);
+    onOptionClickMultiple(event, option) {        
         let selected = this.isSelected(option);
         let valueChanged = false;
+        let metaSelection = this.optionTouched ? false : this.metaKeySelection;
 
-        if (selected) {
-            if (metaKey) {
+        if(metaSelection) {
+            let metaKey = (event.metaKey || event.ctrlKey);
+            
+            if(selected) {
+                if(metaKey) {
+                    this.value.splice(this.findIndex(option), 1);
+                }
+                else {
+                    this.value = [];
+                    this.value.push(option.value);
+                }
+                valueChanged = true;
+            }
+            else {
+                this.value = (metaKey) ? this.value || [] : [];
+                this.value.push(option.value);
+                valueChanged = true;
+            }
+        }
+        else {
+            if(selected) {
                 this.value.splice(this.findIndex(option), 1);
             }
             else {
-                this.value = [];
+                this.value = this.value || [];
                 this.value.push(option.value);
             }
-            valueChanged = true;
-        }
-        else {
-            this.value = (metaKey) ? this.value || [] : [];
-            this.value.push(option.value);
+            
             valueChanged = true;
         }
 
