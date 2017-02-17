@@ -68,8 +68,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     
     refresh() {
         if(this.chart) {
-            this.chart.destroy();
-            this.initChart();
+            this.chart.update();
         }
     }
     
