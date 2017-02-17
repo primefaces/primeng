@@ -9,7 +9,7 @@ import {DomHandler} from '../dom/domhandler';
     selector: '[pTreeRow]',
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode}">
-            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)">
+            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (touchend)="onRowTouchEnd($event)">
                 <a href="#" *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
@@ -70,6 +70,10 @@ export class UITreeRow implements OnInit {
     
     onRowClick(event: MouseEvent) {
         this.treeTable.onRowClick(event, this.node);
+    }
+    
+    onRowTouchEnd(event: MouseEvent) {
+        this.treeTable.onRowTouchEnd();
     }
     
     resolveFieldData(data: any, field: string): any {
@@ -157,11 +161,15 @@ export class TreeTable {
     
     @Input() labelCollapse: string = "Collapse";
     
+    @Input() metaKeySelection: boolean = true;
+    
     @ContentChild(Header) header: Header;
 
     @ContentChild(Footer) footer: Footer;
     
     @ContentChildren(Column) columns: QueryList<Column>;
+    
+    public rowTouched: boolean;
         
     onRowClick(event: MouseEvent, node: TreeNode) {
         let eventTarget = (<Element> event.target);
@@ -169,7 +177,7 @@ export class TreeTable {
             return;
         }
         else {
-            let metaKey = (event.metaKey||event.ctrlKey);
+            let metaSelection = this.rowTouched ? false : this.metaKeySelection;
             let index = this.findIndexInSelection(node);
             let selected = (index >= 0);
             
@@ -192,31 +200,66 @@ export class TreeTable {
                 }
             }
             else {
-                if(selected && metaKey) {
-                    if(this.isSingleSelectionMode()) {
-                        this.selectionChange.emit(null);
+                if(metaSelection) {
+                    let metaKey = (event.metaKey||event.ctrlKey);
+                    
+                    if(selected && metaKey) {
+                        if(this.isSingleSelectionMode()) {
+                            this.selectionChange.emit(null);
+                        }
+                        else {
+                            this.selection.splice(index,1);
+                            this.selectionChange.emit(this.selection);
+                        }
+
+                        this.onNodeUnselect.emit({originalEvent: event, node: node});
                     }
                     else {
-                        this.selection.splice(index,1);
-                        this.selectionChange.emit(this.selection);
-                    }
+                        if(this.isSingleSelectionMode()) {
+                            this.selectionChange.emit(node);
+                        }
+                        else if(this.isMultipleSelectionMode()) {
+                            this.selection = (!metaKey) ? [] : this.selection||[];
+                            this.selection.push(node);
+                            this.selectionChange.emit(this.selection);
+                        }
 
-                    this.onNodeUnselect.emit({originalEvent: event, node: node});
+                        this.onNodeSelect.emit({originalEvent: event, node: node});
+                    }
                 }
                 else {
                     if(this.isSingleSelectionMode()) {
-                        this.selectionChange.emit(node);
+                        if(selected) {
+                            this.selection = null;
+                            this.onNodeUnselect.emit({originalEvent: event, node: node});
+                        }
+                        else {
+                            this.selection = node;
+                            this.onNodeSelect.emit({originalEvent: event, node: node});
+                        }
                     }
-                    else if(this.isMultipleSelectionMode()) {
-                        this.selection = (!metaKey) ? [] : this.selection||[];
-                        this.selection.push(node);
-                        this.selectionChange.emit(this.selection);
+                    else {
+                        if(selected) {
+                            this.selection.splice(index,1);
+                            this.onNodeUnselect.emit({originalEvent: event, node: node});
+                        }
+                        else {
+                            this.selection = this.selection||[];
+                            this.selection.push(node);
+                            this.onNodeSelect.emit({originalEvent: event, node: node});
+                        }
                     }
-
-                    this.onNodeSelect.emit({originalEvent: event, node: node});
+                    
+                    this.selectionChange.emit(this.selection);
                 }
             }
         }
+        
+        this.rowTouched = false;
+    }
+    
+    onRowTouchEnd() {
+        this.rowTouched = true;
     }
     
     findIndexInSelection(node: TreeNode) {
