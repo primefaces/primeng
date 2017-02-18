@@ -95,6 +95,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     @Input() multiple: boolean;
 
     @Input() tabindex: number;
+
+    @Input() autoSelectSuggestion: boolean;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -146,6 +148,9 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             if(this.suggestions && this.suggestions.length) {
                 this.show();
                 this.suggestionsUpdated = true;
+                if (this.autoSelectSuggestion) {
+                    this.calculateOptionToHighlight();
+                }
             }
             else {
                 this.hide();
@@ -316,37 +321,20 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     }
         
     onKeydown(event) {
-        if(this.panelVisible) {
-            let highlightItemIndex = this.findOptionIndex(this.highlightOption);
-            
+        if(this.panelVisible) {             
             switch(event.which) {
                 //down
                 case 40:
-                    if(highlightItemIndex != -1) {
-                        var nextItemIndex = highlightItemIndex + 1;
-                        if(nextItemIndex != (this.suggestions.length)) {
-                            this.highlightOption = this.suggestions[nextItemIndex];
-                            this.highlightOptionChanged = true;
-                        }
-                    }
-                    else {
-                        this.highlightOption = this.suggestions[0];
-                    }
-                    
+                    this.calculateOptionToHighlight(true);
                     event.preventDefault();
                 break;
-                
+
                 //up
                 case 38:
-                    if(highlightItemIndex > 0) {
-                        let prevItemIndex = highlightItemIndex - 1;
-                        this.highlightOption = this.suggestions[prevItemIndex];
-                        this.highlightOptionChanged = true;
-                    }
-                    
+                    this.calculateOptionToHighlight(false);
                     event.preventDefault();
                 break;
-                
+
                 //enter
                 case 13:
                     if(this.highlightOption) {
@@ -361,7 +349,6 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                     this.hide();
                     event.preventDefault();
                 break;
-
                 
                 //tab
                 case 9:
@@ -434,6 +421,36 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         }
                 
         return index;
+    }
+
+    calculateOptionToHighlight(selectNextOption?: boolean) {
+        let highlightItemIndex = this.findOptionIndex(this.highlightOption);
+
+        // Nothing is currently highlighted so highlight the first suggestion
+        if (highlightItemIndex === -1 && selectNextOption === null) {
+            let nextItemIndex = 0;
+            if (nextItemIndex != (this.suggestions.length)) {
+                this.highlightOption = this.suggestions[nextItemIndex];
+                this.highlightOptionChanged = true;
+            }
+        }
+        // Something is highlighted and we want to highlight the next option
+        else if (highlightItemIndex != -1 && selectNextOption) {
+            let nextItemIndex = highlightItemIndex + 1;
+            if (nextItemIndex != (this.suggestions.length)) {
+                this.highlightOption = this.suggestions[nextItemIndex];
+                this.highlightOptionChanged = true;
+            }
+        }
+        // Something is highlighted and we want to highlight the previous option
+        else if (highlightItemIndex > 0 && selectNextOption === false) {
+            let prevItemIndex = highlightItemIndex - 1;
+            this.highlightOption = this.suggestions[prevItemIndex];
+            this.highlightOptionChanged = true;
+        }
+        else {
+            this.highlightOption = this.suggestions[0];
+        }
     }
     
     updateFilledState() {
