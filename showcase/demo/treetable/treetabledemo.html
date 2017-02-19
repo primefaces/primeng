@@ -162,8 +162,7 @@ export class NodeService &#123;
     getFilesystem() &#123;
         return this.http.get('showcase/resources/data/filesystem.json')
                     .toPromise()
-                    .then(res => &lt;TreeNode[]&gt; res.json().data)
-                    .then(data => &#123; return data; &#125;);
+                    .then(res => &lt;TreeNode[]&gt; res.json().data);
     &#125;
 &#125;
 </code>
