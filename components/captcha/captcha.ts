@@ -15,7 +15,7 @@ export class Captcha implements AfterViewInit {
     
     @Input() size = 'normal';
     
-    @Input() tabIndex = 0;
+    @Input() tabindex = 0;
     
     @Input() language: string = null;
     
@@ -25,35 +25,42 @@ export class Captcha implements AfterViewInit {
 
     @ViewChild('target') el: ElementRef;
     
-    captcha: any = null;
+    private _instance: any = null;
 
     constructor(public _zone:NgZone) {}
     
     ngAfterViewInit() {
-        this.captcha = (<any>window).grecaptcha.render(this.el.nativeElement, {
+        if((<any>window).grecaptcha)
+            this.init();
+        else
+            console.log("Recaptcha is not loaded");
+    }
+    
+    init() {
+        this._instance = (<any>window).grecaptcha.render(this.el.nativeElement, {
             'sitekey': this.siteKey,
             'theme': this.theme,
             'type': this.type,
             'size': this.size,
-            'tabindex': this.tabIndex,
+            'tabindex': this.tabindex,
             'hl': this.language,
-            'callback': (response: string) => { this._zone.run(() => this.recaptchaCallback(response))},
-            'expired-callback': () => { this._zone.run(() => this.recaptchaExpiredCallback()) }
+            'callback': (response: string) => {this._zone.run(() => this.recaptchaCallback(response))},
+            'expired-callback': () => {this._zone.run(() => this.recaptchaExpiredCallback())}
         });
     }
     
     reset() {
-        if (this.captcha === null)
+        if(this._instance === null)
             return;
         
-        (<any>window).grecaptcha.reset(this.captcha);
+        (<any>window).grecaptcha.reset(this._instance);
     }
     
     getResponse(): String {
-        if (this.captcha === null)
+        if (this._instance === null)
             return null;
         
-        return (<any>window).grecaptcha.getResponse(this.captcha);
+        return (<any>window).grecaptcha.getResponse(this._instance);
     }
     
     private recaptchaCallback(response: string) {
@@ -65,8 +72,8 @@ export class Captcha implements AfterViewInit {
     }
     
     public ngOnDestroy() {
-        if (this.captcha != null) {
-          (<any>window).grecaptcha.reset(this.captcha);
+        if (this._instance != null) {
+          (<any>window).grecaptcha.reset(this._instance);
         }
     }
 }
