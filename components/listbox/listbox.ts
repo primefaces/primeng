@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
+import {ObjectUtils} from '../utils/ObjectUtils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
@@ -47,7 +48,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             </ul>
         </div>
     `,
-    providers: [DomHandler, LISTBOX_VALUE_ACCESSOR]
+    providers: [DomHandler,ObjectUtils,LISTBOX_VALUE_ACCESSOR]
 })
 export class Listbox implements AfterContentInit,ControlValueAccessor {
 
@@ -91,7 +92,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     
     public optionTouched: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -243,7 +244,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         let index: number = -1;
         if (this.value) {
             for (let i = 0; i < this.value.length; i++) {
-                if (this.domHandler.equals(option.value, this.value[i])) {
+                if (this.objectUtils.equals(option.value, this.value[i])) {
                     index = i;
                     break;
                 }

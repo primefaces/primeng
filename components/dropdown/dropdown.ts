@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
+import {ObjectUtils} from '../utils/ObjectUtils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
@@ -64,7 +65,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             transition('hidden => visible', animate('400ms ease-out'))
         ])
     ],
-    providers: [DomHandler,DROPDOWN_VALUE_ACCESSOR]
+    providers: [DomHandler,ObjectUtils,DROPDOWN_VALUE_ACCESSOR]
 })
 export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
@@ -152,7 +153,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public selectedOptionUpdated: boolean;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers, private cd: ChangeDetectorRef) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers, private cd: ChangeDetectorRef, public objectUtils: ObjectUtils) {
         this.differ = differs.find([]).create(null);
     }
     
@@ -428,7 +429,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         let index: number = -1;
         if(opts) {
             for(let i = 0; i < opts.length; i++) {
-                if((val == null && opts[i].value == null) || this.domHandler.equals(val, opts[i].value)) {
+                if((val == null && opts[i].value == null) || this.objectUtils.equals(val, opts[i].value)) {
                     index = i;
                     break;
                 }

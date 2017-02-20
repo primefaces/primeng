@@ -8,6 +8,7 @@ import {InputTextModule} from '../inputtext/inputtext';
 import {Column,Header,Footer,HeaderColumnGroup,FooterColumnGroup,PrimeTemplate} from '../common/shared';
 import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
+import {ObjectUtils} from '../utils/ObjectUtils';
 import {Subscription} from 'rxjs/Subscription';
 import {BlockableUI} from '../common/api';
 
@@ -419,7 +420,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             <span class="fa fa-arrow-up ui-datatable-reorder-indicator-down" style="position: absolute; display: none;"></span>
         </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler,ObjectUtils]
 })
 export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,DoCheck,OnDestroy,BlockableUI {
 
@@ -648,7 +649,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     columnsSubscription: Subscription;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, 
-            public renderer: Renderer, public changeDetector: ChangeDetectorRef) {
+            public renderer: Renderer, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
         this.differ = differs.find([]).create(null);
     }
 
@@ -1249,7 +1250,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let index: number = -1;
         if(this.selection) {
             for(let i = 0; i  < this.selection.length; i++) {
-                if(this.domHandler.equals(rowData, this.selection[i])) {
+                if(this.objectUtils.equals(rowData, this.selection[i])) {
                     index = i;
                     break;
                 }
@@ -1260,7 +1261,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     isSelected(rowData) {
-        return ((rowData && this.domHandler.equals(rowData, this.selection)) || this.findIndexInSelection(rowData) != -1);
+        return ((rowData && this.objectUtils.equals(rowData, this.selection)) || this.findIndexInSelection(rowData) != -1);
     }
     
     get allSelected() {

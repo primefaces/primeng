@@ -413,7 +413,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         let selected: boolean = false;
         if(this.value && this.value.length) {
             for(let i = 0; i < this.value.length; i++) {
-                if(this.domHandler.equals(this.value[i], val)) {
+                if(this.objectUtils.equals(this.value[i], val)) {
                     selected = true;
                     break;
                 }
@@ -426,7 +426,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         let index: number = -1;
         if(this.suggestions) {
             for(let i = 0; i < this.suggestions.length; i++) {
-                if(this.domHandler.equals(option, this.suggestions[i])) {
+                if(this.objectUtils.equals(option, this.suggestions[i])) {
                     index = i;
                     break;
                 }
