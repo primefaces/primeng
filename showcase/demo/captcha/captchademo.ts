@@ -1,14 +1,15 @@
-import {Component,OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Message} from '../../../components/common/api';
 
 @Component({
     templateUrl: 'showcase/demo/captcha/captchademo.html'
 })
-export class CaptchaDemo implements OnInit {
-    ngOnInit () {
-        
-    }
+export class CaptchaDemo {
     
-    test(event) {
-        console.log(event);
+    msgs: Message[] = [];
+    
+    showResponse(event) {
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'Succeed', detail: 'Captcha Succeed'});
     }
 }
