@@ -51,7 +51,7 @@
         <p-tabPanel header="datatablescrolldemo.ts">
 <pre>
 <code class="language-typescript" pCode>
-export class DataTableScrollDemo implements OnInit &lt;
+export class DataTableScrollDemo implements OnInit &#123;
 
     cars: Car[];
     
@@ -59,61 +59,62 @@ export class DataTableScrollDemo implements OnInit &lt;
     
     totalRecords: number;
 
-    constructor(private carService: CarService) &lt; &gt;
+    constructor(private carService: CarService) &#123; &#125;
 
-    ngOnInit() &lt;
+    ngOnInit() &#123;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
         
-        this.totalRecords = 1000000;
-    &gt;
+        this.totalRecords = 500000;
+    &#125;
     
-    loadCarsLazy(event: LazyLoadEvent) &lt;
+    loadCarsLazy(event: LazyLoadEvent) &#123;
         //for demo purposes keep loading the same dataset 
         //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
         this.carsLarge = [
-            &lt;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&gt;,
-            &lt;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&gt;,
-            &lt;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&gt;,
-            &lt;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&gt;,
-            &lt;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&gt;,
-            &lt;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&gt;,
-            &lt;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&gt;,
-            &lt;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&gt;,
-            &lt;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&gt;,
-            &lt;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&gt;,
-            &lt;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&gt;,
-            &lt;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&gt;,
-            &lt;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&gt;,
-            &lt;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&gt;,
-            &lt;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&gt;,
-            &lt;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&gt;,
-            &lt;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&gt;,
-            &lt;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&gt;,
-            &lt;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&gt;,
-            &lt;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&gt;,
-            &lt;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&gt;,
-            &lt;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&gt;,
-            &lt;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&gt;,
-            &lt;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&gt;,
-            &lt;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&gt;,
-            &lt;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&gt;,
-            &lt;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&gt;,
-            &lt;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&gt;,
-            &lt;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&gt;,
-            &lt;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&gt;,
-            &lt;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&gt;,
-            &lt;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&gt;,
-            &lt;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&gt;,
-            &lt;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&gt;,
-            &lt;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&gt;,
-            &lt;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&gt;,
-            &lt;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&gt;,
-            &lt;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&gt;,
-            &lt;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&gt;,
-            &lt;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&gt;
+            &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&#125;,
+            &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&#125;,
+            &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&#125;,
+            &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&#125;,
+            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&#125;,
+            &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&#125;,
+            &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&#125;,
+            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&#125;,
+            &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&#125;,
+            &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&#125;,
+            &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&#125;,
+            &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&#125;,
+            &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&#125;,
+            &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&#125;,
+            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&#125;,
+            &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&#125;,
+            &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&#125;,
+            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&#125;,
+            &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&#125;,
+            &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&#125;,
+            &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&#125;,
+            &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&#125;,
+            &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&#125;,
+            &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&#125;,
+            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&#125;,
+            &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&#125;,
+            &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&#125;,
+            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&#125;,
+            &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&#125;,
+            &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&#125;,
+            &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&#125;,
+            &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&#125;,
+            &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&#125;,
+            &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&#125;,
+            &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&#125;,
+            &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&#125;,
+            &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&#125;,
+            &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&#125;,
+            &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&#125;,
+            &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&#125;
         ];
-    &gt;
-&gt;
+        
+    &#125;
+&#125;
 </code>
 </pre>
         </p-tabPanel>
