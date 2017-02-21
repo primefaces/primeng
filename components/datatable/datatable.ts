@@ -1482,6 +1482,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     switchCellToViewMode(element: any) {
+        this.editingCell = null;
         let cell = this.findCell(element); 
         this.domHandler.removeClass(cell, 'ui-cell-editing');
     }
