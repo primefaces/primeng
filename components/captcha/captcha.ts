@@ -63,15 +63,17 @@ export class Captcha implements AfterViewInit {
         return (<any>window).grecaptcha.getResponse(this._instance);
     }
     
-    private recaptchaCallback(response: string) {
-        this.onResponse.emit(response);
+    recaptchaCallback(response: string) {
+        this.onResponse.emit({
+            response: response
+        });
     }
 
-    private recaptchaExpiredCallback() {
+    recaptchaExpiredCallback() {
         this.onExpire.emit();
     }
     
-    public ngOnDestroy() {
+    ngOnDestroy() {
         if (this._instance != null) {
           (<any>window).grecaptcha.reset(this._instance);
         }

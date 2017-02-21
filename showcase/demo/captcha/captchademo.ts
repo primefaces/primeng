@@ -10,6 +10,6 @@ export class CaptchaDemo {
     
     showResponse(event) {
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Succeed', detail: 'Captcha Succeed'});
+        this.msgs.push({severity:'info', summary:'Success', detail: 'User Responsed'});
     }
 }
