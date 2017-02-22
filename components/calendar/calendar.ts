@@ -777,18 +777,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     populateTime(value, timeString, ampm) {
-        let time = this.parseTime(timeString);
+        if(this.hourFormat == '12' && !ampm) {
+            throw 'Invalid Time';
+        }
         
-        if(this.hourFormat == '12') {
-            if(!ampm)
-                throw 'Invalid Time';
-            else if(ampm.toLowerCase() === 'PM' && time.hour != 12)
-                value.setHours(time.hour + 12);
-        }
-        else {
-            value.setHours(time.hour);
-        }
-
+        this.pm = (ampm === 'PM' || ampm === 'pm');
+        let time = this.parseTime(timeString);
+        value.setHours(time.hour);
         value.setMinutes(time.minute);
         value.setSeconds(time.second);
     }
@@ -802,11 +797,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             
             if(this.hourFormat === '12') {
                 if(hours >= 12) {
-                    this.pm = true;
                     this.currentHour = (hours == 12) ? 12 : hours - 12;
                 }
                 else {
-                    this.pm = false;
                     this.currentHour = (hours == 0) ? 12 : hours;
                 }
             }
@@ -970,9 +963,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     parseTime(value) {
         let tokens: string[] = value.split(':');
-        let validTokentLength = this.showSeconds ? 3 : 2;
+        let validTokenLength = this.showSeconds ? 3 : 2;
         
-        if(tokens.length !== validTokentLength) {
+        if(tokens.length !== validTokenLength) {
             throw "Invalid time";
         }
         
@@ -984,7 +977,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             throw "Invalid time";
         }
         else {
-            if(this.hourFormat == '12' && h !== 12) {
+            if(this.hourFormat == '12' && h !== 12 && this.pm) {
                 h+= 12;
             }
             

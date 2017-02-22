@@ -215,7 +215,7 @@
     display: none !important;
 }
 
-.ui-datatable-stacked .ui-datatable-data td {
+.ui-datatable.ui-datatable-stacked .ui-datatable-data > tr > td {
     text-align: left;
     display: block;
     border: 0 none;
@@ -227,7 +227,7 @@
     clear: left;
 }
 
-.ui-datatable-stacked .ui-datatable-data.ui-widget-content {
+.ui-datatable.ui-datatable-stacked .ui-datatable-data.ui-widget-content {
     border: 0 none;
 }
 
@@ -262,11 +262,29 @@
 }
 
 .ui-datatable-scrollable-view {
-    float: left;
+    
 }
 
 .ui-datatable-frozen-view .ui-datatable-scrollable-body {
     overflow: hidden;
+}
+
+.ui-datatable-unfrozen-view {
+    position: absolute;
+    top: 0px;
+}
+
+.ui-datatable .ui-datatable-load-status {
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+.ui-datatable .ui-datatable-virtual-table {
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 @media ( max-width: 35em ) {
@@ -275,7 +293,7 @@
         display: none !important;
     }
 
-    .ui-datatable-reflow .ui-datatable-data td {
+    .ui-datatable-reflow .ui-datatable-data > tr > td {
         text-align: left;
         display: block;
         border: 0 none;

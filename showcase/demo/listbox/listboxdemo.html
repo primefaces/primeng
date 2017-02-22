@@ -70,9 +70,11 @@ export class MyModel &#123;
 &#125;
 </code>
 </pre>
-            <h3>Multiple</h3>
-            <p>Listbox allows selecting only one item, setting multiple option enables choosing more than one item using metakey. 
-                and optional checkbox mode allows selection with checkboxes. In multiple case, model property should be an array.</p>
+            <h3>Selection</h3>
+            <p>Listbox allows selection of either single or multiple items whereas checkbox option displays a checkbox to indicate multiple selection. 
+                In single case, model should be a single object reference whereas in multiple case should be an array. Multiple items can either be selected
+                using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+                devices metaKeySelection is turned off automatically.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-listbox&gt;
@@ -214,6 +216,13 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>metaKeySelection</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+                            can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -20,7 +20,7 @@ import {DomHandler} from '../dom/domhandler';
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle">
                     <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
-                        (click)="onItemClick($event,item,selectedItemsSource)">
+                        (click)="onItemClick($event,item,selectedItemsSource)" (touchend)="onItemTouchEnd($event)">
                         <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                     </li>
                 </ul>
@@ -33,11 +33,11 @@ import {DomHandler} from '../dom/domhandler';
                     <button type="button" pButton icon="fa-angle-double-left" (click)="moveAllLeft()"></button>
                 </div>
             </div>
-            <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
+            <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle">
                     <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
-                        (click)="onItemClick($event,item,selectedItemsTarget)">
+                        (click)="onItemClick($event,item,selectedItemsTarget)" (touchend)="onItemTouchEnd($event)">
                         <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
                     </li>
                 </ul>
@@ -65,6 +65,8 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     @Input() targetHeader: string;
 
     @Input() responsive: boolean;
+    
+    @Input() metaKeySelection: boolean = true;
 
     @Input() style: any;
 
@@ -95,6 +97,8 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     movedUp: boolean;
     
     movedDown: boolean;
+    
+    itemTouched: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
@@ -130,19 +134,36 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     }
     
     onItemClick(event, item: any, selectedItems: any[]) {
-        let metaKey = (event.metaKey||event.ctrlKey);
         let index = this.findIndexInSelection(item,selectedItems);
         let selected = (index != -1);
+        let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
-        if(selected && metaKey) {
-            selectedItems.splice(index, 1);
+        if(metaSelection) {
+            let metaKey = (event.metaKey||event.ctrlKey);
+            
+            if(selected && metaKey) {
+                selectedItems.splice(index, 1);
+            }
+            else {
+                if(!metaKey) {
+                    selectedItems.length = 0;
+                }         
+                selectedItems.push(item);
+            }
         }
         else {
-            if(!metaKey) {
-                selectedItems.length = 0;
-            }         
-            selectedItems.push(item);
+            if(selected)
+                selectedItems.splice(index, 1);
+            else
+                selectedItems.push(item);
         }
+        
+        
+        this.itemTouched = false;
+    }
+    
+    onItemTouchEnd(event) {
+        this.itemTouched = true;
     }
 
     moveUp(listElement, list, selectedItems) {

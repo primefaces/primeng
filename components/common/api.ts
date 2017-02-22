@@ -33,6 +33,8 @@ export interface MenuItem {
     items?: MenuItem[];
     expanded?: boolean;
     disabled?: boolean;
+    visible?: boolean;
+    target?: string;
 }
 
 export interface Message {
@@ -58,6 +60,7 @@ export interface TreeNode {
     type?: string;
     parent?: TreeNode;
     partialSelected?: boolean;
+    styleClass?: string;
 }
 
 export interface Confirmation {

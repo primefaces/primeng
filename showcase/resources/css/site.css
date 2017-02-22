@@ -170,6 +170,10 @@ body {
     line-height: 1.5em;
 } 
 
+.content-section h2 {
+    margin-top: 0;
+}
+
 .feature-title {
     font-size: 30px;
     margin-bottom: 20px;
@@ -885,11 +889,6 @@ input.searchInput {
     background-position: -80px -845px;
     width: 30px;
     height: 27px;
-}
-.PFLayouts .Content33,
-.PFLayouts .Content50 {
-    box-sizing: border-box;
-    padding-right: 15px;
 }
 
 /* Code Styles */

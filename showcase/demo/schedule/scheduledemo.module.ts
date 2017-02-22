@@ -6,7 +6,7 @@ import {ScheduleDemoRoutingModule} from './scheduledemo-routing.module';
 import {ScheduleModule} from '../../../components/schedule/schedule';
 import {DialogModule} from '../../../components/dialog/dialog';
 import {InputTextModule} from '../../../components/inputtext/inputtext';
-import {InputMaskModule} from '../../../components/inputmask/inputmask';
+import {CalendarModule} from '../../../components/calendar/calendar';
 import {CheckboxModule} from '../../../components/checkbox/checkbox';
 import {ButtonModule} from '../../../components/button/button';
 import {TabViewModule} from '../../../components/tabview/tabview';
@@ -20,7 +20,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
         ScheduleModule,
         DialogModule,
         InputTextModule,
-        InputMaskModule,
+        CalendarModule,
         CheckboxModule,
         ButtonModule,
         TabViewModule,
