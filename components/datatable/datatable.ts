@@ -544,6 +544,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Input() expandableRowGroups: boolean;
     
+    @Input() rowExpandMode: string = 'multiple';
+    
     @Input() public expandedRowsGroups: any[];
     
     @Input() tabindex: number = 1;
@@ -1797,7 +1799,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         let expandedRowIndex = this.findExpandedRowIndex(row);
-        
+                
         if(expandedRowIndex != -1) {
             this.expandedRows.splice(expandedRowIndex, 1);
             this.onRowCollapse.emit({
@@ -1806,6 +1808,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
         else {
+            if(this.rowExpandMode === 'single') {
+                this.expandedRows = [];
+            }
+            
             this.expandedRows.push(row);
             this.onRowExpand.emit({
                 originalEvent: event, 
