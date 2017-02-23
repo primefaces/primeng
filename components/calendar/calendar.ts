@@ -5,6 +5,8 @@ import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
 import {AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor} from '@angular/forms';
 
+declare var moment;
+
 export const CALENDAR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => Calendar),
@@ -221,13 +223,20 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
-    @Input() locale: LocaleSettings = {
+    @Input() locale: LocaleSettings = !moment ? {
         firstDayOfWeek: 0,
         dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
         monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
         monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
+    } : {
+        firstDayOfWeek: moment.localeData()._week.dow,
+        dayNames: moment.weekdays(),
+        dayNamesShort: moment.weekdaysShort(),
+        dayNamesMin: moment.weekdaysShort(),
+        monthNames: moment.months(),
+        monthNamesShort: moment.weekdaysShort()
     };
     
     @Input() tabindex: number;
