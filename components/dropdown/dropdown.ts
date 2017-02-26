@@ -1,6 +1,8 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChildren,
+import {NgModule,ChangeDetectionStrategy,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChildren,
         QueryList,ViewChild,TemplateRef,IterableDiffers,forwardRef,trigger,state,style,transition,animate,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {SelectItem} from '../common/api';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
@@ -14,10 +16,11 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 };
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'p-dropdown',
     template: `
          <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
-            'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focus}"
+            'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible$ | async,'ui-state-focus':focus}"
             (click)="onMouseclick($event,in)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
                 <select [required]="required" tabindex="-1">
@@ -33,14 +36,14 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="fa fa-fw fa-caret-down ui-c"></span>
             </div>
-            <div #panel [ngClass]="'ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow'" [@panelState]="panelVisible ? 'visible' : 'hidden'"
-                [style.display]="panelVisible ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
+            <div #panel [ngClass]="'ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow'" [@panelState]="(panelVisible$ | async) ? 'visible' : 'hidden'"
+                [style.display]="(panelVisible$ | async) ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
                     <span class="fa fa-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
-                    <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
+                    <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible$ | async">
                         <li *ngFor="let option of optionsToDisplay;let i=index" 
                             [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-highlight':(selectedOption == option), 
                             'ui-dropdown-item-empty':!option.label||option.label.length === 0}"
@@ -125,14 +128,19 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     optionsToDisplay: SelectItem[];
     
-    hover: boolean;
-    
     focus: boolean;
     
     differ: any;
     
-    public panelVisible: boolean = false;
+    private panelVisibleSubject = new BehaviorSubject<boolean>(false);
     
+    public panelVisible$ = this.panelVisibleSubject.asObservable();
+
+    // getter property to maintain backwards compatability
+    public get panelVisible() {
+        return this.panelVisibleSubject.value;
+    } 
+   
     public documentClickListener: any;
     
     public optionsChanged: boolean;
@@ -284,7 +292,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(!this.itemClick) {
             input.focus();
             
-            if(this.panelVisible)
+            if(this.panelVisibleSubject.value)
                 this.hide();
             else {
                 this.show(this.panel,this.container);
@@ -310,7 +318,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onEditableInputChange(event) {
         this.value = event.target.value;
-        this.updateSelectedOption(this.value);                
+        this.updateSelectedOption(this.value);
         this.onModelChange(this.value);
         this.onChange.emit({
             originalEvent: event,
@@ -320,7 +328,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     show(panel,container) {
         if(this.options && this.options.length) {
-            this.panelVisible = true;
+            this.panelVisibleSubject.next(true);
             panel.style.zIndex = ++DomHandler.zindex;
             
             if(this.appendTo)
@@ -333,7 +341,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     hide() {
-        this.panelVisible = false;
+        this.panelVisibleSubject.next(false);
     }
     
     onInputFocus(event) {
@@ -357,7 +365,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         switch(event.which) {
             //down
             case 40:
-                if(!this.panelVisible && event.altKey) {
+                if(!this.panelVisibleSubject.value && event.altKey) {
                     this.show(this.panel, this.container);
                 }
                 else {
@@ -392,7 +400,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             //space
             case 32:
-                this.panelVisible = !this.panelVisible;
+                this.panelVisibleSubject.next(!this.panelVisibleSubject.value);
                 
                 event.preventDefault();
             break;
@@ -407,7 +415,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //escape and tab
             case 27:
             case 9:
-                this.panelVisible = false;
+                this.hide();
             break;
         }
     }
@@ -470,7 +478,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
                 if(!this.selfClick&&!this.itemClick) {
-                    this.panelVisible = false;
+                    this.hide();
                     this.unbindDocumentClickListener();
                 }
                 
