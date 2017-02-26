@@ -136,7 +136,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public panelVisible$ = this.panelVisibleSubject.asObservable();
 
-    // getter property to maintain backwards compatability
     public get panelVisible() {
         return this.panelVisibleSubject.value;
     } 
@@ -292,7 +291,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(!this.itemClick) {
             input.focus();
             
-            if(this.panelVisibleSubject.value)
+            if(this.panelVisible)
                 this.hide();
             else {
                 this.show(this.panel,this.container);
@@ -365,7 +364,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         switch(event.which) {
             //down
             case 40:
-                if(!this.panelVisibleSubject.value && event.altKey) {
+                if(!this.panelVisible && event.altKey) {
                     this.show(this.panel, this.container);
                 }
                 else {
@@ -400,7 +399,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             //space
             case 32:
-                this.panelVisibleSubject.next(!this.panelVisibleSubject.value);
+                this.panelVisibleSubject.next(!this.panelVisible);
                 
                 event.preventDefault();
             break;
