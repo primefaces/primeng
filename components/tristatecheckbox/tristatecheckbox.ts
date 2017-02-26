@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -13,7 +13,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     template: `
         <div class="ui-chkbox ui-tristatechkbox ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input #input type="text" [name]="name" readonly [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
+                <input #input type="text" [name]="name" [attr.tabindex]="tabindex" readonly [disabled]="disabled" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onBlur()">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,input)"
                 [ngClass]="{'ui-state-active':value!=null,'ui-state-disabled':disabled,'ui-state-focus':focus}">
@@ -24,10 +24,14 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR]
 })
 export class TriStateCheckbox implements ControlValueAccessor  {
+    
+    constructor(private cd: ChangeDetectorRef) {}
 
     @Input() disabled: boolean;
     
     @Input() name: string;
+
+    @Input() tabindex: number;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
         
@@ -94,6 +98,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
 
     writeValue(value: any) : void {
         this.value = value;
+        this.cd.markForCheck();
     }
     
     setDisabledState(disabled: boolean): void {

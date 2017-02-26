@@ -1,7 +1,7 @@
 import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild,trigger,state,style,transition,animate} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {Header,Footer} from '../common/shared';
+import {Header,Footer,SharedModule} from '../common/shared';
 import {ButtonModule} from '../button/button';
 import {ConfirmationService,Confirmation} from '../common/api';
 import {Subscription}   from 'rxjs/Subscription';
@@ -256,7 +256,7 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
 
 @NgModule({
     imports: [CommonModule,ButtonModule],
-    exports: [ConfirmDialog,ButtonModule],
+    exports: [ConfirmDialog,ButtonModule,SharedModule],
     declarations: [ConfirmDialog]
 })
 export class ConfirmDialogModule { }

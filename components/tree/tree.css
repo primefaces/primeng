@@ -53,10 +53,8 @@
     border: 0 none;
 }
 
-.ui-tree .ui-treenode-leaf-icon {
-    width: 1em;
-    height: 1em;
-    display: inline-block;
+.ui-tree .ui-treenode.ui-treenode-leaf > .ui-treenode-content > .ui-tree-toggler {
+    visibility: hidden;
 }
 
 .ui-tree .ui-chkbox-box {
@@ -66,6 +64,10 @@
 .ui-tree .ui-chkbox {
     display: inline-block;
     vertical-align: middle;
+}
+
+.ui-tree .ui-chkbox .ui-chkbox-icon {
+    margin-left: 1px;
 }
 
 /** Fluid **/

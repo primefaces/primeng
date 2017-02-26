@@ -5,10 +5,12 @@
     position: relative;
     vertical-align: middle;
 }
+
 .ui-spinner-input {
     vertical-align: middle;
     padding-right: 1.5em;
 }
+
 .ui-spinner-button {
     cursor: default;
     display: block;
@@ -22,6 +24,7 @@
     vertical-align: middle;
     width: 1.5em;
 }
+
 .ui-spinner .fa {
     position: absolute;
     top: 50%;
@@ -30,9 +33,11 @@
     margin-left: -.5em;
     width: 1em;
 }
+
 .ui-spinner-up {
     top: 0;
 }
+
 .ui-spinner-down {
     bottom: 0;
 }
@@ -41,13 +46,16 @@
 .ui-fluid .ui-spinner {
     width: 100%;
 }
+
 .ui-fluid .ui-spinner .ui-spinner-input {
     padding-right: 2em;
     width: 100%;
 }
+
 .ui-fluid .ui-spinner .ui-spinner-button {
-    width: auto;
+    width: 1.5em;
 }
+
 .ui-fluid .ui-spinner .ui-spinner-button .fa {
-    left: .375em;
+    left: .7em;
 }

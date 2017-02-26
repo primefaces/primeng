@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -14,7 +14,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         <div class="ui-chkbox ui-widget">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [name]="name" [value]="value" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)"
-                [ngClass]="{'ui-state-focus':focused}" (change)="handleChange($event)" [disabled]="disabled">
+                [ngClass]="{'ui-state-focus':focused}" (change)="handleChange($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="onClick($event,cb,true)"
                         [ngClass]="{'ui-state-active':checked,'ui-state-disabled':disabled,'ui-state-focus':focused}">
@@ -36,6 +36,8 @@ export class Checkbox implements ControlValueAccessor {
     @Input() binary: string;
     
     @Input() label: string;
+
+    @Input() tabindex: number;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -48,6 +50,8 @@ export class Checkbox implements ControlValueAccessor {
     focused: boolean = false;
     
     checked: boolean = false;
+
+    constructor(private cd: ChangeDetectorRef) {}
 
     onClick(event,checkbox,focus:boolean) {
         event.preventDefault();
@@ -129,6 +133,7 @@ export class Checkbox implements ControlValueAccessor {
     writeValue(model: any) : void {
         this.model = model;
         this.checked = this.isChecked();
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {

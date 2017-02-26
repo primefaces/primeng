@@ -26,6 +26,7 @@ aot
 
 # misc
 .github
+.vscode
 *.log
 prod
 .editorconfig

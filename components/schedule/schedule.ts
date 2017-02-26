@@ -80,10 +80,14 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     @Input() eventConstraint: any;
     
     @Input() locale: any;
+    
+    @Input() timezone: boolean | string = false;
 
     @Input() eventRender: Function;
     
     @Input() dayRender: Function;
+    
+    @Input() options: any;
     
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
     
@@ -107,8 +111,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     
     @Output() onEventResize: EventEmitter<any> = new EventEmitter();
     
-    @Output() viewRender: EventEmitter<any> = new EventEmitter();
-    
+    @Output() onViewRender: EventEmitter<any> = new EventEmitter();
+        
     initialized: boolean;
     
     stopNgOnChangesPropagation: boolean;
@@ -117,7 +121,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     
     schedule: any;
     
-    options: any;
+    config: any;
 
     constructor(public el: ElementRef, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -125,7 +129,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
     }
     
     ngOnInit() {
-        this.options = {
+        this.config = {
             theme: true,
             header: this.header,
             isRTL: this.rtl,
@@ -139,6 +143,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
             aspectRatio: this.aspectRatio,
             eventLimit: this.eventLimit,
             defaultDate: this.defaultDate,
+            timezone: this.timezone,
             editable: this.editable,
             droppable: this.droppable,
             eventStartEditable: this.eventStartEditable,
@@ -161,9 +166,6 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
             eventConstraint: this.eventConstraint,
             eventRender: this.eventRender,
             dayRender: this.dayRender,
-            events: (start, end, timezone, callback) => {
-                callback(this.events);
-            },
             dayClick: (date, jsEvent, view) => {
                 this.onDayClick.emit({
                     'date': date,
@@ -175,6 +177,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
                 this.onDrop.emit({
                     'date': date,
                     'jsEvent': jsEvent,
+                    'ui': ui,
                     'resourceId': resourceId
                 });
             },
@@ -246,7 +249,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
                 });
             },
             viewRender: (view, element) => {
-                this.viewRender.emit({
+                this.onViewRender.emit({
                     'view': view,
                     'element': element                    
                 });
@@ -254,8 +257,14 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
         };
         
         if(this.locale) {
-            for(var prop in this.locale) {
-                this.options[prop] = this.locale[prop];
+            for(let prop in this.locale) {
+                this.config[prop] = this.locale[prop];
+            }
+        }
+        
+        if(this.options) {
+            for(let prop in this.options) {
+                this.config[prop] = this.options[prop];
             }
         }
     }
@@ -268,7 +277,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
 
     initialize() {
         this.schedule = jQuery(this.el.nativeElement.children[0]);
-        this.schedule.fullCalendar(this.options);
+        this.schedule.fullCalendar(this.config);
+        this.schedule.fullCalendar('addEventSource', this.events);
         this.initialized = true;
     }
 
@@ -276,7 +286,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
         let changes = this.differ.diff(this.events);
         
         if(this.schedule && changes) {
-            this.schedule.fullCalendar('refetchEvents');
+            this.schedule.fullCalendar('removeEventSources');
+            this.schedule.fullCalendar('addEventSource', this.events);
         }
     }
 

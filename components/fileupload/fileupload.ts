@@ -29,7 +29,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                 
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
-                        <div class="ui-fileupload-row" *ngFor="let file of files">
+                        <div class="ui-fileupload-row" *ngFor="let file of files; let i = index;">
                             <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
                             <div>{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>

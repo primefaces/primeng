@@ -2,6 +2,8 @@ import {EventEmitter,Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 
+export {DomHandler} from '../dom/domhandler';
+
 export interface SortMeta {
     field: string;
     order: number;
@@ -31,6 +33,8 @@ export interface MenuItem {
     items?: MenuItem[];
     expanded?: boolean;
     disabled?: boolean;
+    visible?: boolean;
+    target?: string;
 }
 
 export interface Message {
@@ -56,6 +60,7 @@ export interface TreeNode {
     type?: string;
     parent?: TreeNode;
     partialSelected?: boolean;
+    styleClass?: string;
 }
 
 export interface Confirmation {
@@ -76,18 +81,18 @@ export interface BlockableUI {
 
 @Injectable()
 export class ConfirmationService {
-    
+
     private requireConfirmationSource = new Subject<Confirmation>();
     private acceptConfirmationSource = new Subject<Confirmation>();
-    
+
     requireConfirmation$ = this.requireConfirmationSource.asObservable();
     accept = this.acceptConfirmationSource.asObservable();
-    
+
     confirm(confirmation: Confirmation) {
         this.requireConfirmationSource.next(confirmation);
         return this;
     }
-    
+
     onAccept() {
         this.acceptConfirmationSource.next();
     }

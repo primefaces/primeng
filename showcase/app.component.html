@@ -164,6 +164,7 @@
         <div [ngClass]="{'submenushow': (misctitle.id == activeMenuId), 'submenuhide': (misctitle.id != activeMenuId)}">
             <a [routerLink]="['/responsive']" (click)="mobileMenuActive = false">&#9679; Responsive</a>
             <a [routerLink]="['/blockui']" (click)="mobileMenuActive = false">&#9679; BlockUI</a>
+            <a [routerLink]="['/captcha']" (click)="mobileMenuActive = false">&#9679; Captcha</a>
             <a [routerLink]="['/inplace']" (click)="mobileMenuActive = false">&#9679; Inplace</a>
             <a [routerLink]="['/validation']" (click)="mobileMenuActive = false">&#9679; Validation</a>
             <a [routerLink]="['/theming']" (click)="mobileMenuActive = false">&#9679; Theming</a>
@@ -194,7 +195,6 @@
                     <span>Free Themes</span>
                     <a href="#" data-theme="omega" onclick="DemoApp.changeTheme(event, this)"><span class="ui-text">Omega</span></a>
                     <a href="#" data-theme="bootstrap" onclick="DemoApp.changeTheme(event, this)"><span class="ui-text">Bootstrap</span></a>
-                    <a href="#" data-theme="aristo" onclick="DemoApp.changeTheme(event, this)"><span class="ui-text">Aristo</span></a>
                     <a href="#" data-theme="cupertino" onclick="DemoApp.changeTheme(event, this)"><span class="ui-text">Cupertino</span></a>
                     <a href="#" data-theme="cruze" onclick="DemoApp.changeTheme(event, this)"><span class="ui-text">Cruze</span></a>
                     <a href="#" data-theme="darkness" onclick="DemoApp.changeTheme(event, this)"><span class="ui-text">Darkness</span></a>

@@ -5,6 +5,7 @@ export * from './components/autocomplete/autocomplete';
 export * from './components/blockui/blockui';
 export * from './components/breadcrumb/breadcrumb';
 export * from './components/button/button';
+export * from './components/captcha/captcha';
 export * from './components/calendar/calendar';
 export * from './components/carousel/carousel';
 export * from './components/chart/chart';

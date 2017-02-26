@@ -118,6 +118,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Property of a row data.</td>
                         </tr>
                         <tr>
+                            <td>sortField</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Property of a row data used for sorting, defaults to field.</td>
+                        </tr>
+                        <tr>
                             <td>header</td>
                             <td>string</td>
                             <td>null</td>
@@ -450,7 +456,8 @@ import &#123;Footer&#125; from 'primeng/primeng';
             <p>See the <a [routerLink]="['/datatable/paginator']">live example.</a></p>
 
             <h3>Sorting</h3>
-            <p>Simply enabling sortable property at column object is enough to make a column sortable.</p>
+            <p>Simply enabling sortable property at column object is enough to make a column sortable. The property to use when 
+            sorting is field by default and this can be customized using sortField.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-column field="vin" header="Vin" sortable="true"&gt;&lt;/p-column&gt;
@@ -583,8 +590,9 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-        <p>In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices
-        metakey is required.</p>
+        <p>In multiple mode, selection binding should be an array and multiple items can either be selected
+        using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+        devices metaKeySelection is turned off automatically.</p>
 <pre>
 <code class="language-typescript" pCode>
 export class DataTableDemo implements OnInit &#123;
@@ -794,7 +802,7 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
-            <p>In horizontal scrolling, certain rows can be fixed as well by enabling the frozen property at column level.</p>
+            <p>In horizontal scrolling, certain columns can be fixed as well by enabling the frozen property at column level.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataTable [value]="cars" [scrollable]="true" scrollHeight="200px" frozenWidth="100px" scrollWidth="600px"&gt;
@@ -805,6 +813,8 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
+
+            <p>In addition, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
 
             <p>See the <a [routerLink]="['/datatable/scroll']">live example.</a></p>
             
@@ -1019,6 +1029,12 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>Collection of rows to display as expanded.</td>
                         </tr>
                         <tr>
+                            <td>rowExpandMode</td>
+                            <td>string</td>
+                            <td>multiple</td>
+                            <td>Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single".</td>
+                        </tr>
+                        <tr>
                             <td>globalFilter</td>
                             <td>any</td>
                             <td>null</td>
@@ -1071,6 +1087,12 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>number/string</td>
                             <td>null</td>
                             <td>Width of the scroll viewport, can be pixel as a number or a percentage.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualScroll</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether the data should be loaded on demand during scroll.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -1137,6 +1159,13 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>array</td>
                             <td>null</td>
                             <td>An array of FilterMetadata objects to provide external filters.</td>
+                        </tr>
+                        <tr>
+                            <td>metaKeySelection</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+                            can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
                         </tr>
                     </tbody>
                 </table>

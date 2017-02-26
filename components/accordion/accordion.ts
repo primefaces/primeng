@@ -24,6 +24,8 @@ export class Accordion implements BlockableUI {
     
     @Input() styleClass: string;
     
+    @Input() lazy: boolean;
+    
     public tabs: AccordionTab[] = [];
 
     constructor(public el: ElementRef) {}
@@ -50,7 +52,7 @@ export class Accordion implements BlockableUI {
         </div>
         <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" 
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" role="tabpanel" [attr.aria-hidden]="!selected">
-            <div class="ui-accordion-content ui-widget-content">
+            <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
                 <ng-content></ng-content>
             </div>
         </div>
@@ -129,6 +131,10 @@ export class AccordionTab {
             }
         }
         return index;
+    }
+    
+    get lazy(): boolean {
+        return this.accordion.lazy;
     }
     
     get hasHeaderFacet(): boolean {

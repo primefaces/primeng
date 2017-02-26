@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
     selector: 'p-splitButton',
     template: `
         <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
-            <button #defaultbtn type="button" pButton [icon]="icon" [label]="label" cornerStyleClass="ui-corner-left" (click)="onDefaultButtonClick($event)" [disabled]="disabled">
+            <button #defaultbtn type="button" pButton [icon]="icon" [label]="label" cornerStyleClass="ui-corner-left" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="fa-caret-down" cornerStyleClass="ui-corner-right" (click)="onDropdownClick($event,menu,container)" [disabled]="disabled"></button>
             <div #menu [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
                     [ngStyle]="menuStyle" [class]="menuStyleClass">
@@ -49,6 +49,8 @@ export class SplitButton implements OnInit,OnDestroy {
     @Input() menuStyleClass: string;
     
     @Input() disabled: boolean;
+
+    @Input() tabindex: number;
                 
     public menuVisible: boolean = false;
     
@@ -100,7 +102,9 @@ export class SplitButton implements OnInit,OnDestroy {
     }
         
     ngOnDestroy() {
-        this.documentClickListener();
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
     }
 }
 

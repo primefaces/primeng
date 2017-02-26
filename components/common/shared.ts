@@ -1,4 +1,4 @@
-import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,ContentChild,TemplateRef,OnInit,AfterContentInit,QueryList} from '@angular/core';
+import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,ContentChild,TemplateRef,OnInit,OnDestroy,AfterContentInit,QueryList,EmbeddedViewRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
 
@@ -41,7 +41,7 @@ export class PrimeTemplate {
 @Directive({
     selector: '[pTemplateWrapper]'
 })
-export class TemplateWrapper implements OnInit {
+export class TemplateWrapper implements OnInit, OnDestroy {
     
     @Input() item: any;
     
@@ -49,14 +49,20 @@ export class TemplateWrapper implements OnInit {
     
     @Input('pTemplateWrapper') templateRef: TemplateRef<any>;
     
+    view: EmbeddedViewRef<any>;
+    
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.templateRef, {
+        this.view = this.viewContainer.createEmbeddedView(this.templateRef, {
             '\$implicit': this.item,
             'index': this.index
         });
     }
+	
+    ngOnDestroy() {
+		this.view.destroy();
+	}
 }
 
 @Component({
@@ -65,6 +71,7 @@ export class TemplateWrapper implements OnInit {
 })
 export class Column implements AfterContentInit{
     @Input() field: string;
+    @Input() sortField: string;
     @Input() header: string;
     @Input() footer: string;
     @Input() sortable: any;
@@ -153,7 +160,7 @@ export class FooterColumnGroup {
     selector: 'p-columnBodyTemplateLoader',
     template: ``
 })
-export class ColumnBodyTemplateLoader {
+export class ColumnBodyTemplateLoader implements OnInit, OnDestroy {
         
     @Input() column: any;
         
@@ -161,107 +168,143 @@ export class ColumnBodyTemplateLoader {
     
     @Input() rowIndex: number;
     
+    view: EmbeddedViewRef<any>;
+    
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.column.bodyTemplate, {
+        this.view = this.viewContainer.createEmbeddedView(this.column.bodyTemplate, {
             '\$implicit': this.column,
             'rowData': this.rowData,
             'rowIndex': this.rowIndex
         });
     }
+	
+    ngOnDestroy() {
+		this.view.destroy();
+	}
 }
 
 @Component({
     selector: 'p-columnHeaderTemplateLoader',
     template: ``
 })
-export class ColumnHeaderTemplateLoader {
+export class ColumnHeaderTemplateLoader implements OnInit, OnDestroy {
         
     @Input() column: any;
             
+    view: EmbeddedViewRef<any>;
+    
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.column.headerTemplate, {
+        this.view = this.viewContainer.createEmbeddedView(this.column.headerTemplate, {
             '\$implicit': this.column
         });
     }
+	
+    ngOnDestroy() {
+		this.view.destroy();
+	}
 }
 
 @Component({
     selector: 'p-columnFooterTemplateLoader',
     template: ``
 })
-export class ColumnFooterTemplateLoader {
+export class ColumnFooterTemplateLoader implements OnInit, OnDestroy {
         
     @Input() column: any;
-            
+    
+    view: EmbeddedViewRef<any>;
+    
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.column.footerTemplate, {
+        this.view = this.viewContainer.createEmbeddedView(this.column.footerTemplate, {
             '\$implicit': this.column
         });
     }
+	
+    ngOnDestroy() {
+		this.view.destroy();
+	}
 }
 
 @Component({
     selector: 'p-columnFilterTemplateLoader',
     template: ``
 })
-export class ColumnFilterTemplateLoader {
+export class ColumnFilterTemplateLoader implements OnInit, OnDestroy {
         
     @Input() column: any;
             
+    view: EmbeddedViewRef<any>;
+    
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.column.filterTemplate, {
+        this.view = this.viewContainer.createEmbeddedView(this.column.filterTemplate, {
             '\$implicit': this.column
         });
     }
+	
+    ngOnDestroy() {
+		this.view.destroy();
+	}
 }
 
 @Component({
     selector: 'p-columnEditorTemplateLoader',
     template: ``
 })
-export class ColumnEditorTemplateLoader {
+export class ColumnEditorTemplateLoader implements OnInit, OnDestroy {
             
     @Input() column: any;
     
     @Input() rowData: any;
             
+    view: EmbeddedViewRef<any>;
+    
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.column.editorTemplate, {
+        this.view = this.viewContainer.createEmbeddedView(this.column.editorTemplate, {
             '\$implicit': this.column,
             'rowData': this.rowData
         });
     }
+	
+    ngOnDestroy() {
+		this.view.destroy();
+	}
 }
 
 @Component({
     selector: 'p-templateLoader',
     template: ``
 })
-export class TemplateLoader {
+export class TemplateLoader implements OnInit, OnDestroy {
         
     @Input() template: TemplateRef<any>;
     
     @Input() data: any;
             
+    view: EmbeddedViewRef<any>;
+    
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
         if(this.template) {
-            let view = this.viewContainer.createEmbeddedView(this.template, {
+            this.view = this.viewContainer.createEmbeddedView(this.template, {
                 '\$implicit': this.data
             });
         }
     }
+	
+    ngOnDestroy() {
+		if (this.view) this.view.destroy();
+	}
 }
 
 @NgModule({
