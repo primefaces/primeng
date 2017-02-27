@@ -1,5 +1,7 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,IterableDiffers,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChildren,QueryList,
+    IterableDiffers,forwardRef,ViewChild,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {SelectItem} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -45,7 +47,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
-                        <li *ngFor="let option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
+                        <li *ngFor="let option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)"
                             [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':isSelected(option.value)}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
@@ -55,7 +57,11 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                                     <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
-                            <label>{{option.label}}</label>
+                            <!-- <label>{{option.label}}</label> -->
+                            <label>
+                                <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
+                                <template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></template>
+                            </label>
                         </li>
                     </ul>
                 </div>
@@ -64,7 +70,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     `,
     providers: [DomHandler,MULTISELECT_VALUE_ACCESSOR]
 })
-export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
+export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
     @Input() options: SelectItem[];
 
@@ -89,6 +95,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('panel') panelViewChild: ElementRef;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    public itemTemplate: TemplateRef<any>;
     
     public value: any[];
     
@@ -120,6 +130,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
     
     ngOnInit() {
@@ -371,8 +395,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [MultiSelect],
+    imports: [CommonModule,SharedModule],
+    exports: [MultiSelect,SharedModule],
     declarations: [MultiSelect]
 })
 export class MultiSelectModule { }
