@@ -46,7 +46,9 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     block() {
         if(this.target) {
             this.target.getBlockableElement().appendChild(this._mask);
-            this.target.style.position = 'relative';
+            let style = this.target.style||{};
+            style.position = 'relative';
+            this.target.style = style;
         }
         else {
             document.body.appendChild(this._mask);

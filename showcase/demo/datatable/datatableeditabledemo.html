@@ -50,12 +50,24 @@ export class DataTableEditableDemo implements OnInit &#123;
 
         <p-tabPanel header="datatableeditabledemo.html">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" [editable]="true"&gt;
     &lt;p-column field="vin" header="Vin" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand" [editable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand" [editable]="true" [style]="&#123;'overflow':'visible'&#125;"&gt;
+        &lt;template let-col let-car="rowData" pTemplate="editor"&gt;
+            &lt;p-dropdown [(ngModel)]="car[col.field]" [options]="brands" [autoWidth]="false" [style]="&#123;'width':'100%'&#125;" required="true"&gt;&lt;/p-dropdown&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
     &lt;p-column field="color" header="Color" [editable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="saleDate" header="Sale Date" [editable]="true" [style]=" &#123;'overflow':'visible' &#125;"&gt;
+        &lt;template let-col let-car="rowData" pTemplate="body"&gt;
+             &#123;&#123;car[col.field]|date &#125;&#125;
+        &lt;/template&gt;
+        &lt;template let-col let-car="rowData" pTemplate="editor"&gt;
+            &lt;p-calendar [(ngModel)]="car[col.field]"&gt;&lt;/p-calendar&gt;
+        &lt;/template&gt;
+    &lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>

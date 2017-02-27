@@ -46,11 +46,20 @@
     text-decoration: none;
 }
 
-.ui-treetable .ui-treetable-data tr.ui-state-highlight,
-.ui-treetable .ui-treetable-data tr.ui-state-hover,
-.ui-treetable .ui-treetable-row.ui-state-highlight,
-.ui-treetable .ui-treetable-row.ui-state-hover {
+.ui-treetable .ui-treetable-checkbox {
+    margin-right: .5em;
+}
+
+.ui-treetable .ui-treetable-checkbox .ui-chkbox-icon {
+    margin-left: 1px;
+}
+
+.ui-treetable .ui-treetable-row.ui-treetable-row-selectable {
     cursor: pointer;
+}
+
+.ui-treetable .ui-treetable-row.ui-state-highlight {
+    border: 0 none;
 }
       
 .ui-treetable tr.ui-state-hover {
@@ -73,11 +82,6 @@
 .ui-treetable .ui-treetable-row {
     display: table-row;
     border-bottom: 0 transparent
-}
-
-.ui-treetable .ui-treetable-row.ui-state-hover,
-.ui-treetable .ui-treetable-row.ui-state-highlight {
-    border: 0 none;
 }
 
 .ui-treetable tbody .ui-treetable-row td {

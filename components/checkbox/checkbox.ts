@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -50,6 +50,8 @@ export class Checkbox implements ControlValueAccessor {
     focused: boolean = false;
     
     checked: boolean = false;
+
+    constructor(private cd: ChangeDetectorRef) {}
 
     onClick(event,checkbox,focus:boolean) {
         event.preventDefault();
@@ -131,6 +133,7 @@ export class Checkbox implements ControlValueAccessor {
     writeValue(model: any) : void {
         this.model = model;
         this.checked = this.isChecked();
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {

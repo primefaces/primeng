@@ -162,7 +162,7 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     }
         
     ngOnDestroy() {
-        if(this.popup) {
+        if(this.popup && this.documentClickListener) {
             this.documentClickListener();
         }
         

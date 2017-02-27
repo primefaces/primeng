@@ -3,10 +3,16 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor} from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => Calendar),
+  multi: true
+};
+
+export const CALENDAR_VALIDATOR: any = {
+  provide: NG_VALIDATORS,
   useExisting: forwardRef(() => Calendar),
   multi: true
 };
@@ -32,7 +38,8 @@ export interface LocaleSettings {
             </template>
             <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}" 
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
-                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly">
+
+                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly && (overlayVisible || inline)">
                     <ng-content select="p-header"></ng-content>
                     <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)">
                         <span class="fa fa-angle-left"></span>
@@ -51,7 +58,7 @@ export interface LocaleSettings {
                         <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
                     </div>
                 </div>
-                <table class="ui-datepicker-calendar" *ngIf="!timeOnly">
+                <table class="ui-datepicker-calendar" *ngIf="!timeOnly && (overlayVisible || inline)">
                     <thead>
                         <tr>
                             <th scope="col" *ngFor="let weekDay of weekDays;let begin = first; let end = last">
@@ -62,9 +69,9 @@ export interface LocaleSettings {
                     <tbody>
                         <tr *ngFor="let week of dates">
                             <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
-                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':isToday(date)}">
+                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
-                                    [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':isToday(date),'ui-state-disabled':!date.selectable}"
+                                    [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today,'ui-state-disabled':!date.selectable}"
                                     (click)="onDateSelect($event,date)">{{date.day}}</a>
                             </td>
                         </tr>
@@ -146,7 +153,7 @@ export interface LocaleSettings {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
-    providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
+    providers: [DomHandler,CALENDAR_VALUE_ACCESSOR,CALENDAR_VALIDATOR]
 })
 export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
     
@@ -276,7 +283,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     _minDate: Date;
     
     _maxDate: Date;
-    
+
+    _isValid: boolean = true;
+
     @Input() get minDate(): Date {
         return this._minDate;
     }
@@ -298,7 +307,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
     ngOnInit() {
-        let today = new Date();
         let date = this.defaultDate||new Date();        
         let dayIndex = this.locale.firstDayOfWeek;
         for(let i = 0; i < 7; i++) {
@@ -362,6 +370,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let prevMonthDaysLength = this.getDaysCountInPrevMonth(month, year);
         let sundayIndex = this.getSundayIndex();
         let dayNo = 1;
+        let today = new Date();
                 
         for(let i = 0; i < 6; i++) {
             let week = [];
@@ -369,12 +378,14 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             if(i == 0) {
                 for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
-                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, selectable: this.isSelectable(j, prev.month, prev.year)});
+                    week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, 
+                            today: this.isToday(today, j, prev.month, prev.year), selectable: this.isSelectable(j, prev.month, prev.year)});
                 }
                 
                 let remainingDaysLength = 7 - week.length;
                 for(let j = 0; j < remainingDaysLength; j++) {
-                    week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                    week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year), 
+                            selectable: this.isSelectable(dayNo, month, year)});
                     dayNo++;
                 }
             }
@@ -382,11 +393,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 for (let j = 0; j < 7; j++) {
                     if(dayNo > daysLength) {
                         let next = this.getNextMonthAndYear(month, year);
-                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true, 
+                        week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true,
+                                    today: this.isToday(today, dayNo - daysLength, next.month, next.year),
                                     selectable: this.isSelectable((dayNo - daysLength), next.month, next.year)});
                     }
                     else {
-                        week.push({day: dayNo, month: month, year: year, selectable: this.isSelectable(dayNo, month, year)});
+                        week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
+                            selectable: this.isSelectable(dayNo, month, year)});
                     }
                     
                     dayNo++;
@@ -486,15 +499,21 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             this.value.setMinutes(this.currentMinute);
             this.value.setSeconds(this.currentSecond);
         }
+        this._isValid = true;
         this.updateModel();
         this.onSelect.emit(this.value);
     }
     
     updateModel() {
-        if(this.dataType == 'date')
+        if(this.dataType == 'date'){
             this.onModelChange(this.value);
-        else if(this.dataType == 'string')
-            this.onModelChange(this.formatDate(this.value, this.dateFormat));
+        }
+        else if(this.dataType == 'string') {
+            if(this.timeOnly)
+                this.onModelChange(this.formatTime(this.value));
+            else
+                this.onModelChange(this.formatDate(this.value, this.dateFormat));
+        }
     }
     
     getFirstDayOfMonthIndex(month: number, year: number) {
@@ -556,10 +575,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             return false;
     }
     
-    isToday(dateMeta): boolean {     
-        let today = new Date();
-        
-        return today.getDate() === dateMeta.day && today.getMonth() === dateMeta.month && today.getFullYear() === dateMeta.year;
+    isToday(today, day, month, year): boolean {     
+        return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
     
     isSelectable(day, month, year): boolean {
@@ -722,14 +739,16 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         event.preventDefault();
     }
     
-    onInput(event) {
+    onInput(event) {        
         try {
             this.value = this.parseValueFromString(event.target.value);
             this.updateUI();
+            this._isValid = true;
         } 
         catch(err) {
             //invalid date
             this.value = null;
+            this._isValid = false;
         }
         
         this.updateModel();
@@ -758,18 +777,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     populateTime(value, timeString, ampm) {
-        let time = this.parseTime(timeString);
+        if(this.hourFormat == '12' && !ampm) {
+            throw 'Invalid Time';
+        }
         
-        if(this.hourFormat == '12') {
-            if(!ampm)
-                throw 'Invalid Time';
-            else if(ampm.toLowerCase() === 'PM' && time.hour != 12)
-                value.setHours(time.hour + 12);
-        }
-        else {
-            value.setHours(time.hour);
-        }
-
+        this.pm = (ampm === 'PM' || ampm === 'pm');
+        let time = this.parseTime(timeString);
+        value.setHours(time.hour);
         value.setMinutes(time.minute);
         value.setSeconds(time.second);
     }
@@ -783,11 +797,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             
             if(this.hourFormat === '12') {
                 if(hours >= 12) {
-                    this.pm = true;
                     this.currentHour = (hours == 12) ? 12 : hours - 12;
                 }
                 else {
-                    this.pm = false;
                     this.currentHour = (hours == 0) ? 12 : hours;
                 }
             }
@@ -951,9 +963,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     parseTime(value) {
         let tokens: string[] = value.split(':');
-        let validTokentLength = this.showSeconds ? 3 : 2;
+        let validTokenLength = this.showSeconds ? 3 : 2;
         
-        if(tokens.length !== validTokentLength) {
+        if(tokens.length !== validTokenLength) {
             throw "Invalid time";
         }
         
@@ -965,7 +977,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             throw "Invalid time";
         }
         else {
-            if(this.hourFormat == '12' && h !== 12) {
+            if(this.hourFormat == '12' && h !== 12 && this.pm) {
                 h+= 12;
             }
             
@@ -1170,6 +1182,14 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlay);
         }
+    }
+
+    validate(c: AbstractControl) {
+        if (!this._isValid) {
+            return { invalidDate: true };
+        }
+
+        return null;
     }
 }
 

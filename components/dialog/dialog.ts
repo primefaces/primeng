@@ -18,7 +18,7 @@ import {Header,SharedModule} from '../common/shared';
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
-            <div #content class="ui-dialog-content ui-widget-content" [style.height.px]="contentHeight">
+            <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
                 <ng-content></ng-content>
             </div>
             <ng-content select="p-footer"></ng-content>
@@ -55,12 +55,14 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() width: any;
 
     @Input() height: any;
-    
-    @Input() contentHeight: any;
+        
+    @Input() contentStyle: any;
 
     @Input() modal: boolean;
 
     @Input() closeOnEscape: boolean = true;
+	
+    @Input() dismissableMask: boolean;
 
     @Input() rtl: boolean;
 
@@ -107,6 +109,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     documentResponsiveListener: Function;
     
     documentEscapeListener: Function;
+	
+    maskClickListener: Function;
     
     lastPageX: number;
     
@@ -220,8 +224,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.container.style.visibility = 'visible';
         }
         let viewport = this.domHandler.getViewport();
-        let x = (viewport.width - elementWidth) / 2;
-        let y = (viewport.height - elementHeight) / 2;
+        let x = Math.max((viewport.width - elementWidth) / 2, 0);
+        let y = Math.max((viewport.height - elementHeight) / 2, 0);
 
         this.container.style.left = x + 'px';
         this.container.style.top = y + 'px';
@@ -232,6 +236,12 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
             this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
+            
+			if(this.closable && this.dismissableMask) {
+	             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
+					this.hide(event);
+	             });
+			}
             document.body.appendChild(this.mask);
         }
     }
@@ -247,7 +257,15 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.onBeforeHide.emit(event);
         this.visibleChange.emit(false);
         this.onAfterHide.emit(event);
+        this.unbindMaskClickListener();
         event.preventDefault();
+    }
+    
+    unbindMaskClickListener() {
+        if(this.maskClickListener) {
+            this.maskClickListener();
+            this.maskClickListener = null;
+		}
     }
     
     moveOnTop() {
@@ -334,6 +352,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.container);
         }
+		
+		this.unbindMaskClickListener();
     }
 
 }

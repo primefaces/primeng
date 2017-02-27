@@ -10,9 +10,10 @@
 }
 
 .ui-autocomplete .ui-autocomplete-dropdown {
-    position: absolute;
     height: 100%;
     width: 2em;
+    margin-right: 0;
+    vertical-align: top;
 }
 
 .ui-autocomplete-query {
@@ -43,6 +44,10 @@
 }
 
 /* Multiple Selection */
+.ui-autocomplete-multiple-container {
+    display: inline-block;
+}
+
 .ui-autocomplete-multiple-container.ui-inputtext {
     clear: left;
     cursor: text;
@@ -99,7 +104,8 @@
     border-radius: 0;
 }
 
-.ui-autocomplete-dd input.ui-corner-all {
+.ui-autocomplete-dd input.ui-corner-all ,
+.ui-autocomplete-dd .ui-autocomplete-multiple-container.ui-corner-all {
      -moz-border-radius-topright: 0px; 
      -webkit-border-top-right-radius: 0px;
      border-top-right-radius: 0px;
@@ -121,6 +127,11 @@
 .ui-fluid .ui-autocomplete,
 .ui-fluid .ui-autocomplete-input {
     width: 100%;
+}
+
+.ui-fluid .ui-autocomplete.ui-autocomplete-dd .ui-autocomplete-input,
+.ui-fluid .ui-autocomplete.ui-autocomplete-dd .ui-autocomplete-multiple-container {
+    width: calc(100% - 2em);
 }
 
 .ui-fluid .ui-autocomplete .ui-autocomplete-dropdown.ui-button {

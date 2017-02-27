@@ -13,7 +13,8 @@
 }
 
 .ui-growl-item {
-	display:block;
+    position: relative;
+	display: block;
 	padding: .5em 1em;
 }
 
@@ -36,17 +37,16 @@
 }
 
 .ui-growl-image {
+    position: absolute;
     display: inline-block;
-    vertical-align: top;
-    margin-left: .25em;
-    margin-right: .5em;
+    left: .5em;
+    top: .25em;
     padding: 0;
 }
 
 .ui-growl-message {
 	padding: 0 0 .25em 0;
-    display: inline-block;
-    vertical-align: top;
+    margin-left: 2.5em;
 }
 
 .ui-growl-message p {

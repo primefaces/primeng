@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -24,6 +24,8 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR]
 })
 export class TriStateCheckbox implements ControlValueAccessor  {
+    
+    constructor(private cd: ChangeDetectorRef) {}
 
     @Input() disabled: boolean;
     
@@ -96,6 +98,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
 
     writeValue(value: any) : void {
         this.value = value;
+        this.cd.markForCheck();
     }
     
     setDisabledState(disabled: boolean): void {

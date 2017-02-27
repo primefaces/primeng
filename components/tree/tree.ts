@@ -1,4 +1,5 @@
-import {NgModule,Component,Input,AfterContentInit,Output,EventEmitter,OnInit,ViewContainerRef,ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
+import {NgModule,Component,Input,AfterContentInit,Output,EventEmitter,OnInit,OnDestroy,EmbeddedViewRef,ViewContainerRef,ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
 import {SharedModule} from '../common/shared';
@@ -8,18 +9,24 @@ import {PrimeTemplate} from '../common/shared';
     selector: 'p-treeNodeTemplateLoader',
     template: ``
 })
-export class TreeNodeTemplateLoader implements OnInit {
+export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
         
     @Input() node: any;
     
     @Input() template: TemplateRef<any>;
+    
+    view: EmbeddedViewRef<any>;
         
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.template, {
+        this.view = this.viewContainer.createEmbeddedView(this.template, {
             '\$implicit': this.node
         });
+    }
+    
+    ngOnDestroy() {
+        this.view.destroy();
     }
 }
 
@@ -27,12 +34,11 @@ export class TreeNodeTemplateLoader implements OnInit {
     selector: 'p-treeNode',
     template: `
         <template [ngIf]="node">
-            <li class="ui-treenode" *ngIf="!tree.horizontal">
-                <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
+            <li class="ui-treenode {{node.styleClass}}" *ngIf="!tree.horizontal" [ngClass]="{'ui-treenode-leaf': isLeaf()}">
+                <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode}">
-                    <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}" *ngIf="!isLeaf()"
+                    <span class="ui-tree-toggler  fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
-                    ><span class="ui-treenode-leaf-icon" *ngIf="isLeaf()"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
                         <span class="ui-chkbox-icon ui-c fa" 
                             [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
@@ -66,7 +72,8 @@ export class TreeNodeTemplateLoader implements OnInit {
                         </td>
                         <td class="ui-treenode" [ngClass]="{'ui-treenode-collapsed':!node.expanded}">
                             <div class="ui-treenode-content ui-state-default ui-corner-all" 
-                                [ngClass]="{'ui-state-highlight':isSelected()}" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)">
+                                [ngClass]="{'ui-treenode-selectable':tree.selectionMode,'ui-state-highlight':isSelected()}" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)"
+                                (touchend)="onNodeTouchEnd()">
                                 <span class="ui-tree-toggler fa fa-fw" [ngClass]="{'fa-plus':!node.expanded,'fa-minus':node.expanded}" *ngIf="!isLeaf()"
                                         (click)="toggle($event)"></span
                                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
@@ -90,7 +97,7 @@ export class TreeNodeTemplateLoader implements OnInit {
         </template>
     `
 })
-export class UITreeNode {
+export class UITreeNode implements OnInit {
 
     static ICON_CLASS: string = 'ui-treenode-icon fa fa-fw';
 
@@ -136,6 +143,10 @@ export class UITreeNode {
     
     onNodeClick(event: MouseEvent) {
         this.tree.onNodeClick(event, this.node);
+    }
+    
+    onNodeTouchEnd() {
+        this.tree.onNodeTouchEnd();
     }
     
     onNodeRightClick(event: MouseEvent) {
@@ -190,9 +201,13 @@ export class Tree implements AfterContentInit {
     
     @Input() layout: string = 'vertical';
     
+    @Input() metaKeySelection: boolean = true;
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public templateMap: any;
+    
+    public nodeTouched: boolean;
     
     get horizontal(): boolean {
         return this.layout == 'horizontal';
@@ -215,7 +230,6 @@ export class Tree implements AfterContentInit {
             return;
         }
         else {
-            let metaKey = (event.metaKey||event.ctrlKey);
             let index = this.findIndexInSelection(node);
             let selected = (index >= 0);
                    
@@ -238,31 +252,68 @@ export class Tree implements AfterContentInit {
                 }
             }
             else {
-                if(selected && metaKey) {
-                    if(this.isSingleSelectionMode()) {
-                        this.selectionChange.emit(null);
+                let metaSelection = this.nodeTouched ? false : this.metaKeySelection;
+                
+                if(metaSelection) {
+                    let metaKey = (event.metaKey||event.ctrlKey);
+                    
+                    if(selected && metaKey) {
+                        if(this.isSingleSelectionMode()) {
+                            this.selectionChange.emit(null);
+                        }
+                        else {
+                            this.selection.splice(index,1);
+                            this.selectionChange.emit(this.selection);
+                        }
+
+                        this.onNodeUnselect.emit({originalEvent: event, node: node});
                     }
                     else {
-                        this.selection.splice(index,1);
-                        this.selectionChange.emit(this.selection);
-                    }
+                        if(this.isSingleSelectionMode()) {
+                            this.selectionChange.emit(node);
+                        }
+                        else if(this.isMultipleSelectionMode()) {
+                            this.selection = (!metaKey) ? [] : this.selection||[];
+                            this.selection.push(node);
+                            this.selectionChange.emit(this.selection);
+                        }
 
-                    this.onNodeUnselect.emit({originalEvent: event, node: node});
+                        this.onNodeSelect.emit({originalEvent: event, node: node});
+                    }
                 }
                 else {
                     if(this.isSingleSelectionMode()) {
-                        this.selectionChange.emit(node);
+                        if(selected) {
+                            this.selection = null;
+                            this.onNodeUnselect.emit({originalEvent: event, node: node});
+                        }
+                        else {
+                            this.selection = node;
+                            this.onNodeSelect.emit({originalEvent: event, node: node});
+                        }
                     }
-                    else if(this.isMultipleSelectionMode()) {
-                        this.selection = (!metaKey) ? [] : this.selection||[];
-                        this.selection.push(node);
-                        this.selectionChange.emit(this.selection);
+                    else {
+                        if(selected) {
+                            this.selection.splice(index,1);
+                            this.onNodeUnselect.emit({originalEvent: event, node: node});
+                        }
+                        else {
+                            this.selection = this.selection||[];
+                            this.selection.push(node);
+                            this.onNodeSelect.emit({originalEvent: event, node: node});
+                        }
                     }
-
-                    this.onNodeSelect.emit({originalEvent: event, node: node});
+                    
+                    this.selectionChange.emit(this.selection);
                 }
             }
         }
+        
+        this.nodeTouched = false;
+    }
+    
+    onNodeTouchEnd() {
+        this.nodeTouched = true;
     }
     
     onNodeRightClick(event: MouseEvent, node: TreeNode) {

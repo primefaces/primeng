@@ -65,16 +65,20 @@
     filter:Alpha(Opacity=50); 
 }
 
+.ui-widget-header .ui-state-default,
+.ui-widget-content .ui-state-default,
 .ui-state-default { 
     border: $stateDefaultBorderWidth solid $stateDefaultBorderColor; 
     background: $stateDefaultBgColor; 
     color: $stateDefaultTextColor;
     
     a {
-        color: $stateDefaultTextColor;
+        color: $stateDefaultTextColor ;
     }
 }
 
+.ui-widget-header .ui-state-active,
+.ui-widget-content .ui-state-active,
 .ui-state-active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
@@ -85,6 +89,8 @@
     }
 }
 
+.ui-widget-header .ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
 .ui-state-highlight  {
     border-color: $stateHighlightBorderColor;
     background: $stateHighlightBgColor;
@@ -95,6 +101,8 @@
     }
 }
 
+.ui-widget-header .ui-state-focus,
+.ui-widget-content .ui-state-focus,
 .ui-state-focus {
     border-color: $stateFocusBorderColor;
     background: $stateFocusBgColor;
@@ -105,6 +113,8 @@
     }
 }
 
+.ui-widget-header .ui-state-error,
+.ui-widget-content .ui-state-error,
 .ui-state-error {
     border-color: $stateErrorBorderColor;
     background: $stateErrorBgColor;
@@ -133,8 +143,7 @@
     color: $inputTextColor;
 }
 
-.ui-inputtext:enabled:hover,
-.ui-inputtext:not(.ui-state-disabled):hover {
+.ui-inputtext:enabled:hover {
     border-color: $stateHoverBorderColor;
 }
 
@@ -145,6 +154,30 @@
     -moz-box-shadow: 0px 0px 5px $stateFocusBorderColor;
     -webkit-box-shadow: 0px 0px 5px $stateFocusBorderColor;
     box-shadow: 0px 0px 5px $stateFocusBorderColor;
+}
+
+.ui-autocomplete {
+    .ui-autocomplete-multiple-container:not(.ui-state-disabled) {
+        &:hover {
+            border-color: $stateHoverBorderColor;
+        }
+        
+        &.ui-state-focus {
+            border-color: $stateFocusBorderColor;
+        }
+    }
+}
+
+.ui-chips {
+    > ul:not(.ui-state-disabled) {
+        &:hover {
+            border-color: $stateHoverBorderColor;
+        }
+        
+        &.ui-state-focus {
+            border-color: $stateFocusBorderColor;
+        }
+    }
 }
 
 .ui-button:focus,
@@ -205,11 +238,11 @@
     color: $inputTextColor;
 }
 
-.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:hover {
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:hover {
     @include hover-element();
 }
 
-.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:active {
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
     color: $stateActiveTextColor;
@@ -266,6 +299,19 @@
     .ui-treenode-content.ui-treenode-selectable {
         .ui-treenode-label:not(.ui-state-highlight):hover {
             @include hover-element();
+        }
+    }
+    
+    &.ui-tree-horizontal {
+        .ui-treenode-content.ui-treenode-selectable {
+            .ui-treenode-label:not(.ui-state-highlight):hover {
+                background-color: inherit;
+                color: inherit;
+            }
+            
+            &:not(.ui-state-highlight):hover {
+                @include hover-element();
+            }
         }
     }
 }
@@ -441,10 +487,6 @@
 .ui-rating {
     a {
         color: $inputTextColor;
-        
-        &:hover {
-            color: $stateHoverTextColor;
-        }
     }
 }
 
@@ -453,6 +495,7 @@
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
 p-calendar.ng-dirty.ng-invalid > .ui-inputtext,
+p-chips.ng-dirty.ng-invalid > .ui-inputtext,
 p-inputmask.ng-dirty.ng-invalid > .ui-inputtext,
 p-checkbox.ng-dirty.ng-invalid .ui-chkbox-box,
 p-radiobutton.ng-dirty.ng-invalid .ui-radiobutton-box,

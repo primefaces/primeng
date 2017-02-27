@@ -136,37 +136,17 @@ $invalidInputBorderColor: #f44336;
 }
 
 /* Spinner */
-.ui-spinner-button {
-    &.ui-button {
-        font-size: 1em;
-    }
-}
-.ui-fluid {
-    .ui-spinner {
-        .ui-spinner-button {
-            &.ui-button {
-                width: 1.5em;
-            }
-            span {
-                &.fa {
-                    left: .7em;
-                }
-            }
-        }
-    }
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:hover {
+    border: 1px solid #1f89ce;
+    background: #1f89ce;
+    outline: 0 none;
+    color: #ffffff;
 }
 
-/* AutoComplete */
-.ui-fluid {
-    .ui-autocomplete {
-        &.ui-autocomplete-dd {
-            .ui-autocomplete-input {
-                &.ui-inputtext {
-                    width: calc(100% - 2em);
-                }
-            }
-        }
-    }
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
+    border: 1px solid #156090;
+    background: #186ba0;
+    color: #ffffff,
 }
 
 .ui-slider { position: relative; text-align: left; background: #838688; border: none; -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset; -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset; box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset;}
@@ -195,6 +175,8 @@ $invalidInputBorderColor: #f44336;
 	color: #222222;
 }
 
+.ui-widget-header .ui-button,
+.ui-widget-content .ui-button,
 .ui-button {
 	border: 1px solid #2399e5;
 	color: #FFFFFF;
@@ -208,14 +190,7 @@ $invalidInputBorderColor: #f44336;
         border: 1px solid #1f89ce;
     	background: #1f89ce;
     	outline: 0 none;
-        color: #ffffff,
-    }
-    
-    &:enabled:hover,
-    &:focus {
-        border: 1px solid #1f89ce;
-        background: #1f89ce;
-        outline: 0 none;
+        color: #ffffff;
     }
     
     &:enabled:active {
@@ -253,6 +228,7 @@ $invalidInputBorderColor: #f44336;
     transition: .2s;
 }
 
+.ui-inputtext.ui-state-focus,
 .ui-inputtext:focus {
 	-moz-box-shadow: 0px 0px 5px #1f89ce;
 	-webkit-box-shadow: 0px 0px 5px #1f89ce;
