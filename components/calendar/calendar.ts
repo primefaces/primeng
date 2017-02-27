@@ -68,7 +68,7 @@ export interface LocaleSettings {
                     </thead>
                     <tbody>
                         <tr *ngFor="let week of dates">
-                            <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
+                            <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth && !selectOtherMonths,
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today,'ui-state-disabled':!date.selectable}"
@@ -379,7 +379,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 for(let j = (prevMonthDaysLength - firstDay + 1); j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
                     week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, 
-                            today: this.isToday(today, j, prev.month, prev.year), selectable: this.isSelectable(j, prev.month, prev.year)});
+                            today: this.isToday(today, j, prev.month, prev.year), 
+                            selectable: this.selectOtherMonths && this.isSelectable(j, prev.month, prev.year)});
                 }
                 
                 let remainingDaysLength = 7 - week.length;
@@ -395,7 +396,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                         let next = this.getNextMonthAndYear(month, year);
                         week.push({day: dayNo - daysLength, month: next.month, year: next.year, otherMonth:true,
                                     today: this.isToday(today, dayNo - daysLength, next.month, next.year),
-                                    selectable: this.isSelectable((dayNo - daysLength), next.month, next.year)});
+                                    selectable: this.selectOtherMonths && this.isSelectable((dayNo - daysLength), next.month, next.year)});
                     }
                     else {
                         week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year),
@@ -559,6 +560,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         else {
             m = month + 1;
+            y = year;
         }
         
         return {'month':m,'year':y};
