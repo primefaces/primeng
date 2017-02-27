@@ -5,7 +5,7 @@ import {BlockableUI} from '../common/api';
 @Component({
     selector: 'p-fieldset',
     template: `
-        <fieldset [ngClass]="{'ui-fieldset ui-widget ui-widget-content ui-corner-all': true, 'ui-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass">
+        <fieldset [ngClass]="{'ui-fieldset ui-widget ui-widget-content ui-corner-all': true, 'ui-fieldset-toggleable': toggleable}" [ngStyle]="style" [class]="styleClass" [disabled]="disabled">
             <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text" (click)="toggle($event)">
                 <span *ngIf="toggleable" class="ui-fieldset-toggler fa fa-w" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
                 {{legend}}
@@ -36,6 +36,8 @@ export class Fieldset implements BlockableUI {
     @Input() legend: string;
 
     @Input() toggleable: boolean;
+
+    @Input() disabled: boolean;
 
     @Input() collapsed: boolean = false;
 
