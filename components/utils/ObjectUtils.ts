@@ -12,18 +12,21 @@ export class ObjectUtils {
         }
 
         if (obj1 == obj2) {
+            delete obj1._$visited;
             return true;
         }
 
         if (typeof obj1 == 'object' && typeof obj2 == 'object') {
+            obj1._$visited = true;
             for (var p in obj1) {
+                if (p === "_$visited") continue;
                 if (obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) {
                     return false;
                 }
 
                 switch (typeof (obj1[p])) {
                     case 'object':
-                        if (obj1[p] && !this.equals(obj1[p], obj2[p])) return false;
+                        if (obj1[p] && obj1[p]._$visited || !this.equals(obj1[p], obj2[p])) return false;
                         break;
 
                     case 'function':
@@ -40,6 +43,7 @@ export class ObjectUtils {
                 if (typeof (obj1[p]) == 'undefined') return false;
             }
 
+            delete obj1._$visited;
             return true;
         }
 
