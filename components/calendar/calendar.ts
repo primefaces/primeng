@@ -293,6 +293,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     set minDate(date: Date) {
         this._minDate = date;
         this.createMonth(this.currentMonth, this.currentYear);
+        if (this.value < date) this.updateDate(date);
     }
     
     @Input() get maxDate(): Date {
@@ -302,6 +303,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     set maxDate(date: Date) {
         this._maxDate = date;
         this.createMonth(this.currentMonth, this.currentYear);
+        if (this.value > date) this.updateDate(date);
+    }
+    
+    updateDate(date: Date) {
+        let dateMeta = {day: date.getDate(), month: date.getMonth(), year: date.getFullYear()};
+        this.selectDate(dateMeta);
+        this.updateInputfield();
     }
 
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
