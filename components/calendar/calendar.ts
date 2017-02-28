@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,trigger,state,style,transition,animate,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,trigger,state,style,transition,animate,ViewChild,OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -155,7 +155,7 @@ export interface LocaleSettings {
     },
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR,CALENDAR_VALIDATOR]
 })
-export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
+export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor,OnChanges {
     
     @Input() defaultDate: Date;
     
@@ -358,6 +358,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             else
                 this.domHandler.appendChild(this.overlay, this.appendTo);
         }
+    }
+    
+    ngOnChanges(changes) {
+        if (changes.dateFormat) this.updateInputfield();
     }
     
     createMonth(month: number, year: number) {
