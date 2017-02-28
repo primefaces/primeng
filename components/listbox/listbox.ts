@@ -125,6 +125,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
 
     onOptionClick(event, option) {
+        if(this.disabled) {
+            return;
+        }
+        
         if(!this.checkboxClick) {
             if (this.multiple)
                 this.onOptionClickMultiple(event, option);
@@ -139,6 +143,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
     
     onOptionTouchEnd(event, option) {
+        if(this.disabled) {
+            return;
+        }
+        
         this.optionTouched = true;
     }
 
@@ -321,6 +329,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
 
     onDoubleClick(event: Event, option: SelectItem): any {
+        if(this.disabled) {
+            return;
+        }
+        
         this.onDblClick.emit({
             originalEvent: event,
             value: this.value

@@ -419,7 +419,7 @@ body .ui-listbox .ui-listbox-item {
 body .ui-listbox .ui-listbox-item:last-child {
     border-bottom: none;
 }
-body .ui-listbox .ui-listbox-item:hover {
+body .ui-listbox:not(.ui-state-disabled) .ui-listbox-item:hover {
     background-color: #f4f3f4;
     color: #373a3c;
 }
