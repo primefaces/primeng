@@ -687,7 +687,7 @@ export class ScheduleDemo implements OnInit &#123;
         &#125;
         //new
         else &#123;
-            this.event.id = this.idGen;
+            this.event.id = this.idGen++;
             this.events.push(this.event);
             this.event = null;
         &#125;
