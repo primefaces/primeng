@@ -21,20 +21,21 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <div class="ui-helper-hidden-accessible">
                         <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                     </div>
-                    <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="toggleAll($event,cb)">
+                    <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="!disabled && toggleAll($event,cb)">
                         <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
                     </div>
                 </div>
                 <div class="ui-listbox-filter-container" *ngIf="filter">
-                    <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all">
+                    <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [readonly]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
             </div>
             <ul class="ui-listbox-list">
                 <li *ngFor="let option of options" [style.display]="isItemVisible(option) ? 'block' : 'none'"
                     [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
-                    (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
-                    <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
+                    (click)="!disabled && onOptionClick($event,option)" (dblclick)="!disabled && onDoubleClick($event,option)" 
+                    (touchend)="!disabled && onOptionTouchEnd($event,option)">
+                    <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="!disabled && onCheckboxClick($event,option)">
                         <div class="ui-helper-hidden-accessible">
                             <input type="checkbox" [checked]="isSelected(option)">
                         </div>
