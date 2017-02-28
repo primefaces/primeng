@@ -58,6 +58,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     @Input() thousandSeparator: string = ',';
 
     @Input() tabindex: number;
+    
+    @Input() formatInput: boolean = true;
             
     value: number;
     
@@ -204,7 +206,11 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     parseValue(val: string): number {
         let value: number;
-        val = val.split(this.thousandSeparator).join('');
+        
+        if(this.formatInput) {
+            val = val.split(this.thousandSeparator).join('');
+        }
+        
         if(val.trim() === '') {
             value= this.min !== undefined ? this.min : null;
         }
@@ -236,7 +242,10 @@ export class Spinner implements OnInit,ControlValueAccessor {
     formatValue(): void {
         if(this.value !== null && this.value !== undefined) {
             let textValue = String(this.value).replace('.', this.decimalSeparator);
-            textValue = textValue.replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
+            
+            if (this.formatInput) {
+                textValue = textValue.replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
+            }
             this.valueAsString = textValue;
         }
         else {
