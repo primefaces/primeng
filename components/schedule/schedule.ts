@@ -217,6 +217,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 });
             },
             eventDrop: (event, delta, revertFunc, jsEvent, ui, view) => {
+                this.updateEvent(event);
+                
                 this.onEventDrop.emit({
                     'event': event,
                     'delta': delta,
@@ -240,6 +242,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 });
             },
             eventResize: (event, delta, revertFunc, jsEvent, ui, view) => {
+                this.updateEvent(event);
+                
                 this.onEventResize.emit({
                     'event': event,
                     'delta': delta,
@@ -342,7 +346,29 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     getDate() {
         return this.schedule.fullCalendar('getDate');
     }
-
+    
+    findEvent(id: string) {
+        let event;
+        if(this.events) {
+            for(let e of this.events) {
+                if(e.id === id) {
+                    event = e;
+                    break;
+                }
+            }
+        }
+        return event;
+    }
+    
+    updateEvent(event: any) {
+        let sourceEvent = this.findEvent(event.id);
+        if(sourceEvent) {
+            sourceEvent.start = event.start.format();
+            if(event.end) {
+                sourceEvent.end = event.end.format();
+            }    
+        }
+    }
 }
 
 @NgModule({
