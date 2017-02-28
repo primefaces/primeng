@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,OnInit,AfterViewChecked} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,OnInit,OnChanges,AfterViewChecked,SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var jQuery: any;
@@ -7,7 +7,7 @@ declare var jQuery: any;
     selector: 'p-schedule',
     template: '<div [ngStyle]="style" [class]="styleClass"></div>'
 })
-export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
+export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChecked {
     
     @Input() events: any[];
     
@@ -280,6 +280,16 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,AfterViewChecked {
         this.schedule.fullCalendar(this.config);
         this.schedule.fullCalendar('addEventSource', this.events);
         this.initialized = true;
+    }
+     
+    ngOnChanges(changes: SimpleChanges) {
+        if (this.schedule) {
+            let options = {};
+            for (let change in changes) {
+                options[change] = changes[change].currentValue;
+            }
+            this.schedule.fullCalendar('option', options);
+        }
     }
 
     ngDoCheck() {
