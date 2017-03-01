@@ -96,6 +96,10 @@
 }
 
 /** Menubar **/
+.ui-menu.ui-menubar .ui-menubar-root-list > li > a > .ui-submenu-icon {
+    float: none;
+}
+
 .ui-menubar {
     width:auto;
 }

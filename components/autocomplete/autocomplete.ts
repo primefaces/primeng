@@ -18,7 +18,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in pInputText type="text" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off"
-            [value]="value ? (field ? objectUtils.resolveFieldData(value,field)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onInputBlur($event)"
+            [value]="value ? (field ? objectUtils.resolveFieldData(value,field)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled"
             [ngClass]="{'ui-autocomplete-input':true,'ui-autocomplete-dd-input':dropdown}"
             ><ul *ngIf="multiple" class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
@@ -28,7 +28,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <template *ngIf="selectedItemTemplate" [pTemplateWrapper]="selectedItemTemplate" [item]="val"></template>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn type="text" [disabled]="disabled" pInputText [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onFocus()" (blur)="onInputBlur($event)" autocomplete="off">
+                    <input #multiIn type="text" [disabled]="disabled" pInputText [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off">
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
@@ -83,6 +83,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
     @Output() onUnselect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
 
@@ -393,8 +395,9 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         }
     }
     
-    onFocus() {
+    onInputFocus(event) {
         this.focus = true;
+        this.onFocus.emit(event);
     }
     
     onInputBlur(event) {

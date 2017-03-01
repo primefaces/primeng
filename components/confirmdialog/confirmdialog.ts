@@ -77,6 +77,8 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     @Input() responsive: boolean = true;
     
     @Input() appendTo: any;
+    
+    @Input() key: string;
         
     @ContentChild(Footer) footer;
     
@@ -99,24 +101,26 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     constructor(public el: ElementRef, public domHandler: DomHandler, 
             public renderer: Renderer, private confirmationService: ConfirmationService) {
         this.subscription = confirmationService.requireConfirmation$.subscribe(confirmation => {
-            this.confirmation = confirmation;
-            this.message = this.confirmation.message||this.message;
-            this.icon = this.confirmation.icon||this.icon;
-            this.header = this.confirmation.header||this.header;
-            this.rejectVisible = this.confirmation.rejectVisible == null ? this.rejectVisible : this.confirmation.rejectVisible;
-            this.acceptVisible = this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible;
-            
-            if(this.confirmation.accept) {
-                this.confirmation.acceptEvent = new EventEmitter();
-                this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
-            }
-            
-            if(this.confirmation.reject) {
-                this.confirmation.rejectEvent = new EventEmitter();
-                this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
-            }
+            if(confirmation.key === this.key) {
+                this.confirmation = confirmation;
+                this.message = this.confirmation.message||this.message;
+                this.icon = this.confirmation.icon||this.icon;
+                this.header = this.confirmation.header||this.header;
+                this.rejectVisible = this.confirmation.rejectVisible == null ? this.rejectVisible : this.confirmation.rejectVisible;
+                this.acceptVisible = this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible;
+                
+                if(this.confirmation.accept) {
+                    this.confirmation.acceptEvent = new EventEmitter();
+                    this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
+                }
+                
+                if(this.confirmation.reject) {
+                    this.confirmation.rejectEvent = new EventEmitter();
+                    this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
+                }
 
-            this.visible = true;
+                this.visible = true;
+            }
         });         
     }
     

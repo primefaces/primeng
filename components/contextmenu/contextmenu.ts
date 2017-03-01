@@ -165,9 +165,9 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         
         if(this.appendTo) {
             if(this.appendTo === 'body')
-                document.body.appendChild(this.el.nativeElement);
+                document.body.appendChild(this.container);
             else
-                this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
+                this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
         
