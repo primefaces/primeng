@@ -28,7 +28,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 <input #in type="text" readonly (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
-            <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [value]="label" [disabled]="disabled"
+            <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [value]="editableLabel" [disabled]="disabled" [attr.placeholder]="placeholder"
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="fa fa-fw fa-caret-down ui-c"></span>
@@ -96,6 +96,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() appendTo: any;
 
     @Input() tabindex: number;
+    
+    @Input() placeholder: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -203,7 +205,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     get label(): string {
-        return (this.editable && this.value) ? this.value : (this.selectedOption ? this.selectedOption.label : null);
+        return (this.selectedOption ? this.selectedOption.label : this.placeholder);
+    }
+    
+    get editableLabel(): string {
+        return this.value || (this.selectedOption ? this.selectedOption.label : null);
     }
     
     onItemClick(event, option) {
@@ -247,7 +253,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     updateSelectedOption(val: any): void {
         this.selectedOption = this.findOption(val, this.optionsToDisplay);
-        if(!this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
+        if(!this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
             this.selectedOption = this.optionsToDisplay[0];
         }
         this.selectedOptionUpdated = true;
