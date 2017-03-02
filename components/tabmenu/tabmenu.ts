@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 
 @Component({
     selector: 'p-tabMenu',
@@ -12,7 +12,8 @@ import {Router} from '@angular/router';
             <ul class="ui-tabmenu-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
                 <li *ngFor="let item of model" 
                     [ngClass]="{'ui-tabmenuitem ui-state-default ui-corner-top':true,'ui-state-disabled':item.disabled,
-                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item}">
+                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item}" [routerLink]="item.routerLink || []"
+                        [routerLinkActive]="item.routerLink ? 'ui-state-active' : ''" [routerLinkActiveOptions]="{exact:true}">
                     <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
@@ -95,7 +96,7 @@ export class TabMenu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, RouterModule],
     exports: [TabMenu],
     declarations: [TabMenu]
 })
