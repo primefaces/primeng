@@ -17,7 +17,8 @@ import &#123;ChartModule&#125; from 'primeng/primeng';
 </pre>
 
     <h3 style="margin-top:0px">Change Detection</h3>
-    <p>Due to complexity of charts.js, change detection is not available and when the data changes, you need to call refresh() method manually.</p>
+    <p>Due to complexity of charts.js, change detection is not available and when the data changes, you need to call refresh() method manually. 
+    If you also change the chart type along with the data, use reinit() instead.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-chart #chart type="pie" [data]="data"&gt;&lt;/p-chart&gt;
@@ -100,7 +101,12 @@ update(chart: UIChart) &#123;
             <tr>
                 <td>refresh</td>
                 <td>-</td>
-                <td>Redraws the graph.</td>
+                <td>Redraws the graph with new data.</td>
+            </tr>
+            <tr>
+                <td>reinit</td>
+                <td>-</td>
+                <td>Destroys the graph first and then creates it again.</td>
             </tr>
         </tbody>
     </table>

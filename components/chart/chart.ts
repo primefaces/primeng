@@ -72,6 +72,13 @@ export class UIChart implements AfterViewInit, OnDestroy {
         }
     }
     
+    reinit() {
+        if(this.chart) {
+            this.chart.destroy();
+            this.initChart();
+        }
+    }
+    
     ngOnDestroy() {
         if(this.chart) {
             this.chart.destroy();
