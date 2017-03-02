@@ -10,10 +10,10 @@ import {DomHandler} from '../dom/domhandler';
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true,'ui-picklist-responsive': responsive}">
             <div class="ui-picklist-source-controls ui-picklist-buttons" *ngIf="showSourceControls">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(sourcelist,source,selectedItemsSource)"></button>
-                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(sourcelist,source,selectedItemsSource)"></button>
-                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(sourcelist,source,selectedItemsSource)"></button>
-                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(sourcelist,source,selectedItemsSource)"></button>
+                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
@@ -44,10 +44,10 @@ import {DomHandler} from '../dom/domhandler';
             </div>
             <div class="ui-picklist-target-controls ui-picklist-buttons" *ngIf="showTargetControls">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(targetlist,target,selectedItemsTarget)"></button>
-                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(targetlist,target,selectedItemsTarget)"></button>
-                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(targetlist,target,selectedItemsTarget)"></button>
-                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(targetlist,target,selectedItemsTarget)"></button>
+                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
                 </div>
             </div>
         </div>
@@ -83,6 +83,10 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
     
     @Output() onMoveToTarget: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onSourceReorder: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onTargetReorder: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -166,7 +170,7 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
         this.itemTouched = true;
     }
 
-    moveUp(listElement, list, selectedItems) {
+    moveUp(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
             for(let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
@@ -185,10 +189,11 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             
             this.movedUp = true;
             this.reorderedListElement = listElement;
+            callback.emit({items: selectedItems});
         }
     }
 
-    moveTop(listElement, list, selectedItems) {
+    moveTop(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
             for(let i = 0; i < selectedItems.length; i++) {
                 let selectedItem = selectedItems[i];
@@ -204,10 +209,11 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             }
             
             listElement.scrollTop = 0;
+            callback.emit({items: selectedItems});
         }
     }
 
-    moveDown(listElement, list, selectedItems) {
+    moveDown(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
             for(let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
@@ -226,10 +232,11 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             
             this.movedDown = true;
             this.reorderedListElement = listElement;
+            callback.emit({items: selectedItems});
         }
     }
 
-    moveBottom(listElement, list, selectedItems) {
+    moveBottom(listElement, list, selectedItems, callback) {
         if(selectedItems && selectedItems.length) {
             for(let i = selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = selectedItems[i];
@@ -245,6 +252,7 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             }
             
             listElement.scrollTop = listElement.scrollHeight;
+            callback.emit({items: selectedItems});
         }
     }
 
