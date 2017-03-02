@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChildren,QueryList,Renderer} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,AfterContentInit,EventEmitter,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChildren,QueryList,Renderer} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {CommonModule} from '@angular/common';
@@ -63,6 +63,8 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -246,6 +248,9 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.page = p;
             this.left = (-1 * (this.domHandler.innerWidth(this.viewport) * this.page));
             this.firstVisible = this.page * this.columns;
+            this.onPage.emit({
+                page: this.page
+            });
         }
     }
     
