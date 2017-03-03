@@ -27,7 +27,7 @@ import {Router} from '@angular/router';
                                             <ul class="ui-menu-list ui-helper-reset">
                                                 <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                                                 <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
-                                                    <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                                                    <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
                                                         [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                         <span class="ui-menuitem-text">{{item.label}}</span>
