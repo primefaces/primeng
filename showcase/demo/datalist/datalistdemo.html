@@ -301,6 +301,12 @@ loadData(event) &#123;
                                 event.rows = Number of rows per page <br></td>
                             <td>Callback to invoke when paging, sorting or filtering happens in lazy mode.</td>
                         </tr>
+                        <tr>
+                            <td>onPage</td>
+                            <td>event.first: Index of first record in page<br>
+                                event.rows: Number of rows on the page</td>
+                            <td>Callback to invoke when pagination occurs.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
