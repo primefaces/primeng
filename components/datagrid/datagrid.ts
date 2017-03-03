@@ -49,6 +49,8 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() styleClass: string;
     
     @Input() paginatorPosition: string = 'bottom';
+    
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
             
     @ContentChild(Header) header;
 
@@ -125,6 +127,11 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
         else {
             this.updateDataToRender(this.value);
         }
+        
+        this.onPage.emit({
+            first: this.first,
+            rows: this.rows
+        });
     }
 
     updateDataToRender(datasource) {
