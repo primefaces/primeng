@@ -131,6 +131,9 @@ export class Password implements AfterViewInit,OnDestroy {
     }
     
     ngOnDestroy() {
+        if (!this.feedback)
+            return;
+            
         this.panel.removeChild(this.meter);
         this.panel.removeChild(this.info);
         document.body.removeChild(this.panel);
