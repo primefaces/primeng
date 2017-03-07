@@ -286,12 +286,12 @@ export class UITreeNode implements OnInit {
         }
         else {
             let parent = dropNode.parent;
-            while(parent) {
+            while(parent != null) {
                 if(parent === dragNode) {
                     allow = false;
                     break;
                 }
-                parent = dropNode.parent;
+                parent = parent.parent;
             }
         }
         
