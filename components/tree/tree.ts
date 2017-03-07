@@ -254,7 +254,10 @@ export class UITreeNode implements OnInit {
     }
     
     onDropNodeDragLeave(event) {
-        this.draghoverNode = false;
+        let rect = event.currentTarget.getBoundingClientRect();
+        if(event.x > rect.left + rect.width || event.x < rect.left || event.y > rect.top + rect.height || event.y < rect.top) {
+           this.draghoverNode = false;
+        }
     }
 }
 
