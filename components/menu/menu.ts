@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
         <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
             <ul class="ui-menu-list ui-helper-reset">
-                <template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
+                <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                     <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
                         <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
@@ -19,8 +19,8 @@ import {Router} from '@angular/router';
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </li>
-                </template>
-                <template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
+                </ng-template>
+                <ng-template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li class="ui-menuitem ui-widget ui-corner-all">
                         <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
@@ -28,7 +28,7 @@ import {Router} from '@angular/router';
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </li>
-                </template>
+                </ng-template>
             </ul>
         </div>
     `,

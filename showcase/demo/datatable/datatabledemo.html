@@ -276,37 +276,37 @@ export class DataTableDemo implements OnInit &#123;
 </pre>
 
             <h3>Templates</h3>
-            <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating where the implicit variable passed to the template 
+            <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating where the implicit variable passed to the ng-template 
                 is the column definition and data of current row is the rowData property. In addition index of the current can be accessed using the optional rowIndex variable. 
                 Similarly, custom content can be placed at the header and footer of a column with templating.</p>
             
-            <p>A template inside a column must be decorated with pTemplate directive along with the type to indicate where the template belongs to. Possible values 
+            <p>A ng-template inside a column must be decorated with pTemplate directive along with the type to indicate where the ng-template belongs to. Possible values 
             are "header", "body" and "footer".</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-column field="color" header="Color"&gt;
-    &lt;template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body"&gt;
+    &lt;ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body"&gt;
         &lt;span&gt;{{car[col.field]}}&lt;/span&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-column&gt;
 &lt;p-column&gt;
-    &lt;template pTemplate="header"&gt;
+    &lt;ng-template pTemplate="header"&gt;
         &lt;button type="button" pButton (click)="selectAllCars()" icon="fa-check"&gt;&lt;/button&gt;
-    &lt;/template&gt;
-    &lt;template let-car="rowData" pTemplate="body"&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-car="rowData" pTemplate="body"&gt;
         &lt;button type="button" pButton (click)="selectCar(car)" icon="fa-search"&gt;&lt;/button&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-column&gt;
 </code>
 </pre>
 
-            <p>Index of the row is available at the template.</p>
+            <p>Index of the row is available at the ng-template.</p>
 <pre>
 <code class="language-markup" pCode>
     &lt;p-column&gt;
-        &lt;template let-car="rowData" let-i="rowIndex" pTemplate="body"&gt;
+        &lt;ng-template let-car="rowData" let-i="rowIndex" pTemplate="body"&gt;
             &lt;button type="button" pButton (click)="selectCar(i)" icon="fa-search"&gt;&lt;/button&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
 </code>
 </pre>
@@ -382,7 +382,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars1" sortField="brand" rowGroupMode="subheader" groupField="brand"&gt;
     &lt;p-header&gt;Subheader&lt;/p-header&gt;
-    &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;ng-template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/ng-template&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
@@ -405,7 +405,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"&gt;
     &lt;p-header&gt;Subheader&lt;/p-header&gt;
-    &lt;template pTemplate="rowgroup" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;ng-template pTemplate="rowgroup" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/ng-template&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
@@ -413,25 +413,25 @@ import &#123;Footer&#125; from 'primeng/primeng';
 </code>
 </pre>       
 
-            <p>A footer for a row can be defined using the rowgroupfooter template.</p> 
+            <p>A footer for a row can be defined using the rowgroupfooter ng-template.</p> 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" sortField="brand" rowGroupMode="subheader" groupField="brand" expandableRowGroups="true"
         [sortableRowGroup]="false"&gt;
     &lt;p-header&gt;Toggleable Row Groups with Footers&lt;/p-header&gt;
-    &lt;template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/template&gt;
+    &lt;ng-template pTemplate="rowgroupheader" let-rowData&gt;&#123;&#123;rowData['brand']&#125;&#125;&lt;/ng-template&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="price" header="Price"&gt;
-        &lt;template let-col let-car="rowData" pTemplate="body"&gt;
+        &lt;ng-template let-col let-car="rowData" pTemplate="body"&gt;
             &lt;span&gt;&#123;&#123;car[col.field] | currency:'USD':true:'.0-0'&#125;&#125;&lt;/span&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
-    &lt;template pTemplate="rowgroupfooter" let-car&gt;
+    &lt;ng-template pTemplate="rowgroupfooter" let-car&gt;
         &lt;td colspan="3" style="text-align:right"&gt;Total Price&lt;/td&gt;
         &lt;td&gt;&#123;&#123;calculateGroupTotal(car['brand']) | currency:'USD':true:'.0-0' &#125;&#125;&lt;/td&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>    
@@ -537,7 +537,7 @@ mysort(event) &#123;
 </code>
 </pre>
             <p>An optional global filter feature is available to search all fields with the same keyword, to enable this place an input component whose keyup event would be 
-            listened for filtering and bind the local template variable name of it to the global filter property.</p>
+            listened for filtering and bind the local ng-template variable name of it to the global filter property.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;input #gb type="text" placeholder="Global search"&gt;
@@ -550,9 +550,9 @@ mysort(event) &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-column field="brand" header="Brand (Custom)" [filter]="true" [style]="&#123;'overflow':'visible'&#125;" filterMatchMode="equals"&gt;
-    &lt;template pTemplate="filter" let-col&gt;
+    &lt;ng-template pTemplate="filter" let-col&gt;
         &lt;p-dropdown [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-dropdown&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-column&gt;
 </code>
 </pre>
@@ -637,7 +637,7 @@ export class DataTableDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/datatable/selection']">live example.</a></p>
 
             <h3>ContextMenu</h3>
-            <p>DataTable has exclusive integration with contextmenu component. In order to attach a menu to a datatable, define a local template
+            <p>DataTable has exclusive integration with contextmenu component. In order to attach a menu to a datatable, define a local ng-template
             variable for the menu and bind it to the contextMenu property of the datatable. This enables showing the menu whenever a row is right clicked.</p>
 <pre>
 <code class="language-markup" pCode>
@@ -676,18 +676,18 @@ export class DataTableDemo implements OnInit &#123;
     &lt;p-column field="vin" header="Vin" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [editable]="true" [style]="&#123;'overflow':'visible'&#125;"&gt;
-        &lt;template let-col let-car="rowData" pTemplate="editor"&gt;
+        &lt;ng-template let-col let-car="rowData" pTemplate="editor"&gt;
             &lt;p-dropdown [(ngModel)]="car[col.field]" [options]="brands" [autoWidth]="false" [style]="&#123;'width':'100%'&#125;" required="true"&gt;&lt;/p-dropdown&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="color" header="Color" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="saleDate" header="Sale Date" [editable]="true" [style]=" &#123;'overflow':'visible' &#125;"&gt;
-        &lt;template let-col let-car="rowData" pTemplate="body"&gt;
+        &lt;ng-template let-col let-car="rowData" pTemplate="body"&gt;
              &#123;&#123;car[col.field]|date &#125;&#125;
-        &lt;/template&gt;
-        &lt;template let-col let-car="rowData" pTemplate="editor"&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-col let-car="rowData" pTemplate="editor"&gt;
             &lt;p-calendar [(ngModel)]="car[col.field]"&gt;&lt;/p-calendar&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
@@ -706,7 +706,7 @@ export class DataTableDemo implements OnInit &#123;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
-    &lt;template let-car pTemplate="rowexpansion"&gt;
+    &lt;ng-template let-car pTemplate="rowexpansion"&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;
@@ -734,7 +734,7 @@ export class DataTableDemo implements OnInit &#123;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
@@ -871,9 +871,9 @@ loadData(event: LazyLoadEvent) &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-column field="color" [style]="&#123;'overflow':'visible'&#125;"&gt;
-    &lt;template let-col let-car="rowData"&gt;
+    &lt;ng-template let-col let-car="rowData"&gt;
         &lt;p-dropdown&gt;&lt;/p-dropdown&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-column&gt;
 </code>
 </pre>
@@ -1110,7 +1110,7 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>contextMenu</td>
                             <td>ContextMenu</td>
                             <td>null</td>
-                            <td>Local template varilable of a ContextMenu.</td>
+                            <td>Local ng-template varilable of a ContextMenu.</td>
                         </tr>
                         <tr>
                             <td>csvSeparator</td>

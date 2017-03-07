@@ -110,11 +110,11 @@ export class ConfirmDialogDemo &#123;
             
             <h3>Customization</h3>
             <p>Properties of the dialog are defined in two ways, message, icon and header properties can either
-            be defined using confirm method or declaratively on p-confirmDialog template. If these values are unlikely to change then
-            declarative approach would be useful, still properties defined in a template can be overriden with confirm method call.</p>
+            be defined using confirm method or declaratively on p-confirmDialog ng-template. If these values are unlikely to change then
+            declarative approach would be useful, still properties defined in a ng-template can be overriden with confirm method call.</p>
             
             <p>In addition, buttons at footer section can be customized by passing your own UI, important note to make confirmation work with
-            a custom UI is defining a local template variable for the dialog and assign accept()-reject() methods to your own buttons.</p>
+            a custom UI is defining a local ng-template variable for the dialog and assign accept()-reject() methods to your own buttons.</p>
 
 <pre>
 <code class="language-markup" pCode>
@@ -239,7 +239,7 @@ export class ConfirmDialogDemo &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the dialog, valid values are "body" or a local template variable of another element.</td>
+                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                     </tbody>
                 </table>

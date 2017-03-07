@@ -43,7 +43,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         </div>
                     </div>
                     <span *ngIf="!itemTemplate">{{option.label}}</span>
-                    <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></template>
+                    <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></ng-template>
                 </li>
             </ul>
         </div>

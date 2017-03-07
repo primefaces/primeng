@@ -46,7 +46,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             'ui-dropdown-item-empty':!option.label||option.label.length === 0}"
                             (click)="onItemClick($event, option)">
                             <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
-                            <template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></template>
+                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></ng-template>
                         </li>
                     </ul>
                 </div>

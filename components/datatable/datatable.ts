@@ -94,7 +94,7 @@ export class RowExpansionLoader {
 @Component({
     selector: '[pColumnHeaders]',
     template: `
-        <template ngFor let-col [ngForOf]="columns" let-lastCol="last">
+        <ng-template ngFor let-col [ngForOf]="columns" let-lastCol="last">
             <th #headerCell [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'" (click)="dt.sort($event,col)" [attr.colspan]="col.colspan" [attr.rowspan]="col.rowspan"
                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': col.sortable, 'ui-state-active': dt.isSorted(col), 'ui-resizable-column': dt.resizableColumns, 'ui-selection-column':col.selectionMode}" 
                 (dragstart)="dt.onColumnDragStart($event)" (dragover)="dt.onColumnDragover($event)" (dragleave)="dt.onColumnDragleave($event)" (drop)="dt.onColumnDrop($event)" (mousedown)="dt.onHeaderMousedown($event,headerCell)"
@@ -111,7 +111,7 @@ export class RowExpansionLoader {
                 <p-columnFilterTemplateLoader [column]="col" *ngIf="col.filterTemplate"></p-columnFilterTemplateLoader>
                 <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="dt.toggleRowsWithCheckbox($event)" [checked]="dt.allSelected" [disabled]="dt.isEmpty()"></p-dtCheckbox>
             </th>
-        </template>
+        </ng-template>
     `
 })
 export class ColumnHeaders {
@@ -144,7 +144,7 @@ export class ColumnFooters {
 @Component({
     selector: '[pTableBody]',
     template: `
-        <template ngFor let-rowData [ngForOf]="dt.dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
+        <ng-template ngFor let-rowData [ngForOf]="dt.dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
             <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" 
                 *ngIf="dt.rowGroupMode=='subheader' && (rowIndex === 0||(dt.resolveFieldData(rowData,dt.groupField) !== dt.resolveFieldData(dt.dataToRender[rowIndex - 1], dt.groupField)))"
                 (click)="dt.onRowGroupClick($event)" [ngStyle]="{'cursor': dt.sortableRowGroup ? 'pointer' : 'auto'}">
@@ -158,7 +158,7 @@ export class ColumnFooters {
             <tr #rowElement *ngIf="!dt.expandableRowGroups||dt.isRowGroupExpanded(rowData)" [class]="dt.getRowStyleClass(rowData,rowIndex)"
                     (click)="dt.handleRowClick($event, rowData)" (dblclick)="dt.rowDblclick($event,rowData)" (contextmenu)="dt.onRowRightClick($event,rowData)" (touchend)="dt.handleRowTouchEnd($event)"
                     [ngClass]="{'ui-datatable-even':even&&dt.rowGroupMode!='rowspan','ui-datatable-odd':odd&&dt.rowGroupMode!='rowspan','ui-state-highlight': dt.isSelected(rowData)}">
-                <template ngFor let-col [ngForOf]="columns" let-colIndex="index">
+                <ng-template ngFor let-col [ngForOf]="columns" let-colIndex="index">
                     <td #cell *ngIf="!dt.rowGroupMode || (dt.rowGroupMode == 'subheader') ||
                         (dt.rowGroupMode=='rowspan' && ((dt.sortField==col.field && dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].index == rowIndex) || (dt.sortField!=col.field)))"
                         [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
@@ -180,7 +180,7 @@ export class ColumnFooters {
                         <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="dt.selectRowWithRadio($event, rowData)" [checked]="dt.isSelected(rowData)"></p-dtRadioButton>
                         <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="dt.toggleRowWithCheckbox($event,rowData)" [checked]="dt.isSelected(rowData)"></p-dtCheckbox>
                     </td>
-                </template>
+                </ng-template>
             </tr>
             <tr class="ui-widget-header" *ngIf="dt.rowGroupFooterTemplate && dt.rowGroupMode=='subheader' && ((rowIndex === dt.dataToRender.length - 1)||(dt.resolveFieldData(rowData,dt.groupField) !== dt.resolveFieldData(dt.dataToRender[rowIndex + 1],dt.groupField))) && (!dt.expandableRowGroups || dt.isRowGroupExpanded(rowData))">
                 <p-templateLoader class="ui-helper-hidden" [data]="rowData" [template]="dt.rowGroupFooterTemplate"></p-templateLoader>
@@ -190,7 +190,7 @@ export class ColumnFooters {
                     <p-rowExpansionLoader [rowData]="rowData" [template]="dt.rowExpansionTemplate"></p-rowExpansionLoader>
                 </td>
             </tr>
-        </template>
+        </ng-template>
 
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">{{dt.emptyMessage}}</td>
@@ -216,9 +216,9 @@ export class TableBody {
                 <table [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <thead class="ui-datatable-thead">
                         <tr *ngIf="!dt.headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
-                        <template [ngIf]="dt.headerColumnGroup">
+                        <ng-template [ngIf]="dt.headerColumnGroup">
                             <tr *ngFor="let headerRow of dt.headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
-                        </template>
+                        </ng-template>
                     </thead>
                 </table>
             </div>
@@ -385,21 +385,21 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead class="ui-datatable-thead">
                         <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
-                        <template [ngIf]="headerColumnGroup">
+                        <ng-template [ngIf]="headerColumnGroup">
                             <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
-                        </template>
+                        </ng-template>
                     </thead>
                     <tfoot *ngIf="hasFooter()" class="ui-datatable-tfoot">
                         <tr *ngIf="!footerColumnGroup" [pColumnFooters]="columns"></tr>
-                        <template [ngIf]="footerColumnGroup">
+                        <ng-template [ngIf]="footerColumnGroup">
                             <tr *ngFor="let footerRow of footerColumnGroup.rows" [pColumnFooters]="footerRow.columns"></tr>
-                        </template>
+                        </ng-template>
                     </tfoot>
                     <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (rowHover||selectionMode)}" [pTableBody]="columns"></tbody>
                 </table>
             </div>
             
-            <template [ngIf]="scrollable">
+            <ng-template [ngIf]="scrollable">
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
                     <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
@@ -407,7 +407,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                         class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)" [loading]="loading"
                         [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}"></div>
                 </div>
-            </template>
+            </ng-template>
             
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
                 (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>

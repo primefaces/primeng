@@ -15,7 +15,7 @@ import {BlockableUI} from '../common/api';
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-content ui-widget-content">
                 <div class="ui-g">
-                    <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
+                    <ng-template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></ng-template>
                 </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 

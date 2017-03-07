@@ -12,7 +12,7 @@ import {BlockableUI} from '../common/api';
         '[class.ui-corner-all]': 'true'
     },
     template: `
-        <template ngFor let-tab [ngForOf]="tabs">
+        <ng-template ngFor let-tab [ngForOf]="tabs">
             <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="tab"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
                 (click)="clickTab($event,tab)" *ngIf="!tab.closed"
@@ -24,7 +24,7 @@ import {BlockableUI} from '../common/api';
                 </a>
                 <span *ngIf="tab.closable" class="ui-tabview-close fa fa-close" (click)="clickClose($event,tab)"></span>
             </li>
-        </template>
+        </ng-template>
     `,
 })
 export class TabViewNav {

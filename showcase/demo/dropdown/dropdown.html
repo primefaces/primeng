@@ -16,12 +16,12 @@
     
     <h3>Content with Filters</h3>
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="filter">
-        <template let-car pTemplate="item">
+        <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/>
                 <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
             </div>
-        </template>
+        </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar2||'none'}}</p>
 </div>
@@ -86,16 +86,16 @@ export class MyModel &#123;
 </pre>
 
             <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item by default, for custom content support define a template that gets the SelectItem as the local template variable.</p>
+            <p>Label of an option is used as the display text of an item by default, for custom content support define a ng-template that gets the SelectItem as the local ng-template variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
             &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;{{car.label}}&lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 </code>
 </pre>
@@ -209,7 +209,7 @@ export class MyModel &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                         <tr>
                             <td>tabindex</td>
@@ -331,12 +331,12 @@ export class MyModel &#123;
 
 &lt;h3&gt;Content with Filters&lt;/h3&gt;
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="filter"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
             &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;{{car.label}}&lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 &lt;p&gt;Selected Car: {{selectedCar2||'none'}}&lt;/p&gt;
 </code>

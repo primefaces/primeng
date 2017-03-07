@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
     selector: 'datatable-demos',
-    template: `
+    templateUrl: `
         <div class="content-section SubSubMenu ui-helper-clearfix">
             <ul>
                 <li><a [routerLink]="['/datatable']">&#9679; Basic</a></li>

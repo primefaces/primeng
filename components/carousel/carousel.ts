@@ -28,7 +28,7 @@ import {CommonModule} from '@angular/common';
                 <ul class="ui-carousel-items" [style.left.px]="left" [style.transitionProperty]="'left'" 
                             [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
                     <li *ngFor="let item of value" class="ui-carousel-item ui-widget-content ui-corner-all">
-                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                        <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
             </div>

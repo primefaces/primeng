@@ -21,7 +21,7 @@ import {DomHandler} from '../dom/domhandler';
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle">
                     <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
                         (click)="onItemClick($event,item,selectedItemsSource)" (touchend)="onItemTouchEnd($event)">
-                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                        <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
             </div>
@@ -38,7 +38,7 @@ import {DomHandler} from '../dom/domhandler';
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle">
                     <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
                         (click)="onItemClick($event,item,selectedItemsTarget)" (touchend)="onItemTouchEnd($event)">
-                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                        <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
             </div>

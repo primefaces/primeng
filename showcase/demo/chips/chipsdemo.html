@@ -9,11 +9,11 @@
     <h3 class="first">Basic</h3>
     <p-chips [(ngModel)]="values1"></p-chips>
     
-    <h3>Template</h3>
+    <h3>ng-template</h3>
     <p-chips [(ngModel)]="values2">
-        <template let-item pTemplate="item">
+        <ng-template let-item pTemplate="item">
             {{item}} - (active) <i class="fa fa-user"></i>
-        </template>
+        </ng-template>
     </p-chips>
 </div>
 
@@ -53,13 +53,13 @@ export class MyModel &#123;
 </pre>
 
             <h3>Custom Content</h3>
-            <p>A chip is customized using a template element where the value is passed as the implicit variable.</p>
+            <p>A chip is customized using a ng-template element where the value is passed as the implicit variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-chips [(ngModel)]="values"&gt;
-    &lt;template let-item pTemplate="item"&gt;
+    &lt;ng-template let-item pTemplate="item"&gt;
         &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user"&gt;&lt;/i&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-chips&gt;
 </code>
 </pre>
@@ -195,11 +195,11 @@ export class MyModel &#123;
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-chips [(ngModel)]="values1" &gt;&lt;/p-chips&gt;
 
-&lt;h3&gt;Template&lt;/h3&gt;
+&lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-chips [(ngModel)]="values2"&gt;
-    &lt;template let-item pTemplate="item"&gt;
+    &lt;ng-template let-item pTemplate="item"&gt;
         &#123;&#123;item&#125;&#125; - (active) &lt;i class="fa fa-user"&gt;&lt;/i&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-chips&gt;
 </code>
 </pre>

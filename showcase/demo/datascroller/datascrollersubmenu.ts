@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
     selector: 'datascroller-demos',
-    template: `
+    templateUrl: `
         <div id="datatable-submenu" class="content-section SubSubMenu ui-helper-clearfix">
             <ul>
                 <li><a [routerLink]="['/datascroller']">&#9679; Window</a></li>

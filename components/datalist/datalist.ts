@@ -16,7 +16,7 @@ import {BlockableUI} from '../common/api';
             <div class="ui-datalist-content ui-widget-content">
                 <ul class="ui-datalist-data">
                     <li *ngFor="let item of dataToRender;let i = index">
-                        <template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></template>
+                        <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
                     </li>
                 </ul>
             </div>

@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
             <ul>
                 <li class="fa fa-home" (click)="onHomeClick($event)"></li>
                 <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="model"></li>
-                <template ngFor let-item let-end="last" [ngForOf]="model">
+                <ng-template ngFor let-item let-end="last" [ngForOf]="model">
                     <li role="menuitem">
                         <a [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)" 
                             [ngClass]="{'ui-state-disabled':item.disabled}" [attr.target]="item.target">
@@ -19,7 +19,7 @@ import {Router} from '@angular/router';
                         </a>
                     </li>
                     <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="!end"></li>
-                </template>
+                </ng-template>
             </ul>
         </div>
     `

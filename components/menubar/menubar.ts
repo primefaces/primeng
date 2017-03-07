@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
     template: `
         <ul [ngClass]="{'ui-menubar-root-list ui-helper-clearfix':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
             (click)="listClick($event)">
-            <template ngFor let-child [ngForOf]="(root ? item : item.items)">
+            <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event,item,child)" (mouseleave)="onItemMouseLeave($event,item)">
                     <a #link [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
@@ -21,7 +21,7 @@ import {Router} from '@angular/router';
                     </a>
                     <p-menubarSub class="ui-submenu" [item]="child" *ngIf="child.items"></p-menubarSub>
                 </li>
-            </template>
+            </ng-template>
         </ul>
     `,
     providers: [DomHandler]

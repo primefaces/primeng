@@ -33,7 +33,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
 @Component({
     selector: 'p-treeNode',
     template: `
-        <template [ngIf]="node">
+        <ng-template [ngIf]="node">
             <li class="ui-treenode {{node.styleClass}}" *ngIf="!tree.horizontal" [ngClass]="{'ui-treenode-leaf': isLeaf()}">
                 <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode}">
@@ -94,7 +94,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
                     </tr>
                 </tbody>
             </table>
-        </template>
+        </ng-template>
     `
 })
 export class UITreeNode implements OnInit {

@@ -25,7 +25,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
                     <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)"></span>
                     <span *ngIf="!selectedItemTemplate" class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
-                    <template *ngIf="selectedItemTemplate" [pTemplateWrapper]="selectedItemTemplate" [item]="val"></template>
+                    <ng-template *ngIf="selectedItemTemplate" [pTemplateWrapper]="selectedItemTemplate" [item]="val"></ng-template>
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn type="text" [disabled]="disabled" pInputText [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onBlur()" autocomplete="off">
@@ -38,7 +38,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <li *ngFor="let option of suggestions" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
                         (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
                         <span *ngIf="!itemTemplate">{{field ? option[field] : option}}</span>
-                        <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></template>
+                        <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></ng-template>
                     </li>
                 </ul>
             </div>

@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
         <div [class]="styleClass" [ngStyle]="style"
             [ngClass]="{'ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-megamenu-vertical': orientation == 'vertical'}">
             <ul class="ui-menu-list ui-helper-reset ui-menubar-root-list">
-                <template ngFor let-category [ngForOf]="model">
+                <ng-template ngFor let-category [ngForOf]="model">
                     <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':category.items,'ui-menuitem-active':item==activeItem}"
                         (mouseenter)="onItemMouseEnter($event, item, category)" (mouseleave)="onItemMouseLeave($event, item)">
                         <a class="ui-menuitem-link ui-corner-all ui-submenu-link" [ngClass]="{'ui-state-disabled':category.disabled}">
@@ -21,9 +21,9 @@ import {Router} from '@angular/router';
                         </a>
                         <div class="ui-megamenu-panel ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow">
                             <div class="ui-g">
-                                <template ngFor let-column [ngForOf]="category.items">
+                                <ng-template ngFor let-column [ngForOf]="category.items">
                                     <div [class]="getColumnClass(category)">
-                                        <template ngFor let-submenu [ngForOf]="column">
+                                        <ng-template ngFor let-submenu [ngForOf]="column">
                                             <ul class="ui-menu-list ui-helper-reset">
                                                 <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                                                 <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
@@ -34,13 +34,13 @@ import {Router} from '@angular/router';
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </template>
+                                        </ng-template>
                                     </div>
-                                </template>
+                                </ng-template>
                             </div>
                         </div>
                     </li>
-                </template>
+                </ng-template>
             </ul>
         </div>
     `,
