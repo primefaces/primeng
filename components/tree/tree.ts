@@ -217,6 +217,7 @@ export class UITreeNode implements OnInit {
     onDragStart(event) {
         if(this.tree.draggableNodes) {
             event.dataTransfer.setData("text", "data");
+            event.dataTransfer.effectAllowed= 'none';
             
             this.tree.dragDropService.startDrag({
                 node: this.node,
