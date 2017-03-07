@@ -6,6 +6,12 @@ import {TreeDragDropService} from '../../../components/common/api';
 
 @Component({
     templateUrl: 'showcase/demo/tree/treedemo.html',
+    styles:[`
+        h4 {
+            text-align: center;
+            margin: 0 0 8px 0;
+        }
+    `],
     providers: [TreeDragDropService]
 })
 export class TreeDemo implements OnInit {
@@ -53,16 +59,16 @@ export class TreeDemo implements OnInit {
         this.nodeService.getFiles().then(files => this.filesTree7 = files);
         this.filesTree8 = [
             {
-                "label": "Backup 1",
-                "data": "Backup 1 Folder",
+                "label": "Backup",
+                "data": "Backup Folder",
                 "expandedIcon": "fa-folder-open",
                 "collapsedIcon": "fa-folder",
             }
         ];
         this.filesTree9 = [
             {
-                "label": "Backup 2",
-                "data": "Backup 2 Folder",
+                "label": "Storage",
+                "data": "Storage Folder",
                 "expandedIcon": "fa-folder-open",
                 "collapsedIcon": "fa-folder",
             }
