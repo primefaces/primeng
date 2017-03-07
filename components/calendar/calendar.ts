@@ -889,6 +889,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let output = '';
         let hours = date.getHours();
         let minutes = date.getMinutes();
+        this.pm = date.getHours() > 11;
         
         if(this.hourFormat == '12' && this.pm && hours != 12) {
             hours-=12;
