@@ -175,8 +175,8 @@ export class UITreeNode implements OnInit {
     onDropPoint(event: Event, position: number) {
         event.preventDefault();
         let dragNode = this.tree.dragNode;
-        if(dragNode !== this.node) {
-            let dragNodeIndex = this.tree.dragNodeIndex;
+        let dragNodeIndex = this.tree.dragNodeIndex;
+        if(dragNode !== this.node && dragNodeIndex !== this.index - 1) {
             let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
             
             this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
@@ -185,14 +185,15 @@ export class UITreeNode implements OnInit {
             else
                 newNodeList.push(dragNode);
             
-            this.draghoverPrev = false;
-            this.draghoverNext = false;
             this.tree.dragDropService.stopDrag({
                 node: dragNode,
                 subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
                 index: dragNodeIndex
             });
         }
+        
+        this.draghoverPrev = false;
+        this.draghoverNext = false;
     }
     
     onDropPointDragOver(event) {        
