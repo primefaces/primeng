@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,trigger,state,transition,style,animate} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';

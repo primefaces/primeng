@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChildren,QueryList,
-trigger,state,transition,style,animate} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChildren,QueryList} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
 import {BlockableUI} from '../common/api';
