@@ -17,20 +17,19 @@ import &#123;ChartModule&#125; from 'primeng/primeng';
 </pre>
 
     <h3 style="margin-top:0px">Change Detection</h3>
-    <p>Due to complexity of charts.js, change detection is not available and when the data changes, you need to call refresh() method manually. 
-    If you also change the chart type along with the data, use reinit() instead.</p>
+    <p>In order to chart to redraw itself, a new data object needs to be created. Changing the array contents without creating a new
+    array instance does not trigger change detection.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-chart #chart type="pie" [data]="data"&gt;&lt;/p-chart&gt;
-&lt;button type="button" pButton (click)="update(chart)"&gt;&lt;/p-button&gt;
+&lt;p-chart type="pie" [data]="data"&gt;&lt;/p-chart&gt;
+&lt;button type="button" pButton (click)="update($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-update(chart: UIChart) &#123;
-    this.data = //reload
-    chart.refresh();
+update(event: Event) &#123;
+    this.data = //create new data
 &#125;
 </code>
 </pre>
