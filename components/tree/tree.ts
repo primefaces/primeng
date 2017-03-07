@@ -176,7 +176,7 @@ export class UITreeNode implements OnInit {
         event.preventDefault();
         let dragNode = this.tree.dragNode;
         let dragNodeIndex = this.tree.dragNodeIndex;
-        if(dragNode !== this.node && (position === 1 || dragNodeIndex !== this.index - 1)) {
+        if(this.allowDrop(dragNode, this.node) && dragNode !== this.node && (position === 1 || dragNodeIndex !== this.index - 1)) {
             let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
             
             this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
@@ -242,7 +242,7 @@ export class UITreeNode implements OnInit {
         if(this.tree.droppableNodes) {
             event.preventDefault();
             let dragNode = this.tree.dragNode;
-            if(dragNode !== this.node) {
+            if(this.allowDrop(dragNode, this.node)) {
                 let dragNodeIndex = this.tree.dragNodeIndex;            
                 this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
                 
@@ -250,8 +250,6 @@ export class UITreeNode implements OnInit {
                     this.node.children.push(dragNode);
                 else
                     this.node.children = [dragNode];
-
-                this.draghoverNode = false;
                 
                 this.tree.dragDropService.stopDrag({
                     node: dragNode,
@@ -259,6 +257,8 @@ export class UITreeNode implements OnInit {
                     index: this.tree.dragNodeIndex
                 });
             }
+            
+            this.draghoverNode = false;
         }
     }
     
@@ -275,6 +275,25 @@ export class UITreeNode implements OnInit {
                this.draghoverNode = false;
             }
         }
+    }
+    
+    allowDrop(dragNode: TreeNode, dropNode: TreeNode): boolean {
+        let allow: boolean = true;
+        if(dragNode === dropNode) {
+            allow = false;
+        }
+        else {
+            let parent = dropNode.parent;
+            while(parent) {
+                if(parent === dragNode) {
+                    allow = false;
+                    break;
+                }
+                parent = dropNode.parent;
+            }
+        }
+        
+        return allow;
     }
 }
 
