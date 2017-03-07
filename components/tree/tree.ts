@@ -201,10 +201,12 @@ export class UITreeNode implements OnInit {
     }
     
     onDropPointDragEnter(event: Event, position: number) {
-        if(position < 0)
-            this.draghoverPrev = true;
-        else
-            this.draghoverNext = true;
+        if(this.allowDrop(this.tree.dragNode, this.node)) {
+            if(position < 0)
+                this.draghoverPrev = true;
+            else
+                this.draghoverNext = true;
+        }
     }
     
     onDropPointDragLeave(event: Event) {
@@ -263,7 +265,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDropNodeDragEnter(event) {
-        if(this.tree.droppableNodes && this.tree.dragNode !== this.node) {
+        if(this.tree.droppableNodes && this.allowDrop(this.tree.dragNode, this.node)) {
             this.draghoverNode = true;
         }
     }
