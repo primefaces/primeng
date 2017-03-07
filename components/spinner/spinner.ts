@@ -17,7 +17,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
             <input #in pInputText type="text" class="ui-spinner-input" [value]="valueAsString"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
             (keydown)="onInputKeydown($event)" (keyup)="onInput($event,in.value)" (keypress)="onInputKeyPress($event)" (blur)="onBlur()" (change)="handleChange($event)" (focus)="onFocus()">
-            <template ngIf="enableSpinButton">
+            <ng-container *ngIf="enableSpinButton">
                 <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled"
                     (mouseleave)="onUpButtonMouseleave($event)" (mousedown)="onUpButtonMousedown($event,in)" (mouseup)="onUpButtonMouseup($event)">
                     <span class="fa fa-caret-up"></span>
@@ -26,7 +26,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
                     (mouseleave)="onDownButtonMouseleave($event)" (mousedown)="onDownButtonMousedown($event,in)" (mouseup)="onDownButtonMouseup($event)">
                     <span class="fa fa-caret-down"></span>
                 </button>
-            </template>
+            </ng-container>
         </span>
     `,
     host: {
@@ -63,7 +63,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     @Input() formatInput: boolean = true;
 
-    @Input() enableSpinButton = true;
+    @Input() enableSpinButton: boolean = true;
 
     value: number;
     
