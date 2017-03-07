@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
 import {SharedModule} from '../common/shared';
 import {PrimeTemplate} from '../common/shared';
+import {TreeDragDropService} from '../common/api';
 
 @Component({
     selector: 'p-treeNodeTemplateLoader',
@@ -175,19 +176,21 @@ export class UITreeNode implements OnInit {
         event.preventDefault();
         let dragNode = this.tree.dragNode;
         let dragNodeIndex = this.tree.dragNodeIndex;
-        let currentNodeList = dragNode.parent ? dragNode.parent.children : this.tree.value;
         let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
         
-        currentNodeList.splice(dragNodeIndex, 1);
+        this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
         if(position < 0)
             newNodeList.splice(this.index, 0, dragNode);
         else
             newNodeList.push(dragNode);
         
-        this.tree.dragNode = null;
-        this.tree.dragNodeIndex = null;
         this.draghoverPrev = false;
         this.draghoverNext = false;
+        this.tree.dragDropService.stopDrag({
+            node: dragNode,
+            subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
+            index: dragNodeIndex
+        });
     }
     
     onDropPointDragOver(event) {        
@@ -209,9 +212,13 @@ export class UITreeNode implements OnInit {
     }
     
     onDragStart(event) {
-        this.tree.dragNode = this.node;
-        this.tree.dragNodeIndex = this.index;
         event.dataTransfer.setData("text", "prime");
+        
+        this.tree.dragDropService.startDrag({
+            node: this.node,
+            subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
+            index: this.index
+        });
     }
     
     onDropNodeDragOver(event) {
@@ -222,16 +229,21 @@ export class UITreeNode implements OnInit {
         event.preventDefault();
         let dragNode = this.tree.dragNode;
         if(dragNode !== this.node) {
-            let dragNodeIndex = this.tree.dragNodeIndex;
-            let currentNodeList = dragNode.parent ? dragNode.parent.children : this.tree.value;
-            let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
+            let dragNodeIndex = this.tree.dragNodeIndex;            
+            this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
             
-            currentNodeList.splice(dragNodeIndex, 1);
-            this.node.children.push(dragNode);
+            if(this.node.children)
+                this.node.children.push(dragNode);
+            else
+                this.node.children = [dragNode];
 
-            this.tree.dragNode = null;
-            this.tree.dragNodeIndex = null;
             this.draghoverNode = false;
+            
+            this.tree.dragDropService.stopDrag({
+                node: dragNode,
+                subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
+                index: this.tree.dragNodeIndex
+            });
         }
     }
     
@@ -262,7 +274,7 @@ export class UITreeNode implements OnInit {
         </div>
     `
 })
-export class Tree implements AfterContentInit {
+export class Tree implements OnInit,AfterContentInit {
 
     @Input() value: TreeNode[];
         
@@ -293,16 +305,38 @@ export class Tree implements AfterContentInit {
     @Input() dragdrop: boolean;
     
     @Input() metaKeySelection: boolean = true;
-    
-    @Input() dragNode: TreeNode;
-    
-    @Input() dragNodeIndex: number;
-    
+        
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public templateMap: any;
     
     public nodeTouched: boolean;
+    
+    public dragNode: TreeNode;
+    
+    public dragNodeSubNodes: TreeNode[];
+    
+    public dragNodeIndex: number;
+    
+    constructor(public dragDropService: TreeDragDropService) {}
+    
+    ngOnInit() {
+        if(this.dragdrop) {
+            this.dragDropService.dragStart$.subscribe(
+              event => {
+                this.dragNode = event.node;
+                this.dragNodeSubNodes = event.subNodes;
+                this.dragNodeIndex = event.index;
+            });
+            
+            this.dragDropService.dragStop$.subscribe(
+              event => {
+                this.dragNode = null;
+                this.dragNodeSubNodes = null;
+                this.dragNodeIndex = null;
+            });
+        }     
+    }
     
     get horizontal(): boolean {
         return this.layout == 'horizontal';

@@ -2,10 +2,11 @@ import {Component,OnInit,ViewChild} from '@angular/core';
 import {NodeService} from '../service/nodeservice';
 import {Message,MenuItem,TreeNode} from '../../../components/common/api';
 import {Tree} from '../../../components/tree/tree';
-
+import {TreeDragDropService} from '../../../components/common/api';
 
 @Component({
-    templateUrl: 'showcase/demo/tree/treedemo.html'
+    templateUrl: 'showcase/demo/tree/treedemo.html',
+    providers: [TreeDragDropService]
 })
 export class TreeDemo implements OnInit {
     
@@ -23,6 +24,8 @@ export class TreeDemo implements OnInit {
     filesTree7: TreeNode[];
     filesTree8: TreeNode[];
     filesTree9: TreeNode[];
+    filesTree10: TreeNode[];
+    filesTree11: TreeNode[];
     
     lazyFiles: TreeNode[];
     
@@ -48,9 +51,25 @@ export class TreeDemo implements OnInit {
         this.nodeService.getFiles().then(files => this.filesTree5 = files);
         this.nodeService.getFiles().then(files => this.filesTree6 = files);
         this.nodeService.getFiles().then(files => this.filesTree7 = files);
-        this.nodeService.getFiles().then(files => this.filesTree8 = files);
+        this.filesTree8 = [
+            {
+                "label": "Backup 1",
+                "data": "Backup 1 Folder",
+                "expandedIcon": "fa-folder-open",
+                "collapsedIcon": "fa-folder",
+            }
+        ];
+        this.filesTree9 = [
+            {
+                "label": "Backup 2",
+                "data": "Backup 2 Folder",
+                "expandedIcon": "fa-folder-open",
+                "collapsedIcon": "fa-folder",
+            }
+        ];
+        this.nodeService.getFiles().then(files => this.filesTree10 = files);
         this.nodeService.getFiles().then(files => {
-            this.filesTree9 = [{
+            this.filesTree11 = [{
                 label: 'Root',
                 children: files
             }];

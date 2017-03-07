@@ -98,3 +98,27 @@ export class ConfirmationService {
         this.acceptConfirmationSource.next();
     }
 }
+
+export interface TreeNodeDragEvent {
+    node: TreeNode;
+    subNodes: TreeNode[];
+    index: number;
+}
+
+@Injectable()
+export class TreeDragDropService {
+    
+    private dragStartSource = new Subject<TreeNodeDragEvent>();
+    private dragStopSource = new Subject<TreeNodeDragEvent>();
+    
+    dragStart$ = this.dragStartSource.asObservable();
+    dragStop$ = this.dragStopSource.asObservable();
+    
+    startDrag(event: TreeNodeDragEvent) {
+        this.dragStartSource.next(event);
+    }
+    
+    stopDrag(event: TreeNodeDragEvent) {
+        this.dragStopSource.next(event);
+    }
+}

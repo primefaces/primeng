@@ -40,18 +40,41 @@
     <p-contextMenu #cm [model]="items"></p-contextMenu>
     
     <h3>DragDrop</h3>
-    <p-tree [value]="filesTree7" dragdrop="true"></p-tree>
-    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-3">
+            <p-tree [value]="filesTree7" dragdrop="true"></p-tree>
+        </div>
+        
+        <div class="ui-g-12 ui-md-1" style="text-align:center">
+            <i class="fa fa-exchange" style="font-size:36px"></i>
+        </div>
+        
+        <div class="ui-g-12 ui-md-3">
+            <p-tree [value]="filesTree8" dragdrop="true"></p-tree>
+        </div>
+        
+        <div class="ui-g-12 ui-md-1" style="text-align:center">
+            <i class="fa fa-exchange" style="font-size:36px"></i>
+        </div>
+        
+        <div class="ui-g-12 ui-md-3">
+            <p-tree [value]="filesTree9" dragdrop="true"></p-tree>
+        </div>
+        
+        <div class="ui-g-12 ui-md-1">
+            
+        </div>
+    </div>
 
     <h3>Programatic Tree Expansion</h3>
-    <p-tree #expandingTree [value]="filesTree8"></p-tree>
+    <p-tree #expandingTree [value]="filesTree10"></p-tree>
     <div style="margin-top: 8px">
         <button pButton type="text" label="Expand all" (click)="expandAll()"></button>
         <button pButton type="text" label="Collapse all" (click)="collapseAll()"></button>
     </div>
     
     <h3>Horizontal Tree</h3>
-    <p-tree [value]="filesTree9" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
+    <p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
     <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'}}</div>
 </div>
 
