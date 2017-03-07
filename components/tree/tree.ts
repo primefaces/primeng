@@ -1,5 +1,5 @@
-import {NgModule,Component,Input,AfterContentInit,Output,EventEmitter,OnInit,OnDestroy,EmbeddedViewRef,ViewContainerRef,ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host
-} from '@angular/core';
+import {NgModule,Component,Input,AfterContentInit,Output,EventEmitter,OnInit,OnDestroy,EmbeddedViewRef,ViewContainerRef,
+    ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
 import {SharedModule} from '../common/shared';
@@ -34,9 +34,11 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
     selector: 'p-treeNode',
     template: `
         <ng-template [ngIf]="node">
+            <li *ngIf="tree.dragdrop" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}"
+            (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($enter,-1)" (dragleave)="onDropPointDragLeave($event,-1)"></li>
             <li class="ui-treenode {{node.styleClass}}" *ngIf="!tree.horizontal" [ngClass]="{'ui-treenode-leaf': isLeaf()}">
                 <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
-                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode}">
+                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode}" [draggable]="tree.dragdrop" (dragstart)="onDragStart($event)">
                     <span class="ui-tree-toggler  fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
@@ -52,9 +54,12 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
                     </span>
                 </div>
                 <ul class="ui-treenode-children" style="display: none;" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'">
-                    <p-treeNode *ngFor="let childNode of node.children" [node]="childNode" [parentNode]="node"></p-treeNode>
+                    <p-treeNode *ngFor="let childNode of node.children;let firstChild=first;let lastChild=last; let index=index" [node]="childNode" [parentNode]="node"
+                        [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
                 </ul>
             </li>
+            <li *ngIf="tree.dragdrop&&lastChild" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverNext}"
+            (drop)="onDropPoint($event,1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($enter,1)" (dragleave)="onDropPointDragLeave($event,1)"></li>
             <table *ngIf="tree.horizontal">
                 <tbody>
                     <tr>
@@ -107,11 +112,17 @@ export class UITreeNode implements OnInit {
     
     @Input() root: boolean;
     
+    @Input() index: number;
+    
     @Input() firstChild: boolean;
     
     @Input() lastChild: boolean;
         
     constructor(@Inject(forwardRef(() => Tree)) public tree:Tree) {}
+    
+    draghoverPrev: boolean;
+    
+    draghoverNext: boolean;
     
     ngOnInit() {
         this.node.parent = this.parentNode;
@@ -156,6 +167,49 @@ export class UITreeNode implements OnInit {
     isSelected() {
         return this.tree.isSelected(this.node);
     }
+    
+    onDropPoint(event: Event, position: number) {
+        event.preventDefault();
+        let dragNode = this.tree.dragNode;
+        let dragNodeIndex = this.tree.dragNodeIndex;
+        let currentNodeList = dragNode.parent ? dragNode.parent.children : this.tree.value;
+        let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
+        
+        currentNodeList.splice(dragNodeIndex, 1);
+        if(position < 0)
+            newNodeList.splice(this.index, 0, dragNode);
+        else
+            newNodeList.push(dragNode);
+        
+        this.tree.dragNode = null;
+        this.tree.dragNodeIndex = null;
+        this.draghoverPrev = false;
+        this.draghoverNext = false;
+    }
+    
+    onDropPointDragOver(event) {        
+        event.preventDefault();
+    }
+    
+    onDropPointDragEnter(event: Event, position: number) {
+        if(position < 0)
+            this.draghoverPrev = true;
+        else
+            this.draghoverNext = true;
+    }
+    
+    onDropPointDragLeave(event: Event, position: number) {
+        if(position < 0)
+            this.draghoverPrev = false;
+        else
+            this.draghoverNext = false;
+    }
+    
+    onDragStart(event) {
+        this.tree.dragNode = this.node;
+        this.tree.dragNodeIndex = this.index;
+        event.dataTransfer.setData("text", "prime");
+    }
 }
 
 @Component({
@@ -163,7 +217,8 @@ export class UITreeNode implements OnInit {
     template: `
         <div [ngClass]="{'ui-tree ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}" [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal">
             <ul class="ui-tree-container">
-                <p-treeNode *ngFor="let node of value" [node]="node"></p-treeNode>
+                <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index" [node]="node" 
+                [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
         </div>
         <div [ngClass]="{'ui-tree ui-tree-horizontal ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
@@ -201,7 +256,13 @@ export class Tree implements AfterContentInit {
     
     @Input() layout: string = 'vertical';
     
+    @Input() dragdrop: boolean;
+    
     @Input() metaKeySelection: boolean = true;
+    
+    @Input() dragNode: TreeNode;
+    
+    @Input() dragNodeIndex: number;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

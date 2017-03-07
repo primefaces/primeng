@@ -38,16 +38,20 @@
     <h3>Context Menu</h3>
     <p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
     <p-contextMenu #cm [model]="items"></p-contextMenu>
+    
+    <h3>DragDrop</h3>
+    <p-tree [value]="filesTree7" dragdrop="true"></p-tree>
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
 
     <h3>Programatic Tree Expansion</h3>
-    <p-tree #expandingTree [value]="filesTree7"></p-tree>
+    <p-tree #expandingTree [value]="filesTree8"></p-tree>
     <div style="margin-top: 8px">
         <button pButton type="text" label="Expand all" (click)="expandAll()"></button>
         <button pButton type="text" label="Collapse all" (click)="collapseAll()"></button>
     </div>
     
     <h3>Horizontal Tree</h3>
-    <p-tree [value]="filesTree8" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
+    <p-tree [value]="filesTree9" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
     <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'}}</div>
 </div>
 
