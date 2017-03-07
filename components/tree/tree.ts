@@ -35,10 +35,11 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
     template: `
         <ng-template [ngIf]="node">
             <li *ngIf="tree.dragdrop" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}"
-            (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($enter,-1)" (dragleave)="onDropPointDragLeave($event,-1)"></li>
+            (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event,-1)"></li>
             <li class="ui-treenode {{node.styleClass}}" *ngIf="!tree.horizontal" [ngClass]="{'ui-treenode-leaf': isLeaf()}">
                 <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
-                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode}" [draggable]="tree.dragdrop" (dragstart)="onDragStart($event)">
+                    (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
+                    [ngClass]="{'ui-treenode-selectable':tree.selectionMode,'ui-treenode-dragover':draghoverNode}" [draggable]="tree.dragdrop" (dragstart)="onDragStart($event)">
                     <span class="ui-tree-toggler  fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
@@ -59,7 +60,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
                 </ul>
             </li>
             <li *ngIf="tree.dragdrop&&lastChild" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverNext}"
-            (drop)="onDropPoint($event,1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($enter,1)" (dragleave)="onDropPointDragLeave($event,1)"></li>
+            (drop)="onDropPoint($event,1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,1)" (dragleave)="onDropPointDragLeave($event,1)"></li>
             <table *ngIf="tree.horizontal">
                 <tbody>
                     <tr>
@@ -123,6 +124,8 @@ export class UITreeNode implements OnInit {
     draghoverPrev: boolean;
     
     draghoverNext: boolean;
+    
+    draghoverNode: boolean
     
     ngOnInit() {
         this.node.parent = this.parentNode;
@@ -209,6 +212,37 @@ export class UITreeNode implements OnInit {
         this.tree.dragNode = this.node;
         this.tree.dragNodeIndex = this.index;
         event.dataTransfer.setData("text", "prime");
+    }
+    
+    onDropNodeDragOver(event) {
+        event.preventDefault();
+    }
+    
+    onDropNode(event) {
+        event.preventDefault();
+        let dragNode = this.tree.dragNode;
+        if(dragNode !== this.node) {
+            let dragNodeIndex = this.tree.dragNodeIndex;
+            let currentNodeList = dragNode.parent ? dragNode.parent.children : this.tree.value;
+            let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
+            
+            currentNodeList.splice(dragNodeIndex, 1);
+            this.node.children.push(dragNode);
+
+            this.tree.dragNode = null;
+            this.tree.dragNodeIndex = null;
+            this.draghoverNode = false;
+        }
+    }
+    
+    onDropNodeDragEnter(event) {
+        if(this.tree.dragNode !== this.node) {
+            this.draghoverNode = true;
+        }
+    }
+    
+    onDropNodeDragLeave(event) {
+        this.draghoverNode = false;
     }
 }
 
