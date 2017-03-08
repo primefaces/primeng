@@ -179,7 +179,7 @@ export class UITreeNode implements OnInit {
         let dragNodeScope = this.tree.dragNodeScope;
         let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? (position === 1 || dragNodeIndex !== this.index - 1) : true;
 
-        if(this.allowDrop(dragNode, this.node, dragNodeScope) && isValidDropPointIndex) {
+        if(this.tree.allowDrop(dragNode, this.node, dragNodeScope) && isValidDropPointIndex) {
             let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
             this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
             if(position < 0)
@@ -204,7 +204,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDropPointDragEnter(event: Event, position: number) {
-        if(this.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
+        if(this.tree.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
             if(position < 0)
                 this.draghoverPrev = true;
             else
@@ -246,14 +246,16 @@ export class UITreeNode implements OnInit {
         event.dataTransfer.dropEffect = 'move';
         if(this.tree.droppableNodes) {
             event.preventDefault();
+            event.stopPropagation();
         }
     }
     
     onDropNode(event) {
         if(this.tree.droppableNodes && this.node.droppable !== false) {
             event.preventDefault();
+            event.stopPropagation();
             let dragNode = this.tree.dragNode;
-            if(this.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
+            if(this.tree.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
                 let dragNodeIndex = this.tree.dragNodeIndex;            
                 this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
                 
@@ -274,7 +276,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDropNodeDragEnter(event) {
-        if(this.tree.droppableNodes && this.node.droppable !== false && this.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
+        if(this.tree.droppableNodes && this.node.droppable !== false && this.tree.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
             this.draghoverNode = true;
         }
     }
@@ -282,64 +284,9 @@ export class UITreeNode implements OnInit {
     onDropNodeDragLeave(event) {
         if(this.tree.droppableNodes) {
             let rect = event.currentTarget.getBoundingClientRect();
-            if(event.x > rect.left + rect.width || event.x < rect.left || event.y > rect.top + rect.height || event.y < rect.top) {
+            if(event.x > rect.left + rect.width || event.x < rect.left || event.y >= Math.floor(rect.top + rect.height) || event.y < rect.top) {
                this.draghoverNode = false;
             }
-        }
-    }
-    
-    allowDrop(dragNode: TreeNode, dropNode: TreeNode, dragNodeScope: any): boolean {
-        if(this.isValidDragScope(dragNodeScope)) {
-            let allow: boolean = true;
-            if(dragNode === dropNode) {
-                allow = false;
-            }
-            else {
-                let parent = dropNode.parent;
-                while(parent != null) {
-                    if(parent === dragNode) {
-                        allow = false;
-                        break;
-                    }
-                    parent = parent.parent;
-                }
-            }
-            
-            return allow;
-        }
-        else {
-            return false;
-        }
-    }
-    
-    isValidDragScope(dragScope: any): boolean {
-        let dropScope = this.tree.droppableScope;
-        
-        if(dropScope) {
-            if(typeof dropScope === 'string') {
-                if(typeof dragScope === 'string')
-                    return dropScope === dragScope;
-                else if(dragScope instanceof Array)
-                    return (<Array<any>>dragScope).indexOf(dropScope) != -1;
-            }
-            else if(dropScope instanceof Array) {
-                if(typeof dragScope === 'string') {
-                    return (<Array<any>>dropScope).indexOf(dragScope) != -1;
-                }
-                else if(dragScope instanceof Array) {
-                    for(let s of dropScope) {
-                        for(let ds of dragScope) {
-                            if(s === ds) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-        else {
-            return true;
         }
     }
 }
@@ -347,7 +294,8 @@ export class UITreeNode implements OnInit {
 @Component({
     selector: 'p-tree',
     template: `
-        <div [ngClass]="{'ui-tree ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}" [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal">
+        <div [ngClass]="{'ui-tree ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode,'ui-treenode-dragover':dragHover}" [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
+            (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)">
             <ul class="ui-tree-container">
                 <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index" [node]="node" 
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
@@ -414,6 +362,8 @@ export class Tree implements OnInit,AfterContentInit {
     
     public dragNodeScope: any;
     
+    public dragHover: boolean;
+    
     constructor(public dragDropService: TreeDragDropService) {}
     
     ngOnInit() {
@@ -434,6 +384,7 @@ export class Tree implements OnInit,AfterContentInit {
                 this.dragNodeSubNodes = null;
                 this.dragNodeIndex = null;
                 this.dragNodeScope = null;
+                this.dragHover = false;
             });
         }     
     }
@@ -669,6 +620,102 @@ export class Tree implements OnInit,AfterContentInit {
             return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else
             return null;
+    }
+    
+    onDragOver(event) {
+        if(this.droppableNodes && (!this.value || this.value.length === 0)) {
+            event.dataTransfer.dropEffect = 'move';
+            event.preventDefault();
+        }
+    }
+    
+    onDrop(event) {
+        if(this.droppableNodes && (!this.value || this.value.length === 0)) {
+            event.preventDefault();
+            let dragNode = this.dragNode;
+            if(this.allowDrop(dragNode, null, this.dragNodeScope)) {
+                let dragNodeIndex = this.dragNodeIndex;            
+                this.dragNodeSubNodes.splice(dragNodeIndex, 1);
+                this.value = this.value||[];
+                this.value.push(dragNode);
+                
+                this.dragDropService.stopDrag({
+                    node: dragNode
+                });
+            }
+        }
+    }
+    
+    onDragEnter(event) {
+        if(this.droppableNodes && this.allowDrop(this.dragNode, null, this.dragNodeScope)) {
+            this.dragHover = true;
+        }
+    }
+    
+    onDragLeave(event) {
+        if(this.droppableNodes) {
+            let rect = event.currentTarget.getBoundingClientRect();
+            if(event.x > rect.left + rect.width || event.x < rect.left || event.y > rect.top + rect.height || event.y < rect.top) {
+               this.dragHover = false;
+            }
+        }
+    }
+    
+    allowDrop(dragNode: TreeNode, dropNode: TreeNode, dragNodeScope: any): boolean {
+        if(this.isValidDragScope(dragNodeScope)) {
+            let allow: boolean = true;
+            if(dropNode) {
+                if(dragNode === dropNode) {
+                    allow = false;
+                }
+                else {
+                    let parent = dropNode.parent;
+                    while(parent != null) {
+                        if(parent === dragNode) {
+                            allow = false;
+                            break;
+                        }
+                        parent = parent.parent;
+                    }
+                }
+            }
+            
+            return allow;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    isValidDragScope(dragScope: any): boolean {
+        let dropScope = this.droppableScope;
+        
+        if(dropScope) {
+            if(typeof dropScope === 'string') {
+                if(typeof dragScope === 'string')
+                    return dropScope === dragScope;
+                else if(dragScope instanceof Array)
+                    return (<Array<any>>dragScope).indexOf(dropScope) != -1;
+            }
+            else if(dropScope instanceof Array) {
+                if(typeof dragScope === 'string') {
+                    return (<Array<any>>dropScope).indexOf(dragScope) != -1;
+                }
+                else if(dragScope instanceof Array) {
+                    for(let s of dropScope) {
+                        for(let ds of dragScope) {
+                            if(s === ds) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }
 @NgModule({

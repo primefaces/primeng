@@ -298,6 +298,10 @@
 }
 
 .ui-tree {
+    &.ui-treenode-dragover {
+        border-color: $stateHighlightBorderColor;
+    }
+    
     .ui-treenode-content {
         &.ui-treenode-selectable {
             .ui-treenode-label:not(.ui-state-highlight):hover {

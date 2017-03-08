@@ -62,8 +62,7 @@ export class TreeDemo implements OnInit {
                 label: "Backup",
                 data: "Backup Folder",
                 expandedIcon: "fa-folder-open",
-                collapsedIcon: "fa-folder",
-                draggable: false
+                collapsedIcon: "fa-folder"
             }
         ];
         this.filesTree9 = [
@@ -71,8 +70,7 @@ export class TreeDemo implements OnInit {
                 label: "Storage",
                 data: "Storage Folder",
                 expandedIcon: "fa-folder-open",
-                collapsedIcon: "fa-folder",
-                draggable: false
+                collapsedIcon: "fa-folder"
             }
         ];
         this.nodeService.getFiles().then(files => this.filesTree10 = files);
