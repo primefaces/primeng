@@ -103,6 +103,7 @@ export interface TreeNodeDragEvent {
     node: TreeNode;
     subNodes: TreeNode[];
     index: number;
+    scope?: any;
 }
 
 @Injectable()
