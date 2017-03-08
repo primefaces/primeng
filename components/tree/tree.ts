@@ -176,9 +176,9 @@ export class UITreeNode implements OnInit {
         event.preventDefault();
         let dragNode = this.tree.dragNode;
         let dragNodeIndex = this.tree.dragNodeIndex;
+
         if(this.allowDrop(dragNode, this.node) && dragNode !== this.node && (position === 1 || dragNodeIndex !== this.index - 1)) {
             let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
-            
             this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
             if(position < 0)
                 newNodeList.splice(this.index, 0, dragNode);
@@ -217,7 +217,6 @@ export class UITreeNode implements OnInit {
     onDragStart(event) {
         if(this.tree.draggableNodes) {
             event.dataTransfer.setData("text", "data");
-            event.dataTransfer.effectAllowed= 'none';
             
             this.tree.dragDropService.startDrag({
                 node: this.node,
