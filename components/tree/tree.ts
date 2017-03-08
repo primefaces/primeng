@@ -216,7 +216,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDragStart(event) {
-        if(this.tree.draggableNodes) {
+        if(this.tree.draggableNodes && this.node.draggable !== false) {
             event.dataTransfer.setData("text", "data");
             
             this.tree.dragDropService.startDrag({
@@ -243,7 +243,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDropNode(event) {
-        if(this.tree.droppableNodes) {
+        if(this.tree.droppableNodes && this.node.droppable !== false) {
             event.preventDefault();
             let dragNode = this.tree.dragNode;
             if(this.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
@@ -267,7 +267,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDropNodeDragEnter(event) {
-        if(this.tree.droppableNodes && this.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
+        if(this.tree.droppableNodes && this.node.droppable !== false && this.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
             this.draghoverNode = true;
         }
     }
