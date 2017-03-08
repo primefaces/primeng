@@ -138,7 +138,7 @@ export class UITreeNode implements OnInit {
         if(this.node.icon)
             icon = this.node.icon;
         else
-            icon = this.node.expanded ? this.node.expandedIcon : this.node.collapsedIcon;
+            icon = this.node.expanded && this.node.children && this.node.children.length ? this.node.expandedIcon : this.node.collapsedIcon;
         
         return UITreeNode.ICON_CLASS + ' ' + icon;
     }
@@ -177,8 +177,9 @@ export class UITreeNode implements OnInit {
         let dragNode = this.tree.dragNode;
         let dragNodeIndex = this.tree.dragNodeIndex;
         let dragNodeScope = this.tree.dragNodeScope;
+        let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? (position === 1 || dragNodeIndex !== this.index - 1) : true;
 
-        if(this.allowDrop(dragNode, this.node, dragNodeScope) && dragNode !== this.node && (position === 1 || dragNodeIndex !== this.index - 1)) {
+        if(this.allowDrop(dragNode, this.node, dragNodeScope) && isValidDropPointIndex) {
             let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
             this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
             if(position < 0)
@@ -221,11 +222,15 @@ export class UITreeNode implements OnInit {
             event.dataTransfer.setData("text", "data");
             
             this.tree.dragDropService.startDrag({
+                tree: this,
                 node: this.node,
                 subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
                 index: this.index,
                 scope: this.tree.draggableScope
             });
+        }
+        else {
+            event.preventDefault();
         }
     }
     
@@ -263,17 +268,15 @@ export class UITreeNode implements OnInit {
                     index: this.tree.dragNodeIndex
                 });
             }
-            
-            this.draghoverNode = false;
         }
+        
+        this.draghoverNode = false;
     }
     
     onDropNodeDragEnter(event) {
-        
         if(this.tree.droppableNodes && this.node.droppable !== false && this.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
             this.draghoverNode = true;
         }
-        console.log(this.draghoverNode);
     }
     
     onDropNodeDragLeave(event) {
@@ -401,6 +404,8 @@ export class Tree implements OnInit,AfterContentInit {
     
     public nodeTouched: boolean;
     
+    public dragNodeTree: Tree;
+    
     public dragNode: TreeNode;
     
     public dragNodeSubNodes: TreeNode[];
@@ -415,6 +420,7 @@ export class Tree implements OnInit,AfterContentInit {
         if(this.droppableNodes) {
             this.dragDropService.dragStart$.subscribe(
               event => {
+                this.dragNodeTree = event.tree;
                 this.dragNode = event.node;
                 this.dragNodeSubNodes = event.subNodes;
                 this.dragNodeIndex = event.index;
@@ -423,9 +429,11 @@ export class Tree implements OnInit,AfterContentInit {
             
             this.dragDropService.dragStop$.subscribe(
               event => {
+                this.dragNodeTree = null;
                 this.dragNode = null;
                 this.dragNodeSubNodes = null;
                 this.dragNodeIndex = null;
+                this.dragNodeScope = null;
             });
         }     
     }

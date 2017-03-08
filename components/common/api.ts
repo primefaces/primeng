@@ -102,6 +102,7 @@ export class ConfirmationService {
 }
 
 export interface TreeNodeDragEvent {
+    tree?: any;
     node: TreeNode;
     subNodes: TreeNode[];
     index: number;
