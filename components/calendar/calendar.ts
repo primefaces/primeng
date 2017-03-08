@@ -796,7 +796,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         if(this.showTime||this.timeOnly) {
             let hours = val.getHours();
             
-            if(this.hourFormat === '12') {
+            if(this.hourFormat == '12') {
                 if(hours >= 12) {
                     this.currentHour = (hours == 12) ? 12 : hours - 12;
                 }
