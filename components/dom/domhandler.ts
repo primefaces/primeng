@@ -100,10 +100,15 @@ export class DomHandler {
         let viewport = this.getViewport();
         let top, left;
 
-        if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height)
+        if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
-        else
+            if(top < 0) {
+                top = 0 + windowScrollTop;
+            }
+        } 
+        else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
+        }
 
         if (targetOffset.left + targetOuterWidth + elementOuterWidth > viewport.width)
             left = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;
