@@ -269,6 +269,12 @@ export class UITreeNode implements OnInit {
                     subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
                     index: this.tree.dragNodeIndex
                 });
+                
+                this.tree.onNodeDrop.emit({
+                    originalEvent: event,
+                    dragNode: dragNode,
+                    dropNode: this.node
+                })
             }
         }
         
@@ -327,6 +333,8 @@ export class Tree implements OnInit,AfterContentInit {
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
     
     @Output() onNodeContextMenuSelect: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onNodeDrop: EventEmitter<any> = new EventEmitter();
     
     @Input() style: any;
         
