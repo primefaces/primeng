@@ -198,6 +198,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDropPointDragOver(event) {
+        event.dataTransfer.dropEffect = 'move';
         event.preventDefault();
     }
     
@@ -237,6 +238,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDropNodeDragOver(event) {
+        event.dataTransfer.dropEffect = 'move';
         if(this.tree.droppableNodes) {
             event.preventDefault();
         }
@@ -267,9 +269,11 @@ export class UITreeNode implements OnInit {
     }
     
     onDropNodeDragEnter(event) {
+        
         if(this.tree.droppableNodes && this.node.droppable !== false && this.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
             this.draghoverNode = true;
         }
+        console.log(this.draghoverNode);
     }
     
     onDropNodeDragLeave(event) {
