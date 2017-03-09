@@ -1,5 +1,5 @@
 # PrimeNG
-UI Components for Angular 2
+UI Components for Angular
 
 See [PrimeNG homepage](http://www.primefaces.org/primeng) for live showcase and documentation.
 
