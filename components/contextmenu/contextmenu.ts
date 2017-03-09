@@ -130,6 +130,8 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     @Input() model: MenuItem[];
     
     @Input() global: boolean;
+    
+    @Input() target: any;
 
     @Input() style: any;
 
@@ -145,7 +147,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
             
     documentClickListener: any;
     
-    documentRightClickListener: any;
+    rightClickListener: any;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
@@ -157,9 +159,16 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         });
         
         if(this.global) {
-            this.documentRightClickListener = this.renderer.listenGlobal('body', 'contextmenu', (event) => {
+            this.rightClickListener = this.renderer.listenGlobal('body', 'contextmenu', (event) => {
                 this.show(event);
                 event.preventDefault();
+            });
+        }
+        else if(this.target) {
+            this.rightClickListener = this.renderer.listen(this.target, 'contextmenu', (event) => {
+                this.show(event);
+                event.preventDefault();
+                event.stopPropagation();
             });
         }
         
@@ -238,12 +247,14 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     }
         
     ngOnDestroy() {
-        this.documentClickListener();
-        
-        if(this.global) {
-            this.documentRightClickListener();    
+        if(this.documentClickListener) {
+            this.documentClickListener();
         }
-
+        
+        if(this.rightClickListener) {
+            this.rightClickListener();
+        }
+        
         if(this.model) {
             for(let item of this.model) {
                 this.unsubscribe(item);
