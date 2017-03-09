@@ -353,6 +353,10 @@ export class Tree implements OnInit,AfterContentInit {
     @Input() droppableNodes: boolean;
     
     @Input() metaKeySelection: boolean = true;
+    
+    @Input() propagateSelectionUp: boolean = true;
+    
+    @Input() propagateSelectionDown: boolean = true;
         
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -423,17 +427,29 @@ export class Tree implements OnInit,AfterContentInit {
                    
             if(this.isCheckboxSelectionMode()) {
                 if(selected) {
-                    this.propagateSelectionDown(node, false);
-                    if(node.parent) {
-                        this.propagateSelectionUp(node.parent, false);
+                    if(this.propagateSelectionDown)
+                        this.propagateDown(node, false);
+                    else
+                        this.selection.splice(index,1);
+                    
+                    if(this.propagateSelectionUp && node.parent) {
+                        this.propagateUp(node.parent, false);
                     }
+                    
                     this.selectionChange.emit(this.selection);
                     this.onNodeUnselect.emit({originalEvent: event, node: node});
                 }
                 else {
-                    this.propagateSelectionDown(node, true);
-                    if(node.parent) {
-                        this.propagateSelectionUp(node.parent, true);
+                    if(this.propagateSelectionDown) {
+                        this.propagateDown(node, true);
+                    }
+                    else {
+                        this.selection = this.selection||[];
+                        this.selection.push(node);
+                    }
+                    
+                    if(this.propagateSelectionUp && node.parent) {
+                        this.propagateUp(node.parent, true);
                     }
                     this.selectionChange.emit(this.selection);
                     this.onNodeSelect.emit({originalEvent: event, node: node});
@@ -548,7 +564,7 @@ export class Tree implements OnInit,AfterContentInit {
         return index;
     }
     
-    propagateSelectionUp(node: TreeNode, select: boolean) {
+    propagateUp(node: TreeNode, select: boolean) {
         if(node.children && node.children.length) {
             let selectedCount: number = 0;
             let childPartialSelected: boolean = false;
@@ -583,11 +599,11 @@ export class Tree implements OnInit,AfterContentInit {
                 
         let parent = node.parent;
         if(parent) {
-            this.propagateSelectionUp(parent, select);
+            this.propagateUp(parent, select);
         }
     }
     
-    propagateSelectionDown(node: TreeNode, select: boolean) {
+    propagateDown(node: TreeNode, select: boolean) {
         let index = this.findIndexInSelection(node);
         
         if(select && index == -1) {
@@ -602,7 +618,7 @@ export class Tree implements OnInit,AfterContentInit {
         
         if(node.children && node.children.length) {
             for(let child of node.children) {
-                this.propagateSelectionDown(child, select);
+                this.propagateDown(child, select);
             }
         }
     }

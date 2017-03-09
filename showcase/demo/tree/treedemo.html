@@ -357,6 +357,15 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
+            <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned of by propapageSelectionDown and
+            propagateSelectionUp properties.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-tree [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles"
+                [propagateSelectionUp]="false" [propagateSelectionDown]="false"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
+
             <p>Tree provides onNodeSelect and onNodeUnselect options as callbacks for selection feature.</p>
 <pre>
 <code class="language-markup" pCode>
@@ -589,6 +598,18 @@ export class TreeDemoComponent implements OnInit &#123;
                             <td>true</td>
                             <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
                             can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
+                        </tr>
+                        <tr>
+                            <td>propagateSelectionUp</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether checkbox selections propagate to ancestor nodes.</td>
+                        </tr>
+                        <tr>
+                            <td>propagateSelectionDown</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether checkbox selections propagate to descendant nodes.</td>
                         </tr>
                     </tbody>
                 </table>
