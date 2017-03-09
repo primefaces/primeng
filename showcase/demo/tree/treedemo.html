@@ -512,6 +512,14 @@ export class TreeDemoComponent implements OnInit &#123;
             <h3>Drag and Drop</h3>
             <p>Nodes can be reordered within a tree and also can be transferred between multiple tree. To enable dragging from a tree set draggableNodes to true and to allow
             dropping enable droppableNodes property. In addition, import TreeDragDropService and configure it as a provider at your component or a top level module.</p>
+<pre>
+<code class="language-typescript" pCode>
+import &#123;TreeDragDropService&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <p>Define the service as a provider to your component or module so that the descendant tree component can use it internally.
+            Then enable draggableNodes and droppableNodes to activate dragdrop on a tree.</p>
         
 <pre>
 <code class="language-markup" pCode>
