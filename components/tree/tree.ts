@@ -1,10 +1,11 @@
-import {NgModule,Component,Input,AfterContentInit,Output,EventEmitter,OnInit,OnDestroy,EmbeddedViewRef,ViewContainerRef,
+import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,OnDestroy,EmbeddedViewRef,ViewContainerRef,
     ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
 import {SharedModule} from '../common/shared';
 import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/api';
+import {Subscription}   from 'rxjs/Subscription';
 
 @Component({
     selector: 'p-treeNodeTemplateLoader',
@@ -314,7 +315,7 @@ export class UITreeNode implements OnInit {
         </div>
     `
 })
-export class Tree implements OnInit,AfterContentInit {
+export class Tree implements OnInit,AfterContentInit,OnDestroy {
 
     @Input() value: TreeNode[];
         
@@ -376,11 +377,15 @@ export class Tree implements OnInit,AfterContentInit {
     
     public dragHover: boolean;
     
+    public dragStartSubscription: Subscription;
+    
+    public dragStopSubscription: Subscription;
+    
     constructor(public dragDropService: TreeDragDropService) {}
     
     ngOnInit() {
         if(this.droppableNodes) {
-            this.dragDropService.dragStart$.subscribe(
+            this.dragStartSubscription = this.dragDropService.dragStart$.subscribe(
               event => {
                 this.dragNodeTree = event.tree;
                 this.dragNode = event.node;
@@ -389,7 +394,7 @@ export class Tree implements OnInit,AfterContentInit {
                 this.dragNodeScope = event.scope;
             });
             
-            this.dragDropService.dragStop$.subscribe(
+            this.dragStopSubscription = this.dragDropService.dragStop$.subscribe(
               event => {
                 this.dragNodeTree = null;
                 this.dragNode = null;
@@ -739,6 +744,16 @@ export class Tree implements OnInit,AfterContentInit {
         }
         else {
             return true;
+        }
+    }
+    
+    ngOnDestroy() {
+        if(this.dragStartSubscription) {
+            this.dragStartSubscription.unsubscribe();
+        }
+        
+        if(this.dragStopSubscription) {
+            this.dragStopSubscription.unsubscribe();
         }
     }
 }
