@@ -490,7 +490,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     selectDate(dateMeta) {
-        this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        this.value = new Date(Date.UTC(dateMeta.year, dateMeta.month, dateMeta.day));
         if(this.showTime) {
             if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
                 this.value.setHours(this.currentHour + 12);
