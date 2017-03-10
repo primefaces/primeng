@@ -1789,6 +1789,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
+            globalFilter: this.globalFilter ? this.globalFilter.value : null,
             multiSortMeta: this.multiSortMeta
         };
     }
