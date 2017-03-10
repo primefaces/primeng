@@ -159,7 +159,7 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
         if(this.closeOnEscape && this.closable) {
             this.documentEscapeListener = this.renderer.listenGlobal('body', 'keydown', (event) => {
                 if(event.which == 27) {
-                    if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex) {
+                    if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex) {
                         this.hide(event);
                     }
                 }
@@ -225,11 +225,11 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     ngOnDestroy() {
         this.disableModality();
                         
-        if(this.responsive) {
+        if(this.responsive && this.documentResponsiveListener) {
             this.documentResponsiveListener();
         }
         
-        if(this.closeOnEscape && this.closable) {
+        if(this.closeOnEscape && this.closable && this.documentEscapeListener) {
             this.documentEscapeListener();
         }
         
