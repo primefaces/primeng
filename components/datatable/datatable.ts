@@ -171,7 +171,7 @@ export class ColumnFooters {
                         </span>
                         <div class="ui-cell-editor" *ngIf="col.editable">
                             <input *ngIf="!col.editorTemplate" type="text" pInputText [(ngModel)]="rowData[col.field]" required="true"
-                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex)"/>
+                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex)" (blur)="dt.onCellEditorBlur($event, col, rowData)"/>
                             <p-columnEditorTemplateLoader *ngIf="col.editorTemplate" [column]="col" [rowData]="rowData"></p-columnEditorTemplateLoader>
                         </div>
                         <a href="#" *ngIf="col.expander" (click)="dt.toggleRow(rowData,$event)">
@@ -1487,6 +1487,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.editingCell = null;
         let cell = this.findCell(element); 
         this.domHandler.removeClass(cell, 'ui-cell-editing');
+    }
+     
+    onCellEditorBlur(event, column: Column, rowData: any) {
+        if (this.editable) {
+            this.onEditComplete.emit({ column: column, data: rowData });
+            this.switchCellToViewMode(event.target);
+            event.preventDefault();
+        }
     }
 
     onCellEditorKeydown(event, column: Column, rowData: any, colIndex: number) {
