@@ -2,7 +2,7 @@
     width: 18em;
 }
 
-.ui-tree.ui-tree-selectable .ui-treenode-content {
+.ui-tree .ui-treenode-selectable.ui-treenode-content {
     cursor: pointer;
 }
 

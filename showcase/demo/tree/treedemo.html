@@ -196,10 +196,16 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
                             <td>Whether to disable dragging for a particular node even if draggableNodes is enabled.</td>
                         </tr>
                         <tr>
-                            <td>styleClass</td>
-                            <td>string</td>
+                            <td>droppable</td>
+                            <td>boolean</td>
                             <td>null</td>
                             <td>Whether to disable dropping for a particular node even if droppableNodes is enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>selectable</td>
+                            <td>boolean</td>
+                            <td>null</td>
+                            <td>Used to disable selection of a particular node.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -394,6 +400,8 @@ export class TreeDemoComponent implements OnInit &#123;
 &#125;
 </code>
 </pre>
+
+            <p>Selection of a particular node can be disabled by setting the selectable property of the node to false.</p>
 
             <h3>Icons</h3>
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use

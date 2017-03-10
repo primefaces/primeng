@@ -63,6 +63,7 @@ export interface TreeNode {
     styleClass?: string;
     draggable?: boolean;
     droppable?: boolean;
+    selectable?: boolean;
 }
 
 export interface Confirmation {
