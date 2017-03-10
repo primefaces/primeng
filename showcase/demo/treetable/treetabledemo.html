@@ -17,7 +17,7 @@
         
     <p-treeTable [value]="files2" selectionMode="single" [(selection)]="selectedFile"
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="{'margin-top':'50px'}">
-        <p-header>Singe Selection</p-header>
+        <p-header>Single Selection</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
@@ -59,6 +59,15 @@
             </ng-template>
         </p-column>
     </p-treeTable>
+    
+    <p-treeTable [value]="files6" selectionMode="single" [(selection)]="selectedFile2" [style]="{'margin-top':'50px'}" [contextMenu]="cm">
+        <p-header>Context Menu</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+    
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
     
     <p-treeTable [value]="lazyFiles" [style]="{'margin-top':'50px'}"
         (onNodeExpand)="nodeExpand($event)">
@@ -412,6 +421,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 &#125;
 </code>
 </pre>
+
 <pre>
 <code class="language-markup" pCode>
 &lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-treeTable&gt;
@@ -475,6 +485,56 @@ export class TreeTableDemoComponent implements OnInit &#123;
 </pre>
 
             <p>Selection of a particular node can be disabled by setting the selectable property of the node to false.</p>
+            
+            <h3>ContextMenu</h3>
+            <p>TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a treetable, define a local template
+            variable for the menu and bind it to the contextMenu property of the treetable. This enables showing the menu whenever a row is right clicked.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"&gt;
+    &lt;p-header&gt;Context Menu&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class TreeTableDemoComponent implements OnInit &#123;
+    
+    files: TreeNode[];
+    
+    selectedFile: TreeNode;
+
+    constructor(private nodeService: NodeService) &#123;&#125;
+    
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files = files);
+        
+        this.items = [
+            &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)&#125;,
+            &#123;label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)&#125;
+        ];
+    &#125;
+    
+    viewNode(node: TreeNode) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: node.data.name&#125;);
+    &#125;
+
+    deleteNode(node: TreeNode) &#123;
+        node.parent.children = node.parent.children.filter( n => n.data !== node.data);
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Deleted', detail: node.data.name&#125;);
+    &#125;
+
+&#125;
+</code>
+</pre>
                 
             <h3>Templating</h3>
             <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a ng-template inside a column that gets 
@@ -661,6 +721,12 @@ export class TreeTableDemoComponent implements OnInit &#123;
                                 event.node: Collapsed node instance.</td>
                             <td>Callback to invoke when a node is collapsed.</td>
                         </tr>
+                        <tr>
+                            <td>onContextMenuSelect</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.node: Selected node instance.</td>
+                            <td>Callback to invoke when a node is selected with right click.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -757,6 +823,13 @@ export class TreeTableDemoComponent implements OnInit &#123;
     &lt;/p-column&gt;
 &lt;/p-treeTable&gt;
 
+&lt;p-treeTable [value]="files6" selectionMode="single" [(selection)]="selectedFile2" [style]="&#123;'margin-top':'50px'&#125;" [contextMenu]="cm"&gt;
+    &lt;p-header&gt;Context Menu&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+
 &lt;p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'50px'&#125;"
     (onNodeExpand)="nodeExpand($event)"&gt;
     &lt;p-header&gt;Lazy Loading&lt;/p-header&gt;
@@ -785,6 +858,8 @@ export class TreeTableDemo implements OnInit &#123;
         
     selectedFile: TreeNode;
     
+    selectedFile2: TreeNode;
+    
     selectedFiles: TreeNode[];
         
     constructor(private nodeService: NodeService) &#123; &#125;
@@ -792,6 +867,11 @@ export class TreeTableDemo implements OnInit &#123;
     ngOnInit() &#123;
         this.nodeService.getFilesystem().then(files => this.files = files);
         this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
+        
+        this.items = [
+            &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)&#125;,
+            &#123;label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)&#125;
+        ];
     &#125;
     
     nodeSelect(event) &#123;
@@ -810,6 +890,18 @@ export class TreeTableDemo implements OnInit &#123;
             this.nodeService.getLazyFilesystem().then(nodes => event.node.children = nodes);
         &#125;
     &#125;
+    
+    viewNode(node: TreeNode) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: node.data.name&#125;);
+    &#125;
+
+    deleteNode(node: TreeNode) &#123;
+        node.parent.children = node.parent.children.filter( n => n.data !== node.data);
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Deleted', detail: node.data.name&#125;);
+    &#126;
+    
 &#125;
 </code>
 </pre>
