@@ -280,6 +280,15 @@ $invalidInputBorderColor: #f44336;
             }
         }        
     }
+    
+    tfoot {
+        td {
+            &.ui-state-default {
+                background: #ebedf0;
+                border-color: #d9d9d9;
+            }
+        }
+    }
 }
 
 /* Panel */

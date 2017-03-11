@@ -44,7 +44,8 @@
     border-style: solid;
 }
 
-.ui-datatable .ui-datatable-thead > tr > th {
+.ui-datatable .ui-datatable-thead > tr > th,
+.ui-datatable .ui-datatable-tfoot > tr > td {
     font-weight: normal;
 }
 
@@ -73,7 +74,8 @@
     overflow: hidden;
 }
 
-.ui-datatable-scrollable .ui-datatable-scrollable-header {
+.ui-datatable-scrollable .ui-datatable-scrollable-header,
+.ui-datatable-scrollable .ui-datatable-scrollable-footer {
     position: relative;
     border: 0 none;
 }
