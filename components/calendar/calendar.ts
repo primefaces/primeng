@@ -631,6 +631,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     onInputBlur(event) {
         this.focus = false;
         this.onBlur.emit(event);
+        this.updateInputfield();
         this.onModelTouched();
     }
     
@@ -836,7 +837,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         if(this.value && typeof this.value === 'string') {
             this.value = this.parseValueFromString(this.value);
         }
-        
+
         this.updateInputfield();
         this.updateUI();
     }
