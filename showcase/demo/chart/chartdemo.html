@@ -16,6 +16,18 @@ import &#123;ChartModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
+    <h3>Charts.js</h3>
+    <p>In order for chart component to work, include charts.js to your project. An example with CLI would be;</p>
+<pre>
+<code class="language-typescript" pCode>
+"scripts": [
+  "../node_modules/chart.js/dist/Chart.js",
+  //..others
+],
+</code>
+</pre>
+    
+
     <h3 style="margin-top:0px">Change Detection</h3>
     <p>In order to chart to redraw itself, a new data object needs to be created. Changing the array contents without creating a new
     array instance does not trigger change detection.</p>
