@@ -757,6 +757,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     parseValueFromString(text: string): Date {
+		if (text === '' || text === undefined) {
+			if (!this.required) {
+				return null;
+			}
+		}
         let dateValue;
         let parts: string[] = text.split(' ');
         
