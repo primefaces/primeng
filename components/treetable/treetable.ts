@@ -18,7 +18,8 @@ import {DomHandler} from '../dom/domhandler';
                 <div class="ui-chkbox ui-treetable-checkbox" *ngIf="treeTable.selectionMode == 'checkbox' && i==0"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
                     <span class="ui-chkbox-icon ui-c fa" 
                         [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
-                ><span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
+                ><span [class]="getIcon()" *ngIf="i==0 && (node.icon||node.expandedIcon||node.collapsedIcon)"></span
+                    ><span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
                 <p-columnBodyTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnBodyTemplateLoader>
             </td>
         </div>
@@ -32,6 +33,8 @@ import {DomHandler} from '../dom/domhandler';
     `
 })
 export class UITreeRow implements OnInit {
+
+    static ICON_CLASS: string = 'ui-treenode-icon fa fa-fw';
 
     @Input() node: TreeNode;
     
@@ -98,6 +101,18 @@ export class UITreeRow implements OnInit {
             return null;
         }
     }
+
+    getIcon() {
+        let icon: string;
+        
+        if(this.node.icon)
+            icon = this.node.icon;
+        else
+            icon = this.node.expanded && this.node.children && this.node.children.length ? this.node.expandedIcon : this.node.collapsedIcon;
+        
+        return UITreeRow.ICON_CLASS + ' ' + icon;
+    }
+    
 }
 
 @Component({
