@@ -918,3 +918,11 @@ pre {
     width: 38px;
     text-align: center;
 }
+
+.whouses {
+    background: #ffffff;
+}
+
+.whouses img {
+    width: 100%;
+}
