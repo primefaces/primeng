@@ -678,8 +678,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     differ: any;
     
-    differs: IterableDiffers;
-
     globalFilterFunction: any;
     
     columnsSubscription: Subscription;
