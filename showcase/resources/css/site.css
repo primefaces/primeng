@@ -373,42 +373,30 @@ a {
     padding: 10px 0px 10px 0px;
 }
 /* buttons */
-.intro-button {
-    width: 90%;
+.intro-btn {
+    width: 100%;
+    display: block;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    display: table;
-    font-size: 20px;
-    font-family: 'exobolditalic', "Trebuchet MS", Arial, Helvetica, sans-serif;
-    color: #312E1C;
-    margin: 10px 0px 10px 0px;
+    font-size: 16px;
+    color: #f8f8f8;
     cursor: pointer;
-    padding: 20px;
-    border-radius: 5px;
-    border-right: solid 60px #404c51;
+    padding: 10px 14px;
+    border-radius: 3px;
+    background: #ffd100;
+    color: #404c51;
 }
-.intro-button img {
-    margin-right: -60px;
-    height: 23px;
+
+.github-btn {
+    background-color: #404c51;
+    color: #f8f8f8;
+    margin-bottom: 10px;
 }
-.yellow-btn {
-    background-color: #fdd106;
-    -webkit-box-shadow: 0px 2px 0px 0px rgba(231, 191, 9, 1);
-    -moz-box-shadow: 0px 2px 0px 0px rgba(231, 191, 9, 1);
-    box-shadow: 0px 2px 0px 0px rgba(231, 191, 9, 1);
-}
-.yellow-btn:hover {
-    background-color: #fcdb42;
-}
-.orange-btn {
-    background-color: #fba751;
-    -webkit-box-shadow: 0px 2px 0px 0px rgba(212, 135, 56, 1);
-    -moz-box-shadow: 0px 2px 0px 0px rgba(212, 135, 56, 1);
-    box-shadow: 0px 2px 0px 0px rgba(212, 135, 56, 1);
-}
-.orange-btn:hover {
-    background-color: #feb66d;
+
+.prosupport-btn {
+    color: #f8f8f8;
+    background-color: #26a9e0;
 }
 
 /* text colors */

@@ -9,9 +9,20 @@
                 <div class="intro-text">PrimeNG is developed by <a href="http://www.primetek.com.tr">PrimeTek Informatics</a>, a company with years of expertise in developing open source UI components.
                 For project news and updates, follow us on <a href="https://twitter.com/prime_ng">twitter.</a></div>
                 <br />
-                <a [routerLink]="['/setup']" class="intro-button yellow-btn"> <span>Download</span> <img src="showcase/resources/images/btnArrow.svg" style="float:right"/></a>
-                <a href="https://github.com/primefaces/primeng" class="intro-button orange-btn"> <span>GitHub</span> <img src="showcase/resources/images/btnDocumenticon.svg" style="float:right"/></a>
+                
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <a [routerLink]="['/setup']" class="intro-btn download-btn">Download</a>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <a href="https://github.com/primefaces/primeng" class="intro-btn github-btn">GitHub</a>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <a href="#prosupport" class="intro-btn prosupport-btn">PRO Support</a>
+                    </div>
+                </div>
             </div>
+            
         <div class="ui-g-12 ui-lg-8">
             <div class="property-box ui-g-12 ui-lg-4">
                 <img src="showcase/resources/images/ajaxFramework.svg" />
@@ -112,7 +123,7 @@
     <img alt="Bootstrap" src="showcase/resources/images/bootstrap.png" style="width:100%"/> 
 </div>
 
-<div class="content-section">
+<div id="prosupport" class="content-section">
     <h2>PrimeNG PRO Support</h2>
     <p class="intro-text" style="margin-bottom:10px">With PrimeNG PRO, it's easy to support, tune and add features to PrimeNG as if it were an in-house framework.</p>
     <p class="intro-text" style="margin-bottom:10px">PrimeNG PRO is a term based commercial support service. With the exclusive services of Pro account, 
