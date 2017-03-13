@@ -879,6 +879,11 @@ loadData(event: LazyLoadEvent) &#123;
 </code>
 </pre>
 
+            <h3>Immutable Mode</h3>
+            <p>DataTable uses diff checking to realize if the underlying data has changed, this may slow down the performance so to avoid it set immutable mode on and make sure
+                your data changes such as adding or removing a record always creates a new array reference. For example, use slice instead of splice when removing an item 
+                or uses spread operator instead of push method when adding an item.</p>
+
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -1167,6 +1172,12 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>true</td>
                             <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
                             can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
+                        </tr>
+                        <tr>
+                            <td>immutable</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Improves performance by avoiding diff checking, changes to value should be done in an immutable way on application side when immutable property is enabled.</td>
                         </tr>
                     </tbody>
                 </table>

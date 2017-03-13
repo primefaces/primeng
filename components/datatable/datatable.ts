@@ -454,8 +454,6 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
 })
 export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,DoCheck,OnDestroy,BlockableUI {
 
-    @Input() value: any[];
-
     @Input() paginator: boolean;
 
     @Input() rows: number;
@@ -549,6 +547,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() paginatorPosition: string = 'bottom';
     
     @Input() metaKeySelection: boolean = true;
+    
+    @Input() immutable: boolean;
             
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
@@ -609,6 +609,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @ContentChild(HeaderColumnGroup) headerColumnGroup: HeaderColumnGroup;
     
     @ContentChild(FooterColumnGroup) footerColumnGroup: FooterColumnGroup;
+    
+    public _value: any[];
         
     public dataToRender: any[];
 
@@ -675,19 +677,24 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public loading: boolean;
     
     differ: any;
+    
+    differs: IterableDiffers;
 
     globalFilterFunction: any;
     
     columnsSubscription: Subscription;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, 
+    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, 
             public renderer: Renderer, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
-        this.differ = differs.find([]).create(null);
     }
 
     ngOnInit() {
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+        
+        if(!this.immutable) {
+            this.differ = this.differs.find([]).create(null);
         }
     }
     
@@ -746,42 +753,57 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     ngDoCheck() {
-        let changes = this.differ.diff(this.value);
-        if(changes) {
-            this.dataChanged = true;
-            if(this.paginator) {
-                this.updatePaginator();
+        if(!this.immutable) {
+            let changes = this.differ.diff(this.value);
+            if(changes) {
+                this.handleDataChange();
             }
-
-            if(this.hasFilter()) {
-                if(this.lazy) {
-                    //prevent loop
-                    if(this.stopFilterPropagation)
-                        this.stopFilterPropagation = false;
-                    else
-                        this._filter();
-                }
-                else {
-                    this._filter();
-                }
-            }
-                        
-            if(this.stopSortPropagation) {
-                this.stopSortPropagation = false;
-            }
-            else if(!this.lazy && (this.sortField||this.multiSortMeta)) {  
-                if(!this.sortColumn && this.columns) {
-                    this.sortColumn = this.columns.find(col => col.field === this.sortField && col.sortable === 'custom');
-                }              
-                
-                if(this.sortMode == 'single')
-                    this.sortSingle();
-                else if(this.sortMode == 'multiple')
-                    this.sortMultiple();
-            }
-
-            this.updateDataToRender(this.filteredValue||this.value);
         }
+    }
+    
+    @Input() get value(): any[] {
+        return this._value;
+    }
+
+    set value(val:any[]) {
+        this._value = val;
+        this.handleDataChange();
+    }
+    
+    handleDataChange() {
+        this.dataChanged = true;
+        if(this.paginator) {
+            this.updatePaginator();
+        }
+
+        if(this.hasFilter()) {
+            if(this.lazy) {
+                //prevent loop
+                if(this.stopFilterPropagation)
+                    this.stopFilterPropagation = false;
+                else
+                    this._filter();
+            }
+            else {
+                this._filter();
+            }
+        }
+                    
+        if(this.stopSortPropagation) {
+            this.stopSortPropagation = false;
+        }
+        else if(!this.lazy && (this.sortField||this.multiSortMeta)) {  
+            if(!this.sortColumn && this.columns) {
+                this.sortColumn = this.columns.find(col => col.field === this.sortField && col.sortable === 'custom');
+            }              
+            
+            if(this.sortMode == 'single')
+                this.sortSingle();
+            else if(this.sortMode == 'multiple')
+                this.sortMultiple();
+        }
+
+        this.updateDataToRender(this.filteredValue||this.value);
     }
     
     initColumns(): void {
