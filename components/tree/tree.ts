@@ -1,5 +1,6 @@
 import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,EmbeddedViewRef,ViewContainerRef,
     ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
+import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
 import {SharedModule} from '../common/shared';
@@ -381,7 +382,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
     
     public dragStopSubscription: Subscription;
     
-    constructor(public dragDropService: TreeDragDropService) {}
+    constructor(@Optional() public dragDropService: TreeDragDropService) {}
     
     ngOnInit() {
         if(this.droppableNodes) {
