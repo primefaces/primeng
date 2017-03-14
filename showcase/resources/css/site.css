@@ -629,7 +629,17 @@ input.searchInput {
     background-color: #F3F6F9;
 }
 
+@media (min-width: 1025px) {
+    .home-logo {
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: 64em) {
+    .home-logo {
+        width: 340px;
+    }
+    
     .topbar-link {
         display: none
     }
@@ -701,6 +711,7 @@ input.searchInput {
         width: 40%;
     }
 }
+
 @media (max-width: 768px) {
     .doc-table tbody td {
         word-break: break-word;
