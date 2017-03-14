@@ -95,6 +95,12 @@
     cursor: pointer;
 }
 
+.ui-datatable .ui-datatable-data tr.ui-rowgroup-header td a,
+.ui-datatable .ui-datatable-data tr.ui-rowgroup-header td span.ui-rowgroup-header-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .ui-datatable-scrollable-theadclone {
     height: 0;
 }
