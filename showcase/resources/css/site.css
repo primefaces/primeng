@@ -380,23 +380,52 @@ a {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     font-size: 16px;
-    color: #f8f8f8;
     cursor: pointer;
     padding: 10px 14px;
     border-radius: 3px;
-    background: #ffd100;
+    -moz-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+    -webkit-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+    transition: background-color .3s;
+}
+
+.download-btn {
+    background-color: #ffd100;
     color: #404c51;
+}
+
+.download-btn:hover {
+    background-color: #ffda32;
+}
+
+.download-btn:active {
+    background-color: #e5bc00;
 }
 
 .github-btn {
     background-color: #404c51;
     color: #f8f8f8;
-    margin-bottom: 10px;
+}
+
+.github-btn:hover {
+    background-color: #666f73;
+}
+
+.github-btn:active {
+    background-color: #333c40;
 }
 
 .prosupport-btn {
     color: #f8f8f8;
     background-color: #26a9e0;
+}
+
+.prosupport-btn:hover {
+    background-color: #51bae6;
+}
+
+.prosupport-btn:active {
+    background-color: #1e87b3;
 }
 
 /* text colors */
