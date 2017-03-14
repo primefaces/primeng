@@ -428,7 +428,6 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
             return;
         }
         else if(this.selectionMode) {
-            console.log(node);
             if(node.selectable === false) {
                 return;
             }
