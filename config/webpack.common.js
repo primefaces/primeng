@@ -1,19 +1,18 @@
 var webpack = require("webpack");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var helpers = require('./helpers');
 
 module.exports = {
     entry: {
         'polyfills': './showcase/polyfills.ts',
         'vendor': './showcase/vendor.ts',
-        'application': './showcase/main.ts'
+        'app': './showcase/main.ts'
     },
-    output: {
-        path: __dirname,
-        filename: './dist/[name].js',
-        chunkFilename: './dist/[id].js'
-    },
+    
     resolve: {
-        extensions: ['', '.ts', '.js']
+      extensions: ['.ts', '.js']
     },
+    
     module: {
         loaders: [
             {
@@ -22,9 +21,10 @@ module.exports = {
             }
         ]
     },
+    
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['application', 'vendor', 'polyfills']
+            name: ['app', 'vendor', 'polyfills']
         })
     ]
 };

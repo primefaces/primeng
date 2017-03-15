@@ -27,8 +27,9 @@
     "gulp-uglifycss": "^1.0.6",
     "ts-loader": "^0.9.5",
     "typescript": "^2.1.6",
-    "webpack": "^1.13.1",
-    "webpack-merge": "^0.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "html-webpack-plugin": "^2.16.1",
+    "webpack": "2.2.1",
+    "webpack-dev-server": "2.4.1",
+    "webpack-merge": "^3.0.0"
   }
 }
