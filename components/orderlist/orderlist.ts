@@ -21,7 +21,7 @@ import {DomHandler} from '../dom/domhandler';
                         <li *ngFor="let item of value" class="ui-orderlist-item"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
                             (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)">
-                            <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                         </li>
                     </ul>
                 </div>

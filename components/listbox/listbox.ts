@@ -26,7 +26,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     </div>
                 </div>
                 <div class="ui-listbox-filter-container" *ngIf="filter">
-                    <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all">
+                    <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
             </div>
@@ -43,7 +43,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         </div>
                     </div>
                     <span *ngIf="!itemTemplate">{{option.label}}</span>
-                    <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></template>
+                    <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></ng-template>
                 </li>
             </ul>
         </div>

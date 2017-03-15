@@ -15,7 +15,7 @@ import {BlockableUI} from '../common/api';
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-content ui-widget-content">
                 <div class="ui-g">
-                    <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
+                    <ng-template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></ng-template>
                 </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
@@ -49,6 +49,8 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() styleClass: string;
     
     @Input() paginatorPosition: string = 'bottom';
+    
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
             
     @ContentChild(Header) header;
 
@@ -125,6 +127,11 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
         else {
             this.updateDataToRender(this.value);
         }
+        
+        this.onPage.emit({
+            first: this.first,
+            rows: this.rows
+        });
     }
 
     updateDataToRender(datasource) {

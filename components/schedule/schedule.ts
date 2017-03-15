@@ -79,7 +79,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         
     @Input() eventConstraint: any;
     
-    @Input() locale: any;
+    @Input() locale: string;
     
     @Input() timezone: boolean | string = false;
 
@@ -143,6 +143,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             aspectRatio: this.aspectRatio,
             eventLimit: this.eventLimit,
             defaultDate: this.defaultDate,
+            locale: this.locale,
             timezone: this.timezone,
             editable: this.editable,
             droppable: this.droppable,
@@ -259,13 +260,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 });
             }
         };
-        
-        if(this.locale) {
-            for(let prop in this.locale) {
-                this.config[prop] = this.locale[prop];
-            }
-        }
-        
+                
         if(this.options) {
             for(let prop in this.options) {
                 this.config[prop] = this.options[prop];

@@ -16,17 +16,17 @@
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color">
-            <template let-col let-car="rowData" pTemplate="body">
+            <ng-template let-col let-car="rowData" pTemplate="body">
                 <span [style.color]="car[col.field]">{{car[col.field]}}</span>
-            </template>
+            </ng-template>
         </p-column>
         <p-column styleClass="col-button">
-            <template pTemplate="header">
+            <ng-template pTemplate="header">
                 <button type="button" pButton icon="fa-refresh"></button>
-            </template>
-            <template let-car="rowData" pTemplate="body">
+            </ng-template>
+            <ng-template let-car="rowData" pTemplate="body">
                 <button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
 </div>
@@ -67,17 +67,17 @@ export class DataTableTemplatingDemo implements OnInit &#123;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color"&gt;
-        &lt;template let-col let-car="rowData" pTemplate="body"&gt;
+        &lt;ng-template let-col let-car="rowData" pTemplate="body"&gt;
             &lt;span [style.color]="car[col.field]"&gt;&#123;&#123;car[col.field]&#125;&#125;&lt;/span&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column styleClass="col-button"&gt;
-        &lt;template pTemplate="header"&gt;
+        &lt;ng-template pTemplate="header"&gt;
             &lt;button type="button" pButton icon="fa-refresh"&gt;&lt;/button&gt;
-        &lt;/template&gt;
-        &lt;template let-car="rowData" pTemplate="body"&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-car="rowData" pTemplate="body"&gt;
             &lt;button type="button" pButton (click)="selectCar(car)" icon="fa-search"&gt;&lt;/button&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>

@@ -14,7 +14,7 @@ export const SPINNER_VALUE_ACCESSOR: any = {
     selector: 'p-spinner',
     template: `
         <span class="ui-spinner ui-widget ui-corner-all">
-            <input #in pInputText type="text" class="ui-spinner-input" [value]="valueAsString"
+            <input #in type="text" class="ui-spinner-input" [value]="valueAsString" class="ui-inputtext ui-widget ui-state-default ui-corner-all"
             [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
             (keydown)="onInputKeydown($event)" (keyup)="onInput($event,in.value)" (keypress)="onInputKeyPress($event)" (blur)="onBlur()" (change)="handleChange($event)" (focus)="onFocus()">
             <button type="button" [ngClass]="{'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default':true,'ui-state-disabled':disabled}" [disabled]="disabled"
@@ -243,7 +243,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
         if(this.value !== null && this.value !== undefined) {
             let textValue = String(this.value).replace('.', this.decimalSeparator);
             
-            if (this.formatInput) {
+            if(this.formatInput) {
                 textValue = textValue.replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
             }
             this.valueAsString = textValue;

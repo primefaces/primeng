@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,trigger,state,transition,style,animate} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
@@ -45,7 +46,7 @@ export class BasePanelMenuItem {
             <li *ngFor="let child of item.items" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}">
                 <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
                     [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-disabled':child.disabled}" 
-                    (click)="handleClick($event,child)">
+                    (click)="handleClick($event,child)" [attr.target]="child.target">
                     <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!child.expanded,'fa-caret-down':child.expanded}" *ngIf="child.items"></span
                     ><span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span
                     ><span class="ui-menuitem-text">{{child.label}}</span>
@@ -73,7 +74,8 @@ export class PanelMenuSub extends BasePanelMenuItem {
             <div *ngFor="let item of model;let f=first;let l=last;" class="ui-panelmenu-panel">
                 <div tabindex="0" [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-top':f,'ui-corner-bottom':l&&!item.expanded,
                     'ui-state-active':item.expanded,'ui-state-disabled':item.disabled}">
-                    <a [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)">
+                    <a [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)"
+                        [attr.target]="item.target">
                         <span *ngIf="item.items" class="ui-panelmenu-icon fa" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span
                         ><span class="ui-menuitem-icon fa" [ngClass]="item.icon" *ngIf="item.icon"></span
                         ><span class="ui-menuitem-text">{{item.label}}</span>

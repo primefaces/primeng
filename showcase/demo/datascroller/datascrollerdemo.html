@@ -12,7 +12,7 @@
         <p-header>
             Scroll Down to to Load More
         </p-header>
-        <template let-car pTemplate="item">
+        <ng-template let-car pTemplate="item">
             <li style="border-bottom:1px solid #D5D5D5;">
                 <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
                     <div class="ui-grid-row">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </li>
-        </template>
+        </ng-template>
     </p-dataScroller>
 
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
@@ -79,7 +79,7 @@ import &#123;DataScrollerModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>DataScroller requires a collection of items as its value, number of rows to load and a template content to display
+            <p>DataScroller requires a collection of items as its value, number of rows to load and a ng-template content to display
                     where each item can be accessed using the implicit variable.</p>
                     
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are used 
@@ -136,9 +136,9 @@ export class DataScrollertDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         Car content
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataScroller&gt;
 </code>
 </pre>
@@ -156,9 +156,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         Car content
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataScroller&gt;
 </code>
 </pre>
@@ -168,9 +168,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [inline]="true" [rows]="10"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         Car content
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataScroller&gt;
 </code>
 </pre>
@@ -183,9 +183,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataScroller [value]="cars" [rows]="10" [lazy]="true" (onLazyLoad)="loadData($event)"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         Car content
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataScroller&gt;
 </code>
 </pre>
@@ -345,7 +345,7 @@ loadData(event) &#123;
     &lt;p-header&gt;
         Scroll Down to to Load More
     &lt;/p-header&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;
@@ -371,7 +371,7 @@ loadData(event) &#123;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataScroller&gt;
 
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;

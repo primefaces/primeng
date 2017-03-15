@@ -1,15 +1,17 @@
 <div class="content-section">
     <div>
         <span class="feature-title">ContextMenu</span>
-        <span>Right click anywhere on this page to view the context-menu options.</span>
+        <span>ContextMenu displays an overlay menu on right click of its target. This page has two menus, one for the document and one for the image. Note that 
+        components like DataTable has special integration with ContextMenu. Refer to documentation of the individual documentation of the components having a special integration.</span>
     </div>
 </div>
 
-<div class="content-section implementation">
-    <div style="height:300px"></div>
+<div class="content-section implementation">    
+    <p-contextMenu [global]="true" [model]="items1"></p-contextMenu>
     
-    <p-contextMenu [global]="true" [model]="items"></p-contextMenu>
+    <p-contextMenu [target]="img" [model]="items2" ></p-contextMenu>
     
+    <img #img src="/showcase/resources/images/primeng.svg" alt="Logo">
 </div>
 
 <div class="content-section source">
@@ -26,12 +28,26 @@ import &#123;ContextMenuModule,MenuItem&#125; from 'primeng/primeng';
             <p>ContextMenu uses the common menumodel api to define its items, visit <a [routerLink]="['/menumodel']">MenuModel API</a> for details.</p>
 
             <h3>Getting Started</h3>
-            <p>ContextMenu requires nested menuitems as its model.</p>
+            <p>ContextMenu requires nested menuitems as its model and in its simplest form ContextMenu is attached to the document with global setting. .</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-contextMenu [model]="items"&gt;&lt;/p-contextMenu&gt;
+&lt;p-contextMenu [global]="true" [model]="items"&gt;&lt;/p-contextMenu&gt;
 </code>
 </pre>
+
+            <h3>Target</h3>
+            <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the target property.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
+
+&lt;img #img src="/showcase/resources/images/primeng.svg" alt="Logo"&gt;
+</code>
+</pre>
+
+            <h3>Exclusive Integrations</h3>
+            <p>Some components like DataTable require special attention so they provide a different method to attach a context menu. Refer to 
+            individual documentation of components with special integration like DataTable.</p>
 
 <pre>
 <code class="language-typescript" pCode>
@@ -94,6 +110,12 @@ export class ContextMenuDemo &#123;
                             <td>Attaches the menu to document instead of a particular item.</td>
                         </tr>
                         <tr>
+                            <td>target</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Local template variable name of the element to attach the context menu.</td>
+                        </tr>
+                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -109,7 +131,7 @@ export class ContextMenuDemo &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -191,7 +213,11 @@ export class ContextMenuDemo &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-contextMenu [model]="items"&gt;&lt;/p-contextMenu&gt;
+&lt;p-contextMenu [global]="true" [model]="items1"&gt;&lt;/p-contextMenu&gt;
+
+&lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
+
+&lt;img #img src="/showcase/resources/images/primeng.svg" alt="Logo"&gt;
 </code>
 </pre>
 
@@ -200,6 +226,8 @@ export class ContextMenuDemo &#123;
 export class ContextMenuDemo &#123;
 
     private items: MenuItem[];
+    
+    private items2: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [
@@ -274,6 +302,17 @@ export class ContextMenuDemo &#123;
             &#125;,
             &#123;
                 label: 'Quit', icon: 'fa-minus'
+            &#125;
+        ];
+        
+        this.items2 = [
+            &#123;
+                label: 'Next',
+                icon: 'fa-chevron-right'
+            &#125;,
+            &#123;
+                label: 'Prev',
+                icon: 'fa-chevron-left'
             &#125;
         ];
     &#125;

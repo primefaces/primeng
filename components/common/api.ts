@@ -16,6 +16,7 @@ export interface LazyLoadEvent {
     sortOrder?: number;
     multiSortMeta?: SortMeta[];
     filters?: {[s: string]: FilterMetadata;};
+    globalFilter?: any;
 }
 
 export interface FilterMetadata {
@@ -61,10 +62,14 @@ export interface TreeNode {
     parent?: TreeNode;
     partialSelected?: boolean;
     styleClass?: string;
+    draggable?: boolean;
+    droppable?: boolean;
+    selectable?: boolean;
 }
 
 export interface Confirmation {
     message: string;
+    key?: string;
     icon?: string;
     header?: string;
     accept?: Function;
@@ -95,5 +100,31 @@ export class ConfirmationService {
 
     onAccept() {
         this.acceptConfirmationSource.next();
+    }
+}
+
+export interface TreeNodeDragEvent {
+    tree?: any;
+    node?: TreeNode;
+    subNodes?: TreeNode[];
+    index?: number;
+    scope?: any;
+}
+
+@Injectable()
+export class TreeDragDropService {
+    
+    private dragStartSource = new Subject<TreeNodeDragEvent>();
+    private dragStopSource = new Subject<TreeNodeDragEvent>();
+    
+    dragStart$ = this.dragStartSource.asObservable();
+    dragStop$ = this.dragStopSource.asObservable();
+    
+    startDrag(event: TreeNodeDragEvent) {
+        this.dragStartSource.next(event);
+    }
+    
+    stopDrag(event: TreeNodeDragEvent) {
+        this.dragStopSource.next(event);
     }
 }

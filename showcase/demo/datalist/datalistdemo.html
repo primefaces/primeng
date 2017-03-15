@@ -10,7 +10,7 @@
         <p-header>
             List of Cars
         </p-header>
-        <template let-car pTemplate="item">
+        <ng-template let-car pTemplate="item">
             <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"></div>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </p-dataList>
         
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
@@ -75,7 +75,7 @@ import &#123;DataListModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>DataList requires a collection of items as its value and a template content to display
+            <p>DataList requires a collection of items as its value and a ng-template content to display
                 where each item can be accessed using the implicit variable.</p>
                 
             <p>Throughout the samples, a car interface having vin, brand, year and color properties are 
@@ -132,20 +132,20 @@ export class DataListDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         Car content
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataList&gt;
 </code>
 </pre>
 
-            <p>Index of the row is available at the template.</p>
+            <p>Index of the row is available at the ng-template.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars"&gt;
-    &lt;template let-car let-i="index" pTemplate="item"&gt;
+    &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
         Car content for {{i}}
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataList&gt;
 </code>
 </pre>
@@ -163,9 +163,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
 &lt;p-dataList [value]="cars"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         Car content
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataList&gt;
 </code>
 </pre>
@@ -176,9 +176,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="10"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         Car content
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataList&gt;
 </code>
 </pre>
@@ -192,9 +192,9 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         Car content
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataList&gt;
 </code>
 </pre>
@@ -280,6 +280,12 @@ loadData(event) &#123;
                             <td>bottom</td>
                             <td>Position of the paginator, options are "top","bottom" or "both".</td>
                         </tr>
+                        <tr>
+                            <td>emptyMessage</td>
+                            <td>string</td>
+                            <td>No records found.</td>
+                            <td>Text to display when there is no data.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -300,6 +306,12 @@ loadData(event) &#123;
                             <td>event.first = First row offset <br>
                                 event.rows = Number of rows per page <br></td>
                             <td>Callback to invoke when paging, sorting or filtering happens in lazy mode.</td>
+                        </tr>
+                        <tr>
+                            <td>onPage</td>
+                            <td>event.first: Index of first record in page<br>
+                                event.rows: Number of rows on the page</td>
+                            <td>Callback to invoke when pagination occurs.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -336,6 +348,10 @@ loadData(event) &#123;
                             <td>ui-datalist-data</td>
                             <td>Item container element.</td>
                         </tr>
+                        <tr>
+                            <td>ui-datalist-emptymessage</td>
+                            <td>Element containing the empty message.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -351,7 +367,7 @@ loadData(event) &#123;
     &lt;p-header&gt;
         List of Cars
     &lt;/p-header&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}-big.gif"&gt;&lt;/div&gt;
@@ -377,7 +393,7 @@ loadData(event) &#123;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataList&gt;
     
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;

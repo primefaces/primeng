@@ -1,44 +1,56 @@
 <div class="content-section">
     <div class="ui-g">
         <div class="ui-g-12 ui-lg-4">
-             <div class="intro-title">PrimeNG</div>
-                <div class="intro-text">PrimeNG is a collection of rich UI components for Angular 2. PrimeNG is a sibling of the popular JavaServer Faces Component Suite, <a href="http://www.primefaces.org">PrimeFaces</a>.</div>
+             <img src="showcase/resources/images/primeng-text.svg" class="home-logo">
+                <br /><br />
+                <div class="intro-text">PrimeNG is a collection of rich UI components for Angular 2. PrimeNG is a sibling of the popular JavaServer Faces Component Suite, <a href="https://www.primefaces.org">PrimeFaces</a>.</div>
                 <br />
                 <div class="intro-text">All widgets are open source and free to use under MIT License.</div>
                 <br />
                 <div class="intro-text">PrimeNG is developed by <a href="http://www.primetek.com.tr">PrimeTek Informatics</a>, a company with years of expertise in developing open source UI components.
                 For project news and updates, follow us on <a href="https://twitter.com/prime_ng">twitter.</a></div>
                 <br />
-                <a [routerLink]="['/setup']" class="intro-button yellow-btn"> <span>Download</span> <img src="showcase/resources/images/btnArrow.svg" style="float:right"/></a>
-                <a href="https://github.com/primefaces/primeng" class="intro-button orange-btn"> <span>GitHub</span> <img src="showcase/resources/images/btnDocumenticon.svg" style="float:right"/></a>
+                
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <a [routerLink]="['/setup']" class="intro-btn download-btn">Download</a>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <a href="https://github.com/primefaces/primeng" class="intro-btn github-btn">GitHub</a>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <a href="#prosupport" class="intro-btn prosupport-btn">PRO Support</a>
+                    </div>
+                </div>
             </div>
+            
         <div class="ui-g-12 ui-lg-8">
-            <div class="property-box ui-g-12 ui-lg-4">
+            <div class="property-box ui-g-12 ui-md-6 ui-lg-4">
                 <img src="showcase/resources/images/ajaxFramework.svg" />
                 <span class="property-topic">PRIMEFACES UI</span>
                 <span class="property-text">Derived from the mighty PrimeFaces</span>
             </div>
-            <div class="property-box ui-g-12 ui-lg-4">
+            <div class="property-box ui-g-12 ui-md-6 ui-lg-4">
                 <img src="showcase/resources/images/components.svg" />
                 <span class="property-topic">WIDGETS</span>
                 <span class="property-text">70+ Components<br />Easy to Use<br />Accessible</span>
             </div>
-            <div class="property-box ui-g-12 ui-lg-4">
+            <div class="property-box ui-g-12 ui-md-6 ui-lg-4">
                 <img src="showcase/resources/images/productivity.svg" />
                 <span class="property-topic">PRODUCTIVITY</span>
                 <span class="property-text">Simple<br />Lightweight<br />Powerful</span>
             </div>
-           <div class="property-box ui-g-12 ui-lg-4">
+           <div class="property-box ui-g-12 ui-md-6 ui-lg-4">
                 <img src="showcase/resources/images/mobile.svg" />
                 <span class="property-topic">MOBILE</span>
                 <span class="property-text">Responsive<br />Cross Browser<br />Touch Optimized</span>
             </div>
-            <div class="property-box ui-g-12 ui-lg-4">
+            <div class="property-box ui-g-12 ui-md-6 ui-lg-4">
                 <img src="showcase/resources/images/community.svg"/>
                 <span class="property-topic">COMMUNITY</span>
                 <span class="property-text">Active<br />Vibrant<br />Open Source<br /></span>
             </div>
-            <div class="property-box ui-g-12 ui-lg-4">
+            <div class="property-box ui-g-12 ui-md-6 ui-lg-4">
                 <img src="showcase/resources/images/themeswitcher.svg" />
                 <span class="property-topic">THEMES</span>
                 <span class="property-text">35+ Free Themes<br />Premium Themes<br />Theme Creator Tool<br /></span>
@@ -47,41 +59,81 @@
     </div>
 </div>
 
+<div class="content-section whouses">
+    <h2>Key Users</h2>
+    <p>Open source products of <a href="http://www.primetek.com.tr">PrimeTek</a> are used all around the world by 1M+ developers in corporations, government and educational
+        instituions.</p>
+    <div class="ui-g">
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/airbus.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/bankofamerica.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/bmw.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/deutschebank.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/ebay.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/ford.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/fox.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/intel.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/lufthansa.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/mercedes.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/unicredit.png"></div>
+        <div class="ui-g-3 ui-md-1"><img src="showcase/resources/images/logos/verizon.png"></div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>Premium Application Templates for PrimeNG</h2>
+    <p class="intro-text" style="margin-bottom:10px">Based on Angular CLI, create awesome applications in no time using the premium templates 
+        of PrimeNG and impress your users.</p>
+    
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-6">
+            <a href="https://www.primefaces.org/layouts/barcelona-ng">
+                <img alt="Barcelona" src="showcase/resources/images/layouts/barcelona-ng.png" style="width:100%"/> 
+            </a>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <a href="https://www.primefaces.org/layouts/poseidon-ng">
+                <img alt="Poseidon" src="showcase/resources/images/layouts/poseidon-ng.png" style="width:100%"/> 
+            </a>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <a href="https://www.primefaces.org/layouts/ultima-ng">
+                <img alt="Ultima" src="showcase/resources/images/layouts/ultima-ng.png" style="width:100%"/> 
+            </a>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <a href="https://www.primefaces.org/layouts/omega-ng">
+                <img alt="Omega" src="showcase/resources/images/layouts/omega-ng.png" style="width:100%"/> 
+            </a>
+        </div>
+    </div>
+</div>
 
 <div class="content-section intro-text">
-    <span class="dispBlock logoBlueText fontSize30">Sponsor of NG-Conf 2017</span>
-    <p class="intro-text" style="margin-bottom:10px">PrimeNG is a silver sponsor of NG-Conf 2017, 5th-7th April, Salt Lake City.</p>
-    <a href="https://www.ng-conf.org/">
-        <img src="showcase/resources/images/primeng-ngconf.png" style="width:100%" />
-    </a>
-</div>
-
-<div class="content-section">
-    <h2>Admin Templates for PrimeNG</h2>
-    <p class="intro-text" style="margin-bottom:10px">Create awesome applications in no time, impress your users.</p>
-    <a href="http://www.primefaces.org/layouts/poseidon-ng">
-        <img alt="Ultima" src="http://www.primefaces.org/images/market/poseidon/poseidon_layout_biggest.png" style="width:100%"/> 
-    </a>
-    <div style="margin: 20px auto 0 auto">
-        <a href="http://www.primefaces.org/layouts/ultima-ng">
-            <img alt="Ultima" src="http://www.primefaces.org/images/market/ultima/ultima_layout_biggest.png" style="width:100%"/> 
-        </a>
+    <h2>News</h2>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+            <a href="https://www.ng-conf.org/">
+                <img alt="NGConf" src="showcase/resources/images/primeng-ngconf.png" style="width:100%" />
+            </a>
+            <p class="intro-text" style="margin-bottom:10px">PrimeNG is a silver sponsor of NG-Conf 2017, 5th-7th April, Salt Lake City.</p>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <a href="https://angularbeers.org/">
+                <img alt="AngularBeers" src="showcase/resources/images/angularbeers.png" style="width:100%" />
+            </a>
+            <p class="intro-text" style="margin-bottom:10px">PrimeTek will be at AngularBeers Community Days Event in Barcelona to present PrimeNG.</p>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <a href="https://www.primefaces.org/primeng-1-1-released/">
+                <img alt="Bootstrap" src="showcase/resources/images/bootstrap.png" style="width:100%"/> 
+            </a>
+            <p class="intro-text" style="margin-bottom:10px">A free bootstrap theme for PrimeNG is now available.</p>
+        </div>
     </div>
-    <div style="width:50%;margin: 20px auto 0 auto">
-        <a href="http://www.primefaces.org/layouts/omega-ng">
-            <img alt="Ultima" src="http://www.primefaces.org/images/market/omega/omega-big.png" style="width:100%"/> 
-        </a>
-    </div>
+    
 </div>
 
-<div class="content-section">
-    <h2>Free Bootstrap Theme for PrimeNG</h2>
-    <p class="intro-text" style="margin-bottom:10px">PrimeNG does not depend on bootstrap in any way however if you 
-        need to use PrimeNG components with it, we have a free theme based on bootstrap styling. The theme itself also does not require bootstrap and can be used standalone as well.</p>
-    <img alt="Bootstrap" src="showcase/resources/images/bootstrap.png" style="width:100%"/> 
-</div>
-
-<div class="content-section">
+<div id="prosupport" class="content-section">
     <h2>PrimeNG PRO Support</h2>
     <p class="intro-text" style="margin-bottom:10px">With PrimeNG PRO, it's easy to support, tune and add features to PrimeNG as if it were an in-house framework.</p>
     <p class="intro-text" style="margin-bottom:10px">PrimeNG PRO is a term based commercial support service. With the exclusive services of Pro account, 

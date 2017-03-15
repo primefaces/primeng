@@ -2,7 +2,7 @@
     width: 18em;
 }
 
-.ui-tree.ui-tree-selectable .ui-treenode-content {
+.ui-tree .ui-treenode-selectable.ui-treenode-content {
     cursor: pointer;
 }
 
@@ -28,6 +28,15 @@
     list-style: none outside none;
     margin: 0;
     padding: .125em 0 0 0;
+}
+
+.ui-tree .ui-treenode-droppoint {
+    height: 4px;
+    list-style-type: none;
+}
+
+.ui-tree .ui-treenode-droppoint-active {
+    border: 0 none;
 }
 
 .ui-tree .ui-tree-toggler {

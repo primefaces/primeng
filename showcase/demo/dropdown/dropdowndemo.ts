@@ -18,7 +18,6 @@ export class DropdownDemo {
 
     constructor() {
         this.cities = [];
-        this.cities.push({label:'Select City', value:null});
         this.cities.push({label:'New York', value:{id:1, name: 'New York', code: 'NY'}});
         this.cities.push({label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}});
         this.cities.push({label:'London', value:{id:3, name: 'London', code: 'LDN'}});

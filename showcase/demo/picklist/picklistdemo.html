@@ -9,12 +9,12 @@
     
     <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" 
         [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
-        <template let-car pTemplate="item">
+        <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix">
                 <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
             </div>
-        </template>
+        </ng-template>
     </p-pickList>
     
 </div>
@@ -30,17 +30,17 @@ import &#123;PickListModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>PickList requires two arrays as its lists and a template for the item content where each item in the array 
-                can be accessed inside the template using a local template variable.</p>
+            <p>PickList requires two arrays as its lists and a ng-template for the item content where each item in the array 
+                can be accessed inside the ng-template using a local ng-template variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-pickList [source]="list1" [target]="list2"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-pickList&gt;
 </code>
 </pre>
@@ -190,6 +190,16 @@ export class MyComponent &#123;
                             <td>event.items: Moved items array</td>
                             <td>Callback to invoke when items are moved from target to source.</td>
                         </tr>
+                        <tr>
+                            <td>onSourceReorder</td>
+                            <td>event.items: Moved items array</td>
+                            <td>Callback to invoke when items are reordered within source list.</td>
+                        </tr>
+                        <tr>
+                            <td>onTargetReorder</td>
+                            <td>event.items: Moved items array</td>
+                            <td>Callback to invoke when items are reordered within target list.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -245,12 +255,12 @@ export class MyComponent &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-pickList&gt;
 </code>
 </pre>

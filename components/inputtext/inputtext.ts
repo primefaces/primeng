@@ -18,6 +18,11 @@ export class InputText {
     get filled(): boolean {
         return this.el.nativeElement.value&&this.el.nativeElement.value.length;
     }
+    
+    @HostListener('blur', ['$event']) 
+    onBlur(e) {        
+        //To trigger change detection to manage ui-state-filled for material labels
+    }
 }
 
 @NgModule({

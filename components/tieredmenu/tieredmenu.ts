@@ -10,10 +10,10 @@ import {Router} from '@angular/router';
     template: `
         <ul [ngClass]="{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
             (click)="listClick($event)">
-            <template ngFor let-child [ngForOf]="(root ? item : item.items)">
+            <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event, item, child)" (mouseleave)="onItemMouseLeave($event)">
-                    <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                    <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -21,7 +21,7 @@ import {Router} from '@angular/router';
                     </a>
                     <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items"></p-tieredMenuSub>
                 </li>
-            </template>
+            </ng-template>
         </ul>
     `,
     providers: [DomHandler]

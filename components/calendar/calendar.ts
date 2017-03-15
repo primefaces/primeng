@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,trigger,state,style,transition,animate,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,ViewChild} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -30,12 +31,13 @@ export interface LocaleSettings {
     selector: 'p-calendar',
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
-            <template [ngIf]="!inline">
-                <input #inputfield type="text" [attr.required]="required" pInputText [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+            <ng-template [ngIf]="!inline">
+                <input #inputfield type="text" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
+                    [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
-            </template>
+            </ng-template>
             <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}" 
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
 
@@ -629,6 +631,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     onInputBlur(event) {
         this.focus = false;
         this.onBlur.emit(event);
+        this.updateInputfield();
         this.onModelTouched();
     }
     
@@ -739,9 +742,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         event.preventDefault();
     }
     
-    onInput(event) {        
+    onInput(event) {  
+        let val = event.target.value;   
         try {
-            this.value = this.parseValueFromString(event.target.value);
+            this.value = this.parseValueFromString(val);
             this.updateUI();
             this._isValid = true;
         } 
@@ -752,7 +756,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         this.updateModel();
-        this.updateFilledState();
+        this.filled = val != null && val.length;
     }
     
     parseValueFromString(text: string): Date {
@@ -833,7 +837,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         if(this.value && typeof this.value === 'string') {
             this.value = this.parseValueFromString(this.value);
         }
-        
+
         this.updateInputfield();
         this.updateUI();
     }

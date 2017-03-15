@@ -37,7 +37,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                         </div>
                     </div>
                     <div *ngIf="fileTemplate">
-                        <template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></template>
+                        <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
                 

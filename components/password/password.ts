@@ -23,6 +23,8 @@ export class Password implements AfterViewInit,OnDestroy {
 
     @Input() strongLabel: string = 'Strong';
     
+    @Input() feedback: boolean = true;
+    
     panel: any;
     
     meter: any;
@@ -40,10 +42,11 @@ export class Password implements AfterViewInit,OnDestroy {
         this.info.className = 'ui-password-info';
         this.info.textContent = this.promptLabel;
         
-        this.panel.appendChild(this.meter);
-        this.panel.appendChild(this.info);
-        
-        document.body.appendChild(this.panel);
+        if(this.feedback) {
+            this.panel.appendChild(this.meter);
+            this.panel.appendChild(this.info);
+            document.body.appendChild(this.panel);
+        }
     }
         
     @HostListener('focus', ['$event']) 
@@ -128,6 +131,9 @@ export class Password implements AfterViewInit,OnDestroy {
     }
     
     ngOnDestroy() {
+        if (!this.feedback)
+            return;
+            
         this.panel.removeChild(this.meter);
         this.panel.removeChild(this.info);
         document.body.removeChild(this.panel);

@@ -191,28 +191,11 @@ export class MyModel &#123;
                 Following is a schedule with Spanish month names.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-schedule [events]="events" [locale]="es"&gt;&lt;/p-schedule&gt;
+&lt;p-schedule [events]="events" locale="es"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
-<pre>
-<code class="language-typescript" pCode>
-export class MyModel &#123;
-
-    es: any;
-
-    ngOnInit() &#123;
-        this.es = &#123;
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
-                'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-        &#125;;
-    &#125;
-&#125;
-</code>
-</pre>
-            <p>Visit the <a href="http://fullcalendar.io/docs/text/">fullcalendar documentation</a> for the available options. 
-                Existing translations are available at <a href="https://github.com/fullcalendar/fullcalendar/tree/master/lang">here</a>.
-            </p>
+            <p>Visit the <a href="https://fullcalendar.io/docs/text/locale/">fullcalendar documentation</a> to get the available locales.</p>
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -253,7 +236,7 @@ export class MyModel &#123;
                         <tr>
                             <td>locale</td>
                             <td>object</td>
-                            <td><a href="http://fullcalendar.io/docs/text/">Read more</a></td>
+                            <td><a href="https://fullcalendar.io/docs/text/locale/">Read more</a></td>
                         </tr>
                         <tr>
                             <td>fixedWeekCount</td>

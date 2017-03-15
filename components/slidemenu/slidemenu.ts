@@ -11,9 +11,9 @@ import {Router} from '@angular/router';
         <ul [ngClass]="{'ui-helper-reset ui-menu-rootlist':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child':!root}" class="ui-menu-list"
             [style.width.px]="menuWidth" [style.left.px]="root ? slideMenu.left : slideMenu.menuWidth" 
             [style.transitionProperty]="root ? 'left' : 'none'" [style.transitionDuration]="effectDuration + 'ms'" [style.transitionTimingFunction]="easing">
-            <template ngFor let-child [ngForOf]="(root ? item : item.items)">
+            <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #listitem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-slidemenuitem-active':listitem==activeItem}">
-                    <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                    <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
                         [ngClass]="{'ui-menuitem-link-parent':child.items,'ui-state-disabled':child.disabled}" 
                         (click)="itemClick($event, child, listitem)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
@@ -22,7 +22,7 @@ import {Router} from '@angular/router';
                     </a>
                     <p-slideMenuSub class="ui-submenu" [item]="child" [menuWidth]="menuWidth" *ngIf="child.items"></p-slideMenuSub>
                 </li>
-            </template>
+            </ng-template>
         </ul>
     `
 })

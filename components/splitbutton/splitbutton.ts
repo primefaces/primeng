@@ -94,10 +94,11 @@ export class SplitButton implements OnInit,OnDestroy {
         }
     }
     
-    onDropdownClick(event: Event, menu: Element, container: Element) {
+    onDropdownClick(event: Event, menu: HTMLDivElement, container: Element) {
         this.menuVisible= !this.menuVisible;
         this.domHandler.relativePosition(menu, container);
         this.domHandler.fadeIn(menu,25);
+        menu.style.zIndex = String(++DomHandler.zindex);
         event.stopPropagation();
     }
         

@@ -30,7 +30,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                         <div class="ui-helper-hidden-accessible">
                             <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
-                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="toggleAll($event,cb)">
+                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="toggleAll($event,cb)">
                             <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
                         </div>
                     </div>
@@ -294,7 +294,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             let label = '';
             for(let i = 0; i < this.value.length; i++) {
                 if(i != 0) {
-                    label = label + ',';
+                    label = label + ', ';
                 }
                 label = label + this.findLabelByValue(this.value[i]);
             }

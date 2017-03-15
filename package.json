@@ -1,6 +1,6 @@
 {
   "name": "primeng",
-  "version": "2.0.2-SNAPSHOT",
+  "version": "4.0.0-rc.2-SNAPSHOT",
   "scripts": {
     "tsc": "tsc",
     "tsc:w": "tsc -w",
@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^6.0.45",
+    "@types/node": "^7.0.5",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
@@ -26,9 +26,10 @@
     "gulp-uglify": "^1.5.3",
     "gulp-uglifycss": "^1.0.6",
     "ts-loader": "^0.9.5",
-    "typescript": "^2.0.3",
-    "webpack": "^1.13.1",
-    "webpack-merge": "^0.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "typescript": "^2.1.6",
+    "html-webpack-plugin": "^2.16.1",
+    "webpack": "2.2.1",
+    "webpack-dev-server": "2.4.1",
+    "webpack-merge": "^3.0.0"
   }
 }
