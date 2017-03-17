@@ -739,9 +739,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         event.preventDefault();
     }
     
-    onInput(event) {        
+    onInput(event) {   
+        let val = event.target.value;        
         try {
-            this.value = this.parseValueFromString(event.target.value);
+            this.value = this.parseValueFromString(eval);
             this.updateUI();
             this._isValid = true;
         } 
@@ -752,7 +753,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         this.updateModel();
-        this.updateFilledState();
+        this.filled = val != null && val.length;
     }
     
     parseValueFromString(text: string): Date {
