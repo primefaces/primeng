@@ -25,3 +25,7 @@
     list-style-type: none;
     
 }
+
+.ui-datalist .ui-datalist-emtptymessage {
+    padding: .5em .75em;
+}

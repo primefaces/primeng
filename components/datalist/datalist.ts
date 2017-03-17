@@ -14,6 +14,7 @@ import {BlockableUI} from '../common/api';
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
             (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator  && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datalist-content ui-widget-content">
+                <div *ngIf="isEmpty()" class="ui-datalist-emptymessage">{{emptyMessage}}</div>
                 <ul class="ui-datalist-data">
                     <li *ngFor="let item of dataToRender;let i = index">
                         <template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></template>
@@ -51,6 +52,8 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() styleClass: string;
     
     @Input() paginatorPosition: string = 'bottom';
+    
+    @Input() emptyMessage: string = 'No records found';
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
         
