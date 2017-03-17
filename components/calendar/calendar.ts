@@ -743,7 +743,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     onInput(event) {   
         let val = event.target.value;        
         try {
-            this.value = this.parseValueFromString(eval);
+            this.value = this.parseValueFromString(val);
             this.updateUI();
             this._isValid = true;
         } 
