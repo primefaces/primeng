@@ -196,10 +196,16 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
                             <td>Whether to disable dragging for a particular node even if draggableNodes is enabled.</td>
                         </tr>
                         <tr>
-                            <td>styleClass</td>
-                            <td>string</td>
+                            <td>droppable</td>
+                            <td>boolean</td>
                             <td>null</td>
                             <td>Whether to disable dropping for a particular node even if droppableNodes is enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>selectable</td>
+                            <td>boolean</td>
+                            <td>null</td>
+                            <td>Used to disable selection of a particular node.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -357,6 +363,15 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
+            <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned of by propapageSelectionDown and
+            propagateSelectionUp properties.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-tree [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles"
+                [propagateSelectionUp]="false" [propagateSelectionDown]="false"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
+
             <p>Tree provides onNodeSelect and onNodeUnselect options as callbacks for selection feature.</p>
 <pre>
 <code class="language-markup" pCode>
@@ -385,6 +400,8 @@ export class TreeDemoComponent implements OnInit &#123;
 &#125;
 </code>
 </pre>
+
+            <p>Selection of a particular node can be disabled by setting the selectable property of the node to false.</p>
 
             <h3>Icons</h3>
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
@@ -501,8 +518,13 @@ export class TreeDemoComponent implements OnInit &#123;
 </pre>  
 
             <h3>Drag and Drop</h3>
-            <p>Nodes can be reordered within a tree and also can be transferred between multiple tree. To enable dragging from a tree set draggableNodes to true and to allow
-            dropping enable droppableNodes property. In addition, import TreeDragDropService and configure it as a provider at your component or a top level module.</p>
+            <p>Nodes can be reordered within a tree and also can be transferred between multiple trees. To enable dragging from a tree set draggableNodes to true and to allow
+            dropping enable droppableNodes property. In addition, import TreeDragDropService and configure it as a provider at your component or module.</p>
+<pre>
+<code class="language-typescript" pCode>
+import &#123;TreeDragDropService&#125; from 'primeng/primeng';
+</code>
+</pre>
         
 <pre>
 <code class="language-markup" pCode>
@@ -589,6 +611,18 @@ export class TreeDemoComponent implements OnInit &#123;
                             <td>true</td>
                             <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
                             can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
+                        </tr>
+                        <tr>
+                            <td>propagateSelectionUp</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether checkbox selections propagate to ancestor nodes.</td>
+                        </tr>
+                        <tr>
+                            <td>propagateSelectionDown</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether checkbox selections propagate to descendant nodes.</td>
                         </tr>
                     </tbody>
                 </table>

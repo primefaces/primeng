@@ -91,7 +91,7 @@
     padding: .25em .25em .25em 0;
 }
 
-.ui-autocomplete-input-token .ui-inputtext {
+.ui-autocomplete-input-token input {
     border: 0 none;
     width: 10em;
     outline: medium none;

@@ -32,8 +32,10 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
-                <input #inputfield type="text" [attr.aria-labelledby]="labelledby" [attr.required]="required" pInputText [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+                <input #inputfield type="text" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
+                    [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
+                    [attr.aria-labelledby]="labelledby"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
             </ng-template>
@@ -632,6 +634,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     onInputBlur(event) {
         this.focus = false;
         this.onBlur.emit(event);
+        this.updateInputfield();
         this.onModelTouched();
     }
 
@@ -743,8 +746,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
 
     onInput(event) {
+        let val = event.target.value;
+
         try {
-            this.value = this.parseValueFromString(event.target.value);
+            this.value = this.parseValueFromString(val);
             this.updateUI();
             this._isValid = true;
         }
@@ -755,7 +760,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
 
         this.updateModel();
-        this.updateFilledState();
+        this.filled = val != null && val.length;
     }
 
     parseValueFromString(text: string): Date {

@@ -1199,7 +1199,8 @@ body .ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
 body .ui-datatable .ui-paginator {
     padding: 0;
 }
-body .ui-datatable .ui-datatable-thead > tr > th {
+body .ui-datatable .ui-datatable-thead > tr > th,
+body .ui-datatable .ui-datatable-tfoot > tr > td {
     background-color: #ffffff;
     padding: .75em;
     border-color: #c7c7c7;

@@ -127,6 +127,8 @@ export class TabView implements AfterContentInit,BlockableUI {
     initialized: boolean;
     
     tabs: TabPanel[];
+    
+    private _activeIndex: number;
 
     constructor(public el: ElementRef) {}
     
@@ -146,7 +148,10 @@ export class TabView implements AfterContentInit,BlockableUI {
         
         let selectedTab: TabPanel = this.findSelectedTab();
         if(!selectedTab && this.tabs.length) {
-            this.tabs[0].selected = true;
+            if(this.activeIndex != null && this.tabs.length > this.activeIndex)
+                this.tabs[this.activeIndex].selected = true;
+            else 
+                this.tabs[0].selected = true;
         }
     }
             
@@ -225,6 +230,19 @@ export class TabView implements AfterContentInit,BlockableUI {
     
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+    
+    @Input() get activeIndex(): number {
+        return this._activeIndex;
+    }
+
+    set activeIndex(val:number) {
+        this._activeIndex = val;
+        
+        if(this.tabs && this.tabs.length && this._activeIndex != null) {
+            this.findSelectedTab().selected = false;
+            this.tabs[this._activeIndex].selected = true;
+        }        
     }
 }
 

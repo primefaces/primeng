@@ -16,6 +16,7 @@ export interface LazyLoadEvent {
     sortOrder?: number;
     multiSortMeta?: SortMeta[];
     filters?: {[s: string]: FilterMetadata;};
+    globalFilter?: any;
 }
 
 export interface FilterMetadata {
@@ -63,6 +64,7 @@ export interface TreeNode {
     styleClass?: string;
     draggable?: boolean;
     droppable?: boolean;
+    selectable?: boolean;
 }
 
 export interface Confirmation {

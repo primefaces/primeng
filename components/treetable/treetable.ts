@@ -8,8 +8,8 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: '[pTreeRow]',
     template: `
-        <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode}">
-            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (touchend)="onRowTouchEnd()">
+        <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
+            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
                 <a href="#" *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
@@ -70,6 +70,10 @@ export class UITreeRow implements OnInit {
     
     onRowClick(event: MouseEvent) {
         this.treeTable.onRowClick(event, this.node);
+    }
+    
+    onRowRightClick(event: MouseEvent) {
+        this.treeTable.onRowRightClick(event, this.node);
     }
     
     onRowTouchEnd() {
@@ -142,6 +146,18 @@ export class TreeTable {
     @Input() selectionMode: string;
     
     @Input() selection: any;
+        
+    @Input() style: any;
+        
+    @Input() styleClass: string;
+
+    @Input() labelExpand: string = "Expand";
+    
+    @Input() labelCollapse: string = "Collapse";
+    
+    @Input() metaKeySelection: boolean = true;
+    
+    @Input() contextMenu: any;
     
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     
@@ -153,15 +169,7 @@ export class TreeTable {
     
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
     
-    @Input() style: any;
-        
-    @Input() styleClass: string;
-
-    @Input() labelExpand: string = "Expand";
-    
-    @Input() labelCollapse: string = "Collapse";
-    
-    @Input() metaKeySelection: boolean = true;
+    @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(Header) header: Header;
 
@@ -176,7 +184,11 @@ export class TreeTable {
         if(eventTarget.className && eventTarget.className.indexOf('ui-treetable-toggler') === 0) {
             return;
         }
-        else {
+        else if(this.selectionMode) {
+            if(node.selectable === false) {
+                return;
+            }
+            
             let metaSelection = this.rowTouched ? false : this.metaKeySelection;
             let index = this.findIndexInSelection(node);
             let selected = (index >= 0);
@@ -257,9 +269,32 @@ export class TreeTable {
         
         this.rowTouched = false;
     }
-    
+        
     onRowTouchEnd() {
         this.rowTouched = true;
+    }
+    
+    onRowRightClick(event: MouseEvent, node: TreeNode) {
+        if(this.contextMenu) {
+            let index = this.findIndexInSelection(node);
+            let selected = (index >= 0);
+            
+            if(!selected) {
+                if(this.isSingleSelectionMode()) {
+                    this.selection = node;
+                }
+                else if(this.isMultipleSelectionMode()) {
+                    this.selection = [];
+                    this.selection.push(node);
+                    this.selectionChange.emit(this.selection);
+                }
+                
+                this.selectionChange.emit(this.selection);
+            }
+            
+            this.contextMenu.show(event);
+            this.onContextMenuSelect.emit({originalEvent: event, node: node});
+        }
     }
     
     findIndexInSelection(node: TreeNode) {

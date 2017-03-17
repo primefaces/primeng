@@ -44,7 +44,8 @@
     border-style: solid;
 }
 
-.ui-datatable .ui-datatable-thead > tr > th {
+.ui-datatable .ui-datatable-thead > tr > th,
+.ui-datatable .ui-datatable-tfoot > tr > td {
     font-weight: normal;
 }
 
@@ -73,7 +74,8 @@
     overflow: hidden;
 }
 
-.ui-datatable-scrollable .ui-datatable-scrollable-header {
+.ui-datatable-scrollable .ui-datatable-scrollable-header,
+.ui-datatable-scrollable .ui-datatable-scrollable-footer {
     position: relative;
     border: 0 none;
 }
@@ -91,6 +93,12 @@
     border-color: inherit;
     font-weight: inherit;
     cursor: pointer;
+}
+
+.ui-datatable .ui-datatable-data tr.ui-rowgroup-header td a,
+.ui-datatable .ui-datatable-data tr.ui-rowgroup-header td span.ui-rowgroup-header-name {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .ui-datatable-scrollable-theadclone {
