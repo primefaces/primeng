@@ -44,18 +44,18 @@ export interface LocaleSettings {
 
                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="!timeOnly && (overlayVisible || inline)">
                     <ng-content select="p-header"></ng-content>
-                    <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" aria-label="Previous Month">
+                    <a class="ui-datepicker-prev ui-corner-all" href="#" (click)="prevMonth($event)" (keydown)="onHeaderKeyDown($event)" aria-label="Previous Month">
                         <span class="fa fa-angle-left" aria-hidden="true"></span>
                     </a>
-                    <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)" aria-label="Next Month">
+                    <a class="ui-datepicker-next ui-corner-all" href="#" (click)="nextMonth($event)" (keydown)="onHeaderKeyDown($event)" aria-label="Next Month">
                         <span class="fa fa-angle-right" aria-hidden="true"></span>
                     </a>
                     <div class="ui-datepicker-title">
                         <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{currentMonthText}}</span>
-                        <select class="ui-datepicker-month" *ngIf="monthNavigator" (change)="onMonthDropdownChange($event.target.value)" aria-label="Month">
+                        <select class="ui-datepicker-month" *ngIf="monthNavigator" (change)="onMonthDropdownChange($event.target.value)" (keydown)="onDropDownHeader($event)" aria-label="Month">
                             <option [value]="i" *ngFor="let month of locale.monthNames;let i = index" [selected]="i == currentMonth">{{month}}</option>
                         </select>
-                        <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event.target.value)" aria-label="Year">
+                        <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event.target.value)" (keydown)="onDropDownHeader($event)" aria-label="Year">
                             <option [value]="year" *ngFor="let year of yearOptions" [selected]="year == currentYear">{{year}}</option>
                         </select>
                         <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
@@ -666,7 +666,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     onCalendarKeyDown(event) {
       var today, container, header, previousAnchor, nextAnchor, previousRowAnchors, currentAnchor, position, nodeList;
       switch (event.keyCode) {
-        case 9:
+        case 9: // tab
           this.overlayVisible = false;
           break;
         case 27: // espcape
@@ -719,6 +719,75 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             event.srcElement.offsetParent.parentNode.nextElementSibling.querySelectorAll('a')[position].focus();
           }
           break;
+      }
+    }
+
+    onHeaderKeyDown(event) {
+      var selectors, nodeList, position, anchors;
+      console.log('headerKeydown', event);
+      nodeList = event.srcElement.parentNode.querySelectorAll('a');
+      position = Array.prototype.indexOf.call(nodeList, event.srcElement);
+      console.log(nodeList.length);
+      console.log(position);
+      switch (event.keyCode) {
+        case 9: // tab
+          this.overlayVisible = false;
+          break;
+        case 27: // espcape
+          this.currentInput.focus();
+          break;
+        case 37: // arrow left
+          if ((this.monthNavigator || this.yearNavigator) && position !== 0) {
+            selectors = event.srcElement.offsetParent.querySelectorAll('select');
+            selectors[selectors.length - 1].focus();
+          } else if (position !== 0){
+            event.srcElement.previousElementSibling.focus();
+          } else {
+            anchors = event.srcElement.offsetParent.offsetParent.querySelectorAll('td a');
+            anchors[anchors.length - 1].focus();
+          }
+        break;
+        case 39: // arrow right
+          if ((this.monthNavigator || this.yearNavigator) && position + 1 !== nodeList.length) {
+            event.srcElement.offsetParent.querySelectorAll('select')[0].focus();
+          } else if (position + 1 !== nodeList.length){
+            event.srcElement.nextElementSibling.focus();
+          } else {
+            event.srcElement.offsetParent.offsetParent.querySelectorAll('td a')[0].focus();
+          }
+        break;
+        case 40: // arrow down
+          event.srcElement.offsetParent.offsetParent.querySelectorAll('td a')[0].focus();
+          break;
+      }
+    }
+
+    onDropDownHeader(event) {
+      var anchors, nodeList, position;
+      console.log('headerKeydown', event);
+      switch (event.keyCode) {
+        case 9: // tab
+          this.overlayVisible = false;
+          break;
+        case 27: // espcape
+          this.currentInput.focus();
+          break;
+        case 37: // arrow left
+          nodeList = event.srcElement.offsetParent
+          if (this.monthNavigator && this.yearNavigator && event.srcElement.previousElementSibling) {
+            event.srcElement.previousElementSibling.focus();
+          } else {
+            event.srcElement.offsetParent.querySelectorAll('a')[0].focus();
+          }
+        break;
+        case 39: // arrow right
+        if (this.monthNavigator && this.yearNavigator && event.srcElement.nextElementSibling) {
+          event.srcElement.nextElementSibling.focus();
+        } else {
+          anchors = event.srcElement.offsetParent.querySelectorAll('a');
+          anchors[anchors.length - 1].focus();
+        }
+        break;
       }
     }
 
