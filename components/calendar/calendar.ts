@@ -32,7 +32,7 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
-                <input #inputfield type="text" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+                <input #inputfield type="text" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown(inputfield, $event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
                     [attr.aria-labelledby]="labelledby"
@@ -75,7 +75,7 @@ export interface LocaleSettings {
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true"
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today,'ui-state-disabled':!date.selectable}"
-                                    (click)="onDateSelect($event,date)">{{date.day}}</a>
+                                    (click)="onDateSelect($event,date, inputField)" (keydown)="onCalendarKeyDown($event)">{{date.day}}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -451,9 +451,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         event.preventDefault();
     }
 
-    onDateSelect(event,dateMeta) {
+    onDateSelect(event,dateMeta,inputField) {
         if(this.disabled || !dateMeta.selectable) {
             event.preventDefault();
+            inputField.focus();
             return;
         }
 
@@ -649,10 +650,76 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             this.closeOverlay = true;
     }
 
-    onInputKeydown(event) {
-        if(event.keyCode === 9) {
-            this.overlayVisible = false;
-        }
+    currentInput;
+    onInputKeydown(inputfield, event) {
+      // to be able to regain focus on the input from the calendar
+      this.currentInput = inputfield;
+      // Tab
+      if (event.keyCode === 9) {
+        this.overlayVisible = false;
+      // Arrow Down
+      } else if (event.keyCode === 40) {
+        event.srcElement.offsetParent.querySelectorAll('.ui-datepicker-today a')[0].focus();
+      }
+    }
+
+    onCalendarKeyDown(event) {
+      var today, container, header, previousAnchor, nextAnchor, previousRowAnchors, currentAnchor, position, nodeList;
+      switch (event.keyCode) {
+        case 9:
+          this.overlayVisible = false;
+          break;
+        case 27: // espcape
+          this.currentInput.focus();
+          break;
+        case 37: // arrow left
+          previousAnchor = event.srcElement.offsetParent.previousElementSibling;
+          if (previousAnchor) {
+            previousAnchor.querySelectorAll('a')[0].focus();
+            //  First cell in row
+          } else if (event.srcElement.offsetParent.parentNode.previousElementSibling) {
+            previousRowAnchors = event.srcElement.offsetParent.parentNode.previousElementSibling.querySelectorAll('a');
+            previousRowAnchors[previousRowAnchors.length -1].focus();
+          } else {
+            //  First cell in table - Go into header
+            container = event.srcElement.offsetParent.offsetParent.offsetParent;
+            header = container.querySelectorAll('.ui-datepicker-header')[0];
+            header.querySelectorAll('a')[header.querySelectorAll('a').length - 1].focus();
+          }
+          break;
+        case 38 : // arrow up
+            if (event.srcElement.offsetParent.parentNode.previousElementSibling) {
+              nodeList = event.srcElement.offsetParent.parentNode.querySelectorAll('td a');
+              position = Array.prototype.indexOf.call(nodeList, event.srcElement);
+              event.srcElement.offsetParent.parentNode.previousElementSibling.querySelectorAll('a')[position].focus();
+            } else {
+              container = event.srcElement.offsetParent.offsetParent.offsetParent;
+              header = container.querySelectorAll('.ui-datepicker-header')[0];
+              header.querySelectorAll('a')[0].focus();
+            }
+          break;
+        case 39 : // arrow right
+          nextAnchor = event.srcElement.offsetParent.nextElementSibling;
+          if (nextAnchor) {
+            nextAnchor.querySelectorAll('a')[0].focus();
+          //  Last cell in the row
+          } else if (event.srcElement.offsetParent.parentNode.nextElementSibling) {
+            event.srcElement.offsetParent.parentNode.nextElementSibling.querySelectorAll('a')[0].focus();
+          //  Last cell in the table
+          } else {
+            container = event.srcElement.offsetParent.offsetParent.offsetParent;
+            header = container.querySelectorAll('.ui-datepicker-header')[0];
+            header.querySelectorAll('a')[0].focus();
+          }
+          break;
+        case 40: // arrow down
+          if (event.srcElement.offsetParent.parentNode.nextElementSibling) {
+            nodeList = event.srcElement.offsetParent.parentNode.querySelectorAll('td a');
+            position = Array.prototype.indexOf.call(nodeList, event.srcElement);
+            event.srcElement.offsetParent.parentNode.nextElementSibling.querySelectorAll('a')[position].focus();
+          }
+          break;
+      }
     }
 
     onMonthDropdownChange(m: string) {
