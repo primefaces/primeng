@@ -376,7 +376,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             this.scrollHeaderBox.style.marginRight = scrollBarWidth + 'px';            
             
             if(this.scrollFooterBox) {
-                this.scrollFooterBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
+                this.scrollFooterBox.style.marginRight = scrollBarWidth + 'px';
             }
         }
         else {
