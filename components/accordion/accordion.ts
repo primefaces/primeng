@@ -50,7 +50,7 @@ export class Accordion implements BlockableUI {
                 <ng-content select="p-header"></ng-content>
             </a>
         </div>
-        <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" 
+        <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" (@tabContent.done)="onToggleDone($event)"
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" role="tabpanel" [attr.aria-hidden]="!selected">
             <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
                 <ng-content></ng-content>
@@ -60,13 +60,12 @@ export class Accordion implements BlockableUI {
     animations: [
         trigger('tabContent', [
             state('hidden', style({
-                height: '0px'
+                height: '0'
             })),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-            transition('hidden => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+            transition('visible <=> hidden', animate('100ms'))
         ])
     ]
 })
@@ -114,11 +113,6 @@ export class AccordionTab {
         
         this.selectedChange.emit(this.selected);
         
-        //TODO: Use onDone of animate callback instead with RC6
-        setTimeout(() => {
-            this.animating = false;
-        }, 400);
-
         event.preventDefault();
     }
 
@@ -139,6 +133,10 @@ export class AccordionTab {
     
     get hasHeaderFacet(): boolean {
         return this.headerFacet && this.headerFacet.length > 0;
+    }
+    
+    onToggleDone(event: Event) {
+        this.animating = false;
     }
 }
 
