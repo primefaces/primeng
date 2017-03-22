@@ -50,7 +50,7 @@ export interface LocaleSettings {
                         <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="ui-datepicker-title">
-                        <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{currentMonthText}}</span>
+                        <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{locale.monthNames[currentMonth]}}</span>
                         <select class="ui-datepicker-month" *ngIf="monthNavigator" (change)="onMonthDropdownChange($event.target.value)">
                             <option [value]="i" *ngFor="let month of locale.monthNames;let i = index" [selected]="i == currentMonth">{{month}}</option>
                         </select>
@@ -223,7 +223,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
-    @Input() locale: LocaleSettings = {
+    _locale: LocaleSettings = {
         firstDayOfWeek: 0,
         dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -240,7 +240,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     dates: any[];
     
-    weekDays: string[] = [];
+    weekDays: string[];
     
     currentMonthText: string;
     
@@ -305,16 +305,23 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this._maxDate = date;
         this.createMonth(this.currentMonth, this.currentYear);
     }
+    
+    get locale() {
+       return this._locale;
+    }
+
+    @Input()
+    set locale(newLocale: LocaleSettings) {
+       this._locale = newLocale;
+       this.createWeekDays();
+       this.createMonth(this.currentMonth, this.currentYear);
+    }
 
     constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
 
     ngOnInit() {
         let date = this.defaultDate||new Date();        
-        let dayIndex = this.locale.firstDayOfWeek;
-        for(let i = 0; i < 7; i++) {
-            this.weekDays.push(this.locale.dayNamesMin[dayIndex]);
-            dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
-        }
+        this.createWeekDays();
                 
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
@@ -359,6 +366,15 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 document.body.appendChild(this.overlay);
             else
                 this.domHandler.appendChild(this.overlay, this.appendTo);
+        }
+    }
+    
+    createWeekDays() {
+        this.weekDays = [];
+        let dayIndex = this.locale.firstDayOfWeek;
+        for(let i = 0; i < 7; i++) {
+            this.weekDays.push(this.locale.dayNamesMin[dayIndex]);
+            dayIndex = (dayIndex == 6) ? 0 : ++dayIndex;
         }
     }
     
