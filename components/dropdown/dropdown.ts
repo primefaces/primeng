@@ -479,6 +479,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 
                 this.selfClick = false;
                 this.itemClick = false;
+                this.cd.markForCheck();
             });
         }    
     }
