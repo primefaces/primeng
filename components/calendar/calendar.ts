@@ -945,7 +945,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let minutes = date.getMinutes();
         let seconds = date.getSeconds();
         
-        if(this.hourFormat == '12' && this.pm && hours != 12) {
+        if(this.hourFormat == '12' && hours > 11 && hours != 12) {
             hours-=12;
         }
         
@@ -959,7 +959,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         if(this.hourFormat == '12') {
-            output += this.pm ? ' PM' : ' AM';
+            output += hours > 11 ? ' PM' : ' AM';
         }
         
         return output;
