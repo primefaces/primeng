@@ -236,7 +236,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         if(this.multiple) {
             if(this.value) {
                 for(let val of this.value) {
-                    if(this.objectUtils.equals(this.value[i], option.value, this.dataKey)) {
+                    if(this.objectUtils.equals(val, option.value, this.dataKey)) {
                         selected = true;
                         break;
                     }
