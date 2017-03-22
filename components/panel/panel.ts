@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule} from '../common/shared'
+import {SharedModule} from '../common/shared';
 import {BlockableUI} from '../common/api';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 
