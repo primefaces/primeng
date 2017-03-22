@@ -20,7 +20,7 @@ import {Subscription}   from 'rxjs/Subscription';
             </div>
             <div class="ui-dialog-content ui-widget-content">
                 <i [class]="icon"></i>
-                <span class="ui-confirmdialog-message">{{message}}</span>
+                <span class="ui-confirmdialog-message" [innerHTML]="message"></span>
             </div>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
