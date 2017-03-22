@@ -67,6 +67,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     @Input() filter: boolean = false;
     
     @Input() metaKeySelection: boolean = true;
+    
+    @Input() dataKey: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -231,10 +233,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     isSelected(option: SelectItem) {
         let selected = false;
 
-        if (this.multiple) {
-            if (this.value) {
-                for (let i = 0; i < this.value.length; i++) {
-                    if (this.value[i] === option.value) {
+        if(this.multiple) {
+            if(this.value) {
+                for(let val of this.value) {
+                    if(this.objectUtils.equals(this.value[i], option.value, this.dataKey)) {
                         selected = true;
                         break;
                     }
@@ -242,7 +244,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             }
         }
         else {
-            selected = this.value == option.value;
+            selected = this.objectUtils.equals(this.value, option.value, this.dataKey);
         }
 
         return selected;
@@ -252,7 +254,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         let index: number = -1;
         if (this.value) {
             for (let i = 0; i < this.value.length; i++) {
-                if (this.objectUtils.equals(option.value, this.value[i])) {
+                if (option.label === this.value[i].label) {
                     index = i;
                     break;
                 }

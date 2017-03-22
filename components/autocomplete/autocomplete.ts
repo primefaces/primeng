@@ -98,6 +98,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
 
     @Input() tabindex: number;
     
+    @Input() dataKey: string;
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
@@ -416,7 +418,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         let selected: boolean = false;
         if(this.value && this.value.length) {
             for(let i = 0; i < this.value.length; i++) {
-                if(this.objectUtils.equals(this.value[i], val)) {
+                if(this.objectUtils.equals(this.value[i], val, this.dataKey)) {
                     selected = true;
                     break;
                 }
