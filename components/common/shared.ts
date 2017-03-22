@@ -263,6 +263,8 @@ export class ColumnEditorTemplateLoader implements OnInit, OnDestroy {
     @Input() column: any;
     
     @Input() rowData: any;
+    
+    @Input() rowIndex: any;
             
     view: EmbeddedViewRef<any>;
     
@@ -271,7 +273,8 @@ export class ColumnEditorTemplateLoader implements OnInit, OnDestroy {
     ngOnInit() {
         this.view = this.viewContainer.createEmbeddedView(this.column.editorTemplate, {
             '\$implicit': this.column,
-            'rowData': this.rowData
+            'rowData': this.rowData,
+            'rowIndex': this.rowIndex
         });
     }
 	
