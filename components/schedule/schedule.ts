@@ -283,7 +283,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 }   
             }
             
-            if(options.length) {
+            if(Object.keys(options).length) {
                 this.schedule.fullCalendar('option', options);
             }
         }
