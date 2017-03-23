@@ -65,7 +65,7 @@ export class Accordion implements BlockableUI {
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', animate('100ms'))
+            transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
     ]
 })
@@ -88,7 +88,7 @@ export class AccordionTab {
     }
 
     toggle(event) {
-        if(this.disabled) {
+        if(this.disabled || this.animating) {
             return false;
         }
         

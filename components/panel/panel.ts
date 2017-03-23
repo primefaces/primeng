@@ -32,7 +32,7 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
             state('visible', style({
                 height: '*'
             })),
-            transition('visible <=> hidden', animate('100ms'))
+            transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
     ]
 })
@@ -59,6 +59,10 @@ export class Panel implements BlockableUI {
     constructor(private el: ElementRef) {}
     
     toggle(event) {
+        if(this.animating) {
+            return false;
+        }
+        
         this.animating = true;
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
         
