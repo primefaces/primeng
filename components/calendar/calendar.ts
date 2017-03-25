@@ -82,11 +82,11 @@ export interface LocaleSettings {
                 </table>
                 <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
                     <div class="ui-hour-picker">
-                        <a href="#" (click)="incrementHour($event)" aria-label="Increment Hours">
+                        <a href="#" (click)="incrementHour($event)" aria-label="Increment Hours" (keydown)="onTimepikerKeyDown($event, 'hour')">
                             <span class="fa fa-angle-up" aria-hidden="true"></span>
                         </a>
                         <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
-                        <a href="#" (click)="decrementHour($event)" aria-label="Decrement Hours">
+                        <a href="#" (click)="decrementHour($event)" aria-label="Decrement Hours" (keydown)="onTimepikerKeyDown($event, 'hour')">
                             <span class="fa fa-angle-down" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -100,11 +100,11 @@ export interface LocaleSettings {
                         </a>
                     </div>
                     <div class="ui-minute-picker">
-                        <a href="#" (click)="incrementMinute($event)" aria-label="Increment Minutes">
+                        <a href="#" (click)="incrementMinute($event)" aria-label="Increment Minutes" (keydown)="onTimepikerKeyDown($event, 'minute')">
                             <span class="fa fa-angle-up" aria-hidden="true"></span>
                         </a>
                         <span [ngStyle]="{'display': currentMinute < 10 ? 'inline': 'none'}">0</span><span>{{currentMinute}}</span>
-                        <a href="#" (click)="decrementMinute($event)" aria-label="Decrement Minutes">
+                        <a href="#" (click)="decrementMinute($event)" aria-label="Decrement Minutes" (keydown)="onTimepikerKeyDown($event, 'minute')">
                             <span class="fa fa-angle-down" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -118,20 +118,20 @@ export interface LocaleSettings {
                         </a>
                     </div>
                     <div class="ui-second-picker" *ngIf="showSeconds">
-                        <a href="#" (click)="incrementSecond($event)" aria-label="Increment Seconds">
+                        <a href="#" (click)="incrementSecond($event)" aria-label="Increment Seconds" (keydown)="onTimepikerKeyDown($event, 'second')">
                             <span class="fa fa-angle-up" aria-hidden="true"></span>
                         </a>
                         <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
-                        <a href="#" (click)="incrementSecond($event)" aria-label="Decrement Seconds">
+                        <a href="#" (click)="incrementSecond($event)" aria-label="Decrement Seconds" (keydown)="onTimepikerKeyDown($event, 'second')">
                             <span class="fa fa-angle-down" aria-hidden="true"></span>
                         </a>
                     </div>
                     <div class="ui-ampm-picker" *ngIf="hourFormat=='12'">
-                        <a href="#" (click)="toggleAMPM($event)" aria-label="Toggle AM PM">
+                        <a href="#" (click)="toggleAMPM($event)" aria-label="Toggle AM PM" (keydown)="onTimepikerKeyDown($event, 'ampm')">
                             <span class="fa fa-angle-up" aria-hidden="true"></span>
                         </a>
                         <span>{{pm ? 'PM' : 'AM'}}</span>
-                        <a href="#" (click)="toggleAMPM($event)" aria-label="Toggle AM PM">
+                        <a href="#" (click)="toggleAMPM($event)" aria-label="Toggle AM PM" (keydown)="onTimepikerKeyDown($event, 'ampm')">
                             <span class="fa fa-angle-down" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -659,12 +659,16 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.overlayVisible = false;
       // Arrow Down
       } else if (event.keyCode === 40) {
-        event.srcElement.offsetParent.querySelectorAll('.ui-datepicker-today a')[0].focus();
+        if (this.timeOnly) {
+          event.srcElement.offsetParent.querySelectorAll('.ui-timepicker')[0].querySelectorAll('a')[0].focus();
+        } else {
+          event.srcElement.offsetParent.querySelectorAll('.ui-datepicker-today a')[0].focus();
+        }
       }
     }
 
     onCalendarKeyDown(event) {
-      var today, container, header, previousAnchor, nextAnchor, previousRowAnchors, currentAnchor, position, nodeList;
+      var today, container, header, previousAnchor, nextAnchor, previousRowAnchors, currentAnchor, position, nodeList, row, rowList, isLast;
       switch (event.keyCode) {
         case 9: // tab
           this.overlayVisible = false;
@@ -673,6 +677,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
           this.currentInput.focus();
           break;
         case 37: // arrow left
+          event.preventDefault();
           previousAnchor = event.srcElement.offsetParent.previousElementSibling;
           if (previousAnchor) {
             previousAnchor.querySelectorAll('a')[0].focus();
@@ -688,6 +693,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
           }
           break;
         case 38 : // arrow up
+            event.preventDefault();
             if (event.srcElement.offsetParent.parentNode.previousElementSibling) {
               nodeList = event.srcElement.offsetParent.parentNode.querySelectorAll('td a');
               position = Array.prototype.indexOf.call(nodeList, event.srcElement);
@@ -699,6 +705,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             }
           break;
         case 39 : // arrow right
+          event.preventDefault();
           nextAnchor = event.srcElement.offsetParent.nextElementSibling;
           if (nextAnchor) {
             nextAnchor.querySelectorAll('a')[0].focus();
@@ -707,13 +714,24 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             event.srcElement.offsetParent.parentNode.nextElementSibling.querySelectorAll('a')[0].focus();
           //  Last cell in the table
           } else {
-            container = event.srcElement.offsetParent.offsetParent.offsetParent;
-            header = container.querySelectorAll('.ui-datepicker-header')[0];
-            header.querySelectorAll('a')[0].focus();
+            if (this.showTime) {
+              event.srcElement.offsetParent.offsetParent.offsetParent.querySelectorAll('.ui-timepicker')[0].querySelectorAll('a')[0].focus();
+            } else {
+              container = event.srcElement.offsetParent.offsetParent.offsetParent;
+              header = container.querySelectorAll('.ui-datepicker-header')[0];
+              header.querySelectorAll('a')[0].focus();
+            }
           }
           break;
         case 40: // arrow down
-          if (event.srcElement.offsetParent.parentNode.nextElementSibling) {
+          // determine if last row
+          event.preventDefault();
+          row = event.srcElement.parentNode.parentNode;
+          rowList = event.srcElement.offsetParent.parentNode.parentNode.querySelectorAll('tr');
+          isLast = Array.prototype.indexOf.call(rowList, row) === rowList.length - 1 ? true : false;
+          if (isLast && this.showTime) {
+            event.srcElement.offsetParent.offsetParent.offsetParent.querySelectorAll('.ui-timepicker')[0].querySelectorAll('a')[0].focus();
+          } else if (!isLast) {
             nodeList = event.srcElement.offsetParent.parentNode.querySelectorAll('td a');
             position = Array.prototype.indexOf.call(nodeList, event.srcElement);
             event.srcElement.offsetParent.parentNode.nextElementSibling.querySelectorAll('a')[position].focus();
@@ -724,11 +742,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     onHeaderKeyDown(event) {
       var selectors, nodeList, position, anchors;
-      console.log('headerKeydown', event);
       nodeList = event.srcElement.parentNode.querySelectorAll('a');
       position = Array.prototype.indexOf.call(nodeList, event.srcElement);
-      console.log(nodeList.length);
-      console.log(position);
       switch (event.keyCode) {
         case 9: // tab
           this.overlayVisible = false;
@@ -737,6 +752,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
           this.currentInput.focus();
           break;
         case 37: // arrow left
+          event.preventDefault();
           if ((this.monthNavigator || this.yearNavigator) && position !== 0) {
             selectors = event.srcElement.offsetParent.querySelectorAll('select');
             selectors[selectors.length - 1].focus();
@@ -748,6 +764,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
           }
         break;
         case 39: // arrow right
+          event.preventDefault();
           if ((this.monthNavigator || this.yearNavigator) && position + 1 !== nodeList.length) {
             event.srcElement.offsetParent.querySelectorAll('select')[0].focus();
           } else if (position + 1 !== nodeList.length){
@@ -757,6 +774,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
           }
         break;
         case 40: // arrow down
+          event.preventDefault();
           event.srcElement.offsetParent.offsetParent.querySelectorAll('td a')[0].focus();
           break;
       }
@@ -764,7 +782,6 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     onDropDownHeader(event) {
       var anchors, nodeList, position;
-      console.log('headerKeydown', event);
       switch (event.keyCode) {
         case 9: // tab
           this.overlayVisible = false;
@@ -773,6 +790,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
           this.currentInput.focus();
           break;
         case 37: // arrow left
+          event.preventDefault();
           nodeList = event.srcElement.offsetParent
           if (this.monthNavigator && this.yearNavigator && event.srcElement.previousElementSibling) {
             event.srcElement.previousElementSibling.focus();
@@ -781,13 +799,87 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
           }
         break;
         case 39: // arrow right
-        if (this.monthNavigator && this.yearNavigator && event.srcElement.nextElementSibling) {
-          event.srcElement.nextElementSibling.focus();
-        } else {
-          anchors = event.srcElement.offsetParent.querySelectorAll('a');
-          anchors[anchors.length - 1].focus();
-        }
+          event.preventDefault();
+          if (this.monthNavigator && this.yearNavigator && event.srcElement.nextElementSibling) {
+            event.srcElement.nextElementSibling.focus();
+          } else {
+            anchors = event.srcElement.offsetParent.querySelectorAll('a');
+            anchors[anchors.length - 1].focus();
+          }
         break;
+      }
+    }
+
+    onTimepikerKeyDown(event, type) {
+      var position;
+      var selector = '.ui-' + type + '-picker a';
+      var anchorIndex = event.srcElement.offsetParent.querySelectorAll(selector)[0] === event.srcElement ? 0 : 1;
+      if (anchorIndex === undefined) { anchorIndex = 0; }
+      switch (event.keyCode) {
+        case 9: // tab
+          this.overlayVisible = false;
+          break;
+        case 27: // espcape
+          this.currentInput.focus();
+          break;
+        case 37: // arrow left
+          event.preventDefault();
+          switch (type) {
+            case 'hour':
+              if (this.showSeconds) {
+                event.srcElement.offsetParent.querySelectorAll('.ui-second-picker a')[anchorIndex].focus();
+              } else {
+                event.srcElement.offsetParent.querySelectorAll('.ui-minute-picker a')[anchorIndex].focus();
+              }
+            break;
+            case 'minute':
+              event.srcElement.offsetParent.querySelectorAll('.ui-hour-picker a')[anchorIndex].focus();
+            break;
+            case 'second':
+                event.srcElement.offsetParent.querySelectorAll('.ui-minute-picker a')[anchorIndex].focus();
+              break;
+            };
+          break;
+        case 38: // arrow up
+          event.preventDefault();
+          if (anchorIndex === 0) {
+            if (!this.timeOnly) {
+              position = event.srcElement.offsetParent.offsetParent.querySelectorAll('table td a');
+              position[position.length - 1].focus();
+            } else {
+              event.srcElement.parentNode.querySelectorAll('a')[1].focus();
+            }
+          } else {
+            event.srcElement.parentNode.querySelectorAll('a')[0].focus();
+          }
+          break;
+        case 39: // arrow right
+          event.preventDefault();
+          switch (type) {
+            case 'hour':
+              event.srcElement.offsetParent.querySelectorAll('.ui-minute-picker a')[anchorIndex].focus();
+              break;
+            case 'minute':
+              if (this.showSeconds) {
+                event.srcElement.offsetParent.querySelectorAll('.ui-second-picker a')[anchorIndex].focus();
+              }
+              else {
+                event.srcElement.offsetParent.querySelectorAll('.ui-hour-picker a')[anchorIndex].focus();
+              }
+              break;
+            case 'second':
+              event.srcElement.offsetParent.querySelectorAll('.ui-hour-picker a')[anchorIndex].focus();
+              break;
+          }
+          break;
+        case 40: // arrow down
+          event.preventDefault();
+          if (anchorIndex === 0) {
+            event.srcElement.parentNode.querySelectorAll('a')[1].focus();
+          } else if (this.timeOnly) {
+            event.srcElement.parentNode.querySelectorAll('a')[0].focus();
+          }
+          break;
       }
     }
 
