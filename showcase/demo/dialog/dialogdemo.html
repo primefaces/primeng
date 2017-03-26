@@ -80,6 +80,15 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
+            <h3>Overlays Inside</h3>
+            <p>When dialog contents include other components with overlays such as dropdown, it is suggested to turn off the overflow of dialog content
+                so that the overlays can be displayed outside of the dialog.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dropdown [options]="cities" formControlName="selectedCity"&gt;&lt;/p-dropdown&gt;
+</code>
+</pre>
+
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">

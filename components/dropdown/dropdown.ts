@@ -102,6 +102,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() inputId: string;
     
+    @Input() dataKey: string;
+    
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -425,25 +427,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             break;
         }
     }
-    
-    findListItem(element) {
-        if(element.nodeName == 'LI') {
-            return element;
-        }
-        else {
-            let parent = element.parentElement;
-            while(parent.nodeName != 'LI') {
-                parent = parent.parentElement;
-            }
-            return parent;
-        }
-    }
-                
+                    
     findOptionIndex(val: any, opts: SelectItem[]): number {        
         let index: number = -1;
         if(opts) {
             for(let i = 0; i < opts.length; i++) {
-                if((val == null && opts[i].value == null) || this.objectUtils.equals(val, opts[i].value)) {
+                if((val == null && opts[i].value == null) || this.objectUtils.equals(val, opts[i].value, this.dataKey)) {
                     index = i;
                     break;
                 }
@@ -490,6 +479,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 
                 this.selfClick = false;
                 this.itemClick = false;
+                this.cd.markForCheck();
             });
         }    
     }

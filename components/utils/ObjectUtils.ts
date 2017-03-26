@@ -3,7 +3,14 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class ObjectUtils {
     
-    public equals(obj1: any, obj2: any): boolean {
+    public equals(obj1: any, obj2: any, field?: string): boolean {
+        if(field)
+            return (this.resolveFieldData(obj1, field) === this.resolveFieldData(obj2, field));
+        else
+            return this.equalsByValue(obj1, obj2);
+    }
+    
+    public equalsByValue(obj1: any, obj2: any): boolean {
         if (obj1 == null && obj2 == null) {
             return true;
         }

@@ -89,7 +89,7 @@ export class SlideMenuSub implements OnDestroy {
         <div #container [ngClass]="{'ui-menu ui-slidemenu ui-widget ui-widget-content ui-corner-all':true,'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="onClick($event)">
             <div class="ui-slidemenu-wrapper" [style.height.px]="viewportHeight">
-                <div class="ui-slidemenu-content" [style.height.px]="viewportContentHeight">
+                <div #slideMenuContent class="ui-slidemenu-content">
                     <p-slideMenuSub [item]="model" root="root" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
                 <div #backward class="ui-slidemenu-backward ui-widget-header ui-corner-all" [style.display]="left ? 'block' : 'none'" (click)="goBack()">
@@ -124,9 +124,13 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @ViewChild('backward') backwardViewChild: ElementRef;
     
+    @ViewChild('slideMenuContent') slideMenuContentViewChild: ElementRef;
+    
     public container: HTMLDivElement;
     
     public backwardElement: HTMLDivElement;
+    
+    public slideMenuContentElement: HTMLDivElement;
     
     public documentClickListener: any;
     
@@ -135,15 +139,14 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     public left: number = 0;
     
     public animating: boolean = false;
-    
-    public viewportContentHeight: number;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         this.backwardElement = <HTMLDivElement> this.backwardViewChild.nativeElement;
-        this.viewportContentHeight = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardElement);
+        this.slideMenuContentElement = <HTMLDivElement> this.slideMenuContentViewChild.nativeElement;
+        this.slideMenuContentElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardElement) + 'px';
         
         if(this.popup) {
             this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {

@@ -595,6 +595,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() first: number = 0;
     
     @Input() public filters: {[s: string]: FilterMetadata;} = {};
+    
+    @Input() dataKey: string;
         
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
@@ -1304,7 +1306,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let index: number = -1;
         if(this.selection) {
             for(let i = 0; i  < this.selection.length; i++) {
-                if(this.objectUtils.equals(rowData, this.selection[i])) {
+                if(this.objectUtils.equals(rowData, this.selection[i], this.dataKey)) {
                     index = i;
                     break;
                 }
@@ -1315,7 +1317,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     isSelected(rowData) {
-        return ((rowData && this.objectUtils.equals(rowData, this.selection)) || this.findIndexInSelection(rowData) != -1);
+        return ((rowData && this.objectUtils.equals(rowData, this.selection, this.dataKey)) || this.findIndexInSelection(rowData) != -1);
     }
     
     get allSelected() {
@@ -1996,7 +1998,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(link.download !== undefined) {
                 link.setAttribute('href', URL.createObjectURL(blob));
                 link.setAttribute('download', this.exportFilename + '.csv');
-                document.body.appendChild(link);
                 link.click();
             }
             else {

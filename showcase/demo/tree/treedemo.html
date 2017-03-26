@@ -222,8 +222,7 @@ export class NodeService &#123;
     getFiles() &#123;
         return this.http.get('showcase/resources/data/files.json')
                     .toPromise()
-                    .then(res =&gt; &lt;TreeNode[]&gt; res.json().data)
-                    .then(data =&gt; &#123; return data; &#125;);
+                    .then(res =&gt; &lt;TreeNode[]&gt; res.json().data);
     &#125;
 &#125;
 </code>

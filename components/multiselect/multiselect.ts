@@ -2,6 +2,7 @@ import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCh
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
+import {ObjectUtils} from '../utils/ObjectUtils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
@@ -62,7 +63,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    providers: [DomHandler,MULTISELECT_VALUE_ACCESSOR]
+    providers: [DomHandler,ObjectUtils,MULTISELECT_VALUE_ACCESSOR]
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
@@ -85,6 +86,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() tabindex: number;
     
     @Input() appendTo: any;
+    
+    @Input() dataKey: string;
     
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -118,7 +121,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         
     public differ: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers, public objectUtils: ObjectUtils) {
         this.differ = differs.find([]).create(null);
     }
     
@@ -206,7 +209,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         
         if(this.value) {
             for(let i = 0; i < this.value.length; i++) {
-                if(this.value[i] == val) {
+                if(this.objectUtils.equals(this.value[i], val, this.dataKey)) {
                     index = i;
                     break;
                 }

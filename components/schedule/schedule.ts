@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,DoCheck,Input,Output,EventEmitter,IterableDiffers,OnInit,OnChanges,AfterViewChecked,SimpleChanges} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,DoCheck,OnChanges,Input,Output,EventEmitter,IterableDiffers,OnInit,AfterViewChecked,SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var jQuery: any;
@@ -273,6 +273,21 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             this.initialize();
         }
     }
+    
+    ngOnChanges(changes: SimpleChanges) {
+        if(this.schedule) {
+            let options = {};
+            for(let change in changes) {
+                if(change !== 'events') {
+                    options[change] = changes[change].currentValue;
+                }   
+            }
+            
+            if(Object.keys(options).length) {
+                this.schedule.fullCalendar('option', options);
+            }
+        }
+    }
 
     initialize() {
         this.schedule = jQuery(this.el.nativeElement.children[0]);
@@ -281,16 +296,6 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         this.initialized = true;
     }
      
-    ngOnChanges(changes: SimpleChanges) {
-        if (this.schedule) {
-            let options = {};
-            for (let change in changes) {
-                options[change] = changes[change].currentValue;
-            }
-            this.schedule.fullCalendar('option', options);
-        }
-    }
-
     ngDoCheck() {
         let changes = this.differ.diff(this.events);
         
