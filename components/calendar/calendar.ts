@@ -72,7 +72,7 @@ export interface LocaleSettings {
                             <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
-                                    [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today,'ui-state-disabled':!date.selectable}"
+                                    [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
                                     (click)="onDateSelect($event,date)">{{date.day}}</a>
                             </td>
                         </tr>
@@ -215,6 +215,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() showOnFocus: boolean = true;
     
     @Input() dataType: string = 'date';
+    
+    @Input() disabledDates: Array<Date>;
+    
+    @Input() disabledDays: Array<number>;
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
@@ -599,6 +603,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     isSelectable(day, month, year): boolean {
         let validMin = true;
         let validMax = true;
+        let validDate = true;
+        let validDay = true;
         
         if(this.minDate) {
              if(this.minDate.getFullYear() > year) {
@@ -632,7 +638,36 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
              }  
         }
         
-        return validMin && validMax;
+        if(this.disabledDates) {
+           validDate = !this.isDateDisabled(day,month,year);
+        }
+       
+        if(this.disabledDays) {
+           validDay = !this.isDayDisabled(day,month,year)
+        }
+        
+        return validMin && validMax && validDate && validDay;
+    }
+    
+    isDateDisabled(day:number, month:number, year:number):boolean {
+        if(this.disabledDates) {
+            for(let disabledDate of this.disabledDates) {
+                if(disabledDate.getFullYear() === year && disabledDate.getMonth() === month && disabledDate.getDate() === day) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    isDayDisabled(day:number, month:number, year:number):boolean {
+        if(this.disabledDays) {
+            let weekday = new Date(year, month, day);
+            let weekdayNumber = weekday.getDay();
+            return this.disabledDays.indexOf(weekdayNumber) !== -1;
+        }
+        return false;
     }
     
     onInputFocus(inputfield, event) {
