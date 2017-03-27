@@ -2,7 +2,6 @@ import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Outpu
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
-import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
 import {AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor} from '@angular/forms';
 
@@ -1214,8 +1213,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,InputTextModule],
-    exports: [Calendar,ButtonModule,InputTextModule],
+    imports: [CommonModule,ButtonModule],
+    exports: [Calendar,ButtonModule],
     declarations: [Calendar]
 })
 export class CalendarModule { }
