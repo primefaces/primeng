@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
-import {InputTextModule} from '../inputtext/inputtext';
 import {Column,Header,Footer,HeaderColumnGroup,FooterColumnGroup,PrimeTemplate} from '../common/shared';
 import {LazyLoadEvent,FilterMetadata,SortMeta} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
@@ -106,7 +105,7 @@ export class RowExpansionLoader {
                 </span>
                 <span class="ui-sortable-column-icon fa fa-fw fa-sort" *ngIf="col.sortable"
                      [ngClass]="{'fa-sort-desc': (dt.getSortOrder(col) == -1),'fa-sort-asc': (dt.getSortOrder(col) == 1)}"></span>
-                <input type="text" pInputText class="ui-column-filter" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter&&!col.filterTemplate" [value]="dt.filters[col.field] ? dt.filters[col.field].value : ''" 
+                <input type="text" class="ui-column-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter&&!col.filterTemplate" [value]="dt.filters[col.field] ? dt.filters[col.field].value : ''" 
                     (click)="dt.onFilterInputClick($event)" (keyup)="dt.onFilterKeyup($event.target.value, col.field, col.filterMatchMode)"/>
                 <p-columnFilterTemplateLoader [column]="col" *ngIf="col.filterTemplate"></p-columnFilterTemplateLoader>
                 <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="dt.toggleRowsWithCheckbox($event)" [checked]="dt.allSelected" [disabled]="dt.isEmpty()"></p-dtCheckbox>
@@ -172,8 +171,8 @@ export class ColumnFooters {
                             <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + dt.first"></p-columnBodyTemplateLoader>
                         </span>
                         <div class="ui-cell-editor" *ngIf="col.editable">
-                            <input *ngIf="!col.editorTemplate" type="text" pInputText [(ngModel)]="rowData[col.field]" required="true"
-                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex)"/>
+                            <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]" required="true"
+                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex)" class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
                             <p-columnEditorTemplateLoader *ngIf="col.editorTemplate" [column]="col" [rowData]="rowData"></p-columnEditorTemplateLoader>
                         </div>
                         <a href="#" *ngIf="col.expander" (click)="dt.toggleRow(rowData,$event)">
@@ -2059,7 +2058,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,PaginatorModule,FormsModule,InputTextModule],
+    imports: [CommonModule,SharedModule,PaginatorModule,FormsModule],
     exports: [DataTable,SharedModule],
     declarations: [DataTable,DTRadioButton,DTCheckbox,ColumnHeaders,ColumnFooters,TableBody,ScrollableView,RowExpansionLoader]
 })
