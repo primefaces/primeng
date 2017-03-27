@@ -169,7 +169,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     }
     
     validate(file: File): boolean {
-        if(this.accept && !this.isFileTypeAcceptable(file.type)) {
+        if(this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
@@ -190,13 +190,13 @@ export class FileUpload implements OnInit,AfterContentInit {
         return true;
     }
 
-    private isFileTypeAcceptable(fileType: string): boolean {
-        for (let type of this.getAcceptableTypes()) {
-            let isAcceptable = this.isWildcard(type)
-              ? this.getTypeClass(fileType) === this.getTypeClass(type)
-              : fileType === type;
+    private isFileTypeValid(file: File): boolean {
+        let acceptableTypes = this.accept.split(',');
+        for(let type of acceptableTypes) {
+            let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type) 
+                                                    : this.getFileExtension(file) === type;
 
-            if (isAcceptable) {
+            if(acceptable) {
                 return true;
             }
         }
@@ -204,16 +204,16 @@ export class FileUpload implements OnInit,AfterContentInit {
         return false;
     }
 
-    private getTypeClass(fileType: string): string {
-        return fileType.substring(0, fileType.indexOf('/'))
+    getTypeClass(fileType: string): string {
+        return fileType.substring(0, fileType.indexOf('/'));
     }
 
-    private isWildcard(fileType: string): boolean {
+    isWildcard(fileType: string): boolean {
         return fileType.indexOf('*') !== -1;
     }
-
-    private getAcceptableTypes(): string[] {
-        return this.accept.split(',');
+    
+    getFileExtension(file: File): string {
+        return '.' + file.name.split('.').pop();
     }
     
     isImage(file: File): boolean {
