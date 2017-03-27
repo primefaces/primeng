@@ -171,7 +171,7 @@ export class ColumnFooters {
                             <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + dt.first"></p-columnBodyTemplateLoader>
                         </span>
                         <div class="ui-cell-editor" *ngIf="col.editable">
-                            <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]" required="true"
+                            <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]" required="true" (blur)="dt.switchCellToViewMode($event.target)"
                                 (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex, rowIndex)" class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
                             <p-columnEditorTemplateLoader *ngIf="col.editorTemplate" [column]="col" [rowData]="rowData" [rowIndex]="rowIndex"></p-columnEditorTemplateLoader>
                         </div>
