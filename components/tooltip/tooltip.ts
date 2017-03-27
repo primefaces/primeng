@@ -24,7 +24,7 @@ export class Tooltip implements OnDestroy {
     
     @Input("tooltipDisabled") disabled: boolean;
     
-    @Input() escapeContents = true;
+    @Input() escape: boolean = true;
         
     container: any;
         
