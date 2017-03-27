@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section source">
-    <h3 style="margin-top:0px">MenuItem</h3>
+    <h3 class="first">MenuItem</h3>
     <p>Core of the api is MenuItem class that defines various options such as the label, icon and children of an item in a menu. Example below
     is a sample configuration with Menu component.</p>
 
@@ -148,7 +148,7 @@ export class MenuDemo &#123;
 </pre>
 
     <h4>Navigation</h4>
-    <p>Navigation is specified using url property for external links and with routerLink for internal ones.</p>
+    <p>Navigation is specified using url property for external links and with routerLink for internal ones. If a menuitem has an active route, ui-state-active style class is added as an indicator.</p>
 <pre>
 <code class="language-typescript" pCode>
 export class MenuDemo &#123;
