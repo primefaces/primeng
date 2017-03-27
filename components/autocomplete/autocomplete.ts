@@ -77,6 +77,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     @Input() suggestions: any[];
 
     @Input() appendTo: any;
+    
+    @Input() autoHighlight: boolean;
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
     
@@ -154,6 +156,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             if(this.suggestions && this.suggestions.length) {
                 this.show();
                 this.suggestionsUpdated = true;
+                
+                if(this.autoHighlight) {
+                    this.highlightOption = this.suggestions[0];
+                }
             }
             else {
                 this.hide();
