@@ -256,9 +256,21 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     writeValue(value: any): void {
+        if(this.filter) {
+            this.resetFilter();
+        }
+        
         this.value = value;
         this.updateSelectedOption(value);
         this.cd.markForCheck();
+    }
+    
+    resetFilter(): void {
+        if(this.filterViewChild && this.filterViewChild.nativeElement) {
+            this.filterViewChild.nativeElement.value = '';
+        }
+        
+        this.optionsToDisplay = this.options;
     }
     
     updateSelectedOption(val: any): void {
