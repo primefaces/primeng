@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy,DoCheck} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -13,7 +13,7 @@ import {DomHandler} from '../dom/domhandler';
     },
     providers: [DomHandler]
 })
-export class Password implements AfterViewInit,OnDestroy {
+export class Password implements AfterViewInit,OnDestroy,DoCheck {
 
     @Input() promptLabel: string = 'Please enter a password';
 
@@ -31,6 +31,8 @@ export class Password implements AfterViewInit,OnDestroy {
     
     info: any;
     
+    filled: boolean;
+    
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
     ngAfterViewInit() {
@@ -47,6 +49,20 @@ export class Password implements AfterViewInit,OnDestroy {
             this.panel.appendChild(this.info);
             document.body.appendChild(this.panel);
         }
+    }
+    
+    ngDoCheck() {
+        this.updateFilledState();
+    }
+    
+    //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
+    @HostListener('input', ['$event']) 
+    onInput(e) {
+        this.updateFilledState();
+    }
+    
+    updateFilledState() {
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
         
     @HostListener('focus', ['$event']) 
@@ -124,10 +140,6 @@ export class Password implements AfterViewInit,OnDestroy {
     
     get disabled(): boolean {
         return this.el.nativeElement.disabled;
-    }
-    
-    get filled(): boolean {
-        return this.el.nativeElement.value != '';
     }
     
     ngOnDestroy() {
