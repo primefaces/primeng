@@ -65,6 +65,10 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() invalidFileSizeMessageSummary: string = '{0}: Invalid file size, ';
     
     @Input() invalidFileSizeMessageDetail: string = 'maximum upload size is {0}.';
+
+    @Input() invalidFileTypeMessageSummary: string = '{0}: Invalid file type, ';
+
+    @Input() invalidFileTypeMessageDetail: string = 'allowed file types: {0}.';
     
     @Input() style: string;
     
@@ -80,7 +84,7 @@ export class FileUpload implements OnInit,AfterContentInit {
         
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 	
-	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
+	  @Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
         
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
@@ -165,6 +169,15 @@ export class FileUpload implements OnInit,AfterContentInit {
     }
     
     validate(file: File): boolean {
+        if(this.accept && !this.isFileTypeAcceptable(file.type)) {
+            this.msgs.push({
+                severity: 'error',
+                summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
+                detail: this.invalidFileTypeMessageDetail.replace('{0}', this.accept)
+            });
+            return false;
+        }
+
         if(this.maxFileSize  && file.size > this.maxFileSize) {
             this.msgs.push({
                 severity: 'error', 
@@ -173,8 +186,34 @@ export class FileUpload implements OnInit,AfterContentInit {
             });
             return false;
         }
-        
+
         return true;
+    }
+
+    private isFileTypeAcceptable(fileType: string): boolean {
+        for (let type of this.getAcceptableTypes()) {
+            let isAcceptable = this.isWildcard(type)
+              ? this.getTypeClass(fileType) === this.getTypeClass(type)
+              : fileType === type;
+
+            if (isAcceptable) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private getTypeClass(fileType: string): string {
+        return fileType.substring(0, fileType.indexOf('/'))
+    }
+
+    private isWildcard(fileType: string): boolean {
+        return fileType.indexOf('*') !== -1;
+    }
+
+    private getAcceptableTypes(): string[] {
+        return this.accept.split(',');
     }
     
     isImage(file: File): boolean {
