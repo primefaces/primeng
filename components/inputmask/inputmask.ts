@@ -175,13 +175,12 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         this.value = value;
         
         if(this.inputViewChild.nativeElement) {
-            if(this.value == undefined || this.value == null) {
+            if(this.value == undefined || this.value == null)
                 this.inputViewChild.nativeElement.value = '';
-            }
-            else {
+            else
                 this.inputViewChild.nativeElement.value = this.value;
-                this.checkVal();
-            }
+
+            this.checkVal();
             this.focusText = this.inputViewChild.nativeElement.value;
             this.updateFilledState();
         }
