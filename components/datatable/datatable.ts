@@ -172,8 +172,8 @@ export class ColumnFooters {
                         </span>
                         <div class="ui-cell-editor" *ngIf="col.editable">
                             <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]" required="true"
-                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex)" class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
-                            <p-columnEditorTemplateLoader *ngIf="col.editorTemplate" [column]="col" [rowData]="rowData"></p-columnEditorTemplateLoader>
+                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex, rowIndex)" class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                            <p-columnEditorTemplateLoader *ngIf="col.editorTemplate" [column]="col" [rowData]="rowData" [rowIndex]="rowIndex"></p-columnEditorTemplateLoader>
                         </div>
                         <a href="#" *ngIf="col.expander" (click)="dt.toggleRow(rowData,$event)">
                             <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':dt.isRowExpanded(rowData), 'fa-chevron-circle-right': !dt.isRowExpanded(rowData)}"></span>
@@ -1542,13 +1542,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.domHandler.removeClass(cell, 'ui-cell-editing');
     }
 
-    onCellEditorKeydown(event, column: Column, rowData: any, colIndex: number) {
+    onCellEditorKeydown(event, column: Column, rowData: any, colIndex: number, rowIndex: number) {
         if(this.editable) {
-            this.onEdit.emit({originalEvent: event, column: column, data: rowData});
+            this.onEdit.emit({originalEvent: event, column: column, data: rowData, index: rowIndex});
             
             //enter
             if(event.keyCode == 13) {
-                this.onEditComplete.emit({column: column, data: rowData});
+                this.onEditComplete.emit({column: column, data: rowData, index: rowIndex});
                 this.renderer.invokeElementMethod(event.target, 'blur');
                 this.switchCellToViewMode(event.target);
                 event.preventDefault();
@@ -1556,7 +1556,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             
             //escape
             else if(event.keyCode == 27) {
-                this.onEditCancel.emit({column: column, data: rowData});
+                this.onEditCancel.emit({column: column, data: rowData, index: rowIndex});
                 this.renderer.invokeElementMethod(event.target, 'blur');
                 this.switchCellToViewMode(event.target);
                 event.preventDefault();

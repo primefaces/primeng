@@ -1273,19 +1273,22 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>onEdit</td>
                             <td>event.originalEvent: Browser event
                                 event.column: Column object of the cell<br>
-                                event.data: Row data</td>
+                                event.data: Row data <br />
+                                event.index: Row index</td>
                             <td>Callback to invoke when cell data is being edited.</td>
                         </tr>
                         <tr>
                             <td>onEditComplete</td>
                             <td>event.column: Column object of the cell<br>
-                                event.data: Row data</td>
+                                event.data: Row data <br />
+                                event.index: Row index</td>
                             <td>Callback to invoke when cell edit is completed.</td>
                         </tr>
                         <tr>
                             <td>onEditCancel</td>
                             <td>event.column: Column object of the cell<br>
-                                event.data: Row data</td>
+                                event.data: Row data <br />
+                                event.index: Row index</td>
                             <td>Callback to invoke when cell edit is cancelled with escape key.</td>
                         </tr>
                         <tr>
