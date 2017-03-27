@@ -120,11 +120,10 @@ export class Tooltip implements OnDestroy {
         let tooltipText = document.createElement('div');
         tooltipText.className = 'ui-tooltip-text ui-shadow ui-corner-all';
 		
-		if(this.escapeContents) {
+		if(this.escape)
 			tooltipText.appendChild(document.createTextNode(this.text));
-		} else {
+		else
 			tooltipText.innerHTML = this.text;
-		}
         
         if(this.positionStyle) {
             this.container.style.position = this.positionStyle;
