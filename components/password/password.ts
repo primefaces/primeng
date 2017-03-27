@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy,DoCheck} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -13,7 +13,7 @@ import {DomHandler} from '../dom/domhandler';
     },
     providers: [DomHandler]
 })
-export class Password implements AfterViewInit,OnDestroy {
+export class Password implements AfterViewInit,OnDestroy,DoCheck {
 
     @Input() promptLabel: string = 'Please enter a password';
 
@@ -22,17 +22,19 @@ export class Password implements AfterViewInit,OnDestroy {
     @Input() mediumLabel: string = 'Medium';
 
     @Input() strongLabel: string = 'Strong';
-    
+
     @Input() feedback: boolean = true;
-    
+
     panel: any;
-    
+
     meter: any;
-    
+
     info: any;
-    
+
+    filled: boolean;
+
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
-    
+
     ngAfterViewInit() {
         this.panel = document.createElement('div');
         this.panel.className = 'ui-password-panel ui-widget ui-state-highlight ui-corner-all ui-helper-hidden ui-password-panel-overlay';
@@ -41,26 +43,30 @@ export class Password implements AfterViewInit,OnDestroy {
         this.info = document.createElement('div');
         this.info.className = 'ui-password-info';
         this.info.textContent = this.promptLabel;
-        
+
         if(this.feedback) {
             this.panel.appendChild(this.meter);
             this.panel.appendChild(this.info);
             document.body.appendChild(this.panel);
         }
     }
-        
-    @HostListener('focus', ['$event']) 
-    onFocus(e) {        
+
+    ngDoCheck() {
+        this.filled = this.el.nativeElement.value != '';
+    }
+
+    @HostListener('focus', ['$event'])
+    onFocus(e) {
         this.domHandler.removeClass(this.panel, 'ui-helper-hidden');
         this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
         this.domHandler.fadeIn(this.panel, 250);
     }
-    
-    @HostListener('blur', ['$event']) 
-    onBlur(e) {        
+
+    @HostListener('blur', ['$event'])
+    onBlur(e) {
         this.domHandler.addClass(this.panel, 'ui-helper-hidden');
     }
-    
+
     @HostListener('keyup', ['$event'])
     onKeyup(e) {
         let value = e.target.value,
@@ -81,7 +87,7 @@ export class Password implements AfterViewInit,OnDestroy {
             else if(score >= 30 && score < 80) {
                 label = this.mediumLabel;
                 meterPos = '0px -20px';
-            } 
+            }
             else if(score >= 80) {
                 label = this.strongLabel;
                 meterPos = '0px -30px';
@@ -91,7 +97,7 @@ export class Password implements AfterViewInit,OnDestroy {
         this.meter.style.backgroundPosition = meterPos;
         this.info.textContent = label;
     }
-    
+
     testStrength(str: string) {
         let grade: number = 0;
         let val;
@@ -112,7 +118,7 @@ export class Password implements AfterViewInit,OnDestroy {
 
         return grade > 100 ? 100 : grade;
     }
-    
+
     normalize(x, y) {
         let diff = x - y;
 
@@ -121,19 +127,15 @@ export class Password implements AfterViewInit,OnDestroy {
         else
             return 1 + 0.5 * (x / (x + y/4));
     }
-    
+
     get disabled(): boolean {
         return this.el.nativeElement.disabled;
     }
-    
-    get filled(): boolean {
-        return this.el.nativeElement.value != '';
-    }
-    
+
     ngOnDestroy() {
         if (!this.feedback)
             return;
-            
+
         this.panel.removeChild(this.meter);
         this.panel.removeChild(this.info);
         document.body.removeChild(this.panel);

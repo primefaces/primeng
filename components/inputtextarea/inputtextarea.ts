@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,OnInit} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,OnInit,DoCheck} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Directive({
@@ -13,46 +13,52 @@ import {CommonModule} from '@angular/common';
         '[attr.cols]': 'cols'
     }
 })
-export class InputTextarea implements OnInit {
-    
+export class InputTextarea implements OnInit,DoCheck {
+
     @Input() autoResize: boolean;
-    
+
     @Input() rows: number;
-    
+
     @Input() cols: number;
-    
+
     rowsDefault: number;
-    
+
     colsDefault: number;
-        
+
+    filled: boolean;
+
     constructor(public el: ElementRef) {}
-    
+
     ngOnInit() {
         this.rowsDefault = this.rows;
         this.colsDefault = this.cols;
     }
-    
-    @HostListener('focus', ['$event']) 
-    onFocus(e) {        
+
+    ngDoCheck() {
+        this.filled = this.el.nativeElement.value != '';
+    }
+
+    @HostListener('focus', ['$event'])
+    onFocus(e) {
         if(this.autoResize) {
             this.resize();
         }
     }
-    
-    @HostListener('blur', ['$event']) 
-    onBlur(e) {        
+
+    @HostListener('blur', ['$event'])
+    onBlur(e) {
         if(this.autoResize) {
             this.resize();
         }
     }
-    
-    @HostListener('keyup', ['$event']) 
+
+    @HostListener('keyup', ['$event'])
     onKeyup(e) {
         if(this.autoResize) {
             this.resize();
         }
     }
-    
+
     resize () {
         let linesCount = 0,
         lines = this.el.nativeElement.value.split('\n');
@@ -62,10 +68,6 @@ export class InputTextarea implements OnInit {
         }
 
         this.rows = (linesCount >= this.rowsDefault) ? (linesCount + 1) : this.rowsDefault;
-    }
-        
-    get filled(): boolean {
-        return this.el.nativeElement.value != '';
     }
 }
 
