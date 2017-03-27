@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,DoCheck} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Directive({
@@ -11,16 +11,17 @@ import {CommonModule} from '@angular/common';
         '[class.ui-state-filled]': 'filled'
     }
 })
-export class InputText {
+export class InputText implements DoCheck {
+    filled: boolean;
 
     constructor(public el: ElementRef) {}
-        
-    get filled(): boolean {
-        return this.el.nativeElement.value&&this.el.nativeElement.value.length;
+
+    ngDoCheck() {
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
-    
-    @HostListener('blur', ['$event']) 
-    onBlur(e) {        
+
+    @HostListener('blur', ['$event'])
+    onBlur(e) {
         //To trigger change detection to manage ui-state-filled for material labels
     }
 }
