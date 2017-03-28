@@ -214,7 +214,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             }
             else {
                 this.value = this.value || [];
-                this.value.push(option.value);
+                this.value = [...this.value,option.value];
             }
             
             valueChanged = true;
