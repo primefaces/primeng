@@ -213,8 +213,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
                 this.removeOption(option);
             }
             else {
-                this.value = this.value || [];
-                this.value = [...this.value,option.value];
+                this.value = [...this.value||[],option.value];
             }
             
             valueChanged = true;
