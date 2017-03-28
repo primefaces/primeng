@@ -141,9 +141,12 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.shown = true;
         } 
         
-        if(this.modal && !this._visible) {
-            this.disableModality();
-        }
+		if(!this._visible) {
+			if(this.modal) {
+				this.disableModality();
+			}
+			this.domHandler.removeClass(document.body, 'ui-dialog-is-visible' + (this.modal ? '-modal' : ''));
+		}
     }
     
     show() {
@@ -210,6 +213,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.show();
             this.onAfterShow.emit({});
             this.shown = false;
+			this.domHandler.addClass(document.body, 'ui-dialog-is-visible' + (this.modal ? '-modal' : ''));
         }
     }
     
