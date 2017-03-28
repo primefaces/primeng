@@ -132,7 +132,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         }
         
         if(!this.checkboxClick) {
-            if (this.multiple)
+            if(this.multiple)
                 this.onOptionClickMultiple(event, option);
             else
                 this.onOptionClickSingle(event, option);
@@ -195,23 +195,22 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             
             if(selected) {
                 if(metaKey) {
-                    this.value.splice(this.findIndex(option), 1);
+                    this.removeOption(option);
                 }
                 else {
-                    this.value = [];
-                    this.value.push(option.value);
+                    this.value = [option.value];
                 }
                 valueChanged = true;
             }
             else {
                 this.value = (metaKey) ? this.value || [] : [];
-                this.value.push(option.value);
+                this.value = [...this.value, option.value];
                 valueChanged = true;
             }
         }
         else {
             if(selected) {
-                this.value.splice(this.findIndex(option), 1);
+                this.removeOption(option);
             }
             else {
                 this.value = this.value || [];
@@ -228,6 +227,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
                 value: this.value
             });
         }
+    }
+    
+    removeOption(option: any): void {
+        this.value = this.value.filter(val => !this.objectUtils.equals(val, option.value, this.dataKey));
     }
 
     isSelected(option: SelectItem) {
@@ -248,20 +251,6 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         }
 
         return selected;
-    }
-
-    findIndex(option: SelectItem): number {
-        let index: number = -1;
-        if (this.value) {
-            for (let i = 0; i < this.value.length; i++) {
-                if (option.label === this.value[i].label) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-
-        return index;
     }
 
     isAllChecked() {
@@ -346,11 +335,11 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         let selected = this.isSelected(option);
 
         if(selected) {
-            this.value.splice(this.findIndex(option), 1);
+            this.removeOption(option);
         }
         else {
             this.value = this.value ? this.value : [];
-            this.value.push(option.value);
+            this.value = [...this.value,option.value];
         }
 
         this.onModelChange(this.value);
