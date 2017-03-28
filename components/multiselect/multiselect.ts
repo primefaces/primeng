@@ -188,13 +188,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     onItemClick(event, value) {
         let selectionIndex = this.findSelectionIndex(value);
-        if(selectionIndex != -1) {
-            this.value.splice(selectionIndex, 1);
-        }
-        else {
-            this.value = this.value||[];
-            this.value.push(value);
-        }
+        if(selectionIndex != -1)
+            this.value = this.value.filter((val,i) => i!=selectionIndex);
+        else
+            this.value = [...this.value||[],value];
         
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
