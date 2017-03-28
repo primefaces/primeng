@@ -58,8 +58,16 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @Input() slotChar: string = '_';
     
     @Input() autoClear: boolean = true;
-        
-    @Input() style: string;
+    
+    _style:any;
+    
+    @Input() set style(value: string) {
+        this._style = value;
+    }
+    
+    get style() {
+        return (this._style)? JSON.parse(this._style) : null;
+    }
     
     @Input() styleClass: string;
     
