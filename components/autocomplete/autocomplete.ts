@@ -281,7 +281,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             this.input.value = '';
             this.value = this.value||[];
             if(!this.isSelected(option)) {
-                this.value.push(option);
+                this.value = [...this.value,option];
                 this.onModelChange(this.value);
             }
         }
@@ -324,7 +324,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     removeItem(item: any) {
         let itemIndex = this.domHandler.index(item);
-        let removedValue = this.value.splice(itemIndex, 1)[0];
+        let removedValue = this.value[itemIndex];
+        this.value = this.value.filter((val, i) => i!=itemIndex);
         this.onUnselect.emit(removedValue);
         this.onModelChange(this.value);
     }
@@ -396,6 +397,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 //backspace
                 case 8:
                     if(this.value && this.value.length && !this.input.value) {
+                        this.value = [...this.value];
                         let removedValue = this.value.pop();
                         this.onUnselect.emit(removedValue);
                         this.onModelChange(this.value);
