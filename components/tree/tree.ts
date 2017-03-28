@@ -440,7 +440,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
                     if(this.propagateSelectionDown)
                         this.propagateDown(node, false);
                     else
-                        this.selection.splice(index,1);
+                        this.selection = this.selection.filter((val,i) => i!=index);
                     
                     if(this.propagateSelectionUp && node.parent) {
                         this.propagateUp(node.parent, false);
@@ -450,17 +450,15 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
                     this.onNodeUnselect.emit({originalEvent: event, node: node});
                 }
                 else {
-                    if(this.propagateSelectionDown) {
+                    if(this.propagateSelectionDown)
                         this.propagateDown(node, true);
-                    }
-                    else {
-                        this.selection = this.selection||[];
-                        this.selection.push(node);
-                    }
+                    else
+                        this.selection = [...this.selection||[],node];
                     
                     if(this.propagateSelectionUp && node.parent) {
                         this.propagateUp(node.parent, true);
                     }
+                    
                     this.selectionChange.emit(this.selection);
                     this.onNodeSelect.emit({originalEvent: event, node: node});
                 }
@@ -476,7 +474,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
                             this.selectionChange.emit(null);
                         }
                         else {
-                            this.selection.splice(index,1);
+                            this.selection = this.selection.filter((val,i) => i!=index);
                             this.selectionChange.emit(this.selection);
                         }
 
@@ -488,7 +486,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
                         }
                         else if(this.isMultipleSelectionMode()) {
                             this.selection = (!metaKey) ? [] : this.selection||[];
-                            this.selection.push(node);
+                            this.selection = [...this.selection,node];
                             this.selectionChange.emit(this.selection);
                         }
 
@@ -508,12 +506,11 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
                     }
                     else {
                         if(selected) {
-                            this.selection.splice(index,1);
+                            this.selection = this.selection.filter((val,i) => i!=index);
                             this.onNodeUnselect.emit({originalEvent: event, node: node});
                         }
                         else {
-                            this.selection = this.selection||[];
-                            this.selection.push(node);
+                            this.selection = [...this.selection||[],node];
                             this.onNodeSelect.emit({originalEvent: event, node: node});
                         }
                     }
@@ -588,15 +585,14 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
             }
             
             if(select && selectedCount == node.children.length) {
-                this.selection = this.selection||[];
-                this.selection.push(node);
+                this.selection = [...this.selection||[],node];
                 node.partialSelected = false;
             }
             else {                
                 if(!select) {
                     let index = this.findIndexInSelection(node);
                     if(index >= 0) {
-                        this.selection.splice(index, 1);
+                        this.selection = this.selection.filter((val,i) => i!=index);
                     }
                 }
                 
@@ -617,11 +613,10 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
         let index = this.findIndexInSelection(node);
         
         if(select && index == -1) {
-            this.selection = this.selection||[];
-            this.selection.push(node);
+            this.selection = [...this.selection||[],node];
         }
         else if(!select && index > -1) {
-            this.selection.splice(index, 1);
+            this.selection = this.selection.filter((val,i) => i!=index);
         }
         
         node.partialSelected = false;
