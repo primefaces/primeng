@@ -1174,7 +1174,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         this.selectionChange.emit(null);
                     }
                     else {
-                        this.selection.splice(this.findIndexInSelection(rowData), 1);
+                        let selectionIndex = this.findIndexInSelection(rowData);
+                        this.selection = this.selection.filter((val,i) => i!=selectionIndex);
                         this.selectionChange.emit(this.selection);
                     }
                     
@@ -1191,7 +1192,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         else 
                             this.selection = [];
                         
-                        this.selection.push(rowData);
+                        this.selection = [...this.selection,rowData];
                         this.selectionChange.emit(this.selection);
                     }
 
@@ -1211,12 +1212,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 }
                 else {
                     if(selected) {
-                        this.selection.splice(this.findIndexInSelection(rowData), 1);
+                        let selectionIndex = this.findIndexInSelection(rowData);
+                        this.selection = this.selection.filter((val,i) => i!=selectionIndex);
                         this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
                     }
                     else {
-                        this.selection = this.selection||[];
-                        this.selection.push(rowData);
+                        this.selection = [...this.selection||[],rowData];
                         this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
                     }
                 }
@@ -1245,12 +1246,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.selection = this.selection||[];
         
         if(selectionIndex != -1) {
-            this.selection.splice(selectionIndex, 1);
+            this.selection = this.selection.filter((val,i) => i!=selectionIndex);
             this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
         }
             
         else {
-            this.selection.push(rowData);
+            this.selection = [...this.selection,rowData];
             this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
         }
                  
@@ -1279,8 +1280,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     this.selectionChange.emit(rowData);
                 }
                 else if(this.isMultipleSelectionMode()) {
-                    this.selection = [];
-                    this.selection.push(rowData);
+                    this.selection = [rowData];
                     this.selectionChange.emit(this.selection);
                 }
             }
