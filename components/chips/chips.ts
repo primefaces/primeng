@@ -129,7 +129,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             return;
         }
         
-        let removedItem = this.value.splice(index, 1);
+        let removedItem = this.value[index];
+        this.value = this.value.filter((val, i) => i!=index);
         this.onModelChange(this.value);
         this.onRemove.emit({
             originalEvent: event,
@@ -142,6 +143,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             //backspace
             case 8:
                 if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
+                    this.value = [...this.value];
                     let removedItem = this.value.pop();
                     this.onModelChange(this.value);
                     this.onRemove.emit({
@@ -155,7 +157,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             case 13:
                 this.value = this.value||[];
                 if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
-                    this.value.push(inputEL.value);
+                    this.value = [...this.value,inputEL.value];
                     this.onModelChange(this.value);
                     this.onAdd.emit({
                         originalEvent: event,
