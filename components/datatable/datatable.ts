@@ -968,22 +968,23 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.sortColumn = column;
             let metaKey = event.metaKey||event.ctrlKey;
 
+            if(this.sortMode == 'multiple') {
+                if(!this.multiSortMeta||!metaKey) {
+                    this.multiSortMeta = [];
+                }
+
+                this.addSortMeta({field: this.sortField, order: this.sortOrder});
+            }
+
             if(this.lazy) {
                 this.stopFilterPropagation = true;
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else {
-                if(this.sortMode == 'multiple') {
-                    if(!this.multiSortMeta||!metaKey) {
-                        this.multiSortMeta = [];
-                    }
-
-                    this.addSortMeta({field: this.sortField, order: this.sortOrder});
+                if(this.sortMode == 'multiple')
                     this.sortMultiple();
-                }
-                else {
+                else 
                     this.sortSingle();
-                }
             }
             
             this.onSort.emit({
