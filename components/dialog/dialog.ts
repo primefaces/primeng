@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild,ViewChild} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -15,7 +15,7 @@ import {Header,SharedModule} from '../common/shared';
                 <span class="ui-dialog-title" *ngIf="headerFacet">
                     <ng-content select="p-header"></ng-content>
                 </span>
-                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="onCloseClick($event)">
+                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
@@ -41,7 +41,7 @@ import {Header,SharedModule} from '../common/shared';
     ],
     providers: [DomHandler]
 })
-export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
+export class Dialog implements AfterViewInit,OnDestroy {
 
     @Input() header: string;
 
@@ -85,13 +85,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     @ViewChild('content') contentViewChild: ElementRef;
 
-    @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
 
-    @Output() onAfterShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
 
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
     
@@ -118,11 +114,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     lastPageY: number;
     
     mask: HTMLDivElement;
-    
-    shown: boolean;
-    
-    hidden: boolean;
-    
+        
     container: HTMLDivElement;
     
     contentContainer: HTMLDivElement;
@@ -143,21 +135,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         else
             this.hide();
     }
-    
-    ngAfterViewChecked() {
-        if(this.shown) {
-            this.onAfterShow.emit({});
-            this.shown = false;
-        }
-        else if(this.hidden) {
-            this.onAfterHide.emit(event);
-            this.hidden = false;
-        }
-    }
-    
+
     show() {
-        this.shown = true;
-        this.onBeforeShow.emit({});
+        this.onShow.emit({});
         
         if(!this.positionInitialized) {
             this.center();
@@ -172,8 +152,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     hide() {
-        this.hidden = true;
-        this.onBeforeHide.emit(event);
+        this.onHide.emit({});
         this.unbindMaskClickListener();
         
         if(this.modal) {
@@ -181,7 +160,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         }
     }
     
-    onCloseClick(event?: Event) {
+    close(event: Event) {
         this.hide();
         this.visibleChange.emit(false);
         event.preventDefault();
@@ -219,7 +198,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.documentEscapeListener = this.renderer.listenGlobal('body', 'keydown', (event) => {
                 if(event.which == 27) {
                     if(parseInt(this.container.style.zIndex) == DomHandler.zindex) {
-                        this.hide(event);
+                        this.close(event);
                     }
                 }
             });
@@ -260,7 +239,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             
 			if(this.closable && this.dismissableMask) {
 	             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
-					this.hide(event);
+					this.close(event);
 	             });
 			}
             document.body.appendChild(this.mask);

@@ -121,13 +121,13 @@ export class TreeDemo implements OnInit {
     }
 
     expandAll(){
-        this.filesTree6.forEach( node => {
+        this.filesTree10.forEach( node => {
             this.expandRecursive(node, true);
         } );
     }
 
     collapseAll(){
-        this.filesTree6.forEach( node => {
+        this.filesTree10.forEach( node => {
             this.expandRecursive(node, false);
         } );
     }
