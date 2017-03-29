@@ -15,7 +15,7 @@ import {Header,SharedModule} from '../common/shared';
                 <span class="ui-dialog-title" *ngIf="headerFacet">
                     <ng-content select="p-header"></ng-content>
                 </span>
-                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="hide($event)">
+                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="onCloseClick($event)">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
@@ -121,6 +121,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     shown: boolean;
     
+    hidden: boolean;
+    
     container: HTMLDivElement;
     
     contentContainer: HTMLDivElement;
@@ -136,17 +138,27 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     set visible(val:boolean) {
         this._visible = val;
         
-        if(this._visible) {
-            this.onBeforeShow.emit({});
-            this.shown = true;
-        } 
-        
-        if(this.modal && !this._visible) {
-            this.disableModality();
+        if(this._visible)
+            this.show();
+        else
+            this.hide();
+    }
+    
+    ngAfterViewChecked() {
+        if(this.shown) {
+            this.onAfterShow.emit({});
+            this.shown = false;
+        }
+        else if(this.hidden) {
+            this.onAfterHide.emit(event);
+            this.hidden = false;
         }
     }
     
     show() {
+        this.shown = true;
+        this.onBeforeShow.emit({});
+        
         if(!this.positionInitialized) {
             this.center();
             this.positionInitialized = true;
@@ -159,6 +171,22 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         }
     }
     
+    hide() {
+        this.hidden = true;
+        this.onBeforeHide.emit(event);
+        this.unbindMaskClickListener();
+        
+        if(this.modal) {
+            this.disableModality();
+        }
+    }
+    
+    onCloseClick(event?: Event) {
+        this.hide();
+        this.visibleChange.emit(false);
+        event.preventDefault();
+    }
+        
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         this.contentContainer =  <HTMLDivElement> this.contentViewChild.nativeElement;
@@ -204,15 +232,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
                 this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
-    
-    ngAfterViewChecked() {
-        if(this.shown) {
-            this.show();
-            this.onAfterShow.emit({});
-            this.shown = false;
-        }
-    }
-    
+        
     center() {
         let elementWidth = this.domHandler.getOuterWidth(this.container);
         let elementHeight = this.domHandler.getOuterHeight(this.container);
@@ -253,15 +273,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.mask = null;
         }
     }
-    
-    hide(event) {
-        this.onBeforeHide.emit(event);
-        this.visibleChange.emit(false);
-        this.onAfterHide.emit(event);
-        this.unbindMaskClickListener();
-        event.preventDefault();
-    }
-    
+        
     unbindMaskClickListener() {
         if(this.maskClickListener) {
             this.maskClickListener();
