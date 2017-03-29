@@ -22,7 +22,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                 </li>
                 <li class="ui-chips-input-token">
-                    <input #inputtext type="text" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
+                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
                         (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled">
                 </li>
             </ul>
@@ -49,6 +49,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() max: number;
 
     @Input() tabindex: number;
+
+    @Input() inputId: string;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

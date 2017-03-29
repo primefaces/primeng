@@ -13,7 +13,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
     template: `
         <div class="ui-radiobutton ui-widget">
             <div class="ui-helper-hidden-accessible">
-                <input #rb type="radio" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" 
+                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [attr.value]="value" [attr.tabindex]="tabindex" 
                     [checked]="checked" (change)="onChange($event)" (focus)="onFocus($event)" (blur)="onBlur($event)">
             </div>
             <div (click)="handleClick()"
@@ -37,6 +37,8 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
     @Input() label: string;
 
     @Input() tabindex: number;
+
+    @Input() inputId: string;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
