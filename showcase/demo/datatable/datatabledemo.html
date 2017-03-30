@@ -1011,6 +1011,16 @@ loadData(event: LazyLoadEvent) &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Specifies the selection mode, valid values are "single" and "multiple".</td>
+                        </tr>                        
+                        <tr>
+                            <td>headerCheckboxToggleAllPages</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>
+                                When set to true, the header checkbox on paged DataTables with checkbox multiple 
+                                selection enabled will toggle the selection of items across all pages. See the
+                                <a [routerLink]="['/datatable/selection']">live example.</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>selection</td>
