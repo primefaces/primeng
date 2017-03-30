@@ -253,8 +253,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
 
     isAllChecked() {
-        if(this.filterValue && this.filterValue.trim().length && (this.visibleOptions && this.visibleOptions.length > 0))
-            return this.value&&this.visibleOptions&&(this.value.length == this.visibleOptions.length);
+        if(this.filterValue && this.filterValue.trim().length)
+            return this.value&&this.visibleOptions&&this.visibleOptions.length&&(this.value.length == this.visibleOptions.length);
         else
             return this.value&&this.options&&(this.value.length == this.options.length);
     } 
