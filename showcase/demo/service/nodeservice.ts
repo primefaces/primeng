@@ -30,4 +30,10 @@ export class NodeService {
                     .toPromise()
                     .then(res => <TreeNode[]> res.json().data);
     }
+
+    getFilePaginator() {
+        return this.http.get('showcase/resources/data/file-paginator.json')
+            .toPromise()
+            .then(res => <TreeNode[]> res.json().data);
+    }
 }

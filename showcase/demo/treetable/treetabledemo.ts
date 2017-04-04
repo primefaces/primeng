@@ -20,6 +20,8 @@ export class TreeTableDemo implements OnInit {
     files5: TreeNode[];
     
     files6: TreeNode[];
+
+    files7: TreeNode[];
     
     lazyFiles: TreeNode[];
         
@@ -43,7 +45,8 @@ export class TreeTableDemo implements OnInit {
         this.nodeService.getFilesystem().then(files => this.files5 = files);
         this.nodeService.getFilesystem().then(files => this.files6 = files);
         this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
-        
+        this.nodeService.getFilePaginator().then(files => this.files7 = files);
+
         this.items = [
             {label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)},
             {label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)}
