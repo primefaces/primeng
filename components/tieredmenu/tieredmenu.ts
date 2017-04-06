@@ -14,17 +14,17 @@ import {RouterModule} from '@angular/router';
                     (mouseenter)="onItemMouseEnter($event, item, child)" (mouseleave)="onItemMouseLeave($event)">
                     <a *ngIf="!item.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
-                        <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
+                        <span [ngClass]="{'ui-submenu-icon fa fa-fw':true, 'fa-caret-right':!rtl, 'fa-caret-left':rtl}" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
                     <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
-                        <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
+                        <span [ngClass]="{'ui-submenu-icon fa fa-fw':true, 'fa-caret-right':!rtl, 'fa-caret-left':rtl}" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <p-tieredMenuSub class="ui-submenu" [item]="child" *ngIf="child.items"></p-tieredMenuSub>
+                    <p-tieredMenuSub class="ui-submenu" [item]="child" [rtl]="rtl" *ngIf="child.items"></p-tieredMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -37,6 +37,8 @@ export class TieredMenuSub {
     
     @Input() root: boolean;
     
+    @Input() rtl: boolean;
+
     constructor(public domHandler: DomHandler) {}
     
     activeItem: Element;
@@ -52,8 +54,12 @@ export class TieredMenuSub {
             let sublist:  HTMLElement = <HTMLElement> nextElement.children[0];
             sublist.style.zIndex = String(++DomHandler.zindex);
                         
-            sublist.style.top = '0px';
-            sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+            sublist.style.top = '0px';            
+            let horizontalLocation = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+            if (this.rtl)
+                sublist.style.right = horizontalLocation;
+            else
+                sublist.style.left = horizontalLocation;
         }
     }
     
@@ -94,7 +100,7 @@ export class TieredMenuSub {
     template: `
         <div [ngClass]="{'ui-tieredmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style">
-            <p-tieredMenuSub [item]="model" root="root"></p-tieredMenuSub>
+            <p-tieredMenuSub [item]="model" [rtl]="rtl" root="root"></p-tieredMenuSub>
         </div>
     `,
     providers: [DomHandler]
@@ -108,6 +114,8 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() rtl: boolean;
     
     container: any;
     
