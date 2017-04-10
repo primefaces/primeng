@@ -36,7 +36,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
                     <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
                         <div class="ui-helper-hidden-accessible">
-                            <input type="checkbox" [checked]="isSelected(option)">
+                            <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
                         </div>
                         <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
                             <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isSelected(option)}"></span>
@@ -272,6 +272,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
 
     toggleAll(event, checkbox) {
+        if(this.disabled) {
+            return;
+        }
+        
         if(checkbox.checked) {
             this.value = [];
         }
@@ -330,6 +334,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
     
     onCheckboxClick(event: Event, option: SelectItem) {
+        if(this.disabled) {
+            return;
+        }
+        
         this.checkboxClick = true;
         let selected = this.isSelected(option);
 

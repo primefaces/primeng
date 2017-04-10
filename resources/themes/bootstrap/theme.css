@@ -430,6 +430,10 @@ body .ui-listbox .ui-listbox-item.ui-state-highlight {
 body .ui-listbox .ui-listbox-item.ui-state-highlight .ui-chkbox {
     border: 1px solid #108ffd;
 }
+body .ui-listbox.ui-state-disabled .ui-chkbox-box:not(.ui-state-active):hover {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+}
 body .ui-listbox .ui-listbox-item > td {
     padding: 0.375em 0.75em;
 }
