@@ -582,6 +582,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         else {
             m = month + 1;
+            y = year;
         }
         
         return {'month':m,'year':y};
