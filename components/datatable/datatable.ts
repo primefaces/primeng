@@ -1955,9 +1955,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    public exportCSV() {
+    public exportCSV(useBOM : boolean = false) {
         let data = this.value;
-        let csv = '';
+        let csv = useBOM ? '\ufeff' : '';
         
         //headers
         for(let i = 0; i < this.columns.length; i++) {
