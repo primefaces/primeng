@@ -282,14 +282,19 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     }
      
     ngOnChanges(changes: SimpleChanges) {
-        if (this.schedule) {
-            let options = {};
-            for (let change in changes) {
-                options[change] = changes[change].currentValue;
+            if(this.schedule) {
+                let options = {};
+                for(let change in changes) {
+                    if(change !== 'events') {
+                        options[change] = changes[change].currentValue;
+                    }   
+                }
+                
+                if(Object.keys(options).length) {
+                    this.schedule.fullCalendar('option', options);
+                }
             }
-            this.schedule.fullCalendar('option', options);
         }
-    }
 
     ngDoCheck() {
         let changes = this.differ.diff(this.events);
