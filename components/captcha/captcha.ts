@@ -30,10 +30,12 @@ export class Captcha implements AfterViewInit {
     constructor(public _zone:NgZone) {}
     
     ngAfterViewInit() {
-        if((<any>window).grecaptcha)
+        if ((<any>window).grecaptcha)
             this.init();
-        else
-            console.log("Recaptcha is not loaded");
+        else {
+            console.warn("Recaptcha is not loaded");
+            return;
+        } 
     }
     
     init() {
