@@ -138,6 +138,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     @ViewChild('in') inputEL: ElementRef;
     
+    @ViewChild('multiIn') multiInputEL: ElementRef;
+    
     constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer, public objectUtils: ObjectUtils) {
         this.differ = differs.find([]).create(null);
     }
@@ -405,7 +407,11 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     onDropdownFocus() {
         this.dropdownFocus = true;
-        this.inputEL.nativeElement.focus();
+        
+        if(this.multiple)
+            this.multiInputEL.nativeElement.focus();
+        else
+            this.inputEL.nativeElement.focus();
     }
     
     onDropdownBlur() {
