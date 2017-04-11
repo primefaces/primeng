@@ -222,6 +222,14 @@
             @include hover-element();
         }
     }
+    
+    &.ui-state-disabled {
+        .ui-chkbox-box:not(.ui-state-active):hover {
+            border-color: $stateDefaultBorderColor; 
+            background: $stateDefaultBgColor; 
+            color: $stateDefaultTextColor;
+        }
+    }
 }
 
 .ui-multiselect:not(.ui-state-disabled):hover {
