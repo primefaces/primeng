@@ -41,7 +41,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     selector: 'p-inputMask',
     template: `<input pInputText [attr.type]="type" [attr.name]="name" [value]="value||''" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder"
         [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [disabled]="disabled" [readonly]="readonly"
-        (focus)="onFocus($event)" (blur)="onBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)"
+        (focus)="onFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)"
         (input)="onInput($event)" (paste)="handleInputChange($event)">`,
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
@@ -78,6 +78,8 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
     @Input() unmask: boolean;
     
     @Input() name: string;
+    
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
         
@@ -334,12 +336,13 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
         }
     }
     
-    onBlur(e) {
+    onInputBlur(e) {
         this.focus = false;
         this.onModelTouched();
         this.checkVal();
         this.updateModel(e);
         this.updateFilledState();
+        this.onBlur.emit(e);
 
         if (this.input.value != this.focusText) {
             let event = document.createEvent('HTMLEvents');
@@ -378,7 +381,7 @@ export class InputMask implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
             e.preventDefault();
         } else if( k === 13 ) { // enter
-            this.onBlur(e);
+            this.onInputBlur(e);
             this.updateModel(e);
         } else if (k === 27) { // escape
             this.input.value = this.focusText;
