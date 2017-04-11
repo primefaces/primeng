@@ -39,7 +39,10 @@
     text-align: left;
 }
 
-.ui-autocomplete .ui-button-icon-only {
+.ui-autocomplete .ui-button-icon-only,
+.ui-autocomplete .ui-button-icon-only:hover,
+.ui-autocomplete .ui-button-icon-only:focus,
+.ui-autocomplete .ui-button-icon-only:active {
     border-left: 0 none;
 }
 
