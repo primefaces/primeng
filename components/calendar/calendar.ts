@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,trigger,state,style,transition,animate,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,trigger,state,style,transition,animate,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {InputTextModule} from '../inputtext/inputtext';
@@ -304,7 +304,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.createMonth(this.currentMonth, this.currentYear);
     }
 
-    constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler,public renderer: Renderer, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         let date = this.defaultDate||new Date();        
@@ -1168,6 +1168,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 
                 this.closeOverlay = true;
                 this.dateClick = false;
+                this.cd.detectChanges();
             });
         }
     }
