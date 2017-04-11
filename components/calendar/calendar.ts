@@ -119,7 +119,7 @@ export interface LocaleSettings {
                             <span class="fa fa-angle-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentSecond < 10 ? 'inline': 'none'}">0</span><span>{{currentSecond}}</span>
-                        <a href="#" (click)="incrementSecond($event)">
+                        <a href="#" (click)="decrementSecond($event)">
                             <span class="fa fa-angle-down"></span>
                         </a>
                     </div>
