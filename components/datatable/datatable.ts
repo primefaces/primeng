@@ -1980,7 +1980,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(link.download !== undefined) {
                 link.setAttribute('href', URL.createObjectURL(blob));
                 link.setAttribute('download', this.exportFilename + '.csv');
-                document.body.appendChild(link);
                 link.click();
             }
             else {
