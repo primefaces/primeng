@@ -947,6 +947,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.sortField = columnSortField;
             this.sortColumn = column;
             let metaKey = event.metaKey||event.ctrlKey;
+            
+            if(this.sortMode == 'multiple') {
+                if(!this.multiSortMeta||!metaKey) {
+                    this.multiSortMeta = [];
+                }
+
+                this.addSortMeta({field: this.sortField, order: this.sortOrder});
+            }
 
             if(this.lazy) {
                 this.stopFilterPropagation = true;
@@ -954,11 +962,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
             else {
                 if(this.sortMode == 'multiple') {
-                    if(!this.multiSortMeta||!metaKey) {
-                        this.multiSortMeta = [];
-                    }
-
-                    this.addSortMeta({field: this.sortField, order: this.sortOrder});
                     this.sortMultiple();
                 }
                 else {
