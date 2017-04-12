@@ -195,7 +195,11 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             this.multipleContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-autocomplete-multiple-container');
         }
         
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+        this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
+            if (event.target === this.inputEL.nativeElement) {
+                return;
+            }
+
             this.hide();
         });
 
