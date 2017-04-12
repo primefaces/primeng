@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,AfterViewInit,OnDestroy,EventEmitter,ElementRef} from '@angular/core';
+import {NgModule,Component,Input,AfterViewInit,OnDestroy,EventEmitter,ElementRef,TemplateRef,ContentChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {BlockableUI} from '../common/api';
@@ -6,13 +6,19 @@ import {BlockableUI} from '../common/api';
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div class="ui-blockui ui-widget-overlay" [ngClass]="{'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}"></div>
+        <div class="ui-blockui ui-widget-overlay" [ngClass]="{'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
+        <ng-content></ng-content>
+        </div>
     `,
     providers: [DomHandler]
 })
 export class BlockUI implements AfterViewInit,OnDestroy {
 
     @Input() target: any;
+
+    @Input() zindex: string;
+
+    @ContentChild(TemplateRef) template: TemplateRef<any>;
     
     _blocked: boolean;
     
@@ -54,7 +60,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
             document.body.appendChild(this._mask);
         }
         
-        this._mask.style.zIndex = String(++DomHandler.zindex);
+        this._mask.style.zIndex = (this.zindex)? this.zindex: String(++DomHandler.zindex);
     }
     
     unblock() {
