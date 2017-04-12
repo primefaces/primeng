@@ -1195,8 +1195,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 			} while (true);
 		}
 
-		date = this.daylightSavingAdjust(new Date(year, month - 1, day));
-		if(date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
+		date = new Date(Date.UTC(year, month - 1, day));
+		if(date.getUTCFullYear() !== year || date.getUTCMonth() + 1 !== month || date.getUTCDate() !== day) {
 			throw "Invalid date"; // E.g. 31/02/00
 		}
 		return date;
