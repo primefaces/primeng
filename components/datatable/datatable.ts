@@ -1517,6 +1517,24 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
             
             return false;
+        },
+        
+        between(value: any, filter: any): boolean {
+            if (filter === undefined || filter === null ||
+                filter.start === undefined || filter.start === null ||
+                filter.end === undefined || filter.end === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            if (filter.start <= value && filter.end >= value) {
+                return true;
+            }
+            
+            return false;
         }
     }
 
