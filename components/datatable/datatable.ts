@@ -977,6 +977,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
 
             if(this.lazy) {
+                this.first = 0;
                 this.stopFilterPropagation = true;
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
