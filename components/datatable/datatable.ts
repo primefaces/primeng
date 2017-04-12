@@ -281,7 +281,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                     
     public scrollBody: HTMLDivElement;
     
-    public scrollHeader: HTMLDivElement
+    public scrollHeader: HTMLDivElement;
     
     public scrollHeaderBox: HTMLDivElement;
     
@@ -289,7 +289,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     
     public scrollTableWrapper: HTMLDivElement;
     
-    public scrollFooter: HTMLDivElement
+    public scrollFooter: HTMLDivElement;
     
     public scrollFooterBox: HTMLDivElement;
         
@@ -427,6 +427,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                         </ng-template>
                     </tfoot>
                     <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (rowHover||selectionMode)}" [pTableBody]="columns"></tbody>
+                    <div class="ui-widget-overlay ui-datatable-load-status" *ngIf="loading"></div>
                 </table>
             </div>
             
@@ -435,7 +436,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                     <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
-                        class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)" [loading]="loading"
+                        class="ui-datatable-scrollable-view" [loading]="loading" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)" [loading]="loading"
                         [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}"></div>
                 </div>
             </ng-template>
@@ -456,6 +457,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
 export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,DoCheck,OnDestroy,BlockableUI {
 
     @Input() paginator: boolean;
+
+    @Input() loading: boolean;
 
     @Input() rows: number;
 
