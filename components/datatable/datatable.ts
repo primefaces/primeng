@@ -406,6 +406,10 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     template: `
         <div [ngStyle]="style" [class]="styleClass" [style.width]="containerWidth"
             [ngClass]="{'ui-datatable ui-widget':true,'ui-datatable-reflow':responsive,'ui-datatable-stacked':stacked,'ui-datatable-resizable':resizableColumns,'ui-datatable-scrollable':scrollable}">
+            <div class="ui-datatable-loading ui-widget-overlay" *ngIf="loading"></div>
+            <div class="ui-datatable-loading-content" *ngIf="loading">
+                <i class="fa fa-spinner fa-spin fa-2x"></i>
+            </div>
             <div class="ui-datatable-header ui-widget-header" *ngIf="header">
                 <ng-content select="p-header"></ng-content>
             </div>
@@ -434,7 +438,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                     <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
-                        class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)" [loading]="loading"
+                        class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                         [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}"></div>
                 </div>
             </ng-template>
@@ -543,7 +547,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() exportFilename: string = 'download';
     
     @Input() emptyMessage: string = 'No records found';
-    
+        
     @Input() paginatorPosition: string = 'bottom';
     
     @Input() metaKeySelection: boolean = true;
@@ -595,6 +599,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() public filters: {[s: string]: FilterMetadata;} = {};
     
     @Input() dataKey: string;
+    
+    @Input() loading: boolean;
         
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
@@ -675,8 +681,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public rowExpansionTemplate: TemplateRef<any>;
     
     public scrollBarWidth: number;
-    
-    public loading: boolean;
     
     differ: any;
     
@@ -920,12 +924,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.rowGroupMode) {
             this.updateRowGroupMetadata();
         }
-        
-        this.loading = false;
     }
         
     onVirtualScroll(event) {
-        this.loading = true;
         this.first = (event.page - 1) * this.rows;
         
         if(this.lazy) {
