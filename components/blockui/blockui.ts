@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,AfterViewInit,OnDestroy,EventEmitter,ElementRef} from '@angular/core';
+import {NgModule,Component,Input,AfterViewInit,OnDestroy,EventEmitter,ElementRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {BlockableUI} from '../common/api';
@@ -6,7 +6,9 @@ import {BlockableUI} from '../common/api';
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div class="ui-blockui ui-widget-overlay" [ngClass]="{'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}"></div>
+        <div #mask class="ui-blockui ui-widget-overlay" [ngClass]="{'ui-blockui-document':!target}" [ngStyle]="{display: blocked ? 'block' : 'none'}">
+            <ng-content></ng-content>
+        </div>
     `,
     providers: [DomHandler]
 })
@@ -14,10 +16,10 @@ export class BlockUI implements AfterViewInit,OnDestroy {
 
     @Input() target: any;
     
+    @ViewChild('mask') mask: ElementRef;
+    
     _blocked: boolean;
-    
-    _mask: HTMLDivElement;
-    
+        
     constructor(public el: ElementRef,public domHandler: DomHandler) {}
     
     @Input() get blocked(): boolean {
@@ -27,7 +29,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     set blocked(val: boolean) {
         this._blocked = val;
         
-        if(this._mask) {
+        if(this.mask.nativeElement) {
             if(this._blocked)
                 this.block();
             else
@@ -36,8 +38,6 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     }
     
     ngAfterViewInit() {
-        this._mask = this.el.nativeElement.children[0];
-        
         if(this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
         }
@@ -45,20 +45,20 @@ export class BlockUI implements AfterViewInit,OnDestroy {
         
     block() {
         if(this.target) {
-            this.target.getBlockableElement().appendChild(this._mask);
+            this.target.getBlockableElement().appendChild(this.mask.nativeElement);
             let style = this.target.style||{};
             style.position = 'relative';
             this.target.style = style;
         }
         else {
-            document.body.appendChild(this._mask);
+            document.body.appendChild(this.mask.nativeElement);
         }
         
-        this._mask.style.zIndex = String(++DomHandler.zindex);
+        this.mask.nativeElement.style.zIndex = String(++DomHandler.zindex);
     }
     
     unblock() {
-        this.el.nativeElement.appendChild(this._mask);
+        this.el.nativeElement.appendChild(this.mask.nativeElement);
     }
     
     ngOnDestroy() {

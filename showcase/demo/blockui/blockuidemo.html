@@ -15,7 +15,9 @@
     <button type="button" pButton label="Block" (click)="blockedPanel=true"></button>
     <button type="button" pButton label="Unblock" (click)="blockedPanel=false"></button>
     
-    <p-blockUI [target]="pnl" [blocked]="blockedPanel"></p-blockUI>
+    <p-blockUI [target]="pnl" [blocked]="blockedPanel">
+        <i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"></i>
+    </p-blockUI>
     <p-panel #pnl header="Godfather I" [style]="{'margin-top':'20px'}">
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
@@ -59,6 +61,20 @@ export class BlockUIDemo &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-blockUI [blocked]="blockedDocument" [target]="pnl"&gt;&lt;/p-blockUI&gt;
+
+&lt;p-panel #pnl header="Panel Header"&gt;
+    Content of Panel
+&lt;/p-panel&gt;
+</code>
+</pre>
+
+            <h3>Custom Content</h3>
+            <p>Blocker mask is customized by simply adding the content inside the component<p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
+    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
+&lt;/p-blockUI&gt;
 
 &lt;p-panel #pnl header="Panel Header"&gt;
     Content of Panel
@@ -148,7 +164,9 @@ export class BlockUIDemo &#123;
 &lt;button type="button" pButton label="Block" (click)="blockedPanel=true"&gt;&lt;/button&gt;
 &lt;button type="button" pButton label="Unblock" (click)="blockedPanel=false"&gt;&lt;/button&gt;
 
-&lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;&lt;/p-blockUI&gt;
+&lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
+    &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
+&lt;/p-blockUI&gt;
 &lt;p-panel #pnl header="Godfather I" [style]="&#123;'margin-top':'20px'&#125;"&gt;
     The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
     His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
