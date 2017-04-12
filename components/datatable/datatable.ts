@@ -281,7 +281,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                     
     public scrollBody: HTMLDivElement;
     
-    public scrollHeader: HTMLDivElement
+    public scrollHeader: HTMLDivElement;
     
     public scrollHeaderBox: HTMLDivElement;
     
@@ -289,7 +289,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     
     public scrollTableWrapper: HTMLDivElement;
     
-    public scrollFooter: HTMLDivElement
+    public scrollFooter: HTMLDivElement;
     
     public scrollFooterBox: HTMLDivElement;
         
