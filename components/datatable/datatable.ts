@@ -233,7 +233,6 @@ export class TableBody {
                     <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columns"></tbody>
                 </table>
             </div>
-            <div class="ui-widget-overlay ui-datatable-load-status" *ngIf="loading"></div>
         </div>
         <div #scrollFooter class="ui-widget-header ui-datatable-scrollable-footer" [ngStyle]="{'width': width}" *ngIf="dt.hasFooter()">
             <div #scrollFooterBox  class="ui-datatable-scrollable-footer-box">
