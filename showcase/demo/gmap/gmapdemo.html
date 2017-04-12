@@ -218,8 +218,8 @@ export class MyModel &#123;
     
     map: google.maps.Map;
     
-    setMap(map) &#123;
-        this.map = map;
+    setMap(event) &#123;
+        this.map = event.map;
     &#125;
     
     ngOnInit() &#123;
@@ -324,6 +324,11 @@ export class MyModel &#123;
                             <td>originalEvent: Google Maps MouseEvent <br>
                                 overlay: Clicked overlay <br>
                                 map: Map instance <br></td>
+                            <td>Callback to invoke when an overlay drag ends.</td>
+                        </tr>
+                        <tr>
+                            <td>onMapReady</td>
+                            <td>event.map: Google Maps Instance</td>
                             <td>Callback to invoke when an overlay drag ends.</td>
                         </tr>
                     </tbody>

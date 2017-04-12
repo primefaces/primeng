@@ -39,7 +39,9 @@ export class GMap implements AfterViewInit,DoCheck {
 
     ngAfterViewInit() {
         this.map = new google.maps.Map(this.el.nativeElement.children[0], this.options);
-        this.onMapReady.emit(this.map);
+        this.onMapReady.emit({
+            map: this.map
+        });
         
         if(this.overlays) {
             for(let overlay of this.overlays) {
