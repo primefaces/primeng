@@ -647,6 +647,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public columnResizing: boolean;
     
     public lastResizerHelperX: number;
+    
+    public documentClickListener: Function;
         
     public documentColumnResizeListener: Function;
     
@@ -683,6 +685,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public rowExpansionTemplate: TemplateRef<any>;
     
     public scrollBarWidth: number;
+    
+    public editorClick: boolean;
     
     differ: any;
     
@@ -756,7 +760,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 }, this.filterDelay);
             });
         }
+        
+        if(this.editable) {
+            this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
+                if(!this.editorClick) {
+                    this.closeCell();
+                }
+                this.editorClick = false;
+            });
+        }
     }
+        
 
     ngDoCheck() {
         if(!this.immutable) {
@@ -1523,6 +1537,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     switchCellToEditMode(cell: any, column: Column, rowData: any) {
+        this.editorClick = true;
         if(!this.selectionMode && this.editable && column.editable) {           
             if(cell != this.editingCell) {
                 if(this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
@@ -1534,7 +1549,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this.domHandler.addClass(cell, 'ui-cell-editing');
                 let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input');
                 if(focusable) {
-                    setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 100);
+                    setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 50);
                 }
             }
         }
@@ -1546,8 +1561,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.domHandler.removeClass(cell, 'ui-cell-editing');
     }
     
-    closeCell(event: Event) {
-        this.switchCellToViewMode(event.target);
+    closeCell() {
+        if(this.editingCell) {
+            this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
+            this.editingCell = null;
+        }
     }
 
     onCellEditorKeydown(event, column: Column, rowData: any, colIndex: number, rowIndex: number) {
@@ -1630,14 +1648,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.moveToNextCell(event, colIndex);
     }
     
-    focusEditor(event: Event) {
-        let cell = this.findCell(event.target); 
-        let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input');
-        if(focusable) {
-            setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 100);
-        }
-    }
-
     findCell(element) {
         let cell = element;
         while(cell.tagName != 'TD') {
@@ -2088,6 +2098,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.resizableColumns && this.documentColumnResizeListener && this.documentColumnResizeEndListener) {
             this.documentColumnResizeListener();
             this.documentColumnResizeEndListener();
+        }
+        
+        if(this.documentClickListener) {
+            this.documentClickListener();
         }
         
         if(this.columnsSubscription) {
