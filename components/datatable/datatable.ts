@@ -172,7 +172,7 @@ export class ColumnFooters {
                         </span>
                         <div class="ui-cell-editor" *ngIf="col.editable">
                             <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]" required="true"
-                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex, rowIndex)" class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, rowIndex)" class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
                             <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusPrev($event, colIndex)"></a>
                             <p-columnEditorTemplateLoader *ngIf="col.editorTemplate" [column]="col" [rowData]="rowData" [rowIndex]="rowIndex"></p-columnEditorTemplateLoader>
                             <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusNext($event, colIndex)"></a>
@@ -1568,7 +1568,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
 
-    onCellEditorKeydown(event, column: Column, rowData: any, colIndex: number, rowIndex: number) {
+    onCellEditorKeydown(event, column: Column, rowData: any, rowIndex: number) {
         if(this.editable) {
             this.onEdit.emit({originalEvent: event, column: column, data: rowData, index: rowIndex});
             
@@ -1591,61 +1591,73 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             //tab
             else if(event.keyCode == 9) {                
                 if(event.shiftKey)
-                    this.moveToPreviousCell(event, colIndex);
+                    this.moveToPreviousCell(event);
                 else
-                    this.moveToNextCell(event, colIndex);
+                    this.moveToNextCell(event);
             }
         }
     }
     
-    moveToPreviousCell(event: KeyboardEvent, colIndex: number) {
+    moveToPreviousCell(event: KeyboardEvent) {
         let currentCell = this.findCell(event.target);
         let row = currentCell.parentElement;
-        let targetCell;
+        let targetCell = this.findPreviousEditableColumn(currentCell);
+                
+        if(targetCell) {
+            this.renderer.invokeElementMethod(targetCell, 'click');
+            event.preventDefault();
+        }
+    }
+    
+    moveToNextCell(event: KeyboardEvent) {
+        let currentCell = this.findCell(event.target);
+        let row = currentCell.parentElement;
+        let targetCell = this.findNextEditableColumn(currentCell);
         
-        if(colIndex == 0) {
-            let previousRow = row.previousElementSibling;
+        if(targetCell) {
+            this.renderer.invokeElementMethod(targetCell, 'click');
+            event.preventDefault();
+        }
+    }
+    
+    findPreviousEditableColumn(cell: Element) {
+        let prevCell = cell.previousElementSibling;
+        
+        if(!prevCell) {
+            let previousRow = cell.parentElement.previousElementSibling;
             if(previousRow) {
-                targetCell = previousRow.lastElementChild;
+                prevCell = previousRow.lastElementChild;
             }
         }
-        else {
-            targetCell = row.children[colIndex - 1];
-        }
         
-        if(targetCell) {
-            this.renderer.invokeElementMethod(targetCell, 'click');
-            event.preventDefault();
-        }
+        if(this.domHandler.hasClass(prevCell, 'ui-editable-column'))
+            return prevCell;
+        else
+            return this.findPreviousEditableColumn(prevCell);
     }
     
-    moveToNextCell(event: KeyboardEvent, colIndex: number) {
-        let currentCell = this.findCell(event.target);
-        let row = currentCell.parentElement;
-        let targetCell;
+    findNextEditableColumn(cell: Element) {
+        let nextCell = cell.nextElementSibling;
         
-        if(colIndex == (row.children.length - 1)) {
-            let nextRow = row.nextElementSibling;
+        if(!nextCell) {
+            let nextRow = cell.parentElement.nextElementSibling;
             if(nextRow) {
-                targetCell = nextRow.firstElementChild;
+                nextCell = nextRow.firstElementChild;
             }
         }
-        else {
-            targetCell = row.children[colIndex + 1];
-        }
         
-        if(targetCell) {
-            this.renderer.invokeElementMethod(targetCell, 'click');
-            event.preventDefault();
-        }
+        if(this.domHandler.hasClass(nextCell, 'ui-editable-column'))
+            return nextCell;
+        else
+            return this.findNextEditableColumn(nextCell);
     }
         
-    onCustomEditorFocusPrev(event: KeyboardEvent, colIndex: number) {
-        this.moveToPreviousCell(event, colIndex);
+    onCustomEditorFocusPrev(event: KeyboardEvent) {
+        this.moveToPreviousCell(event);
     }
     
-    onCustomEditorFocusNext(event: KeyboardEvent, colIndex: number) {
-        this.moveToNextCell(event, colIndex);
+    onCustomEditorFocusNext(event: KeyboardEvent) {
+        this.moveToNextCell(event);
     }
     
     findCell(element) {
