@@ -118,9 +118,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
     container: HTMLDivElement;
     
     contentContainer: HTMLDivElement;
-    
-    positionInitialized: boolean;
-            
+                
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
     
     @Input() get visible(): boolean {
@@ -139,10 +137,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
     show() {
         this.onShow.emit({});
         
-        if(!this.positionInitialized) {
-            this.center();
-            this.positionInitialized = true;
-        }
+        this.center();
         
         this.container.style.zIndex = String(++DomHandler.zindex);
         
