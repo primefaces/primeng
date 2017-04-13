@@ -171,9 +171,11 @@ export class ColumnFooters {
                             <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + dt.first"></p-columnBodyTemplateLoader>
                         </span>
                         <div class="ui-cell-editor" *ngIf="col.editable">
-                            <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]" required="true" (blur)="dt.switchCellToViewMode($event.target)"
+                            <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]" required="true"
                                 (keydown)="dt.onCellEditorKeydown($event, col, rowData, colIndex, rowIndex)" class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusPrev($event, colIndex)"></a>
                             <p-columnEditorTemplateLoader *ngIf="col.editorTemplate" [column]="col" [rowData]="rowData" [rowIndex]="rowIndex"></p-columnEditorTemplateLoader>
+                            <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusNext($event, colIndex)"></a>
                         </div>
                         <a href="#" *ngIf="col.expander" (click)="dt.toggleRow(rowData,$event)">
                             <span class="ui-row-toggler fa fa-fw ui-c" [ngClass]="{'fa-chevron-circle-down':dt.isRowExpanded(rowData), 'fa-chevron-circle-right': !dt.isRowExpanded(rowData)}"></span>
@@ -1569,39 +1571,70 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
             
             //tab
-            else if(event.keyCode == 9) {
-                let currentCell = this.findCell(event.target);
-                let row = currentCell.parentElement;
-                let targetCell;
-                
-                if(event.shiftKey) {
-                    if(colIndex == 0) {
-                        let previousRow = row.previousElementSibling;
-                        if(previousRow) {
-                            targetCell = previousRow.lastElementChild;
-                        }
-                    }
-                    else {
-                        targetCell = row.children[colIndex - 1];
-                    }
-                }
-                else {
-                    if(colIndex == (row.children.length - 1)) {
-                        let nextRow = row.nextElementSibling;
-                        if(nextRow) {
-                            targetCell = nextRow.firstElementChild;
-                        }
-                    }
-                    else {
-                        targetCell = row.children[colIndex + 1];
-                    }
-                }
-                
-                if(targetCell) {
-                    this.renderer.invokeElementMethod(targetCell, 'click');
-                    event.preventDefault();
-                }
+            else if(event.keyCode == 9) {                
+                if(event.shiftKey)
+                    this.moveToPreviousCell(event, colIndex);
+                else
+                    this.moveToNextCell(event, colIndex);
             }
+        }
+    }
+    
+    moveToPreviousCell(event: KeyboardEvent, colIndex: number) {
+        let currentCell = this.findCell(event.target);
+        let row = currentCell.parentElement;
+        let targetCell;
+        
+        if(colIndex == 0) {
+            let previousRow = row.previousElementSibling;
+            if(previousRow) {
+                targetCell = previousRow.lastElementChild;
+            }
+        }
+        else {
+            targetCell = row.children[colIndex - 1];
+        }
+        
+        if(targetCell) {
+            this.renderer.invokeElementMethod(targetCell, 'click');
+            event.preventDefault();
+        }
+    }
+    
+    moveToNextCell(event: KeyboardEvent, colIndex: number) {
+        let currentCell = this.findCell(event.target);
+        let row = currentCell.parentElement;
+        let targetCell;
+        
+        if(colIndex == (row.children.length - 1)) {
+            let nextRow = row.nextElementSibling;
+            if(nextRow) {
+                targetCell = nextRow.firstElementChild;
+            }
+        }
+        else {
+            targetCell = row.children[colIndex + 1];
+        }
+        
+        if(targetCell) {
+            this.renderer.invokeElementMethod(targetCell, 'click');
+            event.preventDefault();
+        }
+    }
+        
+    onCustomEditorFocusPrev(event: KeyboardEvent, colIndex: number) {
+        this.moveToPreviousCell(event, colIndex);
+    }
+    
+    onCustomEditorFocusNext(event: KeyboardEvent, colIndex: number) {
+        this.moveToNextCell(event, colIndex);
+    }
+    
+    focusEditor(event: Event) {
+        let cell = this.findCell(event.target); 
+        let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input');
+        if(focusable) {
+            setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 100);
         }
     }
 
