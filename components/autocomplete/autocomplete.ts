@@ -241,7 +241,6 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     onInput(event: KeyboardEvent) {
         let value = (<HTMLInputElement> event.target).value;
         if(!this.multiple) {
-            this.value = value;
             this.onModelChange(value);
         }
         
