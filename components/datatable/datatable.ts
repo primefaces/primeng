@@ -1543,6 +1543,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let cell = this.findCell(element); 
         this.domHandler.removeClass(cell, 'ui-cell-editing');
     }
+    
+    closeCell(event: Event) {
+        this.switchCellToViewMode(event.target);
+    }
 
     onCellEditorKeydown(event, column: Column, rowData: any, colIndex: number, rowIndex: number) {
         if(this.editable) {
