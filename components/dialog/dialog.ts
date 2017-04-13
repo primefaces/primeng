@@ -128,10 +128,12 @@ export class Dialog implements AfterViewInit,OnDestroy {
     set visible(val:boolean) {
         this._visible = val;
         
-        if(this._visible)
-            this.show();
-        else
-            this.hide();
+        if(this.container) {
+            if(this._visible)
+                this.show();
+            else
+                this.hide();
+        }
     }
 
     show() {
@@ -204,6 +206,10 @@ export class Dialog implements AfterViewInit,OnDestroy {
                 document.body.appendChild(this.container);
             else
                 this.domHandler.appendChild(this.container, this.appendTo);
+        }
+        
+        if(this.visible) {
+            this.show();
         }
     }
         
