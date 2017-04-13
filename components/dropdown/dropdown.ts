@@ -19,7 +19,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     template: `
          <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
             'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focus}"
-            (click)="onMouseclick($event,in)" [ngStyle]="style" [class]="styleClass">
+            (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
                 <select [required]="required" tabindex="-1">
                     <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
@@ -117,6 +117,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @ViewChild('itemswrapper') itemsWrapperViewChild: ElementRef;
 
     @ViewChild('filter') filterViewChild: ElementRef;
+    
+    @ViewChild('in') focusViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -222,6 +224,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     onItemClick(event, option) {
         this.itemClick = true;
         this.selectItem(event, option);
+        this.focusViewChild.nativeElement.focus();
                                 
         this.hide();
     }
@@ -304,7 +307,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
         
-    onMouseclick(event,input) {
+    onMouseclick(event) {
         if(this.disabled||this.readonly) {
             return;
         }
@@ -312,7 +315,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.selfClick = true;
         
         if(!this.itemClick) {
-            input.focus();
+            this.focusViewChild.nativeElement.focus();
             
             if(this.panelVisible)
                 this.hide();
