@@ -134,6 +134,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     panelVisible: boolean = false;
     
     documentClickListener: any;
+
+    panelBlurListener: any;
     
     suggestionsUpdated: boolean;
     
@@ -197,6 +199,13 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
                 this.hide();
             }
         });
+
+        if(this.isIE()){
+            // Required to avoid lost the focus when clicking the scrollbar on IE
+            this.panelBlurListener = this.renderer.listen(this.panelEL.nativeElement, 'mousedown', (event)=>{
+                return false;
+            });
+        }
 
         if(this.appendTo) {
             if(this.appendTo === 'body')
@@ -468,10 +477,19 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     updateFilledState() {
         this.filled = this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '';
     }
+
+    isIE(){
+        var ua = window.navigator.userAgent;
+        return ua.indexOf('MSIE ') > 0 || ua.indexOf('Trident/') > 0 || ua.indexOf('Edge/');
+    }
     
     ngOnDestroy() {
         if(this.documentClickListener) {
             this.documentClickListener();
+        }
+
+        if(this.panelBlurListener){
+            this.panelBlurListener();
         }
 
         if(this.appendTo) {
