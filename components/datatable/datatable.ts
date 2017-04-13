@@ -1537,8 +1537,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     switchCellToEditMode(cell: any, column: Column, rowData: any) {
-        this.editorClick = true;
-        if(!this.selectionMode && this.editable && column.editable) {           
+        if(!this.selectionMode && this.editable && column.editable) {  
+            this.editorClick = true;
+                     
             if(cell != this.editingCell) {
                 if(this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
                     this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
