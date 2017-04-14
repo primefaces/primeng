@@ -83,6 +83,31 @@ import &#123;MenuItem&#125; from 'primeng/components/common/api';
             </tbody>
         </table>
     </div>
+    
+    <h3>Animations with Angular 4+</h3>
+    <p>Various components utilize angular animations to improve the user experience, starting with Angular 4 animations have their own module so you need
+    to import <i>BrowserAnimationsModule</i> to your application. If you prefer not to <i>NoopAnimationsModule</i> instead.</p>
+
+<pre>
+<code class="language-markup" pCode>
+npm install @angular/animations
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+import &#123;BrowserModule&#125; from '@angular/platform-browser';
+
+@NgModule(&#123;
+    imports: [
+        BrowserModule,
+        //...
+    ],
+    //...
+&#125;)
+export class YourAppModule &#123; &#125;
+</code>
+</pre>
         
     <h3>Angular CLI Integration</h3>
     <p>Angular CLI is the official CLI tool for Angular. We strongly suggest using Angular CLI when starting an Angular project.</p>

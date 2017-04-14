@@ -36,7 +36,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
                     <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
                         <div class="ui-helper-hidden-accessible">
-                            <input type="checkbox" [checked]="isSelected(option)">
+                            <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
                         </div>
                         <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
                             <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isSelected(option)}"></span>
@@ -132,7 +132,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         }
         
         if(!this.checkboxClick) {
-            if (this.multiple)
+            if(this.multiple)
                 this.onOptionClickMultiple(event, option);
             else
                 this.onOptionClickSingle(event, option);
@@ -195,27 +195,25 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             
             if(selected) {
                 if(metaKey) {
-                    this.value.splice(this.findIndex(option), 1);
+                    this.removeOption(option);
                 }
                 else {
-                    this.value = [];
-                    this.value.push(option.value);
+                    this.value = [option.value];
                 }
                 valueChanged = true;
             }
             else {
                 this.value = (metaKey) ? this.value || [] : [];
-                this.value.push(option.value);
+                this.value = [...this.value, option.value];
                 valueChanged = true;
             }
         }
         else {
             if(selected) {
-                this.value.splice(this.findIndex(option), 1);
+                this.removeOption(option);
             }
             else {
-                this.value = this.value || [];
-                this.value.push(option.value);
+                this.value = [...this.value||[],option.value];
             }
             
             valueChanged = true;
@@ -228,6 +226,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
                 value: this.value
             });
         }
+    }
+    
+    removeOption(option: any): void {
+        this.value = this.value.filter(val => !this.objectUtils.equals(val, option.value, this.dataKey));
     }
 
     isSelected(option: SelectItem) {
@@ -250,23 +252,9 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         return selected;
     }
 
-    findIndex(option: SelectItem): number {
-        let index: number = -1;
-        if (this.value) {
-            for (let i = 0; i < this.value.length; i++) {
-                if (option.label === this.value[i].label) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-
-        return index;
-    }
-
     isAllChecked() {
         if(this.filterValue && this.filterValue.trim().length)
-            return this.value&&this.visibleOptions&&(this.value.length == this.visibleOptions.length);
+            return this.value&&this.visibleOptions&&this.visibleOptions.length&&(this.value.length == this.visibleOptions.length);
         else
             return this.value&&this.options&&(this.value.length == this.options.length);
     } 
@@ -284,6 +272,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
 
     toggleAll(event, checkbox) {
+        if(this.disabled) {
+            return;
+        }
+        
         if(checkbox.checked) {
             this.value = [];
         }
@@ -342,15 +334,19 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
     
     onCheckboxClick(event: Event, option: SelectItem) {
+        if(this.disabled) {
+            return;
+        }
+        
         this.checkboxClick = true;
         let selected = this.isSelected(option);
 
         if(selected) {
-            this.value.splice(this.findIndex(option), 1);
+            this.removeOption(option);
         }
         else {
             this.value = this.value ? this.value : [];
-            this.value.push(option.value);
+            this.value = [...this.value,option.value];
         }
 
         this.onModelChange(this.value);

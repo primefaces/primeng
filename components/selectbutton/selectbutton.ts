@@ -67,9 +67,9 @@ export class SelectButton implements ControlValueAccessor {
         if(this.multiple) {
             let itemIndex = this.findItemIndex(option);
             if(itemIndex != -1)
-                this.value.splice(itemIndex, 1);
+                this.value = this.value.filter((val,i) => i!=itemIndex);
             else
-                this.value.push(option.value);
+                this.value = [...this.value||[], option.value];
         }
         else {
             this.value = option.value;

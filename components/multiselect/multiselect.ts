@@ -17,7 +17,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
-                <input #in type="text" readonly="readonly" (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+                <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
@@ -78,6 +78,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() inputId: string;
 
     @Input() disabled: boolean;
     
@@ -188,13 +190,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     onItemClick(event, value) {
         let selectionIndex = this.findSelectionIndex(value);
-        if(selectionIndex != -1) {
-            this.value.splice(selectionIndex, 1);
-        }
-        else {
-            this.value = this.value||[];
-            this.value.push(value);
-        }
+        if(selectionIndex != -1)
+            this.value = this.value.filter((val,i) => i!=selectionIndex);
+        else
+            this.value = [...this.value||[],value];
         
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
@@ -239,7 +238,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     isAllChecked() {
         if(this.filterValue && this.filterValue.trim().length)
-            return this.value&&this.visibleOptions&&(this.value.length == this.visibleOptions.length);
+            return this.value&&this.visibleOptions&&this.visibleOptions.length&&(this.value.length == this.visibleOptions.length);
         else
             return this.value&&this.options&&(this.value.length == this.options.length);
     } 

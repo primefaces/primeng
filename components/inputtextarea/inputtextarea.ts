@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,OnInit} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,OnInit,DoCheck} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Directive({
@@ -13,7 +13,7 @@ import {CommonModule} from '@angular/common';
         '[attr.cols]': 'cols'
     }
 })
-export class InputTextarea implements OnInit {
+export class InputTextarea implements OnInit,DoCheck {
     
     @Input() autoResize: boolean;
     
@@ -24,12 +24,28 @@ export class InputTextarea implements OnInit {
     rowsDefault: number;
     
     colsDefault: number;
+    
+    filled: boolean;
         
     constructor(public el: ElementRef) {}
     
     ngOnInit() {
         this.rowsDefault = this.rows;
         this.colsDefault = this.cols;
+    }
+    
+    ngDoCheck() {
+        this.updateFilledState();
+    }
+    
+    //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
+    @HostListener('input', ['$event']) 
+    onInput(e) {
+        this.updateFilledState();
+    }
+    
+    updateFilledState() {
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
     
     @HostListener('focus', ['$event']) 
@@ -62,10 +78,6 @@ export class InputTextarea implements OnInit {
         }
 
         this.rows = (linesCount >= this.rowsDefault) ? (linesCount + 1) : this.rowsDefault;
-    }
-        
-    get filled(): boolean {
-        return this.el.nativeElement.value != '';
     }
 }
 

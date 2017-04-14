@@ -83,7 +83,8 @@ button.ui-button::-moz-focus-inner {
 
 .ui-fluid .ui-button-text-icon-left .ui-button-text,
 .ui-fluid .ui-button-text-icon-right .ui-button-text {
-    padding: .25em 1em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 /** ButtonSet **/

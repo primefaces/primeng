@@ -67,7 +67,7 @@ export class DomHandler {
     }
 
     public relativePosition(element: any, target: any): void {
-        let elementDimensions = element.offsetParent ? { width: element.outerWidth, height: element.outerHeight } : this.getHiddenElementDimensions(element);
+        let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         let targetHeight = target.offsetHeight;
         let targetWidth = target.offsetWidth;
         let targetOffset = target.getBoundingClientRect();
@@ -78,7 +78,7 @@ export class DomHandler {
             top = -1 * (elementDimensions.height);
         else
             top = targetHeight;
-
+            
         if ((targetOffset.left + elementDimensions.width) > viewport.width)
             left = targetWidth - elementDimensions.width;
         else
