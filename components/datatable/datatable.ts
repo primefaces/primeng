@@ -410,7 +410,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             [ngClass]="{'ui-datatable ui-widget':true,'ui-datatable-reflow':responsive,'ui-datatable-stacked':stacked,'ui-datatable-resizable':resizableColumns,'ui-datatable-scrollable':scrollable}">
             <div class="ui-datatable-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-datatable-loading-content" *ngIf="loading">
-                <i class="fa fa-spinner fa-spin fa-2x"></i>
+                <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
             </div>
             <div class="ui-datatable-header ui-widget-header" *ngIf="header">
                 <ng-content select="p-header"></ng-content>
