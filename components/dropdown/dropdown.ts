@@ -76,6 +76,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() filter: boolean;
 
+    @Input() filterOnId: boolean;
+
     @Input() style: any;
     
     @Input() panelStyle: any;
@@ -465,6 +467,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             for(let i = 0; i < this.options.length; i++) {
                 let option = this.options[i];
                 if(option.label.toLowerCase().indexOf(val) > -1) {
+                    this.optionsToDisplay.push(option);
+                } else if (this.filterOnId && JSON.stringify(option.value).toLowerCase().indexOf(val) > -1) {
                     this.optionsToDisplay.push(option);
                 }
             }
