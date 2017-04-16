@@ -14,7 +14,7 @@ export class DataTableSortDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars1 = cars);
+        this.carService.getCarsSmall().then(cars => {this.cars1 = cars; Object.freeze(this.cars1)});
         this.carService.getCarsSmall().then(cars => this.cars2 = cars);
     }
 }

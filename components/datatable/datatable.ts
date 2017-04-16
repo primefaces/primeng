@@ -1013,6 +1013,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     sortSingle() {
+        //prevent resort at ngDoCheck
+        this.stopSortPropagation = true;
+
         if(this.value) {
             if(this.sortColumn && this.sortColumn.sortable === 'custom') {
                 this.sortColumn.sortFunction.emit({
@@ -1021,7 +1024,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 });
             }
             else {
-                this.value.sort((data1, data2) => {
+                this.value = this.value.slice().sort((data1, data2) => {
                     let value1 = this.resolveFieldData(data1, this.sortField);
                     let value2 = this.resolveFieldData(data2, this.sortField);
                     let result = null;
@@ -1040,16 +1043,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     return (this.sortOrder * result);
                 });
             }
-            
             this.first = 0;
 
             if(this.hasFilter()) {
                 this._filter();
             }
         }
-        
-        //prevent resort at ngDoCheck
-        this.stopSortPropagation = true;
     }
 
     sortMultiple() {
