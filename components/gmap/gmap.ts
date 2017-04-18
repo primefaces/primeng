@@ -27,6 +27,8 @@ export class GMap implements AfterViewInit,DoCheck {
     
     @Output() onOverlayDragEnd: EventEmitter<any> = new EventEmitter();
     
+    @Output() onMapReady: EventEmitter<any> = new EventEmitter();
+    
     differ: any;
     
     map: any;
@@ -37,6 +39,9 @@ export class GMap implements AfterViewInit,DoCheck {
 
     ngAfterViewInit() {
         this.map = new google.maps.Map(this.el.nativeElement.children[0], this.options);
+        this.onMapReady.emit({
+            map: this.map
+        });
         
         if(this.overlays) {
             for(let overlay of this.overlays) {

@@ -81,6 +81,12 @@ button.ui-button::-moz-focus-inner {
     -moz-box-sizing: border-box;
 }
 
+.ui-fluid .ui-button-text-icon-left .ui-button-text,
+.ui-fluid .ui-button-text-icon-right .ui-button-text {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
 /** ButtonSet **/
 .ui-fluid .ui-buttonset {
     width: 100%;

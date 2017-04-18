@@ -373,42 +373,59 @@ a {
     padding: 10px 0px 10px 0px;
 }
 /* buttons */
-.intro-button {
-    width: 90%;
+.intro-btn {
+    width: 100%;
+    display: block;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    display: table;
-    font-size: 20px;
-    font-family: 'exobolditalic', "Trebuchet MS", Arial, Helvetica, sans-serif;
-    color: #312E1C;
-    margin: 10px 0px 10px 0px;
+    font-size: 16px;
     cursor: pointer;
-    padding: 20px;
-    border-radius: 5px;
-    border-right: solid 60px #404c51;
+    padding: 10px 14px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+    -webkit-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+    transition: background-color .3s;
 }
-.intro-button img {
-    margin-right: -60px;
-    height: 23px;
+
+.download-btn {
+    background-color: #ffd100;
+    color: #404c51;
 }
-.yellow-btn {
-    background-color: #fdd106;
-    -webkit-box-shadow: 0px 2px 0px 0px rgba(231, 191, 9, 1);
-    -moz-box-shadow: 0px 2px 0px 0px rgba(231, 191, 9, 1);
-    box-shadow: 0px 2px 0px 0px rgba(231, 191, 9, 1);
+
+.download-btn:hover {
+    background-color: #ffda32;
 }
-.yellow-btn:hover {
-    background-color: #fcdb42;
+
+.download-btn:active {
+    background-color: #e5bc00;
 }
-.orange-btn {
-    background-color: #fba751;
-    -webkit-box-shadow: 0px 2px 0px 0px rgba(212, 135, 56, 1);
-    -moz-box-shadow: 0px 2px 0px 0px rgba(212, 135, 56, 1);
-    box-shadow: 0px 2px 0px 0px rgba(212, 135, 56, 1);
+
+.github-btn {
+    background-color: #404c51;
+    color: #f8f8f8;
 }
-.orange-btn:hover {
-    background-color: #feb66d;
+
+.github-btn:hover {
+    background-color: #666f73;
+}
+
+.github-btn:active {
+    background-color: #333c40;
+}
+
+.prosupport-btn {
+    color: #f8f8f8;
+    background-color: #26a9e0;
+}
+
+.prosupport-btn:hover {
+    background-color: #51bae6;
+}
+
+.prosupport-btn:active {
+    background-color: #1e87b3;
 }
 
 /* text colors */
@@ -597,6 +614,7 @@ input.searchInput {
     border: solid 1px #C1D5DF;
     padding: 5px;
     font-size: 16px;
+    text-align: left;
 }
 .doc-table tbody td {
     color: #404C51;
@@ -612,7 +630,17 @@ input.searchInput {
     background-color: #F3F6F9;
 }
 
+@media (min-width: 1025px) {
+    .home-logo {
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: 64em) {
+    .home-logo {
+        width: 340px;
+    }
+    
     .topbar-link {
         display: none
     }
@@ -684,6 +712,7 @@ input.searchInput {
         width: 40%;
     }
 }
+
 @media (max-width: 768px) {
     .doc-table tbody td {
         word-break: break-word;

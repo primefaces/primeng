@@ -220,7 +220,7 @@ export class TreeTable {
                             this.selectionChange.emit(null);
                         }
                         else {
-                            this.selection.splice(index,1);
+                            this.selection = this.selection.filter((val,i) => i!=index);
                             this.selectionChange.emit(this.selection);
                         }
 
@@ -232,7 +232,7 @@ export class TreeTable {
                         }
                         else if(this.isMultipleSelectionMode()) {
                             this.selection = (!metaKey) ? [] : this.selection||[];
-                            this.selection.push(node);
+                            this.selection = [...this.selection,node];
                             this.selectionChange.emit(this.selection);
                         }
 
@@ -252,12 +252,11 @@ export class TreeTable {
                     }
                     else {
                         if(selected) {
-                            this.selection.splice(index,1);
+                            this.selection = this.selection.filter((val,i) => i!=index);
                             this.onNodeUnselect.emit({originalEvent: event, node: node});
                         }
                         else {
-                            this.selection = this.selection||[];
-                            this.selection.push(node);
+                            this.selection = [...this.selection||[],node];
                             this.onNodeSelect.emit({originalEvent: event, node: node});
                         }
                     }
@@ -284,8 +283,7 @@ export class TreeTable {
                     this.selection = node;
                 }
                 else if(this.isMultipleSelectionMode()) {
-                    this.selection = [];
-                    this.selection.push(node);
+                    this.selection = [node];
                     this.selectionChange.emit(this.selection);
                 }
                 
@@ -331,15 +329,14 @@ export class TreeTable {
             }
             
             if(select && selectedCount == node.children.length) {
-                this.selection = this.selection||[];
-                this.selection.push(node);
+                this.selection = [...this.selection||[],node];
                 node.partialSelected = false;
             }
             else {                
                 if(!select) {
                     let index = this.findIndexInSelection(node);
                     if(index >= 0) {
-                        this.selection.splice(index, 1);
+                        this.selection = this.selection.filter((val,i) => i!=index);
                     }
                 }
                 
@@ -360,11 +357,10 @@ export class TreeTable {
         let index = this.findIndexInSelection(node);
         
         if(select && index == -1) {
-            this.selection = this.selection||[];
-            this.selection.push(node);
+            this.selection = [...this.selection||[],node];
         }
         else if(!select && index > -1) {
-            this.selection.splice(index, 1);
+            this.selection = this.selection.filter((val,i) => i!=index);
         }
         
         node.partialSelected = false;

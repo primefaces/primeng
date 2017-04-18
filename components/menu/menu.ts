@@ -2,7 +2,7 @@ import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Rende
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
-import {Router} from '@angular/router';
+import {RouterModule} from '@angular/router';
 
 @Component({
     selector: 'p-menu',
@@ -13,7 +13,12 @@ import {Router} from '@angular/router';
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
                     <li *ngFor="let item of submenu.items" class="ui-menuitem ui-widget ui-corner-all">
-                        <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                            <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </a>
+                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
@@ -22,7 +27,12 @@ import {Router} from '@angular/router';
                 </ng-template>
                 <ng-template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li class="ui-menuitem ui-widget ui-corner-all">
-                        <a [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                            <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </a>
+                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
@@ -57,7 +67,7 @@ export class Menu implements AfterViewInit,OnDestroy {
 
     onResizeTarget: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public router: Router) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
@@ -65,9 +75,9 @@ export class Menu implements AfterViewInit,OnDestroy {
         if(this.popup) {
             if(this.appendTo) {
                 if(this.appendTo === 'body')
-                    document.body.appendChild(this.el.nativeElement);
+                    document.body.appendChild(this.container);
                 else
-                    this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
+                    this.domHandler.appendChild(this.container, this.appendTo);
             }
                 
             this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
@@ -112,7 +122,7 @@ export class Menu implements AfterViewInit,OnDestroy {
             return;
         }
         
-        if(!item.url||item.routerLink) {
+        if(!item.url) {
             event.preventDefault();
         }
         
@@ -130,10 +140,6 @@ export class Menu implements AfterViewInit,OnDestroy {
         
         if(this.popup) {
             this.hide();
-        }
-        
-        if(item.routerLink) {
-            this.router.navigate(item.routerLink);
         }
     }
     
@@ -180,8 +186,8 @@ export class Menu implements AfterViewInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Menu],
+    imports: [CommonModule,RouterModule],
+    exports: [Menu,RouterModule],
     declarations: [Menu]
 })
 export class MenuModule { }
