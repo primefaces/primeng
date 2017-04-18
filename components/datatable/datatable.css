@@ -95,6 +95,12 @@
     cursor: pointer;
 }
 
+.ui-datatable .ui-datatable-data tr.ui-rowgroup-header td a,
+.ui-datatable .ui-datatable-data tr.ui-rowgroup-header td span.ui-rowgroup-header-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .ui-datatable-scrollable-theadclone {
     height: 0;
 }
@@ -287,6 +293,22 @@
     position: absolute;
     top: 0px;
     left: 0px;
+}
+
+.ui-datatable .ui-datatable-loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    opacity: 0.2;
+    z-index: 1;
+}
+
+.ui-datatable .ui-datatable-loading-content {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    z-index: 2;
 }
 
 @media ( max-width: 35em ) {

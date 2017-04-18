@@ -71,6 +71,12 @@ export class UIChart implements AfterViewInit, OnDestroy {
         return this.chart.toBase64Image();
     }
     
+    generateLegend() {
+        if(this.chart) {
+            this.chart.generateLegend();
+        }
+    }
+    
     refresh() {
         if(this.chart) {
             this.chart.update();

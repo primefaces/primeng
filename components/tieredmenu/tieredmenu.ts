@@ -2,8 +2,7 @@ import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Rende
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
-import {Location} from '@angular/common';
-import {Router} from '@angular/router';
+import {RouterModule} from '@angular/router';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -13,7 +12,13 @@ import {Router} from '@angular/router';
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event, item, child)" (mouseleave)="onItemMouseLeave($event)">
-                    <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
+                    <a *ngIf="!item.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
+                        [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
+                        <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
+                        <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
+                        <span class="ui-menuitem-text">{{child.label}}</span>
+                    </a>
+                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -32,7 +37,7 @@ export class TieredMenuSub {
     
     @Input() root: boolean;
     
-    constructor(public domHandler: DomHandler, public router: Router, public location: Location) {}
+    constructor(public domHandler: DomHandler) {}
     
     activeItem: Element;
                 
@@ -62,7 +67,7 @@ export class TieredMenuSub {
             return true;
         }
         
-        if(!item.url||item.routerLink) {
+        if(!item.url) {
             event.preventDefault();
         }
         
@@ -76,10 +81,6 @@ export class TieredMenuSub {
                 originalEvent: event,
                 item: item
             });
-        }
-
-        if(item.routerLink) {
-            this.router.navigate(item.routerLink);
         }
     }
     
@@ -134,8 +135,6 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
             this.hide();
         else
             this.show(event);
-            
-        
     }
     
     show(event: Event) {
@@ -176,8 +175,8 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [TieredMenu],
+    imports: [CommonModule,RouterModule],
+    exports: [TieredMenu,RouterModule],
     declarations: [TieredMenu,TieredMenuSub]
 })
 export class TieredMenuModule { }

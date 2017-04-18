@@ -199,6 +199,48 @@ export class MyModel &#123;
 &#125;
 </code>
 </pre>
+            <p>Another option is to to get the map object directly after init via (onMapReady) event.
+               In the example below, google.maps.Map is used for adjusting map bounds to markers.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-gmap #gmap [options]="options" [overlays]="overlays" [style]="mapStyle"
+    (onMapReady)="setMap($event)"&gt;&lt;/p-gmap&gt;
+</code>
+</pre>
+            <p>Then from your component you would write</p>
+<pre>
+<code class="language-typescript" pCode>
+export class MyModel &#123;
+
+    options: any;
+    
+    overlays: any[];
+    
+    map: google.maps.Map;
+    
+    setMap(event) &#123;
+        this.map = event.map;
+    &#125;
+    
+    ngOnInit() &#123;
+        let bounds = new google.maps.LatLngBounds();
+        this.overlays = [
+            new google.maps.Marker(&#123;position: &#123;lat: 36.879466, lng: 30.667648&#125;, title:"Konyaalti"&#125;),
+            new google.maps.Marker(&#123;position: &#123;lat: 36.883707, lng: 30.689216&#125;, title:"Ataturk Park"&#125;),
+            new google.maps.Marker(&#123;position: &#123;lat: 36.885233, lng: 30.702323&#125;, title:"Oldtown"&#125;),
+        ]
+        // ... extend bounds
+        this.overlays.forEach(marker => &#123;
+            bounds.extend(marker.getPosition());
+        &#125;);
+        
+        setTimeout(()=> &#123; // map will need some time to load
+            this.map.fitBounds(bounds); // Map object used directly
+        &#125;, 1000);
+    &#125;
+&#125;
+</code>
+</pre>
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -282,6 +324,11 @@ export class MyModel &#123;
                             <td>originalEvent: Google Maps MouseEvent <br>
                                 overlay: Clicked overlay <br>
                                 map: Map instance <br></td>
+                            <td>Callback to invoke when an overlay drag ends.</td>
+                        </tr>
+                        <tr>
+                            <td>onMapReady</td>
+                            <td>event.map: Google Maps Instance</td>
                             <td>Callback to invoke when an overlay drag ends.</td>
                         </tr>
                     </tbody>

@@ -10,28 +10,24 @@ export class NodeService {
     getFiles() {
         return this.http.get('showcase/resources/data/files.json')
                     .toPromise()
-                    .then(res => <TreeNode[]> res.json().data)
-                    .then(data => { return data; });
+                    .then(res => <TreeNode[]> res.json().data);
     }
     
     getLazyFiles() {
         return this.http.get('showcase/resources/data/files-lazy.json')
                     .toPromise()
-                    .then(res => <TreeNode[]> res.json().data)
-                    .then(data => { return data; });
+                    .then(res => <TreeNode[]> res.json().data);
     }
     
     getFilesystem() {
         return this.http.get('showcase/resources/data/filesystem.json')
                     .toPromise()
-                    .then(res => <TreeNode[]> res.json().data)
-                    .then(data => { return data; });
+                    .then(res => <TreeNode[]> res.json().data);
     }
     
     getLazyFilesystem() {
         return this.http.get('showcase/resources/data/filesystem-lazy.json')
                     .toPromise()
-                    .then(res => <TreeNode[]> res.json().data)
-                    .then(data => { return data; });
+                    .then(res => <TreeNode[]> res.json().data);
     }
 }

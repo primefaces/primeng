@@ -26,7 +26,7 @@
         
     <p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles"
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="{'margin-top':'50px'}">
-        <p-header>Multiple Selection</p-header>
+        <p-header>Multiple Selection with MetaKey</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
@@ -171,8 +171,7 @@ export class NodeService &#123;
     getFilesystem() &#123;
         return this.http.get('showcase/resources/data/filesystem.json')
                     .toPromise()
-                    .then(res => &lt;TreeNode[]&gt; res.json().data)
-                    .then(data => &#123; return data; &#125;);
+                    .then(res => &lt;TreeNode[]&gt; res.json().data);
     &#125;
 &#125;
 </code>

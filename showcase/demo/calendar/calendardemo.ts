@@ -21,9 +21,13 @@ export class CalendarDemo {
     
     date8: Date;
     
+    date9: Date;
+    
     minDate: Date;
     
     maxDate: Date;
+    
+    invalidDates: Array<Date>;
     
     es: any;
 
@@ -50,5 +54,9 @@ export class CalendarDemo {
         this.maxDate = new Date();
         this.maxDate.setMonth(nextMonth);
         this.maxDate.setFullYear(nextYear);
+        
+        let invalidDate = new Date();
+        invalidDate.setDate(today.getDate() - 1);
+        this.invalidDates = [today,invalidDate];
     }
 }
