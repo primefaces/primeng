@@ -799,6 +799,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         let val = event.target.value;   
         try {
             this.value = this.parseValueFromString(val);
+            if (this.value) {
+                this.onSelect.emit(this.value);
+            }
             this.updateUI();
             this._isValid = true;
         } 
@@ -889,6 +892,9 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         this.value = value;
         if(this.value && typeof this.value === 'string') {
             this.value = this.parseValueFromString(this.value);
+        }
+        if (this.value) {
+            this.onSelect.emit(this.value);
         }
 
         this.updateInputfield();
