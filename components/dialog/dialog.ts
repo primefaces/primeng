@@ -15,7 +15,7 @@ import {Header,SharedModule} from '../common/shared';
                 <span class="ui-dialog-title" *ngIf="headerFacet">
                     <ng-content select="p-header"></ng-content>
                 </span>
-                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
+                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mouseDown)="stopDrag($event)">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
@@ -271,6 +271,10 @@ export class Dialog implements AfterViewInit,OnDestroy {
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
         }
+    }
+    
+    stopDrag(event) {
+        event.stopPropagation();
     }
     
     onDrag(event) {
