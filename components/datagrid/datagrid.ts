@@ -16,6 +16,7 @@ import {BlockableUI} from '../common/api';
             <div class="ui-datagrid-content ui-widget-content">
                 <div class="ui-g">
                     <ng-template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></ng-template>
+                    <div *ngIf="isEmpty()" class="ui-widget-content ui-g-12">{{emptyMessage}}</div>
                 </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
@@ -41,6 +42,8 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() rowsPerPageOptions: number[];
 
     @Input() lazy: boolean;
+
+    @Input() emptyMessage: string = 'No records found';
     
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
