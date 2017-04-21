@@ -403,7 +403,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             switch(event.which) {
                 //backspace
                 case 8:
-                    if(this.value && this.value.length && !this.inputEL.nativeElement.value) {
+                    if(this.value && this.value.length && !this.multiInputEL.nativeElement.value) {
                         this.value = [...this.value];
                         let removedValue = this.value.pop();
                         this.onUnselect.emit(removedValue);
