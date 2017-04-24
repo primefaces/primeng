@@ -994,14 +994,17 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         let output = '';
+		let originalHours = date.getHours(); //since hours is being used for formatting and so changing, storing original value for comparision
         let hours = date.getHours();
         let minutes = date.getMinutes();
         let seconds = date.getSeconds();
         
-        if(this.hourFormat == '12' && hours > 11 && hours != 12) {
+        if(this.hourFormat == '12' && originalHours > 11 && originalHours != 12) {
             hours-=12;
         }
         
+		this.pm = originalHours > 11; // Also updating AM/PM flag to reflect change in dropdown.
+		
         output += (hours < 10) ? '0' + hours : hours;
         output += ':';
         output += (minutes < 10) ? '0' + minutes : minutes;
@@ -1012,7 +1015,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         if(this.hourFormat == '12') {
-            output += hours > 11 ? ' PM' : ' AM';
+            output += originalHours > 11 ? ' PM' : ' AM';
         }
         
         return output;
