@@ -166,11 +166,10 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
             this.hide();
         else
             this.show(event);
-            
-        this.preventDocumentDefault = true;
     }
     
     show(event) {
+        this.preventDocumentDefault = true;
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, event.target);
         this.domHandler.fadeIn(this.container, 250);
