@@ -16,23 +16,23 @@
         <input #gb type="text" pInputText size="50" placeholder="Global Filter">
     </div>
     <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
-        <header>List of Cars</header>
+        <p-header>List of Cars</p-header>
         <p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="year" header="Year ({{yearFilter||'No Filter'}})" [filter]="true" filterMatchMode="equals">
-            <template pTemplate="filter" let-col>
+            <ng-template pTemplate="filter" let-col>
                 <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"></i>
                 <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onSlideEnd)="dt.filter($event.value,col.field,col.filterMatchMode)"></p-slider>
-            </template>
+            </ng-template>
         </p-column>
         <p-column field="brand" header="Brand (Custom)" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
-            <template pTemplate="filter" let-col>
+            <ng-template pTemplate="filter" let-col>
                 <p-dropdown [options]="brands" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
-            </template>
+            </ng-template>
         </p-column>
         <p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in" [style]="{'overflow':'visible'}">
-            <template pTemplate="filter" let-col>
+            <ng-template pTemplate="filter" let-col>
                 <p-multiSelect [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
 </div>
@@ -91,23 +91,23 @@ export class DataTableFilterDemo implements OnInit &#123;
     &lt;input #gb type="text" pInputText size="50" placeholder="Global Filter"&gt;
 &lt;/div&gt;
 &lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt&gt;
-    &lt;header&gt;List of Cars&lt;/header&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year (&#123;&#123;yearFilter||'No Filter'&#125;&#125;" [filter]="true" filterMatchMode="equals"&gt;
-        &lt;template pTemplate="filter" let-col&gt;
+        &lt;ng-template pTemplate="filter" let-col&gt;
             &lt;i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"&gt;&lt;/i&gt;
             &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onSlideEnd)="dt.filter($event.value,col.field,col.filterMatchMode)"&gt;&lt;/p-slider&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand (Custom)" [filter]="true" [style]="&#123;'overflow':'visible'&#125;" filterMatchMode="equals"&gt;
-        &lt;template pTemplate="filter" let-col&gt;
+        &lt;ng-template pTemplate="filter" let-col&gt;
             &lt;p-dropdown [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-dropdown&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in" [style]="&#123;'overflow':'visible'&#125;"&gt;
-        &lt;template pTemplate="filter" let-col&gt;
+        &lt;ng-template pTemplate="filter" let-col&gt;
             &lt;p-multiSelect [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-multiSelect&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>

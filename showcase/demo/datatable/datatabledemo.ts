@@ -2,10 +2,13 @@ import {Component,OnInit} from '@angular/core';
 import {Car} from '../domain/car';
 import {CarService} from '../service/carservice';
 
+
 @Component({
     templateUrl: 'showcase/demo/datatable/datatabledemo.html'
 })
 export class DataTableDemo implements OnInit {
+
+    loading: boolean;
 
     cars: Car[];
     
@@ -14,7 +17,11 @@ export class DataTableDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.loading = true;
+        setTimeout(() => {
+            this.carService.getCarsSmall().then(cars => this.cars = cars);
+            this.loading = false;
+        }, 1000);
         
         this.cols = [
             {field: 'vin', header: 'Vin'},

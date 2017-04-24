@@ -96,6 +96,10 @@
 }
 
 /** Menubar **/
+.ui-menu.ui-menubar .ui-menubar-root-list > li > a > .ui-submenu-icon {
+    float: none;
+}
+
 .ui-menubar {
     width:auto;
 }
@@ -162,6 +166,10 @@
     vertical-align: middle;
 }
 
+.ui-slidemenu .ui-slidemenuitem-active > .ui-submenu > ul {
+    display: block !important;
+}
+
 /** MegaMenu **/
 .ui-megamenu .ui-g {
     flex-wrap: nowrap;
@@ -185,6 +193,10 @@
     box-sizing: border-box;
 }
 
+.ui-megamenu-vertical > .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link > .ui-submenu-icon {
+    float: right;
+}
+
 /** PanelMenu **/
 .ui-panelmenu {
     width: auto;
@@ -198,7 +210,7 @@
 .ui-panelmenu .ui-panelmenu-header {
     cursor: pointer;
     position: relative;
-    margin: 0;
+    margin: -1px 0 0 0;
     zoom: 1;
 }
 

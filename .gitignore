@@ -11,7 +11,7 @@ showcase/theming/*.js
 *.map
 
 # production showcase bundle
-prod
+dist
 
 # distribution resources
 resources/**/*.css

@@ -135,6 +135,20 @@ $invalidInputBorderColor: #f44336;
     }
 }
 
+/* Spinner */
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:hover {
+    border: 1px solid #1f89ce;
+    background: #1f89ce;
+    outline: 0 none;
+    color: #ffffff;
+}
+
+.ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
+    border: 1px solid #156090;
+    background: #186ba0;
+    color: #ffffff,
+}
+
 .ui-slider { position: relative; text-align: left; background: #838688; border: none; -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset; -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset; box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset;}
 .ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 17px !important; height: 21px  !important; cursor: default; background: url("images/slider_handles.png") 0 0 no-repeat; outline: none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; border: none; }
 .ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background: #14a4ff; -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset; -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset; box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
@@ -161,6 +175,8 @@ $invalidInputBorderColor: #f44336;
 	color: #222222;
 }
 
+.ui-widget-header .ui-button,
+.ui-widget-content .ui-button,
 .ui-button {
 	border: 1px solid #2399e5;
 	color: #FFFFFF;
@@ -174,14 +190,7 @@ $invalidInputBorderColor: #f44336;
         border: 1px solid #1f89ce;
     	background: #1f89ce;
     	outline: 0 none;
-        color: #ffffff,
-    }
-    
-    &:enabled:hover,
-    &:focus {
-        border: 1px solid #1f89ce;
-        background: #1f89ce;
-        outline: 0 none;
+        color: #ffffff;
     }
     
     &:enabled:active {
@@ -219,6 +228,7 @@ $invalidInputBorderColor: #f44336;
     transition: .2s;
 }
 
+.ui-inputtext.ui-state-focus,
 .ui-inputtext:focus {
 	-moz-box-shadow: 0px 0px 5px #1f89ce;
 	-webkit-box-shadow: 0px 0px 5px #1f89ce;
@@ -269,6 +279,15 @@ $invalidInputBorderColor: #f44336;
                 color: $stateHighlightTextColor;
             }
         }        
+    }
+    
+    tfoot {
+        td {
+            &.ui-state-default {
+                background: #ebedf0;
+                border-color: #d9d9d9;
+            }
+        }
     }
 }
 
@@ -413,6 +432,13 @@ $invalidInputBorderColor: #f44336;
     .ui-menuitem {
         .ui-menuitem-link {
             &:hover {
+                background-color: #a6a6a6;
+                color: #ffffff;
+            }
+        }
+        
+        &.ui-menuitem-active {
+            > .ui-menuitem-link {
                 background-color: #a6a6a6;
                 color: #ffffff;
             }

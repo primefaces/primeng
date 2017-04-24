@@ -1,13 +1,11 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,trigger,state,transition,style,animate} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/api';
-import {Location} from '@angular/common';
-import {Router} from '@angular/router';
+import {RouterModule} from '@angular/router';
 
 export class BasePanelMenuItem {
-    
-    constructor(public router: Router) {}
-    
+        
     handleClick(event, item) {
         if(item.disabled) {
             event.preventDefault();
@@ -16,7 +14,7 @@ export class BasePanelMenuItem {
         
         item.expanded = !item.expanded;
         
-        if(!item.url||item.routerLink) {
+        if(!item.url) {
             event.preventDefault();
         }
                    
@@ -31,10 +29,6 @@ export class BasePanelMenuItem {
                 item: item
             });
         }
-        
-        if(item.routerLink) {
-            this.router.navigate(item.routerLink);
-        }
     }
 }
 
@@ -43,9 +37,16 @@ export class BasePanelMenuItem {
     template: `
         <ul class="ui-menu-list ui-helper-reset" [style.display]="expanded ? 'block' : 'none'">
             <li *ngFor="let child of item.items" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}">
-                <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                <a *ngIf="!item.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
                     [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-disabled':child.disabled}" 
-                    (click)="handleClick($event,child)">
+                    (click)="handleClick($event,child)" [attr.target]="child.target">
+                    <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!child.expanded,'fa-caret-down':child.expanded}" *ngIf="child.items"></span
+                    ><span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span
+                    ><span class="ui-menuitem-text">{{child.label}}</span>
+                </a>
+                <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" class="ui-menuitem-link ui-corner-all" 
+                    [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-disabled':child.disabled}" 
+                    (click)="handleClick($event,child)" [attr.target]="child.target">
                     <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!child.expanded,'fa-caret-down':child.expanded}" *ngIf="child.items"></span
                     ><span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span
                     ><span class="ui-menuitem-text">{{child.label}}</span>
@@ -60,10 +61,6 @@ export class PanelMenuSub extends BasePanelMenuItem {
     @Input() item: MenuItem;
     
     @Input() expanded: boolean;
-    
-    constructor(router: Router) {
-        super(router);
-    }
 }
 
 @Component({
@@ -73,7 +70,14 @@ export class PanelMenuSub extends BasePanelMenuItem {
             <div *ngFor="let item of model;let f=first;let l=last;" class="ui-panelmenu-panel">
                 <div tabindex="0" [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-top':f,'ui-corner-bottom':l&&!item.expanded,
                     'ui-state-active':item.expanded,'ui-state-disabled':item.disabled}">
-                    <a [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)">
+                    <a *ngIf="!item.routerLink" [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)"
+                        [attr.target]="item.target">
+                        <span *ngIf="item.items" class="ui-panelmenu-icon fa" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span
+                        ><span class="ui-menuitem-icon fa" [ngClass]="item.icon" *ngIf="item.icon"></span
+                        ><span class="ui-menuitem-text">{{item.label}}</span>
+                    </a>
+                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)"
+                        [attr.target]="item.target">
                         <span *ngIf="item.items" class="ui-panelmenu-icon fa" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span
                         ><span class="ui-menuitem-icon fa" [ngClass]="item.icon" *ngIf="item.icon"></span
                         ><span class="ui-menuitem-text">{{item.label}}</span>
@@ -110,11 +114,7 @@ export class PanelMenu extends BasePanelMenuItem {
     @Input() styleClass: string;
     
     public animating: boolean;
-    
-    constructor(router: Router) {
-        super(router);
-    }
-            
+                
     unsubscribe(item: any) {
         if(item.eventEmitter) {
             item.eventEmitter.unsubscribe();
@@ -147,8 +147,8 @@ export class PanelMenu extends BasePanelMenuItem {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [PanelMenu],
+    imports: [CommonModule,RouterModule],
+    exports: [PanelMenu,RouterModule],
     declarations: [PanelMenu,PanelMenuSub]
 })
 export class PanelMenuModule { }

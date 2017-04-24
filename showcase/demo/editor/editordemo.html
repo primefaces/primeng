@@ -16,13 +16,13 @@
     
     <h3>Custom Toolbar</h3>
     <p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;">
-        <header>
+        <p-header>
             <span class="ql-formats">
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-                <button class="ql-underline"></button>
+                <button class="ql-bold" aria-label="Bold"></button>
+                <button class="ql-italic" aria-label="Italic"></button>
+                <button class="ql-underline" aria-label="Underline"></button>
             </span>
-        </header>
+        </p-header>
     </p-editor>
     <p>Value: {{text2||'empty'}}</p>
     
@@ -71,7 +71,7 @@ export class EditorDemo &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         &lt;span class="ql-format-group"&gt;
             &lt;span title="Bold" class="ql-format-button ql-bold"&gt;&lt;/span&gt;
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
@@ -81,7 +81,7 @@ export class EditorDemo &#123;
             &lt;span class="ql-format-separator"&gt;&lt;/span&gt;
             &lt;span title="Strikethrough" class="ql-format-button ql-strike"&gt;&lt;/span&gt;
         &lt;/span&gt;
-    &lt;/header&gt;
+    &lt;/p-header&gt;
 &lt;/p-editor&gt;
 </code>
 </pre>
@@ -227,13 +227,13 @@ npm install quill --save
 
 &lt;h3&gt;Custom Toolbar&lt;/h3&gt;
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         &lt;span class="ql-formats"&gt;
             &lt;button class="ql-bold"&gt;&lt;/button&gt;
             &lt;button class="ql-italic"&gt;&lt;/button&gt;
             &lt;button class="ql-underline"&gt;&lt;/button&gt;
         &lt;/span&gt;
-    &lt;/header&gt;
+    &lt;/p-header&gt;
 &lt;/p-editor&gt;
 &lt;p&gt;Value: &#123;&#123;text2||'empty'&#125;&#125;&lt;/p&gt;
 

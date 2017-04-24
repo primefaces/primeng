@@ -1,7 +1,6 @@
 .ui-dialog {
     position: fixed;
     padding: 0;
-    overflow: hidden;
 }
 .ui-dialog .ui-dialog-titlebar {
 	padding: .5em .75em;

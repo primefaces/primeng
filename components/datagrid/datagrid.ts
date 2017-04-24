@@ -1,7 +1,6 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,IterableDiffers,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Header} from '../common/shared';
-import {Footer} from '../common/shared';
+import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {BlockableUI} from '../common/api';
 
@@ -10,24 +9,25 @@ import {BlockableUI} from '../common/api';
     template: `
         <div [ngClass]="'ui-datagrid ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-datagrid-header ui-widget-header ui-corner-top" *ngIf="header">
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-content ui-widget-content">
                 <div class="ui-g">
-                    <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
+                    <ng-template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></ng-template>
+                    <div *ngIf="isEmpty()" class="ui-widget-content ui-g-12">{{emptyMessage}}</div>
                 </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-footer ui-widget-header ui-corner-top" *ngIf="footer">
-                <ng-content select="footer"></ng-content>
+                <ng-content select="p-footer"></ng-content>
             </div>
         </div>
     `
 })
-export class DataGrid implements AfterViewInit,DoCheck,BlockableUI {
+export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,BlockableUI {
 
     @Input() value: any[];
 
@@ -42,6 +42,8 @@ export class DataGrid implements AfterViewInit,DoCheck,BlockableUI {
     @Input() rowsPerPageOptions: number[];
 
     @Input() lazy: boolean;
+
+    @Input() emptyMessage: string = 'No records found';
     
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
@@ -50,12 +52,16 @@ export class DataGrid implements AfterViewInit,DoCheck,BlockableUI {
     @Input() styleClass: string;
     
     @Input() paginatorPosition: string = 'bottom';
+    
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
             
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
 
     public dataToRender: any[];
 
@@ -76,6 +82,20 @@ export class DataGrid implements AfterViewInit,DoCheck,BlockableUI {
                 rows: this.rows
             });
         }
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
     
     ngDoCheck() {
@@ -110,6 +130,11 @@ export class DataGrid implements AfterViewInit,DoCheck,BlockableUI {
         else {
             this.updateDataToRender(this.value);
         }
+        
+        this.onPage.emit({
+            first: this.first,
+            rows: this.rows
+        });
     }
 
     updateDataToRender(datasource) {
@@ -146,8 +171,8 @@ export class DataGrid implements AfterViewInit,DoCheck,BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule,PaginatorModule],
-    exports: [DataGrid],
+    imports: [CommonModule,SharedModule,PaginatorModule],
+    exports: [DataGrid,SharedModule],
     declarations: [DataGrid]
 })
 export class DataGridModule { }

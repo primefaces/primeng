@@ -1,8 +1,6 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,DoCheck,Input,Output,Renderer,EventEmitter,ContentChild,IterableDiffers,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,DoCheck,Input,Output,Renderer,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,IterableDiffers,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Header} from '../common/shared';
-import {Footer} from '../common/shared';
-import {SharedModule} from '../common/shared';
+import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -10,17 +8,17 @@ import {DomHandler} from '../dom/domhandler';
     template: `
     <div [ngClass]="{'ui-datascroller ui-widget': true, 'ui-datascroller-inline': inline}" [ngStyle]="style" [class]="styleClass">
         <div class="ui-datascroller-header ui-widget-header ui-corner-top" *ngIf="header">
-            <ng-content select="header"></ng-content>
+            <ng-content select="p-header"></ng-content>
         </div>
-        <div class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
+        <div #content class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
             <ul class="ui-datascroller-list">
                 <li *ngFor="let item of dataToRender">
-                    <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                 </li>
             </ul>
         </div>
         <div class="ui-datascroller-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
-            <ng-content select="footer"></ng-content>
+            <ng-content select="p-footer"></ng-content>
         </div>
     </div>
     `,
@@ -45,14 +43,18 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     @Input() inline: boolean;
     
     @Input() scrollHeight: any;
+    
+    @Input() loader: any;
+    
+    @ViewChild('content') contentViewChild: ElementRef;
         
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    @Input() loader: any;
+    public itemTemplate: TemplateRef<any>;
 
     public dataToRender: any[] = [];
 
@@ -62,7 +64,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     
     scrollFunction: any;
     
-    contentElement: any;
+    contentElement: HTMLDivElement;
 
     constructor(public el: ElementRef, differs: IterableDiffers, public renderer: Renderer, public domHandler: DomHandler) {
         this.differ = differs.find([]).create(null);
@@ -81,6 +83,20 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
         else {
             this.bindScrollListener();
         }
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
     
     ngDoCheck() {
@@ -132,7 +148,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     
     bindScrollListener() {
         if(this.inline) {
-            this.contentElement = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datascroller-content');
+            this.contentElement = this.contentViewChild.nativeElement;
             
             this.scrollFunction = this.renderer.listen(this.contentElement, 'scroll', () => {
                 let scrollTop = this.contentElement.scrollTop;

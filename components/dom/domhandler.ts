@@ -67,7 +67,7 @@ export class DomHandler {
     }
 
     public relativePosition(element: any, target: any): void {
-        let elementDimensions = element.offsetParent ? { width: element.outerWidth, height: element.outerHeight } : this.getHiddenElementDimensions(element);
+        let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         let targetHeight = target.offsetHeight;
         let targetWidth = target.offsetWidth;
         let targetOffset = target.getBoundingClientRect();
@@ -78,7 +78,7 @@ export class DomHandler {
             top = -1 * (elementDimensions.height);
         else
             top = targetHeight;
-
+            
         if ((targetOffset.left + elementDimensions.width) > viewport.width)
             left = targetWidth - elementDimensions.width;
         else
@@ -89,7 +89,7 @@ export class DomHandler {
     }
 
     public absolutePosition(element: any, target: any): void {
-        let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element)
+        let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         let elementOuterHeight = elementDimensions.height;
         let elementOuterWidth = elementDimensions.width;
         let targetOuterHeight = target.offsetHeight;
@@ -100,10 +100,15 @@ export class DomHandler {
         let viewport = this.getViewport();
         let top, left;
 
-        if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height)
+        if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
-        else
+            if(top < 0) {
+                top = 0 + windowScrollTop;
+            }
+        } 
+        else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
+        }
 
         if (targetOffset.left + targetOuterWidth + elementOuterWidth > viewport.width)
             left = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;
@@ -309,53 +314,6 @@ export class DomHandler {
         return {left: x, top: y};
     }
 
-    public equals(obj1: any, obj2: any): boolean {
-        if (obj1 == null && obj2 == null) {
-            return true;
-        }
-        if (obj1 == null || obj2 == null) {
-            return false;
-        }
-
-        if (obj1 == obj2) {
-            delete obj1._$visited;
-            return true;
-        }
-
-        if (typeof obj1 == 'object' && typeof obj2 == 'object') {
-            obj1._$visited = true;
-            for (var p in obj1) {
-                if (p === "_$visited") continue;
-                if (obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) {
-                    return false;
-                }
-
-                switch (typeof (obj1[p])) {
-                    case 'object':
-                        if (obj1[p] && obj1[p]._$visited || !this.equals(obj1[p], obj2[p])) return false;
-                        break;
-
-                    case 'function':
-                        if (typeof (obj2[p]) == 'undefined' || (p != 'compare' && obj1[p].toString() != obj2[p].toString())) return false;
-                        break;
-
-                    default:
-                        if (obj1[p] != obj2[p]) return false;
-                        break;
-                }
-            }
-
-            for (var p in obj2) {
-                if (typeof (obj1[p]) == 'undefined') return false;
-            }
-
-            delete obj1._$visited;
-            return true;
-        }
-
-        return false;
-    }
-
     getUserAgent(): string {
         return navigator.userAgent;
     }
@@ -408,5 +366,16 @@ export class DomHandler {
         return (typeof HTMLElement === "object" ? obj instanceof HTMLElement :
             obj && typeof obj === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string"
         );
+    }
+    
+    calculateScrollbarWidth(): number {
+        let scrollDiv = document.createElement("div");
+        scrollDiv.className = "ui-scrollbar-measure";
+        document.body.appendChild(scrollDiv);
+
+        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        
+        return scrollbarWidth;
     }
 }

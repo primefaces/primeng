@@ -18,6 +18,8 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
 
                 <button *ngIf="!auto" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
                 <button *ngIf="!auto" type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
+            
+                <p-templateLoader [template]="toolbarTemplate"></p-templateLoader>
             </div>
             <div [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true,'ui-fileupload-highlight':dragHighlight}" 
                 (dragenter)="onDragEnter($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
@@ -27,7 +29,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                 
                 <div class="ui-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
-                        <div class="ui-fileupload-row" *ngFor="let file of files">
+                        <div class="ui-fileupload-row" *ngFor="let file of files; let i = index;">
                             <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
                             <div>{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
@@ -35,7 +37,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                         </div>
                     </div>
                     <div *ngIf="fileTemplate">
-                        <template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></template>
+                        <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
                 
@@ -63,6 +65,10 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() invalidFileSizeMessageSummary: string = '{0}: Invalid file size, ';
     
     @Input() invalidFileSizeMessageDetail: string = 'maximum upload size is {0}.';
+
+    @Input() invalidFileTypeMessageSummary: string = '{0}: Invalid file type, ';
+
+    @Input() invalidFileTypeMessageDetail: string = 'allowed file types: {0}.';
     
     @Input() style: string;
     
@@ -78,7 +84,7 @@ export class FileUpload implements OnInit,AfterContentInit {
         
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 	
-	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
+	  @Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
         
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
@@ -101,6 +107,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     public fileTemplate: TemplateRef<any>;
     
     public contentTemplate: TemplateRef<any>; 
+    
+    public toolbarTemplate: TemplateRef<any>; 
         
     constructor(private sanitizer: DomSanitizer){}
     
@@ -119,6 +127,10 @@ export class FileUpload implements OnInit,AfterContentInit {
                     this.contentTemplate = item.template;
                 break;
                 
+                case 'toolbar':
+                    this.toolbarTemplate = item.template;
+                break;
+                
                 default:
                     this.fileTemplate = item.template;
                 break;
@@ -133,6 +145,10 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     onFileSelect(event) {
         this.msgs = [];
+        if(!this.multiple) {
+            this.files = [];
+        }
+        
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
@@ -153,6 +169,15 @@ export class FileUpload implements OnInit,AfterContentInit {
     }
     
     validate(file: File): boolean {
+        if(this.accept && !this.isFileTypeValid(file)) {
+            this.msgs.push({
+                severity: 'error',
+                summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
+                detail: this.invalidFileTypeMessageDetail.replace('{0}', this.accept)
+            });
+            return false;
+        }
+
         if(this.maxFileSize  && file.size > this.maxFileSize) {
             this.msgs.push({
                 severity: 'error', 
@@ -161,8 +186,34 @@ export class FileUpload implements OnInit,AfterContentInit {
             });
             return false;
         }
-        
+
         return true;
+    }
+
+    private isFileTypeValid(file: File): boolean {
+        let acceptableTypes = this.accept.split(',');
+        for(let type of acceptableTypes) {
+            let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type) 
+                                                    : this.getFileExtension(file) === type;
+
+            if(acceptable) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    getTypeClass(fileType: string): string {
+        return fileType.substring(0, fileType.indexOf('/'));
+    }
+
+    isWildcard(fileType: string): boolean {
+        return fileType.indexOf('*') !== -1;
+    }
+    
+    getFileExtension(file: File): string {
+        return '.' + file.name.split('.').pop();
     }
     
     isImage(file: File): boolean {

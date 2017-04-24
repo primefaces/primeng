@@ -12,12 +12,12 @@
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
            kind and benevolent to those who give respect,
            but given to ruthless violence whenever anything stands against the good of the family.</span>
-        <footer>
+        <p-footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
                 <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
                 <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
             </div>
-        </footer>
+        </p-footer>
     </p-dialog>
 
     <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button>
@@ -69,14 +69,23 @@ export class ModelComponent &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dialog [(visible)]="display"&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         Header content here
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     Content
-    &lt;footer&gt;
+    &lt;p-footer&gt;
         Footer content here
-    &lt;/footer&gt;
+    &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
+</code>
+</pre>
+
+            <h3>Overlays Inside</h3>
+            <p>When dialog contents include other components with overlays such as dropdown, it is suggested to turn off the overflow of dialog content
+                so that the overlays can be displayed outside of the dialog.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dropdown [options]="cities" formControlName="selectedCity"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -135,6 +144,12 @@ export class ModelComponent &#123;
                             <td>Height of the dialog.</td>
                         </tr>
                         <tr>
+                            <td>contentStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Style of the content section.</td>
+                        </tr>
+                        <tr>
                             <td>visible</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -151,6 +166,12 @@ export class ModelComponent &#123;
                             <td>boolean</td>
                             <td>true</td>
                             <td>Specifices if pressing escape key should hide the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>dismissableMask</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifices if clicking the modal background should hide the dialog.</td>
                         </tr>
                         <tr>
                             <td>rtl</td>
@@ -174,7 +195,7 @@ export class ModelComponent &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the dialog, valid values are "body" or a local template variable of another element.</td>
+                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -187,6 +208,12 @@ export class ModelComponent &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>showHeader</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show the header or not.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -204,24 +231,14 @@ export class ModelComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>onBeforeShow</td>
+                            <td>onShow</td>
                             <td>event: Event object</td>
-                            <td>Callback to invoke before dialog is shown.</td>
+                            <td>Callback to invoke when dialog is shown.</td>
                         </tr>
                         <tr>
-                            <td>onAfterShow</td>
+                            <td>onHide</td>
                             <td>event: Event object</td>
-                            <td>Callback to invoke after dialog is shown.</td>
-                        </tr>
-                        <tr>
-                            <td>onBeforeHide</td>
-                            <td>event: Event object</td>
-                            <td>Callback to invoke before dialog is hidden.</td>
-                        </tr>
-                        <tr>
-                            <td>onAfterHide</td>
-                            <td>event: Event object</td>
-                            <td>Callback to invoke after dialog is hidden.</td>
+                            <td>Callback to invoke when dialog is hidden.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -279,12 +296,12 @@ export class ModelComponent &#123;
        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
        kind and benevolent to those who give respect, 
        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
-        &lt;footer&gt;
+        &lt;p-footer&gt;
             &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
                 &lt;button type="button" pButton icon="fa-close" (click)="display=false" label="No"&gt;&lt;/button&gt;
                 &lt;button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"&gt;&lt;/button&gt;
             &lt;/div&gt;
-        &lt;/footer&gt;
+        &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 
 &lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;

@@ -1,5 +1,7 @@
-import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate,ElementRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
+import {SharedModule} from '../common/shared';
 import {BlockableUI} from '../common/api';
 
 @Component({
@@ -9,6 +11,7 @@ import {BlockableUI} from '../common/api';
             <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text" (click)="toggle($event)">
                 <span *ngIf="toggleable" class="ui-fieldset-toggler fa fa-w" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
                 {{legend}}
+                <ng-content select="p-header"></ng-content>
             </legend>
             <div class="ui-fieldset-content-wrapper" [@fieldsetContent]="collapsed ? 'hidden' : 'visible'" 
                         [ngClass]="{'ui-fieldset-content-wrapper-overflown': collapsed||animating}">
@@ -86,7 +89,7 @@ export class Fieldset implements BlockableUI {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Fieldset],
+    exports: [Fieldset,SharedModule],
     declarations: [Fieldset]
 })
 export class FieldsetModule { }

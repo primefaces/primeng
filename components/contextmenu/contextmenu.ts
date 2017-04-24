@@ -3,17 +3,23 @@ import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router';
+import {RouterModule} from '@angular/router';
 
 @Component({
     selector: 'p-contextMenuSub',
     template: `
         <ul [ngClass]="{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
             (click)="listClick($event)">
-            <template ngFor let-child [ngForOf]="(root ? item : item.items)">
+            <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event,item,child)" (mouseleave)="onItemMouseLeave($event,item)">
-                    <a [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
+                        [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
+                        <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
+                        <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
+                        <span class="ui-menuitem-text">{{child.label}}</span>
+                    </a>
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [routerLinkActive]="'ui-state-active'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -21,7 +27,7 @@ import {Router} from '@angular/router';
                     </a>
                     <p-contextMenuSub class="ui-submenu" [item]="child" *ngIf="child.items"></p-contextMenuSub>
                 </li>
-            </template>
+            </ng-template>
         </ul>
     `,
     providers: [DomHandler]
@@ -32,9 +38,11 @@ export class ContextMenuSub {
     
     @Input() root: boolean;
     
-    constructor(public domHandler: DomHandler, public router: Router, @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) {}
+    constructor(public domHandler: DomHandler, @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) {}
         
     activeItem: any;
+
+    containerLeft: any;
                 
     onItemMouseEnter(event, item, menuitem) {
         if(menuitem.disabled) {
@@ -60,7 +68,7 @@ export class ContextMenuSub {
             return;
         }
         
-        if(!item.url||item.routerLink) {
+        if(!item.url) {
             event.preventDefault();
         }
         
@@ -75,10 +83,6 @@ export class ContextMenuSub {
                 item: item
             });
         }
-        
-        if(item.routerLink) {
-            this.router.navigate(item.routerLink);
-        }
     }
     
     listClick(event) {
@@ -86,8 +90,30 @@ export class ContextMenuSub {
     }
     
     position(sublist, item) {
+        this.containerLeft = this.domHandler.getOffset(item.parentElement)
+        let viewport = this.domHandler.getViewport();
+        let sublistWidth = sublist.offsetParent ? sublist.offsetWidth: this.domHandler.getHiddenElementOuterWidth(sublist);
+        let itemOuterWidth = this.domHandler.getOuterWidth(item.children[0]);
+
         sublist.style.top = '0px';
-        sublist.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+
+        if((parseInt(this.containerLeft.left) + itemOuterWidth + sublistWidth) > (viewport.width - this.calculateScrollbarWidth())) {
+            sublist.style.left = -sublistWidth + 'px';
+        }
+        else {
+            sublist.style.left = itemOuterWidth + 'px';
+        }
+    }
+
+    calculateScrollbarWidth(): number {
+        let scrollDiv = document.createElement("div");
+        scrollDiv.className = "ui-scrollbar-measure";
+        document.body.appendChild(scrollDiv);
+
+        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        
+        return scrollbarWidth;
     }
 }
 
@@ -106,6 +132,8 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     @Input() model: MenuItem[];
     
     @Input() global: boolean;
+    
+    @Input() target: any;
 
     @Input() style: any;
 
@@ -121,7 +149,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
             
     documentClickListener: any;
     
-    documentRightClickListener: any;
+    rightClickListener: any;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
 
@@ -133,17 +161,24 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         });
         
         if(this.global) {
-            this.documentRightClickListener = this.renderer.listenGlobal('body', 'contextmenu', (event) => {
+            this.rightClickListener = this.renderer.listenGlobal('body', 'contextmenu', (event) => {
                 this.show(event);
                 event.preventDefault();
+            });
+        }
+        else if(this.target) {
+            this.rightClickListener = this.renderer.listen(this.target, 'contextmenu', (event) => {
+                this.show(event);
+                event.preventDefault();
+                event.stopPropagation();
             });
         }
         
         if(this.appendTo) {
             if(this.appendTo === 'body')
-                document.body.appendChild(this.el.nativeElement);
+                document.body.appendChild(this.container);
             else
-                this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
+                this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
         
@@ -214,12 +249,14 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     }
         
     ngOnDestroy() {
-        this.documentClickListener();
-        
-        if(this.global) {
-            this.documentRightClickListener();    
+        if(this.documentClickListener) {
+            this.documentClickListener();
         }
-
+        
+        if(this.rightClickListener) {
+            this.rightClickListener();
+        }
+        
         if(this.model) {
             for(let item of this.model) {
                 this.unsubscribe(item);
@@ -234,8 +271,8 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [ContextMenu],
+    imports: [CommonModule,RouterModule],
+    exports: [ContextMenu,RouterModule],
     declarations: [ContextMenu,ContextMenuSub]
 })
 export class ContextMenuModule { }

@@ -146,9 +146,9 @@ import &#123;SharedModule&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-accordionTab&gt;
-    &lt;header&gt;
+    &lt;p-header&gt;
         Header Content
-    &lt;/header&gt;
+    &lt;/p-header&gt;
     Body Content
 &lt;/p-accordionTab&gt;
 </code>
@@ -183,6 +183,12 @@ import &#123;SharedModule&#125; from 'primeng/primeng';
                             <td>string</td>
                             <td>false</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>lazy</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines whether the elements of an inactive panel are created on load or on demand when the panel gets selected.</td>
                         </tr>
                     </tbody>
                 </table>

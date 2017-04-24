@@ -8,53 +8,70 @@
 <div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-treeTable [value]="files1" [style]="&#123;'margin-bottom':'30px'&#125;">
-        <header>Basic</header>
+    <p-treeTable [value]="files1">
+        <p-header>Basic</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
         
     <p-treeTable [value]="files2" selectionMode="single" [(selection)]="selectedFile"
-        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
-        <header>Singe Selection</header>
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="{'margin-top':'50px'}">
+        <p-header>Single Selection</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
     <p>Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}</p>
         
-    <p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles" 
-        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'30px'&#125;">
-        <header>Multiple Selection</header>
+    <p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles"
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="{'margin-top':'50px'}">
+        <p-header>Multiple Selection with MetaKey</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
     <p>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.data.name}} </span></p>
     
-    <p-treeTable [value]="files4" [style]="&#123;'margin-top':'30px'&#125;">
-        <header>Editable Cells with Templating</header>
+    <p-treeTable [value]="files4" selectionMode="checkbox" [(selection)]="selectedFiles2" [style]="{'margin-top':'50px'}">
+        <p-header>Checkbox Selection</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+    <p>Selected Nodes: <span *ngFor="let file of selectedFiles2">{{file.data.name}} </span></p>
+    
+    <p-treeTable [value]="files5" [style]="{'margin-top':'50px'}">
+        <p-header>Editable Cells with Templating</p-header>
         <p-column field="name" header="Name">
-            <template let-node="rowData" pTemplate="body">
-                <input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
-            </template>
+            <ng-template let-node="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="node.data.name" style="width:100%;border-width:0px 0px 1px 0px">
+            </ng-template>
         </p-column>
         <p-column field="size" header="Size">
-            <template let-node="rowData" pTemplate="body">
-                <input type="text" [(ngModel)]="node.data.size" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
-            </template>
+            <ng-template let-node="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="node.data.size" style="width:100%;border-width:0px 0px 1px 0px">
+            </ng-template>
         </p-column>
         <p-column field="type" header="Type">
-            <template let-node="rowData" pTemplate="body">
-                <input type="text" [(ngModel)]="node.data.type" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px">
-            </template>
+            <ng-template let-node="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="node.data.type" style="width:100%;border-width:0px 0px 1px 0px">
+            </ng-template>
         </p-column>
     </p-treeTable>
     
-    <p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'30px'&#125;"
+    <p-treeTable [value]="files6" selectionMode="single" [(selection)]="selectedFile2" [style]="{'margin-top':'50px'}" [contextMenu]="cm">
+        <p-header>Context Menu</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+    
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    
+    <p-treeTable [value]="lazyFiles" [style]="{'margin-top':'50px'}"
         (onNodeExpand)="nodeExpand($event)">
-        <header>Lazy Loading</header>
+        <p-header>Lazy Loading</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
@@ -154,8 +171,7 @@ export class NodeService &#123;
     getFilesystem() &#123;
         return this.http.get('showcase/resources/data/filesystem.json')
                     .toPromise()
-                    .then(res => &lt;TreeNode[]&gt; res.json().data)
-                    .then(data => &#123; return data; &#125;);
+                    .then(res => &lt;TreeNode[]&gt; res.json().data);
     &#125;
 &#125;
 </code>
@@ -375,8 +391,8 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-treeTable [value]="files"&gt;
-    &lt;header&gt;List of Files&lt;/header&gt;
-    &lt;footer&gt;Choose from the list.&lt;/footer&gt;
+    &lt;p-header&gt;List of Files&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
@@ -385,7 +401,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Selection</h3>
-            <p>TreeTable supports two selection methods, single and multiple. Selection is enabled by setting selectionMode property and providing a single TreeNode or
+            <p>TreeTable supports three selection methods, single, multiple and checkbox. Selection is enabled by setting selectionMode property and providing a single TreeNode or
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 <pre>
 <code class="language-typescript" pCode>
@@ -404,13 +420,16 @@ export class TreeTableDemoComponent implements OnInit &#123;
 &#125;
 </code>
 </pre>
+
 <pre>
 <code class="language-markup" pCode>
 &lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-treeTable&gt;
 </code>
 </pre>
 
-<p>In multiple mode, selection property should be an array.</p>
+<p>In multiple mode or checkbox mode, selection property should be an array. In multiple mode, items can either be selected
+using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+devices metaKeySelection is turned off automatically.</p>
 <pre>
 <code class="language-typescript" pCode>
     export class TreeTableDemoComponent implements OnInit &#123;
@@ -463,23 +482,75 @@ export class TreeTableDemoComponent implements OnInit &#123;
 &#125;
 </code>
 </pre>
+
+            <p>Selection of a particular node can be disabled by setting the selectable property of the node to false.</p>
+            
+            <h3>ContextMenu</h3>
+            <p>TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a treetable, define a local template
+            variable for the menu and bind it to the contextMenu property of the treetable. This enables showing the menu whenever a row is right clicked.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"&gt;
+    &lt;p-header&gt;Context Menu&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode>
+export class TreeTableDemoComponent implements OnInit &#123;
+    
+    files: TreeNode[];
+    
+    selectedFile: TreeNode;
+
+    constructor(private nodeService: NodeService) &#123;&#125;
+    
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files = files);
+        
+        this.items = [
+            &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)&#125;,
+            &#123;label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)&#125;
+        ];
+    &#125;
+    
+    viewNode(node: TreeNode) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: node.data.name&#125;);
+    &#125;
+
+    deleteNode(node: TreeNode) &#123;
+        node.parent.children = node.parent.children.filter( n => n.data !== node.data);
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Deleted', detail: node.data.name&#125;);
+    &#125;
+
+&#125;
+</code>
+</pre>
                 
             <h3>Templating</h3>
-            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a template inside a column that gets 
+            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a ng-template inside a column that gets 
                 the column as an implicit variable and rowData as the node instance. Similarly, custom content can be placed at the header and footer of a column with templating.
                 Example below places an input field to create editable treenodes.</p>
 
 <pre>
 <code class="language-markup" pCode>
-&lt;h3&gt;Template&lt;/h3&gt;
+&lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-treeTable [value]="files"&gt;
     &lt;p:column&gt;
-        &lt;template let-col let-node="rowData" pTemplate="header"&gt;
+        &lt;ng-template let-col let-node="rowData" pTemplate="header"&gt;
             &lt;button type="button" pButton label="Refresh"&gt;&lt;/button&gt;
-        &lt;/template&gt;
-        &lt;template let-col let-node="rowData" pTemplate="body"&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-col let-node="rowData" pTemplate="body"&gt;
             &lt;input [(ngModel)]="node.data.name" type="text" style="width:100%"&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p:column&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -567,6 +638,18 @@ export class TreeTableDemoComponent implements OnInit &#123;
                             <td>null</td>
                             <td>An array of treenodes.</td>
                         </tr>
+                         <tr>
+                            <td>labelExpand</td>
+                            <td>string</td>
+                            <td>Expand</td>
+                            <td>Tooltip and screenreader text for expand icon.</td>
+                        </tr>
+                         <tr>
+                            <td>labelCollapse</td>
+                            <td>string</td>
+                            <td>Collapse</td>
+                            <td>Tooltip and screenreader text for collapse icon.</td>
+                        </tr>
                         <tr>
                             <td>selectionMode</td>
                             <td>string</td>
@@ -590,6 +673,13 @@ export class TreeTableDemoComponent implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>metaKeySelection</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+                            can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -629,6 +719,12 @@ export class TreeTableDemoComponent implements OnInit &#123;
                             <td>event.originalEvent: browser event <br>
                                 event.node: Collapsed node instance.</td>
                             <td>Callback to invoke when a node is collapsed.</td>
+                        </tr>
+                        <tr>
+                            <td>onContextMenuSelect</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.node: Selected node instance.</td>
+                            <td>Callback to invoke when a node is selected with right click.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -674,53 +770,68 @@ export class TreeTableDemoComponent implements OnInit &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
-&lt;p-treeTable [value]="files1" [style]="&#123;'margin-bottom':'30px'&#125;"&gt;
-    &lt;header&gt;Basic&lt;/header&gt;
+&lt;p-treeTable [value]="files1"&gt;
+    &lt;p-header&gt;Basic&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
     
 &lt;p-treeTable [value]="files2" selectionMode="single" [(selection)]="selectedFile"
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;
-    &lt;header&gt;Singe Selection&lt;/header&gt;
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;p-header&gt;Singe Selection&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
-Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}
+&lt;p&gt;Selected Node: &#123;&#123;selectedFile ? selectedFile.data.name : 'none'&#125;&#125;&lt;/p&gt;
     
 &lt;p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles" 
-    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'30px'&#125;"&gt;
-    &lt;header&gt;Multiple Selection&lt;/header&gt;
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;p-header&gt;Multiple Selection&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
-Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.data.name}} &lt;/span&gt;
+&lt;p&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;&#123;&#123;file.data.name&#125;&#125; &lt;/span&gt;&lt;/p&gt;
 
-&lt;p-treeTable [value]="files4" [style]="&#123;'margin-top':'30px'&#125;"&gt;
-    &lt;header&gt;Editable Cells with Templating&lt;/header&gt;
+&lt;p-treeTable [value]="files4" selectionMode="checkbox" [(selection)]="selectedFiles2" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;p-header&gt;Checkbox Selection&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+&lt;p&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles2"&gt;&#123;&#123;file.data.name&#125;&#125; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p-treeTable [value]="files5" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;p-header&gt;Editable Cells with Templating&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;
-        &lt;template let-node="rowData" pTemplate="body"&gt;
-            &lt;input type="text" [(ngModel)]="node.data.name" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
-        &lt;/template&gt;
+        &lt;ng-template let-node="rowData" pTemplate="body"&gt;
+            &lt;input type="text" [(ngModel)]="node.data.name" style="width:100%;border-width:0px 0px 1px 0px"&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;
-        &lt;template let-node="rowData" pTemplate="body"&gt;
-            &lt;input type="text" [(ngModel)]="node.data.size" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
-        &lt;/template&gt;
+        &lt;ng-template let-node="rowData" pTemplate="body"&gt;
+            &lt;input type="text" [(ngModel)]="node.data.size" style="width:100%;border-width:0px 0px 1px 0px"&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;
-        &lt;template let-node="rowData" pTemplate="body"&gt;
-            &lt;input type="text" [(ngModel)]="node.data.type" style="width:100%;box-sizing:border-box;border-width:0px 0px 1px 0px"&gt;
-        &lt;/template&gt;
+        &lt;ng-template let-node="rowData" pTemplate="body"&gt;
+            &lt;input type="text" [(ngModel)]="node.data.type" style="width:100%;border-width:0px 0px 1px 0px"&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
 &lt;/p-treeTable&gt;
 
-&lt;p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'30px'&#125;"
+&lt;p-treeTable [value]="files6" selectionMode="single" [(selection)]="selectedFile2" [style]="&#123;'margin-top':'50px'&#125;" [contextMenu]="cm"&gt;
+    &lt;p-header&gt;Context Menu&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+
+&lt;p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'50px'&#125;"
     (onNodeExpand)="nodeExpand($event)"&gt;
-    &lt;header&gt;Lazy Loading&lt;/header&gt;
+    &lt;p-header&gt;Lazy Loading&lt;/p-header&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
@@ -746,6 +857,8 @@ export class TreeTableDemo implements OnInit &#123;
         
     selectedFile: TreeNode;
     
+    selectedFile2: TreeNode;
+    
     selectedFiles: TreeNode[];
         
     constructor(private nodeService: NodeService) &#123; &#125;
@@ -753,6 +866,11 @@ export class TreeTableDemo implements OnInit &#123;
     ngOnInit() &#123;
         this.nodeService.getFilesystem().then(files => this.files = files);
         this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
+        
+        this.items = [
+            &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)&#125;,
+            &#123;label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)&#125;
+        ];
     &#125;
     
     nodeSelect(event) &#123;
@@ -771,6 +889,18 @@ export class TreeTableDemo implements OnInit &#123;
             this.nodeService.getLazyFilesystem().then(nodes => event.node.children = nodes);
         &#125;
     &#125;
+    
+    viewNode(node: TreeNode) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: node.data.name&#125;);
+    &#125;
+
+    deleteNode(node: TreeNode) &#123;
+        node.parent.children = node.parent.children.filter( n => n.data !== node.data);
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Deleted', detail: node.data.name&#125;);
+    &#126;
+    
 &#125;
 </code>
 </pre>

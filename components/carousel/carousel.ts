@@ -1,6 +1,6 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChild,Renderer} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,AfterContentInit,EventEmitter,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChildren,QueryList,Renderer} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
-import {SharedModule} from '../common/shared';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -28,7 +28,7 @@ import {CommonModule} from '@angular/common';
                 <ul class="ui-carousel-items" [style.left.px]="left" [style.transitionProperty]="'left'" 
                             [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
                     <li *ngFor="let item of value" class="ui-carousel-item ui-widget-content ui-corner-all">
-                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                        <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
             </div>
@@ -64,7 +64,11 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
 
     @Input() styleClass: string;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
+    
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
         
     public container: any;    
     
@@ -98,6 +102,20 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
 
     constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer) {
         this.differ = differs.find([]).create(null);
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
     
     ngDoCheck() {
@@ -230,6 +248,9 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.page = p;
             this.left = (-1 * (this.domHandler.innerWidth(this.viewport) * this.page));
             this.firstVisible = this.page * this.columns;
+            this.onPage.emit({
+                page: this.page
+            });
         }
     }
     
@@ -289,7 +310,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     }
     
     ngOnDestroy() {
-        if(this.responsive) {
+        if(this.documentResponsiveListener) {
             this.documentResponsiveListener();
         }
         

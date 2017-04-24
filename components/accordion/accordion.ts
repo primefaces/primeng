@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChildren,QueryList,
-trigger,state,transition,style,animate} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChildren,QueryList} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
 import {BlockableUI} from '../common/api';
@@ -24,6 +24,8 @@ export class Accordion implements BlockableUI {
     
     @Input() styleClass: string;
     
+    @Input() lazy: boolean;
+    
     public tabs: AccordionTab[] = [];
 
     constructor(public el: ElementRef) {}
@@ -45,12 +47,12 @@ export class Accordion implements BlockableUI {
             <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
             <a href="#" *ngIf="!hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">{{header}}</a>
             <a href="#" *ngIf="hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">
-                <ng-content select="header"></ng-content>
+                <ng-content select="p-header"></ng-content>
             </a>
         </div>
-        <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" 
+        <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" (@tabContent.done)="onToggleDone($event)"
             [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" role="tabpanel" [attr.aria-hidden]="!selected">
-            <div class="ui-accordion-content ui-widget-content">
+            <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
                 <ng-content></ng-content>
             </div>
         </div>
@@ -58,13 +60,12 @@ export class Accordion implements BlockableUI {
     animations: [
         trigger('tabContent', [
             state('hidden', style({
-                height: '0px'
+                height: '0'
             })),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-            transition('hidden => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+            transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
     ]
 })
@@ -87,7 +88,7 @@ export class AccordionTab {
     }
 
     toggle(event) {
-        if(this.disabled) {
+        if(this.disabled || this.animating) {
             return false;
         }
         
@@ -112,11 +113,6 @@ export class AccordionTab {
         
         this.selectedChange.emit(this.selected);
         
-        //TODO: Use onDone of animate callback instead with RC6
-        setTimeout(() => {
-            this.animating = false;
-        }, 400);
-
         event.preventDefault();
     }
 
@@ -131,8 +127,16 @@ export class AccordionTab {
         return index;
     }
     
+    get lazy(): boolean {
+        return this.accordion.lazy;
+    }
+    
     get hasHeaderFacet(): boolean {
         return this.headerFacet && this.headerFacet.length > 0;
+    }
+    
+    onToggleDone(event: Event) {
+        this.animating = false;
     }
 }
 

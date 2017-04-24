@@ -1,6 +1,6 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ContentChild,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule} from '../common/shared';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -19,18 +19,18 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 <li #token *ngFor="let item of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all">
                     <span *ngIf="!itemTemplate&&!disabled" class="ui-chips-token-icon fa fa-fw fa-close" (click)="removeItem($event,i)"></span>
                     <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
-                    <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                 </li>
                 <li class="ui-chips-input-token">
-                    <input #inputtext type="text" pInputText [attr.placeholder]="placeholder" (keydown)="onKeydown($event,inputtext)" (focus)="onFocus()" (blur)="onBlur()"
-                        [disabled]="maxedOut||disabled" [disabled]="disabled">
+                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
+                        (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled">
                 </li>
             </ul>
         </div>
     `,
     providers: [DomHandler,CHIPS_VALUE_ACCESSOR]
 })
-export class Chips implements ControlValueAccessor {
+export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Input() style: any;
 
@@ -47,8 +47,14 @@ export class Chips implements ControlValueAccessor {
     @Input() placeholder: string;
     
     @Input() max: number;
+
+    @Input() tabindex: number;
+
+    @Input() inputId: string;
     
-    @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public itemTemplate: TemplateRef<any>;
         
     value: any;
     
@@ -61,6 +67,20 @@ export class Chips implements ControlValueAccessor {
     focus: boolean;
             
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
+    }
     
     writeValue(value: any) : void {
         this.value = value;
@@ -111,7 +131,8 @@ export class Chips implements ControlValueAccessor {
             return;
         }
         
-        let removedItem = this.value.splice(index, 1);
+        let removedItem = this.value[index];
+        this.value = this.value.filter((val, i) => i!=index);
         this.onModelChange(this.value);
         this.onRemove.emit({
             originalEvent: event,
@@ -124,6 +145,7 @@ export class Chips implements ControlValueAccessor {
             //backspace
             case 8:
                 if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
+                    this.value = [...this.value];
                     let removedItem = this.value.pop();
                     this.onModelChange(this.value);
                     this.onRemove.emit({
@@ -137,7 +159,7 @@ export class Chips implements ControlValueAccessor {
             case 13:
                 this.value = this.value||[];
                 if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
-                    this.value.push(inputEL.value);
+                    this.value = [...this.value,inputEL.value];
                     this.onModelChange(this.value);
                     this.onAdd.emit({
                         originalEvent: event,
