@@ -19,7 +19,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <div class="ui-helper-hidden-accessible">
                 <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
-            <div class="ui-multiselect-label-container" [title]="valuesAsString">
+            <div class="ui-multiselect-label-container" [title]="valuesAsStringTitle">
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
@@ -76,6 +76,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() scrollHeight: string = '200px';
     
     @Input() defaultLabel: string = 'Choose';
+    
+    @Input() multipleSelectedValueLabel: string;
 
     @Input() style: any;
 
@@ -104,6 +106,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     public onModelTouched: Function = () => {};
     
     public valuesAsString: string;
+
+    public valuesAsStringTitle: string;
         
     public focus: boolean;
     
@@ -303,10 +307,17 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
                 }
                 label = label + this.findLabelByValue(this.value[i]);
             }
-            this.valuesAsString = label;
+            if (this.multipleSelectedValueLabel && this.value.length > 1) {
+                this.valuesAsString = this.multipleSelectedValueLabel;
+                this.valuesAsStringTitle = label;
+            } else {
+                this.valuesAsString = label;
+                this.valuesAsStringTitle = label;
+            }            
         }
         else {
             this.valuesAsString = this.defaultLabel;
+            this.valuesAsStringTitle = this.defaultLabel;
         }
     }
     

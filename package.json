@@ -15,6 +15,20 @@
     "type": "git",
     "url": "https://github.com/primefaces/primeng.git"
   },
+  "dependencies": {
+      "@angular/common": "4.0.0",
+      "@angular/compiler": "4.0.0",
+      "@angular/core": "4.0.0",
+      "@angular/forms": "4.0.0",
+      "@angular/http": "4.0.0",
+      "@angular/platform-browser": "4.0.0",
+      "@angular/platform-browser-dynamic": "4.0.0",
+      "@angular/router": "4.0.0",
+      "@angular/animations": "4.0.0",
+      "core-js": "^2.4.1",
+      "rxjs": "^5.2.0",
+      "zone.js": "^0.8.4"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^7.0.5",
