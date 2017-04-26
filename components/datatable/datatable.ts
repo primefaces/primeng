@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,DoCheck,Input,ViewContainerRef,ViewChild,
-        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,IterableDiffers,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,Input,ViewContainerRef,ViewChild,
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
@@ -458,7 +458,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     `,
     providers: [DomHandler,ObjectUtils]
 })
-export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,DoCheck,OnDestroy,BlockableUI {
+export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,OnDestroy,BlockableUI {
 
     @Input() paginator: boolean;
 
@@ -553,9 +553,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() paginatorPosition: string = 'bottom';
     
     @Input() metaKeySelection: boolean = true;
-    
-    @Input() immutable: boolean;
-            
+                
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
@@ -637,11 +635,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public scrollableColumns: Column[];
 
     public columnsChanged: boolean = false;
-    
-    public dataChanged: boolean = false;
-    
-    public stopSortPropagation: boolean;
-    
+        
     public sortColumn: Column;
     
     public columnResizing: boolean;
@@ -687,24 +681,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public scrollBarWidth: number;
     
     public editorClick: boolean;
-    
-    differ: any;
-    
+        
     globalFilterFunction: any;
     
     columnsSubscription: Subscription;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, 
+    constructor(public el: ElementRef, public domHandler: DomHandler,
             public renderer: Renderer, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
     }
 
     ngOnInit() {
         if(this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-        
-        if(!this.immutable) {
-            this.differ = this.differs.find([]).create(null);
         }
     }
     
@@ -745,10 +733,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
             this.columnsChanged = false;
         }
-        
-        if(this.dataChanged) {            
-            this.dataChanged = false;
-        }
     }
 
     ngAfterViewInit() {
@@ -770,16 +754,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
     }
-        
-
-    ngDoCheck() {
-        if(!this.immutable) {
-            let changes = this.differ.diff(this.value);
-            if(changes) {
-                this.handleDataChange();
-            }
-        }
-    }
     
     @Input() get value(): any[] {
         return this._value;
@@ -791,36 +765,25 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     handleDataChange() {
-        this.dataChanged = true;
         if(this.paginator) {
             this.updatePaginator();
         }
-
-        if(this.hasFilter()) {
-            if(this.lazy) {
-                //prevent loop
-                if(this.stopFilterPropagation)
-                    this.stopFilterPropagation = false;
-                else
-                    this._filter();
-            }
-            else {
+        
+        if(!this.lazy) {
+            if(this.hasFilter()) {
                 this._filter();
             }
-        }
-                    
-        if(this.stopSortPropagation) {
-            this.stopSortPropagation = false;
-        }
-        else if(!this.lazy && (this.sortField||this.multiSortMeta)) {  
-            if(!this.sortColumn && this.columns) {
-                this.sortColumn = this.columns.find(col => col.field === this.sortField && col.sortable === 'custom');
-            }              
             
-            if(this.sortMode == 'single')
-                this.sortSingle();
-            else if(this.sortMode == 'multiple')
-                this.sortMultiple();
+            if(this.sortField||this.multiSortMeta) {  
+                if(!this.sortColumn && this.columns) {
+                    this.sortColumn = this.columns.find(col => col.field === this.sortField && col.sortable === 'custom');
+                }              
+                
+                if(this.sortMode == 'single')
+                    this.sortSingle();
+                else if(this.sortMode == 'multiple')
+                    this.sortMultiple();
+            }
         }
 
         this.updateDataToRender(this.filteredValue||this.value);
@@ -1047,9 +1010,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this._filter();
             }
         }
-        
-        //prevent resort at ngDoCheck
-        this.stopSortPropagation = true;
     }
 
     sortMultiple() {
@@ -1062,9 +1022,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this._filter();
             }
         }
-        
-        //prevent resort at ngDoCheck
-        this.stopSortPropagation = true;
     }
 
     multisortField(data1,data2,multiSortMeta,index) {
