@@ -33,7 +33,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
-                (click)="handleDropdownClick($event)" *ngIf="dropdown" (focus)="onDropdownFocus($event)" (blur)="onDropdownBlur($event)"></button>
+                (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
             <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
                     <li *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
@@ -142,9 +142,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     highlightOptionChanged: boolean;
     
     focus: boolean = false;
-    
-    dropdownFocus: boolean = false;
-    
+        
     filled: boolean;
     
     inputClick: boolean;
@@ -297,14 +295,12 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         
         this.onSelect.emit(option);
         
-        if(this.multiple)
-            this.multiInputEL.nativeElement.focus();
-        else
-            this.inputEL.nativeElement.focus();
+        this.focusInput();
     }
     
     show() {
-        if(!this.panelVisible && (this.focus||this.dropdownFocus)) {
+        let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
+        if(!this.panelVisible && hasFocus) {
             this.panelVisible = true;
             this.panelEL.nativeElement.style.zIndex = ++DomHandler.zindex;
             this.domHandler.fadeIn(this.panelEL.nativeElement, 200);
@@ -323,10 +319,18 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     }
     
     handleDropdownClick(event) {
+        this.focusInput();
         this.onDropdownClick.emit({
             originalEvent: event,
             query: this.inputEL.nativeElement.value
         });
+    }
+    
+    focusInput() {
+        if(this.multiple)
+            this.multiInputEL.nativeElement.focus();
+        else
+            this.inputEL.nativeElement.focus();
     }
     
     removeItem(item: any) {
@@ -424,20 +428,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         this.onModelTouched();
         this.onBlur.emit(event);
     }
-    
-    onDropdownFocus() {
-        this.dropdownFocus = true;
         
-        if(this.multiple)
-            this.multiInputEL.nativeElement.focus();
-        else
-            this.inputEL.nativeElement.focus();
-    }
-    
-    onDropdownBlur() {
-        this.dropdownFocus = false;
-    }
-    
     isSelected(val: any): boolean {
         let selected: boolean = false;
         if(this.value && this.value.length) {
