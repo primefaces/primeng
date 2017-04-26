@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
@@ -56,11 +56,12 @@ export class SplitButton implements OnInit,OnDestroy {
     
     public documentClickListener: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public router: Router) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public router: Router, public cd: ChangeDetectorRef) {}
     
     ngOnInit() {
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
             this.menuVisible = false;
+            this.cd.markForCheck();
         });
     }
     

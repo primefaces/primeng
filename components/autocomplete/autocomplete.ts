@@ -1,4 +1,4 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer,forwardRef} from '@angular/core';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {ButtonModule} from '../button/button';
@@ -147,7 +147,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     
     inputClick: boolean;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public objectUtils: ObjectUtils) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef) {}
     
     @Input() get suggestions(): any[] {
         return this._suggestions;
@@ -191,12 +191,12 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     
     ngAfterViewInit() {        
         this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            if(this.inputClick) {
+            if(this.inputClick)
                 this.inputClick = false;
-            }
-            else {
+            else
                 this.hide();
-            }
+                
+            this.cd.markForCheck();
         });
 
         if(this.appendTo) {
