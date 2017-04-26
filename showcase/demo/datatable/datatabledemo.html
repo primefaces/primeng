@@ -275,6 +275,11 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <h3>Managing Data</h3>
+            <p>DataTable uses setter based checking to realize if the underlying data has changed to update the UI so your data changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array. For example, use slice instead of splice when removing an item 
+                or use spread operator instead of push method when adding an item.</p>
+
             <h3>Templates</h3>
             <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating where the implicit variable passed to the ng-template 
                 is the column definition and data of current row is the rowData property. In addition index of the current can be accessed using the optional rowIndex variable. 
@@ -880,11 +885,6 @@ loadData(event: LazyLoadEvent) &#123;
 &lt;/p-column&gt;
 </code>
 </pre>
-
-            <h3>Immutable Mode</h3>
-            <p>DataTable uses diff checking to realize if the underlying data has changed, this may slow down the performance so to avoid it set immutable mode on and make sure
-                your data changes such as adding or removing a record always creates a new array reference. For example, use slice instead of splice when removing an item 
-                or uses spread operator instead of push method when adding an item.</p>
                 
             <h3>Loading Status</h3>
             <p>DataTable has a loading property, when enabled a spinner icon is displayed to indicate data load.</p>
@@ -1208,12 +1208,6 @@ export class DataTableDemo implements OnInit &#123;
                             <td>true</td>
                             <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
                             can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
-                        </tr>
-                        <tr>
-                            <td>immutable</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Improves performance by avoiding diff checking, changes to value should be done in an immutable way on application side when immutable property is enabled.</td>
                         </tr>
                         <tr>
                             <td>dataKey</td>
