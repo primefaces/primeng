@@ -1,4 +1,4 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,IterableDiffers,Renderer,forwardRef} from '@angular/core';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {ButtonModule} from '../button/button';
@@ -51,7 +51,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     },
     providers: [DomHandler,ObjectUtils,AUTOCOMPLETE_VALUE_ACCESSOR]
 })
-export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,ControlValueAccessor {
+export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValueAccessor {
     
     @Input() minLength: number = 1;
     
@@ -77,8 +77,6 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     @Input() size: number;
     
-    @Input() suggestions: any[];
-
     @Input() appendTo: any;
     
     @Input() autoHighlight: boolean;
@@ -123,6 +121,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     value: any;
     
+    _suggestions: any[];
+    
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
@@ -147,19 +147,22 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     inputClick: boolean;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer, public objectUtils: ObjectUtils) {
-        this.differ = differs.find([]).create(null);
-    }
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public objectUtils: ObjectUtils) {}
     
-    ngDoCheck() {
-        let changes = this.differ.diff(this.suggestions);
-        if(changes && this.panelEL.nativeElement) {
-            if(this.suggestions && this.suggestions.length) {
+    @Input() get suggestions(): any[] {
+        return this._suggestions;
+    }
+
+    set suggestions(val:any[]) {
+        this._suggestions = val;
+        
+        if(this.panelEL.nativeElement) {
+            if(this._suggestions && this._suggestions.length) {
                 this.show();
                 this.suggestionsUpdated = true;
                 
                 if(this.autoHighlight) {
-                    this.highlightOption = this.suggestions[0];
+                    this.highlightOption = this._suggestions[0];
                 }
             }
             else {
@@ -167,7 +170,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             }
         }
     }
-    
+        
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
