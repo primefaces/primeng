@@ -91,12 +91,6 @@ export class MyModel &#123;
                             <td>Label to display when there are no selections.</td>
                         </tr>
                         <tr>
-                            <td>displaySelectedLabel</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Specifies the visibility of the selected labels in container.</td>
-                        </tr>
-                        <tr>
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
@@ -145,16 +139,22 @@ export class MyModel &#123;
                             <td>Identifier of the focus input to match a label defined for the component.</td>
                         </tr>
                         <tr>
-                            <td>maxItems</td>
+                            <td>displaySelectedLabel</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show labels of selected item labels or use default label.</td>
+                        </tr>
+                        <tr>
+                            <td>maxSelectedLabels</td>
                             <td>number</td>
                             <td>3</td>
-                            <td>Decides how many items to show in container.</td>
+                            <td>Decides how many selected item labels to show at most.</td>
                         </tr>
                         <tr>
                             <td>selectedItemsLabel</td>
                             <td>string</td>
                             <td>&#123;0&#125; items selected</td>
-                            <td>After reaching maxItems, it decides label message to show in container.(It replaces &#123;0&#125; with the length of selected items using regexp)</td>
+                            <td>Label to display after exceeding max selected labels.</td>
                         </tr>
                     </tbody>
                 </table>
