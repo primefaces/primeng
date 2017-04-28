@@ -156,12 +156,12 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
             this.hide();
         });
         
         if(this.global) {
-            this.rightClickListener = this.renderer.listenGlobal('body', 'contextmenu', (event) => {
+            this.rightClickListener = this.renderer.listenGlobal('document', 'contextmenu', (event) => {
                 this.show(event);
                 event.preventDefault();
             });

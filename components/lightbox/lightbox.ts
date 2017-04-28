@@ -94,7 +94,7 @@ export class Lightbox implements AfterViewInit,OnDestroy{
                 this.domHandler.appendChild(this.panel, this.appendTo);
         }
         
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', (event) => {
             if(!this.preventDocumentClickListener&&this.visible) {
                 this.hide(event);
             }

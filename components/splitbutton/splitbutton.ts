@@ -59,7 +59,7 @@ export class SplitButton implements OnInit,OnDestroy {
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public router: Router, public cd: ChangeDetectorRef) {}
     
     ngOnInit() {
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
             this.menuVisible = false;
             this.cd.markForCheck();
         });

@@ -746,7 +746,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         if(this.editable) {
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', (event) => {
                 if(!this.editorClick) {
                     this.closeCell();
                 }
@@ -1634,13 +1634,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.resizerHelper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
         this.fixColumnWidths();
         
-        this.documentColumnResizeListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+        this.documentColumnResizeListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
             if(this.columnResizing) {
                 this.onColumnResize(event);
             }
         });
         
-        this.documentColumnResizeEndListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
+        this.documentColumnResizeEndListener = this.renderer.listenGlobal('document', 'mouseup', (event) => {
             if(this.columnResizing) {
                 this.columnResizing = false;
                 this.onColumnResizeEnd(event);

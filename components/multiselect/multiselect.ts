@@ -138,7 +138,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     ngOnInit() {
         this.updateLabel();
         
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
             if(!this.selfClick && !this.panelClick && this.overlayVisible) {
                 this.hide();
             }
