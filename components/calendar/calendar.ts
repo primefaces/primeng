@@ -476,8 +476,12 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         }
         
         if(dateMeta.otherMonth) {
-            if(this.selectOtherMonths)
+			if(this.selectOtherMonths) {
+                this.currentMonth = dateMeta.month;
+                this.currentYear = dateMeta.year;
+                this.createMonth(this.currentMonth, this.currentYear);
                 this.selectDate(dateMeta);
+            }
         }
         else {
              this.selectDate(dateMeta);
