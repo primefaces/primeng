@@ -973,6 +973,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 multisortmeta: this.multiSortMeta
             });
         }
+        
+        this.updateDataToRender(this.filteredValue||this.value);
     }
 
     sortSingle() {
