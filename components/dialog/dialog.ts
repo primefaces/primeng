@@ -56,7 +56,11 @@ export class Dialog implements AfterViewInit,OnDestroy {
     @Input() width: any;
 
     @Input() height: any;
-        
+
+    @Input() openingPositionLeft: number;
+
+    @Input() openingPositionTop: number;
+
     @Input() contentStyle: any;
 
     @Input() modal: boolean;
@@ -139,8 +143,13 @@ export class Dialog implements AfterViewInit,OnDestroy {
     show() {
         this.onShow.emit({});
         
-        this.center();
-        
+        if(this.openingPositionLeft && this.openingPositionTop){
+            this.container.style.left = this.openingPositionLeft + 'px';
+            this.container.style.top = this.openingPositionTop + 'px';
+        }
+        else{
+            this.center();
+        }
         this.container.style.zIndex = String(++DomHandler.zindex);
         
         if(this.modal) {
@@ -187,14 +196,20 @@ export class Dialog implements AfterViewInit,OnDestroy {
         
         if(this.responsive) {
             this.documentResponsiveListener = this.renderer.listenGlobal('window', 'resize', (event) => {
-                this.center();
+                if(this.openingPositionLeft && this.openingPositionTop){
+                    this.container.style.left = this.openingPositionLeft + 'px';
+                    this.container.style.top = this.openingPositionTop + 'px';
+                }
+                else{
+                    this.center();
+                }
             });
         }
         
         if(this.closeOnEscape && this.closable) {
             this.documentEscapeListener = this.renderer.listenGlobal('document', 'keydown', (event) => {
                 if(event.which == 27) {
-                    if(parseInt(this.container.style.zIndex) == DomHandler.zindex) {
+                    if(parseInt(this.container.style.zIndex) == DomHandler.zindex) {
                         this.close(event);
                     }
                 }
