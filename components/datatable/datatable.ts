@@ -1590,10 +1590,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
         
-        if(this.domHandler.hasClass(prevCell, 'ui-editable-column'))
-            return prevCell;
-        else
-            return this.findPreviousEditableColumn(prevCell);
+        if(prevCell) {
+            if(this.domHandler.hasClass(prevCell, 'ui-editable-column'))
+                return prevCell;
+            else
+                return this.findPreviousEditableColumn(prevCell);
+        }
+        else {
+            return null;
+        }
     }
     
     findNextEditableColumn(cell: Element) {
@@ -1606,10 +1611,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
         
-        if(this.domHandler.hasClass(nextCell, 'ui-editable-column'))
-            return nextCell;
-        else
-            return this.findNextEditableColumn(nextCell);
+        if(nextCell) {
+            if(this.domHandler.hasClass(nextCell, 'ui-editable-column'))
+                return nextCell;
+            else
+                return this.findNextEditableColumn(nextCell);
+        }
+        else {
+            return null;
+        }
     }
         
     onCustomEditorFocusPrev(event: KeyboardEvent) {
