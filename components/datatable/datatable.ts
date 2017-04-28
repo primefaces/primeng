@@ -760,7 +760,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     set value(val:any[]) {
-        this._value = [...val];
+        this._value = val ? [...val] : null;
         this.handleDataChange();
     }
     
