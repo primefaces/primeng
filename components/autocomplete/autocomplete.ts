@@ -327,9 +327,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     
     handleDropdownClick(event) {
         this.focusInput();
+        let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
         this.onDropdownClick.emit({
             originalEvent: event,
-            query: this.inputEL.nativeElement.value
+            query: queryValue
         });
     }
     
@@ -464,7 +465,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     }
     
     updateFilledState() {
-        this.filled = this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '';
+        if(this.multiple)
+            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
+        else
+            this.filled = this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '';
     }
     
     ngOnDestroy() {
