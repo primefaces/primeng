@@ -99,6 +99,13 @@
         <p-tabPanel header="validationdemo.ts">
 <pre>
 <code class="language-typescript" pCode>
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;Validators,FormControl,FormGroup,FormBuilder&#125; from '@angular/forms';
+import &#123;Message,SelectItem&#125; from '../../../components/common/api';
+
+@Component(&#123;
+    templateUrl: 'showcase/demo/validation/validationdemo.html'
+&#125;)
 export class ValidationDemo implements OnInit &#123;
     
     msgs: Message[] = [];
