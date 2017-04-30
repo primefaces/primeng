@@ -158,7 +158,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     set suggestions(val:any[]) {
         this._suggestions = val;
         
-        if(this.panelEL.nativeElement) {
+        if(this.panelEL && this.panelEL.nativeElement) {
             if(this._suggestions && this._suggestions.length) {
                 this.show();
                 this.suggestionsUpdated = true;
@@ -304,12 +304,14 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     }
     
     show() {
-        let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
-        if(!this.panelVisible && hasFocus) {
-            this.panelVisible = true;
-            this.panelEL.nativeElement.style.zIndex = ++DomHandler.zindex;
-            this.domHandler.fadeIn(this.panelEL.nativeElement, 200);
-        }        
+        if(this.multiInputEL || this.inputEL) {
+            let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
+            if(!this.panelVisible && hasFocus) {
+                this.panelVisible = true;
+                this.panelEL.nativeElement.style.zIndex = ++DomHandler.zindex;
+                this.domHandler.fadeIn(this.panelEL.nativeElement, 200);
+            }   
+        }
     }
     
     align() {
