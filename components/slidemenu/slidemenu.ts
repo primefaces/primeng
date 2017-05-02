@@ -152,7 +152,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
         this.slideMenuContentElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardElement) + 'px';
         
         if(this.popup) {
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
                 }
@@ -166,11 +166,10 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
             this.hide();
         else
             this.show(event);
-            
-        this.preventDocumentDefault = true;
     }
     
     show(event) {
+        this.preventDocumentDefault = true;
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, event.target);
         this.domHandler.fadeIn(this.container, 250);

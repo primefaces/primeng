@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChildren,
-        QueryList,ViewChild,TemplateRef,IterableDiffers,forwardRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChildren,
+        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
@@ -19,7 +19,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     template: `
          <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
             'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focus}"
-            (click)="onMouseclick($event,in)" [ngStyle]="style" [class]="styleClass">
+            (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
                 <select [required]="required" tabindex="-1">
                     <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
@@ -37,7 +37,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div #panel [ngClass]="'ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow'" [@panelState]="panelVisible ? 'visible' : 'hidden'"
                 [style.display]="panelVisible ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
-                    <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
+                    <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder">
                     <span class="fa fa-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
@@ -68,9 +68,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     ],
     providers: [DomHandler,ObjectUtils,DROPDOWN_VALUE_ACCESSOR]
 })
-export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
-
-    @Input() options: SelectItem[];
+export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 
     @Input() scrollHeight: string = '200px';
 
@@ -100,6 +98,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() placeholder: string;
     
+    @Input() filterPlaceholder: string;
+
     @Input() inputId: string;
     
     @Input() dataKey: string;
@@ -118,11 +118,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @ViewChild('filter') filterViewChild: ElementRef;
     
+    @ViewChild('in') focusViewChild: ElementRef;
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
         
     selectedOption: SelectItem;
+    
+    _options: SelectItem[];
     
     value: any;
     
@@ -136,9 +140,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     focus: boolean;
     
-    differ: any;
-    
     public panelVisible: boolean = false;
+    
+    public shown: boolean;
     
     public documentClickListener: any;
     
@@ -160,9 +164,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public selectedOptionUpdated: boolean;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers, private cd: ChangeDetectorRef, public objectUtils: ObjectUtils) {
-        this.differ = differs.find([]).create(null);
-    }
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, private cd: ChangeDetectorRef, public objectUtils: ObjectUtils) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -183,16 +185,17 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateSelectedOption(null);
     }
     
-    ngDoCheck() {
-        let changes = this.differ.diff(this.options);
-        
-        if(changes && this.initialized) {
-            this.optionsToDisplay = this.options;
-            this.updateSelectedOption(this.value);
-            this.optionsChanged = true;
-        }
+    @Input() get options(): SelectItem[] {
+        return this._options;
     }
-    
+
+    set options(opts:SelectItem[]) {
+        this._options = opts;
+        this.optionsToDisplay = this._options;
+        this.updateSelectedOption(this.value);
+        this.optionsChanged = true;
+    }
+
     ngAfterViewInit() { 
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         this.panel = <HTMLDivElement> this.panelViewChild.nativeElement; 
@@ -220,6 +223,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     onItemClick(event, option) {
         this.itemClick = true;
         this.selectItem(event, option);
+        this.focusViewChild.nativeElement.focus();
                                 
         this.hide();
     }
@@ -236,13 +240,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     ngAfterViewChecked() {
-        if(this.optionsChanged) {
-            if (this.appendTo) {
-                this.domHandler.absolutePosition(this.panel, this.container);
-            } else {
-                this.domHandler.relativePosition(this.panel, this.container);
-            }        
+        if(this.shown) {
+            this.onShow();
+            this.shown = false;
+        }
         
+        if(this.optionsChanged) {
+            this.alignPanel();
             this.optionsChanged = false;
         }
         
@@ -302,7 +306,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
         
-    onMouseclick(event,input) {
+    onMouseclick(event) {
         if(this.disabled||this.readonly) {
             return;
         }
@@ -310,12 +314,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.selfClick = true;
         
         if(!this.itemClick) {
-            input.focus();
+            this.focusViewChild.nativeElement.focus();
             
             if(this.panelVisible)
                 this.hide();
             else {
-                this.show(this.panel,this.container);
+                this.show();
 
                 if (this.filterViewChild != undefined) {
                     setTimeout(() => {
@@ -345,23 +349,33 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             value: this.value
         });
     }
-    
-    show(panel,container) {
+             
+    onShow() {
         if(this.options && this.options.length) {
-            this.panelVisible = true;
-            panel.style.zIndex = ++DomHandler.zindex;
-            
-            if(this.appendTo)
-                this.domHandler.absolutePosition(panel, container);
-            else
-                this.domHandler.relativePosition(panel, container);
-                        
+            this.alignPanel();
             this.bindDocumentClickListener();
         }
     }
     
+    show() {
+        if(this.appendTo) {
+            this.panel.style.minWidth = this.domHandler.getWidth(this.container) + 'px';
+        }
+        
+        this.panel.style.zIndex = String(++DomHandler.zindex);
+        this.panelVisible = true;
+        this.shown = true;
+    }
+    
     hide() {
         this.panelVisible = false;
+    }
+    
+    alignPanel() {
+        if(this.appendTo)
+            this.domHandler.absolutePosition(this.panel, this.container);
+        else
+            this.domHandler.relativePosition(this.panel, this.container);
     }
     
     onInputFocus(event) {
@@ -386,7 +400,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //down
             case 40:
                 if(!this.panelVisible && event.altKey) {
-                    this.show(this.panel, this.container);
+                    this.show();
                 }
                 else {
                     if(selectedItemIndex != -1) {
@@ -483,7 +497,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(!this.selfClick&&!this.itemClick) {
                     this.panelVisible = false;
                     this.unbindDocumentClickListener();

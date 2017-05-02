@@ -194,6 +194,11 @@ export class UITreeNode implements OnInit {
                 subNodes: this.node.parent ? this.node.parent.children : this.tree.value,
                 index: dragNodeIndex
             });
+            
+            this.tree.onNodeDrop.emit({
+                originalEvent: event,
+                dragNode: dragNode
+            });
         }
         
         this.draghoverPrev = false;
@@ -276,7 +281,7 @@ export class UITreeNode implements OnInit {
                     originalEvent: event,
                     dragNode: dragNode,
                     dropNode: this.node
-                })
+                });
             }
         }
         

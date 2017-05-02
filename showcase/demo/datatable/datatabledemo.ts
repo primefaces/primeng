@@ -8,6 +8,8 @@ import {CarService} from '../service/carservice';
 })
 export class DataTableDemo implements OnInit {
 
+    loading: boolean;
+
     cars: Car[];
     
     cols: any[];
@@ -15,7 +17,11 @@ export class DataTableDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        this.loading = true;
+        setTimeout(() => {
+            this.carService.getCarsSmall().then(cars => this.cars = cars);
+            this.loading = false;
+        }, 1000);
         
         this.cols = [
             {field: 'vin', header: 'Vin'},

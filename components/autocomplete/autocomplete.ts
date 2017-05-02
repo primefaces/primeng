@@ -1,4 +1,4 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,IterableDiffers,Renderer,forwardRef} from '@angular/core';
+import {NgModule,Component,ViewChild,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {ButtonModule} from '../button/button';
@@ -17,23 +17,24 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     selector: 'p-autoComplete',
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
-            <input *ngIf="!multiple" #in type="text" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
+            <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'" (click)="onInputClick($event)"
             [value]="value ? (field ? objectUtils.resolveFieldData(value,field)||value : value) : null" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled"
             [ngClass]="{'ui-autocomplete-input':true,'ui-autocomplete-dd-input':dropdown}"
-            ><ul *ngIf="multiple" class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
+            ><ul *ngIf="multiple" #multiContainer class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
                     <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)" *ngIf="!disabled"></span>
                     <span *ngIf="!selectedItemTemplate" class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
                     <ng-template *ngIf="selectedItemTemplate" [pTemplateWrapper]="selectedItemTemplate" [item]="val"></ng-template>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn type="text" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off">
+                    <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
+                            (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off">
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
-                (click)="handleDropdownClick($event)" *ngIf="dropdown" (focus)="onDropdownFocus($event)" (blur)="onDropdownBlur($event)"></button>
-            <div class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
+                (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
+            <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
                     <li *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
                         (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
@@ -50,7 +51,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     },
     providers: [DomHandler,ObjectUtils,AUTOCOMPLETE_VALUE_ACCESSOR]
 })
-export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,ControlValueAccessor {
+export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValueAccessor {
     
     @Input() minLength: number = 1;
     
@@ -76,11 +77,11 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     @Input() size: number;
     
-    @Input() suggestions: any[];
-
     @Input() appendTo: any;
     
     @Input() autoHighlight: boolean;
+    
+    @Input() type: string = 'text';
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
     
@@ -106,6 +107,14 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     @Input() dataKey: string;
     
+    @ViewChild('in') inputEL: ElementRef;
+    
+    @ViewChild('multiIn') multiInputEL: ElementRef;
+    
+    @ViewChild('panel') panelEL: ElementRef;
+    
+    @ViewChild('multiContainer') multiContainerEL: ElementRef;
+        
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
@@ -114,6 +123,8 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     
     value: any;
     
+    _suggestions: any[];
+    
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
@@ -121,13 +132,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     timeout: any;
     
     differ: any;
-    
-    panel: any;
-    
-    input: any;
-    
-    multipleContainer: any;
-    
+        
     panelVisible: boolean = false;
     
     documentClickListener: any;
@@ -139,28 +144,27 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     highlightOptionChanged: boolean;
     
     focus: boolean = false;
-    
-    dropdownFocus: boolean = false;
-    
+        
     filled: boolean;
     
-    @ViewChild('in') inputEL: ElementRef;
+    inputClick: boolean;
+        
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef) {}
     
-    @ViewChild('multiIn') multiInputEL: ElementRef;
-    
-    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer, public objectUtils: ObjectUtils) {
-        this.differ = differs.find([]).create(null);
+    @Input() get suggestions(): any[] {
+        return this._suggestions;
     }
-    
-    ngDoCheck() {
-        let changes = this.differ.diff(this.suggestions);
-        if(changes && this.panel) {
-            if(this.suggestions && this.suggestions.length) {
+
+    set suggestions(val:any[]) {
+        this._suggestions = val;
+        
+        if(this.panelEL && this.panelEL.nativeElement) {
+            if(this._suggestions && this._suggestions.length) {
                 this.show();
                 this.suggestionsUpdated = true;
                 
                 if(this.autoHighlight) {
-                    this.highlightOption = this.suggestions[0];
+                    this.highlightOption = this._suggestions[0];
                 }
             }
             else {
@@ -168,7 +172,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             }
         }
     }
-    
+        
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
@@ -187,23 +191,21 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         });
     }
     
-    ngAfterViewInit() {
-        this.input = this.domHandler.findSingle(this.el.nativeElement, 'input');
-        this.panel = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-autocomplete-panel');
-        
-        if(this.multiple) {
-            this.multipleContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-autocomplete-multiple-container');
-        }
-        
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            this.hide();
+    ngAfterViewInit() {        
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
+            if(this.inputClick)
+                this.inputClick = false;
+            else
+                this.hide();
+                
+            this.cd.markForCheck();
         });
 
         if(this.appendTo) {
             if(this.appendTo === 'body')
-                document.body.appendChild(this.panel);
+                document.body.appendChild(this.panelEL.nativeElement);
             else
-                this.domHandler.appendChild(this.panel, this.appendTo);
+                this.domHandler.appendChild(this.panelEL.nativeElement, this.appendTo);
         }
     }
     
@@ -214,9 +216,9 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         }
         
         if(this.highlightOptionChanged) {
-            let listItem = this.domHandler.findSingle(this.panel, 'li.ui-state-highlight');
+            let listItem = this.domHandler.findSingle(this.panelEL.nativeElement, 'li.ui-state-highlight');
             if(listItem) {
-                this.domHandler.scrollInView(this.panel, listItem);
+                this.domHandler.scrollInView(this.panelEL.nativeElement, listItem);
             }
             this.highlightOptionChanged = false;
         }
@@ -239,10 +241,9 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         this.disabled = val;
     }
 
-    onInput(event) {
-        let value = event.target.value;
+    onInput(event: KeyboardEvent) {
+        let value = (<HTMLInputElement> event.target).value;
         if(!this.multiple) {
-            this.value = value;
             this.onModelChange(value);
         }
         
@@ -266,6 +267,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         this.updateFilledState();
     }
     
+    onInputClick(event: MouseEvent) {
+        this.inputClick = true;
+    }
+    
     search(event: any, query: string) {
         //allow empty string but not undefined or null
        if(query === undefined || query === null) {
@@ -280,7 +285,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             
     selectItem(option: any) {
         if(this.multiple) {
-            this.input.value = '';
+            this.multiInputEL.nativeElement.value = '';
             this.value = this.value||[];
             if(!this.isSelected(option)) {
                 this.value = [...this.value,option];
@@ -288,29 +293,32 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             }
         }
         else {
-            this.input.value = this.field ? this.objectUtils.resolveFieldData(option, this.field): option;
+            this.inputEL.nativeElement.value = this.field ? this.objectUtils.resolveFieldData(option, this.field): option;
             this.value = option;
             this.onModelChange(this.value);
         }
         
         this.onSelect.emit(option);
         
-        this.input.focus();
+        this.focusInput();
     }
     
     show() {
-        if(!this.panelVisible && (this.focus||this.dropdownFocus)) {
-            this.panelVisible = true;
-            this.panel.style.zIndex = ++DomHandler.zindex;
-            this.domHandler.fadeIn(this.panel, 200);
-        }        
+        if(this.multiInputEL || this.inputEL) {
+            let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
+            if(!this.panelVisible && hasFocus) {
+                this.panelVisible = true;
+                this.panelEL.nativeElement.style.zIndex = ++DomHandler.zindex;
+                this.domHandler.fadeIn(this.panelEL.nativeElement, 200);
+            }   
+        }
     }
     
     align() {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.panel, (this.multiple ? this.multipleContainer : this.input));
+            this.domHandler.absolutePosition(this.panelEL.nativeElement, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));
         else
-            this.domHandler.relativePosition(this.panel, (this.multiple ? this.multipleContainer : this.input));
+            this.domHandler.relativePosition(this.panelEL.nativeElement, (this.multiple ? this.multiContainerEL.nativeElement : this.inputEL.nativeElement));
     }
     
     hide() {
@@ -318,10 +326,19 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     }
     
     handleDropdownClick(event) {
+        this.focusInput();
+        let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
         this.onDropdownClick.emit({
             originalEvent: event,
-            query: this.input.value
+            query: queryValue
         });
+    }
+    
+    focusInput() {
+        if(this.multiple)
+            this.multiInputEL.nativeElement.focus();
+        else
+            this.inputEL.nativeElement.focus();
     }
     
     removeItem(item: any) {
@@ -398,7 +415,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
             switch(event.which) {
                 //backspace
                 case 8:
-                    if(this.value && this.value.length && !this.input.value) {
+                    if(this.value && this.value.length && !this.multiInputEL.nativeElement.value) {
                         this.value = [...this.value];
                         let removedValue = this.value.pop();
                         this.onUnselect.emit(removedValue);
@@ -419,20 +436,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         this.onModelTouched();
         this.onBlur.emit(event);
     }
-    
-    onDropdownFocus() {
-        this.dropdownFocus = true;
         
-        if(this.multiple)
-            this.multiInputEL.nativeElement.focus();
-        else
-            this.inputEL.nativeElement.focus();
-    }
-    
-    onDropdownBlur() {
-        this.dropdownFocus = false;
-    }
-    
     isSelected(val: any): boolean {
         let selected: boolean = false;
         if(this.value && this.value.length) {
@@ -461,7 +465,10 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
     }
     
     updateFilledState() {
-        this.filled = this.input && this.input.value != '';
+        if(this.multiple)
+            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
+        else
+            this.filled = this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '';
     }
     
     ngOnDestroy() {
@@ -470,7 +477,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
         }
 
         if(this.appendTo) {
-            this.el.nativeElement.appendChild(this.panel);
+            this.el.nativeElement.appendChild(this.panelEL.nativeElement);
         }
     }
 }

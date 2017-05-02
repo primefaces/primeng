@@ -121,7 +121,7 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
         this.container = this.el.nativeElement.children[0];
         
         if(this.popup) {
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
                 }

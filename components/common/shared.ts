@@ -78,6 +78,7 @@ export class Column implements AfterContentInit{
     @Input() editable: boolean;
     @Input() filter: boolean;
     @Input() filterMatchMode: string;
+    @Input() filterType: string = 'text';
     @Input() rowspan: number;
     @Input() colspan: number;
     @Input() style: any;

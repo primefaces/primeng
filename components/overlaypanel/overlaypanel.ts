@@ -53,7 +53,7 @@ export class OverlayPanel implements OnInit,AfterViewInit,OnDestroy {
 
     ngOnInit() {
         if(this.dismissable) {
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(!this.selfClick&&!this.targetEvent) {
                     this.hide();
                 }

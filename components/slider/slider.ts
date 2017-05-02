@@ -112,13 +112,13 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
             return;
         }
         
-        this.dragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+        this.dragListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
             if(this.dragging) {                                
                 this.handleChange(event);
             }
         });
         
-        this.mouseupListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
+        this.mouseupListener = this.renderer.listenGlobal('document', 'mouseup', (event) => {
             if(this.dragging) {
                 this.dragging = false;
                 this.onSlideEnd.emit({originalEvent: event, value: this.value});

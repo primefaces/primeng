@@ -17,7 +17,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
-                <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+                <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
@@ -71,6 +71,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+
     @Input() scrollHeight: string = '200px';
     
     @Input() defaultLabel: string = 'Choose';
@@ -91,6 +93,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     @Input() dataKey: string;
     
+    @Input() displaySelectedLabel: boolean = true;
+    
+    @Input() maxSelectedLabels: number = 3;
+    
+    @Input() selectedItemsLabel: string = '{0} items selected';
+        
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('panel') panelViewChild: ElementRef;
@@ -130,8 +138,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     ngOnInit() {
         this.updateLabel();
         
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            if(!this.selfClick && this.overlayVisible) {
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
+            if(!this.selfClick && !this.panelClick && this.overlayVisible) {
                 this.hide();
             }
             
@@ -286,13 +294,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         this.focus = true;
     }
     
-    onBlur(event) {
+    onInputBlur(event) {
         this.focus = false;
+        this.onBlur.emit({originalEvent: event});
         this.onModelTouched();
     }
     
     updateLabel() {
-        if(this.value && this.value.length) {
+        if(this.value && this.value.length && this.displaySelectedLabel) {
             let label = '';
             for(let i = 0; i < this.value.length; i++) {
                 if(i != 0) {
@@ -300,7 +309,15 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
                 }
                 label = label + this.findLabelByValue(this.value[i]);
             }
-            this.valuesAsString = label;
+            
+            if(this.value.length <= this.maxSelectedLabels) {
+                this.valuesAsString = label;
+            }
+            else {
+                let pattern = /{(.*?)}/,
+                newSelectedItemsLabel = this.selectedItemsLabel.replace(this.selectedItemsLabel.match(pattern)[0], this.value.length + '');
+                this.valuesAsString = newSelectedItemsLabel;
+            }
         }
         else {
             this.valuesAsString = this.defaultLabel;

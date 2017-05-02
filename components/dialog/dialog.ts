@@ -118,9 +118,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
     container: HTMLDivElement;
     
     contentContainer: HTMLDivElement;
-    
-    positionInitialized: boolean;
-            
+                
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
     
     @Input() get visible(): boolean {
@@ -130,19 +128,18 @@ export class Dialog implements AfterViewInit,OnDestroy {
     set visible(val:boolean) {
         this._visible = val;
         
-        if(this._visible)
-            this.show();
-        else
-            this.hide();
+        if(this.container) {
+            if(this._visible)
+                this.show();
+            else
+                this.hide();
+        }
     }
 
     show() {
         this.onShow.emit({});
         
-        if(!this.positionInitialized) {
-            this.center();
-            this.positionInitialized = true;
-        }
+        this.center();
         
         this.container.style.zIndex = String(++DomHandler.zindex);
         
@@ -171,17 +168,17 @@ export class Dialog implements AfterViewInit,OnDestroy {
         this.contentContainer =  <HTMLDivElement> this.contentViewChild.nativeElement;
         
         if(this.draggable) {
-            this.documentDragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            this.documentDragListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
                 this.onDrag(event);
             });
         }
         
         if(this.resizable) {
-            this.documentResizeListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            this.documentResizeListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
                 this.onResize(event);
             });
             
-            this.documentResizeEndListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
+            this.documentResizeEndListener = this.renderer.listenGlobal('document', 'mouseup', (event) => {
                 if(this.resizing) {
                     this.resizing = false;
                 }
@@ -195,7 +192,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
         
         if(this.closeOnEscape && this.closable) {
-            this.documentEscapeListener = this.renderer.listenGlobal('body', 'keydown', (event) => {
+            this.documentEscapeListener = this.renderer.listenGlobal('document', 'keydown', (event) => {
                 if(event.which == 27) {
                     if(parseInt(this.container.style.zIndex) == DomHandler.zindex) {
                         this.close(event);
@@ -209,6 +206,10 @@ export class Dialog implements AfterViewInit,OnDestroy {
                 document.body.appendChild(this.container);
             else
                 this.domHandler.appendChild(this.container, this.appendTo);
+        }
+        
+        if(this.visible) {
+            this.show();
         }
     }
         
