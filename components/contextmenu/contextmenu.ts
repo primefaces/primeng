@@ -140,8 +140,11 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     @Input() styleClass: string;
     
     @Input() appendTo: any;
-    
+
+    @Input() enabled: boolean;
+
     @ViewChild('container') containerViewChild: ElementRef;
+    
     
     container: HTMLDivElement;
     
@@ -151,7 +154,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     rightClickListener: any;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) { }
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
@@ -183,6 +186,9 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     }
         
     show(event?: MouseEvent) {
+        if(!this.enabled)
+            return;
+
         this.position(event);
         this.visible = true;
         this.domHandler.fadeIn(this.container, 250);
@@ -197,6 +203,8 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     }
     
     toggle(event?: MouseEvent) {
+        if(!this.enabled)
+            return;
         if(this.visible)
             this.hide();
         else
@@ -210,6 +218,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
             let width = this.container.offsetParent ? this.container.offsetWidth: this.domHandler.getHiddenElementOuterWidth(this.container);
             let height = this.container.offsetParent ? this.container.offsetHeight: this.domHandler.getHiddenElementOuterHeight(this.container);
             let viewport = this.domHandler.getViewport();
+
             
             //flip
             if(left + width - document.body.scrollLeft > viewport.width) {
@@ -230,9 +239,11 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
             if(top < document.body.scrollTop) {
                 top = document.body.scrollTop;
             }
-                
+
+
             this.container.style.left = left + 'px';
             this.container.style.top = top + 'px';
+            
         }
     }
 

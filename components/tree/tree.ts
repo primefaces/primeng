@@ -37,7 +37,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
     selector: 'p-treeNode',
     template: `
         <ng-template [ngIf]="node">
-            <li *ngIf="tree.droppableNodes" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}"
+            <li *ngIf="tree.droppableNodes" [id]="tree.getIdForNode(node)" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}" style="z-index:20"
             (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
             <li class="ui-treenode {{node.styleClass}}" *ngIf="!tree.horizontal" [ngClass]="{'ui-treenode-leaf': isLeaf()}">
                 <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
@@ -350,6 +350,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
     @Input() contextMenu: any;
     
     @Input() layout: string = 'vertical';
+
+    @Input() idField: string;
     
     @Input() draggableScope: any;
     
@@ -654,6 +656,12 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
             return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else
             return null;
+    }
+
+     getIdForNode(node: TreeNode) : string {
+        if(this.idField == "" || this.idField === undefined)
+            return "";
+        return node.data[this.idField];
     }
     
     onDragOver(event) {
