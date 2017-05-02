@@ -11,11 +11,11 @@
         
     <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" 
             multiple="multiple" accept="image/*" maxFileSize="1000000"> 
-            <template pTemplate="content">
+            <ng-template pTemplate="content">
                 <ul *ngIf="uploadedFiles.length">
                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
                 </ul>
-            </template>    
+            </ng-template>    
     </p-fileUpload>
 </div>
 
@@ -84,22 +84,22 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             </ul>
             
             <h3>Templating</h3>
-            <p>File list UI is customizable using a template called "file" that gets the <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable.
-                Second template named "content" can be used to place custom content inside the content section which would be useful to implement a user interface to manage the uploaded files such as removing them.  
-                Third and final template option is "toolbar" to display custom content at toolbar.</p>
+            <p>File list UI is customizable using a ng-template called "file" that gets the <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable.
+                Second ng-template named "content" can be used to place custom content inside the content section which would be useful to implement a user interface to manage the uploaded files such as removing them.  
+                Third and final ng-template option is "toolbar" to display custom content at toolbar.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;
-        &lt;template pTemplate="toolbar"&gt;
+        &lt;ng-template pTemplate="toolbar"&gt;
             &lt;div&gt;Upload 3 Files&lt;/div&gt;
-        &lt;/template&gt;  
-        &lt;template let-file pTemplate="file"&gt;
+        &lt;/ng-template&gt;  
+        &lt;ng-template let-file pTemplate="file"&gt;
             &lt;div&gt;Custom UI to display a file&lt;/div&gt;
-        &lt;/template&gt; 
-        &lt;template pTemplate="content"&gt;
+        &lt;/ng-template&gt; 
+        &lt;ng-template pTemplate="content"&gt;
             &lt;div&gt;Custom UI to manage uploaded files&lt;/div&gt;
-        &lt;/template&gt;  
+        &lt;/ng-template&gt;  
 &lt;/p-fileUpload&gt;
 </code>
 </pre>
@@ -151,6 +151,12 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
                             <td>Disables the upload functionality.</td>
                         </tr>
                         <tr>
+                            <td>auto</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, upload begins automatically after selection is completed.</td>
+                        </tr>
+                        <tr>
                             <td>maxFileSize</td>
                             <td>number</td>
                             <td>null</td>
@@ -167,6 +173,18 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
                             <td>string</td>
                             <td>"maximum upload size is &#123;0&#125;."</td>
                             <td>Detail message of the invalid fize size.</td>
+                        </tr>
+                        <tr>
+                            <td>invalidFileTypeMessageSummary</td>
+                            <td>string</td>
+                            <td>"&#123;0&#125;: Invalid file type, "</td>
+                            <td>Summary message of the invalid fize type.</td>
+                        </tr>
+                        <tr>
+                            <td>invalidFileTypeMessageDetail</td>
+                            <td>string</td>
+                            <td>"allowed file types: &#123;0&#125;."</td>
+                            <td>Detail message of the invalid fize type.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -298,11 +316,11 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
     
 &lt;p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" 
         multiple="multiple" accept="image/*" maxFileSize="1000000"&gt;
-    &lt;template pTemplate type="content"&gt;
+    &lt;ng-template pTemplate type="content"&gt;
         &lt;ul *ngIf="uploadedFiles.length"&gt;
             &lt;li *ngFor="let file of uploadedFiles"&gt;&#123;&#123;file.name&#125;&#125; - &#123;&#123;file.size&#125;&#125; bytes&lt;/li&gt;
         &lt;/ul&gt;
-    &lt;/template&gt;        
+    &lt;/ng-template&gt;        
 &lt;/p-fileUpload&gt;
 </code>
 </pre>

@@ -44,6 +44,8 @@ export class Lightbox implements AfterViewInit,OnDestroy{
         
     @Input() styleClass: string;
     
+    @Input() appendTo: any;
+    
     @Input() easing: 'ease-out';
     
     @Input() effectDuration: any = '500ms';
@@ -85,7 +87,14 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     ngAfterViewInit() {
         this.panel = this.domHandler.findSingle(this.el.nativeElement, '.ui-lightbox ');
         
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
+        if(this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.panel);
+            else
+                this.domHandler.appendChild(this.panel, this.appendTo);
+        }
+        
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', (event) => {
             if(!this.preventDocumentClickListener&&this.visible) {
                 this.hide(event);
             }
@@ -201,7 +210,13 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     }
     
     ngOnDestroy() {
-        this.documentClickListener();
+        if(this.documentClickListener) {
+            this.documentClickListener();
+        }
+        
+        if(this.appendTo) {
+            this.el.nativeElement.appendChild(this.panel);
+        }
     }
         
 }

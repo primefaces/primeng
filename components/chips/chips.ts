@@ -19,10 +19,10 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 <li #token *ngFor="let item of value; let i = index;" class="ui-chips-token ui-state-highlight ui-corner-all">
                     <span *ngIf="!itemTemplate&&!disabled" class="ui-chips-token-icon fa fa-fw fa-close" (click)="removeItem($event,i)"></span>
                     <span *ngIf="!itemTemplate" class="ui-chips-token-label">{{field ? resolveFieldData(item,field) : item}}</span>
-                    <template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                 </li>
                 <li class="ui-chips-input-token">
-                    <input #inputtext type="text" pInputText [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
+                    <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
                         (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled">
                 </li>
             </ul>
@@ -49,6 +49,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() max: number;
 
     @Input() tabindex: number;
+
+    @Input() inputId: string;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -129,7 +131,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             return;
         }
         
-        let removedItem = this.value.splice(index, 1);
+        let removedItem = this.value[index];
+        this.value = this.value.filter((val, i) => i!=index);
         this.onModelChange(this.value);
         this.onRemove.emit({
             originalEvent: event,
@@ -142,6 +145,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             //backspace
             case 8:
                 if(inputEL.value.length === 0 && this.value && this.value.length > 0) {
+                    this.value = [...this.value];
                     let removedItem = this.value.pop();
                     this.onModelChange(this.value);
                     this.onRemove.emit({
@@ -155,7 +159,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             case 13:
                 this.value = this.value||[];
                 if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
-                    this.value.push(inputEL.value);
+                    this.value = [...this.value,inputEL.value];
                     this.onModelChange(this.value);
                     this.onAdd.emit({
                         originalEvent: event,

@@ -14,12 +14,12 @@
     <h3>Advanced</h3>
     <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
-        <template let-brand pTemplate="item">
+        <ng-template let-brand pTemplate="item">
             <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                 <img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
                 <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
             </div>
-        </template>
+        </ng-template>
     </p-autoComplete>
     <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
     
@@ -163,16 +163,27 @@ export class AutoCompleteDemo &#123;
 </pre>
     
             <h3>Templating</h3>
-            <p>Templating allows displaying custom content inside the suggestions panel. The local template variable passed to the template is an object in the suggestions array.</p>
+            <p>Item ng-template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
-    &lt;template let-brand pTemplate="item"&gt;
+    &lt;ng-template let-brand pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
-            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
+            &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;&#123;&#123;brand&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
+&lt;/p-autoComplete&gt;
+</code>
+</pre>
+
+            <p>In multiple mode, selected item can be customized using selectedItem ng-template.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-autoComplete [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"&gt;
+    &lt;ng-template let-value pTemplate="selectedItem"&gt;
+        &lt;span style="font-size:18px"&gt;&gt;&#123;&#123;value&#125;&#125;&lt;&lt;/span&gt;
+    &lt;/ng-template&gt;
 &lt;/p-autoComplete&gt;
 </code>
 </pre>
@@ -256,6 +267,12 @@ export class AutoCompleteDemo &#123;
                             <td>Inline style of the input field.</td>
                         </tr>
                         <tr>
+                            <td>inputId</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Identifier of the focus input to match a label defined for the component.</td>
+                        </tr>
+                        <tr>
                             <td>placeholder</td>
                             <td>string</td>
                             <td>null</td>
@@ -289,13 +306,31 @@ export class AutoCompleteDemo &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                         <tr>
                             <td>tabindex</td>
                             <td>number</td>
                             <td>null</td>
                             <td>Index of the element in tabbing order.</td>
+                        </tr>
+                        <tr>
+                            <td>dataKey</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>A property to uniquely identify a value in options.</td>
+                        </tr>
+                        <tr>
+                            <td>autoHighlight</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, highlights the first item in the list by default.</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td>string</td>
+                            <td>text</td>
+                            <td>Type of the input, defaults to "text".</td>
                         </tr>
                     </tbody>
                 </table>
@@ -320,6 +355,16 @@ export class AutoCompleteDemo &#123;
                             </td>
                             <td>Callback to invoke to search for suggestions.</td>
                         </tr>
+                        <tr>
+                            <td>onFocus</td>
+                            <td>event: Browser event</td>
+                            <td>Callback to invoke when autocomplete gets focus.</td>
+                        </tr>   
+                        <tr>
+                            <td>onBlur</td>
+                            <td>event: Browser event</td>
+                            <td>Callback to invoke when autocomplete loses focus.</td>
+                        </tr>                        
                         <tr>
                             <td>onSelect</td>
                             <td>
@@ -404,12 +449,12 @@ export class AutoCompleteDemo &#123;
 &lt;h3&gt;Advanced&lt;/h3&gt;
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
     [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)"&gt;
-    &lt;template let-brand pTemplate="item"&gt;
+    &lt;ng-template let-brand pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-autoComplete&gt;
 &lt;span style="margin-left:50px"&gt;Brand: {{brand||'none'}}&lt;/span&gt;
 

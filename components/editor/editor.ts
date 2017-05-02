@@ -111,7 +111,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             this.quill.pasteHTML(this.value);
         }
         
-        this.quill.on('text-change', (delta, source) => {
+        this.quill.on('text-change', (delta, oldContents, source) => {
             let html = editorElement.children[0].innerHTML;
             let text = this.quill.getText();
             if(html == '<p><br></p>') {
@@ -126,6 +126,10 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
             });
             
             this.onModelChange(html);
+
+            if(source === 'user') {
+                this.onModelTouched();
+            }
         });
         
         this.quill.on('selection-change', (range, oldRange, source) => {

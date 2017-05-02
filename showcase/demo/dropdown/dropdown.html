@@ -7,21 +7,21 @@
 
 <div class="content-section implementation">
     <h3 class="first">Single</h3>
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity"></p-dropdown>
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City"></p-dropdown>
     <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
     
     <h3>Editable</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" editable="editable"></p-dropdown>
+    <p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'150px'}" editable="editable" placeholder="Select a Brand"></p-dropdown>
     <p>Selected Car: {{selectedCar||'none'}}</p>
     
     <h3>Content with Filters</h3>
     <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="{'width':'150px'}" filter="filter">
-        <template let-car pTemplate="item">
+        <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                 <img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/>
                 <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
             </div>
-        </template>
+        </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar2||'none'}}</p>
 </div>
@@ -86,16 +86,16 @@ export class MyModel &#123;
 </pre>
 
             <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item by default, for custom content support define a template that gets the SelectItem as the local template variable.</p>
+            <p>Label of an option is used as the display text of an item by default, for custom content support define a ng-template that gets the SelectItem as the local ng-template variable.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
             &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;{{car.label}}&lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 </code>
 </pre>
@@ -182,6 +182,12 @@ export class MyModel &#123;
                             <td>When specified, displays an input field to filter the items on keyup.</td>
                         </tr>
                         <tr>
+                            <td>filterPlaceholder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Placeholder text to show when filter input is empty.</td>
+                        </tr>
+                        <tr>
                             <td>autoWidth</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -209,13 +215,31 @@ export class MyModel &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                         <tr>
                             <td>tabindex</td>
                             <td>number</td>
                             <td>null</td>
                             <td>Index of the element in tabbing order.</td>
+                        </tr>
+                        <tr>
+                            <td>placeholder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Default text to display when no option is selected.</td>
+                        </tr>
+                        <tr>
+                            <td>inputId</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Identifier of the focus input to match a label defined for the dropdown.</td>
+                        </tr>
+                        <tr>
+                            <td>dataKey</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>A property to uniquely identify a value in options.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -316,21 +340,21 @@ export class MyModel &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City"&gt;&lt;/p-dropdown&gt;
 &lt;p&gt;Selected City: {{selectedCity ? selectedCity.name : 'none'}}&lt;/p&gt;
 
 &lt;h3&gt;Editable&lt;/h3&gt;
-&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;" editable="editable"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;" editable="editable" placeholder="Select a Brand"&gt;&lt;/p-dropdown&gt;
 &lt;p&gt;Selected Car: {{selectedCar||'none'}}&lt;/p&gt;
 
 &lt;h3&gt;Content with Filters&lt;/h3&gt;
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar2" [style]="&#123;'width':'150px'&#125;" filter="filter"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height: 25px;"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
             &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;{{car.label}}&lt;/div&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 &lt;p&gt;Selected Car: {{selectedCar2||'none'}}&lt;/p&gt;
 </code>
@@ -350,7 +374,6 @@ export class DropdownDemo &#123;
 
     constructor() &#123;
         this.cities = [];
-        this.cities.push(&#123;label:'Select City', value:null&#125;);
         this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'}});
         this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'}});
         this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'}});

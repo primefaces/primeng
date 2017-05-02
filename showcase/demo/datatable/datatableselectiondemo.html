@@ -14,7 +14,7 @@
 
     <h3 class="first">Single</h3>
     <p>In single mode, a row is selected on click event of a row. If the row is already selected then the row gets unselected.</p>
-    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar1">
+    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar1" dataKey="vin">
         <p-header>Single Selection</p-header>
         <p-footer><div style="text-align: left">Selected Car: {{selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'}}</div></p-footer>
         <p-column field="vin" header="Vin"></p-column>
@@ -26,7 +26,7 @@
     <h3>Multiple</h3>
     <p>In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices
     metakey is required.</p>
-    <p-dataTable [value]="cars" selectionMode="multiple" [(selection)]="selectedCars1">
+    <p-dataTable [value]="cars" selectionMode="multiple" [(selection)]="selectedCars1" dataKey="vin">
         <p-header>Multiple Selection</p-header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -41,7 +41,7 @@
 
     <h3>Events</h3>
     <p>DataTable provides onRowSelect and onRowUnselect as optional callbacks.</p>
-    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" dataKey="vin">
         <p-header>Selection with Events</p-header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -51,7 +51,7 @@
     
     <h3>RadioButton</h3>
     <p>Single selection can also be handled using radio buttons by enabling the selectionMode property of column as "single".</p>
-    <p-dataTable [value]="cars" [(selection)]="selectedCar3">
+    <p-dataTable [value]="cars" [(selection)]="selectedCar3" dataKey="vin">
         <p-header>Single Selection</p-header>
         <p-footer><div style="text-align: left">Selected Car: {{selectedCar3 ? selectedCar3.vin + ' - ' + selectedCar3.brand + ' - ' + selectedCar3.year + ' - ' + selectedCar3.color: 'none'}}</div></p-footer>
         <p-column [style]="&#123;'width':'38px'&#125;" selectionMode="single"></p-column>
@@ -63,8 +63,8 @@
     
     <h3>Checkbox</h3>
     <p>Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".</p>
-    <p-dataTable [value]="cars" [(selection)]="selectedCars2">
-        <p-header>Single Selection</p-header>
+    <p-dataTable [value]="cars" [(selection)]="selectedCars2" dataKey="vin">
+        <p-header>Checkbox Selection</p-header>
         <p-column [style]="&#123;'width':'38px'&#125;" selectionMode="multiple"></p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -122,7 +122,7 @@ export class DataTableSelectionDemo implements OnInit &#123;
 
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p&gt;In single mode, a row is selected on click event of a row. If the row is already selected then the row gets unselected.&lt;/p&gt;
-&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar1"&gt;
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar1" dataKey="vin"&gt;
     &lt;p-header&gt;Single Selection&lt;/p-header&gt;
     &lt;p-footer&gt;&lt;div style="text-align: left"&gt;Selected Car: {{selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'}}&lt;/div&gt;&lt;/p-footer&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
@@ -133,7 +133,7 @@ export class DataTableSelectionDemo implements OnInit &#123;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
-&lt;p-dataTable [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
+&lt;p-dataTable [value]="cars" selectionMode="multiple" [(selection)]="selectedCars" dataKey="vin"&gt;
     &lt;p-header&gt;Multiple Selection&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
@@ -148,7 +148,7 @@ export class DataTableSelectionDemo implements OnInit &#123;
 
 &lt;h3&gt;Events&lt;/h3&gt;
 &lt;p&gt;DataTable provides onRowSelect and onRowUnselect as optional callbacks.&lt;/p&gt;
-&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"&gt;
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar2" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" dataKey="vin"&gt;
     &lt;p-header&gt;Selection with Events&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
@@ -158,7 +158,7 @@ export class DataTableSelectionDemo implements OnInit &#123;
 
 &lt;h3&gt;RadioButton&lt;/h3&gt;
 &lt;p&gt;Single selection can also be handled using radio buttons by enabling the selectionMode property of column as "single".&lt;/p&gt;
-&lt;p-dataTable [value]="cars" [(selection)]="selectedCar3"&gt;
+&lt;p-dataTable [value]="cars" [(selection)]="selectedCar3" dataKey="vin"&gt;
     &lt;p-header&gt;Single Selection&lt;/p-header&gt;
     &lt;p-footer&gt;&lt;div style="text-align: left"&gt;Selected Car: {{selectedCar3 ? selectedCar3.vin + ' - ' + selectedCar3.brand + ' - ' + selectedCar3.year + ' - ' + selectedCar3.color: 'none'}}&lt;/div&gt;&lt;/p-footer&gt;
     &lt;p-column [style]="&#123;'width':'38px'&#125;" selectionMode="single"&gt;&lt;/p-column&gt;
@@ -170,8 +170,8 @@ export class DataTableSelectionDemo implements OnInit &#123;
 
 &lt;h3&gt;Checkbox&lt;/h3&gt;
 &lt;p&gt;Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".&lt;/p&gt;
-&lt;p-dataTable [value]="cars" [(selection)]="selectedCars2"&gt;
-    &lt;p-header&gt;Single Selection&lt;/p-header&gt;
+&lt;p-dataTable [value]="cars" [(selection)]="selectedCars2" dataKey="vin"&gt;
+    &lt;p-header&gt;Checkbox Selection&lt;/p-header&gt;
     &lt;p-column [style]="&#123;'width':'38px'&#125;" selectionMode="multiple"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;

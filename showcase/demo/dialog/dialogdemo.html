@@ -80,6 +80,15 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
+            <h3>Overlays Inside</h3>
+            <p>When dialog contents include other components with overlays such as dropdown, it is suggested to turn off the overflow of dialog content
+                so that the overlays can be displayed outside of the dialog.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dropdown [options]="cities" formControlName="selectedCity"&gt;&lt;/p-dropdown&gt;
+</code>
+</pre>
+
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -135,6 +144,12 @@ export class ModelComponent &#123;
                             <td>Height of the dialog.</td>
                         </tr>
                         <tr>
+                            <td>contentStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Style of the content section.</td>
+                        </tr>
+                        <tr>
                             <td>visible</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -180,7 +195,7 @@ export class ModelComponent &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the dialog, valid values are "body" or a local template variable of another element.</td>
+                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -216,24 +231,14 @@ export class ModelComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>onBeforeShow</td>
+                            <td>onShow</td>
                             <td>event: Event object</td>
-                            <td>Callback to invoke before dialog is shown.</td>
+                            <td>Callback to invoke when dialog is shown.</td>
                         </tr>
                         <tr>
-                            <td>onAfterShow</td>
+                            <td>onHide</td>
                             <td>event: Event object</td>
-                            <td>Callback to invoke after dialog is shown.</td>
-                        </tr>
-                        <tr>
-                            <td>onBeforeHide</td>
-                            <td>event: Event object</td>
-                            <td>Callback to invoke before dialog is hidden.</td>
-                        </tr>
-                        <tr>
-                            <td>onAfterHide</td>
-                            <td>event: Event object</td>
-                            <td>Callback to invoke after dialog is hidden.</td>
+                            <td>Callback to invoke when dialog is hidden.</td>
                         </tr>
                     </tbody>
                 </table>

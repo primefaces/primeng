@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy,DoCheck} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -13,7 +13,7 @@ import {DomHandler} from '../dom/domhandler';
     },
     providers: [DomHandler]
 })
-export class Password implements AfterViewInit,OnDestroy {
+export class Password implements AfterViewInit,OnDestroy,DoCheck {
 
     @Input() promptLabel: string = 'Please enter a password';
 
@@ -23,11 +23,15 @@ export class Password implements AfterViewInit,OnDestroy {
 
     @Input() strongLabel: string = 'Strong';
     
+    @Input() feedback: boolean = true;
+    
     panel: any;
     
     meter: any;
     
     info: any;
+    
+    filled: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
@@ -40,10 +44,25 @@ export class Password implements AfterViewInit,OnDestroy {
         this.info.className = 'ui-password-info';
         this.info.textContent = this.promptLabel;
         
-        this.panel.appendChild(this.meter);
-        this.panel.appendChild(this.info);
-        
-        document.body.appendChild(this.panel);
+        if(this.feedback) {
+            this.panel.appendChild(this.meter);
+            this.panel.appendChild(this.info);
+            document.body.appendChild(this.panel);
+        }
+    }
+    
+    ngDoCheck() {
+        this.updateFilledState();
+    }
+    
+    //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
+    @HostListener('input', ['$event']) 
+    onInput(e) {
+        this.updateFilledState();
+    }
+    
+    updateFilledState() {
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
         
     @HostListener('focus', ['$event']) 
@@ -123,11 +142,10 @@ export class Password implements AfterViewInit,OnDestroy {
         return this.el.nativeElement.disabled;
     }
     
-    get filled(): boolean {
-        return this.el.nativeElement.value != '';
-    }
-    
     ngOnDestroy() {
+        if (!this.feedback)
+            return;
+            
         this.panel.removeChild(this.meter);
         this.panel.removeChild(this.info);
         document.body.removeChild(this.panel);

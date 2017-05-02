@@ -44,7 +44,8 @@
     border-style: solid;
 }
 
-.ui-datatable .ui-datatable-thead > tr > th {
+.ui-datatable .ui-datatable-thead > tr > th,
+.ui-datatable .ui-datatable-tfoot > tr > td {
     font-weight: normal;
 }
 
@@ -73,7 +74,8 @@
     overflow: hidden;
 }
 
-.ui-datatable-scrollable .ui-datatable-scrollable-header {
+.ui-datatable-scrollable .ui-datatable-scrollable-header,
+.ui-datatable-scrollable .ui-datatable-scrollable-footer {
     position: relative;
     border: 0 none;
 }
@@ -91,6 +93,12 @@
     border-color: inherit;
     font-weight: inherit;
     cursor: pointer;
+}
+
+.ui-datatable .ui-datatable-data tr.ui-rowgroup-header td a,
+.ui-datatable .ui-datatable-data tr.ui-rowgroup-header td span.ui-rowgroup-header-name {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .ui-datatable-scrollable-theadclone {
@@ -215,7 +223,7 @@
     display: none !important;
 }
 
-.ui-datatable-stacked .ui-datatable-data td {
+.ui-datatable.ui-datatable-stacked .ui-datatable-data > tr > td {
     text-align: left;
     display: block;
     border: 0 none;
@@ -227,7 +235,7 @@
     clear: left;
 }
 
-.ui-datatable-stacked .ui-datatable-data.ui-widget-content {
+.ui-datatable.ui-datatable-stacked .ui-datatable-data.ui-widget-content {
     border: 0 none;
 }
 
@@ -262,11 +270,45 @@
 }
 
 .ui-datatable-scrollable-view {
-    float: left;
+    
 }
 
 .ui-datatable-frozen-view .ui-datatable-scrollable-body {
     overflow: hidden;
+}
+
+.ui-datatable-unfrozen-view {
+    position: absolute;
+    top: 0px;
+}
+
+.ui-datatable .ui-datatable-load-status {
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+.ui-datatable .ui-datatable-virtual-table {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.ui-datatable .ui-datatable-loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    opacity: 0.2;
+    z-index: 1;
+}
+
+.ui-datatable .ui-datatable-loading-content {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    z-index: 2;
 }
 
 @media ( max-width: 35em ) {
@@ -275,7 +317,7 @@
         display: none !important;
     }
 
-    .ui-datatable-reflow .ui-datatable-data td {
+    .ui-datatable-reflow .ui-datatable-data > tr > td {
         text-align: left;
         display: block;
         border: 0 none;

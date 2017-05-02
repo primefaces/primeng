@@ -31,6 +31,11 @@ import {HomePageComponent} from './homepage.component';
                 resolve(require('./demo/blockui/blockuidemo.module')['BlockUIDemoModule']);
               });
             })},
+            {path: 'captcha', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/captcha/captchademo.module')['CaptchaDemoModule']);
+              });
+            })},
             {path: 'breadcrumb', loadChildren: () => new Promise(function (resolve) {
               (require as any).ensure([], function (require: any) {
                 resolve(require('./demo/breadcrumb/breadcrumbdemo.module')['BreadcrumbDemoModule']);

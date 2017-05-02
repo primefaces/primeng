@@ -10,7 +10,7 @@
         <p-header>
             List of Cars
         </p-header>
-        <template let-car pTemplate="item">
+        <ng-template let-car pTemplate="item">
             <div style="padding:3px" class="ui-g-12 ui-md-3">
                 <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
@@ -19,7 +19,7 @@
                     <i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer"></i>
                 </p-panel>
             </div>
-        </template>
+        </ng-template>
     </p-dataGrid>
         
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
@@ -58,7 +58,7 @@ import &#123;DataGridModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>DataGrid requires a collection of items as its value and a template to display each item. Template should contain a div element as a wrapper with <a [routerLink]="['/grid']">Grid CSS</a> style class of your choice to 
+            <p>DataGrid requires a collection of items as its value and a ng-template to display each item. ng-template should contain a div element as a wrapper with <a [routerLink]="['/grid']">Grid CSS</a> style class of your choice to 
                 define the grid layout. 
             </p><p>Throughout the samples, a car interface having vin, brand, year and color properties are used to define an object to be displayed by the datagrid. Cars are loaded by a CarService that connects to a server to fetch the cars with a Promise.</p>
 <pre>
@@ -112,28 +112,33 @@ export class DataGridDemo implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataGrid&gt;
 </code>
 </pre>
 
-            <p>Index of the row is available at the template.</p>
+            <p>Index of the row is available at the ng-template.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars"&gt;
-    &lt;template let-car let-i="index" pTemplate="item"&gt;
+    &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content for {{i}}
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataGrid&gt;
 </code>
 </pre>
 
+
+            <h3>Managing Data</h3>
+            <p>DataTable uses setter based checking to realize if the underlying data has changed to update the UI so your data changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array. For example, use slice instead of splice when removing an item 
+                or use spread operator instead of push method when adding an item.</p>
 
             <h3>Facets</h3>
             <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
@@ -148,11 +153,11 @@ import &#123;Footer&#125; from 'primeng/primeng';
 &lt;p-dataGrid [value]="cars"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataGrid&gt;
 </code>
 </pre>
@@ -163,11 +168,11 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="9"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataGrid&gt;
 </code>
 </pre>
@@ -181,11 +186,11 @@ import &#123;Footer&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode>
 &lt;p-dataGrid [value]="cars" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-g-12 ui-md-3"&gt;
             Car content
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataGrid&gt;
 </code>
 </pre>
@@ -241,7 +246,7 @@ loadData(event) &#123;
                         <tr>
                             <td>pageLinks</td>
                             <td>number</td>
-                            <td>null</td>
+                            <td>5</td>
                             <td>Number of page links to display in paginator.</td>
                         </tr>
                         <tr>
@@ -274,6 +279,12 @@ loadData(event) &#123;
                             <td>bottom</td>
                             <td>Position of the paginator, options are "top","bottom" or "both".</td>
                         </tr>
+                        <tr>
+                            <td>emptyMessage</td>
+                            <td>string</td>
+                            <td>No records found.</td>
+                            <td>Text to display when there is no data.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -294,6 +305,12 @@ loadData(event) &#123;
                             <td>event.first = First row offset <br>
                                 event.rows = Number of rows per page <br></td>
                             <td>Callback to invoke when paging, sorting or filtering happens in lazy mode.</td>
+                        </tr>
+                        <tr>
+                            <td>onPage</td>
+                            <td>event.first: Index of first record in page<br>
+                                event.rows: Number of rows on the page</td>
+                            <td>Callback to invoke when pagination occurs.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -341,16 +358,16 @@ loadData(event) &#123;
     &lt;p-header&gt;
         List of Cars
     &lt;/p-header&gt;
-    &lt;template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
-            &lt;p-panel [header]="car.vin" [paginator]="true" [style]="&#123;'text-align':'center'&#125;"&gt;
+            &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
                 &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;
                 &lt;div class="car-detail"&gt;{{car.year}} - {{car.color}}&lt;/div&gt;
                 &lt;hr class="ui-widget-content" style="border-top:0"&gt;
                 &lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer"&gt;&lt;/i&gt;
             &lt;/p-panel&gt;
         &lt;/div&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-dataGrid&gt;
 
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;

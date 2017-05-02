@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,DoCheck,Input,Output,Renderer,EventEmitter,ContentChild,ContentChildren,QueryList,IterableDiffers,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,Input,Output,Renderer,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
@@ -10,10 +10,10 @@ import {DomHandler} from '../dom/domhandler';
         <div class="ui-datascroller-header ui-widget-header ui-corner-top" *ngIf="header">
             <ng-content select="p-header"></ng-content>
         </div>
-        <div class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
+        <div #content class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
             <ul class="ui-datascroller-list">
                 <li *ngFor="let item of dataToRender">
-                    <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                    <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                 </li>
             </ul>
         </div>
@@ -24,9 +24,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
-
-    @Input() value: any[];
+export class DataScroller implements AfterViewInit,OnDestroy {
 
     @Input() rows: number;
 
@@ -45,6 +43,8 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     @Input() scrollHeight: any;
     
     @Input() loader: any;
+    
+    @ViewChild('content') contentViewChild: ElementRef;
         
     @ContentChild(Header) header;
 
@@ -52,21 +52,19 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
+    public _value: any[];
+    
     public itemTemplate: TemplateRef<any>;
 
     public dataToRender: any[] = [];
 
     public first: number = 0;
     
-    differ: any;
-    
     scrollFunction: any;
     
-    contentElement: any;
+    contentElement: HTMLDivElement;
 
-    constructor(public el: ElementRef, differs: IterableDiffers, public renderer: Renderer, public domHandler: DomHandler) {
-        this.differ = differs.find([]).create(null);
-    }
+    constructor(public el: ElementRef, public renderer: Renderer, public domHandler: DomHandler) {}
 
     ngAfterViewInit() {
         if(this.lazy) {
@@ -97,34 +95,44 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
         });
     }
     
-    ngDoCheck() {
-        let changes = this.differ.diff(this.value);
+    @Input() get value(): any[] {
+        return this._value;
+    }
 
-        if(changes) {
-            if(this.lazy)
-                this.dataToRender = this.value;
-            else
-                this.load();
-        }
+    set value(val:any[]) {
+        this._value = val;
+        this.handleDataChange();
     }
     
+    handleDataChange() {
+        if(this.lazy)
+            this.dataToRender = this.value;
+        else
+            this.load();
+    }
+        
     load() {
         if(this.lazy) {
             this.onLazyLoad.emit({
                 first: this.first,
                 rows: this.rows
             });
+            
+            this.first = this.first + this.rows;
         }
         else {
-            for(let i = this.first; i < (this.first + this.rows); i++) {
-                if(i >= this.value.length) {
-                    break;
-                }
+            if(this.value) {
+                for(let i = this.first; i < (this.first + this.rows); i++) {
+                    if(i >= this.value.length) {
+                        break;
+                    }
 
-                this.dataToRender.push(this.value[i]);
+                    this.dataToRender.push(this.value[i]);
+                }
+                
+                this.first = this.first + this.rows;
             }
         }
-        this.first = this.first + this.rows;
     }
      
     reset() {
@@ -146,7 +154,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
     
     bindScrollListener() {
         if(this.inline) {
-            this.contentElement = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datascroller-content');
+            this.contentElement = this.contentViewChild.nativeElement;
             
             this.scrollFunction = this.renderer.listen(this.contentElement, 'scroll', () => {
                 let scrollTop = this.contentElement.scrollTop;

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,AfterContentInit,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChildren,QueryList,Renderer} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,AfterContentInit,EventEmitter,OnDestroy,Input,Output,TemplateRef,ContentChildren,QueryList,Renderer} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {CommonModule} from '@angular/common';
@@ -28,7 +28,7 @@ import {CommonModule} from '@angular/common';
                 <ul class="ui-carousel-items" [style.left.px]="left" [style.transitionProperty]="'left'" 
                             [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
                     <li *ngFor="let item of value" class="ui-carousel-item ui-widget-content ui-corner-all">
-                        <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                        <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
             </div>
@@ -36,10 +36,8 @@ import {CommonModule} from '@angular/common';
     `,
     providers: [DomHandler]
 })
-export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,OnDestroy{
+export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,OnDestroy{
     
-    @Input() value: any[];
-
     @Input() numVisible: number = 3;
 
     @Input() firstVisible: number = 0;
@@ -64,7 +62,11 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
 
     @Input() styleClass: string;
     
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public _value: any[];
     
     public itemTemplate: TemplateRef<any>;
         
@@ -98,8 +100,8 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     
     differ: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer) {
-        this.differ = differs.find([]).create(null);
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {
+        
     }
     
     ngAfterContentInit() {
@@ -116,31 +118,36 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
         });
     }
     
-    ngDoCheck() {
-        let changes = this.differ.diff(this.value);
-        
-        if(changes) {
-            if(this.value && this.value.length) {
-                if(this.value.length && this.firstVisible >= this.value.length) {
-                    this.setPage(this.totalPages - 1);
-                }
-            }
-            else {
-                this.setPage(0);
-            }
+    @Input() get value(): any[] {
+        return this._value;
+    }
 
-            this.valuesChanged = true;
-            
-            if(this.autoplayInterval) {
-                this.stopAutoplay();
-            }
-            
-            this.updateMobileDropdown();
-            this.updateLinks();
-            this.updateDropdown();
-        }
+    set value(val:any[]) {
+        this._value = val;
+        this.handleDataChange();
     }
     
+    handleDataChange() {
+        if(this.value && this.value.length) {
+            if(this.value.length && this.firstVisible >= this.value.length) {
+                this.setPage(this.totalPages - 1);
+            }
+        }
+        else {
+            this.setPage(0);
+        }
+
+        this.valuesChanged = true;
+        
+        if(this.autoplayInterval) {
+            this.stopAutoplay();
+        }
+        
+        this.updateMobileDropdown();
+        this.updateLinks();
+        this.updateDropdown();
+    }
+        
     ngAfterViewChecked() {
         if(this.valuesChanged) {
             this.render();
@@ -246,6 +253,9 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.page = p;
             this.left = (-1 * (this.domHandler.innerWidth(this.viewport) * this.page));
             this.firstVisible = this.page * this.columns;
+            this.onPage.emit({
+                page: this.page
+            });
         }
     }
     
@@ -305,7 +315,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     }
     
     ngOnDestroy() {
-        if(this.responsive) {
+        if(this.documentResponsiveListener) {
             this.documentResponsiveListener();
         }
         

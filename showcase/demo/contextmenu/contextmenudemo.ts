@@ -6,10 +6,12 @@ import {MenuItem} from '../../../components/common/api';
 })
 export class ContextMenuDemo {
 
-    private items: MenuItem[];
+    private items1: MenuItem[];
+    
+    private items2: MenuItem[];
 
     ngOnInit() {
-        this.items = [
+        this.items1 = [
             {
                 label: 'File',
                 icon: 'fa-file-o',
@@ -81,6 +83,17 @@ export class ContextMenuDemo {
             },
             {
                 label: 'Quit', icon: 'fa-minus'
+            }
+        ];
+        
+        this.items2 = [
+            {
+                label: 'Next',
+                icon: 'fa-chevron-right'
+            },
+            {
+                label: 'Prev',
+                icon: 'fa-chevron-left'
             }
         ];
     }

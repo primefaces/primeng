@@ -16,20 +16,32 @@ import &#123;ChartModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
+    <h3>Charts.js</h3>
+    <p>In order for chart component to work, include charts.js to your project. An example with CLI would be;</p>
+<pre>
+<code class="language-typescript" pCode>
+"scripts": [
+  "../node_modules/chart.js/dist/Chart.js",
+  //..others
+],
+</code>
+</pre>
+    
+
     <h3 style="margin-top:0px">Change Detection</h3>
-    <p>Due to complexity of charts.js, change detection is not available and when the data changes, you need to call refresh() method manually.</p>
+    <p>In order to chart to redraw itself, a new data object needs to be created. Changing the array contents without creating a new
+    array instance does not trigger change detection.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-chart #chart type="pie" [data]="data"&gt;&lt;/p-chart&gt;
-&lt;button type="button" pButton (click)="update(chart)"&gt;&lt;/p-button&gt;
+&lt;p-chart type="pie" [data]="data"&gt;&lt;/p-chart&gt;
+&lt;button type="button" pButton (click)="update($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode>
-update(chart: UIChart) &#123;
-    this.data = //reload
-    chart.refresh();
+update(event: Event) &#123;
+    this.data = //create new data
 &#125;
 </code>
 </pre>
@@ -100,7 +112,17 @@ update(chart: UIChart) &#123;
             <tr>
                 <td>refresh</td>
                 <td>-</td>
-                <td>Redraws the graph.</td>
+                <td>Redraws the graph with new data.</td>
+            </tr>
+            <tr>
+                <td>reinit</td>
+                <td>-</td>
+                <td>Destroys the graph first and then creates it again.</td>
+            </tr>
+            <tr>
+                <td>generateLegend</td>
+                <td>-</td>
+                <td>Returns an HTML string of a legend for that chart. The legend is generated from the legendCallback in the options.</td>
             </tr>
         </tbody>
     </table>
@@ -114,7 +136,7 @@ update(chart: UIChart) &#123;
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-chart type="line" [data]="data"&gt;&lt;/p-chart&gt;t
+&lt;p-chart type="line" [data]="data"&gt;&lt;/p-chart&gt;
 </code>
 </pre>
 
@@ -205,7 +227,7 @@ selectData(event) &#123;
     //event.dataset = Selected dataset
     //event.element = Selected element
     //event.element._datasetIndex = Index of the dataset in data
-    //event.element_index = Index of the data in dataset
+    //event.element._index = Index of the data in dataset
 &#125;
 </code>
 </pre>  

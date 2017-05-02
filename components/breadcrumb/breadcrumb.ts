@@ -2,23 +2,38 @@ import {NgModule,Component,Input,OnDestroy,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/api';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router';
+import {RouterModule} from '@angular/router';
 
 @Component({
     selector: 'p-breadcrumb',
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'">
             <ul>
-                <li class="fa fa-home" (click)="onHomeClick($event)"></li>
+                <li class="ui-breadcrumb-home fa fa-home" *ngIf="!home"></li>
+                <li class="ui-breadcrumb-home" *ngIf="home">
+                    <a *ngIf="!home.routerLink" [href]="home.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, home)" 
+                        [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target">
+                        <span class="fa fa-home"></span>
+                    </a>
+                    <a *ngIf="home.routerLink" [routerLink]="home.routerLink" [routerLinkActive]="'ui-state-active'" class="ui-menuitem-link" (click)="itemClick($event, home)" 
+                        [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target">
+                        <span class="fa fa-home"></span>
+                    </a>
+                </li>
                 <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="model"></li>
-                <template ngFor let-item let-end="last" [ngForOf]="model">
+                <ng-template ngFor let-item let-end="last" [ngForOf]="model">
                     <li role="menuitem">
-                        <a [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)" [ngClass]="{'ui-state-disabled':item.disabled}">
+                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)" 
+                            [ngClass]="{'ui-state-disabled':item.disabled}" [attr.target]="item.target">
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </a>
+                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" class="ui-menuitem-link" (click)="itemClick($event, item)" 
+                            [ngClass]="{'ui-state-disabled':item.disabled}" [attr.target]="item.target">
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
                     </li>
                     <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="!end"></li>
-                </template>
+                </ng-template>
             </ul>
         </div>
     `
@@ -32,16 +47,14 @@ export class Breadcrumb implements OnDestroy {
     @Input() styleClass: string;
     
     @Input() home: MenuItem;
-    
-    constructor(public router: Router) {}
-    
+        
     itemClick(event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
         
-        if(!item.url||item.routerLink) {
+        if(!item.url) {
             event.preventDefault();
         }
         
@@ -55,10 +68,6 @@ export class Breadcrumb implements OnDestroy {
                 originalEvent: event,
                 item: item
             });
-        }
-                
-        if(item.routerLink) {
-            this.router.navigate(item.routerLink);
         }
     }
     
@@ -81,8 +90,8 @@ export class Breadcrumb implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Breadcrumb],
+    imports: [CommonModule,RouterModule],
+    exports: [Breadcrumb,RouterModule],
     declarations: [Breadcrumb]
 })
 export class BreadcrumbModule { }

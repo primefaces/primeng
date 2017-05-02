@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild,ViewChild,trigger,state,style,transition,animate} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild,ViewChild} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {Header,SharedModule} from '../common/shared';
@@ -14,11 +15,11 @@ import {Header,SharedModule} from '../common/shared';
                 <span class="ui-dialog-title" *ngIf="headerFacet">
                     <ng-content select="p-header"></ng-content>
                 </span>
-                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="hide($event)">
+                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
-            <div #content class="ui-dialog-content ui-widget-content" [style.height.px]="contentHeight">
+            <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
                 <ng-content></ng-content>
             </div>
             <ng-content select="p-footer"></ng-content>
@@ -40,7 +41,7 @@ import {Header,SharedModule} from '../common/shared';
     ],
     providers: [DomHandler]
 })
-export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
+export class Dialog implements AfterViewInit,OnDestroy {
 
     @Input() header: string;
 
@@ -55,8 +56,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() width: any;
 
     @Input() height: any;
-    
-    @Input() contentHeight: any;
+        
+    @Input() contentStyle: any;
 
     @Input() modal: boolean;
 
@@ -84,13 +85,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     @ViewChild('content') contentViewChild: ElementRef;
 
-    @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
 
-    @Output() onAfterShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
 
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
     
@@ -117,15 +114,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     lastPageY: number;
     
     mask: HTMLDivElement;
-    
-    shown: boolean;
-    
+        
     container: HTMLDivElement;
     
     contentContainer: HTMLDivElement;
-    
-    positionInitialized: boolean;
-            
+                
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
     
     @Input() get visible(): boolean {
@@ -135,21 +128,18 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     set visible(val:boolean) {
         this._visible = val;
         
-        if(this._visible) {
-            this.onBeforeShow.emit({});
-            this.shown = true;
-        } 
-        
-        if(this.modal && !this._visible) {
-            this.disableModality();
+        if(this.container) {
+            if(this._visible)
+                this.show();
+            else
+                this.hide();
         }
     }
-    
+
     show() {
-        if(!this.positionInitialized) {
-            this.center();
-            this.positionInitialized = true;
-        }
+        this.onShow.emit({});
+        
+        this.center();
         
         this.container.style.zIndex = String(++DomHandler.zindex);
         
@@ -158,22 +148,37 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         }
     }
     
+    hide() {
+        this.onHide.emit({});
+        this.unbindMaskClickListener();
+        
+        if(this.modal) {
+            this.disableModality();
+        }
+    }
+    
+    close(event: Event) {
+        this.hide();
+        this.visibleChange.emit(false);
+        event.preventDefault();
+    }
+        
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         this.contentContainer =  <HTMLDivElement> this.contentViewChild.nativeElement;
         
         if(this.draggable) {
-            this.documentDragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            this.documentDragListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
                 this.onDrag(event);
             });
         }
         
         if(this.resizable) {
-            this.documentResizeListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            this.documentResizeListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
                 this.onResize(event);
             });
             
-            this.documentResizeEndListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
+            this.documentResizeEndListener = this.renderer.listenGlobal('document', 'mouseup', (event) => {
                 if(this.resizing) {
                     this.resizing = false;
                 }
@@ -187,10 +192,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         }
         
         if(this.closeOnEscape && this.closable) {
-            this.documentEscapeListener = this.renderer.listenGlobal('body', 'keydown', (event) => {
+            this.documentEscapeListener = this.renderer.listenGlobal('document', 'keydown', (event) => {
                 if(event.which == 27) {
                     if(parseInt(this.container.style.zIndex) == DomHandler.zindex) {
-                        this.hide(event);
+                        this.close(event);
                     }
                 }
             });
@@ -202,16 +207,12 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             else
                 this.domHandler.appendChild(this.container, this.appendTo);
         }
-    }
-    
-    ngAfterViewChecked() {
-        if(this.shown) {
+        
+        if(this.visible) {
             this.show();
-            this.onAfterShow.emit({});
-            this.shown = false;
         }
     }
-    
+        
     center() {
         let elementWidth = this.domHandler.getOuterWidth(this.container);
         let elementHeight = this.domHandler.getOuterHeight(this.container);
@@ -224,8 +225,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.container.style.visibility = 'visible';
         }
         let viewport = this.domHandler.getViewport();
-        let x = (viewport.width - elementWidth) / 2;
-        let y = (viewport.height - elementHeight) / 2;
+        let x = Math.max((viewport.width - elementWidth) / 2, 0);
+        let y = Math.max((viewport.height - elementHeight) / 2, 0);
 
         this.container.style.left = x + 'px';
         this.container.style.top = y + 'px';
@@ -239,7 +240,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             
 			if(this.closable && this.dismissableMask) {
 	             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
-					this.hide(event);
+					this.close(event);
 	             });
 			}
             document.body.appendChild(this.mask);
@@ -252,15 +253,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.mask = null;
         }
     }
-    
-    hide(event) {
-        this.onBeforeHide.emit(event);
-        this.visibleChange.emit(false);
-        this.onAfterHide.emit(event);
-        this.unbindMaskClickListener();
-        event.preventDefault();
-    }
-    
+        
     unbindMaskClickListener() {
         if(this.maskClickListener) {
             this.maskClickListener();
