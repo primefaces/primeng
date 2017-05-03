@@ -2,7 +2,6 @@ import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,Afte
         QueryList,ViewChild,TemplateRef,IterableDiffers,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {SelectItem} from '../common/api';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/ObjectUtils';
@@ -17,12 +16,12 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-dropdown',
     template: `
-         <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
+        <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
             'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focus}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
                 <select [required]="required" tabindex="-1">
-                    <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
+                    <option *ngFor="let option of options" [value]="getValue(option)" [selected]="selectedOption == option">{{getLabel(option)}}</option>
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
@@ -44,9 +43,9 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                     <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
                         <li *ngFor="let option of optionsToDisplay;let i=index" 
                             [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-highlight':(selectedOption == option), 
-                            'ui-dropdown-item-empty':!option.label||option.label.length === 0}"
+                            'ui-dropdown-item-empty':!getLabel(option)||getLabel(option).length === 0}"
                             (click)="onItemClick($event, option)">
-                            <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
+                            <span *ngIf="!itemTemplate">{{getLabel(option)||'empty'}}</span>
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></ng-template>
                         </li>
                     </ul>
@@ -70,7 +69,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 })
 export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
-    @Input() options: SelectItem[];
+    @Input() options: Object[];
 
     @Input() scrollHeight: string = '200px';
 
@@ -103,6 +102,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() inputId: string;
     
     @Input() dataKey: string;
+
+    @Input() labelKey = 'label';
+
+    @Input() valueKey = 'value';
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -124,7 +127,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public itemTemplate: TemplateRef<any>;
         
-    selectedOption: SelectItem;
+    selectedOption: Object;
     
     value: any;
     
@@ -132,7 +135,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onModelTouched: Function = () => {};
 
-    optionsToDisplay: SelectItem[];
+    optionsToDisplay: Object[];
     
     hover: boolean;
     
@@ -214,11 +217,19 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     get label(): string {
-        return (this.selectedOption ? this.selectedOption.label : this.placeholder);
+        return (this.selectedOption ? this.getLabel(this.selectedOption) : this.placeholder);
     }
     
     get editableLabel(): string {
-        return this.value || (this.selectedOption ? this.selectedOption.label : null);
+        return this.value || (this.selectedOption ? this.getLabel(this.selectedOption) : null);
+    }
+
+    getLabel(item: Object) {
+        return this.objectUtils.resolveProperty(item, this.labelKey);
+    }
+
+    getValue(item: Object) {
+        return this.objectUtils.resolveProperty(item, this.valueKey);
     }
     
     onItemClick(event, option) {
@@ -231,7 +242,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     selectItem(event, option) {
         this.selectedOption = option;
-        this.value = option.value;
+        this.value = this.getValue(option);
                 
         this.onModelChange(this.value);
         this.onChange.emit({
@@ -343,7 +354,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onEditableInputChange(event) {
         this.value = event.target.value;
-        this.updateSelectedOption(this.value);                
+        this.updateSelectedOption(this.value);            
         this.onModelChange(this.value);
         this.onChange.emit({
             originalEvent: event,
@@ -391,7 +402,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             return;
         }
         
-        let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
+        let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.getValue(this.selectedOption), this.optionsToDisplay) : -1;
 
         switch(event.which) {
             //down
@@ -451,11 +462,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
                     
-    findOptionIndex(val: any, opts: SelectItem[]): number {        
+    findOptionIndex(val: any, opts: Object[]): number {        
         let index: number = -1;
         if(opts) {
             for(let i = 0; i < opts.length; i++) {
-                if((val == null && opts[i].value == null) || this.objectUtils.equals(val, opts[i].value, this.dataKey)) {
+                if((val == null && this.getValue(opts[i]) == null) || this.objectUtils.equals(val, this.getValue(opts[i]), this.dataKey)) {
                     index = i;
                     break;
                 }
@@ -465,7 +476,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         return index;
     }
     
-    findOption(val: any, opts: SelectItem[]): SelectItem {
+    findOption(val: any, opts: Object[]): Object {
         let index: number = this.findOptionIndex(val, opts);
         return (index != -1) ? opts[index] : null;
     }
@@ -476,7 +487,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.optionsToDisplay = [];
             for(let i = 0; i < this.options.length; i++) {
                 let option = this.options[i];
-                if(option.label.toLowerCase().indexOf(val) > -1) {
+                if(this.getLabel(option).toLowerCase().indexOf(val) > -1) {
                     this.optionsToDisplay.push(option);
                 }
             }

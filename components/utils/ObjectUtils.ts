@@ -57,7 +57,7 @@ export class ObjectUtils {
         return false;
     }
     
-    resolveFieldData(data: any, field: string): any {
+    public resolveFieldData(data: any, field: string): any {
         if(data && field) {
             if(field.indexOf('.') == -1) {
                 return data[field];
@@ -77,5 +77,18 @@ export class ObjectUtils {
         else {
             return null;
         }
+    }
+
+    /**
+     * Retrieves the property value from the item.
+     * If the property is falsy, then the entire item will be returned.
+     * The property can be a dot-separated path.
+     * 
+     * @param item - The item whose property value will be returned.
+     * @param property - A property name or a dot-separated path of property names.
+     * @returns The property value retrieved from the item or the entire item if the property is falsy.
+     */
+    public resolveProperty(item: Object, property: string): any {
+        return !property ? item : this.resolveFieldData(item, property);
     }
 }

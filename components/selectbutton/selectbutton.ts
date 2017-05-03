@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SelectItem} from '../common/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {ObjectUtils} from '../utils/ObjectUtils';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -15,15 +15,15 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + options.length" [ngStyle]="style" [class]="styleClass">
             <div *ngFor="let option of options;" class="ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled}" (click)="onItemClick($event,option)">
-                <span class="ui-button-text ui-c">{{option.label}}</span>
+                <span class="ui-button-text ui-c">{{getLabel(option)}}</span>
             </div>
         </div>
     `,
-    providers: [SELECTBUTTON_VALUE_ACCESSOR]
+    providers: [SELECTBUTTON_VALUE_ACCESSOR, ObjectUtils]
 })
 export class SelectButton implements ControlValueAccessor {
 
-    @Input() options: SelectItem[];
+    @Input() options: Object[];
 
     @Input() tabindex: number;
 
@@ -35,6 +35,10 @@ export class SelectButton implements ControlValueAccessor {
 
     @Input() disabled: boolean;
 
+    @Input() labelKey = 'label';
+
+    @Input() valueKey = 'value';
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     value: any;
@@ -42,6 +46,16 @@ export class SelectButton implements ControlValueAccessor {
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
+
+    constructor(private objectUtils: ObjectUtils) {}
+
+    getLabel(item: Object) {
+        return this.objectUtils.resolveProperty(item, this.labelKey);
+    }
+
+    getValue(item: Object) {
+        return this.objectUtils.resolveProperty(item, this.valueKey);
+    }
     
     writeValue(value: any) : void {
         this.value = value;
@@ -59,7 +73,7 @@ export class SelectButton implements ControlValueAccessor {
         this.disabled = val;
     }
     
-    onItemClick(event, option: SelectItem) {
+    onItemClick(event, option: Object) {
         if(this.disabled) {
             return;
         }
@@ -69,10 +83,10 @@ export class SelectButton implements ControlValueAccessor {
             if(itemIndex != -1)
                 this.value = this.value.filter((val,i) => i!=itemIndex);
             else
-                this.value = [...this.value||[], option.value];
+                this.value = [...this.value||[], this.getValue(option)];
         }
         else {
-            this.value = option.value;
+            this.value = this.getValue(option);
         }
         
         this.onModelChange(this.value);
@@ -83,18 +97,18 @@ export class SelectButton implements ControlValueAccessor {
         });
     }
     
-    isSelected(option: SelectItem) {
+    isSelected(option: Object) {
         if(this.multiple)
             return this.findItemIndex(option) != -1;
         else
-            return option.value == this.value;
+            return this.getValue(option) == this.value;
     }
     
-    findItemIndex(option: SelectItem) {
+    findItemIndex(option: Object) {
         let index = -1;
         if(this.value) {
             for(let i = 0; i < this.value.length; i++) {
-                if(this.value[i] == option.value) {
+                if(this.value[i] == this.getValue(option)) {
                     index = i;
                     break;
                 }
