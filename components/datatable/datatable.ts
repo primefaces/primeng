@@ -1986,7 +1986,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     public exportCSV() {
-        let data = this.value;
+        let data = this.filteredValue || this.value;
         let csv = '\ufeff';
         
         //headers
@@ -2001,7 +2001,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         //body        
-        this.value.forEach((record, i) => {
+        data.forEach((record, i) => {
             csv += '\n';
             for(let i = 0; i < this.columns.length; i++) {
                 if(this.columns[i].field) {
