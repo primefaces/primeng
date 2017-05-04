@@ -670,7 +670,7 @@ body .ui-datepicker {
     padding: 0;
 }
 body .ui-datepicker .ui-datepicker-header {
-    padding: .75em 1.25em;
+    padding: .75em 0;
     background-color: #f5f5f5;
     border: 0;
     border-bottom: 1px solid #c7c7c7;
