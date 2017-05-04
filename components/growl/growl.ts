@@ -59,7 +59,7 @@ export class Growl implements AfterViewInit,OnDestroy {
     }
 
     set value(val:Message[]) {
-        this._value = val;
+        this._value = [...val];
         if(this.container) {
             this.handleValueChange();
         }
