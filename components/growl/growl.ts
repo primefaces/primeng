@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,ViewChild} from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
@@ -35,6 +35,8 @@ export class Growl implements AfterViewInit,OnDestroy {
     @Input() style: any;
         
     @Input() styleClass: string;
+
+    @Output() onClosedMessage: EventEmitter<Message> = new EventEmitter<Message>();
     
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -83,9 +85,9 @@ export class Growl implements AfterViewInit,OnDestroy {
         this.domHandler.fadeOut(msgel, 250);
         
         setTimeout(() => {
+            this.onClosedMessage.emit(this._value[index]);
             this.value = this.value.filter((val,i) => i!=index);
         }, 250);
-        
     }
     
     removeAll() {
@@ -93,6 +95,7 @@ export class Growl implements AfterViewInit,OnDestroy {
             this.domHandler.fadeOut(this.container, 250);
             
             setTimeout(() => {
+                this.value.forEach((msg, index) => this.onClosedMessage.emit(this._value[index]));
                 this.value = [];
             }, 250);
         }
