@@ -152,7 +152,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
         this.slideMenuContentElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardElement) + 'px';
         
         if(this.popup) {
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
                 }

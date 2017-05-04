@@ -64,7 +64,7 @@
     <h3>Checkbox</h3>
     <p>Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".</p>
     <p-dataTable [value]="cars" [(selection)]="selectedCars2" dataKey="vin">
-        <p-header>Multiple Selection</p-header>
+        <p-header>Checkbox Selection</p-header>
         <p-column [style]="&#123;'width':'38px'&#125;" selectionMode="multiple"></p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -171,7 +171,7 @@ export class DataTableSelectionDemo implements OnInit &#123;
 &lt;h3&gt;Checkbox&lt;/h3&gt;
 &lt;p&gt;Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".&lt;/p&gt;
 &lt;p-dataTable [value]="cars" [(selection)]="selectedCars2" dataKey="vin"&gt;
-    &lt;p-header&gt;Single Selection&lt;/p-header&gt;
+    &lt;p-header&gt;Checkbox Selection&lt;/p-header&gt;
     &lt;p-column [style]="&#123;'width':'38px'&#125;" selectionMode="multiple"&gt;&lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;

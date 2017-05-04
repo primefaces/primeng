@@ -1,5 +1,5 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChildren,
-        QueryList,ViewChild,TemplateRef,IterableDiffers,forwardRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer,EventEmitter,ContentChildren,
+        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SharedModule,PrimeTemplate} from '../common/shared';
@@ -34,9 +34,9 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 <span class="fa fa-fw fa-caret-down ui-c"></span>
             </div>
             <div #panel [ngClass]="'ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow'" [@panelState]="panelVisible ? 'visible' : 'hidden'"
-                [style.display]="panelVisible ? 'block' : 'none'" [style.width.px]="container.clientWidth" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                [style.display]="panelVisible ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
-                    <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all">
+                    <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder">
                     <span class="fa fa-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
@@ -67,9 +67,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
     ],
     providers: [DomHandler,ObjectUtils,DROPDOWN_VALUE_ACCESSOR]
 })
-export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
-
-    @Input() options: Object[];
+export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 
     @Input() scrollHeight: string = '200px';
 
@@ -99,6 +97,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() placeholder: string;
     
+    @Input() filterPlaceholder: string;
+
     @Input() inputId: string;
     
     @Input() dataKey: string;
@@ -129,6 +129,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         
     selectedOption: Object;
     
+    _options: Object[];
+    
     value: any;
     
     onModelChange: Function = () => {};
@@ -140,8 +142,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     hover: boolean;
     
     focus: boolean;
-    
-    differ: any;
     
     public panelVisible: boolean = false;
     
@@ -167,9 +167,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public selectedOptionUpdated: boolean;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers, private cd: ChangeDetectorRef, public objectUtils: ObjectUtils) {
-        this.differ = differs.find([]).create(null);
-    }
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, private cd: ChangeDetectorRef, public objectUtils: ObjectUtils) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -190,16 +188,17 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateSelectedOption(null);
     }
     
-    ngDoCheck() {
-        let changes = this.differ.diff(this.options);
-        
-        if(changes && this.initialized) {
-            this.optionsToDisplay = this.options;
-            this.updateSelectedOption(this.value);
-            this.optionsChanged = true;
-        }
+    @Input() get options(): Object[] {
+        return this._options;
     }
-    
+
+    set options(opts:Object[]) {
+        this._options = opts;
+        this.optionsToDisplay = this._options;
+        this.updateSelectedOption(this.value);
+        this.optionsChanged = true;
+    }
+
     ngAfterViewInit() { 
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         this.panel = <HTMLDivElement> this.panelViewChild.nativeElement; 
@@ -370,6 +369,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     show() {
+        if(this.appendTo) {
+            this.panel.style.minWidth = this.domHandler.getWidth(this.container) + 'px';
+        }
+        
         this.panel.style.zIndex = String(++DomHandler.zindex);
         this.panelVisible = true;
         this.shown = true;
@@ -505,7 +508,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(!this.selfClick&&!this.itemClick) {
                     this.panelVisible = false;
                     this.unbindDocumentClickListener();

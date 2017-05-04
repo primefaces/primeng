@@ -39,17 +39,20 @@ export class DataTableCrudDemo implements OnInit {
     }
     
     save() {
+        let cars = [...this.cars];
         if(this.newCar)
-            this.cars.push(this.car);
+            cars.push(this.car);
         else
-            this.cars[this.findSelectedCarIndex()] = this.car;
+            cars[this.findSelectedCarIndex()] = this.car;
         
+        this.cars = cars;
         this.car = null;
         this.displayDialog = false;
     }
     
     delete() {
-        this.cars.splice(this.findSelectedCarIndex(), 1);
+        let index = this.findSelectedCarIndex();
+        this.cars = this.cars.filter((val,i) => i!=index);
         this.car = null;
         this.displayDialog = false;
     }    

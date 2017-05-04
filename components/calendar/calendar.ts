@@ -330,10 +330,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
+        this.pm = date.getHours() > 11;
         if(this.showTime) {
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
-            this.pm = date.getHours() > 11;
             
             if(this.hourFormat == '12')
                 this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
@@ -1216,7 +1216,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(this.closeOverlay) {
                     this.overlayVisible = false;
                 }

@@ -80,7 +80,7 @@ export class Menu implements AfterViewInit,OnDestroy {
                     this.domHandler.appendChild(this.container, this.appendTo);
             }
                 
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
                 }

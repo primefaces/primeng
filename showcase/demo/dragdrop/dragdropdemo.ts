@@ -33,8 +33,9 @@ export class DragDropDemo {
     
     drop(event) {
         if(this.draggedCar) {
-            this.selectedCars.push(this.draggedCar);
-            this.availableCars.splice(this.findIndex(this.draggedCar), 1);
+            let draggedCarIndex = this.findIndex(this.draggedCar);
+            this.selectedCars = [...this.selectedCars, this.draggedCar];
+            this.availableCars = this.availableCars.filter((val,i) => i!=draggedCarIndex);
             this.draggedCar = null;
         }
     }

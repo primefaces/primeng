@@ -168,17 +168,17 @@ export class Dialog implements AfterViewInit,OnDestroy {
         this.contentContainer =  <HTMLDivElement> this.contentViewChild.nativeElement;
         
         if(this.draggable) {
-            this.documentDragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            this.documentDragListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
                 this.onDrag(event);
             });
         }
         
         if(this.resizable) {
-            this.documentResizeListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            this.documentResizeListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
                 this.onResize(event);
             });
             
-            this.documentResizeEndListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
+            this.documentResizeEndListener = this.renderer.listenGlobal('document', 'mouseup', (event) => {
                 if(this.resizing) {
                     this.resizing = false;
                 }
@@ -192,7 +192,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
         
         if(this.closeOnEscape && this.closable) {
-            this.documentEscapeListener = this.renderer.listenGlobal('body', 'keydown', (event) => {
+            this.documentEscapeListener = this.renderer.listenGlobal('document', 'keydown', (event) => {
                 if(event.which == 27) {
                     if(parseInt(this.container.style.zIndex) == DomHandler.zindex) {
                         this.close(event);

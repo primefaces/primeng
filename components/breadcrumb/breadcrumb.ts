@@ -9,7 +9,17 @@ import {RouterModule} from '@angular/router';
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'">
             <ul>
-                <li class="fa fa-home" (click)="onHomeClick($event)"></li>
+                <li class="ui-breadcrumb-home fa fa-home" *ngIf="!home"></li>
+                <li class="ui-breadcrumb-home" *ngIf="home">
+                    <a *ngIf="!home.routerLink" [href]="home.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, home)" 
+                        [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target">
+                        <span class="fa fa-home"></span>
+                    </a>
+                    <a *ngIf="home.routerLink" [routerLink]="home.routerLink" [routerLinkActive]="'ui-state-active'" class="ui-menuitem-link" (click)="itemClick($event, home)" 
+                        [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target">
+                        <span class="fa fa-home"></span>
+                    </a>
+                </li>
                 <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="model"></li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
                     <li role="menuitem">

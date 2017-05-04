@@ -98,7 +98,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     @Input() displaySelectedLabel: boolean = true;
     
-    @Input() maxItems: number = 3;
+    @Input() maxSelectedLabels: number = 3;
     
     @Input() selectedItemsLabel: string = '{0} items selected';
         
@@ -141,8 +141,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     ngOnInit() {
         this.updateLabel();
         
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
-            if(!this.selfClick && this.overlayVisible) {
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
+            if(!this.selfClick && !this.panelClick && this.overlayVisible) {
                 this.hide();
             }
             
@@ -321,7 +321,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
                 label = label + this.findLabelByValue(this.value[i]);
             }
             
-            if(this.value.length <= this.maxItems) {
+            if(this.value.length <= this.maxSelectedLabels) {
                 this.valuesAsString = label;
             }
             else {
