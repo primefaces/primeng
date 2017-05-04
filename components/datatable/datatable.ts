@@ -540,6 +540,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Input() groupField: string;
 
+    @Input() rowReadonlyField: string;
+
+    @Input() rowVisibleField: string;
+
     @Input() multiSortMeta: SortMeta[];
     
     @Input() contextMenu: any;
@@ -892,12 +896,35 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 if(i >= datasource.length) {
                     break;
                 }
-
-                this.dataToRender.push(datasource[i]);
+                if(this.rowVisibleField !== undefined && this.rowVisibleField != "") {
+                    var isVisible = this.resolveFieldData(datasource[i], this.rowVisibleField);
+                    if(isVisible === undefined)
+                        isVisible = true;
+                    if(isVisible)
+                        this.dataToRender.push(datasource[i]);
+                }
+                else {
+                    this.dataToRender.push(datasource[i]);
+                }
             }
         }
         else {
-            this.dataToRender = datasource;
+            if(datasource !== undefined && datasource !== null) {
+                this.dataToRender = [];
+                for(let row of datasource) {
+                    if(this.rowVisibleField !== undefined && this.rowVisibleField != "") {
+                        var isVisible = this.resolveFieldData(row, this.rowVisibleField);
+                        if(isVisible === undefined)
+                            isVisible = true;
+                        if(isVisible)
+                            this.dataToRender.push(row);
+                    }
+                    else
+                        this.dataToRender = datasource;
+                }
+            } else {
+                this.dataToRender = datasource;
+            }
         }
         
         if(this.rowGroupMode) {
@@ -1496,9 +1523,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     switchCellToEditMode(cell: any, column: Column, rowData: any) {
-        if(!this.selectionMode && this.editable && column.editable) {  
-            this.editorClick = true;
-                     
+        let rowReadonlyField = this.resolveFieldData(rowData, this.rowReadonlyField);
+        if(rowReadonlyField === undefined)
+            rowReadonlyField = false;
+        if(rowReadonlyField)
+            return;
+        if(!this.selectionMode && this.editable && column.editable) {    
+            this.editorClick = true;       
             if(cell != this.editingCell) {
                 if(this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
                     this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
