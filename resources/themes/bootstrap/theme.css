@@ -241,6 +241,9 @@ body .ui-selectbutton.ui-buttonset .ui-button.ui-state-active {
     background-color: #0275d8;
     color: #ffffff;
 }
+body .ui-autocomplete .ui-autocomplete-dropdown .ui-button-text {
+    padding: 0.35em;
+}
 body .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-container {
     padding: 0.5em 0.75em;
 }
