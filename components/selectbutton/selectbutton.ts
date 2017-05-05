@@ -64,7 +64,8 @@ export class SelectButton implements ControlValueAccessor {
     
     onItemKeyDow(event: KeyboardEvent, option: SelectItem) {
         if (event.code === "Space") {
-            this.onItemClick(event, option);    
+            this.onItemClick(event, option);
+            event.preventDefault();
         }
     }
     
