@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,ViewChild,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
@@ -35,6 +35,8 @@ export class Growl implements AfterViewInit,OnDestroy {
     @Input() style: any;
         
     @Input() styleClass: string;
+    
+    @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
     
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -84,6 +86,7 @@ export class Growl implements AfterViewInit,OnDestroy {
         
         setTimeout(() => {
             this.value = this.value.filter((val,i) => i!=index);
+            this.valueChange.emit(this.value);
         }, 250);
         
     }
@@ -94,6 +97,7 @@ export class Growl implements AfterViewInit,OnDestroy {
             
             setTimeout(() => {
                 this.value = [];
+                this.valueChange.emit(this.value);
             }, 250);
         }
     }
