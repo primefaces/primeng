@@ -31,12 +31,16 @@ export class GrowlDemo {
 
     showMultiple() {
         this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Message 1', detail:'PrimeNG rocks'});
-        this.msgs.push({severity:'info', summary:'Message 2', detail:'PrimeUI rocks'});
+        this.msgs.push({severity:'info', summary:'Message 1', detail:'PrimeNG rocks', id: 1});
+        this.msgs.push({severity:'info', summary:'Message 2', detail:'PrimeUI rocks', id: 2});
         this.msgs.push({severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'});
     }
 
     clear() {
         this.msgs = [];
+    }
+
+    log(m) {
+        console.log(m);
     }
 }
