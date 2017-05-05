@@ -317,6 +317,10 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                  this.rowHeight = this.domHandler.getOuterHeight(row);
              }             
         }
+        
+        if(!this.frozen) {
+            this.alignScrollBar();
+        }
     }
         
     initScrolling() {
@@ -370,16 +374,23 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 this.scrollHeader.scrollLeft = 0;
             });
         }
-        
-        let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
-        if(!this.frozen) {
-            this.scrollHeaderBox.style.marginRight = scrollBarWidth + 'px';  
-            if(this.scrollFooterBox) {
-                this.scrollFooterBox.style.marginRight = scrollBarWidth + 'px';  
-            } 
-        }         
-        else {
+
+        if(!this.frozen)
+            this.alignScrollBar();
+        else
             this.scrollBody.style.paddingBottom = scrollBarWidth + 'px';
+    }
+    
+    hasVerticalOverflow() {
+        return this.domHandler.getOuterHeight(this.scrollTable) > this.domHandler.getOuterHeight(this.scrollBody);
+    }
+    
+    alignScrollBar() {
+        let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
+        
+        this.scrollHeaderBox.style.marginRight = scrollBarWidth + 'px';
+        if(this.scrollFooterBox) {
+            this.scrollFooterBox.style.marginRight = scrollBarWidth + 'px';
         }
     }
     
