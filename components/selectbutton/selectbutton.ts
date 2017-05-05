@@ -14,7 +14,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + options.length" [ngStyle]="style" [class]="styleClass">
             <div *ngFor="let option of options;" class="ui-button ui-widget ui-state-default ui-button-text-only"
-                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled}" (click)="onItemClick($event,option)"
+                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled}" (click)="onItemClick($event,option)" (keydown)="onItemKeyDow($event,option)"
                 tabindex="{{btnTabIndex}}">
                 <span class="ui-button-text ui-c">{{option.label}}</span>
             </div>
@@ -62,7 +62,14 @@ export class SelectButton implements ControlValueAccessor {
         this.disabled = val;
     }
     
+    onItemKeyDow(event: KeyboardEvent, option: SelectItem) {
+        if (event.code === "Space") {
+            this.onItemClick(event, option);    
+        }
+    }
+    
     onItemClick(event, option: SelectItem) {
+        
         if(this.disabled) {
             return;
         }
