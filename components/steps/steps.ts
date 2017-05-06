@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
             <ul role="tablist">
                 <li *ngFor="let item of model; let i = index" class="ui-steps-item" #menuitem
                     [ngClass]="{'ui-state-highlight':(i === activeIndex),'ui-state-default':(i !== activeIndex),
-                        'ui-state-disabled':(i !== activeIndex && readonly)}">
+                        'ui-state-disabled':(i !== activeIndex && (readonly || item.disabled))}">
                     <a class="ui-menuitem-link" (click)="itemClick($event, item, i)" [attr.target]="item.target">
                         <span class="ui-steps-number">{{i + 1}}</span>
                         <span class="ui-steps-title">{{item.label}}</span>
@@ -41,12 +41,12 @@ export class Steps {
             return;
         }
         
-        this.activeIndexChange.emit(i);
-        
         if(item.disabled) {
             event.preventDefault();
             return;
         }
+        
+        this.activeIndexChange.emit(i);
         
         if(!item.url||item.routerLink) {
             event.preventDefault();
