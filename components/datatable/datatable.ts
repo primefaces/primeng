@@ -377,8 +377,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
 
         if(!this.frozen)
             this.alignScrollBar();
-        else
-            this.scrollBody.style.paddingBottom = scrollBarWidth + 'px';
+        //else
+        //    this.scrollBody.style.paddingBottom = scrollBarWidth + 'px';
     }
     
     hasVerticalOverflow() {
