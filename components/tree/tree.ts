@@ -181,7 +181,7 @@ export class UITreeNode implements OnInit {
         let dragNodeScope = this.tree.dragNodeScope;
         let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? (position === 1 || dragNodeIndex !== this.index - 1) : true;
 
-        if(this.tree.allowDrop(dragNode, this.node, dragNodeScope) && isValidDropPointIndex) {
+        if(this.tree.allowDrop(dragNode, this.node, dragNodeScope) && this.tree.allowTypeLockedDrop(dragNode, this.node, 0) && isValidDropPointIndex) {
             let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
             this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
             if(position < 0)
@@ -211,7 +211,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDropPointDragEnter(event: Event, position: number) {
-        if(this.tree.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
+        if(this.tree.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope) && this.tree.allowTypeLockedDrop(this.tree.dragNode, this.node, 0)) {
             if(position < 0)
                 this.draghoverPrev = true;
             else
@@ -262,7 +262,7 @@ export class UITreeNode implements OnInit {
             event.preventDefault();
             event.stopPropagation();
             let dragNode = this.tree.dragNode;
-            if(this.tree.allowDrop(dragNode, this.node, this.tree.dragNodeScope)) {
+            if(this.tree.allowDrop(dragNode, this.node, this.tree.dragNodeScope) && this.tree.allowTypeLockedDrop(dragNode, this.node, 1)) {
                 let dragNodeIndex = this.tree.dragNodeIndex;            
                 this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
                 
@@ -289,7 +289,7 @@ export class UITreeNode implements OnInit {
     }
     
     onDropNodeDragEnter(event) {
-        if(this.tree.droppableNodes && this.node.droppable !== false && this.tree.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope)) {
+        if(this.tree.droppableNodes && this.node.droppable !== false && this.tree.allowDrop(this.tree.dragNode, this.node, this.tree.dragNodeScope) && this.tree.allowTypeLockedDrop(this.tree.dragNode, this.node, 1)) {
             this.draghoverNode = true;
         }
     }
@@ -326,6 +326,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
     @Input() value: TreeNode[];
         
     @Input() selectionMode: string;
+    
+    @Input() dropTypeLock: string[];
     
     @Input() selection: any;
     
@@ -693,6 +695,17 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
                this.dragHover = false;
             }
         }
+    }
+    
+    allowTypeLockedDrop(dragNode: TreeNode, dropNode: TreeNode, shift:number): boolean {
+        if (!dropNode || !this.dropTypeLock) return true;
+        let depth = 0;
+        let node = dropNode;
+        while(node.parent) {
+            depth++;
+            node = node.parent;
+        }
+        return (dragNode.type===this.dropTypeLock[depth+shift]);
     }
     
     allowDrop(dragNode: TreeNode, dropNode: TreeNode, dragNodeScope: any): boolean {

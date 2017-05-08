@@ -214,7 +214,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 
     @Input() required: boolean;
 
-    @Input() basedOnUTC: boolean; 
+    @Input() basedOnUTC: boolean;
 
     @Input() showOnFocus: boolean = true;
     
