@@ -1,35 +1,36 @@
 {
-  "name": "primeng",
-  "version": "4.0.0",
-  "scripts": {
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "webpack": "webpack",
-    "webpack:w": "webpack -w",
-    "webpack-dev-server": "webpack-dev-server --inline",
-    "build-prod": "webpack --config config/webpack.prod.js",
-    "build-dev": "webpack --config config/webpack.dev.js",
-    "start": "npm run webpack-dev-server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/primefaces/primeng.git"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^7.0.5",
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-flatten": "^0.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.5.3",
-    "gulp-uglifycss": "^1.0.6",
-    "ts-loader": "^0.9.5",
-    "typescript": "^2.1.6",
-    "html-webpack-plugin": "^2.16.1",
-    "webpack": "2.2.1",
-    "webpack-dev-server": "2.4.1",
-    "webpack-merge": "^3.0.0"
-  }
+    "publishConfig":{"registry":"http://artifactory.sofico.be:8081/artifactory/api/npm/npm-local"},
+    "name": "primeng-sofico",
+    "version": "4.0.1-RC1",
+    "scripts": {
+        "tsc": "tsc",
+        "tsc:w": "tsc -w",
+        "webpack": "webpack",
+        "webpack:w": "webpack -w",
+        "webpack-dev-server": "webpack-dev-server --inline",
+        "build-prod": "webpack --config config/webpack.prod.js",
+        "build-dev": "webpack --config config/webpack.dev.js",
+        "start": "npm run webpack-dev-server"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/primefaces/primeng.git"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^7.0.5",
+        "del": "^2.2.0",
+        "gulp": "^3.9.1",
+        "gulp-concat": "^2.6.0",
+        "gulp-flatten": "^0.2.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-uglify": "^1.5.3",
+        "gulp-uglifycss": "^1.0.6",
+        "ts-loader": "^0.9.5",
+        "typescript": "^2.1.6",
+        "html-webpack-plugin": "^2.16.1",
+        "webpack": "2.2.1",
+        "webpack-dev-server": "2.4.1",
+        "webpack-merge": "^3.0.0"
+    }
 }
