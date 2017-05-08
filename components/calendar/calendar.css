@@ -78,14 +78,23 @@
 	font-size: 1em;
 	margin: .125em 0;
 }
+.ui-datepicker .ui-datepicker-title div.left-block {
+	float: left;
+    margin-right: 0.125em;
+	text-align: right;
+	width: calc(50% - 0.125em);
+}
+.ui-datepicker .ui-datepicker-title div.right-block {
+	float: right;
+    margin-left: 0.125em;
+	text-align: left;
+	width: calc(50% - 0.125em);
+}
 .ui-datepicker select.ui-datepicker-month {
-    width: 55%;
+    width: 100%;
 }
 .ui-datepicker select.ui-datepicker-year {
-	width: 35%;
-}
-.ui-datepicker select.ui-datepicker-month {
-    margin-right: .25em;
+	width: 100%;
 }
 .ui-datepicker table {
 	width: 100%;

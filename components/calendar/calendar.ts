@@ -18,6 +18,7 @@ export const CALENDAR_VALIDATOR: any = {
 };
 
 export interface LocaleSettings {
+    titleYearFirst?: boolean;
     firstDayOfWeek?: number;
     dayNames: string[];
 	dayNamesShort: string[];
@@ -49,14 +50,18 @@ export interface LocaleSettings {
                         <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="ui-datepicker-title">
-                        <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{locale.monthNames[currentMonth]}}</span>
-                        <select class="ui-datepicker-month" *ngIf="monthNavigator" (change)="onMonthDropdownChange($event.target.value)">
-                            <option [value]="i" *ngFor="let month of locale.monthNames;let i = index" [selected]="i == currentMonth">{{month}}</option>
-                        </select>
-                        <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event.target.value)">
-                            <option [value]="year" *ngFor="let year of yearOptions" [selected]="year == currentYear">{{year}}</option>
-                        </select>
-                        <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
+                        <div [ngClass]="{'right-block': locale.titleYearFirst, 'left-block': !locale.titleYearFirst}">
+                            <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{locale.monthNames[currentMonth]}}</span>
+                            <select class="ui-datepicker-month" *ngIf="monthNavigator" (change)="onMonthDropdownChange($event.target.value)">
+                                <option [value]="i" *ngFor="let month of locale.monthNames;let i = index" [selected]="i == currentMonth">{{month}}</option>
+                            </select>
+                        </div>
+                        <div [ngClass]="{'left-block': locale.titleYearFirst, 'right-block': !locale.titleYearFirst}">
+                            <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event.target.value)">
+                                <option [value]="year" *ngFor="let year of yearOptions" [selected]="year == currentYear">{{year}}</option>
+                            </select>
+                            <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
+                        </div>
                     </div>
                 </div>
                 <table class="ui-datepicker-calendar" *ngIf="!timeOnly && (overlayVisible || inline)">
