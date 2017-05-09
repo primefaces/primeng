@@ -83,6 +83,7 @@ export class Column implements AfterContentInit{
     @Input() colspan: number;
     @Input() style: any;
     @Input() styleClass: string;
+    @Input() cellClassField: string;
     @Input() hidden: boolean;
     @Input() expander: boolean;
     @Input() selectionMode: string;

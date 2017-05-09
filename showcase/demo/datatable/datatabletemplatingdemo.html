@@ -9,13 +9,26 @@
 </div>
 
 <div class="content-section implementation">
+
+    <style>
+        :host /deep/ .car-orange {
+            background-color: green;
+        }
+        :host /deep/ .car-yellow {
+            background-color: red;
+        }
+        :host /deep/ .car-red {
+            background-color: blue;
+        }
+    </style>
+
     <p-growl [value]="msgs"></p-growl>
 
     <p-dataTable [value]="cars">
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
-        <p-column field="color" header="Color">
+        <p-column field="color" header="Color" cellClassField="colorCellClass">
             <ng-template let-col let-car="rowData" pTemplate="body">
                 <span [style.color]="car[col.field]">{{car[col.field]}}</span>
             </ng-template>
