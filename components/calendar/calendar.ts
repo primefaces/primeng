@@ -69,8 +69,9 @@ export interface LocaleSettings {
                     </thead>
                     <tbody>
                         <tr *ngFor="let week of dates">
-                            <td *ngFor="let date of week" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
-                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
+                            <td *ngFor="let date of week; let i = index" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
+                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today, 
+                                'ui-datepicker-saturday': i === 6, 'ui-datepicker-sunday': i === 0}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
                                     (click)="onDateSelect($event,date)">{{date.day}}</a>
