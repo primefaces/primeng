@@ -79,7 +79,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     @Input() placeholder: string;
     
-    @Input() readOnly: boolean;
+    @Input() readonly: boolean;
     
     @Input() formats: string[];
     
@@ -102,7 +102,7 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
               toolbar: toolbarElement
           },
           placeholder: this.placeholder,
-          readOnly: this.readOnly,
+          readOnly: this.readonly,
           theme: 'snow',
           formats: this.formats
         });
