@@ -330,7 +330,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     }
     
     ngAfterViewChecked() {
-        if(this.virtualScroll && !this.rowHeight) {
+        if(!this.rowHeight) {
              let row = this.domHandler.findSingle(this.scrollTable, 'tr.ui-widget-content');
              if(row) {
                  this.rowHeight = this.domHandler.getOuterHeight(row);
