@@ -1,6 +1,5 @@
 import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SelectItem} from '../common/api';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/ObjectUtils';
@@ -42,7 +41,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isSelected(option)}"></span>
                         </div>
                     </div>
-                    <span *ngIf="!itemTemplate">{{option.label}}</span>
+                    <span *ngIf="!itemTemplate">{{getLabel(option)}}</span>
                     <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></ng-template>
                 </li>
             </ul>
@@ -52,7 +51,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 })
 export class Listbox implements AfterContentInit,ControlValueAccessor {
 
-    @Input() options: SelectItem[];
+    @Input() options: Object[];
 
     @Input() multiple: boolean;
 
@@ -70,6 +69,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     
     @Input() dataKey: string;
 
+    @Input() labelKey = 'label';
+
+    @Input() valueKey = 'value';
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
@@ -80,7 +83,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
 
     public filterValue: string;
     
-    public visibleOptions: SelectItem[];
+    public visibleOptions: Object[];
 
     public filtered: boolean;
 
@@ -108,6 +111,14 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
                 break;
             }
         });
+    }
+
+    getLabel(item: Object) {
+        return this.objectUtils.resolveProperty(item, this.labelKey);
+    }
+
+    getValue(item: Object) {
+        return this.objectUtils.resolveProperty(item, this.valueKey);
     }
 
     writeValue(value: any): void {
@@ -167,12 +178,12 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
                 }
             }
             else {
-                this.value = option.value;
+                this.value = this.getValue(option);
                 valueChanged = true;
             }
         }
         else {
-            this.value = selected ? null : option.value;            
+            this.value = selected ? null : this.getValue(option);
             valueChanged = true;
         }
 
@@ -198,13 +209,13 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
                     this.removeOption(option);
                 }
                 else {
-                    this.value = [option.value];
+                    this.value = [this.getValue(option)];
                 }
                 valueChanged = true;
             }
             else {
                 this.value = (metaKey) ? this.value || [] : [];
-                this.value = [...this.value, option.value];
+                this.value = [...this.value, this.getValue(option)];
                 valueChanged = true;
             }
         }
@@ -213,7 +224,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
                 this.removeOption(option);
             }
             else {
-                this.value = [...this.value||[],option.value];
+                this.value = [...this.value||[], this.getValue(option)];
             }
             
             valueChanged = true;
@@ -229,16 +240,16 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
     
     removeOption(option: any): void {
-        this.value = this.value.filter(val => !this.objectUtils.equals(val, option.value, this.dataKey));
+        this.value = this.value.filter(val => !this.objectUtils.equals(val, this.getValue(option), this.dataKey));
     }
 
-    isSelected(option: SelectItem) {
+    isSelected(option: Object) {
         let selected = false;
 
         if(this.multiple) {
             if(this.value) {
                 for(let val of this.value) {
-                    if(this.objectUtils.equals(val, option.value, this.dataKey)) {
+                    if(this.objectUtils.equals(val, this.getValue(option), this.dataKey)) {
                         selected = true;
                         break;
                     }
@@ -246,7 +257,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             }
         }
         else {
-            selected = this.objectUtils.equals(this.value, option.value, this.dataKey);
+            selected = this.objectUtils.equals(this.value, this.getValue(option), this.dataKey);
         }
 
         return selected;
@@ -264,7 +275,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         this.visibleOptions = [];
         for(let i = 0; i < this.options.length; i++) {
             let option = this.options[i];
-            if(option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1) {
+            if(this.getLabel(option).toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1) {
                 this.visibleOptions.push(option);
             }
         }
@@ -284,7 +295,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             if(opts) {
                 this.value = [];
                 for(let i = 0; i < opts.length; i++) {
-                    this.value.push(opts[i].value);
+                    this.value.push(this.getValue(opts[i]));
                 } 
             }
         }
@@ -293,12 +304,12 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         this.onChange.emit({originalEvent: event, value: this.value});
     } 
 
-    getVisibleOptions(): SelectItem[] {
+    getVisibleOptions(): Object[] {
         if(this.filterValue && this.filterValue.trim().length) {
             let items = [];
             for(let i = 0; i < this.options.length; i++) {
                 let option = this.options[i];
-                if(option.label.toLowerCase().includes(this.filterValue.toLowerCase())) {
+                if(this.getLabel(option).toLowerCase().includes(this.filterValue.toLowerCase())) {
                     items.push(option);
                 }
             }
@@ -309,10 +320,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         }
     }
 
-    isItemVisible(option: SelectItem): boolean {
+    isItemVisible(option: Object): boolean {
         if(this.filterValue && this.filterValue.trim().length) {
             for(let i = 0; i < this.visibleOptions.length; i++) {
-                if(this.visibleOptions[i].value == option.value) {
+                if(this.getValue(this.visibleOptions[i]) == this.getValue(option)) {
                     return true;
                 }
             }
@@ -322,7 +333,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         }
     }
 
-    onDoubleClick(event: Event, option: SelectItem): any {
+    onDoubleClick(event: Event, option: Object): any {
         if(this.disabled) {
             return;
         }
@@ -333,7 +344,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         })
     }
     
-    onCheckboxClick(event: Event, option: SelectItem) {
+    onCheckboxClick(event: Event, option: Object) {
         if(this.disabled) {
             return;
         }
@@ -346,7 +357,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         }
         else {
             this.value = this.value ? this.value : [];
-            this.value = [...this.value,option.value];
+            this.value = [...this.value, this.getValue(option)];
         }
 
         this.onModelChange(this.value);

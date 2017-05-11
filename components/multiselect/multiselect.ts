@@ -1,6 +1,5 @@
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,IterableDiffers,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SelectItem} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/ObjectUtils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -46,17 +45,17 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
-                        <li *ngFor="let option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
-                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':isSelected(option.value)}">
+                        <li *ngFor="let option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event, getValue(option))" 
+                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':isSelected(getValue(option))}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
-                                    <input type="checkbox" readonly="readonly" [checked]="isSelected(option.value)">
+                                    <input type="checkbox" readonly="readonly" [checked]="isSelected(getValue(option))">
                                 </div>
-                                <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option.value)}">
-                                    <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
+                                <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(getValue(option))}">
+                                    <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isSelected(getValue(option))}"></span>
                                 </div>
                             </div>
-                            <label>{{option.label}}</label>
+                            <label>{{getLabel(option)}}</label>
                         </li>
                     </ul>
                 </div>
@@ -67,7 +66,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
-    @Input() options: SelectItem[];
+    @Input() options: Object[];
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -92,6 +91,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() appendTo: any;
     
     @Input() dataKey: string;
+
+    @Input() labelKey = 'label';
+
+    @Input() valueKey = 'value';
     
     @Input() displaySelectedLabel: boolean = true;
     
@@ -125,7 +128,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     public filterValue: string;
     
-    public visibleOptions: SelectItem[];
+    public visibleOptions: Object[];
     
     public filtered: boolean;
         
@@ -177,6 +180,14 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         if(changes) {
             this.updateLabel();
         }
+    }
+
+    getLabel(item: Object) {
+        return this.objectUtils.resolveProperty(item, this.labelKey);
+    }
+
+    getValue(item: Object) {
+        return this.objectUtils.resolveProperty(item, this.valueKey);
     }
     
     writeValue(value: any) : void {
@@ -235,7 +246,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             if(opts) {
                 this.value = [];
                 for(let i = 0; i < opts.length; i++) {
-                    this.value.push(opts[i].value);
+                    this.value.push(this.getValue(opts[i]));
                 } 
             }
         }
@@ -328,8 +339,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         let label = null;
         for(let i = 0; i < this.options.length; i++) {
             let option = this.options[i];
-            if(option.value == val) {
-                label = option.label;
+            if(this.getValue(option) == val) {
+                label = this.getLabel(option);
                 break; 
             }
         }
@@ -341,17 +352,17 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         this.visibleOptions = [];
         for(let i = 0; i < this.options.length; i++) {
             let option = this.options[i];
-            if(option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1) {
+            if(this.getLabel(option).toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1) {
                 this.visibleOptions.push(option);
             }
         }
         this.filtered = true;
     }
         
-    isItemVisible(option: SelectItem): boolean {
+    isItemVisible(option: Object): boolean {
         if(this.filterValue && this.filterValue.trim().length) {
             for(let i = 0; i < this.visibleOptions.length; i++) {
-                if(this.visibleOptions[i].value == option.value) {
+                if(this.getValue(this.visibleOptions[i]) == this.getValue(option)) {
                     return true;
                 }
             }
@@ -361,12 +372,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         }
     }
     
-    getVisibleOptions(): SelectItem[] {
+    getVisibleOptions(): Object[] {
         if(this.filterValue && this.filterValue.trim().length) {
             let items = [];
             for(let i = 0; i < this.options.length; i++) {
                 let option = this.options[i];
-                if(option.label.toLowerCase().includes(this.filterValue.toLowerCase())) {
+                if(this.getLabel(option).toLowerCase().includes(this.filterValue.toLowerCase())) {
                     items.push(option);
                 }
             }
