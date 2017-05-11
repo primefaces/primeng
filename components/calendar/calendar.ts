@@ -447,7 +447,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 				this.currentYear--;
 			}
 			else {
-                alert('Date of out Range');
+                alert('Date out of Range');
 			}
         }
         else {
@@ -455,7 +455,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 				this.currentMonth--;
 			}
 			else {
-                alert('Date of out Range');
+                alert('Date out of Range');
 			}
         }
         
@@ -475,7 +475,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 				this.currentYear++;
 			}
 			else {
-                alert('Date of out Range');
+                alert('Date out of Range');
 			}
         }
         else {
@@ -483,7 +483,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 				this.currentMonth++;
 			}
 			else {
-                alert('Date of out Range');
+                alert('Date out of Range');
 			}
         }
         
@@ -734,7 +734,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 		}
         else {
             event.target.value = this.currentMonth;
-            alert('Date of out Range');
+            alert('Date out of Range');
         }
         this.createMonth(this.currentMonth, this.currentYear);
     }
@@ -746,7 +746,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
 		}
         else {
             event.target.value = this.currentYear;
-            alert('Date of out Range');
+            alert('Date out of Range');
         }
         this.createMonth(this.currentMonth, this.currentYear);
     }
