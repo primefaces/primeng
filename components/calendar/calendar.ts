@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
 import {AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -69,9 +70,7 @@ export interface LocaleSettings {
                     </thead>
                     <tbody>
                         <tr *ngFor="let week of dates">
-                            <td *ngFor="let date of week; let i = index" [ngClass]="{'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
-                                'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today, 
-                                'ui-datepicker-saturday': i === 6, 'ui-datepicker-sunday': i === 0}">
+                            <td *ngFor="let date of week; let i = index" [ngClass]="getDayClasses(date, i)">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
                                     (click)="onDateSelect($event,date)">{{date.day}}</a>
@@ -222,6 +221,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() disabledDates: Array<Date>;
     
     @Input() disabledDays: Array<number>;
+
+    @Input() specialDay: any[] = [];
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
@@ -293,6 +294,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     _maxDate: Date;
 
     _isValid: boolean = true;
+    
+    parsedSpecialDay: any;
 
     @Input() get minDate(): Date {
         return this._minDate;
@@ -362,6 +365,34 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 this.yearOptions.push(i);
             }
         }
+        
+        Observable.from(this.specialDay)
+            .reduce((parsed, date) => {
+                let yearly, monthly, daily: any[];
+                yearly = parsed[date.year];
+                if (yearly == undefined) {
+                    yearly = {};
+                }
+                monthly = yearly[date.month - 1];
+                if (monthly == undefined) {
+                    monthly = {};
+                }
+                daily = monthly[date.day];
+                if (daily == undefined) {
+                    daily = [date.classname];
+                } else {
+                    daily.push(date.classname);
+                }
+
+                monthly[date.day] = daily;
+                yearly[date.month - 1] = monthly;
+                parsed[date.year] = yearly;
+
+                return parsed; 
+            }, {})
+            .subscribe(val => {
+                this.parsedSpecialDay = val;
+            });
     }
     
     ngAfterViewInit() {
@@ -591,6 +622,32 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     getSundayIndex() {
         return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
+    }
+
+    getDayClasses(date, dayOfWeek): any {
+        let cssClasses = {
+            'ui-datepicker-other-month ui-state-disabled':date.otherMonth,
+            'ui-datepicker-current-day': this.isSelected(date),
+            'ui-datepicker-today': date.today, 
+            'ui-datepicker-saturday': dayOfWeek === 6, 
+            'ui-datepicker-sunday': dayOfWeek === 0
+        };
+
+        let yearly, monthly, classnames;
+        yearly = this.parsedSpecialDay[date.year];
+        if (yearly !== undefined) {
+            monthly = yearly[date.month];
+            if (monthly !== undefined) {
+                classnames = monthly[date.day];
+            }
+        }
+        if (classnames !== undefined) {
+            classnames.forEach(classname => {
+                cssClasses[classname] = true;
+            });
+        }
+
+        return cssClasses;
     }
     
     isSelected(dateMeta): boolean {     
