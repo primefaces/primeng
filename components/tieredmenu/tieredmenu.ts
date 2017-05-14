@@ -39,14 +39,14 @@ export class TieredMenuSub {
     
     constructor(public domHandler: DomHandler) {}
     
-    activeItem: Element;
+    activeItem: MenuItem;
                 
     onItemMouseEnter(event: Event, item: HTMLElement, menuitem: MenuItem) {
         if(menuitem.disabled) {
             return;
         }
         
-        this.activeItem = item;
+        this.activeItem = menuitem;
         let nextElement:  HTMLElement =  <HTMLElement> item.children[0].nextElementSibling;
         if(nextElement) {
             let sublist:  HTMLElement = <HTMLElement> nextElement.children[0];
