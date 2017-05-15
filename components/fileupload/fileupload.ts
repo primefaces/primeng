@@ -59,6 +59,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() disabled: boolean;
     
     @Input() auto: boolean;
+
+    @Input() withCredentials: boolean;
         
     @Input() maxFileSize: number;
     
@@ -81,10 +83,10 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() uploadLabel: string = 'Upload';
     
     @Input() cancelLabel: string = 'Cancel';
-        
+
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 	
-	  @Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
+	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
         
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
     
@@ -263,6 +265,8 @@ export class FileUpload implements OnInit,AfterContentInit {
 			'xhr': xhr,
             'formData': formData 
 		});
+
+        xhr.withCredentials = this.withCredentials;
         
         xhr.send(formData);
     }
