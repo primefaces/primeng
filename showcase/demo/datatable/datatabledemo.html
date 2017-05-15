@@ -926,6 +926,13 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <h3>Performance Tips Status</h3>
+            <ul>
+                <li>When selection is enabled use dataKey to avoid deep checking when comparing objects.</li>
+                <li>Use rowTrackBy that internally uses ngForTrackBy to avoid unnecessary dom operations.</li>
+                <li>Prefer lazy loading for large datasets.</li>
+            </ul>
+
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
