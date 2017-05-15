@@ -222,6 +222,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     @Input() disabledDays: Array<number>;
     
+    @Input() utc: boolean;
+    
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
@@ -523,7 +525,11 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     selectDate(dateMeta) {
-        this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        if(this.utc)
+            this.value = new Date(Date.UTC(dateMeta.year, dateMeta.month, dateMeta.day));
+        else
+            this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        
         if(this.showTime) {
             if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
                 this.value.setHours(this.currentHour + 12);
