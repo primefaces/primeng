@@ -41,6 +41,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         <span *ngIf="!itemTemplate">{{field ? option[field] : option}}</span>
                         <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option" [index]="idx"></ng-template>
                     </li>
+                    <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
                 </ul>
             </div>
         </span>
@@ -107,6 +108,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     
     @Input() dataKey: string;
     
+    @Input() emptyMessage: string;
+    
     @ViewChild('in') inputEL: ElementRef;
     
     @ViewChild('multiIn') multiInputEL: ElementRef;
@@ -148,6 +151,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     filled: boolean;
     
     inputClick: boolean;
+    
+    noResults: boolean;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef) {}
     
@@ -157,9 +162,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
 
     set suggestions(val:any[]) {
         this._suggestions = val;
-        
+                
         if(this.panelEL && this.panelEL.nativeElement) {
             if(this._suggestions && this._suggestions.length) {
+                this.noResults = false;
                 this.show();
                 this.suggestionsUpdated = true;
                 
@@ -168,7 +174,15 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
                 }
             }
             else {
-                this.hide();
+                this.noResults = true;
+                
+                if(this.emptyMessage) {    
+                    this.show();
+                    this.suggestionsUpdated = true;
+                }
+                else {
+                    this.hide();
+                }
             }
         }
     }
