@@ -57,9 +57,9 @@ export class Dialog implements AfterViewInit,OnDestroy {
 
     @Input() height: any;
 
-    @Input() openingPositionLeft: number;
+    @Input() positionLeft: number;
 
-    @Input() openingPositionTop: number;
+    @Input() positionTop: number;
 
     @Input() contentStyle: any;
 
@@ -142,18 +142,21 @@ export class Dialog implements AfterViewInit,OnDestroy {
 
     show() {
         this.onShow.emit({});
-        
-        if(this.openingPositionLeft && this.openingPositionTop){
-            this.container.style.left = this.openingPositionLeft + 'px';
-            this.container.style.top = this.openingPositionTop + 'px';
-        }
-        else{
-            this.center();
-        }
+        this.positionOverlay();
         this.container.style.zIndex = String(++DomHandler.zindex);
         
         if(this.modal) {
             this.enableModality();
+        }
+    }
+    
+    positionOverlay() {
+        if(this.positionLeft >= 0 && this.positionTop >= 0) {
+            this.container.style.left = this.positionLeft + 'px';
+            this.container.style.top = this.positionTop + 'px';
+        }
+        else{
+            this.center();
         }
     }
     
@@ -196,13 +199,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         
         if(this.responsive) {
             this.documentResponsiveListener = this.renderer.listenGlobal('window', 'resize', (event) => {
-                if(this.openingPositionLeft && this.openingPositionTop){
-                    this.container.style.left = this.openingPositionLeft + 'px';
-                    this.container.style.top = this.openingPositionTop + 'px';
-                }
-                else{
-                    this.center();
-                }
+                this.positionOverlay();
             });
         }
         
