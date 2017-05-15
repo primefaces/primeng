@@ -17,6 +17,17 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@angular/common": "^4.0.1",
+    "@angular/compiler": "^4.0.1",
+    "@angular/compiler-cli": "^4.0.1",
+    "@angular/core": "^4.0.1",
+    "@angular/forms": "^4.0.1",
+    "@angular/http": "^4.0.1",
+    "@angular/platform-browser": "^4.0.1",
+    "@angular/platform-browser-dynamic": "^4.0.1",
+    "@angular/platform-server": "^4.0.1",
+    "@angular/router": "^4.0.1", 
+    "@angular/animations": "^4.0.1",  
     "@types/node": "^7.0.5",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
@@ -30,6 +41,9 @@
     "html-webpack-plugin": "^2.16.1",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.1",
-    "webpack-merge": "^3.0.0"
+    "webpack-merge": "^3.0.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.0.1",
+    "zone.js": "^0.8.4"
   }
 }

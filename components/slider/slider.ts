@@ -15,7 +15,11 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-slider ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled,
             'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical','ui-slider-animate':animate}"
             (click)="onBarClick($event)">
-            <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" [style.transition]="dragging ? 'none': null"
+            <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" 
+                  (touchstart)="onTouchStart($event)"
+                  (touchmove)="onTouchMove($event)"
+                  (touchend)="onTouchEnd($event)"
+                  [style.transition]="dragging ? 'none': null"
                 [ngStyle]="{'left': orientation == 'horizontal' ? handleValue + '%' : null,'bottom': orientation == 'vertical' ? handleValue + '%' : null}"></span>
             <span *ngIf="range" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'left':handleValues[0] + '%',width: (handleValues[1] - handleValues[0] + '%')}"></span>
             <span *ngIf="orientation=='vertical'" class="ui-slider-range ui-slider-range-min ui-widget-header ui-corner-all" [ngStyle]="{'height': handleValue + '%'}"></span>
@@ -82,6 +86,25 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     public handleIndex: number;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
+    
+    onTouchStart(event: TouchEvent) {
+        this.dragging = true;
+        this.updateDomData();
+        this.sliderHandleClick = true;
+    }
+    
+    onTouchMove(event: TouchEvent) {
+        console.log(event.type);
+        if (this.dragging) {
+            this.handleChange(event);
+        }
+    }
+    
+    onTouchEnd(event: TouchEvent) {
+        this.dragging = false;
+        this.updateDomData();
+        this.sliderHandleClick = false;
+    }
     
     onMouseDown(event:Event,index?:number) {
         if(this.disabled) {
@@ -194,11 +217,19 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.barHeight = this.el.nativeElement.children[0].offsetHeight;
     }
     
-    calculateHandleValue(event): number {
-        if(this.orientation === 'horizontal')
-            return Math.floor(((event.pageX - this.initX) * 100) / (this.barWidth));
-        else
-            return Math.floor((((this.initY + this.barHeight) - event.pageY) * 100) / (this.barHeight));
+    calculateHandleValue(event ): number {
+        if (event instanceof TouchEvent ) {
+            let touch: Touch = event.touches[0];
+            if(this.orientation === 'horizontal')
+                return Math.floor(((touch.pageX - this.initX) * 100) / (this.barWidth));
+            else
+                return Math.floor((((this.initY + this.barHeight) - touch.pageY) * 100) / (this.barHeight));
+        } else {
+            if (this.orientation === 'horizontal')
+                return Math.floor(((event.pageX - this.initX) * 100) / (this.barWidth));
+            else
+                return Math.floor((((this.initY + this.barHeight) - event.pageY) * 100) / (this.barHeight));
+        }
     }
     
     updateHandleValue(): void {
