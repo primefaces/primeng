@@ -15,7 +15,7 @@ import {Header,SharedModule} from '../common/shared';
                 <span class="ui-dialog-title" *ngIf="headerFacet">
                     <ng-content select="p-header"></ng-content>
                 </span>
-                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
+                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
@@ -122,6 +122,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     container: HTMLDivElement;
     
     contentContainer: HTMLDivElement;
+    
+    closeIconMouseDown: boolean;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
     
@@ -277,7 +279,16 @@ export class Dialog implements AfterViewInit,OnDestroy {
         this.container.style.zIndex = String(++DomHandler.zindex);
     }
     
-    initDrag(event) {
+    onCloseMouseDown(event: Event) {
+        this.closeIconMouseDown = true;
+    }
+    
+    initDrag(event: MouseEvent) {
+        if(this.closeIconMouseDown) {
+            this.closeIconMouseDown = false;
+            return;
+        }
+        
         if(this.draggable) {
             this.dragging = true;
             this.lastPageX = event.pageX;
@@ -285,7 +296,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
     }
     
-    onDrag(event) {
+    onDrag(event: MouseEvent) {
         if(this.dragging) {
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
@@ -300,13 +311,13 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
     }
     
-    endDrag(event) {
+    endDrag(event: MouseEvent) {
         if(this.draggable) {
             this.dragging = false;
         }
     }
     
-    initResize(event) {
+    initResize(event: MouseEvent) {
         if(this.resizable) {
             this.resizing = true;
             this.lastPageX = event.pageX;
@@ -314,7 +325,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
     }
     
-    onResize(event) {
+    onResize(event: MouseEvent) {
         if(this.resizing) {
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
