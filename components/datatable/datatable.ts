@@ -503,6 +503,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Output() onHeaderCheckboxToggle: EventEmitter<any> = new EventEmitter();
     
+    @Input() headerCheckboxToggleAllPages: boolean;
+    
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
     @Input() filterDelay: number = 300;
@@ -1246,8 +1248,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     toggleRowsWithCheckbox(event) {
-        if(event.checked)
-            this.selection = this.dataToRender.slice(0);
+        if(event.checked){
+            this.selection = this.headerCheckboxToggleAllPages ? this.value.slice() : this.dataToRender.slice();
+        }
         else
             this.selection = [];
             
@@ -1309,7 +1312,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     get allSelected() {
         let val = true;
-        if(this.dataToRender && this.selection && (this.dataToRender.length <= this.selection.length)) {
+        if(this.headerCheckboxToggleAllPages && this.selection && this.selection.length === this.totalRecords){
+            return val;
+        }
+        if(!this.headerCheckboxToggleAllPages && this.dataToRender && this.selection && (this.dataToRender.length <= this.selection.length)) {
             for(let data of this.dataToRender) {
                 if(!this.isSelected(data)) {
                     val = false;
