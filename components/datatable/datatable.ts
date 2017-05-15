@@ -1246,10 +1246,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     toggleRowsWithCheckbox(event) {
-        if(event.checked)
-            this.selection = this.dataToRender.slice(0);
-        else
-            this.selection = [];
+        if(event.checked) {
+            this.selection = (this.selection || []).concat(this.dataToRender.filter(data => this.findIndexInSelection(data) < 0));
+        }
+        else {
+            for (let data of this.dataToRender) {
+                let idx = this.findIndexInSelection(data);
+                if (idx >= 0) {
+                    this.selection.splice(idx, 1);
+                }
+            }
+        }
             
         this.selectionChange.emit(this.selection);
         
