@@ -32,7 +32,7 @@ export interface LocaleSettings {
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
                 <input #inputfield type="text" [attr.id]="inputId" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
-                    [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
+                    [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
@@ -229,6 +229,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onInput: EventEmitter<any> = new EventEmitter();
     
     _locale: LocaleSettings = {
         firstDayOfWeek: 0,
@@ -812,7 +814,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         event.preventDefault();
     }
     
-    onInput(event) {  
+    onUserInput(event) {  
         let val = event.target.value;   
         try {
             this.value = this.parseValueFromString(val);
@@ -827,6 +829,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         this.updateModel();
         this.filled = val != null && val.length;
+        this.onInput.emit(event);
     }
     
     parseValueFromString(text: string): Date {
