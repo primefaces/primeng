@@ -1248,9 +1248,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     toggleRowsWithCheckbox(event) {
-        if(event.checked){
+        if(event.checked)
             this.selection = this.headerCheckboxToggleAllPages ? this.value.slice() : this.dataToRender.slice();
-        }
         else
             this.selection = [];
             
@@ -1311,22 +1310,24 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     get allSelected() {
-        let val = true;
-        if(this.headerCheckboxToggleAllPages && this.selection && this.selection.length === this.totalRecords){
-            return val;
-        }
-        if(!this.headerCheckboxToggleAllPages && this.dataToRender && this.selection && (this.dataToRender.length <= this.selection.length)) {
-            for(let data of this.dataToRender) {
-                if(!this.isSelected(data)) {
-                    val = false;
-                    break;
-                }
-            }
+        if(this.headerCheckboxToggleAllPages) {
+            return this.selection && this.selection.length === this.value.length;
         }
         else {
-            val = false;
+            let val = true;
+            if(this.dataToRender && this.selection && (this.dataToRender.length <= this.selection.length)) {
+                for(let data of this.dataToRender) {
+                    if(!this.isSelected(data)) {
+                        val = false;
+                        break;
+                    }
+                }
+            }
+            else {
+                val = false;
+            }
+            return val;
         }
-        return val;
     }
 
     onFilterKeyup(value, field, matchMode) {
