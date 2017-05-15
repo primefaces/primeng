@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,ViewChild,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
@@ -156,7 +156,7 @@ export interface LocaleSettings {
     },
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR,CALENDAR_VALIDATOR]
 })
-export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
+export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy,ControlValueAccessor {
     
     @Input() defaultDate: Date;
     
@@ -241,6 +241,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @ViewChild('datepicker') overlayViewChild: ElementRef;
     
+    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
+    
     value: Date;
     
     dates: any[];
@@ -264,6 +266,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     overlay: HTMLDivElement;
     
     overlayVisible: boolean;
+    
+    overlayShown: boolean;
     
     closeOverlay: boolean = true;
     
@@ -371,6 +375,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 document.body.appendChild(this.overlay);
             else
                 this.domHandler.appendChild(this.overlay, this.appendTo);
+        }
+    }
+    
+    ngAfterViewChecked() {
+        if(this.overlayShown) {
+            this.alignOverlay();
+            this.overlayShown = false;
         }
     }
     
@@ -874,15 +885,18 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     showOverlay(inputfield) {
-        if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, inputfield);
-        else
-            this.domHandler.relativePosition(this.overlay, inputfield);
-        
         this.overlayVisible = true;
+        this.overlayShown = true;
         this.overlay.style.zIndex = String(++DomHandler.zindex);
         
         this.bindDocumentClickListener();
+    }
+    
+    alignOverlay() {
+        if(this.appendTo)
+            this.domHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+        else
+            this.domHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
     }
 
     writeValue(value: any) : void {
