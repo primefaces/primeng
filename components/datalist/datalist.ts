@@ -16,7 +16,7 @@ import {BlockableUI} from '../common/api';
             <div class="ui-datalist-content ui-widget-content">
                 <div *ngIf="isEmpty()" class="ui-datalist-emptymessage">{{emptyMessage}}</div>
                 <ul class="ui-datalist-data">
-                    <li *ngFor="let item of dataToRender;let i = index">
+                    <li *ngFor="let item of dataToRender;let i = index;trackBy: trackBy">
                         <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
                     </li>
                 </ul>
@@ -52,6 +52,8 @@ export class DataList implements AfterViewInit,AfterContentInit,BlockableUI {
     @Input() paginatorPosition: string = 'bottom';
 
     @Input() emptyMessage: string = 'No records found';
+    
+    @Input() trackBy: Function = (index: number, item: any) => item;
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
         

@@ -1202,12 +1202,6 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Position of the paginator, options are "top","bottom" or "both".</td>
                         </tr>
                         <tr>
-                            <td>rowTrackBy</td>
-                            <td>function</td>
-                            <td>null</td>
-                            <td>TrackBy function of ngFor directive used when rendering rows.</td>
-                        </tr>
-                        <tr>
                             <td>rowStyleClass</td>
                             <td>function</td>
                             <td>null</td>
@@ -1243,6 +1237,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Displays a loader to indicate data load is in progress.</td>
+                        </tr>
+                        <tr>
+                            <td>rowTrackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
                         </tr>
                     </tbody>
                 </table>
