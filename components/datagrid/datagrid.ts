@@ -15,7 +15,7 @@ import {BlockableUI} from '../common/api';
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-content ui-widget-content">
                 <div class="ui-g">
-                    <ng-template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></ng-template>
+                    <ng-template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate" [ngForTrackBy]="trackBy"></ng-template>
                     <div *ngIf="isEmpty()" class="ui-widget-content ui-g-12">{{emptyMessage}}</div>
                 </div>
             </div>
@@ -50,6 +50,8 @@ export class DataGrid implements AfterViewInit,AfterContentInit,BlockableUI {
     @Input() styleClass: string;
     
     @Input() paginatorPosition: string = 'bottom';
+    
+    @Input() trackBy: Function = (index: number, item: any) => item;
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
             

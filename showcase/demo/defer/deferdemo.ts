@@ -11,7 +11,7 @@ export class DeferDemo {
     cars: Car[];
     
     msgs: Message[] = [];
-        
+            
     constructor(private carService: CarService) { }
     
     initData() {

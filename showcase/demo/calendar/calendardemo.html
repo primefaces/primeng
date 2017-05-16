@@ -48,7 +48,7 @@
         </div>
     </div>
     
-    <h3>Inline {{date8|date}}</h3>
+    <h3>Inline {{date9|date}}</h3>
     <p-calendar [(ngModel)]="date9" [inline]="true"></p-calendar> 
 </div>
 
@@ -420,6 +420,12 @@ export class MyModel &#123;
                             <td>1</td>
                             <td>Seconds to change per step.</td>
                         </tr>
+                        <tr>
+                            <td>utc</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to convert date to UTC on selection.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -452,6 +458,12 @@ export class MyModel &#123;
                             <td>event: Focus event
                             </td>
                             <td>Callback to invoke on focus of input field.</td>
+                        </tr>
+                        <tr>
+                            <td>onInput</td>
+                            <td>event: Input event
+                            </td>
+                            <td>Callback to invoke when input field is being typed.</td>
                         </tr>
                     </tbody>
                 </table>

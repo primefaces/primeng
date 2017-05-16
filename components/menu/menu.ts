@@ -110,6 +110,7 @@ export class Menu implements AfterViewInit,OnDestroy {
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, target);
         this.domHandler.fadeIn(this.container, 250);
+        this.preventDocumentDefault = true;
     }
     
     hide() {

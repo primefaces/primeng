@@ -36,6 +36,8 @@ export class Growl implements AfterViewInit,OnDestroy {
         
     @Input() styleClass: string;
     
+    @Output() onClose: EventEmitter<any> = new EventEmitter();
+    
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
     
     @ViewChild('container') containerViewChild: ElementRef;
@@ -87,15 +89,16 @@ export class Growl implements AfterViewInit,OnDestroy {
         setTimeout(() => {
             this.value = this.value.filter((val,i) => i!=index);
             this.valueChange.emit(this.value);
-        }, 250);
-        
+            this.onClose.emit({message:this.value[index]});
+        }, 250);        
     }
     
     removeAll() {
         if(this.value && this.value.length) {            
             this.domHandler.fadeOut(this.container, 250);
             
-            setTimeout(() => {
+            setTimeout(() => {                
+                this.value.forEach((msg,index) => this.onClose.emit({message:this.value[index]}));
                 this.value = [];
                 this.valueChange.emit(this.value);
             }, 250);

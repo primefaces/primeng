@@ -143,7 +143,7 @@ export class ColumnFooters {
 @Component({
     selector: '[pTableBody]',
     template: `
-        <ng-template ngFor let-rowData [ngForOf]="dt.dataToRender" let-even="even" let-odd="odd" let-rowIndex="index">
+        <ng-template ngFor let-rowData [ngForOf]="dt.dataToRender" let-even="even" let-odd="odd" let-rowIndex="index" [ngForTrackBy]="dt.rowTrackBy">
             <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header" 
                 *ngIf="dt.rowGroupMode=='subheader' && (rowIndex === 0||(dt.resolveFieldData(rowData,dt.groupField) !== dt.resolveFieldData(dt.dataToRender[rowIndex - 1], dt.groupField)))"
                 (click)="dt.onRowGroupClick($event)" [ngStyle]="{'cursor': dt.sortableRowGroup ? 'pointer' : 'auto'}">
@@ -503,6 +503,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Output() onHeaderCheckboxToggle: EventEmitter<any> = new EventEmitter();
     
+    @Input() headerCheckboxToggleAllPages: boolean;
+    
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
     @Input() filterDelay: number = 300;
@@ -564,6 +566,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() paginatorPosition: string = 'bottom';
     
     @Input() metaKeySelection: boolean = true;
+    
+    @Input() rowTrackBy: Function = (index: number, item: any) => item;
                 
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
@@ -1247,7 +1251,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     toggleRowsWithCheckbox(event) {
         if(event.checked)
-            this.selection = this.dataToRender.slice(0);
+            this.selection = this.headerCheckboxToggleAllPages ? this.value.slice() : this.dataToRender.slice();
         else
             this.selection = [];
             
@@ -1308,19 +1312,24 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     get allSelected() {
-        let val = true;
-        if(this.dataToRender && this.selection && (this.dataToRender.length <= this.selection.length)) {
-            for(let data of this.dataToRender) {
-                if(!this.isSelected(data)) {
-                    val = false;
-                    break;
-                }
-            }
+        if(this.headerCheckboxToggleAllPages) {
+            return this.selection && this.selection.length === this.value.length;
         }
         else {
-            val = false;
+            let val = true;
+            if(this.dataToRender && this.selection && (this.dataToRender.length <= this.selection.length)) {
+                for(let data of this.dataToRender) {
+                    if(!this.isSelected(data)) {
+                        val = false;
+                        break;
+                    }
+                }
+            }
+            else {
+                val = false;
+            }
+            return val;
         }
-        return val;
     }
 
     onFilterKeyup(value, field, matchMode) {
@@ -1997,13 +2006,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     public exportCSV() {
-        let data = this.value;
+        let data = this.filteredValue||this.value;
         let csv = '\ufeff';
         
         //headers
         for(let i = 0; i < this.columns.length; i++) {
             if(this.columns[i].field) {
-                csv += this.columns[i].header || this.columns[i].field;
+                csv += '"' + (this.columns[i].header || this.columns[i].field) + '"';
                 
                 if(i < (this.columns.length - 1)) {
                     csv += this.csvSeparator;
@@ -2012,11 +2021,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         //body        
-        this.value.forEach((record, i) => {
+        data.forEach((record, i) => {
             csv += '\n';
             for(let i = 0; i < this.columns.length; i++) {
                 if(this.columns[i].field) {
-                    csv += this.resolveFieldData(record, this.columns[i].field);
+                    csv += '"' + this.resolveFieldData(record, this.columns[i].field) + '"';
                     
                     if(i < (this.columns.length - 1)) {
                         csv += this.csvSeparator;
