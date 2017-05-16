@@ -24,8 +24,8 @@
                 <div class="ui-grid-col-8"><input pInputText id="vin" [(ngModel)]="car.vin" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="brand">Year</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="brand" [(ngModel)]="car.year" /></div>
+                <div class="ui-grid-col-4"><label for="year">Year</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="year" [(ngModel)]="car.year" /></div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="brand">Brand</label></div>
@@ -75,17 +75,20 @@ export class DataTableCrudDemo implements OnInit &#123;
     &#125;
     
     save() &#123;
+        let cars = [...this.cars];
         if(this.newCar)
-            this.cars.push(this.car);
+            cars.push(this.car);
         else
-            this.cars[this.findSelectedCarIndex()] = this.car;
+            cars[this.findSelectedCarIndex()] = this.car;
         
+        this.cars = cars;
         this.car = null;
         this.displayDialog = false;
     &#125;
     
     delete() &#123;
-        this.cars.splice(this.findSelectedCarIndex(), 1);
+        let index = this.findSelectedCarIndex();
+        this.cars = this.cars.filter((val,i) => i!=index);
         this.car = null;
         this.displayDialog = false;
     &#125;    
@@ -136,8 +139,8 @@ class PrimeCar implements Car &#123;
             &lt;div class="ui-grid-col-8"&gt;&lt;input pInputText id="vin" [(ngModel)]="car.vin" /&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;&lt;label for="brand"&gt;Year&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;input pInputText id="brand" [(ngModel)]="car.year" /&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-4"&gt;&lt;label for="year"&gt;Year&lt;/label&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;input pInputText id="year" [(ngModel)]="car.year" /&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-4"&gt;&lt;label for="brand"&gt;Brand&lt;/label&gt;&lt;/div&gt;

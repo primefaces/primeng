@@ -15,7 +15,7 @@ import {Header,SharedModule} from '../common/shared';
                 <span class="ui-dialog-title" *ngIf="headerFacet">
                     <ng-content select="p-header"></ng-content>
                 </span>
-                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
+                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
@@ -56,7 +56,11 @@ export class Dialog implements AfterViewInit,OnDestroy {
     @Input() width: any;
 
     @Input() height: any;
-        
+
+    @Input() positionLeft: number;
+
+    @Input() positionTop: number;
+
     @Input() contentStyle: any;
 
     @Input() modal: boolean;
@@ -118,6 +122,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     container: HTMLDivElement;
     
     contentContainer: HTMLDivElement;
+    
+    closeIconMouseDown: boolean;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
     
@@ -138,13 +144,21 @@ export class Dialog implements AfterViewInit,OnDestroy {
 
     show() {
         this.onShow.emit({});
-        
-        this.center();
-        
+        this.positionOverlay();
         this.container.style.zIndex = String(++DomHandler.zindex);
         
         if(this.modal) {
             this.enableModality();
+        }
+    }
+    
+    positionOverlay() {
+        if(this.positionLeft >= 0 && this.positionTop >= 0) {
+            this.container.style.left = this.positionLeft + 'px';
+            this.container.style.top = this.positionTop + 'px';
+        }
+        else{
+            this.center();
         }
     }
     
@@ -168,17 +182,17 @@ export class Dialog implements AfterViewInit,OnDestroy {
         this.contentContainer =  <HTMLDivElement> this.contentViewChild.nativeElement;
         
         if(this.draggable) {
-            this.documentDragListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            this.documentDragListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
                 this.onDrag(event);
             });
         }
         
         if(this.resizable) {
-            this.documentResizeListener = this.renderer.listenGlobal('body', 'mousemove', (event) => {
+            this.documentResizeListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
                 this.onResize(event);
             });
             
-            this.documentResizeEndListener = this.renderer.listenGlobal('body', 'mouseup', (event) => {
+            this.documentResizeEndListener = this.renderer.listenGlobal('document', 'mouseup', (event) => {
                 if(this.resizing) {
                     this.resizing = false;
                 }
@@ -187,14 +201,14 @@ export class Dialog implements AfterViewInit,OnDestroy {
         
         if(this.responsive) {
             this.documentResponsiveListener = this.renderer.listenGlobal('window', 'resize', (event) => {
-                this.center();
+                this.positionOverlay();
             });
         }
         
         if(this.closeOnEscape && this.closable) {
-            this.documentEscapeListener = this.renderer.listenGlobal('body', 'keydown', (event) => {
+            this.documentEscapeListener = this.renderer.listenGlobal('document', 'keydown', (event) => {
                 if(event.which == 27) {
-                    if(parseInt(this.container.style.zIndex) == DomHandler.zindex) {
+                    if(parseInt(this.container.style.zIndex) == DomHandler.zindex) {
                         this.close(event);
                     }
                 }
@@ -265,7 +279,16 @@ export class Dialog implements AfterViewInit,OnDestroy {
         this.container.style.zIndex = String(++DomHandler.zindex);
     }
     
-    initDrag(event) {
+    onCloseMouseDown(event: Event) {
+        this.closeIconMouseDown = true;
+    }
+    
+    initDrag(event: MouseEvent) {
+        if(this.closeIconMouseDown) {
+            this.closeIconMouseDown = false;
+            return;
+        }
+        
         if(this.draggable) {
             this.dragging = true;
             this.lastPageX = event.pageX;
@@ -273,7 +296,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
     }
     
-    onDrag(event) {
+    onDrag(event: MouseEvent) {
         if(this.dragging) {
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
@@ -288,13 +311,13 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
     }
     
-    endDrag(event) {
+    endDrag(event: MouseEvent) {
         if(this.draggable) {
             this.dragging = false;
         }
     }
     
-    initResize(event) {
+    initResize(event: MouseEvent) {
         if(this.resizable) {
             this.resizing = true;
             this.lastPageX = event.pageX;
@@ -302,7 +325,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
     }
     
-    onResize(event) {
+    onResize(event: MouseEvent) {
         if(this.resizing) {
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;

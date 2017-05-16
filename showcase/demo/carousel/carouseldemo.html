@@ -59,6 +59,12 @@ import &#123;CarouselModule&#125; from 'primeng/primeng';
 &lt;/p-carousel&gt;
 </code>
 </pre>
+
+            <h3>Managing Data</h3>
+            <p>DataTable uses setter based checking to realize if the underlying data has changed to update the UI so your data changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array. For example, use slice instead of splice when removing an item 
+                or use spread operator instead of push method when adding an item.</p>
+
             <h3>Limiting Visible Items</h3>
             <p>Default number of visible items is 3, use numVisible option to customize this.</p>
 <pre>

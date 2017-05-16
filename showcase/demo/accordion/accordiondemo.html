@@ -226,12 +226,12 @@ import &#123;SharedModule&#125; from 'primeng/primeng';
             </div>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-accordion (onShow)="onTabShow($event)"&gt;
+&lt;p-accordion (onOpen)="onTabOpen($event)"&gt;
 </code>
 </pre>
  <pre>
 <code class="language-typescript" pCode>
-onTabShow(e) &#123;
+onTabOpen(e) &#123;
     var index = e.index;
 &#125;
 </code>

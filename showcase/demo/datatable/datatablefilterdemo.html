@@ -93,7 +93,7 @@ export class DataTableFilterDemo implements OnInit &#123;
 &lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"&gt;&lt;/p-column&gt;
-    &lt;p-column field="year" header="Year (&#123;&#123;yearFilter||'No Filter'&#125;&#125;" [filter]="true" filterMatchMode="equals"&gt;
+    &lt;p-column field="year" header="Year (&#123;&#123;yearFilter||'No Filter'&#125;&#125;)" [filter]="true" filterMatchMode="equals"&gt;
         &lt;ng-template pTemplate="filter" let-col&gt;
             &lt;i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"&gt;&lt;/i&gt;
             &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onSlideEnd)="dt.filter($event.value,col.field,col.filterMatchMode)"&gt;&lt;/p-slider&gt;

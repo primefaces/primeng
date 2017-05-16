@@ -241,6 +241,9 @@ body .ui-selectbutton.ui-buttonset .ui-button.ui-state-active {
     background-color: #0275d8;
     color: #ffffff;
 }
+body .ui-autocomplete .ui-autocomplete-dropdown .ui-button-text {
+    padding: 0.35em;
+}
 body .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-container {
     padding: 0.5em 0.75em;
 }
@@ -670,7 +673,7 @@ body .ui-datepicker {
     padding: 0;
 }
 body .ui-datepicker .ui-datepicker-header {
-    padding: .75em 1.25em;
+    padding: .75em 0;
     background-color: #f5f5f5;
     border: 0;
     border-bottom: 1px solid #c7c7c7;
@@ -1474,6 +1477,13 @@ body .ui-treetable tfoot td {
 }
 body .ui-treetable .ui-treetable-data tr:not(.ui-state-highlight):hover {
     background-color: #e3e3e3;
+}
+body .ui-treetable .ui-treetable-row.ui-state-highlight .ui-chkbox-icon {
+    color: #555555;
+    margin: 0;
+}
+body .ui-treetable .ui-treetable-row.ui-state-highlight .ui-treetable-toggler {
+    color: #ffffff;
 }
 body .ui-treetable .ui-treetable-row.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
     background-color: #e3e3e3;

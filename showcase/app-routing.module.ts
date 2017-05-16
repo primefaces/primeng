@@ -106,6 +106,11 @@ import {HomePageComponent} from './homepage.component';
                 resolve(require('./demo/datatable/datatabledemo.module')['DataTableDemoModule']);
               });
             })},
+            {path: 'defer', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/defer/deferdemo.module')['DeferDemoModule']);
+              });
+            })},
             {path: 'dialog', loadChildren: () => new Promise(function (resolve) {
               (require as any).ensure([], function (require: any) {
                 resolve(require('./demo/dialog/dialogdemo.module')['DialogDemoModule']);

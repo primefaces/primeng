@@ -47,7 +47,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() metaKeySelection: boolean = true;
     
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
-
+    
+    @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
@@ -124,6 +126,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             }
         }
 
+        this.onSelectionChange.emit({originalEvent:event, value:this.selectedItems});
         this.itemTouched = false;
     }
     

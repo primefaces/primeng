@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,AfterContentInit,EventEmitter,DoCheck,OnDestroy,Input,Output,IterableDiffers,TemplateRef,ContentChildren,QueryList,Renderer} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,AfterContentInit,EventEmitter,OnDestroy,Input,Output,TemplateRef,ContentChildren,QueryList,Renderer,ViewChild} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {CommonModule} from '@angular/common';
@@ -6,7 +6,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'p-carousel',
     template: `
-        <div [ngClass]="{'ui-carousel ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass">
+        <div #container [ngClass]="{'ui-carousel ui-widget ui-widget-content ui-corner-all':true}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-carousel-header ui-widget-header ui-corner-all">
                 <span class="ui-carousel-header-title">{{headerText}}</span>
                 <span class="ui-carousel-button ui-carousel-next-button fa fa-arrow-circle-right" (click)="onNextNav()" 
@@ -36,10 +36,8 @@ import {CommonModule} from '@angular/common';
     `,
     providers: [DomHandler]
 })
-export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,OnDestroy{
+export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
-    @Input() value: any[];
-
     @Input() numVisible: number = 3;
 
     @Input() firstVisible: number = 0;
@@ -66,7 +64,11 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
     
+    @ViewChild('container') containerViewChild: ElementRef;
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public _value: any[];
     
     public itemTemplate: TemplateRef<any>;
         
@@ -100,9 +102,7 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     
     differ: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers, public renderer: Renderer) {
-        this.differ = differs.find([]).create(null);
-    }
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -118,50 +118,35 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
         });
     }
     
-    ngDoCheck() {
-        let changes = this.differ.diff(this.value);
-        
-        if(changes) {
-            if(this.value && this.value.length) {
-                if(this.value.length && this.firstVisible >= this.value.length) {
-                    this.setPage(this.totalPages - 1);
-                }
-            }
-            else {
-                this.setPage(0);
-            }
+    @Input() get value(): any[] {
+        return this._value;
+    }
 
-            this.valuesChanged = true;
-            
-            if(this.autoplayInterval) {
-                this.stopAutoplay();
-            }
-            
-            this.updateMobileDropdown();
-            this.updateLinks();
-            this.updateDropdown();
-        }
+    set value(val:any[]) {
+        this._value = val;
+        this.handleDataChange();
     }
     
+    handleDataChange() {
+        if(this.value && this.value.length) {
+            if(this.value.length && this.firstVisible >= this.value.length) {
+                this.setPage(this.totalPages - 1);
+            }
+        }
+        else {
+            this.setPage(0);
+        }
+
+        this.valuesChanged = true;
+    }
+        
     ngAfterViewChecked() {
-        if(this.valuesChanged) {
+        if(this.valuesChanged && this.containerViewChild.nativeElement.offsetParent) {
             this.render();
             this.valuesChanged = false;
         }
     }
     
-    ngOnInit() {
-        if(window.innerWidth <= this.breakpoint) {
-            this.shrinked = true;
-            this.columns = 1;
-        }
-        else {
-            this.shrinked = false;
-            this.columns = this.numVisible;
-        }
-        this.page = Math.floor(this.firstVisible / this.columns);
-    }
-
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];
         this.viewport = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-carousel-viewport');
@@ -171,10 +156,6 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.documentResponsiveListener = this.renderer.listenGlobal('window', 'resize', (event) => {
                 this.updateState();
             });
-        }
-        
-        if(this.value && this.value.length) {
-            this.render();
         }
     }
     
@@ -200,7 +181,12 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
     }
     
     render() {
+        if(this.autoplayInterval) {
+            this.stopAutoplay();
+        }
+        
         this.items = this.domHandler.find(this.itemsContainer,'li');
+        this.calculateColumns();
         this.calculateItemWidths();
         
         if(!this.responsive) {
@@ -211,6 +197,10 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
             this.circular = true;
             this.startAutoplay();
         }
+        
+        this.updateMobileDropdown();
+        this.updateLinks();
+        this.updateDropdown();
     }
     
     calculateItemWidths () {
@@ -220,6 +210,18 @@ export class Carousel implements OnInit,AfterViewChecked,AfterViewInit,DoCheck,O
                 this.items[i].style.width = ((this.domHandler.innerWidth(this.viewport) - (this.domHandler.getHorizontalMargin(firstItem) * this.columns)) / this.columns) + 'px';
             }
         }
+    }
+    
+    calculateColumns() {
+        if(window.innerWidth <= this.breakpoint) {
+            this.shrinked = true;
+            this.columns = 1;
+        }
+        else {
+            this.shrinked = false;
+            this.columns = this.numVisible;
+        }
+        this.page = Math.floor(this.firstVisible / this.columns);
     }
     
     onNextNav() {

@@ -80,7 +80,7 @@ export class Menu implements AfterViewInit,OnDestroy {
                     this.domHandler.appendChild(this.container, this.appendTo);
             }
                 
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
                 }
@@ -110,6 +110,7 @@ export class Menu implements AfterViewInit,OnDestroy {
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, target);
         this.domHandler.fadeIn(this.container, 250);
+        this.preventDocumentDefault = true;
     }
     
     hide() {

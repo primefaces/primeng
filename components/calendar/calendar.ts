@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,ViewChild,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
@@ -32,7 +32,7 @@ export interface LocaleSettings {
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
                 <input #inputfield type="text" [attr.id]="inputId" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
-                    [readonly]="readonlyInput" (input)="onInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
+                    [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
                     [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled"></button>
@@ -156,7 +156,7 @@ export interface LocaleSettings {
     },
     providers: [DomHandler,CALENDAR_VALUE_ACCESSOR,CALENDAR_VALIDATOR]
 })
-export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAccessor {
+export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy,ControlValueAccessor {
     
     @Input() defaultDate: Date;
     
@@ -222,11 +222,15 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     @Input() disabledDays: Array<number>;
     
+    @Input() utc: boolean;
+    
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onInput: EventEmitter<any> = new EventEmitter();
     
     _locale: LocaleSettings = {
         firstDayOfWeek: 0,
@@ -240,6 +244,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     @Input() tabindex: number;
     
     @ViewChild('datepicker') overlayViewChild: ElementRef;
+    
+    @ViewChild('inputfield') inputfieldViewChild: ElementRef;
     
     value: Date;
     
@@ -264,6 +270,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     overlay: HTMLDivElement;
     
     overlayVisible: boolean;
+    
+    overlayShown: boolean;
     
     closeOverlay: boolean = true;
     
@@ -330,10 +338,10 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
+        this.pm = date.getHours() > 11;
         if(this.showTime) {
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
-            this.pm = date.getHours() > 11;
             
             if(this.hourFormat == '12')
                 this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
@@ -371,6 +379,13 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
                 document.body.appendChild(this.overlay);
             else
                 this.domHandler.appendChild(this.overlay, this.appendTo);
+        }
+    }
+    
+    ngAfterViewChecked() {
+        if(this.overlayShown) {
+            this.alignOverlay();
+            this.overlayShown = false;
         }
     }
     
@@ -512,7 +527,11 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     selectDate(dateMeta) {
-        this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        if(this.utc)
+            this.value = new Date(Date.UTC(dateMeta.year, dateMeta.month, dateMeta.day));
+        else
+            this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        
         if(this.showTime) {
             if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
                 this.value.setHours(this.currentHour + 12);
@@ -795,7 +814,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         event.preventDefault();
     }
     
-    onInput(event) {  
+    onUserInput(event) {  
         let val = event.target.value;   
         try {
             this.value = this.parseValueFromString(val);
@@ -810,6 +829,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
         
         this.filled = val != null && val.length;
         this.updateModel();
+        this.onInput.emit(event);
     }
     
     parseValueFromString(text: string): Date {
@@ -874,15 +894,18 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     }
     
     showOverlay(inputfield) {
-        if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, inputfield);
-        else
-            this.domHandler.relativePosition(this.overlay, inputfield);
-        
         this.overlayVisible = true;
+        this.overlayShown = true;
         this.overlay.style.zIndex = String(++DomHandler.zindex);
         
         this.bindDocumentClickListener();
+    }
+    
+    alignOverlay() {
+        if(this.appendTo)
+            this.domHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+        else
+            this.domHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
     }
 
     writeValue(value: any) : void {
@@ -1216,7 +1239,7 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
     
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
                 if(this.closeOverlay) {
                     this.overlayVisible = false;
                 }

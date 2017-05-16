@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,IterableDiffers,TemplateRef,QueryList} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,TemplateRef,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Header,Footer,PrimeTemplate} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
@@ -16,7 +16,7 @@ import {BlockableUI} from '../common/api';
             <div class="ui-datalist-content ui-widget-content">
                 <div *ngIf="isEmpty()" class="ui-datalist-emptymessage">{{emptyMessage}}</div>
                 <ul class="ui-datalist-data">
-                    <li *ngFor="let item of dataToRender;let i = index">
+                    <li *ngFor="let item of dataToRender;let i = index;trackBy: trackBy">
                         <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
                     </li>
                 </ul>
@@ -29,9 +29,7 @@ import {BlockableUI} from '../common/api';
         </div>
     `
 })
-export class DataList implements AfterViewInit,AfterContentInit,DoCheck,BlockableUI {
-
-    @Input() value: any[];
+export class DataList implements AfterViewInit,AfterContentInit,BlockableUI {
 
     @Input() paginator: boolean;
 
@@ -55,6 +53,8 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
 
     @Input() emptyMessage: string = 'No records found';
     
+    @Input() trackBy: Function = (index: number, item: any) => item;
+    
     @Output() onPage: EventEmitter<any> = new EventEmitter();
         
     @ContentChild(Header) header;
@@ -62,6 +62,8 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @ContentChild(Footer) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public _value: any[];
     
     public itemTemplate: TemplateRef<any>;
 
@@ -71,11 +73,7 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     
     public page: number = 0;
 
-    differ: any;
-
-    constructor(public el: ElementRef, differs: IterableDiffers) {
-        this.differ = differs.find([]).create(null);
-    }
+    constructor(public el: ElementRef) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -100,15 +98,20 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
         }
     }
     
-    ngDoCheck() {
-        let changes = this.differ.diff(this.value);
+    @Input() get value(): any[] {
+        return this._value;
+    }
 
-        if(changes) {
-            if(this.paginator) {
-                this.updatePaginator();
-            }
-            this.updateDataToRender(this.value);
+    set value(val:any[]) {
+        this._value = val;
+        this.handleDataChange();
+    }
+    
+    handleDataChange() {
+        if(this.paginator) {
+            this.updatePaginator();
         }
+        this.updateDataToRender(this.value);
     }
     
     updatePaginator() {

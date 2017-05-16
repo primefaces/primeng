@@ -93,6 +93,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     @Input() dataKey: string;
     
+    @Input() displaySelectedLabel: boolean = true;
+    
+    @Input() maxSelectedLabels: number = 3;
+    
+    @Input() selectedItemsLabel: string = '{0} items selected';
+        
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('panel') panelViewChild: ElementRef;
@@ -132,7 +138,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     ngOnInit() {
         this.updateLabel();
         
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
             if(!this.selfClick && !this.panelClick && this.overlayVisible) {
                 this.hide();
             }
@@ -295,7 +301,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     }
     
     updateLabel() {
-        if(this.value && this.value.length) {
+        if(this.value && this.value.length && this.displaySelectedLabel) {
             let label = '';
             for(let i = 0; i < this.value.length; i++) {
                 if(i != 0) {
@@ -303,7 +309,15 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
                 }
                 label = label + this.findLabelByValue(this.value[i]);
             }
-            this.valuesAsString = label;
+            
+            if(this.value.length <= this.maxSelectedLabels) {
+                this.valuesAsString = label;
+            }
+            else {
+                let pattern = /{(.*?)}/,
+                newSelectedItemsLabel = this.selectedItemsLabel.replace(this.selectedItemsLabel.match(pattern)[0], this.value.length + '');
+                this.valuesAsString = newSelectedItemsLabel;
+            }
         }
         else {
             this.valuesAsString = this.defaultLabel;

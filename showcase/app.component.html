@@ -163,6 +163,7 @@
         </a>
         <div [ngClass]="{'submenushow': (misctitle.id == activeMenuId), 'submenuhide': (misctitle.id != activeMenuId)}">
             <a [routerLink]="['/responsive']" (click)="mobileMenuActive = false">&#9679; Responsive</a>
+            <a [routerLink]="['/defer']" (click)="mobileMenuActive = false">&#9679; Defer</a>
             <a [routerLink]="['/blockui']" (click)="mobileMenuActive = false">&#9679; BlockUI</a>
             <a [routerLink]="['/captcha']" (click)="mobileMenuActive = false">&#9679; Captcha</a>
             <a [routerLink]="['/inplace']" (click)="mobileMenuActive = false">&#9679; Inplace</a>
@@ -192,6 +193,7 @@
                     <span>Premium Templates</span>
                     <a href="http://www.primefaces.org/layouts/ultima-ng"><img src="showcase/resources/images/themeswitcher-ultima.png" alt="Ultima Template"><span class="ui-text">Ultima</span></a>
                     <a href="http://www.primefaces.org/layouts/barcelona-ng"><img src="showcase/resources/images/themeswitcher-barcelona.png" alt="Barcelona Template"><span class="ui-text">Barcelona</span></a>
+                    <a href="http://www.primefaces.org/layouts/morpheus-ng"><img src="showcase/resources/images/themeswitcher-morpheus.png" alt="Morpheus Template"><span class="ui-text">Morpheus</span></a>
                     <a href="http://www.primefaces.org/layouts/atlantis-ng"><img src="showcase/resources/images/themeswitcher-atlantis.png" alt="Atlantis Template"><span class="ui-text">Atlantis</span></a>
                     <a href="http://www.primefaces.org/layouts/poseidon-ng"><img src="showcase/resources/images/themeswitcher-poseidon.png" alt="Poseidon Template"><span class="ui-text">Poseidon</span></a>
                     <a href="http://www.primefaces.org/layouts/omega-ng"><img src="showcase/resources/images/themeswitcher-omega.png" alt="Omega Template"><span class="ui-text">Omega</span></a>

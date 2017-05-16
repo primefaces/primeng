@@ -165,7 +165,13 @@ export class DataTableDemo implements OnInit &#123;
                             <td>null</td>
                             <td>Defines filterMatchMode; "startsWith", "contains", "endsWidth", "equals" and "in".</td>
                         </tr>
-                         <tr>
+                        <tr>
+                            <td>filterType</td>
+                            <td>string</td>
+                            <td>text</td>
+                            <td>Type of the filter input field.</td>
+                        </tr>
+                        <tr>
                             <td>filterPlaceholder</td>
                             <td>string</td>
                             <td>null</td>
@@ -274,6 +280,11 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
+
+            <h3>Managing Data</h3>
+            <p>DataTable uses setter based checking to realize if the underlying data has changed to update the UI so your data changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array. For example, use slice instead of splice when removing an item 
+                or use spread operator instead of push method when adding an item.</p>
 
             <h3>Templates</h3>
             <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating where the implicit variable passed to the ng-template 
@@ -880,11 +891,6 @@ loadData(event: LazyLoadEvent) &#123;
 &lt;/p-column&gt;
 </code>
 </pre>
-
-            <h3>Immutable Mode</h3>
-            <p>DataTable uses diff checking to realize if the underlying data has changed, this may slow down the performance so to avoid it set immutable mode on and make sure
-                your data changes such as adding or removing a record always creates a new array reference. For example, use slice instead of splice when removing an item 
-                or uses spread operator instead of push method when adding an item.</p>
                 
             <h3>Loading Status</h3>
             <p>DataTable has a loading property, when enabled a spinner icon is displayed to indicate data load.</p>
@@ -919,6 +925,13 @@ export class DataTableDemo implements OnInit &#123;
 &#125;
 </code>
 </pre>
+
+            <h3>Performance Tips Status</h3>
+            <ul>
+                <li>When selection is enabled use dataKey to avoid deep checking when comparing objects.</li>
+                <li>Use rowTrackBy that internally uses ngForTrackBy to avoid unnecessary dom operations.</li>
+                <li>Prefer lazy loading for large datasets.</li>
+            </ul>
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -1045,6 +1058,16 @@ export class DataTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Specifies the selection mode, valid values are "single" and "multiple".</td>
+                        </tr>                        
+                        <tr>
+                            <td>headerCheckboxToggleAllPages</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>
+                                When set to true, the header checkbox on paged DataTables with checkbox multiple 
+                                selection enabled will toggle the selection of items across all pages. See the
+                                <a [routerLink]="['/datatable/selection']">live example.</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>selection</td>
@@ -1179,12 +1202,6 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Position of the paginator, options are "top","bottom" or "both".</td>
                         </tr>
                         <tr>
-                            <td>rowTrackBy</td>
-                            <td>function</td>
-                            <td>null</td>
-                            <td>TrackBy function of ngFor directive used when rendering rows.</td>
-                        </tr>
-                        <tr>
                             <td>rowStyleClass</td>
                             <td>function</td>
                             <td>null</td>
@@ -1206,14 +1223,8 @@ export class DataTableDemo implements OnInit &#123;
                             <td>metaKeySelection</td>
                             <td>boolean</td>
                             <td>true</td>
-                            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+                            <td>Defines whether metaKey is requred or not for the selection. When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
                             can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
-                        </tr>
-                        <tr>
-                            <td>immutable</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Improves performance by avoiding diff checking, changes to value should be done in an immutable way on application side when immutable property is enabled.</td>
                         </tr>
                         <tr>
                             <td>dataKey</td>
@@ -1226,6 +1237,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Displays a loader to indicate data load is in progress.</td>
+                        </tr>
+                        <tr>
+                            <td>rowTrackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
                         </tr>
                     </tbody>
                 </table>
