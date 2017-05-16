@@ -808,8 +808,8 @@ export class Calendar implements AfterViewInit,OnInit,OnDestroy,ControlValueAcce
             this._isValid = false;
         }
         
-        this.updateModel();
         this.filled = val != null && val.length;
+        this.updateModel();
     }
     
     parseValueFromString(text: string): Date {
