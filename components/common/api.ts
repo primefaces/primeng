@@ -48,6 +48,7 @@ export interface Message {
 export interface SelectItem {
     label: string;
     value: any;
+    [propName: string]: any;
 }
 
 export interface TreeNode {
