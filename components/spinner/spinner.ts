@@ -211,11 +211,12 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     parseValue(val: string): number {
         let value: number;
+        let numRegExp: RegExp = new RegExp(/[^0-9\-.]/g);
         
         if(this.formatInput) {
             val = val.split(this.thousandSeparator).join('');
         }
-        
+        val = val.replace(numRegExp, '');
         if(val.trim() === '') {
             value= this.min !== undefined ? this.min : null;
         }
