@@ -52,6 +52,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     @Input() url: string;
     
+    @Input() method: string = 'POST';
+    
     @Input() multiple: boolean;
     
     @Input() accept: string;
@@ -259,7 +261,7 @@ export class FileUpload implements OnInit,AfterContentInit {
             }
         };
         
-        xhr.open('POST', this.url, true);
+        xhr.open(this.method, this.url, true);
 		
 		this.onBeforeSend.emit({
 			'xhr': xhr,
