@@ -14,7 +14,7 @@
     padding: .5em .5em .5em 2em; 
 }
 
-.ui-accordion .ui-accordion-header .fa {
+.ui-accordion .ui-accordion-header>.fa {
     position: absolute; 
     left: .5em; 
     top: 50%; 

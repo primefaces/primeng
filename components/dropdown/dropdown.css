@@ -84,6 +84,7 @@
 
 .ui-dropdown-panel .ui-dropdown-filter {
     width: 100%;
+    box-sizing: border-box;
     padding-right: 1.5em;
 }
 

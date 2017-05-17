@@ -33,8 +33,6 @@ import {CommonModule} from '@angular/common';
 })
 export class Paginator {
 
-    @Input() rows: number = 0;
-
     @Input() pageLinkSize: number = 5;
 
     @Output() onPageChange: EventEmitter<any> = new EventEmitter();
@@ -51,6 +49,8 @@ export class Paginator {
     
     public _first: number = 0;
     
+    public _rows: number = 0;
+    
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }
@@ -66,6 +66,15 @@ export class Paginator {
 
     set first(val:number) {
         this._first = val;
+        this.updatePageLinks();
+    }
+    
+    @Input() get rows(): number {
+        return this._rows;
+    }
+
+    set rows(val:number) {
+        this._rows = val;
         this.updatePageLinks();
     }
 

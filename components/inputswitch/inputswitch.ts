@@ -23,7 +23,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
             </div>
             <div [ngClass]="{'ui-inputswitch-handle ui-state-default':true, 'ui-state-focus':focused}"></div>
             <div class="ui-helper-hidden-accessible">
-                <input #in type="checkbox" (focus)="onFocus($event)" (blur)="onBlur($event)" readonly="readonly" [attr.tabindex]="tabindex"/>
+                <input #in type="checkbox" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onBlur($event)" readonly="readonly" [attr.tabindex]="tabindex"/>
             </div>
         </div>
     `,
@@ -42,6 +42,8 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
     @Input() styleClass: string;
 
     @Input() tabindex: number;
+
+    @Input() inputId: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 

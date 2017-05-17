@@ -280,6 +280,15 @@ $invalidInputBorderColor: #f44336;
             }
         }        
     }
+    
+    tfoot {
+        td {
+            &.ui-state-default {
+                background: #ebedf0;
+                border-color: #d9d9d9;
+            }
+        }
+    }
 }
 
 /* Panel */
@@ -331,11 +340,11 @@ $invalidInputBorderColor: #f44336;
    color: #212121;
 }
 
-.ui-togglebutton.ui-button.ui-state-focus {
+.ui-togglebutton.ui-button.ui-state-focus,
+.ui-selectbutton .ui-button.ui-state-focus.ui-state-active  {
     -moz-box-shadow: 0px 0px 5px #1f89ce;
 	-webkit-box-shadow: 0px 0px 5px #1f89ce;
 	box-shadow: 0px 0px 5px #1f89ce;
-    background: #ffffff; 
 }
 
 .ui-togglebutton.ui-button.ui-state-active,

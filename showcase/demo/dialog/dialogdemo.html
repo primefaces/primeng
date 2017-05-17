@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="350" responsive="true">
+    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="350" [responsive]="true">
         <span>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
@@ -80,6 +80,15 @@ export class ModelComponent &#123;
 </code>
 </pre>
 
+            <h3>Overlays Inside</h3>
+            <p>When dialog contents include other components with overlays such as dropdown, it is suggested to turn off the overflow of dialog content
+                so that the overlays can be displayed outside of the dialog.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-dropdown [options]="cities" formControlName="selectedCity"&gt;&lt;/p-dropdown&gt;
+</code>
+</pre>
+
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -135,6 +144,12 @@ export class ModelComponent &#123;
                             <td>Height of the dialog.</td>
                         </tr>
                         <tr>
+                            <td>contentStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Style of the content section.</td>
+                        </tr>
+                        <tr>
                             <td>visible</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -180,7 +195,7 @@ export class ModelComponent &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the dialog, valid values are "body" or a local template variable of another element.</td>
+                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -200,6 +215,18 @@ export class ModelComponent &#123;
                             <td>true</td>
                             <td>Whether to show the header or not.</td>
                         </tr>
+                        <tr>
+                            <td>positionLeft</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Left coordinate value of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>positionTop</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Top coordinate value of the dialog.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -216,24 +243,14 @@ export class ModelComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>onBeforeShow</td>
+                            <td>onShow</td>
                             <td>event: Event object</td>
-                            <td>Callback to invoke before dialog is shown.</td>
+                            <td>Callback to invoke when dialog is shown.</td>
                         </tr>
                         <tr>
-                            <td>onAfterShow</td>
+                            <td>onHide</td>
                             <td>event: Event object</td>
-                            <td>Callback to invoke after dialog is shown.</td>
-                        </tr>
-                        <tr>
-                            <td>onBeforeHide</td>
-                            <td>event: Event object</td>
-                            <td>Callback to invoke before dialog is hidden.</td>
-                        </tr>
-                        <tr>
-                            <td>onAfterHide</td>
-                            <td>event: Event object</td>
-                            <td>Callback to invoke after dialog is hidden.</td>
+                            <td>Callback to invoke when dialog is hidden.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -285,7 +302,7 @@ export class ModelComponent &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="300" responsive="true"&gt;
+&lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="300" [responsive]="true"&gt;
     &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 

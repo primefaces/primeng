@@ -241,6 +241,9 @@ body .ui-selectbutton.ui-buttonset .ui-button.ui-state-active {
     background-color: #0275d8;
     color: #ffffff;
 }
+body .ui-autocomplete .ui-autocomplete-dropdown .ui-button-text {
+    padding: 0.35em;
+}
 body .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-container {
     padding: 0.5em 0.75em;
 }
@@ -419,7 +422,7 @@ body .ui-listbox .ui-listbox-item {
 body .ui-listbox .ui-listbox-item:last-child {
     border-bottom: none;
 }
-body .ui-listbox .ui-listbox-item:hover {
+body .ui-listbox:not(.ui-state-disabled) .ui-listbox-item:hover {
     background-color: #f4f3f4;
     color: #373a3c;
 }
@@ -429,6 +432,10 @@ body .ui-listbox .ui-listbox-item.ui-state-highlight {
 }
 body .ui-listbox .ui-listbox-item.ui-state-highlight .ui-chkbox {
     border: 1px solid #108ffd;
+}
+body .ui-listbox.ui-state-disabled .ui-chkbox-box:not(.ui-state-active):hover {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
 }
 body .ui-listbox .ui-listbox-item > td {
     padding: 0.375em 0.75em;
@@ -666,7 +673,7 @@ body .ui-datepicker {
     padding: 0;
 }
 body .ui-datepicker .ui-datepicker-header {
-    padding: .75em 1.25em;
+    padding: .75em 0;
     background-color: #f5f5f5;
     border: 0;
     border-bottom: 1px solid #c7c7c7;
@@ -1199,7 +1206,8 @@ body .ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
 body .ui-datatable .ui-paginator {
     padding: 0;
 }
-body .ui-datatable .ui-datatable-thead > tr > th {
+body .ui-datatable .ui-datatable-thead > tr > th,
+body .ui-datatable .ui-datatable-tfoot > tr > td {
     background-color: #ffffff;
     padding: .75em;
     border-color: #c7c7c7;
@@ -1470,6 +1478,13 @@ body .ui-treetable tfoot td {
 body .ui-treetable .ui-treetable-data tr:not(.ui-state-highlight):hover {
     background-color: #e3e3e3;
 }
+body .ui-treetable .ui-treetable-row.ui-state-highlight .ui-chkbox-icon {
+    color: #555555;
+    margin: 0;
+}
+body .ui-treetable .ui-treetable-row.ui-state-highlight .ui-treetable-toggler {
+    color: #ffffff;
+}
 body .ui-treetable .ui-treetable-row.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
     background-color: #e3e3e3;
 }
@@ -1543,7 +1558,11 @@ body .ui-tree.ui-tree-horizontal .ui-treenode-content {
     background-color: #ffffff;
     border: 1px solid #c7c7c7;
 }
-body .ui-tree.ui-tree-horizontal .ui-treenode-content:hover {
+body .ui-tree.ui-tree-horizontal .ui-treenode-content.ui-treenode-selectable .ui-treenode-label:not(.ui-state-highlight):hover {
+    background-color: inherit;
+    color: inherit;
+}
+body .ui-tree.ui-tree-horizontal .ui-treenode-content.ui-treenode-selectable:not(.ui-state-highlight):hover {
     background-color: #f4f3f4;
     color: #373a3c;
 }
@@ -2160,4 +2179,22 @@ body .ui-slidemenu .ui-slidemenu-backward {
     background-color: #f5f5f5;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+/* Validation */
+.ui-inputtext.ng-dirty.ng-invalid,
+p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
+p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
+p-calendar.ng-dirty.ng-invalid > .ui-inputtext,
+p-chips.ng-dirty.ng-invalid > .ui-inputtext,
+p-inputmask.ng-dirty.ng-invalid > .ui-inputtext,
+p-checkbox.ng-dirty.ng-invalid .ui-chkbox-box,
+p-radiobutton.ng-dirty.ng-invalid .ui-radiobutton-box,
+p-inputswitch.ng-dirty.ng-invalid .ui-inputswitch,
+p-listbox.ng-dirty.ng-invalid .ui-inputtext,
+p-multiselect.ng-dirty.ng-invalid > .ui-multiselect,
+p-spinner.ng-dirty.ng-invalid > .ui-inputtext,
+p-selectbutton.ng-dirty.ng-invalid .ui-button,
+p-togglebutton.ng-dirty.ng-invalid .ui-button {
+    border-bottom-color: #e13131;
 }

@@ -19,8 +19,9 @@ import {DomHandler} from '../dom/domhandler';
                     <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                     <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle">
                         <li *ngFor="let item of value" class="ui-orderlist-item"
-                            [ngClass]="{'ui-state-highlight':isSelected(item)}" (click)="onItemClick($event,item)">
-                            <template [pTemplateWrapper]="itemTemplate" [item]="item"></template>
+                            [ngClass]="{'ui-state-highlight':isSelected(item)}" 
+                            (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)">
+                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                         </li>
                     </ul>
                 </div>
@@ -43,8 +44,12 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Input() responsive: boolean;
     
+    @Input() metaKeySelection: boolean = true;
+    
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
-
+    
+    @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
@@ -56,6 +61,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     movedDown: boolean;
         
     listContainer: any;
+    
+    itemTouched: boolean;
         
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
          
@@ -94,17 +101,37 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
                 
     onItemClick(event, item) {
-        let metaKey = (event.metaKey||event.ctrlKey);
         let index = this.findIndexInList(item, this.selectedItems);
         let selected = (index != -1);
+        let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
-        if(selected && metaKey) {
-            this.selectedItems.splice(index, 1);
+        if(metaSelection) {
+            let metaKey = (event.metaKey||event.ctrlKey);
+            
+            if(selected && metaKey) {
+                this.selectedItems.splice(index, 1);
+            }
+            else {
+                this.selectedItems = (metaKey) ? this.selectedItems||[] : [];            
+                this.selectedItems.push(item);
+            }
         }
         else {
-            this.selectedItems = (metaKey) ? this.selectedItems||[] : [];            
-            this.selectedItems.push(item);
+            if(selected) {
+                this.selectedItems.splice(index, 1);
+            }
+            else {
+                this.selectedItems = this.selectedItems||[];
+                this.selectedItems.push(item);
+            }
         }
+
+        this.onSelectionChange.emit({originalEvent:event, value:this.selectedItems});
+        this.itemTouched = false;
+    }
+    
+    onItemTouchEnd(event) {
+        this.itemTouched = true;
     }
     
     isSelected(item: any) {

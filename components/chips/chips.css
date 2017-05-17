@@ -45,7 +45,7 @@
     padding: .25em .25em .25em 0;
 }
 
-.ui-chips-input-token .ui-inputtext {
+.ui-chips-input-token input {
     border: 0 none;
     width: 10em;
     outline: medium none;

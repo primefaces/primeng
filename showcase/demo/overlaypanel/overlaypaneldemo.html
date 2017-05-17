@@ -30,9 +30,9 @@
     <h3>DataTable Integration</h3>
     <p-dataTable [value]="cars2">
         <p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo">
-            <template let-car="rowData" pTemplate="body">
+            <ng-template let-car="rowData" pTemplate="body">
                 <button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"></button>
-            </template>
+            </ng-template>
         </p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -56,7 +56,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>OverlayPanel is defined using p-overlayPanel element and is displayed using the <i>show</i> or <i>toggle</i> method of a local template variable.</p>
+            <p>OverlayPanel is defined using p-overlayPanel element and is displayed using the <i>show</i> or <i>toggle</i> method of a local ng-template variable.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-overlayPanel #op&gt;
@@ -133,7 +133,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the panel, valid values are "body" or a local template variable of another element.</td>
+                            <td>Target element to attach the panel, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -266,9 +266,9 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
 &lt;h3&gt;DataTable Integration&lt;/h3&gt;
 &lt;p-dataTable [value]="cars2"&gt;
     &lt;p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo"&gt;
-        &lt;template let-car="rowData" pTemplate="body"&gt;
+        &lt;ng-template let-car="rowData" pTemplate="body"&gt;
             &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"&gt;&lt;/button&gt;
-        &lt;/template&gt;
+        &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;

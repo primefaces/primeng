@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-messages [value]="msgs"></p-messages>
+    <p-messages [(value)]="msgs"></p-messages>
 
     <div>
         <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
@@ -29,11 +29,11 @@ import &#123;MessagesModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>A single message is specified by Message interface in PrimeNG that defines the severity, summary and detail properties.
+            <p>A single message is specified by Message interface in PrimeNG that defines the id, severity, summary and detail as the properties.
                 Messages to display are defined using the value property which should an array of Message instances.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
             
@@ -50,7 +50,7 @@ import &#123;MessagesModule&#125; from 'primeng/primeng';
             <p>Adding messages to the array is enough to display them. Similarly removing a message from the array is also removed from the UI.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 
 &lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
 &lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
@@ -73,11 +73,12 @@ hide() &#123;
             <p>Messages are closable by default resulting in a close icon being displayed on top right corner.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
 
-            <p>In order to disable closable messages, set closable to false.</p>
+            <p>In order to disable closable messages, set closable to false. Note that in this case two-way binding is not necessary as the component
+            does not need to update its value.</p>
 <pre>
 <code class="language-markup" pCode>
 &lt;p-messages [value]="msgs" [closable]="false"&gt;&lt;/p-messages&gt;
@@ -170,7 +171,7 @@ hide() &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode>
-&lt;p-messages [value]="msgs"&gt;&lt;/p-messages&gt;
+&lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 
 &lt;div&gt;
     &lt;button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;

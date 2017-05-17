@@ -1,7 +1,8 @@
-import {NgModule,Component,Input,Output,EventEmitter,trigger,state,transition,style,animate,ElementRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule} from '../common/shared'
+import {SharedModule} from '../common/shared';
 import {BlockableUI} from '../common/api';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 
 @Component({
     selector: 'p-panel',
@@ -15,7 +16,7 @@ import {BlockableUI} from '../common/api';
                     <span class="fa fa-fw" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
                 </a>
             </div>
-            <div class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" 
+            <div class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" (@panelContent.done)="onToggleDone($event)"
                 [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}">
                 <div class="ui-panel-content ui-widget-content">
                     <ng-content></ng-content>
@@ -26,13 +27,12 @@ import {BlockableUI} from '../common/api';
     animations: [
         trigger('panelContent', [
             state('hidden', style({
-                height: '0px'
+                height: '0'
             })),
             state('visible', style({
                 height: '*'
             })),
-            transition('visible => hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-            transition('hidden => visible', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+            transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
     ]
 })
@@ -59,6 +59,10 @@ export class Panel implements BlockableUI {
     constructor(private el: ElementRef) {}
     
     toggle(event) {
+        if(this.animating) {
+            return false;
+        }
+        
         this.animating = true;
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
         
@@ -70,12 +74,7 @@ export class Panel implements BlockableUI {
         }
         
         this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});   
-        
-        //TODO: Use onDone of animate callback instead with RC6
-        setTimeout(() => {
-            this.animating = false;
-        }, 400);
-        
+                
         event.preventDefault();
     }
     
@@ -91,6 +90,10 @@ export class Panel implements BlockableUI {
     
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+    
+    onToggleDone(event: Event) {
+        this.animating = false;
     }
 
 }

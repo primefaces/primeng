@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,DoCheck,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,IterableDiffers,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
@@ -15,7 +15,8 @@ import {BlockableUI} from '../common/api';
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-content ui-widget-content">
                 <div class="ui-g">
-                    <template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate"></template>
+                    <ng-template ngFor [ngForOf]="dataToRender" [ngForTemplate]="itemTemplate" [ngForTrackBy]="trackBy"></ng-template>
+                    <div *ngIf="isEmpty()" class="ui-widget-content ui-g-12">{{emptyMessage}}</div>
                 </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
@@ -26,9 +27,7 @@ import {BlockableUI} from '../common/api';
         </div>
     `
 })
-export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,BlockableUI {
-
-    @Input() value: any[];
+export class DataGrid implements AfterViewInit,AfterContentInit,BlockableUI {
 
     @Input() paginator: boolean;
 
@@ -41,6 +40,8 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() rowsPerPageOptions: number[];
 
     @Input() lazy: boolean;
+
+    @Input() emptyMessage: string = 'No records found';
     
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
@@ -49,12 +50,18 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() styleClass: string;
     
     @Input() paginatorPosition: string = 'bottom';
+    
+    @Input() trackBy: Function = (index: number, item: any) => item;
+    
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
             
     @ContentChild(Header) header;
 
     @ContentChild(Footer) footer;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    public _value: any[];
     
     public itemTemplate: TemplateRef<any>;
 
@@ -63,12 +70,8 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     public first: number = 0;
     
     public page: number = 0;
-
-    differ: any;
     
-    constructor(public el: ElementRef, differs: IterableDiffers) {
-        this.differ = differs.find([]).create(null);
-    }
+    constructor(public el: ElementRef) {}
 
     ngAfterViewInit() {
         if(this.lazy) {
@@ -93,15 +96,20 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
         });
     }
     
-    ngDoCheck() {
-        let changes = this.differ.diff(this.value);
+    @Input() get value(): any[] {
+        return this._value;
+    }
 
-        if(changes) {
-            if(this.paginator) {
-                this.updatePaginator();
-            }
-            this.updateDataToRender(this.value);
+    set value(val:any[]) {
+        this._value = val;
+        this.handleDataChange();
+    }
+    
+    handleDataChange() {
+        if(this.paginator) {
+            this.updatePaginator();
         }
+        this.updateDataToRender(this.value);
     }
     
     updatePaginator() {
@@ -125,6 +133,11 @@ export class DataGrid implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
         else {
             this.updateDataToRender(this.value);
         }
+        
+        this.onPage.emit({
+            first: this.first,
+            rows: this.rows
+        });
     }
 
     updateDataToRender(datasource) {

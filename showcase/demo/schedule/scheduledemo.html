@@ -6,10 +6,11 @@
 </div>
 
 <div class="content-section implementation">
-    <p-schedule [events]="events" [header]="header" defaultDate="2016-01-12" [eventLimit]="4" [editable]="true"
+    <p-schedule [events]="events" [header]="header" defaultDate="2017-02-01" [eventLimit]="4" [editable]="true"
                 (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
     
-    <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false">
+    <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
+        [style]="{'overflow':'visible'}" [resizable]="false">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="vin">Title</label></div>
@@ -17,11 +18,11 @@
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="start">Start</label></div>
-                <div class="ui-grid-col-8"><p-inputMask id="start" mask="9999-99-99" [(ngModel)]="event.start" placeholder="99/99/9999" slotChar="yyyy-mm-dd"></p-inputMask></div>
+                <div class="ui-grid-col-8"><p-calendar [(ngModel)]="event.start" dateFormat="yy-mm-dd" dataType="string"></p-calendar></div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="end">End</label></div>
-                <div class="ui-grid-col-8"><p-inputMask id="end" mask="9999-99-99" [(ngModel)]="event.end" placeholder="Optional" slotChar="yyyy-mm-dd"></p-inputMask></div>
+                <div class="ui-grid-col-8"><p-calendar [(ngModel)]="event.end" dateFormat="yy-mm-dd" dataType="string"></p-calendar></div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="allday">All Day</label></div>
@@ -30,8 +31,8 @@
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
-                <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete" [disabled]="!event?.id"></button>
+                <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save" [disabled]="!event?.start"></button>
             </div>
         </p-footer>
     </p-dialog>
@@ -190,28 +191,11 @@ export class MyModel &#123;
                 Following is a schedule with Spanish month names.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-schedule [events]="events" [locale]="es"&gt;&lt;/p-schedule&gt;
+&lt;p-schedule [events]="events" locale="es"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
-<pre>
-<code class="language-typescript" pCode>
-export class MyModel &#123;
-
-    es: any;
-
-    ngOnInit() &#123;
-        this.es = &#123;
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
-                'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-        &#125;;
-    &#125;
-&#125;
-</code>
-</pre>
-            <p>Visit the <a href="http://fullcalendar.io/docs/text/">fullcalendar documentation</a> for the available options. 
-                Existing translations are available at <a href="https://github.com/fullcalendar/fullcalendar/tree/master/lang">here</a>.
-            </p>
+            <p>Visit the <a href="https://fullcalendar.io/docs/text/locale/">fullcalendar documentation</a> to get the available locales.</p>
 
             <h3>Attributes</h3>
             <div class="doc-tablewrapper">
@@ -252,7 +236,7 @@ export class MyModel &#123;
                         <tr>
                             <td>locale</td>
                             <td>object</td>
-                            <td><a href="http://fullcalendar.io/docs/text/">Read more</a></td>
+                            <td><a href="https://fullcalendar.io/docs/text/locale/">Read more</a></td>
                         </tr>
                         <tr>
                             <td>fixedWeekCount</td>
@@ -403,6 +387,16 @@ export class MyModel &#123;
                             <td>dayRender</td>
                             <td>Function</td>
                             <td><a href="https://fullcalendar.io/docs/display/dayRender/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>timezone</td>
+                            <td>boolean|string</td>
+                            <td><a href="https://fullcalendar.io/docs/timezone/timezone/">Read more</a></td>
+                        </tr>
+                        <tr>
+                            <td>options</td>
+                            <td>Object</td>
+                            <td>A configuration object to define properties of FullCalendar that do not have a corresponding option in schedule.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -577,10 +571,11 @@ export class MyModel &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-schedule [events]="events" [header]="header" defaultDate="2016-01-12" [eventLimit]="4" [editable]="true"
+&lt;p-schedule [events]="events" [header]="header" defaultDate="2017-02-01" [eventLimit]="4" [editable]="true"
             (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"&gt;&lt;/p-schedule&gt;
 
-&lt;p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false"&gt;
+&lt;p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="&#123;'overflow':'visible'&#125;"
+    [style]="&#123;'overflow':'visible'&#125;" [resizable]="false"&gt;
     &lt;div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event"&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-4"&gt;&lt;label for="vin"&gt;Title&lt;/label&gt;&lt;/div&gt;
@@ -588,21 +583,21 @@ export class MyModel &#123;
         &lt;/div&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-4"&gt;&lt;label for="start"&gt;Start&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-inputMask id="start" mask="9999-99-99" [(ngModel)]="event.start" placeholder="99/99/9999" slotChar="yyyy-mm-dd"&gt;&lt;/p-inputMask&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar [(ngModel)]="event.start" dateFormat="yy-mm-dd" dataType="string"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-4"&gt;&lt;label for="end"&gt;End&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-inputMask id="end" mask="9999-99-99" [(ngModel)]="event.end" placeholder="Optional" slotChar="yyyy-mm-dd"&gt;&lt;/p-inputMask&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar [(ngModel)]="event.end" dateFormat="yy-mm-dd" dataType="string"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-4"&gt;&lt;label for="allday"&gt;All Day&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-checkbox [(ngModel)]="event.allDay" binary="binary"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;&lt;p-checkbox [(ngModel)]="event.allDay" binary="checkbox"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;p-footer&gt;
         &lt;div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete" [disabled]="!event?.id"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save" [disabled]="!event?.start"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
@@ -675,7 +670,7 @@ export class ScheduleDemo implements OnInit &#123;
         &#125;
         //new
         else &#123;
-            this.event.id = this.idGen;
+            this.event.id = this.idGen++;
             this.events.push(this.event);
             this.event = null;
         &#125;

@@ -21,6 +21,8 @@ export class DataTableSelectionDemo implements OnInit {
     selectedCars1: Car[];
     
     selectedCars2: Car[];
+    
+    selectedCars3: Car[];
 
     constructor(private carService: CarService) { }
 

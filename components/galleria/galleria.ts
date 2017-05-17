@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,Output,IterableDiffers,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewChecked,AfterViewInit,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -33,9 +33,7 @@ import {DomHandler} from '../dom/domhandler';
     providers: [DomHandler]
 })
 export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
-    
-    @Input() images: any[];
-    
+        
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -60,7 +58,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     
     @Output() onImageClicked = new EventEmitter();
     
-    differ: any;
+    _images: any[];
     
     slideshowActive: boolean;
     
@@ -86,9 +84,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     
     public initialized: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, differs: IterableDiffers) {
-        this.differ = differs.find([]).create(null);
-    }
+    constructor(public el: ElementRef, public domHandler: DomHandler) {}
     
     ngAfterViewChecked() {
         if(this.imagesChanged) {
@@ -98,15 +94,16 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         }
     }
     
-    ngDoCheck() {
-        let changes = this.differ.diff(this.images);
-        
-        if(changes && this.initialized) {
-            this.activeIndex = 0;
-            this.imagesChanged = true;
-        }
+    @Input() get images(): any[] {
+        return this._images;
     }
-    
+
+    set images(value:any[]) {
+        this._images = value;
+        this.activeIndex = 0;
+        this.imagesChanged = true;
+    }
+        
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];
         this.panelWrapper = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-galleria-panel-wrapper');

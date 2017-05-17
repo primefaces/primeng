@@ -126,9 +126,11 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
             actually closes the tab.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;p-tabPanel header="Header Text" [closable]="true" [controlClose]="true" (onClose)="handleClose($event)"&gt;
+&lt;p-tabView [controlClose]="true" (onClose)="handleClose($event)"&gt;
+&lt;p-tabPanel header="Header Text" [closable]="true"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
 </code>
 </pre>
 
@@ -187,6 +189,12 @@ handleClose(e) &#123;
                             <td>string</td>
                             <td>top</td>
                             <td>Orientation of tab headers.</td>
+                        </tr>
+                        <tr>
+                            <td>activeIndex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the active tab to change selected tab programmatically.</td>
                         </tr>
                         <tr>
                             <td>style</td>

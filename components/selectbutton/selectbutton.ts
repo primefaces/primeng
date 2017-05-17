@@ -14,8 +14,11 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     template: `
         <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + options.length" [ngStyle]="style" [class]="styleClass">
             <div *ngFor="let option of options;" class="ui-button ui-widget ui-state-default ui-button-text-only"
-                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled}" (click)="onItemClick($event,option)">
+                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled, 'ui-state-focus': cbox == focusedItem}" (click)="onItemClick($event,option,cbox)">
                 <span class="ui-button-text ui-c">{{option.label}}</span>
+                <div class="ui-helper-hidden-accessible">
+                    <input #cbox type="checkbox" [checked]="isSelected(option)" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.disabled]="disabled">
+                </div>
             </div>
         </div>
     `,
@@ -39,6 +42,8 @@ export class SelectButton implements ControlValueAccessor {
     
     value: any;
     
+    focusedItem: HTMLInputElement;
+    
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
@@ -59,17 +64,19 @@ export class SelectButton implements ControlValueAccessor {
         this.disabled = val;
     }
     
-    onItemClick(event, option: SelectItem) {
+    onItemClick(event, option: SelectItem, checkbox: HTMLInputElement) {
         if(this.disabled) {
             return;
         }
         
+        checkbox.focus();
+        
         if(this.multiple) {
             let itemIndex = this.findItemIndex(option);
             if(itemIndex != -1)
-                this.value.splice(itemIndex, 1);
+                this.value = this.value.filter((val,i) => i!=itemIndex);
             else
-                this.value.push(option.value);
+                this.value = [...this.value||[], option.value];
         }
         else {
             this.value = option.value;
@@ -81,6 +88,15 @@ export class SelectButton implements ControlValueAccessor {
             originalEvent: event,
             value: this.value
         });
+    }
+    
+    onFocus() {
+        this.focusedItem = <HTMLInputElement>event.target;
+    }
+    
+    onBlur(event) {
+        this.focusedItem = null;
+        this.onModelTouched();
     }
     
     isSelected(option: SelectItem) {

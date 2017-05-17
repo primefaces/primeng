@@ -14,41 +14,71 @@
     <h3>Single Selection</h3>
     <p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
-    <div style="margin-top:8px">Selected Node: {{selectedFile ? selectedFile.label : 'none'}}</div>
+    <div style="margin-top:8px">Selected Node: {{selectedFile ? selectedFile.label : 'none'&#125;&#125;</div>
     
     <h3>Multiple Selection with Metakey</h3>
     <p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles" 
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
-    <div>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}} </span></div>
+    <div>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label&#125;&#125; </span></div>
     
     <h3>Multiple Selection with Checkbox</h3>
     <p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"></p-tree>
-    <div>Selected Nodes: <span *ngFor="let file of selectedFiles2">{{file.label}} </span></div>
+    <div>Selected Nodes: <span *ngFor="let file of selectedFiles2">{{file.label&#125;&#125; </span></div>
 
     <h3>Lazy Loading</h3>
     <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"></p-tree>
     
     <h3>Template</h3>
     <p-tree [value]="filesTree5">
-        <template let-node pTemplate="default">
+        <ng-template let-node pTemplate="default">
             <input [(ngModel)]="node.label" type="text" style="width:100%">
-        </template>
+        </ng-template>
     </p-tree>
     
     <h3>Context Menu</h3>
     <p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
     <p-contextMenu #cm [model]="items"></p-contextMenu>
+    
+    <h3>DragDrop</h3>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-3">
+            <h4>Files</h4>
+            <p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" dragdropScope="files"></p-tree>
+        </div>
+        
+        <div class="ui-g-12 ui-md-1" style="text-align:center">
+            <i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"></i>
+        </div>
+        
+        <div class="ui-g-12 ui-md-3">
+            <h4>Server 1</h4>
+            <p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" dragdropScope="files"></p-tree>
+        </div>
+        
+        <div class="ui-g-12 ui-md-1" style="text-align:center">
+            <i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"></i>
+        </div>
+        
+        <div class="ui-g-12 ui-md-3">
+            <h4>Server 2</h4>
+            <p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" dragdropScope="other"></p-tree>
+        </div>
+        
+        <div class="ui-g-12 ui-md-1">
+            
+        </div>
+    </div>
 
     <h3>Programatic Tree Expansion</h3>
-    <p-tree #expandingTree [value]="filesTree7"></p-tree>
+    <p-tree #expandingTree [value]="filesTree10"></p-tree>
     <div style="margin-top: 8px">
         <button pButton type="text" label="Expand all" (click)="expandAll()"></button>
         <button pButton type="text" label="Collapse all" (click)="collapseAll()"></button>
     </div>
     
     <h3>Horizontal Tree</h3>
-    <p-tree [value]="filesTree8" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
-    <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'}}</div>
+    <p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
+    <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;</div>
 </div>
 
 <div class="content-section source">
@@ -139,7 +169,7 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
                             <td>type</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Type of the node to match template type.</td>
+                            <td>Type of the node to match ng-template type.</td>
                         </tr>
                         <tr>
                             <td>parent</td>
@@ -148,10 +178,28 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
                             <td>Parent of the node.</td>
                         </tr>
                         <tr>
-                            <td>type</td>
+                            <td>styleClass</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Type of the node to match template type.</td>
+                            <td>Name of the style class for the node element.</td>
+                        </tr>
+                        <tr>
+                            <td>draggable</td>
+                            <td>boolean</td>
+                            <td>null</td>
+                            <td>Whether to disable dragging for a particular node even if draggableNodes is enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>droppable</td>
+                            <td>boolean</td>
+                            <td>null</td>
+                            <td>Whether to disable dropping for a particular node even if droppableNodes is enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>selectable</td>
+                            <td>boolean</td>
+                            <td>null</td>
+                            <td>Used to disable selection of a particular node.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -168,8 +216,7 @@ export class NodeService &#123;
     getFiles() &#123;
         return this.http.get('showcase/resources/data/files.json')
                     .toPromise()
-                    .then(res =&gt; &lt;TreeNode[]&gt; res.json().data)
-                    .then(data =&gt; &#123; return data; &#125;);
+                    .then(res =&gt; &lt;TreeNode[]&gt; res.json().data);
     &#125;
 &#125;
 </code>
@@ -282,7 +329,9 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
-<p>In multiple mode or checkbox mode, selection property should be an array.</p>
+        <p>In multiple mode or checkbox mode, selection property should be an array. In multiple mode, items can either be selected
+        using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+        devices metaKeySelection is turned off automatically.</p>
 <pre>
 <code class="language-typescript" pCode>
     export class TreeDemoComponent implements OnInit &#123;
@@ -304,6 +353,15 @@ export class TreeDemoComponent implements OnInit &#123;
 <pre>
 <code class="language-markup" pCode>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
+
+            <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned of by propapageSelectionDown and
+            propagateSelectionUp properties.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-tree [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles"
+                [propagateSelectionUp]="false" [propagateSelectionDown]="false"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
 
@@ -336,6 +394,8 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
+            <p>Selection of a particular node can be disabled by setting the selectable property of the node to false.</p>
+
             <h3>Icons</h3>
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
                 expandedIcon and collapsedIcon instead.</p>
@@ -346,27 +406,27 @@ export class TreeDemoComponent implements OnInit &#123;
 
 <pre>
 <code class="language-markup" pCode>
-&lt;h3&gt;Template&lt;/h3&gt;
+&lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
-    &lt;template let-node  pTemplate="default"&gt;
+    &lt;ng-template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-tree&gt;
 </code>
 </pre>
 
             <p>Multiple templates are supported by matching the type property of the TreeNode with the type of pTemplate. If a node as no type, 
-            then default template is used.</p>
+            then default ng-template is used.</p>
 <pre>
 <code class="language-markup" pCode>
-&lt;h3&gt;Template&lt;/h3&gt;
+&lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
-    &lt;template let-node  pTemplate="picture"&gt;
+    &lt;ng-template let-node  pTemplate="picture"&gt;
         &lt;img [attrs.src]="picture.path"&gt;
-    &lt;/template&gt;
-    &lt;template let-node  pTemplate="default"&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-tree&gt;
 </code>
 </pre>
@@ -450,6 +510,31 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>  
 
+            <h3>Drag and Drop</h3>
+            <p>Nodes can be reordered within a tree and also can be transferred between multiple trees. To enable dragging from a tree set draggableNodes to true and to allow
+            dropping enable droppableNodes property. In addition, import TreeDragDropService and configure it as a provider at your component or module.</p>
+<pre>
+<code class="language-typescript" pCode>
+import &#123;TreeDragDropService&#125; from 'primeng/primeng';
+</code>
+</pre>
+        
+<pre>
+<code class="language-markup" pCode>
+&lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
+            <p>Multiple tree can be used in a drag drop operation, in order to add constraints like rejecting drags from a certain tree but allow from another use draggableScope 
+            and droppableScope properties which can be a string or an array. Following example uses 3 trees where second one only accepts drags from first tree and second one only
+            accepts from second tree whereas first tree accepts drops from 3rd tree.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" draggableScope="a" droppableScope="c"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" draggableScope="b" droppableScope="a"&gt;&lt;/p-tree&gt;
+&lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" draggableScope="c" droppableScope="b"&gt;&lt;/p-tree&gt;
+</code>
+</pre>
+            
             <h3>Horizontal Orientation</h3>
             <p>Horizontal mode is the alternative option for orientation.</p>
 
@@ -481,7 +566,7 @@ export class TreeDemoComponent implements OnInit &#123;
                             <td>selectionMode</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Defines the selection mode, valid values "single" and "multiple".</td>
+                            <td>Defines the selection mode, valid values "single", "multiple", and "checkbox".</td>
                         </tr>
                         <tr>
                             <td>selection</td>
@@ -512,6 +597,25 @@ export class TreeDemoComponent implements OnInit &#123;
                             <td>string</td>
                             <td>vertical</td>
                             <td>Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'.</td>
+                        </tr>
+                        <tr>
+                            <td>metaKeySelection</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+                            can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
+                        </tr>
+                        <tr>
+                            <td>propagateSelectionUp</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether checkbox selections propagate to ancestor nodes.</td>
+                        </tr>
+                        <tr>
+                            <td>propagateSelectionDown</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether checkbox selections propagate to descendant nodes.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -556,6 +660,13 @@ export class TreeDemoComponent implements OnInit &#123;
                             <td>onNodeContextMenuSelect</td>
                             <td>event.originalEvent: browser event <br>
                                 event.node: Selected node instance.</td>
+                            <td>Callback to invoke when a node is selected with right click.</td>
+                        </tr>
+                        <tr>
+                            <td>onNodeDrop</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.dragNode: Dragged node instance <br>
+                                event.dropNode: Dropped node instance.</td>
                             <td>Callback to invoke when a node is selected with right click.</td>
                         </tr>
                     </tbody>
@@ -628,43 +739,71 @@ export class TreeDemoComponent implements OnInit &#123;
 &lt;h3&gt;Single Selection&lt;/h3&gt;
 &lt;p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile" 
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-&lt;div style="margin-top:8px"&gt;Selected Node: {{selectedFile ? selectedFile.label : 'none'}}&lt;/div&gt;
+&lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile ? selectedFile.label : 'none'&#125;&lt;/div&gt;
 
 &lt;h3&gt;Multiple Selection with Metakey&lt;/h3&gt;
 &lt;p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles" 
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
-&lt;div style="margin-top:8px"Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;{{file.label}} &lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;&#123;file.label&#125; &lt;/span&gt;&lt;/div&gt;
 
 &lt;h3&gt;Multiple Selection with Checkbox&lt;/h3&gt;
 &lt;p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"&gt;&lt;/p-tree&gt;
-&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles2"&gt;&#123;&#123;file.label&#125;&#125; &lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles2"&gt;&#123;file.label&#125; &lt;/span&gt;&lt;/div&gt;
 
 &lt;h3&gt;Lazy Loading&lt;/h3&gt;
 &lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
 
-&lt;h3&gt;Template&lt;/h3&gt;
-&lt;p-tree [value]="filesTree4" pTemplate="default"&gt;
-    &lt;template let-node&gt;
+&lt;h3&gt;ng-template&lt;/h3&gt;
+&lt;p-tree [value]="filesTree5"&gt;
+    &lt;ng-template let-node pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-tree&gt;
 
 &lt;h3&gt;Context Menu&lt;/h3&gt;
-&lt;p-tree [value]="filesTree5" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
-
+&lt;p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
 &lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
 
-&lt;h3&gt;Programatic Tree Expansion&lt;/h3&gt;
-&lt;p-tree #expandingTree [value]="filesTree6"&gt;&lt;/p-tree&gt;
+&lt;h3&gt;DragDrop&lt;/h3&gt;
+&lt;div class="ui-g ui-fluid"&gt;
+    &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;h4&gt;Files&lt;/h4&gt;
+        &lt;p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" dragdropScope="files"&gt;&lt;/p-tree&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-1" style="text-align:center"&gt;
+        &lt;i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;h4&gt;Server 1&lt;/h4&gt;
+        &lt;p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" dragdropScope="files"&gt;&lt;/p-tree&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-1" style="text-align:center"&gt;
+        &lt;i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-3"&gt;
+        &lt;h4&gt;Server 2&lt;/h4&gt;
+        &lt;p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" dragdropScope="other"&gt;&lt;/p-tree&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-1"&gt;
+        
+    &lt;/div&gt;
+&lt;/div&gt;
 
+&lt;h3&gt;Programatic Tree Expansion&lt;/h3&gt;
+&lt;p-tree #expandingTree [value]="filesTree10"&gt;&lt;/p-tree&gt;
 &lt;div style="margin-top: 8px"&gt;
     &lt;button pButton type="text" label="Expand all" (click)="expandAll()"&gt;&lt;/button&gt;
     &lt;button pButton type="text" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;
-&lt;p-tree [value]="filesTree7" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
-&lt;div style="margin-top:8px"&gt;Selected Node: &#123;&#123;selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;&lt;/div&gt;
+&lt;p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
+&lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile3 ? selectedFile3.label : 'none'&#125;&lt;/div&gt;
 </code>
 </pre>
 
@@ -685,6 +824,9 @@ export class TreeDemo implements OnInit &#123;
     filesTree6: TreeNode[];
     filesTree7: TreeNode[];
     filesTree8: TreeNode[];
+    filesTree9: TreeNode[];
+    filesTree10: TreeNode[];
+    filesTree11: TreeNode[];
     
     lazyFiles: TreeNode[];
     
@@ -710,8 +852,25 @@ export class TreeDemo implements OnInit &#123;
         this.nodeService.getFiles().then(files => this.filesTree5 = files);
         this.nodeService.getFiles().then(files => this.filesTree6 = files);
         this.nodeService.getFiles().then(files => this.filesTree7 = files);
+        this.filesTree8 = [
+            &#123;
+                label: "Backup",
+                data: "Backup Folder",
+                expandedIcon: "fa-folder-open",
+                collapsedIcon: "fa-folder"
+            &#125;
+        ];
+        this.filesTree9 = [
+            &#123;
+                label: "Storage",
+                data: "Storage Folder",
+                expandedIcon: "fa-folder-open",
+                collapsedIcon: "fa-folder"
+            &#125;
+        ];
+        this.nodeService.getFiles().then(files => this.filesTree10 = files);
         this.nodeService.getFiles().then(files => &#123;
-            this.filesTree8 = [&#123;
+            this.filesTree11 = [&#123;
                 label: 'Root',
                 children: files
             &#125;];
@@ -776,7 +935,6 @@ export class TreeDemo implements OnInit &#123;
             &#125; );
         &#125;
     &#125;
-
 &#125;
 </code>
 </pre>

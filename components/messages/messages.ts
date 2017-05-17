@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,OnChanges,Input,Output,SimpleChange} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/api';
 
@@ -28,6 +28,8 @@ export class Messages {
     @Input() value: Message[];
 
     @Input() closable: boolean = true;
+    
+    @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
 
     hasMessages() {
         return this.value && this.value.length > 0;
@@ -38,7 +40,8 @@ export class Messages {
     }
 
     clear(event) {
-        this.value.splice(0, this.value.length);
+        this.value = [];
+        this.valueChange.emit(this.value);
 
         event.preventDefault();
     }
