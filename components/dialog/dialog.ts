@@ -156,12 +156,31 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
     }
     
+    get isPositionedFromRight() {
+        return this.positionRight >= 0 && (this.positionTop >= 0 || this.positionBottom >= 0);
+    }
+    
+    get isPositionedFromBottom() {
+        return this.positionBottom >= 0 && (this.positionLeft >= 0 || this.positionRight >= 0);
+    }
+    
     positionOverlay() {
-        if(this.positionLeft >= 0 && this.positionTop >= 0 && this.positionRight >= 0 && this.positionBottom >= 0) {
-            this.container.style.left = this.positionLeft + 'px';
-            this.container.style.top = this.positionTop + 'px';
-            this.container.style.right = this.positionRight + 'px';
-            this.container.style.bottom = this.positionBottom + 'px';
+        if((this.positionLeft >= 0 || this.positionRight >= 0) && 
+            (this.positionTop >= 0 || this.positionBottom >= 0)) {
+            
+            if (!this.isPositionedFromRight) {
+                this.container.style.left = this.positionLeft + 'px';
+            }
+            else {
+                this.container.style.right = this.positionRight + 'px';
+            }
+            
+            if (!this.isPositionedFromBottom) {
+                this.container.style.top = this.positionTop + 'px';
+            }
+            else {
+                this.container.style.bottom = this.positionBottom + 'px';
+            }
         }
         else{
             this.center();
@@ -306,12 +325,23 @@ export class Dialog implements AfterViewInit,OnDestroy {
         if(this.dragging) {
             let deltaX = event.pageX - this.lastPageX;
             let deltaY = event.pageY - this.lastPageY;
-            let leftPos = parseInt(this.container.style.left);
-            let topPos = parseInt(this.container.style.top);
-
-            this.container.style.left = leftPos + deltaX + 'px';
-            this.container.style.top = topPos + deltaY + 'px';
             
+            if(!this.isPositionedFromRight) {
+                const leftPos = parseInt(this.container.style.left);
+                this.container.style.left = leftPos + deltaX + 'px';
+            } else {
+                const rightPos = parseInt(this.container.style.right);
+                this.container.style.right = rightPos - deltaX + 'px';
+            }
+            
+            if(!this.isPositionedFromBottom) {
+                const topPos = parseInt(this.container.style.top);
+                this.container.style.top = topPos + deltaY + 'px';
+            } else {
+                const bottomPos = parseInt(this.container.style.bottom);
+                this.container.style.bottom = bottomPos - deltaY + 'px';
+            }
+
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
         }
@@ -340,11 +370,21 @@ export class Dialog implements AfterViewInit,OnDestroy {
             let newWidth = containerWidth + deltaX;
             let newHeight = contentHeight + deltaY;
             
-            if(newWidth > this.minWidth)
+            if(newWidth > this.minWidth) {
                 this.container.style.width = newWidth + 'px';
+                if(this.isPositionedFromRight) {
+                    const rightPos = parseInt(this.container.style.right);
+                    this.container.style.right = rightPos - deltaX + 'px';
+                }
+            }
                 
-            if(newHeight > this.minHeight)
+            if(newHeight > this.minHeight) {
                 this.contentContainer.style.height = newHeight + 'px';
+                if(this.isPositionedFromBottom) {
+                    const bottomPos = parseInt(this.container.style.bottom);
+                    this.container.style.bottom = bottomPos - deltaY + 'px';
+                }
+            }
             
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
