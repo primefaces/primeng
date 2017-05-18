@@ -60,6 +60,10 @@ export class Dialog implements AfterViewInit,OnDestroy {
     @Input() positionLeft: number;
 
     @Input() positionTop: number;
+    
+    @Input() positionRight: number;
+    
+    @Input() positionBottom: number;
 
     @Input() contentStyle: any;
 
@@ -153,9 +157,11 @@ export class Dialog implements AfterViewInit,OnDestroy {
     }
     
     positionOverlay() {
-        if(this.positionLeft >= 0 && this.positionTop >= 0) {
+        if(this.positionLeft >= 0 && this.positionTop >= 0 && this.positionRight >= 0 && this.positionBottom >= 0) {
             this.container.style.left = this.positionLeft + 'px';
             this.container.style.top = this.positionTop + 'px';
+            this.container.style.right = this.positionRight + 'px';
+            this.container.style.bottom = this.positionBottom + 'px';
         }
         else{
             this.center();
