@@ -13,7 +13,7 @@
 **Plunkr Case (Bug Reports)**
 Please fork the plunkr below and create a case demonstrating your bug report. Issues without a plunkr have much less possibility to be reviewed.
 
-http://plnkr.co/edit/dWh4IJoFdiNDdQVMJwSE
+http://plnkr.co/edit/VZbdZfQ7SuTV87tTkbYR?p=preview
 
 **Current behavior**
 <!-- Describe how the bug manifests. -->
