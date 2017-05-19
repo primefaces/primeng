@@ -64,9 +64,9 @@ export class Tooltip implements OnDestroy {
         }
         
         this.create();
-        let offset = (this.appendTo !== 'body') ? {left:0, top:0} : this.domHandler.getOffset(this.el.nativeElement);
-        let targetTop = offset.top;
-        let targetLeft = offset.left;
+        let offset = this.el.nativeElement.getBoundingClientRect();
+        let targetTop = offset.top + this.domHandler.getWindowScrollTop();
+        let targetLeft = offset.left + this.domHandler.getWindowScrollLeft();
         let left: number;
         let top: number;
         
