@@ -43,11 +43,6 @@ export class Steps {
         
         this.activeIndexChange.emit(i);
         
-        if(item.disabled) {
-            event.preventDefault();
-            return;
-        }
-        
         if(!item.url||item.routerLink) {
             event.preventDefault();
         }
