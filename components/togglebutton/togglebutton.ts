@@ -11,7 +11,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton',
     template: `
-        <div [ngClass]="{'ui-button ui-togglebutton ui-widget ui-state-default ui-corner-all': true, 'ui-button-text-only': (!onIcon&&!offIcon), 'ui-button-text-icon-left': (onIcon&&offIcon),
+        <div [ngClass]="{'ui-button ui-togglebutton ui-widget ui-state-default ui-corner-all': true, 'ui-button-text-only': (!onIcon&&!offIcon), 'ui-button-text-icon-left': (onIcon&&offIcon&&onLabel&&offLabel), 'ui-button-icon-only': (onIcon&&offIcon&&!onLabel&&!offLabel),
                 'ui-state-active': checked,'ui-state-focus':focus,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass" 
                 (click)="toggle($event)">
             <div class="ui-helper-hidden-accessible">
