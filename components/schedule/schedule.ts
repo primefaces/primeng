@@ -80,8 +80,10 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     @Input() eventConstraint: any;
     
     @Input() locale: string;
-    
+
     @Input() timezone: boolean | string = false;
+    
+    @Input() timeFormat:string | null = null;
 
     @Input() eventRender: Function;
     
@@ -145,6 +147,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             defaultDate: this.defaultDate,
             locale: this.locale,
             timezone: this.timezone,
+            timeFormat: this.timeFormat,
             editable: this.editable,
             droppable: this.droppable,
             eventStartEditable: this.eventStartEditable,
