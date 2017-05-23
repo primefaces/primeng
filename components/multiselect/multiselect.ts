@@ -35,7 +35,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                             <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
                         </div>
                     </div>
-                    <div class="ui-multiselect-filter-container">
+                    <div class="ui-multiselect-filter-container" *ngIf="filter">
                         <input type="text" role="textbox" (input)="onFilter($event)"
                                     class="ui-inputtext ui-widget ui-state-default ui-corner-all">
                         <span class="fa fa-fw fa-search"></span>
@@ -84,6 +84,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() inputId: string;
 
     @Input() disabled: boolean;
+    
+    @Input() filter: boolean = true;
     
     @Input() overlayVisible: boolean;
 
