@@ -196,7 +196,7 @@ export class FileUpload implements OnInit,AfterContentInit {
         let acceptableTypes = this.accept.split(',');
         for(let type of acceptableTypes) {
             let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type) 
-                                                    : this.getFileExtension(file) === type;
+                                                    : file.type == type || this.getFileExtension(file) === type;
 
             if(acceptable) {
                 return true;
