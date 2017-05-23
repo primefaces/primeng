@@ -93,6 +93,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Output() onError: EventEmitter<any> = new EventEmitter();
     
     @Output() onClear: EventEmitter<any> = new EventEmitter();
+
+    @Output() onItemClear: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
@@ -277,6 +279,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     }
     
     remove(index: number) {
+        this.onItemClear.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
     }
     
