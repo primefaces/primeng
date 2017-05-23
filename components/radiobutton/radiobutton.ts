@@ -22,7 +22,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
                 <span class="ui-radiobutton-icon" [ngClass]="{'fa fa-circle':rb.checked}"></span>
             </div>
         </div>
-        <label class="ui-radiobutton-label" (click)="select()" *ngIf="label">{{label}}</label>
+        <label class="ui-radiobutton-label" (click)="handleClick()" *ngIf="label">{{label}}</label>
     `,
     providers: [RADIO_VALUE_ACCESSOR]
 })
