@@ -1,9 +1,10 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,IterableDiffers,ContentChildren,QueryList,Inject,forwardRef,OnInit} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,IterableDiffers,ContentChildren,QueryList,Inject,forwardRef,OnInit,SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
 import {Header,Footer,Column} from '../common/shared';
 import {SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
+import {PaginatorModule} from "../paginator/paginator";
 
 @Component({
     selector: '[pTreeRow]',
@@ -130,9 +131,11 @@ export class UITreeRow implements OnInit {
                             </td>
                         </tr>
                     </tfoot>
-                    <tbody pTreeRow *ngFor="let node of value" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
+                    <tbody pTreeRow *ngFor="let node of dataToRender" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
                 </table>
             </div>
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom"
+                (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator"></p-paginator>
             <div class="ui-treetable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
@@ -158,7 +161,23 @@ export class TreeTable {
     @Input() metaKeySelection: boolean = true;
     
     @Input() contextMenu: any;
-    
+
+    @Input() paginator: boolean;
+
+    @Input() rows: number;
+
+    @Input() totalRecords: number;
+
+    @Input() pageLinks: number = 5;
+
+    @Input() rowsPerPageOptions: number[];
+
+    @Input() first: number = 0;
+
+    @Input() lazy: boolean;
+
+    @Input() immutable: boolean;
+
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
@@ -178,7 +197,15 @@ export class TreeTable {
     @ContentChildren(Column) columns: QueryList<Column>;
     
     public rowTouched: boolean;
-        
+    public loading: boolean;
+    public stopFilterPropagation: boolean;
+    public dataToRender: any[];
+    public filteredValue: any[];
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['value'] && this.value &&!this.immutable){
+            this.handleDataChange();
+        }
+    }
     onRowClick(event: MouseEvent, node: TreeNode) {
         let eventTarget = (<Element> event.target);
         if(eventTarget.className && eventTarget.className.indexOf('ui-treetable-toggler') === 0) {
@@ -399,11 +426,58 @@ export class TreeTable {
         }
         return false;
     }
+    handleDataChange() {
+        if(this.paginator) {
+            this.updatePaginator();
+        }
+        this.updateDataToRender(this.filteredValue||this.value);
+    }
+    updatePaginator() {
+        this.totalRecords = this.lazy ? this.totalRecords : (this.value ? this.value.length: 0);
+        if(this.totalRecords && this.first >= this.totalRecords) {
+            let numberOfPages = Math.ceil(this.totalRecords/this.rows);
+            this.first = Math.max((numberOfPages-1) * this.rows, 0);
+        }
+    }
+
+    paginate(event) {
+        this.first = event.first;
+        this.rows = event.rows;
+
+        if(this.lazy) {
+            this.stopFilterPropagation = true;
+        }
+        else {
+            this.updateDataToRender(this.filteredValue||this.value);
+        }
+
+    }
+
+    updateDataToRender(datasource) {
+        if(this.paginator && datasource) {
+            this.dataToRender = [];
+            let startIndex: number = this.lazy ? 0 : this.first;
+            let endIndex: number = startIndex + this.rows;
+
+            for(let i = startIndex; i < endIndex; i++) {
+                if(i >= datasource.length) {
+                    break;
+                }
+
+                this.dataToRender.push(datasource[i]);
+            }
+        }
+        else {
+            this.dataToRender = datasource;
+        }
+
+        this.loading = false;
+    }
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule],
-    exports: [TreeTable,SharedModule],
+    imports: [CommonModule,SharedModule,PaginatorModule],
+    exports: [TreeTable,SharedModule,PaginatorModule],
     declarations: [TreeTable,UITreeRow]
 })
 export class TreeTableModule { }

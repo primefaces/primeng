@@ -68,7 +68,16 @@
     </p-treeTable>
     
     <p-contextMenu #cm [model]="items"></p-contextMenu>
-    
+
+    <p-treeTable [value]="files7" [style]="{'margin-top':'50px'}"
+                 [rows]="3" [paginator]="true" [pageLinks]="3"
+                 [rowsPerPageOptions]="[3,5,10]">
+        <p-header>Paginator</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+
     <p-treeTable [value]="lazyFiles" [style]="{'margin-top':'50px'}"
         (onNodeExpand)="nodeExpand($event)">
         <p-header>Lazy Loading</p-header>
@@ -76,6 +85,7 @@
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
+
 </div>
 
 <div class="content-section source">
@@ -374,7 +384,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 
 <pre>
 <code class="language-markup" pCode>
-&lt;p-treeTable [value]="cars"&gt;
+&lt;p-treeTable [value]="files"&gt;
     &lt;p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
 </code>
@@ -554,8 +564,22 @@ export class TreeTableDemoComponent implements OnInit &#123;
     &lt;/p:column&gt;
 &lt;/p-treeTable&gt;
 </code>
-</pre>
 
+</pre>
+            <h3>Paginator</h3>
+            <p>Pagination can be used by setting paginator property to true, rows attribute
+                defines the number of rows per page and pageLinks specify the the number
+                of page links to display.</p>
+            <pre>
+<code class="language-markup" pCode>
+&lt;p-treeTable [value]="files" [rows]="3" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[3,5,10]"&gt;
+    &lt;p-header&gt;Paginator&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
             <h3>Lazy Loading</h3>
             <p>Lazy loading is handy to deal with large datasets. Instead of loading the whole tree, nodes can be loaded at onNodeExpand event.
             Important part of implementing lazy loading is defining leaf property of a node as false, this will instruct tree to display an arrow icon
@@ -681,6 +705,54 @@ export class TreeTableDemoComponent implements OnInit &#123;
                             <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
                             can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
                         </tr>
+                         <tr>
+                             <td>lazy</td>
+                             <td>boolean</td>
+                             <td>false</td>
+                             <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                         </tr>
+                         <tr>
+                             <td>paginator</td>
+                             <td>boolean</td>
+                             <td>false</td>
+                             <td>When specified as true, enables the pagination.</td>
+                         </tr>
+                         <tr>
+                             <td>rows</td>
+                             <td>number</td>
+                             <td>null</td>
+                             <td>Number of rows to display per page.</td>
+                         </tr>
+                         <tr>
+                             <td>totalRecords</td>
+                             <td>number</td>
+                             <td>null</td>
+                             <td>Number of total records, defaults to length of value when not defined.</td>
+                         </tr>
+                         <tr>
+                             <td>pageLinks</td>
+                             <td>number</td>
+                             <td>5</td>
+                             <td>Number of page links to display in paginator.</td>
+                         </tr>
+                         <tr>
+                             <td>rowsPerPageOptions</td>
+                             <td>array</td>
+                             <td>null</td>
+                             <td>Array of integer values to display inside rows per page dropdown of paginator.</td>
+                         </tr>
+                         <tr>
+                             <td>first</td>
+                             <td>number</td>
+                             <td>0</td>
+                             <td>Zero-relative number of the first row to be displayed.</td>
+                         </tr>
+                         <tr>
+                             <td>immutable</td>
+                             <td>boolean</td>
+                             <td>false</td>
+                             <td>Improves performance by avoiding diff checking, changes to value should be done in an immutable way on application side when immutable property is enabled.</td>
+                         </tr>
                     </tbody>
                 </table>
             </div>
@@ -828,7 +900,12 @@ export class TreeTableDemoComponent implements OnInit &#123;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
-
+&lt;p-treeTable [value]="files7" [rows]="3" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[3,5,10]"&gt;
+    &lt;p-header&gt;Paginator&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
 &lt;p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'50px'&#125;"
     (onNodeExpand)="nodeExpand($event)"&gt;
     &lt;p-header&gt;Lazy Loading&lt;/p-header&gt;
@@ -852,7 +929,13 @@ export class TreeTableDemo implements OnInit &#123;
     files3: TreeNode[];
     
     files4: TreeNode[];
-    
+
+    files5: TreeNode[];
+
+    files6: TreeNode[];
+
+    files7: TreeNode[];
+
     lazyFiles: TreeNode[];
         
     selectedFile: TreeNode;
@@ -860,13 +943,21 @@ export class TreeTableDemo implements OnInit &#123;
     selectedFile2: TreeNode;
     
     selectedFiles: TreeNode[];
+
+    items: MenuItem[];
         
     constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.nodeService.getFilesystem().then(files => this.files = files);
+        this.nodeService.getFilesystem().then(files => this.files1 = files);
+        this.nodeService.getFilesystem().then(files => this.files2 = files);
+        this.nodeService.getFilesystem().then(files => this.files3 = files);
+        this.nodeService.getFilesystem().then(files => this.files4 = files);
+        this.nodeService.getFilesystem().then(files => this.files5 = files);
+        this.nodeService.getFilesystem().then(files => this.files6 = files);
+        this.nodeService.getFilePaginator().then(files => this.files7 = files);
         this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
-        
+
         this.items = [
             &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)&#125;,
             &#123;label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)&#125;
