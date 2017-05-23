@@ -122,7 +122,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
             if(this.dragging) {
                 this.dragging = false;
                 if(this.range) {
-                    this.onSlideEnd.emit({originalEvent: event, values this.values});
+                    this.onSlideEnd.emit({originalEvent: event, values: this.values});
                 } else {
                     this.onSlideEnd.emit({originalEvent: event, value: this.value});
                 }
