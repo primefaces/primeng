@@ -11,8 +11,8 @@ import {RouterModule} from '@angular/router';
         <ul [ngClass]="{'ui-menubar-root-list ui-helper-clearfix':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
             (click)="listClick($event)">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
-                    (mouseenter)="onItemMouseEnter($event,item,child)" (mouseleave)="onItemMouseLeave($event,item)">
+                <li #listItem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':listItem==activeItem}"
+                    (mouseenter)="onItemMouseEnter($event,listItem,child)" (mouseleave)="onItemMouseLeave($event)">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -42,16 +42,16 @@ export class MenubarSub {
     
     activeItem: any;
     
-    onItemMouseEnter(event, item, menuitem: MenuItem) {
+    onItemMouseEnter(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if(menuitem.disabled) {
             return;
         }
         
         this.activeItem = item;
-        let nextElement =  item.children[0].nextElementSibling;
+        let nextElement =  <HTMLLIElement> item.children[0].nextElementSibling;
         if(nextElement) {
-            let sublist = nextElement.children[0];
-            sublist.style.zIndex = ++DomHandler.zindex;
+            let sublist = <HTMLUListElement> nextElement.children[0];
+            sublist.style.zIndex = String(++DomHandler.zindex);
             
             if(this.root) {
                 sublist.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
@@ -64,7 +64,7 @@ export class MenubarSub {
         }
     }
     
-    onItemMouseLeave(event, link) {
+    onItemMouseLeave(event: Event) {
         this.activeItem = null;
     }
     

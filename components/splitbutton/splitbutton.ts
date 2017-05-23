@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
     template: `
         <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" cornerStyleClass="ui-corner-left" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
-            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="fa-caret-down" cornerStyleClass="ui-corner-right" (click)="onDropdownClick($event,menu,container)" [disabled]="disabled"></button>
+            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="fa-caret-down" cornerStyleClass="ui-corner-right" (click)="onDropdownButtonClick($event,menu,container)" [disabled]="disabled"></button>
             <div #menu [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
                     [ngStyle]="menuStyle" [class]="menuStyleClass">
                 <ul class="ui-menu-list ui-helper-reset">
@@ -39,6 +39,8 @@ export class SplitButton implements OnInit,OnDestroy {
     @Input() label: string;
     
     @Output() onClick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
     
     @Input() style: any;
     
@@ -95,11 +97,12 @@ export class SplitButton implements OnInit,OnDestroy {
         }
     }
     
-    onDropdownClick(event: Event, menu: HTMLDivElement, container: Element) {
+    onDropdownButtonClick(event: Event, menu: HTMLDivElement, container: Element) {
         this.menuVisible= !this.menuVisible;
         this.domHandler.relativePosition(menu, container);
         this.domHandler.fadeIn(menu,25);
         menu.style.zIndex = String(++DomHandler.zindex);
+        this.onDropdownClick.emit(event);
         event.stopPropagation();
     }
         
