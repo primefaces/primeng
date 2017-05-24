@@ -142,7 +142,7 @@
             <p>Grid CSS is based on a 12 column layout. Columns are prefixed with <i>ui-g-*</i> and they should be a descendant of a container having <i>ui-g</i> class.
                  A simple 3 column layout can be defined as;</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-4"&gt;Col1&lt;/div&gt;
     &lt;div class="ui-g-4"&gt;Col2&lt;/div&gt;
@@ -160,7 +160,7 @@
         <h3>Multi Line</h3>
             <p>When the number of columns exceed 12, columns wrap to a new line.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-6"&gt;Col1&lt;/div&gt;
     &lt;div class="ui-g-6"&gt;Col2&lt;/div&gt;
@@ -179,7 +179,7 @@
 
         <p>Same can also be achieved by having two <i>ui-g</i> containers to semantically define a row.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-6"&gt;Col1&lt;/div&gt;
     &lt;div class="ui-g-6"&gt;Col2&lt;/div&gt;
@@ -203,7 +203,7 @@
         <h3>Nested</h3>
         <p>Columns can be nested to create more complex layouts.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-8 ui-g-nopad"&gt;
         &lt;div class="ui-g-6"&gt;6&lt;/div&gt;
@@ -226,7 +226,7 @@
 
         <p>Direct children of <i>ui-g</i> has the same height automatically, in example above if the inside columns is likely to have different height with different content.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-8 ui-g-nopad"&gt;
         &lt;div class="ui-g-6"&gt;6 &lt;br /&gt;&lt;br /&gt;&lt;br /&gt; Content &lt;/div&gt;
@@ -248,7 +248,7 @@
 
         <p>Solution is wrapping the internal divs inside a ui-g as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-8 ui-g-nopad"&gt;
         &lt;div class="ui-g"&gt;
@@ -321,7 +321,7 @@
         where each column is rendered in a separate row.</p>
         
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-12 ui-md-6 ui-lg-3"&gt;ui-g-12 ui-md-6 ui-lg-3&lt;/div&gt;
     &lt;div class="ui-g-12 ui-md-6 ui-lg-3"&gt;ui-g-12 ui-md-6 ui-lg-3&lt;/div&gt;
@@ -340,7 +340,7 @@
     <p>In this second example below, 3 columns are displayed in large screens and in medium screens first two columns are placed side by side where the last column displayed
     below them. In a mobile phone, they all get displayed in a separate row.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;ui-g-12 ui-md-6 ui-lg-4&lt;/div&gt;
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;ui-g-12 ui-md-6 ui-lg-4&lt;/div&gt;
@@ -362,7 +362,7 @@
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-1"&gt;1&lt;/div&gt;

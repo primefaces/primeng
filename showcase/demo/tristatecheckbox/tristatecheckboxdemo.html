@@ -15,7 +15,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;TriStateCheckboxModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -23,13 +23,13 @@ import &#123;TriStateCheckboxModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>TriStateCheckbox is defined using p-triStateCheckbox element and requires a value binding via ngModel.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-triStateCheckbox [(ngModel)]="value"&gt;&lt;/p-triStateCheckbox&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ModelComponent &#123;
 
     value: any;
@@ -41,7 +41,7 @@ export class ModelComponent &#123;
             <h3>Model Driven Forms</h3>
             <p>TriStateCheckbox can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-triStateCheckbox formControlName="property"&gt;&lt;/p-triStateCheckbox&gt;
 </code>
 </pre>
@@ -150,7 +150,7 @@ export class ModelComponent &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TriStateCheckboxDemo &#123;
 
     value: any;

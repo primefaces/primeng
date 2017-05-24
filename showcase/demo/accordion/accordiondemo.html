@@ -56,7 +56,7 @@
         <p-tabPanel header ="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;AccordionModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -64,7 +64,7 @@ import &#123;AccordionModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Accordion element consists of one or more p-accordionTab elements. Title of the tab is defined using header attribute.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header 1"&gt;
        Content 1
@@ -82,7 +82,7 @@ import &#123;AccordionModule&#125; from 'primeng/primeng';
             <h3>Selected</h3>
             <p>Visibility of the content is specified with the selected property that supports one or two-way binding.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header 1" [selected]="true"&gt;
        Content 1
@@ -101,7 +101,7 @@ import &#123;AccordionModule&#125; from 'primeng/primeng';
         <p>By default only one tab at a time can be active, enabling multiple property changes this behavior to allow multiple
             tabs be active at the same time.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-accordion [multiple]="true"&gt;
     &lt;p-accordionTab header="Header 1"&gt;
         Content 1
@@ -120,7 +120,7 @@ import &#123;AccordionModule&#125; from 'primeng/primeng';
         <p>A tab can be disabled by setting the disabled property to true.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-accordion&gt;
     &lt;p-accordionTab header="Header 1" [disabled]="true"&gt;
        Content 1
@@ -138,13 +138,13 @@ import &#123;AccordionModule&#125; from 'primeng/primeng';
             <h3>Custom Content at Headers</h3>
             <p>Custom content can be placed at an accordion header with header element.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SharedModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-accordionTab&gt;
     &lt;p-header&gt;
         Header Content
@@ -225,12 +225,12 @@ import &#123;SharedModule&#125; from 'primeng/primeng';
                 </table>
             </div>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-accordion (onOpen)="onTabOpen($event)"&gt;
 </code>
 </pre>
  <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 onTabOpen(e) &#123;
     var index = e.index;
 &#125;
@@ -272,7 +272,7 @@ onTabOpen(e) &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
@@ -320,7 +320,7 @@ onTabOpen(e) &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class AccordionDemo &#123;
 
     msgs: Message[];

@@ -86,7 +86,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -207,7 +207,7 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
             
             <p>Most of the time, nodes will be loaded from a remote datasoure, here is an example NodeService that fetches the data from a json file.</p> 
 <pre>
-<code class="language-javascript" pCode>
+<code class="language-javascript" pCode ngNonBindable>
 @Injectable()
 export class NodeService &#123;
     
@@ -224,7 +224,7 @@ export class NodeService &#123;
         
         <p>The files.json file consists of sample data. In a real application, this should be a dynamic response generated from the remote call.</p>
 <pre>
-<code class="language-javascript" pCode>
+<code class="language-javascript" pCode ngNonBindable>
 &#123;
     "data": 
     [
@@ -282,7 +282,7 @@ export class NodeService &#123;
         <p>The component that uses this service makes a call to getFiles() and assigns them back to files property that is bound to the tree.</p>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
@@ -298,7 +298,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </pre>         
                   
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
@@ -307,7 +307,7 @@ export class TreeDemoComponent implements OnInit &#123;
             <p>Tree supports 3 selection methods, single, multiple and checkbox. Selection is enabled by setting selectionMode property and providing a single TreeNode or
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
@@ -324,7 +324,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
@@ -333,7 +333,7 @@ export class TreeDemoComponent implements OnInit &#123;
         using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
         devices metaKeySelection is turned off automatically.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
     export class TreeDemoComponent implements OnInit &#123;
         
         files: TreeNode[];
@@ -351,7 +351,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
@@ -359,7 +359,7 @@ export class TreeDemoComponent implements OnInit &#123;
             <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned of by propapageSelectionDown and
             propagateSelectionUp properties.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles"
                 [propagateSelectionUp]="false" [propagateSelectionDown]="false"&gt;&lt;/p-tree&gt;
 </code>
@@ -367,13 +367,13 @@ export class TreeDemoComponent implements OnInit &#123;
 
             <p>Tree provides onNodeSelect and onNodeUnselect options as callbacks for selection feature.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
@@ -405,7 +405,7 @@ export class TreeDemoComponent implements OnInit &#123;
                 the treenode as an implicit variable. Example below places an input field to create editable treenodes.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
     &lt;ng-template let-node  pTemplate="default"&gt;
@@ -418,7 +418,7 @@ export class TreeDemoComponent implements OnInit &#123;
             <p>Multiple templates are supported by matching the type property of the TreeNode with the type of pTemplate. If a node as no type, 
             then default ng-template is used.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
     &lt;ng-template let-node  pTemplate="picture"&gt;
@@ -434,7 +434,7 @@ export class TreeDemoComponent implements OnInit &#123;
             <h3>ContextMenu</h3>
             <p>Tree has exclusive integration with context menu created by binding a menu instance to the tree.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"&gt;&lt;/p-tree&gt;
 
 &lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
@@ -447,13 +447,13 @@ export class TreeDemoComponent implements OnInit &#123;
             to indicate there are children of this node although they are not loaded yet. When the lazy node is expanded, onNodeExpand is called
             and a remote call can be made to add the children to the expanded node.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" (onNodeExpand)="loadNode($event)"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
@@ -480,7 +480,7 @@ export class TreeDemoComponent implements OnInit &#123;
 
             <p>Assume at ngOnInit tree is initialized with a data like below that has nodes having no actual children but leaf property is set false.</p>
 <pre>
-<code class="language-javascript" pCode>
+<code class="language-javascript" pCode ngNonBindable>
 &#123;
     "data": 
     [
@@ -514,13 +514,13 @@ export class TreeDemoComponent implements OnInit &#123;
             <p>Nodes can be reordered within a tree and also can be transferred between multiple trees. To enable dragging from a tree set draggableNodes to true and to allow
             dropping enable droppableNodes property. In addition, import TreeDragDropService and configure it as a provider at your component or module.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 </code>
 </pre>
         
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
@@ -528,7 +528,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
             and droppableScope properties which can be a string or an array. Following example uses 3 trees where second one only accepts drags from first tree and second one only
             accepts from second tree whereas first tree accepts drops from 3rd tree.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" draggableScope="a" droppableScope="c"&gt;&lt;/p-tree&gt;
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" draggableScope="b" droppableScope="a"&gt;&lt;/p-tree&gt;
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true" draggableScope="c" droppableScope="b"&gt;&lt;/p-tree&gt;
@@ -539,7 +539,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
             <p>Horizontal mode is the alternative option for orientation.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" layout="horizontal"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
@@ -808,7 +808,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeDemo implements OnInit &#123;
     
     msgs: Message[];

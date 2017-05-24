@@ -15,7 +15,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="linechartdemo.ts">
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class LineChartDemo &#123;
 
     data: any;
@@ -53,7 +53,7 @@ export class LineChartDemo &#123;
 
         <p-tabPanel header="linechartdemo.html">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"&gt;&lt;/p-chart&gt;

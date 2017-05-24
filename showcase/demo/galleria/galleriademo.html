@@ -14,7 +14,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;GalleriaModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -23,13 +23,13 @@ import &#123;GalleriaModule&#125; from 'primeng/primeng';
             <p>Galleria requires a set of images to display. Source attribute defines the path of the image whereas title and alt attributes are used in the caption section
                 to display summary and description about an image.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-galleria [images]="images" panelWidth="500" panelHeight="313" [showCaption]="true"&gt;&lt;/p-galleria&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class GalleriaDemo implements OnInit &#123;
     
     images: any[];
@@ -212,7 +212,7 @@ export class GalleriaDemo implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class GalleriaDemo implements OnInit &#123;
     
     images: any[];

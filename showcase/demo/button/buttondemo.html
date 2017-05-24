@@ -39,7 +39,7 @@
         <p-tabPanel header="Documentation">
                     <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;ButtonModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -48,7 +48,7 @@ import &#123;ButtonModule&#125; from 'primeng/primeng';
             <p>Button is applied to a button element with pButton directive. Text of the button is defined using label property.</p>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" label="Click"&gt;&lt;/button&gt;
 </code>
 </pre>
@@ -57,13 +57,13 @@ import &#123;ButtonModule&#125; from 'primeng/primeng';
             <p>Events are defined using standard notation.</p>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" (click)="onclick()" label="Click"&gt;&lt;/button&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class Model &#123;
 
     onclick() &#123;
@@ -78,7 +78,7 @@ export class Model &#123;
             <p>Icon on a button is specified with icon attribute and position is customized using iconPos attribute. Default
             icon position is left. To display only an icon, leave label as undefined.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" icon="fa-check" iconPos="left"&gt;&lt;/button&gt;
 </code>
 </pre>
@@ -94,7 +94,7 @@ export class Model &#123;
                 <li>.ui-button-danger</li>
             </ul>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" class="ui-button-info"&gt;&lt;/button&gt;
 </code>
 </pre>
@@ -180,7 +180,7 @@ Number of clicks: {{clicks}}
 </code>
 </pre>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ButtonDemo &#123;
 
     clicks: number = 0;

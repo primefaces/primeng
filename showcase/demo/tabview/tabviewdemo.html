@@ -69,7 +69,7 @@
         <p-tabPanel header ="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;TabViewModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -78,7 +78,7 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
             <p>Tabview element consists of one or more p-tabPanel elements. Header of the tab is defined using header attribute.</p>
                     
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -96,7 +96,7 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
             <h3>Selection</h3>
             <p>First tab is selected by default, to customize this enable selected property on another panel.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView&gt;
     &lt;p-tabPanel header="Header 1"&gt;
        Content 1
@@ -114,7 +114,7 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
             <h3>Closable</h3>
             <p>When closable attribute is enabled, an icon is displayed to close the tab. onClose event is fired when a tab is closed.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tabPanel header="Header Text" [closable]="true"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
@@ -125,7 +125,7 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
             to decide at onClose event. In this case, the event gets a 3rd parameter called close callback and invoking this function
             actually closes the tab.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView [controlClose]="true" (onClose)="handleClose($event)"&gt;
 &lt;p-tabPanel header="Header Text" [closable]="true"&gt;
     Content 1
@@ -135,7 +135,7 @@ import &#123;TabViewModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 handleClose(e) &#123;
    if(condition)
        e.close();
@@ -146,7 +146,7 @@ handleClose(e) &#123;
             <h3>Disabled</h3>
             <p>A tab can be disabled to prevent the content to be displayed by setting the disabled property on a panel.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tabPanel header="Header Text" [disabled]="true"&gt;
     Content 1
 &lt;/p-tabPanel&gt;
@@ -156,7 +156,7 @@ handleClose(e) &#123;
             <h3>Icons</h3>
             <p>Icons can be placed at left and right of a header using leftIcon and rightIcon properties of tabPanel.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tabPanel header="Header Text" leftIcon="fa-bell-o" rightIcon="fa-bookmark-o"&gt;;
     Content
 &lt;/p-tabPanel&gt;
@@ -167,7 +167,7 @@ handleClose(e) &#123;
             <p>TabView has four different orientations; "top", "bottom", "left" and "right". Top is the default one
             and this can be changed using orientation attribute.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView orientation="left"&gt;
 </code>
 </pre>
@@ -309,13 +309,13 @@ handleClose(e) &#123;
                 </table>
             </div>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-tabView (onChange)="handleChange($event)"&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 handleChange(e) &#123;
     var index = e.index;
 &#125;
@@ -426,7 +426,7 @@ handleChange(e) &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TabViewDemo &#123;
 
     msgs: Message[];

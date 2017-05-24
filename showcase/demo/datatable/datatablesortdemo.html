@@ -30,7 +30,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatablesortdemo.ts">
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DataTableSortDemo implements OnInit &#123;
 
     cars1: Car[];
@@ -50,7 +50,7 @@ export class DataTableSortDemo implements OnInit &#123;
 
         <p-tabPanel header="datatablesortdemo.html">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single Column&lt;/h3&gt;
 &lt;p-dataTable [value]="cars1"&gt;
     &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;

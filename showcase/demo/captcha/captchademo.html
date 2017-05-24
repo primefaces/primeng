@@ -16,7 +16,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;CaptchaModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -25,14 +25,14 @@ import &#123;CaptchaModule&#125; from 'primeng/primeng';
             <p>Captcha is used with a siteKey and a callback to verify the response.</p>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-captcha siteKey="YOUR_SITE_KEY" (onResponse)="showResponse($event)"&gt;&lt;/p-captcha&gt;
 </code>
 </pre>
 
             <p>In addition include the captcha widget resource to your page.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer>&lt;/script&gt;
 </code>
 </pre>
@@ -42,7 +42,7 @@ import &#123;CaptchaModule&#125; from 'primeng/primeng';
             <p>In order to ensure if a response token is valid, verification against recaptcha api needs to be done at backend. <a href="https://developers.google.com/recaptcha/docs/verify">Read more</a> at 
             official documentation.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 showResponse(response) &#123;
     //call to a backend to verify against recaptcha with private key
 &#125;
@@ -163,7 +163,7 @@ showResponse(response) &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs" sticky="sticky"&gt;&lt;/p-growl&gt;
 
 &lt;p-captcha siteKey="6Lf2XQkTAAAAANcvOwYqPxWL4iZDksFqHpS39GDA" (onResponse)="showResponse($event)"&gt;&lt;/p-captcha&gt;
@@ -171,7 +171,7 @@ showResponse(response) &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class CaptchaDemo &#123;
     
     msgs: Message[] = [];

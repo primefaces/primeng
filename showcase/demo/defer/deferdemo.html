@@ -32,7 +32,7 @@
         <p-tabPanel header="Documentation">
                     <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;DeferModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -40,7 +40,7 @@ import &#123;DeferModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div pDefer&gt;
     &lt;ng-template&gt;
        deferred content
@@ -53,7 +53,7 @@ import &#123;DeferModule&#125; from 'primeng/primeng';
             <p>onLoad callback is useful to initialize the content when it becomes visible on scroll such as loading data.</p>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div pDefer (onLoad)="initData()"&gt;
     &lt;ng-template&gt;
         &lt;p-dataTable [value]="cars"&gt;
@@ -68,7 +68,7 @@ import &#123;DeferModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 this.cars = //initialize
 </code>
 </pre>
@@ -121,7 +121,7 @@ this.cars = //initialize
 
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DeferDemo &#123;
 
     cars: Car[];

@@ -28,7 +28,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;DialogModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -37,7 +37,7 @@ import &#123;DialogModule&#125; from 'primeng/primeng';
             <p>Dialog is used as a container and visibility is controlled with visible property.</p>
                     
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dialog header="Title" [(visible)]="display"&gt;
     Content
 &lt;/p-dialog&gt;
@@ -47,7 +47,7 @@ import &#123;DialogModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ModelComponent &#123;
 
     display: boolean = false;
@@ -67,7 +67,7 @@ export class ModelComponent &#123;
             <p>Header and Footer sections are useful to include custom content. Note that Header and Footer components should be imported and defined
             at directives section of your component for this to work.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dialog [(visible)]="display"&gt;
     &lt;p-header&gt;
         Header content here
@@ -84,7 +84,7 @@ export class ModelComponent &#123;
             <p>When dialog contents include other components with overlays such as dropdown, it is suggested to turn off the overflow of dialog content
                 so that the overlays can be displayed outside of the dialog.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities" formControlName="selectedCity"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
@@ -301,7 +301,7 @@ export class ModelComponent &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="300" [responsive]="true"&gt;
     &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
@@ -321,7 +321,7 @@ export class ModelComponent &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DialogDemo &#123;
 
     display: boolean = false;

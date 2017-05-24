@@ -69,7 +69,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;DataListModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -82,7 +82,7 @@ import &#123;DataListModule&#125; from 'primeng/primeng';
                 used to define an object to be displayed by the datalist.  Cars are loaded by a CarService that 
                 connects to a server to fetch the cars with a Promise.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export interface Car &#123;
     vin;
     year;
@@ -93,7 +93,7 @@ export interface Car &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;Injectable&#125; from 'angular2/core';
 import &#123;Http, Response&#125; from 'angular2/http';
 import &#123;Car&#125; from '../domain/car';
@@ -115,7 +115,7 @@ export class CarService &#123;
         
             <p>Here is a sample DataList that displays a list of cars.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DataListDemo implements OnInit &#123;
 
     cars: Car[];
@@ -130,7 +130,7 @@ export class DataListDemo implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataList [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
@@ -141,7 +141,7 @@ export class DataListDemo implements OnInit &#123;
 
             <p>Index of the row is available at the ng-template.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataList [value]="cars"&gt;
     &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
         Car content for {{i}}
@@ -158,13 +158,13 @@ export class DataListDemo implements OnInit &#123;
             <h3>Facets</h3>
             <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;Header&#125; from 'primeng/primeng';
 import &#123;Footer&#125; from 'primeng/primeng';
 </code>
 </pre>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataList [value]="cars"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
@@ -179,7 +179,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
             <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
                 of page links to display.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="10"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
@@ -195,7 +195,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
             that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator 
             displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataList [value]="cars" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
@@ -205,7 +205,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 loadData(event) &#123;
     //event.first = First row offset
     //event.rows = Number of rows per page
@@ -433,7 +433,7 @@ loadData(event) &#123;
 </code>
 </pre>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DataListDemo implements OnInit &#123;
 
     cars: Car[];

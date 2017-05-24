@@ -43,7 +43,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;ScheduleModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -52,13 +52,13 @@ import &#123;ScheduleModule&#125; from 'primeng/primeng';
             <p>Schedule is based on <a href="http://fullcalendar.io/">FullCalendar</a>. For a complete documentation and samples please refer to the fullcalendar website.
             Events of schedule should be an array and defined using the events property.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-schedule [events]="events"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     events: any[];
@@ -95,7 +95,7 @@ export class MyModel &#123;
 </pre>
             <p>In a real application, it is likely to populate the events by making a service call, when the events are updated, schedule component will detect the change and render them.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 @Injectable()
 export class EventService &#123;
     
@@ -112,7 +112,7 @@ export class EventService &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     events: any[];
@@ -128,13 +128,13 @@ export class MyModel &#123;
             <h3>Lazy Loading</h3>
             <p>onViewRender call is used to implement lazy loading which is triggered when a new date-range is rendered or when the view type changes.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-schedule [events]="events" (onViewRender)="loadEvents($event)"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 loadEvents(event) &#123;
     let start = event.view.start
     let end = event.view.end
@@ -150,7 +150,7 @@ loadEvents(event) &#123;
             <h3>Header Customization</h3>
             <p>Header is customized using the header property that takes an object as its value. Default configuration is;</p>
 <pre>
-<code class="language-javascript" pCode>
+<code class="language-javascript" pCode ngNonBindable>
 &#123;
     left:   'title',
     center: '',
@@ -161,13 +161,13 @@ loadEvents(event) &#123;
 
             <p>Here is a customized version of header.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-schedule [events]="events" [header]="headerConfig"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     events: any[];
@@ -190,7 +190,7 @@ export class MyModel &#123;
             <p>Localization for different languages and formats is defined by binding the settings object to the locale property. 
                 Following is a schedule with Spanish month names.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-schedule [events]="events" locale="es"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
@@ -465,13 +465,13 @@ export class MyModel &#123;
             </div>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-schedule [events]="events" [header]="headerConfig" (onEventClick)="handleEventClick($event)"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     handleEventClick(e) &#123;
@@ -545,7 +545,7 @@ export class MyModel &#123;
             </div>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-schedule [events]="events" #fc&gt;&lt;/p-schedule&gt;
 
 &lt;button type="button" pButton (click)="back(fc)"&gt;&lt;/p-button&gt;
@@ -553,7 +553,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     back(fc) &#123;
@@ -605,7 +605,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ScheduleDemo implements OnInit &#123;
 
     events: any[];
@@ -710,7 +710,7 @@ export class MyEvent &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 @Injectable()
 export class EventService &#123;
     

@@ -83,7 +83,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;TreeTableModule,TreeNode,SharedModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -162,7 +162,7 @@ import &#123;TreeTableModule,TreeNode,SharedModule&#125; from 'primeng/primeng';
             
             <p>Most of the time, nodes will be loaded from a remote datasoure, here is an example NodeService that fetches the data from a json file.</p> 
 <pre>
-<code class="language-javascript" pCode>
+<code class="language-javascript" pCode ngNonBindable>
 @Injectable()
 export class NodeService &#123;
     
@@ -179,7 +179,7 @@ export class NodeService &#123;
         
         <p>The filesystem.json file consists of sample data. In a real application, this should be a dynamic response generated from the remote call.</p>
 <pre>
-<code class="language-javascript" pCode>
+<code class="language-javascript" pCode ngNonBindable>
 &#123;
     "data":
     [  
@@ -269,7 +269,7 @@ export class NodeService &#123;
         <p>The component that uses this service makes a call to getFiles() and assigns them back to files property that is bound to the tree.</p>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeTableDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
@@ -285,7 +285,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 </pre>         
                   
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files"&gt;
     &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
     &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
@@ -343,7 +343,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
             </div>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
 </code>
 </pre>
@@ -351,7 +351,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
                 <h3>Dynamic Colums</h3>
                 <p>Columns can be instantiated using an array as well by iterating with ngFor.</p>
             <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeTableDemoComponent implements OnInit &#123;
 
     files: TreeNode[];
@@ -373,7 +373,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="cars"&gt;
     &lt;p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
@@ -383,13 +383,13 @@ export class TreeTableDemoComponent implements OnInit &#123;
             <h3>Facets</h3>
             <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;Header&#125; from 'primeng/primeng';
 import &#123;Footer&#125; from 'primeng/primeng';
 </code>
 </pre>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files"&gt;
     &lt;p-header&gt;List of Files&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
@@ -404,7 +404,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
             <p>TreeTable supports three selection methods, single, multiple and checkbox. Selection is enabled by setting selectionMode property and providing a single TreeNode or
             an array of TreeNodes to reference the selections depending on the selection mode.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeTableDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
@@ -422,7 +422,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-treeTable&gt;
 </code>
 </pre>
@@ -431,7 +431,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
 devices metaKeySelection is turned off automatically.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
     export class TreeTableDemoComponent implements OnInit &#123;
         
         files: TreeNode[];
@@ -449,20 +449,20 @@ devices metaKeySelection is turned off automatically.</p>
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFiles"&gt;&lt;/p-treeTable&gt;
 </code>
 </pre>
 
             <p>TreeTable provides onNodeSelect and onNodeUnselect options as callbacks for selection feature.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)"&gt;&lt;/p-treeTable&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeTableDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
@@ -502,7 +502,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeTableDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
@@ -541,7 +541,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
                 Example below places an input field to create editable treenodes.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-treeTable [value]="files"&gt;
     &lt;p:column&gt;
@@ -562,13 +562,13 @@ export class TreeTableDemoComponent implements OnInit &#123;
             to indicate there are children of this node although they are not loaded yet. When the lazy node is expanded, onNodeExpand is called
             and a remote call can be made to add the children to the expanded node.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files" (onNodeExpand)="loadNode($event)"&gt;&lt;/p-treeTable&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeTableDemoComponent implements OnInit &#123;
     
     files: TreeNode[];
@@ -595,7 +595,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 
             <p>Assume at ngOnInit treetable is initialized with a data like below that has nodes having no actual children but leaf property is set false.</p>
 <pre>
-<code class="language-javascript" pCode>
+<code class="language-javascript" pCode ngNonBindable>
 &#123;
     "data":
     [  
@@ -840,7 +840,7 @@ export class TreeTableDemoComponent implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class TreeTableDemo implements OnInit &#123;
     
     msgs: Message[];

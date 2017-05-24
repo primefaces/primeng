@@ -34,7 +34,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;ListboxModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -43,13 +43,13 @@ import &#123;ListboxModule&#125; from 'primeng/primeng';
             <p>Two-way value binding is defined using ngModel and listbox requires a collection of options 
                 where each option should follow the SelectItem interface that defines label-value properties.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng';
 
 export class MyModel &#123;
@@ -76,13 +76,13 @@ export class MyModel &#123;
                 using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
                 devices metaKeySelection is turned off automatically.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng';
 
 export class MyModel &#123;
@@ -107,7 +107,7 @@ export class MyModel &#123;
             <h3>Filter</h3>
             <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" filter="filter"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
@@ -115,7 +115,7 @@ export class MyModel &#123;
             <h3>Model Driven Forms</h3>
             <p>Listbox can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" formControlName="cities"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
@@ -137,7 +137,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng'
 
 export class MyModel &#123;
@@ -330,7 +330,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ListboxDemo &#123;
 
     cities: SelectItem[];

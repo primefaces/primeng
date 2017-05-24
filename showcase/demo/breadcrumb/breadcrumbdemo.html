@@ -14,7 +14,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;BreadcrumbModule,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -26,7 +26,7 @@ import &#123;BreadcrumbModule,MenuItem&#125; from 'primeng/primeng';
             <p>Breadcrumb requires a collection of menuitems connected to its model property.</p>
             
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class BreadcrumbDemo implements OnInit &#123;
 
     private items: MenuItem[];
@@ -47,7 +47,7 @@ export class BreadcrumbDemo implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-breadcrumb [model]="items"&gt;&lt;/p-breadcrumb&gt;
 </code>
 </pre>
@@ -129,7 +129,7 @@ export class BreadcrumbDemo implements OnInit &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class BreadcrumbDemo implements OnInit &#123;
 
     private items: MenuItem[];
@@ -150,7 +150,7 @@ export class BreadcrumbDemo implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-breadcrumb [model]="items"&gt;&lt;/p-breadcrumb&gt;
 </code>
 </pre>

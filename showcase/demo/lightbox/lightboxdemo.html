@@ -23,7 +23,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;LightboxModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -32,13 +32,13 @@ import &#123;LightboxModule&#125; from 'primeng/primeng';
             <p>Lightbox has two modes; <i>image</i> and <i>custom content</i> defined using type property. In image mode a collection of
             images are required to display where an image object in the collection defines the source of the original image, thumbnail image and the title.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-lightbox [images]="images"&gt;&lt;/p-lightbox&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class LightboxDemo &#123;
 
     images: any[];
@@ -55,7 +55,7 @@ export class LightboxDemo &#123;
 </pre>
             <p>Content mode is enabled by setting type property to "content", providing an anchor to open the lightbox and content to display inside lightbox.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-lightbox type="content"&gt;
     &lt;a class="group" href="#"&gt;
         Watch Video
@@ -70,7 +70,7 @@ export class LightboxDemo &#123;
                 See <a href="http://www.w3schools.com/cssref/css3_pr_transition-timing-function.asp">here</a> for possible alternative values. Duration
             of the effect can be changed using effectDuration option.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-lightbox [images]="images" easing="ease-in" effectDuration="1500ms"&gt;&lt;/p-lightbox&gt;
 </code>
 </pre>
@@ -176,7 +176,7 @@ export class LightboxDemo &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-lightbox [images]="images"&gt;&lt;/p-lightbox&gt;
 
@@ -191,7 +191,7 @@ export class LightboxDemo &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class LightboxDemo &#123;
 
     images: any[];

@@ -22,7 +22,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;ChipsModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -30,13 +30,13 @@ import &#123;ChipsModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Chips requires an array as its model.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-chips [(ngModel)]="values"&gt;&lt;/p-chips&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     values: string[];
@@ -47,7 +47,7 @@ export class MyModel &#123;
             <h3>Model Driven Forms</h3>
             <p>Chips can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-chips formControlName="cities"&gt;&lt;/p-chips&gt;
 </code>
 </pre>
@@ -211,7 +211,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ChipsDemo &#123;
 
     values1: string[];

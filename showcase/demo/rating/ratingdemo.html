@@ -32,7 +32,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;RatingModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -41,13 +41,13 @@ import &#123;RatingModule&#125; from 'primeng/primeng';
             <p>Two-way value binding is defined using ngModel.</p>
                     
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-rating [(ngModel)]="val"&gt;&lt;/p-rating&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ModelComponent &#123;
 
     val: number;
@@ -58,7 +58,7 @@ export class ModelComponent &#123;
 
             <p>Defining a default value would be enough to display the initial number of selected stars.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ModelComponent &#123;
 
     val: number = 3;
@@ -70,7 +70,7 @@ export class ModelComponent &#123;
             <h3>Model Driven Forms</h3>
             <p>Rating can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-rating formControlName="score"&gt;&lt;/p-rating&gt;
 </code>
 </pre>
@@ -198,7 +198,7 @@ export class ModelComponent &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class RatingDemo &#123;
 
     val1: number;

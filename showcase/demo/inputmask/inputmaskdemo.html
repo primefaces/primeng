@@ -46,7 +46,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;InputMaskModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -54,7 +54,7 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Component is defined using p-inputMask element with a mask and two-way value binding is enabled with standard ngModel directive.</p>   
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-inputMask [(ngModel)]="val" mask="99-9999"&gt;&lt;/p-inputMask&gt;
 </code>
 </pre>
@@ -67,7 +67,7 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
                 <li>* - Alpha numberic character (A-Z,a-z,0-9)</li>
             </ul>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-inputMask [(ngModel)]="val" mask="a*-999-a999"&gt;&lt;/p-inputMask&gt;
 </code>
 </pre>
@@ -75,7 +75,7 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
             <h3>SlotChar</h3>
             <p>Underscore is the default placeholder for a mask and this can be customized using slotChart option.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-inputMask [(ngModel)]="val" mask="99-9999" slotChar=" "&gt;&lt;/p-inputMask&gt;
 </code>
 </pre>
@@ -87,7 +87,7 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
             <h3>Model Driven Forms</h3>
             <p>InputMask can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-inputMask formControlName="username" mask="(999) 999-9999? x99999"&gt;&lt;/p-inputMask&gt;
 </code>
 </pre>
@@ -232,7 +232,7 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g ui-fluid"&gt;
     &lt;div class="ui-g-12 ui-md-6 ui-lg-4"&gt;
         &lt;span&gt;Basic&lt;/span&gt;
@@ -268,7 +268,7 @@ import &#123;InputMaskModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class InputMaskDemo &#123;
 
     val1: string;

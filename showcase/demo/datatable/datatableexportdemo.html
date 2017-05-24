@@ -27,7 +27,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatableexportdemo.ts">
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DataTableExportDemo implements OnInit &#123;
 
     cars: Car[];
@@ -45,7 +45,7 @@ export class DataTableExportDemo implements OnInit &#123;
 
         <p-tabPanel header="datatableexportdemo.html">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable #dt [value]="cars" exportFilename="cars"&gt;
     &lt;p-header&gt;
         &lt;div class="ui-helper-clearfix"&gt;

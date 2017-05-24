@@ -24,7 +24,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SpinnerModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -32,7 +32,7 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Two-way value binding is defined using standard ngModel directive.</p>     
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-spinner size="30" [(ngModel)]="val"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
@@ -40,7 +40,7 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
             <h3>Model Driven Forms</h3>
             <p>Spinner can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-spinner formControlName="age"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
@@ -48,7 +48,7 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
             <h3>Min-Max</h3>
             <p>Boundaries are specified with min and max attributes.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-spinner size="30" [(ngModel)]="val" [min]="0" [max]="100"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
@@ -56,7 +56,7 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
             <h3>Step</h3>
             <p>Step factor is 1 by default and can be customized with step option.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-spinner size="30" [(ngModel)]="val" [step]="0.25"&gt;&lt;/p-spinner&gt;
 </code>
 </pre>
@@ -213,7 +213,7 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-spinner size="30" [(ngModel)]="val1"&gt;&lt;/p-spinner&gt;
 
@@ -229,7 +229,7 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class SpinnerDemo &#123;
 
     val1: number;

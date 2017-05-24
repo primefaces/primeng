@@ -22,7 +22,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatablepaginatordemo.ts">
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DataTablePaginatorDemo implements OnInit &#123;
 
     cars: Car[];
@@ -39,7 +39,7 @@ export class DataTablePaginatorDemo implements OnInit &#123;
 
         <p-tabPanel header="datatablepaginatordemo.html">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;

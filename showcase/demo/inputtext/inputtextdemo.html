@@ -20,7 +20,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;InputTextModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -29,7 +29,7 @@ import &#123;InputTextModule&#125; from 'primeng/primeng';
             <p>InputText is applied to an input field with pInputText directive.</p>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;input type="text" pInputText /&gt;
 </code>
 </pre>
@@ -37,7 +37,7 @@ import &#123;InputTextModule&#125; from 'primeng/primeng';
             <h3>Model Binding</h3>
             <p>A model can be bound using standard ngModel directive.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;input type="text" pInputText [(ngModel)]="property"/&gt;
 </code>
 </pre>
@@ -100,7 +100,7 @@ import &#123;InputTextModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class InputTextDemo &#123;
 
     text: string;

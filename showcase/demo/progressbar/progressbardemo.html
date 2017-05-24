@@ -20,7 +20,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;ProgressBarModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -28,13 +28,13 @@ import &#123;ProgressBarModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>ProgressBar requires a value between 0 and 100 to display the progress.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-progressBar [value]="value"&gt;&lt;/p-progressBar&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ModelComponent &#123;
 
     value: number = 0;
@@ -110,7 +110,7 @@ export class ModelComponent &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;h3 class="first"&gt;Dynamic&lt;/h3&gt;
@@ -122,7 +122,7 @@ export class ModelComponent &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ProgressBarDemo &#123;
 
     value: number = 0;

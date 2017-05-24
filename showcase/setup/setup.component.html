@@ -9,7 +9,7 @@
     <h3 style="margin-top:0px">Download</h3>
     <p>PrimeNG is available at npm, if you have an existing application run the following command to download it to your project.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 npm install primeng --save
 </code>
 </pre>
@@ -20,7 +20,7 @@ npm install primeng --save
     <h3>Import</h3>
     <p>UI components are configured as modules, once PrimeNG is downloaded and configured, modules and apis can be imported from 'primeng/primeng' shorthand in your application code.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;AccordionModule&#125; from 'primeng/primeng';     //accordion and accordion tab
 import &#123;MenuItem&#125; from 'primeng/primeng';            //api
 </code>
@@ -28,7 +28,7 @@ import &#123;MenuItem&#125; from 'primeng/primeng';            //api
 
     <p>Importing from primeng/primeng will load all other components as well, to only import a specific component pattern would result in a smaller bundle size.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 //import &#123;ComponentModule&#125; from 'primeng/components/componentname/componentname';
 //import &#123;InterfaceName&#125; from 'primeng/common/api';
 
@@ -42,7 +42,7 @@ import &#123;MenuItem&#125; from 'primeng/components/common/api';
 
     <p>The css dependencies are as follows, note that you may change the theme with another one of your choice.</p>
 <pre>
-<code class="language-html" pCode>
+<code class="language-html" pCode ngNonBindable>
 &lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/omega/theme.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="YOUR_PATH/font-awesome.min.css" /&gt;
@@ -89,13 +89,13 @@ import &#123;MenuItem&#125; from 'primeng/components/common/api';
     to import <i>BrowserAnimationsModule</i> to your application. If you prefer not to <i>NoopAnimationsModule</i> instead.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 npm install @angular/animations
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;BrowserModule&#125; from '@angular/platform-browser';
 
 @NgModule(&#123;
@@ -115,7 +115,7 @@ export class YourAppModule &#123; &#125;
     <h4>Dependencies</h4>
     <p>Add PrimeNG and FontAwesome as a dependency</p>
 <pre>
-<code class="language-js" pCode>
+<code class="language-js" pCode ngNonBindable>
 "dependencies": &#123;
   //...
   "primeng": "^2.0.3",
@@ -127,7 +127,7 @@ export class YourAppModule &#123; &#125;
     <h4>Styles Configuration</h4>
     <p>Configure required styles at the styles section, example below uses the Omega theme.</p>
 <pre>
-<code class="language-js" pCode>
+<code class="language-js" pCode ngNonBindable>
 "styles": [
   "../node_modules/primeng/resources/primeng.min.css",
   "../node_modules/primeng/resources/themes/omega/theme.css",

@@ -14,7 +14,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;PanelMenuModule,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -25,13 +25,13 @@ import &#123;PanelMenuModule,MenuItem&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>PanelMenu requires nested menuitems as its model.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-panelMenu [model]="items" [style]="&#123;'width':'300px'&#125;"&gt;&lt;/p-panelMenu&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class PanelMenuDemo &#123;
   
     private items: MenuItem[];
@@ -203,13 +203,13 @@ export class PanelMenuDemo &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-panelMenu [model]="items" [style]="&#123;'width':'300px'&#125;"&gt;&lt;/p-panelMenu&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class PanelMenuDemo &#123;
   
     private items: MenuItem[];

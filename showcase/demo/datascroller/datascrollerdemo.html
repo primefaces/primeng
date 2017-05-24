@@ -73,7 +73,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;DataScrollerModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -86,7 +86,7 @@ import &#123;DataScrollerModule&#125; from 'primeng/primeng';
                 to define an object to be displayed by the datascroller. Cars are loaded by a CarService that 
                 connects to a server to fetch the cars with a Promise.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export interface Car &#123;
     vin;
     year;
@@ -97,7 +97,7 @@ export interface Car &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;Injectable&#125; from 'angular2/core';
 import &#123;Http, Response&#125; from 'angular2/http';
 import &#123;Car&#125; from '../domain/car';
@@ -119,7 +119,7 @@ export class CarService &#123;
 
             <p>Here is a sample DataScroller that displays a list of cars where each load event adds 10 more rows if available.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DataScrollertDemo implements OnInit &#123;
 
     cars: Car[];
@@ -134,7 +134,7 @@ export class DataScrollertDemo implements OnInit &#123;
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
@@ -151,13 +151,13 @@ export class DataScrollertDemo implements OnInit &#123;
             <h3>Facets</h3>
             <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;Header&#125; from 'primeng/primeng';
 import &#123;Footer&#125; from 'primeng/primeng';
 </code>
 </pre>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [rows]="10"&gt;
     &lt;p-header&gt;List of Cars&lt;/p-header&gt;
     &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
@@ -171,7 +171,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
             <h3>Inline</h3>
             <p>By default DataScroller listens to the scroll event of window, the alternative is the inline mode where container of the DataScroller element itself is used as the event target. Set inline option to true to enable this mode.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [inline]="true" [rows]="10"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
@@ -186,7 +186,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
             enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object
             that contains information about what to load.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dataScroller [value]="cars" [rows]="10" [lazy]="true" (onLazyLoad)="loadData($event)"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         Car content
@@ -196,7 +196,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 loadData(event) &#123;
     //event.first = First row offset
     //event.rows = Number of rows per page
@@ -405,7 +405,7 @@ loadData(event) &#123;
 </code>
 </pre>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DataScrollerDemo implements OnInit &#123;
 
     cars: Car[];

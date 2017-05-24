@@ -34,7 +34,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;EditorModule,SharedModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -43,13 +43,13 @@ import &#123;EditorModule,SharedModule&#125; from 'primeng/primeng';
             <p>Two-way value binding is defined with ngModel.</p>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-editor [(ngModel)]="text" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class EditorDemo &#123;
     
     text: string;
@@ -61,7 +61,7 @@ export class EditorDemo &#123;
             <h3>Model Driven Forms</h3>
             <p>Editor can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-editor formControlName="description" [style]="&#123;'height':'320px'&#125;"&gt;&lt;/p-editor&gt;
 </code>
 </pre>
@@ -69,7 +69,7 @@ export class EditorDemo &#123;
             <h3>Toolbar</h3>
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
     &lt;p-header&gt;
         &lt;span class="ql-format-group"&gt;
@@ -242,7 +242,7 @@ npm install quill --save
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class EditorDemo &#123;
 
     text1: string = '&lt;div&gt;Hello World!&lt;/div&gt;&lt;div&gt;PrimeNG &lt;b&gt;Editor&lt;/b&gt; Rocks&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;';

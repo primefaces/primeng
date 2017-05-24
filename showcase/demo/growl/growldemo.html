@@ -23,7 +23,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;GrowlModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -32,13 +32,13 @@ import &#123;GrowlModule&#125; from 'primeng/primeng';
             <p>A single message is specified by Message interface in PrimeNG that defines the id, severity, summary and detail as properties.
             Messages to display on growl are defined using the value property which should an array of Message instances.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;Message&#125; from 'primeng/primeng';
 
 export class MyModel &#123;
@@ -62,7 +62,7 @@ export class MyModel &#123;
             <p>Adding messages to the array is enough to display them via growl. Similary removing a message
             from the array is also removed by growl.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
     
 &lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
@@ -71,7 +71,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 show() &#123;
     this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);
 &#125;
@@ -197,7 +197,7 @@ hide() &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [(value)]="msgs" sticky="sticky"&gt;&lt;/p-growl&gt;
 
 &lt;div&gt;
@@ -212,7 +212,7 @@ hide() &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;Message&#125; from 'primeng/primeng';
 
 export class GrowlDemo &#123;

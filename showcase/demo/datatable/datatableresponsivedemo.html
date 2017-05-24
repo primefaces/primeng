@@ -25,7 +25,7 @@
     <p-tabView effect="fade">
         <p-tabPanel header="datatableresponsivedemo.ts">
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DataTableResponsiveDemo implements OnInit &#123;
 
     cars: Car[];
@@ -48,7 +48,7 @@ export class DataTableResponsiveDemo implements OnInit &#123;
 
         <p-tabPanel header="datatableresponsivedemo.html">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" (click)="toggle()" style="margin-bottom:10px" label="Toggle" icon="fa-list"&gt;&lt;/button&gt;
 
 &lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true" [stacked]="stacked"&gt;

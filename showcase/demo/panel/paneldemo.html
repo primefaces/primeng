@@ -35,7 +35,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;PanelModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -43,7 +43,7 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Panel is defined with p-panel element.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-panel header="Title"&gt;
     Content
 &lt;/p-panel&gt;
@@ -52,7 +52,7 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
             <h3>Toggleable</h3>
             <p>Content of the panel can be expanded and collapsed using toggleable option, default state is defined with collapsed option.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-panel header="Title" [toggleable]="true"&gt;
     Content
 &lt;/p-panel&gt;
@@ -62,7 +62,7 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
             <h3>Custom Header</h3>
             <p>Header section of the panel can be customized by defining a header element with content.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-panel &gt;
     &lt;p-header&gt;
         Header content here
@@ -186,7 +186,7 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;p-panel header="Godfather I" [toggleable]="true" [style]="&#123;'margin-bottom':'20px'&#125;"&gt;

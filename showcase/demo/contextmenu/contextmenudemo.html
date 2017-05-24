@@ -19,7 +19,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;ContextMenuModule,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -30,7 +30,7 @@ import &#123;ContextMenuModule,MenuItem&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>ContextMenu requires nested menuitems as its model and in its simplest form ContextMenu is attached to the document with global setting. .</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-contextMenu [global]="true" [model]="items"&gt;&lt;/p-contextMenu&gt;
 </code>
 </pre>
@@ -38,7 +38,7 @@ import &#123;ContextMenuModule,MenuItem&#125; from 'primeng/primeng';
             <h3>Target</h3>
             <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the target property.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
 
 &lt;img #img src="/showcase/resources/images/primeng.svg" alt="Logo"&gt;
@@ -50,7 +50,7 @@ import &#123;ContextMenuModule,MenuItem&#125; from 'primeng/primeng';
             individual documentation of components with special integration like DataTable.</p>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ContextMenuDemo &#123;
 
     private items: MenuItem[];
@@ -212,7 +212,7 @@ export class ContextMenuDemo &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-contextMenu [global]="true" [model]="items1"&gt;&lt;/p-contextMenu&gt;
 
 &lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
@@ -222,7 +222,7 @@ export class ContextMenuDemo &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ContextMenuDemo &#123;
 
     private items: MenuItem[];

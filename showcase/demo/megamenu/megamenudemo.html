@@ -18,7 +18,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;MegaMenuModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -29,13 +29,13 @@ import &#123;MegaMenuModule&#125; from 'primeng/primeng';
 <h3>Getting Started</h3>
 <p>MegaMenu requires nested menuitems as its model where the items of a root menuitem is a two dimensional array to define columns in an overlay submenu.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-megaMenu [model]="items"&gt;&lt;/p-megaMenu&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
     export class MegaMenuDemo &#123;
 
         private items: MenuItem[];
@@ -194,13 +194,13 @@ import &#123;MegaMenuModule&#125; from 'primeng/primeng';
 
 <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-megaMenu [model]="items"&gt;&lt;/p-megaMenu&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MegaMenuDemo &#123;
 
     private items: MenuItem[];

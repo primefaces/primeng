@@ -57,7 +57,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;CalendarModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -66,13 +66,13 @@ import &#123;CalendarModule&#125; from 'primeng/primeng';
             <p>Two-way value binding is defined using the standard ngModel directive referencing to a Date property.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="value"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     value: Date;
@@ -84,7 +84,7 @@ export class MyModel &#123;
             <h3>Model Driven Forms</h3>
             <p>Calendar can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar formControlName="date"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
@@ -92,7 +92,7 @@ export class MyModel &#123;
             <h3>Popup and Inline</h3>
             <p>Calendar is displayed in a popup by default and inline property needs to be enabled for inline mode.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="value" [inline]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
@@ -100,7 +100,7 @@ export class MyModel &#123;
             <h3>DateFormat</h3>
             <p>Default date format is mm/dd/yy, to customize this use dateFormat property.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" dateFormat="dd.mm.yy"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
@@ -129,7 +129,7 @@ export class MyModel &#123;
             <h3>Time</h3>
             <p>TimePicker is enabled with showTime property and 24 (default) or 12 hour mode is configured using hourFormat option.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="value" showTime="showTime" hourFormat="12"&gt;&lt;/p-calendar&gt;
 &lt;p-calendar [(ngModel)]="value" showTime="showTime" hourFormat="24"&gt;&lt;/p-calendar&gt;
 </code>
@@ -139,7 +139,7 @@ export class MyModel &#123;
             <p>To disable entering dates manually, set readonlyInput to true and to restrict selectable dates use minDate
                 and maxDate options.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
@@ -147,7 +147,7 @@ export class MyModel &#123;
             <h3>Disable specific dates and/or days</h3>
             <p>To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use disabledDates and/or disabledDays options.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[0,6}" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
@@ -156,13 +156,13 @@ export class MyModel &#123;
             <p>Localization for different languages and formats is defined by binding the locale settings object to the locale property. Following is the default values for English.
             </p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" [locale]="en"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
     
     en: any;
@@ -184,7 +184,7 @@ export class MyModel &#123;
             <h3>Custom Content</h3>
             <p>Calendar UI accepts custom content using p-header and p-footer components.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue"&gt;
     &lt;p-header&gt;Header&lt;/p-header&gt;
     &lt;p-footer&gt;Footer&lt;/p-footer&gt;

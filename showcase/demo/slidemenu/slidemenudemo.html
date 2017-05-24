@@ -19,7 +19,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SlideMenuModule,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -30,13 +30,13 @@ import &#123;SlideMenuModule,MenuItem&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>SlideMenu requires nested menuitems as its model.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-slideMenu [model]="items"&gt;&lt;/p-slideMenu&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class SlideMenuDemo &#123;
 
     private items: MenuItem[];
@@ -75,7 +75,7 @@ export class SlideMenuDemo &#123;
             <p>SlideMenu is inline by default, popup mode is also supported by enabling popup property and calling toggle method by passing the event 
                     from the anchor element.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-slideMenu #menu [model]="items" [popup]="true"&gt;&lt;/p-slideMenu&gt;
 &lt;button #btn type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
@@ -85,7 +85,7 @@ export class SlideMenuDemo &#123;
             <p>The easing function to use is "ease-out" by default and this can be customized using easing property. 
                 See <a href="http://www.w3schools.com/cssref/css3_pr_transition-timing-function.asp">here</a> for possible alternative values.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-slideMenu #menu [model]="items" effectDuration="1000" easing="ease-in"&gt;&lt;/p-slideMenu&gt;
 </code>
 </pre>
@@ -248,7 +248,7 @@ export class SlideMenuDemo &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
 &lt;p-slideMenu [model]="items"&gt;&lt;/p-slideMenu&gt;
 
@@ -259,7 +259,7 @@ export class SlideMenuDemo &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class SlideMenuDemo &#123;
 
     private items: MenuItem[];

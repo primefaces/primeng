@@ -33,7 +33,7 @@
         <p-tabPanel header="Documentation">
                     <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;TooltipModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -42,7 +42,7 @@ import &#123;TooltipModule&#125; from 'primeng/primeng';
             <p>Tooltip is applied to an element with pTooltip directive where the value of the directive defines the text to display.</p>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;input type="text" pTooltip="Enter your username"&gt;
 </code>
 </pre>
@@ -52,7 +52,7 @@ import &#123;TooltipModule&#125; from 'primeng/primeng';
             specified using tooltipPosition attribute.</p>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;input type="text" pTooltip="Enter your username" tooltipPosition="top"&gt;
 </code>
 </pre>
@@ -61,7 +61,7 @@ import &#123;TooltipModule&#125; from 'primeng/primeng';
             <p>Tooltip gets displayed on hover event of its target by default, other option is the focus event to display and blur to hide.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;input type="text" pTooltip="Enter your username" tooltipPosition="top" tooltipEvent="focus"&gt;
 </code>
 </pre>
@@ -70,7 +70,7 @@ import &#123;TooltipModule&#125; from 'primeng/primeng';
             <p>When placed inside a scrolling container like an overflown div, tooltip must be appended to another element that has
                 relative positioning instead of document body which is the default.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;div #container style="display:inline-block;position:relative"&gt;
     &lt;input type="text" pInputText pTooltip="Enter your username" placeholder="Right" [appendTo]="container"&gt;
 &lt;/div&gt;

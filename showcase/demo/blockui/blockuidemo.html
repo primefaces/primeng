@@ -31,7 +31,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;BlockUIModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -41,7 +41,7 @@ import &#123;BlockUIModule&#125; from 'primeng/primeng';
             itself is selected as the block target.</p>
             
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class BlockUIDemo &#123;
 
     blocked: boolean;
@@ -51,7 +51,7 @@ export class BlockUIDemo &#123;
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-blockUI [blocked]="blocked"&gt;&lt;/p-blockUI&gt;
 </code>
 </pre>
@@ -59,7 +59,7 @@ export class BlockUIDemo &#123;
             <p>To block a certain component, define a local ng-template variable and bind it to the target option. The target component must implement the 
             BlockableUI interface, otherwise an exception is thrown.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-blockUI [blocked]="blockedDocument" [target]="pnl"&gt;&lt;/p-blockUI&gt;
 
 &lt;p-panel #pnl header="Panel Header"&gt;
@@ -71,7 +71,7 @@ export class BlockUIDemo &#123;
             <h3>Custom Content</h3>
             <p>Blocker mask is customized by simply adding the content inside the component<p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-blockUI [target]="pnl" [blocked]="blockedPanel"&gt;
     &lt;i class="fa fa-lock fa-5x" style="position:absolute;top:25%;left:50%"&gt;&lt;/i&gt;
 &lt;/p-blockUI&gt;
@@ -136,7 +136,7 @@ export class BlockUIDemo &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class BlockUIDemo &#123;
 
     blockedPanel: boolean = false;
@@ -154,7 +154,7 @@ export class BlockUIDemo &#123;
 </pre>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Document&lt;/h3&gt;
 &lt;p-blockUI [blocked]="blockedDocument"&gt;&lt;/p-blockUI&gt;
 

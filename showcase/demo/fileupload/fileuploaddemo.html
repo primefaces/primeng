@@ -24,7 +24,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;FileUploadModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -32,7 +32,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>FileUpload requires a url property as the upload target and a name to identify the files at backend.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
@@ -40,7 +40,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <h3>Multiple Uploads</h3>
             <p>Only one file can be selected at a time, to allow selecting multiples enable multiple option.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
@@ -51,7 +51,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <h3>Auto Uploads</h3>
             <p>When auto property is enabled, upload begins as soon as file selection is completed or a file is dropped on the drop area.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
         accept="image/*" auto="auto"&gt;&lt;/p-fileUpload&gt;
 </code>
@@ -61,7 +61,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <p>Selectable file types can be restricted with accept property, example below only allows images to be uploaded.
             Read more about other possible values <a href="http://www.w3schools.com/tags/att_input_accept.asp">here</a>.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
         accept="image/*"&gt;&lt;/p-fileUpload&gt;
 </code>
@@ -70,7 +70,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <h3>File Size</h3>
             <p>Maximium file size can be restricted using maxFileSize property defined in bytes.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;&lt;/p-fileUpload&gt;
 </code>
@@ -88,7 +88,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
                 Second ng-template named "content" can be used to place custom content inside the content section which would be useful to implement a user interface to manage the uploaded files such as removing them.  
                 Third and final ng-template option is "toolbar" to display custom content at toolbar.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;
         &lt;ng-template pTemplate="toolbar"&gt;
@@ -332,7 +332,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class FileUploadDemo &#123;
 
     msgs: Message[];

@@ -18,7 +18,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;InputSwitchModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -27,13 +27,13 @@ import &#123;InputSwitchModule&#125; from 'primeng/primeng';
             <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-inputSwitch [(ngModel)]="checked"&gt;&lt;/p-inputSwitch&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ModelComponent &#123;
 
     checked: boolean;
@@ -44,7 +44,7 @@ export class ModelComponent &#123;
 
             <p>As model is two-way binding enabled, setting the bound value as true displays the state as checked by default.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ModelComponent &#123;
 
    checked: boolean = true;
@@ -56,7 +56,7 @@ export class ModelComponent &#123;
             <h3>Model Driven Forms</h3>
             <p>InputSwitch can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-inputSwitch formControlName="enabled"&gt;&lt;/p-inputSwitch&gt;
 </code>
 </pre>
@@ -64,7 +64,7 @@ export class ModelComponent &#123;
             <h3>Customization</h3>
             <p>Labels can be customized using onLabel and offLabel properties.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-inputSwitch onLabel="I confirm" offLabel="I reject" [(ngModel)]="val"&gt;&lt;/p-inputSwitch&gt;
 </code>
 </pre>
@@ -142,12 +142,12 @@ export class ModelComponent &#123;
                 </table>
             </div>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-inputSwitch (onChange)="handleChange($event)" [(ngModel)]="val"&gt;
 </code>
 </pre>
  <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class ModelComponent &#123;
 
     handleChange(e) &#123;
@@ -200,7 +200,7 @@ export class ModelComponent &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class InputSwitchDemo &#123;
 
     checked1: boolean = false;

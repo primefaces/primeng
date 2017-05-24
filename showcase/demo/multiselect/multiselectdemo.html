@@ -15,7 +15,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;MultiSelectModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -24,13 +24,13 @@ import &#123;MultiSelectModule&#125; from 'primeng/primeng';
             <p>Two-way value binding is defined using ngModel and multiselect requires a collection of options 
                 where each option should follow the SelectItem interface that defines label-value properties.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng';
 
 export class MyModel &#123;
@@ -55,7 +55,7 @@ export class MyModel &#123;
             <h3>Model Driven Forms</h3>
             <p>MultiSelect can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
@@ -254,7 +254,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MultiSelectDemo &#123;
 
     cars: SelectItem[];

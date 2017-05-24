@@ -16,7 +16,7 @@
         <p-tabPanel header="Documentation">
                     <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SplitButtonModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -25,7 +25,7 @@ import &#123;SplitButtonModule&#125; from 'primeng/primeng';
             <p>SplitButton has a default command button and a collection of menuitems to be displayed in an overlay.</p>
             
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-splitButton label="Save" icon="fa-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
 </code>
 </pre>
@@ -168,7 +168,7 @@ import &#123;SplitButtonModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class SplitButtonDemo implements OnInit &#123;
 
     msgs: Message[] = [];

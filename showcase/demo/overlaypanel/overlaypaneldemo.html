@@ -50,7 +50,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -58,7 +58,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>OverlayPanel is defined using p-overlayPanel element and is displayed using the <i>show</i> or <i>toggle</i> method of a local ng-template variable.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-overlayPanel #op&gt;
     Content
 &lt;/p-overlayPanel&gt;
@@ -71,7 +71,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
             if you'd like to align it to another element, provide it as the second parameter. Similarly calling <i>hide()</i> hides the overlay panel and the <i>toggle</i> method 
             toggles the visibility of the panel. In example below, clicking the button displays the overlayPanel aligned to the actualTarget div, not the button itself.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-overlayPanel #op&gt;
     Content
 &lt;/p-overlayPanel&gt;
@@ -86,7 +86,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
             <p>Clicking outside the overlay hides the panel, setting dismissable to false disables this behavior. Additionally enablign showCloseIcon property 
             displays a close icon at the top right corner to close the panel</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true"&gt;
     Content
 &lt;/p-overlayPanel&gt;
@@ -283,7 +283,7 @@ import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class OverlayPanelDemo &#123;
 
     cars1: Car[];

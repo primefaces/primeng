@@ -11,7 +11,7 @@
     
 <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;ChartModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -19,7 +19,7 @@ import &#123;ChartModule&#125; from 'primeng/primeng';
     <h3>Charts.js</h3>
     <p>In order for chart component to work, include charts.js to your project. An example with CLI would be;</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 "scripts": [
   "../node_modules/chart.js/dist/Chart.js",
   //..others
@@ -32,14 +32,14 @@ import &#123;ChartModule&#125; from 'primeng/primeng';
     <p>In order to chart to redraw itself, a new data object needs to be created. Changing the array contents without creating a new
     array instance does not trigger change detection.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-chart type="pie" [data]="data"&gt;&lt;/p-chart&gt;
 &lt;button type="button" pButton (click)="update($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 update(event: Event) &#123;
     this.data = //create new data
 &#125;
@@ -135,13 +135,13 @@ update(event: Event) &#123;
 <p>Data of a chart is provided using a binding to the data property, each type has its own format of data. Here is an example of a line chart.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-chart type="line" [data]="data"&gt;&lt;/p-chart&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class LineChartDemo &#123;
 
     data: any;
@@ -170,13 +170,13 @@ export class LineChartDemo &#123;
     Example below adds a title and customizes the legend position of the chart. For all available options refer to the charts.js documentation.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-chart type="line" [data]="data" [options]="options"&gt;&lt;/p-chart&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class LineChartDemo &#123;
 
     data: any;
@@ -216,13 +216,13 @@ export class LineChartDemo &#123;
 <h3>Events</h3>
 <p>When data is selected with click event, chart component provides onDataSelect callback to process the selected data.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"&gt;&lt;/p-chart&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 selectData(event) &#123;
     //event.dataset = Selected dataset
     //event.element = Selected element

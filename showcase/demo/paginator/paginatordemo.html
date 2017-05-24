@@ -14,7 +14,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;PaginatorModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -22,14 +22,14 @@ import &#123;PaginatorModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Paginator is defined using p-paginator element.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-paginator&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
             <h3>Rows and TotalRecords</h3>
             <p>Rows and TotalRecords define how many pages the paginator should display. Paginator below will have 10 pages.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-paginator rows="10" totalRecords="100"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
@@ -38,7 +38,7 @@ import &#123;PaginatorModule&#125; from 'primeng/primeng';
             <p>PageLinks provide shortcuts to jump to a specific page, use pageLinkSize property to define the number of links to display. Default is 5.</p>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-paginator rows="10" totalRecords="100" pageLinkSize="3"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
@@ -46,7 +46,7 @@ import &#123;PaginatorModule&#125; from 'primeng/primeng';
             <h3>Rows Per Page</h3>
             <p>Number of items per page can be changed by the user using a dropdown if you define rowsPerPageOptions as an array of possible values.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
@@ -134,13 +134,13 @@ import &#123;PaginatorModule&#125; from 'primeng/primeng';
             </div>
 
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-paginator rows="10" totalRecords="100" (onPageChange)="paginate($event)"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyComponent &#123;
 
     paginate(event) &#123;
@@ -207,7 +207,7 @@ export class MyComponent &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
 </code>
 </pre>

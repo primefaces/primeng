@@ -48,7 +48,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;GMapModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -56,13 +56,13 @@ import &#123;GMapModule&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>A map is initialized with options and dimensions. Refer to the google maps api for the list of available options.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-gmap [options]="options" [style]="&#123;'width':'100%','height':'320px'&#125;" &gt;&lt;/p-gmap&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     options: any;
@@ -84,13 +84,13 @@ export class MyModel &#123;
             <p>GMap can display any type of overlay such as markers, polygons and circles. Overlay instances are bound using the overlays property array. Overlays are aware
             of one-way binding so whenever the array changes, gmap updates itself.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-gmap [options]="options" [overlays]="overlays" [style]="&#123;'width':'100%','height':'320px'&#125;" &gt;&lt;/p-gmap&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     options: any;
@@ -122,14 +122,14 @@ export class MyModel &#123;
             <h3>Events</h3>
             <p>GMap provides common callbacks to hook into events including map click, overlay click and overlay dragging.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-gmap [options]="options" [overlays]="overlays" [style]="&#123;'width':'100%','height':'320px'&#125;"
             (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)"&gt;&lt;/p-gmap&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     options: any;
@@ -171,7 +171,7 @@ export class MyModel &#123;
             <h3>Google Maps API</h3>
             <p>In case you need to access the map instance directly, use the getMap() method.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-gmap #gmap [options]="options"&gt;&lt;/p-gmap&gt;
 
 &lt;button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())"&gt;&lt;/button&gt;
@@ -179,7 +179,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     options: any;
@@ -202,14 +202,14 @@ export class MyModel &#123;
             <p>Another option is to to get the map object directly after init via (onMapReady) event.
                In the example below, google.maps.Map is used for adjusting map bounds to markers.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-gmap #gmap [options]="options" [overlays]="overlays" [style]="mapStyle"
     (onMapReady)="setMap($event)"&gt;&lt;/p-gmap&gt;
 </code>
 </pre>
             <p>Then from your component you would write</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
     options: any;
@@ -341,7 +341,7 @@ export class MyModel &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;p-gmap #gmap [style]="&#123;'width':'100%','height':'320px'&#125;" [options]="options" [overlays]="overlays" 
@@ -380,7 +380,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class GMapDemo implements OnInit &#123;
 
     options: any;

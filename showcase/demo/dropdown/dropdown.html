@@ -31,7 +31,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;DropdownModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -40,13 +40,13 @@ import &#123;DropdownModule&#125; from 'primeng/primeng';
             <p>Two-way value binding is defined using ngModel and dropdown requires a collection of options 
                 where each option should follow the SelectItem interface that defines label-value properties.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng';
 
 export class MyModel &#123;
@@ -72,7 +72,7 @@ export class MyModel &#123;
             <h3>Model Driven Forms</h3>
             <p>Dropdown can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities" formControlName="selectedCity"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
@@ -80,7 +80,7 @@ export class MyModel &#123;
             <h3>Filtering</h3>
             <p>Options can be filtered using an input field in the overlay by enabling the filter property.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
@@ -101,7 +101,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng'
 
 export class MyModel &#123;
@@ -361,7 +361,7 @@ export class MyModel &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class DropdownDemo &#123;
 
     cities: SelectItem[];

@@ -23,7 +23,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;MessagesModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -32,7 +32,7 @@ import &#123;MessagesModule&#125; from 'primeng/primeng';
             <p>A single message is specified by Message interface in PrimeNG that defines the id, severity, summary and detail as the properties.
                 Messages to display are defined using the value property which should an array of Message instances.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
@@ -49,7 +49,7 @@ import &#123;MessagesModule&#125; from 'primeng/primeng';
             <h3>Showing Messages</h3>
             <p>Adding messages to the array is enough to display them. Similarly removing a message from the array is also removed from the UI.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 
 &lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
@@ -58,7 +58,7 @@ import &#123;MessagesModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 show() &#123;
     this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);
 &#125;
@@ -72,7 +72,7 @@ hide() &#123;
             <h3>Closable</h3>
             <p>Messages are closable by default resulting in a close icon being displayed on top right corner.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
@@ -80,7 +80,7 @@ hide() &#123;
             <p>In order to disable closable messages, set closable to false. Note that in this case two-way binding is not necessary as the component
             does not need to update its value.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [value]="msgs" [closable]="false"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
@@ -170,7 +170,7 @@ hide() &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 
 &lt;div&gt;
@@ -185,7 +185,7 @@ hide() &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MessagesDemo &#123;
 
     msgs: Message[] = [];

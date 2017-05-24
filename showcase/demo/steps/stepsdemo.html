@@ -23,7 +23,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;StepsModule,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -34,13 +34,13 @@ import &#123;StepsModule,MenuItem&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Steps requires a collection of menuitems as its model.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-steps [model]="items"&gt;&lt;/p-steps&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MenuDemo &#123;
     
     private items: MenuItem[];
@@ -59,7 +59,7 @@ export class MenuDemo &#123;
             <h3>Readonly</h3>
             <p>Items are readonly by default, if you'd like to make them interactive then disable readonly.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-steps [model]="items" [readonly]="false"&gt;&lt;/p-steps&gt;
 </code>
 </pre>
@@ -167,7 +167,7 @@ export class MenuDemo &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
@@ -182,7 +182,7 @@ export class MenuDemo &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 @Component(&#123;
     templateUrl: 'showcase/demo/steps/stepsdemo.html',
     styles: [`

@@ -19,7 +19,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;MenuModule,MenuItem&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -30,13 +30,13 @@ import &#123;MenuModule,MenuItem&#125; from 'primeng/primeng';
             <h3>Getting Started</h3>
             <p>Menu requires a collection of menuitems as its model.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
 </code>
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MenuDemo &#123;
     
     private items: MenuItem[];
@@ -55,7 +55,7 @@ export class MenuDemo &#123;
             <h3>SubMenus</h3>
             <p>Menu supports 1 level of nesting via subitems of an item.</p>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MenuDemo &#123;
     
     private items: MenuItem[];
@@ -84,7 +84,7 @@ export class MenuDemo &#123;
             <p>Menu is inline by default, popup mode is also supported by enabling popup property and calling toggle method by passing the event 
                     from the anchor element.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-menu #menu popup="popup" [model]="items"&gt;&lt;/p-menu&gt;
 &lt;button type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
@@ -207,7 +207,7 @@ export class MenuDemo &#123;
 
         <p-tabPanel header="Source">
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
 
@@ -218,7 +218,7 @@ export class MenuDemo &#123;
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class MenuDemo &#123;
     
     private items: MenuItem[];

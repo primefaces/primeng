@@ -42,7 +42,7 @@
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 import &#123;CarouselModule&#125; from 'primeng/primeng';
 </code>
 </pre>
@@ -51,7 +51,7 @@ import &#123;CarouselModule&#125; from 'primeng/primeng';
             <p>Carousel requires a collection of items as its value and a ng-template content to display
                 where each item can be accessed using the implicit variable.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-carousel [value]="items"&gt;
     &lt;ng-template let-item pTemplate="item"&gt;
         Content to display
@@ -68,7 +68,7 @@ import &#123;CarouselModule&#125; from 'primeng/primeng';
             <h3>Limiting Visible Items</h3>
             <p>Default number of visible items is 3, use numVisible option to customize this.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-carousel numVisible="1"&gt;
 </code>
 </pre>
@@ -77,7 +77,7 @@ import &#123;CarouselModule&#125; from 'primeng/primeng';
             <p>The easing function to use is "ease-out" by default and this can be customized using easing property. 
                 See <a href="http://www.w3schools.com/cssref/css3_pr_transition-timing-function.asp">here</a> for possible alternative values.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-carousel easing="easeOutStrong"&gt;
 </code>
 </pre>
@@ -85,7 +85,7 @@ import &#123;CarouselModule&#125; from 'primeng/primeng';
             <h3>SlideShow</h3>
             <p>Carousel can display the contents in a slideshow, for this purpose autoPlayInterval and circular attributes are used.</p>
 <pre>
-<code class="language-markup" pCode>
+<code class="language-markup" pCode ngNonBindable>
 &lt;p-carousel circular="circular" autoplayInterval="3000"&gt;
 </code>
 </pre>
@@ -305,7 +305,7 @@ import &#123;CarouselModule&#125; from 'primeng/primeng';
 </pre>
 
 <pre>
-<code class="language-typescript" pCode>
+<code class="language-typescript" pCode ngNonBindable>
 export class CarouselDemo &#123;
 
     cars: Car[];
