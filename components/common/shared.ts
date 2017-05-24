@@ -1,4 +1,4 @@
-import {NgModule,EventEmitter,Directive,ViewContainerRef,Input,Output,ContentChildren,ContentChild,TemplateRef,OnInit,OnDestroy,AfterContentInit,QueryList,EmbeddedViewRef} from '@angular/core';
+import { NgModule, EventEmitter, Directive, ViewContainerRef, Input, Output, SimpleChanges, ContentChildren, ContentChild, TemplateRef, OnInit,OnChanges,OnDestroy,AfterContentInit,QueryList,EmbeddedViewRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
 
@@ -161,7 +161,7 @@ export class FooterColumnGroup {
     selector: 'p-columnBodyTemplateLoader',
     template: ``
 })
-export class ColumnBodyTemplateLoader implements OnInit, OnDestroy {
+export class ColumnBodyTemplateLoader implements OnChanges, OnInit, OnDestroy {
         
     @Input() column: any;
         
@@ -173,12 +173,20 @@ export class ColumnBodyTemplateLoader implements OnInit, OnDestroy {
     
     constructor(public viewContainer: ViewContainerRef) {}
     
-    ngOnInit() {
-        this.view = this.viewContainer.createEmbeddedView(this.column.bodyTemplate, {
+    ngOnInit() { 
+        this.view = this.viewContainer.createEmbeddedView( this.column.bodyTemplate, {
             '\$implicit': this.column,
             'rowData': this.rowData,
             'rowIndex': this.rowIndex
-        });
+        } );
+    }
+    ngOnChanges( changes: SimpleChanges ) {
+        if ( !this.view ) { 
+            return;
+        }
+        if ( 'rowIndex' in changes ) { 
+            this.view.context.rowIndex = changes[ 'rowIndex' ].currentValue;
+        }
     }
 	
     ngOnDestroy() {
