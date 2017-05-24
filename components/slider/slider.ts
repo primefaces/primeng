@@ -15,13 +15,13 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-slider ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled,
             'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical','ui-slider-animate':animate}"
             (click)="onBarClick($event)">
-            <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" [style.transition]="dragging ? 'none': null"
-                [ngStyle]="{'left': orientation == 'horizontal' ? handleValue + '%' : null,'bottom': orientation == 'vertical' ? handleValue + '%' : null}"></span>
+            <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="dragging=false"
+                [style.transition]="dragging ? 'none': null" [ngStyle]="{'left': orientation == 'horizontal' ? handleValue + '%' : null,'bottom': orientation == 'vertical' ? handleValue + '%' : null}"></span>
             <span *ngIf="range" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'left':handleValues[0] + '%',width: (handleValues[1] - handleValues[0] + '%')}"></span>
             <span *ngIf="orientation=='vertical'" class="ui-slider-range ui-slider-range-min ui-widget-header ui-corner-all" [ngStyle]="{'height': handleValue + '%'}"></span>
-            <span *ngIf="range" (mousedown)="onMouseDown($event,0)" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all" 
+            <span *ngIf="range" (mousedown)="onMouseDown($event,0)" (touchstart)="onTouchStart($event,0)" (touchmove)="onTouchMove($event,0)" (touchend)="dragging=false" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all" 
                 [ngStyle]="{'left':handleValues[0] + '%'}" [ngClass]="{'ui-slider-handle-active':handleIndex==0}"></span>
-            <span *ngIf="range" (mousedown)="onMouseDown($event,1)" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all" 
+            <span *ngIf="range" (mousedown)="onMouseDown($event,1)" (touchstart)="onTouchStart($event,1)" (touchmove)="onTouchMove($event,1)" (touchend)="dragging=false" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all" 
                 [ngStyle]="{'left':handleValues[1] + '%'}" [ngClass]="{'ui-slider-handle-active':handleIndex==1}"></span>
         </div>
     `,
@@ -80,6 +80,12 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     public sliderHandleClick: boolean;
     
     public handleIndex: number;
+
+    public startHandleValue: any;
+
+    public startx: number;
+
+    public starty: number;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
     
@@ -92,6 +98,40 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.updateDomData();
         this.sliderHandleClick = true;
         this.handleIndex = index;
+    }
+
+    onTouchStart(event, index?:number) {
+        var touchobj = event.changedTouches[0];
+        this.startHandleValue = (this.range) ? this.handleValues[index] : this.handleValue;
+        this.dragging = true;
+        this.handleIndex = index;
+
+        if (this.orientation === 'horizontal') {
+            this.startx = parseInt(touchobj.clientX, 10);
+            this.barWidth = this.el.nativeElement.children[0].offsetWidth;
+        }
+        else {
+            this.starty = parseInt(touchobj.clientY, 10);
+            this.barHeight = this.el.nativeElement.children[0].offsetHeight;
+        }
+
+        event.preventDefault();
+    }
+
+    onTouchMove(event, index?:number) {
+        var touchobj = event.changedTouches[0],
+        handleValue = 0;
+
+        if (this.orientation === 'horizontal') {
+            handleValue = Math.floor(((parseInt(touchobj.clientX, 10) - this.startx) * 100) / (this.barWidth)) + this.startHandleValue;
+        }
+        else {
+            handleValue = Math.floor(((this.starty - parseInt(touchobj.clientY, 10)) * 100) / (this.barHeight))  + this.startHandleValue;
+        }
+
+        this.setValueFromHandle(event, handleValue);
+
+        event.preventDefault();
     }
     
     onBarClick(event) {
@@ -128,6 +168,10 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     handleChange(event: Event) {
         let handleValue = this.calculateHandleValue(event);
+        this.setValueFromHandle(event, handleValue);
+    }
+
+    setValueFromHandle(event: Event, handleValue: any) {
         let newValue = this.getValueFromHandle(handleValue);
      
         if(this.range) {
