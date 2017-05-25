@@ -11,7 +11,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-checkbox',
     template: `
-        <div class="ui-chkbox ui-widget">
+        <div [ngStyle]="style" [ngClass]="'ui-chkbox ui-widget'" [class]="styleClass">
             <div class="ui-helper-hidden-accessible">
                 <input #cb type="checkbox" [attr.id]="inputId" [name]="name" [value]="value" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)"
                 [ngClass]="{'ui-state-focus':focused}" (change)="handleChange($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
@@ -40,6 +40,10 @@ export class Checkbox implements ControlValueAccessor {
     @Input() tabindex: number;
 
     @Input() inputId: string;
+    
+    @Input() style: any;
+
+    @Input() styleClass: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
