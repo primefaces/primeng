@@ -11,7 +11,7 @@ import {BlockableUI} from '../common/api';
             <div class="ui-datalist-header ui-widget-header ui-corner-top" *ngIf="header">
                 <ng-content select="p-header"></ng-content>
             </div>
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
             (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator  && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datalist-content ui-widget-content">
                 <div *ngIf="isEmpty()" class="ui-datalist-emptymessage">{{emptyMessage}}</div>
@@ -21,7 +21,7 @@ import {BlockableUI} from '../common/api';
                     </li>
                 </ul>
             </div>
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
             (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator  && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datalist-footer ui-widget-header ui-corner-bottom" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
@@ -52,6 +52,8 @@ export class DataList implements AfterViewInit,AfterContentInit,BlockableUI {
     @Input() paginatorPosition: string = 'bottom';
 
     @Input() emptyMessage: string = 'No records found';
+    
+    @Input() alwaysShowPaginator: boolean = true;
     
     @Input() trackBy: Function = (index: number, item: any) => item;
     

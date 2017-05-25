@@ -11,7 +11,7 @@ import {BlockableUI} from '../common/api';
             <div class="ui-datagrid-header ui-widget-header ui-corner-top" *ngIf="header">
                 <ng-content select="p-header"></ng-content>
             </div>
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-content ui-widget-content">
                 <div class="ui-g">
@@ -19,7 +19,7 @@ import {BlockableUI} from '../common/api';
                     <div *ngIf="isEmpty()" class="ui-widget-content ui-g-12">{{emptyMessage}}</div>
                 </div>
             </div>
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" 
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datagrid-footer ui-widget-header ui-corner-top" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
@@ -50,6 +50,8 @@ export class DataGrid implements AfterViewInit,AfterContentInit,BlockableUI {
     @Input() styleClass: string;
     
     @Input() paginatorPosition: string = 'bottom';
+    
+    @Input() alwaysShowPaginator: boolean = true;
     
     @Input() trackBy: Function = (index: number, item: any) => item;
     

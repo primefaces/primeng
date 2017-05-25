@@ -4,7 +4,8 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'p-paginator',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-paginator ui-widget ui-widget-header ui-unselectable-text'">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-paginator ui-widget ui-widget-header ui-unselectable-text'"
+            *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
             <a href="#" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="fa fa-step-backward"></span>
@@ -42,6 +43,8 @@ export class Paginator {
     @Input() styleClass: string;
     
     @Input() rowsPerPageOptions: number[];
+    
+    @Input() alwaysShow: boolean = true;
 
     public pageLinks: number[];
 
