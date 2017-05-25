@@ -156,6 +156,9 @@ export class Dialog implements AfterViewInit,OnDestroy {
         if(this.positionLeft >= 0 && this.positionTop >= 0) {
             this.container.style.left = this.positionLeft + 'px';
             this.container.style.top = this.positionTop + 'px';
+        } else if (this.positionTop >= 0) {
+          this.center();
+          this.container.style.top = this.positionTop + 'px';
         }
         else{
             this.center();
