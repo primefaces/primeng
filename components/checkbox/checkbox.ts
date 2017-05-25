@@ -103,7 +103,10 @@ export class Checkbox implements ControlValueAccessor {
     }
 
     addValue() {
-        this.model = [...this.model, this.value];
+        if(this.model)
+            this.model = [...this.model, this.value];
+        else
+            this.model = [this.value];
     }
     
     onFocus(event) {
