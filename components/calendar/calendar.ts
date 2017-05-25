@@ -1263,6 +1263,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlay);
         }
+	if (this.documentClickListener){
+          this.documentClickListener()
+        }
     }
 
     validate(c: AbstractControl) {
