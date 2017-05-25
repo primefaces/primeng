@@ -36,6 +36,7 @@ export interface MenuItem {
     disabled?: boolean;
     visible?: boolean;
     target?: string;
+    routerLinkActiveOptions?: any;
 }
 
 export interface Message {

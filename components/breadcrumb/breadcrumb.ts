@@ -15,7 +15,7 @@ import {RouterModule} from '@angular/router';
                         [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target">
                         <span class="fa fa-home"></span>
                     </a>
-                    <a *ngIf="home.routerLink" [routerLink]="home.routerLink" [routerLinkActive]="'ui-state-active'" class="ui-menuitem-link" (click)="itemClick($event, home)" 
+                    <a *ngIf="home.routerLink" [routerLink]="home.routerLink" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="home.routerLinkActiveOptions" class="ui-menuitem-link" (click)="itemClick($event, home)" 
                         [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target">
                         <span class="fa fa-home"></span>
                     </a>
@@ -27,7 +27,7 @@ import {RouterModule} from '@angular/router';
                             [ngClass]="{'ui-state-disabled':item.disabled}" [attr.target]="item.target">
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
-                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" class="ui-menuitem-link" (click)="itemClick($event, item)" 
+                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" c[routerLinkActiveOptions]="item.routerLinkActiveOptions" lass="ui-menuitem-link" (click)="itemClick($event, item)" 
                             [ngClass]="{'ui-state-disabled':item.disabled}" [attr.target]="item.target">
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
