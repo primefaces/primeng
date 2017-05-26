@@ -1500,7 +1500,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         },
 		
         notEquals(value, filter): boolean {
-            return !equals(value, filter);
+            return !this.equals(value, filter);
         },
         
         in(value, filter: any[]): boolean {
