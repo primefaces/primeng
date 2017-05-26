@@ -276,6 +276,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     close(event) {
         this.hide();
         event.preventDefault();
+        event.stopPropagation();
     }
          
     onMouseclick(event,input) {
