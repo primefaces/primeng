@@ -87,9 +87,9 @@ export class Growl implements AfterViewInit,OnDestroy {
         this.domHandler.fadeOut(msgel, 250);
         
         setTimeout(() => {
+            this.onClose.emit({message:this.value[index]});
             this.value = this.value.filter((val,i) => i!=index);
             this.valueChange.emit(this.value);
-            this.onClose.emit({message:this.value[index]});
         }, 250);        
     }
     
