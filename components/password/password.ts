@@ -66,7 +66,8 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
     }
         
     @HostListener('focus', ['$event']) 
-    onFocus(e) {        
+    onFocus(e) {
+        this.panel.style.zIndex = String(++DomHandler.zindex);
         this.domHandler.removeClass(this.panel, 'ui-helper-hidden');
         this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
         this.domHandler.fadeIn(this.panel, 250);
