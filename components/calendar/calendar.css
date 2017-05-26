@@ -13,6 +13,11 @@
     border-left: 0 none;
 }
 
+.ui-calendar button:enabled:hover,
+.ui-calendar button:focus {
+    border-left: 0 none;
+} 
+
 /* Fluid */
 .ui-fluid .ui-calendar {
     width: 100%;
