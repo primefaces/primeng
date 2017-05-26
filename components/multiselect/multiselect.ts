@@ -171,7 +171,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     ngAfterViewChecked() {
         if(this.filtered) {
-            this.domHandler.relativePosition(this.panel, this.container);
+            if(this.appendTo)
+                this.domHandler.absolutePosition(this.panel, this.container);
+            else
+                this.domHandler.relativePosition(this.panel, this.container);
+
             this.filtered = false;
         }
     }
