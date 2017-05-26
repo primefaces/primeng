@@ -40,16 +40,12 @@ export class Steps {
     
     itemClick(event: Event, item: MenuItem, i: number) {
         if(this.readonly || item.disabled) {
-            return;
-        }
-        
-        this.activeIndexChange.emit(i);
-        
-        if(item.disabled) {
             event.preventDefault();
             return;
         }
         
+        this.activeIndexChange.emit(i);
+                
         if(!item.url) {
             event.preventDefault();
         }
