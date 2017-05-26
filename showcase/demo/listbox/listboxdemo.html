@@ -70,16 +70,6 @@ export class MyModel &#123;
 &#125;
 </code>
 </pre>
-<p>Index of item is available at the ng-template.</p>
-<pre>
-<code class="language-markup" pCode>
-&lt;p-listbox [options]="cars"&gt;
-    &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
-        Car index &#123;&#123;i&#125;&#125; 
-    &lt;/ng-template&gt;
-&lt;/p-listbox&gt;
-</code>
-</pre>
 
             <h3>Selection</h3>
             <p>Listbox allows selection of either single or multiple items whereas checkbox option displays a checkbox to indicate multiple selection. 
@@ -137,10 +127,10 @@ export class MyModel &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" style="width:190px"&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
+    &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;img src="showcase/resources/demo/images/car/{{car.label}}.gif" style="display:inline-block;margin:5px 0 0 5px"/&gt;
-            &lt;span style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;{{car.value}}&lt;/span&gt;
+            &lt;span style="font-size:20px;float:right;margin:15px 10px 0 0"&gt;&#123;&#123;i&#125;&#125; - &#123;&#123;car.value&#125;&#125;&lt;/span&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-listbox&gt;
