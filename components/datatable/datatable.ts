@@ -1315,7 +1315,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     get allSelected() {
         if(this.headerCheckboxToggleAllPages) {
-            return this.selection && this.selection.length === this.value.length;
+            return this.selection && this.value && this.selection.length === this.value.length;
         }
         else {
             let val = true;
