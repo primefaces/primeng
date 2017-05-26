@@ -70,6 +70,17 @@ export class MyModel &#123;
 &#125;
 </code>
 </pre>
+<p>Index of item is available at the ng-template.</p>
+<pre>
+<code class="language-markup" pCode>
+&lt;p-listbox [options]="cars"&gt;
+    &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
+        Car index &#123;&#123;i&#125;&#125; 
+    &lt;/ng-template&gt;
+&lt;/p-listbox&gt;
+</code>
+</pre>
+
             <h3>Selection</h3>
             <p>Listbox allows selection of either single or multiple items whereas checkbox option displays a checkbox to indicate multiple selection. 
                 In single case, model should be a single object reference whereas in multiple case should be an array. Multiple items can either be selected

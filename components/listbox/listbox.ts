@@ -31,7 +31,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </div>
             </div>
             <ul class="ui-listbox-list">
-                <li *ngFor="let option of options" [style.display]="isItemVisible(option) ? 'block' : 'none'"
+                <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
                     [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
                     (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
                     <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
@@ -43,7 +43,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         </div>
                     </div>
                     <span *ngIf="!itemTemplate">{{option.label}}</span>
-                    <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option"></ng-template>
+                    <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option" [index]="i"></ng-template>
                 </li>
             </ul>
         </div>
