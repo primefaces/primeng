@@ -131,10 +131,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     public filtered: boolean;
         
-    public differ: any;
+    public valueDiffer: any;
+    
+    public optionsDiffer: any;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers, public objectUtils: ObjectUtils) {
-        this.differ = differs.find([]).create(null);
+        this.valueDiffer = differs.find([]).create(null);
+        this.optionsDiffer = differs.find([]).create(null);
     }
     
     ngOnInit() {
@@ -174,9 +177,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     }
     
     ngDoCheck() {
-        let changes = this.differ.diff(this.value);
+        let valueChanges = this.valueDiffer.diff(this.value);
+        let optionChanges = this.optionsDiffer.diff(this.options);
         
-        if(changes) {
+        if(valueChanges||optionChanges) {
             this.updateLabel();
         }
     }
@@ -303,7 +307,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     }
     
     updateLabel() {
-        if(this.value && this.value.length && this.displaySelectedLabel) {
+        if(this.value && this.options && this.value.length && this.displaySelectedLabel) {
             let label = '';
             for(let i = 0; i < this.value.length; i++) {
                 if(i != 0) {
