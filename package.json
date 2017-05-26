@@ -3,13 +3,15 @@
   "version": "4.0.2-SNAPSHOT",
   "scripts": {
     "tsc": "tsc",
+    "gulp": "gulp",
     "tsc:w": "tsc -w",
     "webpack": "webpack",
     "webpack:w": "webpack -w",
     "webpack-dev-server": "webpack-dev-server --inline",
     "build-prod": "webpack --config config/webpack.prod.js",
     "build-dev": "webpack --config config/webpack.dev.js",
-    "start": "npm run webpack-dev-server"
+    "start": "npm run webpack-dev-server",
+    "postinstall": "npm run gulp build"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,18 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@angular/common": "4.0.0",
+    "@angular/compiler": "4.0.0",
+    "@angular/core": "4.0.0",
+    "@angular/forms": "4.0.0",
+    "@angular/http": "4.0.0",
+    "@angular/platform-browser": "4.0.0",
+    "@angular/platform-browser-dynamic": "4.0.0",
+    "@angular/router": "4.0.0",
+    "@angular/animations": "4.0.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.2.0",
+    "zone.js": "^0.8.4",
     "@types/node": "^7.0.5",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
