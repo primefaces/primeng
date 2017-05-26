@@ -827,8 +827,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this._isValid = false;
         }
         
-        this.updateModel();
         this.filled = val != null && val.length;
+        this.updateModel();
         this.onInput.emit(event);
     }
     
