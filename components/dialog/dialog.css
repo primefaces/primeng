@@ -81,3 +81,12 @@
 .ui-fluid .ui-dialog-buttonpane .ui-button {
     width: auto;
 }
+
+/* RTL */
+.ui-rtl .ui-dialog .ui-dialog-titlebar-close  {
+    float: left;
+}
+
+.ui-rtl .ui-dialog .ui-dialog-buttonpane button {
+    float: left;
+}
