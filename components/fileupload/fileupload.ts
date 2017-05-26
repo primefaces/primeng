@@ -158,7 +158,10 @@ export class FileUpload implements OnInit,AfterContentInit {
                 if(this.isImage(file)) {
                     file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
                 }
-                
+                if (!this.multiple) {
+                    this.files = [ files[i] ];
+                    continue;
+                }
                 this.files.push(files[i]);
             }
         }
