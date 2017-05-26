@@ -175,8 +175,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     ngDoCheck() {
         let changes = this.differ.diff(this.value);
-        
-        if(changes) {
+        let optionsChanges = this.differ.diff(this.options);
+        if(changes || optionsChanges) {
             this.updateLabel();
         }
     }
