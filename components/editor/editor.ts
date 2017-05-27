@@ -83,6 +83,8 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     @Input() formats: string[];
     
+    @Output() onInit: EventEmitter<any> = new EventEmitter();
+    
     value: string;
     
     onModelChange: Function = () => {};
@@ -139,6 +141,10 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
                 source: source
             });
         });
+        
+        this.onInit.emit({
+            editor: this.quill
+        });
     }
         
     writeValue(value: any) : void {
@@ -158,6 +164,10 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
+    }
+    
+    getQuill() {
+        return this.quill;
     }
 }
 
