@@ -155,9 +155,11 @@ export class TabView implements AfterContentInit,BlockableUI {
         }
     }
             
-    open(event?: Event, tab: TabPanel) {
+    open(event: Event, tab: TabPanel) {
         if(tab.disabled) {
-            event.preventDefault();
+            if(event) {
+                event.preventDefault();
+            }
             return;
         }
         
@@ -169,7 +171,10 @@ export class TabView implements AfterContentInit,BlockableUI {
             tab.selected = true;
             this.onChange.emit({originalEvent: event, index: this.findTabIndex(tab)});
         }
-        event.preventDefault();
+        
+        if(event) {
+            event.preventDefault();
+        }
     }
     
     close(event: Event, tab: TabPanel) {  
