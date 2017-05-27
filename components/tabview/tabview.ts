@@ -155,7 +155,7 @@ export class TabView implements AfterContentInit,BlockableUI {
         }
     }
             
-    open(event: Event, tab: TabPanel) {
+    open(event?: Event, tab: TabPanel) {
         if(tab.disabled) {
             event.preventDefault();
             return;
