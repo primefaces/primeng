@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,Input,ViewContainerRef,ViewChild,
-        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef} from '@angular/core';
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef,OnChanges,SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
@@ -305,13 +305,32 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     public rowHeight: number;
         
     public scrollTimeout: any;
-                            
+
+    @Input() set selectionIndex(sIndex: number) {
+        if (sIndex >= 0) {
+            this.scrollBody = <HTMLDivElement> this.scrollBodyViewChild.nativeElement;
+            this.scrollTable = <HTMLDivElement> this.scrollTableViewChild.nativeElement;
+
+            let viewport = this.domHandler.getOuterHeight(this.scrollBody);
+            let possibleElementsToShow = Math.floor(viewport / this.rowHeight);
+            let currentScrollTop = this.scrollBody.scrollTop;
+            let startElIndex = Math.floor(currentScrollTop / this.rowHeight);
+            let endEIndex = startElIndex + possibleElementsToShow;
+
+            if (startElIndex > sIndex || sIndex >= endEIndex) {
+                let firstElementToShow = sIndex == endEIndex ? sIndex : Math.max(sIndex - Math.floor(possibleElementsToShow / 2), 0);
+                let scrollPx = firstElementToShow * this.rowHeight;
+                this.scrollBody.scrollTop = scrollPx;
+            }
+        }
+    }
+
     ngAfterViewInit() {
         this.initScrolling();
     }
     
     ngAfterViewChecked() {
-        if(this.virtualScroll && !this.rowHeight) {
+        if(!this.rowHeight) {
              let row = this.domHandler.findSingle(this.scrollTable, 'tr.ui-widget-content');
              if(row) {
                  this.rowHeight = this.domHandler.getOuterHeight(row);
@@ -450,7 +469,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
                     <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
-                    <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
+                    <div [pScrollableView]="scrollableColumns" [selectionIndex]="sIndex" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
                         class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                         [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}"></div>
                 </div>
@@ -469,7 +488,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     `,
     providers: [DomHandler,ObjectUtils]
 })
-export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,OnDestroy,BlockableUI {
+export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentInit,OnInit,OnDestroy,OnChanges,BlockableUI {
 
     @Input() paginator: boolean;
 
@@ -702,7 +721,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     globalFilterFunction: any;
     
     columnsSubscription: Subscription;
-    
+
+    sIndex: number;//selected Index when not lazy and singleSelectionMode
+
     constructor(public el: ElementRef, public domHandler: DomHandler,
             public renderer: Renderer, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
     }
@@ -771,7 +792,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
     }
-    
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (!this.lazy && this.isSingleSelectionMode() && this.value && changes['selection']) {
+            let currentValue = changes['selection'].currentValue;
+            this.sIndex = this.value.indexOf(currentValue);
+        }
+    }
+
     @Input() get value(): any[] {
         return this._value;
     }
