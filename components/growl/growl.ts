@@ -49,6 +49,8 @@ export class Growl implements AfterViewInit,OnDestroy {
     container: HTMLDivElement;
         
     timeout: any;
+    
+    preventRerender: boolean;
         
     constructor(public el: ElementRef, public domHandler: DomHandler) {
         this.zIndex = DomHandler.zindex;
@@ -70,6 +72,11 @@ export class Growl implements AfterViewInit,OnDestroy {
     }
     
     handleValueChange() {
+        if(this.preventRerender) {
+            this.preventRerender = false;
+            return;
+        }
+        
         this.zIndex = ++DomHandler.zindex;
         this.domHandler.fadeIn(this.container, 250);
         
@@ -87,9 +94,10 @@ export class Growl implements AfterViewInit,OnDestroy {
         this.domHandler.fadeOut(msgel, 250);
         
         setTimeout(() => {
+            this.preventRerender = true;
             this.onClose.emit({message:this.value[index]});
-            this.value = this.value.filter((val,i) => i!=index);
-            this.valueChange.emit(this.value);
+            this._value = this.value.filter((val,i) => i!=index);
+            this.valueChange.emit(this._value);
         }, 250);        
     }
     
