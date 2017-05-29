@@ -13,7 +13,7 @@ export class MenuDemo {
             label: 'File',
             items: [
                 {label: 'New', icon: 'fa-plus'},
-                {label: 'Open', icon: 'fa-download', routerLink:['/theming']}
+                {label: 'Open', icon: 'fa-download'}
             ]
         },
         {
