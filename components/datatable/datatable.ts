@@ -1575,7 +1575,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
             
             //tab
-            else if(event.keyCode == 9) {                
+            else if(event.keyCode == 9) {     
+                this.onEditComplete.emit({column: column, data: rowData, index: rowIndex});
+                           
                 if(event.shiftKey)
                     this.moveToPreviousCell(event);
                 else
