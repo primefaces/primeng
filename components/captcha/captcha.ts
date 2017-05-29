@@ -19,7 +19,7 @@ export class Captcha implements AfterViewInit {
     
     @Input() language: string = null;
      
-    @Input() callback = "recaptchaLoaded";
+    @Input() initCallback = "initRecaptcha";
     
     @Output() onResponse: EventEmitter<any> = new EventEmitter();
     
@@ -35,7 +35,7 @@ export class Captcha implements AfterViewInit {
         if ((<any>window).grecaptcha)
             this.init();
         else {
-            (<any>window)[this.callback] = () => {
+            (<any>window)[this.initCallback] = () => {
               this.init();
             }
         } 

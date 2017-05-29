@@ -33,7 +33,20 @@ import &#123;CaptchaModule&#125; from 'primeng/primeng';
             <p>In addition include the captcha widget resource to your page.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer>&lt;/script&gt;
+&lt;script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=initRecaptcha" async defer>&lt;/script&gt;
+</code>
+</pre>
+
+            <p>Global callback name is initRecaptcha by default and it can be changed using initCallback property .</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=loadCaptcha" async defer>&lt;/script&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-captcha siteKey="YOUR_SITE_KEY" (onResponse)="showResponse($event)" initCallback="loadCaptcha"&gt;&lt;/p-captcha&gt;
 </code>
 </pre>
 
@@ -99,6 +112,12 @@ showResponse(response) &#123;
                             <td>string</td>
                             <td>en</td>
                             <td>Language of the widget.</td>
+                        </tr>
+                        <tr>
+                            <td>initCallback</td>
+                            <td>string</td>
+                            <td>initRecaptcha</td>
+                            <td>Name of global callback to initialize recaptcha.</td>
                         </tr>
                     </tbody>
                 </table>
