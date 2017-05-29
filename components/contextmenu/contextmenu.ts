@@ -205,8 +205,9 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     position(event?: MouseEvent) {
         if(event) {
-            let left = event.pageX;
-            let top = event.pageY;
+            console.log(event.pageX);
+            let left = event.pageX + 1;
+            let top = event.pageY + 1;
             let width = this.container.offsetParent ? this.container.offsetWidth: this.domHandler.getHiddenElementOuterWidth(this.container);
             let height = this.container.offsetParent ? this.container.offsetHeight: this.domHandler.getHiddenElementOuterHeight(this.container);
             let viewport = this.domHandler.getViewport();
@@ -231,7 +232,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
                 top = document.body.scrollTop;
             }
                 
-            this.container.style.left = left + 'px';
+            this.container.style.left = left  + 'px';
             this.container.style.top = top + 'px';
         }
     }
