@@ -261,6 +261,14 @@ export class DomHandler {
         width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
         return width;
     }
+    
+    public getInnerHeight(el) {
+        let height = el.offsetHeight;
+        let style = getComputedStyle(el);
+
+        height += parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+        return height;
+    }
 
     public getOuterHeight(el, margin?) {
         let height = el.offsetHeight;

@@ -6,18 +6,18 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="350" [responsive]="true">
+    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" [responsive]="true" [width]="300" [minWidth]="200">
         <span>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
            kind and benevolent to those who give respect,
            but given to ruthless violence whenever anything stands against the good of the family.</span>
-        <p-footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
-                <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
-            </div>
-        </p-footer>
+           <p-footer>
+               <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                   <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
+                   <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
+               </div>
+           </p-footer>
     </p-dialog>
 
     <button type="button" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button>
