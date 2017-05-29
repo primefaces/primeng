@@ -1427,7 +1427,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         this.onFilter.emit({
-            filters: this.filters
+            filters: this.filters,
+            filteredValue: this.filteredValue||this.value
         });
     }
 
