@@ -73,7 +73,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
 
     @Input() closable: boolean = true;
 
-    @Input() responsive: boolean;
+    @Input() responsive: boolean = true;
     
     @Input() appendTo: any;
     
@@ -83,6 +83,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     
     @Input() showHeader: boolean = true;
     
+    @Input() breakpoint: number = 640;
+        
     @ContentChild(Header) headerFacet;
     
     @ViewChild('container') containerViewChild: ElementRef;
@@ -122,6 +124,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     mask: HTMLDivElement;
             
     closeIconMouseDown: boolean;
+    
+    preWidth: number;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
@@ -200,7 +204,19 @@ export class Dialog implements AfterViewInit,OnDestroy {
         
         if(this.responsive) {
             this.documentResponsiveListener = this.renderer.listen('window', 'resize', (event) => {
-                this.positionOverlay();
+                let viewport = this.domHandler.getViewport();
+                let width = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
+                if(viewport.width <= this.breakpoint) {
+                    if(!this.preWidth) {
+                        this.preWidth = width;
+                    }
+                    this.containerViewChild.nativeElement.style.left = '0px';
+                    this.containerViewChild.nativeElement.style.width = '100%';
+                }
+                else {
+                    this.containerViewChild.nativeElement.style.width = this.preWidth + 'px';
+                    this.positionOverlay();
+                }
             });
         }
         
@@ -318,6 +334,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
     
     initResize(event: MouseEvent) {
         if(this.resizable) {
+            this.preWidth = null;
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
