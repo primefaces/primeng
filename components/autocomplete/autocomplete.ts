@@ -206,7 +206,11 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     }
     
     ngAfterViewInit() {        
-        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
+        this.documentClickListener = this.renderer.listenGlobal('document', 'click', (event) => {
+            if(event.which === 3) {
+                return;
+            }
+            
             if(this.inputClick)
                 this.inputClick = false;
             else
