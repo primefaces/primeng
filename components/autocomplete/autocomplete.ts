@@ -205,20 +205,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
         });
     }
     
-    ngAfterViewInit() {        
-        this.documentClickListener = this.renderer.listenGlobal('document', 'click', (event) => {
-            if(event.which === 3) {
-                return;
-            }
-            
-            if(this.inputClick)
-                this.inputClick = false;
-            else
-                this.hide();
-                
-            this.cd.markForCheck();
-        });
-
+    ngAfterViewInit() {
         if(this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.panelEL.nativeElement);
@@ -286,7 +273,9 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     }
     
     onInputClick(event: MouseEvent) {
-        this.inputClick = true;
+        if(this.documentClickListener) {
+            this.inputClick = true;
+        }
     }
     
     search(event: any, query: string) {
@@ -328,6 +317,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
                 this.panelVisible = true;
                 this.panelEL.nativeElement.style.zIndex = ++DomHandler.zindex;
                 this.domHandler.fadeIn(this.panelEL.nativeElement, 200);
+                this.bindDocumentClickListener();
             }   
         }
     }
@@ -341,6 +331,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     
     hide() {
         this.panelVisible = false;
+        this.unbindDocumentClickListener();
     }
     
     handleDropdownClick(event) {
@@ -493,10 +484,32 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
             this.filled = this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '';
     }
     
-    ngOnDestroy() {
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listenGlobal('document', 'click', (event) => {
+                if(event.which === 3) {
+                    return;
+                }
+                
+                if(this.inputClick)
+                    this.inputClick = false;
+                else
+                    this.hide();
+                    
+                this.cd.markForCheck();
+            });
+        }
+    }
+    
+    unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
+            this.documentClickListener = null;
         }
+    }
+    
+    ngOnDestroy() {
+        this.unbindDocumentClickListener();
 
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.panelEL.nativeElement);
