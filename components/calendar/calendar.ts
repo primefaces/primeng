@@ -822,6 +822,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         let val = event.target.value;   
         try {
             this.value = this.parseValueFromString(val);
+            if (this.value) {
+                this.onSelect.emit(this.value);
+            }
             this.updateUI();
             this._isValid = true;
         } 
@@ -916,6 +919,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.value = value;
         if(this.value && typeof this.value === 'string') {
             this.value = this.parseValueFromString(this.value);
+        }
+        if (this.value) {
+            this.onSelect.emit(this.value);
         }
 
         this.updateInputfield();
