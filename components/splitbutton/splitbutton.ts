@@ -4,6 +4,7 @@ import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
 import {ButtonModule} from '../button/button';
 import {Router} from '@angular/router';
+import {RouterModule} from '@angular/router';
 
 @Component({
     selector: 'p-splitButton',
@@ -15,9 +16,13 @@ import {Router} from '@angular/router';
                     [ngStyle]="menuStyle" [class]="menuStyleClass">
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of model">
-                        <a [href]="item.url||'#'" 
-                        [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':item.disabled}" 
-                        (click)="itemClick($event,item)">
+                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                            [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
+                            <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
+                            <span class="ui-menuitem-text">{{item.label}}</span>
+                        </a>
+                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink"
+                            class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
@@ -77,7 +82,7 @@ export class SplitButton implements OnInit,OnDestroy {
             return;
         }
         
-        if(!item.url||item.routerLink) {
+        if(!item.url) {
             event.preventDefault();
         }
         
@@ -87,14 +92,13 @@ export class SplitButton implements OnInit,OnDestroy {
                 item.eventEmitter.subscribe(item.command);
             }
             
-            item.eventEmitter.emit(event);
+            item.eventEmitter.emit({
+                originalEvent: event,
+                item: item
+            });
         }
         
         this.menuVisible = false;
-        
-        if(item.routerLink) {
-            this.router.navigate(item.routerLink);
-        }
     }
     
     onDropdownButtonClick(event: Event, menu: HTMLDivElement, container: Element) {
@@ -114,8 +118,8 @@ export class SplitButton implements OnInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
-    exports: [SplitButton,ButtonModule],
+    imports: [CommonModule,ButtonModule,RouterModule],
+    exports: [SplitButton,ButtonModule,RouterModule],
     declarations: [SplitButton]
 })
 export class SplitButtonModule { }
