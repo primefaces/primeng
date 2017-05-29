@@ -151,6 +151,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     filled: boolean;
     
     inputClick: boolean;
+
+    inputKeyDown: boolean;
     
     noResults: boolean;
         
@@ -247,6 +249,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     }
 
     onInput(event: KeyboardEvent) {
+        if(!this.inputKeyDown) {
+            return;
+        }
+
         let value = (<HTMLInputElement> event.target).value;
         if(!this.multiple) {
             this.onModelChange(value);
@@ -270,6 +276,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
             this.suggestions = null;
         }
         this.updateFilledState();
+        this.inputKeyDown = false;
     }
     
     onInputClick(event: MouseEvent) {
@@ -433,6 +440,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
                 break;
             }
         }
+
+        this.inputKeyDown = true;
     }
     
     onInputFocus(event) {
