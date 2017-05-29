@@ -13,7 +13,7 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
                 <ng-content select="p-header"></ng-content>
                 <a *ngIf="toggleable" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
                     (click)="toggle($event)">
-                    <span class="fa fa-fw" [ngClass]="{'fa-minus': !collapsed,'fa-plus':collapsed}"></span>
+                    <span [class]="collapsed ? 'fa fa-fw ' + expandIcon : 'fa fa-fw ' + collapseIcon"></span>
                 </a>
             </div>
             <div class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" (@panelContent.done)="onToggleDone($event)"
@@ -47,6 +47,10 @@ export class Panel implements BlockableUI {
     @Input() style: any;
         
     @Input() styleClass: string;
+    
+    @Input() expandIcon: string = 'fa-plus';
+    
+    @Input() collapseIcon: string = 'fa-minus';
     
     @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
 
