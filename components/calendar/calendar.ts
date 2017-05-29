@@ -1254,6 +1254,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
+            this.documentClickListener = null;
         }
     }
         
