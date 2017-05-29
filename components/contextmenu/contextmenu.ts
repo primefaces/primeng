@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,EventEmitter,Inject,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
@@ -151,17 +151,17 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     rightClickListener: any;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         
-        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
+        this.documentClickListener = this.renderer.listen('document', 'click', () => {
             this.hide();
         });
         
         if(this.global) {
-            this.rightClickListener = this.renderer.listenGlobal('document', 'contextmenu', (event) => {
+            this.rightClickListener = this.renderer.listen('document', 'contextmenu', (event) => {
                 this.show(event);
                 event.preventDefault();
             });

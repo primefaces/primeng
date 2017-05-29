@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild,ViewChild} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -125,7 +125,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
     
     closeIconMouseDown: boolean;
                 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
     @Input() get visible(): boolean {
         return this._visible;
@@ -185,17 +185,17 @@ export class Dialog implements AfterViewInit,OnDestroy {
         this.contentContainer =  <HTMLDivElement> this.contentViewChild.nativeElement;
         
         if(this.draggable) {
-            this.documentDragListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
+            this.documentDragListener = this.renderer.listen('document', 'mousemove', (event) => {
                 this.onDrag(event);
             });
         }
         
         if(this.resizable) {
-            this.documentResizeListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
+            this.documentResizeListener = this.renderer.listen('document', 'mousemove', (event) => {
                 this.onResize(event);
             });
             
-            this.documentResizeEndListener = this.renderer.listenGlobal('document', 'mouseup', (event) => {
+            this.documentResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
                 if(this.resizing) {
                     this.resizing = false;
                 }
@@ -203,13 +203,13 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
         
         if(this.responsive) {
-            this.documentResponsiveListener = this.renderer.listenGlobal('window', 'resize', (event) => {
+            this.documentResponsiveListener = this.renderer.listen('window', 'resize', (event) => {
                 this.positionOverlay();
             });
         }
         
         if(this.closeOnEscape && this.closable) {
-            this.documentEscapeListener = this.renderer.listenGlobal('document', 'keydown', (event) => {
+            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
                 if(event.which == 27) {
                     if(parseInt(this.container.style.zIndex) == DomHandler.zindex) {
                         this.close(event);

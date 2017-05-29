@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer,ContentChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -100,7 +100,7 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     subscription: Subscription;
             
     constructor(public el: ElementRef, public domHandler: DomHandler, 
-            public renderer: Renderer, private confirmationService: ConfirmationService) {
+            public renderer: Renderer2, private confirmationService: ConfirmationService) {
         this.subscription = confirmationService.requireConfirmation$.subscribe(confirmation => {
             if(confirmation.key === this.key) {
                 this.confirmation = confirmation;
@@ -151,13 +151,13 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
         this.contentContainer = this.domHandler.findSingle(this.el.nativeElement, '.ui-dialog-content');
         
         if(this.responsive) {
-            this.documentResponsiveListener = this.renderer.listenGlobal('window', 'resize', (event) => {
+            this.documentResponsiveListener = this.renderer.listen('window', 'resize', (event) => {
                 this.center();
             });
         }
         
         if(this.closeOnEscape && this.closable) {
-            this.documentEscapeListener = this.renderer.listenGlobal('document', 'keydown', (event) => {
+            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
                 if(event.which == 27) {
                     if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex) {
                         this.hide(event);

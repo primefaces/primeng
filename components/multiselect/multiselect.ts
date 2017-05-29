@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer,EventEmitter,IterableDiffers,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/api';
 import {DomHandler} from '../dom/domhandler';
@@ -135,7 +135,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     public optionsDiffer: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, differs: IterableDiffers, public objectUtils: ObjectUtils) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils) {
         this.valueDiffer = differs.find([]).create(null);
         this.optionsDiffer = differs.find([]).create(null);
     }
@@ -143,7 +143,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     ngOnInit() {
         this.updateLabel();
         
-        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
+        this.documentClickListener = this.renderer.listen('document', 'click', () => {
             if(!this.selfClick && !this.panelClick && this.overlayVisible) {
                 this.hide();
             }

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,Renderer,AfterViewInit,OnDestroy} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,Renderer2,AfterViewInit,OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -70,7 +70,7 @@ export class Lightbox implements AfterViewInit,OnDestroy{
     
     public documentClickListener: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
                 
     onImageClick(event,image,i,content) {
         this.index = i;
@@ -94,7 +94,7 @@ export class Lightbox implements AfterViewInit,OnDestroy{
                 this.domHandler.appendChild(this.panel, this.appendTo);
         }
         
-        this.documentClickListener = this.renderer.listenGlobal('document', 'click', (event) => {
+        this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
             if(!this.preventDocumentClickListener&&this.visible) {
                 this.hide(event);
             }

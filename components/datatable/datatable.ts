@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,Input,ViewContainerRef,ViewChild,
-        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef} from '@angular/core';
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer2,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
@@ -252,7 +252,7 @@ export class TableBody {
 })
 export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy {
         
-    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer) {}
+    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer2) {}
     
     @Input("pScrollableView") columns: Column[];
     
@@ -704,7 +704,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     columnsSubscription: Subscription;
     
     constructor(public el: ElementRef, public domHandler: DomHandler,
-            public renderer: Renderer, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
+            public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
     }
 
     ngOnInit() {
@@ -763,7 +763,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         if(this.editable) {
-            this.documentClickListener = this.renderer.listenGlobal('document', 'click', (event) => {
+            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
                 if(!this.editorClick) {
                     this.closeCell();
                 }
@@ -1535,7 +1535,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this.domHandler.addClass(cell, 'ui-cell-editing');
                 let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input');
                 if(focusable) {
-                    setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 50);
+                    setTimeout(() => this.domHandler.invokeElementMethod(focusable, 'focus'), 50);
                 }
             }
         }
@@ -1561,7 +1561,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             //enter
             if(event.keyCode == 13) {
                 this.onEditComplete.emit({column: column, data: rowData, index: rowIndex});
-                this.renderer.invokeElementMethod(event.target, 'blur');
+                this.domHandler.invokeElementMethod(event.target, 'blur');
                 this.switchCellToViewMode(event.target);
                 event.preventDefault();
             }
@@ -1569,7 +1569,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             //escape
             else if(event.keyCode == 27) {
                 this.onEditCancel.emit({column: column, data: rowData, index: rowIndex});
-                this.renderer.invokeElementMethod(event.target, 'blur');
+                this.domHandler.invokeElementMethod(event.target, 'blur');
                 this.switchCellToViewMode(event.target);
                 event.preventDefault();
             }
@@ -1592,7 +1592,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let targetCell = this.findPreviousEditableColumn(currentCell);
                 
         if(targetCell) {
-            this.renderer.invokeElementMethod(targetCell, 'click');
+            this.domHandler.invokeElementMethod(targetCell, 'click');
             event.preventDefault();
         }
     }
@@ -1603,7 +1603,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let targetCell = this.findNextEditableColumn(currentCell);
         
         if(targetCell) {
-            this.renderer.invokeElementMethod(targetCell, 'click');
+            this.domHandler.invokeElementMethod(targetCell, 'click');
             event.preventDefault();
         }
     }
@@ -1672,13 +1672,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.resizerHelper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
         this.fixColumnWidths();
         
-        this.documentColumnResizeListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
+        this.documentColumnResizeListener = this.renderer.listen('document', 'mousemove', (event) => {
             if(this.columnResizing) {
                 this.onColumnResize(event);
             }
         });
         
-        this.documentColumnResizeEndListener = this.renderer.listenGlobal('document', 'mouseup', (event) => {
+        this.documentColumnResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
             if(this.columnResizing) {
                 this.columnResizing = false;
                 this.onColumnResizeEnd(event);

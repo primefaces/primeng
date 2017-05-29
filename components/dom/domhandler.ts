@@ -378,4 +378,8 @@ export class DomHandler {
         
         return scrollbarWidth;
     }
+    
+    public invokeElementMethod(element: any, methodName: string, args?: any[]): void {
+        (element as any)[methodName].apply(element, args);
+    }
 }

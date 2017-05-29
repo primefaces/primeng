@@ -1,4 +1,4 @@
-import {NgModule,Component, ElementRef,AfterViewInit,OnDestroy,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer} from '@angular/core';
+import {NgModule,Component, ElementRef,AfterViewInit,OnDestroy,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -87,7 +87,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
     public starty: number;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
     onMouseDown(event:Event,index?:number) {
         if(this.disabled) {
@@ -152,13 +152,13 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
             return;
         }
         
-        this.dragListener = this.renderer.listenGlobal('document', 'mousemove', (event) => {
+        this.dragListener = this.renderer.listen('document', 'mousemove', (event) => {
             if(this.dragging) {                                
                 this.handleChange(event);
             }
         });
         
-        this.mouseupListener = this.renderer.listenGlobal('document', 'mouseup', (event) => {
+        this.mouseupListener = this.renderer.listen('document', 'mouseup', (event) => {
             if(this.dragging) {
                 this.dragging = false;
                 if(this.range) {
