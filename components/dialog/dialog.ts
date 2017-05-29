@@ -334,10 +334,12 @@ export class Dialog implements AfterViewInit,OnDestroy {
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
 
-            if(newWidth > this.minWidth)
+            if(newWidth > this.minWidth) {
                 this.containerViewChild.nativeElement.style.width = newWidth + 'px';
+            }
                 
             if(newHeight > this.minHeight) {
+                this.containerViewChild.nativeElement.style.height = newHeight + 'px';
                 this.contentViewChild.nativeElement.style.height = contentHeight + deltaY + 'px';
             }
 
