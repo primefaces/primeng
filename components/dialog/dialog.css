@@ -15,12 +15,10 @@
     overflow: auto;
     zoom: 1;
 }
-.ui-dialog .ui-dialog-buttonpane {
-    text-align: left;
+.ui-dialog .ui-dialog-footer {
+    padding: .25em .75em;    
     border-width: 1px 0 0 0;
     background-image: none;
-    margin: .5em 0 0 0;
-    padding: .3em 1em .5em .4em;
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
     float: right;

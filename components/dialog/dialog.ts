@@ -2,7 +2,7 @@ import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Event
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {Header,SharedModule} from '../common/shared';
+import {Header,Footer,SharedModule} from '../common/shared';
 
 @Component({
     selector: 'p-dialog',
@@ -22,7 +22,9 @@ import {Header,SharedModule} from '../common/shared';
             <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
                 <ng-content></ng-content>
             </div>
-            <ng-content select="p-footer"></ng-content>
+            <div class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet">
+                <ng-content select="p-footer"></ng-content>
+            </div>
             <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
                 (mousedown)="initResize($event)"></div>
         </div>
@@ -86,6 +88,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     @Input() breakpoint: number = 640;
         
     @ContentChild(Header) headerFacet;
+    
+    @ContentChild(Footer) footerFacet;
     
     @ViewChild('container') containerViewChild: ElementRef;
     
