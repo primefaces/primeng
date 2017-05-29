@@ -148,6 +148,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         this.onShow.emit({});
         this.positionOverlay();
         this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        this.bindGlobalListeners();
         
         if(this.modal) {
             this.enableModality();
@@ -183,53 +184,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         event.preventDefault();
     }
         
-    ngAfterViewInit() {        
-        if(this.draggable) {
-            this.documentDragListener = this.renderer.listen('document', 'mousemove', (event) => {
-                this.onDrag(event);
-            });
-        }
-        
-        if(this.resizable) {
-            this.documentResizeListener = this.renderer.listen('document', 'mousemove', (event) => {
-                this.onResize(event);
-            });
-            
-            this.documentResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
-                if(this.resizing) {
-                    this.resizing = false;
-                }
-            });
-        }
-        
-        if(this.responsive) {
-            this.documentResponsiveListener = this.renderer.listen('window', 'resize', (event) => {
-                let viewport = this.domHandler.getViewport();
-                let width = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
-                if(viewport.width <= this.breakpoint) {
-                    if(!this.preWidth) {
-                        this.preWidth = width;
-                    }
-                    this.containerViewChild.nativeElement.style.left = '0px';
-                    this.containerViewChild.nativeElement.style.width = '100%';
-                }
-                else {
-                    this.containerViewChild.nativeElement.style.width = this.preWidth + 'px';
-                    this.positionOverlay();
-                }
-            });
-        }
-        
-        if(this.closeOnEscape && this.closable) {
-            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
-                if(event.which == 27) {
-                    if(parseInt(this.containerViewChild.nativeElement.style.zIndex) == DomHandler.zindex) {
-                        this.close(event);
-                    }
-                }
-            });
-        }
-        
+    ngAfterViewInit() {                
         if(this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.containerViewChild.nativeElement);
@@ -365,25 +320,108 @@ export class Dialog implements AfterViewInit,OnDestroy {
         }
     }
     
-    ngOnDestroy() {
-        this.disableModality();
-        
-        if(this.documentDragListener) {
-            this.documentDragListener();
+    bindGlobalListeners() {
+        if(this.draggable) {
+            this.bindDocumentDragListener();
         }
         
+        if(this.resizable) {
+            this.bindDocumentResizeListeners();
+        }
+        
+        if(this.responsive) {
+            this.bindDocumentResponsiveListener();
+        }
+        
+        if(this.closeOnEscape && this.closable) {
+            this.bindDocumentEscapeListener();
+        }
+    }
+    
+    unbindGlobalListeners() {
+        this.unbindDocumentDragListener();
+    }
+    
+    bindDocumentDragListener() {
+        this.documentDragListener = this.renderer.listen('document', 'mousemove', (event) => {
+            this.onDrag(event);
+        });
+    }
+    
+    unbindDocumentDragListener() {
+        if(this.documentDragListener) {
+            this.documentDragListener();
+            this.documentDragListener = null;
+        }
+    }
+    
+    bindDocumentResizeListeners() {
+        this.documentResizeListener = this.renderer.listen('document', 'mousemove', (event) => {
+            this.onResize(event);
+        });
+        
+        this.documentResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
+            if(this.resizing) {
+                this.resizing = false;
+            }
+        });
+    }
+    
+    unbindDocumentResizeListeners() {
         if(this.documentResizeListener && this.documentResizeEndListener) {
             this.documentResizeListener();
             this.documentResizeEndListener();
+            this.documentResizeListener = null;
+            this.documentResizeEndListener = null;
         }
-        
+    }
+    
+    bindDocumentResponsiveListener() {
+        this.documentResponsiveListener = this.renderer.listen('window', 'resize', (event) => {
+            let viewport = this.domHandler.getViewport();
+            let width = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
+            if(viewport.width <= this.breakpoint) {
+                if(!this.preWidth) {
+                    this.preWidth = width;
+                }
+                this.containerViewChild.nativeElement.style.left = '0px';
+                this.containerViewChild.nativeElement.style.width = '100%';
+            }
+            else {
+                this.containerViewChild.nativeElement.style.width = this.preWidth + 'px';
+                this.positionOverlay();
+            }
+        });
+    }
+    
+    unbindDocumentResponseListener() {
         if(this.documentResponsiveListener) {
             this.documentResponsiveListener();
+            this.documentResponsiveListener = null;
         }
-        
+    }
+    
+    bindDocumentEscapeListener() {
+        this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+            if(event.which == 27) {
+                if(parseInt(this.containerViewChild.nativeElement.style.zIndex) == DomHandler.zindex) {
+                    this.close(event);
+                }
+            }
+        });
+    }
+    
+    unbindDocumentEscapeListener() {
         if(this.documentEscapeListener) {
             this.documentEscapeListener();
+            this.documentEscapeListener = null;
         }
+    }
+    
+    ngOnDestroy() {
+        this.disableModality();
+        
+        this.unbindGlobalListeners();
         
         if(this.appendTo) {
             this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
