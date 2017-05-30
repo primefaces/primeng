@@ -12,28 +12,22 @@
     <p-gmap #gmap [style]="&#123;'width':'100%','height':'320px'&#125;" [options]="options" [overlays]="overlays" 
         (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"></p-gmap>
     <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"></button>
-    <button type="button" pButton label="Reset" icon="fa-map-marker" (click)="initOverlays()" style="margin-top:10px"></button>
     <button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())" style="margin-top:10px"></button>
     <button type="button" pButton label="Zoom Out" icon="fa-search-minus" (click)="zoomOut(gmap.getMap())" style="margin-top:10px"></button>
 
-    <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location">
-        <div class="ui-grid ui-grid-pad ui-fluid" *ngIf="selectedPosition">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="title">Label</label></div>
-                <div class="ui-grid-col-10"><input type="text" pInputText id="title" [(ngModel)]="markerTitle"></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="lat">Lat</label></div>
-                <div class="ui-grid-col-10"><input id="lat" type="text" readonly pInputText [ngModel]="selectedPosition.lat()"></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="lng">Lng</label></div>
-                <div class="ui-grid-col-10"><input id="lng" type="text" readonly pInputText [ngModel]="selectedPosition.lng()"></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="drg">Drag</label></div>
-                <div class="ui-grid-col-10"><p-checkbox [(ngModel)]="draggable" binary="true"></p-checkbox></div>
-            </div>
+    <p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location" [width]="300">
+        <div class="ui-g ui-fluid" *ngIf="selectedPosition">
+            <div class="ui-g-2"><label for="title">Label</label></div>
+            <div class="ui-g-10"><input type="text" pInputText id="title" [(ngModel)]="markerTitle"></div>
+            
+            <div class="ui-g-2"><label for="lat">Lat</label></div>
+            <div class="ui-g-10"><input id="lat" type="text" readonly pInputText [ngModel]="selectedPosition.lat()"></div>
+            
+            <div class="ui-g-2"><label for="lng">Lng</label></div>
+            <div class="ui-g-10"><input id="lng" type="text" readonly pInputText [ngModel]="selectedPosition.lng()"></div>
+            
+            <div class="ui-g-2"><label for="drg">Drag</label></div>
+            <div class="ui-g-10"><p-checkbox [(ngModel)]="draggable" binary="true" [style]="{'margin-top':'.25em'}"></p-checkbox></div>
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
@@ -347,28 +341,22 @@ export class MyModel &#123;
 &lt;p-gmap #gmap [style]="&#123;'width':'100%','height':'320px'&#125;" [options]="options" [overlays]="overlays" 
     (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"&gt;&lt;/p-gmap&gt;
 &lt;button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"&gt;&lt;/button&gt;
-&lt;button type="button" pButton label="Reset" icon="fa-map-marker" (click)="initOverlays()" style="margin-top:10px"&gt;&lt;/button&gt;
 &lt;button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())" style="margin-top:10px"&gt;&lt;/button&gt;
 &lt;button type="button" pButton label="Zoom Out" icon="fa-search-minus" (click)="zoomOut(gmap.getMap())" style="margin-top:10px"&gt;&lt;/button&gt;
 
 &lt;p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location"&gt;
-    &lt;div class="ui-grid ui-grid-pad ui-fluid" *ngIf="selectedPosition"&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-2"&gt;&lt;label for="title"&gt;Label&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-10"&gt;&lt;input type="text" pInputText id="title" [(ngModel)]="markerTitle"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-2"&gt;&lt;label for="lat"&gt;Lat&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-10"&gt;&lt;input id="lat" type="text" readonly pInputText [ngModel]="selectedPosition.lat()"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-2"&gt;&lt;label for="lng"&gt;Lng&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-10"&gt;&lt;input id="lng" type="text" readonly pInputText [ngModel]="selectedPosition.lng()"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-2"&gt;&lt;label for="drg"&gt;Drag&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-10"&gt;&lt;p-checkbox [(ngModel)]="draggable" binary="true"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;/div&gt;
+    &lt;div class="ui-g ui-fluid" *ngIf="selectedPosition"&gt;
+        &lt;div class="ui-g-2"&gt;&lt;label for="title"&gt;Label&lt;/label&gt;&lt;/div&gt;
+        &lt;div class="ui-g-10"&gt;&lt;input type="text" pInputText id="title" [(ngModel)]="markerTitle"&gt;&lt;/div&gt;
+        
+        &lt;div class="ui-g-2"&gt;&lt;label for="lat"&gt;Lat&lt;/label&gt;&lt;/div&gt;
+        &lt;div class="ui-g-10"&gt;&lt;input id="lat" type="text" readonly pInputText [ngModel]="selectedPosition.lat()"&gt;&lt;/div&gt;
+        
+        &lt;div class="ui-g-2"&gt;&lt;label for="lng"&gt;Lng&lt;/label&gt;&lt;/div&gt;
+        &lt;div class="ui-g-10"&gt;&lt;input id="lng" type="text" readonly pInputText [ngModel]="selectedPosition.lng()"&gt;&lt;/div&gt;
+        
+        &lt;div class="ui-g-2"&gt;&lt;label for="drg"&gt;Drag&lt;/label&gt;&lt;/div&gt;
+        &lt;div class="ui-g-10"&gt;&lt;p-checkbox [(ngModel)]="draggable" binary="true" [style]="&#123;'margin-top':'.25em'&#125;"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;p-footer&gt;
         &lt;div class="ui-dialog-buttonpane ui-helper-clearfix"&gt;

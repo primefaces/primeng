@@ -7,6 +7,7 @@ import {GMapModule} from '../../../components/gmap/gmap';
 import {GrowlModule} from '../../../components/growl/growl';
 import {CheckboxModule} from '../../../components/checkbox/checkbox';
 import {DialogModule} from '../../../components/dialog/dialog';
+import {InputTextModule} from '../../../components/inputtext/inputtext';
 import {ButtonModule} from '../../../components/button/button';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
@@ -18,6 +19,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		GMapDemoRoutingModule,
         GMapModule,
         GrowlModule,
+        InputTextModule,
         CheckboxModule,
         DialogModule,
         ButtonModule,
