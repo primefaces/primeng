@@ -62,6 +62,17 @@ export class ModelComponent &#123;
 
             <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
             two-way binding, hiding the dialog with close button updates the visible state as false.</p>
+            
+            <h3>Width</h3>
+            <p>When the content of the dialog is fluid, dialog width may grow unexpectedly, in this case define a fixed width to the dialog
+                or the content.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog header="Title" [(visible)]="display" [width]="300"&gt;
+    Content
+&lt;/p-dialog&gt;
+</code>
+</pre>
 
             <h3>Header and Footer</h3>
             <p>Header and Footer sections are useful to include custom content. Note that Header and Footer components should be imported and defined
