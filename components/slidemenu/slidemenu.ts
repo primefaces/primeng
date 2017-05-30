@@ -113,7 +113,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
 
     @Input() styleClass: string;
     
-    @Input() menuWidth: number = 200;
+    @Input() menuWidth: number = 190;
     
     @Input() viewportHeight: number = 175;
     
