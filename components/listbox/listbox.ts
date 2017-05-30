@@ -294,7 +294,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
 
     toggleAll(event, checkbox) {
-        if(this.disabled) {
+        if(this.disabled || (this.filterValue && this.filterValue.trim().length && (!this.visibleOptions || this.visibleOptions.length === 0))) {
             return;
         }
         
