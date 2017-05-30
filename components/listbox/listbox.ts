@@ -19,10 +19,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple) || filter">
                 <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
                     <div class="ui-helper-hidden-accessible">
-                        <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
+                        <input #cb type="checkbox" readonly="readonly" [checked]="allChecked">
                     </div>
-                    <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="toggleAll($event,cb)">
-                        <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
+                    <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':allChecked}" (click)="toggleAll($event,cb)">
+                        <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':allChecked}"></span>
                     </div>
                 </div>
                 <div class="ui-listbox-filter-container" *ngIf="filter">
@@ -252,12 +252,34 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         return selected;
     }
 
-    isAllChecked() {
+    get allChecked(): boolean {
         if(this.filterValue && this.filterValue.trim().length)
-            return this.value&&this.visibleOptions&&this.visibleOptions.length&&(this.value.length == this.visibleOptions.length);
+            return this.allFilteredSelected();
         else
             return this.value&&this.options&&(this.value.length == this.options.length);
-    } 
+    }
+    
+    allFilteredSelected(): boolean {
+        let allSelected: boolean;
+        if(this.value && this.visibleOptions && this.visibleOptions.length) {
+            allSelected = true;
+            for(let opt of this.visibleOptions) {
+                let selected: boolean;
+                for(let val of this.value) {
+                    if(this.objectUtils.equals(val, opt.value, this.dataKey)) {
+                        selected = true;
+                    }
+                }
+                
+                if(!selected) {
+                    allSelected = false;
+                    break;
+                }
+            }
+        }
+                
+        return allSelected;
+    }
 
     onFilter(event) {
         this.filterValue = event.target.value.trim().toLowerCase();
@@ -280,7 +302,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             this.value = [];
         }
         else {
-            let opts = this.getVisibleOptions();
+            let opts = (this.visibleOptions&&this.visibleOptions.length) ? this.visibleOptions : this.options;
             if(opts) {
                 this.value = [];
                 for(let i = 0; i < opts.length; i++) {
@@ -292,22 +314,6 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
     } 
-
-    getVisibleOptions(): SelectItem[] {
-        if(this.filterValue && this.filterValue.trim().length) {
-            let items = [];
-            for(let i = 0; i < this.options.length; i++) {
-                let option = this.options[i];
-                if(option.label.toLowerCase().includes(this.filterValue.toLowerCase())) {
-                    items.push(option);
-                }
-            }
-            return items;
-        }
-        else {
-            return this.options;
-        }
-    }
 
     isItemVisible(option: SelectItem): boolean {
         if(this.filterValue && this.filterValue.trim().length) {
