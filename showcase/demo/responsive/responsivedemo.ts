@@ -8,13 +8,12 @@ import {SelectItem,MenuItem,TreeNode} from '../../../components/common/api';
 @Component({
     templateUrl: 'showcase/demo/responsive/responsivedemo.html',
     styles: [`
-        .ui-grid-row .ui-grid-col-2,
-        .ui-grid-row .ui-grid-col-10 {
-            padding: 0.5em 0;
-        }
-
         .ui-datagrid .ui-datagrid-column {
             text-align: center;
+        }
+        
+        .radiobuttons > * {
+            vertical-align: middle;
         }
     `],
     encapsulation: ViewEncapsulation.None

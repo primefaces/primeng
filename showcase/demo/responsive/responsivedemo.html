@@ -9,123 +9,99 @@
     </div>
 
     <div class="content-section implementation ui-fluid">
-        <div class="ui-grid ui-grid-responsive ui-grid-pad">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        InputText
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <input pInputText type="text" />
-                    </div>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    InputText
                 </div>
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        Textarea
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <textarea pInputTextarea type="text"></textarea>
-                    </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" />
                 </div>
             </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        Calendar
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <p-calendar [(ngModel)]="date"></p-calendar>
-                    </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Textarea
                 </div>
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        AutoComplete
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
-                        placeholder="Countries" [minLength]="1"></p-autoComplete>
-                    </div>
+                <div class="ui-g-8">
+                    <textarea pInputTextarea type="text"></textarea>
                 </div>
             </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        Button
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <button pButton label="Save"type="button"></button>
-                    </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Calendar
                 </div>
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        SplitButton
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"></p-splitButton>
-                    </div>
+                <div class="ui-g-8">
+                    <p-calendar [(ngModel)]="date"></p-calendar>
                 </div>
             </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        Dropdown
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [autoWidth]="false"></p-dropdown>
-                    </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Suggest
                 </div>
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        Password
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <input type="text" pPassword />
-                    </div>
+                <div class="ui-g-8">
+                    <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+                    placeholder="Countries" [minLength]="1"></p-autoComplete>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Button
+                </div>
+                <div class="ui-g-8">
+                    <button pButton label="Save"type="button"></button>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    SplitButton
+                </div>
+                <div class="ui-g-8">
+                    <p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"></p-splitButton>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Dropdown
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [autoWidth]="false"></p-dropdown>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Password
+                </div>
+                <div class="ui-g-8">
+                    <input type="text" pPassword />
                 </div>
             </div>
 
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        Listbox
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <p-listbox [options]="options" [(ngModel)]="selectedOptions"></p-listbox>
-                    </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Listbox
                 </div>
-                <div class="ui-grid-col-6">
-                    <div class="ui-grid-col-4">
-                        RadioButton
-                    </div>
-                    <div class="ui-grid-col-8">
-                        <div class="ui-grid ui-grid-responsive">
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 1" [(ngModel)]="val"></p-radioButton></div>
-                                <div class="ui-grid-col-11"><label class="ui-widget">Option 1</label></div>
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 2" [(ngModel)]="val"></p-radioButton></div>
-                                <div class="ui-grid-col-11"><label class="ui-widget">Option 2</label></div>
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 3" [(ngModel)]="val"></p-radioButton></div>
-                                <div class="ui-grid-col-11"><label class="ui-widget">Option 3</label></div>
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-1"><p-radioButton name="group1" value="Option 4" [(ngModel)]="val"></p-radioButton></div>
-                                <div class="ui-grid-col-11"><label class="ui-widget">Option 4</label></div>
-                            </div>
-                        </div>
+                <div class="ui-g-8">
+                    <p-listbox [options]="options" [(ngModel)]="selectedOptions"></p-listbox>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Radio
+                </div>
+                <div class="ui-g-8">
+                    <div class="ui-g radiobuttons">
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 1" [(ngModel)]="val"></p-radioButton><label class="ui-widget">Option 1</label></div>
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" [(ngModel)]="val"></p-radioButton><label class="ui-widget">Option 2</label></div>
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" [(ngModel)]="val"></p-radioButton><label class="ui-widget">Option 3</label></div>
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 4" [(ngModel)]="val"></p-radioButton><label class="ui-widget">Option 4</label></div>
                     </div>
                 </div>
             </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                    Dialog
-                </div>
-                <div class="ui-grid-col-10">
-                    <button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"></button>
-                </div>
+            <div class="ui-g-2">
+                Dialog
+            </div>
+            <div class="ui-g-10">
+                <button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"></button>
             </div>
         </div>
 
@@ -180,22 +156,17 @@
         <p-carousel headerText="Cars" [value]="cars2" [style]="{'margin-top':'20px','margin-bottom':'20px'}">
             <ng-template let-car pTemplate="item">
                 <li class="ui-carousel-item ui-widget-content ui-corner-all">
-                    <div class="ui-grid ui-grid-responsive ui-grid-pad" style="text-align:center">
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-12"><img src="showcase/resources/demo/images/car/{{car.brand}}.gif" /></div>
-                        </div>
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-6">Vin</div>
-                            <div class="ui-grid-col-6">{{car.vin}}</div>
-                        </div>
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-6">Year</div>
-                            <div class="ui-grid-col-6">{{car.year}}</div>
-                        </div>
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-6">Color</div>
-                            <div class="ui-grid-col-6">{{car.color}}</div>
-                        </div>
+                    <div class="ui-g" style="text-align:center">
+                        <div class="ui-g-12"><img src="showcase/resources/demo/images/car/{{car.brand}}.gif" /></div>
+                        
+                        <div class="ui-g-6">Vin</div>
+                        <div class="ui-g-6">{{car.vin}}</div>
+                        
+                        <div class="ui-g-6">Year</div>
+                        <div class="ui-g-6">{{car.year}}</div>
+
+                        <div class="ui-g-6">Color</div>
+                        <div class="ui-g-6">{{car.color}}</div>
                     </div>
                 </li>
             </ng-template>
@@ -208,14 +179,12 @@
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
             </ng-template>
         </p-pickList>
-        <div class="ui-grid ui-grid-responsive ui-grid-pad">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">
-                    <p-menu [model]="items1"></p-menu>
-                </div>
-                <div class="ui-grid-col-8">
-                    <p-panelMenu [model]="items2"></p-panelMenu>
-                </div>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-4">
+                <p-menu [model]="items1"></p-menu>
+            </div>
+            <div class="ui-g-12 ui-md-8">
+                <p-panelMenu [model]="items2"></p-panelMenu>
             </div>
         </div>
     </div>
@@ -226,123 +195,99 @@
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;div class="ui-grid ui-grid-responsive ui-grid-pad"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                InputText
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
-                &lt;input pInputText type="text" /&gt;
-            &lt;/div&gt;
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            InputText
         &lt;/div&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                Textarea
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
-                &lt;textarea pInputTextarea type="text"&gt;&lt;/textarea&gt;
-            &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;input pInputText type="text" /&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                Calendar
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-calendar [(ngModel)]="date"&gt;&lt;/p-calendar&gt;
-            &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Textarea
         &lt;/div&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                AutoComplete
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
-                placeholder="Countries" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
-            &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;textarea pInputTextarea type="text"&gt;&lt;/textarea&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                Button
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
-                &lt;button pButton label="Save"type="button"&gt;&lt;/button&gt;
-            &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Calendar
         &lt;/div&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                SplitButton
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;p-calendar [(ngModel)]="date"&gt;&lt;/p-calendar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Suggest
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+            placeholder="Countries" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Button
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;button pButton label="Save"type="button"&gt;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            SplitButton
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
             &lt;p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"&gt;&lt;/p-splitButton&gt;
-            &lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                Dropdown
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [autoWidth]="false"&gt;&lt;/p-dropdown&gt;
-            &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Dropdown
         &lt;/div&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                Password
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
-                &lt;input type="text" pPassword /&gt;
-            &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [autoWidth]="false"&gt;&lt;/p-dropdown&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Password
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;input type="text" pPassword /&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                Listbox
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
-                &lt;p-listbox [options]="options" [(ngModel)]="selectedOptions"&gt;&lt;/p-listbox&gt;
-            &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Listbox
         &lt;/div&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;div class="ui-grid-col-4"&gt;
-                RadioButton
-            &lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;
-                &lt;div class="ui-grid ui-grid-responsive"&gt;
-                    &lt;div class="ui-grid-row"&gt;
-                        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 1" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-                        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class="ui-grid-row"&gt;
-                        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 2" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-                        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class="ui-grid-row"&gt;
-                        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 3" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-                        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class="ui-grid-row"&gt;
-                        &lt;div class="ui-grid-col-1"&gt;&lt;p-radioButton name="group1" value="Option 4" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;/div&gt;
-                        &lt;div class="ui-grid-col-11"&gt;&lt;label class="ui-widget"&gt;Option 4&lt;/label&gt;&lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;p-listbox [options]="options" [(ngModel)]="selectedOptions"&gt;&lt;/p-listbox&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Radio
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;div class="ui-g radiobuttons"&gt;
+                &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 1" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
+                &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 2" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
+                &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 3" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
+                &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 4" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;label class="ui-widget"&gt;Option 4&lt;/label&gt;&lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-2"&gt;
-            Dialog
-        &lt;/div&gt;
-        &lt;div class="ui-grid-col-10"&gt;
-            &lt;button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"&gt;&lt;/button&gt;
-        &lt;/div&gt;
+    &lt;div class="ui-g-2"&gt;
+        Dialog
+    &lt;/div&gt;
+    &lt;div class="ui-g-10"&gt;
+        &lt;button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
@@ -375,10 +320,10 @@
         Datagrid
     &lt;/p-header&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div style="padding:3px"&gt;
+        &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
             &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
-                &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;
-                &lt;div class="car-detail"&gt;{{car.year}} - {{car.color}}&lt;/div&gt;
+                &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif"&gt;
+                &lt;div class="car-detail"&gt;&#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
                 &lt;hr class="ui-widget-content" style="border-top:0"&gt;
             &lt;/p-panel&gt;
         &lt;/div&gt;
@@ -389,30 +334,25 @@
 
 &lt;p-orderList [value]="cars" [listStyle]="&#123;'height':'250px'&#125;" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [responsive]="true" header="Responsive Cars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-        &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+        &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+        &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-orderList&gt;
 
 &lt;p-carousel headerText="Cars" [value]="cars2" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;li class="ui-carousel-item ui-widget-content ui-corner-all"&gt;
-            &lt;div class="ui-grid ui-grid-responsive ui-grid-pad" style="text-align:center"&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-12"&gt;&lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" /&gt;&lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-6"&gt;Vin&lt;/div&gt;
-                    &lt;div class="ui-grid-col-6"&gt;{{car.vin}}&lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-6"&gt;Year&lt;/div&gt;
-                    &lt;div class="ui-grid-col-6"&gt;{{car.year}}&lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div class="ui-grid-row"&gt;
-                    &lt;div class="ui-grid-col-6"&gt;Color&lt;/div&gt;
-                    &lt;div class="ui-grid-col-6"&gt;{{car.color}}&lt;/div&gt;
-                &lt;/div&gt;
+            &lt;div class="ui-g" style="text-align:center"&gt;
+                &lt;div class="ui-g-12"&gt;&lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif" /&gt;&lt;/div&gt;
+                
+                &lt;div class="ui-g-6"&gt;Vin&lt;/div&gt;
+                &lt;div class="ui-g-6"&gt;&#123;&#123;car.vin&#125;&#125;&lt;/div&gt;
+                
+                &lt;div class="ui-g-6"&gt;Year&lt;/div&gt;
+                &lt;div class="ui-g-6"&gt;&#123;&#123;car.year&#125;&#125;&lt;/div&gt;
+
+                &lt;div class="ui-g-6"&gt;Color&lt;/div&gt;
+                &lt;div class="ui-g-6"&gt;&#123;&#123;car.color&#125;&#125;&lt;/div&gt;
             &lt;/div&gt;
         &lt;/li&gt;
     &lt;/ng-template&gt;
@@ -421,88 +361,16 @@
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" 
     [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
-        &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
+        &lt;img src="showcase/resources/demo/images/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px"/&gt;
+        &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-pickList&gt;
-&lt;div class="ui-grid ui-grid-responsive ui-grid-pad"&gt;
-    &lt;div class="ui-grid-row"&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;p-menu&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;&lt;h3&gt;File&lt;/h3&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;a data-icon="fa-download"&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;h3&gt;Edit&lt;/h3&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;a data-icon="fa-refresh"&gt;&lt;span&gt;Undo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;a data-icon="fa-repeat"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-            &lt;/p-menu&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-col-6"&gt;
-            &lt;p-panelMenu&gt;
-                &lt;div&gt;
-                    &lt;div&gt;&lt;a data-icon="fa-file-o"&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
-                    &lt;div&gt;
-                        &lt;ul&gt;
-                            &lt;li&gt;&lt;a data-icon="fa-plus"&gt;&lt;span&gt;New&lt;/span&gt;&lt;/a&gt;
-                                &lt;ul&gt;
-                                    &lt;li&gt;&lt;a&gt;&lt;span&gt;Project&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                                    &lt;li&gt;&lt;a&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;/ul&gt;
-                            &lt;/li&gt;
-                            &lt;li&gt;&lt;a&gt;&lt;span&gt;Open&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                            &lt;li&gt;&lt;a&gt;&lt;span&gt;Quit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                        &lt;/ul&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div&gt;
-                    &lt;div&gt;&lt;a data-icon="fa-edit"&gt;&lt;span&gt;Edit&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
-                    &lt;div&gt;
-                        &lt;ul&gt;
-                            &lt;li&gt;&lt;a data-icon="fa-mail-forward"&gt;&lt;span&gt;Undo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                            &lt;li&gt;&lt;a data-icon="fa-mail-reply"&gt;&lt;span&gt;Redo&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                        &lt;/ul&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div&gt;
-                    &lt;div&gt;&lt;a data-icon="fa-question"&gt;&lt;span&gt;Help&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
-                    &lt;div&gt;
-                        &lt;ul&gt;
-                            &lt;li&gt;&lt;a&gt;&lt;span&gt;Contents&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                            &lt;li&gt;&lt;a data-icon="fa-search"&gt;&lt;span&gt;Search&lt;/span&gt;&lt;/a&gt;
-                                &lt;ul&gt;
-                                    &lt;li&gt;&lt;a&gt;&lt;span&gt;Text&lt;/span&gt;&lt;/a&gt;
-                                        &lt;ul&gt;
-                                            &lt;li&gt;&lt;a&gt;&lt;span&gt;Workspace&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                                        &lt;/ul&gt;
-                                    &lt;/li&gt;
-                                    &lt;li&gt;&lt;a&gt;&lt;span&gt;File&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;/ul&gt;
-                            &lt;/li&gt;
-                        &lt;/ul&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;div&gt;
-                    &lt;div&gt;&lt;a data-icon="fa-gear"&gt;&lt;span&gt;Actions&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
-                    &lt;div&gt;
-                        &lt;ul&gt;
-                            &lt;li&gt;&lt;a data-icon="fa-pencil"&gt;&lt;span&gt;Edit&lt;/span&gt;&lt;/a&gt;
-                                &lt;ul&gt;
-                                    &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Save&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                                    &lt;li&gt;&lt;a data-icon="fa-save"&gt;&lt;span&gt;Update&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;/ul&gt;
-                            &lt;/li&gt;
-                            &lt;li&gt;&lt;a data-icon="fa-phone"&gt;&lt;span&gt;Other&lt;/span&gt;&lt;/a&gt;
-                                &lt;ul&gt;
-                                    &lt;li&gt;&lt;a data-icon="fa-minus"&gt;&lt;span&gt;Delete&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;/ul&gt;
-                            &lt;/li&gt;
-                        &lt;/ul&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-            &lt;/p-panelMenu&gt;
-        &lt;/div&gt;
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;p-menu [model]="items1"&gt;&lt;/p-menu&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-8"&gt;
+        &lt;p-panelMenu [model]="items2"&gt;&lt;/p-panelMenu&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 </code>
