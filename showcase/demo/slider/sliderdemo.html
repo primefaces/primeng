@@ -19,7 +19,7 @@
     <h3>Step: {{val4}}</h3>
     <p-slider [(ngModel)]="val4" [style]="{'width':'200px'}" [step]="20"></p-slider>
 
-    <h3>Range: {{rangeValues}}</h3>
+    <h3>Range: {{rangeValues[0] + ' - ' + rangeValues[1]}}</h3>
     <p-slider [(ngModel)]="rangeValues" [style]="{'width':'200px'}" [range]="true"></p-slider>
 
     <h3>Vertical: {{val5}}</h3>
@@ -262,7 +262,7 @@ handleChange(e) &#123;
 &lt;h3&gt;Step: {{val4}}&lt;/h3&gt;
 &lt;p-slider [(ngModel)]="val4" [style]="&#123;'width':'200px'&#125;" [step]="20"&gt;&lt;/p-slider&gt;
 
-&lt;h3&gt;Range: {{rangeValues}}&lt;/h3&gt;
+&lt;h3&gt;Range: {{rangeValues[0] + ' - ' + rangeValues[1]}}&lt;/h3&gt;
 &lt;p-slider [(ngModel)]="rangeValues" [style]="&#123;'width':'200px'&#125;" [range]="true"&gt;&lt;/p-slider&gt;
 
 &lt;h3&gt;Vertical: {{val5}}&lt;/h3&gt;
