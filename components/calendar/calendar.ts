@@ -696,7 +696,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         return false;
     }
     
-    onInputFocus(event) {
+    onInputFocus(event: Event) {
         this.focus = true;
         if(this.showOnFocus) {
             this.showOverlay();
@@ -704,7 +704,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.onFocus.emit(event);
     }
     
-    onInputBlur(event) {
+    onInputBlur(event: Event) {
         this.focus = false;
         this.onBlur.emit(event);
         this.updateInputfield();
@@ -897,7 +897,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.closeOverlay = this.dateClick;
     }
     
-    showOverlay(inputfield) {
+    showOverlay() {
         this.overlayVisible = true;
         this.overlayShown = true;
         this.overlay.style.zIndex = String(++DomHandler.zindex);
