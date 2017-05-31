@@ -384,6 +384,23 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     ngAfterViewChecked() {
         if(this.overlayShown) {
+            // Begin: to handle the case that minDate is in the future month of current month
+            if (this.minDate) {
+                let dateYear = this.minDate.getFullYear();
+                if (this.minDate.getFullYear() > this.currentYear) {
+                    this.currentYear = dateYear;
+                    this.currentMonth = this.minDate.getMonth();
+                }
+                else if (this.minDate.getFullYear() == this.currentYear) {
+                    let dateMonth = this.minDate.getMonth();
+                    if (this.minDate.getMonth() > this.currentMonth) {
+                        this.currentMonth = dateMonth;
+                    }
+                }
+            }
+            this.createMonth(this.currentMonth, this.currentYear);
+            // End: to handle the case that minDate is in the future month of current month
+            
             this.alignOverlay();
             this.overlayShown = false;
         }
