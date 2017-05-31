@@ -31,7 +31,7 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
-                <input #inputfield type="text" [attr.id]="inputId" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus(inputfield, $event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+                <input #inputfield type="text" [attr.id]="inputId" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
@@ -696,10 +696,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         return false;
     }
     
-    onInputFocus(inputfield, event) {
+    onInputFocus(event) {
         this.focus = true;
         if(this.showOnFocus) {
-            this.showOverlay(inputfield);
+            this.showOverlay();
         }
         this.onFocus.emit(event);
     }
@@ -716,7 +716,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         if(!this.overlay.offsetParent) {
             inputfield.focus();
-            this.showOverlay(inputfield);
+            this.showOverlay();
         }
         else
             this.closeOverlay = true;
