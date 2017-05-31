@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer,EventEmitter,Inject,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,EventEmitter,Inject,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/api';
@@ -19,7 +19,7 @@ import {RouterModule} from '@angular/router';
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
@@ -151,17 +151,17 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     rightClickListener: any;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         
-        this.documentClickListener = this.renderer.listenGlobal('document', 'click', () => {
+        this.documentClickListener = this.renderer.listen('document', 'click', () => {
             this.hide();
         });
         
         if(this.global) {
-            this.rightClickListener = this.renderer.listenGlobal('document', 'contextmenu', (event) => {
+            this.rightClickListener = this.renderer.listen('document', 'contextmenu', (event) => {
                 this.show(event);
                 event.preventDefault();
             });
@@ -205,8 +205,8 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     position(event?: MouseEvent) {
         if(event) {
-            let left = event.pageX;
-            let top = event.pageY;
+            let left = event.pageX + 1;
+            let top = event.pageY + 1;
             let width = this.container.offsetParent ? this.container.offsetWidth: this.domHandler.getHiddenElementOuterWidth(this.container);
             let height = this.container.offsetParent ? this.container.offsetHeight: this.domHandler.getHiddenElementOuterHeight(this.container);
             let viewport = this.domHandler.getViewport();

@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,AfterContentInit,EventEmitter,OnDestroy,Input,Output,TemplateRef,ContentChildren,QueryList,Renderer,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,AfterContentInit,EventEmitter,OnDestroy,Input,Output,TemplateRef,ContentChildren,QueryList,Renderer2,ViewChild} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {CommonModule} from '@angular/common';
@@ -102,7 +102,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
     differ: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -153,7 +153,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         this.itemsContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-carousel-items');    
 
         if(this.responsive) {
-            this.documentResponsiveListener = this.renderer.listenGlobal('window', 'resize', (event) => {
+            this.documentResponsiveListener = this.renderer.listen('window', 'resize', (event) => {
                 this.updateState();
             });
         }

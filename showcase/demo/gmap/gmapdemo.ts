@@ -4,7 +4,12 @@ import {Message} from '../../../components/common/api';
 declare var google: any;
 
 @Component({
-    templateUrl: 'showcase/demo/gmap/gmapdemo.html'
+    templateUrl: 'showcase/demo/gmap/gmapdemo.html',
+    styles: [`
+        .ui-g-2 {
+            padding-top: .75em;
+        }
+    `]
 })
 export class GMapDemo implements OnInit {
 

@@ -261,6 +261,14 @@ export class DomHandler {
         width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
         return width;
     }
+    
+    public getInnerHeight(el) {
+        let height = el.offsetHeight;
+        let style = getComputedStyle(el);
+
+        height += parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+        return height;
+    }
 
     public getOuterHeight(el, margin?) {
         let height = el.offsetHeight;
@@ -377,5 +385,9 @@ export class DomHandler {
         document.body.removeChild(scrollDiv);
         
         return scrollbarWidth;
+    }
+    
+    public invokeElementMethod(element: any, methodName: string, args?: any[]): void {
+        (element as any)[methodName].apply(element, args);
     }
 }

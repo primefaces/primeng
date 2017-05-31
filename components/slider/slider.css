@@ -26,7 +26,7 @@
 	height: .8em;
 }
 .ui-slider-horizontal .ui-slider-handle {
-	top: -.3em;
+	top: -.25em;
 	margin-left: -.6em;
 }
 .ui-slider-horizontal .ui-slider-range {
@@ -45,7 +45,7 @@
 	height: 100px;
 }
 .ui-slider-vertical .ui-slider-handle {
-	left: -.3em;
+	left: -.25em;
 	margin-left: 0;
 	margin-bottom: -.6em;
 }

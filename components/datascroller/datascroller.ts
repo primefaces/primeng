@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,Input,Output,Renderer,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,Input,Output,Renderer2,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
@@ -64,7 +64,7 @@ export class DataScroller implements AfterViewInit,OnDestroy {
     
     contentElement: HTMLDivElement;
 
-    constructor(public el: ElementRef, public renderer: Renderer, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public domHandler: DomHandler) {}
 
     ngAfterViewInit() {
         if(this.lazy) {
@@ -167,7 +167,7 @@ export class DataScroller implements AfterViewInit,OnDestroy {
             });
         }
         else {
-            this.scrollFunction = this.renderer.listenGlobal('window', 'scroll', () => {
+            this.scrollFunction = this.renderer.listen('window', 'scroll', () => {
                 let docBody = document.body;
                 let docElement = document.documentElement;
                 let scrollTop = (window.pageYOffset||document.documentElement.scrollTop);

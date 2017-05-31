@@ -829,7 +829,7 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
-            <p>In horizontal scrolling, certain columns can be fixed as well by enabling the frozen property at column level.</p>
+            <p>In horizontal scrolling, certain columns can be fixed as well by enabling the frozen property at column level .</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" [scrollable]="true" scrollHeight="200px" frozenWidth="100px" scrollWidth="600px"&gt;
@@ -841,7 +841,18 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>In addition, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
+            <p>In this case, if frozen and scrollable cells have content with varying height, misalignment might occur. To avoid a performance hit, DataTable avoid expensive calculations
+                to align the row heights as it can be easily done with CSS manually.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+.ui-datatable .ui-datatable-frozen-view .ui-datatable-data > tr > td,
+.ui-datatable .ui-datatable-unfrozen-view .ui-datatable-data > tr > td &#123;
+    height: 24px;
+&#125;
+</code>
+</pre>    
+
+            <p>Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
 
             <p>See the <a [routerLink]="['/datatable/scroll']">live example.</a></p>
             
@@ -1383,7 +1394,8 @@ export class DataTableDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>onFilter</td>
-                            <td>event.filters: Filters object having a field as the property key and an object with value, matchMode as the property value.<br></td>
+                            <td>event.filters: Filters object having a field as the property key and an object with value, matchMode as the property value.<br>
+                                event.filteredValue: Filtered data after running the filtering.</td>
                             <td>Callback to invoke when data is filtered.</td>
                         </tr>
                         <tr>

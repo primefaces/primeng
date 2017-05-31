@@ -7,7 +7,7 @@ import {CarService} from '../service/carservice';
     styles: [`
         .ui-grid-row > div {
             padding: 4px 10px;
-            font-size: 20px;
+            font-size: 16px;
         }
         
         .ui-grid-row .ui-grid-row > div:last-child {

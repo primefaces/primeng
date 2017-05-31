@@ -281,6 +281,11 @@ import {HomePageComponent} from './homepage.component';
                 resolve(require('./demo/responsive/responsivedemo.module')['ResponsiveDemoModule']);
               });
             })},
+            {path: 'rtl', loadChildren: () => new Promise(function (resolve) {
+              (require as any).ensure([], function (require: any) {
+                resolve(require('./demo/rtl/rtldemo.module')['RTLDemoModule']);
+              });
+            })},
             {path: 'schedule', loadChildren: () => new Promise(function (resolve) {
               (require as any).ensure([], function (require: any) {
                 resolve(require('./demo/schedule/scheduledemo.module')['ScheduleDemoModule']);

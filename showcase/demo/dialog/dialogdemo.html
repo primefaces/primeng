@@ -6,21 +6,21 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="350" [responsive]="true">
+    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" [responsive]="true" [width]="300" [minWidth]="200">
         <span>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
            kind and benevolent to those who give respect,
            but given to ruthless violence whenever anything stands against the good of the family.</span>
-        <p-footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
-                <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
-            </div>
-        </p-footer>
+           <p-footer>
+               <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                   <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
+                   <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
+               </div>
+           </p-footer>
     </p-dialog>
 
-    <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button>
+    <button type="button" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button>
 </div>
 
 <div class="content-section source">
@@ -62,10 +62,22 @@ export class ModelComponent &#123;
 
             <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
             two-way binding, hiding the dialog with close button updates the visible state as false.</p>
+            
+            <h3>Width</h3>
+            <p>When the content of the dialog is fluid, dialog width may grow unexpectedly, in this case define a fixed width to the dialog
+                or the content.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog header="Title" [(visible)]="display" [width]="300"&gt;
+    Content
+&lt;/p-dialog&gt;
+</code>
+</pre>
 
             <h3>Header and Footer</h3>
             <p>Header and Footer sections are useful to include custom content. Note that Header and Footer components should be imported and defined
-            at directives section of your component for this to work.</p>
+            at directives section of your component for this to work. If you have buttons at footer, it is suggested to use .ui-dialog-buttonpane class inside footer
+            as it includes built-in styling for buttons.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dialog [(visible)]="display"&gt;
@@ -74,7 +86,9 @@ export class ModelComponent &#123;
     &lt;/p-header&gt;
     Content
     &lt;p-footer&gt;
-        Footer content here
+        &lt;div class="ui-dialog-buttonpane ui-helper-clearfix"&gt;
+            //buttons
+        &lt;/div&gt;
     &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 </code>
@@ -206,8 +220,14 @@ export class ModelComponent &#123;
                         <tr>
                             <td>responsive</td>
                             <td>boolean</td>
-                            <td>false</td>
+                            <td>true</td>
                             <td>In responsive mode, dialog adjusts itself to screen width.</td>
+                        </tr>
+                        <tr>
+                            <td>breakpoint</td>
+                            <td>number</td>
+                            <td>640</td>
+                            <td>Maximum screen width to display the dialog with 100% width in responsive mode.</td>
                         </tr>
                         <tr>
                             <td>appendTo</td>
@@ -309,6 +329,14 @@ export class ModelComponent &#123;
                             <td>ui-dialog-content</td>
                             <td>Content element.</td>
                         </tr>
+                        <tr>
+                            <td>ui-dialog-footer</td>
+                            <td>Footer element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-dialog-buttonpane</td>
+                            <td>Optional container for buttons at footer.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -334,7 +362,7 @@ export class ModelComponent &#123;
         &lt;/p-footer&gt;
 &lt;/p-dialog&gt;
 
-&lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;
+&lt;button type="button" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;
 </code>
 </pre>
 
