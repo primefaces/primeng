@@ -709,6 +709,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.onBlur.emit(event);
         this.updateInputfield();
         this.onModelTouched();
+        this.updateInputfield();
     }
     
     onButtonClick(event,inputfield) {
