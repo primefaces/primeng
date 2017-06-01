@@ -1,6 +1,6 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule} from '../common/shared';
+import {SharedModule,Footer} from '../common/shared';
 import {BlockableUI} from '../common/api';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 
@@ -21,6 +21,9 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
                 <div class="ui-panel-content ui-widget-content">
                     <ng-content></ng-content>
                 </div>
+            </div>
+            <div class="ui-panel-footer ui-widget-content" *ngIf="footerFacet">
+                <ng-content select="p-footer"></ng-content>
             </div>
         </div>
     `,
@@ -57,6 +60,8 @@ export class Panel implements BlockableUI {
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
+    
+    @ContentChild(Footer) footerFacet;
         
     public animating: boolean;
     

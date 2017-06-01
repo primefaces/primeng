@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,AfterViewChecked,AfterContentInit,ElementRef,ContentChild,IterableDiffers,ChangeDetectorRef,ContentChildren,QueryList,Inject,forwardRef,OnInit,Renderer2,ViewChild} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,AfterViewChecked,AfterContentInit,OnDestroy,ElementRef,ContentChild,IterableDiffers,ChangeDetectorRef,ContentChildren,QueryList,Inject,forwardRef,OnInit,Renderer2,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/api';
 import {Header,Footer,Column} from '../common/shared';
@@ -144,7 +144,7 @@ export class UITreeRow implements OnInit {
     `,
     providers: [DomHandler]
 })
-export class TreeTable implements AfterViewChecked, AfterContentInit {
+export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy {
 
     @Input() value: TreeNode[];
         
@@ -539,6 +539,13 @@ export class TreeTable implements AfterViewChecked, AfterContentInit {
             }
         }
         return false;
+    }
+    
+    ngOnDestroy() {
+        if(this.resizableColumns && this.documentColumnResizeListener && this.documentColumnResizeEndListener) {
+            this.documentColumnResizeListener();
+            this.documentColumnResizeEndListener();
+        }
     }
 }
 
