@@ -163,7 +163,8 @@ export class ColumnFooters {
                     <td #cell *ngIf="!dt.rowGroupMode || (dt.rowGroupMode == 'subheader') ||
                         (dt.rowGroupMode=='rowspan' && ((dt.sortField==col.field && dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].index == rowIndex) || (dt.sortField!=col.field)))"
                         [ngStyle]="col.style" [class]="col.styleClass" [style.display]="col.hidden ? 'none' : 'table-cell'"
-                        [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode}" (click)="dt.switchCellToEditMode(cell,col,rowData)"
+                        [ngClass]="dt.resolveCellClasses(rowData,col.cellClassField,{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode})" 
+                        (click)="dt.switchCellToEditMode(cell,col,rowData)"
                         [attr.rowspan]="(dt.rowGroupMode=='rowspan' && dt.sortField == col.field && dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].index == rowIndex) ? dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].size : null">
                         <span class="ui-column-title" *ngIf="dt.responsive">{{col.header}}</span>
                         <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{dt.resolveFieldData(rowData,col.field)}}</span>
@@ -845,6 +846,23 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else {
             return null;
         }
+    }
+
+    resolveCellClasses(data: any, field: string, conditionals: any): any {
+        let result = {};
+
+        if(conditionals) {
+            for (let key of Object.keys(conditionals)) {
+                result[key] = conditionals[key];
+            }
+        }
+
+        let cellClasses = this.resolveFieldData(data, field);
+        if(cellClasses) {
+            result[cellClasses] = true;
+        }
+
+        return result;
     }
     
     updateRowGroupMetadata() {
