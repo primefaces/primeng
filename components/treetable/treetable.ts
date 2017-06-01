@@ -16,7 +16,7 @@ import {DomHandler} from '../dom/domhandler';
                     (click)="toggle($event)"
                     [title]="node.expanded ? labelCollapse : labelExpand">
                 </a>
-                <div class="ui-chkbox ui-treetable-checkbox" *ngIf="treeTable.selectionMode == 'checkbox' && i==0"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
+                <div class="ui-chkbox ui-treetable-checkbox" *ngIf="treeTable.selectionMode == 'checkbox' && i==0"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected()}">
                     <span class="ui-chkbox-icon ui-c fa" 
                         [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
                 ><span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
