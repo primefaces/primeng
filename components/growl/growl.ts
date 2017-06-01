@@ -15,8 +15,8 @@ import {DomHandler} from '../dom/domhandler';
                      <span class="ui-growl-image fa fa-2x"
                         [ngClass]="{'fa-info-circle':msg.severity == 'info','fa-exclamation-circle':msg.severity == 'warn',
                                 'fa-close':msg.severity == 'error','fa-check':msg.severity == 'success'}"></span>
+                     <span class="ui-growl-title">{{msg.summary}}</span>
                      <div class="ui-growl-message">
-                        <span class="ui-growl-title">{{msg.summary}}</span>
                         <p [innerHTML]="msg.detail"></p>
                      </div>
                      <div style="clear: both;"></div>
