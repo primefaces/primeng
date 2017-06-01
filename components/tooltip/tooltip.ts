@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
+import {NgModule,Directive,ElementRef,OnDestroy,HostBinding,HostListener,Input,OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -8,7 +8,7 @@ import {DomHandler} from '../dom/domhandler';
     },
     providers: [DomHandler]
 })
-export class Tooltip implements OnDestroy {
+export class Tooltip implements OnDestroy, OnChanges {
 
     @Input('pTooltip') text: string;
 
@@ -29,7 +29,18 @@ export class Tooltip implements OnDestroy {
     container: any;
         
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
-            
+
+    ngOnChanges() {
+        if (this.container !== undefined) {
+            if (this.disabled) {
+                this.hide();
+            } else {
+                this.hide();
+                this.show();
+            }
+        }
+    }
+
     @HostListener('mouseenter', ['$event']) 
     onMouseEnter(e: Event) {
         if(this.tooltipEvent === 'hover') {
