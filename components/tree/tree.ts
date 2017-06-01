@@ -51,7 +51,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                     ><span class="ui-treenode-label ui-corner-all" 
                         [ngClass]="{'ui-state-highlight':isSelected()}">
-                            <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
+                            <span *ngIf="!tree.getTemplateForNode(node)" [innerHTML]="node.label"></span>
                             <span *ngIf="tree.getTemplateForNode(node)">
                                 <p-treeNodeTemplateLoader [node]="node" [template]="tree.getTemplateForNode(node)"></p-treeNodeTemplateLoader>
                             </span>
@@ -87,7 +87,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
                                         (click)="toggle($event)"></span
                                 ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                                 ><span class="ui-treenode-label ui-corner-all">
-                                        <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
+                                        <span *ngIf="!tree.getTemplateForNode(node)" [innerHTML]="node.label"></span>
                                         <span *ngIf="tree.getTemplateForNode(node)">
                                             <p-treeNodeTemplateLoader [node]="node" [template]="tree.getTemplateForNode(node)"></p-treeNodeTemplateLoader>
                                         </span>
