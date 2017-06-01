@@ -25,8 +25,14 @@ export class Tooltip implements OnDestroy {
     @Input("tooltipDisabled") disabled: boolean;
     
     @Input() escape: boolean = true;
+
+    @Input('tooltipShowDelay') showDelay = 0;
+    
+    @Input('tooltipHideDelay') hideDelay = 0;
         
     container: any;
+    showTimeoutId: number;
+    hideTimeoutId: number;
         
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
             
@@ -62,46 +68,60 @@ export class Tooltip implements OnDestroy {
         if(!this.text || this.disabled) {
             return;
         }
-        
-        this.create();
-        let offset = this.el.nativeElement.getBoundingClientRect();
-        let targetTop = offset.top + this.domHandler.getWindowScrollTop();
-        let targetLeft = offset.left + this.domHandler.getWindowScrollLeft();
-        let left: number;
-        let top: number;
-        
-        this.container.style.display = 'block';
 
-        switch(this.tooltipPosition) {
-            case 'right':
-                left = targetLeft + this.domHandler.getOuterWidth(this.el.nativeElement);
-                top = targetTop + (this.domHandler.getOuterHeight(this.el.nativeElement) - this.domHandler.getOuterHeight(this.container)) / 2;
-            break;
-            
-            case 'left':
-                left = targetLeft - this.domHandler.getOuterWidth(this.container);
-                top = targetTop + (this.domHandler.getOuterHeight(this.el.nativeElement) - this.domHandler.getOuterHeight(this.container)) / 2;
-            break;
-            
-            case 'top':
-                left = targetLeft + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
-                top = targetTop - this.domHandler.getOuterHeight(this.container);
-            break;
-            
-            case 'bottom':
-                left = targetLeft + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
-                top = targetTop + this.domHandler.getOuterHeight(this.el.nativeElement);
-            break;
+        // Cancel the delayed hide if it is already scheduled
+        if (this.hideTimeoutId) {
+            clearTimeout(this.hideTimeoutId);
         }
-        
-        this.container.style.left = left + 'px';
-        this.container.style.top = top + 'px';
-        this.domHandler.fadeIn(this.container, 250);
-        this.container.style.zIndex = ++DomHandler.zindex;
+
+        this.showTimeoutId = window.setTimeout(() => {
+            this.create();
+            let offset = this.el.nativeElement.getBoundingClientRect();
+            let targetTop = offset.top + this.domHandler.getWindowScrollTop();
+            let targetLeft = offset.left + this.domHandler.getWindowScrollLeft();
+            let left: number;
+            let top: number;
+            
+            this.container.style.display = 'block';
+
+            switch(this.tooltipPosition) {
+                case 'right':
+                    left = targetLeft + this.domHandler.getOuterWidth(this.el.nativeElement);
+                    top = targetTop + (this.domHandler.getOuterHeight(this.el.nativeElement) - this.domHandler.getOuterHeight(this.container)) / 2;
+                break;
+                
+                case 'left':
+                    left = targetLeft - this.domHandler.getOuterWidth(this.container);
+                    top = targetTop + (this.domHandler.getOuterHeight(this.el.nativeElement) - this.domHandler.getOuterHeight(this.container)) / 2;
+                break;
+                
+                case 'top':
+                    left = targetLeft + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
+                    top = targetTop - this.domHandler.getOuterHeight(this.container);
+                break;
+                
+                case 'bottom':
+                    left = targetLeft + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
+                    top = targetTop + this.domHandler.getOuterHeight(this.el.nativeElement);
+                break;
+            }
+            
+            this.container.style.left = left + 'px';
+            this.container.style.top = top + 'px';
+            this.domHandler.fadeIn(this.container, 250);
+            this.container.style.zIndex = ++DomHandler.zindex;
+        }, this.showDelay);
     }
     
     hide() {
-        this.ngOnDestroy();
+        // Cancel the delayed hide if it is already scheduled
+        if (this.showTimeoutId) {
+            clearTimeout(this.showTimeoutId);
+        }
+
+        this.hideTimeoutId = window.setTimeout(() => {
+            this.ngOnDestroy();
+        }, this.hideDelay);
     }
          
     create() {
