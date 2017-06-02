@@ -21,15 +21,15 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focus}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
-                <select [required]="required" tabindex="-1">
+                <select [required]="required" name="options" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" tabindex="-1" aria-hidden="true">
                     <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
-                <input #in [attr.id]="inputId" type="text" readonly (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+                <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
-            <input type="text" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [value]="editableLabel" [disabled]="disabled" [attr.placeholder]="placeholder"
+            <input type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [value]="editableLabel" [disabled]="disabled" [attr.placeholder]="placeholder"
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="fa fa-fw fa-caret-down ui-c"></span>
