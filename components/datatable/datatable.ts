@@ -1472,7 +1472,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 return false;
             }
             
-            return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+            if (filter.constructor !== Array) {
+                return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+            }
+
+             // The filter value is an array
+            for (let i = 0; i < filter.length; i++) {
+                if (value.toString().toLowerCase().indexOf(filter[i].toLowerCase()) !== -1) return true;
+            } 
+            return false;
         },
 
         endsWith(value, filter): boolean {
