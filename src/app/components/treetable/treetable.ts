@@ -10,7 +10,7 @@ import {DomHandler} from '../dom/domhandler';
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
             <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
-                <a href="#" *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
+                <a href="#" *ngIf="i==toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
                     [title]="node.expanded ? labelCollapse : labelExpand">
@@ -42,6 +42,8 @@ export class UITreeRow implements OnInit {
     @Input() labelExpand: string = "Expand";
     
     @Input() labelCollapse: string = "Collapse";
+
+    @Input() toggleColumnIndex: number;
                 
     constructor(@Inject(forwardRef(() => TreeTable)) public treeTable:TreeTable) {}
     
@@ -130,7 +132,7 @@ export class UITreeRow implements OnInit {
                             </td>
                         </tr>
                     </tfoot>
-                    <tbody pTreeRow *ngFor="let node of value" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
+                    <tbody pTreeRow *ngFor="let node of value" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [toggleColumnIndex]="toggleColumnIndex"></tbody>
                 </table>
             </div>
             <div class="ui-treetable-footer ui-widget-header" *ngIf="footer">
@@ -158,6 +160,8 @@ export class TreeTable {
     @Input() metaKeySelection: boolean = true;
     
     @Input() contextMenu: any;
+
+    @Input() toggleColumnIndex: number = 0;
     
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     
