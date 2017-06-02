@@ -23,7 +23,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
             </div>
             <div [ngClass]="{'ui-inputswitch-handle ui-state-default':true, 'ui-state-focus':focused}"></div>
             <div class="ui-helper-hidden-accessible">
-                <input #in type="checkbox" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onBlur($event)" readonly="readonly" [attr.tabindex]="tabindex"/>
+                <input #in type="checkbox" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" aria-live="polite" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onBlur($event)" readonly="readonly" [attr.tabindex]="tabindex"/>
             </div>
         </div>
     `,
@@ -44,6 +44,8 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
     @Input() tabindex: number;
 
     @Input() inputId: string;
+    
+    @Input() ariaLabelTemplate: string = "InputSwitch {0}";
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -69,6 +71,10 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
 
     public offset: any;
     
+    public ariaLabel: string;
+    
+    public ariaLabelledBy: string;
+    
     initialized: boolean = false;
 
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
@@ -80,6 +86,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         this.offContainer = this.domHandler.findSingle(this.container,'div.ui-inputswitch-off');
         this.onLabelChild = this.domHandler.findSingle(this.onContainer,'span.ui-inputswitch-onlabel');
         this.offLabelChild = this.domHandler.findSingle(this.offContainer,'span.ui-inputswitch-offlabel');
+        this.setAriaLabel();
     }
     
     ngAfterViewChecked() {
@@ -129,13 +136,14 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         if(!this.disabled) {
             if(this.checked) {
                 this.checked = false;
-                this.uncheckUI()
+                this.uncheckUI();
             }
             else {
                 this.checked = true;
                 this.checkUI();
             }
-
+            
+            this.setAriaLabel();
             this.onModelChange(this.checked);
             this.onChange.emit({
                 originalEvent: event,
@@ -189,6 +197,13 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+    }
+    
+    setAriaLabel() {
+        let pattern = /{(.*?)}/,
+        value = this.checked ? this.onLabel : this.offLabel;
+        
+        this.ariaLabel = this.ariaLabelTemplate.replace(this.ariaLabelTemplate.match(pattern)[0], value);
     }
 }
 
