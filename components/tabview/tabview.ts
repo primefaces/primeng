@@ -15,7 +15,7 @@ import {BlockableUI} from '../common/api';
         <ng-template ngFor let-tab [ngForOf]="tabs">
             <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="tab"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
-                (click)="clickTab($event,tab)" *ngIf="!tab.closed"
+                (click)="clickTab($event,tab)" (dragover)="dragOverTab($event,tab)" *ngIf="!tab.closed"
                 [attr.aria-expanded]="tab.selected" [attr.aria-selected]="tab.selected">
                 <a href="#">
                     <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
@@ -36,6 +36,8 @@ export class TabViewNav {
     @Output() onTabClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onTabCloseClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onTabDragOver: EventEmitter<any> = new EventEmitter();
     
     getDefaultHeaderClass(tab:TabPanel) {
         let styleClass = 'ui-state-default ui-corner-' + this.orientation; 
@@ -54,6 +56,13 @@ export class TabViewNav {
     
     clickClose(event, tab: TabPanel) {
         this.onTabCloseClick.emit({
+            originalEvent: event,
+            tab: tab
+        })
+    }
+
+    dragOverTab(event, tab: TabPanel) {
+        this.onTabDragOver.emit({
             originalEvent: event,
             tab: tab
         })
@@ -97,12 +106,12 @@ export class TabPanel {
     template: `
         <div [ngClass]="'ui-tabview ui-widget ui-widget-content ui-corner-all ui-tabview-' + orientation" [ngStyle]="style" [class]="styleClass">
             <ul p-tabViewNav role="tablist" *ngIf="orientation!='bottom'" [tabs]="tabs" [orientation]="orientation" 
-                (onTabClick)="open($event.originalEvent, $event.tab)" (onTabCloseClick)="close($event.originalEvent, $event.tab)"></ul>
+                (onTabClick)="open($event.originalEvent, $event.tab)" (onTabCloseClick)="close($event.originalEvent, $event.tab)" (onTabDragOver)="dragOverTab($event.originalEvent, $event.tab)"></ul>
             <div class="ui-tabview-panels">
                 <ng-content></ng-content>
             </div>
             <ul p-tabViewNav role="tablist" *ngIf="orientation=='bottom'" [tabs]="tabs" [orientation]="orientation"
-                (onTabClick)="open($event.originalEvent, $event.tab)" (onTabCloseClick)="close($event.originalEvent, $event.tab)"></ul>
+                (onTabClick)="open($event.originalEvent, $event.tab)" (onTabCloseClick)="close($event.originalEvent, $event.tab)" (onTabDragOver)="dragOverTab($event.originalEvent, $event.tab)"></ul>
         </div>
     `,
 })
@@ -123,6 +132,8 @@ export class TabView implements AfterContentInit,BlockableUI {
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
+
+    @Output() onTabDragOver: EventEmitter<any> = new EventEmitter();
     
     initialized: boolean;
     
@@ -248,6 +259,15 @@ export class TabView implements AfterContentInit,BlockableUI {
             this.findSelectedTab().selected = false;
             this.tabs[this._activeIndex].selected = true;
         }        
+    }
+
+    dragOverTab(event: Event, tab: TabPanel) {  
+        this.onTabDragOver.emit({
+            originalEvent: event, 
+            index: this.findTabIndex(tab)
+        });
+        
+        event.stopPropagation();
     }
 }
 
