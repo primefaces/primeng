@@ -12,7 +12,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker',
     template: `
-        <div #container [ngClass]="'ui-colorpicker ui-widget'" [ngStyle]="style" [class]="styleClass">
+        <div #container [ngClass]="'ui-colorpicker ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
             <div #colorSelector class="ui-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
                 <div class="ui-colorpicker-color">
                     <div #colorHandle class="ui-colorpicker-color-handle"></div>
