@@ -308,6 +308,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     set minDate(date: Date) {
         this._minDate = date;
         this.createMonth(this.currentMonth, this.currentYear);
+        this.updateModel(); //revalidate
     }
     
     @Input() get maxDate(): Date {
@@ -317,6 +318,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     set maxDate(date: Date) {
         this._maxDate = date;
         this.createMonth(this.currentMonth, this.currentYear);
+        this.updateModel(); //revalidate
     }
     
     get locale() {
@@ -1273,6 +1275,12 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     validate(c: AbstractControl) {
         if (!this._isValid) {
             return { invalidDate: true };
+        }
+        if (this._minDate && this.value && this.value < this._minDate) {
+            return { minDate: true };
+        }
+        if (this._maxDate && this.value && this.value > this._maxDate) {
+            return { maxDate: true };
         }
 
         return null;
