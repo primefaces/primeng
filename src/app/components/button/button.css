@@ -1,0 +1,192 @@
+/* Button */
+.ui-button { 
+    display: inline-block; 
+    position: relative; 
+    padding: 0; 
+    margin-right: .1em; 
+    text-decoration: none !important; 
+    cursor: pointer; 
+    text-align: center; 
+    zoom: 1; 
+    overflow: visible; /* the overflow property removes extra width in IE */
+} 
+
+.ui-button-icon-only { 
+    width: 2em;
+} 
+
+/*button text element */
+.ui-button .ui-button-text { 
+    display: block; 
+    line-height: normal;  
+}
+
+.ui-button-text-only .ui-button-text { 
+    padding: .25em 1em; 
+}
+
+.ui-button-icon-only .ui-button-text { 
+    padding: .25em; 
+    text-indent: -9999999px; 
+}
+
+.ui-button-text-icon-left .ui-button-text { 
+    padding: .25em 1em .25em 2.1em; 
+}
+
+.ui-button-text-icon-right .ui-button-text { 
+    padding: .25em 2.1em .25em 1em; 
+}
+
+/*button icon element(s) */
+.ui-button-icon-only .fa,
+.ui-button-text-icon-left .fa,
+.ui-button-text-icon-right .fa {
+    position: absolute; 
+    top: 50%;
+    margin-top: -.5em; 
+}
+
+.ui-button-icon-only .fa {
+    top: 50%;
+    left: 50%;
+    margin-top: -.5em;
+    margin-left: -.6em;
+}
+
+.ui-button-icon-left {
+    left: .5em; 
+}
+
+.ui-button-icon-right {
+    right: .5em; 
+}
+
+/*button sets*/
+.ui-buttonset .ui-button { 
+    margin-left: 0; 
+    margin-right: 0;
+}
+
+/* workarounds */
+button.ui-button::-moz-focus-inner { 
+    border: 0; padding: 0; /* reset extra padding in Firefox */
+}
+
+/** Fluid **/
+.ui-fluid .ui-button {
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}
+
+.ui-fluid .ui-button-text-icon-left .ui-button-text,
+.ui-fluid .ui-button-text-icon-right .ui-button-text {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+/** ButtonSet **/
+.ui-fluid .ui-buttonset {
+    width: 100%;
+}
+
+.ui-fluid .ui-buttonset.ui-buttonset-1 .ui-button {width: 100%;}
+.ui-fluid .ui-buttonset.ui-buttonset-2 .ui-button {width: 50%;}
+.ui-fluid .ui-buttonset.ui-buttonset-3 .ui-button {width: 33.3%;}
+.ui-fluid .ui-buttonset.ui-buttonset-4 .ui-button {width: 25%;}
+.ui-fluid .ui-buttonset.ui-buttonset-5 .ui-button {width: 20%;}
+.ui-fluid .ui-buttonset.ui-buttonset-6 .ui-button {width: 16.6%;}
+
+@media (max-width: 640px) {
+    .ui-fluid .ui-buttonset.ui-buttonset-1 .ui-button,
+    .ui-fluid .ui-buttonset.ui-buttonset-2 .ui-button,
+    .ui-fluid .ui-buttonset.ui-buttonset-3 .ui-button,
+    .ui-fluid .ui-buttonset.ui-buttonset-4 .ui-button,
+    .ui-fluid .ui-buttonset.ui-buttonset-5 .ui-button,
+    .ui-fluid .ui-buttonset.ui-buttonset-6 .ui-button {
+        width: 100%;
+    }
+}
+
+/* Severity Buttons */
+/* Secondary */
+.ui-button.ui-button-secondary.ui-state-default {
+    background-color: #ffffff;
+    border-color: #cccccc;
+    color: #373a3c;
+}
+
+.ui-button.ui-button-secondary:enabled:hover,
+.ui-button.ui-button-secondary:focus {
+    background-color: #f2f2f2;
+}
+
+.ui-button.ui-button-secondary:enabled:active {
+    background-color: #e6e6e6;
+}
+
+/* Success */
+.ui-button.ui-button-success.ui-state-default {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+    color: #ffffff;
+}
+
+.ui-button.ui-button-success:enabled:hover,
+.ui-button.ui-button-success:focus {
+    background-color: #4cae4c;
+}
+
+.ui-button.ui-button-success:enabled:active {
+    background-color: #449d44;
+}
+
+/* Info */
+.ui-button.ui-button-info.ui-state-default {
+    background-color: #5bc0de;
+    border-color: #5bc0de;
+    color: #ffffff;
+}
+
+.ui-button.ui-button-info:enabled:hover,
+.ui-button.ui-button-info:focus {
+    background-color: #46b8da;
+}
+
+.ui-button.ui-button-info:enabled:active {
+    background-color: #31b0d5;
+}
+
+/* Warning */
+.ui-button.ui-button-warning.ui-state-default {
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+    color: #ffffff;
+}
+
+.ui-button.ui-button-warning:enabled:hover,
+.ui-button.ui-button-warning:focus {
+    background-color: #eea236;
+}
+
+.ui-button.ui-button-warning:enabled:active {
+    background-color: #ec971f;
+}
+
+/* Danger */
+.ui-button.ui-button-danger.ui-state-default {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    color: #ffffff;
+}
+
+.ui-button.ui-button-danger:enabled:hover,
+.ui-button.ui-button-danger:focus {
+    background-color: #d43f3a;
+}
+
+.ui-button.ui-button-danger:enabled:active {
+    background-color: #c9302c;
+}

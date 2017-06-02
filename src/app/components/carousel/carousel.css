@@ -1,0 +1,85 @@
+.ui-carousel {
+    position: relative;
+    padding: .063em;
+}
+
+.ui-carousel .ui-carousel-viewport .ui-carousel-items {
+    list-style: none outside none;
+    margin: 0;
+    padding:0;
+    position: relative;
+    width: 32000px;
+    left: 0;
+}
+
+.ui-carousel .ui-carousel-viewport .ui-carousel-items .ui-carousel-item {
+    margin: 1px;
+    padding: 0;
+    float: left;
+    box-sizing: border-box;
+}
+
+.ui-carousel .ui-carousel-viewport {
+    overflow: hidden;
+    position: relative;
+    border: 0;
+}
+
+.ui-carousel .ui-carousel-footer {
+    margin: 1px 1px 0px 1px;
+    padding: .5em;
+    overflow: hidden;
+}
+
+.ui-carousel .ui-carousel-header {
+    margin: 0 1px;
+    overflow: hidden;
+    padding: .625em;
+}
+
+.ui-carousel .ui-carousel-header .ui-carousel-header-title {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.ui-carousel .ui-carousel-dropdown,
+.ui-carousel .ui-carousel-mobiledropdown {
+    float: right;
+    margin: 0px .625em;
+    background-image: none;
+}
+
+.ui-carousel .ui-carousel-dropdown option,
+.ui-carousel .ui-carousel-mobiledropdown option{
+    background-image: none;
+    border: 0 none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.ui-carousel .ui-carousel-button {
+    float: right;
+    margin: .125em;
+}
+
+.ui-carousel .ui-carousel-page-link {
+    float: left;
+    margin: 0 .125em;
+    text-decoration: none;
+}
+
+.ui-carousel .ui-carousel-page-link, 
+.ui-carousel .ui-carousel-button {
+    cursor: pointer;
+}
+
+.ui-carousel .ui-carousel-page-links {
+    margin: 0px .5em;
+    margin-top: .125em;
+    float: right;
+}
+
+.ui-carousel .ui-carousel-mobiledropdown {
+    display: none;
+}

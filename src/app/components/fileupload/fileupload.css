@@ -1,0 +1,81 @@
+/*
+ * FileUpload
+ */
+.ui-fileupload-buttonbar .ui-fileupload-choose input {
+    display: none;
+}
+
+.ui-fileupload-buttonbar .ui-fileupload-choose.ui-state-disabled input {
+    cursor: default;
+}
+
+.ui-fileupload-choose {
+    position: relative;
+    overflow: hidden;
+}
+
+.ui-fileupload-buttonbar {
+    padding: .5em;
+    border-bottom: 0 none;
+}
+
+.ui-fileupload-buttonbar .ui-button {
+    vertical-align: middle;
+    margin-right: .25em;
+}
+
+.ui-fileupload-content {
+    padding: 1em;
+    position: relative;
+    transition: border-color .3s;
+}
+
+.ui-fileupload-content.ui-fileupload-highlight {
+    border-color: #156090;
+}
+
+.ui-fileupload-files img {
+    border: none;
+}
+
+.ui-fileupload-files {
+    display: table;
+}
+
+.ui-fileupload-row {
+    display: table-row;
+}
+
+.ui-fileupload-row > div {
+    display: table-cell;
+    padding: .5em 1em;
+    vertical-align: middle;
+}
+
+.ui-fileupload-content .ui-progressbar {
+    width: 100%;
+    position: absolute;
+    top: 1px;
+    left: 0;
+    height: .25em;
+    border: 0 none;
+}
+
+.ui-fileupload-content .ui-progressbar-value {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    border: 0 none;
+}
+
+/* ui-fluid */
+.ui-fluid .ui-fileupload .ui-button {
+    width: auto;
+}
+
+.ui-fluid .ui-fileupload-content .ui-button-icon-only {
+    width: 2em;
+}
+
+
+

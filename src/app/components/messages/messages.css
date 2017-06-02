@@ -1,0 +1,73 @@
+.ui-messages {
+    border: 1px solid;
+    margin: .5em 0;
+    padding: 1em 1em 1em .5em;
+    display: none;
+    position: relative;
+}
+
+.ui-messages-icon {
+    display:inline-block;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.ui-messages-summary {
+    font-weight: bold;
+    margin-left: .25em;
+}
+
+.ui-messages-detail {
+    margin-left: .25em;
+}
+
+.ui-messages-success {
+    color: #ffffff;
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.ui-messages-info {
+    color: #ffffff;
+    background-color: #2196f3;
+    border-color: #2196f3;
+}
+
+.ui-messages-warn {
+    color: #ffffff;
+    background-color: #FFB300;
+    border-color: #FFB300;
+}
+
+.ui-messages-error {
+    color: #ffffff;
+    background-color: #f44336;
+    border-color: #f44336;
+}
+
+.ui-messages ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ui-messages.ui-messages-noicon ul {
+    margin: 0 1.5em 0 0;
+}
+
+.ui-messages .ui-messages-close {
+    color: #ffffff;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+/* Message */
+.ui-message {
+    border: 1px solid;
+    margin: 0px .25em;
+    padding: .125em .25em;
+}

@@ -1,0 +1,93 @@
+.ui-treetable table {
+	border-collapse:collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.ui-treetable .ui-treetable-header,
+.ui-treetable .ui-treetable-footer {
+    text-align:center;
+	padding: .5em .75em;
+}
+
+.ui-treetable .ui-treetable-header {
+    border-bottom: 0 none;
+}
+
+.ui-treetable .ui-treetable-footer {
+    border-top: 0 none;
+}
+
+.ui-treetable th, .ui-treetable tfoot td {
+    text-align: center;
+}
+
+.ui-treetable thead th,
+.ui-treetable tbody td,
+.ui-treetable tfoot td {
+    padding: .25em .5em;
+    overflow: hidden;
+    white-space: nowrap;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.ui-treetable tbody td {
+    border-color: inherit;
+}
+
+.ui-treetable tbody td:first-child span {
+    vertical-align: middle;
+}
+
+.ui-treetable .ui-treetable-toggler {
+    vertical-align: middle;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.ui-treetable .ui-treetable-checkbox {
+    margin-right: .5em;
+}
+
+.ui-treetable .ui-treetable-checkbox .ui-chkbox-icon {
+    margin-left: 1px;
+}
+
+.ui-treetable .ui-treetable-row.ui-treetable-row-selectable {
+    cursor: pointer;
+}
+
+.ui-treetable .ui-treetable-row.ui-state-highlight {
+    border: 0 none;
+}
+      
+.ui-treetable tr.ui-state-hover {
+    border-color: inherit;
+    font-weight: inherit;
+}
+
+.ui-treetable .ui-treetable-indent {
+    width: 1em;
+    height: 1em;
+    float: left;
+}
+
+/* PrimeNG */
+.ui-treetable td.ui-treetable-child-table-container {
+    padding: 0;
+    border: 0 none;
+}
+
+.ui-treetable .ui-treetable-row {
+    display: table-row;
+    border-bottom: 0 transparent
+}
+
+.ui-treetable tbody .ui-treetable-row td {
+    border: 0 none;
+}
+
+.ui-treetable tbody .ui-treetable-row td input {
+    outline: 0 none;
+}

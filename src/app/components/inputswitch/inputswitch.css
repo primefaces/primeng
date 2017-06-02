@@ -1,0 +1,58 @@
+.ui-inputswitch {
+	display: inline-block;
+	padding: 0;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    height: 1.5em;
+}
+
+.ui-inputswitch .ui-inputswitch-on,
+.ui-inputswitch .ui-inputswitch-off {
+	white-space: nowrap;
+    display: inline-block;
+    position: absolute;
+	top: 0;
+    width: auto;
+    overflow: hidden;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+	font-weight: bold;
+	height: 100%;
+    line-height: 1.5em;
+}
+
+.ui-inputswitch .ui-inputswitch-on {
+	left: 0;
+    border: 0 none;
+}
+
+.ui-inputswitch .ui-inputswitch-off {
+	right: 0;
+    text-align: right;
+}
+
+.ui-inputswitch .ui-inputswitch-on span,
+.ui-inputswitch .ui-inputswitch-off span {
+	display: inline-block;
+	text-align: center;
+	height: 100%;
+    line-height: inherit;
+}
+
+.ui-inputswitch .ui-inputswitch-handle {
+	display: block;
+	width: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+    height: 100%;
+    border-top: 0 none;
+    border-bottom: 0 none;
+}
