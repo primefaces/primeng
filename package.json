@@ -10,8 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
-  "dependencies": {
+  "devDependencies": {
     "@angular/animations": "^4.0.0",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
@@ -21,6 +20,9 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@angular/cli": "1.1.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/language-service": "^4.0.0",
     "core-js": "^2.4.1",
     "install": "^0.10.1",
     "npm": "^5.0.1",
@@ -33,12 +35,7 @@
     "font-awesome":"4.7.0",
     "quill": "^1.1.8",
     "web-animations-js": "^2.2.2",
-    "prismjs": "^1.6.0"
-  },
-  "devDependencies": {
-    "@angular/cli": "1.1.0",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/language-service": "^4.0.0",
+    "prismjs": "^1.6.0",
     "@types/jasmine": "2.5.45",
     "@types/node": "~6.0.60",
     "codelyzer": "~3.0.1",
@@ -60,6 +57,6 @@
     "gulp-flatten": "^0.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",
-    "gulp-uglifycss": "^1.0.6"
+    "gulp-uglifycss": "^1.0.6",
   }
 }
