@@ -10,6 +10,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/primefaces/primeng.git"
+  },
   "devDependencies": {
     "@angular/animations": "^4.0.0",
     "@angular/common": "^4.0.0",
