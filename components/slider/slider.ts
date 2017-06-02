@@ -98,6 +98,8 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.updateDomData();
         this.sliderHandleClick = true;
         this.handleIndex = index;
+        
+        event.preventDefault();
     }
 
     onTouchStart(event, index?:number) {
