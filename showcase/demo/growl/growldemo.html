@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-growl [(value)]="msgs" sticky="sticky"></p-growl>
+    <p-growl [(value)]="msgs" [sticky]="true"></p-growl>
 
     <div>
         <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
@@ -198,7 +198,7 @@ hide() &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [(value)]="msgs" sticky="sticky"&gt;&lt;/p-growl&gt;
+&lt;p-growl [(value)]="msgs" [sticky]="true"&gt;&lt;/p-growl&gt;
 
 &lt;div&gt;
     &lt;button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
