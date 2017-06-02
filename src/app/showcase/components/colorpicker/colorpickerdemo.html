@@ -1,0 +1,34 @@
+<div class="content-section">
+    <div>
+        <span class="feature-title">ColorPicker</span>
+        <span>ColorPicker is an input component to select a color.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">    
+    <h3 class="first">Overlay</h3>
+    <p-colorPicker [(ngModel)]="color1"></p-colorPicker>
+    
+    <h3>Inline</h3>
+    <p-colorPicker [(ngModel)]="color2"></p-colorPicker>
+</div>
+
+<div class="content-section source">
+    <p-tabView effect="fade">
+        <p-tabPanel header ="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;ColorPickerModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+            <h3>Dependencies</h3>
+            <p>None.</p>
+
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+
+        </p-tabPanel>
+    </p-tabView>
+</div>
