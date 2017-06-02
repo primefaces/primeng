@@ -75,7 +75,7 @@ export class Checkbox implements ControlValueAccessor {
     }
     
     updateModel() {
-        if(!this.binary) {
+        if(!this.binary && this.model) {
             if(this.checked)
                 this.addValue();
             else
