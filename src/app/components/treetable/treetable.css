@@ -1,3 +1,7 @@
+.ui-treetable {
+    position: relative;
+}
+
 .ui-treetable table {
 	border-collapse:collapse;
     width: 100%;
@@ -71,6 +75,43 @@
     width: 1em;
     height: 1em;
     float: left;
+}
+
+/* Resizable */
+.ui-treetable .ui-column-resizer {
+    display: block;
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    margin: 0;
+    width: .5em;
+    height: 100%;
+    padding: 0px;
+    cursor:col-resize;
+    border: 1px solid transparent;
+}
+
+.ui-treetable .ui-column-resizer-helper {
+    width: 1px;
+    position: absolute;
+    z-index: 10;
+    display: none;
+}
+
+.ui-treetable-resizable {
+    padding-bottom: 1px;     /*fix for webkit overlow*/
+    overflow:auto;
+}
+
+.ui-treetable-resizable thead th,
+.ui-treetable-resizable tbody td,
+.ui-treetable-resizable tfoot td {
+    white-space: nowrap;
+}
+
+.ui-treetable-resizable th.ui-resizable-column {
+    background-clip: padding-box;
+    position: relative;
 }
 
 /* PrimeNG */
