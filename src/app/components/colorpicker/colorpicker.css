@@ -6,6 +6,8 @@
     position: relative;
     width: 193px;
     height: 166px;
+    background-color: #323232;
+    border-color: #191919;
 }
 
 .ui-colorpicker-overlay {

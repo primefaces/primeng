@@ -18,7 +18,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                     <span #preview class="ui-colorpicker-preview">Live Preview</span>
                 </span>
             </button>
-            <div #panel [ngClass]="{'ui-colorpicker-panel ui-widget-content ui-corner-all': true, 'ui-colorpicker-overlay ui-shadow':!inline}">
+            <div #panel [ngClass]="{'ui-colorpicker-panel ui-corner-all': true, 'ui-colorpicker-overlay ui-shadow':!inline}">
                 <div class="ui-colorpicker-content">
                     <div #colorSelector class="ui-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
                         <div class="ui-colorpicker-color">
@@ -42,6 +42,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
     
     @Input() inline: boolean;
     
+    @Input() format: string = 'hex';
+    
     @ViewChild('panel') panelViewChild: ElementRef;
     
     @ViewChild('colorSelector') colorSelectorViewChild: ElementRef;
@@ -55,6 +57,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
     @ViewChild('preview') previewViewChild: ElementRef;
     
     value: any;
+    
+    defaultColor: string = 'ff0000';
     
     onModelChange: Function = () => {};
     
@@ -72,10 +76,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
             b: 100
         });
         
-        this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h / 360)) + 'px';
-        this.colorSelectorViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
-        this.previewViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
-        this.onModelChange(this.value);
+        this.updateColorSelector();
+        this.updateUI();
+        this.updateModel();
     }
     
     onColorMousedown(event: MouseEvent) {
@@ -90,14 +93,62 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
             b: brightness
         });
         
-        this.colorHandleViewChild.nativeElement.style.left =  Math.floor(150 * this.value.s / 100) + 'px';
-        this.colorHandleViewChild.nativeElement.style.top =  Math.floor(150 * (100 - this.value.b) / 100) + 'px'
+        this.updateUI();
+        this.updateModel();
+    }
+    
+    updateModel(): void {
+        switch(this.format) {
+            case 'hex':
+                this.onModelChange(this.HSBtoHEX(this.value));
+            break;
             
-        this.onModelChange(this.value);
+            case 'rgb':
+                this.onModelChange(this.HSBtoRGB(this.value));
+            break;
+            
+            case 'hsb':
+                this.onModelChange(this.value);
+            break;
+        }
     }
 
-    writeValue(value: any) : void {
-        this.value = value;
+    writeValue(value: any): void {
+        if(value) {
+            switch(this.format) {
+                case 'hex':
+                    this.value = this.HEXtoHSB(value);
+                break;
+                
+                case 'rgb':
+                    this.value = this.RGBtoHSB(value);
+                break;
+                
+                case 'hsb':
+                    this.value = value;
+                break;
+            }
+        }
+        else {
+            this.value = this.HEXtoHSB(this.defaultColor);
+        }
+        
+        this.updateColorSelector();
+        this.updateUI();
+    }
+    
+    updateColorSelector() {
+        this.colorSelectorViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
+    }
+        
+    updateUI() {
+        this.colorHandleViewChild.nativeElement.style.left =  Math.floor(150 * this.value.s / 100) + 'px';
+        this.colorHandleViewChild.nativeElement.style.top =  Math.floor(150 * (100 - this.value.b) / 100) + 'px';
+        this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h / 360)) + 'px';
+        
+        if(this.previewViewChild && this.previewViewChild.nativeElement) {
+            this.previewViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
+        }
     }
     
     registerOnChange(fn: Function): void {
@@ -111,7 +162,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
     setDisabledState(val: boolean): void {
         this.disabled = val;
     }
-    
+
     validateHSB(hsb) {
         return {
             h: Math.min(360, Math.max(0, hsb.h)),
