@@ -12,14 +12,23 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker',
     template: `
-        <div #container [ngClass]="'ui-colorpicker ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
-            <div #colorSelector class="ui-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
-                <div class="ui-colorpicker-color">
-                    <div #colorHandle class="ui-colorpicker-color-handle"></div>
+        <div [ngStyle]="style" [class]="styleClass" [ngClass]="'ui-colorpicker ui-widget'">
+            <button type="button" class="ui-colorpicker-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" *ngIf="!inline">
+                <span class="ui-button-text ui-c">
+                    <span #preview class="ui-colorpicker-preview">Live Preview</span>
+                </span>
+            </button>
+            <div #panel [ngClass]="{'ui-colorpicker-panel ui-widget-content ui-corner-all': true, 'ui-colorpicker-overlay ui-shadow':!inline}">
+                <div class="ui-colorpicker-content">
+                    <div #colorSelector class="ui-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
+                        <div class="ui-colorpicker-color">
+                            <div #colorHandle class="ui-colorpicker-color-handle"></div>
+                        </div>
+                    </div>
+                    <div #hue class="ui-colorpicker-hue" (mousedown)="onHueMousedown($event)">
+                        <div #hueHandle class="ui-colorpicker-hue-handle"></div>
+                    </div>
                 </div>
-            </div>
-            <div #hue class="ui-colorpicker-hue" (mousedown)="onHueMousedown($event)">
-                <div #hueHandle class="ui-colorpicker-hue-handle"></div>
             </div>
         </div>
     `,
@@ -31,7 +40,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
 
     @Input() styleClass: string;
     
-    @ViewChild('container') containerViewChild: ElementRef;
+    @Input() inline: boolean;
+    
+    @ViewChild('panel') panelViewChild: ElementRef;
     
     @ViewChild('colorSelector') colorSelectorViewChild: ElementRef;
     
@@ -40,6 +51,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
     @ViewChild('hue') hueViewChild: ElementRef;
     
     @ViewChild('hueHandle') hueHandleViewChild: ElementRef;
+    
+    @ViewChild('preview') previewViewChild: ElementRef;
     
     value: any;
     
@@ -61,6 +74,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
         
         this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h / 360)) + 'px';
         this.colorSelectorViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
+        this.previewViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
         this.onModelChange(this.value);
     }
     
@@ -78,7 +92,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
         
         this.colorHandleViewChild.nativeElement.style.left =  Math.floor(150 * this.value.s / 100) + 'px';
         this.colorHandleViewChild.nativeElement.style.top =  Math.floor(150 * (100 - this.value.b) / 100) + 'px'
-                
+            
         this.onModelChange(this.value);
     }
 
