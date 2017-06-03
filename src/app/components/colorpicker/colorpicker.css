@@ -80,3 +80,8 @@
      opacity: .85;
      cursor: pointer;
  }
+ 
+ .ui-colorpicker-panel.ui-state-disabled .ui-colorpicker-hue-handle,
+ .ui-colorpicker-panel.ui-state-disabled .ui-colorpicker-color-handle  {
+      opacity: .5;
+ }
