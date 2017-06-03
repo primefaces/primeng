@@ -219,6 +219,7 @@ body {
     text-align: center;
     font-size: 16px;
     margin-left: 32px;
+    height: 32px;
     -webkit-transition: border-bottom-color 0.5s ease;
     -moz-transition: border-bottom-color -bottom-color  0.5s ease;
     -ms-transition: border-bottom-color  0.5s ease;
@@ -356,6 +357,7 @@ body {
     font-size: 18px;
     display: inline-block;
     margin: 20px 0 0 9px;
+    color: #313b3f;
 }
 
 .topbar-link {

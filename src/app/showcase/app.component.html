@@ -9,7 +9,7 @@
             </a>
         </span>
 
-        <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = inputmenutitle.id">
+        <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === inputmenutitle.id ? null : inputmenutitle.id)">
             <img src="assets/showcase/images/mono/input.svg" />
             <span>Input</span>
         </a>
@@ -37,7 +37,7 @@
             <a [routerLink]="['/tristatecheckbox']" (click)="mobileMenuActive = false">&#9679; TriStateCheckbox</a>
         </div>
 
-        <a id="button_menutitle" #buttonmenutitle [class.active-menuitem]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = buttonmenutitle.id">
+        <a id="button_menutitle" #buttonmenutitle [class.active-menuitem]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === buttonmenutitle.id ? null : buttonmenutitle.id)">
             <img src="assets/showcase/images/mono/button.svg" />
             <span>Button</span>
         </a>
@@ -46,7 +46,7 @@
             <a [routerLink]="['/splitbutton']" (click)="mobileMenuActive = false">&#9679; SplitButton</a>
         </div>
 
-        <a id="data_menutitle" #datamenutitle [class.active-menuitem]="datamenutitle.id == activeMenuId" (click)="activeMenuId = datamenutitle.id">
+        <a id="data_menutitle" #datamenutitle [class.active-menuitem]="datamenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === datamenutitle.id ? null : datamenutitle.id)">
             <img src="assets/showcase/images/mono/data.svg" />
             <span>Data</span>
         </a>
@@ -65,7 +65,7 @@
             <a [routerLink]="['/treetable']" (click)="mobileMenuActive = false">&#9679; TreeTable</a>
         </div>
 
-        <a id="menu_panel" #panelmenutitle [class.active-menuitem]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = panelmenutitle.id">
+        <a id="menu_panel" #panelmenutitle [class.active-menuitem]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === panelmenutitle.id ? null : panelmenutitle.id)">
             <img src="assets/showcase/images/mono/panel.svg" />
             <span>Panel</span>
         </a>
@@ -78,7 +78,7 @@
             <a [routerLink]="['/toolbar']" (click)="mobileMenuActive = false">&#9679; Toolbar</a>
         </div>
 
-        <a id="menu_overlay" #overlaymenutitle [class.active-menuitem]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = overlaymenutitle.id">
+        <a id="menu_overlay" #overlaymenutitle [class.active-menuitem]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === overlaymenutitle.id ? null : overlaymenutitle.id)">
             <img src="assets/showcase/images/mono/overlay.svg" />
             <span>Overlay</span>
         </a>
@@ -90,7 +90,7 @@
             <a [routerLink]="['/tooltip']" (click)="mobileMenuActive = false">&#9679; Tooltip</a>
         </div>
         
-        <a id="menu_file" #filemenutitle [class.active-menuitem]="filemenutitle.id == activeMenuId" (click)="activeMenuId = filemenutitle.id">
+        <a id="menu_file" #filemenutitle [class.active-menuitem]="filemenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === filemenutitle.id ? null : filemenutitle.id)">
             <img src="assets/showcase/images/mono/file.svg" />
             <span>File</span>
         </a>
@@ -98,7 +98,7 @@
             <a [routerLink]="['/fileupload']" (click)="mobileMenuActive = false">&#9679; Upload</a>
         </div>
 
-        <a id="menu_menu" #menumenutitle [class.active-menuitem]="menumenutitle.id == activeMenuId" (click)="activeMenuId = menumenutitle.id">
+        <a id="menu_menu" #menumenutitle [class.active-menuitem]="menumenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menumenutitle.id ? null : menumenutitle.id)">
             <img src="assets/showcase/images/mono/menu.svg" />
             <span>Menu</span>
         </a>
@@ -116,7 +116,7 @@
             <a [routerLink]="['/tieredmenu']" (click)="mobileMenuActive = false">&#9679; TieredMenu</a>
         </div>
 
-        <a id="menu_chart" #chartmenutitle [class.active-menuitem]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = chartmenutitle.id">
+        <a id="menu_chart" #chartmenutitle [class.active-menuitem]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === chartmenutitle.id ? null : chartmenutitle.id)">
             <img src="assets/showcase/images/mono/charts.svg" />
             <span>Charts</span>
         </a>
@@ -130,7 +130,7 @@
             <a [routerLink]="['/chart/radar']" (click)="mobileMenuActive = false">&#9679; Radar</a>
         </div>
 
-        <a id="menu_messages" #messagesmenutitle [class.active-menuitem]="messagesmenutitle.id == activeMenuId" (click)="activeMenuId = messagesmenutitle.id">
+        <a id="menu_messages" #messagesmenutitle [class.active-menuitem]="messagesmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === messagesmenutitle.id ? null : messagesmenutitle.id)">
             <img src="assets/showcase/images/mono/message.svg">
             <span>Messages</span>
         </a>
@@ -140,7 +140,7 @@
         </div>
 
         <a id="menu_multimedia" #multimediamenutitle [class.active-menuitem]="multimediamenutitle.id == activeMenuId"
-                (click)="activeMenuId = multimediamenutitle.id">
+                (click)="activeMenuId = (activeMenuId === multimediamenutitle.id ? null : multimediamenutitle.id)">
                 <img src="assets/showcase/images/mono/multimedia.svg">
                 <span>Multimedia</span>
         </a>
@@ -149,7 +149,7 @@
         </div>
         
         <a id="menu_dnd" #dndmenutitle [class.active-menuitem]="dndmenutitle.id == activeMenuId"
-                (click)="activeMenuId = dndmenutitle.id">
+                (click)="activeMenuId = (activeMenuId === dndmenutitle.id ? null : dndmenutitle.id)">
                 <img src="assets/showcase/images/mono/dragdrop.svg">
                 <span>DragDrop</span>
         </a>
@@ -158,7 +158,7 @@
         </div>
         
         <a id="menu_misc" #misctitle [class.active-menuitem]="misctitle.id == activeMenuId"
-                (click)="activeMenuId = misctitle.id">
+                (click)="activeMenuId = (activeMenuId === misctitle.id ? null : misctitle.id)">
                 <img src="assets/showcase/images/mono/misc.svg">
                 <span>Misc</span>
         </a>
@@ -187,9 +187,9 @@
                 FORUM
             </a>
 
-            <span class="topbar-link" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
+            <div class="topbar-link" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
                 THEMES
-                <div id="GlobalThemeSwitcher" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px">
+                <div id="GlobalThemeSwitcher" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px" [@overlayState]="themesVisible ? 'visible' : 'hidden'">
                     <span>Premium Templates</span>
                     <a href="http://www.primefaces.org/layouts/paradise-ng"><img src="assets/showcase/images/themeswitcher-paradise.png" alt="Paradise Template"><span class="ui-text">Paradise</span></a>
                     <a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima Template"><span class="ui-text">Ultima</span></a>
@@ -217,7 +217,7 @@
                     <a href="#" (click)="changeTheme($event, 'trontastic')"><span class="ui-text">Trontastic</span></a>
                     <a href="#" (click)="changeTheme($event, 'voclain')"><span class="ui-text">Voclain</span></a>
                 </div>
-            </span>
+            </div>
             
             <a href="setup.html" class="topbar-link" [routerLink]="['/setup']">
                 SETUP
