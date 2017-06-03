@@ -13,6 +13,8 @@
     
     <h3>Overlay</h3>
     <p-colorPicker [(ngModel)]="color2"></p-colorPicker>
+    
+    <p style="margin-top:.5em">Selected Color: <span [ngStyle]="{'color':'#' + color2}">{{color2}}</span></p> 
 </div>
 
 <div class="content-section source">
