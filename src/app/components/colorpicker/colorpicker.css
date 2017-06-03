@@ -2,6 +2,10 @@
     display: inline-block;
 } 
 
+.ui-colorpicker-dragging {
+    cursor: pointer;
+} 
+
 .ui-colorpicker-overlay {
     position: relative;
 } 
@@ -51,6 +55,7 @@
      height: 10px;
      border: 2px solid lightblue;
      margin: -5px 0 0 -5px;
+     cursor: pointer;
 }
 
 .ui-colorpicker-panel .ui-colorpicker-hue {
@@ -72,4 +77,5 @@
      height: 10px;
      border: 2px solid lightblue;
      opacity: .7;
+     cursor: pointer;
  }

@@ -13,7 +13,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-colorpicker ui-widget':true,'ui-colorpicker-overlay':!inline}">
+        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-colorpicker ui-widget':true,'ui-colorpicker-overlay':!inline,'ui-colorpicker-dragging':colorDragging||hueDragging}">
             <input #input type="text" *ngIf="!inline" class="ui-colorpicker-preview ui-inputtext ui-state-default ui-corner-all" readonly="readonly" 
                 (focus)="onInputFocus()" (click)="onInputClick()" (keydown)="onInputKeydown($event)">
             <div #panel [ngClass]="{'ui-colorpicker-panel ui-corner-all': true, 'ui-colorpicker-overlay-panel ui-shadow':!inline}" (click)="onPanelClick($event)"
@@ -82,10 +82,20 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     onModelTouched: Function = () => {};
     
     documentClickListener: Function;
+    
+    documentMousemoveListener: Function;
+    
+    documentMouseupListener: Function;
+    
+    documentHueMoveListener: Function;
             
     disabled: boolean;
     
     selfClick: boolean;
+    
+    colorDragging: boolean;
+    
+    hueDragging: boolean;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
     
@@ -97,7 +107,15 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     }
     
     onHueMousedown(event: MouseEvent) {
-        let top: number = (<HTMLElement> event.currentTarget).getBoundingClientRect().top + document.body.scrollTop;
+        this.bindDocumentMousemoveListener();
+        this.bindDocumentMouseupListener();
+        
+        this.hueDragging = true;
+        this.pickHue(event);
+    }
+    
+    pickHue(event: MouseEvent) {
+        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
         this.value = this.validateHSB({
             h: Math.floor(360 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150),
             s: 100,
@@ -110,7 +128,15 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     }
     
     onColorMousedown(event: MouseEvent) {
-        let rect = (<HTMLElement> event.currentTarget).getBoundingClientRect();
+        this.bindDocumentMousemoveListener();
+        this.bindDocumentMouseupListener();
+        
+        this.colorDragging = true;
+        this.pickColor(event);
+    }
+    
+    pickColor(event: MouseEvent) {
+        let rect = this.colorSelectorViewChild.nativeElement.getBoundingClientRect();
         let top = rect.top + document.body.scrollTop;
         let left = rect.left + document.body.scrollLeft;
         let saturation = Math.floor(100 * (Math.max(0, Math.min(150, (event.pageX - left)))) / 150);
@@ -268,6 +294,45 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
         if(this.documentClickListener) {
             this.documentClickListener();
             this.documentClickListener = null;
+        }
+    }
+    
+    bindDocumentMousemoveListener() {
+        if(!this.documentMousemoveListener) {
+            this.documentMousemoveListener = this.renderer.listen('document', 'mousemove', (event: MouseEvent) => {
+                if(this.colorDragging) {
+                    this.pickColor(event);
+                }
+                
+                if(this.hueDragging) {
+                    this.pickHue(event);
+                }
+            });
+        }
+    }
+    
+    unbindDocumentMousemoveListener() {
+        if(this.documentMousemoveListener) {
+            this.documentMousemoveListener();
+            this.documentMousemoveListener = null;
+        }
+    }
+    
+    bindDocumentMouseupListener() {
+        if(!this.documentMouseupListener) {
+            this.documentMouseupListener = this.renderer.listen('document', 'mouseup', () => {
+                this.colorDragging = false;
+                this.hueDragging = false;
+                this.unbindDocumentMousemoveListener();
+                this.unbindDocumentMouseupListener();
+            });
+        }
+    }
+    
+    unbindDocumentMouseupListener() {
+        if(this.documentMouseupListener) {
+            this.documentMouseupListener();
+            this.documentMouseupListener = null;
         }
     }
 
