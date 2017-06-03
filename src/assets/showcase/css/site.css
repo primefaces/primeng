@@ -66,7 +66,7 @@ body {
     height: 42px;
 }
 
-#layout-sidebar > a {
+#layout-sidebar .layout-menu > a {
     width: 100%;
     height: 50px;
     display: block;
@@ -76,7 +76,7 @@ body {
     box-sizing: border-box;
 }
 
-#layout-sidebar> a.active-menuitem {
+#layout-sidebar .layout-menu > a.active-menuitem {
     background-color: #ffffff !important;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -85,11 +85,15 @@ body {
     transition: all 0.5s ease;
 }
 
-#layout-sidebar > a.active-menuitem > span {
+#layout-sidebar .layout-menu > a.active-menuitem > span {
     color: #1b82d7;
 }
 
-#layout-sidebar > a:hover {
+#layout-sidebar .layout-menu > a.active-menuitem > img {
+    fill: #1b82d7 !important;
+}
+
+#layout-sidebar .layout-menu > a:hover {
     background-color: #eeeeee;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -98,27 +102,27 @@ body {
     transition: all 0.5s ease;
 }
 
-#layout-sidebar > a img {
+#layout-sidebar .layout-menu > a img {
     width: 20px;
     height: auto;
     float: left;
 }
 
-#layout-sidebar > a span {
+#layout-sidebar .layout-menu > a span {
     color: #889597;
     font-size: 16px;
     margin: 0px 0px 0px 30px;
     display: block;
 }
 
-#layout-sidebar > div {
+#layout-sidebar .layout-menu > div {
     width: auto;
     padding: 20px 15px;
     overflow: hidden;
     background-color: #ffffff;
 }
 
-#layout-sidebar > div.submenuhide {
+#layout-sidebar .layout-menu > div.submenuhide {
     overflow: hidden;
     max-height: 0;
     padding-top: 0;
@@ -135,7 +139,7 @@ body {
     transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
 }
 
-#layout-sidebar > div.submenushow {
+#layout-sidebar .layout-menu > div.submenushow {
     -moz-transition-duration: 0.3s;
     -webkit-transition-duration: 0.3s;
     -o-transition-duration: 0.3s;
@@ -147,7 +151,7 @@ body {
     max-height: 500px;
 }
 
-#layout-sidebar > div a {
+#layout-sidebar .layout-menu > div a {
     width: 50%;
     float: left;
     padding: 6px;
@@ -159,8 +163,13 @@ body {
     color: #889597;
 }
 
-#layout-sidebar > div a:hover {
+#layout-sidebar .layout-menu > div a:hover {
     background-color: #eeeeee;
+}
+
+#layout-sidebar .layout-menu {
+    overflow: auto;
+    height: calc(100% - 70px);
 }
 
 #layout-content {
