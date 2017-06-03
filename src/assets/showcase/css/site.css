@@ -89,8 +89,12 @@ body {
     color: #1b82d7;
 }
 
-#layout-sidebar .layout-menu > a.active-menuitem > img {
-    fill: #1b82d7 !important;
+#layout-sidebar .layout-menu > a.active-menuitem img.layout-menu-icon-active {
+    display: inline;
+}
+
+#layout-sidebar .layout-menu > a.active-menuitem img.layout-menu-icon-inactive {
+    display: none;
 }
 
 #layout-sidebar .layout-menu > a:hover {
@@ -106,6 +110,14 @@ body {
     width: 20px;
     height: auto;
     float: left;
+}
+
+#layout-sidebar .layout-menu > a img.layout-menu-icon-active {
+    display: none;
+}
+
+#layout-sidebar .layout-menu > a img.layout-menu-icon-inactive {
+    display: inline;
 }
 
 #layout-sidebar .layout-menu > a span {

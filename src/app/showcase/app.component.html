@@ -11,7 +11,8 @@
 
         <div class="layout-menu">
             <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === inputmenutitle.id ? null : inputmenutitle.id)">
-                <img src="assets/showcase/images/mono/input.svg" />
+                <img src="assets/showcase/images/icons/input-active.svg" class="layout-menu-icon-active"/>
+                <img src="assets/showcase/images/icons/input.svg" class="layout-menu-icon-inactive"/>
                 <span>Input</span>
             </a>
             <div [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
@@ -39,7 +40,8 @@
             </div>
 
             <a id="button_menutitle" #buttonmenutitle [class.active-menuitem]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === buttonmenutitle.id ? null : buttonmenutitle.id)">
-                <img src="assets/showcase/images/mono/button.svg" />
+                <img src="assets/showcase/images/icons/button-active.svg" class="layout-menu-icon-active"/>
+                <img src="assets/showcase/images/icons/button.svg" class="layout-menu-icon-inactive"/>
                 <span>Button</span>
             </a>
             <div [ngClass]="{'submenushow': (buttonmenutitle.id == activeMenuId), 'submenuhide': (buttonmenutitle.id != activeMenuId)}">
@@ -48,7 +50,8 @@
             </div>
 
             <a id="data_menutitle" #datamenutitle [class.active-menuitem]="datamenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === datamenutitle.id ? null : datamenutitle.id)">
-                <img src="assets/showcase/images/mono/data.svg" />
+                <img src="assets/showcase/images/icons/data-active.svg" class="layout-menu-icon-active"/>
+                <img src="assets/showcase/images/icons/data.svg" class="layout-menu-icon-inactive"/>
                 <span>Data</span>
             </a>
             <div [ngClass]="{'submenushow': (datamenutitle.id == activeMenuId), 'submenuhide': (datamenutitle.id != activeMenuId)}">
@@ -67,7 +70,8 @@
             </div>
 
             <a id="menu_panel" #panelmenutitle [class.active-menuitem]="panelmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === panelmenutitle.id ? null : panelmenutitle.id)">
-                <img src="assets/showcase/images/mono/panel.svg" />
+                <img src="assets/showcase/images/icons/panel-active.svg" class="layout-menu-icon-active"/>
+                <img src="assets/showcase/images/icons/panel.svg" class="layout-menu-icon-inactive"/>
                 <span>Panel</span>
             </a>
             <div [ngClass]="{'submenushow': (panelmenutitle.id == activeMenuId), 'submenuhide': (panelmenutitle.id != activeMenuId)}">
@@ -80,7 +84,8 @@
             </div>
 
             <a id="menu_overlay" #overlaymenutitle [class.active-menuitem]="overlaymenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === overlaymenutitle.id ? null : overlaymenutitle.id)">
-                <img src="assets/showcase/images/mono/overlay.svg" />
+                <img src="assets/showcase/images/icons/overlay-active.svg" class="layout-menu-icon-active"/>
+                <img src="assets/showcase/images/icons/overlay.svg" class="layout-menu-icon-inactive"/>
                 <span>Overlay</span>
             </a>
             <div [ngClass]="{'submenushow': (overlaymenutitle.id == activeMenuId), 'submenuhide': (overlaymenutitle.id != activeMenuId)}">
@@ -92,7 +97,8 @@
             </div>
             
             <a id="menu_file" #filemenutitle [class.active-menuitem]="filemenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === filemenutitle.id ? null : filemenutitle.id)">
-                <img src="assets/showcase/images/mono/file.svg" />
+                <img src="assets/showcase/images/icons/file-active.svg" class="layout-menu-icon-active"/>
+                <img src="assets/showcase/images/icons/file.svg" class="layout-menu-icon-inactive"/>
                 <span>File</span>
             </a>
             <div [ngClass]="{'submenushow': (filemenutitle.id == activeMenuId), 'submenuhide': (filemenutitle.id != activeMenuId)}">
@@ -100,7 +106,8 @@
             </div>
 
             <a id="menu_menu" #menumenutitle [class.active-menuitem]="menumenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menumenutitle.id ? null : menumenutitle.id)">
-                <img src="assets/showcase/images/mono/menu.svg" />
+                <img src="assets/showcase/images/icons/menu-active.svg" class="layout-menu-icon-active"/>
+                <img src="assets/showcase/images/icons/menu.svg" class="layout-menu-icon-inactive"/>
                 <span>Menu</span>
             </a>
             <div [ngClass]="{'submenushow': (menumenutitle.id == activeMenuId), 'submenuhide': (menumenutitle.id != activeMenuId)}">
@@ -118,7 +125,8 @@
             </div>
 
             <a id="menu_chart" #chartmenutitle [class.active-menuitem]="chartmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === chartmenutitle.id ? null : chartmenutitle.id)">
-                <img src="assets/showcase/images/mono/charts.svg" />
+                <img src="assets/showcase/images/icons/charts-active.svg" class="layout-menu-icon-active"/>
+                <img src="assets/showcase/images/icons/charts.svg" class="layout-menu-icon-inactive"/>
                 <span>Charts</span>
             </a>
             <div [ngClass]="{'submenushow': (chartmenutitle.id == activeMenuId), 'submenuhide': (chartmenutitle.id != activeMenuId)}">
@@ -132,7 +140,8 @@
             </div>
 
             <a id="menu_messages" #messagesmenutitle [class.active-menuitem]="messagesmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === messagesmenutitle.id ? null : messagesmenutitle.id)">
-                <img src="assets/showcase/images/mono/message.svg">
+                <img src="assets/showcase/images/icons/message-active.svg" class="layout-menu-icon-active"/>
+                <img src="assets/showcase/images/icons/message.svg" class="layout-menu-icon-inactive"/>
                 <span>Messages</span>
             </a>
             <div [ngClass]="{'submenushow': (messagesmenutitle.id == activeMenuId), 'submenuhide': (messagesmenutitle.id != activeMenuId)}">
@@ -142,7 +151,8 @@
 
             <a id="menu_multimedia" #multimediamenutitle [class.active-menuitem]="multimediamenutitle.id == activeMenuId"
                     (click)="activeMenuId = (activeMenuId === multimediamenutitle.id ? null : multimediamenutitle.id)">
-                    <img src="assets/showcase/images/mono/multimedia.svg">
+                    <img src="assets/showcase/images/icons/multimedia-active.svg" class="layout-menu-icon-active"/>
+                    <img src="assets/showcase/images/icons/multimedia.svg" class="layout-menu-icon-inactive"/>
                     <span>Multimedia</span>
             </a>
             <div [ngClass]="{'submenushow': (multimediamenutitle.id == activeMenuId), 'submenuhide': (multimediamenutitle.id != activeMenuId)}">
@@ -151,7 +161,8 @@
             
             <a id="menu_dnd" #dndmenutitle [class.active-menuitem]="dndmenutitle.id == activeMenuId"
                     (click)="activeMenuId = (activeMenuId === dndmenutitle.id ? null : dndmenutitle.id)">
-                    <img src="assets/showcase/images/mono/dragdrop.svg">
+                    <img src="assets/showcase/images/icons/dragdrop-active.svg" class="layout-menu-icon-active"/>
+                    <img src="assets/showcase/images/icons/dragdrop.svg" class="layout-menu-icon-inactive"/>
                     <span>DragDrop</span>
             </a>
             <div [ngClass]="{'submenushow': (dndmenutitle.id == activeMenuId), 'submenuhide': (dndmenutitle.id != activeMenuId)}">
@@ -160,7 +171,8 @@
             
             <a id="menu_misc" #misctitle [class.active-menuitem]="misctitle.id == activeMenuId"
                     (click)="activeMenuId = (activeMenuId === misctitle.id ? null : misctitle.id)">
-                    <img src="assets/showcase/images/mono/misc.svg">
+                    <img src="assets/showcase/images/icons/misc-active.svg" class="layout-menu-icon-active"/>
+                    <img src="assets/showcase/images/icons/misc.svg" class="layout-menu-icon-inactive"/>
                     <span>Misc</span>
             </a>
             <div [ngClass]="{'submenushow': (misctitle.id == activeMenuId), 'submenuhide': (misctitle.id != activeMenuId)}">
