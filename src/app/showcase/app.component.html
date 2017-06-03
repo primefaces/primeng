@@ -2,7 +2,7 @@
     <div id="layout-sidebar" [ngClass]="{'active':mobileMenuActive}">
         <span class="layout-logo">
             <a href="#" class="sidebar-logo" [routerLink]="['/']">
-                <img alt="logo" src="assets/showcase/images/primeng-sidebar.svg" />
+                <img alt="logo" src="assets/showcase/images/logo.png" />
             </a>
             <a href="#" id="menu-button-mobile" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
                 <img alt="logo" src="assets/showcase/images/menuicon.svg"/>
@@ -184,13 +184,11 @@
             </a>
 
             <a href="http://forum.primefaces.org/viewforum.php?f=35" class="topbar-link">
-                <img alt="mockosx" src="assets/showcase/images/community.svg" />
-                <span>Forum</span>
+                FORUM
             </a>
 
             <span class="topbar-link" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
-                <img src="assets/showcase/images/themeswitcher.svg" />
-                <span>Themes</span>
+                THEMES
                 <div id="GlobalThemeSwitcher" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px">
                     <span>Premium Templates</span>
                     <a href="http://www.primefaces.org/layouts/paradise-ng"><img src="assets/showcase/images/themeswitcher-paradise.png" alt="Paradise Template"><span class="ui-text">Paradise</span></a>
@@ -222,8 +220,7 @@
             </span>
             
             <a href="setup.html" class="topbar-link" [routerLink]="['/setup']">
-                <img alt="mockosx" src="assets/showcase/images/setup.svg" />
-                <span>Setup</span>
+                SETUP
             </a>
 
             <div class="mobile-logo">
