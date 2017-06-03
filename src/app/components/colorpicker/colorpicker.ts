@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,Input,Output,OnDestroy,EventEmitter,forwardRef,Renderer2,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,AfterViewChecked,OnDestroy,EventEmitter,forwardRef,Renderer2,ViewChild,ChangeDetectorRef} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -12,13 +13,11 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" [ngClass]="'ui-colorpicker ui-widget'">
-            <button type="button" class="ui-colorpicker-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" *ngIf="!inline">
-                <span class="ui-button-text ui-c">
-                    <span #preview class="ui-colorpicker-preview">Live Preview</span>
-                </span>
-            </button>
-            <div #panel [ngClass]="{'ui-colorpicker-panel ui-corner-all': true, 'ui-colorpicker-overlay ui-shadow':!inline}">
+        <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-colorpicker ui-widget':true,'ui-colorpicker-overlay':!inline}">
+            <input #input type="text" *ngIf="!inline" class="ui-colorpicker-preview ui-inputtext ui-state-default ui-corner-all" readonly="readonly" 
+                (focus)="onInputFocus()" (click)="onInputClick()" (keydown)="onInputKeydown($event)">
+            <div #panel [ngClass]="{'ui-colorpicker-panel ui-corner-all': true, 'ui-colorpicker-overlay-panel ui-shadow':!inline}" (click)="onPanelClick($event)"
+                [@panelState]="inline ? 'visible' : (panelVisible ? 'visible' : 'hidden')" [style.display]="inline ? 'block' : (panelVisible ? 'block' : 'none')">
                 <div class="ui-colorpicker-content">
                     <div #colorSelector class="ui-colorpicker-color-selector" (mousedown)="onColorMousedown($event)">
                         <div class="ui-colorpicker-color">
@@ -32,9 +31,21 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
+    animations: [
+        trigger('panelState', [
+            state('hidden', style({
+                opacity: 0
+            })),
+            state('visible', style({
+                opacity: 1
+            })),
+            transition('visible => hidden', animate('400ms ease-in')),
+            transition('hidden => visible', animate('400ms ease-out'))
+        ])
+    ],
     providers: [DomHandler,COLORPICKER_VALUE_ACCESSOR]
 })
-export class ColorPicker implements ControlValueAccessor, OnDestroy{
+export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDestroy{
 
     @Input() style: any;
 
@@ -43,6 +54,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
     @Input() inline: boolean;
     
     @Input() format: string = 'hex';
+    
+    @Input() appendTo: string;
     
     @ViewChild('panel') panelViewChild: ElementRef;
     
@@ -54,19 +67,34 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
     
     @ViewChild('hueHandle') hueHandleViewChild: ElementRef;
     
-    @ViewChild('preview') previewViewChild: ElementRef;
+    @ViewChild('input') inputViewChild: ElementRef;
     
     value: any;
+    
+    shown: boolean;
+    
+    panelVisible: boolean;
     
     defaultColor: string = 'ff0000';
     
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
+    
+    documentClickListener: Function;
             
     disabled: boolean;
+    
+    selfClick: boolean;
                 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    
+    ngAfterViewChecked() {
+        if(this.shown) {
+            this.onShow();
+            this.shown = false;
+        }
+    }
     
     onHueMousedown(event: MouseEvent) {
         let top: number = (<HTMLElement> event.currentTarget).getBoundingClientRect().top + document.body.scrollTop;
@@ -146,9 +174,68 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
         this.colorHandleViewChild.nativeElement.style.top =  Math.floor(150 * (100 - this.value.b) / 100) + 'px';
         this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h / 360)) + 'px';
         
-        if(this.previewViewChild && this.previewViewChild.nativeElement) {
-            this.previewViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
+        if(this.inputViewChild && this.inputViewChild.nativeElement) {
+            this.inputViewChild.nativeElement.style.backgroundColor = '#' + this.HSBtoHEX(this.value);
         }
+    }
+    
+    onInputFocus() {
+        this.onModelTouched();
+    }
+    
+    show() {
+        this.panelViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        this.panelVisible = true;
+        this.shown = true;
+    }
+    
+    hide() {
+        this.panelVisible = false;
+        this.unbindDocumentClickListener();
+    }
+    
+    onShow() {
+        this.alignPanel();
+        this.bindDocumentClickListener();
+    }
+     
+    alignPanel() {
+        if(this.appendTo)
+            this.domHandler.absolutePosition(this.panelViewChild.nativeElement, this.inputViewChild.nativeElement);
+        else
+            this.domHandler.relativePosition(this.panelViewChild.nativeElement, this.inputViewChild.nativeElement);
+    }
+    
+    onInputClick() {
+        this.selfClick = true;
+        this.togglePanel();
+    }
+    
+    togglePanel() {
+        if(!this.panelVisible)
+            this.show();
+        else
+            this.hide();
+    }
+    
+    onInputKeydown(event: KeyboardEvent) {
+        switch(event.which) {
+            //space
+            case 32:
+                this.togglePanel();
+                event.preventDefault();
+            break;
+                        
+            //escape and tab
+            case 27:
+            case 9:
+                this.hide();
+            break;
+        }
+    }
+        
+    onPanelClick() {
+        this.selfClick = true;
     }
     
     registerOnChange(fn: Function): void {
@@ -161,6 +248,27 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+    }
+    
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+                if(!this.selfClick) {
+                    this.panelVisible = false;
+                    this.unbindDocumentClickListener();
+                }
+                
+                this.selfClick = false;
+                this.cd.markForCheck();
+            });
+        }    
+    }
+    
+    unbindDocumentClickListener() {
+        if(this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
     }
 
     validateHSB(hsb) {
@@ -286,7 +394,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy{
     }
     
     ngOnDestroy() {
-        
+        this.unbindDocumentClickListener();
     }
 }
 

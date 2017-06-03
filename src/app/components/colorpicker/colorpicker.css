@@ -2,6 +2,10 @@
     display: inline-block;
 } 
 
+.ui-colorpicker-overlay {
+    position: relative;
+} 
+
 .ui-colorpicker-panel {
     position: relative;
     width: 193px;
@@ -10,19 +14,14 @@
     border-color: #191919;
 }
 
-.ui-colorpicker-overlay {
+.ui-colorpicker-overlay-panel {
     display: none;
     position: absolute;
 } 
 
 .ui-colorpicker-preview {
-    overflow: hidden;
-    width: 1em;
-    height: 1em;
-    display: block;
-    border:solid 1px #000000;
-    text-indent: 1em;
-    white-space: nowrap;
+    width: 2em;
+    cursor: pointer;
 }
 
 .ui-colorpicker-panel .ui-colorpicker-content {
