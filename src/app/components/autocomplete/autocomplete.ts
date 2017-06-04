@@ -96,7 +96,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
 	
-	@Output() onClearedInput: EventEmitter<any> = new EventEmitter();
+	@Output() onClear: EventEmitter<any> = new EventEmitter();
     
     @Input() field: string;
     
@@ -262,7 +262,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
         
         if(value.length === 0) {
            this.hide();
-		   this.onClearedInput.emit(event);
+		   this.onClear.emit(event);
         }
         
         if(value.length >= this.minLength) {
