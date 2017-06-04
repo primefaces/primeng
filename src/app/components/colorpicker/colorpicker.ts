@@ -59,9 +59,9 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     
     @Input() disabled: boolean;
     
-    @Input() tabindex: boolean;
+    @Input() tabindex: string;
     
-    @Input() inputId: boolean;
+    @Input() inputId: string;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
