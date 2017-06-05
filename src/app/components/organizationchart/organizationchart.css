@@ -1,0 +1,32 @@
+.ui-organizationchart .ui-organizationchart-table {
+    border-spacing: 0;
+    border-collapse: separate;
+}
+
+.ui-organizationchart .ui-organizationchart-table > tr > td {
+    text-align: center;
+    vertical-align: top;
+    padding: 0;
+}
+
+.ui-organizationchart .ui-organizationchart-node-content {
+    padding: 0 .75em;
+    display: inline-block;
+}
+
+.ui-organizationchart .ui-organizationchart-line-down {
+    margin: 0 auto;
+    height: 20px;
+    width: 2px;
+    float: none;
+}
+
+.ui-organizationchart .ui-organizationchart-line-right {
+    float: none;
+    border-radius: 0px;
+}
+
+.ui-organizationchart .ui-organizationchart-line-left {
+    float: none;
+    border-radius: 0;
+}

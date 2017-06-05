@@ -511,6 +511,24 @@
     }
 }
 
+.ui-organizationchart {
+    .ui-organizationchart-line-down {
+        background-color: $contentBorderColor;
+    }
+    
+    .ui-organizationchart-line-left {
+        border-right: 1px solid $contentBorderColor;
+    }
+    
+    .ui-organizationchart-line-right {
+        border-left: 1px solid $contentBorderColor;
+    }
+    
+    .ui-organizationchart-line-top {
+        border-top: 2px solid $contentBorderColor;
+    }
+} 
+
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
