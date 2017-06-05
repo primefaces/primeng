@@ -10,6 +10,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/primefaces/primeng.git"
+  },
   "devDependencies": {
     "@angular/animations": "^4.0.0",
     "@angular/common": "^4.0.0",
@@ -57,6 +61,6 @@
     "gulp-flatten": "^0.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",
-    "gulp-uglifycss": "^1.0.6",
+    "gulp-uglifycss": "^1.0.6"
   }
 }

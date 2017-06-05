@@ -29,9 +29,9 @@ html {
 body {
     margin: 0px;
     height: 100%;
+    padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: #20272a;
     font-family: 'Roboto', "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-weight: normal;
     color: #404C51;
@@ -40,40 +40,44 @@ body {
 }
 
 #layout-sidebar {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
-    background-color: #313b3f;
-    border-right: solid 1px #151d21;
+    height: 100%;
+    background-color: #ffffff;
     overflow: hidden;
-    width: 299px;
+    width: 300px;
+	-moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
 .layout-logo {
-    height: 65px;
+    height: 70px;
     display: block;
     padding: 15px 0 17px 0;
+    box-sizing: border-box;
     z-index: 997;
-    background-color: #313b3f;
+    background-color: #20272a;
     text-align: center;
 }
 
 .layout-logo img {
-    height: 70px;
+    height: 42px;
 }
 
-#layout-sidebar > a {
+#layout-sidebar .layout-menu > a {
     width: 100%;
     height: 50px;
     display: block;
     padding: 15px 0px 0px 25px;
     cursor: pointer;
-    border-top: solid 1px #404a4e;
+    border-top: solid 1px #e3e9ea;
     box-sizing: border-box;
 }
 
-#layout-sidebar> a.active-menuitem {
-    background-color: #20282b !important;
+#layout-sidebar .layout-menu > a.active-menuitem {
+    background-color: #ffffff !important;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -ms-transition: all 0.5s ease;
@@ -81,8 +85,20 @@ body {
     transition: all 0.5s ease;
 }
 
-#layout-sidebar > a:hover {
-    background-color: #20282b;
+#layout-sidebar .layout-menu > a.active-menuitem > span {
+    color: #1b82d7;
+}
+
+#layout-sidebar .layout-menu > a.active-menuitem img.layout-menu-icon-active {
+    display: inline;
+}
+
+#layout-sidebar .layout-menu > a.active-menuitem img.layout-menu-icon-inactive {
+    display: none;
+}
+
+#layout-sidebar .layout-menu > a:hover {
+    background-color: #eeeeee;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -ms-transition: all 0.5s ease;
@@ -90,27 +106,35 @@ body {
     transition: all 0.5s ease;
 }
 
-#layout-sidebar > a img {
+#layout-sidebar .layout-menu > a img {
     width: 20px;
     height: auto;
     float: left;
 }
 
-#layout-sidebar > a span {
-    color: #9ba5ac;
+#layout-sidebar .layout-menu > a img.layout-menu-icon-active {
+    display: none;
+}
+
+#layout-sidebar .layout-menu > a img.layout-menu-icon-inactive {
+    display: inline;
+}
+
+#layout-sidebar .layout-menu > a span {
+    color: #889597;
     font-size: 16px;
     margin: 0px 0px 0px 30px;
     display: block;
 }
 
-#layout-sidebar > div {
+#layout-sidebar .layout-menu > div {
     width: auto;
     padding: 20px 15px;
     overflow: hidden;
-    background-color: #20282b;
+    background-color: #ffffff;
 }
 
-#layout-sidebar > div.submenuhide {
+#layout-sidebar .layout-menu > div.submenuhide {
     overflow: hidden;
     max-height: 0;
     padding-top: 0;
@@ -127,7 +151,7 @@ body {
     transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
 }
 
-#layout-sidebar > div.submenushow {
+#layout-sidebar .layout-menu > div.submenushow {
     -moz-transition-duration: 0.3s;
     -webkit-transition-duration: 0.3s;
     -o-transition-duration: 0.3s;
@@ -139,26 +163,31 @@ body {
     max-height: 500px;
 }
 
-#layout-sidebar > div a {
+#layout-sidebar .layout-menu > div a {
     width: 50%;
     float: left;
     padding: 6px;
     box-sizing: border-box;
     cursor: pointer;
-    border-radius: 4homepapx;
+    border-radius: 4px;
     -webkit-border-radius: 4px;
-    color: #659eb3;
     font-size: 14px;
+    color: #889597;
 }
 
-#layout-sidebar > div a:hover {
-    background-color: #101517;
-    color: #8dc5d9;
+#layout-sidebar .layout-menu > div a:hover {
+    background-color: #eeeeee;
+}
+
+#layout-sidebar .layout-menu {
+    overflow: auto;
+    height: calc(100% - 70px);
 }
 
 #layout-content {
     margin-left: 300px;
-    background-color: #FFFFFF;
+    padding-top: 70px;
+    background-color: #ffffff;
 }
 
 .content-section {
@@ -167,6 +196,11 @@ body {
     padding: 30px;
     overflow: hidden;
     background-color: #f5f7f8;
+}
+
+.content-section.introduction {
+    background-image: linear-gradient(to left, #2bc0ec, #1b81d7);
+    color: #ffffff;
 }
 
 .content-section:first-of-type > div > span {
@@ -181,43 +215,43 @@ body {
     font-size: 30px;
     margin-bottom: 20px;
     display: block;
-    color: #fca752;
 }
 
 #topbar {
-    background-color: #1976D2;
+    background-color: #20272a;
     box-sizing: border-box;
     display: block;
-    border-bottom: solid 1px #dde3e6;
-    padding: 15px;
-    overflow: hidden;
+    border-bottom: solid 1px #20272a;
+    padding: 25px 25px 0 0;
+    height: 70px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 300px;
+    width: calc(100% - 300px);
+    z-index: 999999;
+    -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
 .topbar-link {
     float: right;
-    width: 80px;
     text-align: center;
-    padding: 10px 5px;
-    border-radius: 5px;
-    font-size: 12px;
-    -webkit-border-radius: 5px;
-    background-color: rgb(246, 249, 251);
-    margin-left: 5px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    font-size: 16px;
+    margin-left: 32px;
+    height: 32px;
+    -webkit-transition: border-bottom-color 0.5s ease;
+    -moz-transition: border-bottom-color -bottom-color  0.5s ease;
+    -ms-transition: border-bottom-color  0.5s ease;
+    -o-transition: border-bottom-color  0.5s ease;
+    transition: border-bottom-color  0.5s ease;
     overflow: hidden;
-    color:#313b3f;
+    color:#ffffff;
+    border-bottom: 1px solid transparent;
 }
 .topbar-link:hover {
-    background-color: rgba(255, 255, 255, 0.8);
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    border-bottom: 1px solid #ffffff;
 }
 .topbar-link img {
     width: 80%;
@@ -344,6 +378,7 @@ body {
     font-size: 18px;
     display: inline-block;
     margin: 20px 0 0 9px;
+    color: #313b3f;
 }
 
 .topbar-link {
@@ -677,7 +712,7 @@ input.searchInput {
     }
 
     #layout-content {
-        margin-left: 0
+        margin-left: 0;
     }
     .content-section {
         padding: 14px 24px;

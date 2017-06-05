@@ -82,6 +82,10 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
     
+    @Output() onMoveAllToSource: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onMoveAllToTarget: EventEmitter<any> = new EventEmitter();
+    
     @Output() onMoveToTarget: EventEmitter<any> = new EventEmitter();
     
     @Output() onSourceReorder: EventEmitter<any> = new EventEmitter();
@@ -276,10 +280,17 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             for(let i = 0; i < this.source.length; i++) {
                 this.target.push(this.source[i]);
             }
+            
             this.onMoveToTarget.emit({
                 items: this.source
             });
+            
+            this.onMoveAllToTarget.emit({
+                items: this.source
+            });
+            
             this.source.splice(0, this.source.length);
+            
             this.selectedItemsSource = [];
         }
     }
@@ -295,6 +306,7 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             this.onMoveToSource.emit({
                 items: this.selectedItemsTarget
             });
+            
             this.selectedItemsTarget = [];
         }
     }
@@ -304,10 +316,17 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             for(let i = 0; i < this.target.length; i++) {
                 this.source.push(this.target[i]);
             }
+            
             this.onMoveToSource.emit({
                 items: this.target
             });
+            
+            this.onMoveAllToSource.emit({
+                items: this.target
+            });
+            
             this.target.splice(0, this.target.length);
+            
             this.selectedItemsTarget = [];
         }
     }
