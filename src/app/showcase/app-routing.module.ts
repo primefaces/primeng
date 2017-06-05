@@ -6,7 +6,7 @@ import { HomeComponent } from './components/home/home.component';
     imports: [
         RouterModule.forRoot([
             {path: '', component: HomeComponent},
-            {path: 'setup', loadChildren: './components/setup/setup.module#SetupModule'},
+            /*{path: 'setup', loadChildren: './components/setup/setup.module#SetupModule'},
             {path: 'theming', loadChildren: './components/theming/theming.module#ThemingModule'},
             {path: 'accordion', loadChildren: './components/accordion/accordiondemo.module#AccordionDemoModule'},
             {path: 'autocomplete', loadChildren: './components/autocomplete/autocompletedemo.module#AutoCompleteDemoModule'},
@@ -52,7 +52,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'messages', loadChildren: './components/messages/messagesdemo.module#MessagesDemoModule'},
             {path: 'multiselect', loadChildren: './components/multiselect/multiselectdemo.module#MultiSelectDemoModule'},
             {path: 'orderlist', loadChildren: './components/orderlist/orderlistdemo.module#OrderListDemoModule'},*/
-            {path: 'organizationchart', loadChildren: './components/organizationchart/organizationchartdemo.module#OrganizationChartDemoModule'},
+            {path: 'organizationchart', loadChildren: './components/organizationchart/organizationchartdemo.module#OrganizationChartDemoModule'}/*,
             {path: 'overlaypanel', loadChildren: './components/overlaypanel/overlaypaneldemo.module#OverlayPanelDemoModule'},
             {path: 'paginator', loadChildren: './components/paginator/paginatordemo.module#PaginatorDemoModule'},
             {path: 'panel', loadChildren: './components/panel/paneldemo.module#PanelDemoModule'},
@@ -81,7 +81,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'tree', loadChildren: './components/tree/treedemo.module#TreeDemoModule'},
             {path: 'treetable', loadChildren: './components/treetable/treetabledemo.module#TreeTableDemoModule'},
             {path: 'tristatecheckbox', loadChildren: './components/tristatecheckbox/tristatecheckboxdemo.module#TriStateCheckboxDemoModule'},
-            {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'}
+            {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'}*/
         ])    
     ],
     exports: [RouterModule]

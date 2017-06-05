@@ -4,6 +4,7 @@ import {OrganizationChartDemo} from './organizationchartdemo';
 import {OrganizationChartDemoRoutingModule} from './organizationchartdemo-routing.module';
 import {OrganizationChartModule} from '../../../components/organizationchart/organizationchart';
 import {GrowlModule} from '../../../components/growl/growl';
+import {PanelModule} from '../../../components/panel/panel';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
 
@@ -13,6 +14,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		OrganizationChartDemoRoutingModule,
         OrganizationChartModule,
         GrowlModule,
+        PanelModule,
         TabViewModule,
         CodeHighlighterModule
 	],

@@ -36,7 +36,7 @@ export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
     template: `
         <tr>
             <td [attr.colspan]="colspan">
-                <div class="ui-organizationchart-node-content ui-widget-content ui-corner-all" 
+                <div class="ui-organizationchart-node-content ui-widget-content ui-corner-all {{node.styleClass}}" 
                     [ngClass]="{'ui-organizationchart-selectable-node': chart.selectionMode && node.selectable !== false,'ui-state-highlight':isSelected()}"
                     (click)="onNodeClick($event,node)">
                     <span *ngIf="!chart.getTemplateForNode(node)">{{node.label}}</span>
