@@ -21,6 +21,10 @@
    white-space: nowrap;
 }
 
+.ui-tooltip .ui-tooltip-text.ui-tooltip-helper {
+    white-space: normal;
+}
+
 .ui-tooltip-arrow {
     position: absolute;
     width: 0;
