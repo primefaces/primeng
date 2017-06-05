@@ -28,7 +28,7 @@ import {DomHandler} from '../dom/domhandler';
 })
 export class Growl implements AfterViewInit,OnDestroy {
 
-    @Input() sticky: boolean = false;
+    @Input() sticky: boolean;
 
     @Input() life: number = 3000;
         

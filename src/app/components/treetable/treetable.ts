@@ -1,8 +1,9 @@
-import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,IterableDiffers,ContentChildren,QueryList,Inject,forwardRef,OnInit} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,AfterViewChecked,AfterContentInit,OnDestroy,ElementRef,ContentChild,IterableDiffers,ChangeDetectorRef,ContentChildren,QueryList,Inject,forwardRef,OnInit,Renderer2,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/treenode';
 import {Header,Footer,Column} from '../common/shared';
 import {SharedModule} from '../common/shared';
+import {Subscription} from 'rxjs/Subscription';
 import {DomHandler} from '../dom/domhandler';
 
 @Component({
@@ -105,16 +106,17 @@ export class UITreeRow implements OnInit {
 @Component({
     selector: 'p-treeTable',
     template: `
-        <div [ngClass]="'ui-treetable ui-widget'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="{'ui-treetable ui-widget': true, 'ui-treetable-resizable':resizableColumns}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-treetable-header ui-widget-header" *ngIf="header">
                 <ng-content select="p-header"></ng-content>
             </div>
             <div class="ui-treetable-tablewrapper">
-                <table class="ui-widget-content">
+                <table #tbl class="ui-widget-content">
                     <thead>
                         <tr class="ui-state-default">
-                            <th #headerCell *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" 
-                                [ngClass]="'ui-state-default ui-unselectable-text'">
+                            <th #headerCell *ngFor="let col of columns; let lastCol=last "  [ngStyle]="col.style" [class]="col.styleClass" 
+                                [ngClass]="{'ui-state-default ui-unselectable-text': true, 'ui-resizable-column': resizableColumns}">
+                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
                                 <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>
                                 <span class="ui-column-title" *ngIf="col.headerTemplate">
                                     <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
@@ -132,16 +134,19 @@ export class UITreeRow implements OnInit {
                             </td>
                         </tr>
                     </tfoot>
-                    <tbody pTreeRow *ngFor="let node of value" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [toggleColumnIndex]="toggleColumnIndex"></tbody>
+                    <tbody pTreeRow *ngFor="let node of value" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [toggleColumnIndex]="toggleColumnIndex"></tbody>
                 </table>
             </div>
+            
+            <div class="ui-column-resizer-helper ui-state-highlight" style="display:none"></div>
             <div class="ui-treetable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
-    `
+    `,
+    providers: [DomHandler]
 })
-export class TreeTable {
+export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy {
 
     @Input() value: TreeNode[];
         
@@ -163,6 +168,10 @@ export class TreeTable {
 
     @Input() toggleColumnIndex: number = 0;
     
+    @Input() resizableColumns: boolean;
+    
+    @Input() columnResizeMode: string = 'fit';
+    
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
@@ -175,13 +184,137 @@ export class TreeTable {
     
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
     
+    @Output() onColResize: EventEmitter<any> = new EventEmitter();
+    
     @ContentChild(Header) header: Header;
 
     @ContentChild(Footer) footer: Footer;
     
-    @ContentChildren(Column) columns: QueryList<Column>;
+    @ContentChildren(Column) cols: QueryList<Column>;
+    
+    @ViewChild('tbl') tableViewChild: ElementRef;
     
     public rowTouched: boolean;
+    
+    public resizeColumn: any;
+    
+    public columnResizing: boolean;
+    
+    public lastResizerHelperX: number;
+    
+    public columnsChanged: boolean = false;
+    
+    public columns: Column[];
+    
+    public resizerHelper: any;
+    
+    columnsSubscription: Subscription;
+    
+    public documentColumnResizeListener: Function;
+    
+    public documentColumnResizeEndListener: Function;
+    
+    constructor (public el: ElementRef, public domHandler: DomHandler,public changeDetector: ChangeDetectorRef,public renderer: Renderer2) {}
+    
+    ngAfterViewChecked() {
+        if(this.columnsChanged && this.el.nativeElement.offsetParent) {
+            if(this.resizableColumns) {
+                this.initResizableColumns();
+            }
+
+            this.columnsChanged = false;
+        }
+    }
+    
+    ngAfterContentInit() {
+        this.initColumns();
+        
+        this.columnsSubscription = this.cols.changes.subscribe(_ => {
+            this.initColumns();
+            this.changeDetector.markForCheck();
+        });
+    }
+    
+    initColumns(): void {
+        this.columns = this.cols.toArray();
+        this.columnsChanged = true;
+    }
+    
+    initResizableColumns() {
+        this.resizerHelper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
+        this.fixColumnWidths();
+        
+        this.documentColumnResizeListener = this.renderer.listen('document', 'mousemove', (event) => {
+            if(this.columnResizing) {
+                this.onColumnResize(event);
+            }
+        });
+        
+        this.documentColumnResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
+            if(this.columnResizing) {
+                this.columnResizing = false;
+                this.onColumnResizeEnd(event);
+            }
+        });
+    }
+    
+    fixColumnWidths() {
+        let columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
+        let bodyCols;
+        
+        for(let i = 0; i < columns.length; i++) {
+            columns[i].style.width = columns[i].offsetWidth + 'px';
+        }
+    }
+    
+    onColumnResize(event) {
+        let container = this.el.nativeElement.children[0];
+        let containerLeft = this.domHandler.getOffset(container).left;
+        this.domHandler.addClass(container, 'ui-unselectable-text');
+        this.resizerHelper.style.height = container.offsetHeight + 'px';
+        this.resizerHelper.style.top = 0 + 'px';
+        if(event.pageX > containerLeft && event.pageX < (containerLeft + container.offsetWidth)) {
+            this.resizerHelper.style.left = (event.pageX - containerLeft) + 'px';
+        }
+        
+        this.resizerHelper.style.display = 'block';
+    }
+    
+    onColumnResizeEnd(event) {
+        let delta = this.resizerHelper.offsetLeft - this.lastResizerHelperX;
+        let columnWidth = this.resizeColumn.offsetWidth;
+        let newColumnWidth = columnWidth + delta;
+        let minWidth = this.resizeColumn.style.minWidth||15;
+
+        if(columnWidth + delta > parseInt(minWidth)) {
+            if(this.columnResizeMode === 'fit') {
+                let nextColumn = this.resizeColumn.nextElementSibling;
+                let nextColumnWidth = nextColumn.offsetWidth - delta;
+                
+                if(newColumnWidth > 15 && nextColumnWidth > 15) {
+                    this.resizeColumn.style.width = newColumnWidth + 'px';
+                    if(nextColumn) {
+                        nextColumn.style.width = nextColumnWidth + 'px';
+                    }
+                }
+            }
+            else if(this.columnResizeMode === 'expand') {
+                this.tableViewChild.nativeElement.parentElement.style.width = this.tableViewChild.nativeElement.parentElement.offsetWidth + delta + 'px';
+                this.resizeColumn.style.width = newColumnWidth + 'px';
+                let containerWidth = this.tableViewChild.nativeElement.parentElement.style.width;
+                this.el.nativeElement.children[0].style.width = containerWidth;
+            }    
+            
+            this.onColResize.emit({
+                element: this.resizeColumn,
+                delta: delta
+            });
+        }
+                
+        this.resizerHelper.style.display = 'none';
+        this.resizeColumn = null;
+        this.domHandler.removeClass(this.el.nativeElement.children[0], 'ui-unselectable-text');
+    }
         
     onRowClick(event: MouseEvent, node: TreeNode) {
         let eventTarget = (<Element> event.target);
@@ -299,6 +432,14 @@ export class TreeTable {
         }
     }
     
+    initColumnResize(event) {
+        let container = this.el.nativeElement.children[0];
+        let containerLeft = this.domHandler.getOffset(container).left;
+        this.resizeColumn = event.target.parentElement;
+        this.columnResizing = true;
+        this.lastResizerHelperX = (event.pageX - containerLeft);
+    }
+    
     findIndexInSelection(node: TreeNode) {
         let index: number = -1;
 
@@ -394,7 +535,7 @@ export class TreeTable {
     
     hasFooter() {
         if(this.columns) {
-            let columnsArr = this.columns.toArray();
+            let columnsArr = this.cols.toArray();
             for(let i = 0; i < columnsArr.length; i++) {
                 if(columnsArr[i].footer) {
                     return true;
@@ -402,6 +543,13 @@ export class TreeTable {
             }
         }
         return false;
+    }
+    
+    ngOnDestroy() {
+        if(this.resizableColumns && this.documentColumnResizeListener && this.documentColumnResizeEndListener) {
+            this.documentColumnResizeListener();
+            this.documentColumnResizeEndListener();
+        }
     }
 }
 

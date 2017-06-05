@@ -20,6 +20,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'checkbox', loadChildren: './components/checkbox/checkboxdemo.module#CheckboxDemoModule'},
             {path: 'chips', loadChildren: './components/chips/chipsdemo.module#ChipsDemoModule'},
             {path: 'codehighlighter', loadChildren: './components/codehighlighter/codehighlighterdemo.module#CodeHighlighterDemoModule'},
+            {path: 'colorpicker', loadChildren: './components/colorpicker/colorpickerdemo.module#ColorPickerDemoModule'},
             {path: 'confirmdialog', loadChildren: './components/confirmdialog/confirmdialogdemo.module#ConfirmDialogDemoModule'},
             {path: 'contextmenu', loadChildren: './components/contextmenu/contextmenudemo.module#ContextMenuDemoModule'},
             {path: 'datagrid', loadChildren: './components/datagrid/datagriddemo.module#DataGridDemoModule'},

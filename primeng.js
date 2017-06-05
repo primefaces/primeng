@@ -18,6 +18,7 @@ __export(require("./components/chart/chart"));
 __export(require("./components/checkbox/checkbox"));
 __export(require("./components/chips/chips"));
 __export(require("./components/codehighlighter/codehighlighter"));
+__export(require("./components/colorpicker/colorpicker"));
 __export(require("./components/contextmenu/contextmenu"));
 __export(require("./components/datagrid/datagrid"));
 __export(require("./components/datalist/datalist"));
