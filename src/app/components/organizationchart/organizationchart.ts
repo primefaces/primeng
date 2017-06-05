@@ -1,5 +1,6 @@
 import {NgModule,Component,ElementRef,Input,Output,OnInit,AfterContentInit,OnDestroy,EventEmitter,TemplateRef,EmbeddedViewRef,ViewContainerRef,
         Inject,forwardRef,ContentChildren,QueryList} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {SharedModule} from '../common/shared';
@@ -49,23 +50,35 @@ export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
                 </div>
             </td>
         </tr>
-        <tr *ngIf="!leaf&&node.expanded" class="ui-organizationchart-lines">
+        <tr *ngIf="!leaf&&node.expanded" class="ui-organizationchart-lines" [@childState]="in">
             <td [attr.colspan]="colspan">
                 <div class="ui-organizationchart-line-down"></div>
             </td>
         </tr>
-        <tr *ngIf="!leaf&&node.expanded" class="ui-organizationchart-lines">
+        <tr *ngIf="!leaf&&node.expanded" class="ui-organizationchart-lines" [@childState]="in">
             <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
                 <td class="ui-organizationchart-line-left" [ngClass]="{'ui-organizationchart-line-top':!first}">&nbsp;</td>
                 <td class="ui-organizationchart-line-right" [ngClass]="{'ui-organizationchart-line-top':!last}">&nbsp;</td>
             </ng-template>
         </tr>
-        <tr *ngIf="!leaf&&node.expanded" class="ui-organizationchart-nodes">
+        <tr *ngIf="!leaf&&node.expanded" class="ui-organizationchart-nodes" [@childState]="in">
             <td *ngFor="let child of node.children" colspan="2">
                 <table class="ui-organizationchart-table" pOrganizationChartNode [node]="child"></table>
             </td>
         </tr>
-    `
+    `,
+    animations: [
+        trigger('childState', [
+            state('in', style({opacity: 1})),
+           transition('void => *', [
+             style({opacity: 0}),
+             animate(400)
+           ]),
+           transition('* => void', [
+             animate(400, style({opacity:0}))
+           ])
+        ])
+    ],
 })
 export class OrganizationChartNode {
 

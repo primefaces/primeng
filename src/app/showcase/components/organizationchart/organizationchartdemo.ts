@@ -133,9 +133,11 @@ export class OrganizationChartDemo implements OnInit {
         
         this.data2 = [{
             label: 'F.C Barcelona',
+            expanded: true,
             children: [
                 {
                     label: 'F.C Barcelona',
+                    expanded: true,
                     children: [
                         {
                             label: 'Chelsea FC'
@@ -147,6 +149,7 @@ export class OrganizationChartDemo implements OnInit {
                 },
                 {
                     label: 'Real Madrid',
+                    expanded: true,
                     children: [
                         {
                             label: 'Bayern Munich'
