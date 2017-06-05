@@ -992,3 +992,7 @@ pre {
 .whouses img {
     width: 100%;
 }
+
+.ui-growl {
+    top: 100px;
+}

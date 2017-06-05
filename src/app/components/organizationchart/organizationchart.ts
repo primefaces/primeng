@@ -36,8 +36,10 @@ export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
     template: `
         <tr>
             <td [attr.colspan]="colspan">
-                <div class="ui-organizationchart-node-content ui-widget-content ui-corner-all">
-                    <span *ngIf="!chart.getTemplateForNode(node)">{{node.label}} - {{leaf}}</span>
+                <div class="ui-organizationchart-node-content ui-widget-content ui-corner-all" 
+                    [ngClass]="{'ui-organizationchart-selectable-node': chart.selectionMode && node.selectable !== false,'ui-state-highlight':isSelected()}"
+                    (click)="onNodeClick($event,node)">
+                    <span *ngIf="!chart.getTemplateForNode(node)">{{node.label}}</span>
                     <span *ngIf="chart.getTemplateForNode(node)">
                         <p-organizationChartNodeTemplateLoader [node]="node" [template]="chart.getTemplateForNode(node)"></p-organizationChartNodeTemplateLoader>
                     </span>
@@ -81,6 +83,14 @@ export class OrganizationChartNode {
     get colspan() {
         return (this.node.children && this.node.children.length) ? this.node.children.length * 2: null;
     }
+    
+    onNodeClick(event: Event, node: TreeNode) {
+        this.chart.onNodeClick(event, node)
+    }
+    
+    isSelected() {
+        return this.chart.isSelected(this.node);
+    }
 }
 
 @Component({
@@ -99,6 +109,16 @@ export class OrganizationChart implements AfterContentInit {
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    @Input() selectionMode: string;
+    
+    @Input() selection: any;
+    
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -125,6 +145,69 @@ export class OrganizationChart implements AfterContentInit {
             return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else
             return null;
+    }
+    
+    onNodeClick(event: Event, node: TreeNode) {
+        let eventTarget = (<Element> event.target);
+        
+        if(eventTarget.className && eventTarget.className.indexOf('ui-node-toggler') === 0) {
+            return;
+        }
+        else if(this.selectionMode) {
+            if(node.selectable === false) {
+                return;
+            }
+            
+            let index = this.findIndexInSelection(node);
+            let selected = (index >= 0);
+            
+            if(this.selectionMode === 'single') {
+                if(selected) {
+                    this.selection = null;
+                    this.onNodeUnselect.emit({originalEvent: event, node: node});
+                }
+                else {
+                    this.selection = node;
+                    this.onNodeSelect.emit({originalEvent: event, node: node});
+                }
+            }
+            else if(this.selectionMode === 'multiple') {
+                if(selected) {
+                    this.selection = this.selection.filter((val,i) => i!=index);
+                    this.onNodeUnselect.emit({originalEvent: event, node: node});
+                }
+                else {
+                    this.selection = [...this.selection||[],node];
+                    this.onNodeSelect.emit({originalEvent: event, node: node});
+                }
+            }
+            
+            this.selectionChange.emit(this.selection);
+        }
+    }
+    
+    findIndexInSelection(node: TreeNode) {
+        let index: number = -1;
+
+        if(this.selectionMode && this.selection) {
+            if(this.selectionMode === 'single') {
+                index = (this.selection == node) ? 0 : - 1;
+            }
+            else if(this.selectionMode === 'multiple') {
+                for(let i = 0; i  < this.selection.length; i++) {
+                    if(this.selection[i] == node) {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return index;
+    }
+    
+    isSelected(node: TreeNode) {
+        return this.findIndexInSelection(node) != -1;         
     }
 }
 

@@ -6,7 +6,14 @@
 </div>
 
 <div class="content-section implementation">
-    <p-organizationChart [value]="data"></p-organizationChart>
+    <p-growl [(value)]="messages"></p-growl>
+    
+    <p-organizationChart [value]="data" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)">
+        <ng-template let-node pTemplate="ceo">
+            <i class="fa fa-user"></i>
+            <span style="font-weight:bold">{{node.label}}</span>
+        </ng-template>
+    </p-organizationChart>
 </div>
 
 <div class="content-section source">

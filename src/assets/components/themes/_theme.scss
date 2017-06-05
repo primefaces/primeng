@@ -344,6 +344,14 @@
     }
 }
 
+.ui-organizationchart {
+    .ui-organizationchart-node-content {
+        &.ui-organizationchart-selectable-node:not(.ui-state-highlight):hover {
+            @include hover-element();
+        }
+    }
+}
+
 .ui-accordion {
     .ui-accordion-header:not(.ui-state-active):not(.ui-state-disabled):hover {
         @include hover-element();

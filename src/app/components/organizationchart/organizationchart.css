@@ -7,10 +7,11 @@
     text-align: center;
     vertical-align: top;
     padding: 0;
+    padding: 0 .75em;
 }
 
 .ui-organizationchart .ui-organizationchart-node-content {
-    padding: 0 .75em;
+    padding: .5em .75em;
     display: inline-block;
 }
 
@@ -29,4 +30,8 @@
 .ui-organizationchart .ui-organizationchart-line-left {
     float: none;
     border-radius: 0;
+}
+
+.ui-organizationchart .ui-organizationchart-node-content.ui-organizationchart-selectable-node {
+    cursor: pointer;
 }
