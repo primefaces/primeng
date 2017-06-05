@@ -521,19 +521,27 @@
 
 .ui-organizationchart {
     .ui-organizationchart-line-down {
-        background-color: $contentBorderColor;
+        background-color: darken($contentBorderColor, 10%);
     }
     
     .ui-organizationchart-line-left {
-        border-right: 1px solid $contentBorderColor;
+        border-right: 1px solid darken($contentBorderColor, 10%);
     }
     
     .ui-organizationchart-line-right {
-        border-left: 1px solid $contentBorderColor;
+        
     }
     
     .ui-organizationchart-line-top {
-        border-top: 2px solid $contentBorderColor;
+        border-top: 1px solid darken($contentBorderColor, 10%);
+    }
+    
+    .ui-organizationchart-node-content {
+        border-color: darken($contentBorderColor, 10%);
+    }
+    
+    .ui-organizationchart-node-content .ui-node-toggler {
+        color: darken($contentBorderColor, 10%);
     }
 } 
 

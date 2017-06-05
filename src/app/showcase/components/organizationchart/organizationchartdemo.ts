@@ -41,6 +41,14 @@ import {Message,TreeNode} from '../../../components/common/api';
             background-color: #e9286f;
             color: #ffffff;
         }
+        
+        .ui-person .ui-node-toggler {
+            color: #495ebb !important;
+        }
+        
+        .department-cto .ui-node-toggler {
+            color: #8a0a39 !important;
+        }
     `],
     encapsulation: ViewEncapsulation.None
 })
@@ -59,12 +67,14 @@ export class OrganizationChartDemo implements OnInit {
             label: 'CEO',
             type: 'person',
             styleClass: 'ui-person',
+            expanded: true,
             data: {name:'Walter White', 'avatar': 'walter.jpg'},
             children: [
                 {
                     label: 'CFO',
                     type: 'person',
                     styleClass: 'ui-person',
+                    expanded: true,
                     data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
                     children:[{
                         label: 'Tax',
@@ -79,6 +89,7 @@ export class OrganizationChartDemo implements OnInit {
                     label: 'COO',
                     type: 'person',
                     styleClass: 'ui-person',
+                    expanded: true,
                     data: {name:'Mike E.', 'avatar': 'mike.jpg'},
                     children:[{
                         label: 'Operations',
@@ -89,10 +100,12 @@ export class OrganizationChartDemo implements OnInit {
                     label: 'CTO',
                     type: 'person',
                     styleClass: 'ui-person',
+                    expanded: true,
                     data: {name:'Jesse Pinkman', 'avatar': 'jesse.jpg'},
                     children:[{
                         label: 'Development',
                         styleClass: 'department-cto',
+                        expanded: true,
                         children:[{
                             label: 'Analysis',
                             styleClass: 'department-cto'
