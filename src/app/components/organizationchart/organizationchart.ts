@@ -72,10 +72,10 @@ export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
             state('in', style({opacity: 1})),
            transition('void => *', [
              style({opacity: 0}),
-             animate(400)
+             animate(150)
            ]),
            transition('* => void', [
-             animate(400, style({opacity:0}))
+             animate(150, style({opacity:0}))
            ])
         ])
     ],
