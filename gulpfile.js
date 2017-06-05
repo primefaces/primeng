@@ -5,7 +5,9 @@ var gulp = require('gulp'),
     uglifycss = require('gulp-uglifycss'),
     rename = require('gulp-rename'),
     del = require('del'),
-    flatten = require('gulp-flatten');
+    flatten = require('gulp-flatten'),
+    ts = require('gulp-typescript'),
+    tsProject = ts.createProject('tsconfig.json');
     
 gulp.task('build-css', function() {
 	gulp.src([
@@ -39,12 +41,18 @@ gulp.task('themes', function() {
         .pipe(gulp.dest('resources/themes'));
 });
 
+gulp.task('typescript', function() {
+    return tsProject.src()
+        .pipe(tsProject())
+        .js.pipe(gulp.dest('components'))
+});
+
 //Cleaning previous gulp tasks from project
 gulp.task('clean', function() {
-	del(['resources']);
+	del(['resources', 'components']);
 });
 
 //Building project with run sequence
-gulp.task('build-assets', ['clean','build-css-prod', 'images', 'themes']);
+gulp.task('build-assets', ['clean','build-css-prod', 'images', 'themes', 'typescript']);
 
         
