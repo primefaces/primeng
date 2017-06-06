@@ -15,6 +15,24 @@
     width: 12.5em;
 }
 
+.ui-orderlist .ui-orderlist-filter-container {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 100%;
+}
+
+.ui-orderlist .ui-orderlist-filter-container .ui-inputtext {
+    text-indent: 1.1em;
+    width: 100%;
+}
+
+.ui-orderlist .ui-orderlist-filter-container .fa {
+    position: absolute;
+    top: .35em;
+    left: .35em;
+}
+
 .ui-orderlist .ui-orderlist-list li {
     margin: 1px;
     padding: .125em;

@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
+import {ObjectUtils} from '../utils/ObjectUtils';
 
 @Component({
     selector: 'p-orderList',
@@ -16,11 +17,16 @@ import {DomHandler} from '../dom/domhandler';
                     <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom($event,listelement)"></button>
                 </div>
                 <div class="ui-grid-col-10">
+                    <div class="ui-orderlist-filter-container" *ngIf="filter">
+                        <input type="text" role="textbox" (keyup)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                        <span class="fa fa-search"></span>
+                    </div>
                     <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                     <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle">
                         <li *ngFor="let item of value" class="ui-orderlist-item"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
-                            (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)">
+                            (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)"
+                            [style.display]="isItemVisible(item) ? 'block' : 'none'">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                         </li>
                     </ul>
@@ -28,11 +34,9 @@ import {DomHandler} from '../dom/domhandler';
             </div>
         </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler,ObjectUtils]
 })
 export class OrderList implements AfterViewChecked,AfterContentInit {
-
-    @Input() value: any[];
     
     @Input() header: string;
     
@@ -44,11 +48,17 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     @Input() responsive: boolean;
     
+    @Input() filterBy: string;
+    
+    @Input() filter: boolean = false;
+    
     @Input() metaKeySelection: boolean = true;
     
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onFilterEvent: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -63,8 +73,14 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     listContainer: any;
     
     itemTouched: boolean;
+    
+    public filterValue: string;
+    
+    public visibleOptions: any[];
+    
+    public _value: any[];
         
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
          
     ngAfterViewInit() {
         this.listContainer = this.domHandler.findSingle(this.el.nativeElement, 'ul.ui-orderlist-list');
@@ -99,6 +115,17 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             this.movedDown = false;
         }
     }
+    
+    get value(): any[] {
+        return this._value;
+    }
+
+    @Input()set value(val:any[]) {
+        this._value = val ? [...val] : null;
+        if(this.filterValue) {
+            this.activateFilter();
+        }
+    }
                 
     onItemClick(event, item) {
         let index = this.findIndexInList(item, this.selectedItems);
@@ -128,6 +155,37 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
 
         this.onSelectionChange.emit({originalEvent:event, value:this.selectedItems});
         this.itemTouched = false;
+    }
+    
+    onFilter(event) {
+        this.filterValue = event.target.value.trim().toLowerCase();
+        this.visibleOptions = [];
+        this.activateFilter();
+        
+        this.onFilterEvent.emit({
+            originalEvent: event,
+            value: this.visibleOptions
+        });
+    }
+    
+    activateFilter() {
+        let searchFields = this.filterBy.split(',');
+        this.visibleOptions = this.objectUtils.filter(this.value, searchFields, this.filterValue);
+    }
+    
+    isItemVisible(item: any): boolean {
+        let filterFields = this.filterBy.split(',');
+        
+        if(this.filterValue && this.filterValue.trim().length) {
+            for(let i = 0; i < this.visibleOptions.length; i++) {
+                if(item == this.visibleOptions[i]) {
+                    return true;
+                }
+            }
+        }
+        else {
+            return true;
+        }
     }
     
     onItemTouchEnd(event) {

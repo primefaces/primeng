@@ -9,7 +9,7 @@
     
     <div class="ui-g">
         <div class="ui-g-12 ui-md-6">
-            <p-orderList [value]="cars" [listStyle]="{'height':'250px'}" responsive="true" header="Responsive Cars">
+            <p-orderList [value]="cars" [listStyle]="{'height':'250px'}" responsive="true" header="Responsive Cars" filter="filter" filterBy="brand">
                 <ng-template let-car pTemplate="item">
                     <div class="ui-helper-clearfix">
                         <img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px" />
@@ -70,6 +70,15 @@ export class MyComponent &#123;
             <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
             devices metaKeySelection is turned off automatically.</p>
             
+            <h3>Filtering</h3>
+            <p>Options can be filtered using an input field in the overlay by enabling the filter property.
+                filterBy property decides which field to search(Accepts multiple fields with a comma).</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-orderlist [value]="cars" [filter]="filter" filterBy="brand"&gt;&lt;/p-orderlist&gt;
+</code>
+</pre>
+            
             <h3>Responsive</h3>
             <p>In responsive mode, orderlist adjusts its controls based on screen size. To activate this mode, set responsive as true.</p>
 <pre>
@@ -127,6 +136,18 @@ export class MyComponent &#123;
                             <td>When enabled orderlist adjusts its controls based on screen size.</td>
                         </tr>
                         <tr>
+                            <td>filter</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specified, displays an input field to filter the items on keyup.</td>
+                        </tr>
+                        <tr>
+                            <td>filterBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>When filter is specified, filterBy decides which field to search(Accepts multiple fields with a comma).</td>
+                        </tr>
+                        <tr>
                             <td>metaKeySelection</td>
                             <td>boolean</td>
                             <td>true</td>
@@ -158,6 +179,12 @@ export class MyComponent &#123;
                             <td>originalEvent: browser event<br/>
                                 value: Current selection</td>
                             <td>Callback to invoke when selection changes.</td>
+                        </tr>
+                        <tr>
+                            <td>onFilterEvent</td>
+                            <td>originalEvent: browser event<br/>
+                                value: Current filter values</td>
+                            <td>Callback to invoke when filtering occurs.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -199,7 +226,7 @@ export class MyComponent &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;
     &lt;div class="ui-g-12 ui-md-6"&gt;
-        &lt;p-orderList [value]="cars" [listStyle]="&#123;'height':'250px'&#125;" [responsive]="true" header="Responsive Cars"&gt;
+        &lt;p-orderList [value]="cars" [listStyle]="&#123;'height':'250px'&#125;" [responsive]="true" header="Responsive Cars" filter="filter" filterBy="brand"&gt;
             &lt;ng-template let-car pTemplate="item"&gt;
                 &lt;div class="ui-helper-clearfix"&gt;
                     &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px" /&gt;

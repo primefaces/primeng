@@ -78,4 +78,22 @@ export class ObjectUtils {
             return null;
         }
     }
+    
+    filter(array: any[], searchFields: any[], filterValue: string) {
+        let visibleOptions = [];
+        
+        for(let i = 0; i < array.length; i++) {
+            let isItemPushed = false;
+            
+            for(let j = 0; j < searchFields.length; j++) {
+                if(this.resolveFieldData(array[i], searchFields[j]).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
+                    isItemPushed = true;
+                }
+            }
+            if(isItemPushed) {
+                visibleOptions.push(array[i]);
+            }
+        }
+        return visibleOptions;
+    }
 }
