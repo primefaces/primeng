@@ -130,6 +130,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     closeIconMouseDown: boolean;
     
     preWidth: number;
+    
+    preventVisibleChangePropagation: boolean;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
@@ -143,8 +145,13 @@ export class Dialog implements AfterViewInit,OnDestroy {
         if(this.containerViewChild && this.containerViewChild.nativeElement) {
             if(this._visible)
                 this.show();
-            else
-                this.hide();
+            else {
+                if(this.preventVisibleChangePropagation)
+                    this.preventVisibleChangePropagation = false;
+                else
+                    this.hide();
+            }
+                
         }
     }
 
@@ -176,6 +183,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
     hide() {
         this.onHide.emit({});
         this.unbindMaskClickListener();
+        this.unbindGlobalListeners();
         
         if(this.modal) {
             this.disableModality();
@@ -183,6 +191,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
     }
     
     close(event: Event) {
+        this.preventVisibleChangePropagation = true;
         this.hide();
         this.visibleChange.emit(false);
         event.preventDefault();
@@ -344,6 +353,9 @@ export class Dialog implements AfterViewInit,OnDestroy {
     
     unbindGlobalListeners() {
         this.unbindDocumentDragListener();
+        this.unbindDocumentResizeListeners();
+        this.unbindDocumentResponsiveListener();
+        this.unbindDocumentEscapeListener();
     }
     
     bindDocumentDragListener() {
@@ -398,7 +410,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         });
     }
     
-    unbindDocumentResponseListener() {
+    unbindDocumentResponsiveListener() {
         if(this.documentResponsiveListener) {
             this.documentResponsiveListener();
             this.documentResponsiveListener = null;
