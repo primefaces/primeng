@@ -40,69 +40,164 @@ import &#123;OrganizationChartModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>ColorPicker uses ngModel directive to bind a value.</p>
+            <p>OrganizationChart requires a model of TreeNode as its value. More information about TreeNode API is available at documentation of <a href="#" [routerLink]="['/tre']">tree</a> component.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;TreeNode&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-colorPicker [(ngModel)]="color"&gt;&lt;/p-colorPicker&gt;
+&lt;p-organizationChart [value]="data"&gt;&lt;/p-organizationChart&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class MyComponent &#123;
+export class MyComponents implements OnInit &#123;
 
-    color: string;
-
+    data: TreeNode[];
+    
+    ngOnInit() &#123;
+        this.data = [&#123;
+            label: 'Root',
+            children: [
+                &#123;
+                    label: 'Child 1,
+                    children: [
+                        &#123;
+                            label: 'Grandchild 1.1'
+                        &#125;,
+                        &#123;
+                            label: Grandchild 1.2'
+                        &#125;
+                    ]
+                &#125;,
+                &#123;
+                    label: 'Child 2',
+                    children: [
+                        &#123;
+                            label: 'Child 2.1'
+                        &#125;,
+                        &#123;
+                            label: 'Child 2.2'
+                        &#125;
+                    ]
+                &#125;
+            ]
+        &#125;];
 &#125;
 </code>
 </pre>
 
-            <h3>Formats</h3>
-            <p>Default color format to use in value binding is "hex" and other possible values are "rgb" and "hsb". 
-                Example below has 3 colorpickers having default values with different formats.</p>
+            <h3>Templating</h3>
+            <p>Label of the treenode is displayed inside the node content by default and templating enables enhanced customization. TreeNode API has type property which is
+            used to match the pTemplate type so templating can be done per node as well. In example below, nodes with type "leaf" are displayed with bold text. Note that a pTemplate
+            whose type is "default" applies to all nodes that have no type property defined.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-colorPicker [(ngModel)]="color1"&gt;&lt;/p-colorPicker&gt;
-&lt;p-colorPicker [(ngModel)]="color2" type="rgb"&gt;&lt;/p-colorPicker&gt;
-&lt;p-colorPicker [(ngModel)]="color3" type="hsb"&gt;&lt;/p-colorPicker&gt;
+&lt;p-organizationChart [value]="data1"
+    styleClass="company"&gt;
+    &lt;ng-template let-node pTemplate="leaf"&gt;
+        &lt;span style="font-weight:bold"&gt;{{node.label}}&lt;/span&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-node pTemplate="default"&gt;
+        &#123;&#123;node.label&#125;&#125;
+    &lt;/ng-template&gt;
+&lt;/p-organizationChart&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class MyComponent &#123;
+export class MyComponents implements OnInit &#123;
 
-    color1: string;
+    data: TreeNode[];
     
-    color2: any = &#123;
-        r: 100, g: 130, b: 150
-    &#125;;
-    
-    color3: any = &#123;
-        h: 100, s: 50, b: 50
-    &#125;;
-
+    ngOnInit() &#123;
+        this.data = [&#123;
+            label: 'Root',
+            children: [
+                &#123;
+                    label: 'Child 1,
+                    children: [
+                        &#123;
+                            label: 'Grandchild 1.1', type: 'leaf'
+                        &#125;,
+                        &#123;
+                            label: Grandchild 1.2', type: 'leaf'
+                        &#125;
+                    ]
+                &#125;,
+                &#123;
+                    label: 'Child 2',
+                    children: [
+                        &#123;
+                            label: 'Child 2.1', type: 'leaf'
+                        &#125;,
+                        &#123;
+                            label: 'Child 2.2', type: 'leaf'
+                        &#125;
+                    ]
+                &#125;
+            ]
+        &#125;];
 &#125;
 </code>
 </pre>
 
-            <h3>Overlay and Inline</h3>
-            <p>ColorPicker can be displayed as inline or as an overlay (default) using the "inline" property.</p>
+            <h3>Expand/Collapse State</h3>
+            <p>In order to display a treenode as expanded by default, set "expanded" property as true in your model.</p>
+
+            <h3>Selection</h3>
+            <p>OrganizationChart supports 2 selection methods; single or multiple. Selection is enabled by setting selectionMode property and providing a single TreeNode or
+            an array of TreeNodes to reference the selections depending on the selection mode.</p>
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-colorPicker [(ngModel)]="color1" &gt;&lt;/p-colorPicker&gt;
-&lt;p-colorPicker [(ngModel)]="color2" inline="true"&gt;&lt;/p-colorPicker&gt;
+&lt;p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode"&gt;&lt;/p-organizationChart&gt;
 </code>
 </pre>
 
-            <h3>Model Driven Forms</h3>
-            <p>Dropdown can be used in a model driven form as well.</p>
 <pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-colorPicker formControlName="color"&gt;&lt;/p-dropdown&gt;
+<code class="language-typescript" pCode ngNonBindable>
+export class MyComponents implements OnInit &#123;
+
+    data: TreeNode[];
+    
+    ngOnInit() &#123;
+        this.data = [&#123;
+            label: 'Root',
+            children: [
+                &#123;
+                    label: 'Child 1,
+                    children: [
+                        &#123;
+                            label: 'Grandchild 1.1', type: 'leaf'
+                        &#125;,
+                        &#123;
+                            label: Grandchild 1.2', type: 'leaf'
+                        &#125;
+                    ]
+                &#125;,
+                &#123;
+                    label: 'Child 2',
+                    children: [
+                        &#123;
+                            label: 'Child 2.1', type: 'leaf'
+                        &#125;,
+                        &#123;
+                            label: 'Child 2.2', type: 'leaf'
+                        &#125;
+                    ]
+                &#125;
+            ]
+        &#125;];
+&#125;
 </code>
 </pre>
-            
     
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -117,6 +212,12 @@ export class MyComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
+                            <td>value</td>
+                            <td>null</td>
+                            <td>TreeNode[]</td>
+                            <td>An array of nested TreeNodes.</td>
+                        </tr>
+                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -129,46 +230,16 @@ export class MyComponent &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
-                            <td>inline</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>Whether to display as an overlay or not.</td>
-                        </tr>
-                        <tr>
-                            <td>format</td>
-                            <td>string</td>
-                            <td>hex</td>
-                            <td>Format to use in value binding, supported formats are "hex", "rgb" and "hsb".</td>
-                        </tr>
-                        <tr>
-                            <td>appendTo</td>
-                            <td>any</td>
-                            <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
-                        </tr>
-                        <tr>
-                            <td>tabindex</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Index of the element in tabbing order.</td>
-                        </tr>
-                        <tr>
-                            <td>disabled</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When present, it specifies that the component should be disabled.</td>
-                        </tr>
-                        <tr>
-                            <td>appendTo</td>
-                            <td>any</td>
-                            <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
-                        </tr>
-                        <tr>
-                            <td>inputId</td>
+                            <td>selectionMode</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Identifier of the focus input to match a label defined for the dropdown.</td>
+                            <td>Defines the selection mode, valid values "single" and "multiple".</td>
+                        </tr>
+                        <tr>
+                            <td>selection</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>A single treenode instance or an array to refer to the selections.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -186,11 +257,16 @@ export class MyComponent &#123;
                 </thead>
                 <tbody>
                     <tr>
-                        <td>onChange</td>
-                        <td>event.originalEvent: Browser event<br />
-                            event.value: Selected color
-                        </td>
-                        <td>Callback to invoke when a color is selected.</td>
+                        <td>onNodeSelect</td>
+                        <td>event.originalEvent: browser event <br>
+                            event.node: Selected node instance.</td>
+                        <td>Callback to invoke when a node is selected.</td>
+                    </tr>
+                    <tr>
+                        <td>onNodeUnselect</td>
+                        <td>event.originalEvent: browser event <br>
+                            event.node: Unselected node instance.</td>
+                        <td>Callback to invoke when a node is unselected.</td>
                     </tr>
                 </tbody>
             </table>
@@ -208,44 +284,32 @@ export class MyComponent &#123;
                 </thead>
                 <tbody>
                     <tr>
-                        <td>ui-colorpicker</td>
+                        <td>ui-organizationchart</td>
                         <td>Container element.</td>
                     </tr>
                     <tr>
-                        <td>ui-colorpicker-overlay</td>
-                        <td>Container element in overlay mode.</td>
+                        <td>ui-organizationchart-table</td>
+                        <td>Table container of a node.</td>
                     </tr>
                     <tr>
-                        <td>ui-colorpicker-preview </td>
-                        <td>Preview input in overlay mode.</td>
+                        <td>ui-organizationchart-lines</td>
+                        <td>Connector lines container.</td>
                     </tr>
                     <tr>
-                        <td>ui-colorpicker-panel</td>
-                        <td>Panel element of the colorpicker.</td>
+                        <td>ui-organizationchart-nodes</td>
+                        <td>Contained of node children.</td>
                     </tr>
                     <tr>
-                        <td>ui-colorpicker-content</td>
-                        <td>Wrapper that contains color and hue sections.</td>
+                        <td>ui-organizationchart-line-right</td>
+                        <td>Right side line of a node connector.</td>
                     </tr>
                     <tr>
-                        <td>ui-colorpicker-color-selector</td>
-                        <td>Color selector container.</td>
+                        <td>ui-organizationchart-line-left</td>
+                        <td>Left side line of a node connector.</td>
                     </tr>
                     <tr>
-                        <td>ui-colorpicker-color</td>
-                        <td>Color element.</td>
-                    </tr>
-                    <tr>
-                        <td>ui-colorpicker-color-handle</td>
-                        <td>Handle of the color element.</td>
-                    </tr>
-                    <tr>
-                        <td>ui-colorpicker-hue</td>
-                        <td>Hue slider.</td>
-                    </tr>
-                    <tr>
-                        <td>ui-colorpicker-hue-handle</td>
-                        <td>Handle of the hue slider.</td>
+                        <td>ui-organizationchart-line-top</td>
+                        <td>Top side line of a node connector.</td>
                     </tr>
                 </tbody>
             </table>
@@ -259,25 +323,197 @@ export class MyComponent &#123;
         <p-tabPanel header="Source">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Inline&lt;/h3&gt;
-&lt;p-colorPicker [(ngModel)]="color1" inline="true"&gt;&lt;/p-colorPicker&gt;
+&lt;p-growl [(value)]="messages"&gt;&lt;/p-growl&gt;
 
-&lt;p style="margin-top:.5em"&gt;Selected Color: &lt;span style="display:inline-block;width:32px;height:32px;vertical-align:middle" [style.backgroundColor]="'#' + color1"&gt;&lt;/span&gt; &#123;&#123;color1&#125;&#125; &lt;/p&gt;    
+&lt;h3 class="first"&gt;Advanced&lt;/h3&gt;
+&lt;p&gt;Organization with advanced customization.&lt;/p&gt;
+&lt;p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"
+    styleClass="company"&gt;
+    &lt;ng-template let-node pTemplate="person"&gt;
+        &lt;div class="node-header ui-corner-top"&gt;&#123;node.label&#125;&lt;/div&gt;
+        &lt;div class="node-content"&gt;
+            &lt;img src="assets/showcase/images/demo/organization/&#123;node.data.avatar&#125;" width="32"&gt;
+            &lt;div&gt;&#123;node.data.name&#125;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template let-node pTemplate="department"&gt;
+        &#123;node.label&#125;
+    &lt;/ng-template&gt;
+&lt;/p-organizationChart&gt;
 
-&lt;h3&gt;Overlay&lt;/h3&gt;
-&lt;p-colorPicker [(ngModel)]="color2"&gt;&lt;/p-colorPicker&gt;
-
-&lt;p style="margin-top:.5em"&gt;Selected Color: &lt;span [ngStyle]="&#123;'color':'#' + color2&#125;"&gt;&#123;&#123;color2&#125;&#125;&lt;/span&gt;&lt;/p&gt; 
+&lt;h3&gt;Basic&lt;/h3&gt;
+&lt;p&gt;Hierarchical data with zero configuration.&lt;/p&gt;
+&lt;p-organizationChart [value]="data2"&gt;&lt;/p-organizationChart&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class ColorPickerDemo &#123;
+@Component(&#123;
+    templateUrl: './organizationchartdemo.html',
+    styles: [`
+        .company.ui-organizationchart .ui-organizationchart-node-content.ui-person &#123;
+            padding: 0;
+            border: 0 none;
+        &#125;
+        
+        .node-header,.node-content &#123;
+            padding: .5em .7em;
+        &#125;
+        
+        .node-header &#123;
+            background-color: #495ebb;
+            color: #ffffff;
+        &#125;
+        
+        .node-content &#123;
+            text-align: center;
+            border: 1px solid #495ebb;
+        &#125;
+        
+        .node-content img &#123;
+            border-radius: 50%;
+        &#125;
+        
+        .department-cfo &#123;
+            background-color: #7247bc;
+            color: #ffffff;
+        &#125;
+        
+        .department-coo &#123;
+            background-color: #a534b6;
+            color: #ffffff;
+        &#125;
+        
+        .department-cto &#123;
+            background-color: #e9286f;
+            color: #ffffff;
+        &#125;
+        
+        .ui-person .ui-node-toggler &#123;
+            color: #495ebb !important;
+        &#125;
+        
+        .department-cto .ui-node-toggler &#123;
+            color: #8a0a39 !important;
+        &#125;
+    `],
+    encapsulation: ViewEncapsulation.None
+&#125;)
+export class OrganizationChartDemo implements OnInit &#123;
 
-    color1: string;
+    data1: TreeNode[];
     
-    color2: string = '1976D2';
+    data2: TreeNode[];
+    
+    selectedNodes: TreeNode;
+    
+    messages: Message[];
+    
+    ngOnInit() &#123;
+        this.data1 = [&#123;
+            label: 'CEO',
+            type: 'person',
+            styleClass: 'ui-person',
+            expanded: true,
+            data: &#123;name:'Walter White', 'avatar': 'walter.jpg'&#125;,
+            children: [
+                &#123;
+                    label: 'CFO',
+                    type: 'person',
+                    styleClass: 'ui-person',
+                    expanded: true,
+                    data: &#123;name:'Saul Goodman', 'avatar': 'saul.jpg'&#125;,
+                    children:[&#123;
+                        label: 'Tax',
+                        styleClass: 'department-cfo'
+                    &#125;,
+                    &#123;
+                        label: 'Legal',
+                        styleClass: 'department-cfo'
+                    &#125;],
+                &#125;,
+                &#123;
+                    label: 'COO',
+                    type: 'person',
+                    styleClass: 'ui-person',
+                    expanded: true,
+                    data: &#123;name:'Mike E.', 'avatar': 'mike.jpg'&#125;,
+                    children:[&#123;
+                        label: 'Operations',
+                        styleClass: 'department-coo'
+                    &#125;]
+                &#125;,
+                &#123;
+                    label: 'CTO',
+                    type: 'person',
+                    styleClass: 'ui-person',
+                    expanded: true,
+                    data: &#123;name:'Jesse Pinkman', 'avatar': 'jesse.jpg'&#125;,
+                    children:[&#123;
+                        label: 'Development',
+                        styleClass: 'department-cto',
+                        expanded: true,
+                        children:[&#123;
+                            label: 'Analysis',
+                            styleClass: 'department-cto'
+                        &#125;,
+                        &#123;
+                            label: 'Front End',
+                            styleClass: 'department-cto'
+                        &#125;,
+                        &#123;
+                            label: 'Back End',
+                            styleClass: 'department-cto'
+                        &#125;]
+                    &#125;,
+                    &#123;
+                        label: 'QA',
+                        styleClass: 'department-cto'
+                    &#125;,
+                    &#123;
+                        label: 'R&amp;D',
+                        styleClass: 'department-cto'
+                    &#125;]
+                &#125;
+            ]
+        &#125;];
+        
+        this.data2 = [&#123;
+            label: 'F.C Barcelona',
+            expanded: true,
+            children: [
+                &#123;
+                    label: 'F.C Barcelona',
+                    expanded: true,
+                    children: [
+                        &#123;
+                            label: 'Chelsea FC'
+                        &#125;,
+                        &#123;
+                            label: 'F.C. Barcelona'
+                        &#125;
+                    ]
+                &#125;,
+                &#123;
+                    label: 'Real Madrid',
+                    expanded: true,
+                    children: [
+                        &#123;
+                            label: 'Bayern Munich'
+                        &#125;,
+                        &#123;
+                            label: 'Real Madrid'
+                        &#125;
+                    ]
+                &#125;
+            ]
+        &#125;];
+    &#125;
+    
+    onNodeSelect(event) &#123;
+        this.messages = [&#123;severity: 'success', summary: 'Node Selected', detail: event.node.label&#125;];
+    &#125;
 &#125;
 </code>
 </pre>
