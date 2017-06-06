@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,OnInit,DoCheck} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostListener,Input,Output,OnInit,DoCheck,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Directive({
@@ -20,6 +20,8 @@ export class InputTextarea implements OnInit,DoCheck {
     @Input() rows: number;
     
     @Input() cols: number;
+    
+    @Output() onResize: EventEmitter<any> = new EventEmitter();
     
     rowsDefault: number;
     
@@ -51,25 +53,25 @@ export class InputTextarea implements OnInit,DoCheck {
     @HostListener('focus', ['$event']) 
     onFocus(e) {        
         if(this.autoResize) {
-            this.resize();
+            this.resize(e);
         }
     }
     
     @HostListener('blur', ['$event']) 
     onBlur(e) {        
         if(this.autoResize) {
-            this.resize();
+            this.resize(e);
         }
     }
     
     @HostListener('keyup', ['$event']) 
     onKeyup(e) {
         if(this.autoResize) {
-            this.resize();
+            this.resize(e);
         }
     }
     
-    resize () {
+    resize(event?: Event) {
         let linesCount = 0,
         lines = this.el.nativeElement.value.split('\n');
 
@@ -78,6 +80,7 @@ export class InputTextarea implements OnInit,DoCheck {
         }
 
         this.rows = (linesCount >= this.rowsDefault) ? (linesCount + 1) : this.rowsDefault;
+        this.onResize.emit(event||{});
     }
 }
 
