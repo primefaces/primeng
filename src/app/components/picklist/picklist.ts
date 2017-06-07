@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
+import {ObjectUtils} from '../utils/objectutils';
 
 @Component({
     selector: 'p-pickList',
@@ -17,10 +18,15 @@ import {DomHandler} from '../dom/domhandler';
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
+                <div class="ui-picklist-filter-container" *ngIf="filter">
+                    <input type="text" role="textbox" (keyup)="onFilter($event,source)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <span class="fa fa-search"></span>
+                </div>
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle">
                     <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
-                        (click)="onItemClick($event,item,selectedItemsSource)" (touchend)="onItemTouchEnd($event)">
+                        (click)="onItemClick($event,item,selectedItemsSource)" (touchend)="onItemTouchEnd($event)"
+                        [style.display]="isItemVisible(item) ? 'block' : 'none'">
                         <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
@@ -34,10 +40,15 @@ import {DomHandler} from '../dom/domhandler';
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
+                <div class="ui-picklist-filter-container" *ngIf="filter">
+                    <input type="text" role="textbox" (keyup)="onFilter($event,target)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <span class="fa fa-search"></span>
+                </div>
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle">
                     <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
-                        (click)="onItemClick($event,item,selectedItemsTarget)" (touchend)="onItemTouchEnd($event)">
+                        (click)="onItemClick($event,item,selectedItemsTarget)" (touchend)="onItemTouchEnd($event)"
+                        [style.display]="isItemVisible(item) ? 'block' : 'none'">
                         <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
@@ -52,7 +63,7 @@ import {DomHandler} from '../dom/domhandler';
             </div>
         </div>
     `,
-    providers: [DomHandler]
+    providers: [DomHandler,ObjectUtils]
 })
 export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
 
@@ -65,6 +76,10 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     @Input() targetHeader: string;
 
     @Input() responsive: boolean;
+    
+    @Input() filter: boolean;
+    
+    @Input() filterBy: string;
     
     @Input() metaKeySelection: boolean = true;
 
@@ -95,6 +110,8 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
+    
+    public visibleOptions: any[];
         
     selectedItemsSource: any[] = [];
     
@@ -107,8 +124,10 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     movedDown: boolean;
     
     itemTouched: boolean;
+    
+    filterValue: string;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -168,6 +187,33 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
         
         
         this.itemTouched = false;
+    }
+    
+    onFilter(event, data) {
+        this.filterValue = event.target.value.trim().toLowerCase();
+        this.visibleOptions = [];
+        
+        this.activateFilter(data);
+    }
+    
+    activateFilter(data) {
+        let searchFields = this.filterBy.split(',');
+        this.visibleOptions = this.objectUtils.filter(data, searchFields, this.filterValue);
+    }
+    
+    isItemVisible(item: any): boolean {
+        let filterFields = this.filterBy.split(',');
+        
+        if(this.filterValue && this.filterValue.trim().length) {
+            for(let i = 0; i < this.visibleOptions.length; i++) {
+                if(item == this.visibleOptions[i]) {
+                    return true;
+                }
+            }
+        }
+        else {
+            return true;
+        }
     }
     
     onItemTouchEnd(event) {

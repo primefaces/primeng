@@ -8,7 +8,7 @@
 <div class="content-section implementation">
     
     <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" 
-        [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+        [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" filter="filter" filterBy="brand">
         <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix">
                 <img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>

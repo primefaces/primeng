@@ -47,22 +47,22 @@
     border-collapse:collapse;
 }
 
-.ui-picklist .ui-picklist-filter {
-    padding-right: 1em;
+.ui-picklist .ui-picklist-filter-container {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
     width: 100%;
-    box-sizing: border-box;
 }
 
-.ui-picklist .ui-picklist-filter-container {
-    position: relative;
-    margin: 0;
-    padding: 0;
+.ui-picklist .ui-picklist-filter-container .ui-picklist-filter {
+    text-indent: 1.1em;
+    width: 100%;
 }
 
 .ui-picklist .ui-picklist-filter-container .fa {
     position: absolute;
-    top: .25em;
-    right: .125em;
+    top: .35em;
+    left: .35em;
 }
 
 .ui-picklist {
