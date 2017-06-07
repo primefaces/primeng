@@ -16,11 +16,11 @@ import {ObjectUtils} from '../utils/ObjectUtils';
                 <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom($event,listelement)"></button>
             </div>
             <div class="ui-orderlist-list-container">
-                <div class="ui-orderlist-filter-container" *ngIf="filter">
+                <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
+                <div class="ui-orderlist-filter-container ui-widget-content" *ngIf="filter">
                     <input type="text" role="textbox" (keyup)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
-                <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle">
                     <li *ngFor="let item of value" class="ui-orderlist-item"
                         [ngClass]="{'ui-state-highlight':isSelected(item)}" 

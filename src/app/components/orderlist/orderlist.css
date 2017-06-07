@@ -45,6 +45,8 @@
 .ui-orderlist .ui-orderlist-filter-container {
     position: relative;
     width: 100%;
+    padding: .5em .7em;
+    border-bottom: 0 none;
 }
 
 .ui-orderlist .ui-orderlist-filter-container .ui-inputtext {
@@ -53,8 +55,9 @@
 
 .ui-orderlist .ui-orderlist-filter-container .fa {
     position: absolute;
-    top: .35em;
-    left: .35em;
+    top: 50%;
+    left: 1em;
+    margin-top: -.6em;
 }
 
 .ui-orderlist.ui-state-disabled .ui-orderlist-item,
