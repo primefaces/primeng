@@ -10,8 +10,6 @@ import {DomHandler} from '../dom/domhandler';
 })
 export class Tooltip implements OnDestroy {
 
-    @Input('pTooltip') text: string;
-
     @Input() tooltipPosition: string = 'right';
     
     @Input() tooltipEvent: string = 'hover';
@@ -31,6 +29,8 @@ export class Tooltip implements OnDestroy {
     styleClass: string;
     
     tooltipText: any;
+    
+    public _text: string;
         
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
             
@@ -65,6 +65,19 @@ export class Tooltip implements OnDestroy {
     @HostListener('window:resize', ['$event'])
     onResize(e: Event) {
       this.hide();
+    }
+    
+    get text(): string {
+        return this._text;
+    }
+
+    @Input('pTooltip') set text(text: string) {
+        this._text = text;
+        if(this.container) {
+            this.tooltipText.innerHTML = this._text;
+            this.hide();
+            this.show();
+        }
     }
     
     show() {
