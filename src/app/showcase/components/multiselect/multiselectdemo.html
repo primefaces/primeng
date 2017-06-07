@@ -1,0 +1,282 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">MultiSelect</span>
+        <span>MultiSelect is used to select multiple items from a collection.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars"></p-multiSelect>
+    <p>Selected Cars: {{selectedCars}}</p>
+</div>
+
+<div class="content-section source">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;MultiSelectModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Two-way value binding is defined using ngModel and multiselect requires a collection of options 
+                where each option should follow the SelectItem interface that defines label-value properties.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-multiSelect&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;SelectItem&#125; from 'primeng/primeng';
+
+export class MyModel &#123;
+
+    cities: SelectItem[];
+
+    selectedCities: string[];
+
+    constructor() &#123;
+        this.cities = [];
+        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
+        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
+        this.cities.push(&#123;label:'London', value:'London'&#125;);
+        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
+        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+    &#125;
+
+&#125;
+</code>
+</pre>
+
+            <h3>Model Driven Forms</h3>
+            <p>MultiSelect can be used in a model driven form as well.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;&lt;/p-multiSelect&gt;
+</code>
+</pre>
+        
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>options</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of selectitems to display as the available options.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the element should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>filter</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When specified, displays an input field to filter the items on keyup.</td>
+                        </tr>
+                        <tr>
+                            <td>defaultLabel</td>
+                            <td>string</td>
+                            <td>Choose</td>
+                            <td>Label to display when there are no selections.</td>
+                        </tr>
+                        <tr>
+                            <td>appendTo</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollHeight</td>
+                            <td>string</td>
+                            <td>200px</td>
+                            <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
+                        </tr>
+                        <tr>
+                            <td>overlayVisible</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifies the visibility of the options panel.</td>
+                        </tr>
+                        <tr>
+                            <td>tabindex</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Index of the element in tabbing order.</td>
+                        </tr>
+                        <tr>
+                            <td>dataKey</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>A property to uniquely identify a value in options.</td>
+                        </tr>
+                        <tr>
+                            <td>inputId</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Identifier of the focus input to match a label defined for the component.</td>
+                        </tr>
+                        <tr>
+                            <td>displaySelectedLabel</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show labels of selected item labels or use default label.</td>
+                        </tr>
+                        <tr>
+                            <td>maxSelectedLabels</td>
+                            <td>number</td>
+                            <td>3</td>
+                            <td>Decides how many selected item labels to show at most.</td>
+                        </tr>
+                        <tr>
+                            <td>selectedItemsLabel</td>
+                            <td>string</td>
+                            <td>&#123;0&#125; items selected</td>
+                            <td>Label to display after exceeding max selected labels.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onChange</td>
+                            <td>event.originalEvent: browser event<br />
+                                event.value: Current selected values
+                            </td>
+                            <td>Callback to invoke when value changes.</td>
+                        </tr>
+                        <tr>
+                            <td>onBlur</td>
+                            <td>event.originalEvent: browser event</td>
+                            <td>Callback to invoke when multiselect loses focus.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-multiselect</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-multiselect-label-container</td>
+                            <td>Container of the label to display selected items.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-multiselect-label-container</td>
+                            <td>Label to display selected items.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-multiselect-trigger</td>
+                            <td>Dropdown button.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-multiselect-filter-container</td>
+                            <td>Container of filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-multiselect-panel</td>
+                            <td>Overlay panel for items.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-multiselect-items</td>
+                            <td>List container of items.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-multiselect-item</td>
+                            <td>An item in the list.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars"&gt;&lt;/p-multiSelect&gt;
+
+&lt;p&gt;Selected Cars: {{selectedCars}}&lt;/p&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class MultiSelectDemo &#123;
+
+    cars: SelectItem[];
+
+    selectedCars: string[] = [];
+
+    constructor() &#123;
+        this.cars = [];
+        this.cars.push(&#123;label: 'Audi', value: 'Audi'&#125;);
+        this.cars.push(&#123;label: 'BMW', value: 'BMW'&#125;);
+        this.cars.push(&#123;label: 'Fiat', value: 'Fiat'&#125;);
+        this.cars.push(&#123;label: 'Ford', value: 'Ford'&#125;);
+        this.cars.push(&#123;label: 'Honda', value: 'Honda'&#125;);
+        this.cars.push(&#123;label: 'Jaguar', value: 'Jaguar'&#125;);
+        this.cars.push(&#123;label: 'Mercedes', value: 'Mercedes'&#125;);
+        this.cars.push(&#123;label: 'Renault', value: 'Renault'&#125;);
+        this.cars.push(&#123;label: 'VW', value: 'VW'&#125;);
+        this.cars.push(&#123;label: 'Volvo', value: 'Volvo'&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
