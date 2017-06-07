@@ -104,6 +104,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() dataKey: string;
     
+    @Input() filterBy: string = 'label';
+    
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -161,6 +163,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     public itemClick: boolean;
     
     public hoveredItem: any;
+    
+    public filterValue: string;
     
     public selectedOptionUpdated: boolean;
         
@@ -474,18 +478,17 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onFilter(event): void {
+        this.filterValue = event.target.value.toLowerCase();
+        this.optionsToDisplay = [];
+        this.activateFilter();
+    }
+    
+    activateFilter() {
+        let searchFields = this.filterBy.split(',');
         if(this.options && this.options.length) {
-            let val = event.target.value.toLowerCase();
-            this.optionsToDisplay = [];
-            for(let i = 0; i < this.options.length; i++) {
-                let option = this.options[i];
-                if(option.label.toLowerCase().indexOf(val) > -1) {
-                    this.optionsToDisplay.push(option);
-                }
-            }
+            this.optionsToDisplay = this.objectUtils.filter(this.options,searchFields,this.filterValue);
             this.optionsChanged = true;
         }
-        
     }
     
     applyFocus(): void {
