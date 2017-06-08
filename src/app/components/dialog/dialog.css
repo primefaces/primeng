@@ -1,0 +1,90 @@
+.ui-dialog {
+    position: fixed;
+    padding: 0;
+}
+.ui-dialog .ui-dialog-titlebar {
+	padding: .5em .75em;
+    position: relative;
+    border: 0;
+}
+.ui-dialog .ui-dialog-content {
+    position: relative;
+    border: 0;
+    padding: .5em .75em;
+    background: none;
+    overflow: auto;
+    zoom: 1;
+}
+.ui-dialog .ui-dialog-footer {
+    padding: .25em .75em;    
+    border-width: 1px 0 0 0;
+    background-image: none;
+}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float: right;
+}
+.ui-dialog .ui-dialog-buttonpane button {
+    margin: .5em .4em .5em 0;
+    cursor: pointer;
+    float: right;
+}
+.ui-dialog .ui-resizable-se {
+    width: 14px;
+    height: 14px;
+    right: 3px;
+    bottom: 3px;
+}
+.ui-draggable .ui-dialog-titlebar {
+    cursor: move;
+}
+.ui-dialog .ui-dialog-titlebar-icon {
+    text-decoration: none
+}
+.ui-dialog .ui-dialog-titlebar-close {
+    float: right;
+    padding: .125em;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.ui-dialog .ui-dialog-titlebar-close span {
+    display: block;
+    margin: 0;
+}
+.ui-dialog-footer {
+    padding: .4em 1em;
+    border-width: 1px 0 0 0;
+    text-align: left;
+}
+
+.ui-dialog-mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* ConfirmDialog */
+.ui-confirmdialog.ui-dialog .ui-dialog-content {
+    padding: 1em 2em;
+}
+.ui-confirmdialog .ui-dialog-content .fa {
+    font-size: 1.5em;
+    vertical-align: middle;
+    margin-right: .5em;
+}
+.ui-confirmdialog .ui-dialog-content .ui-confirmdialog-message {
+    vertical-align: middle;
+}
+
+/* Fluid */
+.ui-fluid .ui-dialog-buttonpane .ui-button {
+    width: auto;
+}
+
+/* RTL */
+.ui-rtl .ui-dialog .ui-dialog-titlebar-close  {
+    float: left;
+}
+
+.ui-rtl .ui-dialog .ui-dialog-buttonpane button {
+    float: left;
+}
