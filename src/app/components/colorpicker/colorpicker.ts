@@ -164,23 +164,27 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
         
         this.updateUI();
         this.updateModel();
-        this.onChange.emit({originalEvent: event, value: this.value});
+        this.onChange.emit({originalEvent: event, value: this.getValueToUpdate()});
     }
     
-    updateModel(): void {
+    getValueToUpdate() {
         switch(this.format) {
             case 'hex':
-                this.onModelChange(this.HSBtoHEX(this.value));
+                return this.HSBtoHEX(this.value);
             break;
             
             case 'rgb':
-                this.onModelChange(this.HSBtoRGB(this.value));
+                return this.HSBtoRGB(this.value);
             break;
             
             case 'hsb':
-                this.onModelChange(this.value);
+                return this.value;
             break;
         }
+    }
+    
+    updateModel(): void {
+        this.onModelChange(this.getValueToUpdate());
     }
 
     writeValue(value: any): void {
