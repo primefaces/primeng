@@ -66,6 +66,15 @@ import &#123;TooltipModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
+            <h3>Delay</h3>
+            <p>Tooltip gets displayed after a certain of times using showDelay property or vice versa with using hideDelay.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;input type="text" pTooltip="Enter your username" tooltipPosition="top" tooltipEvent="focus" showDelay="1000" hideDelay="1000"&gt;
+</code>
+</pre>
+
             <h3>Scrolling Containers</h3>
             <p>When placed inside a scrolling container like an overflown div, tooltip must be appended to another element that has
                 relative positioning instead of document body which is the default.</p>
@@ -124,6 +133,18 @@ import &#123;TooltipModule&#125; from 'primeng/primeng';
                             <td>string</td>
                             <td>any</td>
                             <td>Target element to attach the overlay, valid values are "body", "target" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>hideDelay</td>
+                            <td>null</td>
+                            <td>number</td>
+                            <td>Delay time for hiding the tooltip in millisecond.</td>
+                        </tr>
+                        <tr>
+                            <td>showDelay</td>
+                            <td>null</td>
+                            <td>number</td>
+                            <td>Delay time for displaying the tooltip in millisecond.</td>
                         </tr>
                         <tr>
                             <td>tooltipStyleClass</td>
