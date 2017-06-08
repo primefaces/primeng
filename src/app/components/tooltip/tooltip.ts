@@ -23,12 +23,18 @@ export class Tooltip implements OnDestroy {
     @Input("tooltipDisabled") disabled: boolean;
     
     @Input() escape: boolean = true;
+    
+    @Input() showDelay: number;
+    
+    @Input() hideDelay: number;
         
     container: any;
     
     styleClass: string;
     
     tooltipText: any;
+    
+    delay: any;
     
     public _text: string;
         
@@ -37,28 +43,48 @@ export class Tooltip implements OnDestroy {
     @HostListener('mouseenter', ['$event']) 
     onMouseEnter(e: Event) {
         if(this.tooltipEvent === 'hover') {
-            this.show();
+            if(this.showDelay) {
+                this.delay = setTimeout(() => {this.show()}, this.showDelay);
+            }
+            else {
+                this.show();
+            }
         }
     }
     
     @HostListener('mouseleave', ['$event']) 
     onMouseLeave(e: Event) {
         if(this.tooltipEvent === 'hover') {
-            this.hide();
+            if(this.hideDelay) {
+                this.delay = setTimeout(() => {this.hide()}, this.hideDelay);
+            }
+            else {
+                this.hide();
+            }
         }
     }
     
     @HostListener('focus', ['$event']) 
     onFocus(e: Event) {
         if(this.tooltipEvent === 'focus') {
-            this.show();
+            if(this.showDelay) {
+                this.delay = setTimeout(() => {this.show()}, this.showDelay);
+            }
+            else {
+                this.show();
+            }
         }
     }
     
     @HostListener('blur', ['$event']) 
     onBlur(e: Event) {
         if(this.tooltipEvent === 'focus') {
-            this.hide();
+            if(this.hideDelay) {
+                this.delay = setTimeout(() => {this.hide()}, this.hideDelay);
+            }
+            else {
+                this.hide();
+            }
         }
     }
     
@@ -83,6 +109,10 @@ export class Tooltip implements OnDestroy {
     show() {
         if(!this.text || this.disabled) {
             return;
+        }
+        
+        if(this.hideDelay) {
+            clearTimeout(this.delay);
         }
         
         this.create();
@@ -130,6 +160,9 @@ export class Tooltip implements OnDestroy {
     }
     
     hide() {
+        if(this.showDelay) {
+            clearTimeout(this.delay);
+        }
         this.ngOnDestroy();
     }
          
