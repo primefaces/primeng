@@ -168,19 +168,22 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     }
     
     getValueToUpdate() {
+        let val: any;
         switch(this.format) {
             case 'hex':
-                return this.HSBtoHEX(this.value);
+                val = this.HSBtoHEX(this.value);
             break;
             
             case 'rgb':
-                return this.HSBtoRGB(this.value);
+                val = this.HSBtoRGB(this.value);
             break;
             
             case 'hsb':
-                return this.value;
+                val = this.value;
             break;
         }
+        
+        return val;
     }
     
     updateModel(): void {
