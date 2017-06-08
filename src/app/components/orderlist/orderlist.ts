@@ -17,7 +17,7 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-orderlist-list-container">
                 <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
-                <div class="ui-orderlist-filter-container ui-widget-content" *ngIf="filter">
+                <div class="ui-orderlist-filter-container ui-widget-content" *ngIf="filterBy">
                     <input type="text" role="textbox" (keyup)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
@@ -47,8 +47,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() responsive: boolean;
     
     @Input() filterBy: string;
-    
-    @Input() filter: boolean = false;
     
     @Input() metaKeySelection: boolean = true;
     
@@ -172,6 +170,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     isItemVisible(item: any): boolean {
+        console.log(this.filterBy);
         let filterFields = this.filterBy.split(',');
         
         if(this.filterValue && this.filterValue.trim().length) {
