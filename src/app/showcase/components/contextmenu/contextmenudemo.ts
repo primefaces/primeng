@@ -24,6 +24,7 @@ export class ContextMenuDemo {
                         ]
                     },
                     {label: 'Open'},
+                    {separator: true},
                     {label: 'Quit'}
                 ]
             },
@@ -81,6 +82,7 @@ export class ContextMenuDemo {
                     }
                 ]
             },
+            {separator: true},
             {
                 label: 'Quit', icon: 'fa-minus'
             }

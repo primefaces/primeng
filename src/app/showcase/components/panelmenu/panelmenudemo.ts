@@ -22,6 +22,7 @@ export class PanelMenuDemo {
                         ]
                     },
                     {label: 'Open'},
+                    {separator: true},
                     {label: 'Quit'}
                 ]
             },

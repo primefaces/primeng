@@ -22,6 +22,7 @@ export class SlideMenuDemo {
                         ]
                     },
                     {label: 'Open'},
+                    {separator: true},
                     {label: 'Quit'}
                 ]
             },
@@ -79,6 +80,7 @@ export class SlideMenuDemo {
                     }
                 ]
             },
+            {separator: true},
             {
                 label: 'Quit', icon: 'fa-minus'
             }

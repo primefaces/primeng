@@ -12,7 +12,8 @@ import {RouterModule} from '@angular/router';
             [style.width.px]="menuWidth" [style.left.px]="root ? slideMenu.left : slideMenu.menuWidth" 
             [style.transitionProperty]="root ? 'left' : 'none'" [style.transitionDuration]="effectDuration + 'ms'" [style.transitionTimingFunction]="easing">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
-                <li #listitem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-slidemenuitem-active':listitem==activeItem}">
+                <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
+                <li *ngIf="!child.separator" #listitem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-slidemenuitem-active':listitem==activeItem}">
                     <a *ngIf="!item.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
                         [ngClass]="{'ui-menuitem-link-parent':child.items,'ui-state-disabled':child.disabled}" 
                         (click)="itemClick($event, child, listitem)">
@@ -117,7 +118,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @Input() viewportHeight: number = 175;
     
-    @Input() effectDuration: any = 500;
+    @Input() effectDuration: any = 250;
         
     @Input() easing: string = 'ease-out';
     

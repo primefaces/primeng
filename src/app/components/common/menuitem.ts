@@ -13,4 +13,5 @@ export interface MenuItem {
     visible?: boolean;
     target?: string;
     routerLinkActiveOptions?: any;
+    separator?: boolean;
 }
