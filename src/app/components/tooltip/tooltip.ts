@@ -38,6 +38,8 @@ export class Tooltip implements OnDestroy {
     
     documentResizeListener: Function;
     
+    active: boolean;
+    
     public _text: string;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
@@ -71,6 +73,7 @@ export class Tooltip implements OnDestroy {
     }
     
     activate() {
+        this.active = true;
         if(this.hideTimeout) {
             clearTimeout(this.hideTimeout);
         }
@@ -82,6 +85,7 @@ export class Tooltip implements OnDestroy {
     }
     
     deactivate() {
+        this.active = false;
         if(this.showTimeout) {
             clearTimeout(this.showTimeout);
         }
@@ -98,8 +102,16 @@ export class Tooltip implements OnDestroy {
 
     @Input('pTooltip') set text(text: string) {
         this._text = text;
-        if(this.container) {
-            this.tooltipText.innerHTML = this._text;
+        if(this.active) {
+            if(this._text) {
+                if(this.container && this.container.offsetParent)
+                    this.tooltipText.innerHTML = this._text;
+                else 
+                    this.show();
+            }
+            else {
+                this.hide();
+            }
         }
     }
     
