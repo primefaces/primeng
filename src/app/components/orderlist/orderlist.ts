@@ -170,7 +170,6 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     isItemVisible(item: any): boolean {
-        console.log(this.filterBy);
         let filterFields = this.filterBy.split(',');
         
         if(this.filterValue && this.filterValue.trim().length) {
