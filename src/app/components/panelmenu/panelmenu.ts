@@ -35,7 +35,7 @@ export class BasePanelMenuItem {
 @Component({
     selector: 'p-panelMenuSub',
     template: `
-        <ul class="ui-menu-list ui-helper-reset" [@submenu]="item.expanded ? 'visible' : 'hidden'">
+        <ul class="ui-menu-list ui-helper-reset" [@submenu]="expanded ? 'visible' : 'hidden'">
             <ng-template ngFor let-child [ngForOf]="item.items">
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}">
@@ -53,7 +53,7 @@ export class BasePanelMenuItem {
                         ><span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span
                         ><span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <p-panelMenuSub [item]="child" *ngIf="child.items"></p-panelMenuSub>
+                    <p-panelMenuSub [item]="child" [expanded]="child.expanded" *ngIf="child.items"></p-panelMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -74,6 +74,8 @@ export class BasePanelMenuItem {
 export class PanelMenuSub extends BasePanelMenuItem {
     
     @Input() item: MenuItem;
+    
+    @Input() expanded: boolean;
 }
 
 @Component({
@@ -99,7 +101,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                 <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'" 
                     [ngClass]="{'ui-panelmenu-content-wrapper-overflown': !item.expanded||animating}">
                     <div class="ui-panelmenu-content ui-widget-content">
-                        <p-panelMenuSub [item]="item"></p-panelMenuSub>
+                        <p-panelMenuSub [item]="item" [expanded]="true"></p-panelMenuSub>
                     </div>
                 </div>
             </div>
