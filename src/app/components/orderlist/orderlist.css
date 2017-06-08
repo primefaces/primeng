@@ -50,6 +50,7 @@
 }
 
 .ui-orderlist .ui-orderlist-filter-container .ui-inputtext {
+    text-indent: 1.1em;
     width: 100%;
 }
 
