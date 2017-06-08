@@ -20,13 +20,13 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filter">
-                    <input type="text" role="textbox" (keyup)="onFilter($event,source)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <input type="text" role="textbox" (keyup)="onFilter($event,source,'source')" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle">
                     <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
                         (click)="onItemClick($event,item,selectedItemsSource)" (touchend)="onItemTouchEnd($event)"
-                        [style.display]="isItemVisible(item) ? 'block' : 'none'">
+                        [style.display]="isItemVisible(item, 'source') ? 'block' : 'none'">
                         <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
@@ -42,13 +42,13 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filter">
-                    <input type="text" role="textbox" (keyup)="onFilter($event,target)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <input type="text" role="textbox" (keyup)="onFilter($event,target,'target')" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle">
                     <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
                         (click)="onItemClick($event,item,selectedItemsTarget)" (touchend)="onItemTouchEnd($event)"
-                        [style.display]="isItemVisible(item) ? 'block' : 'none'">
+                        [style.display]="isItemVisible(item, 'target') ? 'block' : 'none'">
                         <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
@@ -111,7 +111,9 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     
     public itemTemplate: TemplateRef<any>;
     
-    public visibleOptions: any[];
+    public visibleOptionsSource: any[];
+    
+    public visibleOptionsTarget: any[];
         
     selectedItemsSource: any[] = [];
     
@@ -125,7 +127,11 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     
     itemTouched: boolean;
     
-    filterValue: string;
+    filterValueSource: string;
+    
+    filterValueTarget: string;
+    
+    identifier: string;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
     
@@ -189,24 +195,46 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
         this.itemTouched = false;
     }
     
-    onFilter(event, data) {
-        this.filterValue = event.target.value.trim().toLowerCase();
-        this.visibleOptions = [];
+    onFilter(event, data, identifier) {
+        if(identifier === 'source') {
+            this.filterValueSource = event.target.value.trim().toLowerCase();
+            this.visibleOptionsSource = [];
+        }
+        else {
+            this.filterValueTarget = event.target.value.trim().toLowerCase();
+            this.visibleOptionsTarget = [];
+        }
         
-        this.activateFilter(data);
+        this.activateFilter(data,identifier);
     }
     
-    activateFilter(data) {
+    activateFilter(data,identifier) {
         let searchFields = this.filterBy.split(',');
-        this.visibleOptions = this.objectUtils.filter(data, searchFields, this.filterValue);
+        
+        if(identifier === 'source') {
+            this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);
+        }
+        else {
+            this.visibleOptionsTarget = this.objectUtils.filter(data, searchFields, this.filterValueTarget);
+        }
+        
     }
     
-    isItemVisible(item: any): boolean {
+    isItemVisible(item: any, identifier: string): boolean {
         let filterFields = this.filterBy.split(',');
         
-        if(this.filterValue && this.filterValue.trim().length) {
-            for(let i = 0; i < this.visibleOptions.length; i++) {
-                if(item == this.visibleOptions[i]) {
+        if(identifier === 'source') {
+            return this.displayVisibleItems(this.visibleOptionsSource, item, this.filterValueSource);
+        }
+        else {
+            return this.displayVisibleItems(this.visibleOptionsTarget, item, this.filterValueTarget);
+        }
+    }
+    
+    displayVisibleItems(data: any[], item: any, filterValue: string): boolean {
+        if(filterValue && filterValue.trim().length) {
+            for(let i = 0; i < data.length; i++) {
+                if(item == data[i]) {
                     return true;
                 }
             }
