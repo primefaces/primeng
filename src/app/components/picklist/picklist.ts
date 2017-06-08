@@ -19,7 +19,7 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
-                <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filter">
+                <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy">
                     <input type="text" role="textbox" (keyup)="onFilter($event,source,'source')" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
@@ -41,7 +41,7 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
-                <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filter">
+                <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy">
                     <input type="text" role="textbox" (keyup)="onFilter($event,target,'target')" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
@@ -76,8 +76,6 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     @Input() targetHeader: string;
 
     @Input() responsive: boolean;
-    
-    @Input() filter: boolean;
     
     @Input() filterBy: string;
     
