@@ -6,27 +6,27 @@ import {CommonModule} from '@angular/common';
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-paginator ui-widget ui-widget-header ui-unselectable-text'"
             *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
-            <a href="#" aria-label="Goto first page" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" i18n-aria-label="Paginator|A pagination link button that goes to the first page" aria-label="Goto first page" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="fa fa-step-backward"></span>
             </a>
-            <a href="#" attr.aria-label="Goto previous page" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" i18n-aria-label="Paginator|A pagination link button that goes to the previous page" aria-label="Goto previous page" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToPrev($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="fa fa-backward"></span>
             </a>
             <span class="ui-paginator-pages">
-                <a href="#" attr.aria-label="Goto page {{pageLink}}" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
+                <a href="#" i18n-attr.aria-label="Paginator|A pagination link button that goes to a specific page" attr.aria-label="Goto page {{pageLink}}" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePage(pageLink - 1, $event)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
             </span>
-            <a href="#" aria-label="Goto next page" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" i18n-aria-label="Paginator|A pagination link button that goes to the next page" aria-label="Goto next page" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="fa fa-forward"></span>
             </a>
-            <a href="#" aria-label="Goto last page" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" i18n-aria-label="Paginator|A pagination link button that goes to the last page" aria-label="Goto last page" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="fa fa-step-forward"></span>
             </a>
-            <select aria-label="Select number of page results" class="ui-paginator-rpp-options ui-widget ui-state-default" *ngIf="rowsPerPageOptions" (change)="onRppChange($event)">
+            <select i18n-aria-label="Paginator|A dropdown to select the number of page results" aria-label="Select number of page results" class="ui-paginator-rpp-options ui-widget ui-state-default" *ngIf="rowsPerPageOptions" (change)="onRppChange($event)">
                 <option *ngFor="let opt of rowsPerPageOptions" [value]="opt" [selected]="rows == opt">{{opt}}</option>
             </select>
         </div>
