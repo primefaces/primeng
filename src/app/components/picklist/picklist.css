@@ -48,10 +48,10 @@
 }
 
 .ui-picklist .ui-picklist-filter-container {
-    display: inline-block;
-    vertical-align: middle;
     position: relative;
     width: 100%;
+    padding: .5em .7em;
+    border-bottom: 0 none;
 }
 
 .ui-picklist .ui-picklist-filter-container .ui-picklist-filter {
@@ -61,8 +61,9 @@
 
 .ui-picklist .ui-picklist-filter-container .fa {
     position: absolute;
-    top: .35em;
-    left: .35em;
+    top: 50%;
+    left: 1em;
+    margin-top: -.6em;
 }
 
 .ui-picklist {
