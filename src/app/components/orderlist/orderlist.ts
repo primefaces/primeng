@@ -313,7 +313,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onDragOver(event: DragEvent, index: number) {
-        if(this.draggedItemIndex !== index) {
+        if(this.draggedItemIndex !== index && this.draggedItemIndex + 1 !== index) {
             this.dragOverItemIndex = index;
             event.preventDefault();
         }
@@ -324,7 +324,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onDrop(event: DragEvent, index: number) {
-        this.objectUtils.reorderArray(this.value, this.draggedItemIndex, index);
+        this.objectUtils.reorderArray(this.value, this.draggedItemIndex, index - 1);
         this.dragOverItemIndex = null;
     }
 }
