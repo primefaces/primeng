@@ -47,9 +47,9 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
             <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left">
                 <span class="ui-button-icon-left fa fa-plus"></span>
                 <span class="ui-button-text ui-c">Choose</span>
-                <input type="file" [accept]="accept" [disabled]="disabled" tabindex="-1" (change)="onFileSelect($event)">
+                <input type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" tabindex="-1" (change)="onFileSelect($event)">
             </button>
-            <span class="ui-fileupload-filename" *ngIf="files&&files[0]">{{files[0].name}}</span>
+            <span class="ui-fileupload-filename" *ngFor="let file of files">{{file.name}}</span>
         </span>
     `
 })
@@ -160,7 +160,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     onFileSelect(event) {
         this.msgs = [];
-        if(!this.multiple || this.isBasic()) {
+        if(!this.multiple) {
             this.files = [];
         }
         
@@ -182,11 +182,7 @@ export class FileUpload implements OnInit,AfterContentInit {
             this.upload();
         }
     }
-    
-    isBasic(): boolean {
-        return this.mode === 'basic';
-    }
-    
+        
     validate(file: File): boolean {
         if(this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
