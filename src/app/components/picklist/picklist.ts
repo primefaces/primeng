@@ -5,6 +5,11 @@ import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
 
+enum ListType {
+    SOURCE = 0,
+    TARGET = 1
+}
+
 @Component({
     selector: 'p-pickList',
     template: `
@@ -20,13 +25,13 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy">
-                    <input type="text" role="textbox" (keyup)="onFilter($event,source,'source')" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <input type="text" role="textbox" (keyup)="onFilter($event,source,listType.SOURCE)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle">
                     <li *ngFor="let item of source" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
                         (click)="onItemClick($event,item,selectedItemsSource)" (touchend)="onItemTouchEnd($event)"
-                        [style.display]="isItemVisible(item, 'source') ? 'block' : 'none'">
+                        [style.display]="isItemVisible(item, listType.SOURCE) ? 'block' : 'none'">
                         <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
@@ -42,13 +47,13 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy">
-                    <input type="text" role="textbox" (keyup)="onFilter($event,target,'target')" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <input type="text" role="textbox" (keyup)="onFilter($event,target,listType.TARGET)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle">
                     <li *ngFor="let item of target" [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
                         (click)="onItemClick($event,item,selectedItemsTarget)" (touchend)="onItemTouchEnd($event)"
-                        [style.display]="isItemVisible(item, 'target') ? 'block' : 'none'">
+                        [style.display]="isItemVisible(item, listType.TARGET) ? 'block' : 'none'">
                         <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                     </li>
                 </ul>
@@ -112,6 +117,8 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     public visibleOptionsSource: any[];
     
     public visibleOptionsTarget: any[];
+    
+    public listType = ListType;
         
     selectedItemsSource: any[] = [];
     
@@ -194,7 +201,7 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     }
     
     onFilter(event, data, identifier) {
-        if(identifier === 'source') {
+        if(identifier == 0) {
             this.filterValueSource = event.target.value.trim().toLowerCase();
             this.visibleOptionsSource = [];
         }
@@ -209,7 +216,7 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     activateFilter(data,identifier) {
         let searchFields = this.filterBy.split(',');
         
-        if(identifier === 'source') {
+        if(identifier == 0) {
             this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);
         }
         else {
@@ -218,10 +225,10 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
         
     }
     
-    isItemVisible(item: any, identifier: string): boolean {
+    isItemVisible(item: any, identifier: number): boolean {
         let filterFields = this.filterBy.split(',');
         
-        if(identifier === 'source') {
+        if(identifier == 0) {
             return this.displayVisibleItems(this.visibleOptionsSource, item, this.filterValueSource);
         }
         else {
