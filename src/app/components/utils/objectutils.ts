@@ -79,22 +79,21 @@ export class ObjectUtils {
         }
     }
     
-    filter(array: any[], searchFields: any[], filterValue: string) {
-        let visibleOptions = [];
+    filter(value: any[], fields: any[], filterValue: string) {
+        let filteredItems: any[] = [];
         
-        for(let i = 0; i < array.length; i++) {
-            let isItemPushed = false;
-            
-            for(let j = 0; j < searchFields.length; j++) {
-                if(this.resolveFieldData(array[i], searchFields[j]).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
-                    isItemPushed = true;
+        if(value) {
+            for(let item of value) {                
+                for(let field of fields) {
+                    if(String(this.resolveFieldData(item, field)).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
+                        filteredItems.push(item);
+                        break;
+                    }
                 }
             }
-            if(isItemPushed) {
-                visibleOptions.push(array[i]);
-            }
         }
-        return visibleOptions;
+        
+        return filteredItems;
     }
     
     filterSelectItem(array: any[], searchFields: any, filterValue: string) {

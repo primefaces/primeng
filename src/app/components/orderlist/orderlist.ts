@@ -18,7 +18,7 @@ import {ObjectUtils} from '../utils/objectutils';
             <div class="ui-orderlist-list-container">
                 <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
                 <div class="ui-orderlist-filter-container ui-widget-content" *ngIf="filterBy">
-                    <input type="text" role="textbox" (keyup)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <input type="text" role="textbox" (keyup)="onFilterKeyup($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="filterPlaceholder">
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle">
@@ -47,6 +47,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     @Input() responsive: boolean;
     
     @Input() filterBy: string;
+    
+    @Input() filterPlaceholder: string;
     
     @Input() metaKeySelection: boolean = true;
     
@@ -116,10 +118,10 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         return this._value;
     }
 
-    @Input()set value(val:any[]) {
+    @Input() set value(val:any[]) {
         this._value = val ? [...val] : null;
         if(this.filterValue) {
-            this.activateFilter();
+            this.filter();
         }
     }
                 
@@ -153,10 +155,9 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         this.itemTouched = false;
     }
     
-    onFilter(event) {
+    onFilterKeyup(event) {
         this.filterValue = event.target.value.trim().toLowerCase();
-        this.visibleOptions = [];
-        this.activateFilter();
+        this.filter();
         
         this.onFilterEvent.emit({
             originalEvent: event,
@@ -164,14 +165,12 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         });
     }
     
-    activateFilter() {
-        let searchFields = this.filterBy.split(',');
+    filter() {
+        let searchFields: string[] = this.filterBy.split(',');
         this.visibleOptions = this.objectUtils.filter(this.value, searchFields, this.filterValue);
     }
     
     isItemVisible(item: any): boolean {
-        let filterFields = this.filterBy.split(',');
-        
         if(this.filterValue && this.filterValue.trim().length) {
             for(let i = 0; i < this.visibleOptions.length; i++) {
                 if(item == this.visibleOptions[i]) {
