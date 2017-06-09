@@ -10,7 +10,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
 @Component({
     selector: 'p-fileUpload',
     template: `
-        <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
                 <button type="button" [label]="chooseLabel" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="onChooseClick($event, fileinput)" [disabled]="disabled"> 
                     <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
@@ -40,10 +40,17 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                         <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
-                
                 <p-templateLoader [template]="contentTemplate"></p-templateLoader>
             </div>
         </div>
+        <span class="ui-fileupload-simple ui-widget" *ngIf="mode === 'basic'">
+            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left">
+                <span class="ui-button-icon-left fa fa-plus"></span>
+                <span class="ui-button-text ui-c">Choose</span>
+                <input type="file" [accept]="accept" [disabled]="disabled" tabindex="-1" (change)="onFileSelect($event)">
+            </button>
+            <span class="ui-fileupload-filename" *ngIf="files&&files[0]">{{files[0].name}}</span>
+        </span>
     `
 })
 export class FileUpload implements OnInit,AfterContentInit {
@@ -85,6 +92,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() uploadLabel: string = 'Upload';
     
     @Input() cancelLabel: string = 'Cancel';
+    
+    @Input() mode: string = 'advanced';
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 	
@@ -151,7 +160,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     onFileSelect(event) {
         this.msgs = [];
-        if(!this.multiple) {
+        if(!this.multiple || this.isBasic()) {
             this.files = [];
         }
         
@@ -172,6 +181,10 @@ export class FileUpload implements OnInit,AfterContentInit {
         if(this.hasFiles() && this.auto) {
             this.upload();
         }
+    }
+    
+    isBasic(): boolean {
+        return this.mode === 'basic';
     }
     
     validate(file: File): boolean {

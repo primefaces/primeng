@@ -16,6 +16,16 @@ export class FileUploadDemo {
         }
         
         this.msgs = [];
-        this.msgs.push({severity: 'info', summary: 'File Uploaded', detail: ''});
+        this.msgs.push({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
+    }
+    
+    onBasicUpload(event) {        
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode'});
+    }
+    
+    onBasicUploadAuto(event) {        
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode'});
     }
 }
