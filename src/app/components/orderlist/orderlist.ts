@@ -32,7 +32,8 @@ import {ObjectUtils} from '../utils/objectutils';
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                         </li>
-                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop&&l"></li>
+                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)" 
+                            [ngClass]="{'ui-state-highlight': (i + 1 === dragOverItemIndex)}"></li>
                     </ng-template>
                 </ul>
             </div>
@@ -313,6 +314,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onDragOver(event: DragEvent, index: number) {
+        console.log(index);
         if(this.draggedItemIndex !== index && this.draggedItemIndex + 1 !== index) {
             this.dragOverItemIndex = index;
             event.preventDefault();
