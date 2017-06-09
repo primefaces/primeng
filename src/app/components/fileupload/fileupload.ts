@@ -16,8 +16,8 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                     <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
                 </button>
 
-                <button *ngIf="!auto" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
-                <button *ngIf="!auto" type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
+                <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
+                <button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
             
                 <p-templateLoader [template]="toolbarTemplate"></p-templateLoader>
             </div>
@@ -92,6 +92,10 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() uploadLabel: string = 'Upload';
     
     @Input() cancelLabel: string = 'Cancel';
+    
+    @Input() showUploadButton: boolean = true;
+    
+    @Input() showCancelButton: boolean = true;
     
     @Input() mode: string = 'advanced';
 
