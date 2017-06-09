@@ -96,25 +96,6 @@ export class ObjectUtils {
         return filteredItems;
     }
     
-    filterSelectItem(array: any[], searchFields: any, filterValue: string) {
-        let visibleOptions = [];
-        let searchFieldsArray = searchFields.split(',');
-        
-        for(let i = 0; i < array.length; i++) {
-            let isItemPushed = false;
-            
-            for(let j = 0; j < searchFieldsArray.length; j++) {
-                if(String(this.resolveFieldData(array[i], searchFieldsArray[j])).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
-                    isItemPushed = true;
-                }
-            }
-            if(isItemPushed) {
-                visibleOptions.push(array[i]);
-            }
-        }
-        return visibleOptions;
-    }
-    
     reorderArray(value: any[], from: number, to: number) {
         let target: number;
         if(value && (from !== to)) {
