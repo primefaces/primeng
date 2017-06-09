@@ -98,6 +98,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() showCancelButton: boolean = true;
     
     @Input() mode: string = 'advanced';
+    
+    @Input() customUpload: boolean;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 	
@@ -112,6 +114,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Output() onRemove: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
+    
+    @Output() uploadHandler: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
      
@@ -244,48 +248,55 @@ export class FileUpload implements OnInit,AfterContentInit {
     }
 
     upload() {
-        this.msgs = [];
-        let xhr = new XMLHttpRequest(),
-        formData = new FormData();
-
-		this.onBeforeUpload.emit({
-            'xhr': xhr,
-            'formData': formData 
-        });
-
-        for(let i = 0; i < this.files.length; i++) {
-            formData.append(this.name, this.files[i], this.files[i].name);
+        if(this.customUpload) {
+            this.uploadHandler.emit({
+                files: this.files
+            });
         }
+        else {
+            this.msgs = [];
+            let xhr = new XMLHttpRequest(),
+            formData = new FormData();
 
-        xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
-            if(e.lengthComputable) {
-              this.progress = Math.round((e.loaded * 100) / e.total);
+            this.onBeforeUpload.emit({
+                'xhr': xhr,
+                'formData': formData 
+            });
+
+            for(let i = 0; i < this.files.length; i++) {
+                formData.append(this.name, this.files[i], this.files[i].name);
             }
-          }, false);
 
-        xhr.onreadystatechange = () => {
-            if(xhr.readyState == 4) {
-                this.progress = 0;
-                
-                if(xhr.status >= 200 && xhr.status < 300)
-                    this.onUpload.emit({xhr: xhr, files: this.files});
-                else
-                    this.onError.emit({xhr: xhr, files: this.files});
-                
-                this.clear();
-            }
-        };
-        
-        xhr.open(this.method, this.url, true);
-		
-		this.onBeforeSend.emit({
-			'xhr': xhr,
-            'formData': formData 
-		});
+            xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
+                if(e.lengthComputable) {
+                  this.progress = Math.round((e.loaded * 100) / e.total);
+                }
+              }, false);
 
-        xhr.withCredentials = this.withCredentials;
-        
-        xhr.send(formData);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == 4) {
+                    this.progress = 0;
+                    
+                    if(xhr.status >= 200 && xhr.status < 300)
+                        this.onUpload.emit({xhr: xhr, files: this.files});
+                    else
+                        this.onError.emit({xhr: xhr, files: this.files});
+                    
+                    this.clear();
+                }
+            };
+            
+            xhr.open(this.method, this.url, true);
+            
+            this.onBeforeSend.emit({
+                'xhr': xhr,
+                'formData': formData 
+            });
+
+            xhr.withCredentials = this.withCredentials;
+            
+            xhr.send(formData);
+        }
     }
 
     clear() {
