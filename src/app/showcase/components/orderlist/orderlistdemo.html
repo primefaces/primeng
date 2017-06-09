@@ -7,7 +7,8 @@
 
 <div class="content-section implementation">
     
-    <p-orderList [value]="cars" [listStyle]="{'height':'250px'}" responsive="true" header="Cars" filterBy="brand" filterPlaceholder="Filter by brand">
+    <p-orderList [value]="cars" [listStyle]="{'height':'350px'}" responsive="true" header="Cars" filterBy="brand" filterPlaceholder="Filter by brand"
+        dragdrop="true">
         <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix">
                 <img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px" />
