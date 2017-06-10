@@ -131,7 +131,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
     
     preWidth: number;
     
-    preventVisibleChangePropagation: boolean;
+    preventVisibleChangePropagation: boolean = true;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
@@ -208,6 +208,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
         if(this.visible) {
             this.show();
         }
+        this.preventVisibleChangePropagation = false;
     }
         
     center() {
