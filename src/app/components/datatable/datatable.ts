@@ -373,7 +373,6 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 }
 
                 if(frozenScrollBody) {
-                  console.log(" ============= !!!!!!!!!!!!! ");
                     // frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
                 }
                 this.scrollNeedScroll();
@@ -399,11 +398,18 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             });
 
             //to trigger change detection
-            this.scrollBodyMouseWheelListener = this.renderer.listen(this.scrollBody, 'mousewheel', (event) => {});
+            this.scrollBodyMouseWheelListener = this.renderer.listen(this.scrollBody, 'mousewheel', (event) => {
+              console.log(" ========= ", event);
+            });
 
             this.headerScrollListener = this.renderer.listen(this.scrollHeader, 'scroll', () => {
                 this.scrollHeader.scrollLeft = 0;
             });
+        } else {
+          //to trigger change detection
+          this.scrollBodyMouseWheelListener = this.renderer.listen(this.scrollBody, 'mousewheel', (event) => {
+            console.log(" ========= ", event);
+          });
         }
 
         if(!this.frozen)
@@ -2165,9 +2171,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 if (this.frozenRightWidth) {
                   tw += parseFloat(this.frozenRightWidth);
                 }
-                console.log(" ++++++++ " + tw);
                 return tw + 'px';
-                // return parseFloat(this.frozenWidth) + parseFloat(this.unfrozenWidth) + parseFloat(this.frozenRightWidth) + 'px';
               }
             }
         }
