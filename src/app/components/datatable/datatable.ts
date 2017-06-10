@@ -352,7 +352,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
 
         console.log(" ++++++++++ +++++++ +++++++++++ ++++++ " + this.frozen);
 
-        if(!this.frozen) {
+        // if(!this.frozen) {
             let frozenView = this.el.nativeElement.previousElementSibling;
             let pnode = this.el.nativeElement.parentElement;
             // console.log(" -=-=-=-=-=-=-=- == " , pnode);
@@ -407,12 +407,13 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
               console.log(" 000000000 ====== --- ", event);
               this.scrollHeader.scrollLeft = 0;
             });
-        } else {
+        // }
+        /*else {
           //to trigger change detection
           this.scrollBodyMouseWheelListener = this.renderer.listen(this.scrollBody, 'mousewheel', (event) => {
             console.log(" 44444444 ========= ", event);
           });
-        }
+        }*/
 
         if(!this.frozen)
             this.alignScrollBar();
