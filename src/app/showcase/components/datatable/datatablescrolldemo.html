@@ -9,7 +9,19 @@
 </div>
 
 <div class="content-section implementation">
-  <!--
+
+    <p-dataTable [value]="cars" scrollable="true" scrollHeight="300px" frozenWidth="150px" unfrozenWidth="600px" frozenRightWidth="150px" [style]="{'margin-top':'30px'}" rowHover="true">
+        <p-header>Frozen Columns</p-header>
+        <p-column field="vin" header="Vin" [style]="{'width':'150px'}" frozen="true"></p-column>
+        <p-column field="year" header="Year" [style]="{'width':'250px'}"></p-column>
+        <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
+        <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
+        <p-column field="year" header="Year" [style]="{'width':'250px'}"></p-column>
+        <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
+        <p-column field="color" header="Color" [style]="{'width':'150px', 'color':'red'}" frozenRight="true"></p-column>
+    </p-dataTable>
+
+  <br/>
   <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px">
         <p-header>Vertical</p-header>
         <p-column field="vin" header="Vin"></p-column>
@@ -35,17 +47,7 @@
         <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
         <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
     </p-dataTable>
--->
-    <p-dataTable [value]="cars" scrollable="true" scrollHeight="300px" frozenWidth="150px" unfrozenWidth="600px" frozenRightWidth="150px" [style]="{'margin-top':'30px'}" rowHover="true">
-        <p-header>Frozen Columns</p-header>
-        <p-column field="vin" header="Vin" [style]="{'width':'150px'}" frozen="true"></p-column>
-        <p-column field="year" header="Year" [style]="{'width':'250px'}"></p-column>
-        <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
-        <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
-        <p-column field="year" header="Year" [style]="{'width':'250px'}"></p-column>
-        <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
-        <p-column field="color" header="Color" [style]="{'width':'150px', 'color':'red'}" frozenRight="true"></p-column>
-    </p-dataTable>
+
 </div>
 
 <div class="content-section source">

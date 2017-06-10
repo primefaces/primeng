@@ -431,7 +431,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
 
     alignScrollBar() {
         let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
-      console.warn(" ============== =--------------- ");
+      // console.log(" ============== =--------------- ");
         this.scrollHeaderBox.style.marginRight = scrollBarWidth + 'px';
         if(this.scrollFooterBox) {
             this.scrollFooterBox.style.marginRight = scrollBarWidth + 'px';
