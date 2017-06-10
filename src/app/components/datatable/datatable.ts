@@ -490,10 +490,12 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view" style="background-color: lightgoldenrodyellow;"></div>
                   <div *ngIf="this.frozenRightWidth && this.frozenWidth; then frozenbothtpl else fronzenlefttpl "></div>
                   <ng-template #frozenbothtpl>
-                    <div *ngIf="frozenRightColumns" [pScrollableView]="frozenRightColumns" frozen="true" mscroll="true" [ngStyle]="{'width': this.frozenRightWidth, 'right': 0}" class="ui-datatable-scrollable-view ui-datatable-frozen-view" style="position: absolute; top: 0; right: 0; background-color: lightcyan;"></div>
+                    
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'left': this.frozenWidth, 'right': this.frozenRightWidth}"
                          class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                          [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}" style="background-color: lightblue;"></div>
+                    
+                    <div *ngIf="frozenRightColumns" [pScrollableView]="frozenRightColumns" frozen="true" mscroll="true" [ngStyle]="{'width': this.frozenRightWidth, 'right': 0}" class="ui-datatable-scrollable-view ui-datatable-frozen-view" style="position: absolute; top: 0; right: 0; background-color: lightcyan;"></div>
                   </ng-template>
                   <ng-template #fronzenlefttpl>
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
