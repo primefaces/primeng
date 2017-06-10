@@ -229,16 +229,19 @@ export class TableBody {
                 </table>
             </div>
         </div>
+        
+        <div *ngIf="!lastscrollblock" [ngStyle]="{'width': width,'height':dt.scrollHeight}" style=" position: relative;overflow: hidden;" ></div>
         <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width,'max-height':dt.scrollHeight}" style="background-color: green;">
-            <div #scrollTableWrapper style="position:relative;" [ngStyle]="{'height':virtualTableHeight}">
-                <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle" [ngClass]="{'ui-datatable-virtual-table':virtualScroll}" style="top:0px">
-                    <colgroup class="ui-datatable-scrollable-colgroup">
-                        <col *ngFor="let col of dt.visibleColumns()" />
-                    </colgroup>
-                    <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columns"></tbody>
-                </table>
-            </div>
+          <div #scrollTableWrapper style="position:relative;" [ngStyle]="{'height':virtualTableHeight}">
+            <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle" [ngClass]="{'ui-datatable-virtual-table':virtualScroll}" style="top:0px">
+              <colgroup class="ui-datatable-scrollable-colgroup">
+                <col *ngFor="let col of dt.visibleColumns()" />
+              </colgroup>
+              <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columns"></tbody>
+            </table>
+          </div>
         </div>
+        
         <div #scrollFooter class="ui-widget-header ui-datatable-scrollable-footer" [ngStyle]="{'width': width}" *ngIf="dt.hasFooter()">
             <div #scrollFooterBox  class="ui-datatable-scrollable-footer-box">
                 <table [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
@@ -274,7 +277,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
 
     @Input() frozen: boolean;
-    @Input() mscroll: boolean;
+    @Input() lastscrollblock: boolean = false;
 
     @Input() width: string;
 
@@ -492,7 +495,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                     <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (rowHover||selectionMode)}" [pTableBody]="columns"></tbody>
                 </table>
             </div>
-            
+          
             <ng-template [ngIf]="scrollable">
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}" style="background-color: lightgreen;">
                   <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
@@ -504,10 +507,10 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                          class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                          [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}" style="background-color: lightblue;"></div>
                     
-                    <div *ngIf="frozenRightColumns" [pScrollableView]="frozenRightColumns" frozen="true" mscroll="true" [ngStyle]="{'width': this.frozenRightWidth, 'right': '0'}" class="ui-datatable-scrollable-view ui-datatable-frozen-view-right" style="position: absolute; top: 0; right: 0; background-color: lightcyan;"></div>
+                    <div *ngIf="frozenRightColumns" [pScrollableView]="frozenRightColumns" frozen="true" lastscrollblock="false" [ngStyle]="{'width': this.frozenRightWidth, 'right': '0'}" class="ui-datatable-scrollable-view ui-datatable-frozen-view-right" style="position: absolute; top: 0; right: 0; background-color: lightcyan;"></div>
                   </ng-template>
                   <ng-template #fronzenlefttpl>
-                    <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
+                    <div [pScrollableView]="scrollableColumns" lastscrollblock="true"  [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
                          class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                          [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}" style="background-color: lightblue;"></div>
                   </ng-template>
