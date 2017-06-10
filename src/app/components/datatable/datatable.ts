@@ -425,12 +425,12 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             <div class="ui-datatable-loading-content" *ngIf="loading">
                 <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
             </div>
-            <div class="ui-datatable-header ui-widget-header" *ngIf="header">
-                <ng-content select="p-header"></ng-content>
+            <div class="ui-datatable-header ui-widget-header" *ngIf="header" style="background-color: lightpink;">
+                <ng-content select="p-header" style="background-color: lightcyan;"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
-            <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
+            <div class="ui-datatable-tablewrapper" *ngIf="!scrollable" style="background-color: lightsalmon;">
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead class="ui-datatable-thead">
                         <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
@@ -449,13 +449,23 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             </div>
             
             <ng-template [ngIf]="scrollable">
-                <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
+                <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}" style="background-color: lightgreen;">
+                  
                     <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
-                        [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
+                        [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view" style="background-color: lightgoldenrodyellow;"></div>
+                  <div *ngIf="this.frozenRightWidth && this.frozenWidth; then frozenbothtpl else fronzenlefttpl "></div>
+                  <ng-template #frozenbothtpl>
+                    <div [pScrollableView]="scrollableColumns" [ngStyle]="{'left': this.frozenWidth, 'right': this.frozenRightWidth}"
+                         class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
+                         [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}" style="background-color: lightblue;"></div>
+                  </ng-template>
+                  <ng-template #fronzenlefttpl>
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
-                        class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
-                        [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}"></div>
-                    <div *ngIf="frozenRightColumns" [pScrollableView]="frozenRightColumns" frozen="true" [ngStyle]="{'width': this.frozenRightWidth, 'left': this.frozenWidth + this.unfrozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
+                         class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
+                         [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}" style="background-color: lightblue;"></div>
+                  </ng-template>
+                  <div *ngIf="frozenRightColumns" [pScrollableView]="frozenRightColumns" frozen="true" [ngStyle]="{'width': this.frozenRightWidth, 'left': this.frozenWidth + this.unfrozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view" style="position: absolute; top: 0; right: 0; background-color: lightcyan;"></div>
+                 
                 </div>
             </ng-template>
             
@@ -537,7 +547,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() frozenWidth: any;
   @Input() frozenRightWidth: any;
 
-    @Input() unfrozenWidth: any = 0.0;
+    @Input() unfrozenWidth: any;
 
     @Input() style: any;
 
@@ -2111,8 +2121,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(this.scrollWidth) {
                 return this.scrollWidth;
             }
-            else if(this.frozenWidth && this.unfrozenWidth) {
-                return parseFloat(this.frozenWidth) + parseFloat(this.unfrozenWidth) + parseFloat(this.frozenRightWidth) + 'px';
+            else {
+              if (this.frozenWidth && this.unfrozenWidth) {
+                let tw =  parseFloat(this.frozenWidth) + parseFloat(this.unfrozenWidth);
+                if (this.frozenRightWidth) {
+                  tw += parseFloat(this.frozenRightWidth);
+                }
+                console.log(" ++++++++ " + tw);
+                return tw + 'px';
+                // return parseFloat(this.frozenWidth) + parseFloat(this.unfrozenWidth) + parseFloat(this.frozenRightWidth) + 'px';
+              }
             }
         }
         else {
