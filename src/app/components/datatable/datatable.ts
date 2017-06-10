@@ -216,7 +216,8 @@ export class TableBody {
 @Component({
     selector: '[pScrollableView]',
     template: `
-        <div #scrollHeader class="ui-widget-header ui-datatable-scrollable-header" [ngStyle]="{'width': width}">
+        <div #scrollHeader class="ui-widget-header ui-datatable-scrollable-header" [ngStyle]="{'width': width}" style="
+        background-color: rgba(22,123, 222, 0.6);">
             <div #scrollHeaderBox  class="ui-datatable-scrollable-header-box">
                 <table [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <thead class="ui-datatable-thead">
@@ -228,8 +229,8 @@ export class TableBody {
                 </table>
             </div>
         </div>
-        <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width,'max-height':dt.scrollHeight}">
-            <div #scrollTableWrapper style="position:relative" [ngStyle]="{'height':virtualTableHeight}">
+        <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width,'max-height':dt.scrollHeight}" style="background-color: green;">
+            <div #scrollTableWrapper style="position:relative;" [ngStyle]="{'height':virtualTableHeight}">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle" [ngClass]="{'ui-datatable-virtual-table':virtualScroll}" style="top:0px">
                     <colgroup class="ui-datatable-scrollable-colgroup">
                         <col *ngFor="let col of dt.visibleColumns()" />
@@ -273,6 +274,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
 
     @Input() frozen: boolean;
+    @Input() mscroll: boolean;
 
     @Input() width: string;
 
@@ -308,6 +310,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
 
     public scrollTimeout: any;
 
+    private needscrolls: any[] = [];
+
     ngAfterViewInit() {
         this.initScrolling();
     }
@@ -325,6 +329,18 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         }
     }
 
+    extractNeedScroll() {
+      let parent = this.el.nativeElement.parentNode;
+      this.needscrolls = [];
+      let tarr = Array.prototype.filter.call(parent.children, function (value) {
+        return this.el.nativeElement != value;
+      }.bind(this));
+
+      for (let i = 0; i < tarr.length; i++) {
+        this.needscrolls.push(this.domHandler.findSingle(tarr[i], '.ui-datatable-scrollable-body'))
+      }
+    }
+
     initScrolling() {
         this.scrollHeader = <HTMLDivElement> this.scrollHeaderViewChild.nativeElement;
         this.scrollHeaderBox = <HTMLDivElement> this.scrollHeaderBoxViewChild.nativeElement;
@@ -334,10 +350,20 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         this.scrollFooter =  this.scrollFooterViewChild ? <HTMLDivElement> this.scrollFooterViewChild.nativeElement : null;
         this.scrollFooterBox =  this.scrollFooterBoxViewChild ? <HTMLDivElement> this.scrollFooterBoxViewChild.nativeElement : null;
 
+        console.log(" ++++++++++ +++++++ +++++++++++ ++++++ " + this.frozen);
+
         if(!this.frozen) {
             let frozenView = this.el.nativeElement.previousElementSibling;
+            let pnode = this.el.nativeElement.parentElement;
+            // console.log(" -=-=-=-=-=-=-=- == " , pnode);
+            this.extractNeedScroll();
+
+            // console.log(" +++++++++++++++ ============ =========== ", frozenView);
             if(frozenView) {
                 var frozenScrollBody = this.domHandler.findSingle(frozenView, '.ui-datatable-scrollable-body');
+                // console.log(" ++++++++++++ -=--===== = -- 0000 \n", frozenScrollBody);
+                var frozenScrollBodies = this.domHandler.find(frozenView, '.ui-datatable-scrollable-body');
+                // console.log(" ++ -- ++++++++++ ", frozenScrollBodies.length);
             }
 
             this.bodyScrollListener = this.renderer.listen(this.scrollBody, 'scroll', (event) => {
@@ -345,9 +371,12 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 if(this.scrollFooterBox) {
                     this.scrollFooterBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
                 }
+
                 if(frozenScrollBody) {
-                    frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
+                  console.log(" ============= !!!!!!!!!!!!! ");
+                    // frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
                 }
+                this.scrollNeedScroll();
 
                 if(this.virtualScroll) {
                     clearTimeout(this.scrollTimeout);
@@ -383,13 +412,20 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             this.scrollBody.style.paddingBottom = this.domHandler.calculateScrollbarWidth() + 'px';
     }
 
+
+    scrollNeedScroll() {
+      this.needscrolls.forEach(function (item) {
+        item.scrollTop = this.scrollBody.scrollTop;
+      }.bind(this));
+    }
+
     hasVerticalOverflow() {
         return this.domHandler.getOuterHeight(this.scrollTable) > this.domHandler.getOuterHeight(this.scrollBody);
     }
 
     alignScrollBar() {
         let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
-
+      console.warn(" ============== =--------------- ");
         this.scrollHeaderBox.style.marginRight = scrollBarWidth + 'px';
         if(this.scrollFooterBox) {
             this.scrollFooterBox.style.marginRight = scrollBarWidth + 'px';
@@ -426,13 +462,13 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
             </div>
             <div class="ui-datatable-header ui-widget-header" *ngIf="header" style="background-color: lightpink;">
-                <ng-content select="p-header" style="background-color: lightcyan;"></ng-content>
+                <ng-content select="p-header" style="background-color: lightskyblue;"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
-            <div class="ui-datatable-tablewrapper" *ngIf="!scrollable" style="background-color: lightsalmon;">
+            <div class="ui-datatable-tablewrapper" *ngIf="!scrollable" style="background-color: lightpink;">
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
-                    <thead class="ui-datatable-thead">
+                    <thead class="ui-datatable-thead" style="background-color: lightblue;">
                         <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
                         <ng-template [ngIf]="headerColumnGroup">
                             <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
@@ -450,11 +486,11 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             
             <ng-template [ngIf]="scrollable">
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}" style="background-color: lightgreen;">
-                  
-                    <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
+                  <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view" style="background-color: lightgoldenrodyellow;"></div>
                   <div *ngIf="this.frozenRightWidth && this.frozenWidth; then frozenbothtpl else fronzenlefttpl "></div>
                   <ng-template #frozenbothtpl>
+                    <div *ngIf="frozenRightColumns" [pScrollableView]="frozenRightColumns" frozen="true" mscroll="true" [ngStyle]="{'width': this.frozenRightWidth, 'right': 0}" class="ui-datatable-scrollable-view ui-datatable-frozen-view" style="position: absolute; top: 0; right: 0; background-color: lightcyan;"></div>
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'left': this.frozenWidth, 'right': this.frozenRightWidth}"
                          class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                          [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}" style="background-color: lightblue;"></div>
@@ -464,7 +500,6 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                          class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                          [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}" style="background-color: lightblue;"></div>
                   </ng-template>
-                  <div *ngIf="frozenRightColumns" [pScrollableView]="frozenRightColumns" frozen="true" [ngStyle]="{'width': this.frozenRightWidth, 'left': this.frozenWidth + this.unfrozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view" style="position: absolute; top: 0; right: 0; background-color: lightcyan;"></div>
                  
                 </div>
             </ng-template>
@@ -941,6 +976,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     onVirtualScroll(event) {
         this.first = (event.page - 1) * this.rows;
+        console.warn(" +++++++++++++++++++++++++ ----------------- " + event);
 
         if(this.lazy) {
             this.stopFilterPropagation = true;

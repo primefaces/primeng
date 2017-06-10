@@ -8,7 +8,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dataTable [value]="cars" expandableRows="true">
+    <p-dataTable [value]="cars" expandableRows="true" scrollable="true" scrollHeight="200px" >
         <p-column expander="true" styleClass="col-icon"></p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
@@ -45,7 +45,7 @@
             </div>
         </ng-template>
     </p-dataTable>
-    
+
     <p-dialog header="Car Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true" width="250">
         <div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar">
             <div class="ui-grid-row">
@@ -76,18 +76,18 @@
 export class DataTableRowExpansionDemo implements OnInit &#123;
 
     cars: Car[];
-    
+
     cols: any[];
-    
+
     selectedCar: Car;
-    
+
     dialogVisible: boolean;
-    
+
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-        
+
         this.cols = [
             &#123;field: 'vin', header: 'Vin'&#125;,
             &#123;field: 'year', header: 'Year'&#125;,
@@ -95,14 +95,14 @@ export class DataTableRowExpansionDemo implements OnInit &#123;
             &#123;field: 'color', header: 'Color'&#125;
         ];
     &#125;
-    
+
     showCar(car: Car) &#123;
         this.selectedCar = car;
         this.dialogVisible = true;
     &#125;
 &#125;
 </code>
-</pre>            
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="datatablerowexpansiondemo.html">

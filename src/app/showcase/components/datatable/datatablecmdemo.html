@@ -10,14 +10,15 @@
 <div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
 
-    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" [contextMenu]="cm">
+    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" [contextMenu]="cm"
+                 scrollable="true" scrollHeight="200px" >
         <p-header>Right Click on Rows for ContextMenu</p-header>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
-    
+
     <p-contextMenu #cm [model]="items"></p-contextMenu>
 </div>
 
@@ -33,14 +34,14 @@ export class DataTableCMDemo implements OnInit &#123;
     cars: Car[];
 
     selectedCar: Car;
-    
+
     items: MenuItem[];
 
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
-        
+
         this.items = [
             &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewCar(this.selectedCar)&#125;,
             &#123;label: 'Delete', icon: 'fa-close', command: (event) => this.deleteCar(this.selectedCar)&#125;
@@ -61,13 +62,13 @@ export class DataTableCMDemo implements OnInit &#123;
             &#125;
         &#125;
         this.cars.splice(index, 1);
-        
+
         this.msgs = [];
         this.msgs.push(&#123;severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand&#125;);
     &#125;
 &#125;
 </code>
-</pre>            
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="datatablecmdemo.html">

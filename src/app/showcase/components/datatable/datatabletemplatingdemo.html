@@ -11,7 +11,7 @@
 <div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
 
-    <p-dataTable [value]="cars">
+    <p-dataTable [value]="cars"  scrollable="true" scrollHeight="200px">
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -39,7 +39,7 @@
 export class DataTableTemplatingDemo implements OnInit &#123;
 
     cars: Car[];
-    
+
     msgs: Message[] = [];
 
     constructor(private carService: CarService) &#123; &#125;
@@ -47,14 +47,14 @@ export class DataTableTemplatingDemo implements OnInit &#123;
     ngOnInit() &#123;
         this.carService.getCarsSmall().then(cars => this.cars = cars);
     &#125;
-    
+
     selectCar(car: Car) &#123;
         this.msgs = [];
         this.msgs.push(&#123;severity:'info', summary:'Car Select', detail:'Vin: ' + car.vin&#125;);
     &#125;
 &#125;
 </code>
-</pre>   
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="datatabletemplatingdemo.html">
