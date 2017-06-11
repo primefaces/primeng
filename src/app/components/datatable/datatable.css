@@ -277,9 +277,9 @@
     overflow: hidden;
 }
 
-.ui-datatable-frozen-view-left .ui-datatable-scrollable-body {
-  overflow-x: hidden;
-  overflow-y: auto;
+.ui-datatable-scrollable-view-middle .ui-datatable-scrollable-body {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .ui-datatable-frozen-view-right .ui-datatable-scrollable-body {

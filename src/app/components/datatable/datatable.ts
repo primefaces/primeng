@@ -232,7 +232,7 @@ export class TableBody {
         <div *ngIf="lastscrollblock; then lscrolblock else notlscrolblock;"></div>
         <ng-template #notlscrolblock>
           <div class="notlastscroll-container" style="height: 100%; width: 100%; overflow: hidden;">
-            <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width,'max-height':dt.scrollHeight}">
+            <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width + 15,'max-height':dt.scrollHeight}">
               <div #scrollTableWrapper style="position:relative;" [ngStyle]="{'height':virtualTableHeight}">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle" [ngClass]="{'ui-datatable-virtual-table':virtualScroll}" style="top:0px">
                   <colgroup class="ui-datatable-scrollable-colgroup">
@@ -334,6 +334,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     private needscrolls: any[] = [];
 
     ngAfterViewInit() {
+        console.log(" +++++++ ++++++++ ", this.width);
         this.initScrolling();
     }
 
@@ -500,7 +501,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead class="ui-datatable-thead">
-                        <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
+                        <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns" [ngStyle]="{'width': '100%'}"></tr>
                         <ng-template [ngIf]="headerColumnGroup">
                             <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
                         </ng-template>
@@ -518,12 +519,12 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             <ng-template [ngIf]="scrollable">
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
                   <div *ngIf="frozenColumns" [pScrollableView]="frozenColumns" frozen="true" 
-                        [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view-left"></div>
+                        [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view" [width]="frozenWidth"></div>
                   <div *ngIf="this.frozenRightWidth && this.frozenWidth; then frozenbothtpl else fronzenlefttpl "></div>
                   <ng-template #frozenbothtpl>
                     
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'left': this.frozenWidth, 'right': this.frozenRightWidth}"
-                         class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
+                         class="ui-datatable-scrollable-view ui-datatable-scrollable-view-middle" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                          [ngClass]="{'ui-datatable-unfrozen-view': frozenColumns}"></div>
                     <div *ngIf="frozenRightColumns" [pScrollableView]="frozenRightColumns" frozen="true" lastscrollblock="false" [ngStyle]="{'width': this.frozenRightWidth, 'right': 0, 'top': 0, 'position': 'absolute'}" class="ui-datatable-scrollable-view ui-datatable-frozen-view-right"></div>
                   </ng-template>
