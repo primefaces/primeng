@@ -229,8 +229,12 @@ export class TableBody {
                 </table>
             </div>
         </div>
+        <!--<div *ngIf="this.frozenRightWidth && this.frozenWidth; then frozenbothtpl else fronzenlefttpl "></div>-->
+        <!--<div *ngIf="!lastscrollblock" [ngStyle]="{'width': width,'height':dt.scrollHeight}" style=" position: relative;overflow: hidden;" >
+        </div>-->
         
-        <div *ngIf="!lastscrollblock" [ngStyle]="{'width': width + 2,'height':dt.scrollHeight}" style=" position: relative;overflow: hidden;" ></div>
+        
+        
         <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width,'max-height':dt.scrollHeight}" style="background-color: green;">
           <div #scrollTableWrapper style="position:relative;" [ngStyle]="{'height':virtualTableHeight}">
             <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle" [ngClass]="{'ui-datatable-virtual-table':virtualScroll}" style="top:0px">
