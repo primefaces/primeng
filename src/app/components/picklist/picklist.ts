@@ -163,8 +163,6 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     filterValueSource: string;
     
     filterValueTarget: string;
-    
-    identifier: string;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
     
@@ -228,23 +226,17 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
         this.itemTouched = false;
     }
     
-    onFilter(event, data, identifier) {
-        if(identifier == 0) {
-            this.filterValueSource = event.target.value.trim().toLowerCase();
-            this.visibleOptionsSource = [];
-        }
-        else {
-            this.filterValueTarget = event.target.value.trim().toLowerCase();
-            this.visibleOptionsTarget = [];
-        }
+    onFilter(event, data, listType: ListType) {
+        listType == 0 ? this.filterValueSource = event.target.value.trim().toLowerCase(): this.filterValueTarget = event.target.value.trim().toLowerCase();
+        this.visibleOptionsTarget = [];
         
-        this.activateFilter(data,identifier);
+        this.activateFilter(data,listType);
     }
     
-    activateFilter(data,identifier) {
+    activateFilter(data, listType: ListType) {
         let searchFields = this.filterBy.split(',');
         
-        if(identifier == 0) {
+        if(listType == 0) {
             this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);
         }
         else {
@@ -253,10 +245,10 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
         
     }
     
-    isItemVisible(item: any, identifier: number): boolean {
+    isItemVisible(item: any, listType: ListType): boolean {
         let filterFields = this.filterBy.split(',');
         
-        if(identifier == 0) {
+        if(listType == 0) {
             return this.displayVisibleItems(this.visibleOptionsSource, item, this.filterValueSource);
         }
         else {
