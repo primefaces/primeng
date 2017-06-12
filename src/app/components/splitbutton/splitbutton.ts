@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,OnInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer2,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList,Renderer2,ChangeDetectorRef,ViewChild} from '@angular/core';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
@@ -12,8 +13,8 @@ import {RouterModule} from '@angular/router';
         <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" cornerStyleClass="ui-corner-left" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="fa-caret-down" cornerStyleClass="ui-corner-right" (click)="onDropdownButtonClick($event,menu,container)" [disabled]="disabled"></button>
-            <div #menu [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
-                    [ngStyle]="menuStyle" [class]="menuStyleClass">
+            <div #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
+                    [ngStyle]="menuStyle" [class]="menuStyleClass" [@overlayState]="menuVisible ? 'visible' : 'hidden'">
                 <ul class="ui-menu-list ui-helper-reset">
                     <li class="ui-menuitem ui-widget ui-corner-all" role="menuitem" *ngFor="let item of model">
                         <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
@@ -31,9 +32,21 @@ import {RouterModule} from '@angular/router';
             </div>
         </div>
     `,
+    animations: [
+        trigger('overlayState', [
+            state('hidden', style({
+                opacity: 0
+            })),
+            state('visible', style({
+                opacity: 1
+            })),
+            transition('visible => hidden', animate('400ms ease-in')),
+            transition('hidden => visible', animate('400ms ease-out'))
+        ])
+    ],
     providers: [DomHandler]
 })
-export class SplitButton implements OnInit,OnDestroy {
+export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() model: MenuItem[];
 
@@ -58,25 +71,37 @@ export class SplitButton implements OnInit,OnDestroy {
     @Input() disabled: boolean;
 
     @Input() tabindex: number;
+    
+    @Input() appendTo: any;
+    
+    @ViewChild('defaultbtn') buttonViewChild: ElementRef;
+    
+    @ViewChild('overlay') overlayViewChild: ElementRef;
                 
     public menuVisible: boolean = false;
     
     public documentClickListener: any;
     
     public isDropdownClicked: boolean;
+    
+    public shown: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public router: Router, public cd: ChangeDetectorRef) {}
+        
+    ngAfterViewInit() {
+        if(this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.overlayViewChild.nativeElement);
+            else
+                this.domHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
+        }
+    }
     
-    ngOnInit() {
-        this.documentClickListener = this.renderer.listen('document', 'click', () => {
-            if(this.isDropdownClicked) {
-                this.isDropdownClicked = false;
-            }
-            else {
-                this.menuVisible = false;
-                this.cd.markForCheck();
-            }
-        });
+    ngAfterViewChecked() {
+        if(this.shown) {
+            this.onShow();
+            this.shown = false;
+        }
     }
     
     onDefaultButtonClick(event: Event) {
@@ -108,19 +133,55 @@ export class SplitButton implements OnInit,OnDestroy {
         this.menuVisible = false;
     }
     
-    onDropdownButtonClick(event: Event, menu: HTMLDivElement, container: Element) {
+    show() {
+        this.shown = true;
         this.menuVisible= !this.menuVisible;
-        this.domHandler.relativePosition(menu, container);
-        this.domHandler.fadeIn(menu,25);
-        menu.style.zIndex = String(++DomHandler.zindex);
+        this.alignPanel(); 
+        this.overlayViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+    }
+    
+    onShow() {
+        this.alignPanel();
+        this.bindDocumentClickListener();
+    }
+    
+    onDropdownButtonClick(event: Event) {
         this.onDropdownClick.emit(event);
         this.isDropdownClicked = true;
+        this.show();
     }
-        
-    ngOnDestroy() {
+    
+    alignPanel() {
+        if(this.appendTo)
+            this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.buttonViewChild.nativeElement);
+        else
+            this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.buttonViewChild.nativeElement);
+    }
+    
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+                if(this.isDropdownClicked) {
+                    this.isDropdownClicked = false;
+                }
+                else {
+                    this.menuVisible = false;
+                    this.unbindDocumentClickListener();
+                    this.cd.markForCheck();
+                }
+            });
+        }
+    }
+    
+    unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
+            this.documentClickListener = null;
         }
+    }   
+         
+    ngOnDestroy() {
+        this.unbindDocumentClickListener();
     }
 }
 
