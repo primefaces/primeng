@@ -429,7 +429,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
+                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead class="ui-datatable-thead">
@@ -459,7 +459,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             </ng-template>
             
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
+                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datatable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
@@ -615,13 +615,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() rowHover: boolean;
     
-    @Input() first: number = 0;
-    
     @Input() public filters: {[s: string]: FilterMetadata;} = {};
     
     @Input() dataKey: string;
     
     @Input() loading: boolean;
+    
+    @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
         
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
@@ -702,6 +702,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public scrollBarWidth: number;
     
     public editorClick: boolean;
+    
+    public _first: number = 0;
         
     globalFilterFunction: any;
     
@@ -783,6 +785,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     set value(val:any[]) {
         this._value = val ? [...val] : null;
         this.handleDataChange();
+    }
+    
+    @Input() get first(): number {
+        return this._first;
+    }
+
+    set first(val:number) {
+        let shouldPaginate = this._first !== val;
+        
+        this._first = val;
+        
+        if(shouldPaginate) {
+            this.paginate();
+        }
+        
     }
     
     handleDataChange() {
@@ -881,14 +898,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         //first
         if(this.totalRecords && this.first >= this.totalRecords) {
             let numberOfPages = Math.ceil(this.totalRecords/this.rows);
-            this.first = Math.max((numberOfPages-1) * this.rows, 0);
+            this._first = Math.max((numberOfPages-1) * this.rows, 0);
         }
     }
 
-    paginate(event) {
-        this.first = event.first;
+    onPageChange(event) {
+        this._first = event.first;
+        this.firstChange.emit(this.first);
         this.rows = event.rows;
-
+        this.paginate();
+    }
+    
+    paginate() {
         if(this.lazy) {
             this.stopFilterPropagation = true;
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
@@ -896,7 +917,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else {
             this.updateDataToRender(this.filteredValue||this.value);
         }
-
+        
         this.onPage.emit({
             first: this.first,
             rows: this.rows
@@ -927,7 +948,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
         
     onVirtualScroll(event) {
-        this.first = (event.page - 1) * this.rows;
+        this._first = (event.page - 1) * this.rows;
         
         if(this.lazy) {
             this.stopFilterPropagation = true;
@@ -977,7 +998,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
 
             if(this.lazy) {
-                this.first = 0;
+                this._first = 0;
                 this.stopFilterPropagation = true;
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
@@ -1380,7 +1401,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     _filter() {
-        this.first = 0;
+        this._first = 0;
         
         if(this.lazy) {
             this.stopFilterPropagation = true;
@@ -2032,13 +2053,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.filters = {};
 
         if(this.paginator) {
-            this.paginate({
-                first: 0,
-                rows: this.rows
-            });
+            this.first = 0;
+            this.firstChange.emit(this.first);
         }
         else {
-            this.updateDataToRender(this.value);
+            this.updateDataToRender(this.value);    
         }
     }
     
