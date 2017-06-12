@@ -472,7 +472,7 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
         this.dragOverItemIndex = null;
     }
     
-    onDrop(event: DragEvent, index: number, listType: any) {
+    onDrop(event: DragEvent, index: number, listType: ListType) {
         this.objectUtils.reorderArray((listType == 0 ? this.source : this.target), this.draggedItemIndex, index - 1);
         this.dragOverItemIndex = null;
     }
