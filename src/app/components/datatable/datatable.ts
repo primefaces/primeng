@@ -572,6 +572,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() metaKeySelection: boolean = true;
     
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
+    
+    @Input() compareSelectionBy: string = 'deepEquals';
                 
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
@@ -1301,7 +1303,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let index: number = -1;
         if(this.selection) {
             for(let i = 0; i  < this.selection.length; i++) {
-                if(this.objectUtils.equals(rowData, this.selection[i], this.dataKey)) {
+                if(this.equals(rowData, this.selection)) {
                     index = i;
                     break;
                 }
@@ -1312,7 +1314,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     isSelected(rowData) {
-        return ((rowData && this.objectUtils.equals(rowData, this.selection, this.dataKey)) || this.findIndexInSelection(rowData) != -1);
+        if(rowData && this.selection) {
+            if(this.selection instanceof Array)
+                return this.findIndexInSelection(rowData) > -1;
+            else
+                return this.equals(rowData, this.selection);
+        }
+        
+        return false;
+    }
+    
+    equals(data1, data2) {
+        return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
     }
     
     get allSelected() {

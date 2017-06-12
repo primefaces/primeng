@@ -573,8 +573,10 @@ mysort(event) &#123;
             <h3>Selection</h3>
             <p>DataTable provides single and multiple selection modes on click of a row. Selected rows are bound to the selection property and onRowSelect-onRowUnselect events
             are provided as optional callbacks. Alternatively column based selection can be done using radio buttons or checkboxes using selectionMode of a particular column.
-            When comparing if a row is selected, DataTable traverses all properties of the object which affects performance as a result. It is suggested to define a dataKey property
-            that uniquely identifies a record to avoid deep object comparison and increase performance.</p>
+            When resolving if a row is selected, by default DataTable uses deepEquals which traverses all properties of the object thus affects performance as a result so it is suggested to define a dataKey property
+            that uniquely identifies a record to avoid deep object comparison and increase performance. Another alternative is to compare rows by reference using compareSelectionBy property as "equals". See compareSelectionBy
+            in properties section for more information. Depending on your case you may use "equals" and "deepEquals" alternatives.</p>
+            
             <p>In single mode, selection binding is an object reference.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
@@ -1274,6 +1276,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Function</td>
                             <td>null</td>
                             <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
+                        </tr>
+                        <tr>
+                            <td>compareSelectionBy</td>
+                            <td>string</td>
+                            <td>deepEquals</td>
+                            <td>Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.</td>
                         </tr>
                     </tbody>
                 </table>
