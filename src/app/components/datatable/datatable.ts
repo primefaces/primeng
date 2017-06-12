@@ -1303,7 +1303,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let index: number = -1;
         if(this.selection) {
             for(let i = 0; i  < this.selection.length; i++) {
-                if(this.equals(rowData, this.selection)) {
+                if(this.equals(rowData, this.selection[i])) {
                     index = i;
                     break;
                 }
