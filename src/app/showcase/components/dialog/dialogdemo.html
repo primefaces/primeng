@@ -95,11 +95,21 @@ export class ModelComponent &#123;
 </pre>
 
             <h3>Overlays Inside</h3>
-            <p>When dialog contents include other components with overlays such as dropdown, it is suggested to turn off the overflow of dialog content
-                so that the overlays can be displayed outside of the dialog.</p>
+            <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can 
+            either append the overlay to the body or allow overflow in dialog.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dropdown [options]="cities" formControlName="selectedCity"&gt;&lt;/p-dropdown&gt;
+&lt;p-dialog&gt;
+    &lt;p-dropdown appendTo="body"&gt;&lt;/p-dropdown&gt;
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog [contentStyle]="&#123;'overflow':'visible'&#125;"&gt;
+    &lt;p-dropdown&gt;&lt;/p-dropdown&gt;
+&lt;/p-dialog&gt;
 </code>
 </pre>
 

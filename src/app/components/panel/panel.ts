@@ -21,9 +21,10 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
                 <div class="ui-panel-content ui-widget-content">
                     <ng-content></ng-content>
                 </div>
-            </div>
-            <div class="ui-panel-footer ui-widget-content" *ngIf="footerFacet">
-                <ng-content select="p-footer"></ng-content>
+                
+                <div class="ui-panel-footer ui-widget-content" *ngIf="footerFacet">
+                    <ng-content select="p-footer"></ng-content>
+                </div>
             </div>
         </div>
     `,

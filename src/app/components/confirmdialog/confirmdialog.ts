@@ -15,7 +15,7 @@ import {Subscription}   from 'rxjs/Subscription';
             [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
             <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <a *ngIf="closable"  [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="hide($event)">
+                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
                     <span class="fa fa-fw fa-close"></span>
                 </a>
             </div>
@@ -26,7 +26,8 @@ import {Subscription}   from 'rxjs/Subscription';
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="!footer">
+            <div class="ui-dialog-footer ui-widget-content">
+            <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="!footer">
                 <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" *ngIf="rejectVisible"></button>
                 <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()" *ngIf="acceptVisible"></button>
             </div>
@@ -161,7 +162,7 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
                 if(event.which == 27) {
                     if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex) {
-                        this.hide(event);
+                        this.close(event);
                     }
                 }
             });
@@ -211,12 +212,17 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
         }
     }
     
-    hide(event?:Event) {
-        this.visible = false;
-        
-        if(event) {
-            event.preventDefault();
+    close(event: Event) {
+        if(this.confirmation.rejectEvent) {
+            this.confirmation.rejectEvent.emit();
         }
+        
+        this.hide();
+        event.preventDefault();
+    }
+    
+    hide() {
+        this.visible = false;
     }
     
     moveOnTop() {

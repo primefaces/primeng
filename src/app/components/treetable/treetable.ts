@@ -11,7 +11,7 @@ import {DomHandler} from '../dom/domhandler';
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
             <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
-                <a href="#" *ngIf="i==0" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="node.expanded ? iconCollapse : iconExpand"
+                <a href="#" *ngIf="i==toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="node.expanded ? iconCollapse : iconExpand"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
                     [title]="node.expanded ? labelCollapse : labelExpand">
@@ -47,6 +47,8 @@ export class UITreeRow implements OnInit {
     @Input() iconExpand: string;
 
     @Input() iconCollapse: string;
+
+    @Input() toggleColumnIndex: number;
                 
     constructor(@Inject(forwardRef(() => TreeTable)) public treeTable:TreeTable) {}
     
@@ -137,7 +139,7 @@ export class UITreeRow implements OnInit {
                         </tr>
                     </tfoot>
                     <tbody pTreeRow *ngFor="let node of value" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" 
-                           [labelCollapse]="labelCollapse" [iconExpand]="iconExpand" [iconCollapse]="iconCollapse"></tbody>
+                           [labelCollapse]="labelCollapse" [iconExpand]="iconExpand" [iconCollapse]="iconCollapse" [toggleColumnIndex]="toggleColumnIndex"></tbody>
                 </table>
             </div>
             
@@ -172,6 +174,8 @@ export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy 
     @Input() iconExpand: string = "fa-caret-right";
 
     @Input() iconCollapse: string = "fa-caret-down";
+
+    @Input() toggleColumnIndex: number = 0;
     
     @Input() resizableColumns: boolean;
     

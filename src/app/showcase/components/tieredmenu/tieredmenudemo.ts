@@ -22,6 +22,7 @@ export class TieredMenuDemo {
                         ]
                     },
                     {label: 'Open'},
+                    {separator:true},
                     {label: 'Quit'}
                 ]
             },
@@ -79,6 +80,7 @@ export class TieredMenuDemo {
                     }
                 ]
             },
+            {separator:true},
             {
                 label: 'Quit', icon: 'fa-minus'
             }

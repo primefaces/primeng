@@ -5,7 +5,7 @@ import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
-import {ObjectUtils} from '../utils/ObjectUtils';
+import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
@@ -37,7 +37,8 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <div #panel [ngClass]="'ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow'" [@panelState]="panelVisible ? 'visible' : 'hidden'"
                 [style.display]="panelVisible ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
-                    <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder">
+                    <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
+                    (keydown.enter)="$event.preventDefault()">
                     <span class="fa fa-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
@@ -104,6 +105,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() dataKey: string;
     
+    @Input() filterBy: string = 'label';
+    
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -161,8 +164,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     public itemClick: boolean;
     
     public hoveredItem: any;
-    
+        
     public selectedOptionUpdated: boolean;
+    
+    public filterValue: string;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef, public objectUtils: ObjectUtils) {}
     
@@ -194,6 +199,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
         this.optionsChanged = true;
+        
+        if(this.filterValue && this.filterValue.length) {
+            this.activateFilter();
+        }
     }
 
     ngAfterViewInit() { 
@@ -354,6 +363,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.options && this.options.length) {
             this.alignPanel();
             this.bindDocumentClickListener();
+            
+            let selectedListItem = this.domHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
+            if(selectedListItem) {
+                this.domHandler.scrollInView(this.itemsWrapper, selectedListItem);
+            }
         }
     }
     
@@ -474,18 +488,25 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onFilter(event): void {
-        if(this.options && this.options.length) {
-            let val = event.target.value.toLowerCase();
-            this.optionsToDisplay = [];
-            for(let i = 0; i < this.options.length; i++) {
-                let option = this.options[i];
-                if(option.label.toLowerCase().indexOf(val) > -1) {
-                    this.optionsToDisplay.push(option);
-                }
-            }
-            this.optionsChanged = true;
+        let inputValue = event.target.value.toLowerCase();
+        if(inputValue && inputValue.length) {
+            this.filterValue = inputValue;
+            this.activateFilter();
+        }
+        else {
+            this.filterValue = null;
+            this.optionsToDisplay = this.options;
         }
         
+        this.optionsChanged = true;
+    }
+    
+    activateFilter() {
+        let searchFields: string[] = this.filterBy.split(',');
+        if(this.options && this.options.length) {
+            this.optionsToDisplay = this.objectUtils.filter(this.options, searchFields, this.filterValue);
+            this.optionsChanged = true;
+        }
     }
     
     applyFocus(): void {

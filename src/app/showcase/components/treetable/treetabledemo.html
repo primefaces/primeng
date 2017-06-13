@@ -73,14 +73,7 @@
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
-    
-    <p-treeTable [value]="files8" resizableColumns="true" columnResizeMode="expand" [style]="{'margin-top':'50px'}">
-        <p-header>Resizable Columns with Expand Mode</p-header>
-        <p-column field="name" header="Name"></p-column>
-        <p-column field="size" header="Size"></p-column>
-        <p-column field="type" header="Type"></p-column>
-    </p-treeTable>
-    
+        
     <p-contextMenu #cm [model]="items"></p-contextMenu>
     
     <p-treeTable [value]="lazyFiles" [style]="{'margin-top':'50px'}"
@@ -734,6 +727,12 @@ export class TreeTableDemoComponent implements OnInit &#123;
                             <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
                             can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
                         </tr>
+                        <tr>
+                            <td>toggleColumnIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Index of the column that contains the toggler element.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -895,13 +894,6 @@ export class TreeTableDemoComponent implements OnInit &#123;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
 
-&lt;p-treeTable [value]="files8" [resizableColumns]="true" columnResizeMode="expand"&gt;
-    &lt;p-header&gt;Resizable Columns with expand mode&lt;/p-header&gt;
-    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
-    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
-    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
-&lt;/p-treeTable&gt;
-
 &lt;p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'50px'&#125;"
     (onNodeExpand)="nodeExpand($event)"&gt;
     &lt;p-header&gt;Lazy Loading&lt;/p-header&gt;
@@ -931,9 +923,7 @@ export class TreeTableDemo implements OnInit &#123;
     files6: TreeNode[];
     
     files7: TreeNode[];
-    
-    files8: TreeNode[];
-    
+        
     lazyFiles: TreeNode[];
         
     selectedFile: TreeNode;
@@ -941,11 +931,21 @@ export class TreeTableDemo implements OnInit &#123;
     selectedFile2: TreeNode;
     
     selectedFiles: TreeNode[];
+    
+    selectedFiles2: TreeNode[];
+    
+    items: MenuItem[];
         
     constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
-        this.nodeService.getFilesystem().then(files => this.files = files);
+        this.nodeService.getFilesystem().then(files => this.files1 = files);
+        this.nodeService.getFilesystem().then(files => this.files2 = files);
+        this.nodeService.getFilesystem().then(files => this.files3 = files);
+        this.nodeService.getFilesystem().then(files => this.files4 = files);
+        this.nodeService.getFilesystem().then(files => this.files5 = files);
+        this.nodeService.getFilesystem().then(files => this.files6 = files);
+        this.nodeService.getFilesystem().then(files => this.files7 = files);
         this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
         
         this.items = [
@@ -980,8 +980,7 @@ export class TreeTableDemo implements OnInit &#123;
         node.parent.children = node.parent.children.filter( n => n.data !== node.data);
         this.msgs = [];
         this.msgs.push(&#123;severity: 'info', summary: 'Node Deleted', detail: node.data.name&#125;);
-    &#126;
-    
+    &#125;
 &#125;
 </code>
 </pre>

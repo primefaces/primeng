@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
-import {ObjectUtils} from '../utils/ObjectUtils';
+import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
@@ -16,7 +16,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     selector: 'p-listbox',
     template: `
         <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple) || filter">
+            <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
                 <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple">
                     <div class="ui-helper-hidden-accessible">
                         <input #cb type="checkbox" readonly="readonly" [checked]="allChecked">

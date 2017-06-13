@@ -9,7 +9,7 @@ import {LazyLoadEvent} from '../common/lazyloadevent';
 import {FilterMetadata} from '../common/filtermetadata';
 import {SortMeta} from '../common/sortmeta';
 import {DomHandler} from '../dom/domhandler';
-import {ObjectUtils} from '../utils/ObjectUtils';
+import {ObjectUtils} from '../utils/objectutils';
 import {Subscription} from 'rxjs/Subscription';
 import {BlockableUI} from '../common/blockableui';
 
@@ -429,7 +429,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
+                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead class="ui-datatable-thead">
@@ -459,7 +459,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             </ng-template>
             
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="paginate($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
+                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && paginatorPosition!='top' || paginatorPosition =='both'"></p-paginator>
             <div class="ui-datatable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
@@ -572,6 +572,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() metaKeySelection: boolean = true;
     
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
+    
+    @Input() compareSelectionBy: string = 'deepEquals';
                 
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
 
@@ -613,13 +615,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() rowHover: boolean;
     
-    @Input() first: number = 0;
-    
     @Input() public filters: {[s: string]: FilterMetadata;} = {};
     
     @Input() dataKey: string;
     
     @Input() loading: boolean;
+    
+    @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
         
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
     
@@ -686,9 +688,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public rowGroupToggleClick: boolean;
     
     public editingCell: any;
-    
-    public stopFilterPropagation: boolean;
-    
+        
     public rowGroupMetadata: any;
     
     public rowGroupHeaderTemplate: TemplateRef<any>;
@@ -700,6 +700,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public scrollBarWidth: number;
     
     public editorClick: boolean;
+    
+    public _first: number = 0;
         
     globalFilterFunction: any;
     
@@ -781,6 +783,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     set value(val:any[]) {
         this._value = val ? [...val] : null;
         this.handleDataChange();
+    }
+    
+    @Input() get first(): number {
+        return this._first;
+    }
+
+    set first(val:number) {
+        let shouldPaginate = this._first !== val;
+        
+        this._first = val;
+        
+        if(shouldPaginate) {
+            this.paginate();
+        }
+        
     }
     
     handleDataChange() {
@@ -879,22 +896,23 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         //first
         if(this.totalRecords && this.first >= this.totalRecords) {
             let numberOfPages = Math.ceil(this.totalRecords/this.rows);
-            this.first = Math.max((numberOfPages-1) * this.rows, 0);
+            this._first = Math.max((numberOfPages-1) * this.rows, 0);
         }
     }
 
-    paginate(event) {
-        this.first = event.first;
+    onPageChange(event) {
+        this._first = event.first;
+        this.firstChange.emit(this.first);
         this.rows = event.rows;
-
-        if(this.lazy) {
-            this.stopFilterPropagation = true;
+        this.paginate();
+    }
+    
+    paginate() {
+        if(this.lazy)
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }            
-        else {
+        else
             this.updateDataToRender(this.filteredValue||this.value);
-        }
-
+        
         this.onPage.emit({
             first: this.first,
             rows: this.rows
@@ -925,15 +943,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
         
     onVirtualScroll(event) {
-        this.first = (event.page - 1) * this.rows;
+        this._first = (event.page - 1) * this.rows;
         
-        if(this.lazy) {
-            this.stopFilterPropagation = true;
+        if(this.lazy)
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }            
-        else {
+        else
             this.updateDataToRender(this.filteredValue||this.value);
-        }
     }
     
     onHeaderKeydown(event, column: Column) {
@@ -975,8 +990,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
 
             if(this.lazy) {
-                this.first = 0;
-                this.stopFilterPropagation = true;
+                this._first = 0;
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else {
@@ -1301,7 +1315,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let index: number = -1;
         if(this.selection) {
             for(let i = 0; i  < this.selection.length; i++) {
-                if(this.objectUtils.equals(rowData, this.selection[i], this.dataKey)) {
+                if(this.equals(rowData, this.selection[i])) {
                     index = i;
                     break;
                 }
@@ -1312,7 +1326,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     isSelected(rowData) {
-        return ((rowData && this.objectUtils.equals(rowData, this.selection, this.dataKey)) || this.findIndexInSelection(rowData) != -1);
+        if(rowData && this.selection) {
+            if(this.selection instanceof Array)
+                return this.findIndexInSelection(rowData) > -1;
+            else
+                return this.equals(rowData, this.selection);
+        }
+        
+        return false;
+    }
+    
+    equals(data1, data2) {
+        return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
     }
     
     get allSelected() {
@@ -1367,10 +1392,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     _filter() {
-        this.first = 0;
+        this._first = 0;
         
         if(this.lazy) {
-            this.stopFilterPropagation = true;
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
@@ -1954,7 +1978,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     findExpandedRowIndex(row: any): number {
-        let index = -1
+        let index = -1;
         if(this.expandedRows) {
             for(let i = 0; i < this.expandedRows.length; i++) {
                 if(this.expandedRows[i] == row) {
@@ -2001,7 +2025,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
         else {
-            this.expandedRowsGroups = this.expandedRowsGroups||[],
+            this.expandedRowsGroups = this.expandedRowsGroups || [];
             this.expandedRowsGroups.push(rowGroupField);
             this.onRowGroupExpand.emit({
                 originalEvent: event, 
@@ -2019,13 +2043,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.filters = {};
 
         if(this.paginator) {
-            this.paginate({
-                first: 0,
-                rows: this.rows
-            });
+            this.first = 0;
+            this.firstChange.emit(this.first);
         }
         else {
-            this.updateDataToRender(this.value);
+            this.updateDataToRender(this.value);    
         }
     }
     

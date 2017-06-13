@@ -422,7 +422,7 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
         }
         
         this.templates.forEach((item) => {
-            this.templateMap[item.getType()] = item.template;
+            this.templateMap[item.name] = item.template;
         });
     }
          

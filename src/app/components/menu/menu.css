@@ -4,6 +4,10 @@
     position:relative;
 }
 
+.ui-menu-separator {
+    border-width: 1px 0 0 0;
+}
+
 .ui-menu.ui-menu-dynamic {
     position: absolute;
     display: none;
@@ -37,7 +41,6 @@
 .ui-menu .ui-menuitem-link {
     display: block;
     width: 100%;
-    outline: none;
     text-decoration: none;
     font-weight: normal;
     border: 1px solid transparent;
@@ -72,7 +75,6 @@
     padding: .25em;
     position:absolute;
     margin: 0; 
-    outline: 0; 
     text-decoration:none;
     list-style:none;
 }
@@ -113,6 +115,17 @@
 .ui-menubar .ui-menubar-root-list > .ui-menuitem {
     display: inline-block;
     width: auto;
+}
+
+.ui-menubar:not(.ui-megamenu-vertical) .ui-menubar-root-list > .ui-menu-separator {
+    display: inline-block;
+    border-width: 0 0 0 1px;
+    width: 1px;
+    text-indent: -9999999px;
+}
+
+.ui-menubar:not(.ui-megamenu-vertical) .ui-menubar-root-list > .ui-menu-separator:before {
+    content: 'ui-menu-separator';
 }
 
 .ui-menubar .ui-menu-child .ui-menuitem {
@@ -247,6 +260,10 @@
     margin-bottom: 1px;
 }
 
+.ui-panelmenu .ui-panelmenu-content .ui-menu-parent {
+    overflow: hidden;
+}
+
 .ui-panelmenu .ui-panelmenu-content-wrapper {
     box-sizing: border-box;
 }
@@ -269,9 +286,13 @@
     padding: 0;
 }
 
+.ui-panelmenu .ui-menu-separator {
+    width: 95%;
+    margin: 0 auto;
+}
+
 .ui-panelmenu .ui-menuitem-link {
     display: block;
-    outline: none;
     text-decoration: none;
     font-weight: normal;
     border: 1px solid  transparent;

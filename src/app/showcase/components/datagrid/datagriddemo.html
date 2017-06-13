@@ -13,7 +13,7 @@
         <ng-template let-car pTemplate="item">
             <div style="padding:3px" class="ui-g-12 ui-md-3">
                 <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
-                    <img src="showcase/resources/demo/images/car/{{car.brand}}.gif">
+                    <img src="assets/showcase/images/demo/car/{{car.brand}}.gif">
                     <div class="car-detail">{{car.year}} - {{car.color}}</div>
                     <hr class="ui-widget-content" style="border-top:0">
                     <i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer"></i>
@@ -25,7 +25,7 @@
     <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
         <div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px">
             <div class="ui-grid-row">
-                <div class="ui-grid-col-12" style="text-align:center"><img src="showcase/resources/demo/images/car/{{selectedCar.brand}}-big.gif"></div>
+                <div class="ui-grid-col-12" style="text-align:center"><img src="assets/showcase/images/demo/car/{{selectedCar.brand}}-big.gif"></div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4">Vin: </div>
@@ -373,7 +373,7 @@ loadData(event) &#123;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
             &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
-                &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif"&gt;
+                &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.gif"&gt;
                 &lt;div class="car-detail"&gt;{{car.year}} - {{car.color}}&lt;/div&gt;
                 &lt;hr class="ui-widget-content" style="border-top:0"&gt;
                 &lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer"&gt;&lt;/i&gt;
@@ -385,7 +385,7 @@ loadData(event) &#123;
 &lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
     &lt;div class="ui-grid ui-grid-responsive ui-grid-pad" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px"&gt;
         &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-12" style="text-align:center"&gt;&lt;img src="showcase/resources/demo/images/car/{{selectedCar.brand}}-big.gif"&gt;&lt;/div&gt;
+            &lt;div class="ui-grid-col-12" style="text-align:center"&gt;&lt;img src="assets/showcase/images/demo/car/{{selectedCar.brand}}-big.gif"&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ui-grid-row"&gt;
             &lt;div class="ui-grid-col-4"&gt;Vin: &lt;/div&gt;

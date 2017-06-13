@@ -24,7 +24,7 @@
                     <li *ngFor="let car of availableCars" class="ui-state-default ui-helper-clearfix" pDraggable="cars"
                         (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)">
                         <i class="fa fa-arrows fa-2x" style="float:right;margin-top:8px"></i>
-                        <img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="float:left" draggable="false">
+                        <img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="float:left" draggable="false">
                         <div style="margin:8px 0 0 8px;float:left">{{car.vin}} - {{car.year}}</div>
                     </li>
                 </ul>
@@ -237,7 +237,7 @@ import &#123;DragDropModule&#125; from 'primeng/primeng';
                 &lt;li *ngFor="let car of availableCars" class="ui-state-default ui-helper-clearfix" pDraggable="cars"
                     (onDragStart)="dragStart($event,car)" (onDragEnd)="dragEnd($event)"&gt;
                     &lt;i class="fa fa-arrows fa-2x" style="float:right;margin-top:8px"&gt;&lt;/i&gt;
-                    &lt;img src="showcase/resources/demo/images/car/{{car.brand}}.gif" style="float:left" draggable="false"&gt;
+                    &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="float:left" draggable="false"&gt;
                     &lt;div style="margin:8px 0 0 8px;float:left"&gt;{{car.vin}} - {{car.year}}&lt;/div&gt;
                 &lt;/li&gt;
             &lt;/ul&gt;

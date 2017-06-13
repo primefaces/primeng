@@ -11,7 +11,7 @@
     
     <p-contextMenu [target]="img" [model]="items2" ></p-contextMenu>
     
-    <img #img src="/showcase/resources/images/primeng.svg" alt="Logo">
+    <img #img src="/assets/showcase/images/primeng.svg" alt="Logo">
 </div>
 
 <div class="content-section source">
@@ -41,7 +41,7 @@ import &#123;ContextMenuModule,MenuItem&#125; from 'primeng/primeng';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
 
-&lt;img #img src="/showcase/resources/images/primeng.svg" alt="Logo"&gt;
+&lt;img #img src="/assets/showcase/images/primeng.svg" alt="Logo"&gt;
 </code>
 </pre>
 
@@ -217,7 +217,7 @@ export class ContextMenuDemo &#123;
 
 &lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
 
-&lt;img #img src="/showcase/resources/images/primeng.svg" alt="Logo"&gt;
+&lt;img #img src="/assets/showcase/images/primeng.svg" alt="Logo"&gt;
 </code>
 </pre>
 
@@ -243,6 +243,7 @@ export class ContextMenuDemo &#123;
                         ]
                     &#125;,
                     &#123;label: 'Open'&#125;,
+                    &#123;separator:true&#125;,
                     &#123;label: 'Quit'&#125;
                 ]
             &#125;,
@@ -300,6 +301,7 @@ export class ContextMenuDemo &#123;
                     &#125;
                 ]
             &#125;,
+            &#123;separator:true&#125;,
             &#123;
                 label: 'Quit', icon: 'fa-minus'
             &#125;

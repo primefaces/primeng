@@ -126,6 +126,12 @@ export class MenuDemo &#123;
                     <td>null</td>
                     <td>Specifies where to open the linked document.</td>
                 </tr>
+                <tr>
+                    <td>separator</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>Defines the item as a separator.</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -142,7 +148,7 @@ export class MenuDemo &#123;
         this.items = [&#123;
             label: 'File',
             items: [
-                &#123;label: 'New', icon: 'fa-plus': command: (event) => &#123;
+                &#123;label: 'New', icon: 'fa-plus', command: (event) => &#123;
                     //event.originalEvent: Browser event
                     //event.item: menuitem metadata
                 }}

@@ -52,6 +52,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'messages', loadChildren: './components/messages/messagesdemo.module#MessagesDemoModule'},
             {path: 'multiselect', loadChildren: './components/multiselect/multiselectdemo.module#MultiSelectDemoModule'},
             {path: 'orderlist', loadChildren: './components/orderlist/orderlistdemo.module#OrderListDemoModule'},
+            {path: 'organizationchart', loadChildren: './components/organizationchart/organizationchartdemo.module#OrganizationChartDemoModule'},
             {path: 'overlaypanel', loadChildren: './components/overlaypanel/overlaypaneldemo.module#OverlayPanelDemoModule'},
             {path: 'paginator', loadChildren: './components/paginator/paginatordemo.module#PaginatorDemoModule'},
             {path: 'panel', loadChildren: './components/panel/paneldemo.module#PanelDemoModule'},
