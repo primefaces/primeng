@@ -5,7 +5,7 @@ import {MenuItem} from '../../../components/common/api';
     templateUrl: './menudemo.html'
 })
 export class MenuDemo {
-    
+
     private items: MenuItem[];
 
     ngOnInit() {
