@@ -109,7 +109,7 @@
     z-index: 1;
 }
 
-.ui-picklist .ui-orderlist-droppoint {
+.ui-picklist .ui-picklist-droppoint {
     height: 4px;
     list-style-type: none;
 }
