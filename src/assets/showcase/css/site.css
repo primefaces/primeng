@@ -357,31 +357,6 @@ body {
     display: block;
 }
 
-.property-box {
-    height: 280px;
-    float: left;
-    overflow: hidden;
-    text-align: center;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    display: block;
-}
-.property-box img {
-    width: 60%;
-}
-.property-box .property-topic {
-    display: block;
-    color: #25aae1;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-.property-box .property-text {
-    display: block;
-    color: #414D52;
-    font-size: 14px;
-    line-height: 22px;
-}
-
 .layout-footer {
     font-size: 14px;
     color: #84939f;
@@ -395,73 +370,6 @@ body {
 .layout-footer .footer-links a {
     color: #000000;
     margin-left: 16px;
-}
-
-.intro-text {
-    font-size: 16px;
-    color: #404C51;
-    line-height: 24px;
-}
-.intro-title {
-    font-size: 46px;
-    color: #DB2226;
-    line-height: 46px;
-    padding: 10px 0px 10px 0px;
-}
-/* buttons */
-.intro-btn {
-    width: 100%;
-    display: block;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 10px 14px;
-    border-radius: 3px;
-    -moz-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
-    -webkit-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
-    box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
-    transition: background-color .3s;
-}
-
-.download-btn {
-    background-color: #ffd100;
-    color: #404c51;
-}
-
-.download-btn:hover {
-    background-color: #ffda32;
-}
-
-.download-btn:active {
-    background-color: #e5bc00;
-}
-
-.github-btn {
-    background-color: #404c51;
-    color: #f8f8f8;
-}
-
-.github-btn:hover {
-    background-color: #666f73;
-}
-
-.github-btn:active {
-    background-color: #333c40;
-}
-
-.prosupport-btn {
-    color: #f8f8f8;
-    background-color: #26a9e0;
-}
-
-.prosupport-btn:hover {
-    background-color: #51bae6;
-}
-
-.prosupport-btn:active {
-    background-color: #1e87b3;
 }
 
 /* Demos */
@@ -790,6 +698,20 @@ a {
 }
 
 /* Introduction */
+.home .home-button {
+    font-weight: bold;
+    background-color: #FBD17B;
+    color: #B27800;
+    padding: 8px 14px;
+    border-radius: 3px;
+    transition: background-color .3s;
+    display: inline-block;
+}
+
+.home .home-button:hover {
+    background-color: #f9c55a;
+}
+
 .home .introduction {
     background-color: #1976d2;
     background: url('../images/home/introduction.jpg');
@@ -820,19 +742,6 @@ a {
     font-weight: bold;
     margin-bottom: 40px;
     margin-top: 0;
-}
-
-.home .introduction a {
-    font-weight: bold;
-    background-color: #FBD17B;
-    color: #B27800;
-    padding: 8px 14px;
-    border-radius: 3px;
-    transition: background-color .3s;
-}
-
-.home .introduction a:hover {
-    background-color: #f9c55a;
 }
 
 /* Features */
@@ -943,6 +852,10 @@ a {
 
 .home .prosupport .ui-md-6:last-child {
     text-align: center;
+}
+
+.home .prosupport .home-button {
+    margin-top: 10px;
 }
 
 /* testimonials */
