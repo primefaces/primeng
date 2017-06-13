@@ -46,7 +46,7 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    width: 7em;
+    width: calc(100% - 32px);
 }
 
 .ui-listbox-header .ui-listbox-filter-container .fa {
