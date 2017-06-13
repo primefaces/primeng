@@ -22,7 +22,7 @@ import {RouterModule} from '@angular/router';
 export class MenuItemContent {
 
     @Input("pMenuItemContent") item: MenuItem;
-                
+
     constructor(@Inject(forwardRef(() => Menu)) public menu: Menu) {}
 }
 
@@ -33,16 +33,16 @@ export class MenuItemContent {
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
             <ul class="ui-menu-list ui-helper-reset">
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="ui-menu-separator ui-widget-content" *ngIf="submenu.separator">
-                    <li class="ui-widget-header ui-corner-all" *ngIf="!submenu.separator"><h3>{{submenu.label}}</h3></li>
+                    <li class="ui-menu-separator ui-widget-content" *ngIf="!(submenu.visible === false) && submenu.separator">
+                    <li class="ui-widget-header ui-corner-all" *ngIf="!(submenu.visible === false) && !submenu.separator"><h3>{{submenu.label}}</h3></li>
                     <ng-template ngFor let-item [ngForOf]="submenu.items">
-                        <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator">
-                        <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item"></li>
+                        <li class="ui-menu-separator ui-widget-content" *ngIf="!(item.visible === false) && item.separator">
+                        <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!(item.visible === false) && !item.separator" [pMenuItemContent]="item"></li>
                     </ng-template>
                 </ng-template>
                 <ng-template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator">
-                    <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item"></li>
+                    <li class="ui-menu-separator ui-widget-content" *ngIf="!(item.visible === false) && item.separator">
+                    <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!(item.visible === false) && !item.separator" [pMenuItemContent]="item"></li>
                 </ng-template>
             </ul>
         </div>
@@ -59,24 +59,24 @@ export class Menu implements AfterViewInit,OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() appendTo: any;
-    
+
     @ViewChild('container') containerViewChild: ElementRef;
-    
+
     container: HTMLDivElement;
-    
+
     documentClickListener: any;
-    
+
     preventDocumentDefault: any;
 
     onResizeTarget: any;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
-        
+
         if(this.popup) {
             if(this.appendTo) {
                 if(this.appendTo === 'body')
@@ -84,7 +84,7 @@ export class Menu implements AfterViewInit,OnDestroy {
                 else
                     this.domHandler.appendChild(this.container, this.appendTo);
             }
-                
+
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
@@ -93,13 +93,13 @@ export class Menu implements AfterViewInit,OnDestroy {
             });
         }
     }
-    
+
     toggle(event) {
         if(this.container.offsetParent)
             this.hide();
         else
             this.show(event);
-            
+
         this.preventDocumentDefault = true;
     }
 
@@ -108,7 +108,7 @@ export class Menu implements AfterViewInit,OnDestroy {
             this.domHandler.absolutePosition(this.container, this.onResizeTarget);
         }
     }
-    
+
     show(event) {
         let target = event.currentTarget;
         this.onResizeTarget = event.currentTarget;
@@ -117,56 +117,56 @@ export class Menu implements AfterViewInit,OnDestroy {
         this.domHandler.fadeIn(this.container, 250);
         this.preventDocumentDefault = true;
     }
-    
+
     hide() {
         this.container.style.display = 'none';
     }
-    
+
     itemClick(event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if(!item.url) {
             event.preventDefault();
         }
-        
+
         if(item.command) {
             if(!item.eventEmitter) {
                 item.eventEmitter = new EventEmitter();
                 item.eventEmitter.subscribe(item.command);
             }
-            
+
             item.eventEmitter.emit({
                 originalEvent: event,
                 item: item
             });
         }
-        
+
         if(this.popup) {
             this.hide();
         }
     }
-    
+
     ngOnDestroy() {
         if(this.popup) {
             if(this.documentClickListener) {
                 this.documentClickListener();
             }
-            
+
             if(this.appendTo) {
                 this.el.nativeElement.appendChild(this.container);
             }
         }
-        
+
         if(this.model) {
             for(let item of this.model) {
                 this.unsubscribe(item);
             }
         }
     }
-    
+
     hasSubMenu(): boolean {
         if(this.model) {
             for(var item of this.model) {
@@ -177,12 +177,12 @@ export class Menu implements AfterViewInit,OnDestroy {
         }
         return false;
     }
-    
+
     unsubscribe(item: any) {
         if(item.eventEmitter) {
             item.eventEmitter.unsubscribe();
         }
-        
+
         if(item.items) {
             for(let childItem of item.items) {
                 this.unsubscribe(childItem);
