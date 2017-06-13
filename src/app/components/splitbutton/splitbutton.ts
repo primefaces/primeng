@@ -82,7 +82,7 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     public documentClickListener: any;
     
-    public isDropdownClicked: boolean;
+    public dropdownClick: boolean;
     
     public shown: boolean;
 
@@ -147,7 +147,7 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     onDropdownButtonClick(event: Event) {
         this.onDropdownClick.emit(event);
-        this.isDropdownClicked = true;
+        this.dropdownClick = true;
         this.show();
     }
     
@@ -161,8 +161,8 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(this.isDropdownClicked) {
-                    this.isDropdownClicked = false;
+                if(this.dropdownClick) {
+                    this.dropdownClick = false;
                 }
                 else {
                     this.menuVisible = false;
