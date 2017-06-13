@@ -688,9 +688,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public rowGroupToggleClick: boolean;
     
     public editingCell: any;
-    
-    public stopFilterPropagation: boolean;
-    
+        
     public rowGroupMetadata: any;
     
     public rowGroupHeaderTemplate: TemplateRef<any>;
@@ -910,13 +908,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     paginate() {
-        if(this.lazy) {
-            this.stopFilterPropagation = true;
+        if(this.lazy)
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }            
-        else {
+        else
             this.updateDataToRender(this.filteredValue||this.value);
-        }
         
         this.onPage.emit({
             first: this.first,
@@ -950,13 +945,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     onVirtualScroll(event) {
         this._first = (event.page - 1) * this.rows;
         
-        if(this.lazy) {
-            this.stopFilterPropagation = true;
+        if(this.lazy)
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }            
-        else {
+        else
             this.updateDataToRender(this.filteredValue||this.value);
-        }
     }
     
     onHeaderKeydown(event, column: Column) {
@@ -999,7 +991,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
             if(this.lazy) {
                 this._first = 0;
-                this.stopFilterPropagation = true;
                 this.onLazyLoad.emit(this.createLazyLoadMetadata());
             }
             else {
@@ -1404,7 +1395,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this._first = 0;
         
         if(this.lazy) {
-            this.stopFilterPropagation = true;
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
