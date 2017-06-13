@@ -109,6 +109,16 @@
     z-index: 1;
 }
 
+.ui-picklist .ui-orderlist-droppoint {
+    height: 4px;
+    list-style-type: none;
+}
+
+.ui-picklist .ui-picklist-list .ui-picklist-droppoint-empty {
+    height: 100%;
+    list-style-type: none;
+}
+
 .ui-picklist-list.ui-picklist-source,
 .ui-picklist-list.ui-picklist-target {
     outline: none;

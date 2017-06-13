@@ -29,6 +29,8 @@ enum ListType {
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,listType.SOURCE)">
+                    <li class="ui-picklist-droppoint-empty" *ngIf="dragdrop && source && source.length == 0" (dragover)="onDragOver($event, i, listType.SOURCE)"
+                    (drop)="onDropEmpty($event, listType.SOURCE)" (dragleave)="onDragLeave($event, listType.SOURCE)" ></li>
                     <ng-template ngFor let-item [ngForOf]="source" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, listType.SOURCE)" (drop)="onDrop($event, i, listType.SOURCE)" (dragleave)="onDragLeave($event, listType.SOURCE)" 
                         [ngClass]="{'ui-state-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, listType.SOURCE) ? 'block' : 'none'"></li>
@@ -58,6 +60,8 @@ enum ListType {
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle" (dragover)="onListMouseMove($event,listType.TARGET)">
+                    <li class="ui-picklist-droppoint-empty" *ngIf="dragdrop && target && target.length == 0" (dragover)="onDragOver($event, i, listType.TARGET)"
+                    (drop)="onDropEmpty($event, listType.TARGET)" (dragleave)="onDragLeave($event, listType.TARGET)" ></li>
                     <ng-template ngFor let-item [ngForOf]="target" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, listType.TARGET)" (drop)="onDrop($event, i, listType.TARGET)" (dragleave)="onDragLeave($event, listType.TARGET)" 
                         [ngClass]="{'ui-state-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, listType.TARGET) ? 'block' : 'none'"></li>
@@ -508,7 +512,7 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             this.dragOverItemIndexTarget = null;
     }
     
-    onDrop(event: DragEvent, index: number, listType: ListType,item) {
+    onDrop(event: DragEvent, index: number, listType: ListType) {
         if(listType == 0) {
             if(listType !== this.startListType) {
                 this.insert(this.dragOverItemIndexSource,listType);
@@ -527,6 +531,22 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             }
             this.dragOverItemIndexTarget = null;
         }
+    }
+    
+    onDropEmpty(event: DragEvent, listType: ListType) {
+        if(listType == 0) {
+            if(!(this.source.length > 0)) {
+                this.source.push(this.setItem());
+                this.target.splice(this.startIndex,1);
+            }
+        }
+        else if(listType == 1) {
+            if(!(this.target.length > 0)) {
+                this.target.push(this.setItem());
+                this.source.splice(this.startIndex,1);
+            }
+        }
+        
     }
     
     onDragEnd(event: DragEvent) {
@@ -560,6 +580,10 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     
     getItem(item) {
         this.item = item;
+    }
+    
+    setItem() {
+        return this.item;
     }
 
     ngOnDestroy() {
