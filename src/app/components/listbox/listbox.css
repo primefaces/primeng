@@ -46,7 +46,11 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    width: calc(100% - 32px);
+    width: 100%;
+}
+
+.ui-listbox-header.ui-listbox-header-w-checkbox .ui-listbox-filter-container {
+    width: calc(100% - 2em);
 }
 
 .ui-listbox-header .ui-listbox-filter-container .fa {
