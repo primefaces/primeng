@@ -78,10 +78,11 @@ export class MyModel &#123;
 </pre>
 
             <h3>Filtering</h3>
-            <p>Options can be filtered using an input field in the overlay by enabling the filter property.
-            Defining filterBy property let search for label,value and subfields of value(Accepts multiple fields with a comma).</p>
+            <p>Options can be filtered using an input field in the overlay by enabling the filter property. By default filtering is done against
+                label of the SelectItem and filterBy property is available to choose one or more properties of the SelectItem API.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
+&lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true"&gt;&lt;/p-dropdown&gt;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true" filterBy="label,value.name"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>

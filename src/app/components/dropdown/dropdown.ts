@@ -164,10 +164,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     public itemClick: boolean;
     
     public hoveredItem: any;
+        
+    public selectedOptionUpdated: boolean;
     
     public filterValue: string;
-    
-    public selectedOptionUpdated: boolean;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef, public objectUtils: ObjectUtils) {}
     
@@ -199,6 +199,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
         this.optionsChanged = true;
+        
+        if(this.filterValue && this.filterValue.length) {
+            this.activateFilter();
+        }
     }
 
     ngAfterViewInit() { 
@@ -484,15 +488,23 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onFilter(event): void {
-        this.filterValue = event.target.value.toLowerCase();
-        this.optionsToDisplay = [];
-        this.activateFilter();
+        let inputValue = event.target.value.toLowerCase();
+        if(inputValue && inputValue.length) {
+            this.filterValue = inputValue;
+            this.activateFilter();
+        }
+        else {
+            this.filterValue = null;
+            this.optionsToDisplay = this.options;
+        }
+        
+        this.optionsChanged = true;
     }
     
     activateFilter() {
         let searchFields: string[] = this.filterBy.split(',');
         if(this.options && this.options.length) {
-            this.optionsToDisplay = this.objectUtils.filter(this.options,searchFields,this.filterValue);
+            this.optionsToDisplay = this.objectUtils.filter(this.options, searchFields, this.filterValue);
             this.optionsChanged = true;
         }
     }
