@@ -350,9 +350,18 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onEditableInputChange(event) {
+        // save the current cursor position
+        let cursorPosition = event.target.selectionStart;
+
         this.value = event.target.value;
         this.updateSelectedOption(this.value);                
         this.onModelChange(this.value);
+
+        // set the cursor back to the original position
+        setTimeout(() => {
+            event.target.selectionEnd = cursorPosition;
+        }, 0);
+
         this.onChange.emit({
             originalEvent: event,
             value: this.value
