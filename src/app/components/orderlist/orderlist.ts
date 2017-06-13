@@ -24,7 +24,7 @@ import {ObjectUtils} from '../utils/objectutils';
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
                     <ng-template ngFor let-item [ngForOf]="value" let-i="index" let-l="last">
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
-                            [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}"></li>
+                            [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}" [style.display]="isItemVisible(item) ? 'block' : 'none'"></li>
                         <li class="ui-orderlist-item"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
                             (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)"
