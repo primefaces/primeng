@@ -1978,7 +1978,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     findExpandedRowIndex(row: any): number {
-        let index = -1
+        let index = -1;
         if(this.expandedRows) {
             for(let i = 0; i < this.expandedRows.length; i++) {
                 if(this.expandedRows[i] == row) {
@@ -2025,7 +2025,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
         else {
-            this.expandedRowsGroups = this.expandedRowsGroups||[],
+            this.expandedRowsGroups = this.expandedRowsGroups || [];
             this.expandedRowsGroups.push(rowGroupField);
             this.onRowGroupExpand.emit({
                 originalEvent: event, 
