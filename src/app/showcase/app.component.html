@@ -1,14 +1,55 @@
 <div class="layout-wrapper">
-    <div id="layout-sidebar" [ngClass]="{'active':mobileMenuActive}">
-        <span class="layout-logo">
-            <a href="#" class="sidebar-logo" [routerLink]="['/']">
-                <img alt="logo" src="assets/showcase/images/logo.png" />
-            </a>
-            <a href="#" id="menu-button-mobile" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
-                <img alt="logo" src="assets/showcase/images/menuicon.svg"/>
-            </a>
-        </span>
-
+    <div id="layout-topbar">
+        <a href="#" class="menu-button" (click)="onMenuButtonClick($event)">
+            <i class="fa fa-bars"></i>
+        </a>
+        
+        <a href="#" class="logo" [routerLink]="['/']">
+            <img alt="logo" src="assets/showcase/images/logo.png" />
+        </a>
+        
+        <ul class="topbar-menu">
+            <li>
+                <a href="#" [routerLink]="['/setup']">SETUP</a>
+            </li>
+            <li class="topbar-menu-themes">
+                <a href="#">THEMES</a>
+                <ul>
+                    <li class="topbar-submenu-header">Premium</li>
+                    <li><a href="http://www.primefaces.org/layouts/paradise-ng"><img src="assets/showcase/images/themeswitcher-paradise.png" alt="Paradise Template"><span class="ui-text">Paradise</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima Template"><span class="ui-text">Ultima</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/barcelona-ng"><img src="assets/showcase/images/themeswitcher-barcelona.png" alt="Barcelona Template"><span class="ui-text">Barcelona</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/morpheus-ng"><img src="assets/showcase/images/themeswitcher-morpheus.png" alt="Morpheus Template"><span class="ui-text">Morpheus</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/atlantis-ng"><img src="assets/showcase/images/themeswitcher-atlantis.png" alt="Atlantis Template"><span class="ui-text">Atlantis</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/poseidon-ng"><img src="assets/showcase/images/themeswitcher-poseidon.png" alt="Poseidon Template"><span class="ui-text">Poseidon</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/omega-ng"><img src="assets/showcase/images/themeswitcher-omega.png" alt="Omega Template"><span class="ui-text">Omega</span></a></li>
+                    <li class="topbar-submenu-header">Free</li>
+                    <li><a href="#" (click)="changeTheme($event, 'omega')"><span class="ui-text">Omega</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, $event, $event, 'bootstrap')"><span class="ui-text">Bootstrap</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, $event, 'cupertino')"><span class="ui-text">Cupertino</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'cruze')"><span class="ui-text">Cruze</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'darkness')"><span class="ui-text">Darkness</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'flick')"><span class="ui-text">Flick</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'home')"><span class="ui-text">Home</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'kasper')"><span class="ui-text">Kasper</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'lightness')"><span class="ui-text">Lightness</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'ludvig')"><span class="ui-text">Ludvig</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'pepper-grinder')"><span class="ui-text">Pepper-Grinder</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'redmond')"><span class="ui-text">Redmond</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'rocket')"><span class="ui-text">Rocket</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'south-street')"><span class="ui-text">South-Street</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'start')"><span class="ui-text">Start</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'trontastic')"><span class="ui-text">Trontastic</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'voclain')"><span class="ui-text">Voclain</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="http://forum.primefaces.org/viewforum.php?f=35">FORUM</a>
+            </li>
+        </ul>
+    </div>
+    
+    <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
             <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === inputmenutitle.id ? null : inputmenutitle.id)">
                 <img src="assets/showcase/images/icons/input-active.svg" class="layout-menu-icon-active"/>
@@ -193,56 +234,6 @@
     </div>
 
     <div id="layout-content">
-        <div id="topbar">
-            <a href="#" id="menu-button" (click)="toggleMenu($event)" [ngClass]="{'active':mobileMenuActive}">
-                <img alt="logo" src="assets/showcase/images/menuicon.svg"/>
-            </a>
-
-            <a href="http://forum.primefaces.org/viewforum.php?f=35" class="topbar-link">
-                FORUM
-            </a>
-
-            <div class="topbar-link" id="themeSwitcher" (mouseenter)="themesVisible = true" (mouseleave)="themesVisible = false">
-                THEMES
-                <div id="GlobalThemeSwitcher" [style.display]="themesVisible ? 'block' : 'none'" style="margin-top:10px" [@overlayState]="themesVisible ? 'visible' : 'hidden'">
-                    <span>Premium Templates</span>
-                    <a href="http://www.primefaces.org/layouts/paradise-ng"><img src="assets/showcase/images/themeswitcher-paradise.png" alt="Paradise Template"><span class="ui-text">Paradise</span></a>
-                    <a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima Template"><span class="ui-text">Ultima</span></a>
-                    <a href="http://www.primefaces.org/layouts/barcelona-ng"><img src="assets/showcase/images/themeswitcher-barcelona.png" alt="Barcelona Template"><span class="ui-text">Barcelona</span></a>
-                    <a href="http://www.primefaces.org/layouts/morpheus-ng"><img src="assets/showcase/images/themeswitcher-morpheus.png" alt="Morpheus Template"><span class="ui-text">Morpheus</span></a>
-                    <a href="http://www.primefaces.org/layouts/atlantis-ng"><img src="assets/showcase/images/themeswitcher-atlantis.png" alt="Atlantis Template"><span class="ui-text">Atlantis</span></a>
-                    <a href="http://www.primefaces.org/layouts/poseidon-ng"><img src="assets/showcase/images/themeswitcher-poseidon.png" alt="Poseidon Template"><span class="ui-text">Poseidon</span></a>
-                    <a href="http://www.primefaces.org/layouts/omega-ng"><img src="assets/showcase/images/themeswitcher-omega.png" alt="Omega Template"><span class="ui-text">Omega</span></a>
-                    <span>Free Themes</span>
-                    <a href="#" (click)="changeTheme($event, 'omega')"><span class="ui-text">Omega</span></a>
-                    <a href="#" (click)="changeTheme($event, $event, $event, 'bootstrap')"><span class="ui-text">Bootstrap</span></a>
-                    <a href="#" (click)="changeTheme($event, $event, 'cupertino')"><span class="ui-text">Cupertino</span></a>
-                    <a href="#" (click)="changeTheme($event, 'cruze')"><span class="ui-text">Cruze</span></a>
-                    <a href="#" (click)="changeTheme($event, 'darkness')"><span class="ui-text">Darkness</span></a>
-                    <a href="#" (click)="changeTheme($event, 'flick')"><span class="ui-text">Flick</span></a>
-                    <a href="#" (click)="changeTheme($event, 'home')"><span class="ui-text">Home</span></a>
-                    <a href="#" (click)="changeTheme($event, 'kasper')"><span class="ui-text">Kasper</span></a>
-                    <a href="#" (click)="changeTheme($event, 'lightness')"><span class="ui-text">Lightness</span></a>
-                    <a href="#" (click)="changeTheme($event, 'ludvig')"><span class="ui-text">Ludvig</span></a>
-                    <a href="#" (click)="changeTheme($event, 'pepper-grinder')"><span class="ui-text">Pepper-Grinder</span></a>
-                    <a href="#" (click)="changeTheme($event, 'redmond')"><span class="ui-text">Redmond</span></a>
-                    <a href="#" (click)="changeTheme($event, 'rocket')"><span class="ui-text">Rocket</span></a>
-                    <a href="#" (click)="changeTheme($event, 'south-street')"><span class="ui-text">South-Street</span></a>
-                    <a href="#" (click)="changeTheme($event, 'start')"><span class="ui-text">Start</span></a>
-                    <a href="#" (click)="changeTheme($event, 'trontastic')"><span class="ui-text">Trontastic</span></a>
-                    <a href="#" (click)="changeTheme($event, 'voclain')"><span class="ui-text">Voclain</span></a>
-                </div>
-            </div>
-            
-            <a href="setup.html" class="topbar-link" [routerLink]="['/setup']">
-                SETUP
-            </a>
-
-            <div class="mobile-logo">
-                <img src="assets/showcase/images/primeng-sidebar.svg" />
-            </div>
-        </div>
-
         <div>
             <router-outlet></router-outlet>
         </div>
