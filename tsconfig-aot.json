@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "outDir": "./components",
     "target": "es5",
     "module": "es2015",
+    "baseUrl": "src",
     "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
@@ -12,7 +14,7 @@
     "lib": ["dom","es6"]
   },
   "include": [
-    "components/**/*.ts"
+    "src/app/components/**/*"
   ],
   "angularCompilerOptions": {
    "genDir": "aot",
