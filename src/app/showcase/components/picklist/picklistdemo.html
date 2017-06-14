@@ -8,7 +8,8 @@
 <div class="content-section implementation">
     
     <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" dragdrop="true"
-        [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" filterBy="brand">
+        [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" filterBy="brand" 
+        sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand">
         <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix">
                 <img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -200,6 +201,18 @@ dragdrop property also supports cross list actions.</p>
                             <td>true</td>
                             <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
                             can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
+                        </tr>
+                        <tr>
+                            <td>sourceFilterPlaceholder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Placeholder text on source filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>targetFilterPlaceholder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Placeholder text on target filter input.</td>
                         </tr>
                     </tbody>
                 </table>

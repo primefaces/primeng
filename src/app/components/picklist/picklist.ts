@@ -25,7 +25,7 @@ enum ListType {
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="sourceHeader">{{sourceHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy">
-                    <input type="text" role="textbox" (keyup)="onFilter($event,source,listType.SOURCE)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <input type="text" role="textbox" (keyup)="onFilter($event,source,listType.SOURCE)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder">
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,listType.SOURCE)">
@@ -56,12 +56,12 @@ enum ListType {
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
                 <div class="ui-picklist-caption ui-widget-header ui-corner-tl ui-corner-tr" *ngIf="targetHeader">{{targetHeader}}</div>
                 <div class="ui-picklist-filter-container ui-widget-content" *ngIf="filterBy">
-                    <input type="text" role="textbox" (keyup)="onFilter($event,target,listType.TARGET)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <input type="text" role="textbox" (keyup)="onFilter($event,target,listType.TARGET)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder">
                     <span class="fa fa-search"></span>
                 </div>
                 <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle" (dragover)="onListMouseMove($event,listType.TARGET)">
                     <li class="ui-picklist-droppoint-empty" *ngIf="dragdrop && target && target.length == 0" (dragover)="onDragOver($event, i, listType.TARGET)"
-                    (drop)="onDropEmpty($event, listType.TARGET)" (dragleave)="onDragLeave($event, listType.TARGET)" ></li>
+                    (drop)="onDropEmpty($event, listType.TARGET)" (dragleave)="onDragLeave($event, listType.TARGET)"></li>
                     <ng-template ngFor let-item [ngForOf]="target" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, listType.TARGET)" (drop)="onDrop($event, i, listType.TARGET)" (dragleave)="onDragLeave($event, listType.TARGET)" 
                         [ngClass]="{'ui-state-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, listType.TARGET) ? 'block' : 'none'"></li>
@@ -119,6 +119,10 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     @Input() showSourceControls: boolean = true;
     
     @Input() showTargetControls: boolean = true;
+    
+    @Input() sourceFilterPlaceholder: string;
+    
+    @Input() targetFilterPlaceholder: string;
     
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
     
@@ -240,37 +244,34 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
         this.itemTouched = false;
     }
     
-    onFilter(event, data, listType: ListType) {
-        listType == 0 ? this.filterValueSource = event.target.value.trim().toLowerCase(): this.filterValueTarget = event.target.value.trim().toLowerCase();
-        this.visibleOptionsTarget = [];
+    onFilter(event: KeyboardEvent, data: any[], listType: ListType) {
+        let query = (<HTMLInputElement> event.target).value.trim().toLowerCase();
         
-        this.activateFilter(data,listType);
+        if(listType === ListType.SOURCE)
+            this.filterValueSource = query;
+        else
+            this.filterValueTarget = query;
+                
+        this.activateFilter(data, listType);
     }
     
-    activateFilter(data, listType: ListType) {
+    activateFilter(data: any[], listType: ListType) {
         let searchFields = this.filterBy.split(',');
         
-        if(listType == 0) {
+        if(listType === ListType.SOURCE)
             this.visibleOptionsSource = this.objectUtils.filter(data, searchFields, this.filterValueSource);
-        }
-        else {
+        else
             this.visibleOptionsTarget = this.objectUtils.filter(data, searchFields, this.filterValueTarget);
-        }
-        
     }
     
     isItemVisible(item: any, listType: ListType): boolean {
-        let filterFields = this.filterBy.split(',');
-        
-        if(listType == 0) {
-            return this.displayVisibleItems(this.visibleOptionsSource, item, this.filterValueSource);
-        }
-        else {
-            return this.displayVisibleItems(this.visibleOptionsTarget, item, this.filterValueTarget);
-        }
+        if(listType == ListType.SOURCE)
+            return this.isVisibleInList(this.visibleOptionsSource, item, this.filterValueSource);
+        else
+            return this.isVisibleInList(this.visibleOptionsTarget, item, this.filterValueTarget);
     }
     
-    displayVisibleItems(data: any[], item: any, filterValue: string): boolean {
+    isVisibleInList(data: any[], item: any, filterValue: string): boolean {
         if(filterValue && filterValue.trim().length) {
             for(let i = 0; i < data.length; i++) {
                 if(item == data[i]) {
