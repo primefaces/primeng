@@ -2,6 +2,7 @@
     position:absolute;
     display:none;
     padding: .25em .5em;
+    max-width: 12.5em;
 }
 
 .ui-tooltip.ui-tooltip-right,
@@ -18,11 +19,7 @@
    padding: .125em .5em;
    background-color: rgb(76, 76, 76);
    color: #ffffff;
-   white-space: nowrap;
-}
-
-.ui-tooltip .ui-tooltip-text.ui-tooltip-helper {
-    white-space: normal;
+   white-space: pre-line;
 }
 
 .ui-tooltip-arrow {

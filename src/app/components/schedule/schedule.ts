@@ -114,6 +114,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     @Output() onEventResize: EventEmitter<any> = new EventEmitter();
     
     @Output() onViewRender: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onViewDestroy: EventEmitter<any> = new EventEmitter();
         
     initialized: boolean;
     
@@ -261,6 +263,12 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                     'view': view,
                     'element': element                    
                 });
+            },
+            viewDestroy: (view, element) => {
+              this.onViewDestroy.emit({
+                'view': view,
+                'element': element
+              });
             }
         };
                 
