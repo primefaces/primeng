@@ -136,7 +136,7 @@
             <ng-template let-car pTemplate="item">
                 <div style="padding:3px" class="ui-g-12 ui-md-3">
                     <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
-                        <img src="assets/showcase/images/demo/car/{{car.brand}}.gif">
+                        <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
                         <div class="car-detail">{{car.year}} - {{car.color}}</div>
                         <hr class="ui-widget-content" style="border-top:0">
                     </p-panel>
@@ -148,7 +148,7 @@
 
         <p-orderList [value]="cars" [listStyle]="{'height':'250px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}" [responsive]="true" header="Responsive Cars">
             <ng-template let-car pTemplate="item">
-                <img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
+                <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px"/>
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
             </ng-template>
         </p-orderList>
@@ -157,7 +157,7 @@
             <ng-template let-car pTemplate="item">
                 <li class="ui-carousel-item ui-widget-content ui-corner-all">
                     <div class="ui-g" style="text-align:center">
-                        <div class="ui-g-12"><img src="assets/showcase/images/demo/car/{{car.brand}}.gif" /></div>
+                        <div class="ui-g-12"><img src="assets/showcase/images/demo/car/{{car.brand}}.png" /></div>
                         
                         <div class="ui-g-6">Vin</div>
                         <div class="ui-g-6">{{car.vin}}</div>
@@ -175,7 +175,7 @@
         <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" 
             [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}">
             <ng-template let-car pTemplate="item">
-                <img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
+                <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px"/>
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
             </ng-template>
         </p-pickList>
