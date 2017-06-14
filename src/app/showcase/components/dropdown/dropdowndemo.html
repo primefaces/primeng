@@ -374,19 +374,21 @@ export class DropdownDemo &#123;
 
     cities: SelectItem[];
 
-    selectedCity: string;
+    selectedCity: any;
 
     cars: SelectItem[];
 
-    selectedCar: string = 'BMW';
+    selectedCar: string;
+    
+    selectedCar2: string = 'BMW';
 
     constructor() &#123;
         this.cities = [];
-        this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'}});
-        this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'}});
-        this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'}});
-        this.cities.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'}});
-        this.cities.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'}});
+        this.cities.push(&#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;);
+        this.cities.push(&#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;);
+        this.cities.push(&#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;);
+        this.cities.push(&#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;);
+        this.cities.push(&#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;);
 
         this.cars = [];
         this.cars.push(&#123;label: 'Audi', value: 'Audi'&#125;);
@@ -400,7 +402,6 @@ export class DropdownDemo &#123;
         this.cars.push(&#123;label: 'VW', value: 'VW'&#125;);
         this.cars.push(&#123;label: 'Volvo', value: 'Volvo'&#125;);
     &#125;
-
 &#125;
 </code>
 </pre>
