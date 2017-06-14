@@ -1,0 +1,51 @@
+.ui-accordion { 
+    width: 100%; 
+}
+
+.ui-accordion .ui-accordion-header { 
+    cursor: pointer; 
+    position: relative; 
+    margin-top: 1px; 
+    zoom: 1; 
+}
+
+.ui-accordion .ui-accordion-header a { 
+    display: block; 
+    padding: .5em .5em .5em 2em; 
+}
+
+.ui-accordion .ui-accordion-header>.fa {
+    position: absolute; 
+    left: .5em; 
+    top: 50%; 
+    margin-top: -.5em; 
+}
+
+.ui-accordion .ui-accordion-content { 
+    padding: 1em;
+    border-top: 0; 
+    overflow: visible;
+    zoom: 1; 
+}
+
+.ui-accordion .ui-accordion-header.ui-state-disabled, 
+.ui-accordion .ui-accordion-header.ui-state-disabled a { 
+    cursor: default; 
+}
+
+.ui-accordion-content-wrapper-overflown {
+    overflow: hidden;
+}
+
+.ui-rtl .ui-accordion .ui-accordion-header a {
+    padding: .5em 2em .5em .5em;
+}
+ 
+.ui-rtl .ui-accordion .ui-accordion-header > .fa {
+    left: initial;
+    right: .5em;
+}
+
+.ui-rtl .ui-accordion .ui-accordion-header > .fa-caret-right:before {
+    content: '\f0d9';
+}
