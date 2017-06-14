@@ -10,14 +10,14 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
 @Component({
     selector: 'p-fileUpload',
     template: `
-        <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
                 <button type="button" [label]="chooseLabel" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="onChooseClick($event, fileinput)" [disabled]="disabled"> 
                     <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
                 </button>
 
-                <button *ngIf="!auto" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
-                <button *ngIf="!auto" type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
+                <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
+                <button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
             
                 <p-templateLoader [template]="toolbarTemplate"></p-templateLoader>
             </div>
@@ -40,10 +40,17 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                         <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
-                
                 <p-templateLoader [template]="contentTemplate"></p-templateLoader>
             </div>
         </div>
+        <span class="ui-fileupload-simple ui-widget" *ngIf="mode === 'basic'">
+            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left">
+                <span class="ui-button-icon-left fa fa-plus"></span>
+                <span class="ui-button-text ui-c">Choose</span>
+                <input type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" tabindex="-1" (change)="onFileSelect($event)">
+            </button>
+            <span class="ui-fileupload-filename" *ngFor="let file of files">{{file.name}}</span>
+        </span>
     `
 })
 export class FileUpload implements OnInit,AfterContentInit {
@@ -85,6 +92,14 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Input() uploadLabel: string = 'Upload';
     
     @Input() cancelLabel: string = 'Cancel';
+    
+    @Input() showUploadButton: boolean = true;
+    
+    @Input() showCancelButton: boolean = true;
+    
+    @Input() mode: string = 'advanced';
+    
+    @Input() customUpload: boolean;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
 	
@@ -99,6 +114,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Output() onRemove: EventEmitter<any> = new EventEmitter();
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
+    
+    @Output() uploadHandler: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
      
@@ -173,7 +190,7 @@ export class FileUpload implements OnInit,AfterContentInit {
             this.upload();
         }
     }
-    
+        
     validate(file: File): boolean {
         if(this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
@@ -231,48 +248,55 @@ export class FileUpload implements OnInit,AfterContentInit {
     }
 
     upload() {
-        this.msgs = [];
-        let xhr = new XMLHttpRequest(),
-        formData = new FormData();
-
-		this.onBeforeUpload.emit({
-            'xhr': xhr,
-            'formData': formData 
-        });
-
-        for(let i = 0; i < this.files.length; i++) {
-            formData.append(this.name, this.files[i], this.files[i].name);
+        if(this.customUpload) {
+            this.uploadHandler.emit({
+                files: this.files
+            });
         }
+        else {
+            this.msgs = [];
+            let xhr = new XMLHttpRequest(),
+            formData = new FormData();
 
-        xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
-            if(e.lengthComputable) {
-              this.progress = Math.round((e.loaded * 100) / e.total);
+            this.onBeforeUpload.emit({
+                'xhr': xhr,
+                'formData': formData 
+            });
+
+            for(let i = 0; i < this.files.length; i++) {
+                formData.append(this.name, this.files[i], this.files[i].name);
             }
-          }, false);
 
-        xhr.onreadystatechange = () => {
-            if(xhr.readyState == 4) {
-                this.progress = 0;
-                
-                if(xhr.status >= 200 && xhr.status < 300)
-                    this.onUpload.emit({xhr: xhr, files: this.files});
-                else
-                    this.onError.emit({xhr: xhr, files: this.files});
-                
-                this.clear();
-            }
-        };
-        
-        xhr.open(this.method, this.url, true);
-		
-		this.onBeforeSend.emit({
-			'xhr': xhr,
-            'formData': formData 
-		});
+            xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
+                if(e.lengthComputable) {
+                  this.progress = Math.round((e.loaded * 100) / e.total);
+                }
+              }, false);
 
-        xhr.withCredentials = this.withCredentials;
-        
-        xhr.send(formData);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == 4) {
+                    this.progress = 0;
+                    
+                    if(xhr.status >= 200 && xhr.status < 300)
+                        this.onUpload.emit({xhr: xhr, files: this.files});
+                    else
+                        this.onError.emit({xhr: xhr, files: this.files});
+                    
+                    this.clear();
+                }
+            };
+            
+            xhr.open(this.method, this.url, true);
+            
+            this.onBeforeSend.emit({
+                'xhr': xhr,
+                'formData': formData 
+            });
+
+            xhr.withCredentials = this.withCredentials;
+            
+            xhr.send(formData);
+        }
     }
 
     clear() {

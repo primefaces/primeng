@@ -27,6 +27,10 @@
         His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
         Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
         kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        <p-footer>
+            <button pButton type="button" icon="fa-plus" label="New" class="ui-button-info"></button>
+            <button pButton type="button" icon="fa-list" label="View" class="ui-button-success"></button>
+        </p-footer>
     </p-panel>
 </div>
 
@@ -59,24 +63,14 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
-            <h3>Custom Header</h3>
-            <p>Header section of the panel can be customized by defining a header element with content.</p>
+            <h3>Header and Footer Content</h3>
+            <p>Header and Footers sections can be customized using p-header and p-footer components.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-panel &gt;
     &lt;p-header&gt;
         Header content here
     &lt;/p-header&gt;
-    Body Content
-&lt;/p-panel&gt;
-</code>
-</pre>
-
-            <h3>Custom Footer</h3>
-            <p>Footer section of the panel can be customized by defining custom p-footer element with content.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-panel &gt;
     Body Content
     &lt;p-footer&gt;
         Footer content here
@@ -233,6 +227,10 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
     His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
     Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
     kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;p-footer&gt;
+        &lt;button pButton type="button" icon="fa-plus" label="New" class="ui-button-info"&gt;&lt;/button&gt;
+        &lt;button pButton type="button" icon="fa-list" label="View" class="ui-button-success"&gt;&lt;/button&gt;
+    &lt;/p-footer&gt;
 &lt;/p-panel&gt;
 </code>
 </pre>

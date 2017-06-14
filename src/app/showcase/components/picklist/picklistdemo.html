@@ -7,8 +7,8 @@
 
 <div class="content-section implementation">
     
-    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" 
-        [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" filter="filter" filterBy="brand">
+    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" dragdrop="true"
+        [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" filterBy="brand">
         <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix">
                 <img src="assets/showcase/images/demo/car/{{car.brand}}.gif" style="display:inline-block;margin:2px 0 2px 2px"/>
@@ -79,6 +79,24 @@ export class MyComponent &#123;
             <h3>Multiple Selection</h3>
             <p>Multiple items can either be selected using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
             devices metaKeySelection is turned off automatically.</p>
+            
+            <h3>Filtering</h3>
+            <p>Options can be filtered using an input field in the overlay by enabling the filterBy property.
+                filterBy property decides which field to search(Accepts multiple fields with a comma).</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-pickList [source]="sourceCars" [target]="targetCars" filterBy="brand"&gt;&lt;/p-pickList&gt;
+</code>
+</pre>
+
+<h3>DragDrop</h3>
+<p>Items can be reordered using drag and drop by enabling dragdrop property along with dragdropScope to avoid conflict with other drag drop events on view.
+dragdrop property also supports cross list actions.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-pickList [source]="sourceCars" [target]="targetCars" dragdrop="true"&gt;&lt;/p-pickList&gt;
+</code>
+</pre>
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -115,6 +133,24 @@ export class MyComponent &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Text for the target list caption</td>
+                        </tr>
+                        <tr>
+                            <td>filterBy</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>When specified displays an input field to filter the items on keyup and decides which field to search (Accepts multiple fields with a comma).</td>
+                        </tr>
+                        <tr>
+                            <td>dragdrop</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to enable dragdrop based reordering.</td>
+                        </tr>
+                        <tr>
+                            <td>dragdropScope</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Unique key of drag drop events to avoid conflict with other drag drop events on the page.</td>
                         </tr>
                         <tr>
                             <td>style</td>

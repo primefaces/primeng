@@ -68,6 +68,38 @@
     border: 0 none;
 }
 
+/* Simple */
+.ui-fileupload-simple {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ui-fileupload-simple .ui-button {
+    overflow: hidden;
+}
+
+.ui-fileupload-simple input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.ui-fileupload-simple .ui-fileupload-filename {
+    margin-left: 0.5em;
+}
+
 /* ui-fluid */
 .ui-fluid .ui-fileupload .ui-button {
     width: auto;

@@ -93,6 +93,11 @@
     width: 100%;
 }
 
+.ui-orderlist .ui-orderlist-droppoint {
+    height: 4px;
+    list-style-type: none;
+}
+
 @media (max-width: 40em) {
     .ui-orderlist.ui-orderlist-responsive .ui-orderlist-controls {
         text-align: center;

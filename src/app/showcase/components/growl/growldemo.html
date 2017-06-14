@@ -219,6 +219,11 @@ export class GrowlDemo &#123;
 
     msgs: Message[] = [];
 
+    showSuccess() &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'success', summary:'Success Message', detail:'Order submitted'&#125;);
+    &#125;
+
     showInfo() &#123;
         this.msgs = [];
         this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);

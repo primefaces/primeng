@@ -98,7 +98,7 @@ export class MyComponents implements OnInit &#123;
             whose type is "default" applies to all nodes that have no type property defined.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-organizationChart [value]="data1"
+&lt;p-organizationChart [value]="data"
     styleClass="company"&gt;
     &lt;ng-template let-node pTemplate="leaf"&gt;
         &lt;span style="font-weight:bold"&gt;{{node.label}}&lt;/span&gt;
@@ -157,7 +157,7 @@ export class MyComponents implements OnInit &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode"&gt;&lt;/p-organizationChart&gt;
+&lt;p-organizationChart [value]="data" selectionMode="single" [(selection)]="selectedNode"&gt;&lt;/p-organizationChart&gt;
 </code>
 </pre>
 

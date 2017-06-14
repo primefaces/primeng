@@ -20,9 +20,16 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
 })
 export class AppComponent {
     
+    menuActive: boolean;
+    
     changeTheme(event: Event, theme: string) {
         let themeLink: HTMLLinkElement = <HTMLLinkElement> document.getElementById('theme-css');
         themeLink.href = 'assets/components/themes/' + theme + '/theme.css';
+        event.preventDefault();
+    }
+    
+    onMenuButtonClick(event: Event) {
+        this.menuActive = !this.menuActive;
         event.preventDefault();
     }
 }

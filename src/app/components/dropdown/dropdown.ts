@@ -164,10 +164,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     public itemClick: boolean;
     
     public hoveredItem: any;
+        
+    public selectedOptionUpdated: boolean;
     
     public filterValue: string;
-    
-    public selectedOptionUpdated: boolean;
 
     private dimensionDiffered: boolean;
         
@@ -202,6 +202,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateSelectedOption(this.value);
         this.optionsChanged = true;
         this.dimensionDiffered = true;
+        
+        if(this.filterValue && this.filterValue.length) {
+            this.activateFilter();
+        }
     }
 
     ngAfterViewInit() { 
@@ -367,6 +371,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.options && this.options.length) {
             this.alignPanel();
             this.bindDocumentClickListener();
+            
+            let selectedListItem = this.domHandler.findSingle(this.itemsWrapper, '.ui-dropdown-item.ui-state-highlight');
+            if(selectedListItem) {
+                this.domHandler.scrollInView(this.itemsWrapper, selectedListItem);
+            }
         }
     }
     
@@ -487,15 +496,23 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onFilter(event): void {
-        this.filterValue = event.target.value.toLowerCase();
-        this.optionsToDisplay = [];
-        this.activateFilter();
+        let inputValue = event.target.value.toLowerCase();
+        if(inputValue && inputValue.length) {
+            this.filterValue = inputValue;
+            this.activateFilter();
+        }
+        else {
+            this.filterValue = null;
+            this.optionsToDisplay = this.options;
+        }
+        
+        this.optionsChanged = true;
     }
     
     activateFilter() {
-        let searchFields = this.filterBy.split(',');
+        let searchFields: string[] = this.filterBy.split(',');
         if(this.options && this.options.length) {
-            this.optionsToDisplay = this.objectUtils.filter(this.options,searchFields,this.filterValue);
+            this.optionsToDisplay = this.objectUtils.filter(this.options, searchFields, this.filterValue);
             this.optionsChanged = true;
         }
     }
