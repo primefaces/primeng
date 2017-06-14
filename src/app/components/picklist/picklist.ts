@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,Input,Output,ContentChildren,QueryList,TemplateRef,EventEmitter,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {SharedModule,PrimeTemplate} from '../common/shared';
@@ -36,8 +36,8 @@ enum ListType {
                         [ngClass]="{'ui-state-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, listType.SOURCE) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
                             (click)="onItemClick($event,item,selectedItemsSource)" (touchend)="onItemTouchEnd($event)"
-                            [style.display]="isItemVisible(item, listType.SOURCE) ? 'block' : 'none'" on-mouseover='getItem(item)'
-                            [draggable]="dragdrop" (dragstart)="onDragStart($event, i, listType.SOURCE)" (dragend)="onDragEnd($event)" (drop)="onDrop($event, i , listType.SOURCE)">
+                            [style.display]="isItemVisible(item, listType.SOURCE) ? 'block' : 'none'"
+                            [draggable]="dragdrop" (dragstart)="onDragStart($event, i, listType.SOURCE)" (dragend)="onDragEnd($event)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, listType.SOURCE)" (drop)="onDrop($event, i + 1, listType.SOURCE)" (dragleave)="onDragLeave($event, listType.SOURCE)" 
@@ -67,8 +67,8 @@ enum ListType {
                         [ngClass]="{'ui-state-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, listType.TARGET) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
                             (click)="onItemClick($event,item,selectedItemsTarget)" (touchend)="onItemTouchEnd($event)"
-                            [style.display]="isItemVisible(item, listType.TARGET) ? 'block' : 'none'" on-mouseover='getItem(item)'
-                            [draggable]="dragdrop" (dragstart)="onDragStart($event, i, listType.TARGET)" (dragend)="onDragEnd($event)" (drop)="onDrop($event, i , listType.SOURCE)">
+                            [style.display]="isItemVisible(item, listType.TARGET) ? 'block' : 'none'"
+                            [draggable]="dragdrop" (dragstart)="onDragStart($event, i, listType.TARGET)" (dragend)="onDragEnd($event)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, listType.TARGET)" (drop)="onDrop($event, i + 1, listType.TARGET)" (dragleave)="onDragLeave($event, listType.TARGET)" 
@@ -88,7 +88,7 @@ enum ListType {
     `,
     providers: [DomHandler,ObjectUtils]
 })
-export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
+export class PickList implements AfterViewChecked,AfterContentInit {
 
     @Input() source: any[];
 
@@ -176,11 +176,9 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     
     filterValueTarget: string;
     
-    item: any;
+    fromListType: ListType;
     
-    startIndex: number;
-    
-    startListType: number;
+    toListType: ListType;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
     
@@ -470,100 +468,73 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
     
     onDragStart(event: DragEvent, index: number, listType: ListType) {
         this.dragging = true;
-        this.startIndex = index;
-        this.startListType = listType;
-        listType == 0  ? (this.draggedItemIndexSource = index) : (this.draggedItemIndexTarget = index);
-        
+        this.fromListType = listType;
+        if(listType === ListType.SOURCE)
+            this.draggedItemIndexSource = index;
+        else
+            this.draggedItemIndexTarget = index;
+                        
         if(this.dragdropScope) {
             event.dataTransfer.setData("text", this.dragdropScope);
         }
     }
     
     onDragOver(event: DragEvent, index: number, listType: ListType) {
-        if(listType == 0) {
-            if(this.startListType !== listType) {
+        if(listType == ListType.SOURCE) {
+            if(this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index || (this.fromListType === ListType.TARGET)) {
                 this.dragOverItemIndexSource = index;
                 event.preventDefault();
             }
-            else {
-                if(this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index) {
-                    this.dragOverItemIndexSource = index;
-                    event.preventDefault();
-                }
-            }
         }
-        else if(listType == 1) {
-            if(this.startListType !== listType) {
+        else {
+            if(this.draggedItemIndexTarget !== index && this.draggedItemIndexTarget + 1 !== index || (this.fromListType === ListType.SOURCE)) {
                 this.dragOverItemIndexTarget = index;
                 event.preventDefault();
             }
-            else {
-                if(this.draggedItemIndexTarget !== index && this.draggedItemIndexTarget + 1 !== index) {
-                    this.dragOverItemIndexTarget = index;
-                    event.preventDefault();
-                }
-            }
         }
     }
     
-    onDragLeave(event: DragEvent,listType: ListType) {
-        if(listType == 0)
-            this.dragOverItemIndexSource = null;
-        else 
-            this.dragOverItemIndexTarget = null;
+    onDragLeave(event: DragEvent, listType: ListType) {
+        this.dragOverItemIndexSource = null; 
+        this.dragOverItemIndexTarget = null;
     }
     
     onDrop(event: DragEvent, index: number, listType: ListType) {
-        if(listType == 0) {
-            if(listType !== this.startListType) {
-                this.insert(this.dragOverItemIndexSource,listType);
-            }
-            else {
-                this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, this.startIndex > index ? index : index - 1);
-            }
+        let dropIndex = (index === 0) ? 0 : index - 1;
+        if(listType === ListType.SOURCE) {
+            if(this.fromListType === ListType.TARGET)
+                this.insert(this.draggedItemIndexTarget, this.target, index, this.source);
+            else
+                this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, dropIndex);
+
             this.dragOverItemIndexSource = null;
         }
-        else if(listType == 1) {
-            if(listType !== this.startListType) {
-                this.insert(this.dragOverItemIndexTarget,listType);
-            }
-            else {
-                this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, this.startIndex > index ? index : index - 1);
-            }
+        else {
+            if(this.fromListType === ListType.SOURCE)
+                this.insert(this.draggedItemIndexSource, this.source, index, this.target);
+            else
+                this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, dropIndex);
+                
             this.dragOverItemIndexTarget = null;
         }
     }
     
     onDropEmpty(event: DragEvent, listType: ListType) {
-        if(listType == 0) {
-            if(!(this.source.length > 0)) {
-                this.source.push(this.setItem());
-                this.target.splice(this.startIndex,1);
-            }
-        }
-        else if(listType == 1) {
-            if(!(this.target.length > 0)) {
-                this.target.push(this.setItem());
-                this.source.splice(this.startIndex,1);
-            }
-        }
-        
+        if(listType === ListType.SOURCE)
+            this.insert(this.draggedItemIndexTarget, this.target, null, this.source);
+        else
+            this.insert(this.draggedItemIndexSource, this.target, null, this.target);
     }
     
     onDragEnd(event: DragEvent) {
         this.dragging = false;
     }
     
-    insert(index,listType) {
-        if(listType == 0) {
-            this.source.splice(index,0,this.item);
-            this.target.splice(this.startIndex,1);
-        }
-        else {
-            this.target.splice(index,0,this.item);
-            this.source.splice(this.startIndex,1);
-        }
-        this.item = null;
+    insert(fromIndex, fromList, toIndex, toList) {
+        if(toIndex === null)
+            toList.push(fromList.splice(fromIndex, 1)[0]);
+        else
+            toList.splice(toIndex, 0, fromList.splice(fromIndex, 1)[0]);
     }
     
     onListMouseMove(event: MouseEvent, listType: ListType) {
@@ -577,18 +548,6 @@ export class PickList implements OnDestroy,AfterViewChecked,AfterContentInit {
             else if(topDiff < 25 && topDiff > 0)
                 moveListType.nativeElement.scrollTop -= 15;
         }
-    }
-    
-    getItem(item) {
-        this.item = item;
-    }
-    
-    setItem() {
-        return this.item;
-    }
-
-    ngOnDestroy() {
-
     }
 }
 
