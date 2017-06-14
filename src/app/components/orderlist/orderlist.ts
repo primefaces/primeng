@@ -330,7 +330,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onDrop(event: DragEvent, index: number) {
-        let dropIndex = (index === 0) ? 0 : index - 1;
+        let dropIndex = (this.draggedItemIndex > index) ? index : (index === 0) ? 0 : index - 1;
         this.objectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
         this.dragOverItemIndex = null;
     }

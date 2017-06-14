@@ -500,13 +500,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         this.dragOverItemIndexTarget = null;
     }
     
-    onDrop(event: DragEvent, index: number, listType: ListType) {        
-        let dropIndex = (index === 0) ? 0 : index - 1;
+    onDrop(event: DragEvent, index: number, listType: ListType) {            
         if(listType === ListType.SOURCE) {
             if(this.fromListType === ListType.TARGET)
                 this.insert(this.draggedItemIndexTarget, this.target, index, this.source);
             else
-                this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, dropIndex);
+                this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
 
             this.dragOverItemIndexSource = null;
         }
@@ -514,7 +513,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             if(this.fromListType === ListType.SOURCE)
                 this.insert(this.draggedItemIndexSource, this.source, index, this.target);
             else
-                this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, dropIndex);
+                this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
                 
             this.dragOverItemIndexTarget = null;
         }
