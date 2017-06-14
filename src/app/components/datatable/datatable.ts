@@ -1767,8 +1767,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 let containerWidth = this.tbody.parentElement.style.width;
                 
                 if(this.scrollable) {
-                    this.scrollBarWidth = this.scrollBarWidth||this.domHandler.calculateScrollbarWidth();
-                    this.el.nativeElement.children[0].style.width = parseFloat(containerWidth) + this.scrollBarWidth + 'px';
+                    this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box').children[0].style.width = containerWidth;
                     let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
                     let resizeColumnIndex = this.domHandler.index(this.resizeColumn);
                     colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
