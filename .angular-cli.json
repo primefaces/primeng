@@ -9,6 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
+        "upload.php",
         "favicon.png"
       ],
       "index": "index.html",
