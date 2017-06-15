@@ -489,8 +489,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() selectionMode: string;
 
-    @Input() selection: any;
-
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() editable: boolean;
@@ -702,6 +700,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public editorClick: boolean;
     
     public _first: number = 0;
+    
+    public selectionKeys: any;
+    
+    public preventSelectionKeysPropagation: any;
+    
+    _selection: any;
         
     globalFilterFunction: any;
     
@@ -797,7 +801,24 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(shouldPaginate) {
             this.paginate();
         }
+    }
+    
+    @Input() get selection(): any {
+        return this._selection;
+    }
+
+    set selection(val: any) {
+        this._selection = val;
         
+        if(this.dataKey && !this.preventSelectionKeysPropagation) {
+            this.selectionKeys = {};
+            if(this._selection) {
+                for(let data of this._selection) {
+                    this.selectionKeys[String(this.objectUtils.resolveFieldData(data, this.dataKey))] = 1;
+                }
+            }
+        }
+        this.preventSelectionKeysPropagation = false;
     }
     
     handleDataChange() {
@@ -1173,36 +1194,51 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             
             let selected = this.isSelected(rowData);
             let metaSelection = this.rowTouched ? false : this.metaKeySelection;
+            let dataKeyValue: string = this.dataKey ? String(this.resolveFieldData(rowData, this.dataKey)) : null;
             
             if(metaSelection) {
                 let metaKey = event.metaKey||event.ctrlKey;
                 
                 if(selected && metaKey) {
                     if(this.isSingleSelectionMode()) {
-                        this.selection = null;
+                        this._selection = null;
+                        this.selectionKeys = {};
                         this.selectionChange.emit(null);
                     }
                     else {
                         let selectionIndex = this.findIndexInSelection(rowData);
-                        this.selection = this.selection.filter((val,i) => i!=selectionIndex);
+                        this._selection = this.selection.filter((val,i) => i!=selectionIndex);
                         this.selectionChange.emit(this.selection);
+                        if(dataKeyValue) {
+                            delete this.selectionKeys[dataKeyValue];
+                        }
                     }
                     
                     this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
                 }
                 else {
                     if(this.isSingleSelectionMode()) {
-                        this.selection = rowData;
+                        this._selection = rowData;
                         this.selectionChange.emit(rowData);
+                        if(dataKeyValue) {
+                            this.selectionKeys = {};
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                     else if(this.isMultipleSelectionMode()) {
-                        if(metaKey)
-                            this.selection = this.selection||[];
-                        else 
-                            this.selection = [];
-                        
-                        this.selection = [...this.selection,rowData];
+                        if(metaKey) {
+                            this._selection = this.selection||[];
+                        }
+                        else {
+                            this._selection = [];
+                            this.selectionKeys = {};
+                        }
+
+                        this._selection = [...this.selection,rowData];
                         this.selectionChange.emit(this.selection);
+                        if(dataKeyValue) {
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
 
                     this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
@@ -1211,60 +1247,86 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             else {
                 if(this.isSingleSelectionMode()) {
                     if(selected) {
-                        this.selection = null;
+                        this._selection = null;
+                        this.selectionKeys = {};
                         this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
                     }
                     else {
-                        this.selection = rowData;
+                        this._selection = rowData;
                         this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+                        if(dataKeyValue) {
+                            this.selectionKeys = {};
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                 }
                 else {
                     if(selected) {
                         let selectionIndex = this.findIndexInSelection(rowData);
-                        this.selection = this.selection.filter((val,i) => i!=selectionIndex);
+                        this._selection = this.selection.filter((val,i) => i!=selectionIndex);
                         this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
+                        if(dataKeyValue) {
+                            delete this.selectionKeys[dataKeyValue];
+                        }
                     }
                     else {
-                        this.selection = [...this.selection||[],rowData];
+                        this._selection = [...this.selection||[],rowData];
                         this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
+                        if(dataKeyValue) {
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                 }
                 
                 this.selectionChange.emit(this.selection);
             }
         }
-        
+
         this.rowTouched = false;
+        this.preventSelectionKeysPropagation = true;
     }
 
-    handleRowTouchEnd(event) {
+    handleRowTouchEnd(event: Event) {
         this.rowTouched = true;
     }
     
-    selectRowWithRadio(event, rowData:any) {
+    selectRowWithRadio(event: Event, rowData:any) {
         if(this.selection != rowData) {
-            this.selection = rowData;
+            this._selection = rowData;
             this.selectionChange.emit(this.selection);
             this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
+            
+            if(this.dataKey) {
+                this.selectionKeys = {};
+                this.selectionKeys[String(this.resolveFieldData(rowData, this.dataKey))] = 1;
+            }
         }
+        
+        this.preventSelectionKeysPropagation = true;
     }
     
-    toggleRowWithCheckbox(event,rowData) {
+    toggleRowWithCheckbox(event, rowData: any) {
         let selectionIndex = this.findIndexInSelection(rowData);
         this.selection = this.selection||[];
+        let dataKeyValue: string = this.dataKey ? String(this.resolveFieldData(rowData, this.dataKey)) : null;
         
         if(selectionIndex != -1) {
-            this.selection = this.selection.filter((val,i) => i!=selectionIndex);
+            this._selection = this.selection.filter((val,i) => i!=selectionIndex);
             this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
+            if(dataKeyValue) {
+                delete this.selectionKeys[dataKeyValue];
+            }
         }
-            
         else {
-            this.selection = [...this.selection,rowData];
+            this._selection = [...this.selection,rowData];
             this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
+            if(dataKeyValue) {
+                this.selectionKeys[dataKeyValue] = 1;
+            }
         }
                  
         this.selectionChange.emit(this.selection);
+        this.preventSelectionKeysPropagation = true;
     }
     
     toggleRowsWithCheckbox(event) {
@@ -1282,6 +1344,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.contextMenu) {
             let selectionIndex = this.findIndexInSelection(rowData);
             let selected = selectionIndex != -1;
+            let dataKeyValue: string = this.dataKey ? String(this.resolveFieldData(rowData, this.dataKey)) : null;
             
             if(!selected) {
                 if(this.isSingleSelectionMode()) {
@@ -1292,11 +1355,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     this.selection = [rowData];
                     this.selectionChange.emit(this.selection);
                 }
+                
+                if(this.dataKey) {
+                    this.selectionKeys[String(this.resolveFieldData(rowData, this.dataKey))] = 1;
+                }
             }
 
             this.contextMenu.show(event);            
             this.onContextMenuSelect.emit({originalEvent: event, data: rowData});
         }
+        
+        this.preventSelectionKeysPropagation = true;
     }
 
     rowDblclick(event, rowData) {
@@ -1327,10 +1396,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     isSelected(rowData) {
         if(rowData && this.selection) {
-            if(this.selection instanceof Array)
-                return this.findIndexInSelection(rowData) > -1;
-            else
-                return this.equals(rowData, this.selection);
+            if(this.dataKey) {
+                return this.selectionKeys[this.objectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
+            }
+            else {
+                if(this.selection instanceof Array)
+                    return this.findIndexInSelection(rowData) > -1;
+                else
+                    return this.equals(rowData, this.selection);
+            }
         }
         
         return false;
