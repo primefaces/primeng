@@ -1,9 +1,9 @@
-import {NgModule,AfterViewInit,Component,EventEmitter,Input,NgZone,OnDestroy,Output,ViewChild, ElementRef} from '@angular/core';
+import {NgModule,AfterViewInit,Component,EventEmitter,Input,NgZone,OnDestroy,Output,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'p-captcha',
-    template: `<div #target></div>`
+    template: `<div></div>`
 })
 export class Captcha implements AfterViewInit {
 
@@ -24,16 +24,15 @@ export class Captcha implements AfterViewInit {
     @Output() onResponse: EventEmitter<any> = new EventEmitter();
     
     @Output() onExpire: EventEmitter<any> = new EventEmitter();
-
-    @ViewChild('target') el: ElementRef;
     
     private _instance: any = null;
 
-    constructor(public _zone:NgZone) {}
+    constructor(public el: ElementRef, public _zone: NgZone) {}
     
     ngAfterViewInit() {
-        if ((<any>window).grecaptcha)
+        if((<any>window).grecaptcha) {
             this.init();
+        }
         else {
             (<any>window)[this.initCallback] = () => {
               this.init();
@@ -42,7 +41,7 @@ export class Captcha implements AfterViewInit {
     }
     
     init() {
-        this._instance = (<any>window).grecaptcha.render(this.el.nativeElement, {
+        this._instance = (<any>window).grecaptcha.render(this.el.nativeElement.children[0], {
             'sitekey': this.siteKey,
             'theme': this.theme,
             'type': this.type,
