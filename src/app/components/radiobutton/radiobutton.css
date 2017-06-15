@@ -17,8 +17,9 @@
 
 .ui-radiobutton-icon {
     display: block;
-    font-size: .6em;
+    font-size: .5em;
     line-height: inherit;
+    margin-top: -1px;
 }
  
 .ui-radiobutton, .ui-radiobutton-label {
