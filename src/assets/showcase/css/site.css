@@ -698,6 +698,10 @@ a {
 }
 
 /* Introduction */
+.home p {
+    line-height: 1.5;
+}
+
 .home .home-button {
     font-weight: bold;
     background-color: #FBD17B;
@@ -757,6 +761,17 @@ a {
 
 .home .features p {
     margin-bottom: 30px;
+}
+
+.home .features p.features-tagline {
+    margin-bottom: 0;
+    margin-top: -5px;
+    color: #888888;
+    font-weight: bold;
+}
+
+.home .features p.features-description {
+    text-align: left;
 }
 
 .home .features .feature-name {
