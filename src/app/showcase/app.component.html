@@ -15,6 +15,8 @@
             <li class="topbar-menu-themes">
                 <a href="#">THEMES</a>
                 <ul>
+                    <li class="topbar-submenu-header">THEMING</li>
+                    <li><a [routerLink]="['./theming']">Guide</a></li>
                     <li class="topbar-submenu-header">PREMIUM</li>
                     <li><a href="http://www.primefaces.org/layouts/paradise-ng"><img src="assets/showcase/images/themeswitcher-paradise.png" alt="Paradise Template"><span class="ui-text">Paradise</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima Template"><span class="ui-text">Ultima</span></a></li>
@@ -44,7 +46,7 @@
                 </ul>
             </li>
             <li>
-                <a href="http://forum.primefaces.org/viewforum.php?f=35">FORUM</a>
+                <a [routerLink]="['/support']">SUPPORT</a>
             </li>
         </ul>
     </div>
@@ -225,7 +227,6 @@
                 <a [routerLink]="['/captcha']" (click)="menuActive = false">&#9679; Captcha</a>
                 <a [routerLink]="['/inplace']" (click)="menuActive = false">&#9679; Inplace</a>
                 <a [routerLink]="['/validation']" (click)="menuActive = false">&#9679; Validation</a>
-                <a [routerLink]="['/theming']" (click)="menuActive = false">&#9679; Theming</a>
                 <a [routerLink]="['/progressbar']" (click)="menuActive = false">&#9679; ProgressBar</a>
                 <a [routerLink]="['/codehighlighter']" (click)="menuActive = false">&#9679; CodeHighlighter</a>
                 <a [routerLink]="['/terminal']" (click)="menuActive = false">&#9679; Terminal</a>

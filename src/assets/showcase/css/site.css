@@ -720,7 +720,7 @@ a {
     line-height: 1.5;
 }
 
-.home .home-button {
+.home-button {
     font-weight: bold;
     background-color: #FBD17B;
     color: #B27800;
@@ -730,7 +730,7 @@ a {
     display: inline-block;
 }
 
-.home .home-button:hover {
+.home-button:hover {
     background-color: #f9c55a;
 }
 
@@ -866,14 +866,16 @@ a {
     transform: scale(1.05);
 }
 
-
-
-
 /* PRO */
-.home .prosupport {
+.home .prosupport,
+.support-image {
     background-color: #20272a;
     padding: 30px;
     color: #ffffff;
+}
+
+.support-image {
+    text-align: center;
 }
 
 .home .prosupport p {
@@ -889,13 +891,16 @@ a {
     margin-top: 10px;
 }
 
+.support p {
+    line-height: 1.5;
+}
+
 /* testimonials */
 .home .testimonials {
     background-color: #f5f7f8;
     padding: 30px;
     text-align: center;
 }
-
 
 .home .testimonials h3 {
     margin-bottom: 10px;
