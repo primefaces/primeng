@@ -1,5 +1,6 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy,DoCheck} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostBinding,HostListener,Input,AfterViewInit,OnDestroy,DoCheck,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {NgModel} from '@angular/forms';
 import {DomHandler} from '../dom/domhandler';
 
 @Directive({
@@ -14,6 +15,10 @@ import {DomHandler} from '../dom/domhandler';
     providers: [DomHandler]
 })
 export class Password implements AfterViewInit,OnDestroy,DoCheck {
+
+    @Input()
+    @HostBinding('attr.value')
+    value: any;
 
     @Input() promptLabel: string = 'Please enter a password';
 
@@ -33,7 +38,7 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
     
     filled: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, @Optional() private ngModel: NgModel) {}
     
     ngAfterViewInit() {
         this.panel = document.createElement('div');
@@ -62,7 +67,10 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
     }
     
     updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
+        // this.value and this.ngModel.model checks are needed for usage with ChangeDetectionStrategy.OnPush
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length
+            || this.value && this.value.length
+            || this.ngModel && this.ngModel.model && this.ngModel.model;
     }
         
     @HostListener('focus', ['$event']) 

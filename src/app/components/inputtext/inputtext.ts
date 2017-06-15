@@ -1,5 +1,6 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,DoCheck} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostBinding,HostListener,Input,DoCheck,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {NgModel} from '@angular/forms';
 
 @Directive({
     selector: '[pInputText]',
@@ -13,9 +14,13 @@ import {CommonModule} from '@angular/common';
 })
 export class InputText implements DoCheck {
 
+    @Input()
+    @HostBinding('attr.value')
+    value: any;
+
     filled: boolean;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, @Optional() private ngModel: NgModel) {}
         
     ngDoCheck() {
         this.updateFilledState();
@@ -28,7 +33,10 @@ export class InputText implements DoCheck {
     }
     
     updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
+        // this.value and this.ngModel.model checks are needed for usage with ChangeDetectionStrategy.OnPush
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length
+            || this.value && this.value.length
+            || this.ngModel && this.ngModel.model && this.ngModel.model;
     }
 }
 
