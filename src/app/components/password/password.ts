@@ -1,5 +1,6 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,AfterViewInit,OnDestroy,DoCheck} from '@angular/core';
+import {NgModule,Directive,ElementRef,HostBinding,HostListener,Input,AfterViewInit,OnDestroy,DoCheck,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {NgModel} from '@angular/forms';
 import {DomHandler} from '../dom/domhandler';
 
 @Directive({
@@ -15,6 +16,10 @@ import {DomHandler} from '../dom/domhandler';
 })
 export class Password implements AfterViewInit,OnDestroy,DoCheck {
 
+    @Input()
+    @HostBinding('attr.value')
+    value: any;
+
     @Input() promptLabel: string = 'Please enter a password';
 
     @Input() weakLabel: string = 'Weak';
@@ -22,19 +27,19 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
     @Input() mediumLabel: string = 'Medium';
 
     @Input() strongLabel: string = 'Strong';
-    
+
     @Input() feedback: boolean = true;
-    
+
     panel: any;
-    
+
     meter: any;
-    
+
     info: any;
-    
+
     filled: boolean;
-    
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
-    
+
+    constructor(public el: ElementRef, public domHandler: DomHandler, @Optional() private ngModel: NgModel) {}
+
     ngAfterViewInit() {
         this.panel = document.createElement('div');
         this.panel.className = 'ui-password-panel ui-widget ui-state-highlight ui-corner-all ui-helper-hidden ui-password-panel-overlay';
@@ -43,41 +48,44 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
         this.info = document.createElement('div');
         this.info.className = 'ui-password-info';
         this.info.textContent = this.promptLabel;
-        
+
         if(this.feedback) {
             this.panel.appendChild(this.meter);
             this.panel.appendChild(this.info);
             document.body.appendChild(this.panel);
         }
     }
-    
+
     ngDoCheck() {
         this.updateFilledState();
     }
-    
+
     //To trigger change detection to manage ui-state-filled for material labels when there is no value binding
-    @HostListener('input', ['$event']) 
+    @HostListener('input', ['$event'])
     onInput(e) {
         this.updateFilledState();
     }
-    
+
     updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
+        // this.value and this.ngModel.model checks are needed for usage with ChangeDetectionStrategy.OnPush
+        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length
+            || this.value && this.value.length
+            || this.ngModel && this.ngModel.model && this.ngModel.model;
     }
-        
-    @HostListener('focus', ['$event']) 
+
+    @HostListener('focus', ['$event'])
     onFocus(e) {
         this.panel.style.zIndex = String(++DomHandler.zindex);
         this.domHandler.removeClass(this.panel, 'ui-helper-hidden');
         this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
         this.domHandler.fadeIn(this.panel, 250);
     }
-    
-    @HostListener('blur', ['$event']) 
-    onBlur(e) {        
+
+    @HostListener('blur', ['$event'])
+    onBlur(e) {
         this.domHandler.addClass(this.panel, 'ui-helper-hidden');
     }
-    
+
     @HostListener('keyup', ['$event'])
     onKeyup(e) {
         let value = e.target.value,
@@ -98,7 +106,7 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
             else if(score >= 30 && score < 80) {
                 label = this.mediumLabel;
                 meterPos = '0px -20px';
-            } 
+            }
             else if(score >= 80) {
                 label = this.strongLabel;
                 meterPos = '0px -30px';
@@ -108,7 +116,7 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
         this.meter.style.backgroundPosition = meterPos;
         this.info.textContent = label;
     }
-    
+
     testStrength(str: string) {
         let grade: number = 0;
         let val;
@@ -129,7 +137,7 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
 
         return grade > 100 ? 100 : grade;
     }
-    
+
     normalize(x, y) {
         let diff = x - y;
 
@@ -138,15 +146,15 @@ export class Password implements AfterViewInit,OnDestroy,DoCheck {
         else
             return 1 + 0.5 * (x / (x + y/4));
     }
-    
+
     get disabled(): boolean {
         return this.el.nativeElement.disabled;
     }
-    
+
     ngOnDestroy() {
         if (!this.feedback)
             return;
-            
+
         this.panel.removeChild(this.meter);
         this.panel.removeChild(this.info);
         document.body.removeChild(this.panel);
