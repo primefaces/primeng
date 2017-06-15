@@ -50,18 +50,18 @@ export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
                 </div>
             </td>
         </tr>
-        <tr *ngIf="!leaf&&node.expanded" class="ui-organizationchart-lines" [@childState]="in">
+        <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-lines" [@childState]="in">
             <td [attr.colspan]="colspan">
                 <div class="ui-organizationchart-line-down"></div>
             </td>
         </tr>
-        <tr *ngIf="!leaf&&node.expanded" class="ui-organizationchart-lines" [@childState]="in">
+        <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-lines" [@childState]="in">
             <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
                 <td class="ui-organizationchart-line-left" [ngClass]="{'ui-organizationchart-line-top':!first}">&nbsp;</td>
                 <td class="ui-organizationchart-line-right" [ngClass]="{'ui-organizationchart-line-top':!last}">&nbsp;</td>
             </ng-template>
         </tr>
-        <tr *ngIf="!leaf&&node.expanded" class="ui-organizationchart-nodes" [@childState]="in">
+        <tr [style.visibility]="!leaf&&node.expanded ? 'inherit' : 'hidden'" class="ui-organizationchart-nodes" [@childState]="in">
             <td *ngFor="let child of node.children" colspan="2">
                 <table class="ui-organizationchart-table" pOrganizationChartNode [node]="child"></table>
             </td>
