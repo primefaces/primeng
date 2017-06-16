@@ -9,7 +9,7 @@ src
 
 # test
 e2e
-karmaconf.js
+karma.conf.js
 protractor.conf.js
 
 # dependencies
