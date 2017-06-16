@@ -49,6 +49,7 @@ tsconfig-release.json
 tsconfig-aot.json
 tslint.json
 gulpfile.js
+.github
 
 # System Files
 .DS_Store
