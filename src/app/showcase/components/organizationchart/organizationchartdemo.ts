@@ -58,7 +58,7 @@ export class OrganizationChartDemo implements OnInit {
     
     data2: TreeNode[];
     
-    selectedNodes: TreeNode;
+    selectedNode: TreeNode;
     
     messages: Message[];
     
