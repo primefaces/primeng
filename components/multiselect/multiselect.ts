@@ -289,10 +289,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         if(this.value && this.value.length) {
             let label = '';
             for(let i = 0; i < this.value.length; i++) {
-                if(i != 0) {
-                    label = label + ',';
+                let itemLabel = this.findLabelByValue(this.value[i]);
+                if (itemLabel) {
+                    if(label.length > 0) {
+                        label = label + ',';
+                    }
+                    label = label + this.findLabelByValue(this.value[i]);
                 }
-                label = label + this.findLabelByValue(this.value[i]);
             }
             this.valuesAsString = label;
         }
