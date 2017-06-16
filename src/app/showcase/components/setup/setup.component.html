@@ -15,7 +15,7 @@ npm install primeng --save
 </pre>
 
     <h3>Load Configuration</h3>
-    <p>PrimeNG is distributed in commonjs format, a module manager of your choice is required and this guide provides a sample for SystemJS and Webpack.</p>
+    <p>PrimeNG is distributed in commonjs format, a module manager of your choice is required and this guide provides samples for SystemJS, WebPack and Angular CLI.</p>
 
     <h3>Import</h3>
     <p>UI components are configured as modules, once PrimeNG is downloaded and configured, modules and apis can be imported from 'primeng/primeng' shorthand in your application code.</p>
@@ -86,11 +86,11 @@ import &#123;MenuItem&#125; from 'primeng/components/common/api';
     
     <h3>Animations with Angular 4+</h3>
     <p>Various components utilize angular animations to improve the user experience, starting with Angular 4 animations have their own module so you need
-    to import <i>BrowserAnimationsModule</i> to your application. If you prefer not to <i>NoopAnimationsModule</i> instead.</p>
+    to import <i>BrowserAnimationsModule</i> to your application. If you prefer not to use <i>NoopAnimationsModule</i> instead.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-npm install @angular/animations
+npm install @angular/animations --save
 </code>
 </pre>
 
@@ -118,7 +118,7 @@ export class YourAppModule &#123; &#125;
 <code class="language-js" pCode ngNonBindable>
 "dependencies": &#123;
   //...
-  "primeng": "^2.0.3",
+  "primeng": "^4.0.0",
   "font-awesome": "^4.7.0"
 &#125;,
 </code>
@@ -129,9 +129,9 @@ export class YourAppModule &#123; &#125;
 <pre>
 <code class="language-js" pCode ngNonBindable>
 "styles": [
+  "../node_modules/font-awesome/css/font-awesome.min.css",
   "../node_modules/primeng/resources/primeng.min.css",
   "../node_modules/primeng/resources/themes/omega/theme.css",
-  "../node_modules/font-awesome/css/font-awesome.min.css",
   //...
 ],
 </code>
@@ -140,7 +140,7 @@ export class YourAppModule &#123; &#125;
     <p>That is all, you may now import PrimeNG components, for a working example visit the <a href="https://github.com/primefaces/primeng-quickstart-cli">PrimeNG CLI QuickStart</a> sample at GitHub.</p>
         
     <h3>Angular Seed Integration</h3>
-    <p>Angular2 Seed is a modular starter project, there is an <a href="https://github.com/mgechev/angular2-seed/wiki/Add-PrimeNG">official entry</a> at the project wiki
+    <p>Angular2 Seed is an alternative modular starter project, there is an <a href="https://github.com/mgechev/angular2-seed/wiki/Add-PrimeNG">official entry</a> at the project wiki
         describing how to use PrimeNG with seed.</p>
         
     <h3>QuickStart with System.js</h3>
