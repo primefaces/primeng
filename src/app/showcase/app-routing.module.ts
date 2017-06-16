@@ -71,6 +71,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'spinner', loadChildren: './components/spinner/spinnerdemo.module#SpinnerDemoModule'},
             {path: 'splitbutton', loadChildren: './components/splitbutton/splitbuttondemo.module#SplitButtonDemoModule'},
             {path: 'steps', loadChildren: './components/steps/stepsdemo.module#StepsDemoModule'},
+            {path: 'support', loadChildren: './components/support/support.module#SupportModule'},
             {path: 'tabmenu', loadChildren: './components/tabmenu/tabmenudemo.module#TabMenuDemoModule'},
             {path: 'tabview', loadChildren: './components/tabview/tabviewdemo.module#TabViewDemoModule'},
             {path: 'terminal', loadChildren: './components/terminal/terminaldemo.module#TerminalDemoModule'},

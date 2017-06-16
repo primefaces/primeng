@@ -15,6 +15,8 @@
             <li class="topbar-menu-themes">
                 <a href="#">THEMES</a>
                 <ul>
+                    <li class="topbar-submenu-header">THEMING</li>
+                    <li><a [routerLink]="['./theming']">Guide</a></li>
                     <li class="topbar-submenu-header">PREMIUM</li>
                     <li><a href="http://www.primefaces.org/layouts/paradise-ng"><img src="assets/showcase/images/themeswitcher-paradise.png" alt="Paradise Template"><span class="ui-text">Paradise</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima Template"><span class="ui-text">Ultima</span></a></li>
@@ -25,8 +27,8 @@
                     <li><a href="http://www.primefaces.org/layouts/omega-ng"><img src="assets/showcase/images/themeswitcher-omega.png" alt="Omega Template"><span class="ui-text">Omega</span></a></li>
                     <li class="topbar-submenu-header" style="margin-top:16px">FREE</li>
                     <li><a href="#" (click)="changeTheme($event, 'omega')"><span class="ui-text">Omega</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, $event, $event, 'bootstrap')"><span class="ui-text">Bootstrap</span></a></li>
-                    <li><a href="#" (click)="changeTheme($event, $event, 'cupertino')"><span class="ui-text">Cupertino</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'bootstrap')"><span class="ui-text">Bootstrap</span></a></li>
+                    <li><a href="#" (click)="changeTheme($event, 'cupertino')"><span class="ui-text">Cupertino</span></a></li>
                     <li><a href="#" (click)="changeTheme($event, 'cruze')"><span class="ui-text">Cruze</span></a></li>
                     <li><a href="#" (click)="changeTheme($event, 'darkness')"><span class="ui-text">Darkness</span></a></li>
                     <li><a href="#" (click)="changeTheme($event, 'flick')"><span class="ui-text">Flick</span></a></li>
@@ -44,7 +46,7 @@
                 </ul>
             </li>
             <li>
-                <a href="http://forum.primefaces.org/viewforum.php?f=35">FORUM</a>
+                <a [routerLink]="['/support']">SUPPORT</a>
             </li>
         </ul>
     </div>
@@ -77,7 +79,7 @@
                 <a [routerLink]="['/spinner']" (click)="menuActive = false">&#9679; Spinner</a>
                 <a [routerLink]="['/selectbutton']" (click)="menuActive = false">&#9679; SelectButton</a>
                 <a [routerLink]="['/togglebutton']" (click)="menuActive = false">&#9679; ToggleButton</a>
-                <a [routerLink]="['/tristatecheckbox']" (click)="menuActive = false">&#9679; TriStateCheckbox</a>
+                <a [routerLink]="['/tristatecheckbox']" (click)="menuActive = false">&#9679; TriCheckbox</a>
             </div>
 
             <a id="button_menutitle" #buttonmenutitle [class.active-menuitem]="buttonmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === buttonmenutitle.id ? null : buttonmenutitle.id)">
@@ -225,7 +227,6 @@
                 <a [routerLink]="['/captcha']" (click)="menuActive = false">&#9679; Captcha</a>
                 <a [routerLink]="['/inplace']" (click)="menuActive = false">&#9679; Inplace</a>
                 <a [routerLink]="['/validation']" (click)="menuActive = false">&#9679; Validation</a>
-                <a [routerLink]="['/theming']" (click)="menuActive = false">&#9679; Theming</a>
                 <a [routerLink]="['/progressbar']" (click)="menuActive = false">&#9679; ProgressBar</a>
                 <a [routerLink]="['/codehighlighter']" (click)="menuActive = false">&#9679; CodeHighlighter</a>
                 <a [routerLink]="['/terminal']" (click)="menuActive = false">&#9679; Terminal</a>

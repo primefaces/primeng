@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <h3 style="margin-top:0px">Download</h3>
     <p>PrimeNG is available at npm, if you have an existing application run the following command to download it to your project.</p>
 <pre>
@@ -40,12 +40,12 @@ import &#123;MenuItem&#125; from 'primeng/components/common/api';
     <h3>Dependencies</h3>
     <p>Majority of PrimeNG components (95%) are native and there are some exceptions having 3rd party dependencies. In addition, components require font-awesome for icons.</p>
 
-    <p>The css dependencies are as follows, note that you may change the theme with another one of your choice.</p>
+    <p>The css dependencies are as follows, note that font-awesome should be loaded before PrimeNG css and theme can be changed with your choice.</p>
 <pre>
 <code class="language-html" pCode ngNonBindable>
+&lt;link rel="stylesheet" type="text/css" href="YOUR_PATH/font-awesome.min.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/omega/theme.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" /&gt;
-&lt;link rel="stylesheet" type="text/css" href="YOUR_PATH/font-awesome.min.css" /&gt;
 </code>
 </pre>
 

@@ -22,7 +22,7 @@
     </p-dataTable>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -610,10 +610,7 @@ mysort(event) &#123;
 
             <h3>Selection</h3>
             <p>DataTable provides single and multiple selection modes on click of a row. Selected rows are bound to the selection property and onRowSelect-onRowUnselect events
-            are provided as optional callbacks. Alternatively column based selection can be done using radio buttons or checkboxes using selectionMode of a particular column.
-            When resolving if a row is selected, by default DataTable uses deepEquals which traverses all properties of the object thus affects performance as a result so it is suggested to define a dataKey property
-            that uniquely identifies a record to avoid deep object comparison and increase performance. Another alternative is to compare rows by reference using compareSelectionBy property as "equals". See compareSelectionBy
-            in properties section for more information. Depending on your case you may use "equals" and "deepEquals" alternatives.</p>
+            are provided as optional callbacks. Alternatively column based selection can be done using radio buttons or checkboxes using selectionMode of a particular column.</p>
             
             <p>In single mode, selection binding is an object reference.</p>
 <pre>
@@ -688,6 +685,11 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
+
+            <p>When resolving if a row is selected, by default DataTable compares selection array with the datasource which may cause a performance issue with huge datasets that do not use pagination.
+                If available the fastest way is to use dataKey property that identifies a unique row so that DataTable can avoid comparing arrays as internally a map instance is used instead of looping arrays, on the other hand
+                if dataKey cannot be provided consider using compareSelectionBy property as "equals" which uses reference comparison instead of the default deepEquals comparion. Latter is slower since it checks all properties.
+                </p>
 
             <p>See the <a [routerLink]="['/datatable/selection']">live example.</a></p>
 
@@ -765,7 +767,7 @@ export class DataTableDemo implements OnInit &#123;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;
-                    &lt;img src="assets/showcase/images/demo/car/{{car.brand}}-big.gif"&gt;
+                    &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png"&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-9"&gt;
                     &lt;div class="ui-grid ui-grid-responsive ui-grid-pad"&gt;
@@ -1616,6 +1618,10 @@ update(dt: DataTable) &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;

@@ -16,7 +16,7 @@
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
         <ng-template let-brand pTemplate="item">
             <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
-                <img src="assets/showcase/images/demo/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
+                <img src="assets/showcase/images/demo/car/{{brand}}.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
                 <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
             </div>
         </ng-template>
@@ -32,7 +32,7 @@
     </ul>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -169,7 +169,7 @@ export class AutoCompleteDemo &#123;
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
     &lt;ng-template let-brand pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;img src="assets/showcase/images/demo/car/{{brand}}.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;&#123;&#123;brand&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -393,6 +393,11 @@ export class AutoCompleteDemo &#123;
                             </td>
                             <td>Callback to invoke to when dropdown button is clicked.</td>
                         </tr>
+                        <tr>
+                            <td>onClear</td>
+                            <td>event: browser event</td>
+                            <td>Callback to invoke to when inpu field is cleared.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -445,6 +450,10 @@ export class AutoCompleteDemo &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/autocomplete" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
@@ -457,7 +466,7 @@ export class AutoCompleteDemo &#123;
     [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)"&gt;
     &lt;ng-template let-brand pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5"&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{brand}}.gif" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;img src="assets/showcase/images/demo/car/{{brand}}.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;{{brand}}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;

@@ -66,14 +66,7 @@
         <p-column field="size" header="Size"></p-column>
         <p-column field="type" header="Type"></p-column>
     </p-treeTable>
-    
-    <p-treeTable [value]="files7" resizableColumns="true" [style]="{'margin-top':'50px'}">
-        <p-header>Resizable Columns</p-header>
-        <p-column field="name" header="Name"></p-column>
-        <p-column field="size" header="Size"></p-column>
-        <p-column field="type" header="Type"></p-column>
-    </p-treeTable>
-        
+            
     <p-contextMenu #cm [model]="items"></p-contextMenu>
     
     <p-treeTable [value]="lazyFiles" [style]="{'margin-top':'50px'}"
@@ -85,7 +78,7 @@
     </p-treeTable>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -492,33 +485,6 @@ export class TreeTableDemoComponent implements OnInit &#123;
 
             <p>Selection of a particular node can be disabled by setting the selectable property of the node to false.</p>
             
-            <h3>Column Resize</h3>
-            <p>Columns can be resized using drag drop by setting the resizableColumns to true. There are two resize modes; "fit" and "expand". Fit is the default one and 
-            the overall table width does not change when a column is resized. In "expand" mode, table width also changes along with the column width. onColumnResize
-            is a callback that passes the resized column header as a parameter.</p>
-            
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-treeTable [value]="files" [resizableColumns]="true"&gt;
-    &lt;p-header&gt;Resizable Columns&lt;/p-header&gt;
-    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
-    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
-    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
-&lt;/p-treeTable&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-treeTable [value]="files" [resizableColumns]="true" columnResizeMode="expand"&gt;
-    &lt;p-header&gt;Resizable Columns&lt;/p-header&gt;
-    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
-    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
-    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
-&lt;/p-treeTable&gt;
-</code>
-</pre>
-            
             <h3>ContextMenu</h3>
             <p>TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a treetable, define a local template
             variable for the menu and bind it to the contextMenu property of the treetable. This enables showing the menu whenever a row is right clicked.</p>
@@ -697,18 +663,6 @@ export class TreeTableDemoComponent implements OnInit &#123;
                             <td>A single treenode instance or an array to refer to the selections.</td>
                         </tr>
                         <tr>
-                            <td>resizableColumns</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When enabled, columns can be resized using drag and drop.</td>
-                        </tr>
-                        <tr>
-                            <td>columnResizeMode</td>
-                            <td>string</td>
-                            <td>fit</td>
-                            <td>Defines whether the overall table width should change on column resize, valid values are "fit" and "expand".</td>
-                        </tr>
-                        <tr>
                             <td>style</td>
                             <td>string</td>
                             <td>null</td>
@@ -778,12 +732,6 @@ export class TreeTableDemoComponent implements OnInit &#123;
                                 event.node: Selected node instance.</td>
                             <td>Callback to invoke when a node is selected with right click.</td>
                         </tr>
-                        <tr>
-                            <td>onColResize</td>
-                            <td>event.element: Resized column header <br>
-                                event.delta: Change of width in number of pixels</td>
-                            <td>Callback to invoke when a column is resized.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -824,6 +772,10 @@ export class TreeTableDemoComponent implements OnInit &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
@@ -887,13 +839,6 @@ export class TreeTableDemoComponent implements OnInit &#123;
     &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
 &lt;/p-treeTable&gt;
 
-&lt;p-treeTable [value]="files7" [resizableColumns]="true"&gt;
-    &lt;p-header&gt;Resizable Columns&lt;/p-header&gt;
-    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
-    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
-    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
-&lt;/p-treeTable&gt;
-
 &lt;p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'50px'&#125;"
     (onNodeExpand)="nodeExpand($event)"&gt;
     &lt;p-header&gt;Lazy Loading&lt;/p-header&gt;
@@ -921,9 +866,7 @@ export class TreeTableDemo implements OnInit &#123;
     files5: TreeNode[];
     
     files6: TreeNode[];
-    
-    files7: TreeNode[];
-        
+            
     lazyFiles: TreeNode[];
         
     selectedFile: TreeNode;
@@ -945,7 +888,6 @@ export class TreeTableDemo implements OnInit &#123;
         this.nodeService.getFilesystem().then(files => this.files4 = files);
         this.nodeService.getFilesystem().then(files => this.files5 = files);
         this.nodeService.getFilesystem().then(files => this.files6 = files);
-        this.nodeService.getFilesystem().then(files => this.files7 = files);
         this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
         
         this.items = [
