@@ -107,7 +107,7 @@ body {
     text-decoration: none;
     color: #ffffff;
     transition: background-color .3s;
-    min-width: 100px;
+    min-width: 120px;
     display: inline-block;
     text-align: center;
     box-sizing: border-box;
@@ -562,6 +562,7 @@ body {
     .topbar-menu > li > a {
         padding-bottom: 0;
         line-height: 40px;
+        min-width: 100px;
     }
     
     .topbar-menu > li.topbar-menu-themes > ul {
@@ -610,6 +611,15 @@ body {
     
     .home .testimonials > div {
         width: 100%;
+    }
+    
+    .support .support-image {
+        text-align: center;
+    }
+
+    .support .support-image .ui-md-6:last-child {
+        text-align: center;
+        padding-top: 2em;
     }
 }
 
@@ -874,8 +884,12 @@ a {
     color: #ffffff;
 }
 
-.support-image {
-    text-align: center;
+.support-image .ui-md-6:last-child {
+    text-align: right;
+}
+
+.support li {
+    line-height: 1.5;
 }
 
 .home .prosupport p {
