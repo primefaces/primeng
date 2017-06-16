@@ -46,7 +46,9 @@ testem.log
 .angular-cli.json
 tsconfig.json
 tsconfig-release.json
+tsconfig-aot.json
 tslint.json
+gulpfile.js
 
 # System Files
 .DS_Store
