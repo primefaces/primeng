@@ -65,6 +65,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     @Input() formatInput: boolean = true;
             
+    @ViewChild('in') inputViewChild: ElementRef;
+
     value: number;
     
     valueAsString: string = '';
@@ -251,10 +253,10 @@ export class Spinner implements OnInit,ControlValueAccessor {
             if(this.formatInput) {
                 textValue = textValue.replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
             }
-            this.valueAsString = textValue;
+            this.inputViewChild.nativeElement.value = textValue;
         }
         else {
-            this.valueAsString = '';
+            this.inputViewChild.nativeElement.value = '';
         }
     }
     
