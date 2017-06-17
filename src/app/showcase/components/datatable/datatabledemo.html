@@ -688,7 +688,7 @@ export class DataTableDemo implements OnInit &#123;
 
             <p>When resolving if a row is selected, by default DataTable compares selection array with the datasource which may cause a performance issue with huge datasets that do not use pagination.
                 If available the fastest way is to use dataKey property that identifies a unique row so that DataTable can avoid comparing arrays as internally a map instance is used instead of looping arrays, on the other hand
-                if dataKey cannot be provided consider using compareSelectionBy property as "equals" which uses reference comparison instead of the default deepEquals comparion. Latter is slower since it checks all properties.
+                if dataKey cannot be provided consider using compareSelectionBy property as "equals" which uses reference comparison instead of the default "deepEquals" comparison. Latter is slower since it checks all properties.
                 </p>
 
             <p>See the <a [routerLink]="['/datatable/selection']">live example.</a></p>
