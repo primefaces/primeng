@@ -1325,6 +1325,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>deepEquals</td>
                             <td>Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.</td>
                         </tr>
+                        <tr>
+                            <td>first</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Index of the first row to be displayed. It supports two-way binding so that model value can be updated on pagination as well.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1471,6 +1477,11 @@ export class DataTableDemo implements OnInit &#123;
                             <td>event.originalEvent: Browser event<br>
                                 group: Value of the group.</td>
                             <td>Callback to invoke when a row group is collapsed.</td>
+                        </tr>
+                        <tr>
+                            <td>firstChange</td>
+                            <td>first: Index of the first row</td>
+                            <td>Callback to invoke when first property is changed.</td>
                         </tr>
                     </tbody>
                 </table>
