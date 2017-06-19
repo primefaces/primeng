@@ -83,11 +83,14 @@ export class RowExpansionLoader {
     
     @Input() rowData: any;
     
+    @Input() rowIndex: any;
+    
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
         let view = this.viewContainer.createEmbeddedView(this.template, {
-            '\$implicit': this.rowData
+            '\$implicit': this.rowData,
+            'rowIndex': this.rowIndex
         });
     }
 }
@@ -192,7 +195,7 @@ export class ColumnFooters {
             </tr>
             <tr *ngIf="dt.expandableRows && dt.isRowExpanded(rowData)">
                 <td [attr.colspan]="dt.visibleColumns().length">
-                    <p-rowExpansionLoader [rowData]="rowData" [template]="dt.rowExpansionTemplate"></p-rowExpansionLoader>
+                    <p-rowExpansionLoader [rowData]="rowData" [rowIndex]="rowIndex" [template]="dt.rowExpansionTemplate"></p-rowExpansionLoader>
                 </td>
             </tr>
         </ng-template>
