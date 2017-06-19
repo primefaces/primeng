@@ -9,7 +9,7 @@
     <p-tabMenu [model]="items"></p-tabMenu>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -34,7 +34,7 @@ import &#123;TabMenuModule,MenuItem&#125; from 'primeng/primeng';
 <code class="language-typescript" pCode ngNonBindable>
 export class TabMenuDemo &#123;
     
-    private items: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [
@@ -61,9 +61,9 @@ export class TabMenuDemo &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class TabMenuDemo &#123;
     
-    private items: MenuItem[];
+    items: MenuItem[];
     
-    private activeItem: MenuItem;
+    activeItem: MenuItem;
 
     ngOnInit() &#123;
         this.items = [
@@ -164,6 +164,10 @@ export class TabMenuDemo &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tabmenu" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tabMenu [model]="items"&gt;&lt;/p-tabMenu&gt;
@@ -174,7 +178,7 @@ export class TabMenuDemo &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class TabMenuDemo &#123;
     
-    private items: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [

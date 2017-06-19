@@ -28,13 +28,7 @@ export class PrimeTemplate {
     constructor(public template: TemplateRef<any>) {}
     
     getType(): string {
-        if(this.type) {
-            console.log('Defining a pTemplate with type property is deprecated use pTemplate="type" instead.');
-            return this.type;
-        }
-        else {
-            return this.name;
-        }
+        return this.name;
     }
 }
 

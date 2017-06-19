@@ -125,7 +125,14 @@
 
 .ui-datatable .ui-paginator {
     padding: .125em;
-    border-top: 0 none;
+}
+
+.ui-datatable .ui-paginator-top {
+    border-bottom-width: 0;
+}
+
+.ui-datatable .ui-paginator-bottom {
+    border-top-width: 0;
 }
 
 .ui-datatable-rtl {
