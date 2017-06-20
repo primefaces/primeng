@@ -50,7 +50,7 @@
 .ui-picklist .ui-picklist-filter-container {
     position: relative;
     width: 100%;
-    padding: .5em .7em;
+    padding: .5em .6em;
     border-bottom: 0 none;
 }
 
@@ -107,6 +107,16 @@
 .ui-picklist-outline {
     outline: 1px dotted black;
     z-index: 1;
+}
+
+.ui-picklist .ui-picklist-droppoint {
+    height: 6px;
+    list-style-type: none;
+}
+
+.ui-picklist .ui-picklist-list .ui-picklist-droppoint-empty {
+    height: 100%;
+    list-style-type: none;
 }
 
 .ui-picklist-list.ui-picklist-source,

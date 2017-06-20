@@ -50,6 +50,9 @@ import {RouterModule} from '@angular/router';
                         </div>
                     </li>
                 </ng-template>
+                <li class="ui-menuitem ui-menuitem-custom ui-widget ui-corner-all" *ngIf="orientation === 'horizontal'">
+                    <ng-content></ng-content>
+                </li>
             </ul>
         </div>
     `,

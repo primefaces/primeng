@@ -13,7 +13,7 @@
     <p-megaMenu [model]="items" orientation="vertical"></p-megaMenu>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -38,7 +38,7 @@ import &#123;MegaMenuModule&#125; from 'primeng/primeng';
 <code class="language-typescript" pCode ngNonBindable>
     export class MegaMenuDemo &#123;
 
-        private items: MenuItem[];
+        items: MenuItem[];
 
         ngOnInit() &#123;
             this.items = [
@@ -108,6 +108,19 @@ import &#123;MegaMenuModule&#125; from 'primeng/primeng';
     &#125;
 </code>
 </pre>
+
+<h3>Custom Content</h3>
+<p>Custom content can be placed between p-megaMenu tags. Megamenu should be horizontal for custom content.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-megaMenu [model]="items"&gt;
+    &lt;input type="text" pInputText placeholder="Search"&gt;
+    &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+&lt;/p-megaMenu&gt;
+</code>
+</pre>
+
 
 <h3>Properties</h3>
 <div class="doc-tablewrapper">
@@ -193,6 +206,10 @@ import &#123;MegaMenuModule&#125; from 'primeng/primeng';
 </p-tabPanel>
 
 <p-tabPanel header="Source">
+    <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/megamenu" class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+    </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-megaMenu [model]="items"&gt;&lt;/p-megaMenu&gt;
@@ -203,7 +220,7 @@ import &#123;MegaMenuModule&#125; from 'primeng/primeng';
 <code class="language-typescript" pCode ngNonBindable>
 export class MegaMenuDemo &#123;
 
-    private items: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [

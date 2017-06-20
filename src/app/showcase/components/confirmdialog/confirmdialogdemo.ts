@@ -14,7 +14,7 @@ export class ConfirmDialogDemo {
 
     confirm1() {
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to perform this action?',
+            message: 'Are you sure that you want to proceed?',
             header: 'Confirmation',
             icon: 'fa fa-question-circle',
             accept: () => {

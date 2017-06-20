@@ -59,7 +59,9 @@ export class ResponsiveDemo implements OnInit {
     items2: MenuItem[];
     
     splitMenuItems: MenuItem[];
-
+    
+    country: any;
+    
     showDialog() {
         this.display = true;
     }

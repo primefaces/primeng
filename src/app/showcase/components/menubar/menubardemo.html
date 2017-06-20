@@ -6,10 +6,13 @@
 </div>
 
 <div class="content-section implementation">
-    <p-menubar [model]="items"></p-menubar>
+    <p-menubar [model]="items">
+        <input type="text" pInputText placeholder="Search">
+        <button pButton label="Logout" icon="fa-sign-out"></button>
+    </p-menubar>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -34,7 +37,7 @@ import &#123;MenubarModule,MenuItem&#125; from 'primeng/primeng';
 <code class="language-typescript" pCode ngNonBindable>
 export class MenubarDemo &#123;
 
-    private items: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [
@@ -63,6 +66,18 @@ export class MenubarDemo &#123;
         ];
     &#125;
 &#125;
+</code>
+</pre>
+
+<h3>Custom Content</h3>
+<p>Custom content can be placed between p-menubar tags.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-menubar [model]="items"&gt;
+    &lt;input type="text" pInputText placeholder="Search"&gt;
+    &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+&lt;/p-menubar&gt;
 </code>
 </pre>
 
@@ -144,9 +159,16 @@ export class MenubarDemo &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/menubar" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-menubar [model]="items"&gt;&lt;/p-menubar&gt;
+&lt;p-menubar [model]="items"&gt;
+    &lt;input type="text" pInputText placeholder="Search"&gt;
+    &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+&lt;/p-menubar&gt;
 </code>
 </pre>
 
@@ -154,7 +176,7 @@ export class MenubarDemo &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class MenubarDemo &#123;
 
-    private items: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [

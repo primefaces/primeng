@@ -48,6 +48,7 @@ __export(require("./components/menubar/menubar"));
 __export(require("./components/messages/messages"));
 __export(require("./components/multiselect/multiselect"));
 __export(require("./components/orderlist/orderlist"));
+__export(require("./components/organizationchart/organizationchart"));
 __export(require("./components/overlaypanel/overlaypanel"));
 __export(require("./components/paginator/paginator"));
 __export(require("./components/panel/panel"));

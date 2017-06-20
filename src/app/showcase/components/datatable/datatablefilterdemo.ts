@@ -14,6 +14,8 @@ export class DataTableFilterDemo implements OnInit {
     
     colors: SelectItem[];
     
+    yearFilter: number;
+    
     constructor(private carService: CarService) {}
 
     ngOnInit() {
