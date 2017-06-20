@@ -13,7 +13,7 @@
         <ng-template let-car pTemplate="item">
             <div class="ui-grid ui-grid-responsive">
                 <div class="ui-grid-row">
-                    <div class="ui-grid-col-12"><img src="assets/showcase/images/demo/car/{{car.brand}}.gif" /></div>
+                    <div class="ui-grid-col-12"><img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"></div>
                 </div>
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-6">Vin</div>
@@ -37,7 +37,7 @@
     </p-carousel>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -271,6 +271,10 @@ import &#123;CarouselModule&#125; from 'primeng/primeng';
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/carousel" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
@@ -279,7 +283,7 @@ import &#123;CarouselModule&#125; from 'primeng/primeng';
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-grid ui-grid-responsive"&gt;
             &lt;div class="ui-grid-row"&gt;
-                &lt;div class="ui-grid-col-12"&gt;&lt;img src="assets/showcase/images/demo/car/{{car.brand}}.gif" /&gt;&lt;/div&gt;
+                &lt;div class="ui-grid-col-12"&gt;&lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"&gt;&lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-6"&gt;Vin&lt;/div&gt;

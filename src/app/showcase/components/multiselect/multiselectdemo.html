@@ -12,37 +12,37 @@
 
 <div class="content-section implementation">
     <p-multiSelect [options]="cities" [(ngModel)]="selectedCity">
-        <template let-city pTemplate="item">
-            ({{ city.value.code }}) {{ city.value.name }}<br />
-            {{ city.value.country }}<br />
-            {{ city.value.timezone }}
-        </template>
+        <ng-template let-city pTemplate="item">
+            ({{ city.value.code }}) {{ city.value.name }}<br /> {{ city.value.country }}<br /> {{ city.value.timezone }}
+        </ng-template>
     </p-multiSelect>
     <p>Selected Cities:
-        <template ngFor let-item let-last="last" [ngForOf]="selectedCity">{{item.name}}<template [ngIf]="last==false">, </template></template>
+        <ng-template ngFor let-item let-last="last" [ngForOf]="selectedCity">{{item.name}}
+            <ng-template [ngIf]="last==false">, </ng-template>
+        </ng-template>
     </p>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;MultiSelectModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Two-way value binding is defined using ngModel and multiselect requires a collection of options
-                where each option should follow the SelectItem interface that defines label-value properties.</p>
-<pre>
+            <p>Two-way value binding is defined using ngModel and multiselect requires a collection of options where each option
+                should follow the SelectItem interface that defines label-value properties.</p>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng';
 
@@ -67,7 +67,7 @@ export class MyModel &#123;
 
             <h3>Model Driven Forms</h3>
             <p>MultiSelect can be used in a model driven form as well.</p>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;&lt;/p-multiSelect&gt;
 </code>
@@ -113,7 +113,8 @@ export class MyModel &#123;
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable
+                                of another element.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -258,26 +259,31 @@ export class MyModel &#123;
 
         <p-tabPanel header="Source">
             <pre>
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/multiselect" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+        <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars"&gt;&lt;/p-multiSelect&gt;
 
 &lt;p&gt;Selected Cars: {{selectedCars}}&lt;/p&gt;
 
 &lt;p-multiSelect [options]="cities" [(ngModel)]="selectedCity"&gt;
-    &lt;template let-city pTemplate="item"&gt;
+    &lt;ng-template let-city pTemplate="item"&gt;
         ({{ city.value.code }}) {{ city.value.name }}&lt;br /&gt;
         {{ city.value.country }}&lt;br /&gt;
         {{ city.value.timezone }}
-    &lt;/template&gt;
+    &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
 &lt;p&gt;Selected Cities:
-    &lt;template ngFor let-item let-last="last" [ngForOf]="selectedCity"&gt;{{item.name}}&lt;template [ngIf]="last==false"&gt;, &lt;/template&gt;&lt;/template&gt;
+    &lt;ng-template ngFor let-item let-last="last" [ngForOf]="selectedCity"&gt;{{item.name}}&lt;ng-template [ngIf]="last==false"&gt;, &lt;/ng-template&gt;&lt;/ng-template&gt;
 &lt;/p&gt;
 
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class MultiSelectDemo &#123;
 

@@ -6,7 +6,7 @@ import {MenuItem} from '../../../components/common/api';
 })
 export class BreadcrumbDemo implements OnInit {
 
-    private items: MenuItem[];
+    items: MenuItem[];
     
     ngOnInit() {
         this.items = [];

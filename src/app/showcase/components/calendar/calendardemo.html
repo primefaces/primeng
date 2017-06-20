@@ -52,7 +52,7 @@
     <p-calendar [(ngModel)]="date9" [inline]="true"></p-calendar> 
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -460,6 +460,12 @@ export class MyModel &#123;
                             <td>Callback to invoke on focus of input field.</td>
                         </tr>
                         <tr>
+                            <td>onClose</td>
+                            <td>event: Close event
+                            </td>
+                            <td>Callback to invoke when datepicker panel is closed.</td>
+                        </tr>
+                        <tr>
                             <td>onInput</td>
                             <td>event: Input event
                             </td>
@@ -497,6 +503,10 @@ export class MyModel &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/calendar" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-g"&gt;

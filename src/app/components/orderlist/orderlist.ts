@@ -23,8 +23,8 @@ import {ObjectUtils} from '../utils/objectutils';
                 </div>
                 <ul #listelement class="ui-widget-content ui-orderlist-list ui-corner-bottom" [ngStyle]="listStyle" (dragover)="onListMouseMove($event)">
                     <ng-template ngFor let-item [ngForOf]="value" let-i="index" let-l="last">
-                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
-                            [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}" [style.display]="isItemVisible(item) ? 'block' : 'none'"></li>
+                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop && isItemVisible(item)" (dragover)="onDragOver($event, i)" (drop)="onDrop($event, i)" (dragleave)="onDragLeave($event)" 
+                            [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}"></li>
                         <li class="ui-orderlist-item"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
                             (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)"
@@ -32,7 +32,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                         </li>
-                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)" 
+                        <li class="ui-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)" 
                             [ngClass]="{'ui-state-highlight': (i + 1 === dragOverItemIndex)}"></li>
                     </ng-template>
                 </ul>
@@ -330,7 +330,8 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     onDrop(event: DragEvent, index: number) {
-        this.objectUtils.reorderArray(this.value, this.draggedItemIndex, this.draggedItemIndex > index ? index : index - 1);
+        let dropIndex = (this.draggedItemIndex > index) ? index : (index === 0) ? 0 : index - 1;
+        this.objectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
         this.dragOverItemIndex = null;
     }
     

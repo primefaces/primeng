@@ -96,8 +96,8 @@
     display: block;
 }
 
-.ui-fileupload-simple .ui-fileupload-filename {
-    margin-left: 0.5em;
+.ui-fileupload-simple.ui-fileupload-simple-selected input[type=file] {
+    display: none;
 }
 
 /* ui-fluid */

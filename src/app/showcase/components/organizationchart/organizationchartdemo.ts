@@ -27,17 +27,17 @@ import {Message,TreeNode} from '../../../components/common/api';
             border-radius: 50%;
         }
         
-        .department-cfo {
+        .ui-organizationchart-node-content.department-cfo {
             background-color: #7247bc;
             color: #ffffff;
         }
         
-        .department-coo {
+        .ui-organizationchart-node-content.department-coo {
             background-color: #a534b6;
             color: #ffffff;
         }
         
-        .department-cto {
+        .ui-organizationchart-node-content.department-cto {
             background-color: #e9286f;
             color: #ffffff;
         }
@@ -58,7 +58,7 @@ export class OrganizationChartDemo implements OnInit {
     
     data2: TreeNode[];
     
-    selectedNodes: TreeNode;
+    selectedNode: TreeNode;
     
     messages: Message[];
     
