@@ -109,6 +109,19 @@ import &#123;MegaMenuModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
+<h3>Custom Content</h3>
+<p>Custom content can be placed between p-megaMenu tags. Megamenu should be horizontal for custom content.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-megaMenu [model]="items"&gt;
+    &lt;input type="text" pInputText placeholder="Search"&gt;
+    &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+&lt;/p-megaMenu&gt;
+</code>
+</pre>
+
+
 <h3>Properties</h3>
 <div class="doc-tablewrapper">
     <table class="doc-table">
