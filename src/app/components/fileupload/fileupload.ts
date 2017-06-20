@@ -119,7 +119,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
      
-    public files: File[];
+    @Input() files: File[];
     
     public progress: number = 0;
     
