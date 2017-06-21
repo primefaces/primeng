@@ -117,11 +117,13 @@ body .ui-button {
     transition: background-color 0.3s;
 }
 body .ui-button:focus,
-body .ui-button:enabled:hover {
+body .ui-button:enabled:hover,
+body .ui-button:not(.ui-state-disabled):hover {
     outline: 0 none;
     background-color: #0267bf;
 }
-body .ui-button:enabled:active {
+body .ui-button:enabled:active,
+body .ui-button:not(.ui-state-disabled):active {
     background-color: #025aa5;
     -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);

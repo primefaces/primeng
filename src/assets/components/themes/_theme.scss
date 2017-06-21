@@ -181,12 +181,15 @@
 }
 
 .ui-button:focus,
-.ui-button:enabled:hover {
+.ui-button:enabled:hover,
+.ui-button.ui-state-focus,
+.ui-button:not(.ui-state-disabled):hover {
     outline: 0 none;
     @include hover-element();
 }
 
-.ui-button:enabled:active {
+.ui-button:enabled:active,
+.ui-button.ui-state-active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
     color: $stateActiveTextColor;

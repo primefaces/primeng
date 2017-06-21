@@ -177,6 +177,7 @@ $invalidInputBorderColor: #f44336;
 
 .ui-widget-header .ui-button,		
 .ui-widget-content .ui-button,
+.ui-widget.ui-button,
 .ui-button {
 	border: 1px solid #2399e5;
 	color: #FFFFFF;
@@ -186,6 +187,8 @@ $invalidInputBorderColor: #f44336;
     transition: background-color .2s;
     
     &:enabled:hover,
+    &.ui-state-focus,
+    &:not(.ui-state-disabled):hover,
     &:focus {
         border: 1px solid #1f89ce;
     	background: #1f89ce;
@@ -193,7 +196,8 @@ $invalidInputBorderColor: #f44336;
         color: #ffffff;
     }
     
-    &:enabled:active {
+    &:enabled:active,
+    &:not(.ui-state-disabled):active {
         border: 1px solid #156090;
     	background: #186ba0;
         color: #ffffff,
