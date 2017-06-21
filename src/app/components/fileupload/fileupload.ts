@@ -12,9 +12,9 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <button type="button" [label]="chooseLabel" icon="fa-plus" pButton class="ui-fileupload-choose" (click)="onChooseClick($event, fileinput)" [disabled]="disabled"> 
-                    <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled">
-                </button>
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton  [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}" [attr.disabled]="disabled" > 
+                    <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
+                </span>
 
                 <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
                 <button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
@@ -43,13 +43,13 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                 <p-templateLoader [template]="contentTemplate"></p-templateLoader>
             </div>
         </div>
-        <span class="ui-fileupload-simple ui-widget" *ngIf="mode === 'basic'" [ngClass]="{'ui-fileupload-simple-selected': hasFiles()}">
-            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" (click)="onSimpleUploaderClick($event)">
-                <span class="ui-button-icon-left fa" [ngClass]="{'fa-plus': !hasFiles()||auto, 'fa-upload': hasFiles()&&!auto}"></span>
-                <span class="ui-button-text ui-c">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
-                <input type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" tabindex="-1" 
-                    (change)="onFileSelect($event)" *ngIf="!hasFiles()">
-            </button>
+        <span class="ui-button ui-fileupload-choose ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" *ngIf="mode === 'basic'" 
+        (mouseup)="onSimpleUploaderClick($event)"
+        [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}">
+            <span class="ui-button-icon-left fa" [ngClass]="{'fa-plus': !hasFiles()||auto, 'fa-upload': hasFiles()&&!auto}"></span>
+            <span class="ui-button-text ui-c">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
+            <input type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
+                (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
     `
 })
@@ -131,7 +131,9 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     public contentTemplate: TemplateRef<any>; 
     
-    public toolbarTemplate: TemplateRef<any>; 
+    public toolbarTemplate: TemplateRef<any>;
+    
+    focus: boolean;
         
     constructor(private sanitizer: DomSanitizer){}
     
@@ -342,6 +344,14 @@ export class FileUpload implements OnInit,AfterContentInit {
             
             this.onFileSelect(e);
         }
+    }
+    
+    onFocus() {
+        this.focus = true;
+    }
+    
+    onBlur() {
+        this.focus = false;
     }
     
     formatSize(bytes) {
