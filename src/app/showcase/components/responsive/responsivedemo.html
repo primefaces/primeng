@@ -81,7 +81,7 @@
                     Listbox
                 </div>
                 <div class="ui-g-8">
-                    <p-listbox [options]="options" [(ngModel)]="selectedOptions"></p-listbox>
+                    <p-listbox [options]="options" [(ngModel)]="selectedOption"></p-listbox>
                 </div>
             </div>
             <div class="ui-g-12 ui-md-6">
@@ -268,7 +268,7 @@
             Listbox
         &lt;/div&gt;
         &lt;div class="ui-g-8"&gt;
-            &lt;p-listbox [options]="options" [(ngModel)]="selectedOptions"&gt;&lt;/p-listbox&gt;
+            &lt;p-listbox [options]="options" [(ngModel)]="selectedOption"&gt;&lt;/p-listbox&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="ui-g-12 ui-md-6"&gt;
@@ -417,7 +417,9 @@ export class ResponsiveDemo implements OnInit &#123;
     items2: MenuItem[];
     
     splitMenuItems: MenuItem[];
-
+    
+    country: any;
+    
     showDialog() &#123;
         this.display = true;
     &#125;

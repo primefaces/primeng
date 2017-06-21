@@ -757,6 +757,21 @@ body .ui-datepicker table td a.ui-state-active {
 body .ui-datepicker .ui-datepicker-calendar td:not(.ui-state-disabled) a:hover {
     background-color: #f4f3f4;
 }
+body .ui-organizationchart .ui-organizationchart-line-down{
+    background-color: #bcbcbc;
+}
+body .ui-organizationchart .ui-organizationchart-line-left{
+    border-right: 1px solid #bcbcbc;
+}
+body .ui-organizationchart .ui-organizationchart-line-top{
+    border-top: 1px solid #bcbcbc;
+}
+body .ui-organizationchart .ui-organizationchart-node-content{
+    border-color: #bcbcbc;
+}
+body .ui-organizationchart .ui-organizationchart-node-content .ui-node-toggler{
+    color: #bcbcbc;
+}
 body .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
     -moz-border-radius-topleft: 0;
     -webkit-border-top-left-radius: 0;

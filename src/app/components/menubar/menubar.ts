@@ -29,6 +29,9 @@ import {RouterModule} from '@angular/router';
                     <p-menubarSub class="ui-submenu" [item]="child" *ngIf="child.items"></p-menubarSub>
                 </li>
             </ng-template>
+            <li class="ui-menuitem ui-menuitem-custom ui-widget ui-corner-all">
+                <ng-content></ng-content>
+            </li>
         </ul>
     `,
     providers: [DomHandler]
@@ -105,7 +108,9 @@ export class MenubarSub {
     template: `
         <div [ngClass]="{'ui-menubar ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true}" 
             [class]="styleClass" [ngStyle]="style">
-            <p-menubarSub [item]="model" root="root"></p-menubarSub>
+            <p-menubarSub [item]="model" root="root">
+                <ng-content></ng-content>
+            </p-menubarSub>
         </div>
     `,
     providers: [DomHandler]

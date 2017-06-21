@@ -9,7 +9,7 @@ src
 
 # test
 e2e
-karmaconf.js
+karma.conf.js
 protractor.conf.js
 
 # dependencies
@@ -46,7 +46,10 @@ testem.log
 .angular-cli.json
 tsconfig.json
 tsconfig-release.json
+tsconfig-aot.json
 tslint.json
+gulpfile.js
+.github
 
 # System Files
 .DS_Store

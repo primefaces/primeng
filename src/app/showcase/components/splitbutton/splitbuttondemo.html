@@ -88,6 +88,12 @@ import &#123;SplitButtonModule&#125; from 'primeng/primeng';
                             <td>Style class of the overlay menu.</td>
                         </tr>
                         <tr>
+                            <td>appendTo</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
                             <td>disabled</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -127,7 +133,21 @@ import &#123;SplitButtonModule&#125; from 'primeng/primeng';
                     </tbody>
                 </table>
             </div>
+          <h3>Severity</h3>
+          <p>Different color options are available to define severity levels.</p>
 
+          <ul>
+            <li>.ui-button-secondary</li>
+            <li>.ui-button-success</li>
+            <li>.ui-button-info</li>
+            <li>.ui-button-warning</li>
+            <li>.ui-button-danger</li>
+          </ul>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-splitButton label="Save" icon="fa-check" [model]="items" styleClass="ui-button-warning"&gt;&lt;/p-splitButton&gt;
+</code>
+</pre>
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>. SplitButton uses
             button and menu components internally, refer to their documentation for the detailed style list.</p>
