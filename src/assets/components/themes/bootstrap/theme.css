@@ -1722,7 +1722,7 @@ body .ui-dialog {
 }
 body .ui-dialog .ui-dialog-titlebar {
     padding: 1em;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #c7c7c7;
 }
 body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
     margin: 0;
@@ -1748,7 +1748,6 @@ body .ui-dialog .ui-dialog-content {
 body .ui-dialog .ui-dialog-buttonpane {
     padding: 0.375em 0.75em;
     text-align: right;
-    border-top: 1px solid #e5e5e5;
 }
 body .ui-dialog.ui-confirm-dialog .ui-dialog-content > span {
     display: inline-block;
