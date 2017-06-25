@@ -1,12 +1,13 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
+import {AfterViewInit, Component, ContentChild, ElementRef, Input, NgModule, OnDestroy, Renderer2} from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
-import {Header,Footer,SharedModule} from '../common/shared';
+import {Footer, SharedModule} from '../common/shared';
 import {ButtonModule} from '../button/button';
 import {Confirmation} from '../common/confirmation';
 import {ConfirmationService} from '../common/confirmationservice';
-import {Subscription}   from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/Subscription';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
     selector: 'p-confirmDialog',
@@ -84,8 +85,6 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     @Input() key: string;
         
     @ContentChild(Footer) footer;
-    
-    confirmation: Confirmation;
         
     _visible: boolean;
     
@@ -99,27 +98,38 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     
     positionInitialized: boolean;
     
-    subscription: Subscription;
+    acceptEvent?: Subject<any>;
+    
+    rejectEvent?: Subject<any>;
+    
+    $acceptEvent: Subscription;
+    
+    $rejectEvent: Subscription;
+    
+    $subscription: Subscription;
             
     constructor(public el: ElementRef, public domHandler: DomHandler, 
             public renderer: Renderer2, private confirmationService: ConfirmationService) {
-        this.subscription = confirmationService.requireConfirmation$.subscribe(confirmation => {
+        this.$subscription = confirmationService.requireConfirmation$.subscribe(confirmation => {
             if(confirmation.key === this.key) {
-                this.confirmation = confirmation;
-                this.message = this.confirmation.message||this.message;
-                this.icon = this.confirmation.icon||this.icon;
-                this.header = this.confirmation.header||this.header;
-                this.rejectVisible = this.confirmation.rejectVisible == null ? this.rejectVisible : this.confirmation.rejectVisible;
-                this.acceptVisible = this.confirmation.acceptVisible == null ? this.acceptVisible : this.confirmation.acceptVisible;
+                this.message = confirmation.message||this.message;
+                this.icon = confirmation.icon||this.icon;
+                this.header = confirmation.header||this.header;
+                this.rejectVisible = confirmation.rejectVisible == null ? this.rejectVisible : confirmation.rejectVisible;
+                this.acceptVisible = confirmation.acceptVisible == null ? this.acceptVisible : confirmation.acceptVisible;
                 
-                if(this.confirmation.accept) {
-                    this.confirmation.acceptEvent = new EventEmitter();
-                    this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
+                if(confirmation.accept) {
+                    this.acceptEvent = new Subject();
+                    this.$acceptEvent = this.acceptEvent.subscribe(() => {
+                        confirmation.accept.apply(confirmation);
+                    });
                 }
                 
-                if(this.confirmation.reject) {
-                    this.confirmation.rejectEvent = new EventEmitter();
-                    this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
+                if(confirmation.reject) {
+                    this.rejectEvent = new Subject();
+                    this.$rejectEvent = this.rejectEvent.subscribe(() => {
+                        confirmation.reject.apply(confirmation);
+                    });
                 }
 
                 this.visible = true;
@@ -213,8 +223,8 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     }
     
     close(event: Event) {
-        if(this.confirmation.rejectEvent) {
-            this.confirmation.rejectEvent.emit();
+        if(this.rejectEvent) {
+            this.rejectEvent.next();
         }
         
         this.hide();
@@ -244,25 +254,31 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
             document.body.removeChild(this.el.nativeElement);
         }
         
-        this.subscription.unsubscribe();
+        if (this.$acceptEvent) {
+            this.$acceptEvent.unsubscribe();
+        }
+        
+        if (this.$rejectEvent) {
+            this.$rejectEvent.unsubscribe();
+        }
+        
+        this.$subscription.unsubscribe();
     }
     
     accept() {
-        if(this.confirmation.acceptEvent) {
-            this.confirmation.acceptEvent.emit();
+        if(this.acceptEvent) {
+            this.acceptEvent.next();
         }
         
         this.hide();
-        this.confirmation = null;
     }
     
     reject() {
-        if(this.confirmation.rejectEvent) {
-            this.confirmation.rejectEvent.emit();
+        if(this.rejectEvent) {
+            this.rejectEvent.next();
         }
         
         this.hide();
-        this.confirmation = null;
     }
 }
 

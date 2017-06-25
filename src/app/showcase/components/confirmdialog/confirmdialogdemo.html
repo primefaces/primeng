@@ -94,15 +94,27 @@ export class ConfirmDialogDemo &#123;
                         </tr>
                         <tr>
                             <td>accept</td>
-                            <td>Function</td>
+                            <td>Function: () => void</td>
                             <td>null</td>
                             <td>Callback to execute when action is confirmed.</td>
                         </tr>
                         <tr>
                             <td>reject</td>
-                            <td>Function</td>
+                            <td>Function: () => void</td>
                             <td>null</td>
                             <td>Callback to execute when action is rejected.</td>
+                        </tr>
+                        <tr>
+                            <td>acceptVisible</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Flag if the accept button in the custom footer should be visible or not.</td>
+                        </tr>
+                        <tr>
+                            <td>rejectVisible</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Flag if the reject button in the custom footer should be visible or not.</td>
                         </tr>
                     </tbody>
                 </table>
