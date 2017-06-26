@@ -73,6 +73,12 @@
     font-size: .9em;
 }
 
+.ui-autocomplete-token.picked {
+    -webkit-box-shadow: inset 0px 0px 0px 1px white, 0px 0px 0px 1px #186ba0;
+    -moz-box-shadow: inset 0px 0px 0px 1px white, 0px 0px 0px 1px #186ba0;
+    box-shadow: inset 0px 0px 0px 1px white, 0px 0px 0px 1px #186ba0;
+}
+
 .ui-autocomplete-token-label {
     display: block;
     margin-right: 2em;

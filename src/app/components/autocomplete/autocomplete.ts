@@ -1,4 +1,4 @@
-import {NgModule,Component,ViewChild,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,HostListener,ViewChild,ViewChildren,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {ButtonModule} from '../button/button';
@@ -18,22 +18,21 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" 
-            [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="value ? (field ? objectUtils.resolveFieldData(value,field)||'' : value) : null" 
-            (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)"
-            [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled"
-            ><ul *ngIf="multiple" #multiContainer class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
-                <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
+                [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="value ? (field ? objectUtils.resolveFieldData(value,field)||'' : value) : null" 
+                (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (change)="onInputChange($event)"
+                [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled" />
+            <ul *ngIf="multiple" #multiContainer class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
+                <li #token *ngFor="let val of value" [class.picked]="pickedToken?.nativeElement === token" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
                     <span class="ui-autocomplete-token-icon fa fa-fw fa-close" (click)="removeItem(token)" *ngIf="!disabled"></span>
                     <span *ngIf="!selectedItemTemplate" class="ui-autocomplete-token-label">{{field ? val[field] : val}}</span>
                     <ng-template *ngIf="selectedItemTemplate" [pTemplateWrapper]="selectedItemTemplate" [item]="val"></ng-template>
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
-                            (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                        (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off" [ngStyle]="inputStyle" [class]="inputStyleClass" />
                 </li>
-            </ul
-            ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
-                (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
+            </ul>
+            <button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled" (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
             <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
                     <li *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
@@ -111,7 +110,9 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     @Input() dataKey: string;
     
     @Input() emptyMessage: string;
-    
+
+    @Input() enableControlKeys: boolean = false;
+
     @ViewChild('in') inputEL: ElementRef;
     
     @ViewChild('multiIn') multiInputEL: ElementRef;
@@ -119,12 +120,16 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     @ViewChild('panel') panelEL: ElementRef;
     
     @ViewChild('multiContainer') multiContainerEL: ElementRef;
+
+    @ViewChildren("token") tokens: QueryList<ElementRef>;
         
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
     
     public selectedItemTemplate: TemplateRef<any>;
+
+    pickedToken: ElementRef = null;
     
     value: any;
     
@@ -414,7 +419,6 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
                     this.hide();
                     event.preventDefault();
                 break;
-
                 
                 //tab
                 case 9:
@@ -425,8 +429,9 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
                 break;
             }
         } else {
+            //down
             if(event.which === 40 && this.suggestions) {
-                this.search(event,event.target.value);
+                this.search(event, event.target.value);
             }
         }
         
@@ -444,7 +449,142 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
             }
         }
 
+        if (this.enableControlKeys && this.multiple) {
+            switch(event.which) {
+                //left arrow
+                case 37:
+                    this.navigateOverPickedTokensToLeft();
+                    event.stopPropagation();
+                break;
+                
+                //right arrow
+                case 39:
+                    this.navigateOverPickedTokensToRight();
+                break;
+            }
+        }
+
         this.inputKeyDown = true;
+    }
+
+    @HostListener('document:click', ['$event.target'])
+    onDocumentClick(target) {
+        if (this.pickedToken && !this.isSelfClick(target)) {
+            this.pickedToken = null;
+        }
+    }
+
+    private isSelfClick(clickedTarget: HTMLElement) {
+        let isSelfClick = false;
+        this.tokens.forEach(token => {
+            isSelfClick = token.nativeElement.contains(clickedTarget) ? true : isSelfClick;
+        });
+        return isSelfClick;
+    }
+
+    @HostListener('document:keydown', ['$event'])
+    onDocumentKeydown(event) {
+        if(this.enableControlKeys && this.multiple && this.pickedToken) {
+            switch(event.which) {
+                //backspace
+                case 8:
+                    this.removeTokenWithDisplacementToLeft();
+                break;
+                
+                //left arrow
+                case 37:
+                    this.navigateOverPickedTokensToLeft();
+                break;
+                
+                //right arrow
+                case 39:
+                    this.navigateOverPickedTokensToRight();
+                break;
+
+                //delete
+                case 46:
+                    this.removeTokenWithDisplacementToRight();
+                break;
+            }
+        }
+    }
+
+    private navigateOverPickedTokensToLeft() {
+        if (!this.tokens.length || this.multiInputEL.nativeElement.value !== '') {
+            return;
+        }
+
+        const navStartPoint = this.computePikedTokenIndex();
+        
+        
+        if (navStartPoint === null) {
+            this.domHandler.invokeElementMethod(this.multiInputEL.nativeElement, 'blur');
+            this.pickedToken = this.tokens.last;
+        } else if (navStartPoint === 0) {
+            this.pickedToken = this.tokens.first;
+        } else {
+            this.pickedToken = this.tokens.find((ref, index) => index === navStartPoint - 1);
+        }
+    }
+
+    private navigateOverPickedTokensToRight() {
+        if (!this.tokens.length || this.multiInputEL.nativeElement.value !== '') {
+            return;
+        }
+
+        const navStartPoint = this.computePikedTokenIndex();
+        
+        if (navStartPoint === null) {
+            return;
+        } else if (navStartPoint === this.tokens.length - 1) {
+            this.pickedToken = null;
+            this.domHandler.invokeElementMethod(this.multiInputEL.nativeElement, 'focus');
+        } else {
+            this.pickedToken = this.tokens.find((ref, index) => index === navStartPoint + 1);
+        }
+    }
+
+    private removeTokenWithDisplacementToLeft() {
+        const removingTokenIndex = this.computePikedTokenIndex();
+
+        this.displacePickedTokenToLeft(removingTokenIndex);
+        this.removeTokenByIndex(removingTokenIndex);
+    }
+
+    private removeTokenWithDisplacementToRight() {
+        const removingTokenIndex = this.computePikedTokenIndex();
+
+        this.displacePickedTokenToRight(removingTokenIndex);
+        this.removeTokenByIndex(removingTokenIndex);
+    }
+
+    private displacePickedTokenToLeft(currentTokenIndex: number) {
+        if (this.tokens.length === 1) {
+            this.pickedToken = null;
+            this.domHandler.invokeElementMethod(this.multiInputEL.nativeElement, 'focus');
+        } else if (currentTokenIndex === 0) {
+            this.pickedToken = this.tokens.find((ref, index) => index === 1);
+        } else {
+            this.pickedToken = this.tokens.find((ref, index) => index === currentTokenIndex - 1);
+        }
+    }
+
+    private displacePickedTokenToRight(currentTokenIndex: number) {
+        if (this.tokens.length === 1 || currentTokenIndex === this.tokens.length - 1) {
+            this.pickedToken = null;
+            this.domHandler.invokeElementMethod(this.multiInputEL.nativeElement, 'focus');
+        } else {
+            this.pickedToken = this.tokens.find((ref, index) => index === currentTokenIndex + 1);
+        }
+    }
+
+    private removeTokenByIndex(index: number) {
+        const removingElement = this.tokens.find((token, i) => i === index);
+        this.removeItem(removingElement.nativeElement);
+    }
+
+    private computePikedTokenIndex() {
+        return this.pickedToken ? this.domHandler.index(this.pickedToken.nativeElement) : null;
     }
     
     onInputFocus(event) {
