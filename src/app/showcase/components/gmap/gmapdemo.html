@@ -10,7 +10,8 @@
     <p-growl [value]="msgs"></p-growl>
     
     <p-gmap #gmap [style]="&#123;'width':'100%','height':'320px'&#125;" [options]="options" [overlays]="overlays" 
-        (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleDragEnd($event)"></p-gmap>
+      (onZoomChanged)="handleZoomChanged($event)" (onMapDragEnd)="handleMapDragEnd($event)" (onMapClick)="handleMapClick($event)" 
+      (onOverlayClick)="handleOverlayClick($event)" (onOverlayDragEnd)="handleMapDragEnd($event)" (onMapReady)="setMap($event)"></p-gmap>
     <button type="button" pButton label="Clear" icon="fa-close" (click)="clear()" style="margin-top:10px"></button>
     <button type="button" pButton label="Zoom In" icon="fa-search-plus" (click)="zoomIn(gmap.getMap())" style="margin-top:10px"></button>
     <button type="button" pButton label="Zoom Out" icon="fa-search-minus" (click)="zoomOut(gmap.getMap())" style="margin-top:10px"></button>
@@ -293,18 +294,21 @@ export class MyModel &#123;
                             <td>Callback to invoke when map is clicked except markers.</td>
                         </tr>
                         <tr>
+                            <td>onMapDragEnd</td>
+                            <td>originalEvent: Google Maps zoom_changed<br></td>
+                            <td>Callback to invoke when map drag (i.e. pan) has ended.</td>
+                        </tr>
+                        <tr>
+                            <td>onMapReady</td>
+                            <td>event.map: Google Maps Instance</td>
+                            <td>Callback to invoke when the map is ready to be used.</td>
+                        </tr>
+                        <tr>
                             <td>onOverlayClick</td>
                             <td>originalEvent: Google Maps MouseEvent <br>
                                 overlay: Clicked overlay <br>
                                 map: Map instance <br></td>
                             <td>Callback to invoke when an overlay is clicked.</td>
-                        </tr>
-                        <tr>
-                            <td>onOverlayDragStart</td>
-                            <td>originalEvent: Google Maps MouseEvent <br>
-                                overlay: Clicked overlay <br>
-                                map: Map instance <br></td>
-                            <td>Callback to invoke when an overlay drag starts.</td>
                         </tr>
                         <tr>
                             <td>onOverlayDrag</td>
@@ -321,9 +325,16 @@ export class MyModel &#123;
                             <td>Callback to invoke when an overlay drag ends.</td>
                         </tr>
                         <tr>
-                            <td>onMapReady</td>
-                            <td>event.map: Google Maps Instance</td>
-                            <td>Callback to invoke when the map is ready to be used.</td>
+                            <td>onOverlayDragStart</td>
+                            <td>originalEvent: Google Maps MouseEvent <br>
+                                overlay: Clicked overlay <br>
+                                map: Map instance <br></td>
+                            <td>Callback to invoke when an overlay drag starts.</td>
+                        </tr>
+                        <tr>
+                            <td>onZoomChanged</td>
+                            <td>originalEvent: Google Maps zoom_changed</td>
+                            <td>Callback to invoke when zoom level has changed.</td>
                         </tr>
                     </tbody>
                 </table>

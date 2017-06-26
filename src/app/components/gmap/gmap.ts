@@ -28,7 +28,11 @@ export class GMap implements AfterViewChecked,DoCheck {
     @Output() onOverlayDragEnd: EventEmitter<any> = new EventEmitter();
     
     @Output() onMapReady: EventEmitter<any> = new EventEmitter();
-    
+
+    @Output() onMapDragEnd: EventEmitter<any> = new EventEmitter();
+   
+    @Output() onZoomChanged: EventEmitter<any> = new EventEmitter();
+
     differ: any;
     
     map: any;
@@ -59,6 +63,18 @@ export class GMap implements AfterViewChecked,DoCheck {
         this.map.addListener('click', (event) => {
             this.zone.run(() => {
                 this.onMapClick.emit(event);
+            });
+        });
+
+        this.map.addListener('dragend', (event) => {
+            this.zone.run(() => {
+                this.onMapDragEnd.emit(event);
+            });
+        });
+
+        this.map.addListener('zoom_changed', (event) => {
+            this.zone.run(() => {
+                this.onZoomChanged.emit(event);
             });
         });
     }
