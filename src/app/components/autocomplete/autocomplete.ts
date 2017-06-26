@@ -34,7 +34,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
                 (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
-            <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
+            <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" (scroll)="onScroll($event)" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
                     <li *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
                         (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
@@ -86,6 +86,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
     
+    @Output() onInfiniteScroll: EventEmitter<any> = new EventEmitter();
+
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
     @Output() onUnselect: EventEmitter<any> = new EventEmitter();
@@ -248,6 +250,12 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+    }
+
+    onScroll(event: any) {
+        if (this.panelEL.nativeElement.scrollHeight - (this.panelEL.nativeElement.scrollTop + this.panelEL.nativeElement.offsetHeight) < 100) {
+            this.onInfiniteScroll.next("down");
+        }
     }
 
     onInput(event: KeyboardEvent) {
