@@ -3,6 +3,7 @@ import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,Afte
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
+import {EqualityFunction} from '../common/equalityfunction';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
@@ -106,6 +107,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() dataKey: string;
     
     @Input() filterBy: string = 'label';
+
+    @Input() equalityFunction: EqualityFunction;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -472,7 +475,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         let index: number = -1;
         if(opts) {
             for(let i = 0; i < opts.length; i++) {
-                if((val == null && opts[i].value == null) || this.objectUtils.equals(val, opts[i].value, this.dataKey)) {
+                if((val == null && opts[i].value == null) || 
+                   (this.equalityFunction && this.equalityFunction(val, opts[i].value)) ||
+                        (!this.equalityFunction && this.objectUtils.equals(val, opts[i].value, this.dataKey))) {
                     index = i;
                     break;
                 }
