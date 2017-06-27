@@ -1,6 +1,7 @@
 import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
+import {EqualityFunction} from '../common/equalityfunction';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
@@ -37,6 +38,8 @@ export class SelectButton implements ControlValueAccessor {
     @Input() styleClass: string;
 
     @Input() disabled: boolean;
+
+    @Input() equalityFunction: EqualityFunction;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -98,19 +101,22 @@ export class SelectButton implements ControlValueAccessor {
         this.focusedItem = null;
         this.onModelTouched();
     }
+
+    private valuesAreEqual = (val1: any, val2: any) => (this.equalityFunction && this.equalityFunction(val1,val2)) || 
+                                                       (!this.equalityFunction && val1 == val2);     
     
     isSelected(option: SelectItem) {
         if(this.multiple)
             return this.findItemIndex(option) != -1;
         else
-            return option.value == this.value;
+            return this.valuesAreEqual(option.value, this.value);
     }
     
     findItemIndex(option: SelectItem) {
         let index = -1;
         if(this.value) {
             for(let i = 0; i < this.value.length; i++) {
-                if(this.value[i] == option.value) {
+                if(this.valuesAreEqual(this.value[i], option.value)) {
                     index = i;
                     break;
                 }
