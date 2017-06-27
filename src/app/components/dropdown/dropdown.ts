@@ -477,7 +477,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             for(let i = 0; i < opts.length; i++) {
                 if((val == null && opts[i].value == null) || 
                    (this.equalityFunction && this.equalityFunction(val, opts[i].value)) ||
-                        (!this.equalityFunction && this.objectUtils.equals(val, opts[i].value, this.dataKey))) {
+                   (!this.equalityFunction && this.objectUtils.equals(val, opts[i].value, this.dataKey))) {
                     index = i;
                     break;
                 }
