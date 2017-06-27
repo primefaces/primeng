@@ -1,4 +1,4 @@
 
 export interface EqualityFunction{
-    (a: Object, b: Object): boolean
+    (a: any, b: any): boolean
 }
