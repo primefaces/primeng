@@ -2133,8 +2133,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.filters = {};
 
         if(this.paginator) {
-            this.first = 0;
-            this.firstChange.emit(this.first);
+            this.updatePaginator();
+            this._first = 0;
+            this.firstChange.emit(this._first);
         }
         else {
             this.updateDataToRender(this.value);    
