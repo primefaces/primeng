@@ -16,19 +16,23 @@ export class CalendarDemo {
     date5: Date;
 
     date6: Date;
-    
+
     date7: Date;
-    
+
     date8: Date;
-    
+
     date9: Date;
-    
+
+    date10: Date;
+
     minDate: Date;
-    
+
     maxDate: Date;
-    
+
     invalidDates: Array<Date>;
-    
+
+    validDates: Array<Date>;
+
     es: any;
 
     ngOnInit() {
@@ -40,7 +44,7 @@ export class CalendarDemo {
             monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
         	monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ]
         };
-        
+
         let today = new Date();
         let month = today.getMonth();
         let year = today.getFullYear();
@@ -54,9 +58,13 @@ export class CalendarDemo {
         this.maxDate = new Date();
         this.maxDate.setMonth(nextMonth);
         this.maxDate.setFullYear(nextYear);
-        
+
         let invalidDate = new Date();
         invalidDate.setDate(today.getDate() - 1);
         this.invalidDates = [today,invalidDate];
+
+        let validDate = new Date();
+        validDate.setDate(today.getDate() + 4);
+        this.validDates = [today,validDate];
     }
 }
