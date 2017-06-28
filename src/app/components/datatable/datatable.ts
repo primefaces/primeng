@@ -1197,13 +1197,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
         
-        if(targetNode == 'TD' || (targetNode == 'SPAN' && !this.domHandler.hasClass(event.target, 'ui-c'))) {
-            this.onRowClick.next({originalEvent: event, data: rowData});
-            
-            if(!this.selectionMode) {
-                return;
-            }
-            
+        if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (this.domHandler.hasClass(event.target, 'ui-clickable'))) {
+            return;
+        }
+        
+        this.onRowClick.next({originalEvent: event, data: rowData});
+        
+        if(this.selectionMode) {
             let selected = this.isSelected(rowData);
             let metaSelection = this.rowTouched ? false : this.metaKeySelection;
             let dataKeyValue: string = this.dataKey ? String(this.resolveFieldData(rowData, this.dataKey)) : null;
@@ -1292,10 +1292,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 
                 this.selectionChange.emit(this.selection);
             }
+            
+            this.preventSelectionKeysPropagation = true;
         }
 
         this.rowTouched = false;
-        this.preventSelectionKeysPropagation = true;
     }
 
     handleRowTouchEnd(event: Event) {
