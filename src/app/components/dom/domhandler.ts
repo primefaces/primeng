@@ -5,6 +5,8 @@ export class DomHandler {
 
     public static zindex: number = 1000;
 
+    private calculatedScrollbarWidth: number = null;
+
     public addClass(element: any, className: string): void {
         if (element.classList)
             element.classList.add(className);
@@ -384,12 +386,17 @@ export class DomHandler {
     }
     
     calculateScrollbarWidth(): number {
+        if(this.calculatedScrollbarWidth !== null)
+            return this.calculatedScrollbarWidth;
+        
         let scrollDiv = document.createElement("div");
         scrollDiv.className = "ui-scrollbar-measure";
         document.body.appendChild(scrollDiv);
 
         let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
         document.body.removeChild(scrollDiv);
+
+        this.calculatedScrollbarWidth = scrollbarWidth;
         
         return scrollbarWidth;
     }
