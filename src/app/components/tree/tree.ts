@@ -64,7 +64,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
             </li>
             <li *ngIf="tree.droppableNodes&&lastChild" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverNext}"
             (drop)="onDropPoint($event,1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,1)" (dragleave)="onDropPointDragLeave($event)"></li>
-            <table *ngIf="tree.horizontal">
+            <table *ngIf="tree.horizontal" [class]="node.styleClass">
                 <tbody>
                     <tr>
                         <td class="ui-treenode-connector" *ngIf="!root">
