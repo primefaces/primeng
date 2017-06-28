@@ -110,6 +110,8 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
 
     @Input() styleClass: string;
     
+    @Input() appendTo: any;
+    
     container: any;
     
     documentClickListener: any;
@@ -122,6 +124,13 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
         this.container = this.el.nativeElement.children[0];
         
         if(this.popup) {
+            if(this.appendTo) {
+                if(this.appendTo === 'body')
+                    document.body.appendChild(this.container);
+                else
+                    this.domHandler.appendChild(this.container, this.appendTo);
+            }
+            
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
@@ -164,6 +173,10 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     ngOnDestroy() {
         if(this.popup && this.documentClickListener) {
             this.documentClickListener();
+            
+            if(this.appendTo) {
+                this.el.nativeElement.appendChild(this.container);
+            }
         }
         
         if(this.model) {
