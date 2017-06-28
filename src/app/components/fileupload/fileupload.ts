@@ -47,7 +47,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
         (mouseup)="onSimpleUploaderClick($event)"
         [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}">
             <span class="ui-button-icon-left fa" [ngClass]="{'fa-plus': !hasFiles()||auto, 'fa-upload': hasFiles()&&!auto}"></span>
-            <span class="ui-button-text ui-c">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
+            <span class="ui-button-text ui-clickable">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
             <input type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
                 (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>

@@ -23,7 +23,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
-                <span class="fa fa-fw fa-caret-down ui-c"></span>
+                <span class="fa fa-fw fa-caret-down ui-clickable"></span>
             </div>
             <div #panel class="ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow" [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
@@ -32,7 +32,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                             <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
                         <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="toggleAll($event,cb)">
-                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
+                            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
@@ -53,7 +53,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                                     <input type="checkbox" readonly="readonly" [checked]="isSelected(option.value)">
                                 </div>
                                 <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option.value)}">
-                                    <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
+                                    <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
                             <label>{{option.label}}</label>
