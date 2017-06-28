@@ -98,7 +98,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         ><span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
                 </div>
-                <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'" 
+                <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'"  (@rootItem.done)="onToggleDone($event)"
                     [ngClass]="{'ui-panelmenu-content-wrapper-overflown': !item.expanded||animating}">
                     <div class="ui-panelmenu-content ui-widget-content">
                         <p-panelMenuSub [item]="item" [expanded]="true"></p-panelMenuSub>
@@ -153,10 +153,10 @@ export class PanelMenu extends BasePanelMenuItem {
     handleClick(event, item) {
         this.animating = true;
         super.handleClick(event, item);
-        //TODO: Use onDone of animate callback instead with RC6
-        setTimeout(() => {
-            this.animating = false;
-        }, 400);
+    }
+    
+    onToggleDone() {
+        this.animating = false;
     }
 
 }
