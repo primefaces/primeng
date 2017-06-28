@@ -154,3 +154,6 @@
     position: absolute;
     top: -9999px;
 }
+.ui-overflow-hidden {
+    overflow: hidden;
+}
