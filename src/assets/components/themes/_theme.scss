@@ -444,6 +444,7 @@
     .ui-panelmenu-header {
         &:not(.ui-state-active):hover {
             @include hover-element();
+            border-color: $stateDefaultBorderColor;
             
             a {
                 color: $stateHoverTextColor;
