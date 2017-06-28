@@ -43,11 +43,11 @@ export class Growl implements AfterViewInit,OnDestroy {
     @ViewChild('container') containerViewChild: ElementRef;
     
     _value: Message[];
-            
+
+    _container: HTMLDivElement;
+    
     zIndex: number;
     
-    container: HTMLDivElement;
-        
     timeout: any;
     
     preventRerender: boolean;
@@ -67,6 +67,18 @@ export class Growl implements AfterViewInit,OnDestroy {
     set value(val:Message[]) {
         this._value = val;
         if(this.container) {
+            this.handleValueChange();
+        }
+    }
+
+    get container(): HTMLDivElement {
+        return this._container;
+    }
+
+    set container(container:HTMLDivElement) {
+        this._container = container;
+
+        if(this._value.length !== 0) {
             this.handleValueChange();
         }
     }
