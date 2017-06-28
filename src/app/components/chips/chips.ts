@@ -23,7 +23,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
-                        (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled">
+                        (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul>
         </div>
@@ -53,6 +53,10 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() inputId: string;
     
     @Input() allowDuplicate: boolean = true;
+    
+    @Input() inputStyle: any;
+    
+    @Input() inputStyleClass: any;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
