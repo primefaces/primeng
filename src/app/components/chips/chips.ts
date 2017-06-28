@@ -52,6 +52,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 
     @Input() inputId: string;
     
+    @Input() allowDuplicate: boolean = true;
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
@@ -159,12 +161,14 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             case 13:
                 this.value = this.value||[];
                 if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
-                    this.value = [...this.value,inputEL.value];
-                    this.onModelChange(this.value);
-                    this.onAdd.emit({
-                        originalEvent: event,
-                        value: inputEL.value
-                    });
+                    if(this.allowDuplicate || !this.value.includes(inputEL.value)) {
+                        this.value = [...this.value, inputEL.value];
+                        this.onModelChange(this.value);
+                        this.onAdd.emit({
+                            originalEvent: event,
+                            value: inputEL.value
+                        });
+                    }
                 }     
                 inputEL.value = '';
                 event.preventDefault();
