@@ -23,7 +23,7 @@ import {BlockableUI} from '../common/blockableui';
             <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="handleClick($event)"
                         (mouseenter)="hover=true" (mouseleave)="hover=false"
                         [ngClass]="{'ui-state-hover':hover,'ui-state-active':checked}">
-                <span class="ui-radiobutton-icon ui-c" [ngClass]="{'fa fa-circle':checked}"></span>
+                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':checked}"></span>
             </div>
         </div>
     `
