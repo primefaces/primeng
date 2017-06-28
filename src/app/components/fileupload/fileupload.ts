@@ -33,7 +33,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                             <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
                             <div>{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
-                            <div><button type="button" icon="fa-close" pButton (click)="remove(i)"></button></div>
+                            <div><button type="button" icon="fa-close" pButton (click)="remove($event,i)"></button></div>
                         </div>
                     </div>
                     <div *ngIf="fileTemplate">
@@ -306,7 +306,7 @@ export class FileUpload implements OnInit,AfterContentInit {
         this.onClear.emit();
     }
     
-    remove(index: number) {
+    remove(event: Event, index: number) {
         this.onRemove.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
     }
