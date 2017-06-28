@@ -330,19 +330,24 @@ export class FileUpload implements OnInit,AfterContentInit {
         }
     }
     
-    onDragLeave(e) {
+    onDragLeave(event) {
         if(!this.disabled) {
             this.dragHighlight = false;
         }
     }
     
-    onDrop(e) {
+    onDrop(event) {
         if(!this.disabled) {
             this.dragHighlight = false;
-            e.stopPropagation();
-            e.preventDefault();
+            event.stopPropagation();
+            event.preventDefault();
             
-            this.onFileSelect(e);
+            let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+            let allowDrop = this.multiple||(files && files.length === 1);
+            
+            if(allowDrop) {
+                this.onFileSelect(event);
+            }
         }
     }
     
