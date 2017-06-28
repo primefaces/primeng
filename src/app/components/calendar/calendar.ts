@@ -293,6 +293,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     focus: boolean;
     
+    isKeydown: boolean;
+    
     filled: boolean;
 
     inputFieldValue: string = null;
@@ -723,6 +725,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     onInputKeydown(event) {
+        this.isKeydown = true;
         if(event.keyCode === 9) {
             this.overlayVisible = false;
         }
@@ -819,6 +822,12 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     onUserInput(event) {
+        // IE 11 Workaround for input placeholder : https://github.com/primefaces/primeng/issues/2026
+        if(!this.isKeydown) {
+            return;
+        }
+        this.isKeydown = false;
+        
         let val = event.target.value;   
         try {
             this.value = this.parseValueFromString(val);
