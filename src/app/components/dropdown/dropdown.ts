@@ -29,7 +29,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
-            <input type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [value]="editableLabel" [disabled]="disabled" [attr.placeholder]="placeholder"
+            <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
                 <span class="fa fa-fw fa-caret-down ui-clickable"></span>
@@ -122,6 +122,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @ViewChild('filter') filterViewChild: ElementRef;
     
     @ViewChild('in') focusViewChild: ElementRef;
+    
+    @ViewChild('editableInput') editableInputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -225,10 +227,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         return (this.selectedOption ? this.selectedOption.label : this.placeholder);
     }
     
-    get editableLabel(): string {
-        return this.value || (this.selectedOption ? this.selectedOption.label : null);
+    updateEditableLabel(): void {
+        if(this.editableInputViewChild && this.editableInputViewChild.nativeElement) {
+            this.editableInputViewChild.nativeElement.value = this.value || (this.selectedOption ? this.selectedOption.label : '');
+        }
     }
-    
+        
     onItemClick(event, option) {
         this.itemClick = true;
         this.selectItem(event, option);
@@ -242,6 +246,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.value = option.value;
                 
         this.onModelChange(this.value);
+        this.updateEditableLabel();
         this.onChange.emit({
             originalEvent: event,
             value: this.value
@@ -275,6 +280,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         
         this.value = value;
         this.updateSelectedOption(value);
+        this.updateEditableLabel();
         this.cd.markForCheck();
     }
     
