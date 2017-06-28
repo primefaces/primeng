@@ -14,4 +14,6 @@ export interface MenuItem {
     target?: string;
     routerLinkActiveOptions?: any;
     separator?: boolean;
+    style?:any;
+    styleClass?:string;
 }
