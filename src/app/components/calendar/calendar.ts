@@ -846,6 +846,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     parseValueFromString(text: string): Date {
+        if(!text || text.trim().length === 0) {
+            return null;
+        }
+        
         let dateValue;
         let parts: string[] = text.split(' ');
         
