@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,Input,ViewContainerRef,ViewChild,
-        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer2,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef} from '@angular/core';
+        Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer2,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef,EmbeddedViewRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {SharedModule} from '../common/shared';
@@ -77,7 +77,7 @@ export class DTCheckbox {
     selector: 'p-rowExpansionLoader',
     template: ``
 })
-export class RowExpansionLoader {
+export class RowExpansionLoader implements OnInit, OnDestroy {
         
     @Input() template: TemplateRef<any>;
     
@@ -85,13 +85,19 @@ export class RowExpansionLoader {
     
     @Input() rowIndex: any;
     
+    view: EmbeddedViewRef<any>;
+    
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
-        let view = this.viewContainer.createEmbeddedView(this.template, {
+        this.view = this.viewContainer.createEmbeddedView(this.template, {
             '\$implicit': this.rowData,
             'rowIndex': this.rowIndex
         });
+    }
+    
+    ngOnDestroy() {
+        this.view.destroy();
     }
 }
 
