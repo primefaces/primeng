@@ -63,6 +63,10 @@
 }
 
 /* ConfirmDialog */
+.ui-confirmdialog {
+    width: 30em;
+}
+
 .ui-confirmdialog.ui-dialog .ui-dialog-content {
     padding: 1em 2em;
 }
@@ -87,4 +91,10 @@
 
 .ui-rtl .ui-dialog .ui-dialog-buttonpane button {
     float: left;
+}
+
+@media screen and (max-width: 40em) {
+    .ui-confirmdialog {
+        width: 90%;
+    }
 }
