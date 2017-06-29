@@ -62,6 +62,7 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
     
     ngAfterViewInit() {
         this.input = <HTMLInputElement> this.inputViewChild.nativeElement;
+        this.cd.detectChanges();
     }
 
     handleClick() {
