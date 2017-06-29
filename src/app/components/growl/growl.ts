@@ -118,7 +118,7 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
                 this.valueChange.emit(this._value);
             }
             else {
-                this._value.splice(i, 1);
+                this._value.splice(index, 1);
             }
         }, 250);        
     }
@@ -136,7 +136,6 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
                 else {
                     this.value.splice(0, this.value.length);
                 }
-                
             }, 250);
         }
     }
