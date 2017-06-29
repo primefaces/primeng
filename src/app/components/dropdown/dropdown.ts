@@ -242,15 +242,18 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     selectItem(event, option) {
-        this.selectedOption = option;
-        this.value = option.value;
-                
-        this.onModelChange(this.value);
-        this.updateEditableLabel();
-        this.onChange.emit({
-            originalEvent: event,
-            value: this.value
-        });
+        if(this.selectedOption != option) {
+            this.selectedOption = option;
+            this.value = option.value;
+                    
+            this.onModelChange(this.value);
+            this.updateEditableLabel();
+            this.onChange.emit({
+                originalEvent: event,
+                value: this.value
+            });
+        } 
+        
     }
     
     ngAfterViewChecked() {
