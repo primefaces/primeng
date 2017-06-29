@@ -39,9 +39,15 @@
     border-color: inherit;
     box-sizing: border-box;
     padding: .25em .5em;
-    overflow: hidden;
     border-width: 1px;
     border-style: solid;
+}
+
+
+.ui-datatable.ui-datatable-resizable .ui-datatable-thead > tr > th,
+.ui-datatable.ui-datatable-resizable .ui-datatable-tfoot > tr > td,
+.ui-datatable.ui-datatable-resizable .ui-datatable-data > tr > td {
+    overflow: hidden;
 }
 
 .ui-datatable .ui-datatable-thead > tr > th,
