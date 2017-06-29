@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,AfterViewChecked,EventEmitter,Renderer2,ContentChild} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -46,7 +46,7 @@ import {Subscription}   from 'rxjs/Subscription';
     ],
     providers: [DomHandler]
 })
-export class ConfirmDialog implements AfterViewInit,OnDestroy {
+export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     @Input() header: string;
     
@@ -99,6 +99,8 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     positionInitialized: boolean;
     
     subscription: Subscription;
+    
+    executePostShowActions: boolean;
             
     constructor(public el: ElementRef, public domHandler: DomHandler, 
             public renderer: Renderer2, private confirmationService: ConfirmationService) {
@@ -133,13 +135,14 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     set visible(val:boolean) {
         this._visible = val;
         
-        if(this._visible) {            
+        if(this._visible) {      
             if(!this.positionInitialized) {
                 this.center();
                 this.positionInitialized = true;
             }
             
             this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
+            this.executePostShowActions = true;
         } 
         
         if(this._visible)
@@ -174,6 +177,13 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
                 this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
         }
     }
+    
+    ngAfterViewChecked() {
+        if(this.executePostShowActions) {
+            this.domHandler.findSingle(this.el.nativeElement.children[0], 'button').focus();
+            this.executePostShowActions = false;
+        }
+    }
         
     center() {
         let container = this.el.nativeElement.children[0];
@@ -201,12 +211,14 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
             this.mask.style.zIndex = this.el.nativeElement.children[0].style.zIndex - 1;
             this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
             document.body.appendChild(this.mask);
+            this.domHandler.addClass(document.body, 'ui-overflow-hidden');
         }
     }
     
     disableModality() {
         if(this.mask) {
             document.body.removeChild(this.mask);
+            this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
             this.mask = null;
         }
     }
