@@ -723,13 +723,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     columnsSubscription: Subscription;
     
-<<<<<<< HEAD
     totalRecordsChanged: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler,
-=======
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
->>>>>>> origin/master
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
     	this.differ = differs.find([]).create(null);
     }
