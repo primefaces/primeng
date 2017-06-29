@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild,ViewChild} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -43,7 +43,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
     ],
     providers: [DomHandler]
 })
-export class Dialog implements AfterViewInit,OnDestroy {
+export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() header: string;
 
@@ -132,6 +132,8 @@ export class Dialog implements AfterViewInit,OnDestroy {
     preWidth: number;
     
     preventVisibleChangePropagation: boolean;
+    
+    executePostDisplayActions: boolean;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
@@ -154,10 +156,17 @@ export class Dialog implements AfterViewInit,OnDestroy {
                 
         }
     }
+    
+    ngAfterViewChecked() {
+        if(this.executePostDisplayActions) {
+            this.onShow.emit({});
+            this.positionOverlay();
+            this.executePostDisplayActions = false;
+        } 
+    }
 
     show() {
-        this.onShow.emit({});
-        this.positionOverlay();
+        this.executePostDisplayActions = true;
         this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
         this.bindGlobalListeners();
         
@@ -165,7 +174,7 @@ export class Dialog implements AfterViewInit,OnDestroy {
             this.enableModality();
         }
     }
-    
+        
     positionOverlay() {
         if(this.positionLeft >= 0 && this.positionTop >= 0) {
             this.containerViewChild.nativeElement.style.left = this.positionLeft + 'px';
