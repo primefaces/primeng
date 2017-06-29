@@ -712,7 +712,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public selectionKeys: any;
     
-    public preventSelectionKeysPropagation: any;
+    public preventSelectionKeysPropagation: boolean;
+    
+    public preventSortPropagation: boolean;
     
     _selection: any;
         
@@ -840,7 +842,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this._filter();
             }
             
-            if(this.sortField||this.multiSortMeta) {  
+            if(this.preventSortPropagation) {
+                this.preventSortPropagation = false;
+            }
+            else if(this.sortField||this.multiSortMeta) {  
                 if(!this.sortColumn && this.columns) {
                     this.sortColumn = this.columns.find(col => col.field === this.sortField && col.sortable === 'custom');
                 }              
@@ -849,7 +854,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     this.sortSingle();
                 else if(this.sortMode == 'multiple')
                     this.sortMultiple();
-            }
+            }            
         }
 
         this.updateDataToRender(this.filteredValue||this.value);
@@ -1047,6 +1052,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     sortSingle() {
         if(this.value) {
             if(this.sortColumn && this.sortColumn.sortable === 'custom') {
+                this.preventSortPropagation = true;
                 this.sortColumn.sortFunction.emit({
                     field: this.sortField,
                     order: this.sortOrder
