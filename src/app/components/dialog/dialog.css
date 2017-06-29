@@ -15,14 +15,10 @@
     overflow: auto;
     zoom: 1;
 }
-.ui-dialog .ui-dialog-footer {
-    padding: .25em .75em;    
-    border-width: 1px 0 0 0;
-    background-image: none;
-}
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
     float: right;
 }
+
 .ui-dialog .ui-dialog-buttonpane button {
     margin: .5em .4em .5em 0;
     cursor: pointer;
@@ -50,10 +46,11 @@
     display: block;
     margin: 0;
 }
+
 .ui-dialog-footer {
-    padding: .4em 1em;
+    padding: 1em;
     border-width: 1px 0 0 0;
-    text-align: left;
+    text-align: right;
 }
 
 .ui-dialog-mask {
@@ -80,7 +77,7 @@
 }
 
 /* Fluid */
-.ui-fluid .ui-dialog-buttonpane .ui-button {
+.ui-fluid .ui-dialog-footer .ui-button {
     width: auto;
 }
 
@@ -90,7 +87,7 @@
 }
 
 .ui-rtl .ui-dialog .ui-dialog-buttonpane button {
-    float: left;
+    text-align: right;
 }
 
 @media screen and (max-width: 40em) {

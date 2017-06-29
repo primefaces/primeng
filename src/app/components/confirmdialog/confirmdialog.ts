@@ -23,13 +23,12 @@ import {Subscription}   from 'rxjs/Subscription';
                 <i [class]="icon"></i>
                 <span class="ui-confirmdialog-message" [innerHTML]="message"></span>
             </div>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="footer">
+            <div class="ui-dialog-footer ui-widget-content" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
-            <div class="ui-dialog-footer ui-widget-content">
-            <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="!footer">
-                <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" *ngIf="rejectVisible"></button>
+            <div class="ui-dialog-footer ui-widget-content" *ngIf="!footer">
                 <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()" *ngIf="acceptVisible"></button>
+                <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" *ngIf="rejectVisible"></button>
             </div>
         </div>
     `,
