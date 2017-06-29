@@ -89,7 +89,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
-    onMouseDown(event:Event,index?:number) {
+    onMouseDown(event:Event, index?:number) {
         if(this.disabled) {
             return;
         }
@@ -98,6 +98,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.updateDomData();
         this.sliderHandleClick = true;
         this.handleIndex = index;
+        event.preventDefault();
     }
 
     onTouchStart(event, index?:number) {
