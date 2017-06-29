@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,AfterViewInit,ElementRef,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,Input,Output,ElementRef,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
@@ -26,7 +26,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
     `,
     providers: [RADIO_VALUE_ACCESSOR]
 })
-export class RadioButton implements ControlValueAccessor,AfterViewInit {
+export class RadioButton implements ControlValueAccessor {
 
     @Input() value: any;
 
@@ -47,9 +47,7 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     @ViewChild('rb') inputViewChild: ElementRef;
-    
-    public input: HTMLInputElement;
-        
+            
     public onModelChange: Function = () => {};
     
     public onModelTouched: Function = () => {};
@@ -60,10 +58,6 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
 
     constructor(private cd: ChangeDetectorRef) {}
     
-    ngAfterViewInit() {
-        this.input = <HTMLInputElement> this.inputViewChild.nativeElement;
-    }
-
     handleClick() {
         if(!this.disabled) {
             this.onClick.emit(null);
@@ -73,7 +67,7 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
     
     select() {
         if(!this.disabled) {
-            this.input.checked = true;
+            this.inputViewChild.nativeElement.checked = true;
             this.checked = true;
             this.onModelChange(this.value);
         }
@@ -81,11 +75,11 @@ export class RadioButton implements ControlValueAccessor,AfterViewInit {
             
     writeValue(value: any) : void {
         this.checked = (value == this.value);
-        
-        if(this.input) {
-            this.input.checked = this.checked;
-        }
 
+        if(this.inputViewChild.nativeElement) {
+            this.inputViewChild.nativeElement.checked = this.checked;
+        }
+        
         this.cd.markForCheck();
     }
     
