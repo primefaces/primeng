@@ -29,7 +29,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     `,
     providers: [INPUTSWITCH_VALUE_ACCESSOR,DomHandler]
 })
-export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterViewChecked {
+export class InputSwitch implements ControlValueAccessor,AfterViewInit {
 
     @Input() onLabel: string = 'On';
 
@@ -80,6 +80,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
 
     ngAfterViewInit() {
+      Promise.resolve().then(() => {
         this.container = this.el.nativeElement.children[0];
         this.handle = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-inputswitch-handle');
         this.onContainer = this.domHandler.findSingle(this.container,'div.ui-inputswitch-on');
@@ -87,9 +88,8 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         this.onLabelChild = this.domHandler.findSingle(this.onContainer,'span.ui-inputswitch-onlabel');
         this.offLabelChild = this.domHandler.findSingle(this.offContainer,'span.ui-inputswitch-offlabel');
         this.setAriaLabel();
-    }
-    
-    ngAfterViewChecked() {
+        });
+      
         if(this.container.offsetParent && !this.initialized) {
             this.render();
         }
