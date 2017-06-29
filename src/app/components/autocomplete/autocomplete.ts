@@ -28,7 +28,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <ng-template *ngIf="selectedItemTemplate" [pTemplateWrapper]="selectedItemTemplate" [item]="val"></ng-template>
                 </li>
                 <li class="ui-autocomplete-input-token">
-                    <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
+                    <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
                             (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul
