@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,TemplateRef,QueryList} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,TemplateRef,QueryList,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,Header,Footer,PrimeTemplate} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
@@ -29,7 +29,7 @@ import {BlockableUI} from '../common/blockableui';
         </div>
     `
 })
-export class DataList implements AfterViewInit,AfterContentInit,BlockableUI {
+export class DataList implements AfterViewInit,AfterContentInit,DoCheck,BlockableUI {
 
     @Input() paginator: boolean;
 
@@ -57,6 +57,8 @@ export class DataList implements AfterViewInit,AfterContentInit,BlockableUI {
     
     @Input() trackBy: Function = (index: number, item: any) => item;
     
+    @Input() immutable: boolean = true;
+    
     @Output() onPage: EventEmitter<any> = new EventEmitter();
         
     @ContentChild(Header) header;
@@ -74,8 +76,12 @@ export class DataList implements AfterViewInit,AfterContentInit,BlockableUI {
     public first: number = 0;
     
     public page: number = 0;
-
-    constructor(public el: ElementRef) {}
+    
+    differ: any;
+    
+    constructor(public el: ElementRef, public differs: IterableDiffers) {
+		this.differ = differs.find([]).create(null);
+	}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -106,7 +112,10 @@ export class DataList implements AfterViewInit,AfterContentInit,BlockableUI {
 
     set value(val:any[]) {
         this._value = val;
-        this.handleDataChange();
+        
+        if(this.immutable) {
+            this.handleDataChange();
+        }
     }
     
     handleDataChange() {
@@ -114,6 +123,15 @@ export class DataList implements AfterViewInit,AfterContentInit,BlockableUI {
             this.updatePaginator();
         }
         this.updateDataToRender(this.value);
+    }
+    
+    ngDoCheck() {
+        if(!this.immutable) {
+            let changes = this.differ.diff(this.value);
+            if(changes) {
+                this.handleDataChange();
+            }
+        }
     }
     
     updatePaginator() {
