@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {DomHandler} from '../dom/domhandler';
@@ -135,22 +135,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     public optionsDiffer: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {
         this.valueDiffer = differs.find([]).create(null);
         this.optionsDiffer = differs.find([]).create(null);
     }
     
     ngOnInit() {
         this.updateLabel();
-        
-        this.documentClickListener = this.renderer.listen('document', 'click', () => {
-            if(!this.selfClick && !this.panelClick && this.overlayVisible) {
-                this.hide();
-            }
-            
-            this.selfClick = false;
-            this.panelClick = false;
-        });
     }
     
     ngAfterViewInit() {
@@ -192,6 +183,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     writeValue(value: any) : void {
         this.value = value;
         this.updateLabel();
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {
@@ -264,6 +256,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     show() {
         this.overlayVisible = true;
         this.panel.style.zIndex = String(++DomHandler.zindex);
+        this.bindDocumentClickListener();
         
         if(this.appendTo)
             this.domHandler.absolutePosition(this.panel, this.container);
@@ -275,6 +268,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     hide() {
         this.overlayVisible = false;
+        this.unbindDocumentClickListener();
     }
     
     close(event) {
@@ -387,11 +381,30 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             return this.options;
         }
     }
-
-    ngOnDestroy() {
+    
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+                if(!this.selfClick && !this.panelClick && this.overlayVisible) {
+                    this.hide();
+                }
+                
+                this.selfClick = false;
+                this.panelClick = false;
+                this.cd.markForCheck();
+            });
+        }        
+    }
+    
+    unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
-        }
+            this.documentClickListener = null;
+        }        
+    }
+
+    ngOnDestroy() {
+        this.unbindDocumentClickListener();
         
         if(this.appendTo) {
             this.container.appendChild(this.panel);
