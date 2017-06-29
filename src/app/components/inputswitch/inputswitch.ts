@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnChanges,Input,forwardRef,EventEmitter,Output} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnChanges,Input,forwardRef,EventEmitter,Output,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR,ControlValueAccessor} from '@angular/forms';
 import {DomHandler} from '../dom/domhandler';
@@ -77,7 +77,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
     
     initialized: boolean = false;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public cd: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
         this.container = this.el.nativeElement.children[0];
@@ -87,6 +87,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         this.onLabelChild = this.domHandler.findSingle(this.onContainer,'span.ui-inputswitch-onlabel');
         this.offLabelChild = this.domHandler.findSingle(this.offContainer,'span.ui-inputswitch-offlabel');
         this.setAriaLabel();
+        this.cd.detectChanges();
     }
     
     ngAfterViewChecked() {
