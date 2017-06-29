@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild,private cd: ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {DomHandler} from '../dom/domhandler';
@@ -135,7 +135,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     public optionsDiffer: any;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {
         this.valueDiffer = differs.find([]).create(null);
         this.optionsDiffer = differs.find([]).create(null);
     }
@@ -150,6 +150,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             
             this.selfClick = false;
             this.panelClick = false;
+            this.cd.markForCheck();
         });
     }
     
@@ -192,6 +193,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     writeValue(value: any) : void {
         this.value = value;
         this.updateLabel();
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {
