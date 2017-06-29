@@ -9,7 +9,8 @@ import {DomHandler} from '../dom/domhandler';
         <div #container [ngClass]="'ui-growl ui-widget'" [style.zIndex]="zIndex" [ngStyle]="style" [class]="styleClass">
             <div #msgel *ngFor="let msg of value;let i = index" class="ui-growl-item-container ui-state-highlight ui-corner-all ui-shadow" aria-live="polite"
                 [ngClass]="{'ui-growl-message-info':msg.severity == 'info','ui-growl-message-warn':msg.severity == 'warn',
-                    'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}">
+                    'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}" 
+                    (click)="click(i)">
                 <div class="ui-growl-item">
                      <div class="ui-growl-icon-close fa fa-close" (click)="remove(i,msgel)"></div>
                      <span class="ui-growl-image fa fa-2x"
@@ -31,27 +32,29 @@ export class Growl implements AfterViewInit,OnDestroy {
     @Input() sticky: boolean;
 
     @Input() life: number = 3000;
-        
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
-    
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
-    
+
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
+
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
-    
+
     @ViewChild('container') containerViewChild: ElementRef;
-    
+
     _value: Message[];
-            
+
     zIndex: number;
-    
+
     container: HTMLDivElement;
-        
+
     timeout: any;
-    
+
     preventRerender: boolean;
-        
+
     constructor(public el: ElementRef, public domHandler: DomHandler) {
         this.zIndex = DomHandler.zindex;
     }
@@ -59,7 +62,7 @@ export class Growl implements AfterViewInit,OnDestroy {
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
     }
-    
+
     @Input() get value(): Message[] {
         return this._value;
     }
@@ -70,16 +73,16 @@ export class Growl implements AfterViewInit,OnDestroy {
             this.handleValueChange();
         }
     }
-    
+
     handleValueChange() {
         if(this.preventRerender) {
             this.preventRerender = false;
             return;
         }
-        
+
         this.zIndex = ++DomHandler.zindex;
         this.domHandler.fadeIn(this.container, 250);
-        
+
         if(!this.sticky) {
             if(this.timeout) {
                 clearTimeout(this.timeout);
@@ -89,30 +92,34 @@ export class Growl implements AfterViewInit,OnDestroy {
             }, this.life);
         }
     }
-        
-    remove(index: number, msgel: any) {        
+
+    remove(index: number, msgel: any) {
         this.domHandler.fadeOut(msgel, 250);
-        
+
         setTimeout(() => {
             this.preventRerender = true;
             this.onClose.emit({message:this.value[index]});
             this._value = this.value.filter((val,i) => i!=index);
             this.valueChange.emit(this._value);
-        }, 250);        
+        }, 250);
     }
-    
+
+    click(index: number) {
+      this.onClick.emit({message: this.value[index]})
+    }
+
     removeAll() {
-        if(this.value && this.value.length) {            
+        if(this.value && this.value.length) {
             this.domHandler.fadeOut(this.container, 250);
-            
-            setTimeout(() => {                
+
+            setTimeout(() => {
                 this.value.forEach((msg,index) => this.onClose.emit({message:this.value[index]}));
                 this.value = [];
                 this.valueChange.emit(this.value);
             }, 250);
         }
     }
-    
+
     ngOnDestroy() {
         if(!this.sticky) {
             clearTimeout(this.timeout);

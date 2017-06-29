@@ -64,7 +64,7 @@ export class MyModel &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
-    
+
 &lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
 &lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
 </code>
@@ -127,7 +127,7 @@ hide() &#123;
                     </tbody>
                 </table>
             </div>
-            
+
             <h3>Events</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -143,6 +143,11 @@ hide() &#123;
                             <td>onClose</td>
                             <td>message: Removed message</td>
                             <td>Callback to invoke when a message is closed.</td>
+                        </tr>
+                        <tr>
+                          <td>onClick</td>
+                          <td>message: Clicked message</td>
+                          <td>Callback to invoke when a message is clicked.</td>
                         </tr>
                     </tbody>
                 </table>
