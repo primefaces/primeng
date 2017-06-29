@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,Input,ViewContainerRef,ViewChild,
+import {NgModule,Component,ElementRef,DoCheck,AfterContentInit,AfterViewInit,AfterViewChecked,OnInit,OnDestroy,Input,ViewContainerRef,ViewChild,IterableDiffers,
         Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,Renderer2,QueryList,TemplateRef,ChangeDetectorRef,Inject,forwardRef,EmbeddedViewRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'
@@ -580,6 +580,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
     
+    @Input() immutable: boolean = true;
+    
     @Input() compareSelectionBy: string = 'deepEquals';
                 
     @Output() onEditInit: EventEmitter<any> = new EventEmitter();
@@ -716,14 +718,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public preventSortPropagation: boolean;
     
+    differ: any;
+    
     _selection: any;
         
     globalFilterFunction: any;
     
     columnsSubscription: Subscription;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler,
+    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
+    	this.differ = differs.find([]).create(null);
     }
 
     ngOnInit() {
@@ -796,8 +801,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     set value(val:any[]) {
-        this._value = val ? [...val] : null;
-        this.handleDataChange();
+        if(this.immutable) {
+            this._value = val ? [...val] : null;
+            this.handleDataChange();
+        }
+        else {
+            this._value = val;
+        }
     }
     
     @Input() get first(): number {
@@ -830,6 +840,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
         this.preventSelectionKeysPropagation = false;
+    }
+    
+    ngDoCheck() {
+        if(!this.immutable) {
+            let changes = this.differ.diff(this.value);
+            if(changes) {
+                this.handleDataChange();
+            }
+        }
     }
     
     handleDataChange() {
@@ -1014,6 +1033,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         let targetNode = event.target.nodeName;
         if((targetNode == 'TH' && this.domHandler.hasClass(event.target, 'ui-sortable-column')) || ((targetNode == 'SPAN' || targetNode == 'DIV') && !this.domHandler.hasClass(event.target, 'ui-clickable'))) {
+            if(!this.immutable) {
+                this.preventSortPropagation = true;
+            }
+            
             let columnSortField = column.sortField||column.field;
             this.sortOrder = (this.sortField === columnSortField)  ? this.sortOrder * -1 : 1;
             this.sortField = columnSortField;
