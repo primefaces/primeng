@@ -46,7 +46,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
                     <span class="ui-tree-toggler  fa fa-fw" [ngClass]="{'fa-caret-right':!node.expanded,'fa-caret-down':node.expanded}"
                             (click)="toggle($event)"></span
                     ><div class="ui-chkbox" *ngIf="tree.selectionMode == 'checkbox'"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
-                        <span class="ui-chkbox-icon ui-c fa" 
+                        <span class="ui-chkbox-icon ui-clickable fa" 
                             [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
                     ><span [class]="getIcon()" *ngIf="node.icon||node.expandedIcon||node.collapsedIcon"></span
                     ><span class="ui-treenode-label ui-corner-all" 
@@ -64,7 +64,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
             </li>
             <li *ngIf="tree.droppableNodes&&lastChild" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverNext}"
             (drop)="onDropPoint($event,1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,1)" (dragleave)="onDropPointDragLeave($event)"></li>
-            <table *ngIf="tree.horizontal">
+            <table *ngIf="tree.horizontal" [class]="node.styleClass">
                 <tbody>
                     <tr>
                         <td class="ui-treenode-connector" *ngIf="!root">
@@ -184,10 +184,14 @@ export class UITreeNode implements OnInit {
         if(this.tree.allowDrop(dragNode, this.node, dragNodeScope) && isValidDropPointIndex) {
             let newNodeList = this.node.parent ? this.node.parent.children : this.tree.value;
             this.tree.dragNodeSubNodes.splice(dragNodeIndex, 1);
-            if(position < 0)
-                newNodeList.splice(this.index, 0, dragNode);
-            else
+            
+            if(position < 0) {
+                let dropIndex = (this.tree.dragNodeSubNodes === newNodeList) ? ((this.tree.dragNodeIndex > this.index) ? this.index : this.index - 1) : this.index;                
+                newNodeList.splice(dropIndex, 0, dragNode);
+            }
+            else {
                 newNodeList.push(dragNode);
+            }            
             
             this.tree.dragDropService.stopDrag({
                 node: dragNode,

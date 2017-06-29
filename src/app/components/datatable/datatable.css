@@ -39,9 +39,15 @@
     border-color: inherit;
     box-sizing: border-box;
     padding: .25em .5em;
-    overflow: hidden;
     border-width: 1px;
     border-style: solid;
+}
+
+
+.ui-datatable.ui-datatable-resizable .ui-datatable-thead > tr > th,
+.ui-datatable.ui-datatable-resizable .ui-datatable-tfoot > tr > td,
+.ui-datatable.ui-datatable-resizable .ui-datatable-data > tr > td {
+    overflow: hidden;
 }
 
 .ui-datatable .ui-datatable-thead > tr > th,
@@ -209,7 +215,7 @@
     padding: .5em;
 }
 
-.ui-datatable .ui-editable-column .ui-cell-editor {
+.ui-datatable .ui-editable-column > .ui-cell-editor {
     display: none;
 }
 
@@ -217,11 +223,11 @@
     padding: 1px;
 }
 
-.ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
+.ui-datatable .ui-editable-column.ui-cell-editing > .ui-cell-editor {
     display: block;
 }
 
-.ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-data {
+.ui-datatable .ui-editable-column.ui-cell-editing > .ui-cell-data {
     display: none;
 }
 
@@ -306,8 +312,8 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+    opacity: 0.1;
     z-index: 1;
 }
 

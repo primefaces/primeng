@@ -24,13 +24,12 @@ import {Subject} from 'rxjs/Subject';
                 <i [class]="icon"></i>
                 <span class="ui-confirmdialog-message" [innerHTML]="message"></span>
             </div>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="footer">
+            <div class="ui-dialog-footer ui-widget-content" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
-            <div class="ui-dialog-footer ui-widget-content">
-            <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="!footer">
-                <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" *ngIf="rejectVisible"></button>
+            <div class="ui-dialog-footer ui-widget-content" *ngIf="!footer">
                 <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()" *ngIf="acceptVisible"></button>
+                <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" *ngIf="rejectVisible"></button>
             </div>
         </div>
     `,
@@ -48,7 +47,7 @@ import {Subject} from 'rxjs/Subject';
     ],
     providers: [DomHandler]
 })
-export class ConfirmDialog implements AfterViewInit,OnDestroy {
+export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     @Input() header: string;
     
@@ -107,6 +106,8 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     $rejectEvent: Subscription;
     
     $subscription: Subscription;
+    
+    executePostShowActions: boolean;
             
     constructor(public el: ElementRef, public domHandler: DomHandler, 
             public renderer: Renderer2, private confirmationService: ConfirmationService) {
@@ -144,13 +145,14 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
     set visible(val:boolean) {
         this._visible = val;
         
-        if(this._visible) {            
+        if(this._visible) {      
             if(!this.positionInitialized) {
                 this.center();
                 this.positionInitialized = true;
             }
             
             this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
+            this.executePostShowActions = true;
         } 
         
         if(this._visible)
@@ -185,6 +187,13 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
                 this.domHandler.appendChild(this.el.nativeElement, this.appendTo);
         }
     }
+    
+    ngAfterViewChecked() {
+        if(this.executePostShowActions) {
+            this.domHandler.findSingle(this.el.nativeElement.children[0], 'button').focus();
+            this.executePostShowActions = false;
+        }
+    }
         
     center() {
         let container = this.el.nativeElement.children[0];
@@ -212,12 +221,14 @@ export class ConfirmDialog implements AfterViewInit,OnDestroy {
             this.mask.style.zIndex = this.el.nativeElement.children[0].style.zIndex - 1;
             this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
             document.body.appendChild(this.mask);
+            this.domHandler.addClass(document.body, 'ui-overflow-hidden');
         }
     }
     
     disableModality() {
         if(this.mask) {
             document.body.removeChild(this.mask);
+            this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
             this.mask = null;
         }
     }

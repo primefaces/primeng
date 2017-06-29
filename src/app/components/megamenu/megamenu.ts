@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,Renderer2} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
@@ -58,7 +58,7 @@ import {RouterModule} from '@angular/router';
     `,
     providers: [DomHandler]
 })
-export class MegaMenu implements OnDestroy {
+export class MegaMenu {
 
     @Input() model: MenuItem[];
 
@@ -108,38 +108,13 @@ export class MegaMenu implements OnDestroy {
         }
         
         if(item.command) {
-            if(!item.eventEmitter) {
-                item.eventEmitter = new EventEmitter();
-                item.eventEmitter.subscribe(item.command);
-            }
-            
-            item.eventEmitter.emit({
+            item.command({
                 originalEvent: event,
                 item: item
             });
         }
                         
         this.activeItem = null;
-    }
-    
-    unsubscribe(item: any) {
-        if(item.eventEmitter) {
-            item.eventEmitter.unsubscribe();
-        }
-        
-        if(item.items) {
-            for(let childItem of item.items) {
-                this.unsubscribe(childItem);
-            }
-        }
-    }
-    
-    ngOnDestroy() {        
-        if(this.model) {
-            for(let item of this.model) {
-                this.unsubscribe(item);
-            }
-        }
     }
     
     getColumnClass(menuitem: MenuItem) {

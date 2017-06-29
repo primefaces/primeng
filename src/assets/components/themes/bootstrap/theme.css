@@ -83,13 +83,6 @@ body .ui-widget-overlay {
     opacity: 0.7;
     filter: alpha(opacity=70);
 }
-body a {
-    color: #0275d8;
-    text-decoration: none;
-}
-body a:hover {
-    color: #0283f1;
-}
 body .ui-inputtext {
     background: #ffffff;
     padding: 0.5em 0.75em;
@@ -745,19 +738,16 @@ body .ui-datepicker table td a {
     color: #373a3c;
     font-size: .9em;
 }
-body .ui-datepicker table td a:hover {
+body .ui-datepicker .ui-datepicker-calendar td:not(.ui-state-disabled) a:hover {
     background-color: #f4f3f4;
 }
-body .ui-datepicker table td a.ui-state-highlight {
+body .ui-datepicker table.ui-datepicker-calendar td:not(.ui-state-disabled) a.ui-state-highlight {
     color: #373a3c;
     background-color: #e6e6e6;
 }
-body .ui-datepicker table td a.ui-state-active {
+body .ui-datepicker table.ui-datepicker-calendar td:not(.ui-state-disabled) a.ui-state-active {
     color: #ffffff;
     background-color: #0275d8;
-}
-body .ui-datepicker .ui-datepicker-calendar td:not(.ui-state-disabled) a:hover {
-    background-color: #f4f3f4;
 }
 body .ui-organizationchart .ui-organizationchart-line-down{
     background-color: #bcbcbc;
