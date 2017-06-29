@@ -112,8 +112,14 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         setTimeout(() => {
             this.preventRerender = true;
             this.onClose.emit({message:this.value[index]});
-            this._value = this.value.filter((val,i) => i!=index);
-            this.valueChange.emit(this._value);
+            
+            if(this.immutable) {
+                this._value = this.value.filter((val,i) => i!=index);
+                this.valueChange.emit(this._value);
+            }
+            else {
+                this._value.splice(i, 1);
+            }
         }, 250);        
     }
     
@@ -123,8 +129,14 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
             
             setTimeout(() => {                
                 this.value.forEach((msg,index) => this.onClose.emit({message:this.value[index]}));
-                this.value = [];
-                this.valueChange.emit(this.value);
+                if(this.immutable) {
+                    this.value = [];
+                    this.valueChange.emit(this.value);
+                }
+                else {
+                    this.value.splice(0, this.value.length);
+                }
+                
             }, 250);
         }
     }
