@@ -287,10 +287,15 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <h3>Managing Data</h3>
-            <p>DataTable uses setter based checking to realize if the underlying data has changed to update the UI so your data changes such as adding or removing a record 
-                should always create a new array reference instead of manipulating an existing array. For example, use slice instead of splice when removing an item 
-                or use spread operator instead of push method when adding an item.</p>
+            <h3>Change Detection</h3>
+            <p>DataTable either uses setter based checking or ngDoCheck to realize if the underlying data has changed to update the UI. This is configured using the immutable
+                property, when enabled (default) setter based detection is utilized so your data changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change. 
+                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
+                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
+                both methods can be used depending on your preference. Note that immutable property also defines how DataTable treats the data, for example
+                when immutable is enabled sorting does not mutate the original data but creates a new array of sorted data.
+            </p>
 
             <h3>Templates</h3>
             <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating where the implicit variable passed to the ng-template 
@@ -1336,6 +1341,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>number</td>
                             <td>0</td>
                             <td>Index of the first row to be displayed. It supports two-way binding so that model value can be updated on pagination as well.</td>
+                        </tr>
+                        <tr>
+                            <td>immutable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how the data should be manipulated.</td>
                         </tr>
                     </tbody>
                 </table>
