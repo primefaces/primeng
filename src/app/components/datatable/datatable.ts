@@ -921,13 +921,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     updatePaginator() {
         //total records
-        this.totalRecords = this.lazy ? this.totalRecords : (this.value ? this.value.length: 0);
+        this.updateTotalRecords();
 
         //first
         if(this.totalRecords && this.first >= this.totalRecords) {
             let numberOfPages = Math.ceil(this.totalRecords/this.rows);
             this._first = Math.max((numberOfPages-1) * this.rows, 0);
         }
+    }
+    
+    updateTotalRecords() {
+        this.totalRecords = this.lazy ? this.totalRecords : (this.value ? this.value.length: 0);
     }
 
     onPageChange(event) {
@@ -2131,15 +2135,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         this.filteredValue = null;
         this.filters = {};
-
-        if(this.paginator) {
-            this.updatePaginator();
-            this._first = 0;
-            this.firstChange.emit(this._first);
-        }
-        else {
+        
+        this._first = 0;
+        this.firstChange.emit(this._first);
+        this.updateTotalRecords();
+        
+        if(this.lazy)
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        else
             this.updateDataToRender(this.value);    
-        }
     }
     
     public exportCSV() {
