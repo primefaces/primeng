@@ -224,6 +224,7 @@ export class Tooltip implements OnDestroy {
     }
     
     alignRight() {
+        this.preAlign();
         this.container.className = 'ui-tooltip ui-widget ui-tooltip-right';
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + this.domHandler.getOuterWidth(this.el.nativeElement);
@@ -233,6 +234,7 @@ export class Tooltip implements OnDestroy {
     } 
     
     alignLeft() {
+        this.preAlign();
         this.container.className = 'ui-tooltip ui-widget ui-tooltip-left';
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left - this.domHandler.getOuterWidth(this.container);
@@ -242,6 +244,7 @@ export class Tooltip implements OnDestroy {
     } 
     
     alignTop() {
+        this.preAlign();
         this.container.className = 'ui-tooltip ui-widget ui-tooltip-top';
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
@@ -251,13 +254,19 @@ export class Tooltip implements OnDestroy {
     } 
     
     alignBottom() {
+        this.preAlign();
         this.container.className = 'ui-tooltip ui-widget ui-tooltip-bottom';
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
         let top = hostOffset.top + this.domHandler.getOuterHeight(this.el.nativeElement);
         this.container.style.left = left + 'px';
         this.container.style.top = top + 'px';
-    } 
+    }
+    
+    preAlign() {
+        this.container.style.left = -999 + 'px';
+        this.container.style.top = -999 + 'px';
+    }
     
     isOutOfBounds(): boolean {
         let offset = this.container.getBoundingClientRect();
