@@ -238,7 +238,7 @@ export class TableBody {
             </div>
         </div>
         <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width,'max-height':dt.scrollHeight}">
-            <div #scrollTableWrapper style="position:relative" [ngStyle]="{'height':virtualTableHeight}">
+            <div #scrollTableWrapper class="ui-datatable-scrollable-table-wrapper" style="position:relative">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle" [ngClass]="{'ui-datatable-virtual-table':virtualScroll}" style="top:0px">
                     <colgroup class="ui-datatable-scrollable-colgroup">
                         <col *ngFor="let col of columns" [ngStyle]="col.style"/>
@@ -364,7 +364,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                         let viewport = this.domHandler.getOuterHeight(this.scrollBody);
                         let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
                         let pageHeight = this.rowHeight * this.dt.rows;
-                        let virtualTableHeight = parseFloat(this.virtualTableHeight);
+                        let virtualTableHeight = this.domHandler.getOuterHeight(this.scrollTableWrapper);
                         let pageCount = (virtualTableHeight / pageHeight)||1;
 
                         if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
@@ -404,12 +404,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             this.scrollFooterBox.style.marginRight = scrollBarWidth + 'px';
         }
     }
-    
-    get virtualTableHeight(): string {
-        let totalRecords = this.dt.lazy ? this.dt.totalRecords : (this.dt.value ? this.dt.value.length: 0);
-        return (totalRecords * this.rowHeight) + 'px';
-    }
-                
+        
     ngOnDestroy() {
         if(this.bodyScrollListener) {
             this.bodyScrollListener();
@@ -485,8 +480,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() paginator: boolean;
 
     @Input() rows: number;
-
-    @Input() totalRecords: number;
 
     @Input() pageLinks: number = 5;
 
@@ -696,6 +689,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public editingCell: any;
         
+    public virtualTableHeight: number;
+        
     public rowGroupMetadata: any;
     
     public rowGroupHeaderTemplate: TemplateRef<any>;
@@ -717,10 +712,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public preventSortPropagation: boolean;
     
     _selection: any;
+    
+    _totalRecords: number;
         
     globalFilterFunction: any;
     
     columnsSubscription: Subscription;
+    
+    totalRecordsChanged: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler,
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
@@ -769,6 +768,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
             this.columnsChanged = false;
         }
+        
+        if(this.totalRecordsChanged && this.virtualScroll) {
+            let scrollableTable = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-scrollable-table-wrapper');
+            let row = this.domHandler.findSingle(scrollableTable,'tr.ui-widget-content');
+            let rowHeight = this.domHandler.getOuterHeight(row);
+            this.virtualTableHeight = this._totalRecords * rowHeight;
+            scrollableTable.style.height = this.virtualTableHeight + 'px';
+            this.totalRecordsChanged = true;
+        }
     }
 
     ngAfterViewInit() {
@@ -812,6 +820,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(shouldPaginate) {
             this.paginate();
         }
+    }
+    
+    @Input() get totalRecords(): number {
+        return this._totalRecords;
+    }
+
+    set totalRecords(val:number) {
+        this._totalRecords = val;
+        this.totalRecordsChanged = true;
     }
     
     @Input() get selection(): any {
