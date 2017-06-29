@@ -738,19 +738,16 @@ body .ui-datepicker table td a {
     color: #373a3c;
     font-size: .9em;
 }
-body .ui-datepicker table td a:hover {
+body .ui-datepicker .ui-datepicker-calendar td:not(.ui-state-disabled) a:hover {
     background-color: #f4f3f4;
 }
-body .ui-datepicker table td a.ui-state-highlight {
+body .ui-datepicker table.ui-datepicker-calendar td:not(.ui-state-disabled) a.ui-state-highlight {
     color: #373a3c;
     background-color: #e6e6e6;
 }
-body .ui-datepicker table td a.ui-state-active {
+body .ui-datepicker table.ui-datepicker-calendar td:not(.ui-state-disabled) a.ui-state-active {
     color: #ffffff;
     background-color: #0275d8;
-}
-body .ui-datepicker .ui-datepicker-calendar td:not(.ui-state-disabled) a:hover {
-    background-color: #f4f3f4;
 }
 body .ui-organizationchart .ui-organizationchart-line-down{
     background-color: #bcbcbc;
