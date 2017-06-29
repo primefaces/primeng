@@ -406,7 +406,12 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     }
     
     get virtualTableHeight(): string {
-        let totalRecords = this.dt.lazy ? this.dt.totalRecords : (this.dt.value ? this.dt.value.length: 0);
+        let totalRecords;
+        if ( this.dt.filteredValue !== undefined ) {
+            totalRecords = this.dt.filteredValue.length;
+        } else{
+            totalRecords = this.dt.lazy ? this.dt.totalRecords : (this.dt.value ? this.dt.value.length: 0);
+        }
         return (totalRecords * this.rowHeight) + 'px';
     }
                 
