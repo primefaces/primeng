@@ -83,13 +83,6 @@ body .ui-widget-overlay {
     opacity: 0.7;
     filter: alpha(opacity=70);
 }
-body a {
-    color: #0275d8;
-    text-decoration: none;
-}
-body a:hover {
-    color: #0283f1;
-}
 body .ui-inputtext {
     background: #ffffff;
     padding: 0.5em 0.75em;
