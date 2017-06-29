@@ -215,7 +215,7 @@
     padding: .5em;
 }
 
-.ui-datatable .ui-editable-column .ui-cell-editor {
+.ui-datatable .ui-editable-column > .ui-cell-editor {
     display: none;
 }
 
@@ -223,11 +223,11 @@
     padding: 1px;
 }
 
-.ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-editor {
+.ui-datatable .ui-editable-column.ui-cell-editing > .ui-cell-editor {
     display: block;
 }
 
-.ui-datatable .ui-editable-column.ui-cell-editing .ui-cell-data {
+.ui-datatable .ui-editable-column.ui-cell-editing > .ui-cell-data {
     display: none;
 }
 
