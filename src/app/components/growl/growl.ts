@@ -9,7 +9,7 @@ import {DomHandler} from '../dom/domhandler';
         <div #container [ngClass]="'ui-growl ui-widget'" [style.zIndex]="zIndex" [ngStyle]="style" [class]="styleClass">
             <div #msgel *ngFor="let msg of value;let i = index" class="ui-growl-item-container ui-state-highlight ui-corner-all ui-shadow" aria-live="polite"
                 [ngClass]="{'ui-growl-message-info':msg.severity == 'info','ui-growl-message-warn':msg.severity == 'warn',
-                    'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}">
+                    'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}" (click)="onMessageClick(i)">
                 <div class="ui-growl-item">
                      <div class="ui-growl-icon-close fa fa-close" (click)="remove(i,msgel)"></div>
                      <span class="ui-growl-image fa fa-2x"
@@ -35,6 +35,8 @@ export class Growl implements AfterViewInit,OnDestroy {
     @Input() style: any;
         
     @Input() styleClass: string;
+    
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onClose: EventEmitter<any> = new EventEmitter();
     
@@ -111,6 +113,10 @@ export class Growl implements AfterViewInit,OnDestroy {
                 this.valueChange.emit(this.value);
             }, 250);
         }
+    }
+    
+    onMessageClick(i: index) {
+        this.onClick.emit({message: this.value[i]});
     }
     
     ngOnDestroy() {
