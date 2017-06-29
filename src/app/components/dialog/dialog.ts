@@ -241,12 +241,14 @@ export class Dialog implements AfterViewInit,OnDestroy {
 	             });
 			}
             document.body.appendChild(this.mask);
+            this.domHandler.addClass(document.body, 'ui-overflow-hidden');
         }
     }
     
     disableModality() {
         if(this.mask) {
             document.body.removeChild(this.mask);
+            this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
             this.mask = null;
         }
     }

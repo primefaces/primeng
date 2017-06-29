@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,DoCheck,OnDestroy,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var google: any;
@@ -7,7 +7,7 @@ declare var google: any;
     selector: 'p-gmap',
     template: `<div [ngStyle]="style" [class]="styleClass"></div>`
 })
-export class GMap implements AfterViewInit,DoCheck {
+export class GMap implements AfterViewChecked,DoCheck {
 
     @Input() style: any;
         
@@ -36,8 +36,14 @@ export class GMap implements AfterViewInit,DoCheck {
     constructor(public el: ElementRef,differs: IterableDiffers, public cd: ChangeDetectorRef, public zone:NgZone) {
         this.differ = differs.find([]).create(null);
     }
-
-    ngAfterViewInit() {
+    
+    ngAfterViewChecked() {
+        if(!this.map && this.el.nativeElement.offsetParent) {
+            this.initialize();
+        }
+    }
+    
+    initialize() {
         this.map = new google.maps.Map(this.el.nativeElement.children[0], this.options);
         this.onMapReady.emit({
             map: this.map

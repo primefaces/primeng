@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,EventEmitter,Inject,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,Inject,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
@@ -62,13 +62,8 @@ export class SlideMenuSub implements OnDestroy {
             event.preventDefault();
         }
                 
-        if(item.command) {
-            if(!item.eventEmitter && item.command) {
-                item.eventEmitter = new EventEmitter();
-                item.eventEmitter.subscribe(item.command);
-            }
-            
-            item.eventEmitter.emit({
+        if(item.command) {            
+            item.command({
                 originalEvent: event,
                 item: item
             });
@@ -179,18 +174,6 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     hide() {
         this.container.style.display = 'none';
     }
-
-    unsubscribe(item: any) {
-        if(item.eventEmitter) {
-            item.eventEmitter.unsubscribe();
-        }
-        
-        if(item.items) {
-            for(let childItem of item.items) {
-                this.unsubscribe(childItem);
-            }
-        }
-    }
     
     onClick(event) {
         this.preventDocumentDefault = true;
@@ -203,12 +186,6 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     ngOnDestroy() {
         if(this.documentClickListener) {
             this.documentClickListener();
-        }
-        
-        if(this.model) {
-            for(let item of this.model) {
-                this.unsubscribe(item);
-            }
         }
     }
 

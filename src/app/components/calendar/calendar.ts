@@ -293,6 +293,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     focus: boolean;
     
+    isKeydown: boolean;
+    
     filled: boolean;
 
     inputFieldValue: string = null;
@@ -374,13 +376,11 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     ngAfterViewInit() {
-        this.overlay = <HTMLDivElement> this.overlayViewChild.nativeElement;
-                
         if(!this.inline && this.appendTo) {
             if(this.appendTo === 'body')
-                document.body.appendChild(this.overlay);
+                document.body.appendChild(this.overlayViewChild.nativeElement);
             else
-                this.domHandler.appendChild(this.overlay, this.appendTo);
+                this.domHandler.appendChild(this.overlayViewChild.nativeElement, this.appendTo);
         }
     }
     
@@ -716,7 +716,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     onButtonClick(event,inputfield) {
         this.closeOverlay = false;
         
-        if(!this.overlay.offsetParent || this.overlay.style.display === 'none') {
+        if(!this.overlayViewChild.nativeElement.offsetParent || this.overlayViewChild.nativeElement.style.display === 'none') {
             inputfield.focus();
             this.showOverlay();
         }
@@ -725,6 +725,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     onInputKeydown(event) {
+        this.isKeydown = true;
         if(event.keyCode === 9) {
             this.overlayVisible = false;
         }
@@ -820,7 +821,13 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         event.preventDefault();
     }
     
-    onUserInput(event) {  
+    onUserInput(event) {
+        // IE 11 Workaround for input placeholder : https://github.com/primefaces/primeng/issues/2026
+        if(!this.isKeydown) {
+            return;
+        }
+        this.isKeydown = false;
+        
         let val = event.target.value;   
         try {
             this.value = this.parseValueFromString(val);
@@ -839,6 +846,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     parseValueFromString(text: string): Date {
+        if(!text || text.trim().length === 0) {
+            return null;
+        }
+        
         let dateValue;
         let parts: string[] = text.split(' ');
         
@@ -902,16 +913,16 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     showOverlay() {
         this.overlayVisible = true;
         this.overlayShown = true;
-        this.overlay.style.zIndex = String(++DomHandler.zindex);
+        this.overlayViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
         
         this.bindDocumentClickListener();
     }
     
     alignOverlay() {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+            this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
         else
-            this.domHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+            this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
     }
 
     writeValue(value: any) : void {
@@ -1269,7 +1280,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.unbindDocumentClickListener();
         
         if(!this.inline && this.appendTo) {
-            this.el.nativeElement.appendChild(this.overlay);
+            this.el.nativeElement.appendChild(this.overlayViewChild.nativeElement);
         }
     }
 
