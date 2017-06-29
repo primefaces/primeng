@@ -115,7 +115,7 @@ export class Growl implements AfterViewInit,OnDestroy {
         }
     }
     
-    onMessageClick(i: index) {
+    onMessageClick(i: number) {
         this.onClick.emit({message: this.value[i]});
     }
     
