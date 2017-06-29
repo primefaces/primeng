@@ -153,7 +153,6 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
                 else
                     this.hide();
             }
-                
         }
     }
     
