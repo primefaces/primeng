@@ -12,9 +12,7 @@ export class MenuDemo {
         this.items = [{
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa-plus', command: () => {
-                    console.log('x');
-                }},
+                {label: 'New', icon: 'fa-plus', command: () => {}},
                 {label: 'Open', icon: 'fa-download'}
             ]
         },
