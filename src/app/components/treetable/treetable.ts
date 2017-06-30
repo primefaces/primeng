@@ -78,7 +78,7 @@ export class UITreeRow implements OnInit {
     }
     
     rowDblClick(event: MouseEvent) {
-      this.treeTable.onRowDblClick.emit({originalEvent: event, node: this.node});
+      this.treeTable.onRowDblclick.emit({originalEvent: event, node: this.node});
     }
 
     onRowTouchEnd() {
@@ -168,7 +168,7 @@ export class TreeTable implements AfterContentInit {
 
     @Input() toggleColumnIndex: number = 0;
         
-    @Output() onRowDblClick: EventEmitter<any> = new EventEmitter();    
+    @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();    
     
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     
