@@ -12,8 +12,6 @@ declare var google: any;
     `]
 })
 export class GMapDemo implements OnInit {
-
-    map: any;
     
     options: any;
     
@@ -40,25 +38,10 @@ export class GMapDemo implements OnInit {
         this.initOverlays();
         this.infoWindow = new google.maps.InfoWindow();
     }
-
-    getBounds(){
-        let bounds = this.map.getBounds();
-        console.log("New Bounds: " + JSON.stringify(bounds));
-    }
     
     handleMapClick(event) {
         this.dialogVisible = true;
         this.selectedPosition = event.latLng;
-    }
-
-    handleZoomChanged(event) {
-        console.log("Zoom Changed");
-        this.getBounds();
-    }
-
-    handleMapDragEnd(event) { 
-        console.log("Map Drag End");
-        this.getBounds();
     }
     
     handleOverlayClick(event) {
@@ -115,9 +98,5 @@ export class GMapDemo implements OnInit {
     
     clear() {
         this.overlays = [];
-    }
-
-    setMap(event) {
-        this.map = event.map;
     }
 }
