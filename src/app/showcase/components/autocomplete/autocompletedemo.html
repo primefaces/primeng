@@ -69,6 +69,15 @@ export class AutoCompleteDemo &#123;
 </code>
 </pre>
 
+            <h3>Change Detection</h3>
+            <p>AutoComplete either uses setter based checking or ngDoCheck to realize if the suggestions has changed to update the UI. This is configured using the immutable
+                property, when enabled (default) setter based detection is utilized so your changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change. 
+                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
+                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
+                both methods can be used depending on your preference.
+            </p>
+
             <h3>Model Driven Forms</h3>
             <p>AutoComplete can be used in a model driven form as well.</p>
 <pre>
@@ -337,6 +346,12 @@ export class AutoCompleteDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Message to display when there are no results for a query.</td>
+                        </tr>
+                        <tr>
+                            <td>immutable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how the suggestions should be manipulated.</td>
                         </tr>
                         <tr>
                             <td>enableControlKeys</td>

@@ -334,7 +334,7 @@
         text-align: left;
         display: block;
         border: 0 none;
-        width: 100%;
+        width: 100% !important;
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
@@ -357,5 +357,9 @@
         display: inline-block;
         margin: -.4em 1em -.4em -.4em;
         font-weight: bold;
+    }
+    
+    .ui-datatable-reflow.ui-datatable-scrollable .ui-datatable-scrollable-body colgroup {
+        display: block;
     }
 }

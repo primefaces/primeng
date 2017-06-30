@@ -10,7 +10,7 @@ import {DomHandler} from '../dom/domhandler';
     selector: '[pTreeRow]',
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
-            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
+            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
                 <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
@@ -77,6 +77,10 @@ export class UITreeRow implements OnInit {
         this.treeTable.onRowRightClick(event, this.node);
     }
     
+    rowDblClick(event: MouseEvent) {
+      this.treeTable.onRowDblclick.emit({originalEvent: event, node: this.node});
+    }
+
     onRowTouchEnd() {
         this.treeTable.onRowTouchEnd();
     }
@@ -164,6 +168,8 @@ export class TreeTable implements AfterContentInit {
 
     @Input() toggleColumnIndex: number = 0;
         
+    @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();    
+    
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();

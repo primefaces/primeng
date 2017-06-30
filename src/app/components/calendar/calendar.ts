@@ -530,6 +530,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         
         this.updateFilledState();
+        
+        if(this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
+            this.inputfieldViewChild.nativeElement.value = this.inputFieldValue;
+        }
     }
     
     selectDate(dateMeta) {

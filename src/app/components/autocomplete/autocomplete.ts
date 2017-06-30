@@ -1,4 +1,4 @@
-import {NgModule,Component,HostListener,ViewChild,ViewChildren,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,HostListener,ViewChild,ViewChildren,ElementRef,AfterViewInit,AfterContentInit,AfterViewChecked,Input,Output,EventEmitter,ContentChildren,QueryList,TemplateRef,Renderer2,forwardRef,ChangeDetectorRef,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {ButtonModule} from '../button/button';
@@ -51,7 +51,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     },
     providers: [DomHandler,ObjectUtils,AUTOCOMPLETE_VALUE_ACCESSOR]
 })
-export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValueAccessor {
+export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,ControlValueAccessor {
     
     @Input() minLength: number = 1;
     
@@ -95,7 +95,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
 	
-	@Output() onClear: EventEmitter<any> = new EventEmitter();
+	  @Output() onClear: EventEmitter<any> = new EventEmitter();
     
     @Input() field: string;
     
@@ -113,6 +113,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
 
     @Input() enableControlKeys: boolean = false;
 
+    @Input() immutable: boolean = true;
+     
     @ViewChild('in') inputEL: ElementRef;
     
     @ViewChild('multiIn') multiInputEL: ElementRef;
@@ -125,11 +127,11 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
         
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    public itemTemplate: TemplateRef<any>;
+    itemTemplate: TemplateRef<any>;
     
-    public selectedItemTemplate: TemplateRef<any>;
-
     pickedToken: ElementRef = null;
+
+    selectedItemTemplate: TemplateRef<any>;
     
     value: any;
     
@@ -140,9 +142,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     onModelTouched: Function = () => {};
     
     timeout: any;
-    
-    differ: any;
-        
+            
     panelVisible: boolean = false;
     
     documentClickListener: any;
@@ -162,8 +162,12 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     inputKeyDown: boolean;
     
     noResults: boolean;
+    
+    differ: any;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
+        this.differ = differs.find([]).create(null);
+    }
     
     @Input() get suggestions(): any[] {
         return this._suggestions;
@@ -172,6 +176,21 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,ControlValue
     set suggestions(val:any[]) {
         this._suggestions = val;
                 
+        if(this.immutable) {
+            this.handleSuggestionsChange();
+        }
+    }
+    
+    ngDoCheck() {
+        if(!this.immutable) {
+            let changes = this.differ.diff(this.suggestions);
+            if(changes) {
+                this.handleSuggestionsChange();
+            }
+        }
+    }
+    
+    handleSuggestionsChange() {
         if(this.panelEL && this.panelEL.nativeElement) {
             if(this._suggestions && this._suggestions.length) {
                 this.noResults = false;
