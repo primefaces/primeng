@@ -33,7 +33,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
                             <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" /></div>
                             <div>{{file.name}}</div>
                             <div>{{formatSize(file.size)}}</div>
-                            <div><button type="button" icon="fa-close" pButton (click)="remove(i)"></button></div>
+                            <div><button type="button" icon="fa-close" pButton (click)="remove($event,i)"></button></div>
                         </div>
                     </div>
                     <div *ngIf="fileTemplate">
@@ -47,7 +47,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
         (mouseup)="onSimpleUploaderClick($event)"
         [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}">
             <span class="ui-button-icon-left fa" [ngClass]="{'fa-plus': !hasFiles()||auto, 'fa-upload': hasFiles()&&!auto}"></span>
-            <span class="ui-button-text ui-c">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
+            <span class="ui-button-text ui-clickable">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
             <input type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
                 (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
@@ -306,7 +306,7 @@ export class FileUpload implements OnInit,AfterContentInit {
         this.onClear.emit();
     }
     
-    remove(index: number) {
+    remove(event: Event, index: number) {
         this.onRemove.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
     }
@@ -330,19 +330,24 @@ export class FileUpload implements OnInit,AfterContentInit {
         }
     }
     
-    onDragLeave(e) {
+    onDragLeave(event) {
         if(!this.disabled) {
             this.dragHighlight = false;
         }
     }
     
-    onDrop(e) {
+    onDrop(event) {
         if(!this.disabled) {
             this.dragHighlight = false;
-            e.stopPropagation();
-            e.preventDefault();
+            event.stopPropagation();
+            event.preventDefault();
             
-            this.onFileSelect(e);
+            let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+            let allowDrop = this.multiple||(files && files.length === 1);
+            
+            if(allowDrop) {
+                this.onFileSelect(event);
+            }
         }
     }
     

@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,OnDestroy,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/menuitem';
 import {Location} from '@angular/common';
@@ -38,7 +38,7 @@ import {RouterModule} from '@angular/router';
         </div>
     `
 })
-export class Breadcrumb implements OnDestroy {
+export class Breadcrumb {
 
     @Input() model: MenuItem[];
 
@@ -58,13 +58,8 @@ export class Breadcrumb implements OnDestroy {
             event.preventDefault();
         }
         
-        if(item.command) {
-            if(!item.eventEmitter) {
-                item.eventEmitter = new EventEmitter();
-                item.eventEmitter.subscribe(item.command);
-            }
-            
-            item.eventEmitter.emit({
+        if(item.command) {            
+            item.command({
                 originalEvent: event,
                 item: item
             });
@@ -76,17 +71,6 @@ export class Breadcrumb implements OnDestroy {
             this.itemClick(event, this.home);
         }
     }
-        
-    ngOnDestroy() {
-        if(this.model) {
-            for(let item of this.model) {
-                if(item.eventEmitter) {
-                    item.eventEmitter.unsubscribe();
-                }
-            }
-        }
-    }
-
 }
 
 @NgModule({

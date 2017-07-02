@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/menuitem';
@@ -19,12 +19,7 @@ export class BasePanelMenuItem {
         }
                    
         if(item.command) {
-            if(!item.eventEmitter) {
-                item.eventEmitter = new EventEmitter();
-                item.eventEmitter.subscribe(item.command);
-            }
-            
-            item.eventEmitter.emit({
+            item.command({
                 originalEvent: event,
                 item: item
             });
@@ -38,7 +33,7 @@ export class BasePanelMenuItem {
         <ul class="ui-menu-list ui-helper-reset" [@submenu]="expanded ? 'visible' : 'hidden'">
             <ng-template ngFor let-child [ngForOf]="item.items">
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
-                <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}">
+                <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}" [class]="child.styleClass" [ngStyle]="child.style">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.tabindex]="item.expanded ? null : '-1'"
                         [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-disabled':child.disabled}" 
                         (click)="handleClick($event,child)" [attr.target]="child.target">
@@ -84,7 +79,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-panelmenu ui-widget'">
             <div *ngFor="let item of model;let f=first;let l=last;" class="ui-panelmenu-panel">
                 <div [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-top':f,'ui-corner-bottom':l&&!item.expanded,
-                    'ui-state-active':item.expanded,'ui-state-disabled':item.disabled}">
+                    'ui-state-active':item.expanded,'ui-state-disabled':item.disabled}" [class]="item.styleClass" [ngStyle]="item.style">
                     <a *ngIf="!item.routerLink" [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)"
                         [attr.target]="item.target">
                         <span *ngIf="item.items" class="ui-panelmenu-icon fa" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span
@@ -98,7 +93,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         ><span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
                 </div>
-                <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'" 
+                <div *ngIf="item.items" class="ui-panelmenu-content-wrapper" [@rootItem]="item.expanded ? 'visible' : 'hidden'"  (@rootItem.done)="onToggleDone($event)"
                     [ngClass]="{'ui-panelmenu-content-wrapper-overflown': !item.expanded||animating}">
                     <div class="ui-panelmenu-content ui-widget-content">
                         <p-panelMenuSub [item]="item" [expanded]="true"></p-panelMenuSub>
@@ -130,33 +125,13 @@ export class PanelMenu extends BasePanelMenuItem {
     
     public animating: boolean;
                 
-    unsubscribe(item: any) {
-        if(item.eventEmitter) {
-            item.eventEmitter.unsubscribe();
-        }
-        
-        if(item.items) {
-            for(let childItem of item.items) {
-                this.unsubscribe(childItem);
-            }
-        }
-    }
-            
-    ngOnDestroy() {        
-        if(this.model) {
-            for(let item of this.model) {
-                this.unsubscribe(item);
-            }
-        }
-    }
-    
     handleClick(event, item) {
         this.animating = true;
         super.handleClick(event, item);
-        //TODO: Use onDone of animate callback instead with RC6
-        setTimeout(() => {
-            this.animating = false;
-        }, 400);
+    }
+    
+    onToggleDone() {
+        this.animating = false;
     }
 
 }

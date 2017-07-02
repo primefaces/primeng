@@ -6,7 +6,6 @@ export interface MenuItem {
     command?: (event?: any) => void;
     url?: string;
     routerLink?: any;
-    eventEmitter?: EventEmitter<any>;
     items?: MenuItem[];
     expanded?: boolean;
     disabled?: boolean;
@@ -14,4 +13,6 @@ export interface MenuItem {
     target?: string;
     routerLinkActiveOptions?: any;
     separator?: boolean;
+    style?:any;
+    styleClass?:string;
 }

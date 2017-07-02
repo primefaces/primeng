@@ -16,7 +16,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + options.length" [ngStyle]="style" [class]="styleClass">
             <div *ngFor="let option of options;" class="ui-button ui-widget ui-state-default ui-button-text-only"
                 [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled, 'ui-state-focus': cbox == focusedItem}" (click)="onItemClick($event,option,cbox)">
-                <span class="ui-button-text ui-c">{{option.label}}</span>
+                <span class="ui-button-text ui-clickable">{{option.label}}</span>
                 <div class="ui-helper-hidden-accessible">
                     <input #cbox type="checkbox" [checked]="isSelected(option)" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.disabled]="disabled">
                 </div>

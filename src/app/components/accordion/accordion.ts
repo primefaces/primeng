@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChildren,QueryList} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterContentInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
@@ -93,7 +93,7 @@ export class Accordion implements BlockableUI {
         ])
     ]
 })
-export class AccordionTab {
+export class AccordionTab implements OnDestroy {
 
     @Input() header: string;
 
@@ -161,6 +161,10 @@ export class AccordionTab {
     
     onToggleDone(event: Event) {
         this.animating = false;
+    }
+    
+    ngOnDestroy() {
+        this.accordion.tabs.splice(this.findTabIndex(), 1);
     }
 }
 
