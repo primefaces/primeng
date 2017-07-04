@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,AfterContentInit,EventEmitter,OnDestroy,Input,Output,TemplateRef,ContentChildren,QueryList,Renderer2,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,AfterContentInit,EventEmitter,OnDestroy,Input,Output,TemplateRef,ContentChildren,QueryList,Renderer2,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {CommonModule} from '@angular/common';
@@ -100,7 +100,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
     differ: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -195,6 +195,7 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
         this.updateMobileDropdown();
         this.updateLinks();
         this.updateDropdown();
+        this.cd.detectChanges();
     }
     
     calculateItemWidths () {

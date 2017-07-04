@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {DomHandler} from '../dom/domhandler';
@@ -23,7 +23,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
-                <span class="fa fa-fw fa-caret-down ui-c"></span>
+                <span class="fa fa-fw fa-caret-down ui-clickable"></span>
             </div>
             <div #panel class="ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow" [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
@@ -32,7 +32,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                             <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
                         <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isAllChecked()}" (click)="toggleAll($event,cb)">
-                            <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
+                            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
@@ -53,7 +53,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                                     <input type="checkbox" readonly="readonly" [checked]="isSelected(option.value)">
                                 </div>
                                 <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option.value)}">
-                                    <span class="ui-chkbox-icon ui-c" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
+                                    <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
                             <label>{{option.label}}</label>
@@ -136,8 +136,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     public valueDiffer: any;
 
     public optionsDiffer: any;
-
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils) {
+    
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {
         this.valueDiffer = differs.find([]).create(null);
         this.optionsDiffer = differs.find([]).create(null);
     }
@@ -145,15 +145,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     ngOnInit() {
         this.initSelectedOptions();
         this.updateLabel();
-
-        this.documentClickListener = this.renderer.listen('document', 'click', () => {
-            if(!this.selfClick && !this.panelClick && this.overlayVisible) {
-                this.hide();
-            }
-
-            this.selfClick = false;
-            this.panelClick = false;
-        });
     }
 
     ngAfterViewInit() {
@@ -199,6 +190,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     writeValue(value: any) : void {
         this.value = value;
         this.updateLabel();
+        this.cd.markForCheck();
     }
 
     registerOnChange(fn: Function): void {
@@ -271,7 +263,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     show() {
         this.overlayVisible = true;
         this.panel.style.zIndex = String(++DomHandler.zindex);
-
+        this.bindDocumentClickListener();
         if(this.appendTo)
             this.domHandler.absolutePosition(this.panel, this.container);
         else
@@ -282,6 +274,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
 
     hide() {
         this.overlayVisible = false;
+        this.unbindDocumentClickListener();
     }
 
     close(event) {
@@ -346,7 +339,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
         let label = null;
         for(let i = 0; i < this.options.length; i++) {
             let option = this.options[i];
-            if(option.value == val) {
+            if(val == null && option.value == null || this.objectUtils.equals(val, option.value, this.dataKey)) {
                 label = option.label;
                 break;
             }
@@ -394,12 +387,30 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             return this.options;
         }
     }
-
-    ngOnDestroy() {
+    
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+                if(!this.selfClick && !this.panelClick && this.overlayVisible) {
+                    this.hide();
+                }
+                
+                this.selfClick = false;
+                this.panelClick = false;
+                this.cd.markForCheck();
+            });
+        }        
+    }
+    
+    unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
-        }
+            this.documentClickListener = null;
+        }        
+    }
 
+    ngOnDestroy() {
+        this.unbindDocumentClickListener();
         if(this.appendTo) {
             this.container.appendChild(this.panel);
         }

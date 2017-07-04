@@ -12,9 +12,9 @@
     <p-dataTable [value]="cars" [editable]="true">
         <p-column field="vin" header="Vin" [editable]="true"></p-column>
         <p-column field="year" header="Year" [editable]="true"></p-column>
-        <p-column field="brand" header="Brand" [editable]="true" [style]="{'overflow':'visible'}">
+        <p-column field="brand" header="Brand" [editable]="true">
             <ng-template let-col let-car="rowData" pTemplate="editor">
-                <p-dropdown [(ngModel)]="car[col.field]" [options]="brands" [autoWidth]="false" [style]="{'width':'100%'}" required="true"></p-dropdown>
+                <p-dropdown [(ngModel)]="car[col.field]" [options]="brands" [autoWidth]="false" [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
             </ng-template>
         </p-column>
         <p-column field="color" header="Color" [editable]="true"></p-column>
@@ -62,9 +62,9 @@ export class DataTableEditableDemo implements OnInit &#123;
 &lt;p-dataTable [value]="cars" [editable]="true"&gt;
     &lt;p-column field="vin" header="Vin" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand" [editable]="true" [style]="&#123;'overflow':'visible'&#125;"&gt;
+    &lt;p-column field="brand" header="Brand" [editable]="true"gt;
         &lt;ng-template let-col let-car="rowData" pTemplate="editor"&gt;
-            &lt;p-dropdown [(ngModel)]="car[col.field]" [options]="brands" [autoWidth]="false" [style]="&#123;'width':'100%'&#125;" required="true"&gt;&lt;/p-dropdown&gt;
+            &lt;p-dropdown [(ngModel)]="car[col.field]" [options]="brands" [autoWidth]="false" [style]="&#123;'width':'100%'&#125;" required="true"  appendTo="body"&gt;&lt;/p-dropdown&gt;
         &lt;/ng-template&gt;
     &lt;/p-column&gt;
     &lt;p-column field="color" header="Color" [editable]="true"&gt;&lt;/p-column&gt;

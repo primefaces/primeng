@@ -86,7 +86,6 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         this.offContainer = this.domHandler.findSingle(this.container,'div.ui-inputswitch-off');
         this.onLabelChild = this.domHandler.findSingle(this.onContainer,'span.ui-inputswitch-onlabel');
         this.offLabelChild = this.domHandler.findSingle(this.offContainer,'span.ui-inputswitch-offlabel');
-        this.setAriaLabel();
     }
     
     ngAfterViewChecked() {
@@ -143,7 +142,6 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
                 this.checkUI();
             }
             
-            this.setAriaLabel();
             this.onModelChange(this.checked);
             this.onChange.emit({
                 originalEvent: event,
@@ -158,6 +156,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         this.onLabelChild.style.marginLeft = 0 + 'px';
         this.offLabelChild.style.marginRight = -this.offset + 'px';
         this.handle.style.left = this.offset + 'px';
+        this.updateAriaLabel();
     }
 
     uncheckUI() {
@@ -165,6 +164,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         this.onLabelChild.style.marginLeft = -this.offset + 'px';
         this.offLabelChild.style.marginRight = 0 + 'px';
         this.handle.style.left = 0 + 'px';
+        this.updateAriaLabel();
     }
 
     onFocus(event) {
@@ -199,7 +199,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
         this.disabled = val;
     }
     
-    setAriaLabel() {
+    updateAriaLabel() {
         let pattern = /{(.*?)}/,
         value = this.checked ? this.onLabel : this.offLabel;
         

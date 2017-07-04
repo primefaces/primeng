@@ -23,7 +23,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
-                        (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled">
+                        (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul>
         </div>
@@ -51,6 +51,12 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() tabindex: number;
 
     @Input() inputId: string;
+    
+    @Input() allowDuplicate: boolean = true;
+    
+    @Input() inputStyle: any;
+    
+    @Input() inputStyleClass: any;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -159,12 +165,14 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             case 13:
                 this.value = this.value||[];
                 if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
-                    this.value = [...this.value,inputEL.value];
-                    this.onModelChange(this.value);
-                    this.onAdd.emit({
-                        originalEvent: event,
-                        value: inputEL.value
-                    });
+                    if(this.allowDuplicate || !this.value.includes(inputEL.value)) {
+                        this.value = [...this.value, inputEL.value];
+                        this.onModelChange(this.value);
+                        this.onAdd.emit({
+                            originalEvent: event,
+                            value: inputEL.value
+                        });
+                    }
                 }     
                 inputEL.value = '';
                 event.preventDefault();
