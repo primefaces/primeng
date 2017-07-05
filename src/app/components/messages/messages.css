@@ -1,9 +1,12 @@
 .ui-messages {
     border: 1px solid;
     margin: .5em 0;
-    padding: 1em 1em 1em .5em;
     display: none;
     position: relative;
+}
+
+.ui-messages-container {
+  padding: 1em 1em 1em .5em;
 }
 
 .ui-messages-icon {

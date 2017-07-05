@@ -1,6 +1,7 @@
 import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
+import {trigger,state,style,transition,animate} from '@angular/animations';
 
 @Component({
     selector: 'p-messages',
@@ -9,19 +10,36 @@ import {Message} from '../common/message';
                     [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
                     'ui-messages-warn':(value[0].severity === 'warn'),
                     'ui-messages-error':(value[0].severity === 'error'),
-                    'ui-messages-success':(value[0].severity === 'success')}">
-            <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
-                <i class="fa fa-close"></i>
-            </a>
-            <span class="ui-messages-icon fa fa-fw fa-2x" [ngClass]="icon"></span>
-            <ul>
-                <li *ngFor="let msg of value">
-                    <span class="ui-messages-summary">{{msg.summary}}</span>
-                    <span class="ui-messages-detail">{{msg.detail}}</span>
-                </li>
-            </ul>
+                    'ui-messages-success':(value[0].severity === 'success')}"
+                    [@slideIn]="hasMessages() ? '*' : 'void'">
+          <div class="ui-messages-container">
+              <a href="#" class="ui-messages-close" (click)="clear($event)" *ngIf="closable">
+                  <i class="fa fa-close"></i>
+              </a>
+              <span class="ui-messages-icon fa fa-fw fa-2x" [ngClass]="icon"></span>
+              <ul>
+                  <li *ngFor="let msg of value">
+                      <span class="ui-messages-summary">{{msg.summary}}</span>
+                      <span class="ui-messages-detail">{{msg.detail}}</span>
+                  </li>
+              </ul>
+          </div>
         </div>
-    `
+    `,
+    animations: [
+      trigger('slideIn', [
+      state('*', style({  })),
+      state('void', style({  })),
+      transition('* => void', [
+          style({ height: '*'}),
+          animate(222, style({ height: 0 }))
+      ]),
+      transition('void => *', [
+          style({ height: 0 }),
+          animate(222 , style({ height: '*'}))
+      ])
+    ])
+  ]
 })
 export class Messages {
 
