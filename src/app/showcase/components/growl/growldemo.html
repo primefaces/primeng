@@ -76,7 +76,7 @@ export class MyModel &#123;
 &lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
     
 &lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
-&lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
+&lt;button type="button" (click)="clear()"&gt;Clear&lt;/button&gt;
 </code>
 </pre>
 
@@ -86,7 +86,7 @@ show() &#123;
     this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);
 &#125;
 
-hide() &#123;
+clear() &#123;
     this.msgs = [];
 &#125;
 </code>
