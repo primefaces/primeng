@@ -621,6 +621,10 @@ body {
         text-align: center;
         padding-top: 2em;
     }
+    
+    .SubSubMenu ul li {
+        width: 50%;
+    }
 }
 
 @media (max-width: 768px) {
