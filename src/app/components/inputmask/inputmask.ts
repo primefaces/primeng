@@ -85,6 +85,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
         
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+        
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
         
     value: any;
@@ -533,6 +535,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
                 this.caret(pos);
             }
         }, 10);
+        
+        this.onFocus.emit(e);
     }
     
     onInput(event) {         
