@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterContentInit,Input,Output,EventEmitter,ContentChildren,QueryList} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterContentInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
@@ -26,6 +26,8 @@ export class Accordion implements BlockableUI {
     
     @Input() lazy: boolean;
     
+    private _activeIndex: any;
+    
     public tabs: AccordionTab[] = [];
 
     constructor(public el: ElementRef) {}
@@ -37,6 +39,28 @@ export class Accordion implements BlockableUI {
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     } 
+    
+    @Input() get activeIndex(): any {
+        return this._activeIndex;
+    }
+
+    set activeIndex(val: any) {
+        this._activeIndex = val;
+        
+        if(this.tabs && this.tabs.length && this._activeIndex != null) {
+            for(let i = 0; i < this.tabs.length; i++) {
+                let selected = this.multiple ? this._activeIndex.includes(i) : (i === this._activeIndex);
+                let changed = selected !== this.tabs[i].selected;
+                
+                if(changed) {
+                    this.tabs[i].animating = true;
+                }
+                
+                this.tabs[i].selected = selected;
+                this.tabs[i].selectedChange.emit(selected);
+            }
+        }
+    }
 }
 
 @Component({
@@ -69,7 +93,7 @@ export class Accordion implements BlockableUI {
         ])
     ]
 })
-export class AccordionTab {
+export class AccordionTab implements OnDestroy {
 
     @Input() header: string;
 
@@ -137,6 +161,10 @@ export class AccordionTab {
     
     onToggleDone(event: Event) {
         this.animating = false;
+    }
+    
+    ngOnDestroy() {
+        this.accordion.tabs.splice(this.findTabIndex(), 1);
     }
 }
 

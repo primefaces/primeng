@@ -172,6 +172,45 @@ handleClose(e) &#123;
 </code>
 </pre>
 
+            <h3>Programmatic Control</h3>
+            <p>Tabs can be controlled programmatically using activeIndex property that defines the index of the active tab.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+
+&lt;p-tabView [activeIndex]="index"&gt;
+    &lt;p-tabPanel header="Header 1"&gt;
+        Content 1
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 2"&gt;
+        Content 2
+    &lt;/p-tabPanel&gt;
+    &lt;p-tabPanel header="Header 3"&gt;
+        Content 3    
+    &lt;/p-tabPanel&gt;
+&lt;/p-tabView&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TabViewDemo &#123;
+
+    index: number = 0;
+
+    openNext() &#123;
+        this.index = (this.index === 2) ? 0 : this.index + 1;
+    &#125;
+
+    openPrev() &#123;
+        this.index = (this.index === 0) ? 2 : this.index - 1;
+    &#125;
+    
+&#125;
+</code>
+</pre>
+
             <h3>Attributes for TabView</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">

@@ -132,6 +132,11 @@
     width: 100%;
 }
 
+.ui-menubar .ui-menuitem.ui-menuitem-custom {
+    float: right;
+    margin-top: 0.25em;
+}
+
 .ui-menubar .ui-menubar-options {
     float: right;
 }

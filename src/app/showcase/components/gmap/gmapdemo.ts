@@ -12,7 +12,7 @@ declare var google: any;
     `]
 })
 export class GMapDemo implements OnInit {
-
+    
     options: any;
     
     overlays: any[];
@@ -36,7 +36,6 @@ export class GMapDemo implements OnInit {
         };
         
         this.initOverlays();
-        
         this.infoWindow = new google.maps.InfoWindow();
     }
     

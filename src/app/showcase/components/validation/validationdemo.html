@@ -89,8 +89,8 @@
                     <br>
                     {{diagnostic}}
                 </div>
-            </div>   
-        </p-panel> 
+            </div>
+        </p-panel>
     </form>
 </div>
 
@@ -99,7 +99,7 @@
         <i class="fa fa-github"></i>
         <span>View on GitHub</span>
     </a>
-    
+
     <p-tabView effect="fade">
         <p-tabPanel header="validationdemo.ts">
 <pre>
@@ -112,52 +112,52 @@ import &#123;Message,SelectItem&#125; from '../../../components/common/api';
     templateUrl: 'showcase/demo/validation/validationdemo.html'
 &#125;)
 export class ValidationDemo implements OnInit &#123;
-    
+
     msgs: Message[] = [];
-    
-    userform: ControlGroup;
-    
+
+    userform: FormGroup;
+
     submitted: boolean;
-    
+
     genders: SelectItem[];
-        
+
     description: string;
-    
+
     constructor(private fb: FormBuilder) &#123;&#125;
-    
+
     ngOnInit() &#123;
         this.userform = this.fb.group(&#123;
-            'firstname': new Control('', Validators.required),
-            'lastname': new Control('', Validators.required),
-            'password': new Control('', Validators.compose([Validators.required, Validators.minLength(6)])),
-            'description': new Control(''),
-            'gender': new Control('', Validators.required)
+            'firstname': new FormControl('', Validators.required),
+            'lastname': new FormControl('', Validators.required),
+            'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+            'description': new FormControl(''),
+            'gender': new FormControl('', Validators.required)
         &#125;);
-        
+
         this.genders = [];
         this.genders.push(&#123;label:'Select Gender', value:''&#125;);
         this.genders.push(&#123;label:'Male', value:'Male'&#125;);
         this.genders.push(&#123;label:'Female', value:'Female'&#125;);
     &#125;
-    
+
     onSubmit(value: string) &#123;
         this.submitted = true;
         this.msgs = [];
         this.msgs.push(&#123;severity:'info', summary:'Success', detail:'Form Submitted'&#125;);
     &#125;
-    
+
     get diagnostic() &#123; return JSON.stringify(this.userform.value); &#125;
-    
+
 &#125;
 </code>
-</pre>            
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="validationdemo.html">
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs" sticky="sticky"&gt;&lt;/p-growl&gt;
-    
+
 &lt;form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)"&gt;
     &lt;p-panel header="Validate"&gt;
         &lt;div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"&gt;
@@ -239,8 +239,8 @@ export class ValidationDemo implements OnInit &#123;
                 &lt;br&gt;
                 {{diagnostic}}
             &lt;/div&gt;
-        &lt;/div&gt;   
-    &lt;/p-panel&gt; 
+        &lt;/div&gt;
+    &lt;/p-panel&gt;
 &lt;/form&gt;
 </code>
 </pre>

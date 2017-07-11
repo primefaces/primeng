@@ -403,7 +403,7 @@ body {
     margin-top: 5px;
 }
 .SubSubMenu ul li a:hover {
-    color: #fdd106
+    color: #229be0
 }
 
 /* Documentation Section */
@@ -620,6 +620,10 @@ body {
     .support .support-image .ui-md-6:last-child {
         text-align: center;
         padding-top: 2em;
+    }
+    
+    .SubSubMenu ul li {
+        width: 50%;
     }
 }
 

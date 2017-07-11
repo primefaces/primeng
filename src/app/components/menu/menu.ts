@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,HostListener,EventEmitter,ViewChild,Inject,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,Renderer2,HostListener,ViewChild,Inject,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {MenuItem} from '../common/menuitem';
@@ -133,12 +133,7 @@ export class Menu implements AfterViewInit,OnDestroy {
         }
         
         if(item.command) {
-            if(!item.eventEmitter) {
-                item.eventEmitter = new EventEmitter();
-                item.eventEmitter.subscribe(item.command);
-            }
-            
-            item.eventEmitter.emit({
+            item.command({
                 originalEvent: event,
                 item: item
             });
@@ -159,12 +154,6 @@ export class Menu implements AfterViewInit,OnDestroy {
                 this.el.nativeElement.appendChild(this.container);
             }
         }
-        
-        if(this.model) {
-            for(let item of this.model) {
-                this.unsubscribe(item);
-            }
-        }
     }
     
     hasSubMenu(): boolean {
@@ -176,18 +165,6 @@ export class Menu implements AfterViewInit,OnDestroy {
             }
         }
         return false;
-    }
-    
-    unsubscribe(item: any) {
-        if(item.eventEmitter) {
-            item.eventEmitter.unsubscribe();
-        }
-        
-        if(item.items) {
-            for(let childItem of item.items) {
-                this.unsubscribe(childItem);
-            }
-        }
     }
 }
 

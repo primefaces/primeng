@@ -178,6 +178,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Defines placeholder of the input fields.</td>
                         </tr>
                         <tr>
+                            <td>filterMaxlength</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Specifies the maximum number of characters allowed in the filter element.</td>
+                        </tr>
+                        <tr>
                             <td>rowspan</td>
                             <td>string</td>
                             <td>null</td>
@@ -281,10 +287,15 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <h3>Managing Data</h3>
-            <p>DataTable uses setter based checking to realize if the underlying data has changed to update the UI so your data changes such as adding or removing a record 
-                should always create a new array reference instead of manipulating an existing array. For example, use slice instead of splice when removing an item 
-                or use spread operator instead of push method when adding an item.</p>
+            <h3>Change Detection</h3>
+            <p>DataTable either uses setter based checking or ngDoCheck to realize if the underlying data has changed to update the UI. This is configured using the immutable
+                property, when enabled (default) setter based detection is utilized so your data changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change. 
+                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
+                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
+                both methods can be used depending on your preference. Note that immutable property also defines how DataTable treats the data, for example
+                when immutable is enabled sorting does not mutate the original data but creates a new array of sorted data.
+            </p>
 
             <h3>Templates</h3>
             <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating where the implicit variable passed to the ng-template 
@@ -1218,15 +1229,15 @@ export class DataTableDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>scrollHeight</td>
-                            <td>number/string</td>
+                            <td>string</td>
                             <td>null</td>
-                            <td>Height of the scroll viewport, can be pixel as a number or a percentage.</td>
+                            <td>Height of the scroll viewport.</td>
                         </tr>
                         <tr>
                             <td>scrollWidth</td>
-                            <td>number/string</td>
+                            <td>string</td>
                             <td>null</td>
-                            <td>Width of the scroll viewport, can be pixel as a number or a percentage.</td>
+                            <td>Width of the scroll viewport.</td>
                         </tr>
                         <tr>
                             <td>virtualScroll</td>
@@ -1330,6 +1341,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>number</td>
                             <td>0</td>
                             <td>Index of the first row to be displayed. It supports two-way binding so that model value can be updated on pagination as well.</td>
+                        </tr>
+                        <tr>
+                            <td>immutable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how the data should be manipulated.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1478,11 +1495,6 @@ export class DataTableDemo implements OnInit &#123;
                                 group: Value of the group.</td>
                             <td>Callback to invoke when a row group is collapsed.</td>
                         </tr>
-                        <tr>
-                            <td>firstChange</td>
-                            <td>first: Index of the first row</td>
-                            <td>Callback to invoke when first property is changed.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1605,11 +1617,11 @@ update(dt: DataTable) &#123;
                             <td>Container of header in a scrollable table.</td>
                         </tr>
                         <tr>
-                            <td>ui-datatable-scrollable-header</td>
+                            <td>ui-datatable-scrollable-body</td>
                             <td>Container of body in a scrollable table.</td>
                         </tr>
                         <tr>
-                            <td>ui-datatable-scrollable-header</td>
+                            <td>ui-datatable-scrollable-footer</td>
                             <td>Container of footer in a scrollable table.</td>
                         </tr>
                         <tr>
