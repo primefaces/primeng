@@ -146,7 +146,7 @@ $invalidInputBorderColor: #f44336;
 .ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
     border: 1px solid #156090;
     background: #186ba0;
-    color: #ffffff,
+    color: #ffffff;
 }
 
 .ui-slider { position: relative; text-align: left; background: #838688; border: none; -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset; -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset; box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset;}
@@ -177,6 +177,7 @@ $invalidInputBorderColor: #f44336;
 
 .ui-widget-header .ui-button,		
 .ui-widget-content .ui-button,
+.ui-widget.ui-button,
 .ui-button {
 	border: 1px solid #2399e5;
 	color: #FFFFFF;
@@ -186,6 +187,8 @@ $invalidInputBorderColor: #f44336;
     transition: background-color .2s;
     
     &:enabled:hover,
+    &.ui-state-focus,
+    &:not(.ui-state-disabled):hover,
     &:focus {
         border: 1px solid #1f89ce;
     	background: #1f89ce;
@@ -193,10 +196,11 @@ $invalidInputBorderColor: #f44336;
         color: #ffffff;
     }
     
-    &:enabled:active {
+    &:enabled:active,
+    &:not(.ui-state-disabled):active {
         border: 1px solid #156090;
     	background: #186ba0;
-        color: #ffffff,
+        color: #ffffff;
     }
 }
 

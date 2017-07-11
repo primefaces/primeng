@@ -35,7 +35,7 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;EditorModule,SharedModule&#125; from 'primeng/primeng';
+import &#123;EditorModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -260,9 +260,9 @@ npm install quill --save
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
     &lt;p-header&gt;
         &lt;span class="ql-formats"&gt;
-            &lt;button class="ql-bold"&gt;&lt;/button&gt;
-            &lt;button class="ql-italic"&gt;&lt;/button&gt;
-            &lt;button class="ql-underline"&gt;&lt;/button&gt;
+            &lt;button class="ql-bold" aria-label="Bold"&gt;&lt;/button&gt;
+            &lt;button class="ql-italic" aria-label="Italic"&gt;&lt;/button&gt;
+            &lt;button class="ql-underline" aria-label="Underline"&gt;&lt;/button&gt;
         &lt;/span&gt;
     &lt;/p-header&gt;
 &lt;/p-editor&gt;
@@ -274,6 +274,11 @@ npm install quill --save
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+import &#123;Component&#125; from '@angular/core';
+
+@Component(&#123;
+    templateUrl: './editordemo.html'
+&#125;)
 export class EditorDemo &#123;
 
     text1: string = '&lt;div&gt;Hello World!&lt;/div&gt;&lt;div&gt;PrimeNG &lt;b&gt;Editor&lt;/b&gt; Rocks&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;';

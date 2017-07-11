@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,DoCheck,OnDestroy,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,EventEmitter,IterableDiffers,ChangeDetectorRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var google: any;
@@ -7,7 +7,7 @@ declare var google: any;
     selector: 'p-gmap',
     template: `<div [ngStyle]="style" [class]="styleClass"></div>`
 })
-export class GMap implements AfterViewInit,DoCheck {
+export class GMap implements AfterViewChecked,DoCheck {
 
     @Input() style: any;
         
@@ -28,7 +28,11 @@ export class GMap implements AfterViewInit,DoCheck {
     @Output() onOverlayDragEnd: EventEmitter<any> = new EventEmitter();
     
     @Output() onMapReady: EventEmitter<any> = new EventEmitter();
-    
+
+    @Output() onMapDragEnd: EventEmitter<any> = new EventEmitter();
+   
+    @Output() onZoomChanged: EventEmitter<any> = new EventEmitter();
+
     differ: any;
     
     map: any;
@@ -36,8 +40,14 @@ export class GMap implements AfterViewInit,DoCheck {
     constructor(public el: ElementRef,differs: IterableDiffers, public cd: ChangeDetectorRef, public zone:NgZone) {
         this.differ = differs.find([]).create(null);
     }
-
-    ngAfterViewInit() {
+    
+    ngAfterViewChecked() {
+        if(!this.map && this.el.nativeElement.offsetParent) {
+            this.initialize();
+        }
+    }
+    
+    initialize() {
         this.map = new google.maps.Map(this.el.nativeElement.children[0], this.options);
         this.onMapReady.emit({
             map: this.map
@@ -53,6 +63,18 @@ export class GMap implements AfterViewInit,DoCheck {
         this.map.addListener('click', (event) => {
             this.zone.run(() => {
                 this.onMapClick.emit(event);
+            });
+        });
+
+        this.map.addListener('dragend', (event) => {
+            this.zone.run(() => {
+                this.onMapDragEnd.emit(event);
+            });
+        });
+
+        this.map.addListener('zoom_changed', (event) => {
+            this.zone.run(() => {
+                this.onZoomChanged.emit(event);
             });
         });
     }

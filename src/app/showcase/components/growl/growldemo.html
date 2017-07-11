@@ -49,6 +49,16 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Change Detection</h3>
+            <p>Growl either uses setter based checking or ngDoCheck to realize if the messages has changed to update the UI. This is configured using the immutable
+                property, when enabled (default) setter based detection is utilized so your changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change. 
+                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
+                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
+                both methods can be used depending on your preference. Note that immutable property also defines how Growl treats the value, for example
+                when immutable is enabled removing a message does not mutate the original value but creates a new array.
+            </p>
+
             <h3>Severities</h3>
             <p>Here are the possible values for the severity of a message.</p>
             <ul>
@@ -66,7 +76,7 @@ export class MyModel &#123;
 &lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
     
 &lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
-&lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
+&lt;button type="button" (click)="clear()"&gt;Clear&lt;/button&gt;
 </code>
 </pre>
 
@@ -76,7 +86,7 @@ show() &#123;
     this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);
 &#125;
 
-hide() &#123;
+clear() &#123;
     this.msgs = [];
 &#125;
 </code>
@@ -124,6 +134,12 @@ hide() &#123;
                             <td>null</td>
                             <td>Style class of the component.</td>
                         </tr>
+                        <tr>
+                            <td>immutable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how the messages data should be manipulated.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -143,6 +159,11 @@ hide() &#123;
                             <td>onClose</td>
                             <td>message: Removed message</td>
                             <td>Callback to invoke when a message is closed.</td>
+                        </tr>
+                        <tr>
+                            <td>onClick</td>
+                            <td>message: Clicked message</td>
+                            <td>Callback to invoke when a message is clicked.</td>
                         </tr>
                     </tbody>
                 </table>
