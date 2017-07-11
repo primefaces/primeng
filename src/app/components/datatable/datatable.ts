@@ -713,6 +713,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     public preventSortPropagation: boolean;
 
+    public preventRowClickPropagation: boolean;
+
     differ: any;
 
     _selection: any;
@@ -1241,8 +1243,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
     }
-
+    
     handleRowClick(event, rowData) {
+        if(this.preventRowClickPropagation) {
+            this.preventRowClickPropagation = false;
+            return;
+        }
+           
         let targetNode = event.target.nodeName;
         if(this.editable) {
             let cell = this.findCell(event.target);
@@ -1252,11 +1259,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 return;
             }
         }
-
+      
         if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (this.domHandler.hasClass(event.target, 'ui-clickable'))) {
             return;
         }
-
+ 
         this.onRowClick.next({originalEvent: event, data: rowData});
 
         if(this.selectionMode) {
@@ -1372,6 +1379,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
 
         this.preventSelectionKeysPropagation = true;
+        this.preventRowClickPropagation = true;
     }
 
     toggleRowWithCheckbox(event, rowData: any) {
@@ -1396,6 +1404,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
         this.selectionChange.emit(this.selection);
         this.preventSelectionKeysPropagation = true;
+        this.preventRowClickPropagation = true;
     }
 
     toggleRowsWithCheckbox(event) {
