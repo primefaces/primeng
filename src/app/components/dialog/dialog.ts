@@ -134,6 +134,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     preventVisibleChangePropagation: boolean;
     
     executePostDisplayActions: boolean;
+    
+    initialized: boolean;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
@@ -144,7 +146,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     set visible(val:boolean) {
         this._visible = val;
         
-        if(this.containerViewChild && this.containerViewChild.nativeElement) {
+        if(this.initialized && this.containerViewChild && this.containerViewChild.nativeElement) {
             if(this._visible)
                 this.show();
             else {
@@ -155,7 +157,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             }
         }
     }
-    
+        
     ngAfterViewChecked() {
         if(this.executePostDisplayActions) {
             this.onShow.emit({});
@@ -205,7 +207,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         event.preventDefault();
     }
         
-    ngAfterViewInit() {                
+    ngAfterViewInit() { 
+        this.initialized = true;
+                      
         if(this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.containerViewChild.nativeElement);
@@ -445,6 +449,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     ngOnDestroy() {
+        this.initialized = false;
+        
         this.disableModality();
         
         this.unbindGlobalListeners();
