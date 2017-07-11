@@ -105,7 +105,7 @@ export class Tooltip implements OnDestroy {
         if(this.active) {
             if(this._text) {
                 if(this.container && this.container.offsetParent)
-                    this.tooltipText.innerHTML = this._text;
+                    this.updateText();
                 else 
                     this.show();
             }
@@ -125,10 +125,7 @@ export class Tooltip implements OnDestroy {
         this.tooltipText = document.createElement('div');
         this.tooltipText.className = 'ui-tooltip-text ui-shadow ui-corner-all';
 		
-		if(this.escape)
-			this.tooltipText.appendChild(document.createTextNode(this.text));
-		else
-			this.tooltipText.innerHTML = this.text;
+		this.updateText();
         
         if(this.positionStyle) {
             this.container.style.position = this.positionStyle;
@@ -163,6 +160,16 @@ export class Tooltip implements OnDestroy {
     
     hide() {
         this.destroy();
+    }
+    
+    updateText () {
+        if(this.escape) {
+            this.tooltipText.innerHTML = null;
+            this.tooltipText.appendChild(document.createTextNode(this._text));
+        }
+		else {
+            this.tooltipText.innerHTML = this._text;
+        }
     }
     
     align() {
