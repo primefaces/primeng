@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnChanges,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild,ViewChild} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -43,7 +43,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
     ],
     providers: [DomHandler]
 })
-export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
+export class Dialog implements AfterViewInit,AfterViewChecked,OnChanges,OnDestroy {
 
     @Input() header: string;
 
@@ -165,7 +165,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.executePostDisplayActions = false;
         } 
     }
-
+    
+    ngOnChanges() {
+      this.positionOverlay();
+    }
+    
     show() {
         this.executePostDisplayActions = true;
         this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
