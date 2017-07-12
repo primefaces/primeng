@@ -1,0 +1,121 @@
+<datatable-demos></datatable-demos>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DataTable - Column Grouping</span>
+        <span>Columns can be grouped at header and footer using headerColumnGroup and footerColumnGroup components that both define an array
+            of columns each having colspan and rowspan.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-dataTable [value]="sales">
+        <p-headerColumnGroup>
+            <p-row>
+                <p-column header="Brand" rowspan="3"></p-column>
+                <p-column header="Sale Rate" colspan="4"></p-column>
+            </p-row>
+            <p-row>
+                <p-column header="Sales" colspan="2"></p-column>
+                <p-column header="Profits" colspan="2"></p-column>
+            </p-row>
+            <p-row>
+                <p-column header="Last Year"></p-column>
+                <p-column header="This Year"></p-column>
+                <p-column header="Last Year"></p-column>
+                <p-column header="This Year"></p-column>
+            </p-row>
+        </p-headerColumnGroup>
+        
+        <p-column field="brand"></p-column>
+        <p-column field="lastYearSale"></p-column>
+        <p-column field="thisYearSale"></p-column>
+        <p-column field="lastYearProfit"></p-column>
+        <p-column field="thisYearProfit"></p-column>
+        
+        <p-footerColumnGroup>
+            <p-row>
+                <p-column footer="Totals:" colspan="3"></p-column>
+                <p-column footer="$506,202"></p-column>
+                <p-column footer="$531,020"></p-column>
+            </p-row>
+        </p-footerColumnGroup>
+    </p-dataTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablecolgroupdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablecolgroupdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataTableGroupDemo implements OnInit &#123;
+
+    sales: any[];
+
+    ngOnInit() &#123;
+        this.sales = [
+            &#123;brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342'&#125;,
+            &#123;brand: 'Samsung', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122'&#125;,
+            &#123;brand: 'Microsoft', lastYearSale: '38%', thisYearSale: '5%', lastYearProfit: '$12,321', thisYearProfit: '$8,500'&#125;,
+            &#123;brand: 'Philips', lastYearSale: '49%', thisYearSale: '22%', lastYearProfit: '$745,232', thisYearProfit: '$650,323,'&#125;,
+            &#123;brand: 'Song', lastYearSale: '17%', thisYearSale: '79%', lastYearProfit: '$643,242', thisYearProfit: '500,332'&#125;,
+            &#123;brand: 'LG', lastYearSale: '52%', thisYearSale: ' 65%', lastYearProfit: '$421,132', thisYearProfit: '$150,005'&#125;,
+            &#123;brand: 'Sharp', lastYearSale: '82%', thisYearSale: '12%', lastYearProfit: '$131,211', thisYearProfit: '$100,214'&#125;,
+            &#123;brand: 'Panasonic', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322'&#125;,
+            &#123;brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'&#125;,
+            &#123;brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'&#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablecolgroupdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablecolgroupdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="sales"&gt;
+    &lt;p-headerColumnGroup&gt;
+        &lt;p-row&gt;
+            &lt;p-column header="Brand" rowspan="3"&gt;&lt;/p-column&gt;
+            &lt;p-column header="Sale Rate" colspan="4"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+        &lt;p-row&gt;
+            &lt;p-column header="Sales" colspan="2"&gt;&lt;/p-column&gt;
+            &lt;p-column header="Profits" colspan="2"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+        &lt;p-row&gt;
+            &lt;p-column header="Last Year"&gt;&lt;/p-column&gt;
+            &lt;p-column header="This Year"&gt;&lt;/p-column&gt;
+            &lt;p-column header="Last Year"&gt;&lt;/p-column&gt;
+            &lt;p-column header="This Year"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+    &lt;/p-headerColumnGroup&gt;
+    
+    &lt;p-column field="brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="lastYearSale"&gt;&lt;/p-column&gt;
+    &lt;p-column field="thisYearSale"&gt;&lt;/p-column&gt;
+    &lt;p-column field="lastYearProfit"&gt;&lt;/p-column&gt;
+    &lt;p-column field="thisYearProfit"&gt;&lt;/p-column&gt;
+    
+    &lt;p-footerColumnGroup&gt;
+        &lt;p-row&gt;
+            &lt;p-column footer="Totals:" colspan="3"&gt;&lt;/p-column&gt;
+            &lt;p-column footer="$506,202"&gt;&lt;/p-column&gt;
+            &lt;p-column footer="$531,020"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+    &lt;/p-footerColumnGroup&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

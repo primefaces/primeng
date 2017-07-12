@@ -1,0 +1,328 @@
+.ui-menu {
+    width: 12.5em;
+    padding: .25em;
+    position:relative;
+}
+
+.ui-menu-separator {
+    border-width: 1px 0 0 0;
+}
+
+.ui-menu.ui-menu-dynamic {
+    position: absolute;
+    display: none;
+    z-index: 100000;
+}
+
+.ui-menu-list {
+    position: static;
+}
+
+.ui-menu .ui-menu-list .ui-menuitem {
+    border: none;
+}
+
+.ui-menu .ui-menu-list .ui-widget-header {
+    clear:both;
+    float:left;
+    width: 100%;
+    margin: .125em 0;
+    padding: .25em .5em;
+}
+
+.ui-menu .ui-menuitem-parent,
+.ui-menu .ui-menuitem {
+    width: 100%;
+    clear: both;
+    margin: .125em 0;
+    padding: 0;
+}
+
+.ui-menu .ui-menuitem-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    font-weight: normal;
+    border: 1px solid transparent;
+    line-height: 1em;
+    padding: .25em;
+    cursor: pointer;
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ui-menu .ui-menuitem-text {
+    vertical-align: middle;
+}
+
+.ui-menu .ui-widget-header h1,
+.ui-menu .ui-widget-header h2,
+.ui-menu .ui-widget-header h3,
+.ui-menu .ui-widget-header h4,
+.ui-menu .ui-widget-header h5,
+.ui-menu .ui-widget-header h6 {
+    font-size: 1em;
+    margin: 0 auto;
+}
+
+/* Tiered Menu */
+.ui-menu .ui-menu-parent .ui-menu-child {
+    display: none;
+    width: 12.5em;
+    padding: .25em;
+    position:absolute;
+    margin: 0; 
+    text-decoration:none;
+    list-style:none;
+}
+
+.ui-menu .ui-menu-parent {
+    position: relative;
+}
+
+.ui-menu .ui-menu-parent .ui-submenu-icon {
+    float: right;
+    margin-right: -.25em;
+}
+
+/** MenuButton **/
+.ui-menubutton {
+    padding: 0;
+}
+
+.ui-menubutton .ui-button {
+    margin: 0;
+}
+
+/** Menubar **/
+.ui-menu.ui-menubar .ui-menubar-root-list > li > a > .ui-submenu-icon {
+    float: none;
+}
+
+.ui-menubar {
+    width:auto;
+}
+
+.ui-menubar .ui-menubar-root-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ui-menubar .ui-menubar-root-list > .ui-menuitem {
+    display: inline-block;
+    width: auto;
+}
+
+.ui-menubar:not(.ui-megamenu-vertical) .ui-menubar-root-list > .ui-menu-separator {
+    display: inline-block;
+    border-width: 0 0 0 1px;
+    width: 1px;
+    text-indent: -9999999px;
+}
+
+.ui-menubar:not(.ui-megamenu-vertical) .ui-menubar-root-list > .ui-menu-separator:before {
+    content: 'ui-menu-separator';
+}
+
+.ui-menubar .ui-menu-child .ui-menuitem {
+    width: 100%;
+}
+
+.ui-menubar .ui-menuitem.ui-menuitem-custom {
+    float: right;
+    margin-top: 0.25em;
+}
+
+.ui-menubar .ui-menubar-options {
+    float: right;
+}
+           
+/** SlideMenu **/
+.ui-slidemenu .ui-slidemenu-wrapper {
+    position: relative;
+}
+
+.ui-slidemenu .ui-slidemenu-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+.ui-slidemenu .ui-menu-list {
+    position: absolute;
+    top: 0;
+}
+
+.ui-slidemenu .ui-menu-parent {
+    position: static;
+}
+
+.ui-slidemenu .ui-menu-child {
+    box-shadow : none;
+    border: 0 none;
+    background: none repeat scroll 0 0 transparent;
+}
+
+.ui-slidemenu-backward {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0.2em;
+    cursor: pointer;
+    display: none;
+}
+
+.ui-slidemenu-backward .fa {
+    vertical-align: middle;
+}
+
+.ui-slidemenu-backward span {
+    vertical-align: middle;
+}
+
+.ui-slidemenu .ui-slidemenuitem-active > .ui-submenu > ul {
+    display: block !important;
+}
+
+/** MegaMenu **/
+.ui-megamenu .ui-g {
+    flex-wrap: nowrap;
+}
+
+.ui-megamenu .ui-megamenu-panel.ui-menu-child {
+    width: auto;
+}
+
+.ui-megamenu .ui-megamenu-panel .ui-menu-list {
+    width: 12.5em;
+}
+
+.ui-megamenu-vertical {
+    width: 12.5em;
+}
+
+.ui-megamenu-vertical .ui-menuitem-link,
+.ui-megamenu-vertical .ui-menu-list .ui-menuitem {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ui-megamenu-vertical > .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link > .ui-submenu-icon {
+    float: right;
+}
+
+/** PanelMenu **/
+.ui-panelmenu {
+    width: auto;
+}
+
+.ui-panelmenu .ui-panelmenu-panel {
+    padding: 0;
+    margin: 0;
+}
+
+.ui-panelmenu .ui-panelmenu-header {
+    cursor: pointer;
+    position: relative;
+    margin: -1px 0 0 0;
+    zoom: 1;
+}
+
+.ui-panelmenu .ui-panelmenu-header a {
+    display: block;
+    padding: .25em .5em;
+}
+
+.ui-panelmenu span {
+    vertical-align: middle;
+}
+
+.ui-panelmenu .fa {
+    width: 1em;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: .25em;
+}
+
+.ui-panelmenu .ui-menuitem-text {
+    margin-left: .125em;
+}
+
+.ui-panelmenu span {
+    vertical-align: middle;
+}
+
+.ui-panelmenu .ui-panelmenu-content {
+    padding: 0.2em 0;
+    border-top: 0;
+    overflow: auto;
+    zoom: 1;
+    outline: none;
+    margin-bottom: 1px;
+}
+
+.ui-panelmenu .ui-panelmenu-content .ui-menu-parent {
+    overflow: hidden;
+}
+
+.ui-panelmenu .ui-panelmenu-content-wrapper {
+    box-sizing: border-box;
+}
+
+.ui-panelmenu .ui-panelmenu-content-wrapper-overflown {
+    overflow: hidden;
+}
+
+.ui-panelmenu .ui-panelmenu-header.ui-state-disabled,
+.ui-panelmenu .ui-panelmenu-header.ui-state-disabled a {
+    cursor: default;
+}
+
+.ui-panelmenu .ui-menu-list {
+    position: static;
+}
+
+.ui-panelmenu .ui-menuitem {
+    margin: 1px 0;
+    padding: 0;
+}
+
+.ui-panelmenu .ui-menu-separator {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.ui-panelmenu .ui-menuitem-link {
+    display: block;
+    text-decoration: none;
+    font-weight: normal;
+    border: 1px solid  transparent;
+    line-height: 1em;
+    cursor: pointer;
+    position: relative;
+    padding: .25em .5em;
+}
+
+.ui-panelmenu .ui-menu-parent .ui-menu-list {
+    margin-left: 1.5em;
+}
+
+/** MegaMenu and TieredMenus **/
+.ui-menuitem-active > .ui-submenu > ul,
+.ui-menuitem-active > .ui-megamenu-panel {
+    display: block !important;
+}
+
+.ui-menuitem-outline {
+    outline: 1px dotted;
+    z-index: 1;
+}
+
+/** Fluid **/
+.ui-fluid .ui-menu {
+    width: 100%;
+}

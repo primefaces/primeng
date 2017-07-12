@@ -1,0 +1,95 @@
+<datatable-demos></datatable-demos>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DataTable - Templating</span>
+        <span>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating. Similarly,
+            custom content can be placed at the header and footer of a column with templating.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-growl [value]="msgs"></p-growl>
+
+    <p-dataTable [value]="cars">
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color">
+            <ng-template let-col let-car="rowData" pTemplate="body">
+                <span [style.color]="car[col.field]">{{car[col.field]}}</span>
+            </ng-template>
+        </p-column>
+        <p-column styleClass="col-button">
+            <ng-template pTemplate="header">
+                <button type="button" pButton icon="fa-refresh"></button>
+            </ng-template>
+            <ng-template let-car="rowData" pTemplate="body">
+                <button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatabletemplatingdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatabletemplatingdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataTableTemplatingDemo implements OnInit &#123;
+
+    cars: Car[];
+    
+    msgs: Message[] = [];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+    &#125;
+    
+    selectCar(car: Car) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'info', summary:'Car Select', detail:'Vin: ' + car.vin&#125;);
+    &#125;
+&#125;
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="datatabletemplatingdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatabletemplatingdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+
+&lt;p-dataTable [value]="cars"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;
+        &lt;ng-template let-col let-car="rowData" pTemplate="body"&gt;
+            &lt;span [style.color]="car[col.field]"&gt;&#123;&#123;car[col.field]&#125;&#125;&lt;/span&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column styleClass="col-button"&gt;
+        &lt;ng-template pTemplate="header"&gt;
+            &lt;button type="button" pButton icon="fa-refresh"&gt;&lt;/button&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-car="rowData" pTemplate="body"&gt;
+            &lt;button type="button" pButton (click)="selectCar(car)" icon="fa-search"&gt;&lt;/button&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

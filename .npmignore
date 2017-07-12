@@ -1,35 +1,56 @@
+# compiled output
+/dist
+/tmp
+/out-tsc
+/aot
+
+# source
+src
+
+# test
+e2e
+karma.conf.js
+protractor.conf.js
+
 # dependencies
 node_modules
 
-# demo
-showcase
-index.html
-upload.php
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.editor-config
 
-# typescript
-*.ts
-!*.d.ts
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-# git
-.git
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
 .gitignore
 
 # config
+.angular-cli.json
 tsconfig.json
+tsconfig-release.json
 tsconfig-aot.json
-webpack.config.js
-config
+tslint.json
 gulpfile.js
-
-# aot
-aot
-
-# misc
 .github
-.vscode
-*.log
-prod
-.editorconfig
 
-
-
+# System Files
+.DS_Store
+Thumbs.db
