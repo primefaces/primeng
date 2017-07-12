@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prepublish": "node_modules\\.bin\\tsc -p tsconfig-release.json && gulp build-assets && node_modules\\.bin\\node-sass.cmd resources --output resources --source-map true --source-map-contents resources"
+    "build:release": "node_modules\\.bin\\tsc -p tsconfig-release.json",
+    "prepublish": "npm run build:release && gulp build-assets && node_modules\\.bin\\node-sass.cmd resources --output resources --source-map true --source-map-contents resources"
   },
   "repository": {
     "type": "git",

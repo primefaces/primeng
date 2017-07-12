@@ -728,9 +728,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     totalRecordsChanged: boolean;
 
     anchorRowIndex: number;
-    
+
     rangeRowIndex: number;
-    
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils) {
     	this.differ = differs.find([]).create(null);
@@ -768,6 +768,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     ngAfterViewChecked() {
+        this.initColumns();
+
         if(this.columnsChanged && this.el.nativeElement.offsetParent) {
             if(this.resizableColumns) {
                 this.initResizableColumns();
@@ -1247,7 +1249,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
     }
-    
+
     clearSelectionRange() {
         let rangeStart, rangeEnd;
 
@@ -1258,12 +1260,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else if(this.rangeRowIndex < this.anchorRowIndex) {
             rangeStart = this.rangeRowIndex;
             rangeEnd = this.anchorRowIndex;
-        } 
+        }
         else {
             rangeStart = this.rangeRowIndex;
             rangeEnd = this.rangeRowIndex;
         }
-        
+
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.dataToRender[i];
             let selectionIndex = this.findIndexInSelection(rangeRowData);
@@ -1275,10 +1277,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.onRowUnselect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
         }
     }
-    
+
     selectRange(rowIndex: number) {
         let rangeStart, rangeEnd;
-        
+
         if(this.anchorRowIndex > rowIndex) {
             rangeStart = rowIndex;
             rangeEnd = this.anchorRowIndex;
@@ -1286,12 +1288,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else if(this.anchorRowIndex < rowIndex) {
             rangeStart = this.anchorRowIndex;
             rangeEnd = rowIndex;
-        } 
+        }
         else {
             rangeStart = rowIndex;
             rangeEnd = rowIndex;
         }
-        
+
         for(let i = rangeStart; i <= rangeEnd; i++) {
             let rangeRowData = this.dataToRender[i];
             this._selection = [...this.selection, rangeRowData];
@@ -1303,13 +1305,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.onRowSelect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
         }
     }
-    
+
     handleRowClick(event: MouseEvent, rowData: any, index: number) {
         if(this.preventRowClickPropagation) {
             this.preventRowClickPropagation = false;
             return;
         }
-           
+
         let targetNode = (<HTMLElement> event.target).nodeName;
         if(this.editable) {
             let cell = this.findCell(event.target);
@@ -1319,11 +1321,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 return;
             }
         }
-      
+
         if(targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (this.domHandler.hasClass(event.target, 'ui-clickable'))) {
             return;
         }
- 
+
         this.onRowClick.next({originalEvent: event, data: rowData});
 
         if(this.selectionMode) {
@@ -1342,7 +1344,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 let dataKeyValue: string = this.dataKey ? String(this.resolveFieldData(rowData, this.dataKey)) : null;
                 this.anchorRowIndex = index;
                 this.rangeRowIndex = index;
-                
+
                 if(metaSelection) {
                     let metaKey = event.metaKey||event.ctrlKey;
 
@@ -1360,7 +1362,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                                 delete this.selectionKeys[dataKeyValue];
                             }
                         }
-                        
+
                         this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
                     }
                     else {
@@ -1424,7 +1426,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                             }
                         }
                     }
-                    
+
                     this.selectionChange.emit(this.selection);
                 }
             }
