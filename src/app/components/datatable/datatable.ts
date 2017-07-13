@@ -768,8 +768,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     ngAfterViewChecked() {
-        this.initColumns();
-
         if(this.columnsChanged && this.el.nativeElement.offsetParent) {
             if(this.resizableColumns) {
                 this.initResizableColumns();
@@ -869,6 +867,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     ngDoCheck() {
         if(!this.immutable) {
+            if(this.cols) this.initColumns();
+
             let changes = this.differ.diff(this.value);
             if(changes) {
                 this.handleDataChange();
