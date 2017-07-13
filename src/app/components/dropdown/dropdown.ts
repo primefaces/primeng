@@ -161,6 +161,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public initialized: boolean;
     
+    public edit: boolean = false;
+    
     public selfClick: boolean;
     
     public itemClick: boolean;
@@ -242,18 +244,14 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     selectItem(event, option) {
-        if(this.selectedOption != option) {
             this.selectedOption = option;
             this.value = option.value;
-                    
             this.onModelChange(this.value);
             this.updateEditableLabel();
             this.onChange.emit({
                 originalEvent: event,
                 value: this.value
-            });
-        } 
-        
+            });        
     }
     
     ngAfterViewChecked() {
@@ -349,16 +347,19 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onEditableInputClick(event) {
+        this.edit = true;
         this.itemClick = true;
         this.bindDocumentClickListener();
     }
     
     onEditableInputFocus(event) {
+        this.edit = true;
         this.focus = true;
         this.hide();
     }
     
     onEditableInputChange(event) {
+        this.edit = true;
         this.value = event.target.value;
         this.updateSelectedOption(this.value);                
         this.onModelChange(this.value);
@@ -416,8 +417,20 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.readonly) {
             return;
         }
-        
-        let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;
+        let selectedItemIndex = this.selectedOption ? this.findOptionIndex(this.selectedOption.value, this.optionsToDisplay) : -1;        
+        if(event.which >= 48 && event.which <= 90 && (this.edit === false)){
+          let y = event.code.slice(3,4);
+          for( let i = 0; i< this.optionsToDisplay.length; i++ ){        
+            let x = this.optionsToDisplay[i].label;
+            x = x.slice(0,1);
+            if(y === x){              
+                this.selectedOption = this.optionsToDisplay[i];
+                this.selectedOptionUpdated = true;
+                this.selectItem(event, this.selectedOption);
+                i = this.optionsToDisplay.length;
+            }
+          }
+        }
 
         switch(event.which) {
             //down
@@ -428,26 +441,34 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                 else {
                     if(selectedItemIndex != -1) {
                         let nextItemIndex = selectedItemIndex + 1;
-                        if(nextItemIndex != (this.optionsToDisplay.length)) {
-                            this.selectedOption = this.optionsToDisplay[nextItemIndex];
-                            this.selectedOptionUpdated = true;
-                            this.selectItem(event, this.selectedOption);
+                        if(nextItemIndex >= this.optionsToDisplay.length ){
+                          this.selectedOption = this.optionsToDisplay[0];
                         }
+                        else{
+                          this.selectedOption = this.optionsToDisplay[nextItemIndex];
+                        }  
+                        this.selectedOptionUpdated = true;
+                        this.selectItem(event, this.selectedOption);        
                     }
                     else if(this.optionsToDisplay) {
                         this.selectedOption = this.optionsToDisplay[0];
                     }                    
                 }
-                
+                          
                 event.preventDefault();
                 
             break;
             
             //up
             case 38:
-                if(selectedItemIndex > 0) {
+                if(selectedItemIndex >= 0) {
                     let prevItemIndex = selectedItemIndex - 1;
-                    this.selectedOption = this.optionsToDisplay[prevItemIndex];
+                    if(prevItemIndex < 0){
+                      this.selectedOption = this.optionsToDisplay[this.optionsToDisplay.length-1];
+                    }
+                    else{
+                      this.selectedOption = this.optionsToDisplay[prevItemIndex];
+                    }
                     this.selectedOptionUpdated = true;
                     this.selectItem(event, this.selectedOption);
                 }
@@ -463,7 +484,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             break;
             
             //enter
-            case 13:                                        
+            case 13: 
+            if(selectedItemIndex >= 0) {
+                this.selectedOption = this.optionsToDisplay[selectedItemIndex];
+                this.selectedOptionUpdated = true;
+                this.onItemClick(event, this.selectedOption);     
+            }    
                 this.hide();
 
                 event.preventDefault();
