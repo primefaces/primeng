@@ -32,8 +32,12 @@ export class InputTextarea implements OnInit,DoCheck {
     constructor(public el: ElementRef) {}
     
     ngOnInit() {
-        this.rowsDefault = this.rows;
-        this.colsDefault = this.cols;
+      if(this.rows === undefined)
+        this.rows = 5;
+      if(this.cols === undefined)
+        this.cols = 30;
+      this.rowsDefault = this.rows;
+      this.colsDefault = this.cols;
     }
     
     ngDoCheck() {
