@@ -80,7 +80,7 @@ export interface LocaleSettings {
                 </table>
                 <div class="ui-timepicker ui-widget-header ui-corner-all" *ngIf="showTime||timeOnly">
                     <div class="ui-hour-picker">
-                        <a href="#" (click)="incrementHour($event)">
+                        <a href="#" (click)="incrementHour($event)" >
                             <span class="fa fa-angle-up"></span>
                         </a>
                         <span [ngStyle]="{'display': currentHour < 10 ? 'inline': 'none'}">0</span><span>{{currentHour}}</span>
@@ -302,6 +302,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     _minDate: Date;
     
     _maxDate: Date;
+    
+    _minTime: Date;
+    
+    _maxTime: Date;
 
     _isValid: boolean = true;
 
@@ -320,6 +324,24 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     set maxDate(date: Date) {
         this._maxDate = date;
+        this.createMonth(this.currentMonth, this.currentYear);
+    }
+    
+    @Input() get maxTime(): Date {
+        return this._maxTime;
+    }
+    
+    set maxTime(date: Date) {
+        this._maxTime = date;
+        this.createMonth(this.currentMonth, this.currentYear);
+    }
+    
+    @Input() get minTime(): Date {
+        return this._minTime;
+    }
+    
+    set minTime(date: Date) {
+        this._minTime = date;
         this.createMonth(this.currentMonth, this.currentYear);
     }
     
@@ -421,7 +443,6 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                     week.push({day: j, month: prev.month, year: prev.year, otherMonth: true, 
                             today: this.isToday(today, j, prev.month, prev.year), selectable: this.isSelectable(j, prev.month, prev.year)});
                 }
-                
                 let remainingDaysLength = 7 - week.length;
                 for(let j = 0; j < remainingDaysLength; j++) {
                     week.push({day: dayNo, month: month, year: year, today: this.isToday(today, dayNo, month, year), 
@@ -632,6 +653,49 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
     
+    isHourSelectable(hour, minute, prevHour, prevMinute, increment): boolean {
+      let validMin = true;
+      let validMax = true;
+    
+      if(this.minTime && !increment){  
+        if(this.minTime.getHours() > hour){
+          validMin = false;
+        }  
+        else if(this.minTime.getHours() === 0 && prevHour === 0 && hour === 23 && prevMinute === 100 ){
+          validMin = false;
+        }         
+        else if(this.minTime.getHours() === hour){
+          if(this.minTime.getMinutes() > minute){
+            validMin = false;
+          }    
+          else if(this.minTime.getMinutes() === 0 && minute === 59){
+            validMin = false;
+          }        
+        }
+      }
+      if(this.maxTime && increment) {
+        if(this.maxTime.getHours() < hour) {
+          validMax = false;
+        }
+        
+        else if(this.maxTime.getHours() === hour) {
+          if(this.maxTime.getMinutes() < minute) {
+            validMax = false;
+          }
+        }
+        
+          else if(this.maxTime.getHours() === 23 && this.maxTime.getMinutes() === 59 && ((prevHour === 23 && hour === 0) && prevMinute === 100)) {
+            validMax = false;
+          }
+                
+          if(this.maxTime.getHours() === 23 && this.maxTime.getMinutes() === 59 && minute === 0 && prevHour === 100 && prevMinute === 59 && hour === 23) {
+            validMax = false;  
+          }
+      }
+      
+      return validMin && validMax ;    
+    }
+    
     isSelectable(day, month, year): boolean {
         let validMin = true;
         let validMax = true;
@@ -746,44 +810,88 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     incrementHour(event) {
+        let increment = true;
+        let temp = this.currentHour;
         let newHour = this.currentHour + this.stepHour;
         if(this.hourFormat == '24')
             this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;        
         else if(this.hourFormat == '12')
             this.currentHour = (newHour >= 13) ? (newHour - 12) : newHour;
-        
-        this.updateTime();
-                
+            if(this.maxTime){
+              let result = this.isHourSelectable(this.currentHour , this.currentMinute , temp , 100 , increment);
+              if(result)    
+                this.updateTime();
+              else
+                this.currentHour = temp;
+            }
+            else
+              this.updateTime();
+      
         event.preventDefault();
     }
     
     decrementHour(event) {
+        let increment = false;
+        let temp = this.currentHour;
         let newHour = this.currentHour - this.stepHour;
         if(this.hourFormat == '24')
             this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;        
         else if(this.hourFormat == '12')
             this.currentHour = (newHour <= 0) ? (12 + newHour) : newHour;
-            
+        if(this.minTime){
+          let result = this.isHourSelectable(this.currentHour , this.currentMinute , temp , 100 , increment);
+          if(result)    
+            this.updateTime();
+          else
+            this.currentHour = temp;
+        }
+        else
         this.updateTime();
 
         event.preventDefault();
     }
     
     incrementMinute(event) {
+        let increment = true;
+        let tempMin = this.currentMinute;
+        let tempHour = this.currentHour;
         let newMinute = this.currentMinute + this.stepMinute;
         this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
-            
-        this.updateTime();
-                
+      
+        if(this.maxTime){
+          let result = this.isHourSelectable(this.currentHour , this.currentMinute , 100 , tempMin , increment);
+          if(result)        
+            this.updateTime();
+          else{
+            this.currentMinute = tempMin;  
+            this.currentHour = tempHour;  
+          }
+        }
+        else
+          this.updateTime();
+              
         event.preventDefault();
     }
     
     decrementMinute(event) {
+        let increment = false;
+        let tempMin = this.currentMinute;
+        let tempHour = this.currentHour;
+        
         let newMinute = this.currentMinute - this.stepMinute;
         this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
-            
-        this.updateTime();
-            
+      
+        if(this.minTime){
+          let result = this.isHourSelectable(this.currentHour , this.currentMinute , 100 , tempMin , increment);
+          if(result)    
+            this.updateTime();
+          else{
+            this.currentMinute = tempMin;  
+            this.currentHour = tempHour;  
+          }
+        }
+        else
+          this.updateTime();
         event.preventDefault();
     }
     

@@ -21,11 +21,17 @@ export class CalendarDemo {
     
     date8: Date;
     
-    date9: Date;
+    date9 = new Date;
     
+    date10: Date;
+        
     minDate: Date;
     
     maxDate: Date;
+    
+    minTime: Date;
+    
+    maxTime: Date;
     
     invalidDates: Array<Date>;
     
@@ -40,7 +46,6 @@ export class CalendarDemo {
             monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
         	monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ]
         };
-        
         let today = new Date();
         let month = today.getMonth();
         let year = today.getFullYear();
@@ -54,6 +59,19 @@ export class CalendarDemo {
         this.maxDate = new Date();
         this.maxDate.setMonth(nextMonth);
         this.maxDate.setFullYear(nextYear);
+        
+        this.date9.setHours(12);
+        this.date9.setMinutes(30);
+        
+        let min = new Date();  
+        min.setHours(9)
+        min.setMinutes(0)
+        this.minTime = min;
+        
+        let max = new Date();
+        max.setHours(17);
+        max.setMinutes(30);
+        this.maxTime = max;
         
         let invalidDate = new Date();
         invalidDate.setDate(today.getDate() - 1);
