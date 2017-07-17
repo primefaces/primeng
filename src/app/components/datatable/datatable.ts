@@ -1450,6 +1450,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this.selectionKeys[String(this.resolveFieldData(rowData, this.dataKey))] = 1;
             }
         }
+        else {
+            this._selection = null;
+            this.selectionChange.emit(this.selection);
+            this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
+        }
         
         this.preventSelectionKeysPropagation = true;
         this.preventRowClickPropagation = true;
