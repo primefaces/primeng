@@ -35,7 +35,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class Lightbox implements AfterViewInit,OnDestroy{ 
+export class Lightbox implements AfterViewInit,OnDestroy {
 
     @Input() images: any[];
     
@@ -113,6 +113,7 @@ export class Lightbox implements AfterViewInit,OnDestroy{
         setTimeout(() => {
             this.currentImage = image;
             this.captionText = image.title;
+            this.center();
         }, 1000);
     }
     
