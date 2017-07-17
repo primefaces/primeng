@@ -23,12 +23,10 @@ import {ObjectUtils} from '../utils/objectutils';
                     <input type="text" role="textbox" (keyup)="onFilter($event,source,-1)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="sourceFilterPlaceholder">
                     <span class="fa fa-search"></span>
                 </div>
-                <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,-1)">
-                    <li class="ui-picklist-droppoint-empty" *ngIf="dragdrop && source && source.length == 0" 
-                    (dragover)="onEmptyListDragOver($event, -1)" (drop)="onEmptyListDrop($event, -1)"></li>
+                <ul #sourcelist class="ui-widget-content ui-picklist-list ui-picklist-source ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightSource}" [ngStyle]="sourceStyle" (dragover)="onListMouseMove($event,-1)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event, -1)">
                     <ng-template ngFor let-item [ngForOf]="source" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, -1)" (drop)="onDrop($event, i, -1)" (dragleave)="onDragLeave($event, -1)" 
-                        [ngClass]="{'ui-state-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"></li>
+                        [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
                             (click)="onItemClick($event,item,selectedItemsSource)" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"
@@ -36,7 +34,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, -1)" (drop)="onDrop($event, i + 1, -1)" (dragleave)="onDragLeave($event, -1)" 
-                        [ngClass]="{'ui-state-highlight': (i + 1 === dragOverItemIndexSource)}"></li>
+                        [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexSource)}"></li>
                     </ng-template>
                 </ul>
             </div>
@@ -54,12 +52,10 @@ import {ObjectUtils} from '../utils/objectutils';
                     <input type="text" role="textbox" (keyup)="onFilter($event,target,1)" class="ui-picklist-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled" [attr.placeholder]="targetFilterPlaceholder">
                     <span class="fa fa-search"></span>
                 </div>
-                <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngStyle]="targetStyle" (dragover)="onListMouseMove($event,1)">
-                    <li class="ui-picklist-droppoint-empty" *ngIf="dragdrop && target && target.length == 0" 
-                    (dragover)="onEmptyListDragOver($event, 1)" (drop)="onEmptyListDrop($event, 1)"></li>
+                <ul #targetlist class="ui-widget-content ui-picklist-list ui-picklist-target ui-corner-bottom" [ngClass]="{'ui-picklist-highlight': listHighlightTarget}" [ngStyle]="targetStyle" (dragover)="onListMouseMove($event,1)" (dragleave)="onListDragLeave()" (drop)="onListDrop($event,1)">
                     <ng-template ngFor let-item [ngForOf]="target" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, 1)" (drop)="onDrop($event, i, 1)" (dragleave)="onDragLeave($event, 1)" 
-                        [ngClass]="{'ui-state-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"></li>
+                        [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
                             (click)="onItemClick($event,item,selectedItemsTarget)" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"
@@ -67,7 +63,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, 1)" (drop)="onDrop($event, i + 1, 1)" (dragleave)="onDragLeave($event, 1)" 
-                        [ngClass]="{'ui-state-highlight': (i + 1 === dragOverItemIndexTarget)}"></li>
+                        [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexTarget)}"></li>
                     </ng-template>
                 </ul>
             </div>
@@ -172,6 +168,12 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     fromListType: number;
     
     toListType: number;
+    
+    onListItemDroppoint: boolean;
+    
+    listHighlightTarget: boolean;
+    
+    listHighlightSource: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
     
@@ -468,12 +470,11 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.draggedItemIndexTarget = index;
                         
         if(this.dragdropScope) {
-            console.log
             event.dataTransfer.setData("text", this.dragdropScope);
         }
     }
     
-    onDragOver(event: DragEvent, index: number, listType: number) {        
+    onDragOver(event: DragEvent, index: number, listType: number) {
         if(listType == -1) {
             if(this.draggedItemIndexSource !== index && this.draggedItemIndexSource + 1 !== index || (this.fromListType === 1)) {
                 this.dragOverItemIndexSource = index;
@@ -486,45 +487,59 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 event.preventDefault();
             }
         }
+        this.onListItemDroppoint = true;
     }
     
     onDragLeave(event: DragEvent, listType: number) {
         this.dragOverItemIndexSource = null; 
         this.dragOverItemIndexTarget = null;
+        this.onListItemDroppoint = false;
     }
     
-    onDrop(event: DragEvent, index: number, listType: number) {            
-        if(listType === -1) {
-            if(this.fromListType === 1)
-                this.insert(this.draggedItemIndexTarget, this.target, index, this.source);
-            else
-                this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
+    onDrop(event: DragEvent, index: number, listType: number) {
+        if(this.onListItemDroppoint) {
+            if(listType === -1) {
+                if(this.fromListType === 1)
+                    this.insert(this.draggedItemIndexTarget, this.target, index, this.source);
+                else
+                    this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
 
-            this.dragOverItemIndexSource = null;
+                this.dragOverItemIndexSource = null;
+            }
+            else {
+                if(this.fromListType === -1)
+                    this.insert(this.draggedItemIndexSource, this.source, index, this.target);
+                else
+                    this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
+                    
+                this.dragOverItemIndexTarget = null;
+            }
+            
+            this.listHighlightTarget = false;
+            this.listHighlightSource = false;
+            event.preventDefault();
         }
-        else {
-            if(this.fromListType === -1)
-                this.insert(this.draggedItemIndexSource, this.source, index, this.target);
-            else
-                this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
-                
-            this.dragOverItemIndexTarget = null;
-        }
-        
-        event.preventDefault();
     }
     
     onDragEnd(event: DragEvent) {
         this.dragging = false;
     }
     
-    onEmptyListDrop(event: DragEvent, listType: number) {
-        if(listType === -1)
-            this.insert(this.draggedItemIndexTarget, this.target, null, this.source);
-        else
-            this.insert(this.draggedItemIndexSource, this.source, null, this.target);
+    onListDrop(event: DragEvent, listType:  number) {
+        if(!this.onListItemDroppoint) {
+            if(listType === -1) {
+                if(this.fromListType === 1)
+                    this.insert(this.draggedItemIndexTarget, this.target, null, this.source);
+            }
+            else {
+                if(this.fromListType === -1)
+                    this.insert(this.draggedItemIndexSource, this.source, null, this.target);
+            }
             
-        event.preventDefault();
+            this.listHighlightTarget = false;
+            this.listHighlightSource = false;
+            event.preventDefault();
+        }
     }
     
     onEmptyListDragOver(event: DragEvent, listType: number) {
@@ -549,6 +564,21 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             else if(topDiff < 25 && topDiff > 0)
                 moveListType.nativeElement.scrollTop -= 15;
         }
+        
+        if(listType === -1) {
+            if(this.fromListType === 1)
+                this.listHighlightSource = true;
+        }
+        else {
+            if(this.fromListType === -1)
+                this.listHighlightTarget = true;
+        }
+        event.preventDefault();
+    }
+    
+    onListDragLeave() {
+        this.listHighlightTarget = false;
+        this.listHighlightSource = false;
     }
 }
 

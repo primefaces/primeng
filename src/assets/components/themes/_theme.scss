@@ -297,6 +297,25 @@
     .ui-picklist-item:not(.ui-state-highlight):hover {
         @include hover-element();
     }
+    
+    .ui-picklist-droppoint-highlight {
+        border-color: $stateHighlightBorderColor;
+        background: $stateHighlightBgColor;
+        color: darken($contentTextColor,1%);
+        
+        a {
+            color: darken($contentTextColor,1%);
+        }
+    }
+    
+    .ui-picklist-highlight {
+        border-color: $stateHighlightBorderColor;
+        color: darken($contentTextColor,1%);
+        
+        a {
+            color: darken($contentTextColor,1%);
+        }
+    }
 }
 
 .ui-tree {
