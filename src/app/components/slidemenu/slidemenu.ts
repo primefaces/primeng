@@ -113,6 +113,8 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @Input() viewportHeight: number = 175;
     
+    @Input() appendTo: any;
+    
     @Input() effectDuration: any = 250;
         
     @Input() easing: string = 'ease-out';
@@ -134,7 +136,7 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     public documentClickListener: any;
     
     public preventDocumentDefault: any;
-        
+            
     public left: number = 0;
     
     public animating: boolean = false;
@@ -154,6 +156,12 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
                 }
                 this.preventDocumentDefault = false;
             });
+        }
+        if(this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.containerViewChild.nativeElement);
+            else
+                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
     
@@ -186,6 +194,9 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     ngOnDestroy() {
         if(this.documentClickListener) {
             this.documentClickListener();
+        }
+        if(this.appendTo) {
+            this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
         }
     }
 
