@@ -28,7 +28,7 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, -1)" (drop)="onDrop($event, i, -1)" (dragleave)="onDragLeave($event, -1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
-                            (click)="onItemClick($event,item,selectedItemsSource)" (touchend)="onItemTouchEnd($event)"
+                            (click)="onItemClick($event,item,selectedItemsSource)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, -1)" (dragend)="onDragEnd($event)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
@@ -40,9 +40,9 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-picklist-buttons">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-right" (click)="moveRight(targetlist)"></button>
+                    <button type="button" pButton icon="fa-angle-right" (click)="moveRight()"></button>
                     <button type="button" pButton icon="fa-angle-double-right" (click)="moveAllRight()"></button>
-                    <button type="button" pButton icon="fa-angle-left" (click)="moveLeft(sourcelist)"></button>
+                    <button type="button" pButton icon="fa-angle-left" (click)="moveLeft()"></button>
                     <button type="button" pButton icon="fa-angle-double-left" (click)="moveAllLeft()"></button>
                 </div>
             </div>
@@ -57,7 +57,7 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, 1)" (drop)="onDrop($event, i, 1)" (dragleave)="onDragLeave($event, 1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
-                            (click)="onItemClick($event,item,selectedItemsTarget)" (touchend)="onItemTouchEnd($event)"
+                            (click)="onItemClick($event,item,selectedItemsTarget)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, 1)" (dragend)="onDragEnd($event)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
@@ -237,6 +237,14 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         this.itemTouched = false;
     }
     
+    onSourceItemDblClick() {
+        this.moveRight();
+    }
+    
+    onTargetItemDblClick() {
+        this.moveLeft();
+    }
+    
     onFilter(event: KeyboardEvent, data: any[], listType: number) {
         let query = (<HTMLInputElement> event.target).value.trim().toLowerCase();
         
@@ -367,7 +375,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
     }
 
-    moveRight(targetListElement) {
+    moveRight() {
         if(this.selectedItemsSource && this.selectedItemsSource.length) {
             for(let i = 0; i < this.selectedItemsSource.length; i++) {
                 let selectedItem = this.selectedItemsSource[i];
@@ -402,7 +410,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
     }
 
-    moveLeft(sourceListElement) {
+    moveLeft() {
         if(this.selectedItemsTarget && this.selectedItemsTarget.length) {
             for(let i = 0; i < this.selectedItemsTarget.length; i++) {
                 let selectedItem = this.selectedItemsTarget[i];
