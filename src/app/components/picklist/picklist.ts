@@ -542,10 +542,6 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
     }
     
-    onEmptyListDragOver(event: DragEvent, listType: number) {
-        event.preventDefault();
-    }
-    
     insert(fromIndex, fromList, toIndex, toList) {
         if(toIndex === null)
             toList.push(fromList.splice(fromIndex, 1)[0]);
