@@ -46,9 +46,15 @@
             <h3>Time Only</h3>
             <p-calendar [(ngModel)]="date8" [timeOnly]="true"></p-calendar>
         </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Time Min-Max</h3>
+            <p-calendar [(ngModel)]="date9" [timeOnly]="true" [minTime] = "minTime" [maxTime] = "maxTime" placeholder = "Min = 09:00 Max = 17:30"></p-calendar>
+            <h6></h6>
+        </div>
     </div>
     
-    <h3>Inline {{date9|date}}</h3>
+    <h3>Inline {{date10|date}}</h3>
     <p-calendar [(ngModel)]="date9" [inline]="true"></p-calendar> 
 </div>
 
@@ -323,6 +329,18 @@ export class MyModel &#123;
                             <td>Date</td>
                             <td>null</td>
                             <td>The maximum selectable date.</td>
+                        </tr>
+                        <tr>
+                            <td>minTime</td>
+                            <td>Date</td>
+                            <td>null</td>
+                            <td>The minimum selectable hour and minute.</td>
+                        </tr>
+                        <tr>
+                            <td>maxTime</td>
+                            <td>Date</td>
+                            <td>null</td>
+                            <td>The maximum selectable hour and minute.</td>
                         </tr>
                         <tr>
                             <td>disabledDates</td>
