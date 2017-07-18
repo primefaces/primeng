@@ -165,7 +165,6 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.executePostDisplayActions = false;
         } 
     }
-
     show() {
         this.executePostDisplayActions = true;
         this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
