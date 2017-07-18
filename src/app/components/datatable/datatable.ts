@@ -1,5 +1,4 @@
-import {
-  NgModule, Component, ElementRef, AfterContentInit, AfterViewInit, AfterViewChecked, OnInit, OnDestroy, Input,
+import {NgModule, Component, ElementRef, AfterContentInit, AfterViewInit, AfterViewChecked, OnInit, OnDestroy, Input,
   ViewContainerRef, ViewChild, IterableDiffers,
   Output, EventEmitter, ContentChild, ContentChildren, Renderer2, QueryList, TemplateRef,
   ChangeDetectorRef, Inject, forwardRef, EmbeddedViewRef, NgZone
