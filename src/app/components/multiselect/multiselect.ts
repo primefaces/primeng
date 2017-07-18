@@ -56,7 +56,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                                     <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
-                            <label>{{option.label}}</label>
+                            <div *ngIf=\"option.useTemplate\" class=\"custom-dropdown\" [innerHTML]=\"option.customLabel\">{{option.label}}</div>
+							<label *ngIf=\"!(option.useTemplate)\">{{option.label}}</label>
                         </li>
                     </ul>
                 </div>
