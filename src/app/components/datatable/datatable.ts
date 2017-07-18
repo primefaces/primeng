@@ -1765,7 +1765,15 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         },
 		
         notEquals(value, filter): boolean {
-            return !this.equals(value, filter);
+            if(filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+                return false;
+            }
+            
+            if(value === undefined || value === null) {
+                return true;
+            }
+            
+            return value.toString().toLowerCase() != filter.toString().toLowerCase();
         },
         
         in(value, filter: any[]): boolean {
