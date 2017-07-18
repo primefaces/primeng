@@ -7,13 +7,13 @@ import {BlockableUI} from '../common/blockableui';
 @Component({
     selector: 'p-dataList',
     template: `
-        <div [ngClass]="'ui-datalist ui-widget'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="{'ui-datalist ui-widget': true, 'ui-datalist-scrollable': scrollable}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-datalist-header ui-widget-header ui-corner-top" *ngIf="header">
                 <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
             (onPageChange)="paginate($event)" styleClass="ui-paginator-bottom" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator  && paginatorPosition!='bottom' || paginatorPosition =='both'"></p-paginator>
-            <div class="ui-datalist-content ui-widget-content">
+            <div class="ui-datalist-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
                 <div *ngIf="isEmpty()" class="ui-datalist-emptymessage">{{emptyMessage}}</div>
                 <ul class="ui-datalist-data">
                     <li *ngFor="let item of dataToRender;let i = index;trackBy: trackBy">
@@ -58,6 +58,10 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
     @Input() trackBy: Function = (index: number, item: any) => item;
     
     @Input() immutable: boolean = true;
+    
+    @Input() scrollable: boolean;
+    
+    @Input() scrollHeight: string;
     
     @Output() onPage: EventEmitter<any> = new EventEmitter();
         

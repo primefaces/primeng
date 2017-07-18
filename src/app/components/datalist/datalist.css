@@ -29,3 +29,7 @@
 .ui-datalist .ui-datalist-emptymessage {
     padding: .5em .75em;
 }
+
+.ui-datalist.ui-datalist-scrollable .ui-datalist-content {
+    overflow: auto;
+}
