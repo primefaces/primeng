@@ -2186,6 +2186,34 @@ body .ui-slidemenu .ui-slidemenu-backward {
     border-top-right-radius: 0;
 }
 
+body .ui-inputgroup .ui-inputgroup-addon {
+  border-color: rgba(0,0,0,.15);
+  background-color: #eceeef;
+  color: #55595c;
+  padding: 0.5em 0.75em;
+}
+
+body  .ui-inputgroup .ui-inputgroup-addon:first-child {
+    border-top-left-radius: 0.25em;
+    border-bottom-left-radius: 0.25em; 
+}
+ 
+body .ui-inputgroup .ui-inputgroup-addon:last-child {
+    border-top-right-radius: 0.25em;
+    border-bottom-right-radius: 0.25em;
+}
+
+body .ui-inputgroup .ui-button:first-child {
+  border-top-left-radius: 0.25em;
+  border-bottom-left-radius: 0.25em;
+
+}
+.ui-inputgroup .ui-button:last-child {
+  border-top-right-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
+}
+
+
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
