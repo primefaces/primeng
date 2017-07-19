@@ -14,6 +14,94 @@
     <input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" />
 
     <button id="disabled-btn" type="button" (click)="toggleDisabled()" pButton label="Toggle"></button>
+    
+    <h3>Addons</h3>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                <input type="text" pInputText placeholder="Username">         
+            </div>
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon">$</span>
+                <input type="text" pInputText placeholder="Price">   
+                <span class="ui-inputgroup-addon">.00</span>      
+            </div>
+        </div>
+                
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon">https://</span>
+                <input type="text" pInputText placeholder="Website">      
+            </div>
+        </div>
+    </div>
+        
+    <h3>Multiple Addons</h3>
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-credit-card"></i></span>  
+                <span class="ui-inputgroup-addon"><i class="fa fa-cc-visa"></i></span>   
+                <input type="text" pInputText placeholder="Price"> 
+                <span class="ui-inputgroup-addon">$</span>  
+                <span class="ui-inputgroup-addon">.00</span>      
+            </div>
+        </div>
+    </div>
+    
+    <h3>Button Addons</h3>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <button pButton type="button" label="Search"></button>
+                <input type="text" pInputText placeholder="Keyword">         
+            </div>
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <input type="text" pInputText placeholder="Keyword">   
+                <button pButton type="button" icon="fa-search" class="ui-button-secondary"></button>      
+            </div>
+        </div>
+                
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <button pButton type="button" icon="fa-check" class="ui-button-success"></button>    
+                <input type="text" pInputText placeholder="Vote">   
+                <button pButton type="button" icon="fa-close" class="ui-button-danger"></button>      
+            </div>
+        </div>
+    </div>
+
+    <h3>Checkbox and RadioButton</h3>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><p-checkbox></p-checkbox></span>
+                <input type="text" pInputText placeholder="Username">         
+            </div>
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <input type="text" pInputText placeholder="Price">   
+                <span class="ui-inputgroup-addon"><p-radioButton></p-radioButton></span>      
+            </div>
+        </div>
+                
+        <div class="ui-g-12 ui-md-4">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><p-checkbox></p-checkbox></span>
+                <input type="text" pInputText placeholder="Website">      
+                <span class="ui-inputgroup-addon"><p-radioButton></p-radioButton></span> 
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="content-section documentation">
@@ -40,6 +128,26 @@ import &#123;InputTextModule&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;input type="text" pInputText [(ngModel)]="property"/&gt;
+</code>
+</pre>
+
+            <h3>Addons</h3>
+            <p>Text, icon, buttons and other content can be grouped next to an input by wrapping the addons and input inside
+                .ui-inputgroup element. Multiple addons can be used within the same group as well.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-inputgroup"&gt;
+    &lt;span class="ui-inputgroup-addon"&gt;&lt;i class="fa fa-user"&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;input type="text" pInputText placeholder="Username"&gt;         
+&lt;/div&gt;
+
+&lt;div class="ui-inputgroup"&gt;
+    &lt;span class="ui-inputgroup-addon"&gt;&lt;i class="fa fa-credit-card"&gt;&lt;/i&gt;&lt;/span&gt;  
+    &lt;span class="ui-inputgroup-addon"&gt;&lt;i class="fa fa-cc-visa"&gt;&lt;/i&gt;&lt;/span&gt;   
+    &lt;input type="text" pInputText placeholder="Price"&gt; 
+    &lt;span class="ui-inputgroup-addon"&gt;$&lt;/span&gt;  
+    &lt;span class="ui-inputgroup-addon"&gt;.00&lt;/span&gt;      
+&lt;/div&gt;
 </code>
 </pre>
 
@@ -95,12 +203,101 @@ import &#123;InputTextModule&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text"&gt;  {{text}}
+&lt;input id="input" type="text" size="30" pInputText [(ngModel)]="text"&gt; 
+&lt;span id="text"&gt;&#123;text&#125;&#125;&lt;/span&gt;
 
 &lt;h3&gt;Disabled&lt;/h3&gt;
-&lt;input id="in" type="text" size="30" pInputText [disabled]="disabled" /&gt;
+&lt;input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" /&gt;
 
-&lt;button type="button" (click)="toggleDisabled()" pButton label="Toggle"&gt;&lt;/button&gt;
+&lt;button id="disabled-btn" type="button" (click)="toggleDisabled()" pButton label="Toggle"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Addons&lt;/h3&gt;
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;span class="ui-inputgroup-addon"&gt;&lt;i class="fa fa-user"&gt;&lt;/i&gt;&lt;/span&gt;
+            &lt;input type="text" pInputText placeholder="Username"&gt;         
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;span class="ui-inputgroup-addon"&gt;$&lt;/span&gt;
+            &lt;input type="text" pInputText placeholder="Price"&gt;   
+            &lt;span class="ui-inputgroup-addon"&gt;.00&lt;/span&gt;      
+        &lt;/div&gt;
+    &lt;/div&gt;
+            
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;span class="ui-inputgroup-addon"&gt;https://&lt;/span&gt;
+            &lt;input type="text" pInputText placeholder="Website"&gt;      
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+    
+&lt;h3&gt;Multiple Addons&lt;/h3&gt;
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;span class="ui-inputgroup-addon"&gt;&lt;i class="fa fa-credit-card"&gt;&lt;/i&gt;&lt;/span&gt;  
+            &lt;span class="ui-inputgroup-addon"&gt;&lt;i class="fa fa-cc-visa"&gt;&lt;/i&gt;&lt;/span&gt;   
+            &lt;input type="text" pInputText placeholder="Price"&gt; 
+            &lt;span class="ui-inputgroup-addon"&gt;$&lt;/span&gt;  
+            &lt;span class="ui-inputgroup-addon"&gt;.00&lt;/span&gt;      
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Button Addons&lt;/h3&gt;
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;button pButton type="button" label="Search"&gt;&lt;/button&gt;
+            &lt;input type="text" pInputText placeholder="Keyword"&gt;         
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;input type="text" pInputText placeholder="Keyword"&gt;   
+            &lt;button pButton type="button" icon="fa-search" class="ui-button-secondary"&gt;&lt;/button&gt;      
+        &lt;/div&gt;
+    &lt;/div&gt;
+            
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;button pButton type="button" icon="fa-check" class="ui-button-success"&gt;&lt;/button&gt;    
+            &lt;input type="text" pInputText placeholder="Vote"&gt;   
+            &lt;button pButton type="button" icon="fa-close" class="ui-button-danger"&gt;&lt;/button&gt;      
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Checkbox and RadioButton&lt;/h3&gt;
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;span class="ui-inputgroup-addon"&gt;&lt;p-checkbox&gt;&lt;/p-checkbox&gt;&lt;/span&gt;
+            &lt;input type="text" pInputText placeholder="Username"&gt;         
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;input type="text" pInputText placeholder="Price"&gt;   
+            &lt;span class="ui-inputgroup-addon"&gt;&lt;p-radioButton&gt;&lt;/p-radioButton&gt;&lt;/span&gt;      
+        &lt;/div&gt;
+    &lt;/div&gt;
+            
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;div class="ui-inputgroup"&gt;
+            &lt;span class="ui-inputgroup-addon"&gt;&lt;p-checkbox&gt;&lt;/p-checkbox&gt;&lt;/span&gt;
+            &lt;input type="text" pInputText placeholder="Website"&gt;      
+            &lt;span class="ui-inputgroup-addon"&gt;&lt;p-radioButton&gt;&lt;/p-radioButton&gt;&lt;/span&gt; 
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 </code>
 </pre>
 
