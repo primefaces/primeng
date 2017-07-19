@@ -460,7 +460,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             //space
             case 32:
-                this.panelVisible = !this.panelVisible;
+                this.show();
                 
                 event.preventDefault();
             break;
@@ -475,7 +475,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //escape and tab
             case 27:
             case 9:
-                this.panelVisible = false;
+                this.hide();
             break;
         }
     }
