@@ -1,4 +1,4 @@
-###There is no guarantee in receiving a response in GitHub Issue Tracker, If you'd like to secure our response, you may consider *PrimeNG PRO Support* where support is provided within 4 business hours
+### There is no guarantee in receiving a response in GitHub Issue Tracker, If you'd like to secure our response, you may consider *PrimeNG PRO Support* where support is provided within 4 business hours
 
 **I'm submitting a ...**  (check one with "x")
 ```
