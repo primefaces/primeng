@@ -164,12 +164,7 @@ export class FileUpload implements OnInit,AfterContentInit {
             }
         });
     }
-    
-    onChooseClick(event, fileInput) {
-        fileInput.value = null;
-        fileInput.click();
-    }
-    
+        
     onFileSelect(event) {
         this.msgs = [];
         if(!this.multiple) {
