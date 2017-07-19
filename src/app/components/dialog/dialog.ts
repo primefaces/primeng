@@ -86,6 +86,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() showHeader: boolean = true;
     
     @Input() breakpoint: number = 640;
+    
+    @Input() blockScroll: boolean = false;
         
     @ContentChild(Header) headerFacet;
     
@@ -253,14 +255,18 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 	             });
 			}
             document.body.appendChild(this.mask);
-            this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+            if(this.blockScroll) {
+                this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+            }
         }
     }
     
     disableModality() {
         if(this.mask) {
             document.body.removeChild(this.mask);
-            this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+            if(this.blockScroll) {
+                this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+            }
             this.mask = null;
         }
     }
