@@ -202,12 +202,14 @@
 }
 
 .ui-button:focus,
-.ui-button:enabled:hover {
+.ui-button:enabled:hover,
+.ui-fileupload-choose:not(.ui-state-disabled):hover {
     outline: 0 none;
     @include hover-element();
 }
 
-.ui-button:enabled:active {
+.ui-button:enabled:active,
+.ui-fileupload-choose:not(.ui-state-disabled):active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
     color: $stateActiveTextColor;

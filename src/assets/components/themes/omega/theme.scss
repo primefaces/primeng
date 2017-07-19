@@ -202,6 +202,20 @@ $inputGroupTextColor: #222222;
     }
 }
 
+.ui-fileupload-choose:not(.ui-state-disabled):hover,
+.ui-fileupload-choose.ui-state-focus {
+    border: 1px solid #1f89ce;
+    background: #1f89ce;
+    outline: 0 none;
+    color: #ffffff;
+}
+
+.ui-fileupload-choose:not(.ui-state-disabled):active {
+    border: 1px solid #156090;
+    background: #186ba0;
+    color: #ffffff;
+}
+
 /* Checkbox and Radio */
 .ui-chkbox-box.ui-state-active,
 .ui-radiobutton-box.ui-state-active {
