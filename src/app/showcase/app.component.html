@@ -60,6 +60,7 @@
                 <span>Input</span>
             </a>
             <div [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
+                <a [routerLink]="['/inputgroup']" (click)="menuActive = false">&#9679; InputGroup</a>
                 <a [routerLink]="['/autocomplete']" (click)="menuActive = false">&#9679; AutoComplete</a>
                 <a [routerLink]="['/calendar']" (click)="menuActive = false">&#9679; Calendar</a>
                 <a [routerLink]="['/checkbox']" (click)="menuActive = false">&#9679; Checkbox</a>
