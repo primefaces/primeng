@@ -77,7 +77,8 @@ export class Button implements AfterViewInit, OnDestroy {
         
         if(this.initialized) {
             let iconPosClass = (this.iconPos == 'right') ? 'ui-button-icon-right': 'ui-button-icon-left';
-            this.domHandler.findSingle(this.el.nativeElement, '.fa').className = iconPosClass  + ' ui-clifa fa-fw ' + this.icon;
+            this.domHandler.findSingle(this.el.nativeElement, '.fa').className =
+                iconPosClass + ' ui-clickable fa fa-fw ' + this.icon;
         }
     }
         
