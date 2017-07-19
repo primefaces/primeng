@@ -36,6 +36,10 @@
     border-left: 0 none;
 }
 
+.ui-inputgroup .ui-inputtext {
+    padding-left: .5em;
+}
+
 .ui-inputgroup .ui-inputtext:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
