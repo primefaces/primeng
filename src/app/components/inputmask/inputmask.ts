@@ -41,7 +41,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     selector: 'p-inputMask',
     template: `<input #input pInputText [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder"
         [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [disabled]="disabled" [readonly]="readonly"
-        (focus)="onFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)"
+        (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)"
         (input)="onInput($event)" (paste)="handleInputChange($event)">`,
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
@@ -84,6 +84,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     @ViewChild('input') inputViewChild: ElementRef;
     
     @Output() onComplete: EventEmitter<any> = new EventEmitter();
+        
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
         
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
         
@@ -508,7 +510,7 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         return (this.partialPosition ? i : this.firstNonMaskPos);
     }
     
-    onFocus(event) {
+    onInputFocus(event) {
         if (this.readonly){
             return;
         }
@@ -533,6 +535,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
                 this.caret(pos);
             }
         }, 10);
+        
+        this.onFocus.emit(event);
     }
     
     onInput(event) {         

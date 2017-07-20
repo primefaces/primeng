@@ -238,16 +238,19 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     }
     
     ngAfterViewChecked() {
-        if(this.suggestionsUpdated) {
-            this.align();
+        //Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
+        if(this.suggestionsUpdated && this.panelEL.nativeElement && this.panelEL.nativeElement.offsetParent) {
+            setTimeout(() => this.align(), 1);
             this.suggestionsUpdated = false;
         }
         
         if(this.highlightOptionChanged) {
-            let listItem = this.domHandler.findSingle(this.panelEL.nativeElement, 'li.ui-state-highlight');
-            if(listItem) {
-                this.domHandler.scrollInView(this.panelEL.nativeElement, listItem);
-            }
+            setTimeout(() => {
+                let listItem = this.domHandler.findSingle(this.panelEL.nativeElement, 'li.ui-state-highlight');
+                if(listItem) {
+                    this.domHandler.scrollInView(this.panelEL.nativeElement, listItem);
+                }
+            }, 1);
             this.highlightOptionChanged = false;
         }
     }

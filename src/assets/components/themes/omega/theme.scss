@@ -52,6 +52,7 @@ $stateHoverTextColor: #212121;
 $inputBgColor: #ffffff;
 $inputTextColor: #222222;
 $invalidInputBorderColor: #f44336;
+$inputGroupTextColor: #222222;
 
 @import '../_theme';
 
@@ -187,8 +188,6 @@ $invalidInputBorderColor: #f44336;
     transition: background-color .2s;
     
     &:enabled:hover,
-    &.ui-state-focus,
-    &:not(.ui-state-disabled):hover,
     &:focus {
         border: 1px solid #1f89ce;
     	background: #1f89ce;
@@ -196,12 +195,25 @@ $invalidInputBorderColor: #f44336;
         color: #ffffff;
     }
     
-    &:enabled:active,
-    &:not(.ui-state-disabled):active {
+    &:enabled:active {
         border: 1px solid #156090;
     	background: #186ba0;
         color: #ffffff;
     }
+}
+
+.ui-fileupload-choose:not(.ui-state-disabled):hover,
+.ui-fileupload-choose.ui-state-focus {
+    border: 1px solid #1f89ce;
+    background: #1f89ce;
+    outline: 0 none;
+    color: #ffffff;
+}
+
+.ui-fileupload-choose:not(.ui-state-disabled):active {
+    border: 1px solid #156090;
+    background: #186ba0;
+    color: #ffffff;
 }
 
 /* Checkbox and Radio */

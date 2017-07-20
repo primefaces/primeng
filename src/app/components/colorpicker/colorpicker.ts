@@ -174,7 +174,7 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
         let val: any;
         switch(this.format) {
             case 'hex':
-                val = this.HSBtoHEX(this.value);
+                val = '#' + this.HSBtoHEX(this.value);
             break;
             
             case 'rgb':

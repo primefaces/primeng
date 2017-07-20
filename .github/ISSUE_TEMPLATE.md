@@ -1,7 +1,4 @@
-<!--
-- IF YOU DON'T FILL OUT THE FOLLOWING INFORMATION WE MIGHT CLOSE YOUR ISSUE WITHOUT INVESTIGATING.
-- IF YOU'D LIKE TO SECURE OUR RESPONSE, YOU MAY CONSIDER PRIMENG PRO SUPPORT WHERE SUPPORT IS PROVIDED WITHIN 4 hours.
--->
+### There is no guarantee in receiving a response in GitHub Issue Tracker, If you'd like to secure our response, you may consider *PrimeNG PRO Support* where support is provided within 4 business hours
 
 **I'm submitting a ...**  (check one with "x")
 ```
@@ -13,7 +10,7 @@
 **Plunkr Case (Bug Reports)**
 Please fork the plunkr below and create a case demonstrating your bug report. Issues without a plunkr have much less possibility to be reviewed.
 
-http://plnkr.co/edit/Wj39h1?p=preview
+http://plnkr.co/edit/Qi2Nw2imLpDUF8NJinYw?p=preview
 
 **Current behavior**
 <!-- Describe how the bug manifests. -->

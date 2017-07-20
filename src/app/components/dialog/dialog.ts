@@ -8,7 +8,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
     selector: 'p-dialog',
     template: `
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" [ngStyle]="style" [class]="styleClass"
-            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
+            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
@@ -86,6 +86,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() showHeader: boolean = true;
     
     @Input() breakpoint: number = 640;
+    
+    @Input() blockScroll: boolean = false;
         
     @ContentChild(Header) headerFacet;
     
@@ -134,6 +136,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     preventVisibleChangePropagation: boolean;
     
     executePostDisplayActions: boolean;
+    
+    initialized: boolean;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
@@ -144,7 +148,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     set visible(val:boolean) {
         this._visible = val;
         
-        if(this.containerViewChild && this.containerViewChild.nativeElement) {
+        if(this.initialized && this.containerViewChild && this.containerViewChild.nativeElement) {
             if(this._visible)
                 this.show();
             else {
@@ -155,7 +159,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             }
         }
     }
-    
+        
     ngAfterViewChecked() {
         if(this.executePostDisplayActions) {
             this.onShow.emit({});
@@ -175,6 +179,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
         
     positionOverlay() {
+        let viewport = this.domHandler.getViewport();
+        if(this.domHandler.getOuterHeight(this.containerViewChild.nativeElement) > viewport.height) {
+             this.contentViewChild.nativeElement.style.height = (viewport.height * .75) + 'px';
+        }
+        
         if(this.positionLeft >= 0 && this.positionTop >= 0) {
             this.containerViewChild.nativeElement.style.left = this.positionLeft + 'px';
             this.containerViewChild.nativeElement.style.top = this.positionTop + 'px';
@@ -205,7 +214,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         event.preventDefault();
     }
         
-    ngAfterViewInit() {                
+    ngAfterViewInit() { 
+        this.initialized = true;
+                      
         if(this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.containerViewChild.nativeElement);
@@ -249,14 +260,18 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 	             });
 			}
             document.body.appendChild(this.mask);
-            this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+            if(this.blockScroll) {
+                this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+            }
         }
     }
     
     disableModality() {
         if(this.mask) {
             document.body.removeChild(this.mask);
-            this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+            if(this.blockScroll) {
+                this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+            }
             this.mask = null;
         }
     }
@@ -445,6 +460,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     ngOnDestroy() {
+        this.initialized = false;
+        
         this.disableModality();
         
         this.unbindGlobalListeners();

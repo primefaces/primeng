@@ -13,7 +13,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     selector: 'p-inputSwitch',
     template: `
         <div [ngClass]="{'ui-inputswitch ui-widget ui-widget-content ui-corner-all': true,
-            'ui-state-disabled': disabled,'ui-inputswitch-checked':checked}" (click)="toggle($event, in)"
+            'ui-state-disabled': disabled,'ui-inputswitch-checked':checked, 'ui-state-focus':focused}" (click)="toggle($event, in)"
             [ngStyle]="style" [class]="styleClass">
             <div class="ui-inputswitch-off">
                 <span class="ui-inputswitch-offlabel">{{offLabel}}</span>

@@ -27,7 +27,7 @@
    right: 0;
 }
 
-.ui-lightbox-loading {
+.ui-lightbox-loading .ui-lightbox-content {
     background: url("./images/loading.gif") #000000 center center no-repeat;
 }
 
