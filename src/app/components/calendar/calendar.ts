@@ -458,7 +458,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         if(this.currentMonth === 0) {
             this.currentMonth = 11;
-            this.currentYear--;
+            
+            if (this.yearOptions && this.yearOptions.length >= 1) {
+                if (--this.currentYear < this.yearOptions[0]) {
+                    this.currentYear = this.yearOptions[0];
+                }
+            } else {
+                this.currentYear--;
+            }
         }
         else {
             this.currentMonth--;
@@ -476,7 +483,15 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         if(this.currentMonth === 11) {
             this.currentMonth = 0;
-            this.currentYear++;
+            
+            if (this.yearOptions && this.yearOptions.length >= 1) {
+                const maxYear =this.yearOptions[this.yearOptions.length - 1];
+                if (++this.currentYear > maxYear) {
+                    this.currentYear = maxYear;
+                }
+            } else {
+                this.currentYear++;
+            }
         }
         else {
             this.currentMonth++;
