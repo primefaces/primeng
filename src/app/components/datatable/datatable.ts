@@ -294,8 +294,6 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'fa-circle-o-notch';
-
     public scrollBody: HTMLDivElement;
     
     public scrollHeader: HTMLDivElement;
@@ -627,6 +625,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() dataKey: string;
     
     @Input() loading: boolean;
+
+    @Input() loadingIcon: string = 'fa-circle-o-notch';
     
     @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
         
