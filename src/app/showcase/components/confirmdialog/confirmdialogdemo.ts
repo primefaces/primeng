@@ -16,7 +16,7 @@ export class ConfirmDialogDemo {
         this.confirmationService.confirm({
             message: 'Are you sure that you want to proceed?',
             header: 'Confirmation',
-            icon: 'fa fa-question-circle',
+            icon: 'fa-question-circle',
             accept: () => {
                 this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
             },
@@ -30,7 +30,7 @@ export class ConfirmDialogDemo {
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
-            icon: 'fa fa-trash',
+            icon: 'fa-trash',
             accept: () => {
                 this.msgs = [{severity:'info', summary:'Confirmed', detail:'Record deleted'}];
             },

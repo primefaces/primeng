@@ -110,18 +110,30 @@ body .ui-button {
     transition: background-color 0.3s;
 }
 body .ui-button:focus,
-body .ui-button:enabled:hover,
-body .ui-button:not(.ui-state-disabled):hover {
+body .ui-button:enabled:hover {
     outline: 0 none;
     background-color: #0267bf;
 }
-body .ui-button:enabled:active,
-body .ui-button:not(.ui-state-disabled):active {
+body .ui-button:enabled:active {
     background-color: #025aa5;
     -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
+
+body .ui-fileupload-choose:not(.ui-state-disabled):hover,
+body .ui-fileupload-choose.ui-state-focus {
+    outline: 0 none;
+    background-color: #0267bf;
+}
+
+body .ui-fileupload-choose:not(.ui-state-disabled):active {
+    background-color: #025aa5;
+    -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
 body .ui-button.raised-btn {
     -moz-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
     -webkit-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
@@ -2185,6 +2197,34 @@ body .ui-slidemenu .ui-slidemenu-backward {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+body .ui-inputgroup .ui-inputgroup-addon {
+  border-color: rgba(0,0,0,.15);
+  background-color: #eceeef;
+  color: #55595c;
+  padding: 0.5em 0.75em;
+}
+
+body  .ui-inputgroup .ui-inputgroup-addon:first-child {
+    border-top-left-radius: 0.25em;
+    border-bottom-left-radius: 0.25em; 
+}
+ 
+body .ui-inputgroup .ui-inputgroup-addon:last-child {
+    border-top-right-radius: 0.25em;
+    border-bottom-right-radius: 0.25em;
+}
+
+body .ui-inputgroup .ui-button:first-child {
+  border-top-left-radius: 0.25em;
+  border-bottom-left-radius: 0.25em;
+
+}
+.ui-inputgroup .ui-button:last-child {
+  border-top-right-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
+}
+
 
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,

@@ -65,6 +65,7 @@ export class TemplateWrapper implements OnInit, OnDestroy {
 })
 export class Column implements AfterContentInit{
     @Input() field: string;
+    @Input() colId: string;
     @Input() sortField: string;
     @Input() header: string;
     @Input() footer: string;

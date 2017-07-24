@@ -21,6 +21,7 @@
                     <li><a href="http://www.primefaces.org/layouts/paradise-ng"><img src="assets/showcase/images/themeswitcher-paradise.png" alt="Paradise Template"><span class="ui-text">Paradise</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/ultima-ng"><img src="assets/showcase/images/themeswitcher-ultima.png" alt="Ultima Template"><span class="ui-text">Ultima</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/barcelona-ng"><img src="assets/showcase/images/themeswitcher-barcelona.png" alt="Barcelona Template"><span class="ui-text">Barcelona</span></a></li>
+                    <li><a href="http://www.primefaces.org/layouts/manhattan-ng"><img src="assets/showcase/images/themeswitcher-manhattan.png" alt="Manhattan Template"><span class="ui-text">Manhattan</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/morpheus-ng"><img src="assets/showcase/images/themeswitcher-morpheus.png" alt="Morpheus Template"><span class="ui-text">Morpheus</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/atlantis-ng"><img src="assets/showcase/images/themeswitcher-atlantis.png" alt="Atlantis Template"><span class="ui-text">Atlantis</span></a></li>
                     <li><a href="http://www.primefaces.org/layouts/poseidon-ng"><img src="assets/showcase/images/themeswitcher-poseidon.png" alt="Poseidon Template"><span class="ui-text">Poseidon</span></a></li>
@@ -59,6 +60,7 @@
                 <span>Input</span>
             </a>
             <div [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
+                <a [routerLink]="['/inputgroup']" (click)="menuActive = false">&#9679; InputGroup</a>
                 <a [routerLink]="['/autocomplete']" (click)="menuActive = false">&#9679; AutoComplete</a>
                 <a [routerLink]="['/calendar']" (click)="menuActive = false">&#9679; Calendar</a>
                 <a [routerLink]="['/checkbox']" (click)="menuActive = false">&#9679; Checkbox</a>

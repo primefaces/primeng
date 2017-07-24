@@ -19,7 +19,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" 
             [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="value ? (field ? objectUtils.resolveFieldData(value,field)||'' : value) : null" 
-            (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
+            (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled"
             ><ul *ngIf="multiple" #multiContainer class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="ui-autocomplete-token ui-state-highlight ui-corner-all">
@@ -29,7 +29,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-autocomplete-input-token">
                     <input #multiIn [attr.type]="type" [attr.id]="inputId" [disabled]="disabled" [attr.placeholder]="(value&&value.length ? null : placeholder)" [attr.tabindex]="tabindex" (input)="onInput($event)"  (click)="onInputClick($event)"
-                            (keydown)="onKeydown($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                            (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul
             ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
@@ -97,6 +97,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
 	
 	@Output() onClear: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
     
     @Input() field: string;
     
@@ -238,16 +240,19 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     }
     
     ngAfterViewChecked() {
-        if(this.suggestionsUpdated) {
-            this.align();
+        //Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
+        if(this.suggestionsUpdated && this.panelEL.nativeElement && this.panelEL.nativeElement.offsetParent) {
+            setTimeout(() => this.align(), 1);
             this.suggestionsUpdated = false;
         }
         
         if(this.highlightOptionChanged) {
-            let listItem = this.domHandler.findSingle(this.panelEL.nativeElement, 'li.ui-state-highlight');
-            if(listItem) {
-                this.domHandler.scrollInView(this.panelEL.nativeElement, listItem);
-            }
+            setTimeout(() => {
+                let listItem = this.domHandler.findSingle(this.panelEL.nativeElement, 'li.ui-state-highlight');
+                if(listItem) {
+                    this.domHandler.scrollInView(this.panelEL.nativeElement, listItem);
+                }
+            }, 1);
             this.highlightOptionChanged = false;
         }
     }
@@ -464,6 +469,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         }
 
         this.inputKeyDown = true;
+    }
+    
+    onKeyup(event) {
+        this.onKeyUp.emit(event);
     }
     
     onInputFocus(event) {

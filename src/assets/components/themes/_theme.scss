@@ -146,6 +146,36 @@
     box-shadow: 0px 0px 5px $stateFocusBorderColor;
 }
 
+.ui-inputgroup {
+    .ui-inputgroup-addon  {
+        border-color: $stateDefaultBorderColor;
+        background-color: lighten($stateDefaultBorderColor, 10%);
+        color: $inputGroupTextColor;
+        
+        &:first-child {
+            border-top-left-radius: $borderRadius;
+            border-bottom-left-radius: $borderRadius;
+        }
+        
+        &:last-child {
+            border-top-right-radius: $borderRadius;
+            border-bottom-right-radius: $borderRadius;
+        }
+    }
+    
+    .ui-button {
+        &:first-child {
+            border-top-left-radius: $borderRadius;
+            border-bottom-left-radius: $borderRadius;
+        }
+        
+        &:last-child {
+            border-top-right-radius: $borderRadius;
+            border-bottom-right-radius: $borderRadius;
+        }
+    }
+}
+
 .ui-autocomplete {
     .ui-autocomplete-multiple-container:not(.ui-state-disabled) {
         &:hover {
@@ -173,14 +203,13 @@
 
 .ui-button:focus,
 .ui-button:enabled:hover,
-.ui-button.ui-state-focus,
-.ui-button:not(.ui-state-disabled):hover {
+.ui-fileupload-choose:not(.ui-state-disabled):hover {
     outline: 0 none;
     @include hover-element();
 }
 
 .ui-button:enabled:active,
-.ui-button.ui-state-active {
+.ui-fileupload-choose:not(.ui-state-disabled):active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
     color: $stateActiveTextColor;
@@ -296,6 +325,25 @@
 .ui-picklist {
     .ui-picklist-item:not(.ui-state-highlight):hover {
         @include hover-element();
+    }
+    
+    .ui-picklist-droppoint-highlight {
+        border-color: $stateHighlightBorderColor;
+        background: $stateHighlightBgColor;
+        color: darken($contentTextColor,1%);
+        
+        a {
+            color: darken($contentTextColor,1%);
+        }
+    }
+    
+    .ui-picklist-highlight {
+        border-color: $stateHighlightBorderColor;
+        color: darken($contentTextColor,1%);
+        
+        a {
+            color: darken($contentTextColor,1%);
+        }
     }
 }
 

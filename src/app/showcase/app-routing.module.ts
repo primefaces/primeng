@@ -42,6 +42,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'inputmask', loadChildren: './components/inputmask/inputmaskdemo.module#InputMaskDemoModule'},
             {path: 'inputswitch', loadChildren: './components/inputswitch/inputswitchdemo.module#InputSwitchDemoModule'},
             {path: 'inputtext', loadChildren: './components/inputtext/inputtextdemo.module#InputTextDemoModule'},
+            {path: 'inputgroup', loadChildren: './components/inputgroup/inputgroupdemo.module#InputGroupDemoModule'},
             {path: 'inputtextarea', loadChildren: './components/inputtextarea/inputtextareademo.module#InputTextareaDemoModule'},
             {path: 'lightbox', loadChildren: './components/lightbox/lightboxdemo.module#LightboxDemoModule'},
             {path: 'listbox', loadChildren: './components/listbox/listboxdemo.module#ListboxDemoModule'},

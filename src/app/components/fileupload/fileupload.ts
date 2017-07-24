@@ -115,6 +115,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     
+    @Output() onProgress: EventEmitter<any> = new EventEmitter();
+    
     @Output() uploadHandler: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
@@ -162,12 +164,7 @@ export class FileUpload implements OnInit,AfterContentInit {
             }
         });
     }
-    
-    onChooseClick(event, fileInput) {
-        fileInput.value = null;
-        fileInput.click();
-    }
-    
+        
     onFileSelect(event) {
         this.msgs = [];
         if(!this.multiple) {
@@ -273,6 +270,8 @@ export class FileUpload implements OnInit,AfterContentInit {
                 if(e.lengthComputable) {
                   this.progress = Math.round((e.loaded * 100) / e.total);
                 }
+                
+                this.onProgress.emit({originalEvent: e, progress: this.progress});
               }, false);
 
             xhr.onreadystatechange = () => {

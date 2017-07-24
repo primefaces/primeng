@@ -5,36 +5,33 @@ import {CarService} from '../../service/carservice';
 @Component({
     templateUrl: './datalistdemo.html',
     styles: [`
-        .ui-grid-row > div {
-            padding: 4px 10px;
-            font-size: 16px;
+        .car-item {
+            padding: 1.5em;
+            border-bottom: 1px solid #d9d9d9;
+        }
+                
+        .ui-g > div {
+            padding: .4em;
         }
         
-        .ui-grid-row .ui-grid-row > div:last-child {
+        .ui-g .ui-g-10 {
             font-weight: bold;
+        }
+        
+        @media (max-width: 40em) {
+            .car-details {
+                text-align:center;
+            }
         }
     `]
 })
 export class DataListDemo implements OnInit {
 
     cars: Car[];
-    
-    selectedCar: Car;
-    
-    displayDialog: boolean;
-
+        
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsLarge().then(cars => this.cars = cars);
-    }
-    
-    selectCar(car: Car) {
-        this.selectedCar = car;
-        this.displayDialog = true;
-    }
-    
-    onDialogHide() {
-        this.selectedCar = null;
     }
 }

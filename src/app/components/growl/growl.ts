@@ -65,6 +65,10 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
+        
+        if(this.value && this.value.length) {
+            this.clearTrigger();
+        }
     }
     
     @Input() get value(): Message[] {
@@ -95,15 +99,16 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         
         this.zIndex = ++DomHandler.zindex;
         this.domHandler.fadeIn(this.container, 250);
-        
-        if(!this.sticky) {
-            if(this.timeout) {
-                clearTimeout(this.timeout);
-            }
-            this.timeout = setTimeout(() => {
-                this.removeAll();
-            }, this.life);
+        this.clearTrigger();
+    }
+    
+    clearTrigger() {
+        if(this.timeout) {
+            clearTimeout(this.timeout);
         }
+        this.timeout = setTimeout(() => {
+            this.removeAll();
+        }, this.life);
     }
         
     remove(index: number, msgel: any) {        

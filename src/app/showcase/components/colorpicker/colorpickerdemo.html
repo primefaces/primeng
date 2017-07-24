@@ -9,12 +9,12 @@
     <h3 class="first">Inline</h3>
     <p-colorPicker [(ngModel)]="color1" inline="true"></p-colorPicker>
     
-    <p style="margin-top:.5em">Selected Color: <span style="display:inline-block;width:32px;height:32px;vertical-align:middle" [style.backgroundColor]="'#' + color1"></span> {{color1}} </p>    
+    <p style="margin-top:.5em">Selected Color: <span style="display:inline-block;width:32px;height:32px;vertical-align:middle" [style.backgroundColor]="color1"></span> {{color1}} </p>    
     
     <h3>Overlay</h3>
     <p-colorPicker [(ngModel)]="color2"></p-colorPicker>
     
-    <p style="margin-top:.5em">Selected Color: <span [ngStyle]="{'color':'#' + color2}">{{color2}}</span></p> 
+    <p style="margin-top:.5em">Selected Color: <span [ngStyle]="{'color':color2}">{{color2}}</span></p> 
 </div>
 
 <div class="content-section documentation">
@@ -248,12 +248,12 @@ export class MyComponent &#123;
 &lt;h3 class="first"&gt;Inline&lt;/h3&gt;
 &lt;p-colorPicker [(ngModel)]="color1" inline="true"&gt;&lt;/p-colorPicker&gt;
 
-&lt;p style="margin-top:.5em"&gt;Selected Color: &lt;span style="display:inline-block;width:32px;height:32px;vertical-align:middle" [style.backgroundColor]="'#' + color1"&gt;&lt;/span&gt; &#123;&#123;color1&#125;&#125; &lt;/p&gt;    
+&lt;p style="margin-top:.5em"&gt;Selected Color: &lt;span style="display:inline-block;width:32px;height:32px;vertical-align:middle" [style.backgroundColor]="color1"&gt;&lt;/span&gt; &#123;&#123;color1&#125;&#125; &lt;/p&gt;    
 
 &lt;h3&gt;Overlay&lt;/h3&gt;
 &lt;p-colorPicker [(ngModel)]="color2"&gt;&lt;/p-colorPicker&gt;
 
-&lt;p style="margin-top:.5em"&gt;Selected Color: &lt;span [ngStyle]="&#123;'color':'#' + color2&#125;"&gt;&#123;&#123;color2&#125;&#125;&lt;/span&gt;&lt;/p&gt; 
+&lt;p style="margin-top:.5em"&gt;Selected Color: &lt;span [ngStyle]="&#123;'color':color2&#125;"&gt;&#123;&#123;color2&#125;&#125;&lt;/span&gt;&lt;/p&gt; 
 </code>
 </pre>
 
@@ -263,7 +263,7 @@ export class ColorPickerDemo &#123;
 
     color1: string;
     
-    color2: string = '1976D2';
+    color2: string = '#1976D2';
 &#125;
 </code>
 </pre>
