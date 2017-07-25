@@ -38,7 +38,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 [style.display]="panelVisible ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()">
+                    (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event)">
                     <span class="fa fa-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
