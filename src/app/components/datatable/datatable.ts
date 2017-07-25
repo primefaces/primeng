@@ -661,8 +661,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public documentClickListener: Function;
         
-    public documentColumnResizeListener: Function;
-    
     public documentColumnResizeEndListener: Function;
     
     public resizerHelper: any;
@@ -2407,9 +2405,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.globalFilterFunction();
         }
                 
-        if(this.resizableColumns && this.documentColumnResizeListener && this.documentColumnResizeEndListener) {
-            this.documentColumnResizeListener();
-            this.documentColumnResizeEndListener();
+        if(this.resizableColumns) {
+            this.unbindColumnResizeEvents();
         }
         
         if(this.documentClickListener) {
