@@ -659,7 +659,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public lastResizerHelperX: number;
     
-    public documentClickListener: Function;
+    public documentEditListener: Function;
         
     public documentColumnResizeEndListener: Function;
     
@@ -794,15 +794,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     this._filter();
                     this.filterTimeout = null;
                 }, this.filterDelay);
-            });
-        }
-        
-        if(this.editable) {
-            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if(!this.editorClick) {
-                    this.closeCell();
-                }
-                this.editorClick = false;
             });
         }
     }
@@ -1784,9 +1775,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     switchCellToEditMode(cell: any, column: Column, rowData: any) {
-        if(!this.selectionMode && this.editable && column.editable) {  
+        if(!this.selectionMode && this.editable && column.editable) {
             this.editorClick = true;
-                     
+            this.bindDocumentEditListener();
+                
             if(cell != this.editingCell) {
                 if(this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
                     this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
@@ -1806,13 +1798,33 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     switchCellToViewMode(element: any) {
         this.editingCell = null;
         let cell = this.findCell(element); 
-        this.domHandler.removeClass(cell, 'ui-cell-editing');
+        this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
+        this.unbindDocumentEditListener();
     }
     
     closeCell() {
         if(this.editingCell) {
             this.domHandler.removeClass(this.editingCell, 'ui-cell-editing');
             this.editingCell = null;
+            this.unbindDocumentEditListener();
+        }
+    }
+    
+    bindDocumentEditListener() {
+        if(!this.documentEditListener) {
+            this.documentEditListener = this.renderer.listen('document', 'click', (event) => {
+                if(!this.editorClick) {
+                    this.closeCell();
+                }
+                this.editorClick = false;
+            });
+        }
+    }
+    
+    unbindDocumentEditListener() {
+        if(this.documentEditListener) {
+            this.documentEditListener();
+            this.documentEditListener = null;
         }
     }
 
@@ -2409,9 +2421,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.unbindColumnResizeEvents();
         }
         
-        if(this.documentClickListener) {
-            this.documentClickListener();
-        }
+        this.unbindDocumentEditListener();
         
         if(this.columnsSubscription) {
             this.columnsSubscription.unsubscribe();
