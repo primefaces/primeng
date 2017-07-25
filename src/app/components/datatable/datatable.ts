@@ -1944,11 +1944,24 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.tbody = this.domHandler.findSingle(this.el.nativeElement, 'tbody.ui-datatable-data');
         this.resizerHelper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
         this.fixColumnWidths();
-        
-        this.documentColumnResizeListener = this.renderer.listen('document', 'mousemove', (event) => {
-            if(this.columnResizing) {
-                this.onColumnResize(event);
-            }
+    }
+    
+    onDocumentMouseMove(event) {
+        if(this.columnResizing) {
+            this.onColumnResize(event);
+        }
+    }
+    
+    onDocumentMouseUp(event) {
+        if(this.columnResizing) {
+            this.columnResizing = false;
+            this.onColumnResizeEnd(event);
+        }
+    }
+    
+    bindColumnResizeEvents() {
+        this.zone.runOutsideAngular(() => {
+            window.document.addEventListener('mousemove', this.onDocumentMouseMove.bind(this));
         });
         
         this.documentColumnResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
@@ -1959,7 +1972,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         });
     }
     
+    unbindColumnResizeEvents() {
+        window.document.removeEventListener('mousemove', this.onDocumentMouseMove);
+        
+        if(this.documentColumnResizeEndListener) {
+            this.documentColumnResizeEndListener();
+            this.documentColumnResizeEndListener = null;
+        }
+    }
+    
     initColumnResize(event) {
+        this.bindColumnResizeEvents();
+        
         let container = this.el.nativeElement.children[0];
         let containerLeft = this.domHandler.getOffset(container).left;
         this.resizeColumn = event.target.parentElement;
@@ -1994,7 +2018,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     if(nextColumn) {
                         nextColumn.style.width = nextColumnWidth + 'px';
                     }
-                    
                     
                     if(this.scrollable) {
                         let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
@@ -2032,6 +2055,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.resizerHelper.style.display = 'none';
         this.resizeColumn = null;
         this.domHandler.removeClass(this.el.nativeElement.children[0], 'ui-unselectable-text');
+        this.unbindColumnResizeEvents();
     }
     
     fixColumnWidths() {
@@ -2063,8 +2087,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.draggedColumn = this.findParentHeader(event.target);
         event.dataTransfer.setData('text', 'b'); // Firefox requires this to make dragging possible
         this.zone.runOutsideAngular(() => {
-          window.document.addEventListener('dragover', this.onColumnDragover.bind(this));
-      });
+            window.document.addEventListener('dragover', this.onColumnDragover.bind(this));
+        });
     }
     
     onColumnDragover(event) {
