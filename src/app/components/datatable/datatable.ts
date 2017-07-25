@@ -266,7 +266,7 @@ export class TableBody {
 })
 export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy {
         
-    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer2) {}
+    constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {}
     
     @Input("pScrollableView") columns: Column[];
     
@@ -345,45 +345,9 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         this.scrollFooterBox =  this.scrollFooterBoxViewChild ? <HTMLDivElement> this.scrollFooterBoxViewChild.nativeElement : null;
         
         if(!this.frozen) {
-            let frozenView = this.el.nativeElement.previousElementSibling;
-            if(frozenView) {
-                var frozenScrollBody = this.domHandler.findSingle(frozenView, '.ui-datatable-scrollable-body');
-            }
-            
-            this.bodyScrollListener = this.renderer.listen(this.scrollBody, 'scroll', (event) => {
-                this.scrollHeaderBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
-                if(this.scrollFooterBox) {
-                    this.scrollFooterBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
-                }
-                if(frozenScrollBody) {
-                    frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
-                }
-                
-                if(this.virtualScroll) {
-                    clearTimeout(this.scrollTimeout);
-                    this.scrollTimeout = setTimeout(() => {
-                        let viewport = this.domHandler.getOuterHeight(this.scrollBody);
-                        let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
-                        let pageHeight = this.rowHeight * this.dt.rows;
-                        let virtualTableHeight = this.domHandler.getOuterHeight(this.scrollTableWrapper);
-                        let pageCount = (virtualTableHeight / pageHeight)||1;
-
-                        if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
-                            let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
-                            this.onVirtualScroll.emit({
-                                page: page
-                            });
-                            this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
-                        }  
-                    }, 200);
-                }
-            });
-            
-            //to trigger change detection
-            this.scrollBodyMouseWheelListener = this.renderer.listen(this.scrollBody, 'mousewheel', (event) => {});
-            
-            this.headerScrollListener = this.renderer.listen(this.scrollHeader, 'scroll', () => {
-                this.scrollHeader.scrollLeft = 0;
+            this.zone.runOutsideAngular(() => {
+                this.scrollHeader.addEventListener('scroll', this.onHeaderScroll.bind(this));
+                this.scrollBody.addEventListener('scroll', this.onBodyScroll.bind(this));
             });
         }
 
@@ -391,6 +355,42 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             this.alignScrollBar();
         else
             this.scrollBody.style.paddingBottom = this.domHandler.calculateScrollbarWidth() + 'px';
+    }
+    
+    onBodyScroll(event) {
+        let frozenView = this.el.nativeElement.previousElementSibling;
+        if(frozenView) {
+            var frozenScrollBody = this.domHandler.findSingle(frozenView, '.ui-datatable-scrollable-body');
+        }
+        
+        this.scrollHeaderBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
+        if(this.scrollFooterBox) {
+            this.scrollFooterBox.style.marginLeft = -1 * this.scrollBody.scrollLeft + 'px';
+        }
+        
+        if(frozenScrollBody) {
+            frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
+        }
+        
+        if(this.virtualScroll) {
+            let viewport = this.domHandler.getOuterHeight(this.scrollBody);
+            let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
+            let pageHeight = this.rowHeight * this.dt.rows;
+            let virtualTableHeight = this.domHandler.getOuterHeight(this.scrollTableWrapper);
+            let pageCount = (virtualTableHeight / pageHeight)||1;
+
+            if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
+                let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
+                this.onVirtualScroll.emit({
+                    page: page
+                });
+                this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+            }
+        }
+    }
+        
+    onHeaderScroll(event) {
+        this.scrollHeader.scrollLeft = 0;
     }
     
     hasVerticalOverflow() {
@@ -407,17 +407,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     }
         
     ngOnDestroy() {
-        if(this.bodyScrollListener) {
-            this.bodyScrollListener();
-        }
-        
-        if(this.scrollBodyMouseWheelListener) {
-            this.scrollBodyMouseWheelListener();
-        }
-        
-        if(this.headerScrollListener) {
-            this.headerScrollListener();
-        }       
+        this.scrollHeader.removeEventListener('scroll', this.onHeaderScroll);
+        this.scrollBody.removeEventListener('scroll', this.onBodyScroll);
     }
 }
 
