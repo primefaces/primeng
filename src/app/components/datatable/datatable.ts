@@ -292,8 +292,6 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         
     @Output() onVirtualScroll: EventEmitter<any> = new EventEmitter();
     
-    @Input() loading: boolean;
-
     public scrollBody: HTMLDivElement;
     
     public scrollHeader: HTMLDivElement;
