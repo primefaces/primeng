@@ -320,15 +320,12 @@ export class DomHandler {
     }
     
     public getOffset(el) {
-        let x = el.offsetLeft;
-        let y = el.offsetTop;
-
-        while (el = el.offsetParent) {
-            x += el.offsetLeft;
-            y += el.offsetTop;
-        }
-
-        return {left: x, top: y};
+        let rect = el.getBoundingClientRect();
+        
+        return {
+            top: rect.top + document.body.scrollTop,
+            left: rect.left + document.body.scrollLeft
+        };
     }
 
     getUserAgent(): string {
