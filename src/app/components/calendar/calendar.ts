@@ -50,10 +50,10 @@ export interface LocaleSettings {
                     </a>
                     <div class="ui-datepicker-title">
                         <span class="ui-datepicker-month" *ngIf="!monthNavigator">{{locale.monthNames[currentMonth]}}</span>
-                        <select class="ui-datepicker-month" *ngIf="monthNavigator" (change)="onMonthDropdownChange($event.target.value)">
+                        <select class="ui-datepicker-month" *ngIf="monthNavigator" (change)="onMonthDropdownChange($event)">
                             <option [value]="i" *ngFor="let month of locale.monthNames;let i = index" [selected]="i == currentMonth">{{month}}</option>
                         </select>
-                        <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event.target.value)">
+                        <select class="ui-datepicker-year" *ngIf="yearNavigator" (change)="onYearDropdownChange($event)">
                             <option [value]="year" *ngFor="let year of yearOptions" [selected]="year == currentYear">{{year}}</option>
                         </select>
                         <span class="ui-datepicker-year" *ngIf="!yearNavigator">{{currentYear}}</span>
@@ -221,6 +221,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() disabledDates: Array<Date>;
     
     @Input() disabledDays: Array<number>;
+	
+	@Input() restrictNavigation = false;
     
     @Input() utc: boolean;
     
@@ -457,11 +459,21 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         
         if(this.currentMonth === 0) {
-            this.currentMonth = 11;
-            this.currentYear--;
+			if(!this.restrictNavigation || !this.minDate || new Date(this.currentYear, 0, 0, 0, 0, 0, 0) >= this.minDate) {    // Last day of month (day 0 of next month)
+				this.currentMonth = 11;
+				this.currentYear--;
+			}
+			else {
+                alert('Date out of Range');
+			}
         }
         else {
-            this.currentMonth--;
+			if(!this.restrictNavigation || !this.minDate || new Date(this.currentYear, this.currentMonth, 0, 0, 0, 0, 0) >= this.minDate) {    // Last day of month (day 0 of next month)
+				this.currentMonth--;
+			}
+			else {
+                alert('Date out of Range');
+			}
         }
         
         this.createMonth(this.currentMonth, this.currentYear);
@@ -475,11 +487,21 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         
         if(this.currentMonth === 11) {
-            this.currentMonth = 0;
-            this.currentYear++;
+			if(!this.restrictNavigation || !this.maxDate || new Date(this.currentYear + 1, 0, 1, 0, 0, 0, 0) <= this.maxDate) {
+				this.currentMonth = 0;
+				this.currentYear++;
+			}
+			else {
+                alert('Date out of Range');
+			}
         }
         else {
-            this.currentMonth++;
+			if(!this.restrictNavigation || !this.maxDate || new Date(this.currentYear, this.currentMonth + 1, 1, 0, 0, 0, 0) <= this.maxDate){
+				this.currentMonth++;
+			}
+			else {
+                alert('Date out of Range');
+			}
         }
         
         this.createMonth(this.currentMonth, this.currentYear);
@@ -735,13 +757,27 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
     }
     
-    onMonthDropdownChange(m: string) {
-        this.currentMonth = parseInt(m);
+    onMonthDropdownChange(event: any) {
+		const month = parseInt(event.target.value);
+        if(!this.restrictNavigation || (!this.minDate || new Date(this.currentYear, month + 1, 0, 0, 0, 0, 0) >= this.minDate) && (!this.maxDate || new Date(this.currentYear, month, 1, 0, 0, 0, 0) <= this.maxDate)){
+			this.currentMonth = month;
+		}
+        else {
+            event.target.value = this.currentMonth;
+            alert('Date out of Range');
+        }
         this.createMonth(this.currentMonth, this.currentYear);
     }
     
-    onYearDropdownChange(y: string) {
-        this.currentYear = parseInt(y);
+    onYearDropdownChange(event: any) {
+		const year = parseInt(event.target.value);
+        if(!this.restrictNavigation || (!this.minDate || new Date(year, this.currentMonth + 1, 0, 0, 0, 0, 0) >= this.minDate) && (!this.maxDate || new Date(year, this.currentMonth, 1, 0, 0, 0, 0) <= this.maxDate)){
+			this.currentYear = year;
+		}
+        else {
+            event.target.value = this.currentYear;
+            alert('Date out of Range');
+        }
         this.createMonth(this.currentMonth, this.currentYear);
     }
     
