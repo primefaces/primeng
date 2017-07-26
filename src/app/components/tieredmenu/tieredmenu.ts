@@ -125,13 +125,6 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
                 else
                     this.domHandler.appendChild(this.container, this.appendTo);
             }
-            
-            this.documentClickListener = this.renderer.listen('document', 'click', () => {
-                if(!this.preventDocumentDefault) {
-                    this.hide();
-                }
-                this.preventDocumentDefault = false;
-            });
         }
     }
     
@@ -145,12 +138,32 @@ export class TieredMenu implements AfterViewInit,OnDestroy {
     show(event: Event) {
         this.preventDocumentDefault = true;
         this.container.style.display = 'block';
-        this.domHandler.absolutePosition(this.container, event.target);
+        this.domHandler.absolutePosition(this.container, event.currentTarget);
         this.domHandler.fadeIn(this.container, 250);
+        this.bindDocumentClickListener();
     }
     
     hide() {
         this.container.style.display = 'none';
+        this.unbindDocumentClickListener();
+    }
+    
+    unbindDocumentClickListener() {
+        if(this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
+    
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', () => {
+                if(!this.preventDocumentDefault) {
+                    this.hide();
+                }
+                this.preventDocumentDefault = false;
+            });
+        }
     }
 
     ngOnDestroy() {
