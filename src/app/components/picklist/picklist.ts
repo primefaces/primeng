@@ -396,15 +396,17 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 this.target.push(this.source[i]);
             }
             
+            const sourceItems = [...this.source];
+    
+            this.source.splice(0, this.source.length);
+    
             this.onMoveToTarget.emit({
-                items: this.source
+                items: sourceItems
             });
             
             this.onMoveAllToTarget.emit({
-                items: this.source
+                items: sourceItems
             });
-            
-            this.source.splice(0, this.source.length);
             
             this.selectedItemsSource = [];
         }
@@ -432,15 +434,17 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 this.source.push(this.target[i]);
             }
             
+            const targetItems = [...this.target];
+    
+            this.target.splice(0, this.target.length);
+    
             this.onMoveToSource.emit({
-                items: this.target
+                items: targetItems
             });
             
             this.onMoveAllToSource.emit({
-                items: this.target
+                items: targetItems
             });
-            
-            this.target.splice(0, this.target.length);
             
             this.selectedItemsTarget = [];
         }
