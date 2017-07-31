@@ -158,8 +158,27 @@ export interface LocaleSettings {
 })
 export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy,ControlValueAccessor {
     
-    @Input() defaultDate: Date;
-    
+    private _defaultDate: any;
+
+    get defaultDate(): any {
+        return this._defaultDate;
+    }
+
+    @Input('defaultDate')
+    set defaultDate(value: any) {
+        if (value) {
+            if (typeof value == 'string'){
+                this._defaultDate = new Date(value);
+            }
+            else if (value instanceof Date){
+                this._defaultDate = value;
+            }
+            else {
+                throw new TypeError('defaultDate must be of type string or Date');
+            }
+        }
+    }
+
     @Input() style: string;
     
     @Input() styleClass: string;
@@ -215,9 +234,31 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() required: boolean;
 
     @Input() showOnFocus: boolean = true;
-    
-    @Input() dataType: string = 'date';
-    
+
+    // Configuration option for data output type.  Possible configuration options include 'date', 'string' or 'ISOString'
+    private _dataType: string = 'date';
+
+    get dataType(): string {
+        return this._dataType;
+    }
+
+    @Input('dataType') set dataType(value: string) {
+        this.checkDataType(value, 'dataType');
+        this._dataType = value;
+    }
+
+    // Configuration option for data input type.  Possible configuration options include 'date', 'string' or 'ISOString'
+    private _inputDataType: string = 'date';
+
+    get inputDataType(): string {
+        return this._inputDataType;
+    }
+
+    @Input() set inputDataType(value: string) {
+        this.checkDataType(value, 'inputDataType');
+        this._inputDataType = value;
+    }
+
     @Input() disabledDates: Array<Date>;
     
     @Input() disabledDays: Array<number>;
@@ -249,7 +290,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
     
-    value: Date;
+    value: any;
     
     dates: any[];
     
@@ -388,6 +429,17 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         if(this.overlayShown) {
             this.alignOverlay();
             this.overlayShown = false;
+        }
+    }
+
+    /**
+     * Throws a TypeError if typeString is not 'date', 'string' or 'ISOString'
+     * @param typeString The string to check against the allowed types
+     * @param inputName The name of the input that's being checked
+     */
+    private checkDataType(typeString: string, inputName: string) {
+        if (typeString !== 'date' && typeString !== 'string' && typeString !== 'ISOString'){
+            throw new TypeError(inputName + ' must be either \'date\', \'string\' or \'ISOString\'')
         }
     }
     
@@ -561,7 +613,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         this._isValid = true;
         this.updateModel();
-        this.onSelect.emit(this.value);
+        this.onSelect.emit(this.getValueType(this.value));
     }
     
     updateModel() {
@@ -573,6 +625,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 this.onModelChange(this.formatTime(this.value));
             else
                 this.onModelChange(this.formatDate(this.value, this.dateFormat));
+        }
+        else if(this.dataType == 'ISOString') {
+            this.onModelChange(this.value.toISOString());
         }
     }
     
@@ -823,7 +878,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.value.setMinutes(this.currentMinute);
         this.value.setSeconds(this.currentSecond);
         this.updateModel();
-        this.onSelect.emit(this.value);
+        this.onSelect.emit(this.getValueType(this.value));
         this.updateInputfield();
     }
     
@@ -938,13 +993,27 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
 
     writeValue(value: any) : void {
-        this.value = value;
-        if(this.value && typeof this.value === 'string') {
-            this.value = this.parseValueFromString(this.value);
-        }
+        this.value = this.getValueType(value);
 
         this.updateInputfield();
         this.updateUI();
+    }
+
+    /**
+     * Returns value in either Date, string or ISOString format depending on the inputDataType value
+     * @param value The value to convert
+     * @returns {any} A Date, string or ISOString version of value
+     */
+    private getValueType(value: any): any {
+        if (value && typeof value === 'string') {
+            if (this.inputDataType == 'ISOString') {
+                return new Date(value);
+            }
+            else {
+                return this.parseValueFromString(value);
+            }
+        }
+        return value;
     }
     
     registerOnChange(fn: Function): void {
