@@ -214,6 +214,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.panel = <HTMLDivElement> this.panelViewChild.nativeElement; 
         this.itemsWrapper = <HTMLDivElement> this.itemsWrapperViewChild.nativeElement; 
         
+        if(this.editable) {
+            this.updateEditableLabel();
+        }
+        
         this.updateDimensions();
         this.initialized = true;
         
@@ -231,7 +235,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     updateEditableLabel(): void {
         if(this.editableInputViewChild && this.editableInputViewChild.nativeElement) {
-            this.editableInputViewChild.nativeElement.value = this.value || (this.selectedOption ? this.selectedOption.label : '');
+            this.editableInputViewChild.nativeElement.value = (this.selectedOption ? this.selectedOption.label : this.value||'');
         }
     }
         

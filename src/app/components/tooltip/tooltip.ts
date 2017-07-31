@@ -174,7 +174,7 @@ export class Tooltip implements OnDestroy {
     
     updateText () {
         if(this.escape) {
-            this.tooltipText.innerHTML = null;
+            this.tooltipText.innerHTML = '';
             this.tooltipText.appendChild(document.createTextNode(this._text));
         }
 		else {
