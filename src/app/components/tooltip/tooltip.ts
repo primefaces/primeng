@@ -26,7 +26,7 @@ export class Tooltip implements OnDestroy {
     
     @Input() hideDelay: number;
 
-    @Input() hideAfter: number = 0;
+    @Input() hideAfter: number;
         
     container: any;
     
