@@ -103,12 +103,14 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     }
     
     clearTrigger() {
+      if(!this.sticky) {
         if(this.timeout) {
             clearTimeout(this.timeout);
         }
         this.timeout = setTimeout(() => {
             this.removeAll();
         }, this.life);
+      }
     }
         
     remove(index: number, msgel: any) {        
