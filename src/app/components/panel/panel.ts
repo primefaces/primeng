@@ -61,6 +61,8 @@ export class Panel implements BlockableUI {
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
+     
+    @Output() onEndToggle: EventEmitter<any> = new EventEmitter();
     
     @ContentChild(Footer) footerFacet;
         
@@ -104,6 +106,7 @@ export class Panel implements BlockableUI {
     
     onToggleDone(event: Event) {
         this.animating = false;
+        this.onEndToggle.emit({collapsed: this.collapsed});
     }
 
 }
