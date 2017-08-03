@@ -21,16 +21,20 @@
 
     <h3>Range: {{rangeValues[0] + ' - ' + rangeValues[1]}}</h3>
     <p-slider [(ngModel)]="rangeValues" [style]="{'width':'200px'}" [range]="true"></p-slider>
-
+    
     <h3>Vertical: {{val5}}</h3>
     <p-slider [(ngModel)]="val5" [style]="{'height':'200px'}" orientation="vertical"></p-slider>
+
+    <h3>Vertical Range: {{rangeValues2[0] + ' - ' + rangeValues2[1]}}</h3>
+    <p-slider [(ngModel)]="rangeValues2" [style]="{'height': '200px'}" orientation="vertical" [range]="true"></p-slider> 
+
 </div>
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;SliderModule&#125; from 'primeng/primeng';
 </code>
@@ -38,13 +42,13 @@ import &#123;SliderModule&#125; from 'primeng/primeng';
 
             <h3>Getting Started</h3>
             <p>Two-way binding is defined using the standard ngModel directive.</p>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-slider [(ngModel)]="val"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
@@ -56,7 +60,7 @@ export class MyModel &#123;
 
             <h3>Model Driven Forms</h3>
             <p>Slider can be used in a model driven form as well.</p>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-slider formControlName="age"&gt;&lt;/p-slider&gt;
 </code>
@@ -64,7 +68,7 @@ export class MyModel &#123;
 
             <h3>Min-Max</h3>
             <p>Boundaries are specified with min and max attributes.</p>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-slider [(ngModel)]="val" [min]="0" [max]="100"&gt;&lt;/p-slider&gt;
 </code>
@@ -72,7 +76,7 @@ export class MyModel &#123;
 
             <h3>Step</h3>
             <p>Step factor is 1 by default and can be customized with step option.</p>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-slider [(ngModel)]="val" [step]="10"&gt;&lt;/p-slider&gt;
 </code>
@@ -80,13 +84,13 @@ export class MyModel &#123;
 
             <h3>Range</h3>
             <p>Range slider provides two handles to define two values. In this case, value binding should refer to an array.</p>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-slider [(ngModel)]="rangeValues" [range]="true"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
 
@@ -98,7 +102,7 @@ export class MyModel &#123;
 
             <h3>Orientation</h3>
             <p>Sliders supports two orientations, horizontal is the default and other alternative is vertical.</p>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-slider [(ngModel)]="val" orientation="vertical"&gt;&lt;/p-slider&gt;
 </code>
@@ -188,30 +192,28 @@ export class MyModel &#123;
                         <tr>
                             <td>onChange</td>
                             <td>
-                                event.originalEvent: Slide event <br />
-                                event.value: New value <br />
-                                event.values: Values in range mode <br />
+                                event.originalEvent: Slide event <br /> event.value: New value <br /> event.values: Values
+                                in range mode <br />
                             </td>
                             <td>Callback to invoke on value change via slide.</td>
                         </tr>
                         <tr>
                             <td>onSlideEnd</td>
                             <td>
-                                event.originalEvent: Mouseup event<br />
-                                event.value: New value 
+                                event.originalEvent: Mouseup event<br /> event.value: New value
                             </td>
                             <td>Callback to invoke when slide stops.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-slider [(ngModel)]="val" (onChange)="handleChange($event)"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 handleChange(e) &#123;
     //e.value is the new value
@@ -251,7 +253,7 @@ handleChange(e) &#123;
                 <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic: {{val1}}&lt;/h3&gt;
 &lt;p-slider [(ngModel)]="val1" [style]="&#123;'width':'200px'&#125;"&gt;&lt;/p-slider&gt;
@@ -271,10 +273,13 @@ handleChange(e) &#123;
 
 &lt;h3&gt;Vertical: {{val5}}&lt;/h3&gt;
 &lt;p-slider [(ngModel)]="val5" [style]="&#123;'height':'200px'&#125;" orientation="vertical"&gt;&lt;/p-slider&gt;
+
+&lt;h3&gt;Range: {{rangeValues2[0] + ' - ' + rangeValues2[1]}}&lt;/h3&gt;
+&lt;p-slider [(ngModel)]="rangeValues2" [style]="&#123;'height':'200px'&#125;" [range]="true"&gt;&lt;/p-slider&gt;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class SliderDemo &#123;
 
@@ -289,6 +294,8 @@ export class SliderDemo &#123;
     val5: number;
 
     rangeValues: number[] = [20,80];
+
+    rangeValues2: number[] = [30,70];
 &#125;
 </code>
 </pre>
