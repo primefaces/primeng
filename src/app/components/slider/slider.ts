@@ -329,6 +329,6 @@ export class Slider implements AfterViewInit, OnDestroy, ControlValueAccessor {
 @NgModule({
     imports: [CommonModule],
     exports: [Slider],
-    declarations: [Slider]
+    declarations: [Slider] 
 })
 export class SliderModule { }
