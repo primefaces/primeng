@@ -177,6 +177,25 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                 inputEL.value = '';
                 event.preventDefault();
             break;
+
+            //tab
+            case 9:
+                 if (inputEL.value !== '') {
+                     this.value = this.value || [];
+                     if (inputEL.value && inputEL.value.trim().length && (!this.max || this.max > this.value.length)) {
+                         if (this.allowDuplicate || !this.value.includes(inputEL.value)) {
+                             this.value = [...this.value, inputEL.value];
+                             this.onModelChange(this.value);
+                             this.onAdd.emit({
+                                 originalEvent: event,
+                                 value: inputEL.value
+                             });
+                         }
+                     }
+                     inputEL.value = '';
+                     event.preventDefault();
+                }
+                 break;
             
             default:
                 if(this.max && this.value && this.max === this.value.length) {
