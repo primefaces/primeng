@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './sliderdemo.html'
@@ -15,5 +15,7 @@ export class SliderDemo {
 
     val5: number;
 
-    rangeValues: number[] = [20,80];
+    rangeValues: number[] = [20, 80];
+
+    rangeValues2: number[] = [25,75];
 }
