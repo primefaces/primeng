@@ -16,13 +16,13 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical','ui-slider-animate':animate}"
             (click)="onBarClick($event)">
             <span *ngIf="range" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'left':handleValues[0] + '%',width: (handleValues[1] - handleValues[0] + '%')}"></span>
-            <span *ngIf="orientation=='vertical'" class="ui-slider-range ui-slider-range-min ui-widget-header ui-corner-all" [ngStyle]="{'height': handleValue + '%'}"></span>
+            <span *ngIf="range" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'bottom':handleValues[0] + '%',height: (handleValues[1] - handleValues[0] + '%')}"></span>            <span *ngIf="orientation=='vertical'" class="ui-slider-range ui-slider-range-min ui-widget-header ui-corner-all" [ngStyle]="{'height': handleValue + '%'}"></span>
             <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="dragging=false"
                 [style.transition]="dragging ? 'none': null" [ngStyle]="{'left': orientation == 'horizontal' ? handleValue + '%' : null,'bottom': orientation == 'vertical' ? handleValue + '%' : null}"></span>
             <span *ngIf="range" (mousedown)="onMouseDown($event,0)" (touchstart)="onTouchStart($event,0)" (touchmove)="onTouchMove($event,0)" (touchend)="dragging=false" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" 
-                [ngStyle]="{'left':handleValues[0] + '%'}" [ngClass]="{'ui-slider-handle-active':handleIndex==0}"></span>
+                [ngStyle] = "{'left': orientation == 'horizontal' ? handleValues[0] + '%' : null,'bottom': orientation == 'vertical' ? handleValues[0] + '%' : null}" [ngClass]="{'ui-slider-handle-active':handleIndex==0}"></span>
             <span *ngIf="range" (mousedown)="onMouseDown($event,1)" (touchstart)="onTouchStart($event,1)" (touchmove)="onTouchMove($event,1)" (touchend)="dragging=false" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" 
-                [ngStyle]="{'left':handleValues[1] + '%'}" [ngClass]="{'ui-slider-handle-active':handleIndex==1}"></span>
+                [ngStyle] = "{'left': orientation == 'horizontal' ? handleValues[1] + '%' : null,'bottom': orientation == 'vertical' ? handleValues[1] + '%' : null}" [ngClass]="{'ui-slider-handle-active':handleIndex==1}"></span>
         </div>
     `,
     providers: [SLIDER_VALUE_ACCESSOR,DomHandler]

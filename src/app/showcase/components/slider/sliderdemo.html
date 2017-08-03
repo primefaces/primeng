@@ -24,6 +24,9 @@
 
     <h3>Vertical: {{val5}}</h3>
     <p-slider [(ngModel)]="val5" [style]="{'height':'200px'}" orientation="vertical"></p-slider>
+
+    <h3>Vertical Range: {{rangeValuesVertical[0] + ' - ' + rangeValuesVertical[1]}}</h3>
+    <p-slider [(ngModel)]="rangeValuesVertical" [style]="{'height': '200px'}" orientation="vertical" [range]="true"></p-slider>
 </div>
 
 <div class="content-section documentation">
