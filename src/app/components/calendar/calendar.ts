@@ -1303,10 +1303,6 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
         return null;
     }
-
-    test() {
-
-    }
 }
 
 @NgModule({
