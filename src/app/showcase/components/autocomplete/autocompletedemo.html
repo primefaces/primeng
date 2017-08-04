@@ -10,7 +10,7 @@
     <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
         placeholder="Countries" [minLength]="1"></p-autoComplete>
     <span style="margin-left:10px">Country: {{country ? country.name||country : 'none'}}</span>
-    
+
     <h3>Advanced</h3>
     <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
         [minLength]="1" placeholder="Hint: type 'v' or 'f'" [dropdown]="true" (onDropdownClick)="handleDropdownClick()">
@@ -22,7 +22,7 @@
         </ng-template>
     </p-autoComplete>
     <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
-    
+
     <h3>Multiple</h3>
     <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
         [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
@@ -30,6 +30,14 @@
     <ul>
         <li *ngFor="let c of countries">{{c.name}}</li>
     </ul>
+    <h3>Custom highlight</h3>
+    <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+                    placeholder="Countries" [minLength]="1">
+        <ng-template let-country let-query="query" pTemplate="item">
+            <span [innerHtml]="country.name | highlight:query"></span>
+        </ng-template>
+    </p-autoComplete>
+
 </div>
 
 <div class="content-section documentation">
@@ -44,7 +52,7 @@ import &#123;AutoCompleteModule&#125; from 'primeng/primeng';
 
             <h3>Getting Started</h3>
             <p>AutoComplete uses ngModel for two-way binding, requires a list of suggestions and a completeMethod to query for the results. The completeMethod
-            gets the query text as event.query property and should update the suggestions with the search results.</p>     
+            gets the query text as event.query property and should update the suggestions with the search results.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)"&gt;&lt;/p-autoComplete&gt;
@@ -54,25 +62,25 @@ import &#123;AutoCompleteModule&#125; from 'primeng/primeng';
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class AutoCompleteDemo &#123;
-    
+
     text: string;
-    
+
     results: string[];
-    
+
     search(event) &#123;
         this.mylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
         &#125;);
     &#125;
-    
+
 &#125;
 </code>
 </pre>
 
             <h3>Change Detection</h3>
             <p>AutoComplete either uses setter based checking or ngDoCheck to realize if the suggestions has changed to update the UI. This is configured using the immutable
-                property, when enabled (default) setter based detection is utilized so your changes such as adding or removing a record 
-                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change. 
+                property, when enabled (default) setter based detection is utilized so your changes such as adding or removing a record
+                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change.
                 For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
                 this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
                 both methods can be used depending on your preference.
@@ -91,7 +99,7 @@ export class AutoCompleteDemo &#123;
                 the dropdown for cases like displaying all results. onDropdownClick is triggered when the button is clicked.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)" 
+&lt;p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)"
             [dropdown]="true" (onDropdownClick)="handleDropdown(event)"&gt;&lt;/p-autoComplete&gt;
 </code>
 </pre>
@@ -99,21 +107,21 @@ export class AutoCompleteDemo &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class AutoCompleteDemo &#123;
-    
+
     text: string;
-    
+
     results: string[];
-    
+
     search(event) &#123;
         this.mylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
         &#125;);
     &#125;
-    
+
     handleDropdown(event) &#123;
         //event.query = current value in input field
     &#125;
-    
+
 &#125;
 </code>
 </pre>
@@ -129,17 +137,17 @@ export class AutoCompleteDemo &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class AutoCompleteDemo &#123;
-    
+
     texts: string[];
-    
+
     results: string[];
-    
+
     search(event) &#123;
         this.mylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
         &#125;);
     &#125;
-    
+
 &#125;
 </code>
 </pre>
@@ -152,25 +160,25 @@ export class AutoCompleteDemo &#123;
 &lt;p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)" field="name"&gt;&lt;/p-autoComplete&gt;
 </code>
 </pre>
-    
+
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class AutoCompleteDemo &#123;
-    
+
     val: country;
-    
+
     results: country[];
-    
+
     search(event) &#123;
         this.countrylookupservice.getResults(event.query).then(data => &#123;
             this.results = data;
         &#125;);
     &#125;
-    
+
 &#125;
 </code>
 </pre>
-    
+
             <h3>Templating</h3>
             <p>Item ng-template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
 <pre>
@@ -356,7 +364,7 @@ export class AutoCompleteDemo &#123;
                     </tbody>
                 </table>
             </div>
-            
+
             <h3>Events</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -380,7 +388,7 @@ export class AutoCompleteDemo &#123;
                             <td>onFocus</td>
                             <td>event: Browser event</td>
                             <td>Callback to invoke when autocomplete gets focus.</td>
-                        </tr>   
+                        </tr>
                         <tr>
                             <td>onBlur</td>
                             <td>event: Browser event</td>
@@ -397,7 +405,7 @@ export class AutoCompleteDemo &#123;
                                 value: Selected value
                             </td>
                             <td>Callback to invoke when a suggestion is selected.</td>
-                        </tr>                     
+                        </tr>
                         <tr>
                             <td>onSelect</td>
                             <td>
@@ -515,35 +523,35 @@ export class AutoCompleteDemo &#123;
 export class AutoCompleteDemo &#123;
 
     country: any;
-    
+
     countries: any[];
-        
+
     filteredCountriesSingle: any[];
-    
+
     filteredCountriesMultiple: any[];
-    
+
     brands: string[] = ['Audi','BMW','Fiat','Ford','Honda','Jaguar','Mercedes','Renault','Volvo','VW'];
-    
+
     filteredBrands: any[];
-    
+
     brand: string;
-    
+
     constructor(private countryService: CountryService) &#123; &#125;
-    
+
     filterCountrySingle(event) &#123;
-        let query = event.query;        
+        let query = event.query;
         this.countryService.getCountries().then(countries => &#123;
             this.filteredCountriesSingle = this.filterCountry(query, countries);
         &#125;);
     &#125;
-    
+
     filterCountryMultiple(event) &#123;
         let query = event.query;
         this.countryService.getCountries().then(countries => &#123;
             this.filteredCountriesMultiple = this.filterCountry(query, countries);
         &#125;);
     &#125;
-    
+
     filterCountry(query, countries: any[]):any[] &#123;
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered : any[] = [];
@@ -555,7 +563,7 @@ export class AutoCompleteDemo &#123;
         &#125;
         return filtered;
     &#125;
-        
+
     filterBrands(event) &#123;
         this.filteredBrands = [];
         for(let i = 0; i < this.brands.length; i++) &#123;
@@ -565,10 +573,10 @@ export class AutoCompleteDemo &#123;
             &#125;
         &#125;
     &#125;
-    
+
     handleDropdownClick() &#123;
         this.filteredBrands = [];
-        
+
         //mimic remote call
         setTimeout(() => &#123;
             this.filteredBrands = this.brands;
@@ -582,7 +590,7 @@ export class AutoCompleteDemo &#123;
 <code class="language-typescript" pCode ngNonBindable>
 @Injectable()
 export class CountryService &#123;
-    
+
     constructor(private http: Http) &#123;&#125;
 
     getCountries() &#123;
