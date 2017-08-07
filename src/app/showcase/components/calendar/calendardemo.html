@@ -104,7 +104,7 @@ export class MyModel &#123;
 
             <h3>Selection Mode</h3>
             <p>By default calendar allows selecting one date and multiple dates can be selected by setting selectionMode to multiple. In this
-            case calendar updates the value with an array of dates.</p>
+            case calendar updates the value with an array of dates where optionally number of selectable dates can be restricted with maxDateCount property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="value" selectionMode="true"&gt;&lt;/p-calendar&gt;
@@ -445,6 +445,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether to convert date to UTC on selection.</td>
+                        </tr>
+                        <tr>
+                            <td>maxDateCount</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Maximum number of selectable dates in multiple mode.</td>
                         </tr>
                     </tbody>
                 </table>

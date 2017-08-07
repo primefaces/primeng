@@ -226,6 +226,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     @Input() selectionMode: string = 'single';
     
+    @Input() maxDateCount: number;
+    
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
@@ -502,31 +504,44 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             return;
         }
         
-        if(!this.isSingleSelection() && this.isSelected(dateMeta)) {
+        let singleSelection = this.isSingleSelection();
+                
+        if(!singleSelection && this.isSelected(dateMeta)) {
             this.value = this.value.filter((date, i) => {
                 return !this.isDateEquals(date, dateMeta);
             });
         }
         else {
-            if(dateMeta.otherMonth) {
-                if(this.selectOtherMonths) {
-                    this.currentMonth = dateMeta.month;
-                    this.currentYear = dateMeta.year;
-                    this.createMonth(this.currentMonth, this.currentYear);
-                    this.selectDate(dateMeta);
+            if(this.shouldSelectDate(dateMeta)) {
+                if(dateMeta.otherMonth) {
+                    if(this.selectOtherMonths) {
+                        this.currentMonth = dateMeta.month;
+                        this.currentYear = dateMeta.year;
+                        this.createMonth(this.currentMonth, this.currentYear);
+                        this.selectDate(dateMeta);
+                    }
                 }
-            }
-            else {
-                 this.selectDate(dateMeta);
+                else {
+                     this.selectDate(dateMeta);
+                }
             }
         }
         
-        if(this.isSingleSelection()) {
+        if(singleSelection) {
             this.overlayVisible = false;
         }
         
         this.updateInputfield();
         event.preventDefault();
+    }
+    
+    shouldSelectDate(dateMeta) {
+        if(this.isSingleSelection()) {
+            return true;
+        }
+        else {
+            return !this.maxDateCount || !this.value || this.maxDateCount > this.value.length;
+        }
     }
     
     updateInputfield() {
