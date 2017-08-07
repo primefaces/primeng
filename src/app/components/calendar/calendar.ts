@@ -886,18 +886,32 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         event.preventDefault();
     }
     
+    updateDate(value){
+      if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
+        value.setHours(this.currentHour + 12);
+      else
+        value.setHours(this.currentHour);
+
+      value.setMinutes(this.currentMinute);
+      value.setSeconds(this.currentSecond);
+    }
+
     updateTime() {
-        let value = this.value||new Date();
-        if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
-            value.setHours(this.currentHour + 12);
-        else
-            value.setHours(this.currentHour);
-        
-        value.setMinutes(this.currentMinute);
-        value.setSeconds(this.currentSecond);
-        this.updateModel(value);
-        this.onSelect.emit(value);
-        this.updateInputfield();
+      if(!this.isSingleSelection()) {
+        this.value = this.value || [];
+        if(this.value.length < 1)
+          this.value.push(new Date());
+
+        this.value.forEach(el=>this.updateDate(el));
+      }
+      else {
+        this.value = this.value || new Date();
+        this.updateDate(this.value);
+      }
+
+      this.updateModel(this.value);
+      this.onSelect.emit(this.value);
+      this.updateInputfield();
     }
     
     toggleAMPM(event) {
