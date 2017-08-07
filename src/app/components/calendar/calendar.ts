@@ -249,7 +249,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
 
-    value: Date;
+    value: Date | Date[];
 
     dates: any[];
 
@@ -517,6 +517,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         event.preventDefault();
     }
 
+    //TODO has to be changed because of this.value
     updateInputfield() {
         if(this.value) {
             let formattedValue;
@@ -544,6 +545,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
     }
 
+    //TODO has to be changed because of this.value
     selectDate(dateMeta) {
         if(this.utc)
             this.value = new Date(Date.UTC(dateMeta.year, dateMeta.month, dateMeta.day));
@@ -564,6 +566,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.onSelect.emit(this.value);
     }
 
+    //TODO has to be changed because of this.value
     updateModel() {
         if(this.dataType == 'date'){
             this.onModelChange(this.value);
@@ -629,11 +632,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
     }
 
+    //TODO has to be changed because of this.value
     isSelected(dateMeta): boolean {
-        if(this.value)
-            return this.value.getDate() === dateMeta.day && this.value.getMonth() === dateMeta.month && this.value.getFullYear() === dateMeta.year;
-        else
-            return false;
+      if(Array.isArray(this.value))
+        return this.value.some(el => el.getDate() === dateMeta.day &&
+          el.getMonth() === dateMeta.month && el.getFullYear() === dateMeta.year);
+      else
+        return this.value && this.value.getDate() === dateMeta.day &&
+          this.value.getMonth() === dateMeta.month && this.value.getFullYear() === dateMeta.year;
     }
 
     isToday(today, day, month, year): boolean {
@@ -813,18 +819,29 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         event.preventDefault();
     }
 
+    //TODO has to be changed because of this.value
     updateTime() {
-        this.value = this.value||new Date();
+      function update(value){
         if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
-            this.value.setHours(this.currentHour + 12);
+          value.setHours(this.currentHour + 12);
         else
-            this.value.setHours(this.currentHour);
+          value.setHours(this.currentHour);
+        value.setMinutes(this.currentMinute);
+        value.setSeconds(this.currentSecond);
+      }
 
-        this.value.setMinutes(this.currentMinute);
-        this.value.setSeconds(this.currentSecond);
-        this.updateModel();
-        this.onSelect.emit(this.value);
-        this.updateInputfield();
+      if(Array.isArray(this.value)) {
+        if(this.value.length < 1)
+          this.value.push(new Date());
+        this.value.forEach(el=>update(el));
+      } else {
+        this.value = this.value||new Date();
+        update(this.value);
+      }
+
+      this.updateModel();
+      this.onSelect.emit(this.value);
+      this.updateInputfield();
     }
 
     toggleAMPM(event) {
@@ -833,6 +850,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         event.preventDefault();
     }
 
+    //TODO has to be changed because of this.value
     onUserInput(event) {
         // IE 11 Workaround for input placeholder : https://github.com/primefaces/primeng/issues/2026
         if(!this.isKeydown) {
@@ -894,6 +912,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         value.setSeconds(time.second);
     }
 
+    //TODO has to be changed because of this.value
     updateUI() {
         let val = this.value||this.defaultDate||new Date();
         this.createMonth(val.getMonth(), val.getFullYear());
@@ -937,6 +956,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.inputfieldViewChild.nativeElement);
     }
 
+
+    //TODO has to be changed because of this.value
     writeValue(value: any) : void {
         this.value = value;
         if(this.value && typeof this.value === 'string') {
