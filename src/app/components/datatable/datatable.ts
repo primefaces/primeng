@@ -1,4 +1,4 @@
-import {NgModule, Component, ElementRef, AfterContentInit, AfterViewInit, AfterViewChecked, OnInit, OnDestroy, Input,
+﻿import {NgModule, Component, ElementRef, AfterContentInit, AfterViewInit, AfterViewChecked, OnInit, OnDestroy, Input,
   ViewContainerRef, ViewChild, IterableDiffers,
   Output, EventEmitter, ContentChild, ContentChildren, Renderer2, QueryList, TemplateRef,
   ChangeDetectorRef, Inject, forwardRef, EmbeddedViewRef, NgZone
@@ -617,6 +617,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() loadingIcon: string = 'fa-circle-o-notch';
     
+    @Output() valueChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+    
     @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
         
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
@@ -810,6 +812,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else {
             this._value = val;
         }
+        this.valueChange.emit(this.value);
     }
     
     @Input() get first(): number {
