@@ -812,6 +812,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else {
             this._value = val;
         }
+        
         this.valueChange.emit(this.value);
     }
     
