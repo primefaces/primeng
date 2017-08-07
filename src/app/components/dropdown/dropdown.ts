@@ -26,7 +26,8 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 </select>
             </div>
             <div class="ui-helper-hidden-accessible">
-                <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+                <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" 
+                    (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
             <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
@@ -108,6 +109,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() filterBy: string = 'label';
     
     @Input() lazy: boolean = true;
+    
+    @Input() autofocus: boolean;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
