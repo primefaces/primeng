@@ -31,7 +31,7 @@ export interface LocaleSettings {
     template:  `
         <span [ngClass]="{'ui-calendar':true,'ui-calendar-w-btn':showIcon}" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
-                <input #inputfield type="text" [attr.id]="inputId" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="closeOverlay=false" (blur)="onInputBlur($event)"
+                <input #inputfield type="text" [attr.id]="inputId" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="datepickerClick=true" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
                     ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
@@ -224,6 +224,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     @Input() utc: boolean;
     
+    @Input() selectionMode: string = 'single';
+    
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
@@ -249,7 +251,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     @ViewChild('inputfield') inputfieldViewChild: ElementRef;
     
-    value: Date;
+    value: any;
     
     dates: any[];
     
@@ -274,10 +276,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     overlayVisible: boolean;
     
     overlayShown: boolean;
-    
-    closeOverlay: boolean = true;
-    
-    dateClick: boolean;
+        
+    datepickerClick: boolean;
         
     onModelChange: Function = () => {};
     
@@ -304,6 +304,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     _maxDate: Date;
 
     _isValid: boolean = true;
+    
+    preventDocumentListener: boolean;
 
     @Input() get minDate(): Date {
         return this._minDate;
@@ -494,77 +496,111 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         event.preventDefault();
     }
     
-    onDateSelect(event,dateMeta) {
+    onDateSelect(event, dateMeta) {
         if(this.disabled || !dateMeta.selectable) {
             event.preventDefault();
             return;
         }
         
-        if(dateMeta.otherMonth) {
-			if(this.selectOtherMonths) {
-                this.currentMonth = dateMeta.month;
-                this.currentYear = dateMeta.year;
-                this.createMonth(this.currentMonth, this.currentYear);
-                this.selectDate(dateMeta);
-            }
+        if(!this.isSingleSelection() && this.isSelected(dateMeta)) {
+            this.value = this.value.filter((date, i) => {
+                return !this.isDateEquals(date, dateMeta);
+            });
         }
         else {
-             this.selectDate(dateMeta);
+            if(dateMeta.otherMonth) {
+                if(this.selectOtherMonths) {
+                    this.currentMonth = dateMeta.month;
+                    this.currentYear = dateMeta.year;
+                    this.createMonth(this.currentMonth, this.currentYear);
+                    this.selectDate(dateMeta);
+                }
+            }
+            else {
+                 this.selectDate(dateMeta);
+            }
         }
         
-        this.dateClick = true;
+        if(this.isSingleSelection()) {
+            this.overlayVisible = false;
+        }
+        
         this.updateInputfield();
         event.preventDefault();
     }
     
     updateInputfield() {
+        let formattedValue = '';
+
         if(this.value) {
-            let formattedValue;
-            
-            if(this.timeOnly) {
-                formattedValue = this.formatTime(this.value);
+            if(this.isSingleSelection()) {
+                formattedValue = this.formatDateTime(this.value);
             }
             else {
-                formattedValue = this.formatDate(this.value, this.dateFormat);
-                if(this.showTime) {
-                    formattedValue += ' ' + this.formatTime(this.value);
+                for(let i = 0; i < this.value.length; i++) {
+                    let dateAsString = this.formatDateTime(this.value[i]);
+                    formattedValue += dateAsString;
+                    if(i !== (this.value.length - 1)) {
+                        formattedValue += ', ';
+                    }
                 }
             }
-            
-            this.inputFieldValue = formattedValue;
         }
-        else {
-            this.inputFieldValue = '';
-        }
-        
+
+        this.inputFieldValue = formattedValue;
         this.updateFilledState();
-        
         if(this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
             this.inputfieldViewChild.nativeElement.value = this.inputFieldValue;
         }
     }
     
+    formatDateTime(date) {
+        let formattedValue;
+        if(date) {
+            if(this.timeOnly) {
+                formattedValue = this.formatTime(date);
+            }
+            else {
+                formattedValue = this.formatDate(date, this.dateFormat);
+                if(this.showTime) {
+                    formattedValue += ' ' + this.formatTime(date);
+                }
+            }
+        }
+        
+        return formattedValue;
+    }
+    
     selectDate(dateMeta) {
+        let date;
         if(this.utc)
-            this.value = new Date(Date.UTC(dateMeta.year, dateMeta.month, dateMeta.day));
+            date = new Date(Date.UTC(dateMeta.year, dateMeta.month, dateMeta.day));
         else
-            this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+            date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
         
         if(this.showTime) {
             if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
-                this.value.setHours(this.currentHour + 12);
+                date.setHours(this.currentHour + 12);
             else
-                this.value.setHours(this.currentHour);
+                date.setHours(this.currentHour);
 
-            this.value.setMinutes(this.currentMinute);
-            this.value.setSeconds(this.currentSecond);
+            date.setMinutes(this.currentMinute);
+            date.setSeconds(this.currentSecond);
         }
+        
         this._isValid = true;
-        this.updateModel();
-        this.onSelect.emit(this.value);
+        
+        if(this.isSingleSelection())
+            this.updateModel(date);
+        else
+            this.updateModel(this.value ? [...this.value, date] : [date]);
+            
+        this.onSelect.emit(date);
     }
     
-    updateModel() {
+    updateModel(value) {
+        this.value = value;
+        
         if(this.dataType == 'date'){
             this.onModelChange(this.value);
         }
@@ -630,10 +666,32 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     isSelected(dateMeta): boolean {     
-        if(this.value)
-            return this.value.getDate() === dateMeta.day && this.value.getMonth() === dateMeta.month && this.value.getFullYear() === dateMeta.year;
+        if(this.value) {
+            if(this.isSingleSelection()) {
+                return this.isDateEquals(this.value, dateMeta);
+            }
+            else {
+                let selected = false;
+                for(let date of this.value) {
+                    selected = this.isDateEquals(date, dateMeta);
+                    if(selected) {
+                        break;
+                    }
+                }
+                
+                return selected;
+            }
+        }
         else
             return false;
+    }
+    
+    isDateEquals(value, dateMeta) {
+        return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
+    }
+    
+    isSingleSelection(): boolean {
+        return this.selectionMode === 'single';
     }
     
     isToday(today, day, month, year): boolean {     
@@ -725,15 +783,15 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.onModelTouched();
     }
     
-    onButtonClick(event,inputfield) {
-        this.closeOverlay = false;
-        
+    onButtonClick(event,inputfield) {        
         if(!this.overlayViewChild.nativeElement.offsetParent || this.overlayViewChild.nativeElement.style.display === 'none') {
             inputfield.focus();
             this.showOverlay();
         }
         else
-            this.closeOverlay = true;
+            this.overlayVisible = false;
+            
+        this.datepickerClick = true;
     }
     
     onInputKeydown(event) {
@@ -814,16 +872,16 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     updateTime() {
-        this.value = this.value||new Date();
+        let value = this.value||new Date();
         if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
-            this.value.setHours(this.currentHour + 12);
+            value.setHours(this.currentHour + 12);
         else
-            this.value.setHours(this.currentHour);
+            value.setHours(this.currentHour);
         
-        this.value.setMinutes(this.currentMinute);
-        this.value.setSeconds(this.currentSecond);
-        this.updateModel();
-        this.onSelect.emit(this.value);
+        value.setMinutes(this.currentMinute);
+        value.setSeconds(this.currentSecond);
+        this.updateModel(value);
+        this.onSelect.emit(value);
         this.updateInputfield();
     }
     
@@ -842,18 +900,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         let val = event.target.value;   
         try {
-            this.value = this.parseValueFromString(val);
+            let value = this.parseValueFromString(val);
+            this.updateModel(value);
             this.updateUI();
             this._isValid = true;
         } 
         catch(err) {
             //invalid date
-            this.value = null;
+            this.updateModel(null);
             this._isValid = false;
         }
         
         this.filled = val != null && val.length;
-        this.updateModel();
         this.onInput.emit(event);
     }
     
@@ -862,24 +920,41 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             return null;
         }
         
-        let dateValue;
+        let value: any;
+        
+        if(this.isSingleSelection()) {
+            value = this.parseDateTime(text);
+        }
+        else {
+            let tokens = text.split(',');
+            value = [];
+            for(let token of tokens) {
+                value.push(this.parseDateTime(token.trim()));
+            }
+        }
+        
+        return value;
+    }
+    
+    parseDateTime(text): Date {
+        let date: Date;
         let parts: string[] = text.split(' ');
         
         if(this.timeOnly) {
-            dateValue = new Date();
-            this.populateTime(dateValue, parts[0], parts[1]);
+            date = new Date();
+            this.populateTime(date, parts[0], parts[1]);
         }
         else {
             if(this.showTime) {
-                dateValue = this.parseDate(parts[0], this.dateFormat);
-                this.populateTime(dateValue, parts[1], parts[2]);
+                date = this.parseDate(parts[0], this.dateFormat);
+                this.populateTime(date, parts[1], parts[2]);
             }
             else {
-                 dateValue = this.parseDate(text, this.dateFormat);
+                 date = this.parseDate(text, this.dateFormat);
             }
         }
         
-        return dateValue;
+        return date;
     }
     
     populateTime(value, timeString, ampm) {
@@ -919,7 +994,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     onDatePickerClick(event) {
-        this.closeOverlay = this.dateClick;
+        this.datepickerClick = true;
     }
     
     showOverlay() {
@@ -1269,13 +1344,12 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if(this.closeOverlay) {
+                if(!this.datepickerClick) {
                     this.overlayVisible = false;
                     this.onClose.emit(event);
                 }
                 
-                this.closeOverlay = true;
-                this.dateClick = false;
+                this.datepickerClick = false;
                 this.cd.detectChanges();
             });
         }

@@ -23,6 +23,8 @@ export class CalendarDemo {
     
     date9: Date;
     
+    dates: Date[];
+    
     minDate: Date;
     
     maxDate: Date;
