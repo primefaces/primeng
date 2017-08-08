@@ -25,6 +25,8 @@ export class Tooltip implements OnDestroy {
     @Input() showDelay: number;
     
     @Input() hideDelay: number;
+
+    @Input() hideAfter: number;
         
     container: any;
     
@@ -35,6 +37,8 @@ export class Tooltip implements OnDestroy {
     showTimeout: any;
     
     hideTimeout: any;
+
+    hideAfterTimeout: any;
     
     documentResizeListener: Function;
     
@@ -66,7 +70,15 @@ export class Tooltip implements OnDestroy {
     @HostListener('focus', ['$event']) 
     onFocus(e: Event) {
         if(this.tooltipEvent === 'focus') {
-            this.activate();
+            if(this.hideAfter > 0) {
+                if(this.hideAfterTimeout) {
+                    clearTimeout(this.hideAfterTimeout);
+                }
+                this.activate();
+                this.hideAfterTimeout = setTimeout(() => { this.deactivate(); }, this.hideAfter);
+            } else {
+                this.activate();
+            }
         }
     }
     
