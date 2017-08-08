@@ -47,6 +47,11 @@ export class Tooltip implements OnDestroy {
     @HostListener('mouseenter', ['$event']) 
     onMouseEnter(e: Event) {
         if(this.tooltipEvent === 'hover') {
+            if(this.hideTimeout) {
+                clearTimeout(this.hideTimeout);
+                this.destroy();
+            }
+
             this.activate();
         }
     }
