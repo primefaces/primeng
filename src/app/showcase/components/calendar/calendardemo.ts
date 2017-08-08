@@ -25,6 +25,8 @@ export class CalendarDemo {
     
     dates: Date[];
     
+    rangeDates: Date[];
+    
     minDate: Date;
     
     maxDate: Date;
@@ -61,4 +63,4 @@ export class CalendarDemo {
         invalidDate.setDate(today.getDate() - 1);
         this.invalidDates = [today,invalidDate];
     }
-}
+ }

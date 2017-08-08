@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <div class="ui-g">
+    <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-4">
             <h3>Basic</h3>
             <p-calendar [(ngModel)]="date1" tabindex="0"></p-calendar> {{date1|date}}
@@ -50,6 +50,11 @@
         <div class="ui-g-12 ui-md-4">
             <h3>Multiple</h3>
             <p-calendar [(ngModel)]="dates" selectionMode="multiple" readonlyInput="true"></p-calendar>
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Range</h3>
+            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" readonlyInput="true"></p-calendar>
         </div>
     </div>
     
@@ -105,12 +110,8 @@ export class MyModel &#123;
             <h3>Selection Mode</h3>
             <p>By default calendar allows selecting one date and multiple dates can be selected by setting selectionMode to multiple. In this
             case calendar updates the value with an array of dates where optionally number of selectable dates can be restricted with maxDateCount property.
-            Note that time is not supported in multiple mode.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-calendar [(ngModel)]="value" selectionMode="true"&gt;&lt;/p-calendar&gt;
-</code>
-</pre>
+            Third alternative is the range mode that allows selecting a range based on an array of two values where first value is the start date and second value
+            is the end date. Note that time is not currently supported in multiple and range modes.</p>
 
             <h3>DateFormat</h3>
             <p>Default date format is mm/dd/yy, to customize this use dateFormat property.</p>
@@ -229,7 +230,7 @@ export class MyModel &#123;
                             <td>selectionMode</td>
                             <td>string</td>
                             <td>single</td>
-                            <td>Defines the quantity of the selection, valid values are "single" and "multiple".</td>
+                            <td>Defines the quantity of the selection, valid values are "single", "multiple" and "range".</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -536,7 +537,7 @@ export class MyModel &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;div class="ui-g"&gt;
+&lt;div class="ui-g ui-fluid"&gt;
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Basic&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt; &#123;&#123;date1|date&#125;&#125;
@@ -581,6 +582,11 @@ export class MyModel &#123;
         &lt;h3&gt;Multiple &lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="dates" selectionMode="multiple" readonlyInput="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Range&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="rangeDates" selectionMode="range" readonlyInput="true"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline &#123;&#123;date8|date&#125;&#125;&lt;/h3&gt;
@@ -610,7 +616,9 @@ export class CalendarDemo &#123;
     
     date9: Date;
     
-    dates: Date;
+    dates: Date[];
+    
+    rangeDates: Date[];
     
     minDate: Date;
     

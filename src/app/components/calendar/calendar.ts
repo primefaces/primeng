@@ -503,10 +503,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             event.preventDefault();
             return;
         }
-        
-        let singleSelection = this.isSingleSelection();
                 
-        if(!singleSelection && this.isSelected(dateMeta)) {
+        if(this.isMultipleSelection() && this.isSelected(dateMeta)) {
             this.value = this.value.filter((date, i) => {
                 return !this.isDateEquals(date, dateMeta);
             });
@@ -527,21 +525,19 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             }
         }
         
-        if(singleSelection) {
+        if(this.isSingleSelection()) {
             this.overlayVisible = false;
         }
-        
+
         this.updateInputfield();
         event.preventDefault();
     }
     
     shouldSelectDate(dateMeta) {
-        if(this.isSingleSelection()) {
-            return true;
-        }
-        else {
+        if(this.isMultipleSelection())
             return !this.maxDateCount || !this.value || this.maxDateCount > this.value.length;
-        }
+        else
+            return true;
     }
     
     updateInputfield() {
@@ -551,12 +547,23 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             if(this.isSingleSelection()) {
                 formattedValue = this.formatDateTime(this.value);
             }
-            else {
+            else if(this.isMultipleSelection()) {
                 for(let i = 0; i < this.value.length; i++) {
                     let dateAsString = this.formatDateTime(this.value[i]);
                     formattedValue += dateAsString;
                     if(i !== (this.value.length - 1)) {
                         formattedValue += ', ';
+                    }
+                }
+            }
+            else if(this.isRangeSelection()) {
+                if(this.value && this.value.length) {
+                    let startDate = this.value[0];
+                    let endDate = this.value[1];
+                    
+                    formattedValue = this.formatDateTime(startDate);
+                    if(endDate) {
+                        formattedValue += ' - ' + this.formatDateTime(endDate);
                     }
                 }
             }
@@ -605,10 +612,31 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         this._isValid = true;
         
-        if(this.isSingleSelection())
+        if(this.isSingleSelection()) {
             this.updateModel(date);
-        else
+        }
+        else if(this.isMultipleSelection()) {
             this.updateModel(this.value ? [...this.value, date] : [date]);
+        }
+        else if(this.isRangeSelection()) {
+            if(this.value && this.value.length) {
+                let startDate = this.value[0];
+                let endDate = this.value[1];
+                
+                if(!endDate && date.getTime() > startDate.getTime()) {
+                    endDate = date;
+                }
+                else {
+                    startDate = date;
+                    endDate = null;
+                }
+                
+                this.updateModel([startDate, endDate]); 
+            }
+            else {
+                this.updateModel([date, null]); 
+            }
+        }
             
         this.onSelect.emit(date);
     }
@@ -685,7 +713,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             if(this.isSingleSelection()) {
                 return this.isDateEquals(this.value, dateMeta);
             }
-            else {
+            else if(this.isMultipleSelection()) {
                 let selected = false;
                 for(let date of this.value) {
                     selected = this.isDateEquals(date, dateMeta);
@@ -696,17 +724,44 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 
                 return selected;
             }
+            else if(this.isRangeSelection()) {
+                if(this.value[1])
+                    return this.isDateEquals(this.value[0], dateMeta) || this.isDateEquals(this.value[1], dateMeta) || this.isDateBetween(this.value[0], this.value[1], dateMeta);
+                else
+                    return this.isDateEquals(this.value[0], dateMeta)
+            }
         }
         else
             return false;
     }
     
     isDateEquals(value, dateMeta) {
-        return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
+        if(value)
+            return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
+        else
+            return false;
+    }
+    
+    isDateBetween(start, end, dateMeta) {
+        if(start && end) {
+            return start.getDate() < dateMeta.day && start.getMonth() <= dateMeta.month && start.getFullYear() <= dateMeta.year &&
+            end.getDate() > dateMeta.day && end.getMonth() >= dateMeta.month && end.getFullYear() >= dateMeta.year;
+        }
+        else {
+            return false; 
+        }
     }
     
     isSingleSelection(): boolean {
         return this.selectionMode === 'single';
+    }
+    
+    isRangeSelection(): boolean {
+        return this.selectionMode === 'range';
+    }
+    
+    isMultipleSelection(): boolean {
+        return this.selectionMode === 'multiple';
     }
     
     isToday(today, day, month, year): boolean {     
@@ -940,11 +995,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         if(this.isSingleSelection()) {
             value = this.parseDateTime(text);
         }
-        else {
+        else if(this.isMultipleSelection()) {
             let tokens = text.split(',');
             value = [];
             for(let token of tokens) {
                 value.push(this.parseDateTime(token.trim()));
+            }
+        }
+        else if(this.isRangeSelection()) {
+            let tokens = text.split(' - ');
+            value = [];
+            for(let i = 0; i < tokens.length; i++) {
+                value[i] = this.parseDateTime(token.trim());
             }
         }
         
