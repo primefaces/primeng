@@ -1006,7 +1006,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             let tokens = text.split(' - ');
             value = [];
             for(let i = 0; i < tokens.length; i++) {
-                value[i] = this.parseDateTime(token.trim());
+                value[i] = this.parseDateTime(tokens[i].trim());
             }
         }
         
