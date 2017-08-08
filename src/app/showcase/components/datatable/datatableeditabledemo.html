@@ -62,7 +62,7 @@ export class DataTableEditableDemo implements OnInit &#123;
 &lt;p-dataTable [value]="cars" [editable]="true"&gt;
     &lt;p-column field="vin" header="Vin" [editable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [editable]="true"&gt;&lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand" [editable]="true"gt;
+    &lt;p-column field="brand" header="Brand" [editable]="true"&gt;
         &lt;ng-template let-col let-car="rowData" pTemplate="editor"&gt;
             &lt;p-dropdown [(ngModel)]="car[col.field]" [options]="brands" [autoWidth]="false" [style]="&#123;'width':'100%'&#125;" required="true"  appendTo="body"&gt;&lt;/p-dropdown&gt;
         &lt;/ng-template&gt;
