@@ -648,10 +648,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.onModelChange(this.value);
         }
         else if(this.dataType == 'string') {
-            if(this.timeOnly)
+            if(this.timeOnly){
                 this.onModelChange(this.formatTime(this.value));
-            else
+            }
+            else if(this.showTime){
+                this.onModelChange(
+                    this.formatDate(this.value, this.dateFormat) + 
+                    ' ' +
+                    this.formatTime(this.value)
+                );
+            } else {
                 this.onModelChange(this.formatDate(this.value, this.dateFormat));
+            }
         }
     }
     
