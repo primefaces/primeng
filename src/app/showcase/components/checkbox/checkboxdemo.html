@@ -17,10 +17,10 @@
 
     <h3>Preselection</h3>
     <div class="ui-g" style="width:250px;margin-bottom:10px">
-        <div class="ui-g-12"><p-checkbox name="group2" value="Technology" label="Technology" [(ngModel)]="selectedCategories"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group2" value="Finance" label="Finance" [(ngModel)]="selectedCategories"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group2" value="Sports" label="Sports" [(ngModel)]="selectedCategories"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group2" value="Technology" label="Technology" [(ngModel)]="selectedCategories" inputId="technology"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group2" value="Finance" label="Finance" [(ngModel)]="selectedCategories" inputId="finance"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group2" value="Sports" label="Sports" [(ngModel)]="selectedCategories" inputId="sports"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories" inputId="entertainment"></p-checkbox></div>
     </div>
 
     Selected Categories: <span *ngFor="let cat of selectedCategories" style="margin-right:10px">{{cat}}</span>
@@ -242,19 +242,19 @@ export class ModelComponent &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="New York" label="New York" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="San Francisco" label="San Francisco" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="Los Angeles" label="Los Angeles" [(ngModel)]="selectedCities"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="New York" label="New York" [(ngModel)]="selectedCities" inputId="ny"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="San Francisco" label="San Francisco" [(ngModel)]="selectedCities" inputId="sf"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group1" value="Los Angeles" label="Los Angeles" [(ngModel)]="selectedCities" inputId="la"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
 &lt;/div&gt;
 
 Selected Cities: &lt;span *ngFor="let city of selectedCities" style="margin-right:10px"&gt;{{city}}&lt;/span&gt;
 
 &lt;h3&gt;Preselection&lt;/h3&gt;
 &lt;div class="ui-g" style="width:250px;margin-bottom:10px"&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Technology" label="Technology" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Finance" label="Finance" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Sports" label="Sports" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Technology" label="Technology" [(ngModel)]="selectedCategories" inputId="technology"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Finance" label="Finance" [(ngModel)]="selectedCategories" inputId="finance"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Sports" label="Sports" [(ngModel)]="selectedCategories" inputId="sports"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
+    &lt;div class="ui-g-12"&gt;&lt;p-checkbox name="group2" value="Entertainment" label="Entertainment" [(ngModel)]="selectedCategories" inputId="entertainment"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
 &lt;/div&gt;
 
 Selected Categories: &lt;span *ngFor="let cat of selectedCategories" style="margin-right:10px"&gt;{{cat}} &lt;/span&gt;
