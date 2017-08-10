@@ -436,16 +436,15 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                     this.show();
                 }
                 else {
-                    if(selectedItemIndex != -1) {
+                    if(selectedItemIndex !== -1) {
                         let nextItemIndex = selectedItemIndex + 1;
                         if(nextItemIndex != (this.optionsToDisplay.length)) {
-                            this.selectedOption = this.optionsToDisplay[nextItemIndex];
+                            this.selectItem(event, this.optionsToDisplay[nextItemIndex]);
                             this.selectedOptionUpdated = true;
-                            this.selectItem(event, this.selectedOption);
                         }
                     }
                     else if(this.optionsToDisplay) {
-                        this.selectedOption = this.optionsToDisplay[0];
+                        this.selectItem(event, this.optionsToDisplay[0]);
                     }                    
                 }
                 
@@ -456,10 +455,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             //up
             case 38:
                 if(selectedItemIndex > 0) {
-                    let prevItemIndex = selectedItemIndex - 1;
-                    this.selectedOption = this.optionsToDisplay[prevItemIndex];
+                    let prevItemIndex = selectedItemIndex - 1;                    
+                    this.selectItem(event, this.optionsToDisplay[prevItemIndex]);
                     this.selectedOptionUpdated = true;
-                    this.selectItem(event, this.selectedOption);
                 }
                 
                 event.preventDefault();
