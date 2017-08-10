@@ -66,8 +66,8 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         
-        if(this.value && this.value.length) {
-            this.clearTrigger();
+        if(!this.sticky) {
+            this.initTimeout();
         }
     }
     
@@ -99,10 +99,13 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         
         this.zIndex = ++DomHandler.zindex;
         this.domHandler.fadeIn(this.container, 250);
-        this.clearTrigger();
+        
+        if(!this.sticky) {
+            this.initTimeout();
+        }
     }
     
-    clearTrigger() {
+    initTimeout() {
         if(this.timeout) {
             clearTimeout(this.timeout);
         }
