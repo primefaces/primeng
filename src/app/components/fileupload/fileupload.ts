@@ -123,7 +123,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     @ViewChild('fileinput') fileinput: ElementRef;
      
-    public files: File[];
+    @Input() files: File[];
     
     public progress: number = 0;
     
