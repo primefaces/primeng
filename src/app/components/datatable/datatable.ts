@@ -1305,10 +1305,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         let targetNode = (<HTMLElement> event.target).nodeName;
         if(this.editable) {
             let cell = this.findCell(event.target);
-            let column = this.columns[this.domHandler.index(cell)];
-            if(column.editable) {
-                this.switchCellToEditMode(cell, column, rowData);
-                return;
+            if(cell) {
+                let column = this.columns[this.domHandler.index(cell)];
+                if(column.editable) {
+                    this.switchCellToEditMode(cell, column, rowData);
+                    return;
+                }
             }
         }
                 
@@ -1937,12 +1939,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     findCell(element) {
-        let cell = element;
-        while(cell.tagName != 'TD') {
-            cell = cell.parentElement;
-        }
+        if(element) {
+            let cell = element;
+            while(cell && cell.tagName != 'TD') {
+                cell = cell.parentElement;
+            }
 
-        return cell;
+            return cell;
+        }
+        else {
+            return null;
+        }
     }
 
     initResizableColumns() {
