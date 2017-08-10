@@ -50,9 +50,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     providers: [INPUTMASK_VALUE_ACCESSOR,DomHandler]
 })
 export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
-
-    @Input() mask: string;
-
+    
     @Input() type: string = 'text';
     
     @Input() slotChar: string = '_';
@@ -91,6 +89,8 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
         
     value: any;
     
+    _mask: string;
+    
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
@@ -128,6 +128,25 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     constructor(public el: ElementRef, public domHandler: DomHandler) {}
         
     ngOnInit() {
+        let ua = this.domHandler.getUserAgent();
+        this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
+        
+        this.initMask();
+    }
+    
+    @Input() get mask(): string {
+        return this._mask;
+    }
+    
+    set mask(val:string) { 
+        this._mask = val;
+        
+        this.initMask();
+        this.writeValue('');
+        this.onModelChange(this.value);
+    }
+    
+    initMask() {
         this.tests = [];
         this.partialPosition = this.mask.length;
         this.len = this.mask.length;
@@ -137,9 +156,6 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             'a': '[A-Za-z]',
             '*': '[A-Za-z0-9]'
         };
-        
-        let ua = this.domHandler.getUserAgent();
-        this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         
         let maskTokens = this.mask.split('');
         for(let i = 0; i < maskTokens.length; i++) {
