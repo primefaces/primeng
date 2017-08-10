@@ -326,6 +326,7 @@ body {
     position: fixed;
     top: 100px;
     left: 0;
+    display: none;
     background-color: #4c5254;
     opacity: .7;
 }
@@ -538,6 +539,10 @@ body {
 }
 
 @media screen and (max-width: 64em) {
+    .layout-mask {
+        display: block;
+    }
+
     #layout-topbar {
         text-align: center;
     }
@@ -945,5 +950,3 @@ a {
     font-size: 14px;
     line-height: 1.5;
 }
-    
-    
