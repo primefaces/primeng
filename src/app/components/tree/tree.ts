@@ -288,7 +288,8 @@ export class UITreeNode implements OnInit {
                 this.tree.onNodeDrop.emit({
                     originalEvent: event,
                     dragNode: dragNode,
-                    dropNode: this.node
+                    dropNode: this.node,
+                    index: this.index
                 });
             }
         }
