@@ -644,15 +644,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     updateModel(value) {
         this.value = value;
         
-        if(this.dataType == 'date'){
+        if(this.dataType == 'date')
             this.onModelChange(this.value);
-        }
-        else if(this.dataType == 'string') {
-            if(this.timeOnly)
-                this.onModelChange(this.formatTime(this.value));
-            else
-                this.onModelChange(this.formatDate(this.value, this.dateFormat));
-        }
+        else if(this.dataType == 'string')
+            this.onModelChange(this.formatDateTime(this.value));
     }
     
     getFirstDayOfMonthIndex(month: number, year: number) {
