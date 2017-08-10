@@ -603,7 +603,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() tabindex: number = 1;
     
     @Input() rowStyleClass: Function;
-    
+
+    @Input() rowStyleMap: Object;
+
     @Input() rowGroupMode: string; 
     
     @Input() sortableRowGroup: boolean = true; 
@@ -2401,6 +2403,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.rowStyleClass) {
             let rowClass = this.rowStyleClass.call(this, rowData, rowIndex);
             if(rowClass) {
+                styleClass += ' ' + rowClass;
+            }
+        } else if (this.rowStyleMap && this.dataKey) {
+            let rowClass = this.rowStyleMap[rowData[this.dataKey]];
+            if (rowClass) {
                 styleClass += ' ' + rowClass;
             }
         }
