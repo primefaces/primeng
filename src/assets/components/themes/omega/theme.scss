@@ -556,3 +556,14 @@ $inputGroupTextColor: #222222;
 .ui-dialog.ui-widget .ui-dialog-content {
     padding: 1em 1.5em;
 }
+
+/* Schedule */
+.fc {
+    .fc-button-group {
+        .ui-state-active {
+            border: 1px solid #156090;
+            background: #186ba0;
+            color: #ffffff;
+        }
+    }
+}
