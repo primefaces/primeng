@@ -1292,7 +1292,13 @@ export class DataTableDemo implements OnInit &#123;
                             <td>rowStyleClass</td>
                             <td>function</td>
                             <td>null</td>
-                            <td>Function that gets the row data and row index as parameters and returns a style class for the row.</td>
+                            <td>Function that gets the row data and row index as parameters and returns a style class for the row. This is an alternative to the rowStyleMap approach.</td>
+                        </tr>
+                        <tr>
+                            <td>rowStyleMap</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>An object whose keys are dataKeys of a row and values are the corresponding style class of that row. This is an alternative to the rowStyleClass approach.</td>
                         </tr>
                         <tr>
                             <td>rowHover</td>

@@ -2405,12 +2405,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(rowClass) {
                 styleClass += ' ' + rowClass;
             }
-        } else if (this.rowStyleMap && this.dataKey) {
+        } 
+        else if (this.rowStyleMap && this.dataKey) {
             let rowClass = this.rowStyleMap[rowData[this.dataKey]];
             if (rowClass) {
                 styleClass += ' ' + rowClass;
             }
         }
+        
         return styleClass;
     }
     
