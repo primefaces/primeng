@@ -1,6 +1,7 @@
 import {NgModule,Component,Input,Output,ElementRef,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {EqualityFunction} from '../common/equalityfunction';
 
 export const RADIO_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -44,6 +45,8 @@ export class RadioButton implements ControlValueAccessor {
 
     @Input() styleClass: string;
 
+    @Input() equalityFunction: EqualityFunction;
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     @ViewChild('rb') inputViewChild: ElementRef;
@@ -74,7 +77,12 @@ export class RadioButton implements ControlValueAccessor {
     }
             
     writeValue(value: any) : void {
-        this.checked = (value == this.value);
+        this.checked = ((!this.equalityFunction && value == this.value) || 
+                        (this.equalityFunction && this.equalityFunction(value, this.value));
+        
+        if(this.input) {
+            this.input.checked = this.checked;
+        }
 
         if(this.inputViewChild.nativeElement) {
             this.inputViewChild.nativeElement.checked = this.checked;
