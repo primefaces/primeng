@@ -175,6 +175,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     public selectedOptionUpdated: boolean;
     
     public filterValue: string;
+
+    private dimensionDiffered: boolean;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef, public objectUtils: ObjectUtils) {}
     
@@ -206,6 +208,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
         this.optionsChanged = true;
+        this.dimensionDiffered = true;
         
         if(this.filterValue && this.filterValue.length) {
             this.activateFilter();
@@ -269,6 +272,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.shown) {
             this.onShow();
             this.shown = false;
+        }
+
+        if(this.dimensionDiffered) {
+            this.updateDimensions();
+            this.dimensionDiffered = false;
         }
         
         if(this.optionsChanged && this.panelVisible) {
