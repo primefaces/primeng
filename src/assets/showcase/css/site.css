@@ -250,7 +250,7 @@ body {
 }
 
 #layout-sidebar .layout-menu > a span {
-    color: #7a8687;
+    color: #6d7879;
     font-size: 16px;
     margin: 0px 0px 0px 30px;
     display: block;
@@ -301,7 +301,7 @@ body {
     border-radius: 4px;
     -webkit-border-radius: 4px;
     font-size: 14px;
-    color: #7a8687;
+    color: #6d7879;
 }
 
 #layout-sidebar .layout-menu > div a:hover {
