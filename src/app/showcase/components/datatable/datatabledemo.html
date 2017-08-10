@@ -907,6 +907,19 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>    
 
+            <p>Certain rows can be fixed at the top so that they get frozen and not included in the scrollable data. In order
+            to implement this functionality, define these rows using frozenValue property.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars" [frozenValue]="frozenCars" [scrollable]="true" scrollHeight="200px"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+
             <p>Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
 
             <p>See the <a [routerLink]="['/datatable/scroll']">live example.</a></p>
@@ -1251,6 +1264,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>frozenValue</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>A collection to display as frozen in a scrollable table.</td>
                         </tr>
                         <tr>
                             <td>style</td>

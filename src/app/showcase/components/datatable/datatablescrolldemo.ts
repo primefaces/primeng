@@ -11,6 +11,8 @@ export class DataTableScrollDemo implements OnInit {
 
     cars: Car[];
     
+    frozenCars: Car[];
+    
     carsLarge: Car[];
     
     totalRecords: number;
@@ -19,6 +21,10 @@ export class DataTableScrollDemo implements OnInit {
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
+        this.frozenCars = [
+            {"brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23"},
+            {"brand": "Chevrolet", "year": 2011, "color": "Black", "vin": "4525g23"}
+        ];
         
         this.totalRecords = 500000;
     }

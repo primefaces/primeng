@@ -4,7 +4,8 @@
     <div>
         <span class="feature-title">DataTable - Scroll</span>
         <span>Data scrolling with fixed header is available horizontally, vertically or both. ScrollHeight and ScrollWidth values can either
-        be fixed pixels or percentages. Certain columns can be fixed as well. Virtual Scrolling mode is available to deal with large datasets by loading data on demand during scrolling.</span>
+        be fixed pixels or percentages. Virtual Scrolling mode is available to deal with large datasets by loading data on demand during scrolling. 
+        In additon certain columns and rows can be fixed as well. </span>
     </div>
 </div>
 
@@ -34,6 +35,14 @@
         <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
     </p-dataTable>
     
+    <p-dataTable [value]="cars" [frozenValue]="frozenCars" scrollable="true" scrollHeight="200px" [style]="{'margin-top':'30px'}">
+        <p-header>Frozen Rows</p-header>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
+    </p-dataTable>
+    
     <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" frozenWidth="200px" unfrozenWidth="600px" [style]="{'margin-top':'30px'}">
         <p-header>Frozen Columns</p-header>
         <p-column field="vin" header="Vin" [style]="{'width':'200px'}" frozen="true"></p-column>
@@ -59,6 +68,8 @@ export class DataTableScrollDemo implements OnInit &#123;
 
     cars: Car[];
     
+    frozenCars: Car[];
+    
     carsLarge: Car[];
     
     totalRecords: number;
@@ -67,6 +78,10 @@ export class DataTableScrollDemo implements OnInit &#123;
 
     ngOnInit() &#123;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
+        this.frozenCars = [
+            &#123;"brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23"&#125;,
+            &#123;"brand": "Chevrolet", "year": 2011, "color": "Black", "vin": "4525g23"&#125;
+        ];
         
         this.totalRecords = 500000;
     &#125;
@@ -156,6 +171,14 @@ export class DataTableScrollDemo implements OnInit &#123;
     &lt;p-column field="year" header="Year" [style]="&#123;'width':'250px'&#125;"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [style]="&#123;'width':'250px'&#125;"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color" [style]="&#123;'width':'250px'&#125;"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-dataTable [value]="cars" [frozenValue]="frozenCars" scrollable="true" scrollHeight="200px" [style]="&#123;'margin-top':'30px'&#125;"&gt;
+    &lt;p-header&gt;Frozen Rows&lt;/p-header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
 &lt;p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" frozenWidth="200px" unfrozenWidth="600px" [style]="&#123;'margin-top':'30px'&#125;"&gt;
