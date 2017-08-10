@@ -547,8 +547,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() sortField: string;
 
     @Input() sortOrder: number = 1;
-    
-    @Input() groupField: string;
 
     @Input() multiSortMeta: SortMeta[];
     
@@ -715,6 +713,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public preventSelectionKeysPropagation: boolean;
     
     public preventSortPropagation: boolean;
+
+    public _groupField:string;
     
     public preventRowClickPropagation: boolean;
     
@@ -804,7 +804,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
     }
-    
+    @Input() get groupField() {
+    return this._groupField;
+  }
+
+  set groupField(val:string) {
+    this._groupField = val.trim()==""?undefined:val;
+    this.sortByGroupField();
+  }
     @Input() get value(): any[] {
         return this._value;
     }
@@ -870,8 +877,33 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         }
     }
-    
+    sortByGroupField() {
+      if ((this.groupField) && (this.value != null) && (this.value)) {
+
+        this.value.sort((data1, data2) => {
+          let value1 = this.resolveFieldData(data1, this.groupField);
+          let value2 = this.resolveFieldData(data2, this.groupField);
+          let result = null;
+
+          if (value1 == null && value2 != null)
+            result = -1;
+          else if (value1 != null && value2 == null)
+            result = 1;
+          else if (value1 == null && value2 == null)
+            result = 0;
+          else if (typeof value1 === 'string' && typeof value2 === 'string')
+            result = value1.localeCompare(value2);
+          else
+            result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+          return (result);
+        });
+      }
+    }
+
+
     handleDataChange() {
+        this.sortByGroupField();
         if(this.paginator) {
             this.updatePaginator();
         }
