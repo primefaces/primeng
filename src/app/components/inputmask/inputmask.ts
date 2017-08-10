@@ -51,8 +51,6 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 })
 export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
 
-    @Input() mask: string;
-
     @Input() type: string = 'text';
     
     @Input() slotChar: string = '_';
@@ -124,42 +122,62 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
     androidChrome: boolean;
     
     focus: boolean;
+
+    _mask: string;
             
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
-        
-    ngOnInit() {
-        this.tests = [];
-        this.partialPosition = this.mask.length;
-        this.len = this.mask.length;
-        this.firstNonMaskPos = null;
+    constructor(public el: ElementRef, public domHandler: DomHandler) {
         this.defs = {
             '9': '[0-9]',
             'a': '[A-Za-z]',
             '*': '[A-Za-z0-9]'
         };
+    }
+
+    @Input() get mask(): string{
+        return this._mask;
+    }
+
+    set mask(val:string) {
+        this._mask = val;
+
+        this.updateMaskPattern();
+        this.writeValue('');
+        this.onModelChange(this.value);
+    }
         
+    ngOnInit() {
+       
         let ua = this.domHandler.getUserAgent();
         this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         
+        this.updateMaskPattern();
+    }
+
+    updateMaskPattern(){
+        this.tests = [];
+        this.partialPosition = this.mask.length;
+        this.len = this.mask.length;
+        this.firstNonMaskPos = null;
+
         let maskTokens = this.mask.split('');
         for(let i = 0; i < maskTokens.length; i++) {
             let c = maskTokens[i];
             if (c == '?') {
-				this.len--;
-				this.partialPosition = i;
-			} 
+                this.len--;
+                this.partialPosition = i;
+            } 
             else if (this.defs[c]) {
-				this.tests.push(new RegExp(this.defs[c]));
-				if(this.firstNonMaskPos === null) {
-	                this.firstNonMaskPos = this.tests.length - 1;
-				}
+                this.tests.push(new RegExp(this.defs[c]));
+                if(this.firstNonMaskPos === null) {
+                    this.firstNonMaskPos = this.tests.length - 1;
+                }
                 if(i < this.partialPosition){
                     this.lastRequiredNonMaskPos = this.tests.length - 1;
                 }
-			} 
+            } 
             else {
-				this.tests.push(null);
-			}
+                this.tests.push(null);
+            }
         }
         
         this.buffer = [];
