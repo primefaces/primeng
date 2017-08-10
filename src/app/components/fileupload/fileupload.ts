@@ -1,4 +1,4 @@
-import {NgModule,Component,OnInit,Input,Output,EventEmitter,TemplateRef,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,EventEmitter,TemplateRef,AfterContentInit,ContentChildren,QueryList,ViewChild,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ButtonModule} from '../button/button';
@@ -13,7 +13,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
                 <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton  [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}" [attr.disabled]="disabled" > 
-                    <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
+                    <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()" >
                 </span>
 
                 <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
@@ -120,6 +120,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @Output() uploadHandler: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
+    @ViewChild('fileinput') fileinput: ElementRef;
      
     public files: File[];
     
@@ -188,6 +190,8 @@ export class FileUpload implements OnInit,AfterContentInit {
         if(this.hasFiles() && this.auto) {
             this.upload();
         }
+        
+        this.fileinput.nativeElement.value = '';
     }
         
     validate(file: File): boolean {
@@ -303,9 +307,11 @@ export class FileUpload implements OnInit,AfterContentInit {
     clear() {
         this.files = [];
         this.onClear.emit();
+        this.fileinput.nativeElement.value = '';
     }
     
     remove(event: Event, index: number) {
+        this.fileinput.nativeElement.value = '';
         this.onRemove.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
     }
