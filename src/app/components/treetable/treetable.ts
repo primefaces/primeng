@@ -10,8 +10,8 @@ import {DomHandler} from '../dom/domhandler';
     selector: '[pTreeRow]',
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
-            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
-                <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
+            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()">
+                <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? iconCollapse : iconExpand"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
                     [title]="node.expanded ? labelCollapse : labelExpand">
@@ -43,6 +43,10 @@ export class UITreeRow implements OnInit {
     @Input() labelExpand: string = "Expand";
     
     @Input() labelCollapse: string = "Collapse";
+
+    @Input() iconExpand: string;
+
+    @Input() iconCollapse: string;
                 
     constructor(@Inject(forwardRef(() => TreeTable)) public treeTable:TreeTable) {}
     
@@ -135,7 +139,8 @@ export class UITreeRow implements OnInit {
                             </td>
                         </tr>
                     </tfoot>
-                    <tbody pTreeRow *ngFor="let node of value" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
+                    <tbody pTreeRow *ngFor="let node of value" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" 
+                           [labelCollapse]="labelCollapse" [iconExpand]="iconExpand" [iconCollapse]="iconCollapse"></tbody>
                 </table>
             </div>
             
@@ -165,6 +170,10 @@ export class TreeTable implements AfterContentInit {
     @Input() metaKeySelection: boolean = true;
     
     @Input() contextMenu: any;
+
+    @Input() iconExpand: string = "fa-caret-right";
+
+    @Input() iconCollapse: string = "fa-caret-down";
 
     @Input() toggleColumnIndex: number = 0;
 
