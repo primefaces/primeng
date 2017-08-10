@@ -274,7 +274,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.optionsChanged && this.panelVisible) {
             this.optionsChanged = false;
             
-            setTimeout(() => this.alignPanel(), 1);
+            setTimeout(() => {
+                this.updateDimensions();
+                this.alignPanel();
+            }, 1);
         }
         
         if(this.selectedOptionUpdated && this.itemsWrapper) {
