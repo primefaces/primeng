@@ -11,7 +11,7 @@ import {DomHandler} from '../dom/domhandler';
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
             <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
-                <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
+                <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
                     [title]="node.expanded ? labelCollapse : labelExpand">
@@ -171,6 +171,10 @@ export class TreeTable implements AfterContentInit {
     @Input() tableStyle: any;
 
     @Input() tableStyleClass: string;
+    
+    @Input() collapsedIcon: string = "fa-caret-right";
+    
+    @Input() expandedIcon: string = "fa-caret-down";
         
     @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();    
     
