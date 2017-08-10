@@ -548,6 +548,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() sortOrder: number = 1;
     
+    @Input() defaultSortOrder: number = 1;
+    
     @Input() groupField: string;
 
     @Input() multiSortMeta: SortMeta[];
@@ -1058,7 +1060,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
             
             let columnSortField = column.sortField||column.field;
-            this.sortOrder = (this.sortField === columnSortField)  ? this.sortOrder * -1 : 1;
+            this.sortOrder = (this.sortField === columnSortField)  ? this.sortOrder * -1 : this.defaultSortOrder;
             this.sortField = columnSortField;
             this.sortColumn = column;
             let metaKey = event.metaKey||event.ctrlKey;
