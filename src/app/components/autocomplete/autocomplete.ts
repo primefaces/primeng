@@ -189,6 +189,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     
     handleSuggestionsChange() {
         if(this.panelEL && this.panelEL.nativeElement) {
+            this.highlightOption = null;
             if(this._suggestions && this._suggestions.length) {
                 this.noResults = false;
                 this.show();
