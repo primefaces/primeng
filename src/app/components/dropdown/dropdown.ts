@@ -468,9 +468,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
             //space
             case 32:
-                this.show();
-                
-                event.preventDefault();
+            case 32:
+                if(!this.panelVisible){
+                    this.show();
+                    event.preventDefault();
+                }
             break;
             
             //enter
