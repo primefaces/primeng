@@ -154,8 +154,10 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         
-        this.documentClickListener = this.renderer.listen('document', 'click', () => {
-            this.hide();
+        this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+            if (this.visible && event.button !== 2) {
+                this.hide();
+            }
         });
         
         if(this.global) {
