@@ -15,7 +15,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
                 <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton  [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}" [attr.disabled]="disabled" > 
-                    <input #fileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()" >
+                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()" >
                 </span>
 
                 <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
@@ -50,7 +50,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
         [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}">
             <span class="ui-button-icon-left fa" [ngClass]="{'fa-plus': !hasFiles()||auto, 'fa-upload': hasFiles()&&!auto}"></span>
             <span class="ui-button-text ui-clickable">{{auto ? chooseLabel : hasFiles() ? files[0].name : chooseLabel}}</span>
-            <input #fileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
+            <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
                 (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
     `,
@@ -124,7 +124,9 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
-    @ViewChild('fileinput') fileinput: ElementRef;
+    @ViewChild('advancedfileinput') advancedFileInput: ElementRef;
+    
+    @ViewChild('basicfileinput') basicFileInput: ElementRef;
     
     @ViewChild('content') content: ElementRef;
      
@@ -204,7 +206,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
             this.upload();
         }
         
-        this.fileinput.nativeElement.value = '';
+        this.clearInputElement();
     }
         
     validate(file: File): boolean {
@@ -320,15 +322,22 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     clear() {
         this.files = [];
         this.onClear.emit();
-        this.fileinput.nativeElement.value = '';
+        this.clearInputElement();
     }
     
     remove(event: Event, index: number) {
-        this.fileinput.nativeElement.value = '';
+        this.clearInputElement();
         this.onRemove.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
     }
     
+    clearInputElement() {
+        let inputViewChild = this.advancedFileInput||this.basicFileInput;
+        if(inputViewChild && inputViewChild.nativeElement) {
+            inputViewChild.nativeElement.value = '';
+        }
+    }
+        
     hasFiles(): boolean {
         return this.files && this.files.length > 0;
     }
