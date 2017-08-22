@@ -167,6 +167,10 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         if(!this.sticky) {
             clearTimeout(this.timeout);
         }
+        
+        if(this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
 }
