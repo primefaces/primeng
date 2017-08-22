@@ -185,12 +185,15 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
                 event.preventDefault();
             break;
             
+            //tab
             case 9:
-                if(this.addOnTab) {
+                if (inputEL.value !== '') {
+                  if(this.addOnTab) {
                     this.addItem(event, inputEL.value);
                     inputEL.value = '';
 
                     event.preventDefault();
+                 }
                 }
             break;
             
