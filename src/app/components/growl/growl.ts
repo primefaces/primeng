@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,ViewChild,EventEmitter,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,ViewChild,EventEmitter,IterableDiffers,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {DomHandler} from '../dom/domhandler';
@@ -62,16 +62,18 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     
     subscription: Subscription;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, private messageService: MessageService) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, @Optional() public messageService: MessageService) {
         this.zIndex = DomHandler.zindex;
         this.differ = differs.find([]).create(null);
         
-        this.subscription = messageService.messageObserver.subscribe(messages => {
-            if(messages instanceof Array)
-                this.value = messages;
-            else
-                this.value = [messages];
-        });
+        if(messageService) {
+            this.subscription = messageService.messageObserver.subscribe(messages => {
+                if(messages instanceof Array)
+                    this.value = messages;
+                else
+                    this.value = [messages];
+            });
+        }
     }
 
     ngAfterViewInit() {
