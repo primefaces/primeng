@@ -145,7 +145,9 @@ export class Paginator {
     }
 
     changePageToFirst(event) {
+      if (!this.isFirstPage()){
         this.changePage(0, event);
+      }
     }
 
     changePageToPrev(event) {
@@ -157,7 +159,9 @@ export class Paginator {
     }
 
     changePageToLast(event) {
+      if (!this.isLastPage()){
         this.changePage(this.getPageCount() - 1, event);
+      }
     }
     
     onRppChange(event) {
