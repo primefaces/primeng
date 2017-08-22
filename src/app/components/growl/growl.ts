@@ -2,6 +2,8 @@ import {NgModule,Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Outp
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {DomHandler} from '../dom/domhandler';
+import {MessageService} from '../common/messageservice';
+import {Subscription}   from 'rxjs/Subscription';
 
 @Component({
     selector: 'p-growl',
@@ -57,10 +59,19 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     preventRerender: boolean;
     
     differ: any;
+    
+    subscription: Subscription;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, private messageService: MessageService) {
         this.zIndex = DomHandler.zindex;
         this.differ = differs.find([]).create(null);
+        
+        this.subscription = messageService.messageObserver.subscribe(messages => {
+            if(messages instanceof Array)
+                this.value = messages;
+            else
+                this.value = [messages];
+        });
     }
 
     ngAfterViewInit() {
