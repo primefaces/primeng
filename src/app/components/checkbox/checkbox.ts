@@ -22,8 +22,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             </div>
         </div>
         <label class="ui-chkbox-label" (click)="onClick($event,cb,true)" 
-            [ngClass]="{'ui-label-state-active':checked,'ui-label-state-disabled':disabled,'ui-label-state-focus':focused}"
-            *ngIf="label" [attr.for]="inputId">{{label}}</label>
+                [ngClass]="{'ui-label-active':checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
+                *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR]
 })
