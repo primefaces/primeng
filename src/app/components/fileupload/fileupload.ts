@@ -1,9 +1,11 @@
-import {NgModule,Component,OnInit,Input,Output,EventEmitter,TemplateRef,AfterContentInit,ContentChildren,QueryList,ViewChild,ElementRef} from '@angular/core';
+import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,TemplateRef,AfterViewInit,AfterContentInit,
+            ContentChildren,QueryList,ViewChild,ElementRef,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ButtonModule} from '../button/button';
 import {MessagesModule} from '../messages/messages';
 import {ProgressBarModule} from '../progressbar/progressbar';
+import {DomHandler} from '../dom/domhandler';
 import {Message} from '../common/message';
 import {PrimeTemplate,SharedModule} from '../common/shared';
 
@@ -21,8 +23,8 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
             
                 <p-templateLoader [template]="toolbarTemplate"></p-templateLoader>
             </div>
-            <div [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true,'ui-fileupload-highlight':dragHighlight}" 
-                (dragenter)="onDragEnter($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+            <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}" 
+                (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
                 <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
                 
                 <p-messages [value]="msgs"></p-messages>
@@ -51,9 +53,10 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
             <input type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled"
                 (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()">
         </span>
-    `
+    `,
+    providers: [DomHandler]
 })
-export class FileUpload implements OnInit,AfterContentInit {
+export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestroy {
     
     @Input() name: string;
     
@@ -122,6 +125,8 @@ export class FileUpload implements OnInit,AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     @ViewChild('fileinput') fileinput: ElementRef;
+    
+    @ViewChild('content') content: ElementRef;
      
     @Input() files: File[];
     
@@ -139,13 +144,13 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     focus: boolean;
         
-    constructor(private sanitizer: DomSanitizer){}
+    constructor(public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone){}
     
     ngOnInit() {
         this.files = [];
     }
     
-    ngAfterContentInit():void {
+    ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'file':
@@ -165,6 +170,14 @@ export class FileUpload implements OnInit,AfterContentInit {
                 break;
             }
         });
+    }
+    
+    ngAfterViewInit() {
+        if(this.mode === 'advanced') {
+            this.zone.runOutsideAngular(() => {
+                this.content.nativeElement.addEventListener('dragover', this.onDragOver.bind(this));
+            });
+        }
     }
         
     onFileSelect(event) {
@@ -329,6 +342,7 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     onDragOver(e) {
         if(!this.disabled) {
+            this.domHandler.addClass(this.content.nativeElement, 'ui-fileupload-highlight');
             this.dragHighlight = true;
             e.stopPropagation();
             e.preventDefault();
@@ -337,13 +351,13 @@ export class FileUpload implements OnInit,AfterContentInit {
     
     onDragLeave(event) {
         if(!this.disabled) {
-            this.dragHighlight = false;
+            this.domHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
         }
     }
     
     onDrop(event) {
         if(!this.disabled) {
-            this.dragHighlight = false;
+            this.domHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
             event.stopPropagation();
             event.preventDefault();
             
@@ -379,6 +393,12 @@ export class FileUpload implements OnInit,AfterContentInit {
     onSimpleUploaderClick(event: Event) {
         if(this.hasFiles()) {
             this.upload();
+        }
+    }
+    
+    ngOnDestroy() {
+        if(this.content && this.content.nativeElement) {
+            this.content.nativeElement.removeEventListener('dragover', this.onDragOver);
         }
     }
 }
