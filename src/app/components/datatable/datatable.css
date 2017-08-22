@@ -283,7 +283,7 @@
 }
 
 .ui-datatable-scrollable-view {
-    
+
 }
 
 .ui-datatable-frozen-view .ui-datatable-scrollable-body {
@@ -324,6 +324,35 @@
     z-index: 2;
 }
 
+.ui-datatable .ui-cell-data .ui-datatable-tooltip {
+  visibility: hidden;
+}
+
+.ui-datatable .ui-cell-data:hover .ui-datatable-tooltip {
+  visibility: visible;
+  overflow: visible;
+}
+
+.ui-datatable .ui-datatable-tooltip .ui-tooltip-text {
+  background-color: #4b4b4b;
+  color: #fff;
+  position: absolute;
+  z-index: 1;
+  padding: .125em .5em;
+  white-space: pre-line;
+}
+
+.ui-datatable .ui-tooltip-bottom .ui-tooltip-arrow{
+ position: relative;
+}
+
+.ui-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
 @media ( max-width: 35em ) {
     .ui-datatable-reflow thead th,
     .ui-datatable-reflow tfoot td {
@@ -358,7 +387,7 @@
         margin: -.4em 1em -.4em -.4em;
         font-weight: bold;
     }
-    
+
     .ui-datatable-reflow.ui-datatable-scrollable .ui-datatable-scrollable-body colgroup {
         display: block;
     }

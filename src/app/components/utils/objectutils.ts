@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ObjectUtils {
-    
+
     public equals(obj1: any, obj2: any, field?: string): boolean {
         if(field)
             return (this.resolveFieldData(obj1, field) === this.resolveFieldData(obj2, field));
         else
             return this.equalsByValue(obj1, obj2);
     }
-    
+
     public equalsByValue(obj1: any, obj2: any): boolean {
         if (obj1 == null && obj2 == null) {
             return true;
@@ -56,7 +56,7 @@ export class ObjectUtils {
 
         return false;
     }
-    
+
     resolveFieldData(data: any, field: string): any {
         if(data && field) {
             if(field.indexOf('.') == -1) {
@@ -78,12 +78,12 @@ export class ObjectUtils {
             return null;
         }
     }
-    
+
     filter(value: any[], fields: any[], filterValue: string) {
         let filteredItems: any[] = [];
-        
+
         if(value) {
-            for(let item of value) {                
+            for(let item of value) {
                 for(let field of fields) {
                     if(String(this.resolveFieldData(item, field)).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
                         filteredItems.push(item);
@@ -92,10 +92,10 @@ export class ObjectUtils {
                 }
             }
         }
-        
+
         return filteredItems;
     }
-    
+
     reorderArray(value: any[], from: number, to: number) {
         let target: number;
         if(value && (from !== to)) {
@@ -107,5 +107,9 @@ export class ObjectUtils {
             }
             value.splice(to, 0, value.splice(from, 1)[0]);
         }
+    }
+
+    isEllipsisActive(e) {
+      return (e.offsetWidth < e.scrollWidth);
     }
 }
