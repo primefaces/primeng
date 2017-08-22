@@ -11,10 +11,10 @@
     
     <p-contextMenu [target]="img" [model]="items2" ></p-contextMenu>
     
-    <img #img src="/assets/showcase/images/primeng.svg" alt="Logo">
+    <img #img src="assets/showcase/images/primeng-text.svg" alt="Logo">
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -41,7 +41,7 @@ import &#123;ContextMenuModule,MenuItem&#125; from 'primeng/primeng';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
 
-&lt;img #img src="/assets/showcase/images/primeng.svg" alt="Logo"&gt;
+&lt;img #img src="assets/showcase/images/primeng.svg" alt="Logo"&gt;
 </code>
 </pre>
 
@@ -211,13 +211,17 @@ export class ContextMenuDemo &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/contextmenu" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-contextMenu [global]="true" [model]="items1"&gt;&lt;/p-contextMenu&gt;
 
 &lt;p-contextMenu [target]="img" [model]="items2" &gt;&lt;/p-contextMenu&gt;
 
-&lt;img #img src="/assets/showcase/images/primeng.svg" alt="Logo"&gt;
+&lt;img #img src="assets/showcase/images/primeng-text.svg" alt="Logo"&gt;
 </code>
 </pre>
 
@@ -225,9 +229,9 @@ export class ContextMenuDemo &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class ContextMenuDemo &#123;
 
-    private items: MenuItem[];
+    items: MenuItem[];
     
-    private items2: MenuItem[];
+    items2: MenuItem[];
 
     ngOnInit() &#123;
         this.items = [

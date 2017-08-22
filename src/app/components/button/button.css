@@ -124,11 +124,15 @@ button.ui-button::-moz-focus-inner {
 .ui-splitbutton.ui-button-secondary .ui-button:enabled:hover,
 .ui-splitbutton.ui-button-secondary .ui-button:focus {
     background-color: #f2f2f2;
+    border-color: #cccccc;
+    color: #373a3c;
 }
 
 .ui-button.ui-button-secondary:enabled:active,
 .ui-splitbutton.ui-button-secondary .ui-button:enabled:active  {
     background-color: #e6e6e6;
+    border-color: #cccccc;
+    color: #373a3c;
 }
 
 /* Success */
@@ -144,11 +148,13 @@ button.ui-button::-moz-focus-inner {
 .ui-splitbutton.ui-button-success .ui-button:enabled:hover,
 .ui-splitbutton.ui-button-success .ui-button:focus {
     background-color: #4cae4c;
+    border-color: #5cb85c;
 }
 
 .ui-button.ui-button-success:enabled:active,
 .ui-splitbutton.ui-button-success .ui-button:enabled:active {
     background-color: #449d44;
+    border-color: #5cb85c;
 }
 
 /* Info */
@@ -164,11 +170,13 @@ button.ui-button::-moz-focus-inner {
 .ui-splitbutton.ui-button-info .ui-button:enabled:hover,
 .ui-splitbutton.ui-button-info .ui-button:focus {
     background-color: #46b8da;
+    border-color: #5bc0de;
 }
 
 .ui-button.ui-button-info:enabled:active,
 .ui-splitbutton.ui-button-info .ui-button:enabled:active {
     background-color: #31b0d5;
+    border-color: #5bc0de;
 }
 
 /* Warning */
@@ -184,11 +192,13 @@ button.ui-button::-moz-focus-inner {
 .ui-splitbutton.ui-button-warning .ui-button:enabled:hover,
 .ui-splitbutton.ui-button-warning .ui-button:focus {
     background-color: #eea236;
+    border-color: #f0ad4e;
 }
 
 .ui-button.ui-button-warning:enabled:active,
 .ui-splitbutton.ui-button-warning .ui-button:enabled:active {
     background-color: #ec971f;
+    border-color: #f0ad4e;
 }
 
 /* Danger */
@@ -204,9 +214,11 @@ button.ui-button::-moz-focus-inner {
 .ui-splitbutton.ui-button-danger .ui-button:enabled:hover,
 .ui-splitbutton.ui-button-danger .ui-button:focus {
     background-color: #d43f3a;
+    border-color: #d9534f;
 }
 
 .ui-button.ui-button-danger:enabled:active,
 .ui-splitbutton.ui-button-danger .ui-button:enabled:active {
     background-color: #c9302c;
+    border-color: #d9534f;
 }

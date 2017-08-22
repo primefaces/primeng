@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">OrganizationChart</span>
-        <span>OrganizationChart visualized hierarchial organization data.</span>
+        <span>OrganizationChart visualized hierarchical organization data.</span>
     </div>
 </div>
 
@@ -29,7 +29,7 @@
     <p-organizationChart [value]="data2"></p-organizationChart>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header ="Documentation">
             <h3>Import</h3>
@@ -40,7 +40,7 @@ import &#123;OrganizationChartModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>OrganizationChart requires a model of TreeNode as its value. More information about TreeNode API is available at documentation of <a href="#" [routerLink]="['/tre']">tree</a> component.</p>
+            <p>OrganizationChart requires a model of TreeNode as its value. More information about TreeNode API is available at documentation of <a href="#" [routerLink]="['/tree']">tree</a> component.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;TreeNode&#125; from 'primeng/primeng';
@@ -71,7 +71,7 @@ export class MyComponents implements OnInit &#123;
                             label: 'Grandchild 1.1'
                         &#125;,
                         &#123;
-                            label: Grandchild 1.2'
+                            label: 'Grandchild 1.2'
                         &#125;
                     ]
                 &#125;,
@@ -121,13 +121,13 @@ export class MyComponents implements OnInit &#123;
             label: 'Root',
             children: [
                 &#123;
-                    label: 'Child 1,
+                    label: 'Child 1',
                     children: [
                         &#123;
                             label: 'Grandchild 1.1', type: 'leaf'
                         &#125;,
                         &#123;
-                            label: Grandchild 1.2', type: 'leaf'
+                            label: 'Grandchild 1.2', type: 'leaf'
                         &#125;
                     ]
                 &#125;,
@@ -178,7 +178,7 @@ export class MyComponents implements OnInit &#123;
                             label: 'Grandchild 1.1', type: 'leaf'
                         &#125;,
                         &#123;
-                            label: Grandchild 1.2', type: 'leaf'
+                            label: 'Grandchild 1.2', type: 'leaf'
                         &#125;
                     ]
                 &#125;,
@@ -321,6 +321,10 @@ export class MyComponents implements OnInit &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/organizationchart" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [(value)]="messages"&gt;&lt;/p-growl&gt;
@@ -406,7 +410,7 @@ export class OrganizationChartDemo implements OnInit &#123;
     
     data2: TreeNode[];
     
-    selectedNodes: TreeNode;
+    selectedNode: TreeNode;
     
     messages: Message[];
     

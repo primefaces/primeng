@@ -34,7 +34,7 @@
     </p-panel>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -204,6 +204,11 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+        <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/panel" class="btn-viewsource" target="_blank">
+            <i class="fa fa-github"></i>
+            <span>View on GitHub</span>
+        </a>
+        
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
@@ -220,7 +225,7 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px"&gt;Custom Header&lt;/span&gt;
             
-            &lt;p-splitButton [style]="&#123;'float':'right'&#123;" label="Save" icon="fa-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
+            &lt;p-splitButton [style]="&#123;'float':'right'&#125;" label="Save" icon="fa-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
         &lt;/div&gt;
     &lt;/p-header&gt;
     The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 

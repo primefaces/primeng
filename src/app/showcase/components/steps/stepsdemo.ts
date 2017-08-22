@@ -37,7 +37,7 @@ import {Message} from '../../../components/common/api';
 })
 export class StepsDemo implements OnInit {
 
-    private items: MenuItem[];
+    items: MenuItem[];
     
     msgs: Message[] = [];
     

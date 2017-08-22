@@ -6,13 +6,13 @@ import {MenuItem} from '../../../components/common/api';
 })
 export class MenuDemo {
     
-    private items: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [{
             label: 'File',
             items: [
-                {label: 'New', icon: 'fa-plus'},
+                {label: 'New', icon: 'fa-plus', command: () => {}},
                 {label: 'Open', icon: 'fa-download'}
             ]
         },

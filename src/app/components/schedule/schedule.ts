@@ -223,7 +223,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 });
             },
             eventDrop: (event, delta, revertFunc, jsEvent, ui, view) => {
-                this.updateEvent(event);
+                this._updateEvent(event);
                 
                 this.onEventDrop.emit({
                     'event': event,
@@ -248,7 +248,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 });
             },
             eventResize: (event, delta, revertFunc, jsEvent, ui, view) => {
-                this.updateEvent(event);
+                this._updateEvent(event);
                 
                 this.onEventResize.emit({
                     'event': event,
@@ -357,8 +357,12 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     getDate() {
         return this.schedule.fullCalendar('getDate');
     }
-    
-    findEvent(id: string) {
+   
+    updateEvent(event: any) {
+        this.schedule.fullCalendar('updateEvent', event);
+    }
+ 
+    _findEvent(id: string) {
         let event;
         if(this.events) {
             for(let e of this.events) {
@@ -371,8 +375,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         return event;
     }
     
-    updateEvent(event: any) {
-        let sourceEvent = this.findEvent(event.id);
+    _updateEvent(event: any) {
+        let sourceEvent = this._findEvent(event.id);
         if(sourceEvent) {
             sourceEvent.start = event.start.format();
             if(event.end) {

@@ -65,8 +65,6 @@
     filter:Alpha(Opacity=50); 
 }
 
-.ui-widget-header .ui-state-default,
-.ui-widget-content .ui-state-default,
 .ui-state-default { 
     border: $stateDefaultBorderWidth solid $stateDefaultBorderColor; 
     background: $stateDefaultBgColor; 
@@ -77,8 +75,6 @@
     }
 }
 
-.ui-widget-header .ui-state-active,
-.ui-widget-content .ui-state-active,
 .ui-state-active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
@@ -89,8 +85,6 @@
     }
 }
 
-.ui-widget-header .ui-state-highlight,
-.ui-widget-content .ui-state-highlight,
 .ui-state-highlight  {
     border-color: $stateHighlightBorderColor;
     background: $stateHighlightBgColor;
@@ -101,8 +95,6 @@
     }
 }
 
-.ui-widget-header .ui-state-focus,
-.ui-widget-content .ui-state-focus,
 .ui-state-focus {
     border-color: $stateFocusBorderColor;
     background: $stateFocusBgColor;
@@ -113,8 +105,6 @@
     }
 }
 
-.ui-widget-header .ui-state-error,
-.ui-widget-content .ui-state-error,
 .ui-state-error {
     border-color: $stateErrorBorderColor;
     background: $stateErrorBgColor;
@@ -156,6 +146,36 @@
     box-shadow: 0px 0px 5px $stateFocusBorderColor;
 }
 
+.ui-inputgroup {
+    .ui-inputgroup-addon  {
+        border-color: $stateDefaultBorderColor;
+        background-color: lighten($stateDefaultBorderColor, 10%);
+        color: $inputGroupTextColor;
+        
+        &:first-child {
+            border-top-left-radius: $borderRadius;
+            border-bottom-left-radius: $borderRadius;
+        }
+        
+        &:last-child {
+            border-top-right-radius: $borderRadius;
+            border-bottom-right-radius: $borderRadius;
+        }
+    }
+    
+    .ui-button {
+        &:first-child {
+            border-top-left-radius: $borderRadius;
+            border-bottom-left-radius: $borderRadius;
+        }
+        
+        &:last-child {
+            border-top-right-radius: $borderRadius;
+            border-bottom-right-radius: $borderRadius;
+        }
+    }
+}
+
 .ui-autocomplete {
     .ui-autocomplete-multiple-container:not(.ui-state-disabled) {
         &:hover {
@@ -164,6 +184,7 @@
         
         &.ui-state-focus {
             border-color: $stateFocusBorderColor;
+            
         }
     }
 }
@@ -181,12 +202,14 @@
 }
 
 .ui-button:focus,
-.ui-button:enabled:hover {
+.ui-button:enabled:hover,
+.ui-fileupload-choose:not(.ui-state-disabled):hover {
     outline: 0 none;
     @include hover-element();
 }
 
-.ui-button:enabled:active {
+.ui-button:enabled:active,
+.ui-fileupload-choose:not(.ui-state-disabled):active {
     border-color: $stateActiveBorderColor;
     background: $stateActiveBgColor; 
     color: $stateActiveTextColor;
@@ -302,6 +325,25 @@
 .ui-picklist {
     .ui-picklist-item:not(.ui-state-highlight):hover {
         @include hover-element();
+    }
+    
+    .ui-picklist-droppoint-highlight {
+        border-color: $stateHighlightBorderColor;
+        background: $stateHighlightBgColor;
+        color: darken($contentTextColor,1%);
+        
+        a {
+            color: darken($contentTextColor,1%);
+        }
+    }
+    
+    .ui-picklist-highlight {
+        border-color: $stateHighlightBorderColor;
+        color: darken($contentTextColor,1%);
+        
+        a {
+            color: darken($contentTextColor,1%);
+        }
     }
 }
 
@@ -450,6 +492,7 @@
     .ui-panelmenu-header {
         &:not(.ui-state-active):hover {
             @include hover-element();
+            border-color: $stateDefaultBorderColor;
             
             a {
                 color: $stateHoverTextColor;

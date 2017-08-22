@@ -24,12 +24,12 @@
                 <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onSlideEnd)="dt.filter($event.value,col.field,col.filterMatchMode)"></p-slider>
             </ng-template>
         </p-column>
-        <p-column field="brand" header="Brand (Custom)" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
+        <p-column field="brand" header="Brand (Custom)" [filter]="true" filterMatchMode="equals">
             <ng-template pTemplate="filter" let-col>
                 <p-dropdown [options]="brands" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
             </ng-template>
         </p-column>
-        <p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in" [style]="{'overflow':'visible'}">
+        <p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in">
             <ng-template pTemplate="filter" let-col>
                 <p-multiSelect [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
             </ng-template>
@@ -37,9 +37,13 @@
     </p-dataTable>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="datatablefilterdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablefilterdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class DataTableFilterDemo implements OnInit &#123;
@@ -49,6 +53,8 @@ export class DataTableFilterDemo implements OnInit &#123;
     brands: SelectItem[];
     
     colors: SelectItem[];
+    
+    yearFilter: number;
     
     constructor(private carService: CarService) &#123;&#125;
 
@@ -84,6 +90,10 @@ export class DataTableFilterDemo implements OnInit &#123;
         </p-tabPanel>
 
         <p-tabPanel header="datatablefilterdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablefilterdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none"&gt;
@@ -99,12 +109,12 @@ export class DataTableFilterDemo implements OnInit &#123;
             &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onSlideEnd)="dt.filter($event.value,col.field,col.filterMatchMode)"&gt;&lt;/p-slider&gt;
         &lt;/ng-template&gt;
     &lt;/p-column&gt;
-    &lt;p-column field="brand" header="Brand (Custom)" [filter]="true" [style]="&#123;'overflow':'visible'&#125;" filterMatchMode="equals"&gt;
+    &lt;p-column field="brand" header="Brand (Custom)" [filter]="true" filterMatchMode="equals"&gt;
         &lt;ng-template pTemplate="filter" let-col&gt;
             &lt;p-dropdown [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-dropdown&gt;
         &lt;/ng-template&gt;
     &lt;/p-column&gt;
-    &lt;p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in" [style]="&#123;'overflow':'visible'&#125;"&gt;
+    &lt;p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in"&gt;
         &lt;ng-template pTemplate="filter" let-col&gt;
             &lt;p-multiSelect [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-multiSelect&gt;
         &lt;/ng-template&gt;

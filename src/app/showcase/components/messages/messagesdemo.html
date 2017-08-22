@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -169,6 +169,10 @@ hide() &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/messages" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
@@ -189,6 +193,11 @@ hide() &#123;
 export class MessagesDemo &#123;
 
     msgs: Message[] = [];
+    
+    showSuccess() &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'success', summary:'Success Message', detail:'Order submitted'&#125;);
+    &#125;
 
     showInfo() &#123;
         this.msgs = [];

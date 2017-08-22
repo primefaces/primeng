@@ -23,7 +23,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
-                        (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled">
+                        (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul>
         </div>
@@ -51,6 +51,14 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     @Input() tabindex: number;
 
     @Input() inputId: string;
+    
+    @Input() allowDuplicate: boolean = true;
+    
+    @Input() inputStyle: any;
+    
+    @Input() inputStyleClass: any;
+    
+    @Input() addOnTab: boolean;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -140,6 +148,20 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         });
     }
     
+    addItem(event: Event, item: string): void {
+        this.value = this.value||[];
+        if(item && item.trim().length && (!this.max||this.max > item.length)) {
+            if(this.allowDuplicate || !this.value.includes(item)) {
+                this.value = [...this.value, item];
+                this.onModelChange(this.value);
+                this.onAdd.emit({
+                    originalEvent: event,
+                    value: item
+                });
+            }
+        }     
+    }
+    
     onKeydown(event: KeyboardEvent, inputEL: HTMLInputElement): void {
         switch(event.which) {
             //backspace
@@ -157,17 +179,19 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             
             //enter
             case 13:
-                this.value = this.value||[];
-                if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
-                    this.value = [...this.value,inputEL.value];
-                    this.onModelChange(this.value);
-                    this.onAdd.emit({
-                        originalEvent: event,
-                        value: inputEL.value
-                    });
-                }     
+                this.addItem(event, inputEL.value);
                 inputEL.value = '';
+                
                 event.preventDefault();
+            break;
+            
+            case 9:
+                if(this.addOnTab) {
+                    this.addItem(event, inputEL.value);
+                    inputEL.value = '';
+
+                    event.preventDefault();
+                }
             break;
             
             default:

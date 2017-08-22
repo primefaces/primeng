@@ -1,7 +1,9 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,ViewChild,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,ViewChild,EventEmitter,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {DomHandler} from '../dom/domhandler';
+import {MessageService} from '../common/messageservice';
+import {Subscription}   from 'rxjs/Subscription';
 
 @Component({
     selector: 'p-growl',
@@ -9,7 +11,7 @@ import {DomHandler} from '../dom/domhandler';
         <div #container [ngClass]="'ui-growl ui-widget'" [style.zIndex]="zIndex" [ngStyle]="style" [class]="styleClass">
             <div #msgel *ngFor="let msg of value;let i = index" class="ui-growl-item-container ui-state-highlight ui-corner-all ui-shadow" aria-live="polite"
                 [ngClass]="{'ui-growl-message-info':msg.severity == 'info','ui-growl-message-warn':msg.severity == 'warn',
-                    'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}">
+                    'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}" (click)="onMessageClick(i)">
                 <div class="ui-growl-item">
                      <div class="ui-growl-icon-close fa fa-close" (click)="remove(i,msgel)"></div>
                      <span class="ui-growl-image fa fa-2x"
@@ -26,7 +28,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class Growl implements AfterViewInit,OnDestroy {
+export class Growl implements AfterViewInit,DoCheck,OnDestroy {
 
     @Input() sticky: boolean;
 
@@ -35,6 +37,10 @@ export class Growl implements AfterViewInit,OnDestroy {
     @Input() style: any;
         
     @Input() styleClass: string;
+    
+    @Input() immutable: boolean = true;
+    
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onClose: EventEmitter<any> = new EventEmitter();
     
@@ -51,13 +57,29 @@ export class Growl implements AfterViewInit,OnDestroy {
     timeout: any;
     
     preventRerender: boolean;
+    
+    differ: any;
+    
+    subscription: Subscription;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, private messageService: MessageService) {
         this.zIndex = DomHandler.zindex;
+        this.differ = differs.find([]).create(null);
+        
+        this.subscription = messageService.messageObserver.subscribe(messages => {
+            if(messages instanceof Array)
+                this.value = messages;
+            else
+                this.value = [messages];
+        });
     }
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
+        
+        if(!this.sticky) {
+            this.initTimeout();
+        }
     }
     
     @Input() get value(): Message[] {
@@ -66,8 +88,17 @@ export class Growl implements AfterViewInit,OnDestroy {
 
     set value(val:Message[]) {
         this._value = val;
-        if(this.container) {
+        if(this.container && this.immutable) {
             this.handleValueChange();
+        }
+    }
+    
+    ngDoCheck() {
+        if(!this.immutable && this.container) {
+            let changes = this.differ.diff(this.value);
+            if(changes) {
+                this.handleValueChange();
+            }
         }
     }
     
@@ -81,13 +112,17 @@ export class Growl implements AfterViewInit,OnDestroy {
         this.domHandler.fadeIn(this.container, 250);
         
         if(!this.sticky) {
-            if(this.timeout) {
-                clearTimeout(this.timeout);
-            }
-            this.timeout = setTimeout(() => {
-                this.removeAll();
-            }, this.life);
+            this.initTimeout();
         }
+    }
+    
+    initTimeout() {
+        if(this.timeout) {
+            clearTimeout(this.timeout);
+        }
+        this.timeout = setTimeout(() => {
+            this.removeAll();
+        }, this.life);
     }
         
     remove(index: number, msgel: any) {        
@@ -96,8 +131,14 @@ export class Growl implements AfterViewInit,OnDestroy {
         setTimeout(() => {
             this.preventRerender = true;
             this.onClose.emit({message:this.value[index]});
-            this._value = this.value.filter((val,i) => i!=index);
-            this.valueChange.emit(this._value);
+            
+            if(this.immutable) {
+                this._value = this.value.filter((val,i) => i!=index);
+                this.valueChange.emit(this._value);
+            }
+            else {
+                this._value.splice(index, 1);
+            }
         }, 250);        
     }
     
@@ -107,15 +148,28 @@ export class Growl implements AfterViewInit,OnDestroy {
             
             setTimeout(() => {                
                 this.value.forEach((msg,index) => this.onClose.emit({message:this.value[index]}));
-                this.value = [];
-                this.valueChange.emit(this.value);
+                if(this.immutable) {
+                    this.value = [];
+                    this.valueChange.emit(this.value);
+                }
+                else {
+                    this.value.splice(0, this.value.length);
+                }
             }, 250);
         }
+    }
+    
+    onMessageClick(i: number) {
+        this.onClick.emit({message: this.value[i]});
     }
     
     ngOnDestroy() {
         if(!this.sticky) {
             clearTimeout(this.timeout);
+        }
+        
+        if(this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 

@@ -72,8 +72,8 @@
     <h3>Programatic Tree Expansion</h3>
     <p-tree #expandingTree [value]="filesTree10"></p-tree>
     <div style="margin-top: 8px">
-        <button pButton type="text" label="Expand all" (click)="expandAll()"></button>
-        <button pButton type="text" label="Collapse all" (click)="collapseAll()"></button>
+        <button pButton type="button" label="Expand all" (click)="expandAll()"></button>
+        <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
     </div>
     
     <h3>Horizontal Tree</h3>
@@ -81,7 +81,7 @@
     <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;</div>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -406,7 +406,6 @@ export class TreeDemoComponent implements OnInit &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
     &lt;ng-template let-node  pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
@@ -419,7 +418,6 @@ export class TreeDemoComponent implements OnInit &#123;
             then default ng-template is used.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3&gt;ng-template&lt;/h3&gt;
 &lt;p-tree [value]="files"&gt;
     &lt;ng-template let-node  pTemplate="picture"&gt;
         &lt;img [attrs.src]="picture.path"&gt;
@@ -666,7 +664,8 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
                             <td>onNodeDrop</td>
                             <td>event.originalEvent: browser event <br>
                                 event.dragNode: Dragged node instance <br>
-                                event.dropNode: Dropped node instance.</td>
+                                event.dropNode: Dropped node instance.
+                                event.index: Index of the dropped node within siblings.</td>
                             <td>Callback to invoke when a node is selected with right click.</td>
                         </tr>
                     </tbody>
@@ -720,6 +719,10 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
                             <td>ui-treenode-children</td>
                             <td>Container element for node children</td>
                         </tr>
+                        <tr>
+                            <td>ui-treenode-content-selected</td>
+                            <td>Content of a selected node.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -729,6 +732,10 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/tree" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
@@ -753,7 +760,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 &lt;h3&gt;Lazy Loading&lt;/h3&gt;
 &lt;p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="&#123;'max-height':'200px','overflow':'auto'&#125;"&gt;&lt;/p-tree&gt;
 
-&lt;h3&gt;ng-template&lt;/h3&gt;
+&lt;h3&gt;Template&lt;/h3&gt;
 &lt;p-tree [value]="filesTree5"&gt;
     &lt;ng-template let-node pTemplate="default"&gt;
         &lt;input [(ngModel)]="node.label" type="text" style="width:100%"&gt;
@@ -797,8 +804,8 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 &lt;h3&gt;Programatic Tree Expansion&lt;/h3&gt;
 &lt;p-tree #expandingTree [value]="filesTree10"&gt;&lt;/p-tree&gt;
 &lt;div style="margin-top: 8px"&gt;
-    &lt;button pButton type="text" label="Expand all" (click)="expandAll()"&gt;&lt;/button&gt;
-    &lt;button pButton type="text" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" label="Expand all" (click)="expandAll()"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" label="Collapse all" (click)="collapseAll()"&gt;&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;

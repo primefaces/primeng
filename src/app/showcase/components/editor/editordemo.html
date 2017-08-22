@@ -29,13 +29,13 @@
     <button pButton type="button" label="Clear" icon="fa-close" (click)="text2=null"></button>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;EditorModule,SharedModule&#125; from 'primeng/primeng';
+import &#123;EditorModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
@@ -242,6 +242,10 @@ npm install quill --save
 
         </p-tabPanel>
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/editor" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Default&lt;/h3&gt;
@@ -256,9 +260,9 @@ npm install quill --save
 &lt;p-editor [(ngModel)]="text2" [style]="&#123;'height':'320px'&#125;"&gt;
     &lt;p-header&gt;
         &lt;span class="ql-formats"&gt;
-            &lt;button class="ql-bold"&gt;&lt;/button&gt;
-            &lt;button class="ql-italic"&gt;&lt;/button&gt;
-            &lt;button class="ql-underline"&gt;&lt;/button&gt;
+            &lt;button class="ql-bold" aria-label="Bold"&gt;&lt;/button&gt;
+            &lt;button class="ql-italic" aria-label="Italic"&gt;&lt;/button&gt;
+            &lt;button class="ql-underline" aria-label="Underline"&gt;&lt;/button&gt;
         &lt;/span&gt;
     &lt;/p-header&gt;
 &lt;/p-editor&gt;
@@ -270,6 +274,11 @@ npm install quill --save
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
+import &#123;Component&#125; from '@angular/core';
+
+@Component(&#123;
+    templateUrl: './editordemo.html'
+&#125;)
 export class EditorDemo &#123;
 
     text1: string = '&lt;div&gt;Hello World!&lt;/div&gt;&lt;div&gt;PrimeNG &lt;b&gt;Editor&lt;/b&gt; Rocks&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;';

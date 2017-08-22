@@ -14,7 +14,8 @@ import {BlockableUI} from '../common/blockableui';
                 <ng-content select="p-header"></ng-content>
             </legend>
             <div class="ui-fieldset-content-wrapper" [@fieldsetContent]="collapsed ? 'hidden' : 'visible'" 
-                        [ngClass]="{'ui-fieldset-content-wrapper-overflown': collapsed||animating}">
+                        [ngClass]="{'ui-fieldset-content-wrapper-overflown': collapsed||animating}"
+                         (@fieldsetContent.done)="onToggleDone($event)">
                 <div class="ui-fieldset-content">
                     <ng-content></ng-content>
                 </div>
@@ -56,6 +57,10 @@ export class Fieldset implements BlockableUI {
         
     toggle(event) {
         if(this.toggleable) {
+            if(this.animating) {
+                return false;
+            }
+            
             this.animating = true;
             this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
             
@@ -65,11 +70,6 @@ export class Fieldset implements BlockableUI {
                 this.collapse(event);
                 
             this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});   
-            
-            //TODO: Use onDone of animate callback instead with RC6
-            setTimeout(() => {
-                this.animating = false;
-            }, 400);
         }
     }
     
@@ -83,6 +83,10 @@ export class Fieldset implements BlockableUI {
     
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+    
+    onToggleDone(event: Event) {
+        this.animating = false;
     }
 
 }

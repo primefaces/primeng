@@ -1,17 +1,8 @@
 /*
  * FileUpload
  */
-.ui-fileupload-buttonbar .ui-fileupload-choose input {
-    display: none;
-}
-
 .ui-fileupload-buttonbar .ui-fileupload-choose.ui-state-disabled input {
     cursor: default;
-}
-
-.ui-fileupload-choose {
-    position: relative;
-    overflow: hidden;
 }
 
 .ui-fileupload-buttonbar {
@@ -69,35 +60,27 @@
 }
 
 /* Simple */
-.ui-fileupload-simple {
+.ui-fileupload-choose {
     position: relative;
     overflow: hidden;
-    display: inline-block;
-    vertical-align: middle;
 }
 
-.ui-fileupload-simple .ui-button {
-    overflow: hidden;
-}
-
-.ui-fileupload-simple input[type=file] {
+.ui-fileupload-choose input[type=file] {
     position: absolute;
     top: 0;
     right: 0;
-    min-width: 100%;
+    margin: 0;
+    opacity: 0;
     min-height: 100%;
     font-size: 100px;
     text-align: right;
     filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
+    direction: ltr;
+    cursor: pointer;
 }
 
-.ui-fileupload-simple .ui-fileupload-filename {
-    margin-left: 0.5em;
+.ui-fileupload-choose.ui-fileupload-choose-selected input[type=file] {
+    display: none;
 }
 
 /* ui-fluid */

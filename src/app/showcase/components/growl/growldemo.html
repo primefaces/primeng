@@ -8,6 +8,7 @@
 <div class="content-section implementation">
     <p-growl [(value)]="msgs"></p-growl>
 
+    <h3 class="first">Basic</h3>
     <div>
         <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
         <button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
@@ -16,9 +17,12 @@
         <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
         <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"></button>
     </div>
+    
+    <h3>Message Service</h3>
+    <button type="button" pButton (click)="showViaService()" label="Use Service"></button>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -30,7 +34,8 @@ import &#123;GrowlModule&#125; from 'primeng/primeng';
 
             <h3>Getting Started</h3>
             <p>A single message is specified by Message interface in PrimeNG that defines the id, severity, summary and detail as properties.
-            Messages to display on growl are defined using the value property which should an array of Message instances.</p>
+            Messages to display on growl can either be defined using the value property which should an array of Message instances or using 
+            a MessageService.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
@@ -48,6 +53,51 @@ export class MyModel &#123;
 &#125;
 </code>
 </pre>
+            
+            <h3>Message Service</h3>
+            <p>MessageService allows having one growl in the entire application instead of having separate ones in each component that uses it.
+            In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as application instance itself 
+            so that descandant components can have it injected.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Component&#125; from '@angular/core';
+import &#123;Message&#125; from 'primeng/components/common/api';
+import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+
+@Component(&#123;
+    templateUrl: './growldemo.html'
+&#125;)
+export class MessageServiceDemo &#123;
+    
+    constructor(private messageService: MessageService) &#123;&#125;
+    
+    addSingle() &#123;
+        this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
+    &#125;
+    
+    addMultiple() &#123;
+        this.messageService.addAdd([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
+                                    &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
+    &#125;
+&#125;
+</code>
+</pre>
+        
+            <h3>Change Detection</h3>
+            <p>In case messages are provided via the value property instead of service, growl either uses setter based checking or ngDoCheck to realize if the messages has changed to update the UI. This is configured using the immutable
+                property, when enabled (default) setter based detection is utilized so your changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change. 
+                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
+                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
+                both methods can be used depending on your preference. Note that immutable property also defines how Growl treats the value, for example
+                when immutable is enabled removing a message does not mutate the original value but creates a new array.
+            </p>
 
             <h3>Severities</h3>
             <p>Here are the possible values for the severity of a message.</p>
@@ -66,7 +116,7 @@ export class MyModel &#123;
 &lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
     
 &lt;button type="button" (click)="show()"&gt;Show&lt;/button&gt;
-&lt;button type="button" (click)="clear()"&gt;Hide&lt;/button&gt;
+&lt;button type="button" (click)="clear()"&gt;Clear&lt;/button&gt;
 </code>
 </pre>
 
@@ -76,7 +126,7 @@ show() &#123;
     this.msgs.push(&#123;severity:'info', summary:'Info Message', detail:'PrimeNG rocks'&#125;);
 &#125;
 
-hide() &#123;
+clear() &#123;
     this.msgs = [];
 &#125;
 </code>
@@ -124,6 +174,12 @@ hide() &#123;
                             <td>null</td>
                             <td>Style class of the component.</td>
                         </tr>
+                        <tr>
+                            <td>immutable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how the messages data should be manipulated.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -143,6 +199,11 @@ hide() &#123;
                             <td>onClose</td>
                             <td>message: Removed message</td>
                             <td>Callback to invoke when a message is closed.</td>
+                        </tr>
+                        <tr>
+                            <td>onClick</td>
+                            <td>message: Clicked message</td>
+                            <td>Callback to invoke when a message is clicked.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -196,28 +257,45 @@ hide() &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/growl" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [(value)]="msgs"gt;&lt;/p-growl&gt;
+&lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
 
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div&gt;
     &lt;button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"&gt;&lt;/button&gt;
-    &lt;button type="button" pButton (click)="showError()" label="Error" class="ui-button-error"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"&gt;&lt;/button&gt;
 &lt;/div&gt;
+
+&lt;h3&gt;Message Service&lt;/h3&gt;
+&lt;button type="button" pButton (click)="showViaService()" label="Use Service"&gt;&lt;/button&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;Message&#125; from 'primeng/primeng';
+import &#123;Component&#125; from '@angular/core';
+import &#123;SelectItem&#125; from 'primeng/components/common/api';
+import &#123;Message&#125; from 'primeng/components/common/api';
+import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
 
+@Component(&#123;
+    templateUrl: './growldemo.html',
+    providers: [MessageService]
+&#125;)
 export class GrowlDemo &#123;
 
     msgs: Message[] = [];
+    
+    constructor(private messageService: MessageService) &#123;&#125;
 
     showSuccess() &#123;
         this.msgs = [];
@@ -244,6 +322,10 @@ export class GrowlDemo &#123;
         this.msgs.push(&#123;severity:'info', summary:'Message 1', detail:'PrimeNG rocks'&#125;);
         this.msgs.push(&#123;severity:'info', summary:'Message 2', detail:'PrimeUI rocks'&#125;);
         this.msgs.push(&#123;severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'&#125;);
+    &#125;
+    
+    showViaService() &#123;
+        this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
     &#125;
 
     clear() &#123;

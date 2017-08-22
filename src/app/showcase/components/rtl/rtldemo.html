@@ -19,8 +19,8 @@
                but given to ruthless violence whenever anything stands against the good of the family.</span>
             <p-footer>
                 <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
-                    <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
+                    <button type="button" pButton icon="fa-close" (click)="visible=false" label="No"></button>
+                    <button type="button" pButton icon="fa-check" (click)="visible=false" label="Yes"></button>
                 </div>
             </p-footer>
         </p-dialog>
@@ -55,9 +55,13 @@
     </div>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/rtl" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;div class="ui-rtl" dir="rtl"&gt;
@@ -65,7 +69,7 @@
     &lt;input id="in" type="text" size="30" pInputText&gt;
 
     &lt;h3&gt;Dialog&lt;/h3&gt;
-    &lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="350" [responsive]="true"&gt;
+    &lt;p-dialog header="Godfather I" [(visible)]="visible" modal="modal" width="350" [responsive]="true"&gt;
         &lt;span&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
@@ -73,8 +77,8 @@
            but given to ruthless violence whenever anything stands against the good of the family.&lt;/span&gt;
         &lt;p-footer&gt;
             &lt;div class="ui-dialog-buttonpane ui-helper-clearfix"&gt;
-                &lt;button type="button" pButton icon="fa-close" (click)="display=false" label="No"&gt;&lt;/button&gt;
-                &lt;button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"&gt;&lt;/button&gt;
+                &lt;button type="button" pButton icon="fa-close" (click)="visible=false" label="No"&gt;&lt;/button&gt;
+                &lt;button type="button" pButton icon="fa-check" (click)="visible=false" label="Yes"&gt;&lt;/button&gt;
             &lt;/div&gt;
         &lt;/p-footer&gt;
     &lt;/p-dialog&gt;
@@ -107,6 +111,16 @@
         &lt;/p-tabPanel&gt;
     &lt;/p-tabView&gt;
 &lt;/div&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+    export class RTLDemo &#123;
+    
+        visible: boolean;
+    
+    &#125;
 </code>
 </pre>
         </p-tabPanel>

@@ -5,6 +5,8 @@ export class DomHandler {
 
     public static zindex: number = 1000;
 
+    private calculatedScrollbarWidth: number = null;
+
     public addClass(element: any, className: string): void {
         if (element.classList)
             element.classList.add(className);
@@ -318,15 +320,12 @@ export class DomHandler {
     }
     
     public getOffset(el) {
-        let x = el.offsetLeft;
-        let y = el.offsetTop;
-
-        while (el = el.offsetParent) {
-            x += el.offsetLeft;
-            y += el.offsetTop;
-        }
-
-        return {left: x, top: y};
+        let rect = el.getBoundingClientRect();
+        
+        return {
+            top: rect.top + document.body.scrollTop,
+            left: rect.left + document.body.scrollLeft
+        };
     }
 
     getUserAgent(): string {
@@ -384,17 +383,39 @@ export class DomHandler {
     }
     
     calculateScrollbarWidth(): number {
+        if(this.calculatedScrollbarWidth !== null)
+            return this.calculatedScrollbarWidth;
+        
         let scrollDiv = document.createElement("div");
         scrollDiv.className = "ui-scrollbar-measure";
         document.body.appendChild(scrollDiv);
 
         let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
         document.body.removeChild(scrollDiv);
+
+        this.calculatedScrollbarWidth = scrollbarWidth;
         
         return scrollbarWidth;
     }
     
     public invokeElementMethod(element: any, methodName: string, args?: any[]): void {
         (element as any)[methodName].apply(element, args);
+    }
+    
+    public clearSelection(): void {
+        if(window.getSelection) {
+            if(window.getSelection().empty) {
+                window.getSelection().empty();
+            } else if(window.getSelection().removeAllRanges && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).getClientRects().length > 0) {
+                window.getSelection().removeAllRanges();
+            }
+        }
+        else if(document['selection'] && document['selection'].empty) {
+            try {
+                document['selection'].empty();
+            } catch(error) {
+                //ignore IE bug
+            }
+        }
     }
 }

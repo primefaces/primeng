@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,AfterViewChecked,AfterContentInit,OnDestroy,ElementRef,ContentChild,IterableDiffers,ChangeDetectorRef,ContentChildren,QueryList,Inject,forwardRef,OnInit,Renderer2,ViewChild} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,AfterContentInit,ElementRef,ContentChild,IterableDiffers,ChangeDetectorRef,ContentChildren,QueryList,Inject,forwardRef,OnInit,Renderer2,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/treenode';
 import {Header,Footer,Column} from '../common/shared';
@@ -10,14 +10,14 @@ import {DomHandler} from '../dom/domhandler';
     selector: '[pTreeRow]',
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
-            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
-                <a href="#" *ngIf="i==toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-c" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
+            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
+                <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
                     [title]="node.expanded ? labelCollapse : labelExpand">
                 </a>
                 <div class="ui-chkbox ui-treetable-checkbox" *ngIf="treeTable.selectionMode == 'checkbox' && i==0"><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default">
-                    <span class="ui-chkbox-icon ui-c fa" 
+                    <span class="ui-chkbox-icon ui-clickable fa" 
                         [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
                 ><span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
                 <p-columnBodyTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnBodyTemplateLoader>
@@ -25,7 +25,7 @@ import {DomHandler} from '../dom/domhandler';
         </div>
         <div *ngIf="node.children && node.expanded" class="ui-treetable-row" style="display:table-row">
             <td [attr.colspan]="treeTable.columns.length" class="ui-treetable-child-table-container">
-                <table>
+                <table [class]="treeTable.tableStyleClass" [ngStyle]="treeTable.tableStyle">
                     <tbody pTreeRow *ngFor="let childNode of node.children" [node]="childNode" [level]="level+1" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [parentNode]="node"></tbody>
                 </table>
             </td>
@@ -43,8 +43,6 @@ export class UITreeRow implements OnInit {
     @Input() labelExpand: string = "Expand";
     
     @Input() labelCollapse: string = "Collapse";
-
-    @Input() toggleColumnIndex: number;
                 
     constructor(@Inject(forwardRef(() => TreeTable)) public treeTable:TreeTable) {}
     
@@ -79,6 +77,10 @@ export class UITreeRow implements OnInit {
         this.treeTable.onRowRightClick(event, this.node);
     }
     
+    rowDblClick(event: MouseEvent) {
+      this.treeTable.onRowDblclick.emit({originalEvent: event, node: this.node});
+    }
+
     onRowTouchEnd() {
         this.treeTable.onRowTouchEnd();
     }
@@ -106,17 +108,16 @@ export class UITreeRow implements OnInit {
 @Component({
     selector: 'p-treeTable',
     template: `
-        <div [ngClass]="{'ui-treetable ui-widget': true, 'ui-treetable-resizable':resizableColumns}" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'ui-treetable ui-widget'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-treetable-header ui-widget-header" *ngIf="header">
                 <ng-content select="p-header"></ng-content>
             </div>
             <div class="ui-treetable-tablewrapper">
-                <table #tbl class="ui-widget-content">
+                <table #tbl class="ui-widget-content" [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead>
                         <tr class="ui-state-default">
                             <th #headerCell *ngFor="let col of columns; let lastCol=last "  [ngStyle]="col.style" [class]="col.styleClass" 
-                                [ngClass]="{'ui-state-default ui-unselectable-text': true, 'ui-resizable-column': resizableColumns}">
-                                <span class="ui-column-resizer" *ngIf="resizableColumns && ((columnResizeMode == 'fit' && !lastCol) || columnResizeMode == 'expand')" (mousedown)="initColumnResize($event)"></span>
+                                [ngClass]="'ui-state-default ui-unselectable-text'">
                                 <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>
                                 <span class="ui-column-title" *ngIf="col.headerTemplate">
                                     <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
@@ -134,11 +135,10 @@ export class UITreeRow implements OnInit {
                             </td>
                         </tr>
                     </tfoot>
-                    <tbody pTreeRow *ngFor="let node of value" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [toggleColumnIndex]="toggleColumnIndex"></tbody>
+                    <tbody pTreeRow *ngFor="let node of value" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
                 </table>
             </div>
             
-            <div class="ui-column-resizer-helper ui-state-highlight" style="display:none"></div>
             <div class="ui-treetable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
@@ -146,7 +146,7 @@ export class UITreeRow implements OnInit {
     `,
     providers: [DomHandler]
 })
-export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy {
+export class TreeTable implements AfterContentInit {
 
     @Input() value: TreeNode[];
         
@@ -167,10 +167,16 @@ export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy 
     @Input() contextMenu: any;
 
     @Input() toggleColumnIndex: number = 0;
+
+    @Input() tableStyle: any;
+
+    @Input() tableStyleClass: string;
     
-    @Input() resizableColumns: boolean;
+    @Input() collapsedIcon: string = "fa-caret-right";
     
-    @Input() columnResizeMode: string = 'fit';
+    @Input() expandedIcon: string = "fa-caret-down";
+        
+    @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();    
     
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     
@@ -183,9 +189,7 @@ export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy 
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
     
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
-    
-    @Output() onColResize: EventEmitter<any> = new EventEmitter();
-    
+        
     @ContentChild(Header) header: Header;
 
     @ContentChild(Footer) footer: Footer;
@@ -195,37 +199,13 @@ export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy 
     @ViewChild('tbl') tableViewChild: ElementRef;
     
     public rowTouched: boolean;
-    
-    public resizeColumn: any;
-    
-    public columnResizing: boolean;
-    
-    public lastResizerHelperX: number;
-    
-    public columnsChanged: boolean = false;
-    
+        
     public columns: Column[];
-    
-    public resizerHelper: any;
-    
+        
     columnsSubscription: Subscription;
     
-    public documentColumnResizeListener: Function;
-    
-    public documentColumnResizeEndListener: Function;
-    
     constructor (public el: ElementRef, public domHandler: DomHandler,public changeDetector: ChangeDetectorRef,public renderer: Renderer2) {}
-    
-    ngAfterViewChecked() {
-        if(this.columnsChanged && this.el.nativeElement.offsetParent) {
-            if(this.resizableColumns) {
-                this.initResizableColumns();
-            }
 
-            this.columnsChanged = false;
-        }
-    }
-    
     ngAfterContentInit() {
         this.initColumns();
         
@@ -237,83 +217,6 @@ export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy 
     
     initColumns(): void {
         this.columns = this.cols.toArray();
-        this.columnsChanged = true;
-    }
-    
-    initResizableColumns() {
-        this.resizerHelper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
-        this.fixColumnWidths();
-        
-        this.documentColumnResizeListener = this.renderer.listen('document', 'mousemove', (event) => {
-            if(this.columnResizing) {
-                this.onColumnResize(event);
-            }
-        });
-        
-        this.documentColumnResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
-            if(this.columnResizing) {
-                this.columnResizing = false;
-                this.onColumnResizeEnd(event);
-            }
-        });
-    }
-    
-    fixColumnWidths() {
-        let columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
-        let bodyCols;
-        
-        for(let i = 0; i < columns.length; i++) {
-            columns[i].style.width = columns[i].offsetWidth + 'px';
-        }
-    }
-    
-    onColumnResize(event) {
-        let container = this.el.nativeElement.children[0];
-        let containerLeft = this.domHandler.getOffset(container).left;
-        this.domHandler.addClass(container, 'ui-unselectable-text');
-        this.resizerHelper.style.height = container.offsetHeight + 'px';
-        this.resizerHelper.style.top = 0 + 'px';
-        if(event.pageX > containerLeft && event.pageX < (containerLeft + container.offsetWidth)) {
-            this.resizerHelper.style.left = (event.pageX - containerLeft) + 'px';
-        }
-        
-        this.resizerHelper.style.display = 'block';
-    }
-    
-    onColumnResizeEnd(event) {
-        let delta = this.resizerHelper.offsetLeft - this.lastResizerHelperX;
-        let columnWidth = this.resizeColumn.offsetWidth;
-        let newColumnWidth = columnWidth + delta;
-        let minWidth = this.resizeColumn.style.minWidth||15;
-
-        if(columnWidth + delta > parseInt(minWidth)) {
-            if(this.columnResizeMode === 'fit') {
-                let nextColumn = this.resizeColumn.nextElementSibling;
-                let nextColumnWidth = nextColumn.offsetWidth - delta;
-                
-                if(newColumnWidth > 15 && nextColumnWidth > 15) {
-                    this.resizeColumn.style.width = newColumnWidth + 'px';
-                    if(nextColumn) {
-                        nextColumn.style.width = nextColumnWidth + 'px';
-                    }
-                }
-            }
-            else if(this.columnResizeMode === 'expand') {
-                this.tableViewChild.nativeElement.parentElement.style.width = this.tableViewChild.nativeElement.parentElement.offsetWidth + delta + 'px';
-                this.resizeColumn.style.width = newColumnWidth + 'px';
-                let containerWidth = this.tableViewChild.nativeElement.parentElement.style.width;
-                this.el.nativeElement.children[0].style.width = containerWidth;
-            }    
-            
-            this.onColResize.emit({
-                element: this.resizeColumn,
-                delta: delta
-            });
-        }
-                
-        this.resizerHelper.style.display = 'none';
-        this.resizeColumn = null;
-        this.domHandler.removeClass(this.el.nativeElement.children[0], 'ui-unselectable-text');
     }
         
     onRowClick(event: MouseEvent, node: TreeNode) {
@@ -432,14 +335,6 @@ export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy 
         }
     }
     
-    initColumnResize(event) {
-        let container = this.el.nativeElement.children[0];
-        let containerLeft = this.domHandler.getOffset(container).left;
-        this.resizeColumn = event.target.parentElement;
-        this.columnResizing = true;
-        this.lastResizerHelperX = (event.pageX - containerLeft);
-    }
-    
     findIndexInSelection(node: TreeNode) {
         let index: number = -1;
 
@@ -543,13 +438,6 @@ export class TreeTable implements AfterViewChecked, AfterContentInit, OnDestroy 
             }
         }
         return false;
-    }
-    
-    ngOnDestroy() {
-        if(this.resizableColumns && this.documentColumnResizeListener && this.documentColumnResizeEndListener) {
-            this.documentColumnResizeListener();
-            this.documentColumnResizeEndListener();
-        }
     }
 }
 

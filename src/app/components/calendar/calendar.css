@@ -8,7 +8,6 @@
     height: 100%;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    position: absolute;
     width: 2em;
     border-left: 0 none;
 }
@@ -82,6 +81,7 @@
 .ui-datepicker .ui-datepicker-title select {
 	font-size: 1em;
 	margin: .125em 0;
+    vertical-align: middle;
 }
 .ui-datepicker select.ui-datepicker-month {
     width: 55%;

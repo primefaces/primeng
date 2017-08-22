@@ -22,7 +22,7 @@
     </p-dataTable>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -178,6 +178,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Defines placeholder of the input fields.</td>
                         </tr>
                         <tr>
+                            <td>filterMaxlength</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Specifies the maximum number of characters allowed in the filter element.</td>
+                        </tr>
+                        <tr>
                             <td>rowspan</td>
                             <td>string</td>
                             <td>null</td>
@@ -281,10 +287,15 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <h3>Managing Data</h3>
-            <p>DataTable uses setter based checking to realize if the underlying data has changed to update the UI so your data changes such as adding or removing a record 
-                should always create a new array reference instead of manipulating an existing array. For example, use slice instead of splice when removing an item 
-                or use spread operator instead of push method when adding an item.</p>
+            <h3>Change Detection</h3>
+            <p>DataTable either uses setter based checking or ngDoCheck to realize if the underlying data has changed to update the UI. This is configured using the immutable
+                property, when enabled (default) setter based detection is utilized so your data changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change. 
+                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
+                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
+                both methods can be used depending on your preference. Note that immutable property also defines how DataTable treats the data, for example
+                when immutable is enabled sorting does not mutate the original data but creates a new array of sorted data.
+            </p>
 
             <h3>Templates</h3>
             <p>Field data of a corresponding row is displayed as the cell content by default, this can be customized using templating where the implicit variable passed to the ng-template 
@@ -610,10 +621,7 @@ mysort(event) &#123;
 
             <h3>Selection</h3>
             <p>DataTable provides single and multiple selection modes on click of a row. Selected rows are bound to the selection property and onRowSelect-onRowUnselect events
-            are provided as optional callbacks. Alternatively column based selection can be done using radio buttons or checkboxes using selectionMode of a particular column.
-            When resolving if a row is selected, by default DataTable uses deepEquals which traverses all properties of the object thus affects performance as a result so it is suggested to define a dataKey property
-            that uniquely identifies a record to avoid deep object comparison and increase performance. Another alternative is to compare rows by reference using compareSelectionBy property as "equals". See compareSelectionBy
-            in properties section for more information. Depending on your case you may use "equals" and "deepEquals" alternatives.</p>
+            are provided as optional callbacks. Alternatively column based selection can be done using radio buttons or checkboxes using selectionMode of a particular column.</p>
             
             <p>In single mode, selection binding is an object reference.</p>
 <pre>
@@ -646,7 +654,7 @@ export class DataTableDemo implements OnInit &#123;
 
         <p>In multiple mode, selection binding should be an array and multiple items can either be selected
         using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
-        devices metaKeySelection is turned off automatically.</p>
+        devices metaKeySelection is turned off automatically. Additionally ShiftKey is supported for range selection.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class DataTableDemo implements OnInit &#123;
@@ -688,6 +696,11 @@ export class DataTableDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
+
+            <p>When resolving if a row is selected, by default DataTable compares selection array with the datasource which may cause a performance issue with huge datasets that do not use pagination.
+                If available the fastest way is to use dataKey property that identifies a unique row so that DataTable can avoid comparing arrays as internally a map instance is used instead of looping arrays, on the other hand
+                if dataKey cannot be provided consider using compareSelectionBy property as "equals" which uses reference comparison instead of the default "deepEquals" comparison. Latter is slower since it checks all properties.
+                </p>
 
             <p>See the <a [routerLink]="['/datatable/selection']">live example.</a></p>
 
@@ -765,7 +778,7 @@ export class DataTableDemo implements OnInit &#123;
         &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px"&gt;
             &lt;div class="ui-grid-row"&gt;
                 &lt;div class="ui-grid-col-3" style="text-align:center"&gt;
-                    &lt;img src="assets/showcase/images/demo/car/{{car.brand}}-big.gif"&gt;
+                    &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png"&gt;
                 &lt;/div&gt;
                 &lt;div class="ui-grid-col-9"&gt;
                     &lt;div class="ui-grid ui-grid-responsive ui-grid-pad"&gt;
@@ -894,6 +907,19 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>    
 
+            <p>Certain rows can be fixed at the top so that they get frozen and not included in the scrollable data. In order
+            to implement this functionality, define these rows using frozenValue property.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars" [frozenValue]="frozenCars" [scrollable]="true" scrollHeight="200px"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+
             <p>Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
 
             <p>See the <a [routerLink]="['/datatable/scroll']">live example.</a></p>
@@ -961,9 +987,10 @@ loadData(event: LazyLoadEvent) &#123;
                 
             <h3>Loading Status</h3>
             <p>DataTable has a loading property, when enabled a spinner icon is displayed to indicate data load.</p>
+            <p>An optional loadingIcon property can be passed in case you'd like a different loading icon.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataTable [value]="cars" [loading]="loading"&gt;
+&lt;p-dataTable [value]="cars" [loading]="loading" loadingIcon="fa-spinner"&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
@@ -1081,8 +1108,14 @@ export class DataTableDemo implements OnInit &#123;
                         <tr>
                             <td>sortOrder</td>
                             <td>number</td>
-                            <td>null</td>
-                            <td>Order to sort the data by default.</td>
+                            <td>1</td>
+                            <td>Order to sort when default sorting is enabled.</td>
+                        </tr>
+                        <tr>
+                            <td>defaultSortOrder</td>
+                            <td>number</td>
+                            <td>1</td>
+                            <td>Sort order to use when an unsorted column gets sorted by user interaction.</td>
                         </tr>
                         <tr>
                             <td>multiSortMeta</td>
@@ -1103,7 +1136,7 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Name of the field to group by in subheader row grouping mode.</td>
                         </tr>
                         <tr>
-                            <td>sortableGroupRow</td>
+                            <td>sortableRowGroup</td>
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to sort the data if the row group subheader is clicked.</td>
@@ -1216,21 +1249,27 @@ export class DataTableDemo implements OnInit &#123;
                         </tr>
                         <tr>
                             <td>scrollHeight</td>
-                            <td>number/string</td>
+                            <td>string</td>
                             <td>null</td>
-                            <td>Height of the scroll viewport, can be pixel as a number or a percentage.</td>
+                            <td>Height of the scroll viewport.</td>
                         </tr>
                         <tr>
                             <td>scrollWidth</td>
-                            <td>number/string</td>
+                            <td>string</td>
                             <td>null</td>
-                            <td>Width of the scroll viewport, can be pixel as a number or a percentage.</td>
+                            <td>Width of the scroll viewport.</td>
                         </tr>
                         <tr>
                             <td>virtualScroll</td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether the data should be loaded on demand during scroll.</td>
+                        </tr>
+                        <tr>
+                            <td>frozenValue</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>A collection to display as frozen in a scrollable table.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -1278,7 +1317,13 @@ export class DataTableDemo implements OnInit &#123;
                             <td>rowStyleClass</td>
                             <td>function</td>
                             <td>null</td>
-                            <td>Function that gets the row data and row index as parameters and returns a style class for the row.</td>
+                            <td>Function that gets the row data and row index as parameters and returns a style class for the row. This is an alternative to the rowStyleMap approach.</td>
+                        </tr>
+                        <tr>
+                            <td>rowStyleMap</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>An object whose keys are dataKeys of a row and values are the corresponding style class of that row. This is an alternative to the rowStyleClass approach.</td>
                         </tr>
                         <tr>
                             <td>rowHover</td>
@@ -1312,6 +1357,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Displays a loader to indicate data load is in progress.</td>
                         </tr>
                         <tr>
+                            <td>loadingIcon</td>
+                            <td>string</td>
+                            <td>fa-circle-o-notch</td>
+                            <td>The icon to show while indicating data load is in progress.</td>
+                        </tr>
+                        <tr>
                             <td>rowTrackBy</td>
                             <td>Function</td>
                             <td>null</td>
@@ -1322,6 +1373,18 @@ export class DataTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>deepEquals</td>
                             <td>Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.</td>
+                        </tr>
+                        <tr>
+                            <td>first</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Index of the first row to be displayed. It supports two-way binding so that model value can be updated on pagination as well.</td>
+                        </tr>
+                        <tr>
+                            <td>immutable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how the data should be manipulated.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1470,6 +1533,11 @@ export class DataTableDemo implements OnInit &#123;
                                 group: Value of the group.</td>
                             <td>Callback to invoke when a row group is collapsed.</td>
                         </tr>
+                        <tr>
+                            <td>onValueChange</td>
+                            <td>value: New value.</td>
+                            <td>Callback to invoke when value of table is updated.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1592,11 +1660,11 @@ update(dt: DataTable) &#123;
                             <td>Container of header in a scrollable table.</td>
                         </tr>
                         <tr>
-                            <td>ui-datatable-scrollable-header</td>
+                            <td>ui-datatable-scrollable-body</td>
                             <td>Container of body in a scrollable table.</td>
                         </tr>
                         <tr>
-                            <td>ui-datatable-scrollable-header</td>
+                            <td>ui-datatable-scrollable-footer</td>
                             <td>Container of footer in a scrollable table.</td>
                         </tr>
                         <tr>
@@ -1616,6 +1684,10 @@ update(dt: DataTable) &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;

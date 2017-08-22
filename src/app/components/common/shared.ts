@@ -28,13 +28,7 @@ export class PrimeTemplate {
     constructor(public template: TemplateRef<any>) {}
     
     getType(): string {
-        if(this.type) {
-            console.log('Defining a pTemplate with type property is deprecated use pTemplate="type" instead.');
-            return this.type;
-        }
-        else {
-            return this.name;
-        }
+        return this.name;
     }
 }
 
@@ -71,6 +65,7 @@ export class TemplateWrapper implements OnInit, OnDestroy {
 })
 export class Column implements AfterContentInit{
     @Input() field: string;
+    @Input() colId: string;
     @Input() sortField: string;
     @Input() header: string;
     @Input() footer: string;
@@ -87,6 +82,7 @@ export class Column implements AfterContentInit{
     @Input() expander: boolean;
     @Input() selectionMode: string;
     @Input() filterPlaceholder: string;
+    @Input() filterMaxlength: number;
     @Input() frozen: boolean;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;

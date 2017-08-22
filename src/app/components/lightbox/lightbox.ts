@@ -14,11 +14,12 @@ import {DomHandler} from '../dom/domhandler';
             <ng-content select="a"></ng-content>
         </span>
         <div class="ui-lightbox ui-widget ui-helper-hidden ui-corner-all ui-shadow" [style.display]="visible ? 'block' : 'none'" [style.zIndex]="zindex"
+            [ngClass]="{'ui-lightbox-loading': loading}"
             [style.transitionProperty]="'all'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing" (click)="preventDocumentClickListener=true">
            <div class="ui-lightbox-content-wrapper">
               <a class="ui-state-default ui-lightbox-nav-left ui-corner-right" [style.zIndex]="zindex + 1" (click)="prev(img)"
                 [ngClass]="{'ui-helper-hidden':!leftVisible}"><span class="fa fa-fw fa-caret-left"></span></a>
-              <div #content class="ui-lightbox-content ui-corner-all" #content [ngClass]="{'ui-lightbox-loading': loading}" 
+              <div #content class="ui-lightbox-content ui-corner-all" #content 
                 [style.transitionProperty]="'width,height'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing">
                 <img #img [src]="currentImage ? currentImage.source||'' : ''" (load)="onImageLoad($event,content)" style="display:none">
                 <ng-content></ng-content>
@@ -34,7 +35,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class Lightbox implements AfterViewInit,OnDestroy{ 
+export class Lightbox implements AfterViewInit,OnDestroy {
 
     @Input() images: any[];
     
@@ -112,6 +113,7 @@ export class Lightbox implements AfterViewInit,OnDestroy{
         setTimeout(() => {
             this.currentImage = image;
             this.captionText = image.title;
+            this.center();
         }, 1000);
     }
     

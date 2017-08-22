@@ -25,7 +25,7 @@
 
     <h3>Multiple</h3>
     <p>In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices
-    metakey is required.</p>
+    metakey or shiftkey are required.</p>
     <p-dataTable [value]="cars" selectionMode="multiple" [(selection)]="selectedCars1" dataKey="vin">
         <p-header>Multiple Selection</p-header>
         <p-column field="vin" header="Vin"></p-column>
@@ -100,9 +100,13 @@
     </p-dataTable>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="datatableselectiondemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatableselectiondemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class DataTableSelectionDemo implements OnInit &#123;
@@ -144,6 +148,10 @@ export class DataTableSelectionDemo implements OnInit &#123;
         </p-tabPanel>
 
         <p-tabPanel header="datatableselectiondemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatableselectiondemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;

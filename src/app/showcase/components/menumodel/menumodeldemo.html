@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <h3 class="first">MenuItem</h3>
     <p>Core of the api is MenuItem class that defines various options such as the label, icon and children of an item in a menu. Example below
     is a sample configuration with Menu component.</p>
@@ -48,7 +48,7 @@ export class MenuDemo &#123;
 </code>
 </pre>
 
-    <p>MenuItem provides the following properties.</p>
+    <p>MenuItem provides the following properties. Note that not all of them may be utilized by the menu component.</p>
     <div class="doc-tablewrapper">
         <table class="doc-table">
             <thead>
@@ -131,6 +131,30 @@ export class MenuDemo &#123;
                     <td>boolean</td>
                     <td>false</td>
                     <td>Defines the item as a separator.</td>
+                </tr>
+                <tr>
+                    <td>style</td>
+                    <td>object</td>
+                    <td>null</td>
+                    <td>Inline style of the menuitem.</td>
+                </tr>
+                <tr>
+                    <td>styleClass</td>
+                    <td>string</td>
+                    <td>null</td>
+                    <td>Style class of the menuitem.</td>
+                </tr>
+                <tr>
+                    <td>badge</td>
+                    <td>string</td>
+                    <td>null</td>
+                    <td>Value of the badge.</td>
+                </tr>
+                <tr>
+                    <td>badgeStyleClass</td>
+                    <td>string</td>
+                    <td>null</td>
+                    <td>Style class of the badge.</td>
                 </tr>
             </tbody>
         </table>

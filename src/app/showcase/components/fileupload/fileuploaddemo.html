@@ -10,7 +10,7 @@
     <p-growl [value]="msgs"></p-growl>
         
     <h3 class="first">Advanced</h3>
-    <p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" 
+    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" 
             multiple="multiple" accept="image/*" maxFileSize="1000000"> 
             <ng-template pTemplate="content">
                 <ul *ngIf="uploadedFiles.length">
@@ -20,16 +20,13 @@
     </p-fileUpload>
     
     <h3>Basic</h3>
-    <p-fileUpload mode="basic" name="demo[]" url="http://localhost:3000/upload" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
-    <br /><br />
-    <button type="button" pButton (click)="fub.upload()" class="ui-button-success" label="Upload"></button>
+    <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
     
     <h3>Basic with Auto</h3>
-    <p-fileUpload #fubauto mode="basic" name="demo[]" url="http://localhost:3000/upload" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" auto="true"></p-fileUpload>
-    
+    <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" auto="true" chooseLabel="Browse"></p-fileUpload>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -43,7 +40,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <p>FileUpload requires a url property as the upload target and a name to identify the files at backend.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload name="myfile[]" url="./upload.php"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
 
@@ -51,7 +48,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <p>Only one file can be selected at a time, to allow selecting multiples enable multiple option.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
 
@@ -62,7 +59,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <p>When auto property is enabled, upload begins as soon as file selection is completed or a file is dropped on the drop area.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
+&lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
         accept="image/*" auto="auto"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
@@ -72,7 +69,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             Read more about other possible values <a href="http://www.w3schools.com/tags/att_input_accept.asp">here</a>.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
+&lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
         accept="image/*"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
@@ -81,7 +78,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <p>Maximium file size can be restricted using maxFileSize property defined in bytes.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
+&lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
@@ -99,7 +96,7 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
                 Third and final ng-template option is "toolbar" to display custom content at toolbar.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple"
+&lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
         accept="image/*" maxFileSize="1000000"&gt;
         &lt;ng-template pTemplate="toolbar"&gt;
             &lt;div&gt;Upload 3 Files&lt;/div&gt;
@@ -122,19 +119,9 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
             <p>FileUpload basic mode provides a simpler UI as an alternative to advanced mode.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload mode="basic" name="demo[]" url="http://localhost:3000/upload" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" auto="true"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" auto="true"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
-
-            <p>FileUpload above instantly uploads the file after selecting it because of the auto mode, in case you'd like to upload manually define a local template variable to access the component
-            and call upload() method.</p>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload #fub mode="basic" name="demo[]" url="http://localhost:3000/upload" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"&gt;&lt;/p-fileUpload&gt;
-&lt;button type="button" pButton (click)="fub.upload()" class="ui-button-success" label="Upload"&gt;&lt;/button&gt;
-</code>
-</pre>
-
             <h3>Custom Upload</h3>
             <p>Uploading implementation can be overriden by enabling customMode property and defining a custom upload handler event.</p>
 <pre>
@@ -145,9 +132,9 @@ import &#123;FileUploadModule&#125; from 'primeng/primeng';
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-myUploader(event) {
+myUploader(event) &#123;
     //event.files == files to upload
-}
+&#125;
 </code>
 </pre>
             
@@ -289,6 +276,24 @@ myUploader(event) {
                             <td>false</td>
                             <td>Whether to use the default upload or a manual implementation defined in uploadHandler callback.</td>
                         </tr>
+                      <tr>
+                            <td>showUploadButton</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines the visibility of upload button for Client-side FileUpload.</td>
+                        </tr>
+                        <tr>
+                            <td>showCancelButton</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines the visibility of cancel button for Client-side FileUpload.</td>
+                        </tr>
+                        <tr>
+                            <td>files</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>List of files to be provide to the FileUpload externally.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -345,6 +350,12 @@ myUploader(event) {
                             <td>onSelect</td>
                             <td>event.originalEvent: Original browser event. <br />
                                 event.files: List of selected files.</td>
+                            <td>Callback to invoke when files are selected.</td>
+                        </tr>
+                        <tr>
+                            <td>onProgress</td>
+                            <td>event.originalEvent: Original browser event. <br />
+                                event.progress: Calculated progress value.</td>
                             <td>Callback to invoke when files are selected.</td>
                         </tr>
                         <tr>
@@ -413,12 +424,16 @@ myUploader(event) {
         </p-tabPanel>
 
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fileupload" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
     
 &lt;h3 class="first"&gt;Advanced&lt;/h3&gt;
-&lt;p-fileUpload name="demo[]" url="http://localhost:3000/upload" (onUpload)="onUpload($event)" 
+&lt;p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" 
         multiple="multiple" accept="image/*" maxFileSize="1000000"&gt;
     &lt;ng-template pTemplate type="content"&gt;
         &lt;ul *ngIf="uploadedFiles.length"&gt;
@@ -428,11 +443,10 @@ myUploader(event) {
 &lt;/p-fileUpload&gt;
 
 &lt;h3&gt;Basic&lt;/h3&gt;
-&lt;p-fileUpload mode="basic" name="demo[]" url="http://localhost:3000/upload" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"&gt;&lt;/p-fileUpload&gt;
-&lt;button type="button" pButton (click)="fub.upload()" class="ui-button-success" label="Upload"&gt;&lt;/button&gt;
+&lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"&gt;&lt;/p-fileUpload&gt;
 
 &lt;h3&gt;Basic with Auto&lt;/h3&gt;
-&lt;p-fileUpload #fubauto mode="basic" name="demo[]" url="http://localhost:3000/upload" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" auto="true"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" auto="true" chooseLabel="Browse"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
 

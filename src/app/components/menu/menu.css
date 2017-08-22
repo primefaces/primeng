@@ -132,6 +132,11 @@
     width: 100%;
 }
 
+.ui-menubar .ui-menuitem.ui-menuitem-custom {
+    float: right;
+    margin-top: 0.25em;
+}
+
 .ui-menubar .ui-menubar-options {
     float: right;
 }
@@ -230,6 +235,7 @@
 .ui-panelmenu .ui-panelmenu-header a {
     display: block;
     padding: .25em .5em;
+    text-decoration: none;
 }
 
 .ui-panelmenu span {

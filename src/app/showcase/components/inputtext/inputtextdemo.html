@@ -7,15 +7,16 @@
 
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
-    <input id="in" type="text" size="30" pInputText [(ngModel)]="text"> {{text}}
+    <input id="input" type="text" size="30" pInputText [(ngModel)]="text"> 
+    <span id="text">{{text}}</span>
 
     <h3>Disabled</h3>
-    <input id="in" type="text" size="30" pInputText [disabled]="disabled" />
+    <input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" />
 
-    <button type="button" (click)="toggleDisabled()" pButton label="Toggle"></button>
+    <button id="disabled-btn" type="button" (click)="toggleDisabled()" pButton label="Toggle"></button>
 </div>
 
-<div class="content-section source">
+<div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>Import</h3>
@@ -39,6 +40,26 @@ import &#123;InputTextModule&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;input type="text" pInputText [(ngModel)]="property"/&gt;
+</code>
+</pre>
+
+            <h3>Addons</h3>
+            <p>Text, icon, buttons and other content can be grouped next to an input by wrapping the addons and input inside
+                .ui-inputgroup element. Multiple addons can be used within the same group as well.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-inputgroup"&gt;
+    &lt;span class="ui-inputgroup-addon"&gt;&lt;i class="fa fa-user"&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;input type="text" pInputText placeholder="Username"&gt;         
+&lt;/div&gt;
+
+&lt;div class="ui-inputgroup"&gt;
+    &lt;span class="ui-inputgroup-addon"&gt;&lt;i class="fa fa-credit-card"&gt;&lt;/i&gt;&lt;/span&gt;  
+    &lt;span class="ui-inputgroup-addon"&gt;&lt;i class="fa fa-cc-visa"&gt;&lt;/i&gt;&lt;/span&gt;   
+    &lt;input type="text" pInputText placeholder="Price"&gt; 
+    &lt;span class="ui-inputgroup-addon"&gt;$&lt;/span&gt;  
+    &lt;span class="ui-inputgroup-addon"&gt;.00&lt;/span&gt;      
+&lt;/div&gt;
 </code>
 </pre>
 
@@ -87,15 +108,20 @@ import &#123;InputTextModule&#125; from 'primeng/primeng';
             <p>None.</p>
         </p-tabPanel>
         <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/inputtext" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;input id="in" type="text" size="30" pInputText [(ngModel)]="text"&gt;  {{text}}
+&lt;input id="input" type="text" size="30" pInputText [(ngModel)]="text"&gt; 
+&lt;span id="text"&gt;&#123;text&#125;&#125;&lt;/span&gt;
 
 &lt;h3&gt;Disabled&lt;/h3&gt;
-&lt;input id="in" type="text" size="30" pInputText [disabled]="disabled" /&gt;
+&lt;input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" /&gt;
 
-&lt;button type="button" (click)="toggleDisabled()" pButton label="Toggle"&gt;&lt;/button&gt;
+&lt;button id="disabled-btn" type="button" (click)="toggleDisabled()" pButton label="Toggle"&gt;&lt;/button&gt;
 </code>
 </pre>
 
