@@ -153,13 +153,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
-        
-        this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-            if (this.visible && event.button !== 2) {
-                this.hide();
-            }
-        });
-        
+                
         if(this.global) {
             this.rightClickListener = this.renderer.listen('document', 'contextmenu', (event) => {
                 this.show(event);
@@ -186,6 +180,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         this.position(event);
         this.visible = true;
         this.domHandler.fadeIn(this.container, 250);
+        this.bindDocumentClickListener();
         
         if(event) {
             event.preventDefault();
@@ -194,6 +189,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     hide() {
         this.visible = false;
+        this.unbindDocumentClickListener();
     }
     
     toggle(event?: MouseEvent) {
@@ -235,11 +231,26 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
             this.container.style.top = top + 'px';
         }
     }
-        
-    ngOnDestroy() {
+    
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+                if (this.visible && event.button !== 2) {
+                    this.hide();
+                }
+            });
+        }
+    }
+    
+    unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
+            this.documentClickListener = null;
         }
+    }
+        
+    ngOnDestroy() {
+        this.unbindDocumentClickListener();
         
         if(this.rightClickListener) {
             this.rightClickListener();
