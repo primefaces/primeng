@@ -1,9 +1,10 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild,ChangeDetectorRef,QueryList,TemplateRef,ContentChildren} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {SharedModule,PrimeTemplate} from "../common/shared";
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -46,7 +47,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
-                        <li *ngFor="let option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
+                        <li *ngFor="let option of options; let i = index;" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
                             [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':isSelected(option.value)}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
@@ -56,7 +57,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                                     <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
-                            <label>{{option.label}}</label>
+                            <span *ngIf="!itemTemplate">{{option.label}}</span>
+                             <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option" [index]="i"></ng-template>
                         </li>
                     </ul>
                 </div>
@@ -104,6 +106,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('panel') panelViewChild: ElementRef;
+	
+	@ContentChildren(PrimeTemplate) templates: QueryList<any>;
+	 
+    public itemTemplate: TemplateRef<any>;
     
     public value: any[];
     
@@ -159,6 +165,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
             this.show();
         }
     }
+	
+	ngAfterContentInit() {
+    this.templates.forEach((item) => {
+      switch(item.getType()) {
+        case 'item':
+          this.itemTemplate = item.template;
+          break;
+
+        default:
+          this.itemTemplate = item.template;
+          break;
+      }
+    });
+  }
     
     ngAfterViewChecked() {
         if(this.filtered) {
@@ -417,8 +437,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [MultiSelect],
+    imports: [CommonModule,SharedModule],
+    exports: [MultiSelect,SharedModule],
     declarations: [MultiSelect]
 })
 export class MultiSelectModule { }
+
