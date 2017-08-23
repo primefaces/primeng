@@ -34,16 +34,16 @@ export class MenuItemContent {
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
             <ul class="ui-menu-list ui-helper-reset">
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="ui-menu-separator ui-widget-content" *ngIf="submenu.separator">
-                    <li class="ui-widget-header ui-corner-all" *ngIf="!submenu.separator"><h3>{{submenu.label}}</h3></li>
+                    <li class="ui-menu-separator ui-widget-content" *ngIf="submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}"></li>
+                    <li class="ui-widget-header ui-corner-all" *ngIf="!submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}"><h3>{{submenu.label}}</h3></li>
                     <ng-template ngFor let-item [ngForOf]="submenu.items">
-                        <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator">
-                        <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item"></li>
+                        <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator" [ngClass]="{'ui-helper-hidden': (item.visible === false || submenu.visible === false)}"></li>
+                        <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'ui-helper-hidden': (item.visible === false || submenu.visible === false)}"></li>
                     </ng-template>
                 </ng-template>
                 <ng-template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator">
-                    <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item"></li>
+                    <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator" [ngClass]="{'ui-helper-hidden': item.visible === false}"></li>
+                    <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'ui-helper-hidden': item.visible === false}"></li>
                 </ng-template>
             </ul>
         </div>
