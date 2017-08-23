@@ -44,8 +44,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <li *ngIf="noResults && emptyMessage" class="ui-autocomplete-list-item ui-corner-all">{{emptyMessage}}</li>
                 </ul>
             </div>
-            <div [style.display]="loadingIndicatorVisible ? 'block' : 'none'">
-              Loading...
+            <div [style.display]="loadingIndicatorVisible ? 'block' : 'none'" class="ui-autocomplete-loading-panel">
+              <span class="ui-autocomplete-loading-label">
+                Loading
+              </span>
             </div>
         </span>
     `,
