@@ -1,6 +1,8 @@
-import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
+import {MessageService} from '../common/messageservice';
+import {Subscription}   from 'rxjs/Subscription';
 
 @Component({
     selector: 'p-messages',
@@ -30,6 +32,19 @@ export class Messages {
     @Input() closable: boolean = true;
     
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
+    
+    subscription: Subscription;
+
+    constructor(@Optional() public messageService: MessageService) {
+        if(messageService) {
+            this.subscription = messageService.messageObserver.subscribe(messages => {
+                if(messages instanceof Array)
+                    this.value = messages;
+                else
+                    this.value = [messages];
+            });
+        }
+    }
 
     hasMessages() {
         return this.value && this.value.length > 0;
