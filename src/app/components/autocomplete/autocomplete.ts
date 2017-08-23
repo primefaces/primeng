@@ -18,7 +18,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     template: `
         <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" [attr.required]="required"
-            [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="value ? (field ? objectUtils.resolveFieldData(value,field)||'' : value) : null" 
+            [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="inputFieldValue"
             (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
             [attr.placeholder]="placeholder" [attr.size]="size" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [readonly]="readonly" [disabled]="disabled"
             ><ul *ngIf="multiple" #multiContainer class="ui-autocomplete-multiple-container ui-widget ui-inputtext ui-state-default ui-corner-all" [ngClass]="{'ui-state-disabled':disabled,'ui-state-focus':focus}" (click)="multiIn.focus()">
@@ -163,6 +163,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     noResults: boolean;
     
     differ: any;
+    
+    inputFieldValue: string = null;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -263,6 +265,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     writeValue(value: any) : void {
         this.value = value;
         this.filled = this.value && this.value != '';
+        this.updateInputField();
     }
     
     registerOnChange(fn: Function): void {
@@ -521,6 +524,17 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
             this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
         else
             this.filled = this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '';
+    }
+    
+    updateInputField() {
+        let formattedValue = this.value ? (this.field ? this.objectUtils.resolveFieldData(this.value, this.field)||'' : this.value) : '';
+        this.inputFieldValue = formattedValue;
+        
+        if(this.inputEL && this.inputEL.nativeElement) {
+            this.inputEL.nativeElement.value = formattedValue;
+        }
+        
+        this.updateFilledState();
     }
     
     bindDocumentClickListener() {
