@@ -23,5 +23,5 @@
 }
  
 .ui-radiobutton, .ui-radiobutton-label {
-    display: inline-block;
+    vertical-align: middle;
 }
