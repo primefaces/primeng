@@ -1,16 +1,16 @@
 import {Component} from '@angular/core';
+import {TerminalService} from '../../../components/terminal/terminalservice';
 
 @Component({
-    templateUrl: './terminaldemo.html'
+    templateUrl: './terminaldemo.html',
+    providers: [TerminalService]
 })
 export class TerminalDemo {
     
-    response: string;
-
-    onCommand(event) {
-        if(event.command === 'date')
-            this.response = new Date().toDateString();
-        else
-            this.response = 'Unknown command: ' + event.command;
+    constructor(private terminalService: TerminalService) {
+        this.terminalService.commandHandler.subscribe(command => {
+            let response = (command === 'date') ? new Date().toDateString() : 'Unknown command: ' + command;
+            this.terminalService.sendResponse(response);
+        });
     }
 }
