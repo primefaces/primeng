@@ -95,18 +95,18 @@ export class Spinner implements OnInit,ControlValueAccessor {
         }
     }
     
-    repeat(interval: number, dir: number) {
+    repeat(event: Event, interval: number, dir: number) {
         let i = interval||500;
 
         this.clearTimer();
         this.timer = setTimeout(() => {
-            this.repeat(40, dir);
+            this.repeat(event, 40, dir);
         }, i);
 
-        this.spin(dir);
+        this.spin(event, dir);
     }
     
-    spin(dir: number) {
+    spin(event: Event, dir: number) {
         let step = this.step * dir;
         let currentValue = this.value||0;
         let newValue: number = null;
@@ -130,7 +130,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
         
         this.formatValue();
         this.onModelChange(this.value);
-        this.onChange.emit();
+        this.onChange.emit(event);
     }
     
     toFixed(value: number, precision: number) {
@@ -141,7 +141,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onUpButtonMousedown(event: Event,input: HTMLInputElement) {
         if(!this.disabled) {
             input.focus();
-            this.repeat(null, 1);
+            this.repeat(event, null, 1);
             this.updateFilledState();
         }
     }
@@ -161,7 +161,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
     onDownButtonMousedown(event: Event, input: HTMLInputElement) {
         if(!this.disabled) {
             input.focus();
-            this.repeat(null, -1);
+            this.repeat(event, null, -1);
             this.updateFilledState();
         }
     }
@@ -180,11 +180,11 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     onInputKeydown(event: KeyboardEvent) {  
         if(event.which == 38) {
-            this.spin(1);
+            this.spin(event, 1);
             event.preventDefault();
         }
         else if(event.which == 40) {
-            this.spin(-1);
+            this.spin(event, -1);
             event.preventDefault();
         }
     }
