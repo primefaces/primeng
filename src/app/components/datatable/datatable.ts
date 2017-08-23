@@ -337,7 +337,9 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         }
         
         if(!this.frozen) {
-            this.alignScrollBar();
+            setTimeout(() => {
+                this.alignScrollBar();
+            }, 1);    
         }
     }
         
@@ -405,7 +407,6 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     
     alignScrollBar() {
         let scrollBarWidth = this.hasVerticalOverflow() ? this.domHandler.calculateScrollbarWidth() : 0;
-        
         this.scrollHeaderBox.style.marginRight = scrollBarWidth + 'px';
         if(this.scrollFooterBox) {
             this.scrollFooterBox.style.marginRight = scrollBarWidth + 'px';
