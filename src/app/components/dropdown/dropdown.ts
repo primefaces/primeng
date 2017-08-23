@@ -1,5 +1,5 @@
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
-        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef} from '@angular/core';
+        QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
@@ -176,7 +176,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public filterValue: string;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef, public objectUtils: ObjectUtils) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private cd: ChangeDetectorRef, 
+                public objectUtils: ObjectUtils, public zone: NgZone) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -274,10 +275,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.optionsChanged && this.panelVisible) {
             this.optionsChanged = false;
             
-            setTimeout(() => {
-                this.updateDimensions();
-                this.alignPanel();
-            }, 1);
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.updateDimensions();
+                    this.alignPanel();
+                }, 1); 
+            });
         }
         
         if(this.selectedOptionUpdated && this.itemsWrapper) {
