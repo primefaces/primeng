@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {MessageService} from '../common/messageservice';
@@ -25,7 +25,7 @@ import {Subscription}   from 'rxjs/Subscription';
         </div>
     `
 })
-export class Messages {
+export class Messages implements OnDestroy {
 
     @Input() value: Message[];
 
@@ -93,6 +93,12 @@ export class Messages {
         }
         
         return icon;
+    }
+    
+    ngOnDestroy() {
+        if(this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }
 
