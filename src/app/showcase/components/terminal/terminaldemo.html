@@ -133,18 +133,27 @@ export class TerminalDemo &#123;
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;Component&#125; from '@angular/core';
 import &#123;TerminalService&#125; from 'primeng/components/terminal/terminalservice';
+import &#123;Subscription&#125; from 'rxjs/Subscription';
 
 @Component(&#123;
     templateUrl: './terminaldemo.html',
     providers: [TerminalService]
 &#125;)
 export class TerminalDemo &#123;
+
+    subscription: Subscription;
     
     constructor(private terminalService: TerminalService) &#123;
         this.terminalService.commandHandler.subscribe(command => &#123;
             let response = (command === 'date') ? new Date().toDateString() : 'Unknown command: ' + command;
             this.terminalService.sendResponse(response);
         &#125;);
+    &#125;
+    
+    ngOnDestroy() &#123;
+        if(this.subscription) &#123;
+            this.subscription.unsubscribe();
+        &#125;
     &#125;
 &#125;
 </code>
