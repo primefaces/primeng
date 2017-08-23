@@ -337,9 +337,11 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         }
         
         if(!this.frozen) {
-            setTimeout(() => {
-                this.alignScrollBar();
-            }, 1);    
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.alignScrollBar();
+                }, 1);    
+            });
         }
     }
         
