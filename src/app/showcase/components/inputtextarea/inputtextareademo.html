@@ -41,10 +41,11 @@ import &#123;InputTextareaModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>AutoResize</h3>
-            <p>In auto resize mode, textarea grows instead of displaying a scrollbar.</p>
+            <p>In auto resize mode, textarea grows instead of displaying a scrollbar. When this feature is enabled, rows and cols properties
+            are required to be defined.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;textarea pInputTextarea autoResize="autoResize"&gt;&lt;/textarea&gt;
+&lt;textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize"&gt;&lt;/textarea&gt;
 </code>
 </pre>
 
