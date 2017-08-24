@@ -297,6 +297,10 @@
     @include hover-element();
 }
 
+.ui-paginator a {
+    color: $stateDefaultTextColor;
+}
+
 .ui-datatable {
     .ui-rowgroup-header a {
         color: $headerTextColor;
