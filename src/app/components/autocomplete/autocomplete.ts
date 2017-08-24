@@ -32,7 +32,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul
-            ><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
+            ><i *ngIf="loading" class="ui-autocomplete-loader fa fa-circle-o-notch fa-spin fa-fw"></i><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
                 (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
             <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
@@ -165,6 +165,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     differ: any;
     
     inputFieldValue: string = null;
+    
+    loading: boolean;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -191,7 +193,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         }
     }
     
-    handleSuggestionsChange() {
+    handleSuggestionsChange() {        
         if(this.panelEL && this.panelEL.nativeElement) {
             this.highlightOption = null;
             if(this._suggestions && this._suggestions.length) {
@@ -215,6 +217,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                 }
             }
         }
+        
+        this.loading = false;
     }
         
     ngAfterContentInit() {
@@ -323,6 +327,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
        if(query === undefined || query === null) {
            return;
        }
+       
+       this.loading = true;
        
        this.completeMethod.emit({
            originalEvent: event,
