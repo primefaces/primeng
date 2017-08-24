@@ -61,6 +61,8 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     differ: any;
     
     subscription: Subscription;
+    
+    closeIconClick: boolean;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, @Optional() public messageService: MessageService) {
         this.zIndex = DomHandler.zindex;
@@ -127,7 +129,8 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         }, this.life);
     }
         
-    remove(index: number, msgel: any) {        
+    remove(index: number, msgel: any) {      
+        this.closeIconClick = true;  
         this.domHandler.fadeOut(msgel, 250);
         
         setTimeout(() => {
@@ -162,7 +165,10 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     }
     
     onMessageClick(i: number) {
-        this.onClick.emit({message: this.value[i]});
+        if(this.closeIconClick)
+            this.closeIconClick = false;
+        else
+            this.onClick.emit({message: this.value[i]});
     }
     
     ngOnDestroy() {
