@@ -21,6 +21,7 @@ export class TreeDemo implements OnInit {
     @ViewChild('expandingTree')
     expandingTree: Tree;
 
+    filesTree0: TreeNode[];
     filesTree1: TreeNode[];
     filesTree2: TreeNode[];
     filesTree3: TreeNode[];
@@ -46,11 +47,18 @@ export class TreeDemo implements OnInit {
     selectedFiles2: TreeNode[];
     
     items: MenuItem[];
+    
+    loading: boolean;
         
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {
-        this.nodeService.getFiles().then(files => this.filesTree1 = files);
+        this.loading = true;
+        this.nodeService.getFiles().then(files => this.filesTree0 = files);
+        setTimeout(() => {
+            this.nodeService.getFiles().then(files => this.filesTree1 = files);
+            this.loading = false;
+        }, 3000);
         this.nodeService.getFiles().then(files => this.filesTree2 = files);
         this.nodeService.getFiles().then(files => this.filesTree3 = files);
         this.nodeService.getFiles().then(files => this.filesTree4 = files);
