@@ -29,7 +29,8 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" role="listbox"
                     (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
             </div>
-            <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable">{{label||'empty'}}</label>
+            <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':!label}" *ngIf="!editable&&label">{{label||'empty'}}</label>
+            <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all ui-placeholder':true}" *ngIf="!editable&&!label">{{placeholder}}</label>
             <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
@@ -234,9 +235,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     get label(): string {
-        return (this.selectedOption ? this.selectedOption.label : this.placeholder);
+        return (this.selectedOption ? this.selectedOption.label : null);
     }
-    
+        
     updateEditableLabel(): void {
         if(this.editableInputViewChild && this.editableInputViewChild.nativeElement) {
             this.editableInputViewChild.nativeElement.value = (this.selectedOption ? this.selectedOption.label : this.value||'');
