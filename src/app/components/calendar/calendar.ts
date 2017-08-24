@@ -24,6 +24,8 @@ export interface LocaleSettings {
 	dayNamesMin: string[];
     monthNames: string[];
     monthNamesShort: string[];
+    today: string,
+    clear: string
 }
 
 @Component({
@@ -34,8 +36,8 @@ export interface LocaleSettings {
                 <input #inputfield type="text" [attr.id]="inputId" [attr.name]="name" [attr.required]="required" [value]="inputFieldValue" (focus)="onInputFocus($event)" (keydown)="onInputKeydown($event)" (click)="datepickerClick=true" (blur)="onInputBlur($event)"
                     [readonly]="readonlyInput" (input)="onUserInput($event)" [ngStyle]="inputStyle" [class]="inputStyleClass" [placeholder]="placeholder||''" [disabled]="disabled" [attr.tabindex]="tabindex"
                     [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
-                    ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)"
-                    [ngClass]="{'ui-datepicker-trigger':true,'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
+                    ><button type="button" [icon]="icon" pButton *ngIf="showIcon" (click)="onButtonClick($event,inputfield)" class="ui-datepicker-trigger ui-calendar-button"
+                    [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled" tabindex="-1"></button>
             </ng-template>
             <div #datepicker class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" [ngClass]="{'ui-datepicker-inline':inline,'ui-shadow':!inline,'ui-state-disabled':disabled,'ui-datepicker-timeonly':timeOnly}" 
                 [ngStyle]="{'display': inline ? 'inline-block' : (overlayVisible ? 'block' : 'none')}" (click)="onDatePickerClick($event)" [@overlayState]="inline ? 'visible' : (overlayVisible ? 'visible' : 'hidden')">
@@ -134,6 +136,16 @@ export interface LocaleSettings {
                         </a>
                     </div>
                 </div>
+                <div class="ui-datepicker-buttonbar ui-widget-header" *ngIf="showButtonBar">
+                    <div class="ui-g">
+                        <div class="ui-g-6">
+                            <button type="button" [label]="_locale.today" (click)="onTodayButtonClick($event)" pButton [ngClass]="[todayButtonStyleClass]"></button>
+                        </div>
+                        <div class="ui-g-6">
+                            <button type="button" [label]="_locale.clear" (click)="onClearButtonClick($event)" pButton [ngClass]="[clearButtonStyleClass]"></button>
+                        </div>
+                    </div>
+                </div>
                 <ng-content select="p-footer"></ng-content>
             </div>
         </span>
@@ -230,6 +242,12 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     @Input() maxDateCount: number;
     
+    @Input() showButtonBar: boolean;
+    
+    @Input() todayButtonStyleClass: string = 'ui-button-secondary';
+    
+    @Input() clearButtonStyleClass: string = 'ui-button-secondary';
+        
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
@@ -240,13 +258,19 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     @Output() onInput: EventEmitter<any> = new EventEmitter();
     
+    @Output() onTodayClick: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onClearClick: EventEmitter<any> = new EventEmitter();
+    
     _locale: LocaleSettings = {
         firstDayOfWeek: 0,
         dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
         monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
-        monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
+        monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+        today: 'Today',
+        clear: 'Clear'
     };
     
     @Input() tabindex: number;
@@ -579,7 +603,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     formatDateTime(date) {
-        let formattedValue;
+        let formattedValue = null;
         if(date) {
             if(this.timeOnly) {
                 formattedValue = this.formatTime(date);
@@ -1413,6 +1437,21 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     updateFilledState() {
         this.filled = this.inputFieldValue && this.inputFieldValue != '';
+    }
+    
+    onTodayButtonClick(event) {
+        let date: Date = new Date();
+        let dateMeta = {day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), today: true, selectable: true};
+        
+        this.onDateSelect(event, dateMeta);
+        this.onTodayClick.emit(event);
+    }
+    
+    onClearButtonClick(event) {
+        this.updateModel(null);
+        this.updateInputfield();
+        this.overlayVisible = false;
+        this.onClearClick.emit(event);
     }
     
     bindDocumentClickListener() {
