@@ -121,6 +121,8 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @Input() backLabel: string = 'Back';
     
+    @Input() appendTo: any;
+    
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('backward') backwardViewChild: ElementRef;
@@ -150,6 +152,13 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
         this.slideMenuContentElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardElement) + 'px';
         
         if(this.popup) {
+            if(this.appendTo) {
+                if(this.appendTo === 'body')
+                    document.body.appendChild(this.container);
+                else
+                    this.domHandler.appendChild(this.container, this.appendTo);
+            }
+            
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
@@ -186,8 +195,14 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     }
         
     ngOnDestroy() {
-        if(this.documentClickListener) {
-            this.documentClickListener();
+        if(this.popup) {
+            if(this.documentClickListener) {
+                this.documentClickListener();
+            }
+            
+            if(this.appendTo) {
+                this.el.nativeElement.appendChild(this.container);
+            }
         }
     }
 
