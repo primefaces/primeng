@@ -68,7 +68,7 @@ export class TabViewNav {
         <div class="ui-tabview-panel ui-widget-content" [style.display]="selected ? 'block' : 'none'" 
             role="tabpanel" [attr.aria-hidden]="!selected" *ngIf="!closed">
             <ng-content></ng-content>
-            <ng-template [pTemplateWrapper]="contentTemplate" *ngIf="contentTemplate&&(cache ? loaded : selected)"></ng-template>
+            <p-templateLoader [template]="contentTemplate" *ngIf="contentTemplate&&(cache ? loaded : selected)"></p-templateLoader>
         </div>
     `
 })
