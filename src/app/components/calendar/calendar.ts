@@ -212,8 +212,6 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
     @Input() yearRange: string;
     
-    @Input() showTime: boolean;
-    
     @Input() hourFormat: string = '24';
     
     @Input() timeOnly: boolean;
@@ -330,6 +328,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     _minDate: Date;
     
     _maxDate: Date;
+    
+    _showTime: boolean;
 
     _isValid: boolean = true;
     
@@ -353,6 +353,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.createMonth(this.currentMonth, this.currentYear);
     }
     
+    @Input() get showTime(): boolean {
+        return this._showTime;
+    }
+    
+    set showTime(showTime: boolean) {
+        this._showTime = showTime;
+        
+        if(this.currentHour === undefined) {
+            this.initTime(this.value||new Date());
+        }
+    }
+        
     get locale() {
        return this._locale;
     }
@@ -372,21 +384,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
-        this.pm = date.getHours() > 11;
-        if(this.showTime) {
-            this.currentMinute = date.getMinutes();
-            this.currentSecond = date.getSeconds();
-            
-            if(this.hourFormat == '12')
-                this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
-            else
-                this.currentHour = date.getHours();
-        }
-        else if(this.timeOnly) {
-            this.currentMinute = 0;
-            this.currentHour = 0;
-            this.currentSecond = 0;
-        }
+        this.initTime(date);
 
         this.createMonth(this.currentMonth, this.currentYear);
         
@@ -477,6 +475,24 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             }
             
             this.dates.push(week);
+        }
+    }
+    
+    initTime(date: Date) {
+        this.pm = date.getHours() > 11;
+        if(this.showTime) {
+            this.currentMinute = date.getMinutes();
+            this.currentSecond = date.getSeconds();
+            
+            if(this.hourFormat == '12')
+                this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
+            else
+                this.currentHour = date.getHours();
+        }
+        else if(this.timeOnly) {
+            this.currentMinute = 0;
+            this.currentHour = 0;
+            this.currentSecond = 0;
         }
     }
     
