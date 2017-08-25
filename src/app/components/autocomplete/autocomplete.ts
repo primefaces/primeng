@@ -178,7 +178,6 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
 
     set suggestions(val:any[]) {
         this._suggestions = val;
-                
         if(this.immutable) {
             this.handleSuggestionsChange();
         }
@@ -194,7 +193,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     }
     
     handleSuggestionsChange() {        
-        if(this.panelEL && this.panelEL.nativeElement) {
+        if(this.panelEL && this.panelEL.nativeElement && this.loading) {
             this.highlightOption = null;
             if(this._suggestions && this._suggestions.length) {
                 this.noResults = false;
@@ -311,6 +310,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         }
         else {
             this.suggestions = null;
+            this.hide();
         }
         this.updateFilledState();
         this.inputKeyDown = false;
