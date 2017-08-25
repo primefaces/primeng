@@ -1,8 +1,10 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2,ViewChild,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2,
+        ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor} from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -75,7 +77,10 @@ export interface LocaleSettings {
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
-                                    (click)="onDateSelect($event,date)">{{date.day}}</a>
+                                    (click)="onDateSelect($event,date)">
+                                    <span *ngIf="!dateTemplate">{{date.day}}</span>
+                                    <ng-template [pTemplateWrapper]="dateTemplate" [item]="date" *ngIf="dateTemplate"></ng-template>
+                                </a>
                             </td>
                         </tr>
                     </tbody>
@@ -260,6 +265,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     @Output() onClearClick: EventEmitter<any> = new EventEmitter();
     
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    
     _locale: LocaleSettings = {
         firstDayOfWeek: 0,
         dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -334,6 +341,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     _isValid: boolean = true;
     
     preventDocumentListener: boolean;
+    
+    dateTemplate: TemplateRef<any>;
 
     @Input() get minDate(): Date {
         return this._minDate;
@@ -417,6 +426,20 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.alignOverlay();
             this.overlayShown = false;
         }
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'date':
+                    this.dateTemplate = item.template;
+                break;
+                
+                default:
+                    this.dateTemplate = item.template;
+                break;
+            }
+        });
     }
     
     createWeekDays() {
@@ -1509,8 +1532,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
-    exports: [Calendar,ButtonModule],
+    imports: [CommonModule,ButtonModule,SharedModule],
+    exports: [Calendar,ButtonModule,SharedModule],
     declarations: [Calendar]
 })
 export class CalendarModule { }
