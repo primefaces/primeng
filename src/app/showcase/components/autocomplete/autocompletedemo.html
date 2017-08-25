@@ -24,9 +24,11 @@
     <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
     
     <h3>Multiple</h3>
-    <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
-        [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
-    </p-autoComplete>
+    <span class="ui-fluid">
+        <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
+            [minLength]="1" placeholder="Countries" field="name" [multiple]="true">
+        </p-autoComplete>
+    </span>
     <ul>
         <li *ngFor="let c of countries">{{c.name}}</li>
     </ul>
@@ -170,6 +172,15 @@ export class AutoCompleteDemo &#123;
 &#125;
 </code>
 </pre>
+
+            <h3>Force Selection</h3>
+            <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared
+            to make sure the value passed to the model is always one of the suggestions.</p>
+            <pre>
+            <code class="language-markup" pCode ngNonBindable>
+&lt;p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)" forceSelection="true"&gt;&lt;/p-autoComplete&gt;
+            </code>
+            </pre>
     
             <h3>Templating</h3>
             <p>Item ng-template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
@@ -359,6 +370,13 @@ export class AutoCompleteDemo &#123;
                             <td>false</td>
                             <td>When present, it specifies that an input field must be filled out before submitting the form.</td>
                         </tr>
+                        <tr>
+                            <td>forceSelection</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, autocomplete clears the manual input if it does not match of the suggestions to force only
+                                accepting values from the suggestions.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -511,9 +529,11 @@ export class AutoCompleteDemo &#123;
 &lt;span style="margin-left:50px"&gt;Brand: {{brand||'none'}}&lt;/span&gt;
 
 &lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
-    [minLength]="1" placeholder="Countries" field="name" [multiple]="true"&gt;
-&lt;/p-autoComplete&gt;
+<&lt;span class="ui-fluid"&gt;
+    &lt;p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
+        [minLength]="1" placeholder="Countries" field="name" [multiple]="true"&gt;
+    &lt;/p-autoComplete&gt;
+</&lt;span&gt;
 &lt;ul&gt;
     &lt;li *ngFor="let c of countries"&gt;{{c.name}}&lt;/li&gt;
 &lt;/ul&gt;
