@@ -234,11 +234,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() showOnFocus: boolean = true;
     
     @Input() dataType: string = 'date';
-    
-    @Input() disabledDates: Array<Date>;
-    
-    @Input() disabledDays: Array<number>;
-    
+        
     @Input() utc: boolean;
     
     @Input() selectionMode: string = 'single';
@@ -343,6 +339,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     preventDocumentListener: boolean;
     
     dateTemplate: TemplateRef<any>;
+    
+    _disabledDates: Array<Date>;
+    
+    _disabledDays: Array<number>;
 
     @Input() get minDate(): Date {
         return this._minDate;
@@ -350,7 +350,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     set minDate(date: Date) {
         this._minDate = date;
-        this.createMonth(this.currentMonth, this.currentYear);
+        if(this.currentMonth && this.currentYear) {
+            this.createMonth(this.currentMonth, this.currentYear);
+        }
     }
     
     @Input() get maxDate(): Date {
@@ -359,7 +361,32 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     set maxDate(date: Date) {
         this._maxDate = date;
-        this.createMonth(this.currentMonth, this.currentYear);
+        if(this.currentMonth && this.currentYear) {
+            this.createMonth(this.currentMonth, this.currentYear);
+        }
+    }
+    
+    @Input() get disabledDates(): Date[] {
+        return this._disabledDates;
+    }
+    
+    set disabledDates(disabledDates: Date[]) {
+        this._disabledDates = disabledDates;
+        if(this.currentMonth && this.currentYear) {
+            console.log('updating');
+            this.createMonth(this.currentMonth, this.currentYear);
+        }
+    }
+    
+    @Input() get disabledDays(): number[] {
+        return this._disabledDays;
+    }
+    
+    set disabledDays(disabledDays: number[]) {
+        this._disabledDays = disabledDays;
+        if(this.currentMonth && this.currentYear) {
+            this.createMonth(this.currentMonth, this.currentYear);
+        }
     }
     
     @Input() get showTime(): boolean {
