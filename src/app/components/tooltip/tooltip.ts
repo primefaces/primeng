@@ -18,6 +18,8 @@ export class Tooltip implements OnDestroy {
     
     @Input() tooltipStyleClass: string;
     
+    @Input() tooltipZIndex: string = 'auto';
+    
     @Input("tooltipDisabled") disabled: boolean;
     
     @Input() escape: boolean = true;
@@ -159,7 +161,11 @@ export class Tooltip implements OnDestroy {
             this.container.className = this.container.className + ' ' + this.tooltipStyleClass; 
         }
         this.domHandler.fadeIn(this.container, 250);
-        this.container.style.zIndex = ++DomHandler.zindex;
+        if(this.tooltipZIndex === 'auto')
+            this.container.style.zIndex = ++DomHandler.zindex;
+        else
+            this.container.style.zIndex = this.tooltipZIndex;
+        
         this.bindDocumentResizeListener();
     }
     
