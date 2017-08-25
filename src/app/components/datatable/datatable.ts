@@ -213,7 +213,7 @@ export class ColumnFooters {
             </tr>
         </ng-template>
 
-        <tr *ngIf="dt.isEmpty()" class="ui-widget-content">
+        <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">{{dt.emptyMessage}}</td>
         </tr>
     `
@@ -331,7 +331,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     
     ngAfterViewChecked() {
         if(this.virtualScroll && !this.rowHeight) {
-             let row = this.domHandler.findSingle(this.scrollTable, 'tr.ui-widget-content');
+             let row = this.domHandler.findSingle(this.scrollTable, 'tr.ui-widget-content:not(.ui-datatable-emptymessage-row)');
              if(row) {
                  this.rowHeight = this.domHandler.getOuterHeight(row);
              }             
