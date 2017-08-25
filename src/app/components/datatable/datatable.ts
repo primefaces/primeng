@@ -749,6 +749,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     rangeRowIndex: number;
     
+    initialized: boolean;
+        
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils,
             public zone: NgZone) {
@@ -818,6 +820,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 }, this.filterDelay);
             });
         }
+        
+        this.initialized = true;
     }
     
     @Input() get value(): any[] {
@@ -841,7 +845,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     set first(val:number) {
-        let shouldPaginate = this._first !== val;
+        let shouldPaginate = this.initialized && this._first !== val;
         
         this._first = val;
         
