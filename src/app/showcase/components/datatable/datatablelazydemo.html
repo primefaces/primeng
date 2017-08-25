@@ -11,7 +11,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-dataTable [value]="cars" [lazy]="true" [rows]="10" [paginator]="true" 
+    <p-dataTable [value]="cars" [lazy]="true" [rows]="10" [paginator]="true" [loading]="loading"
                 [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
         <p-header>List of Cars</p-header>
         <p-column field="vin" header="Vin"></p-column>
@@ -37,6 +37,8 @@ export class DataTableLazyDemo implements OnInit &#123;
     cars: Car[];
     
     totalRecords: number;
+    
+    loading: boolean;
 
     constructor(private carService: CarService) &#123; &#125;
 
@@ -50,6 +52,8 @@ export class DataTableLazyDemo implements OnInit &#123;
     &#125;
     
     loadCarsLazy(event: LazyLoadEvent) &#123;
+        this.loading = true;
+    
         //in a real application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
@@ -59,6 +63,7 @@ export class DataTableLazyDemo implements OnInit &#123;
         
         //imitate db connection over a network
         setTimeout(() => &#123;
+            this.loading = false;
             if(this.datasource) &#123;
                 this.cars = this.datasource.slice(event.first, (event.first + event.rows));
             &#125;
