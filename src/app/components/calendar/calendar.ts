@@ -373,7 +373,6 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     set disabledDates(disabledDates: Date[]) {
         this._disabledDates = disabledDates;
         if(this.currentMonth && this.currentYear) {
-            console.log('updating');
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
