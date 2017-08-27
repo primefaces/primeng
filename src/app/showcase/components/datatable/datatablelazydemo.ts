@@ -15,8 +15,6 @@ export class DataTableLazyDemo implements OnInit {
     
     totalRecords: number;
     
-    loading: boolean;
-
     constructor(private carService: CarService) { }
 
     ngOnInit() {
@@ -29,7 +27,6 @@ export class DataTableLazyDemo implements OnInit {
     }
     
     loadCarsLazy(event: LazyLoadEvent) {
-        this.loading = true;
         //in a real application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
@@ -39,7 +36,6 @@ export class DataTableLazyDemo implements OnInit {
         
         //imitate db connection over a network
         setTimeout(() => {
-            this.loading = false;
             if(this.datasource) {
                 this.cars = this.datasource.slice(event.first, (event.first + event.rows));
             }
