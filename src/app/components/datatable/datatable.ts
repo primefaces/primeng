@@ -891,6 +891,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     handleDataChange() {
+        this.loading = false;
+        
         if(this.paginator) {
             this.updatePaginator();
         }
@@ -2233,6 +2235,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     createLazyLoadMetadata(): LazyLoadEvent {
+        this.loading = true;
         return {
             first: this.first,
             rows: this.virtualScroll ? this.rows * 2 : this.rows,
