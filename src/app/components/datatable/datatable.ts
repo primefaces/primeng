@@ -173,9 +173,11 @@ export class ColumnFooters {
             </tr>
             <tr #rowElement *ngIf="!dt.expandableRowGroups||dt.isRowGroupExpanded(rowData)"
                     (click)="dt.handleRowClick($event, rowData, rowIndex)" (dblclick)="dt.rowDblclick($event,rowData)" (contextmenu)="dt.onRowRightClick($event,rowData)" (touchend)="dt.handleRowTouchEnd($event)"
+                    (mouseenter)="dt.setHoveredRow(rowData)" (mouseleave)="dt.clearHoveredRow(rowData)"
                     [ngClass]="[even&&dt.rowGroupMode!='rowspan'? 'ui-datatable-even':'',
                                 odd&&dt.rowGroupMode!='rowspan'?'ui-datatable-odd':'',
                                 dt.isSelected(rowData)? 'ui-state-highlight': '',
+                                dt.isHoveredRow(rowData)? 'ui-state-hover' : '',
                                 dt.expandableRows && dt.isRowExpanded(rowData)? 'ui-expanded-row': '',
                                 dt.getRowStyleClass(rowData,rowIndex)]">
                 <ng-template ngFor let-col [ngForOf]="columns" let-colIndex="index">
@@ -208,9 +210,11 @@ export class ColumnFooters {
                 <p-templateLoader class="ui-helper-hidden" [data]="rowData" [template]="dt.rowGroupFooterTemplate"></p-templateLoader>
             </tr>
             <tr *ngIf="dt.expandableRows && dt.isRowExpanded(rowData)"
+                    (mouseenter)="dt.setHoveredRow(rowData)" (mouseleave)="dt.clearHoveredRow(rowData)"
                     [ngClass]="[even&&dt.rowGroupMode!='rowspan'? 'ui-datatable-even':'',
                                 odd&&dt.rowGroupMode!='rowspan'?'ui-datatable-odd':'',
                                 dt.isSelected(rowData)? 'ui-state-highlight': '',
+                                dt.isHoveredRow(rowData)? 'ui-state-hover' : '',
                                 dt.expandableRows && dt.isRowExpanded(rowData)? 'ui-expanded-row-content': '',
                                 dt.getRowStyleClass(rowData,rowIndex)]">
                 <td [attr.colspan]="dt.visibleColumns().length">
@@ -740,6 +744,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     _selection: any;
     
     _totalRecords: number;
+
+    _hoveredRow: any;
         
     globalFilterFunction: any;
     
@@ -1580,6 +1586,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         
         return false;
+    }
+
+    isHoveredRow(rowData) {
+        return rowData && this._hoveredRow && this.equals(rowData, this._hoveredRow);
     }
     
     equals(data1, data2) {
@@ -2465,6 +2475,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         if(this.columnsSubscription) {
             this.columnsSubscription.unsubscribe();
+        }
+    }
+
+    private setHoveredRow(rowData) {
+        this._hoveredRow = rowData;
+    }
+
+    private clearHoveredRow(rowData) {
+        if (this.isHoveredRow(rowData)) {
+            this._hoveredRow = undefined;
         }
     }
 }
