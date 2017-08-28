@@ -26,7 +26,7 @@ export class DataTableScrollDemo implements OnInit {
             {"brand": "Chevrolet", "year": 2011, "color": "Black", "vin": "4525g23"}
         ];
         
-        this.totalRecords = 500000;
+        this.totalRecords = 250000;
     }
     
     loadCarsLazy(event: LazyLoadEvent) {

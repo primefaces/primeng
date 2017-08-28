@@ -84,6 +84,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     
     @Input() autoHighlight: boolean;
     
+    @Input() forceSelection: boolean;
+    
     @Input() type: string = 'text';
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
@@ -178,7 +180,6 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
 
     set suggestions(val:any[]) {
         this._suggestions = val;
-                
         if(this.immutable) {
             this.handleSuggestionsChange();
         }
@@ -193,8 +194,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         }
     }
     
-    handleSuggestionsChange() {        
-        if(this.panelEL && this.panelEL.nativeElement) {
+    handleSuggestionsChange() {
+        if(this.panelEL && this.panelEL.nativeElement && this.loading) {
             this.highlightOption = null;
             if(this._suggestions && this._suggestions.length) {
                 this.noResults = false;
@@ -311,6 +312,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         }
         else {
             this.suggestions = null;
+            this.hide();
         }
         this.updateFilledState();
         this.inputKeyDown = false;
@@ -496,8 +498,35 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         this.focus = false;
         this.onModelTouched();
         this.onBlur.emit(event);
-    }
+        
+        if(this.forceSelection) {
+            let valid = false;
+            let inputValue = event.target.value.toLowerCase().trim();
             
+            if(this.suggestions)  {
+                for(let suggestion of this.suggestions) {
+                    let itemValue = this.field ? this.objectUtils.resolveFieldData(suggestion, this.field) : suggestion;
+                    if(itemValue && inputValue === itemValue.toLowerCase()) {
+                        valid = true;
+                        break;
+                    }
+                }
+            }
+            
+            if(!valid) {
+                if(this.multiple) {
+                    this.multiInputEL.nativeElement.value = '';
+                }
+                else {
+                    this.value = null;
+                    this.inputEL.nativeElement.value = '';
+                }
+                
+                this.onModelChange(this.value);
+            }
+        }
+    }
+                
     isSelected(val: any): boolean {
         let selected: boolean = false;
         if(this.value && this.value.length) {

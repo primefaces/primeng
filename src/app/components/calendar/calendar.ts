@@ -1,8 +1,10 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2,ViewChild,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,OnInit,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2,
+        ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor} from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -75,7 +77,10 @@ export interface LocaleSettings {
                                 'ui-datepicker-current-day':isSelected(date),'ui-datepicker-today':date.today}">
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
-                                    (click)="onDateSelect($event,date)">{{date.day}}</a>
+                                    (click)="onDateSelect($event,date)">
+                                    <span *ngIf="!dateTemplate">{{date.day}}</span>
+                                    <ng-template [pTemplateWrapper]="dateTemplate" [item]="date" *ngIf="dateTemplate"></ng-template>
+                                </a>
                             </td>
                         </tr>
                     </tbody>
@@ -212,8 +217,6 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
     @Input() yearRange: string;
     
-    @Input() showTime: boolean;
-    
     @Input() hourFormat: string = '24';
     
     @Input() timeOnly: boolean;
@@ -231,11 +234,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() showOnFocus: boolean = true;
     
     @Input() dataType: string = 'date';
-    
-    @Input() disabledDates: Array<Date>;
-    
-    @Input() disabledDays: Array<number>;
-    
+        
     @Input() utc: boolean;
     
     @Input() selectionMode: string = 'single';
@@ -261,6 +260,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Output() onTodayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onClearClick: EventEmitter<any> = new EventEmitter();
+    
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     _locale: LocaleSettings = {
         firstDayOfWeek: 0,
@@ -330,10 +331,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     _minDate: Date;
     
     _maxDate: Date;
+    
+    _showTime: boolean;
 
     _isValid: boolean = true;
     
     preventDocumentListener: boolean;
+    
+    dateTemplate: TemplateRef<any>;
+    
+    _disabledDates: Array<Date>;
+    
+    _disabledDays: Array<number>;
 
     @Input() get minDate(): Date {
         return this._minDate;
@@ -341,7 +350,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     set minDate(date: Date) {
         this._minDate = date;
-        this.createMonth(this.currentMonth, this.currentYear);
+        if(this.currentMonth && this.currentYear) {
+            this.createMonth(this.currentMonth, this.currentYear);
+        }
     }
     
     @Input() get maxDate(): Date {
@@ -350,9 +361,45 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     set maxDate(date: Date) {
         this._maxDate = date;
-        this.createMonth(this.currentMonth, this.currentYear);
+        if(this.currentMonth && this.currentYear) {
+            this.createMonth(this.currentMonth, this.currentYear);
+        }
     }
     
+    @Input() get disabledDates(): Date[] {
+        return this._disabledDates;
+    }
+    
+    set disabledDates(disabledDates: Date[]) {
+        this._disabledDates = disabledDates;
+        if(this.currentMonth && this.currentYear) {
+            this.createMonth(this.currentMonth, this.currentYear);
+        }
+    }
+    
+    @Input() get disabledDays(): number[] {
+        return this._disabledDays;
+    }
+    
+    set disabledDays(disabledDays: number[]) {
+        this._disabledDays = disabledDays;
+        if(this.currentMonth && this.currentYear) {
+            this.createMonth(this.currentMonth, this.currentYear);
+        }
+    }
+    
+    @Input() get showTime(): boolean {
+        return this._showTime;
+    }
+    
+    set showTime(showTime: boolean) {
+        this._showTime = showTime;
+        
+        if(this.currentHour === undefined) {
+            this.initTime(this.value||new Date());
+        }
+    }
+        
     get locale() {
        return this._locale;
     }
@@ -372,21 +419,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
-        this.pm = date.getHours() > 11;
-        if(this.showTime) {
-            this.currentMinute = date.getMinutes();
-            this.currentSecond = date.getSeconds();
-            
-            if(this.hourFormat == '12')
-                this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
-            else
-                this.currentHour = date.getHours();
-        }
-        else if(this.timeOnly) {
-            this.currentMinute = 0;
-            this.currentHour = 0;
-            this.currentSecond = 0;
-        }
+        this.initTime(date);
 
         this.createMonth(this.currentMonth, this.currentYear);
         
@@ -419,6 +452,20 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.alignOverlay();
             this.overlayShown = false;
         }
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'date':
+                    this.dateTemplate = item.template;
+                break;
+                
+                default:
+                    this.dateTemplate = item.template;
+                break;
+            }
+        });
     }
     
     createWeekDays() {
@@ -477,6 +524,24 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             }
             
             this.dates.push(week);
+        }
+    }
+    
+    initTime(date: Date) {
+        this.pm = date.getHours() > 11;
+        if(this.showTime) {
+            this.currentMinute = date.getMinutes();
+            this.currentSecond = date.getSeconds();
+            
+            if(this.hourFormat == '12')
+                this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
+            else
+                this.currentHour = date.getHours();
+        }
+        else if(this.timeOnly) {
+            this.currentMinute = 0;
+            this.currentHour = 0;
+            this.currentSecond = 0;
         }
     }
     
@@ -1493,8 +1558,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
-    exports: [Calendar,ButtonModule],
+    imports: [CommonModule,ButtonModule,SharedModule],
+    exports: [Calendar,ButtonModule,SharedModule],
     declarations: [Calendar]
 })
 export class CalendarModule { }

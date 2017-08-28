@@ -25,6 +25,8 @@ export class CalendarDemo {
     
     date10: Date;
     
+    date11: Date;
+    
     dates: Date[];
     
     rangeDates: Date[];
