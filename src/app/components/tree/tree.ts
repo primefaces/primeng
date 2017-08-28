@@ -316,14 +316,22 @@ export class UITreeNode implements OnInit {
 @Component({
     selector: 'p-tree',
     template: `
-        <div [ngClass]="{'ui-tree ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode,'ui-treenode-dragover':dragHover}" [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
+        <div [ngClass]="{'ui-tree ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode,'ui-treenode-dragover':dragHover,'ui-tree-loading': loading}" [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal"
             (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)">
+            <div class="ui-tree-loading-mask ui-widget-overlay" *ngIf="loading"></div>
+            <div class="ui-tree-loading-content" *ngIf="loading">
+                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+            </div>
             <ul class="ui-tree-container">
                 <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index" [node]="node" 
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
         </div>
         <div [ngClass]="{'ui-tree ui-tree-horizontal ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
+            <div class="ui-tree-loading ui-widget-overlay" *ngIf="loading"></div>
+            <div class="ui-tree-loading-content" *ngIf="loading">
+                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+            </div>
             <table *ngIf="value&&value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
             </table>
@@ -373,6 +381,10 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
     @Input() propagateSelectionUp: boolean = true;
     
     @Input() propagateSelectionDown: boolean = true;
+    
+    @Input() loading: boolean;
+
+    @Input() loadingIcon: string = 'fa-circle-o-notch';
         
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

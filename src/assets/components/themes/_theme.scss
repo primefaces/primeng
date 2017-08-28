@@ -176,6 +176,10 @@
     }
 }
 
+.ui-float-label input.ng-dirty.ng-invalid ~ label {
+    color: $stateErrorTextColor;
+}
+
 .ui-autocomplete {
     .ui-autocomplete-multiple-container:not(.ui-state-disabled) {
         &:hover {
@@ -291,6 +295,10 @@
 
 .ui-paginator a:not(.ui-state-disabled):not(.ui-state-active):hover {
     @include hover-element();
+}
+
+.ui-paginator a {
+    color: $stateDefaultTextColor;
 }
 
 .ui-datatable {

@@ -30,12 +30,14 @@ import {RouterModule} from '@angular/router';
                                                 <ng-template ngFor let-item [ngForOf]="submenu.items">
                                                     <li *ngIf="item.separator" class="ui-menu-separator ui-widget-content">
                                                     <li *ngIf="!item.separator" class="ui-menuitem ui-widget ui-corner-all">
-                                                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                                                        <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.title]="item.title"
                                                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="ui-menuitem-text">{{item.label}}</span>
                                                         </a>
-                                                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target"
+                                                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" 
+                                                            [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" 
+                                                             [attr.target]="item.target" [attr.title]="item.title"
                                                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
                                                             <span class="ui-menuitem-text">{{item.label}}</span>

@@ -124,6 +124,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Property of a row data used for sorting, defaults to field.</td>
                         </tr>
                         <tr>
+                            <td>filterField</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Property of a row data used for filtering, defaults to field.</td>
+                        </tr>
+                        <tr>
                             <td>header</td>
                             <td>string</td>
                             <td>null</td>
@@ -986,8 +992,10 @@ loadData(event: LazyLoadEvent) &#123;
 </pre>
                 
             <h3>Loading Status</h3>
-            <p>DataTable has a loading property, when enabled a spinner icon is displayed to indicate data load.</p>
-            <p>An optional loadingIcon property can be passed in case you'd like a different loading icon.</p>
+            <p>DataTable has a loading property, when enabled a spinner icon is displayed to indicate data load. 
+                An optional loadingIcon property can be passed in case you'd like a different loading icon. Note that
+                when lazy loading is enabled, DataTable handles loading status itself so there is no need to use
+                the loading property as it is built-in for lazy loading case.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" [loading]="loading" loadingIcon="fa-spinner"&gt;
@@ -1205,6 +1213,18 @@ export class DataTableDemo implements OnInit &#123;
                             <td>multiple</td>
                             <td>Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single".</td>
                         </tr>
+                        <tr>
+                            <td>expandedIcon</td>
+                            <td>string</td>
+                            <td>fa-chevron-circle-down</td>
+                            <td>Row toggler icon of an expanded row toggler.</td>
+                        </tr>
+                        <tr>
+                            <td>collapsedIcon</td>
+                            <td>string</td>
+                            <td>fa-chevron-circle-right</td>
+                            <td>Row toggler icon of a collapsed row toggler.</td>
+                        </tr>                        
                         <tr>
                             <td>globalFilter</td>
                             <td>any</td>

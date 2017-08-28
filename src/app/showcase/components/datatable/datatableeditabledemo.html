@@ -23,7 +23,7 @@
                 {{car[col.field]|date}}
             </ng-template>
             <ng-template let-col let-car="rowData" pTemplate="editor">
-                <p-calendar [(ngModel)]="car[col.field]"></p-calendar>
+                <p-calendar [(ngModel)]="car[col.field]" appendTo="body"></p-calendar>
             </ng-template>
         </p-column>
     </p-dataTable>
@@ -73,7 +73,7 @@ export class DataTableEditableDemo implements OnInit &#123;
              &#123;&#123;car[col.field]|date &#125;&#125;
         &lt;/ng-template&gt;
         &lt;ng-template let-col let-car="rowData" pTemplate="editor"&gt;
-            &lt;p-calendar [(ngModel)]="car[col.field]"&gt;&lt;/p-calendar&gt;
+            &lt;p-calendar [(ngModel)]="car[col.field]" appendTo="body"&gt;&lt;/p-calendar&gt;
         &lt;/ng-template&gt;
     &lt;/p-column&gt;
 &lt;/p-dataTable&gt;

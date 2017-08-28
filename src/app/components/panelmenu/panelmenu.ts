@@ -36,14 +36,14 @@ export class BasePanelMenuItem {
                 <li *ngIf="!child.separator" class="ui-menuitem ui-corner-all" [ngClass]="{'ui-menu-parent':child.items}" [class]="child.styleClass" [ngStyle]="child.style">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.tabindex]="item.expanded ? null : '-1'"
                         [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-disabled':child.disabled}" 
-                        (click)="handleClick($event,child)" [attr.target]="child.target">
+                        (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title">
                         <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!child.expanded,'fa-caret-down':child.expanded}" *ngIf="child.items"></span
                         ><span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span
                         ><span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
                     <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" 
                         [ngClass]="{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-disabled':child.disabled}" [attr.tabindex]="item.expanded ? null : '-1'" 
-                        (click)="handleClick($event,child)" [attr.target]="child.target">
+                        (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title">
                         <span class="ui-panelmenu-icon fa fa-fw" [ngClass]="{'fa-caret-right':!child.expanded,'fa-caret-down':child.expanded}" *ngIf="child.items"></span
                         ><span class="ui-menuitem-icon fa fa-fw" [ngClass]="child.icon" *ngIf="child.icon"></span
                         ><span class="ui-menuitem-text">{{child.label}}</span>
@@ -81,13 +81,13 @@ export class PanelMenuSub extends BasePanelMenuItem {
                 <div [ngClass]="{'ui-widget ui-panelmenu-header ui-state-default':true,'ui-corner-top':f,'ui-corner-bottom':l&&!item.expanded,
                     'ui-state-active':item.expanded,'ui-state-disabled':item.disabled}" [class]="item.styleClass" [ngStyle]="item.style">
                     <a *ngIf="!item.routerLink" [href]="item.url||'#'" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)"
-                        [attr.target]="item.target">
+                        [attr.target]="item.target" [attr.title]="item.title">
                         <span *ngIf="item.items" class="ui-panelmenu-icon fa" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span
                         ><span class="ui-menuitem-icon fa" [ngClass]="item.icon" *ngIf="item.icon"></span
                         ><span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
                     <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" [ngClass]="{'ui-panelmenu-headerlink-hasicon':item.icon}" (click)="handleClick($event,item)"
-                        [attr.target]="item.target">
+                        [attr.target]="item.target" [attr.title]="item.title">
                         <span *ngIf="item.items" class="ui-panelmenu-icon fa" [ngClass]="{'fa-caret-right':!item.expanded,'fa-caret-down':item.expanded}"></span
                         ><span class="ui-menuitem-icon fa" [ngClass]="item.icon" *ngIf="item.icon"></span
                         ><span class="ui-menuitem-text">{{item.label}}</span>

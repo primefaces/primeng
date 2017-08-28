@@ -1,8 +1,10 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,forwardRef,ViewChild,ChangeDetectorRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,
+            forwardRef,ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
@@ -25,7 +27,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
                 <span class="fa fa-fw fa-caret-down ui-clickable"></span>
             </div>
-            <div #panel class="ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow" [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
+            <div #panel [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow', panelStyleClass||'']" [ngStyle]="panelStyle"
+                [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
                     <div class="ui-chkbox ui-widget">
                         <div class="ui-helper-hidden-accessible">
@@ -46,7 +49,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
-                        <li *ngFor="let option of options" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
+                        <li *ngFor="let option of options; let index = i" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value)" 
                             [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':isSelected(option.value)}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
@@ -56,7 +59,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                                     <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
-                            <label>{{option.label}}</label>
+                            <label *ngIf="!itemTemplate">{{option.label}}</label>
+                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="option" [index]="i" *ngIf="itemTemplate"></ng-template>
                         </li>
                     </ul>
                 </div>
@@ -65,7 +69,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     `,
     providers: [DomHandler,ObjectUtils,MULTISELECT_VALUE_ACCESSOR]
 })
-export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
+export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
     @Input() options: SelectItem[];
 
@@ -80,6 +84,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    @Input() panelStyle: any;
+
+    @Input() panelStyleClass: string;
 
     @Input() inputId: string;
 
@@ -104,6 +112,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('panel') panelViewChild: ElementRef;
+    
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public value: any[];
     
@@ -135,6 +145,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     public optionsDiffer: any;
     
+    public itemTemplate: TemplateRef<any>;
+    
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {
         this.valueDiffer = differs.find([]).create(null);
         this.optionsDiffer = differs.find([]).create(null);
@@ -142,6 +154,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
     
     ngOnInit() {
         this.updateLabel();
+    }
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                break;
+                
+                default:
+                    this.itemTemplate = item.template;
+                break;
+            }
+        });
     }
     
     ngAfterViewInit() {
@@ -417,8 +443,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterViewChecked,DoChec
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [MultiSelect],
+    imports: [CommonModule,SharedModule],
+    exports: [MultiSelect,SharedModule],
     declarations: [MultiSelect]
 })
 export class MultiSelectModule { }

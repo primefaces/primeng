@@ -14,14 +14,16 @@ import {RouterModule} from '@angular/router';
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" #listitem [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-slidemenuitem-active':listitem==activeItem}">
-                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
+                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title"
                         [ngClass]="{'ui-menuitem-link-parent':child.items,'ui-state-disabled':child.disabled}" 
                         (click)="itemClick($event, child, listitem)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="child.target"
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [routerLinkActive]="'ui-state-active'" 
+                        [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url||'#'" class="ui-menuitem-link ui-corner-all" 
+                        [attr.target]="child.target" [attr.title]="child.title"
                         [ngClass]="{'ui-menuitem-link-parent':child.items,'ui-state-disabled':child.disabled}" 
                         (click)="itemClick($event, child, listitem)">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
@@ -119,6 +121,8 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     
     @Input() backLabel: string = 'Back';
     
+    @Input() appendTo: any;
+    
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('backward') backwardViewChild: ElementRef;
@@ -148,6 +152,13 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
         this.slideMenuContentElement.style.height = this.viewportHeight - this.domHandler.getHiddenElementOuterHeight(this.backwardElement) + 'px';
         
         if(this.popup) {
+            if(this.appendTo) {
+                if(this.appendTo === 'body')
+                    document.body.appendChild(this.container);
+                else
+                    this.domHandler.appendChild(this.container, this.appendTo);
+            }
+            
             this.documentClickListener = this.renderer.listen('document', 'click', () => {
                 if(!this.preventDocumentDefault) {
                     this.hide();
@@ -184,8 +195,14 @@ export class SlideMenu implements AfterViewInit,OnDestroy {
     }
         
     ngOnDestroy() {
-        if(this.documentClickListener) {
-            this.documentClickListener();
+        if(this.popup) {
+            if(this.documentClickListener) {
+                this.documentClickListener();
+            }
+            
+            if(this.appendTo) {
+                this.el.nativeElement.appendChild(this.container);
+            }
         }
     }
 
