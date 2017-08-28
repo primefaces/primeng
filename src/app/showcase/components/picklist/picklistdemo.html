@@ -318,7 +318,7 @@ This dragdrop property also supports cross list actions.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" filterBy="brand" 
-        dragdrop="true" filterBy="brand" sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;"&gt;
+        dragdrop="true" sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;

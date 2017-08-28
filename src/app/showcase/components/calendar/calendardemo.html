@@ -56,10 +56,24 @@
             <h3>Range</h3>
             <p-calendar [(ngModel)]="rangeDates" selectionMode="range" readonlyInput="true"></p-calendar>
         </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Button Bar</h3>
+            <p-calendar [(ngModel)]="date9" showButtonBar="true"></p-calendar>
+        </div>
+        
+        <div class="ui-g-12 ui-md-4">
+            <h3>Date Template</h3>
+            <p-calendar [(ngModel)]="date10">
+                <ng-template pTemplate="date" let-date>
+                    <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#7cc67c' : 'inherit'}" style="border-radius:50%">{{date.day}}</span>
+                </ng-template>
+            </p-calendar>
+        </div>
     </div>
     
-    <h3>Inline {{date9|date}}</h3>
-    <p-calendar [(ngModel)]="date9" [inline]="true"></p-calendar> 
+    <h3>Inline</h3>
+    <p-calendar [(ngModel)]="date11" [inline]="true"></p-calendar> 
 </div>
 
 <div class="content-section documentation">
@@ -168,9 +182,16 @@ export class MyModel &#123;
 </code>
 </pre>
 
+            <h3>Button Bar</h3>
+            <p>Button bar displays today and clear buttons and enabled using showButtonBar property.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-calendar [(ngModel)]="dateValue" showButtonBar="true">&gt;&lt;/p-calendar&gt;
+</code>
+</pre>
+
             <h3>Localization</h3>
-            <p>Localization for different languages and formats is defined by binding the locale settings object to the locale property. Following is the default values for English.
-            </p>
+            <p>Localization for different languages and formats is defined by binding the locale settings object to the locale property. Following is the default values for English.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-calendar [(ngModel)]="dateValue" [locale]="en"&gt;&lt;/p-calendar&gt;
@@ -190,7 +211,9 @@ export class MyModel &#123;
             dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
             dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
             monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
-            monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
+            monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+            today: 'Today',
+            clear: 'Clear'
         &#125;;
     &#125;
 &#125;
@@ -207,6 +230,21 @@ export class MyModel &#123;
 &lt;/p-calendar&gt;
 </code>
 </pre>
+
+            <p>In addition, cell contents can be templated using an ng-template with a pTemplate directive whose value is "date". This is a handy feature to highlight specific dates. Note that the implicit
+            variable passed to the template is not a date instance but a metadata object to represent a Date with "day", "month" and "year" properties. Example below
+            changes the background color of dates between 10th and 21st of each month.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-calendar [(ngModel)]="date10"&gt;
+    &lt;ng-template pTemplate="date" let-date&gt;
+        &lt;span [ngStyle]="&#123;backgroundColor: (date.day &lt; 21 && date.day &gt; 10) ? '#7cc67c' : 'inherit'&#125;" style="border-radius:50%"&gt;{{date.day}}&lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-calendar&gt;
+</code>
+</pre>
+            
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -261,6 +299,12 @@ export class MyModel &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Identifier of the focus input to match a label defined for the component.</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the input element.</td>
                         </tr>
                         <tr>
                             <td>placeholder</td>
@@ -454,6 +498,24 @@ export class MyModel &#123;
                             <td>null</td>
                             <td>Maximum number of selectable dates in multiple mode.</td>
                         </tr>
+                        <tr>
+                            <td>showButtonBar</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to display today and clear buttons at the footer</td>
+                        </tr>
+                        <tr>
+                            <td>todayButtonStyleClass</td>
+                            <td>string</td>
+                            <td>ui-secondary-button</td>
+                            <td>Style class of the today button.</td>
+                        </tr>
+                        <tr>
+                            <td>clearButtonStyleClass</td>
+                            <td>string</td>
+                            <td>ui-secondary-button</td>
+                            <td>Style class of the clear button.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -498,6 +560,18 @@ export class MyModel &#123;
                             <td>event: Input event
                             </td>
                             <td>Callback to invoke when input field is being typed.</td>
+                        </tr>
+                        <tr>
+                            <td>onTodayClick</td>
+                            <td>event: Click event
+                            </td>
+                            <td>Callback to invoke when today button is clicked.</td>
+                        </tr>
+                        <tr>
+                            <td>onClearClick</td>
+                            <td>event: Click event
+                            </td>
+                            <td>Callback to invoke when clear button is clicked.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -587,10 +661,24 @@ export class MyModel &#123;
         &lt;h3&gt;Range&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="rangeDates" selectionMode="range" readonlyInput="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Button Bar&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date9" showButtonBar="true"&gt;&lt;/p-calendar&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;h3&gt;Date Template&lt;/h3&gt;
+        &lt;p-calendar [(ngModel)]="date10"&gt;
+            &lt;ng-template pTemplate="date" let-date&gt;
+                &lt;span [ngStyle]="&#123;backgroundColor: (date.day &lt; 21 && date.day &gt; 10) ? '#7cc67c' : 'inherit'&#125;" style="border-radius:50%"&gt;{{date.day}}&lt;/span&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-calendar&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h3&gt;Inline &#123;&#123;date8|date&#125;&#125;&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date9" [inline]="true"&gt;&lt;/p-calendar&gt; 
+&lt;h3&gt;Inline&lt;/h3&gt;
+&lt;p-calendar [(ngModel)]="date11" [inline]="true"&gt;&lt;/p-calendar&gt; 
 </code>
 </pre>
 
@@ -616,6 +704,10 @@ export class CalendarDemo &#123;
     
     date9: Date;
     
+    date10: Date;
+    
+    date11: Date;
+    
     dates: Date[];
     
     rangeDates: Date[];
@@ -635,7 +727,9 @@ export class CalendarDemo &#123;
             dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
             dayNamesMin: [ "D","L","M","X","J","V","S" ],
             monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
-            monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ]
+            monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
+            today: 'Hoy',
+            clear: 'Borrar'
         &#125;
         
         this.tr = &#123;

@@ -62,7 +62,7 @@ export class BlockUI implements AfterViewInit,OnDestroy {
     }
     
     ngOnDestroy() {
-        
+        this.unblock();
     }
 }
 

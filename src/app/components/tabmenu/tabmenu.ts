@@ -14,12 +14,12 @@ import {RouterModule} from '@angular/router';
                     [ngClass]="{'ui-tabmenuitem ui-state-default ui-corner-top':true,'ui-state-disabled':item.disabled,
                         'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item}">
                     <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
-                        [attr.target]="item.target">
+                        [attr.target]="item.target" [attr.title]="item.title">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
                     <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'"  [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
-                        [attr.target]="item.target">
+                        [attr.target]="item.target" [attr.title]="item.title">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
                     </a>

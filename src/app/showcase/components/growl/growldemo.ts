@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {SelectItem} from '../../../components/common/api';
 import {Message} from '../../../components/common/api';
 import {MessageService} from '../../../components/common/messageservice';
 

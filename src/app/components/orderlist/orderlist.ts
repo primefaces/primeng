@@ -138,7 +138,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
 
     @Input() set value(val:any[]) {
-        this._value = val ? [...val] : null;
+        this._value = val;
         if(this.filterValue) {
             this.filter();
         }

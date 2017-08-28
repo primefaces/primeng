@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,ViewChild,EventEmitter,IterableDiffers} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,DoCheck,OnDestroy,Input,Output,ViewChild,EventEmitter,IterableDiffers,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Message} from '../common/message';
 import {DomHandler} from '../dom/domhandler';
@@ -61,17 +61,21 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     differ: any;
     
     subscription: Subscription;
+    
+    closeIconClick: boolean;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, private messageService: MessageService) {
+    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers, @Optional() public messageService: MessageService) {
         this.zIndex = DomHandler.zindex;
         this.differ = differs.find([]).create(null);
         
-        this.subscription = messageService.messageObserver.subscribe(messages => {
-            if(messages instanceof Array)
-                this.value = messages;
-            else
-                this.value = [messages];
-        });
+        if(messageService) {
+            this.subscription = messageService.messageObserver.subscribe(messages => {
+                if(messages instanceof Array)
+                    this.value = messages;
+                else
+                    this.value = [messages];
+            });
+        }
     }
 
     ngAfterViewInit() {
@@ -125,7 +129,8 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         }, this.life);
     }
         
-    remove(index: number, msgel: any) {        
+    remove(index: number, msgel: any) {      
+        this.closeIconClick = true;  
         this.domHandler.fadeOut(msgel, 250);
         
         setTimeout(() => {
@@ -160,7 +165,10 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     }
     
     onMessageClick(i: number) {
-        this.onClick.emit({message: this.value[i]});
+        if(this.closeIconClick)
+            this.closeIconClick = false;
+        else
+            this.onClick.emit({message: this.value[i]});
     }
     
     ngOnDestroy() {
