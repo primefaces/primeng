@@ -9,7 +9,7 @@
     <h3 class="first">Basic</h3>
     <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1"></p-multiSelect>
     <p>Selected Cars: {{selectedCars1}}</p>
-    
+
     <h3>Template</h3>
     <p-multiSelect [options]="cars" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
         <ng-template let-car pTemplate="item">
@@ -31,7 +31,7 @@ import &#123;MultiSelectModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Two-way value binding is defined using ngModel and multiselect requires a collection of options 
+            <p>Two-way value binding is defined using ngModel and multiselect requires a collection of options
                 where each option should follow the SelectItem interface that defines label-value properties.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -69,7 +69,7 @@ export class MyModel &#123;
 &lt;p-multiSelect [options]="cities" formControlName="selectedCities"&gt;&lt;/p-multiSelect&gt;
 </code>
 </pre>
-        
+
             <h3>Templating</h3>
             <p>Label of a selectitem is displayed by default next to the checkbox in the overlay panel and it is possible to customize
             the content using templating. The ngTemplate receives the selectitem as the implicit variable along with the index of the option.</p>
@@ -85,8 +85,8 @@ export class MyModel &#123;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars2&#125;&#125;&lt;/p&gt;
 </code>
 </pre>
-        
-        
+
+
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -228,6 +228,16 @@ export class MyModel &#123;
                             <td>event.originalEvent: browser event</td>
                             <td>Callback to invoke when multiselect loses focus.</td>
                         </tr>
+                        <tr>
+                            <td>onShow</td>
+                            <td></td>
+                            <td>Callback to invoke when multiselect is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>onHide</td>
+                            <td></td>
+                            <td>Callback to invoke when multiselect is hidden.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -312,7 +322,7 @@ export class MultiSelectDemo &#123;
     cars: SelectItem[];
 
     selectedCars1: string[] = [];
-    
+
     selectedCars2: string[] = [];
 
     constructor() &#123;
