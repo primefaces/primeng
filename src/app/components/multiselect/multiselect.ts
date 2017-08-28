@@ -30,7 +30,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <div #panel [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow', panelStyleClass||'']" [ngStyle]="panelStyle"
                 [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
                 <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
-                    <div class="ui-chkbox ui-widget">
+                    <div class="ui-chkbox ui-widget" *ngIf="selectAllVisible">
                         <div class="ui-helper-hidden-accessible">
                             <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
@@ -38,7 +38,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                             <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isAllChecked()}"></span>
                         </div>
                     </div>
-                    <div class="ui-multiselect-filter-container" *ngIf="filter">
+                    <div class="ui-multiselect-filter-container" *ngIf="filter" [ngStyle]="{'width': selectAllVisible ? '65%' : '83%' }">
                         <input type="text" role="textbox" (input)="onFilter($event)"
                                     class="ui-inputtext ui-widget ui-state-default ui-corner-all">
                         <span class="fa fa-fw fa-search"></span>
@@ -96,6 +96,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() filter: boolean = true;
     
     @Input() overlayVisible: boolean;
+    
+    @Input() selectAllVisible: boolean = true;
 
     @Input() tabindex: number;
     
