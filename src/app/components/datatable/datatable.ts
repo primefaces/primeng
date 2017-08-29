@@ -760,6 +760,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.initColumns();
             this.changeDetector.markForCheck();
         });
+
+        if (this.hasFilter()) {
+            this._filter();
+        }
         
         this.templates.forEach((item) => {
             switch(item.getType()) {
@@ -1634,6 +1638,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
+            if (!this.value || !this.columns) {
+                return;
+            }
+
             this.filteredValue = [];
 
             for(let i = 0; i < this.value.length; i++) {
