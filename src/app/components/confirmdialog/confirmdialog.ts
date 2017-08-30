@@ -20,7 +20,7 @@ import {Subscription}   from 'rxjs/Subscription';
                 </a>
             </div>
             <div class="ui-dialog-content ui-widget-content">
-                <i [ngClass]="'fa'" [class]="icon"></i>
+                <i [ngClass]="'fa'" [class]="icon" *ngIf="icon"></i>
                 <span class="ui-confirmdialog-message" [innerHTML]="message"></span>
             </div>
             <div class="ui-dialog-footer ui-widget-content" *ngIf="footer">
