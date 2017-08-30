@@ -20,7 +20,10 @@ export class BasePanelMenuItem {
             return;
         }
         
-        this.pMService.onItemSelect.next(item);
+        this.pMService.onItemSelect.next({
+                originalEvent: event,
+                item: item
+            });
         
         item.expanded = !item.expanded;
         
