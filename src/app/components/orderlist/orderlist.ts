@@ -333,6 +333,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         let dropIndex = (this.draggedItemIndex > index) ? index : (index === 0) ? 0 : index - 1;
         this.objectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
         this.dragOverItemIndex = null;
+        this.onReorder.emit(event);
     }
     
     onDragEnd(event: DragEvent) {
