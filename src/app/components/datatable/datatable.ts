@@ -2223,7 +2223,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else {
             if(this.columns) {
                 for(let i = 0; i  < this.columns.length; i++) {
-                    if(this.columns[i].footer) {
+                    if(this.columns[i].footer || this.columns[i].footerTemplate) {
                         return true;
                     }
                 }
