@@ -8,6 +8,7 @@ import {GrowlModule} from '../../../components/growl/growl';
 import {TabViewModule} from '../../../components/tabview/tabview';
 import {ContextMenuModule} from '../../../components/contextmenu/contextmenu';
 import {CodeHighlighterModule} from '../../../components/codehighlighter/codehighlighter';
+import {ButtonModule} from '../../../components/button/button';
 
 @NgModule({
 	imports: [
@@ -16,6 +17,7 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 		TreeTableDemoRoutingModule,
         TreeTableModule,
         GrowlModule,
+        ButtonModule,
         TabViewModule,
         ContextMenuModule,
         CodeHighlighterModule

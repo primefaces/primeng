@@ -60,7 +60,35 @@
         </p-column>
     </p-treeTable>
     
-    <p-treeTable [value]="files6" selectionMode="single" [(selection)]="selectedFile2" [style]="{'margin-top':'50px'}" [contextMenu]="cm">
+    
+    <p-treeTable [value]="files6" [style]="{'margin-top':'50px'}" #table>
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Expand (Documents)" style="float:left" (click)="expandDocuments()"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Collapse (Documents)" style="float:left" (click)="collapseDocuments()"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Toggle (Documents)" style="float:left" (click)="toggleDocuments()"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Toggle (Pictures)" style="float:left" (click)="togglePictures()"></button>
+            </div>
+            Toggle rows programmatically
+        </p-header>
+        <p-column field="name" header="Name">
+            <ng-template let-node="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="node.data.name" style="width:100%;border-width:0px 0px 1px 0px">
+            </ng-template>
+        </p-column>
+        <p-column field="size" header="Size">
+            <ng-template let-node="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="node.data.size" style="width:100%;border-width:0px 0px 1px 0px">
+            </ng-template>
+        </p-column>
+        <p-column field="type" header="Type">
+            <ng-template let-node="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="node.data.type" style="width:100%;border-width:0px 0px 1px 0px">
+            </ng-template>
+        </p-column>
+    </p-treeTable>
+    
+    <p-treeTable [value]="files7" selectionMode="single" [(selection)]="selectedFile2" [style]="{'margin-top':'50px'}" [contextMenu]="cm">
         <p-header>Context Menu</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>

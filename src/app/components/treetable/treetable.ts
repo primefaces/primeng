@@ -439,6 +439,10 @@ export class TreeTable implements AfterContentInit {
         }
         return false;
     }
+    
+    toggleNode(node: TreeNode, isExpanded?: boolean) {
+        node.expanded = isExpanded !== undefined && isExpanded !== null ? isExpanded : !node.expanded;
+    }
 }
 
 @NgModule({

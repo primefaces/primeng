@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NodeService} from '../../service/nodeservice';
 import {Message,TreeNode,MenuItem} from '../../../components/common/api';
 
@@ -20,6 +20,8 @@ export class TreeTableDemo implements OnInit {
     files5: TreeNode[];
     
     files6: TreeNode[];
+    
+    files7: TreeNode[];
             
     lazyFiles: TreeNode[];
         
@@ -32,6 +34,8 @@ export class TreeTableDemo implements OnInit {
     selectedFiles2: TreeNode[];
     
     items: MenuItem[];
+    
+    @ViewChild('table') table;
         
     constructor(private nodeService: NodeService) { }
 
@@ -42,12 +46,28 @@ export class TreeTableDemo implements OnInit {
         this.nodeService.getFilesystem().then(files => this.files4 = files);
         this.nodeService.getFilesystem().then(files => this.files5 = files);
         this.nodeService.getFilesystem().then(files => this.files6 = files);
+        this.nodeService.getFilesystem().then(files => this.files7 = files);
         this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
         
         this.items = [
             {label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)},
             {label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)}
         ];
+    }
+    
+    toggleDocuments() {
+      this.table.toggleNode(this.files6[0])
+    }
+    
+    togglePictures() {
+      this.table.toggleNode(this.files6[1])
+    }
+    expandDocuments() {
+      this.table.toggleNode(this.files6[0], true)
+    }
+    
+    collapseDocuments() {
+      this.table.toggleNode(this.files6[0], false)
     }
     
     nodeSelect(event) {
