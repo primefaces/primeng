@@ -168,13 +168,14 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     }
 
     onMessageClick(i: number) {
-        if(this.closeIconClick)
+        if(this.closeIconClick) {
             this.closeIconClick = false;
-        else
+        } else {
             this.onClick.emit({message: this.value[i]});
+        }
     }
 
-    onMessageHover(i: number){
+    onMessageHover(i: number) {
         this.onHover.emit({message: this.value[i]});
     }
 
