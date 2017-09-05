@@ -2354,9 +2354,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public exportSelectedRowsToCSV() {
         let data = this.getSelection();
-        if(!!data&&data.length){
-            this.generateCSV(data);
-        }
+        this.generateCSV(data);
     }
     
     public exportCSV() {
