@@ -41,19 +41,21 @@ export class Paginator {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() rowsPerPageOptions: number[];
-    
+
     @Input() alwaysShow: boolean = true;
+
+    @Input() currentPage: number = 0;
 
     public pageLinks: number[];
 
     public _totalRecords: number = 0;
-    
+
     public _first: number = 0;
-    
+
     public _rows: number = 0;
-    
+
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }
@@ -62,8 +64,11 @@ export class Paginator {
         this._totalRecords = val;
         this.updatePageLinks();
     }
-    
+
     @Input() get first(): number {
+        if(this.currentPage > 0 && this.currentPage <= this.getPageCount()) {
+            this._first = (this.currentPage - 1) * this.rows;
+        }
         return this._first;
     }
 
@@ -71,7 +76,7 @@ export class Paginator {
         this._first = val;
         this.updatePageLinks();
     }
-    
+
     @Input() get rows(): number {
         return this._rows;
     }
@@ -121,6 +126,10 @@ export class Paginator {
 
     changePage(p :number, event) {
         var pc = this.getPageCount();
+
+        if (this.currentPage > 0) {
+            this.currentPage = 0;
+        }
 
         if(p >= 0 && p < pc) {
             this.first = this.rows * p;
