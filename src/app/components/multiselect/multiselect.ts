@@ -225,6 +225,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     onItemClick(event, value) {
+        event.stopPropagation();
         let selectionIndex = this.findSelectionIndex(value);
         if(selectionIndex != -1)
             this.value = this.value.filter((val,i) => i!=selectionIndex);
