@@ -396,6 +396,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
           
             for(let i = 0; i < this.source.length; i++) {
                 if (this.isItemVisible(this.source[i], -1)) {
+                  this.source.splice(i, 1);            
                   this.target.push(this.source[i]);
                   sourceItems.push(this.source[i]);
                 }           
@@ -435,6 +436,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
           
             for(let i = 0; i < this.target.length; i++) {
               if(this.isItemVisible(this.target[i], 1)) {
+                this.target.splice(i, 1);
                 this.source.push(this.target[i]);
                 targetItems.push(this.source[i]);
               }            
