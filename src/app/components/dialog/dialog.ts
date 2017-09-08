@@ -264,9 +264,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
                 this.domHandler.addClass(document.body, 'ui-overflow-hidden');
             }
         }
+        document.body.appendChild(this.containerViewChild.nativeElement);
     }
     
     disableModality() {
+        this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
         if(this.mask) {
             document.body.removeChild(this.mask);
             if(this.blockScroll) {
