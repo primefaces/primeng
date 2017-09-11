@@ -42,7 +42,7 @@
     position: absolute;
 }
 .ui-datepicker.ui-datepicker-inline {
-    display: block;
+    display: inline-block;
     position: static;
 }
 .ui-datepicker .ui-datepicker-header {
