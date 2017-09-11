@@ -21,4 +21,8 @@ export class MessageService {
             this.messageSource.next(messages);
         } 
     }
+    
+    clear() {
+        this.messageSource.next(null);
+    }
 }

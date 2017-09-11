@@ -70,10 +70,15 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         
         if(messageService) {
             this.subscription = messageService.messageObserver.subscribe(messages => {
-                if(messages instanceof Array)
-                    this.value = messages;
-                else
-                    this.value = [messages];
+                if(messages) {
+                    if(messages instanceof Array)
+                        this.value = messages;
+                    else
+                        this.value = [messages];
+                }
+                else {
+                    this.value = null;
+                }
             });
         }
     }

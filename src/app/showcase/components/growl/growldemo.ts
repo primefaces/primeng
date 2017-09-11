@@ -42,6 +42,10 @@ export class GrowlDemo {
     showViaService() {
         this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
     }
+    
+    clearViaService() {
+        this.messageService.clear();
+    }
 
     clear() {
         this.msgs = [];
