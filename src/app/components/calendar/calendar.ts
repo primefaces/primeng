@@ -1510,7 +1510,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if(!this.datepickerClick) {
+                if(!this.datepickerClick&&this.overlayVisible) {
                     this.overlayVisible = false;
                     this.onClose.emit(event);
                 }
