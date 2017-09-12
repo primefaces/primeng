@@ -1,4 +1,7 @@
-import {NgModule,Component, ElementRef,OnDestroy,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2} from '@angular/core';
+import {
+    NgModule, Component, ElementRef, OnDestroy, Input, Output, SimpleChange, EventEmitter, forwardRef, Renderer2,
+    NgZone
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -88,7 +91,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     public starty: number;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private ngZone: NgZone) {}
     
     onMouseDown(event:Event, index?:number) {
         if(this.disabled) {
@@ -156,26 +159,30 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     }
     
     bindDragListeners() {
-        if(!this.dragListener) {
-            this.dragListener = this.renderer.listen('document', 'mousemove', (event) => {
-                if(this.dragging) {                                
-                    this.handleChange(event);
-                }
-            });
-        }
-
-        if(!this.mouseupListener) {
-            this.mouseupListener = this.renderer.listen('document', 'mouseup', (event) => {
-                if(this.dragging) {
-                    this.dragging = false;
-                    if(this.range) {
-                        this.onSlideEnd.emit({originalEvent: event, values: this.values});
-                    } else {
-                        this.onSlideEnd.emit({originalEvent: event, value: this.value});
+        this.ngZone.runOutsideAngular(() => {
+            if (!this.dragListener) {
+                this.dragListener = this.renderer.listen('document', 'mousemove', (event) => {
+                    if (this.dragging) {
+                        this.ngZone.run(() => {
+                            this.handleChange(event);
+                        });
                     }
-                }
-            });
-        }
+                });
+            }
+
+            if (!this.mouseupListener) {
+                this.mouseupListener = this.renderer.listen('document', 'mouseup', (event) => {
+                    if (this.dragging) {
+                        this.dragging = false;
+                        if (this.range) {
+                            this.onSlideEnd.emit({originalEvent: event, values: this.values});
+                        } else {
+                            this.onSlideEnd.emit({originalEvent: event, value: this.value});
+                        }
+                    }
+                });
+            }
+        });
     }
     
     unbindDragListeners() {
