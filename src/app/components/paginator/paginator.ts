@@ -147,6 +147,10 @@ export class Paginator {
     changePageToFirst(event) {
       if (!this.isFirstPage()){
         this.changePage(0, event);
+      } else {
+          if(event) {
+            event.preventDefault();
+          } 
       }
     }
 
@@ -161,6 +165,10 @@ export class Paginator {
     changePageToLast(event) {
       if (!this.isLastPage()){
         this.changePage(this.getPageCount() - 1, event);
+      } else {
+          if(event) {
+            event.preventDefault();
+          } 
       }
     }
     
