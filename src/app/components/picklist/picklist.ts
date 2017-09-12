@@ -392,11 +392,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveAllRight() {
         if(this.source) {
+            const sourceItems: any[] = [];
+          
             for(let i = 0; i < this.source.length; i++) {
-                this.target.push(this.source[i]);
+                if (this.isItemVisible(this.source[i], -1)) {
+                  this.source.splice(i, 1);            
+                  this.target.push(this.source[i]);
+                  sourceItems.push(this.source[i]);
+                }           
             }
-            
-            const sourceItems = this.source.splice(0, this.source.length);
     
             this.onMoveToTarget.emit({
                 items: sourceItems
@@ -428,11 +432,15 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveAllLeft() {
         if(this.target) {
+            const targetItems: any[] = []; 
+          
             for(let i = 0; i < this.target.length; i++) {
+              if(this.isItemVisible(this.target[i], 1)) {
+                this.target.splice(i, 1);
                 this.source.push(this.target[i]);
+                targetItems.push(this.source[i]);
+              }            
             }
-            
-            const targetItems = this.target.splice(0, this.target.length);
     
             this.onMoveToSource.emit({
                 items: targetItems
