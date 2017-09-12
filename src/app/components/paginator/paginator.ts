@@ -6,27 +6,27 @@ import {CommonModule} from '@angular/common';
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-paginator ui-widget ui-widget-header ui-unselectable-text'"
             *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
-            <a href="#" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" i18n-aria-label="Paginator|A pagination link button that goes to the first page" aria-label="Goto first page" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="fa fa-step-backward"></span>
             </a>
-            <a href="#" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" i18n-aria-label="Paginator|A pagination link button that goes to the previous page" aria-label="Goto previous page" class="ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToPrev($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="fa fa-backward"></span>
             </a>
             <span class="ui-paginator-pages">
-                <a href="#" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
+                <a href="#" i18n-attr.aria-label="Paginator|A pagination link button that goes to a specific page" attr.aria-label="Goto page {{pageLink}}" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePage(pageLink - 1, $event)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
             </span>
-            <a href="#" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" i18n-aria-label="Paginator|A pagination link button that goes to the next page" aria-label="Goto next page" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="fa fa-forward"></span>
             </a>
-            <a href="#" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all"
+            <a href="#" i18n-aria-label="Paginator|A pagination link button that goes to the last page" aria-label="Goto last page" class="ui-paginator-last ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="fa fa-step-forward"></span>
             </a>
-            <select class="ui-paginator-rpp-options ui-widget ui-state-default" *ngIf="rowsPerPageOptions" (change)="onRppChange($event)">
+            <select i18n-aria-label="Paginator|A dropdown to select the number of page results" aria-label="Select number of page results" class="ui-paginator-rpp-options ui-widget ui-state-default" *ngIf="rowsPerPageOptions" (change)="onRppChange($event)">
                 <option *ngFor="let opt of rowsPerPageOptions" [value]="opt" [selected]="rows == opt">{{opt}}</option>
             </select>
         </div>
@@ -41,19 +41,19 @@ export class Paginator {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() rowsPerPageOptions: number[];
-    
+
     @Input() alwaysShow: boolean = true;
 
     public pageLinks: number[];
 
     public _totalRecords: number = 0;
-    
+
     public _first: number = 0;
-    
+
     public _rows: number = 0;
-    
+
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }
@@ -62,7 +62,7 @@ export class Paginator {
         this._totalRecords = val;
         this.updatePageLinks();
     }
-    
+
     @Input() get first(): number {
         return this._first;
     }
@@ -71,7 +71,7 @@ export class Paginator {
         this._first = val;
         this.updatePageLinks();
     }
-    
+
     @Input() get rows(): number {
         return this._rows;
     }
@@ -134,12 +134,12 @@ export class Paginator {
 
             this.onPageChange.emit(state);
         }
-        
+
         if(event) {
             event.preventDefault();
         }
     }
-    
+
     getPage(): number {
         return Math.floor(this.first / this.rows);
     }
@@ -163,7 +163,7 @@ export class Paginator {
         this.changePage(this.getPageCount() - 1, event);
       }
     }
-    
+
     onRppChange(event) {
         this.rows = this.rowsPerPageOptions[event.target.selectedIndex];
         this.changePageToFirst(event);
