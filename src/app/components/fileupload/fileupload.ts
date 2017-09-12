@@ -57,123 +57,123 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
     providers: [DomHandler]
 })
 export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestroy {
-    
+
     @Input() name: string;
-    
+
     @Input() url: string;
-    
+
     @Input() method: string = 'POST';
-    
+
     @Input() multiple: boolean;
-    
+
     @Input() accept: string;
-    
+
     @Input() disabled: boolean;
-    
+
     @Input() auto: boolean;
 
     @Input() withCredentials: boolean;
-        
+
     @Input() maxFileSize: number;
-    
+
     @Input() invalidFileSizeMessageSummary: string = '{0}: Invalid file size, ';
-    
+
     @Input() invalidFileSizeMessageDetail: string = 'maximum upload size is {0}.';
 
     @Input() invalidFileTypeMessageSummary: string = '{0}: Invalid file type, ';
 
     @Input() invalidFileTypeMessageDetail: string = 'allowed file types: {0}.';
-    
+
     @Input() style: string;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() previewWidth: number = 50;
-    
+
     @Input() chooseLabel: string = 'Choose';
-    
+
     @Input() uploadLabel: string = 'Upload';
-    
+
     @Input() cancelLabel: string = 'Cancel';
-    
+
     @Input() showUploadButton: boolean = true;
-    
+
     @Input() showCancelButton: boolean = true;
-    
+
     @Input() mode: string = 'advanced';
-    
+
     @Input() customUpload: boolean;
 
     @Output() onBeforeUpload: EventEmitter<any> = new EventEmitter();
-	
+
 	@Output() onBeforeSend: EventEmitter<any> = new EventEmitter();
-        
+
     @Output() onUpload: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onError: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @Output() onRemove: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onProgress: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() uploadHandler: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     @ViewChild('advancedfileinput') advancedFileInput: ElementRef;
-    
+
     @ViewChild('basicfileinput') basicFileInput: ElementRef;
-    
+
     @ViewChild('content') content: ElementRef;
-     
+
     @Input() files: File[];
-    
+
     public progress: number = 0;
-    
+
     public dragHighlight: boolean;
-    
+
     public msgs: Message[];
-    
+
     public fileTemplate: TemplateRef<any>;
-    
-    public contentTemplate: TemplateRef<any>; 
-    
+
+    public contentTemplate: TemplateRef<any>;
+
     public toolbarTemplate: TemplateRef<any>;
-    
+
     focus: boolean;
-        
+
     constructor(public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone){}
-    
+
     ngOnInit() {
         this.files = [];
     }
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'file':
                     this.fileTemplate = item.template;
                 break;
-                
+
                 case 'content':
                     this.contentTemplate = item.template;
                 break;
-                
+
                 case 'toolbar':
                     this.toolbarTemplate = item.template;
                 break;
-                
+
                 default:
                     this.fileTemplate = item.template;
                 break;
             }
         });
     }
-    
+
     ngAfterViewInit() {
         if(this.mode === 'advanced') {
             this.zone.runOutsideAngular(() => {
@@ -181,13 +181,13 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
             });
         }
     }
-        
+
     onFileSelect(event) {
         this.msgs = [];
         if(!this.multiple) {
             this.files = [];
         }
-        
+
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
@@ -195,20 +195,20 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
                 if(this.isImage(file)) {
                     file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
                 }
-                
+
                 this.files.push(files[i]);
             }
         }
-        
+
         this.onSelect.emit({originalEvent: event, files: files});
-        
+
         if(this.hasFiles() && this.auto) {
             this.upload();
         }
-        
+
         this.clearInputElement();
     }
-        
+
     validate(file: File): boolean {
         if(this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
@@ -221,8 +221,8 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
         if(this.maxFileSize  && file.size > this.maxFileSize) {
             this.msgs.push({
-                severity: 'error', 
-                summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name), 
+                severity: 'error',
+                summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name),
                 detail: this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))
             });
             return false;
@@ -234,7 +234,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     private isFileTypeValid(file: File): boolean {
         let acceptableTypes = this.accept.split(',');
         for(let type of acceptableTypes) {
-            let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type) 
+            let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type)
                                                     : file.type == type || this.getFileExtension(file) === type;
 
             if(acceptable) {
@@ -252,15 +252,15 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     isWildcard(fileType: string): boolean {
         return fileType.indexOf('*') !== -1;
     }
-    
+
     getFileExtension(file: File): string {
         return '.' + file.name.split('.').pop();
     }
-    
+
     isImage(file: File): boolean {
         return /^image\//.test(file.type);
     }
-    
+
     onImageLoad(img: any) {
         window.URL.revokeObjectURL(img.src);
     }
@@ -278,7 +278,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
             this.onBeforeUpload.emit({
                 'xhr': xhr,
-                'formData': formData 
+                'formData': formData
             });
 
             for(let i = 0; i < this.files.length; i++) {
@@ -289,32 +289,32 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
                 if(e.lengthComputable) {
                   this.progress = Math.round((e.loaded * 100) / e.total);
                 }
-                
+
                 this.onProgress.emit({originalEvent: e, progress: this.progress});
               }, false);
 
             xhr.onreadystatechange = () => {
                 if(xhr.readyState == 4) {
                     this.progress = 0;
-                    
+
                     if(xhr.status >= 200 && xhr.status < 300)
                         this.onUpload.emit({xhr: xhr, files: this.files});
                     else
                         this.onError.emit({xhr: xhr, files: this.files});
-                    
+
                     this.clear();
                 }
             };
-            
+
             xhr.open(this.method, this.url, true);
-            
+
             this.onBeforeSend.emit({
                 'xhr': xhr,
-                'formData': formData 
+                'formData': formData
             });
 
             xhr.withCredentials = this.withCredentials;
-            
+
             xhr.send(formData);
         }
     }
@@ -324,31 +324,30 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         this.onClear.emit();
         this.clearInputElement();
     }
-    
+
     remove(event: Event, index: number) {
         this.clearInputElement();
         this.onRemove.emit({originalEvent: event, file: this.files[index]});
         this.files.splice(index, 1);
     }
-    
+
     clearInputElement() {
-        let inputViewChild = this.advancedFileInput||this.basicFileInput;
-        if(inputViewChild && inputViewChild.nativeElement) {
-            inputViewChild.nativeElement.value = '';
-        }
+      if(this.advancedFileInput && this.advancedFileInput.nativeElement) {
+        this.advancedFileInput.nativeElement.value = '';
+      }
     }
-        
+
     hasFiles(): boolean {
         return this.files && this.files.length > 0;
     }
-    
+
     onDragEnter(e) {
         if(!this.disabled) {
             e.stopPropagation();
             e.preventDefault();
         }
     }
-    
+
     onDragOver(e) {
         if(!this.disabled) {
             this.domHandler.addClass(this.content.nativeElement, 'ui-fileupload-highlight');
@@ -357,36 +356,36 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
             e.preventDefault();
         }
     }
-    
+
     onDragLeave(event) {
         if(!this.disabled) {
             this.domHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
         }
     }
-    
+
     onDrop(event) {
         if(!this.disabled) {
             this.domHandler.removeClass(this.content.nativeElement, 'ui-fileupload-highlight');
             event.stopPropagation();
             event.preventDefault();
-            
+
             let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
             let allowDrop = this.multiple||(files && files.length === 1);
-            
+
             if(allowDrop) {
                 this.onFileSelect(event);
             }
         }
     }
-    
+
     onFocus() {
         this.focus = true;
     }
-    
+
     onBlur() {
         this.focus = false;
     }
-    
+
     formatSize(bytes) {
         if(bytes == 0) {
             return '0 B';
@@ -395,16 +394,16 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         dm = 3,
         sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
         i = Math.floor(Math.log(bytes) / Math.log(k));
-        
+
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
-    
+
     onSimpleUploaderClick(event: Event) {
         if(this.hasFiles()) {
             this.upload();
         }
     }
-    
+
     ngOnDestroy() {
         if(this.content && this.content.nativeElement) {
             this.content.nativeElement.removeEventListener('dragover', this.onDragOver);

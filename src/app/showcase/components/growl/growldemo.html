@@ -19,7 +19,8 @@
     </div>
     
     <h3>Message Service</h3>
-    <button type="button" pButton (click)="showViaService()" label="Use Service"></button>
+    <button type="button" pButton (click)="showViaService()" label="Add with Service"></button>
+    <button type="button" pButton (click)="clearViaService()" label="Clear with Service"></button>
 </div>
 
 <div class="content-section documentation">
@@ -82,8 +83,12 @@ export class MessageServiceDemo &#123;
     &#125;
     
     addMultiple() &#123;
-        this.messageService.addAdd([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
+        this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
                                     &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
+    &#125;
+    
+    clear() &#123;
+        this.messageService.clear();
     &#125;
 &#125;
 </code>
@@ -276,7 +281,8 @@ clear() &#123;
 &lt;/div&gt;
 
 &lt;h3&gt;Message Service&lt;/h3&gt;
-&lt;button type="button" pButton (click)="showViaService()" label="Use Service"&gt;&lt;/button&gt;
+&lt;button type="button" pButton (click)="showViaService()" label="Add with Service"&gt;&lt;/button&gt;
+&lt;button type="button" pButton (click)="clearViaService()" label="Clear with Service"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -326,6 +332,10 @@ export class GrowlDemo &#123;
     
     showViaService() &#123;
         this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
+    &#125;
+    
+    clearViaService() &#123;
+        this.messageService.clear();
     &#125;
 
     clear() &#123;

@@ -978,6 +978,23 @@ loadData(event: LazyLoadEvent) &#123;
 </pre>
             <p>See the <a [routerLink]="['/datatable/responsive']">live example.</a></p>
             
+            <h3>EmptyMessage</h3>
+            <p>When there is no data, DataTable displays a message text defined using the emptyMessage property where as custom content can be provided using
+                emptymessage template.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars" [responsive]="true"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+    &lt;ng-template pTemplate="emptymessage"&gt;
+        Custom content goes here
+    &lt;/ng-template&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+            
             <h3>Overlays in Cells</h3>
             <p>Cells of datatable hides the overflow by default, this prevents overlay of a component like dropdown to be displayed properly. In cases like these, 
             set the style of the column to allow overflow.</p>

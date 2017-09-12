@@ -214,7 +214,10 @@ export class ColumnFooters {
         </ng-template>
 
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row">
-            <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">{{dt.emptyMessage}}</td>
+            <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
+                <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
+                <p-templateLoader [template]="dt.emptyMessageTemplate"></p-templateLoader>
+            </td>
         </tr>
     `
 })
@@ -719,6 +722,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public rowExpansionTemplate: TemplateRef<any>;
     
+    public emptyMessageTemplate: TemplateRef<any>;
+    
     public scrollBarWidth: number;
     
     public editorClick: boolean;
@@ -783,6 +788,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 
                 case 'rowgroupfooter':
                     this.rowGroupFooterTemplate = item.template;
+                break;
+                
+                case 'emptymessage':
+                    this.emptyMessageTemplate = item.template;
                 break;
             }
         });
@@ -2167,7 +2176,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     onColumnDrop(event) {
         event.preventDefault();
         if(this.draggedColumn) {
-             let dragIndex = this.domHandler.index(this.draggedColumn);
+            let dragIndex = this.domHandler.index(this.draggedColumn);
             let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
             let allowDrop = (dragIndex != dropIndex);
             if(allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
@@ -2175,7 +2184,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         
             if(allowDrop) {
-                this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
+                this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
 
                 this.onColReorder.emit({
                     dragIndex: dragIndex,

@@ -1,4 +1,4 @@
-import {NgModule,Component, ElementRef,AfterViewInit,OnDestroy,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2} from '@angular/core';
+import {NgModule,Component, ElementRef,OnDestroy,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -28,7 +28,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     `,
     providers: [SLIDER_VALUE_ACCESSOR,DomHandler]
 })
-export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
+export class Slider implements OnDestroy,ControlValueAccessor {
 
     @Input() animate: boolean;
 
@@ -99,6 +99,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.updateDomData();
         this.sliderHandleClick = true;
         this.handleIndex = index;
+        this.bindDragListeners();
         event.preventDefault();
     }
 
@@ -148,33 +149,43 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         
         this.sliderHandleClick = false;
     }
-
-    ngAfterViewInit() {
-        if(this.disabled) {
-            return;
-        }
-        
-        this.dragListener = this.renderer.listen('document', 'mousemove', (event) => {
-            if(this.dragging) {                                
-                this.handleChange(event);
-            }
-        });
-        
-        this.mouseupListener = this.renderer.listen('document', 'mouseup', (event) => {
-            if(this.dragging) {
-                this.dragging = false;
-                if(this.range) {
-                    this.onSlideEnd.emit({originalEvent: event, values: this.values});
-                } else {
-                    this.onSlideEnd.emit({originalEvent: event, value: this.value});
-                }
-            }
-        });
-    }
     
     handleChange(event: Event) {
         let handleValue = this.calculateHandleValue(event);
         this.setValueFromHandle(event, handleValue);
+    }
+    
+    bindDragListeners() {
+        if(!this.dragListener) {
+            this.dragListener = this.renderer.listen('document', 'mousemove', (event) => {
+                if(this.dragging) {                                
+                    this.handleChange(event);
+                }
+            });
+        }
+
+        if(!this.mouseupListener) {
+            this.mouseupListener = this.renderer.listen('document', 'mouseup', (event) => {
+                if(this.dragging) {
+                    this.dragging = false;
+                    if(this.range) {
+                        this.onSlideEnd.emit({originalEvent: event, values: this.values});
+                    } else {
+                        this.onSlideEnd.emit({originalEvent: event, value: this.value});
+                    }
+                }
+            });
+        }
+    }
+    
+    unbindDragListeners() {
+        if(this.dragListener) {
+            this.dragListener();
+        }
+        
+        if(this.mouseupListener) {
+            this.mouseupListener();
+        }
     }
 
     setValueFromHandle(event: Event, handleValue: any) {
@@ -336,13 +347,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     }
     
     ngOnDestroy() {
-        if(this.dragListener) {
-            this.dragListener();
-        }
-        
-        if(this.mouseupListener) {
-            this.mouseupListener();
-        }
+        this.unbindDragListeners();
     }
 }
 
