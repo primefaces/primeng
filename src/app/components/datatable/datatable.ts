@@ -823,6 +823,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     ngAfterViewInit() {
         if(this.globalFilter) {
             this.globalFilterFunction = this.renderer.listen(this.globalFilter, 'keyup', () => {
+                if (this.filterTimeout) {
+                    clearTimeout(this.filterTimeout);
+                }
                 this.filterTimeout = setTimeout(() => {
                     this._filter();
                     this.filterTimeout = null;
@@ -2229,7 +2232,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else {
             if(this.columns) {
                 for(let i = 0; i  < this.columns.length; i++) {
-                    if(this.columns[i].footer) {
+                    if(this.columns[i].footer || this.columns[i].footerTemplate) {
                         return true;
                     }
                 }
