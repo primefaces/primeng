@@ -340,7 +340,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 let itemLabel = this.findLabelByValue(this.value[i]);
                 if (itemLabel) {
                     if(label.length > 0) {
-                        label = label + ',';
+                        label = label + ', ';
                     }
                     label = label + itemLabel;
                 }
