@@ -2176,7 +2176,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     onColumnDrop(event) {
         event.preventDefault();
         if(this.draggedColumn) {
-             let dragIndex = this.domHandler.index(this.draggedColumn);
+            let dragIndex = this.domHandler.index(this.draggedColumn);
             let dropIndex = this.domHandler.index(this.findParentHeader(event.target));
             let allowDrop = (dragIndex != dropIndex);
             if(allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
@@ -2184,7 +2184,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
         
             if(allowDrop) {
-                this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
+                this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
 
                 this.onColReorder.emit({
                     dragIndex: dragIndex,
