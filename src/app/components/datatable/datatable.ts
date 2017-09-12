@@ -816,7 +816,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             let rowHeight = this.domHandler.getOuterHeight(row);
             this.virtualTableHeight = this._totalRecords * rowHeight;
             scrollableTable.style.height = this.virtualTableHeight + 'px';
-            this.totalRecordsChanged = true;
+            this.totalRecordsChanged = false;
         }
     }
 
