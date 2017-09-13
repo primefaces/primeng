@@ -184,10 +184,6 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     onFileSelect(event) {
         this.msgs = [];
-        if(!this.multiple) {
-            this.files = [];
-        }
-
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
@@ -195,7 +191,10 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
                 if(this.isImage(file)) {
                     file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
                 }
-
+                
+                if(!this.multiple) {
+                    this.files = [];
+                }
                 this.files.push(files[i]);
             }
         }
