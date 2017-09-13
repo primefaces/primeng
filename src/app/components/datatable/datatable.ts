@@ -640,6 +640,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() loadingIcon: string = 'fa-circle-o-notch';
     
+    @Input() virtualScrollDelay: number = 500;
+    
     @Output() valueChange: EventEmitter<any[]> = new EventEmitter<any[]>();
     
     @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
@@ -755,6 +757,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     rangeRowIndex: number;
     
     initialized: boolean;
+    
+    virtualScrollTimer: any;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils,
@@ -816,7 +820,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             let rowHeight = this.domHandler.getOuterHeight(row);
             this.virtualTableHeight = this._totalRecords * rowHeight;
             scrollableTable.style.height = this.virtualTableHeight + 'px';
-            this.totalRecordsChanged = true;
+            this.totalRecordsChanged = false;
         }
     }
 
@@ -1055,11 +1059,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
     onVirtualScroll(event) {
         this._first = (event.page - 1) * this.rows;
-        
-        if(this.lazy)
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        else
-            this.updateDataToRender(this.filteredValue||this.value);
+        this.zone.run(() => {
+            if(this.virtualScrollTimer) {
+                clearTimeout(this.virtualScrollTimer);
+            }
+            
+            this.virtualScrollTimer = setTimeout(() => {
+                if(this.lazy)
+                    this.onLazyLoad.emit(this.createLazyLoadMetadata());
+                else
+                    this.updateDataToRender(this.filteredValue||this.value);
+            }, this.virtualScrollDelay);
+        });
     }
     
     onHeaderKeydown(event, column: Column) {
