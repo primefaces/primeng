@@ -13,8 +13,8 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-selectButton',
     template: `
         <div [ngClass]="'ui-selectbutton ui-buttonset ui-widget ui-corner-all ui-buttonset-' + options.length" [ngStyle]="style" [class]="styleClass">
-            <div *ngFor="let option of options;" class="ui-button ui-widget ui-state-default ui-button-text-only"
-                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled, 'ui-state-focus': cbox == focusedItem}" (click)="onItemClick($event,option,cbox)">
+            <div *ngFor="let option of options; let i = index" class="ui-button ui-widget ui-state-default ui-button-text-only {{option.styleClass}}"
+                [ngClass]="{'ui-state-active':isSelected(option), 'ui-state-disabled':disabled, 'ui-state-focus': cbox == focusedItem}" (click)="onItemClick($event,option,cbox,i)">
                 <span class="ui-button-text ui-clickable">{{option.label}}</span>
                 <div class="ui-helper-hidden-accessible">
                     <input #cbox type="checkbox" [checked]="isSelected(option)" (focus)="onFocus($event)" (blur)="onBlur($event)" [attr.tabindex]="tabindex" [attr.disabled]="disabled">
@@ -37,6 +37,8 @@ export class SelectButton implements ControlValueAccessor {
     @Input() styleClass: string;
 
     @Input() disabled: boolean;
+    
+    @Output() onOptionClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -64,7 +66,7 @@ export class SelectButton implements ControlValueAccessor {
         this.disabled = val;
     }
     
-    onItemClick(event, option: SelectItem, checkbox: HTMLInputElement) {
+    onItemClick(event, option: SelectItem, checkbox: HTMLInputElement, index: number) {
         if(this.disabled) {
             return;
         }
@@ -81,6 +83,12 @@ export class SelectButton implements ControlValueAccessor {
         else {
             this.value = option.value;
         }
+        
+        this.onOptionClick.emit({
+            originalEvent: event,
+            option: option,
+            index: index
+        });
         
         this.onModelChange(this.value);
         

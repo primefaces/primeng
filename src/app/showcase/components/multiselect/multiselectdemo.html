@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
-    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1"></p-multiSelect>
+    <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
     <p>Selected Cars: {{selectedCars1}}</p>
     
     <h3>Template</h3>
@@ -201,6 +201,12 @@ export class MyModel &#123;
                             <td>&#123;0&#125; items selected</td>
                             <td>Label to display after exceeding max selected labels.</td>
                         </tr>
+                        <tr>
+                            <td>showToggleAll</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show the checkbox at header to toggle all items at once.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -291,7 +297,7 @@ export class MyModel &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars1"&gt;&lt;/p-multiSelect&gt;
+&lt;p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="&#123;minWidth:'12em'}"&gt;&lt;/p-multiSelect&gt;
 &lt;p&gt;Selected Cars: &#123;&#123;selectedCars1&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Template&lt;/h3&gt;

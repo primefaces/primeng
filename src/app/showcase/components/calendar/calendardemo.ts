@@ -23,6 +23,10 @@ export class CalendarDemo {
     
     date9: Date;
     
+    date10: Date;
+    
+    date11: Date;
+    
     dates: Date[];
     
     rangeDates: Date[];
@@ -42,7 +46,9 @@ export class CalendarDemo {
         	dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
         	dayNamesMin: [ "D","L","M","X","J","V","S" ],
             monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
-        	monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ]
+        	monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
+            today: 'Hoy',
+            clear: 'Borrar'
         };
         
         let today = new Date();

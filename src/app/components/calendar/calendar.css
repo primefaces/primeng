@@ -3,7 +3,7 @@
     display: inline-block;
 }
 
-.ui-calendar button {
+.ui-calendar .ui-calendar-button {
     position: absolute;
     height: 100%;
     border-top-left-radius: 0px;
@@ -12,8 +12,8 @@
     border-left: 0 none;
 }
 
-.ui-calendar button:enabled:hover,
-.ui-calendar button:focus {
+.ui-calendar .ui-calendar-button:enabled:hover,
+.ui-calendar .ui-calendar-button:focus {
     border-left: 0 none;
 } 
 
@@ -22,8 +22,12 @@
     width: 100%;
 }
 
-.ui-fluid .ui-calendar button {
+.ui-fluid .ui-calendar-button {
     width: 2em;
+}
+
+.ui-fluid .ui-datepicker-buttonbar button {
+    width: auto;
 }
 
 .ui-fluid .ui-calendar.ui-calendar-w-btn .ui-inputtext {
@@ -38,7 +42,7 @@
     position: absolute;
 }
 .ui-datepicker.ui-datepicker-inline {
-    display: block;
+    display: inline-block;
     position: static;
 }
 .ui-datepicker .ui-datepicker-header {
@@ -166,6 +170,21 @@
 	clear: both;
 	width: 100%;
 	font-size: 0;
+}
+
+.ui-datepicker .ui-datepicker-buttonbar {
+    border-left: 0 none;
+    border-right: 0 none;
+    border-bottom: 0 none;
+	padding: .2em;
+}
+
+.ui-datepicker .ui-datepicker-buttonbar > .ui-g > div:last-child {
+    text-align: right;
+}
+
+.ui-datepicker .ui-datepicker-buttonbar > .ui-g > div {
+    padding: 0;
 }
 
 .ui-calendar.ui-calendar-w-btn input {

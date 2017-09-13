@@ -303,7 +303,9 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     initialize() {
         this.schedule = jQuery(this.el.nativeElement.children[0]);
         this.schedule.fullCalendar(this.config);
-        this.schedule.fullCalendar('addEventSource', this.events);
+        if(this.events) {
+            this.schedule.fullCalendar('addEventSource', this.events);
+        }
         this.initialized = true;
     }
      
@@ -312,7 +314,10 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         
         if(this.schedule && changes) {
             this.schedule.fullCalendar('removeEventSources');
-            this.schedule.fullCalendar('addEventSource', this.events);
+            
+            if(this.events) {
+                this.schedule.fullCalendar('addEventSource', this.events);
+            }
         }
     }
 

@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {SelectItem} from '../../../components/common/api';
 import {Message} from '../../../components/common/api';
 import {MessageService} from '../../../components/common/messageservice';
 
@@ -42,6 +41,10 @@ export class GrowlDemo {
     
     showViaService() {
         this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
+    }
+    
+    clearViaService() {
+        this.messageService.clear();
     }
 
     clear() {

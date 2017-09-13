@@ -102,6 +102,12 @@
         <div class="ui-g-4">4</div>
     </div>
     
+    <h3>Offset</h3>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">ui-g-12 ui-md-4</div>
+        <div class="ui-g-12 ui-md-4 ui-md-offset-4">ui-g-12 ui-md-4 ui-md-offset-4</div>
+    </div>
+    
     <h3>Sample Layout</h3>
     <div class="ui-g">
         <div class="ui-g-12 ui-md-2">Menu</div>
@@ -357,6 +363,63 @@
 
         <h3>Padding</h3>
         <p>A column has a default padding by default, to remove it you may apply <i>ui-g-nopad</i> style class.</p>
+        
+        <h3>Offset</h3>
+        <p>Offset classes allow defining a left margin on a column. Following sample adds a margin left to the second column for medium sized screens.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;ui-g-12 ui-md-4&lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-4 ui-md-offset-4"&gt;ui-g-12 i-md-4 ui-md-offset-4&lt;/div&gt;
+&lt;/div&gt;
+</code>
+</pre>
+
+        <p>The list of offset classes varying within a range of 1 to 12.</p>
+        <div class="doc-tablewrapper">
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Prefix</th>
+                        <th>Devices</th>
+                        <th>Media Query</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ui-g-offset-*</td>
+                        <td>All devices</td>
+                        <td>All screens</td>
+                        <td>ui-g-offset-6, ui-g-offset-4</td>
+                    </tr>
+                    <tr>
+                        <td>ui-sm-offset-*</td>
+                        <td>Small devices like phones</td>
+                        <td>max-width: 40em (640px)</td>
+                        <td>ui-sm-offset-6, ui-sm-offset-4</td>
+                    </tr>
+                    <tr>
+                        <td>ui-md-offset-*</td>
+                        <td>Medium sized devices such as tablets</td>
+                        <td>min-width: 40.063em (641px)</td>
+                        <td>ui-md-offset-6, ui-md-offset-4</td>
+                    </tr>
+                    <tr>
+                        <td>ui-lg-offset-*</td>
+                        <td>Devices with large screen like desktops</td>
+                        <td>min-width: 64.063em (1025px)</td>
+                        <td>ui-lg-offset-6, ui-lg-offset-4</td>
+                    </tr>
+                    <tr>
+                        <td>ui-xl-offset-*</td>
+                        <td>Big screen monitors</td>
+                        <td>min-width: 90.063em (1441px)</td>
+                        <td>ui-xl-offset-6, ui-xl-offset-4</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         </p-tabPanel>
 
@@ -460,6 +523,12 @@
         &lt;div class="ui-g-12"&gt;12&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="ui-g-4"&gt;4&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Offset&lt;/h3&gt;
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;ui-g-12 ui-md-4&lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-4 ui-md-offset-4"&gt;ui-g-12 i-md-4 ui-md-offset-4&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;h3&gt;Sample Layout&lt;/h3&gt;

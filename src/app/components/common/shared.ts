@@ -67,6 +67,7 @@ export class Column implements AfterContentInit{
     @Input() field: string;
     @Input() colId: string;
     @Input() sortField: string;
+    @Input() filterField: string;
     @Input() header: string;
     @Input() footer: string;
     @Input() sortable: any;

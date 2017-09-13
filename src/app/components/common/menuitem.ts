@@ -17,4 +17,5 @@ export interface MenuItem {
     badgeStyleClass?: string;
     style?:any;
     styleClass?:string;
+    title?: string;
 }

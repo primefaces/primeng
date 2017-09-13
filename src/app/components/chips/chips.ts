@@ -186,7 +186,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             break;
             
             case 9:
-                if(this.addOnTab) {
+                if(this.addOnTab && inputEL.value !== '') {
                     this.addItem(event, inputEL.value);
                     inputEL.value = '';
 
