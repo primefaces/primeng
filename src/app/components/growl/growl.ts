@@ -11,7 +11,8 @@ import {Subscription}   from 'rxjs/Subscription';
         <div #container [ngClass]="'ui-growl ui-widget'" [style.zIndex]="zIndex" [ngStyle]="style" [class]="styleClass">
             <div #msgel *ngFor="let msg of value;let i = index" class="ui-growl-item-container ui-state-highlight ui-corner-all ui-shadow" aria-live="polite"
                 [ngClass]="{'ui-growl-message-info':msg.severity == 'info','ui-growl-message-warn':msg.severity == 'warn',
-                    'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}" (click)="onMessageClick(i)">
+                    'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}"
+                    (click)="onMessageClick(i)" (mouseenter)="onMessageHover(i)">
                 <div class="ui-growl-item">
                      <div class="ui-growl-icon-close fa fa-close" (click)="remove(i,msgel)"></div>
                      <span class="ui-growl-image fa fa-2x"
@@ -42,6 +43,8 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
     
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
+    @Output() onHover: EventEmitter<any> = new EventEmitter();
+    
     @Output() onClose: EventEmitter<any> = new EventEmitter();
     
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
@@ -70,10 +73,15 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
         
         if(messageService) {
             this.subscription = messageService.messageObserver.subscribe(messages => {
-                if(messages instanceof Array)
-                    this.value = messages;
-                else
-                    this.value = [messages];
+                if(messages) {
+                    if(messages instanceof Array)
+                        this.value = messages;
+                    else
+                        this.value = [messages];
+                }
+                else {
+                    this.value = null;
+                }
             });
         }
     }
@@ -169,6 +177,10 @@ export class Growl implements AfterViewInit,DoCheck,OnDestroy {
             this.closeIconClick = false;
         else
             this.onClick.emit({message: this.value[i]});
+    }
+    
+    onMessageHover(i: number) {
+        this.onHover.emit({message: this.value[i]});
     }
     
     ngOnDestroy() {

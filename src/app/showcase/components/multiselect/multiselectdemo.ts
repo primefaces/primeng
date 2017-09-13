@@ -8,7 +8,7 @@ export class MultiSelectDemo {
 
     cars: SelectItem[];
 
-    selectedCars: string[] = [];
+    selectedCars1: string[] = [];
     
     selectedCars2: string[] = [];
 

@@ -16,7 +16,7 @@ import {CommonModule} from '@angular/common';
             </a>
             <span class="ui-paginator-pages">
                 <a href="#" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePage(pageLink - 1, $event)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
+                    (click)="onPageLinkClick($event, pageLink - 1)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
             </span>
             <a href="#" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
@@ -119,7 +119,7 @@ export class Paginator {
         }
     }
 
-    changePage(p :number, event) {
+    changePage(p :number) {
         var pc = this.getPageCount();
 
         if(p >= 0 && p < pc) {
@@ -134,10 +134,6 @@ export class Paginator {
 
             this.onPageChange.emit(state);
         }
-        
-        if(event) {
-            event.preventDefault();
-        }
     }
     
     getPage(): number {
@@ -145,28 +141,41 @@ export class Paginator {
     }
 
     changePageToFirst(event) {
-      if (!this.isFirstPage()){
-        this.changePage(0, event);
+      if(!this.isFirstPage()){
+          this.changePage(0);
       }
+      
+      event.preventDefault();
     }
 
     changePageToPrev(event) {
-        this.changePage(this.getPage() - 1, event);
+        this.changePage(this.getPage() - 1);
+        event.preventDefault();
     }
 
     changePageToNext(event) {
-        this.changePage(this.getPage()  + 1, event);
+        this.changePage(this.getPage()  + 1);
+        event.preventDefault();
     }
 
     changePageToLast(event) {
-      if (!this.isLastPage()){
-        this.changePage(this.getPageCount() - 1, event);
+      if(!this.isLastPage()){
+          this.changePage(this.getPageCount() - 1);
       }
+      
+      event.preventDefault();
+    }
+    
+    onPageLinkClick(event, page) {
+        this.changePage(page);
+        event.preventDefault();
     }
     
     onRppChange(event) {
         this.rows = this.rowsPerPageOptions[event.target.selectedIndex];
-        this.changePageToFirst(event);
+        if(!this.isFirstPage()){
+            this.changePage(0);
+        }
     }
 }
 

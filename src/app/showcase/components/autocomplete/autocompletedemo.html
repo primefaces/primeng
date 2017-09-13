@@ -533,9 +533,9 @@ export class AutoCompleteDemo &#123;
     &lt;p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid100"
         [minLength]="1" placeholder="Countries" field="name" [multiple]="true"&gt;
     &lt;/p-autoComplete&gt;
-</&lt;span&gt;
+&lt;/span&gt;
 &lt;ul&gt;
-    &lt;li *ngFor="let c of countries"&gt;{{c.name}}&lt;/li&gt;
+    &lt;li *ngFor="let c of countries"&gt;&#123;&#123;c.name&#125;&#125;&lt;/li&gt;
 &lt;/ul&gt;
 </code>
 </pre>

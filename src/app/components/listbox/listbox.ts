@@ -1,7 +1,7 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,ContentChild,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
-import {SharedModule,PrimeTemplate} from '../common/shared';
+import {SharedModule,PrimeTemplate,Footer} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
 import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -30,22 +30,27 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <span class="fa fa-search"></span>
                 </div>
             </div>
-            <ul class="ui-listbox-list">
-                <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
-                    [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
-                    (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
-                    <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
-                        <div class="ui-helper-hidden-accessible">
-                            <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
+            <div class="ui-listbox-list-wrapper">
+                <ul class="ui-listbox-list" [ngStyle]="listStyle">
+                    <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
+                        [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
+                        (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
+                        <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
+                            <div class="ui-helper-hidden-accessible">
+                                <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
+                            </div>
+                            <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
+                                <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option)}"></span>
+                            </div>
                         </div>
-                        <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
-                            <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option)}"></span>
-                        </div>
-                    </div>
-                    <span *ngIf="!itemTemplate">{{option.label}}</span>
-                    <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option" [index]="i"></ng-template>
-                </li>
-            </ul>
+                        <span *ngIf="!itemTemplate">{{option.label}}</span>
+                        <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option" [index]="i"></ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="ui-listbox-footer ui-widget-header ui-corner-all" *ngIf="footerFacet">
+                <ng-content select="p-footer"></ng-content>
+            </div>
         </div>
     `,
     providers: [DomHandler,ObjectUtils,LISTBOX_VALUE_ACCESSOR]
@@ -59,6 +64,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    @Input() listStyle: any;
 
     @Input() disabled: boolean;
 
@@ -75,6 +82,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
+    
+    @ContentChild(Footer) footerFacet;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     

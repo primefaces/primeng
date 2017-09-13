@@ -5,16 +5,10 @@ import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
 import {SharedModule,PrimeTemplate} from '../common/shared';
-import {AbstractControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => Calendar),
-  multi: true
-};
-
-export const CALENDAR_VALIDATOR: any = {
-  provide: NG_VALIDATORS,
   useExisting: forwardRef(() => Calendar),
   multi: true
 };
@@ -171,7 +165,7 @@ export interface LocaleSettings {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus'
     },
-    providers: [DomHandler,CALENDAR_VALUE_ACCESSOR,CALENDAR_VALIDATOR]
+    providers: [DomHandler,CALENDAR_VALUE_ACCESSOR]
 })
 export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy,ControlValueAccessor {
     
@@ -333,8 +327,6 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     _maxDate: Date;
     
     _showTime: boolean;
-
-    _isValid: boolean = true;
     
     preventDocumentListener: boolean;
     
@@ -700,9 +692,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             date.setMinutes(this.currentMinute);
             date.setSeconds(this.currentSecond);
         }
-        
-        this._isValid = true;
-        
+                
         if(this.isSingleSelection()) {
             this.updateModel(date);
         }
@@ -1059,12 +1049,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             let value = this.parseValueFromString(val);
             this.updateModel(value);
             this.updateUI();
-            this._isValid = true;
         } 
         catch(err) {
             //invalid date
             this.updateModel(null);
-            this._isValid = false;
         }
         
         this.filled = val != null && val.length;
@@ -1522,7 +1510,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if(!this.datepickerClick) {
+                if(!this.datepickerClick&&this.overlayVisible) {
                     this.overlayVisible = false;
                     this.onClose.emit(event);
                 }
@@ -1546,14 +1534,6 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         if(!this.inline && this.appendTo) {
             this.el.nativeElement.appendChild(this.overlayViewChild.nativeElement);
         }
-    }
-
-    validate(c: AbstractControl) {
-        if (!this._isValid) {
-            return { invalidDate: true };
-        }
-
-        return null;
     }
 }
 

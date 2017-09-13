@@ -94,8 +94,12 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
         &#125;
 
         addMultiple() &#123;
-            this.messageService.addAdd([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
+            this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
                             &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
+        &#125;
+        
+        clear() &#123;
+            this.messageService.clear();
         &#125;
 &#125;
 </code>
