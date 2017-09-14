@@ -41,19 +41,19 @@ export class Paginator {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() rowsPerPageOptions: number[];
-    
+
     @Input() alwaysShow: boolean = true;
 
     public pageLinks: number[];
 
     public _totalRecords: number = 0;
-    
+
     public _first: number = 0;
-    
+
     public _rows: number = 0;
-    
+
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }
@@ -62,7 +62,7 @@ export class Paginator {
         this._totalRecords = val;
         this.updatePageLinks();
     }
-    
+
     @Input() get first(): number {
         return this._first;
     }
@@ -71,7 +71,7 @@ export class Paginator {
         this._first = val;
         this.updatePageLinks();
     }
-    
+
     @Input() get rows(): number {
         return this._rows;
     }
@@ -135,7 +135,7 @@ export class Paginator {
             this.onPageChange.emit(state);
         }
     }
-    
+
     getPage(): number {
         return Math.floor(this.first / this.rows);
     }
@@ -144,7 +144,7 @@ export class Paginator {
       if(!this.isFirstPage()){
           this.changePage(0);
       }
-      
+
       event.preventDefault();
     }
 
@@ -162,20 +162,18 @@ export class Paginator {
       if(!this.isLastPage()){
           this.changePage(this.getPageCount() - 1);
       }
-      
+
       event.preventDefault();
     }
-    
+
     onPageLinkClick(event, page) {
         this.changePage(page);
         event.preventDefault();
     }
-    
+
     onRppChange(event) {
         this.rows = this.rowsPerPageOptions[event.target.selectedIndex];
-        if(!this.isFirstPage()){
-            this.changePage(0);
-        }
+        this.changePage(this.getPage());
     }
 }
 
