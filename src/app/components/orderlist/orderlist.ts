@@ -122,12 +122,14 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             let listItems = this.domHandler.find(this.listContainer, 'li.ui-state-highlight');
             let listItem;
             
-            if(this.movedUp)
-                listItem = listItems[0];
-            else
-                listItem = listItems[listItems.length - 1];
-            
-            this.domHandler.scrollInView(this.listContainer, listItem);
+            if(listItems.length > 0) {
+                if(this.movedUp)
+                    listItem = listItems[0];
+                else
+                    listItem = listItems[listItems.length - 1];
+                
+                this.domHandler.scrollInView(this.listContainer, listItem);
+            }
             this.movedUp = false;
             this.movedDown = false;
         }
