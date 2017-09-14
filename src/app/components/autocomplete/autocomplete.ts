@@ -474,7 +474,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                 break;
             }
         } else {
-            if(event.which === 40 && this.suggestions) {
+            if(event.which === 40) {
                 this.search(event,event.target.value);
             }
         }
