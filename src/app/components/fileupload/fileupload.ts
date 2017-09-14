@@ -14,7 +14,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton  [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}" [attr.disabled]="disabled" > 
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton  [ngClass]="{'ui-state-focus': focus}" [attr.disabled]="disabled" > 
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()" >
                 </span>
 
@@ -191,12 +191,14 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
-            if(this.validate(file)) {
-                if(this.isImage(file)) {
-                    file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
-                }
+            if(this.isFileSelected(file)){
+              if(this.validate(file)) {
+                  if(this.isImage(file)) {
+                      file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+                  }
 
-                this.files.push(files[i]);
+                  this.files.push(files[i]);
+              }
             }
         }
 
@@ -207,6 +209,14 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         }
 
         this.clearInputElement();
+    }
+
+    isFileSelected(file: File): boolean{
+      for(let sFile of this.files){
+        if((sFile.name + sFile.type + sFile.size) === (file.name + file.type+file.size))
+          return false;
+      }
+      return true;
     }
 
     validate(file: File): boolean {
