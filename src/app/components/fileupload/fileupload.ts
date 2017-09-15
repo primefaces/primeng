@@ -191,6 +191,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
+            
             if(this.isFileSelected(file)){
               if(this.validate(file)) {
                   if(this.isImage(file)) {
@@ -212,11 +213,13 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     }
 
     isFileSelected(file: File): boolean{
-      for(let sFile of this.files){
-        if((sFile.name + sFile.type + sFile.size) === (file.name + file.type+file.size))
-          return false;
-      }
-      return true;
+        for(let sFile of this.files){
+            if((sFile.name + sFile.type + sFile.size) === (file.name + file.type+file.size)) {
+                return true;
+            }
+        }   
+      
+        return false;
     }
 
     validate(file: File): boolean {
