@@ -640,6 +640,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() loadingIcon: string = 'fa-circle-o-notch';
     
+    @Input() enableLoader: boolean = true;
+    
     @Input() virtualScrollDelay: number = 500;
     
     @Output() valueChange: EventEmitter<any[]> = new EventEmitter<any[]>();
@@ -910,7 +912,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     handleDataChange() {
-        this.loading = false;
+        if(this.lazy && this.enableLoader) {
+            this.loading = false;
+        }        
         
         if(this.paginator) {
             this.updatePaginator();
@@ -2261,7 +2265,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     createLazyLoadMetadata(): LazyLoadEvent {
-        this.loading = true;
+        if(this.enableLoader) {
+            this.loading = true;
+        }
+        
         return {
             first: this.first,
             rows: this.virtualScroll ? this.rows * 2 : this.rows,

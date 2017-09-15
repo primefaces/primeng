@@ -15,11 +15,6 @@
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
-    
-    <h3>Dynamic Columns</h3>
-    <p-dataTable [value]="cars" [loading]="loading">
-        <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
-    </p-dataTable>
 </div>
 
 <div class="content-section documentation">
@@ -1012,7 +1007,8 @@ loadData(event: LazyLoadEvent) &#123;
             <p>DataTable has a loading property, when enabled a spinner icon is displayed to indicate data load. 
                 An optional loadingIcon property can be passed in case you'd like a different loading icon. Note that
                 when lazy loading is enabled, DataTable handles loading status itself so there is no need to use
-                the loading property as it is built-in for lazy loading case.</p>
+                the loading property as it is built-in for lazy loading case. If you prefer to use your own loader in lazy mode, set 
+                enableLoader property to false.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" [loading]="loading" loadingIcon="fa-spinner"&gt;
@@ -1404,6 +1400,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>fa-circle-o-notch</td>
                             <td>The icon to show while indicating data load is in progress.</td>
+                        </tr>
+                        <tr>
+                            <td>enableLoader</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to use built-in loader in lazy mode.</td>
                         </tr>
                         <tr>
                             <td>rowTrackBy</td>
