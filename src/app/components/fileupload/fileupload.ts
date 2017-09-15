@@ -15,7 +15,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
                 <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton  [ngClass]="{'ui-state-focus': focus}" [attr.disabled]="disabled" > 
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()" >
+                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
                 <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
@@ -145,6 +145,8 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     public toolbarTemplate: TemplateRef<any>;
 
     focus: boolean;
+    
+    selfInputChange: boolean;
 
     constructor(public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone){}
 
@@ -183,6 +185,11 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     }
 
     onFileSelect(event) {
+        if(this.selfInputChange) {
+            this.selfInputChange = false;
+            return;
+        }
+        
         this.msgs = [];
         if(!this.multiple) {
             this.files = [];
@@ -346,7 +353,8 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     clearInputElement() {
       if(this.advancedFileInput && this.advancedFileInput.nativeElement) {
-        this.advancedFileInput.nativeElement.value = '';
+          this.selfInputChange = true; //IE11 fix to prevent onFileChange trigger again
+          this.advancedFileInput.nativeElement.value = '';
       }
     }
 
