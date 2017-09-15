@@ -192,7 +192,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
             
-            if(this.isFileSelected(file)){
+            if(!this.isFileSelected(file)){
               if(this.validate(file)) {
                   if(this.isImage(file)) {
                       file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
