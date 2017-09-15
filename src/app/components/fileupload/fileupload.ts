@@ -185,11 +185,11 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     }
 
     onFileSelect(event) {
-        if(this.selfInputChange) {
+        if(this.isIE11() && this.selfInputChange) {
             this.selfInputChange = false;
             return;
         }
-        
+
         this.msgs = [];
         if(!this.multiple) {
             this.files = [];
@@ -227,6 +227,10 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         }   
       
         return false;
+    }
+    
+    isIE11() {
+        return !!window['MSInputMethodContext'] && !!document['documentMode'];
     }
 
     validate(file: File): boolean {
@@ -353,7 +357,10 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     clearInputElement() {
       if(this.advancedFileInput && this.advancedFileInput.nativeElement) {
-          this.selfInputChange = true; //IE11 fix to prevent onFileChange trigger again
+          if(this.isIE11()) {
+               this.selfInputChange = true; //IE11 fix to prevent onFileChange trigger again
+          }
+         
           this.advancedFileInput.nativeElement.value = '';
       }
     }
