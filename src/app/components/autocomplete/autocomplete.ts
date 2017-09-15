@@ -110,6 +110,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     
     @Input() dropdown: boolean;
     
+    @Input() dropdownMode: string = 'blank';
+    
     @Input() multiple: boolean;
 
     @Input() tabindex: number;
@@ -159,6 +161,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     filled: boolean;
     
     inputClick: boolean;
+    
+    dropdownClick: boolean;
 
     inputKeyDown: boolean;
     
@@ -384,7 +388,14 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     
     handleDropdownClick(event) {
         this.focusInput();
+        this.dropdownClick = true;
         let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
+        
+        if(this.dropdownMode === 'blank')
+            this.search(event, '');
+        else if(this.dropdownMode === 'current')
+            this.search(event, queryValue);
+        
         this.onDropdownClick.emit({
             originalEvent: event,
             query: queryValue
@@ -579,11 +590,12 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                     return;
                 }
                 
-                if(this.inputClick)
-                    this.inputClick = false;
-                else
+                if(!this.inputClick && !this.dropdownClick) {
                     this.hide();
+                }
                     
+                this.inputClick = false;
+                this.dropdownClick = false;
                 this.cd.markForCheck();
             });
         }

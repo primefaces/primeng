@@ -51,9 +51,9 @@
 }
 
 .ui-autocomplete .ui-button-icon-only,
-.ui-autocomplete .ui-button-icon-only:hover,
-.ui-autocomplete .ui-button-icon-only:focus,
-.ui-autocomplete .ui-button-icon-only:active {
+.ui-autocomplete .ui-button-icon-only:enabled:hover,
+.ui-autocomplete .ui-button-icon-only:enabled:focus,
+.ui-autocomplete .ui-button-icon-only:enabled:active {
     border-left: 0 none;
 }
 
