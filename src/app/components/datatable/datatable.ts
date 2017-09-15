@@ -641,13 +641,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() loading: boolean;
 
     @Input() loadingIcon: string = 'fa-circle-o-notch';
-
     @Input() enableLoader: boolean = true;
     
     @Input() virtualScrollDelay: number = 500;
     
+<<<<<<< .mine
     @Input() ellipsis : boolean = false;
 
+=======
+
+
+>>>>>>> .theirs
     @Output() valueChange: EventEmitter<any[]> = new EventEmitter<any[]>();
 
     @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
@@ -763,12 +767,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     rangeRowIndex: number;
 
     initialized: boolean;
-    
-    virtualScrollTimer: any;
-    
-    virtualScrollableTableWrapper: HTMLDivElement;
-        
-    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
+    virtualScrollTimer: any;    constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils,
             public zone: NgZone) {
     	this.differ = differs.find([]).create(null);
