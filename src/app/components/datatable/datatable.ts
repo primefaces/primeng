@@ -337,7 +337,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
              let row = this.domHandler.findSingle(this.scrollTable, 'tr.ui-widget-content:not(.ui-datatable-emptymessage-row)');
              if(row) {
                  this.rowHeight = this.domHandler.getOuterHeight(row);
-             }             
+             }          
         }
         
         if(!this.frozen) {
@@ -759,6 +759,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     initialized: boolean;
     
     virtualScrollTimer: any;
+    
+    virtualScrollableTableWrapper: HTMLDivElement;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils,
@@ -814,12 +816,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.columnsChanged = false;
         }
         
-        if(this.totalRecordsChanged && this.virtualScroll) {
-            let scrollableTable = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-scrollable-table-wrapper');
-            let row = this.domHandler.findSingle(scrollableTable,'tr.ui-widget-content');
+        if(this.totalRecordsChanged && this.virtualScroll && this.virtualScrollableTableWrapper && this.virtualScrollableTableWrapper.offsetParent) {
+            let row = this.domHandler.findSingle(this.virtualScrollableTableWrapper,'tr.ui-widget-content');
             let rowHeight = this.domHandler.getOuterHeight(row);
             this.virtualTableHeight = this._totalRecords * rowHeight;
-            scrollableTable.style.height = this.virtualTableHeight + 'px';
+            this.virtualScrollableTableWrapper.style.height = this.virtualTableHeight + 'px';
             this.totalRecordsChanged = false;
         }
     }
@@ -836,6 +837,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 }, this.filterDelay);
             });
         }
+        
+        this.virtualScrollableTableWrapper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-scrollable-table-wrapper');
         
         this.initialized = true;
     }
