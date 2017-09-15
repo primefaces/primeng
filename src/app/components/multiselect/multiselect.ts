@@ -29,8 +29,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             </div>
             <div #panel [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow', panelStyleClass||'']" [ngStyle]="panelStyle"
                 [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
-                <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">
-                    <div class="ui-chkbox ui-widget">
+                <div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix" [ngClass]="{'ui-multiselect-header-no-toggleall': !showToggleAll}">
+                    <div class="ui-chkbox ui-widget" *ngIf="showToggleAll">
                         <div class="ui-helper-hidden-accessible">
                             <input #cb type="checkbox" readonly="readonly" [checked]="isAllChecked()">
                         </div>
@@ -108,6 +108,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() maxSelectedLabels: number = 3;
     
     @Input() selectedItemsLabel: string = '{0} items selected';
+    
+    @Input() showToggleAll: boolean = true;
         
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -338,7 +340,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 let itemLabel = this.findLabelByValue(this.value[i]);
                 if (itemLabel) {
                     if(label.length > 0) {
-                        label = label + ',';
+                        label = label + ', ';
                     }
                     label = label + itemLabel;
                 }

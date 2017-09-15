@@ -14,7 +14,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton  [ngClass]="{'ui-fileupload-choose-selected': hasFiles(),'ui-state-focus': focus}" [attr.disabled]="disabled" > 
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton  [ngClass]="{'ui-state-focus': focus}" [attr.disabled]="disabled" > 
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()" >
                 </span>
 
@@ -146,6 +146,8 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     
     focus: boolean;
         
+    selfInputChange: boolean;
+
     constructor(public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone){}
     
     ngOnInit() {
@@ -183,11 +185,18 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     }
         
     onFileSelect(event) {
+        if(this.isIE11() && this.selfInputChange) {
+            this.selfInputChange = false;
+            return;
+        }
+
         this.msgs = [];
         
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
+            
+            if(!this.isFileSelected(file)){
             if(this.validate(file)) {
                 if(this.isImage(file)) {
                     file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
@@ -199,6 +208,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
                 this.files.push(files[i]);
             }
         }
+        }
         
         this.onSelect.emit({originalEvent: event, files: files});
         
@@ -209,6 +219,20 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         this.clearInputElement();
     }
         
+    isFileSelected(file: File): boolean{
+        for(let sFile of this.files){
+            if((sFile.name + sFile.type + sFile.size) === (file.name + file.type+file.size)) {
+                return true;
+            }
+        }   
+      
+        return false;
+    }
+    
+    isIE11() {
+        return !!window['MSInputMethodContext'] && !!document['documentMode'];
+    }
+
     validate(file: File): boolean {
         if(this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
@@ -332,10 +356,13 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     }
     
     clearInputElement() {
-        let inputViewChild = this.advancedFileInput||this.basicFileInput;
-        if(inputViewChild && inputViewChild.nativeElement) {
-            inputViewChild.nativeElement.value = '';
+      if(this.advancedFileInput && this.advancedFileInput.nativeElement) {
+          if(this.isIE11()) {
+               this.selfInputChange = true; //IE11 fix to prevent onFileChange trigger again
         }
+         
+          this.advancedFileInput.nativeElement.value = '';
+    }
     }
         
     hasFiles(): boolean {

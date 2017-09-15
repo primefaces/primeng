@@ -220,7 +220,10 @@ export class ColumnFooters {
         </ng-template>
 
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row">
-            <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">{{dt.emptyMessage}}</td>
+            <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
+                <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
+                <p-templateLoader [template]="dt.emptyMessageTemplate"></p-templateLoader>
+            </td>
         </tr>
     `
 })
@@ -340,7 +343,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
              let row = this.domHandler.findSingle(this.scrollTable, 'tr.ui-widget-content:not(.ui-datatable-emptymessage-row)');
              if(row) {
                  this.rowHeight = this.domHandler.getOuterHeight(row);
-             }
+             }          
         }
 
         if(!this.frozen) {
@@ -639,6 +642,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() loadingIcon: string = 'fa-circle-o-notch';
 
+    @Input() enableLoader: boolean = true;
+    
+    @Input() virtualScrollDelay: number = 500;
+    
     @Input() ellipsis : boolean = false;
 
     @Output() valueChange: EventEmitter<any[]> = new EventEmitter<any[]>();
@@ -723,6 +730,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     public rowExpansionTemplate: TemplateRef<any>;
 
+    public emptyMessageTemplate: TemplateRef<any>;
+    
     public scrollBarWidth: number;
 
     public editorClick: boolean;
@@ -754,7 +763,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     rangeRowIndex: number;
 
     initialized: boolean;
-
+    
+    virtualScrollTimer: any;
+    
+    virtualScrollableTableWrapper: HTMLDivElement;
+        
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils,
             public zone: NgZone) {
@@ -788,6 +801,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 case 'rowgroupfooter':
                     this.rowGroupFooterTemplate = item.template;
                 break;
+                
+                case 'emptymessage':
+                    this.emptyMessageTemplate = item.template;
+                break;
             }
         });
     }
@@ -805,19 +822,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.columnsChanged = false;
         }
 
-        if(this.totalRecordsChanged && this.virtualScroll) {
-            let scrollableTable = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-scrollable-table-wrapper');
-            let row = this.domHandler.findSingle(scrollableTable,'tr.ui-widget-content');
+        if(this.totalRecordsChanged && this.virtualScroll && this.virtualScrollableTableWrapper && this.virtualScrollableTableWrapper.offsetParent) {
+            let row = this.domHandler.findSingle(this.virtualScrollableTableWrapper,'tr.ui-widget-content');
             let rowHeight = this.domHandler.getOuterHeight(row);
             this.virtualTableHeight = this._totalRecords * rowHeight;
-            scrollableTable.style.height = this.virtualTableHeight + 'px';
-            this.totalRecordsChanged = true;
+            this.virtualScrollableTableWrapper.style.height = this.virtualTableHeight + 'px';
+            this.totalRecordsChanged = false;
         }
     }
 
     ngAfterViewInit() {
         if(this.globalFilter) {
             this.globalFilterFunction = this.renderer.listen(this.globalFilter, 'keyup', () => {
+                if (this.filterTimeout) {
+                    clearTimeout(this.filterTimeout);
+                }
                 this.filterTimeout = setTimeout(() => {
                     this._filter();
                     this.filterTimeout = null;
@@ -825,6 +844,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
 
+        this.virtualScrollableTableWrapper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-datatable-scrollable-table-wrapper');
+        
         this.initialized = true;
     }
 
@@ -895,7 +916,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     handleDataChange() {
+        if(this.lazy && this.enableLoader) {
         this.loading = false;
+        }        
 
         if(this.paginator) {
             this.updatePaginator();
@@ -1047,11 +1070,18 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     onVirtualScroll(event) {
         this._first = (event.page - 1) * this.rows;
-
+        this.zone.run(() => {
+            if(this.virtualScrollTimer) {
+                clearTimeout(this.virtualScrollTimer);
+            }
+            
+            this.virtualScrollTimer = setTimeout(() => {
         if(this.lazy)
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         else
             this.updateDataToRender(this.filteredValue||this.value);
+            }, this.virtualScrollDelay);
+        });
     }
 
     onHeaderKeydown(event, column: Column) {
@@ -2178,7 +2208,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             }
 
             if(allowDrop) {
-                this.columns.splice(dropIndex, 0, this.columns.splice(dragIndex, 1)[0]);
+                this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
 
                 this.onColReorder.emit({
                     dragIndex: dragIndex,
@@ -2223,7 +2253,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         else {
             if(this.columns) {
                 for(let i = 0; i  < this.columns.length; i++) {
-                    if(this.columns[i].footer) {
+                    if(this.columns[i].footer || this.columns[i].footerTemplate) {
                         return true;
                     }
                 }
@@ -2238,7 +2268,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     createLazyLoadMetadata(): LazyLoadEvent {
+        if(this.enableLoader) {
         this.loading = true;
+        }
+        
         return {
             first: this.first,
             rows: this.virtualScroll ? this.rows * 2 : this.rows,

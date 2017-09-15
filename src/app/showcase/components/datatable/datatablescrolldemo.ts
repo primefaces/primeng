@@ -74,8 +74,8 @@ export class DataTableScrollDemo implements OnInit {
                 {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"},
                 {"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"},
                 {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"}
-            ];    
-        }, 25);
+            ];  
+        }, 250);
             
     }
 }

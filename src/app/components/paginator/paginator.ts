@@ -16,7 +16,7 @@ import {CommonModule} from '@angular/common';
             </a>
             <span class="ui-paginator-pages">
                 <a href="#" *ngFor="let pageLink of pageLinks" class="ui-paginator-page ui-paginator-element ui-state-default ui-corner-all"
-                    (click)="changePage(pageLink - 1, $event)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
+                    (click)="onPageLinkClick($event, pageLink - 1)" [ngClass]="{'ui-state-active': (pageLink-1 == getPage())}">{{pageLink}}</a>
             </span>
             <a href="#" class="ui-paginator-next ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToNext($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
@@ -41,19 +41,19 @@ export class Paginator {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() rowsPerPageOptions: number[];
-    
+
     @Input() alwaysShow: boolean = true;
 
     public pageLinks: number[];
 
     public _totalRecords: number = 0;
-    
+
     public _first: number = 0;
-    
+
     public _rows: number = 0;
-    
+
     @Input() get totalRecords(): number {
         return this._totalRecords;
     }
@@ -62,7 +62,7 @@ export class Paginator {
         this._totalRecords = val;
         this.updatePageLinks();
     }
-    
+
     @Input() get first(): number {
         return this._first;
     }
@@ -71,7 +71,7 @@ export class Paginator {
         this._first = val;
         this.updatePageLinks();
     }
-    
+
     @Input() get rows(): number {
         return this._rows;
     }
@@ -119,7 +119,7 @@ export class Paginator {
         }
     }
 
-    changePage(p :number, event) {
+    changePage(p :number) {
         var pc = this.getPageCount();
 
         if(p >= 0 && p < pc) {
@@ -134,39 +134,46 @@ export class Paginator {
 
             this.onPageChange.emit(state);
         }
-        
-        if(event) {
-            event.preventDefault();
-        }
     }
-    
+
     getPage(): number {
         return Math.floor(this.first / this.rows);
     }
 
     changePageToFirst(event) {
-      if (!this.isFirstPage()){
-        this.changePage(0, event);
+      if(!this.isFirstPage()){
+          this.changePage(0);
       }
+
+      event.preventDefault();
     }
 
     changePageToPrev(event) {
-        this.changePage(this.getPage() - 1, event);
+        this.changePage(this.getPage() - 1);
+        event.preventDefault();
     }
 
     changePageToNext(event) {
-        this.changePage(this.getPage()  + 1, event);
+        this.changePage(this.getPage()  + 1);
+        event.preventDefault();
     }
 
     changePageToLast(event) {
-      if (!this.isLastPage()){
-        this.changePage(this.getPageCount() - 1, event);
+      if(!this.isLastPage()){
+          this.changePage(this.getPageCount() - 1);
       }
+
+      event.preventDefault();
     }
-    
+
+    onPageLinkClick(event, page) {
+        this.changePage(page);
+        event.preventDefault();
+    }
+
     onRppChange(event) {
         this.rows = this.rowsPerPageOptions[event.target.selectedIndex];
-        this.changePageToFirst(event);
+        this.changePage(this.getPage());
     }
 }
 
