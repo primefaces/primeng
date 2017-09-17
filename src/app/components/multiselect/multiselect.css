@@ -54,7 +54,7 @@
 }
 
 .ui-multiselect-panel .ui-multiselect-items-wrapper {
-    overflow: auto;
+    overflow: scroll;
     position: relative;
     padding: 0.2em 0;
 }
@@ -114,7 +114,7 @@
     top: .25em;
     left: .125em;
 }
-            
+
 .ui-multiselect-header .ui-inputtext {
     padding: .125em .125em .125em 1.25em;
     width: 100%;
