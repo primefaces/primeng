@@ -358,7 +358,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         //tab
         case 9:{
           if(this.overlayVisible) {
-            this.hide();
+            this.close(event);
           }
           break;
         }
