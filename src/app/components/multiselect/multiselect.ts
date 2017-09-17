@@ -51,7 +51,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
                         <li *ngFor="let option of options; let index = i" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value,option)" 
                        
-                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':option==highlightOption||isSelected(option.value)}">
+                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':option==highlightOption}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
                                     <input type="checkbox" readonly="readonly" [checked]="isSelected(option.value)">
