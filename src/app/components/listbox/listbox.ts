@@ -153,7 +153,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
 
   highlightOption(option,index){
     this.highlightedOption = option;
-    if(index!=undefined) {
+    if(index!=undefined && index<this.panelItemsView.length) {
       this.panelItemsView.toArray()[index].nativeElement.focus();
     }
   }
@@ -161,6 +161,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
   findOptionIndex(highlightedOption:any):number{
     return highlightedOption?this.options.findIndex(option=>option.value==highlightedOption.value):-1
   }
+
 
   onOptionKeyDown(event,option){
       console.log(`${event.which} value ${option.value}`);
