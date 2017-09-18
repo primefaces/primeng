@@ -52,7 +52,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
                         <li *ngFor="let option of options; let index = i" class="ui-multiselect-item ui-corner-all" 
-                            (click)="onItemClick($event,option.value,option,index)" 
+                            (click)="onItemClick($event,option,index)" 
                             tabindex="-1"
                             (keydown)="onItemKeyDown($event)"
                             [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':option==highlightedOption}">
@@ -243,7 +243,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         //tab
         case 32: {
           if (this.highlightedOption && this.overlayVisible) {
-            this.onItemClick(event, this.highlightedOption.value, this.highlightedOption,highlightItemIndex);
+            this.onItemClick(event,this.highlightedOption,highlightItemIndex);
           }
           break;
         }
@@ -286,7 +286,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
       this.panelItemsView.toArray()[index].nativeElement.focus();
     }
   }
-    onItemClick(event, value,option,index) {
+    onItemClick(event,option,index) {
+    let value=option.value;
     if(index!=undefined) {
       this.highlightOption(option, index);
       let selectionIndex = this.findSelectionIndex(value);
