@@ -281,7 +281,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
   highlightOption(option,index){
     this.highlightedOption = option;
-    if(index) {
+    if(index!=undefined) {
       this.itemsView.toArray()[index].nativeElement.focus();
     }
   }
