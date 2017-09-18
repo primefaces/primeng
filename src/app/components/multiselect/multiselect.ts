@@ -1,6 +1,4 @@
-import {
-  NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, DoCheck, OnDestroy, Input,
-  Output, Renderer2, EventEmitter, IterableDiffers,
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,
             forwardRef,ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,ViewChildren} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
@@ -371,20 +369,21 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     onMouseclick(event,input) {
-      if(this.disabled) {
-        return;
-      }
-
-      if(!this.panelClick) {
-        if(this.overlayVisible) {
-          this.hide();
+        if(this.disabled) {
+            return;
         }
-        else {
-          this.openPanel();
-        }
-      }
 
-      this.selfClick = true;
+        if(!this.panelClick) {
+            if(this.overlayVisible) {
+                this.hide();
+            }
+            else {
+                input.focus();
+                this.show();
+            }
+        }
+
+        this.selfClick = true;
     }
 
   private openPanel() {
