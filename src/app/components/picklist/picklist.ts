@@ -551,12 +551,25 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
     
     insert(fromIndex, fromList, toIndex, toList) {
+        const elementtomove = fromList[fromIndex];
+
         if(toIndex === null)
             toList.push(fromList.splice(fromIndex, 1)[0]);
         else
             toList.splice(toIndex, 0, fromList.splice(fromIndex, 1)[0]);
+
+        if (fromList === this.target) {
+            this.onMoveToSource.emit({
+                items: [elementtomove]
+            });
+        }
+        else {
+            this.onMoveToTarget.emit({
+                items: [elementtomove]
+            });
+        }
     }
-    
+        
     onListMouseMove(event: MouseEvent, listType: number) {
         if(this.dragging) {
             let moveListType = (listType == 0 ? this.listViewSourceChild : this.listViewTargetChild);
