@@ -52,11 +52,12 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
-                        <li *ngFor="let option of options; let index = i" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value,option)" 
+                        <li *ngFor="let option of options; let index = i" class="ui-multiselect-item ui-corner-all" 
+                            (click)="onItemClick($event,option.value,option,index)" 
                             tabindex="-1"
                             
                             (keydown)="onItemKeyDown($event)"
-                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':option==highlightOption}">
+                            [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':option==highlightedOption}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
                                     <input type="checkbox" readonly="readonly" #item [checked]="isSelected(option.value)">
@@ -77,6 +78,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
    @ViewChildren('item') itemsView: QueryList<ElementRef>;
+  @ViewChild('in') input: ElementRef;
     @Input() options: SelectItem[];
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -155,7 +157,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     public itemTemplate: TemplateRef<any>;
 
-  highlightOption: any;
+  highlightedOption: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {
         this.valueDiffer = differs.find([]).create(null);
@@ -235,14 +237,21 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
   onItemKeyDown(event){
-    let highlightItemIndex = this.findOptionIndex(this.highlightOption);
+    console.log("item keydown"+event.which);
+    let highlightItemIndex = this.findOptionIndex(this.highlightedOption);
       switch (event.which){
+        case 32: {
+          if (this.highlightedOption && this.overlayVisible) {
+            this.onItemClick(event, this.highlightedOption.value, this.highlightedOption,highlightItemIndex);
+          }
+          break;
+        }
         //arrow down
         case 40:{
           if(this.overlayVisible) {
             let nextItemIndex = highlightItemIndex + 1;
             if (nextItemIndex != (this.options.length)) {
-              this.highlightOption = this.options[nextItemIndex];
+              this.highlightOption(this.options[nextItemIndex],nextItemIndex);
             }
           }
           break;
@@ -253,25 +262,44 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
           if(this.overlayVisible) {
             let nextItemIndex = highlightItemIndex - 1;
             if (nextItemIndex != (this.options.length)) {
-              this.highlightOption = this.options[nextItemIndex];
+              this.highlightOption(this.options[nextItemIndex],nextItemIndex);
             }
           }
           break;
         }
+        //tab
+        case 9:{
+          if(this.overlayVisible) {
+            this.close(event);
+            this.input.nativeElement.focus();
+          }
+          break;
+        }
       }
+      event.stopPropagation();
   }
 
-    onItemClick(event, value,option) {
-      this.highlightOption = option;
-        let selectionIndex = this.findSelectionIndex(value);
-        if(selectionIndex != -1) {
-          this.value = this.value.filter((val, i) => i != selectionIndex);
-        }
-        else
-            this.value = [...this.value||[],value];
+  highlightOption(option,index){
+    this.highlightedOption = option;
+    if(index) {
+      this.itemsView.toArray()[index].nativeElement.focus();
+    }
+  }
+    onItemClick(event, value,option,index) {
+    if(index!=undefined) {
+      console.log("item click" + index);
+      this.highlightOption(option, index);
+      let selectionIndex = this.findSelectionIndex(value);
+      if (selectionIndex != -1) {
+        this.value = this.value.filter((val, i) => i != selectionIndex);
+      }
+      else
+        this.value = [...this.value || [], value];
 
-        this.onModelChange(this.value);
-        this.onChange.emit({originalEvent: event, value: this.value});
+      this.onModelChange(this.value);
+      this.onChange.emit({originalEvent: event, value: this.value});
+      event.stopPropagation();
+    }
     }
 
     isSelected(value) {
@@ -360,30 +388,30 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
   private openPanel(input) {
-    if(this.itemsView && this.itemsView.length>1){
-      setTimeout(() => {
-        this.itemsView.first.nativeElement.focus();
-      },200);
-    }
-    this.show();
-    if(this.overlayVisible) {
-      this.highlightOption=this.options[0];
+    console.log("open panel");
+    if(!this.overlayVisible) {
+      if (this.itemsView && this.itemsView.length > 1) {
+        setTimeout(() => {
+          this.itemsView.first.nativeElement.focus();
+        }, 200);
+      }
+      this.show();
+      if (this.overlayVisible) {
+        this.highlightOption(this.options[0],0);
+      }
     }
   }
 
-  findOptionIndex(highlightOption:any):number{
-    return this.highlightOption?this.options.findIndex(option=>option.value==highlightOption.value):-1
+  findOptionIndex(highlightedOption:any):number{
+    return this.highlightedOption?this.options.findIndex(option=>option.value==highlightedOption.value):-1
   }
 
     onKeyDown(event,input) {
-      let highlightItemIndex = this.findOptionIndex(this.highlightOption);
+    console.log("keydown"+event.which);
       switch(event.which){
         //space
         case 32:{
-          if(this.highlightOption &&  this.overlayVisible) {
-            this.onItemClick(event, this.highlightOption.value, this.highlightOption);
-          }
-          else  if(!this.overlayVisible) {
+          if(!this.overlayVisible) {
             this.openPanel(input);
           }
           break;
