@@ -29,7 +29,8 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" role="listbox"
                     (blur)="onInputBlur($event)" (keydown)="onKeydown($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
             </div>
-            <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':(label === null)}" *ngIf="!editable&&(label !== null)">{{label||'empty'}}</label>
+            <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':(label === null),'ui-dropdown-item-empty':!label&&clearedEmpty}"
+                    *ngIf="!editable&&(label !== null)">{{label||empty}}</label>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all ui-placeholder':true}" *ngIf="!editable&&(label === null)">{{placeholder}}</label>
             <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
@@ -49,7 +50,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             [ngClass]="{'ui-dropdown-item ui-corner-all':true, 'ui-state-highlight':(selectedOption == option), 
                             'ui-dropdown-item-empty':!option.label||option.label.length === 0}"
                             (click)="onItemClick($event, option)">
-                            <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
+                            <span *ngIf="!itemTemplate">{{option.label||empty}}</span>
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></ng-template>
                         </li>
                     </ul>
@@ -112,6 +113,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() lazy: boolean = true;
     
     @Input() autofocus: boolean;
+    
+    @Input() empty: string = 'empty';
+    
+    @Input() clearedEmpty: boolean = false;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
