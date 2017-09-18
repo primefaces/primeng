@@ -51,8 +51,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
-                        <li *ngFor="let option of options; let index = i" class="ui-multiselect-item ui-corner-all" 
-                            (click)="onItemClick($event,option,index)" 
+                        <li *ngFor="let option of options; let i = index" class="ui-multiselect-item ui-corner-all" 
+                            (click)="onItemClick($event,option,i)" 
                             tabindex="-1"
                             (keydown)="onItemKeyDown($event)"
                             [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':option==highlightedOption}">
@@ -238,6 +238,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
   onItemKeyDown(event){
+    event.preventDefault();
+    event.stopPropagation();
     let highlightItemIndex = this.findOptionIndex(this.highlightedOption);
       switch (event.which){
         //tab
@@ -277,7 +279,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
           break;
         }
       }
-      event.stopPropagation();
+
   }
 
   highlightOption(option,index){
@@ -288,7 +290,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
   }
     onItemClick(event,option,index) {
     let value=option.value;
-    if(index!=undefined) {
       this.highlightOption(option, index);
       let selectionIndex = this.findSelectionIndex(value);
       if (selectionIndex != -1) {
@@ -299,8 +300,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
       this.onModelChange(this.value);
       this.onChange.emit({originalEvent: event, value: this.value});
-      event.stopPropagation();
-    }
     }
 
     isSelected(value) {
