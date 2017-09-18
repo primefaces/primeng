@@ -620,6 +620,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() public expandedRowsGroups: any[];
 
+    @Input() expandedIcon: string = 'fa-chevron-circle-down';
+
+    @Input() collapsedIcon: string = 'fa-chevron-circle-right';
+
     @Input() tabindex: number = 1;
 
     @Input() rowStyleClass: Function;
