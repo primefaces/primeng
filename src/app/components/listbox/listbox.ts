@@ -1,4 +1,7 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,ContentChild,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {
+  NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild,
+  QueryList, TemplateRef, IterableDiffers, forwardRef, ViewChildren
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {SharedModule,PrimeTemplate,Footer} from '../common/shared';
@@ -15,7 +18,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox',
     template: `
-        <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
+        <div (focus)="onFocus()" [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
                 <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple && showToggleAll">
                     <div class="ui-helper-hidden-accessible">
@@ -33,11 +36,14 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <div class="ui-listbox-list-wrapper">
                 <ul class="ui-listbox-list" [ngStyle]="listStyle">
                     <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
-                        [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)}"
-                        (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)">
+                        [ngClass]="{'ui-listbox-item ui-corner-all':true,'ui-state-highlight':isSelected(option)||option==highlightedOption}"
+                        (click)="onOptionClick($event,option)" (dblclick)="onDoubleClick($event,option)" (touchend)="onOptionTouchEnd($event,option)"
+                        (keydown)="onOptionKeyDown($event,option)"
+                        tabindex="-1"
+                    >
                         <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
                             <div class="ui-helper-hidden-accessible">
-                                <input type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
+                                <input #item type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
                             </div>
                             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
                                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option)}"></span>
@@ -64,7 +70,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
     @Input() listStyle: any;
 
     @Input() disabled: boolean;
@@ -72,25 +78,27 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     @Input() checkbox: boolean = false;
 
     @Input() filter: boolean = false;
-    
+
     @Input() metaKeySelection: boolean = true;
-    
+
     @Input() dataKey: string;
-    
+
     @Input() showToggleAll: boolean = true;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
-    
+
     @ContentChild(Footer) footerFacet;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
+    @ViewChildren('item') panelItemsView: QueryList<ElementRef>;
+
     public itemTemplate: TemplateRef<any>;
 
     public filterValue: string;
-    
+
     public visibleOptions: SelectItem[];
 
     public filtered: boolean;
@@ -102,18 +110,20 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     public onModelTouched: Function = () => { };
 
     public checkboxClick: boolean;
-    
+
     public optionTouched: boolean;
 
+    highlightedOption:any;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
-    
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
-                
+
                 default:
                     this.itemTemplate = item.template;
                 break;
@@ -137,11 +147,48 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         this.disabled = val;
     }
 
+  onFocus(){
+      this.highlightedOption(0);
+  }
+
+  highlightOption(option,index){
+    this.highlightedOption = option;
+    if(index!=undefined) {
+      this.panelItemsView.toArray()[index].nativeElement.focus();
+    }
+  }
+
+  findOptionIndex(highlightedOption:any):number{
+    return highlightedOption?this.options.findIndex(option=>option.value==highlightedOption.value):-1
+  }
+
+  onOptionKeyDown(event,option){
+      console.log(`${event.which} value ${option.value}`);
+    let highlightItemIndex = this.findOptionIndex(this.highlightedOption);
+    switch (event.which){
+      //arrow down
+      case 40: {
+        let nextItemIndex = highlightItemIndex + 1;
+        if (nextItemIndex != (this.options.length)) {
+          this.highlightOption(this.options[nextItemIndex], nextItemIndex);
+        }
+        break;
+      }
+      //arrow up
+      case 38: {
+        let nextItemIndex = highlightItemIndex - 1;
+        if (nextItemIndex != (this.options.length)) {
+          this.highlightOption(this.options[nextItemIndex], nextItemIndex);
+        }
+        break;
+      }
+    }
+  }
     onOptionClick(event, option) {
         if(this.disabled) {
             return;
         }
-        
+
         if(!this.checkboxClick) {
             if(this.multiple)
                 this.onOptionClickMultiple(event, option);
@@ -151,26 +198,26 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         else {
             this.checkboxClick = false;
         }
-        
+
         this.optionTouched = false;
     }
-    
+
     onOptionTouchEnd(event, option) {
         if(this.disabled) {
             return;
         }
-        
+
         this.optionTouched = true;
     }
 
-    onOptionClickSingle(event, option) {        
+    onOptionClickSingle(event, option) {
         let selected = this.isSelected(option);
         let valueChanged = false;
         let metaSelection = this.optionTouched ? false : this.metaKeySelection;
 
         if(metaSelection) {
             let metaKey = (event.metaKey || event.ctrlKey);
-            
+
             if(selected) {
                 if(metaKey) {
                     this.value = null;
@@ -183,7 +230,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             }
         }
         else {
-            this.value = selected ? null : option.value;            
+            this.value = selected ? null : option.value;
             valueChanged = true;
         }
 
@@ -196,14 +243,14 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         }
     }
 
-    onOptionClickMultiple(event, option) {        
+    onOptionClickMultiple(event, option) {
         let selected = this.isSelected(option);
         let valueChanged = false;
         let metaSelection = this.optionTouched ? false : this.metaKeySelection;
 
         if(metaSelection) {
             let metaKey = (event.metaKey || event.ctrlKey);
-            
+
             if(selected) {
                 if(metaKey) {
                     this.removeOption(option);
@@ -226,7 +273,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             else {
                 this.value = [...this.value||[],option.value];
             }
-            
+
             valueChanged = true;
         }
 
@@ -238,7 +285,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             });
         }
     }
-    
+
     removeOption(option: any): void {
         this.value = this.value.filter(val => !this.objectUtils.equals(val, option.value, this.dataKey));
     }
@@ -269,7 +316,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         else
             return this.value&&this.options&&(this.value.length == this.options.length);
     }
-    
+
     allFilteredSelected(): boolean {
         let allSelected: boolean;
         if(this.value && this.visibleOptions && this.visibleOptions.length) {
@@ -281,14 +328,14 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
                         selected = true;
                     }
                 }
-                
+
                 if(!selected) {
                     allSelected = false;
                     break;
                 }
             }
         }
-                
+
         return allSelected;
     }
 
@@ -308,7 +355,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         if(this.disabled || (this.filterValue && this.filterValue.trim().length && (!this.visibleOptions || this.visibleOptions.length === 0))) {
             return;
         }
-        
+
         if(checkbox.checked) {
             this.value = [];
         }
@@ -318,13 +365,13 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
                 this.value = [];
                 for(let i = 0; i < opts.length; i++) {
                     this.value.push(opts[i].value);
-                } 
+                }
             }
         }
         checkbox.checked = !checkbox.checked;
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
-    } 
+    }
 
     isItemVisible(option: SelectItem): boolean {
         if(this.filterValue && this.filterValue.trim().length) {
@@ -343,18 +390,18 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         if(this.disabled) {
             return;
         }
-        
+
         this.onDblClick.emit({
             originalEvent: event,
             value: this.value
         })
     }
-    
+
     onCheckboxClick(event: Event, option: SelectItem) {
         if(this.disabled) {
             return;
         }
-        
+
         this.checkboxClick = true;
         let selected = this.isSelected(option);
 
