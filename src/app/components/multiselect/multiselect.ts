@@ -1,5 +1,8 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,
-            forwardRef,ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
+import {
+  NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, DoCheck, OnDestroy, Input,
+  Output, Renderer2, EventEmitter, IterableDiffers,
+  forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ViewChildren
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {DomHandler} from '../dom/domhandler';
@@ -50,11 +53,13 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                 <div class="ui-multiselect-items-wrapper">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" [style.max-height]="scrollHeight||'auto'">
                         <li *ngFor="let option of options; let index = i" class="ui-multiselect-item ui-corner-all" (click)="onItemClick($event,option.value,option)" 
-                       
+                            tabindex="-1"
+                            
+                            (keydown)="onItemKeyDown($event)"
                             [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':option==highlightOption}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
-                                    <input type="checkbox" readonly="readonly" [checked]="isSelected(option.value)">
+                                    <input type="checkbox" readonly="readonly" #item [checked]="isSelected(option.value)">
                                 </div>
                                 <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option.value)}">
                                     <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
@@ -71,7 +76,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     providers: [DomHandler,ObjectUtils,MULTISELECT_VALUE_ACCESSOR]
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
-
+   @ViewChildren('item') itemsView: QueryList<ElementRef>;
     @Input() options: SelectItem[];
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -229,7 +234,32 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.disabled = val;
     }
 
+  onItemKeyDown(event){
+    let highlightItemIndex = this.findOptionIndex(this.highlightOption);
+      switch (event.which){
+        //arrow down
+        case 40:{
+          if(this.overlayVisible) {
+            let nextItemIndex = highlightItemIndex + 1;
+            if (nextItemIndex != (this.options.length)) {
+              this.highlightOption = this.options[nextItemIndex];
+            }
+          }
+          break;
+        }
 
+        //arrow up
+        case 38:{
+          if(this.overlayVisible) {
+            let nextItemIndex = highlightItemIndex - 1;
+            if (nextItemIndex != (this.options.length)) {
+              this.highlightOption = this.options[nextItemIndex];
+            }
+          }
+          break;
+        }
+      }
+  }
 
     onItemClick(event, value,option) {
       this.highlightOption = option;
@@ -313,8 +343,34 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     onMouseclick(event,input) {
-      this.openPanel(event,input);
+      if(this.disabled) {
+        return;
+      }
+
+      if(!this.panelClick) {
+        if(this.overlayVisible) {
+          this.hide();
+        }
+        else {
+          this.openPanel(input);
+        }
+      }
+
+      this.selfClick = true;
     }
+
+  private openPanel(input) {
+    if(this.itemsView && this.itemsView.length>1){
+      setTimeout(() => {
+        this.itemsView.first.nativeElement.focus();
+      },200);
+    }
+    this.show();
+    if(this.overlayVisible) {
+      this.highlightOption=this.options[0];
+    }
+  }
+
   findOptionIndex(highlightOption:any):number{
     return this.highlightOption?this.options.findIndex(option=>option.value==highlightOption.value):-1
   }
@@ -328,32 +384,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.onItemClick(event, this.highlightOption.value, this.highlightOption);
           }
           else  if(!this.overlayVisible) {
-              input.focus();
-              this.show();
-          }
-          break;
-        }
-        //arrow down
-        case 40:{
-          if(this.overlayVisible) {
-            let nextItemIndex = highlightItemIndex + 1;
-            if (nextItemIndex != (this.options.length)) {
-              this.highlightOption = this.options[nextItemIndex];
-            }
+            this.openPanel(input);
           }
           break;
         }
 
-        //arrow up
-        case 38:{
-          if(this.overlayVisible) {
-            let nextItemIndex = highlightItemIndex - 1;
-            if (nextItemIndex != (this.options.length)) {
-              this.highlightOption = this.options[nextItemIndex];
-            }
-          }
-          break;
-        }
 
         //tab
         case 9:{
@@ -365,23 +400,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
       }
     }
 
-  private openPanel(event,input){
-    if(this.disabled) {
-      return;
-    }
 
-    if(!this.panelClick) {
-      if(this.overlayVisible) {
-        this.hide();
-      }
-      else {
-        input.focus();
-        this.show();
-      }
-    }
-
-    this.selfClick = true;
-  }
 
     onFocus(event) {
         this.focus = true;
