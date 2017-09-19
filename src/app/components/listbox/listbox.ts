@@ -18,7 +18,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox',
     template: `
-        <div #listbox [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
                 <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple && showToggleAll">
                     <div class="ui-helper-hidden-accessible">
@@ -94,7 +94,6 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChildren('item') panelItemsView: QueryList<ElementRef>;
-    @ViewChild('listbox') listBoxView: ElementRef;
 
     public itemTemplate: TemplateRef<any>;
 
