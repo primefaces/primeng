@@ -33,6 +33,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <span class="fa fa-search"></span>
                 </div>
             </div>
+          <div class="ui-helper-hidden-accessible">
+            <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onFocus()">
+          </div>
             <div class="ui-listbox-list-wrapper">
                 <ul class="ui-listbox-list" [ngStyle]="listStyle">
                     <li *ngFor="let option of options; let i = index;" [style.display]="isItemVisible(option) ? 'block' : 'none'"
@@ -160,7 +163,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
   findOptionIndex(highlightedOption:any):number{
     return highlightedOption?this.options.findIndex(option=>option.value==highlightedOption.value):-1
   }
-
+  onFocus(){
+    console.log("focus");
+    this.highlightOption(this.options[0],0);
+  }
 
   onOptionKeyDown(event,option){
     let highlightItemIndex = this.findOptionIndex(option);
