@@ -28,7 +28,7 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, -1)" (drop)="onDrop($event, i, -1)" (dragleave)="onDragLeave($event, -1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
-                            (click)="onItemClick($event,item,selectedItemsSource)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)"
+                            (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, -1)" (dragend)="onDragEnd($event)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
@@ -57,7 +57,7 @@ import {ObjectUtils} from '../utils/objectutils';
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, 1)" (drop)="onDrop($event, i, 1)" (dragleave)="onDragLeave($event, 1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"></li>
                         <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
-                            (click)="onItemClick($event,item,selectedItemsTarget)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)"
+                            (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, 1)" (dragend)="onDragEnd($event)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
@@ -126,7 +126,11 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Output() onSourceReorder: EventEmitter<any> = new EventEmitter();
     
     @Output() onTargetReorder: EventEmitter<any> = new EventEmitter();
-    
+
+    @Output() onSourceSelect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onTargetSelect: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('sourcelist') listViewSourceChild: ElementRef;
     
     @ViewChild('targetlist') listViewTargetChild: ElementRef;
@@ -232,8 +236,9 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             else
                 selectedItems.push(item);
         }
-        
-        
+
+        callback.emit({items: selectedItems});
+
         this.itemTouched = false;
     }
     
