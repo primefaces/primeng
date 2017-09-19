@@ -189,6 +189,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 break;
             }
         });
+      this.checkDuplicateItems();
     }
         
     ngAfterViewChecked() {
@@ -205,6 +206,25 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             this.movedUp = false;
             this.movedDown = false;
             this.reorderedListElement = null;
+        }
+    }
+  
+    checkDuplicateItems() {
+        if (this.target) {
+            let indexes = [];
+            for (let i = 0; i < this.target.length; i++) {
+                let targetItem = this.target[i];
+                let index = this.source.findIndex(item => item == targetItem);
+                if (index >= 0)
+                    indexes.push(index);
+            }
+            if (indexes.length) {
+                indexes.sort((a, b) => a - b).reverse();
+                for (let i = 0; i < indexes.length; i++) {
+                    const index = indexes[i];
+                    this.source.splice(index, 1);
+                }
+            }
         }
     }
     
