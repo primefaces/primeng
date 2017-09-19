@@ -43,7 +43,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     >
                         <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple" (click)="onCheckboxClick($event,option)">
                             <div class="ui-helper-hidden-accessible">
-                                <input #item type="checkbox" [checked]="isSelected(option)" [disabled]="disabled">
+                                <input #item type="checkbox" [checked]="isSelected(option)" [disabled]="disabled"  tabindex="-1">
                             </div>
                             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option)}">
                                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option)}"></span>
