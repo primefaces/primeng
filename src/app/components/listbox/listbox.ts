@@ -1,6 +1,6 @@
 import {
   NgModule, Component, ElementRef, Input, Output, EventEmitter, AfterContentInit, ContentChildren, ContentChild,
-  QueryList, TemplateRef, IterableDiffers, forwardRef, ViewChildren
+  QueryList, TemplateRef, IterableDiffers, forwardRef, ViewChildren, ViewChild
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
@@ -18,18 +18,18 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox',
     template: `
-        <div (focus)="onFocus()" [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
+        <div #listbox [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
                 <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple && showToggleAll">
                     <div class="ui-helper-hidden-accessible">
-                        <input #cb type="checkbox" readonly="readonly" [checked]="allChecked">
+                        <input #cb type="checkbox" readonly="readonly" [checked]="allChecked" tabindex="-1">
                     </div>
                     <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':allChecked}" (click)="toggleAll($event,cb)">
                         <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':allChecked}"></span>
                     </div>
                 </div>
                 <div class="ui-listbox-filter-container" *ngIf="filter">
-                    <input type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
+                    <input tabindex="-1" type="text" role="textbox" (input)="onFilter($event)" class="ui-inputtext ui-widget ui-state-default ui-corner-all" [disabled]="disabled">
                     <span class="fa fa-search"></span>
                 </div>
             </div>
@@ -94,6 +94,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChildren('item') panelItemsView: QueryList<ElementRef>;
+    @ViewChild('listbox') listBoxView: ElementRef;
 
     public itemTemplate: TemplateRef<any>;
 
@@ -147,12 +148,11 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
         this.disabled = val;
     }
 
-  onFocus(){
-      this.highlightedOption(0);
-  }
+
 
   highlightOption(option,index){
     this.highlightedOption = option;
+
     if(index!=undefined && index<this.panelItemsView.length&& index>=0) {
       this.panelItemsView.toArray()[index].nativeElement.focus();
     }
@@ -164,7 +164,6 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
 
 
   onOptionKeyDown(event,option){
-      console.log(`${event.which} value ${option.value}`);
     let highlightItemIndex = this.findOptionIndex(this.highlightedOption);
     switch (event.which){
       //arrow down
