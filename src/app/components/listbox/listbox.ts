@@ -163,7 +163,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
 
 
   onOptionKeyDown(event,option){
-    let highlightItemIndex = this.findOptionIndex(this.highlightedOption);
+    let highlightItemIndex = this.findOptionIndex(option);
     switch (event.which){
       //arrow down
       case 40: {
