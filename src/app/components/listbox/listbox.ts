@@ -153,7 +153,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
 
   highlightOption(option,index){
     this.highlightedOption = option;
-    if(index!=undefined && index<this.panelItemsView.length) {
+    if(index!=undefined && index<this.panelItemsView.length&& index>=0) {
       this.panelItemsView.toArray()[index].nativeElement.focus();
     }
   }
