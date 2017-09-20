@@ -58,6 +58,8 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     
     @Input() inputStyleClass: any;
     
+    @Input() addOnTab: boolean;
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
@@ -146,6 +148,20 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         });
     }
     
+    addItem(event: Event, item: string): void {
+        this.value = this.value||[];
+        if(item && item.trim().length && (!this.max||this.max > item.length)) {
+            if(this.allowDuplicate || !this.value.includes(item)) {
+                this.value = [...this.value, item];
+                this.onModelChange(this.value);
+                this.onAdd.emit({
+                    originalEvent: event,
+                    value: item
+                });
+            }
+        }     
+    }
+    
     onKeydown(event: KeyboardEvent, inputEL: HTMLInputElement): void {
         switch(event.which) {
             //backspace
@@ -163,19 +179,19 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
             
             //enter
             case 13:
-                this.value = this.value||[];
-                if(inputEL.value && inputEL.value.trim().length && (!this.max||this.max > this.value.length)) {
-                    if(this.allowDuplicate || !this.value.includes(inputEL.value)) {
-                        this.value = [...this.value, inputEL.value];
-                        this.onModelChange(this.value);
-                        this.onAdd.emit({
-                            originalEvent: event,
-                            value: inputEL.value
-                        });
-                    }
-                }     
+                this.addItem(event, inputEL.value);
                 inputEL.value = '';
+                
                 event.preventDefault();
+            break;
+            
+            case 9:
+                if(this.addOnTab && inputEL.value !== '') {
+                    this.addItem(event, inputEL.value);
+                    inputEL.value = '';
+
+                    event.preventDefault();
+                }
             break;
             
             default:

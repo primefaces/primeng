@@ -651,10 +651,22 @@ export class TreeTableDemoComponent implements OnInit &#123;
                             <td>Tooltip and screenreader text for collapse icon.</td>
                         </tr>
                         <tr>
+                           <td>expandedIcon</td>
+                           <td>string</td>
+                           <td>fa-caret-down</td>
+                           <td>Icon to display on an expanded node.</td>
+                       </tr>
+                        <tr>
+                           <td>collapsedIcon</td>
+                           <td>string</td>
+                           <td>fa-caret-right</td>
+                           <td>Icon to display on an expanded node.</td>
+                       </tr>
+                        <tr>
                             <td>selectionMode</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Defines the selection mode, valid values "single" and "multiple".</td>
+                            <td>Defines the selection mode, valid values are "single", "multiple" and "checkbox".</td>
                         </tr>
                         <tr>
                             <td>selection</td>
@@ -686,6 +698,18 @@ export class TreeTableDemoComponent implements OnInit &#123;
                             <td>number</td>
                             <td>0</td>
                             <td>Index of the column that contains the toggler element.</td>
+                        </tr>
+                        <tr>
+                            <td>tableStyle</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the table element.</td>
+                        </tr>
+                        <tr>
+                            <td>tableStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the table element.</td>
                         </tr>
                     </tbody>
                 </table>

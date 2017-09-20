@@ -223,7 +223,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 });
             },
             eventDrop: (event, delta, revertFunc, jsEvent, ui, view) => {
-                this.updateEvent(event);
+                this._updateEvent(event);
                 
                 this.onEventDrop.emit({
                     'event': event,
@@ -248,7 +248,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
                 });
             },
             eventResize: (event, delta, revertFunc, jsEvent, ui, view) => {
-                this.updateEvent(event);
+                this._updateEvent(event);
                 
                 this.onEventResize.emit({
                     'event': event,
@@ -303,7 +303,9 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     initialize() {
         this.schedule = jQuery(this.el.nativeElement.children[0]);
         this.schedule.fullCalendar(this.config);
-        this.schedule.fullCalendar('addEventSource', this.events);
+        if(this.events) {
+            this.schedule.fullCalendar('addEventSource', this.events);
+        }
         this.initialized = true;
     }
      
@@ -312,7 +314,10 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         
         if(this.schedule && changes) {
             this.schedule.fullCalendar('removeEventSources');
-            this.schedule.fullCalendar('addEventSource', this.events);
+            
+            if(this.events) {
+                this.schedule.fullCalendar('addEventSource', this.events);
+            }
         }
     }
 
@@ -357,8 +362,12 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     getDate() {
         return this.schedule.fullCalendar('getDate');
     }
-    
-    findEvent(id: string) {
+   
+    updateEvent(event: any) {
+        this.schedule.fullCalendar('updateEvent', event);
+    }
+ 
+    _findEvent(id: string) {
         let event;
         if(this.events) {
             for(let e of this.events) {
@@ -371,8 +380,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
         return event;
     }
     
-    updateEvent(event: any) {
-        let sourceEvent = this.findEvent(event.id);
+    _updateEvent(event: any) {
+        let sourceEvent = this._findEvent(event.id);
         if(sourceEvent) {
             sourceEvent.start = event.start.format();
             if(event.end) {

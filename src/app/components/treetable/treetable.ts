@@ -11,7 +11,7 @@ import {DomHandler} from '../dom/domhandler';
     template: `
         <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
             <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
-                <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="{'fa-caret-down':node.expanded,'fa-caret-right':!node.expanded}"
+                <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
                     [title]="node.expanded ? labelCollapse : labelExpand">
@@ -25,7 +25,7 @@ import {DomHandler} from '../dom/domhandler';
         </div>
         <div *ngIf="node.children && node.expanded" class="ui-treetable-row" style="display:table-row">
             <td [attr.colspan]="treeTable.columns.length" class="ui-treetable-child-table-container">
-                <table>
+                <table [class]="treeTable.tableStyleClass" [ngStyle]="treeTable.tableStyle">
                     <tbody pTreeRow *ngFor="let childNode of node.children" [node]="childNode" [level]="level+1" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [parentNode]="node"></tbody>
                 </table>
             </td>
@@ -113,7 +113,7 @@ export class UITreeRow implements OnInit {
                 <ng-content select="p-header"></ng-content>
             </div>
             <div class="ui-treetable-tablewrapper">
-                <table #tbl class="ui-widget-content">
+                <table #tbl class="ui-widget-content" [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead>
                         <tr class="ui-state-default">
                             <th #headerCell *ngFor="let col of columns; let lastCol=last "  [ngStyle]="col.style" [class]="col.styleClass" 
@@ -167,6 +167,14 @@ export class TreeTable implements AfterContentInit {
     @Input() contextMenu: any;
 
     @Input() toggleColumnIndex: number = 0;
+
+    @Input() tableStyle: any;
+
+    @Input() tableStyleClass: string;
+    
+    @Input() collapsedIcon: string = "fa-caret-right";
+    
+    @Input() expandedIcon: string = "fa-caret-down";
         
     @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();    
     

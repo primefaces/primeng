@@ -1,4 +1,7 @@
-import {NgModule,Component, ElementRef,AfterViewInit,OnDestroy,Input,Output,SimpleChange,EventEmitter,forwardRef,Renderer2} from '@angular/core';
+import {
+    NgModule, Component, ElementRef, OnDestroy, Input, Output, SimpleChange, EventEmitter, forwardRef, Renderer2,
+    NgZone
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -15,19 +18,20 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{'ui-slider ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled,
             'ui-slider-horizontal':orientation == 'horizontal','ui-slider-vertical':orientation == 'vertical','ui-slider-animate':animate}"
             (click)="onBarClick($event)">
-            <span *ngIf="range" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'left':handleValues[0] + '%',width: (handleValues[1] - handleValues[0] + '%')}"></span>
-            <span *ngIf="orientation=='vertical'" class="ui-slider-range ui-slider-range-min ui-widget-header ui-corner-all" [ngStyle]="{'height': handleValue + '%'}"></span>
+            <span *ngIf="range && orientation == 'horizontal'" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'left':handleValues[0] + '%',width: (handleValues[1] - handleValues[0] + '%')}"></span>
+            <span *ngIf="range && orientation == 'vertical'" class="ui-slider-range ui-widget-header ui-corner-all" [ngStyle]="{'bottom':handleValues[0] + '%',height: (handleValues[1] - handleValues[0] + '%')}"></span>
+            <span *ngIf="!range && orientation=='vertical'" class="ui-slider-range ui-slider-range-min ui-widget-header ui-corner-all" [ngStyle]="{'height': handleValue + '%'}"></span>
             <span *ngIf="!range" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" (mousedown)="onMouseDown($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="dragging=false"
                 [style.transition]="dragging ? 'none': null" [ngStyle]="{'left': orientation == 'horizontal' ? handleValue + '%' : null,'bottom': orientation == 'vertical' ? handleValue + '%' : null}"></span>
             <span *ngIf="range" (mousedown)="onMouseDown($event,0)" (touchstart)="onTouchStart($event,0)" (touchmove)="onTouchMove($event,0)" (touchend)="dragging=false" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" 
-                [ngStyle]="{'left':handleValues[0] + '%'}" [ngClass]="{'ui-slider-handle-active':handleIndex==0}"></span>
+                [ngStyle]="{'left': rangeStartLeft, 'bottom': rangeStartBottom}" [ngClass]="{'ui-slider-handle-active':handleIndex==0}"></span>
             <span *ngIf="range" (mousedown)="onMouseDown($event,1)" (touchstart)="onTouchStart($event,1)" (touchmove)="onTouchMove($event,1)" (touchend)="dragging=false" [style.transition]="dragging ? 'none': null" class="ui-slider-handle ui-state-default ui-corner-all ui-clickable" 
-                [ngStyle]="{'left':handleValues[1] + '%'}" [ngClass]="{'ui-slider-handle-active':handleIndex==1}"></span>
+                [ngStyle]="{'left': rangeEndLeft, 'bottom': rangeEndBottom}" [ngClass]="{'ui-slider-handle-active':handleIndex==1}"></span>
         </div>
     `,
     providers: [SLIDER_VALUE_ACCESSOR,DomHandler]
 })
-export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
+export class Slider implements OnDestroy,ControlValueAccessor {
 
     @Input() animate: boolean;
 
@@ -87,7 +91,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
 
     public starty: number;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private ngZone: NgZone) {}
     
     onMouseDown(event:Event, index?:number) {
         if(this.disabled) {
@@ -98,6 +102,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         this.updateDomData();
         this.sliderHandleClick = true;
         this.handleIndex = index;
+        this.bindDragListeners();
         event.preventDefault();
     }
 
@@ -147,33 +152,47 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
         
         this.sliderHandleClick = false;
     }
-
-    ngAfterViewInit() {
-        if(this.disabled) {
-            return;
-        }
-        
-        this.dragListener = this.renderer.listen('document', 'mousemove', (event) => {
-            if(this.dragging) {                                
-                this.handleChange(event);
-            }
-        });
-        
-        this.mouseupListener = this.renderer.listen('document', 'mouseup', (event) => {
-            if(this.dragging) {
-                this.dragging = false;
-                if(this.range) {
-                    this.onSlideEnd.emit({originalEvent: event, values: this.values});
-                } else {
-                    this.onSlideEnd.emit({originalEvent: event, value: this.value});
-                }
-            }
-        });
-    }
     
     handleChange(event: Event) {
         let handleValue = this.calculateHandleValue(event);
         this.setValueFromHandle(event, handleValue);
+    }
+    
+    bindDragListeners() {
+        this.ngZone.runOutsideAngular(() => {
+            if (!this.dragListener) {
+                this.dragListener = this.renderer.listen('document', 'mousemove', (event) => {
+                    if (this.dragging) {
+                        this.ngZone.run(() => {
+                            this.handleChange(event);
+                        });
+                    }
+                });
+            }
+
+            if (!this.mouseupListener) {
+                this.mouseupListener = this.renderer.listen('document', 'mouseup', (event) => {
+                    if (this.dragging) {
+                        this.dragging = false;
+                        if (this.range) {
+                            this.onSlideEnd.emit({originalEvent: event, values: this.values});
+                        } else {
+                            this.onSlideEnd.emit({originalEvent: event, value: this.value});
+                        }
+                    }
+                });
+            }
+        });
+    }
+    
+    unbindDragListeners() {
+        if(this.dragListener) {
+            this.dragListener();
+        }
+        
+        if(this.mouseupListener) {
+            this.mouseupListener();
+        }
     }
 
     setValueFromHandle(event: Event, handleValue: any) {
@@ -233,6 +252,26 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     
     setDisabledState(val: boolean): void {
         this.disabled = val;
+    }
+    
+    get rangeStartLeft() {
+        return this.isVertical() ? 'auto' : this.handleValues[0] + '%';
+    }
+    
+    get rangeStartBottom() {
+        return this.isVertical() ? this.handleValues[0] + '%' : 'auto';
+    }
+    
+    get rangeEndLeft() {
+        return this.isVertical() ? 'auto' : this.handleValues[1] + '%';
+    }
+    
+    get rangeEndBottom() {
+        return this.isVertical() ? this.handleValues[1] + '%' : 'auto';
+    }
+    
+    isVertical(): boolean {
+        return this.orientation === 'vertical';
     }
     
     updateDomData(): void {
@@ -315,13 +354,7 @@ export class Slider implements AfterViewInit,OnDestroy,ControlValueAccessor {
     }
     
     ngOnDestroy() {
-        if(this.dragListener) {
-            this.dragListener();
-        }
-        
-        if(this.mouseupListener) {
-            this.mouseupListener();
-        }
+        this.unbindDragListeners();
     }
 }
 

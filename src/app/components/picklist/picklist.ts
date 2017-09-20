@@ -392,19 +392,24 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveAllRight() {
         if(this.source) {
-            for(let i = 0; i < this.source.length; i++) {
-                this.target.push(this.source[i]);
-            }
+            let movedItems = [];
             
+            for(let i = 0; i < this.source.length; i++) {                
+                if(this.isItemVisible(this.source[i], -1)) {
+                    let removedItem = this.source.splice(i, 1)[0];
+                    this.target.push(removedItem);
+                    movedItems.push(removedItem);
+                    i--;
+                }
+            }
+                
             this.onMoveToTarget.emit({
-                items: this.source
+                items: movedItems
             });
             
             this.onMoveAllToTarget.emit({
-                items: this.source
+                items: movedItems
             });
-            
-            this.source.splice(0, this.source.length);
             
             this.selectedItemsSource = [];
         }
@@ -428,19 +433,24 @@ export class PickList implements AfterViewChecked,AfterContentInit {
 
     moveAllLeft() {
         if(this.target) {
-            for(let i = 0; i < this.target.length; i++) {
-                this.source.push(this.target[i]);
-            }
+            let movedItems = [];
             
+            for(let i = 0; i < this.target.length; i++) {                
+                if(this.isItemVisible(this.target[i], 1)) {
+                    let removedItem = this.target.splice(i, 1)[0];
+                    this.source.push(removedItem);
+                    movedItems.push(removedItem);
+                    i--;
+                }
+            }
+    
             this.onMoveToSource.emit({
-                items: this.target
+                items: movedItems
             });
             
             this.onMoveAllToSource.emit({
-                items: this.target
+                items: movedItems
             });
-            
-            this.target.splice(0, this.target.length);
             
             this.selectedItemsTarget = [];
         }

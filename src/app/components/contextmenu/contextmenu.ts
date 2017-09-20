@@ -14,14 +14,16 @@ import {RouterModule} from '@angular/router';
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
                 <li *ngIf="!child.separator" #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
                     (mouseenter)="onItemMouseEnter($event,item,child)" (mouseleave)="onItemMouseLeave($event,item)" [style.display]="child.visible === false ? 'none' : 'block'">
-                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" [attr.target]="child.target" (click)="itemClick($event, child)"
+                    <a *ngIf="!child.routerLink" [href]="child.url||'#'" [attr.target]="child.target" [attr.title]="child.title" (click)="itemClick($event, child)"
                         [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [attr.target]="child.target"
-                        (click)="itemClick($event, child)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass">
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [routerLinkActive]="'ui-state-active'" 
+                        [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [attr.target]="child.target" [attr.title]="child.title"
+                        (click)="itemClick($event, child)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" 
+                        [ngStyle]="child.style" [class]="child.styleClass">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
@@ -151,11 +153,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
 
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
-        
-        this.documentClickListener = this.renderer.listen('document', 'click', () => {
-            this.hide();
-        });
-        
+                
         if(this.global) {
             this.rightClickListener = this.renderer.listen('document', 'contextmenu', (event) => {
                 this.show(event);
@@ -182,6 +180,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         this.position(event);
         this.visible = true;
         this.domHandler.fadeIn(this.container, 250);
+        this.bindDocumentClickListener();
         
         if(event) {
             event.preventDefault();
@@ -190,6 +189,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     
     hide() {
         this.visible = false;
+        this.unbindDocumentClickListener();
     }
     
     toggle(event?: MouseEvent) {
@@ -231,11 +231,26 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
             this.container.style.top = top + 'px';
         }
     }
-        
-    ngOnDestroy() {
+    
+    bindDocumentClickListener() {
+        if(!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
+                if (this.visible && event.button !== 2) {
+                    this.hide();
+                }
+            });
+        }
+    }
+    
+    unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
+            this.documentClickListener = null;
         }
+    }
+        
+    ngOnDestroy() {
+        this.unbindDocumentClickListener();
         
         if(this.rightClickListener) {
             this.rightClickListener();

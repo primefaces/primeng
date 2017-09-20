@@ -8,6 +8,7 @@
 <div class="content-section implementation">
     <p-messages [(value)]="msgs"></p-messages>
 
+    <h3 class="first">Basic</h3>
     <div>
         <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
         <button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
@@ -16,6 +17,9 @@
         <button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
         <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"></button>
     </div>
+    
+    <h3>Message Service</h3>
+    <button type="button" pButton (click)="showViaService()" label="Use Service"></button>
 </div>
 
 <div class="content-section documentation">
@@ -30,24 +34,16 @@ import &#123;MessagesModule&#125; from 'primeng/primeng';
 
             <h3>Getting Started</h3>
             <p>A single message is specified by Message interface in PrimeNG that defines the id, severity, summary and detail as the properties.
-                Messages to display are defined using the value property which should an array of Message instances.</p>
+                Messages to display can either be defined using the value property which should an array of Message instances or using 
+                a MessageService are defined using the value property which should an array of Message instances.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
             
-            <h3>Severities</h3>
-            <p>Here are the possible values for the severity of a message.</p>
-            <ul>
-                <li>success</li>
-                <li>info</li>
-                <li>warn</li>
-                <li>error</li>
-            </ul>
-
-            <h3>Showing Messages</h3>
-            <p>Adding messages to the array is enough to display them. Similarly removing a message from the array is also removed from the UI.</p>
+            <h3>Message Array</h3>
+            <p>A binding to the value property is required to provide messages to the component.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
@@ -69,6 +65,46 @@ hide() &#123;
 </code>
 </pre>
 
+            <h3>Message Service</h3>
+            <p>MessageService alternative does not require a value binding to an array.
+            In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as application instance itself 
+            so that descandant components can have it injected.</p>
+            
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Component&#125; from '@angular/core';
+import &#123;Message&#125; from 'primeng/components/common/api';
+import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+
+@Component(&#123;
+    templateUrl: './messagesdemo.html'
+    &#125;)
+    export class MessageServiceDemo &#123;
+
+        constructor(private messageService: MessageService) &#123;&#125;
+
+        addSingle() &#123;
+            this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
+        &#125;
+
+        addMultiple() &#123;
+            this.messageService.addAll([&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;,
+                            &#123;severity:'info', summary:'Info Message', detail:'Via MessageService'&#125;]);
+        &#125;
+        
+        clear() &#123;
+            this.messageService.clear();
+        &#125;
+&#125;
+</code>
+</pre>
+
             <h3>Closable</h3>
             <p>Messages are closable by default resulting in a close icon being displayed on top right corner.</p>
 <pre>
@@ -84,6 +120,15 @@ hide() &#123;
 &lt;p-messages [value]="msgs" [closable]="false"&gt;&lt;/p-messages&gt;
 </code>
 </pre>
+
+            <h3>Severities</h3>
+            <p>Here are the possible values for the severity of a message.</p>
+            <ul>
+                <li>success</li>
+                <li>info</li>
+                <li>warn</li>
+                <li>error</li>
+            </ul>
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -177,6 +222,7 @@ hide() &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-messages [(value)]="msgs"&gt;&lt;/p-messages&gt;
 
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;div&gt;
     &lt;button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"&gt;&lt;/button&gt;
@@ -185,14 +231,33 @@ hide() &#123;
     &lt;button type="button" pButton (click)="showMultiple()" label="Multiple"&gt;&lt;/button&gt;
     &lt;button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear"&gt;&lt;/button&gt;
 &lt;/div&gt;
+
+&lt;h3&gt;Message Service&lt;/h3&gt;
+&lt;button type="button" pButton (click)="showViaService()" label="Use Service"&gt;&lt;/button&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class MessagesDemo &#123;
+import &#123;Component&#125; from '@angular/core';
+import &#123;SelectItem&#125; from 'primeng/components/common/api';
+import &#123;Message&#125; from 'primeng/components/common/api';
+import &#123;MessageService&#125; from 'primeng/components/common/messageservice';
+
+@Component(&#123;
+    templateUrl: './messagesdemo.html',
+    providers: [MessageService]
+&#125;)
+export class GrowlDemo &#123;
 
     msgs: Message[] = [];
+    
+    constructor(private messageService: MessageService) &#123;&#125;
+
+    showSuccess() &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'success', summary:'Success Message', detail:'Order submitted'&#125;);
+    &#125;
 
     showInfo() &#123;
         this.msgs = [];
@@ -214,6 +279,10 @@ export class MessagesDemo &#123;
         this.msgs.push(&#123;severity:'info', summary:'Message 1', detail:'PrimeNG rocks'&#125;);
         this.msgs.push(&#123;severity:'info', summary:'Message 2', detail:'PrimeUI rocks'&#125;);
         this.msgs.push(&#123;severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'&#125;);
+    &#125;
+    
+    showViaService() &#123;
+        this.messageService.add(&#123;severity:'success', summary:'Service Message', detail:'Via MessageService'&#125;);
     &#125;
 
     clear() &#123;

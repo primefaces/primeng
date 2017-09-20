@@ -1,4 +1,4 @@
-import {browser, by, element, ElementArrayFinder, ElementFinder} from 'protractor';
+import {browser, by, element, ElementArrayFinder} from 'protractor';
 
 describe('TabView', () => {
     let tabPanels: ElementArrayFinder;
