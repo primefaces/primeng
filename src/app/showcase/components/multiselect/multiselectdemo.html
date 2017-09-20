@@ -207,6 +207,12 @@ export class MyModel &#123;
                             <td>true</td>
                             <td>Whether to show the checkbox at header to toggle all items at once.</td>
                         </tr>
+                        <tr>
+                            <td>resetFilterOnHide</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Clear the filter value when hiding the dropdown.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -233,6 +239,11 @@ export class MyModel &#123;
                             <td>onBlur</td>
                             <td>event.originalEvent: browser event</td>
                             <td>Callback to invoke when multiselect loses focus.</td>
+                        </tr>
+                        <tr>
+                            <td>onPanelHide</td>
+                            <td>event.originalEvent: browser event</td>
+                            <td>Callback to invoke when dropdown becomes hidden.</td>
                         </tr>
                     </tbody>
                 </table>
