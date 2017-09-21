@@ -163,7 +163,7 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.closeOnEscape && this.closable) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
                 if(event.which == 27) {
-                    if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex) {
+                    if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex && this.visible) {
                         this.close(event);
                     }
                 }
