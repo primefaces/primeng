@@ -313,6 +313,10 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             this.value = [];
         }
         else {
+            //in case when options has already filtered list of options could be changed
+            if (this.filtered) {
+                this.onFilter({target: {value: this.filterValue}})
+            }
             let opts = (this.visibleOptions&&this.visibleOptions.length) ? this.visibleOptions : this.options;
             if(opts) {
                 this.value = [];
