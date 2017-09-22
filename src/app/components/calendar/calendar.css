@@ -15,7 +15,7 @@
 .ui-calendar .ui-calendar-button:enabled:hover,
 .ui-calendar .ui-calendar-button:focus {
     border-left: 0 none;
-} 
+}
 
 /* Fluid */
 .ui-fluid .ui-calendar {
@@ -188,13 +188,13 @@
 }
 
 .ui-calendar.ui-calendar-w-btn input {
-    -moz-border-radius-topright: 0px; 
-    -webkit-border-top-right-radius: 0px; 
-    -khtml-border-top-right-radius: 0px; 
+    -moz-border-radius-topright: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -khtml-border-top-right-radius: 0px;
     border-top-right-radius: 0px;
-    -moz-border-radius-bottomright: 0px; 
-    -webkit-border-bottom-right-radius: 0px; 
-    -khtml-border-bottom-right-radius: 0px; 
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -khtml-border-bottom-right-radius: 0px;
     border-bottom-right-radius: 0px;
 }
 
@@ -233,4 +233,25 @@
     display: block;
     opacity: 1;
     filter:Alpha(Opacity=100);
+}
+
+.ui-calendar .ui-calendar-button:focus {
+  -moz-box-shadow: 0px 0px 5px #1f89ce;
+  -webkit-box-shadow: 0px 0px 5px #1f89ce;
+  box-shadow: 0px 0px 5px #1f89ce;
+  background: #2399e5;
+  color: #fff;
+}
+
+.ui-calendar .ui-calendar-button{
+  color: #4B4B4B;
+  background: #ffffff;
+  border: 1px solid #d6d6d6;
+}
+
+
+.ui-datepicker .ui-datepicker-calendar td:not(.ui-state-disabled) a:focus {
+  /* border-color: #c0c0c0; */
+  background-color: rgba(255, 218, 86, 0.38);
+  color: #212121;
 }
