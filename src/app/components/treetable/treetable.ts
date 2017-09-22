@@ -9,7 +9,7 @@ import {DomHandler} from '../dom/domhandler';
 @Component({
     selector: '[pTreeRow]',
     template: `
-        <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
+        <div class="ui-treetable-row" [ngClass]="{'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}" [class]="styleClas">
             <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
                 <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
@@ -26,7 +26,7 @@ import {DomHandler} from '../dom/domhandler';
         <div *ngIf="node.children && node.expanded" class="ui-treetable-row" style="display:table-row">
             <td [attr.colspan]="treeTable.columns.length" class="ui-treetable-child-table-container">
                 <table [class]="treeTable.tableStyleClass" [ngStyle]="treeTable.tableStyle">
-                    <tbody pTreeRow *ngFor="let childNode of node.children" [node]="childNode" [level]="level+1" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [parentNode]="node"></tbody>
+                    <tbody pTreeRow *ngFor="let childNode of node.children" [node]="childNode" [level]="level+1" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [parentNode]="node" [styleClas]="childNode.styleClass"></tbody>
                 </table>
             </td>
         </div>
@@ -35,48 +35,50 @@ import {DomHandler} from '../dom/domhandler';
 export class UITreeRow implements OnInit {
 
     @Input() node: TreeNode;
-    
+
     @Input() parentNode: TreeNode;
-    
+
     @Input() level: number = 0;
 
     @Input() labelExpand: string = "Expand";
-    
+
     @Input() labelCollapse: string = "Collapse";
-                
+
+    @Input() styleClas: string;
+
     constructor(@Inject(forwardRef(() => TreeTable)) public treeTable:TreeTable) {}
-    
+
     ngOnInit() {
         this.node.parent = this.parentNode;
     }
-    
+
     toggle(event: Event) {
         if(this.node.expanded)
             this.treeTable.onNodeCollapse.emit({originalEvent: event, node: this.node});
         else
             this.treeTable.onNodeExpand.emit({originalEvent: event, node: this.node});
-            
+
         this.node.expanded = !this.node.expanded;
-        
+
         event.preventDefault();
     }
-    
+
     isLeaf() {
         return this.node.leaf == false ? false : !(this.node.children&&this.node.children.length);
     }
-    
+
     isSelected() {
         return this.treeTable.isSelected(this.node);
     }
-    
+
     onRowClick(event: MouseEvent) {
         this.treeTable.onRowClick(event, this.node);
     }
-    
+
     onRowRightClick(event: MouseEvent) {
         this.treeTable.onRowRightClick(event, this.node);
     }
-    
+
     rowDblClick(event: MouseEvent) {
       this.treeTable.onRowDblclick.emit({originalEvent: event, node: this.node});
     }
@@ -84,7 +86,7 @@ export class UITreeRow implements OnInit {
     onRowTouchEnd() {
         this.treeTable.onRowTouchEnd();
     }
-    
+
     resolveFieldData(data: any, field: string): any {
         if(data && field) {
             if(field.indexOf('.') == -1) {
@@ -135,7 +137,7 @@ export class UITreeRow implements OnInit {
                             </td>
                         </tr>
                     </tfoot>
-                    <tbody pTreeRow *ngFor="let node of value" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse"></tbody>
+                    <tbody pTreeRow *ngFor="let node of value" class="ui-treetable-data ui-widget-content" [node]="node" [level]="0" [labelExpand]="labelExpand" [labelCollapse]="labelCollapse" [styleClas]="node.styleClass"></tbody>
                 </table>
             </div>
             
@@ -149,21 +151,21 @@ export class UITreeRow implements OnInit {
 export class TreeTable implements AfterContentInit {
 
     @Input() value: TreeNode[];
-        
+
     @Input() selectionMode: string;
-    
+
     @Input() selection: any;
-        
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
 
     @Input() labelExpand: string = "Expand";
-    
+
     @Input() labelCollapse: string = "Collapse";
-    
+
     @Input() metaKeySelection: boolean = true;
-    
+
     @Input() contextMenu: any;
 
     @Input() toggleColumnIndex: number = 0;
@@ -171,54 +173,54 @@ export class TreeTable implements AfterContentInit {
     @Input() tableStyle: any;
 
     @Input() tableStyleClass: string;
-    
+
     @Input() collapsedIcon: string = "fa-caret-right";
-    
+
     @Input() expandedIcon: string = "fa-caret-down";
-        
-    @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();    
-    
+
+    @Output() onRowDblclick: EventEmitter<any> = new EventEmitter();
+
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
-    
+
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
-        
+
     @ContentChild(Header) header: Header;
 
     @ContentChild(Footer) footer: Footer;
-    
+
     @ContentChildren(Column) cols: QueryList<Column>;
-    
+
     @ViewChild('tbl') tableViewChild: ElementRef;
-    
+
     public rowTouched: boolean;
-        
+
     public columns: Column[];
-        
+
     columnsSubscription: Subscription;
-    
+
     constructor (public el: ElementRef, public domHandler: DomHandler,public changeDetector: ChangeDetectorRef,public renderer: Renderer2) {}
 
     ngAfterContentInit() {
         this.initColumns();
-        
+
         this.columnsSubscription = this.cols.changes.subscribe(_ => {
             this.initColumns();
             this.changeDetector.markForCheck();
         });
     }
-    
+
     initColumns(): void {
         this.columns = this.cols.toArray();
     }
-        
+
     onRowClick(event: MouseEvent, node: TreeNode) {
         let eventTarget = (<Element> event.target);
         if(eventTarget.className && eventTarget.className.indexOf('ui-treetable-toggler') === 0) {
@@ -228,11 +230,11 @@ export class TreeTable implements AfterContentInit {
             if(node.selectable === false) {
                 return;
             }
-            
+
             let metaSelection = this.rowTouched ? false : this.metaKeySelection;
             let index = this.findIndexInSelection(node);
             let selected = (index >= 0);
-            
+
             if(this.isCheckboxSelectionMode()) {
                 if(selected) {
                     this.propagateSelectionDown(node, false);
@@ -254,7 +256,7 @@ export class TreeTable implements AfterContentInit {
             else {
                 if(metaSelection) {
                     let metaKey = (event.metaKey||event.ctrlKey);
-                    
+
                     if(selected && metaKey) {
                         if(this.isSingleSelectionMode()) {
                             this.selectionChange.emit(null);
@@ -300,24 +302,24 @@ export class TreeTable implements AfterContentInit {
                             this.onNodeSelect.emit({originalEvent: event, node: node});
                         }
                     }
-                    
+
                     this.selectionChange.emit(this.selection);
                 }
             }
         }
-        
+
         this.rowTouched = false;
     }
-        
+
     onRowTouchEnd() {
         this.rowTouched = true;
     }
-    
+
     onRowRightClick(event: MouseEvent, node: TreeNode) {
         if(this.contextMenu) {
             let index = this.findIndexInSelection(node);
             let selected = (index >= 0);
-            
+
             if(!selected) {
                 if(this.isSingleSelectionMode()) {
                     this.selection = node;
@@ -326,15 +328,15 @@ export class TreeTable implements AfterContentInit {
                     this.selection = [node];
                     this.selectionChange.emit(this.selection);
                 }
-                
+
                 this.selectionChange.emit(this.selection);
             }
-            
+
             this.contextMenu.show(event);
             this.onContextMenuSelect.emit({originalEvent: event, node: node});
         }
     }
-    
+
     findIndexInSelection(node: TreeNode) {
         let index: number = -1;
 
@@ -354,7 +356,7 @@ export class TreeTable implements AfterContentInit {
 
         return index;
     }
-    
+
     propagateSelectionUp(node: TreeNode, select: boolean) {
         if(node.children && node.children.length) {
             let selectedCount: number = 0;
@@ -367,67 +369,67 @@ export class TreeTable implements AfterContentInit {
                     childPartialSelected = true;
                 }
             }
-            
+
             if(select && selectedCount == node.children.length) {
                 this.selection = [...this.selection||[],node];
                 node.partialSelected = false;
             }
-            else {                
+            else {
                 if(!select) {
                     let index = this.findIndexInSelection(node);
                     if(index >= 0) {
                         this.selection = this.selection.filter((val,i) => i!=index);
                     }
                 }
-                
+
                 if(childPartialSelected || selectedCount > 0 && selectedCount != node.children.length)
                     node.partialSelected = true;
                 else
                     node.partialSelected = false;
             }
         }
-                
+
         let parent = node.parent;
         if(parent) {
             this.propagateSelectionUp(parent, select);
         }
     }
-    
+
     propagateSelectionDown(node: TreeNode, select: boolean) {
         let index = this.findIndexInSelection(node);
-        
+
         if(select && index == -1) {
             this.selection = [...this.selection||[],node];
         }
         else if(!select && index > -1) {
             this.selection = this.selection.filter((val,i) => i!=index);
         }
-        
+
         node.partialSelected = false;
-        
+
         if(node.children && node.children.length) {
             for(let child of node.children) {
                 this.propagateSelectionDown(child, select);
             }
         }
     }
-    
+
     isSelected(node: TreeNode) {
-        return this.findIndexInSelection(node) != -1;         
+        return this.findIndexInSelection(node) != -1;
     }
-    
+
     isSingleSelectionMode() {
         return this.selectionMode && this.selectionMode == 'single';
     }
-    
+
     isMultipleSelectionMode() {
         return this.selectionMode && this.selectionMode == 'multiple';
     }
-    
+
     isCheckboxSelectionMode() {
         return this.selectionMode && this.selectionMode == 'checkbox';
     }
-    
+
     hasFooter() {
         if(this.columns) {
             let columnsArr = this.cols.toArray();
