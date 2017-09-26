@@ -72,7 +72,7 @@ export interface LocaleSettings {
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
                                     (click)="onDateSelect($event,date)">
-                                    <span *ngIf="!dateTemplate">{{date.day}}</span>
+                                    <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
                                     <ng-template [pTemplateWrapper]="dateTemplate" [item]="date" *ngIf="dateTemplate"></ng-template>
                                 </a>
                             </td>
