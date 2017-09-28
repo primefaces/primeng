@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class EventService {
-    
-    constructor(private http: Http) {}
 
-    getEvents() {
-        return this.http.get('showcase/resources/data/scheduleevents.json')
-                    .toPromise()
-                    .then(res => <any[]> res.json().data)
-                    .then(data => { return data; });
-    }
+  constructor(private http: HttpClient) { }
+
+  getEvents() {
+    return this.http.get<any>('showcase/resources/data/scheduleevents.json')
+      .toPromise()
+      .then(res => <any[]>res.data)
+      .then(data => { return data; });
+  }
 }
