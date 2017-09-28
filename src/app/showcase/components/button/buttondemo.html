@@ -9,11 +9,11 @@
     <button pButton type="button" (click)="count()" label="Click"></button>
 
     <button pButton type="button" (click)="count()" icon="fa-check" label="Click"></button>
-    
+
     <button pButton type="button" (click)="count()" icon="fa-check" iconPos="right" label="Click"></button>
-    
+
     <button pButton type="button" (click)="count()" icon="fa-close"></button>
-    
+
     <button pButton type="button" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"></button>
 
     <h3>Severity Buttons</h3>
@@ -46,7 +46,7 @@ import &#123;ButtonModule&#125; from 'primeng/primeng';
 
             <h3>Getting Started</h3>
             <p>Button is applied to a button element with pButton directive. Text of the button is defined using label property.</p>
-            
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" label="Click"&gt;&lt;/button&gt;
@@ -55,7 +55,7 @@ import &#123;ButtonModule&#125; from 'primeng/primeng';
 
             <h3>Events</h3>
             <p>Events are defined using standard notation.</p>
-            
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" (click)="onclick()" label="Click"&gt;&lt;/button&gt;
@@ -85,7 +85,7 @@ export class Model &#123;
 
             <h3>Severity</h3>
             <p>Different color options are available to define severity levels.</p>
-            
+
             <ul>
                 <li>.ui-button-secondary</li>
                 <li>.ui-button-success</li>
@@ -170,15 +170,29 @@ export class Model &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" (click)="count()" label="Click"&gt;&lt;/button&gt;
+  &lt;button pButton type="button" (click)="count()" label="Click"&gt;&lt;/button&gt;
 
-&lt;button pButton type="button" (click)="count()" icon="fa-check" label="Click"&gt;&lt;/button&gt;
+  &lt;button pButton type="button" (click)="count()" icon="fa-check" label="Click"&gt;&lt;/button&gt;
 
-&lt;button pButton type="button" (click)="count()" icon="fa-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
+  &lt;button pButton type="button" (click)="count()" icon="fa-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
 
-&lt;button pButton type="button" (click)="count()" icon="fa-check"&gt;&lt;/button&gt;
+  &lt;button pButton type="button" (click)="count()" icon="fa-check"&gt;&lt;/button&gt;
 
-&lt;button pButton type="button" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+  &lt;button pButton type="button" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+
+&lt;h3&gt;Severity Buttons&lt;/h3&gt;
+
+  &lt;button pButton type="button" (click)="count()" label="Primary"&gt;&lt;/button&gt;
+
+  &lt;button pButton type="button" (click)="count()" label="Secondary" class="ui-button-secondary"&gt;&lt;/button&gt;
+
+  &lt;button pButton type="button" (click)="count()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
+
+  &lt;button pButton type="button" (click)="count()" label="Info"  class="ui-button-info"&gt;&lt;/button&gt;
+
+  &lt;button pButton type="button" (click)="count()" label="Warning"  class="ui-button-warning"&gt;&lt;/button&gt;
+
+  &lt;button pButton type="button" (click)="count()" label="Danger"  class="ui-button-danger"&gt;&lt;/button&gt;
 
 Number of clicks: {{clicks}}
 </code>
