@@ -1,4 +1,5 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild,ViewChild} from '@angular/core';
+import { ChangeDetectionUtil } from './../utils/change-detection-util';
+import { NgModule, Component, ElementRef, AfterViewInit, AfterViewChecked, OnDestroy, Input, Output, EventEmitter, Renderer2, ContentChild, ViewChild, NgZone } from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -41,7 +42,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
             transition('hidden => visible', animate('400ms ease-out'))
         ])
     ],
-    providers: [DomHandler]
+    providers: [DomHandler, ChangeDetectionUtil]
 })
 export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
@@ -139,7 +140,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     initialized: boolean;
                 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private changeDetectionUtil: ChangeDetectionUtil) {}
     
     @Input() get visible(): boolean {
         return this._visible;
@@ -384,9 +385,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     bindDocumentDragListener() {
-        this.documentDragListener = this.renderer.listen('document', 'mousemove', (event) => {
-            this.onDrag(event);
-        });
+        this.changeDetectionUtil.addEventOutsideAngularChangeDetection('mousemove', window.document, 
+                                                    this.documentDragListener = this.onDrag.bind(this))
+
     }
     
     unbindDocumentDragListener() {
@@ -397,15 +398,15 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     bindDocumentResizeListeners() {
-        this.documentResizeListener = this.renderer.listen('document', 'mousemove', (event) => {
-            this.onResize(event);
-        });
-        
-        this.documentResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
+        this.changeDetectionUtil.addEventOutsideAngularChangeDetection('mousemove', window.document, 
+                                                    this.documentResizeListener = this.onResize.bind(this));
+
+        this.changeDetectionUtil.addEventOutsideAngularChangeDetection('mouseup', window.document, 
+                                                    this.documentResizeEndListener = () => {
             if(this.resizing) {
                 this.resizing = false;
             }
-        });
+        })
     }
     
     unbindDocumentResizeListeners() {
