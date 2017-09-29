@@ -60,7 +60,7 @@
     "rxjs": "5.4.3",
     "ts-node": "3.2.0",
     "tslint": "5.3.2",
-    "typescript": "2.3.4"
+    "typescript": "2.3.4",
     "web-animations-js": "2.3.1",
     "zone.js": "0.8.18"
   }
