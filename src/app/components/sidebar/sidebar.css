@@ -1,0 +1,37 @@
+.ui-sidebar {
+    position: fixed;
+    width: 20em;
+    height: 100%;
+    top: 0;
+    padding: .5em .75em;
+    z-index: 1000000;
+    -webkit-transition: transform .3s;
+    transition: transform .3s;
+}
+
+.ui-sidebar-left {
+    left: 0;
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+
+.ui-sidebar-right {
+    right: 0;
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+.ui-sidebar-full {
+    width: 100%;
+    left: 0;
+    -webkit-transition: transform 0s;
+    transition: transform 0s;
+}
+
+.ui-sidebar-active {
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0)
+}
