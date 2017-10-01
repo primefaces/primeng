@@ -8,19 +8,19 @@
 <div class="content-section implementation">
     <p-sidebar [(visible)]="visibleSidebar1" [style]="{top: '70px'}">
         <h1 style="font-weight:normal">Left Sidebar</h1>
-        <button pButton type="button" (click)="visibleSidebar1 = false" label="Save"></button>
+        <button pButton type="button" (click)="visibleSidebar1 = false" label="Save" class="ui-button-success"></button>
         <button pButton type="button" (click)="visibleSidebar1 = false" label="Cancel" class="ui-button-secondary"></button>
     </p-sidebar>
     
     <p-sidebar [(visible)]="visibleSidebar2" position="right" [style]="{top: '70px'}">
         <h1 style="font-weight:normal">Right Sidebar</h1>
-        <button pButton type="button" (click)="visibleSidebar2 = false" label="Save"></button>
+        <button pButton type="button" (click)="visibleSidebar2 = false" label="Save" class="ui-button-success"></button>
         <button pButton type="button" (click)="visibleSidebar2 = false" label="Cancel" class="ui-button-secondary"></button>
     </p-sidebar>
     
     <p-sidebar [(visible)]="visibleSidebar3" [fullScreen]="true" [style]="{top: '70px'}">
         <h1 style="font-weight:normal">Full Screen Sidebar</h1>
-        <button pButton type="button" (click)="visibleSidebar3 = false" label="Save"></button>
+        <button pButton type="button" (click)="visibleSidebar3 = false" label="Save" class="ui-button-success"></button>
         <button pButton type="button" (click)="visibleSidebar3 = false" label="Cancel" class="ui-button-secondary"></button>
     </p-sidebar>
     
@@ -42,74 +42,35 @@ import &#123;SidebarModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Two-way value binding is defined using ngModel and selectbutton requires a collection of options 
-                where each option should follow the SelectItem interface that defines label-value properties.</p>
+            <p>Sidebar is used as a container and visibility is controlled with visible property.</p>
+                    
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-selectButton&gt;
+&lt;p-sidebar [(visible)]="display"&gt;
+Content
+&lt;/p-sidebar&gt;
+
+&lt;button type="text" (click)="display = true" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;
 </code>
 </pre>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-import &#123;SelectItem&#125; from 'primeng/primeng';
-
-export class MyModel &#123;
-
-    cities: SelectItem[];
-
-    selectedCity: string;
-
-    constructor() &#123;
-        this.cities = [];
-        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
-        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
-        this.cities.push(&#123;label:'London', value:'London'&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
-        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
-    &#125;
-
-&#125;
-</code>
-</pre>
-
-            <h3>Multiple</h3>
-            <p>SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. 
-                In multiple case, model property should be an array instance that is not null or undefined.</p>
+            <h3>Position</h3>
+            <p>Sidebar can either be located as the left (default) or right side of the screen using the position property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-selectButton&gt;
+&lt;p-sidebar [(visible)]="display" position="right"&gt;
+Content
+&lt;/p-sidebar&gt;
 </code>
 </pre>
 
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-import &#123;SelectItem&#125; from 'primeng/primeng';
-
-export class MyModel &#123;
-
-    cities: SelectItem[];
-
-    selectedCities: string[] = [];
-
-    constructor() &#123;
-        this.cities = [];
-        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
-        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
-        this.cities.push(&#123;label:'London', value:'London'&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
-        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
-    &#125;
-
-&#125;
-</code>
-</pre>
-
-            <h3>Model Driven Forms</h3>
-            <p>SelectButton can be used in a model driven form as well.</p>
+            <h3>Full Screen</h3>
+            <p>Full screen mode allows the sidebar to cover whole screen.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-selectButton [options]="cities" formControlName="selectedCity"&gt;&lt;/p-selectButton&gt;
+&lt;p-sidebar [(visible)]="display" [fullScreen]="true"&gt;
+Content
+&lt;/p-sidebar&gt;
 </code>
 </pre>
 
@@ -117,31 +78,37 @@ export class MyModel &#123;
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Default</th>
-                        <th>Description</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>options</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>An array of selectitems to display as the available options.</td>
-                        </tr>
-                        <tr>
-                            <td>multiple</td>
+                            <td>visible</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When specified, allows selecting multiple values.</td>
+                            <td>Specifies the visibility of the dialog.</td>
                         </tr>
                         <tr>
-                            <td>tabindex</td>
-                            <td>number</td>
+                            <td>position</td>
+                            <td>string</td>
+                            <td>left</td>
+                            <td>Specifies the position of the sidebar, valid values are "left" and "right".</td>
+                        </tr>
+                        <tr>
+                            <td>fullScreen</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Adds a close icon to the header to hide the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>appendTo</td>
+                            <td>any</td>
                             <td>null</td>
-                            <td>Index of the element in tabbing order.</td>
+                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -156,10 +123,10 @@ export class MyModel &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
-                            <td>disabled</td>
+                            <td>blockScroll</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When present, it specifies that the element should be disabled.</td>
+                            <td>Whether to block scrolling of the document when sidebar is active.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -169,27 +136,61 @@ export class MyModel &#123;
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Parameters</th>
-                        <th>Description</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>onChange</td>
-                            <td>event.originalEvent: browser event<br />
-                                event.value: single value or an array of values that are selected
-                            </td>
-                            <td>Callback to invoke when value changes.</td>
+                            <td>onShow</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog is shown.</td>
                         </tr>
                         <tr>
-                            <td>onOptionClick</td>
-                            <td>event.originalEvent: browser event<br />
-                                event.option: SelectItem instance of the clicked button<br />
-                                event.index: Index of the clicked button
-                            </td>
-                            <td>Callback to invoke when a button is clicked.</td>
+                            <td>onHide</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog is hidden.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-sidebar</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-left</td>
+                            <td>Container element of left sidebar.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-left</td>
+                            <td>Container element of right sidebar.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-active</td>
+                            <td>Container element when sidebar is visible.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-close</td>
+                            <td>Close anchor element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-mask</td>
+                            <td>Modal layer of the sidebar.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -200,51 +201,51 @@ export class MyModel &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/selectbutton" class="btn-viewsource" target="_blank">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/sidebar" class="btn-viewsource" target="_blank">
                 <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
+        
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-selectButton [options]="types" [(ngModel)]="selectedType"&gt;&lt;/p-selectButton&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar1" [style]="&#123;top: '70px'&#125;"&gt;
+    &lt;h1 style="font-weight:normal"&gt;Left Sidebar&lt;/h1&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar1 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar1 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+&lt;/p-sidebar&gt;
 
-&lt;p&gt;Selected Type: {{selectedType}}&lt;/p&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar2" position="right" [style]="&#123;top: '70px'&#125;"&gt;
+    &lt;h1 style="font-weight:normal"&gt;Right Sidebar&lt;/h1&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar2 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar2 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+&lt;/p-sidebar&gt;
 
-&lt;h3&gt;Multiple&lt;/h3&gt;
-&lt;p-selectButton [options]="types" [(ngModel)]="selectedTypes" multiple="multiple"&gt;&lt;/p-selectButton&gt;
-&lt;p&gt;Selected Types: &lt;span *ngFor="let type of selectedTypes"&gt;{{type}} &lt;/span&gt;&lt;/p&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar3" [fullScreen]="true" [style]="&#123;top: '70px'&#125;"&gt;
+    &lt;h1 style="font-weight:normal"&gt;Full Screen Sidebar&lt;/h1&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar3 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar3 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+&lt;/p-sidebar&gt;
 
-&lt;hr /&gt;
+&lt;button pButton type="button" (click)="visibleSidebar1 = true" label="Left"&gt;&lt;/button&gt;
 
-&lt;button type="button" (click)="clear()" pButton icon="fa-close" label="Clear"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="visibleSidebar2 = true" label="Right"&gt;&lt;/button&gt;
+
+&lt;button pButton type="button" (click)="visibleSidebar3 = true" label="Full Screen"&gt;&lt;/button&gt;
 </code>
 </pre>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-export class SelectButtonDemo &#123;
+export class SidebarDemo &#123;
 
-    types: SelectItem[];
-
-    selectedType: string;
-
-    selectedTypes: string[] = ['Apartment','Studio'];
-
-    constructor() &#123;
-        this.types = [];
-        this.types.push(&#123;label: 'Apartment', value: 'Apartment'&#125;);
-        this.types.push(&#123;label: 'House', value: 'House'&#125;);
-        this.types.push(&#123;label: 'Studio', value: 'Studio'&#125;);
-    &#125;
-
-    clear() &#123;
-        this.selectedType = null;
-        this.selectedTypes = [];
-    &#125;
+    visibleSidebar1;
+    
+    visibleSidebar2;
+    
+    visibleSidebar3;
 &#125;
 </code>
 </pre>
-        </p-tabPanel>
-    </p-tabView>
+            </p-tabPanel>
+        </p-tabView>
 </div>
