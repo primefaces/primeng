@@ -293,6 +293,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         if(!this.inputKeyDown) {
             return;
         }
+      
+        if(this.timeout) {
+            clearTimeout(this.timeout);
+        }
 
         let value = (<HTMLInputElement> event.target).value;
         if(!this.multiple) {
@@ -301,15 +305,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         
         if(value.length === 0) {
            this.hide();
-		   this.onClear.emit(event);
+           this.onClear.emit(event);
         }
         
         if(value.length >= this.minLength) {
-            //Cancel the search request if user types within the timeout
-            if(this.timeout) {
-                clearTimeout(this.timeout);
-            }
-
             this.timeout = setTimeout(() => {
                 this.search(event, value);
             }, this.delay);
