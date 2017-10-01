@@ -444,6 +444,16 @@
     }
 }
 
+.ui-sidebar {
+    .ui-sidebar-close {
+        color: $headerTextColor;
+        
+        &:hover {
+            @include hover-element();
+        }
+    }
+}
+
 .ui-overlaypanel {
     .ui-overlaypanel-close:hover {
         @include hover-element();

@@ -7,19 +7,19 @@
 
 <div class="content-section implementation">
     <p-sidebar [(visible)]="visibleSidebar1" [style]="{top: '70px'}">
-        <h1>Left Sidebar</h1>
+        <h1 style="font-weight:normal">Left Sidebar</h1>
         <button pButton type="button" (click)="visibleSidebar1 = false" label="Save"></button>
         <button pButton type="button" (click)="visibleSidebar1 = false" label="Cancel" class="ui-button-secondary"></button>
     </p-sidebar>
     
     <p-sidebar [(visible)]="visibleSidebar2" position="right" [style]="{top: '70px'}">
-        <h1>Right Sidebar</h1>
+        <h1 style="font-weight:normal">Right Sidebar</h1>
         <button pButton type="button" (click)="visibleSidebar2 = false" label="Save"></button>
         <button pButton type="button" (click)="visibleSidebar2 = false" label="Cancel" class="ui-button-secondary"></button>
     </p-sidebar>
     
     <p-sidebar [(visible)]="visibleSidebar3" [fullScreen]="true" [style]="{top: '70px'}">
-        <h1>Full Screen Sidebar</h1>
+        <h1 style="font-weight:normal">Full Screen Sidebar</h1>
         <button pButton type="button" (click)="visibleSidebar3 = false" label="Save"></button>
         <button pButton type="button" (click)="visibleSidebar3 = false" label="Cancel" class="ui-button-secondary"></button>
     </p-sidebar>
