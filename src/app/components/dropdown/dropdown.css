@@ -93,6 +93,7 @@
     margin: 0;
     padding: 0.4em;
     display: inline-block;
+    width: 100%;
 }
 
 .ui-dropdown-panel .ui-dropdown-filter-container .fa {
