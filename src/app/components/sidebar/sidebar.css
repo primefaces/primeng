@@ -35,3 +35,9 @@
     -ms-transform: translateX(0);
     transform: translateX(0)
 }
+
+.ui-sidebar-mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}

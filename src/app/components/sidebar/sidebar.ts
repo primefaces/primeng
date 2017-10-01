@@ -1,11 +1,12 @@
-import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,AfterViewInit,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
+import {DomHandler} from '../dom/domhandler';
 
 @Component({
     selector: 'p-sidebar',
     template: `
-        <div [ngClass]="{'ui-sidebar ui-widget ui-widget-content ui-shadow':true, 'ui-sidebar-active': visible, 
+        <div #container [ngClass]="{'ui-sidebar ui-widget ui-widget-content ui-shadow':true, 'ui-sidebar-active': visible, 
             'ui-sidebar-left': (position === 'left'), 'ui-sidebar-right': (position === 'right'), 'ui-sidebar-full': fullScreen}"
             [@panelState]="visible ? 'visible' : 'hidden'" [ngStyle]="style" [class]="styleClass">
             <ng-content></ng-content>
@@ -22,18 +23,140 @@ import {CommonModule} from '@angular/common';
             transition('visible => hidden', animate('300ms ease-in')),
             transition('hidden => visible', animate('300ms ease-out'))
         ])
-    ]
+    ],
+    providers: [DomHandler]
 })
-export class Sidebar {
-
-    @Input() visible: boolean;
+export class Sidebar implements AfterViewInit {
     
     @Input() position: string = 'left';
     
     @Input() fullScreen: boolean;
     
+    @Input() appendTo: string;
+    
+    @Input() blockScroll: boolean = false;
+    
+    @Input() style: any;
+        
+    @Input() styleClass: string;
+    
+    @ViewChild('container') containerViewChild: ElementRef;
+    
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    
     @Output() visibleChange:EventEmitter<any> = new EventEmitter();
     
+    initialized: boolean;
+    
+    _visible: boolean;
+    
+    preventVisibleChangePropagation: boolean;
+    
+    mask: HTMLDivElement;
+    
+    maskClickListener: Function;
+    
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    
+    ngAfterViewInit() { 
+        this.initialized = true;
+                      
+        if(this.appendTo) {
+            if(this.appendTo === 'body')
+                document.body.appendChild(this.containerViewChild.nativeElement);
+            else
+                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+        }
+        
+        if(this.visible) {
+            this.show();
+        }
+    }
+    
+    @Input() get visible(): boolean {
+        return this._visible;
+    }
+
+    set visible(val:boolean) {
+        this._visible = val;
+        
+        if(this.initialized && this.containerViewChild && this.containerViewChild.nativeElement) {
+            if(this._visible)
+                this.show();
+            else {
+                if(this.preventVisibleChangePropagation)
+                    this.preventVisibleChangePropagation = false;
+                else
+                    this.hide();
+            }
+        }
+    }
+    
+    show() {
+        this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        this.enableModality();
+    }
+    
+    hide() {
+        this.onHide.emit({});
+        this.disableModality();
+    }
+    
+    close(event: Event) {
+        this.preventVisibleChangePropagation = true;
+        this.hide();
+        this.visibleChange.emit(false);
+        event.preventDefault();
+    }
+    
+    enableModality() {
+        if(!this.mask) {
+            this.mask = document.createElement('div');
+            this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
+            this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-sidebar-mask');
+            this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
+               this.close(event);
+            });
+            document.body.appendChild(this.mask);
+            if(this.blockScroll) {
+                this.domHandler.addClass(document.body, 'ui-overflow-hidden');
+            }
+        }
+    }
+        
+    disableModality() {
+        if(this.mask) {
+            this.unbindMaskClickListener();
+            document.body.removeChild(this.mask);
+            if(this.blockScroll) {
+                this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+            }
+            this.mask = null;
+        }
+    }
+    
+    unbindMaskClickListener() {
+        if(this.maskClickListener) {
+            this.maskClickListener();
+            this.maskClickListener = null;
+        }
+    }
+    
+    ngOnDestroy() {
+        this.initialized = false;
+        
+        if(this.visible) {
+            this.hide();
+        }
+                
+        if(this.appendTo) {
+            this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
+        }
+		
+		this.unbindMaskClickListener();
+    }
 }
 
 @NgModule({
