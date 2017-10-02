@@ -1,10 +1,11 @@
-import {NgModule,Directive,ElementRef,OnDestroy,HostBinding,HostListener,Input,Renderer2} from '@angular/core';
+import { ChangeDetectionUtil } from './../utils/change-detection-util';
+import { NgModule, Directive, ElementRef, OnDestroy, HostBinding, HostListener, Input, Renderer2, NgZone } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
 @Directive({
     selector: '[pTooltip]',
-    providers: [DomHandler]
+    providers: [DomHandler, ChangeDetectionUtil]
 })
 export class Tooltip implements OnDestroy {
 
@@ -47,10 +48,18 @@ export class Tooltip implements OnDestroy {
     active: boolean;
     
     public _text: string;
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, private changeDetectioUtil: ChangeDetectionUtil) {}
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
-    
-    @HostListener('mouseenter', ['$event']) 
+    ngOnInit(){
+        this.changeDetectioUtil.addEventsOutsideAngularChangeDetection([
+            { type: "mouseenter", value: this.onMouseEnter.bind(this)},
+            { type: "mouseleave", value: this.onMouseLeave.bind(this)},
+            { type: "focus", value: this.onFocus.bind(this) },
+            { type: "blur", value: this.onBlur.bind(this)},
+            { type: "click", value: this.onClick.bind(this)}
+        ] , this.el.nativeElement)
+    }
+
     onMouseEnter(e: Event) {
         if(this.tooltipEvent === 'hover') {
             if(this.hideTimeout) {
@@ -62,29 +71,24 @@ export class Tooltip implements OnDestroy {
         }
     }
     
-    @HostListener('mouseleave', ['$event'])
     onMouseLeave(e: Event) {
         if(this.tooltipEvent === 'hover') {
             this.deactivate(true);
         }
     }
     
-    @HostListener('focus', ['$event'])
     onFocus(e: Event) {
         if(this.tooltipEvent === 'focus') {
             this.activate();
         }
     }
     
-    @HostListener('blur', ['$event'])
     onBlur(e: Event) {
         if(this.tooltipEvent === 'focus') {
             this.deactivate(true);
         }
     }
   
-  
-    @HostListener('click', ['$event'])
     onClick(e: Event) {
       if(this.tooltipEvent === 'hover') {
         this.deactivate(true);
