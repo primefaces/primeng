@@ -105,10 +105,10 @@ export class ModelComponent &#123;
             instead of using formControlName.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-<!-- Wrong -->
+&lt;!-- Wrong --&gt;
 &lt;p-checkbox formControlName="cities"&gt;&lt;/p-checkbox&gt;
 
-<!-- Correct -->
+&lt;!-- Correct --&gt;
 &lt;p-checkbox [formControl]="myFormGroup.get['cities']"&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>
