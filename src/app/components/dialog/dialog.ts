@@ -301,6 +301,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.dragging = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
+            this.domHandler.addClass(document.body, 'ui-unselectable-text');
         }
     }
     
@@ -322,6 +323,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     endDrag(event: MouseEvent) {
         if(this.draggable) {
             this.dragging = false;
+            this.domHandler.removeClass(document.body, 'ui-unselectable-text');
         }
     }
     
@@ -331,6 +333,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
+            this.domHandler.addClass(document.body, 'ui-unselectable-text');
         }
     }
     
@@ -404,6 +407,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         this.documentResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
             if(this.resizing) {
                 this.resizing = false;
+                this.domHandler.removeClass(document.body, 'ui-unselectable-text');
             }
         });
     }
