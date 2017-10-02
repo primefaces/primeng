@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl} from '@angular/forms';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -47,6 +47,8 @@ export class Checkbox implements ControlValueAccessor {
 
     @Input() styleClass: string;
     
+    @Input() formControl: FormControl;
+    
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     model: any;
@@ -84,6 +86,10 @@ export class Checkbox implements ControlValueAccessor {
                 this.removeValue();
 
             this.onModelChange(this.model);
+            
+            if(this.formControl) {
+                this.formControl.setValue(this.model);
+            }
         }
         else {
             this.onModelChange(this.checked);
