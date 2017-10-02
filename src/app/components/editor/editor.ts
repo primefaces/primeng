@@ -79,13 +79,13 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     @Input() placeholder: string;
     
-    @Input() readonly: boolean;
-    
     @Input() formats: string[];
     
     @Output() onInit: EventEmitter<any> = new EventEmitter();
     
     value: string;
+    
+    _readonly: boolean;
     
     onModelChange: Function = () => {};
     
@@ -168,6 +168,21 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     getQuill() {
         return this.quill;
+    }
+    
+    @Input() get readonly(): boolean {
+        return this._readonly;
+    }
+
+    set readonly(val:boolean) {
+        this._readonly = val;
+        
+        if(this.quill) {
+            if(this._readonly)
+                this.quill.disable();
+            else
+                this.quill.enable();
+        }
     }
 }
 
