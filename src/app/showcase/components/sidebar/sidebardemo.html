@@ -80,6 +80,18 @@ import &#123;SidebarModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
+            <h3>Size</h3>
+            <p>Sidebar size can be changed using a fixed value or using one of the three predefined ones.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-sidebar [(visible)]="display" [ngStyle]="&#123;width:'30em'&#125;"&gt;&lt;/p-sidebar&gt;
+
+&lt;p-sidebar [(visible)]="display" styleClass="ui-sidebar-sm"&gt;&lt;/p-sidebar&gt;
+&lt;p-sidebar [(visible)]="display" styleClass="ui-sidebar-md"&gt;&lt;/p-sidebar&gt;
+&lt;p-sidebar [(visible)]="display" styleClass="ui-sidebar-lg"&gt;&lt;/p-sidebar&gt;
+</code>
+</pre>
+
             <h3>Full Screen</h3>
             <p>Full screen mode allows the sidebar to cover whole screen.</p>
 <pre>
@@ -205,10 +217,6 @@ Content
                             <td>Container element of bottom sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-half</td>
-                            <td>Container element whose width is half of the screen width.</td>
-                        </tr>
-                        <tr>
                             <td>ui-sidebar-full</td>
                             <td>Container element of a full screen sidebar.</td>
                         </tr>
@@ -219,6 +227,18 @@ Content
                         <tr>
                             <td>ui-sidebar-close</td>
                             <td>Close anchor element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-sm</td>
+                            <td>Small sized sidebar.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-md</td>
+                            <td>Medium sized sidebar.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-lg</td>
+                            <td>Large sized sidebar.</td>
                         </tr>
                         <tr>
                             <td>ui-sidebar-mask</td>
