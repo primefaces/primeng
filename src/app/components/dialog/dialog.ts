@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChildren,QueryList,ViewChild} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -12,7 +12,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
                 <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <span class="ui-dialog-title" *ngIf="headerFacet">
+                <span class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
                     <ng-content select="p-header"></ng-content>
                 </span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
@@ -22,7 +22,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
             <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
                 <ng-content></ng-content>
             </div>
-            <div class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet">
+            <div class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
                 <ng-content select="p-footer"></ng-content>
             </div>
             <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
@@ -89,10 +89,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     @Input() blockScroll: boolean = false;
         
-    @ContentChild(Header) headerFacet;
+    @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
-    @ContentChild(Footer) footerFacet;
-    
+    @ContentChildren(Footer, {descendants: false}) footerFacet: QueryList<Header>;
+            
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('titlebar') headerViewChild: ElementRef;
