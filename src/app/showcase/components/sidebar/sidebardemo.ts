@@ -10,4 +10,8 @@ export class SidebarDemo {
     visibleSidebar2;
     
     visibleSidebar3;
+    
+    visibleSidebar4;
+    
+    visibleSidebar5;
 }

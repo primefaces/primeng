@@ -1,8 +1,5 @@
 .ui-sidebar {
     position: fixed;
-    width: 20em;
-    height: 100%;
-    top: 0;
     padding: .5em .75em;
     z-index: 1000000;
     -webkit-transition: transform .3s;
@@ -10,17 +7,47 @@
 }
 
 .ui-sidebar-left {
+    top: 0;
     left: 0;
+    width: 20em;
+    height: 100%;
     -webkit-transform: translateX(-100%);
     -ms-transform: translateX(-100%);
     transform: translateX(-100%);
 }
 
 .ui-sidebar-right {
+    top: 0;
     right: 0;
+    width: 20em;
+    height: 100%;
     -webkit-transform: translateX(100%);
     -ms-transform: translateX(100%);
     transform: translateX(100%);
+}
+
+.ui-sidebar-top {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10em;
+    -webkit-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%);
+}
+
+.ui-sidebar-bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10em;
+    -webkit-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+}
+
+.ui-sidebar-half {
+    width: 50%;
 }
 
 .ui-sidebar-full {
@@ -30,10 +57,18 @@
     transition: transform 0s;
 }
 
-.ui-sidebar-active {
+.ui-sidebar-left.ui-sidebar-active,
+.ui-sidebar-right.ui-sidebar-active {
     -webkit-transform: translateX(0);
     -ms-transform: translateX(0);
     transform: translateX(0)
+}
+
+.ui-sidebar-top.ui-sidebar-active,
+.ui-sidebar-bottom.ui-sidebar-active {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0)
 }
 
 .ui-sidebar-mask {

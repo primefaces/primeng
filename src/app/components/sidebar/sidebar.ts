@@ -7,7 +7,9 @@ import {DomHandler} from '../dom/domhandler';
     selector: 'p-sidebar',
     template: `
         <div #container [ngClass]="{'ui-sidebar ui-widget ui-widget-content ui-shadow':true, 'ui-sidebar-active': visible, 
-            'ui-sidebar-left': (position === 'left'), 'ui-sidebar-right': (position === 'right'), 'ui-sidebar-full': fullScreen}"
+            'ui-sidebar-left': (position === 'left'), 'ui-sidebar-right': (position === 'right'),
+            'ui-sidebar-top': (position === 'top'), 'ui-sidebar-bottom': (position === 'bottom'), 
+            'ui-sidebar-full': fullScreen}"
             [@panelState]="visible ? 'visible' : 'hidden'" [ngStyle]="style" [class]="styleClass">
             <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)">
                 <span class="fa fa-fw fa-close"></span>
@@ -29,7 +31,7 @@ import {DomHandler} from '../dom/domhandler';
     ],
     providers: [DomHandler]
 })
-export class Sidebar implements AfterViewInit,AfterViewChecked {
+export class Sidebar implements AfterViewInit, AfterViewChecked {
     
     @Input() position: string = 'left';
     

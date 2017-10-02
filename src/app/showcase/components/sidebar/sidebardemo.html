@@ -18,17 +18,33 @@
         <button pButton type="button" (click)="visibleSidebar2 = false" label="Cancel" class="ui-button-secondary"></button>
     </p-sidebar>
     
-    <p-sidebar [(visible)]="visibleSidebar3" [fullScreen]="true" [style]="{top: '70px'}">
-        <h1 style="font-weight:normal">Full Screen Sidebar</h1>
+    <p-sidebar [(visible)]="visibleSidebar3" position="top" [style]="{top: '70px'}">
+        <h1 style="font-weight:normal">Top Sidebar</h1>
         <button pButton type="button" (click)="visibleSidebar3 = false" label="Save" class="ui-button-success"></button>
         <button pButton type="button" (click)="visibleSidebar3 = false" label="Cancel" class="ui-button-secondary"></button>
     </p-sidebar>
     
-    <button pButton type="button" (click)="visibleSidebar1 = true" label="Left"></button>
+    <p-sidebar [(visible)]="visibleSidebar4" position="bottom">
+        <h1 style="font-weight:normal">Bottom Sidebar</h1>
+        <button pButton type="button" (click)="visibleSidebar4 = false" label="Save" class="ui-button-success"></button>
+        <button pButton type="button" (click)="visibleSidebar4 = false" label="Cancel" class="ui-button-secondary"></button>
+    </p-sidebar>
     
-    <button pButton type="button" (click)="visibleSidebar2 = true" label="Right"></button>
+    <p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [style]="{top: '70px'}">
+        <h1 style="font-weight:normal">Full Screen Sidebar</h1>
+        <button pButton type="button" (click)="visibleSidebar5 = false" label="Save" class="ui-button-success"></button>
+        <button pButton type="button" (click)="visibleSidebar5 = false" label="Cancel" class="ui-button-secondary"></button>
+    </p-sidebar>
     
-    <button pButton type="button" (click)="visibleSidebar3 = true" label="Full Screen"></button>
+    <button pButton type="button" (click)="visibleSidebar1 = true" label="Left" icon="fa-arrow-right"></button>
+    
+    <button pButton type="button" (click)="visibleSidebar2 = true" label="Right" icon="fa-arrow-left"></button>
+    
+    <button pButton type="button" (click)="visibleSidebar3 = true" label="Top" icon="fa-arrow-down"></button>
+    
+    <button pButton type="button" (click)="visibleSidebar4 = true" label="Bottom" icon="fa-arrow-up"></button>
+    
+    <button pButton type="button" (click)="visibleSidebar5 = true" label="Full Screen" icon="fa-arrows-alt"></button>
 </div>
 
 <div class="content-section documentation">
@@ -47,7 +63,7 @@ import &#123;SidebarModule&#125; from 'primeng/primeng';
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-sidebar [(visible)]="display"&gt;
-Content
+    Content
 &lt;/p-sidebar&gt;
 
 &lt;button type="text" (click)="display = true" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;
@@ -55,11 +71,11 @@ Content
 </pre>
 
             <h3>Position</h3>
-            <p>Sidebar can either be located as the left (default) or right side of the screen using the position property.</p>
+            <p>Sidebar can either be located as the left (default), right, top or bottom of the screen depending on the position property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-sidebar [(visible)]="display" position="right"&gt;
-Content
+    Content
 &lt;/p-sidebar&gt;
 </code>
 </pre>
@@ -177,8 +193,24 @@ Content
                             <td>Container element of left sidebar.</td>
                         </tr>
                         <tr>
-                            <td>ui-sidebar-left</td>
+                            <td>ui-sidebar-right</td>
                             <td>Container element of right sidebar.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-top</td>
+                            <td>Container element of top sidebar.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-bottom</td>
+                            <td>Container element of bottom sidebar.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-half</td>
+                            <td>Container element whose width is half of the screen width.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-sidebar-full</td>
+                            <td>Container element of a full screen sidebar.</td>
                         </tr>
                         <tr>
                             <td>ui-sidebar-active</td>
@@ -220,17 +252,33 @@ Content
     &lt;button pButton type="button" (click)="visibleSidebar2 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
 &lt;/p-sidebar&gt;
 
-&lt;p-sidebar [(visible)]="visibleSidebar3" [fullScreen]="true" [style]="&#123;top: '70px'&#125;"&gt;
-    &lt;h1 style="font-weight:normal"&gt;Full Screen Sidebar&lt;/h1&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar3" position="top" [style]="&#123;top: '70px'&#125;"&gt;
+    &lt;h1 style="font-weight:normal"&gt;Top Sidebar&lt;/h1&gt;
     &lt;button pButton type="button" (click)="visibleSidebar3 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
     &lt;button pButton type="button" (click)="visibleSidebar3 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
 &lt;/p-sidebar&gt;
 
-&lt;button pButton type="button" (click)="visibleSidebar1 = true" label="Left"&gt;&lt;/button&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar4" position="bottom"&gt;
+    &lt;h1 style="font-weight:normal"&gt;Bottom Sidebar&lt;/h1&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar4 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar4 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+&lt;/p-sidebar&gt;
 
-&lt;button pButton type="button" (click)="visibleSidebar2 = true" label="Right"&gt;&lt;/button&gt;
+&lt;p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [style]="&#123;top: '70px'&#125;"&gt;
+    &lt;h1 style="font-weight:normal"&gt;Full Screen Sidebar&lt;/h1&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar5 = false" label="Save" class="ui-button-success"&gt;&lt;/button&gt;
+    &lt;button pButton type="button" (click)="visibleSidebar5 = false" label="Cancel" class="ui-button-secondary"&gt;&lt;/button&gt;
+&lt;/p-sidebar&gt;
 
-&lt;button pButton type="button" (click)="visibleSidebar3 = true" label="Full Screen"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="visibleSidebar1 = true" label="Left" icon="fa-arrow-right"&gt;&lt;/button&gt;
+
+&lt;button pButton type="button" (click)="visibleSidebar2 = true" label="Right" icon="fa-arrow-left"&gt;&lt;/button&gt;
+
+&lt;button pButton type="button" (click)="visibleSidebar3 = true" label="Top" icon="fa-arrow-down"&gt;&lt;/button&gt;
+
+&lt;button pButton type="button" (click)="visibleSidebar4 = true" label="Bottom" icon="fa-arrow-up"&gt;&lt;/button&gt;
+
+&lt;button pButton type="button" (click)="visibleSidebar5 = true" label="Full Screen" icon="fa-arrows-alt"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -243,6 +291,11 @@ export class SidebarDemo &#123;
     visibleSidebar2;
     
     visibleSidebar3;
+    
+    visibleSidebar4;
+    
+    visibleSidebar5;
+    
 &#125;
 </code>
 </pre>
