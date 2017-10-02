@@ -15,7 +15,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox',
     template: `
-        <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="{'ui-listbox ui-inputtext ui-widget ui-widget-content ui-corner-all':true,'ui-state-disabled':disabled,'ui-state-focus':focus}" [ngStyle]="style" [class]="styleClass">
+            <div class="ui-helper-hidden-accessible">
+                <input type="text" readonly="readonly" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
+            </div>
             <div class="ui-widget-header ui-corner-all ui-listbox-header ui-helper-clearfix" *ngIf="(checkbox && multiple) || filter" [ngClass]="{'ui-listbox-header-w-checkbox': checkbox}">
                 <div class="ui-chkbox ui-widget" *ngIf="checkbox && multiple && showToggleAll">
                     <div class="ui-helper-hidden-accessible">
@@ -67,6 +70,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     
     @Input() listStyle: any;
 
+    @Input() readonly: boolean;
+
     @Input() disabled: boolean;
 
     @Input() checkbox: boolean = false;
@@ -104,6 +109,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     public checkboxClick: boolean;
     
     public optionTouched: boolean;
+    
+    public focus: boolean;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
     
@@ -371,6 +378,14 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             originalEvent: event,
             value: this.value
         });
+    }
+    
+    onInputFocus(event) {
+        this.focus = true;
+    }
+    
+    onInputBlur(event) {
+        this.focus = false;
     }
 }
 
