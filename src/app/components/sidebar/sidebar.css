@@ -107,3 +107,12 @@
 .ui-sidebar-close {
     float: right;
 }
+
+@media screen and (max-width: 64em) {
+    .ui-sidebar-left.ui-sidebar-lg,
+    .ui-sidebar-left.ui-sidebar-md, 
+    .ui-sidebar-right.ui-sidebar-lg,
+    .ui-sidebar-right.ui-sidebar-md {
+        width: 20em;
+    }
+}
