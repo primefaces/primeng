@@ -2234,7 +2234,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
             if(allowDrop) {
                 this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
-
+				        this.scrollableColumns = this.columns;
+				
                 this.onColReorder.emit({
                     dragIndex: dragIndex,
                     dropIndex: dropIndex,
