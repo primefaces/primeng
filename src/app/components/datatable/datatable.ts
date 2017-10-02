@@ -969,21 +969,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     initColumns(): void {
         this.columns = this.cols.toArray();
-        
-        if(this.scrollable) {
-            this.scrollableColumns = [];
-            this.frozenColumns = [];
-            this.cols.forEach((col) => {
-                if(col.frozen) {
-                    this.frozenColumns.push(col);
-                }
-                else {
-                    this.scrollableColumns.push(col);
-                }
-            });
-        }
+        this.initScrollableColumns();
         
         this.columnsChanged = true;
+    }
+    
+    initScrollableColumns() {
+        this.scrollableColumns = [];
+        this.frozenColumns = [];
+        
+        for(let col of this.columns) {
+            if(col.frozen)
+                this.frozenColumns.push(col);
+            else
+                this.scrollableColumns.push(col);
+        }
     }
 
     resolveFieldData(data: any, field: string): any {
@@ -2234,6 +2234,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
             if(allowDrop) {
                 this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
+                if(this.scrollable) {
+                    this.initScrollableColumns();
+                }
 
                 this.onColReorder.emit({
                     dragIndex: dragIndex,
