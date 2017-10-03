@@ -60,6 +60,10 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     
     @Input() addOnTab: boolean;
     
+    @Output() onFocusEvent: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onBlurEvent: EventEmitter<any> = new EventEmitter();
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public itemTemplate: TemplateRef<any>;
@@ -127,11 +131,13 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     
     onFocus() {
         this.focus = true;
+        this.onFocusEvent.emit();
     }
     
     onBlur() {
         this.focus = false;
         this.onModelTouched();
+        this.onBlurEvent.emit();
     }
     
     removeItem(event: Event, index: number): void {
