@@ -23,7 +23,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 </li>
                 <li class="ui-chips-input-token">
                     <input #inputtext type="text" [attr.id]="inputId" [attr.placeholder]="placeholder" [attr.tabindex]="tabindex" (keydown)="onKeydown($event,inputtext)" 
-                        (focus)="onFocus()" (blur)="onBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
+                        (focus)="onInputFocus()" (blur)="onInputBlur()" [disabled]="maxedOut||disabled" [disabled]="disabled" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul>
         </div>
@@ -60,9 +60,9 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     
     @Input() addOnTab: boolean;
     
-    @Output() onFocusEvent: EventEmitter<any> = new EventEmitter();
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
-    @Output() onBlurEvent: EventEmitter<any> = new EventEmitter();
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -129,15 +129,15 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
         }
     }
     
-    onFocus() {
+    onInputFocus() {
         this.focus = true;
-        this.onFocusEvent.emit();
+        this.onFocus.emit();
     }
     
-    onBlur() {
+    onInputBlur() {
         this.focus = false;
         this.onModelTouched();
-        this.onBlurEvent.emit();
+        this.onBlur.emit();
     }
     
     removeItem(event: Event, index: number): void {
