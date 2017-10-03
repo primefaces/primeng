@@ -2420,6 +2420,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public exportCSV() {
         let data = this.filteredValue||this.value;
         let csv = '\ufeff';
+        csv += 'sep=' + this.csvSeparator + '\r\n';
         
         //headers
         for(let i = 0; i < this.columns.length; i++) {
