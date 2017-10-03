@@ -39,7 +39,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
-                        <input type="text" role="textbox" (input)="onFilter($event)"
+                        <input #filterInput type="text" role="textbox" (input)="onFilter($event)"
                                     class="ui-inputtext ui-widget ui-state-default ui-corner-all">
                         <span class="fa fa-fw fa-search"></span>
                     </div>
@@ -72,6 +72,10 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
     @Input() options: SelectItem[];
+
+    @Input() resetFilterOnHide: boolean = false;
+    
+    @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -114,6 +118,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('panel') panelViewChild: ElementRef;
+    
+    @ViewChild('filterInput') filterInputChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -297,6 +303,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     hide() {
         this.overlayVisible = false;
         this.unbindDocumentClickListener();
+        if(this.resetFilterOnHide){
+          this.filterValue = null;
+          this.filterInputChild.nativeElement.value = null;
+        }
+        this.onPanelHide.emit();
     }
     
     close(event) {
