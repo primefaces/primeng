@@ -110,16 +110,16 @@ export class Checkbox implements ControlValueAccessor {
             return this.model && this.model.indexOf(this.value) > -1;
     }
 
-    removeValue() {
-        this.model = this.model.filter(val => val !== this.value);
+   removeValue() {
+    const index = this.model.findIndex(value => value === this.value);
+    if (index >= 0) {
+      this.model.splice(index, 1);
     }
+  }
 
     addValue() {
-        if(this.model)
-            this.model = [...this.model, this.value];
-        else
-            this.model = [this.value];
-    }
+      this.model.push(this.value);
+    };
     
     onFocus(event) {
         this.focused = true;
