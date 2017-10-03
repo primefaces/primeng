@@ -10,7 +10,6 @@ export class ConfirmationService {
     private acceptConfirmationSource = new Subject<Confirmation>();
 
     requireConfirmation$ = this.requireConfirmationSource.asObservable();
-    accept = this.acceptConfirmationSource.asObservable();
 
     confirm(confirmation: Confirmation) {
         this.requireConfirmationSource.next(confirmation);
