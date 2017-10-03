@@ -95,8 +95,6 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     public itemTemplate: TemplateRef<any>;
 
     public filterValue: string;
-    
-    public visibleOptions: SelectItem[];
 
     public filtered: boolean;
 
@@ -271,27 +269,22 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
 
     get allChecked(): boolean {
-        if(this.filterValue && this.filterValue.trim().length)
+        if(this.filterValue)
             return this.allFilteredSelected();
         else
-            return this.value&&this.options&&(this.value.length == this.options.length);
+            return this.value && this.options && (this.value.length === this.options.length);
     }
     
     allFilteredSelected(): boolean {
         let allSelected: boolean;
-        if(this.value && this.visibleOptions && this.visibleOptions.length) {
+        if(this.value && this.options && this.options.length) {
             allSelected = true;
-            for(let opt of this.visibleOptions) {
-                let selected: boolean;
-                for(let val of this.value) {
-                    if(this.objectUtils.equals(val, opt.value, this.dataKey)) {
-                        selected = true;
+            for(let opt of this.options) {
+                if(this.isItemVisible(opt)) {
+                    if(!this.isSelected(opt)) {
+                        allSelected = false;
+                        break;
                     }
-                }
-                
-                if(!selected) {
-                    allSelected = false;
-                    break;
                 }
             }
         }
@@ -300,19 +293,12 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     }
 
     onFilter(event) {
-        this.filterValue = event.target.value.trim().toLowerCase();
-        this.visibleOptions = [];
-        for(let i = 0; i < this.options.length; i++) {
-            let option = this.options[i];
-            if(option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1) {
-                this.visibleOptions.push(option);
-            }
-        }
-        this.filtered = true;
+        let query = event.target.value.trim().toLowerCase();
+        this.filterValue = query.length ? query : null;
     }
 
     toggleAll(event, checkbox) {
-        if(this.disabled || (this.filterValue && this.filterValue.trim().length && (!this.visibleOptions || this.visibleOptions.length === 0))) {
+        if(this.disabled || !this.options || this.options.length === 0) {
             return;
         }
         
@@ -320,11 +306,13 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
             this.value = [];
         }
         else {
-            let opts = (this.visibleOptions&&this.visibleOptions.length) ? this.visibleOptions : this.options;
-            if(opts) {
+            if(this.options) {
                 this.value = [];
-                for(let i = 0; i < opts.length; i++) {
-                    this.value.push(opts[i].value);
+                for(let i = 0; i < this.options.length; i++) {
+                    let opt = this.options[i];
+                    if(this.isItemVisible(opt)) {
+                        this.value.push(opt.value);
+                    }
                 } 
             }
         }
@@ -334,16 +322,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     } 
 
     isItemVisible(option: SelectItem): boolean {
-        if(this.filterValue && this.filterValue.trim().length) {
-            for(let i = 0; i < this.visibleOptions.length; i++) {
-                if(this.visibleOptions[i].value == option.value) {
-                    return true;
-                }
-            }
-        }
-        else {
-            return true;
-        }
+        return this.filterValue ? option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1 : true;
     }
 
     onDoubleClick(event: Event, option: SelectItem): any {
