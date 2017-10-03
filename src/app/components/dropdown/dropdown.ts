@@ -113,6 +113,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() autofocus: boolean;
     
+    @Input() resetFilterOnHide: boolean = false;
+    
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -409,6 +411,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     hide() {
         this.panelVisible = false;
+        
+        if(this.filter && this.resetFilterOnHide) {
+            this.resetFilter();
+        }
     }
     
     alignPanel() {

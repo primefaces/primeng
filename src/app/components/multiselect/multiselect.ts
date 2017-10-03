@@ -73,14 +73,6 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() options: SelectItem[];
 
-    @Input() resetFilterOnHide: boolean = false;
-    
-    @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
     @Input() scrollHeight: string = '200px';
     
     @Input() defaultLabel: string = 'Choose';
@@ -114,6 +106,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() selectedItemsLabel: string = '{0} items selected';
     
     @Input() showToggleAll: boolean = true;
+    
+    @Input() resetFilterOnHide: boolean = false;
         
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -122,6 +116,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @ViewChild('filterInput') filterInputChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+        
+    @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
+
+    @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
     public value: any[];
     
@@ -304,8 +304,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.overlayVisible = false;
         this.unbindDocumentClickListener();
         if(this.resetFilterOnHide){
-          this.filterValue = null;
-          this.filterInputChild.nativeElement.value = null;
+            this.filterValue = null;
+            this.filterInputChild.nativeElement.value = null;
         }
         this.onPanelHide.emit();
     }
