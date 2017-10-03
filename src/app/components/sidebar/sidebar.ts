@@ -45,6 +45,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked {
         
     @Input() styleClass: string;
     
+    @Input() baseZIndex: number = 0;
+        
     @ViewChild('container') containerViewChild: ElementRef;
     
     @Output() onShow: EventEmitter<any> = new EventEmitter();
@@ -110,7 +112,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked {
     
     show() {
         this.executePostDisplayActions = true;
-        this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         this.enableModality();
     }
     
