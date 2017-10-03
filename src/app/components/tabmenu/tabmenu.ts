@@ -12,7 +12,7 @@ import {RouterModule} from '@angular/router';
             <ul class="ui-tabmenu-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
                 <li *ngFor="let item of model" 
                     [ngClass]="{'ui-tabmenuitem ui-state-default ui-corner-top':true,'ui-state-disabled':item.disabled,
-                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item}">
+                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':equals(activeItem,item)}">
                     <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
                         [attr.target]="item.target" [attr.title]="item.title">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
@@ -40,6 +40,8 @@ export class TabMenu {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() equalsFunction: (a: any, b: any) => boolean;
                 
     ngOnInit() {
         if(!this.activeItem && this.model && this.model.length) {
@@ -65,6 +67,10 @@ export class TabMenu {
         }
         
         this.activeItem = item;
+    }
+
+    equals(a: any, b: any): boolean {
+        return this.equalsFunction ? this.equalsFunction(a, b) : a==b;
     }
 }
 
