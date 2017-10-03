@@ -21,7 +21,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focus}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
-                <select [required]="required" name="options" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" tabindex="-1" aria-hidden="true">
+                <select [required]="required" [name]="name" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" tabindex="-1" aria-hidden="true">
                     <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
                 </select>
             </div>
@@ -112,6 +112,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() lazy: boolean = true;
     
     @Input() autofocus: boolean;
+    
+    @Input() name: string = 'options';
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
