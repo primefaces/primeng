@@ -7,7 +7,6 @@ import {RouterModule} from '@angular/router';
 
 @Component({
     selector: 'p-menubarSub',
-    styleUrls: ['./menubar.css'],
     template: `
         <ul [ngClass]="{'ui-menubar-root-list ui-helper-clearfix':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
             (click)="listClick($event)">
