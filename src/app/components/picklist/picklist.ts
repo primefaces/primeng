@@ -523,7 +523,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         if(this.onListItemDroppoint) {
             if(listType === -1) {
                 if(this.fromListType === 1)
-                    this.insert(this.draggedItemIndexTarget, this.target, index, this.source);
+                    this.insert(this.draggedItemIndexTarget, this.target, index, this.source, this.onMoveToSource);
                 else
                     this.objectUtils.reorderArray(this.source, this.draggedItemIndexSource, (this.draggedItemIndexSource > index) ? index : (index === 0) ? 0 : index - 1);
 
@@ -531,7 +531,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
             }
             else {
                 if(this.fromListType === -1)
-                    this.insert(this.draggedItemIndexSource, this.source, index, this.target);
+                    this.insert(this.draggedItemIndexSource, this.source, index, this.target, this.onMoveToTarget);
                 else
                     this.objectUtils.reorderArray(this.target, this.draggedItemIndexTarget, (this.draggedItemIndexTarget > index) ? index : (index === 0) ? 0 : index - 1);
                     
@@ -552,11 +552,11 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         if(!this.onListItemDroppoint) {
             if(listType === -1) {
                 if(this.fromListType === 1)
-                    this.insert(this.draggedItemIndexTarget, this.target, null, this.source);
+                    this.insert(this.draggedItemIndexTarget, this.target, null, this.source, this.onMoveToSource);
             }
             else {
                 if(this.fromListType === -1)
-                    this.insert(this.draggedItemIndexSource, this.source, null, this.target);
+                    this.insert(this.draggedItemIndexSource, this.source, null, this.target, this.onMoveToTarget);
             }
             
             this.listHighlightTarget = false;
@@ -565,11 +565,17 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
     }
     
-    insert(fromIndex, fromList, toIndex, toList) {
+    insert(fromIndex, fromList, toIndex, toList, callback) {
+        const elementtomove = fromList[fromIndex];
+        
         if(toIndex === null)
             toList.push(fromList.splice(fromIndex, 1)[0]);
         else
             toList.splice(toIndex, 0, fromList.splice(fromIndex, 1)[0]);
+            
+        callback.emit({
+            items: [elementtomove]
+        });
     }
     
     onListMouseMove(event: MouseEvent, listType: number) {
