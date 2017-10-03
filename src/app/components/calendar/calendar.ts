@@ -1132,7 +1132,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
 
         this.createMonth(val.getMonth(), val.getFullYear());
-        
+      
+        if (Array.isArray(val))
+          val = val[0];
+      
         if(this.showTime||this.timeOnly) {
             let hours = val.getHours();
             
