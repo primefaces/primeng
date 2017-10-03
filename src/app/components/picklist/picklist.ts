@@ -31,7 +31,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, -1)" (dragend)="onDragEnd($event)">
-                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
+                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, -1)" (drop)="onDrop($event, i + 1, -1)" (dragleave)="onDragLeave($event, -1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexSource)}"></li>
@@ -60,7 +60,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, 1)" (dragend)="onDragEnd($event)">
-                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
+                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
                         </li>
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop&&l" (dragover)="onDragOver($event, i + 1, 1)" (drop)="onDrop($event, i + 1, 1)" (dragleave)="onDragLeave($event, 1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i + 1 === dragOverItemIndexTarget)}"></li>
