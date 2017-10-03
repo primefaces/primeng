@@ -212,7 +212,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
         }
     }
     
-    onItemClick(event, item: any, selectedItems: any[]) {
+    onItemClick(event, item: any, selectedItems: any[], callback: EventEmitter<any>) {
         let index = this.findIndexInSelection(item,selectedItems);
         let selected = (index != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
@@ -237,7 +237,7 @@ export class PickList implements AfterViewChecked,AfterContentInit {
                 selectedItems.push(item);
         }
 
-        callback.emit({items: selectedItems});
+        callback.emit({originalEvent: event, items: selectedItems});
 
         this.itemTouched = false;
     }
