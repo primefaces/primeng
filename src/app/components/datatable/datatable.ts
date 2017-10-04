@@ -1696,6 +1696,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
+            if(!this.value || !this.columns) {
+                return;
+            }
+            
             this.filteredValue = [];
 
             for(let i = 0; i < this.value.length; i++) {
