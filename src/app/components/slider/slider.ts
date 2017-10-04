@@ -284,9 +284,9 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     calculateHandleValue(event): number {
         if(this.orientation === 'horizontal')
-            return Math.floor(((event.pageX - this.initX) * 100) / (this.barWidth));
+            return ((event.pageX - this.initX) * 100) / (this.barWidth);
         else
-            return Math.floor((((this.initY + this.barHeight) - event.pageY) * 100) / (this.barHeight));
+            return(((this.initY + this.barHeight) - event.pageY) * 100) / (this.barHeight);
     }
     
     updateHandleValue(): void {
