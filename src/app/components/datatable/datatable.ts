@@ -190,7 +190,9 @@ export class ColumnFooters {
                         </span>
                         <div class="ui-cell-editor" *ngIf="col.editable">
                             <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]" required="true"
-                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, rowIndex)" class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
+                                (keydown)="dt.onCellEditorKeydown($event, col, rowData, rowIndex)" (blur)="dt.onCellEditorBlur($event, col, rowData, rowIndex)"
+                                (input)="dt.onCellEditorInput($event, col, rowData, rowIndex)" (change)="dt.onCellEditorChange($event, col, rowData, rowIndex)"
+                                class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
                             <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusPrev($event, colIndex)"></a>
                             <p-columnEditorTemplateLoader *ngIf="col.editorTemplate" [column]="col" [rowData]="rowData" [rowIndex]="rowIndex"></p-columnEditorTemplateLoader>
                             <a *ngIf="col.editorTemplate" class="ui-cell-editor-proxy-focus" href="#" (focus)="dt.onCustomEditorFocusNext($event, colIndex)"></a>
@@ -787,6 +789,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     virtualScrollTimer: any;
     
     virtualScrollableTableWrapper: HTMLDivElement;
+        
+    editChanged: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
             public renderer: Renderer2, public changeDetector: ChangeDetectorRef, public objectUtils: ObjectUtils,
@@ -1906,13 +1910,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     onCellEditorKeydown(event, column: Column, rowData: any, rowIndex: number) {
         if(this.editable) {
-            this.onEdit.emit({originalEvent: event, column: column, data: rowData, index: rowIndex});
-            
             //enter
             if(event.keyCode == 13) {
                 if(this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
-                    this.onEditComplete.emit({column: column, data: rowData, index: rowIndex});
-                    this.domHandler.invokeElementMethod(event.target, 'blur');
                     this.switchCellToViewMode(event.target);
                     event.preventDefault();
                 }
@@ -1920,21 +1920,40 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             
             //escape
             else if(event.keyCode == 27) {
-                this.onEditCancel.emit({column: column, data: rowData, index: rowIndex});
-                this.domHandler.invokeElementMethod(event.target, 'blur');
                 this.switchCellToViewMode(event.target);
                 event.preventDefault();
             }
             
             //tab
             else if(event.keyCode == 9) {
-                this.onEditComplete.emit({column: column, data: rowData, index: rowIndex});
-                
                 if(event.shiftKey)
                     this.moveToPreviousCell(event);
                 else
                     this.moveToNextCell(event);
             }
+        }
+    }
+    
+    onCellEditorInput(event, column: Column, rowData: any, rowIndex: number) {
+        if(this.editable) {
+            this.onEdit.emit({originalEvent: event, column: column, data: rowData, index: rowIndex});
+        }
+    }
+    
+    onCellEditorChange(event, column: Column, rowData: any, rowIndex: number) {
+        if(this.editable) {
+            this.editChanged = true;
+            
+            this.onEditComplete.emit({column: column, data: rowData, index: rowIndex});
+        }
+    }
+    
+    onCellEditorBlur(event, column: Column, rowData: any, rowIndex: number) {
+        if(this.editable) {
+            if(this.editChanged)
+                this.editChanged = false;
+            else
+                this.onEditCancel.emit({column: column, data: rowData, index: rowIndex});
         }
     }
     
