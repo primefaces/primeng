@@ -176,6 +176,7 @@ export class ColumnFooters {
                     [ngClass]="[even&&dt.rowGroupMode!='rowspan'? 'ui-datatable-even':'',
                                 odd&&dt.rowGroupMode!='rowspan'?'ui-datatable-odd':'',
                                 dt.isSelected(rowData)? 'ui-state-highlight': '',
+                                dt.isRowExpanded(rowData) ? 'ui-expanded-row': '',
                                 dt.getRowStyleClass(rowData,rowIndex)]">
                 <ng-template ngFor let-col [ngForOf]="columns" let-colIndex="index">
                     <td #cell *ngIf="!dt.rowGroupMode || (dt.rowGroupMode == 'subheader') ||
@@ -205,7 +206,7 @@ export class ColumnFooters {
                     </td>
                 </ng-template>
             </tr>
-            <tr *ngIf="dt.expandableRows && dt.isRowExpanded(rowData)">
+            <tr *ngIf="dt.expandableRows && dt.isRowExpanded(rowData)" class="ui-expanded-row-content">
                 <td [attr.colspan]="dt.visibleColumns().length">
                     <p-rowExpansionLoader [rowData]="rowData" [rowIndex]="rowIndex" [template]="dt.rowExpansionTemplate"></p-rowExpansionLoader>
                 </td>
