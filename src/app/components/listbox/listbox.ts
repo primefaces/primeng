@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,ContentChild,QueryList,TemplateRef,IterableDiffers,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,ContentChild,QueryList,TemplateRef,IterableDiffers,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {SharedModule,PrimeTemplate,Footer} from '../common/shared';
@@ -110,7 +110,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     
     public focus: boolean;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef) {}
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -128,6 +128,7 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
 
     writeValue(value: any): void {
         this.value = value;
+        this.cd.markForCheck();
     }
 
     registerOnChange(fn: Function): void {
