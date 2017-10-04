@@ -1,16 +1,29 @@
-import {NgModule,Component,ElementRef,OnDestroy,Input} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/menuitem';
 import {RouterModule} from '@angular/router';
+import {Subject} from 'rxjs/Subject';
+import {Subscription} from 'rxjs/Subscription';
+
+export class PanelMenuService {
+  onItemSelect: Subject<any> = new Subject();
+}
 
 export class BasePanelMenuItem {
-        
+    constructor(private pMService: PanelMenuService) {
+    }
+    
     handleClick(event, item) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
+        
+        this.pMService.onItemSelect.next({
+                originalEvent: event,
+                item: item
+            });
         
         item.expanded = !item.expanded;
         
@@ -71,6 +84,10 @@ export class PanelMenuSub extends BasePanelMenuItem {
     @Input() item: MenuItem;
     
     @Input() expanded: boolean;
+    
+    constructor(private panelMenuService: PanelMenuService) {
+        super(panelMenuService);
+    }
 }
 
 @Component({
@@ -115,7 +132,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
         ])
     ]
 })
-export class PanelMenu extends BasePanelMenuItem {
+export class PanelMenu extends BasePanelMenuItem implements OnDestroy{
     
     @Input() model: MenuItem[];
 
@@ -123,8 +140,25 @@ export class PanelMenu extends BasePanelMenuItem {
 
     @Input() styleClass: string;
     
+    @Output() onMenuItemSelect: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onSubMenuSelect: EventEmitter<any> = new EventEmitter();
+  
+    onSelectSubscription: Subscription;
+    
     public animating: boolean;
-                
+  
+    constructor(private panelMenuService: PanelMenuService) {
+        super(panelMenuService);
+        this.onSelectSubscription = this.panelMenuService.onItemSelect.subscribe((item) => {
+            if(!!item.items) {
+                this.onSubMenuSelect.emit(item);
+            }else{
+                this.onMenuItemSelect.emit(item);
+            }
+        });
+    }
+    
     handleClick(event, item) {
         this.animating = true;
         super.handleClick(event, item);
@@ -133,12 +167,16 @@ export class PanelMenu extends BasePanelMenuItem {
     onToggleDone() {
         this.animating = false;
     }
-
+    
+    ngOnDestroy() {
+        this.onSelectSubscription.unsubscribe();
+    }
 }
 
 @NgModule({
     imports: [CommonModule,RouterModule],
     exports: [PanelMenu,RouterModule],
-    declarations: [PanelMenu,PanelMenuSub]
+    declarations: [PanelMenu,PanelMenuSub],
+    providers: [PanelMenuService]
 })
 export class PanelMenuModule { }
