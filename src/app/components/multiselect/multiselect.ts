@@ -117,11 +117,13 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
         
-    @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
-
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onPanelShow: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
     
     public value: any[];
     
@@ -299,6 +301,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.domHandler.relativePosition(this.panel, this.container);
 
         this.domHandler.fadeIn(this.panel, 250);
+        this.onPanelShow.emit();
     }
     
     hide() {
