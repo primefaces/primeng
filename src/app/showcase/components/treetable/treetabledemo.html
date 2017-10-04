@@ -60,7 +60,23 @@
         </p-column>
     </p-treeTable>
     
-    <p-treeTable [value]="files6" selectionMode="single" [(selection)]="selectedFile2" [style]="{'margin-top':'50px'}" [contextMenu]="cm">
+    
+    <p-treeTable [value]="files6" [style]="{'margin-top':'50px'}" #table>
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Expand (Documents)" style="float:left" (click)="expandDocuments()"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Collapse (Documents)" style="float:left" (click)="collapseDocuments()"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Toggle (Documents)" style="float:left" (click)="toggleDocuments()"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Toggle (Pictures)" style="float:left" (click)="togglePictures()"></button>
+            </div>
+            Toggle rows programmatically
+        </p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+    
+    <p-treeTable [value]="files7" selectionMode="single" [(selection)]="selectedFile2" [style]="{'margin-top':'50px'}" [contextMenu]="cm">
         <p-header>Context Menu</p-header>
         <p-column field="name" header="Name"></p-column>
         <p-column field="size" header="Size"></p-column>
@@ -766,6 +782,49 @@ export class TreeTableDemoComponent implements OnInit &#123;
                 </table>
             </div>
 
+            <h3>Methods</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>toggleNode(node, isExpanded)</td>
+                            <td>node: A single node of TreeTable;<br>isExpanded?: flag that marks node as expanded/collapsed</td>
+                            <td>Toggle single node or mark it as expanded/collapsed.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+<pre>
+<code #dt class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files" #table&gt;
+    &lt;p-header&gt;
+        &lt;div class="ui-helper-clearfix"&gt;
+            &lt;button type="button" pButton label="Toggle" (click)="toggle(table)"&gt;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+toggle(table: TreeTable) &#123;
+    let node = this.files[0];
+    table.toggleNode(node);
+&#125;
+</code>
+</pre>
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
