@@ -1,4 +1,4 @@
-﻿import {NgModule, Component, ElementRef, AfterContentInit, AfterViewInit, AfterViewChecked, OnInit, OnDestroy, Input,
+import {NgModule, Component, ElementRef, AfterContentInit, AfterViewInit, AfterViewChecked, OnInit, OnDestroy, Input,
   ViewContainerRef, ViewChild, IterableDiffers,
   Output, EventEmitter, ContentChild, ContentChildren, Renderer2, QueryList, TemplateRef,
   ChangeDetectorRef, Inject, forwardRef, EmbeddedViewRef, NgZone
@@ -244,9 +244,9 @@ export class TableBody {
             <div #scrollHeaderBox  class="ui-datatable-scrollable-header-box">
                 <table [ngClass]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <thead class="ui-datatable-thead">
-                        <tr *ngIf="!dt.headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
-                        <ng-template [ngIf]="dt.headerColumnGroup">
-                            <tr *ngFor="let headerRow of dt.headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
+                        <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
+                        <ng-template [ngIf]="headerColumnGroup">
+                            <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
                         </ng-template>
                     </thead>
                     <tbody *ngIf="dt.frozenValue" [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columns" [data]="dt.frozenValue"></tbody>
@@ -267,9 +267,9 @@ export class TableBody {
             <div #scrollFooterBox  class="ui-datatable-scrollable-footer-box">
                 <table [ngClass]="dt.tableStyleClass" [ngStyle]="dt.tableStyle">
                     <tfoot class="ui-datatable-tfoot">
-                        <tr *ngIf="!dt.footerColumnGroup" [pColumnFooters]="columns" class="ui-state-default"></tr>
-                        <ng-template [ngIf]="dt.footerColumnGroup">
-                            <tr *ngFor="let footerRow of dt.footerColumnGroup.rows" class="ui-state-default" [pColumnFooters]="footerRow.columns"></tr>
+                        <tr *ngIf="!footerColumnGroup" [pColumnFooters]="columns" class="ui-state-default"></tr>
+                        <ng-template [ngIf]="footerColumnGroup">
+                            <tr *ngFor="let footerRow of footerColumnGroup.rows" class="ui-state-default" [pColumnFooters]="footerRow.columns"></tr>
                         </ng-template>
                     </tfoot>
                 </table>
@@ -282,6 +282,10 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     constructor(@Inject(forwardRef(() => DataTable)) public dt:DataTable, public domHandler: DomHandler, public el: ElementRef, public renderer: Renderer2, public zone: NgZone) {}
     
     @Input("pScrollableView") columns: Column[];
+    
+    @Input() headerColumnGroup: HeaderColumnGroup;
+    
+    @Input() footerColumnGroup: HeaderColumnGroup;
     
     @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
     
@@ -469,15 +473,15 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead class="ui-datatable-thead">
-                        <tr *ngIf="!headerColumnGroup" class="ui-state-default" [pColumnHeaders]="columns"></tr>
-                        <ng-template [ngIf]="headerColumnGroup">
-                            <tr *ngFor="let headerRow of headerColumnGroup.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
+                        <tr *ngIf="!headerColumnGroups.first" class="ui-state-default" [pColumnHeaders]="columns"></tr>
+                        <ng-template [ngIf]="headerColumnGroups.first">
+                            <tr *ngFor="let headerRow of headerColumnGroups.first.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
                         </ng-template>
                     </thead>
                     <tfoot *ngIf="hasFooter()" class="ui-datatable-tfoot">
-                        <tr *ngIf="!footerColumnGroup" class="ui-state-default" [pColumnFooters]="columns"></tr>
-                        <ng-template [ngIf]="footerColumnGroup">
-                            <tr *ngFor="let footerRow of footerColumnGroup.rows" class="ui-state-default" [pColumnFooters]="footerRow.columns"></tr>
+                        <tr *ngIf="!footerColumnGroups.first" class="ui-state-default" [pColumnFooters]="columns"></tr>
+                        <ng-template [ngIf]="footerColumnGroups.first">
+                            <tr *ngFor="let footerRow of footerColumnGroups.first.rows" class="ui-state-default" [pColumnFooters]="footerRow.columns"></tr>
                         </ng-template>
                     </tfoot>
                     <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (rowHover||selectionMode)}" [pTableBody]="columns" [data]="dataToRender"></tbody>
@@ -487,8 +491,10 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             <ng-template [ngIf]="scrollable">
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
                     <div *ngIf="hasFrozenColumns()" [pScrollableView]="frozenColumns" frozen="true"
+                        [headerColumnGroup]="frozenHeaderColumnGroup" [footerColumnGroup]="frozenFooterColumnGroup" 
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
+                        [headerColumnGroup]="scrollableHeaderColumnGroup" [footerColumnGroup]="scrollableFooterColumnGroup" 
                         class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                         [ngClass]="{'ui-datatable-unfrozen-view': hasFrozenColumns()}"></div>
                 </div>
@@ -687,9 +693,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     @ContentChildren(Column) cols: QueryList<Column>;
     
-    @ContentChild(HeaderColumnGroup) headerColumnGroup: HeaderColumnGroup;
+    @ContentChildren(HeaderColumnGroup) headerColumnGroups: QueryList<HeaderColumnGroup>;
     
-    @ContentChild(FooterColumnGroup) footerColumnGroup: FooterColumnGroup;
+    @ContentChildren(FooterColumnGroup) footerColumnGroups: QueryList<FooterColumnGroup>;
     
     public _value: any[];
     
@@ -706,6 +712,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public frozenColumns: Column[];
     
     public scrollableColumns: Column[];
+    
+    public frozenHeaderColumnGroup: HeaderColumnGroup;
+    
+    public scrollableHeaderColumnGroup: HeaderColumnGroup;
+    
+    public frozenFooterColumnGroup: HeaderColumnGroup;
+    
+    public scrollableFooterColumnGroup: HeaderColumnGroup;
 
     public columnsChanged: boolean = false;
     
@@ -807,6 +821,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     ngAfterContentInit() {
         this.initColumns();
+        this.initColumnGroups();
         
         this.columnsSubscription = this.cols.changes.subscribe(_ => {
             this.initColumns();
@@ -988,6 +1003,25 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this.frozenColumns.push(col);
             else
                 this.scrollableColumns.push(col);
+        }
+    }
+    
+    initColumnGroups(): void {
+        let headerColumnsGroups = this.headerColumnGroups.toArray();
+        let footerColumnsGroups = this.footerColumnGroups.toArray();
+        
+        for(let columnGroup of headerColumnsGroups) {
+            if(columnGroup.frozen)
+                this.frozenHeaderColumnGroup = columnGroup;
+            else
+                this.scrollableHeaderColumnGroup = columnGroup;
+        }
+        
+        for(let columnGroup of footerColumnsGroups) {
+            if(columnGroup.frozen)
+                this.frozenFooterColumnGroup = columnGroup;
+            else
+                this.scrollableFooterColumnGroup = columnGroup;
         }
     }
 
@@ -2297,7 +2331,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     hasFooter() {
-        if(this.footerColumnGroup) {
+        if(this.footerColumnGroups.first) {
             return true;
         }
         else {

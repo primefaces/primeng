@@ -141,6 +141,8 @@ export class Row {
     template: ``
 })
 export class HeaderColumnGroup {
+    
+    @Input() frozen: boolean;
         
     @ContentChildren(Row) rows: QueryList<any>;
 }
@@ -150,6 +152,8 @@ export class HeaderColumnGroup {
     template: ``
 })
 export class FooterColumnGroup {
+        
+    @Input() frozen: boolean;
         
     @ContentChildren(Row) rows: QueryList<any>;
 }

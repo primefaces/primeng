@@ -69,6 +69,34 @@
         <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
         <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
     </p-dataTable>
+    
+    <p-dataTable [value]="sales" scrollable="true" scrollHeight="200px" frozenWidth="300px" unfrozenWidth="400px" [style]="{'margin-top':'30px'}">
+        <p-header>Column Group and Frozen Columss</p-header>
+        <p-headerColumnGroup frozen="true">
+            <p-row>
+                <p-column header="Brand" rowspan="2"  [style]="{'width':'300px', height:'56px'}"></p-column>
+            </p-row>
+        </p-headerColumnGroup>
+        
+        <p-headerColumnGroup>
+            <p-row>
+                <p-column header="Last Year" colspan="2" [style]="{'width':'250px'}" ></p-column>
+                <p-column header="This Year" colspan="2" [style]="{'width':'250px'}"></p-column>
+            </p-row>
+            <p-row>
+                <p-column header="Last Year" [style]="{'width':'125px'}"></p-column>
+                <p-column header="This Year" [style]="{'width':'125px'}"></p-column>
+                <p-column header="Last Year" [style]="{'width':'125px'}"></p-column>
+                <p-column header="This Year" [style]="{'width':'125px'}"></p-column>
+            </p-row>
+        </p-headerColumnGroup>
+        
+        <p-column field="brand" [style]="{'width':'200px'}" frozen="true"></p-column>
+        <p-column field="lastYearSale" [style]="{'width':'125px'}"></p-column>
+        <p-column field="thisYearSale" [style]="{'width':'125px'}"></p-column>
+        <p-column field="lastYearProfit" [style]="{'width':'125px'}"></p-column>
+        <p-column field="thisYearProfit" [style]="{'width':'125px'}"></p-column>
+    </p-dataTable>
 </div>
 
 <div class="content-section documentation">
@@ -89,6 +117,8 @@ export class DataTableScrollDemo implements OnInit &#123;
     carsLarge: Car[];
     
     totalRecords: number;
+    
+    sales: any[];
 
     constructor(private carService: CarService) &#123; &#125;
 
@@ -97,6 +127,19 @@ export class DataTableScrollDemo implements OnInit &#123;
         this.frozenCars = [
             &#123;"brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23"&#125;,
             &#123;"brand": "Chevrolet", "year": 2011, "color": "Black", "vin": "4525g23"&#125;
+        ];
+        
+        this.sales = [
+            &#123;brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342'&#125;,
+            &#123;brand: 'Samsung', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122'&#125;,
+            &#123;brand: 'Microsoft', lastYearSale: '38%', thisYearSale: '5%', lastYearProfit: '$12,321', thisYearProfit: '$8,500'&#125;,
+            &#123;brand: 'Philips', lastYearSale: '49%', thisYearSale: '22%', lastYearProfit: '$745,232', thisYearProfit: '$650,323,'&#125;,
+            &#123;brand: 'Song', lastYearSale: '17%', thisYearSale: '79%', lastYearProfit: '$643,242', thisYearProfit: '500,332'&#125;,
+            &#123;brand: 'LG', lastYearSale: '52%', thisYearSale: ' 65%', lastYearProfit: '$421,132', thisYearProfit: '$150,005'&#125;,
+            &#123;brand: 'Sharp', lastYearSale: '82%', thisYearSale: '12%', lastYearProfit: '$131,211', thisYearProfit: '$100,214'&#125;,
+            &#123;brand: 'Panasonic', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322'&#125;,
+            &#123;brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'&#125;,
+            &#123;brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'&#125;
         ];
         
         this.totalRecords = 250000;
@@ -222,6 +265,34 @@ export class DataTableScrollDemo implements OnInit &#123;
     &lt;p-column field="year" header="Year" [style]="&#123;'width':'250px'&#125;"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [style]="&#123;'width':'250px'&#125;"&gt;&lt;/p-column&gt;
     &lt;p-column field="color" header="Color" [style]="&#123;'width':'250px'&#125;"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-dataTable [value]="sales" scrollable="true" scrollHeight="200px" frozenWidth="300px" unfrozenWidth="400px" [style]="&#123;'margin-top':'30px'}"&gt;
+    &lt;p-header&gt;Column Group and Frozen Columss&lt;/p-header&gt;
+    &lt;p-headerColumnGroup frozen="true"&gt;
+        &lt;p-row&gt;
+            &lt;p-column header="Brand" rowspan="2"  [style]="&#123;'width':'300px', height:'56px'}"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+    &lt;/p-headerColumnGroup&gt;
+    
+    &lt;p-headerColumnGroup&gt;
+        &lt;p-row&gt;
+            &lt;p-column header="Last Year" colspan="2" [style]="&#123;'width':'250px'}" &gt;&lt;/p-column&gt;
+            &lt;p-column header="This Year" colspan="2" [style]="&#123;'width':'250px'}"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+        &lt;p-row&gt;
+            &lt;p-column header="Last Year" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
+            &lt;p-column header="This Year" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
+            &lt;p-column header="Last Year" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
+            &lt;p-column header="This Year" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
+        &lt;/p-row&gt;
+    &lt;/p-headerColumnGroup&gt;
+    
+    &lt;p-column field="brand" [style]="&#123;'width':'200px'&#125;" frozen="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="lastYearSale" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
+    &lt;p-column field="thisYearSale" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
+    &lt;p-column field="lastYearProfit" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
+    &lt;p-column field="thisYearProfit" [style]="&#123;'width':'125px'}"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
