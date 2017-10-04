@@ -110,7 +110,8 @@ export class MyModel &#123;
 </pre>
 
             <h3>Filter</h3>
-            <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property.</p>
+            <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property. Default filtering
+            mode is "contains" and alternative is "startsWith" configuted by filterMode property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" filter="filter"&gt;&lt;/p-listbox&gt;
@@ -207,6 +208,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>When specified, displays a filter input at header.</td>
+                        </tr>
+                        <tr>
+                            <td>filterMode</td>
+                            <td>string</td>
+                            <td>contains</td>
+                            <td>Defines how the items are filtered, valid values are "contains" (default) and "startsWith".</td>
                         </tr>
                         <tr>
                             <td>readonly</td>

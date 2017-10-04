@@ -77,6 +77,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     @Input() checkbox: boolean = false;
 
     @Input() filter: boolean = false;
+
+    @Input() filterMode: string = 'contains';
     
     @Input() metaKeySelection: boolean = true;
     
@@ -323,7 +325,27 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
     } 
 
     isItemVisible(option: SelectItem): boolean {
-        return this.filterValue ? option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1 : true;
+        if(this.filterValue) {
+            let visible;
+            
+            switch(this.filterMode) {
+                case 'startsWith':
+                    visible = option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) === 0;
+                break;
+                
+                case 'contains':
+                    visible = option.label.toLowerCase().indexOf(this.filterValue.toLowerCase()) > -1;
+                break;
+                
+                default:
+                    visible = true;
+            }
+            
+            return visible;
+        }
+        else {
+            return true;
+        }
     }
 
     onDoubleClick(event: Event, option: SelectItem): any {
