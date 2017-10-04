@@ -873,7 +873,7 @@ export class DataTableDemo implements OnInit &#123;
             <p>By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV({selectionOnly:true})"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)"&gt;&lt;/button&gt;
 </code>
 </pre>
             <p>See the <a [routerLink]="['/datatable/export']">live example.</a></p>
@@ -1786,7 +1786,6 @@ export class DataTableDemo implements OnInit &#123;
 &#125;
 </code>
 </pre>
-
 
         </p-tabPanel>
     </p-tabView>
