@@ -1910,14 +1910,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             
             //enter
             if(event.keyCode == 13) {
-                this.onEditComplete.emit({column: column, data: rowData, index: rowIndex});
-                this.domHandler.invokeElementMethod(event.target, 'blur');
-                if (event.target.value.length !== 0) {
-                  this.switchCellToViewMode(event.target);
-                } else {
-                  this.editorClick = false;
+                if(this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length == 0) {
+                    this.onEditComplete.emit({column: column, data: rowData, index: rowIndex});
+                    this.domHandler.invokeElementMethod(event.target, 'blur');
+                    this.switchCellToViewMode(event.target);
+                    event.preventDefault();
                 }
-                event.preventDefault();
             }
             
             //escape
