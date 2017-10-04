@@ -708,7 +708,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 let startDate = this.value[0];
                 let endDate = this.value[1];
                 
-                if(!endDate && date.getTime() > startDate.getTime()) {
+                if(!endDate && date.getTime() >= startDate.getTime()) {
                     endDate = date;
                 }
                 else {
