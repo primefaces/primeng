@@ -2434,9 +2434,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.updateDataToRender(this.value);
     }
     
-    public exportCSV() {
+    public exportCSV(options?:any) {
         let data = this.filteredValue||this.value;
         let csv = '\ufeff';
+        
+        if(options && options.selectionOnly) {
+            data = this.selection||[];
+        }
         
         //headers
         for(let i = 0; i < this.columns.length; i++) {

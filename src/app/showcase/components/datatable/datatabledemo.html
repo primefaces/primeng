@@ -869,6 +869,13 @@ export class DataTableDemo implements OnInit &#123;
 &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()"&gt;&lt;/button&gt;
 </code>
 </pre>
+
+            <p>By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV({selectionOnly:true})"&gt;&lt;/button&gt;
+</code>
+</pre>
             <p>See the <a [routerLink]="['/datatable/export']">live example.</a></p>
 
             <h3>Scrolling</h3>
@@ -1624,7 +1631,7 @@ handleRowSelect(event) &#123;
                         </tr>
                         <tr>
                             <td>exportCSV</td>
-                            <td>-</td>
+                            <td>config?.selectionOnly: Exports only the selection.</td>
                             <td>Exports the data in csv format.</td>
                         </tr>
                         <tr>
