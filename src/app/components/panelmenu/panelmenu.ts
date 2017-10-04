@@ -123,12 +123,12 @@ export class PanelMenu extends BasePanelMenuItem {
 
     @Input() styleClass: string;
 
-    @Input() hasSingleItemExpanded: boolean = false;
+    @Input() multiple: boolean = true;
     
     public animating: boolean;
                 
     collapseAll() {
-    	for( let item of this.model ) {
+    	for(let item of this.model) {
     		if(item.expanded) {
     			item.expanded = false;
     		}
@@ -136,9 +136,14 @@ export class PanelMenu extends BasePanelMenuItem {
     }
 
     handleClick(event, item) {
-    	if(this.hasSingleItemExpanded) {
-    		this.collapseAll();
+    	if(!this.multiple) {
+            for(let modelItem of this.model) {
+        		if(item !== modelItem && modelItem.expanded) {
+        			modelItem.expanded = false;
+        		}
+        	}
     	}
+        
         this.animating = true;
         super.handleClick(event, item);
     }
