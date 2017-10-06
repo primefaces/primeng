@@ -1514,6 +1514,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         if(selected) {
                             let selectionIndex = this.findIndexInSelection(rowData);
                             this._selection = this.selection.filter((val,i) => i!=selectionIndex);
+                            this.selectionChange.emit(this.selection);
                             this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
                             if(dataKeyValue) {
                                 delete this.selectionKeys[dataKeyValue];
@@ -1521,14 +1522,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         }
                         else {
                             this._selection = [...this.selection||[],rowData];
+                            this.selectionChange.emit(this.selection);
                             this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
                             if(dataKeyValue) {
                                 this.selectionKeys[dataKeyValue] = 1;
                             }
                         }
                     }
-                    
-                    this.selectionChange.emit(this.selection);
+
                 }
             }
 
@@ -1570,6 +1571,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         if(selectionIndex != -1) {
             this._selection = this.selection.filter((val,i) => i!=selectionIndex);
+            this.selectionChange.emit(this.selection);
             this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
             if(dataKeyValue) {
                 delete this.selectionKeys[dataKeyValue];
@@ -1577,13 +1579,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
         else {
             this._selection = [...this.selection,rowData];
+            this.selectionChange.emit(this.selection);
             this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'checkbox'});
             if(dataKeyValue) {
                 this.selectionKeys[dataKeyValue] = 1;
             }
         }
         
-        this.selectionChange.emit(this.selection);
         this.preventSelectionKeysPropagation = true;
         this.preventRowClickPropagation = true;
     }
