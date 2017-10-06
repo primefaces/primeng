@@ -1,4 +1,4 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2} from '@angular/core';
+import {NgModule, Component, AfterViewInit, AfterViewChecked, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2, OnDestroy} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -31,7 +31,7 @@ import {DomHandler} from '../dom/domhandler';
     ],
     providers: [DomHandler]
 })
-export class Sidebar implements AfterViewInit, AfterViewChecked {
+export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     
     @Input() position: string = 'left';
     

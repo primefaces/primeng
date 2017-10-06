@@ -69,3 +69,4 @@ export * from './components/tooltip/tooltip';
 export * from './components/tree/tree';
 export * from './components/treetable/treetable';
 export * from './components/tristatecheckbox/tristatecheckbox';
+export * from './components/sidebar/sidebar'

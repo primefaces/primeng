@@ -75,3 +75,4 @@ __export(require("./components/tooltip/tooltip"));
 __export(require("./components/tree/tree"));
 __export(require("./components/treetable/treetable"));
 __export(require("./components/tristatecheckbox/tristatecheckbox"));
+__export(require("./components/sidebar/sidebar"));
