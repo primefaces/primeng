@@ -16,7 +16,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-autoComplete',
     template: `
-        <span [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
+        <span #container [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown,'ui-autocomplete-multiple':multiple}" [ngStyle]="style" [class]="styleClass">
             <input *ngIf="!multiple" #in [attr.type]="type" [attr.id]="inputId" [ngStyle]="inputStyle" [class]="inputStyleClass" autocomplete="off" [attr.required]="required"
             [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-autocomplete-input'" [value]="inputFieldValue"
             (click)="onInputClick($event)" (input)="onInput($event)" (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
@@ -34,7 +34,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </ul
             ><i *ngIf="loading" class="ui-autocomplete-loader fa fa-circle-o-notch fa-spin fa-fw"></i><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
                 (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
-            <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
+                <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">                
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
                     <li *ngFor="let option of suggestions; let idx = index" [ngClass]="{'ui-autocomplete-list-item ui-corner-all':true,'ui-state-highlight':(highlightOption==option)}"
                         (mouseenter)="highlightOption=option" (mouseleave)="highlightOption=null" (click)="selectItem(option)">
@@ -127,6 +127,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     @ViewChild('multiIn') multiInputEL: ElementRef;
     
     @ViewChild('panel') panelEL: ElementRef;
+
+    @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('multiContainer') multiContainerEL: ElementRef;
         
@@ -173,6 +175,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     inputFieldValue: string = null;
     
     loading: boolean;
+
+    public panel: HTMLDivElement;
+
+    public container: HTMLDivElement;
         
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -245,6 +251,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     }
     
     ngAfterViewInit() {
+        
+        this.panel = <HTMLDivElement> this.panelEL.nativeElement;
+        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
+
         if(this.appendTo) {
             if(this.appendTo === 'body')
                 document.body.appendChild(this.panelEL.nativeElement);
@@ -369,7 +379,11 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                 this.panelEL.nativeElement.style.zIndex = ++DomHandler.zindex;
                 this.domHandler.fadeIn(this.panelEL.nativeElement, 200);
                 this.bindDocumentClickListener();
-            }   
+            }
+            
+            if(this.appendTo === 'body') {
+                this.panel.style.minWidth = this.domHandler.getWidth(this.container) + 'px';
+            }
         }
     }
     
