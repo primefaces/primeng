@@ -491,10 +491,10 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             <ng-template [ngIf]="scrollable">
                 <div class="ui-datatable-scrollable-wrapper ui-helper-clearfix" [ngClass]="{'max-height':scrollHeight}">
                     <div *ngIf="hasFrozenColumns()" [pScrollableView]="frozenColumns" frozen="true"
-                        [headerColumnGroup]="frozenHeaderColumnGroup" [footerColumnGroup]="frozenFooterColumnGroup" 
+                        [headerColumnGroup]="frozenHeaderColumnGroup" [footerColumnGroup]="frozenFooterColumnGroup"
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
-                        [headerColumnGroup]="scrollableHeaderColumnGroup" [footerColumnGroup]="scrollableFooterColumnGroup" 
+                        [headerColumnGroup]="scrollableHeaderColumnGroup" [footerColumnGroup]="scrollableFooterColumnGroup"
                         class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
                         [ngClass]="{'ui-datatable-unfrozen-view': hasFrozenColumns()}"></div>
                 </div>
@@ -676,6 +676,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() enableLoader: boolean = true;
     
     @Input() virtualScrollDelay: number = 500;
+  
+    @Input() rowGroupExpandMode: string = 'multiple';
     
     @Output() valueChange: EventEmitter<any[]> = new EventEmitter<any[]>();
     
@@ -804,7 +806,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     virtualScrollTimer: any;
     
     virtualScrollableTableWrapper: HTMLDivElement;
-        
+    
     editChanged: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
@@ -2435,6 +2437,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     toggleRowGroup(event: Event, row: any): void {
+  
+        if(!this.expandedRowsGroups) {
+          this.expandedRowsGroups = [];
+        }
+        
         this.rowGroupToggleClick = true;
         let index = this.findExpandedRowGroupIndex(row);
         let rowGroupField = this.resolveFieldData(row, this.groupField);
@@ -2446,7 +2453,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             });
         }
         else {
-            this.expandedRowsGroups = this.expandedRowsGroups || [];
+  
+            if(this.rowGroupExpandMode === 'single') {
+              this.expandedRowsGroups = [];
+            }
+            
             this.expandedRowsGroups.push(rowGroupField);
             this.onRowGroupExpand.emit({
                 originalEvent: event,
