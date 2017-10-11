@@ -795,6 +795,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     columnsSubscription: Subscription;
     
+    columnWidths: string[];
+    
     totalRecordsChanged: boolean;
     
     anchorRowIndex: number;
@@ -2087,9 +2089,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     initResizableColumns() {
         this.tbody = this.domHandler.findSingle(this.el.nativeElement, 'tbody.ui-datatable-data');
         this.resizerHelper = this.domHandler.findSingle(this.el.nativeElement, 'div.ui-column-resizer-helper');
+        const columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
+        this.columnWidths = [];
+        for(let i = 0; i < columns.length; i++) {
+            this.columnWidths.push(columns[i].style.width);
+        }
         this.fixColumnWidths();
     }
-    
+
+    resetResizableColumns() {
+        const columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
+        for(let i = 0; i < columns.length; i++) {
+            columns[i].style.width = this.columnWidths[i];
+        }
+    }
+
     onDocumentMouseMove(event) {
         if(this.columnResizing) {
             this.onColumnResize(event);
