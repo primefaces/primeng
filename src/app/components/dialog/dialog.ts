@@ -9,25 +9,28 @@ import {Header,Footer,SharedModule} from '../common/shared';
     selector: 'p-dialog',
     template: `
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" [ngStyle]="style" [class]="styleClass"
-            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
-            <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
-                (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
-                <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <span class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
-                    <ng-content select="p-header"></ng-content>
-                </span>
-                <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
-                    <span class="fa fa-fw fa-close"></span>
-                </a>
+            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'"
+            role="dialog" aria-labelledby="dialogHeader">
+            <div role="document">
+              <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
+                  (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
+                  <span class="ui-dialog-title" *ngIf="header" id="dialogHeader">{{header}}</span>
+                  <span class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first" id="dialogHeader">
+                      <ng-content select="p-header"></ng-content>
+                  </span>
+                  <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
+                      <span class="fa fa-fw fa-close"></span>
+                  </a>
+              </div>
+              <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
+                  <ng-content></ng-content>
+              </div>
+              <div class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
+                  <ng-content select="p-footer"></ng-content>
+              </div>
+              <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
+                  (mousedown)="initResize($event)"></div>
             </div>
-            <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
-                <ng-content></ng-content>
-            </div>
-            <div class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
-                <ng-content select="p-footer"></ng-content>
-            </div>
-            <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
-                (mousedown)="initResize($event)"></div>
         </div>
     `,
     animations: [
