@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,AfterViewChecked,EventEmitter,Renderer2,ContentChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,OnDestroy,Input,Output,AfterViewChecked,EventEmitter,Renderer2,ContentChild,NgZone} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -20,7 +20,7 @@ import {Subscription}   from 'rxjs/Subscription';
                 </a>
             </div>
             <div class="ui-dialog-content ui-widget-content">
-                <i [ngClass]="'fa'" [class]="icon"></i>
+                <i [ngClass]="'fa'" [class]="icon" *ngIf="icon"></i>
                 <span class="ui-confirmdialog-message" [innerHTML]="message"></span>
             </div>
             <div class="ui-dialog-footer ui-widget-content" *ngIf="footer">
@@ -103,7 +103,7 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     executePostShowActions: boolean;
             
     constructor(public el: ElementRef, public domHandler: DomHandler, 
-            public renderer: Renderer2, private confirmationService: ConfirmationService) {
+            public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone) {
         this.subscription = confirmationService.requireConfirmation$.subscribe(confirmation => {
             if(confirmation.key === this.key) {
                 this.confirmation = confirmation;
@@ -142,6 +142,7 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             }
             
             this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
+            this.bindGlobalListeners();
             this.executePostShowActions = true;
         } 
         
@@ -153,22 +154,6 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     ngAfterViewInit() {
         this.contentContainer = this.domHandler.findSingle(this.el.nativeElement, '.ui-dialog-content');
-        
-        if(this.responsive) {
-            this.documentResponsiveListener = this.renderer.listen('window', 'resize', (event) => {
-                this.center();
-            });
-        }
-        
-        if(this.closeOnEscape && this.closable) {
-            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
-                if(event.which == 27) {
-                    if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex) {
-                        this.close(event);
-                    }
-                }
-            });
-        }
         
         if(this.appendTo) {
             if(this.appendTo === 'body')
@@ -234,10 +219,42 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     hide() {
         this.visible = false;
+        this.unbindGlobalListeners();
     }
     
     moveOnTop() {
         this.el.nativeElement.children[0].style.zIndex = ++DomHandler.zindex;
+    }
+    
+    bindGlobalListeners() {
+        if(this.closeOnEscape && this.closable && !this.documentEscapeListener) {
+            this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
+                if(event.which == 27) {
+                    if(this.el.nativeElement.children[0].style.zIndex == DomHandler.zindex && this.visible) {
+                        this.close(event);
+                    }
+                }
+            });
+        }
+        
+        if(this.responsive) {
+            this.zone.runOutsideAngular(() => {
+                this.documentResponsiveListener = this.center.bind(this);
+                window.addEventListener('resize', this.documentResponsiveListener);
+            });
+        }
+    }
+    
+    unbindGlobalListeners() {
+        if(this.documentEscapeListener) {
+            this.documentEscapeListener();
+            this.documentEscapeListener = null;
+        }
+        
+        if(this.documentResponsiveListener) {
+            window.removeEventListener('resize', this.documentResponsiveListener);
+            this.documentResponsiveListener = null;
+        }
     }
                 
     ngOnDestroy() {

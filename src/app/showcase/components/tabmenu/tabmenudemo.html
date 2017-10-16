@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-tabMenu [model]="items"></p-tabMenu>
+    <p-tabMenu [model]="items" [activeItem]="items[0]"></p-tabMenu>
 </div>
 
 <div class="content-section documentation">
@@ -50,10 +50,10 @@ export class TabMenuDemo &#123;
 </pre>
 
             <h3>ActiveItem</h3>
-            <p>By default, first item is activated, use activeItem property to choose the initial active item.</p>
+            <p>By defaulttem item that matches the active route is highlighted, alternatively activeItem property can be used choose the initial active item.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-tabMenu [model]="items" [activeItem]="activeItem"&gt;&lt;/p-tabMenu&gt;
+&lt;p-tabMenu [model]="items" [activeItem]="items[0]"&gt;&lt;/p-tabMenu&gt;
 </code>
 </pre>
 

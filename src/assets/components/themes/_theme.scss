@@ -2,7 +2,7 @@
     border-color: $stateHoverBorderColor;
     background: $stateHoverBgColor;
     color: $stateHoverTextColor;
-    
+
     a {
         color: $stateHoverTextColor;
     }
@@ -18,58 +18,58 @@
     -moz-osx-font-smoothing: grayscale;
     text-indent: 0px !important;
     text-align: center;
-    
+
     &:before {
         content: $icon;
     }
 }
 
-.ui-widget { 
-    font-family:  $fontFamily; 
-    font-size: $fontSize; 
-    
+.ui-widget {
+    font-family:  $fontFamily;
+    font-size: $fontSize;
+
     input, select, textarea, button {
-        font-family:  $fontFamily; 
-        font-size: $fontSize; 
+        font-family:  $fontFamily;
+        font-size: $fontSize;
     }
-    
+
     :active {
         outline: none;
     }
 }
 
-.ui-widget-content { 
-    border: $contentBorderWidth solid $contentBorderColor; 
-    background: $contentBgColor; 
+.ui-widget-content {
+    border: $contentBorderWidth solid $contentBorderColor;
+    background: $contentBgColor;
     color: $contentTextColor;
-    
+
     a {
         color: $contentTextColor;
     }
 }
 
 .ui-widget-header {
-    border: $headerBorderWidth solid $headerBorderColor; 
-    background: $headerBgColor; 
-    color: $headerTextColor; 
-    font-weight: $headerFontWeight; 
-    
+    border: $headerBorderWidth solid $headerBorderColor;
+    background: $headerBgColor;
+    color: $headerTextColor;
+    font-weight: $headerFontWeight;
+
     a {
-        color: $headerTextColor; 
+        color: $headerTextColor;
     }
 }
 
-.ui-widget-overlay { 
-    background: #666666; 
-    opacity: .50; 
-    filter:Alpha(Opacity=50); 
+.ui-widget-overlay {
+    background: #666666;
+    opacity: .50;
+    filter:Alpha(Opacity=50);
 }
 
-.ui-state-default { 
-    border: $stateDefaultBorderWidth solid $stateDefaultBorderColor; 
-    background: $stateDefaultBgColor; 
+.ui-state-default {
+    border: $stateDefaultBorderWidth solid $stateDefaultBorderColor;
+    background: $stateDefaultBgColor;
     color: $stateDefaultTextColor;
-    
+
     a {
         color: $stateDefaultTextColor ;
     }
@@ -77,9 +77,9 @@
 
 .ui-state-active {
     border-color: $stateActiveBorderColor;
-    background: $stateActiveBgColor; 
-    color: $stateActiveTextColor; 
-    
+    background: $stateActiveBgColor;
+    color: $stateActiveTextColor;
+
     a {
         color: $stateActiveTextColor;
     }
@@ -89,7 +89,7 @@
     border-color: $stateHighlightBorderColor;
     background: $stateHighlightBgColor;
     color: $stateHighlightTextColor;
-    
+
     a {
         color: $stateHighlightTextColor;
     }
@@ -99,7 +99,7 @@
     border-color: $stateFocusBorderColor;
     background: $stateFocusBgColor;
     color: $stateFocusTextColor;
-    
+
     a {
         color: $stateFocusTextColor;
     }
@@ -109,7 +109,7 @@
     border-color: $stateErrorBorderColor;
     background: $stateErrorBgColor;
     color: $stateErrorTextColor;
-    
+
     a {
         color: $stateErrorTextColor;
     }
@@ -117,11 +117,11 @@
 
 .ui-state-disabled,
 .ui-widget:disabled {
-    opacity: $disabledOpacity; 
-    filter: Alpha(Opacity= $disabledOpacity * 100); 
-    background-image: none; 
+    opacity: $disabledOpacity;
+    filter: Alpha(Opacity= $disabledOpacity * 100);
+    background-image: none;
     cursor: default !important;
-    
+
     * {
         cursor: default !important;
     }
@@ -151,24 +151,24 @@
         border-color: $stateDefaultBorderColor;
         background-color: lighten($stateDefaultBorderColor, 10%);
         color: $inputGroupTextColor;
-        
+
         &:first-child {
             border-top-left-radius: $borderRadius;
             border-bottom-left-radius: $borderRadius;
         }
-        
+
         &:last-child {
             border-top-right-radius: $borderRadius;
             border-bottom-right-radius: $borderRadius;
         }
     }
-    
+
     .ui-button {
         &:first-child {
             border-top-left-radius: $borderRadius;
             border-bottom-left-radius: $borderRadius;
         }
-        
+
         &:last-child {
             border-top-right-radius: $borderRadius;
             border-bottom-right-radius: $borderRadius;
@@ -185,10 +185,10 @@
         &:hover {
             border-color: $stateHoverBorderColor;
         }
-        
+
         &.ui-state-focus {
             border-color: $stateFocusBorderColor;
-            
+
         }
     }
 }
@@ -198,7 +198,7 @@
         &:hover {
             border-color: $stateHoverBorderColor;
         }
-        
+
         &.ui-state-focus {
             border-color: $stateFocusBorderColor;
         }
@@ -215,7 +215,7 @@
 .ui-button:enabled:active,
 .ui-fileupload-choose:not(.ui-state-disabled):active {
     border-color: $stateActiveBorderColor;
-    background: $stateActiveBgColor; 
+    background: $stateActiveBgColor;
     color: $stateActiveTextColor;
 }
 
@@ -243,17 +243,17 @@
             }
         }
     }
-    
+
     &:not(.ui-state-disabled) {
         .ui-listbox-item:not(.ui-state-highlight):hover {
             @include hover-element();
         }
     }
-    
+
     &.ui-state-disabled {
         .ui-chkbox-box:not(.ui-state-active):hover {
-            border-color: $stateDefaultBorderColor; 
-            background: $stateDefaultBgColor; 
+            border-color: $stateDefaultBorderColor;
+            background: $stateDefaultBgColor;
             color: $stateDefaultTextColor;
         }
     }
@@ -281,7 +281,7 @@
 
 .ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
     border-color: $stateActiveBorderColor;
-    background: $stateActiveBgColor; 
+    background: $stateActiveBgColor;
     color: $stateActiveTextColor;
 }
 
@@ -305,16 +305,16 @@
     .ui-rowgroup-header a {
         color: $headerTextColor;
     }
-    
+
     .ui-sortable-column:not(.ui-state-active):hover {
         background: $stateHoverBgColor;
         color: $stateHoverTextColor;
     }
-    
+
     .ui-row-toggler {
         color: $contentTextColor;
     }
-    
+
     tbody.ui-datatable-hoverable-rows {
         > tr.ui-widget-content:not(.ui-state-highlight):hover {
             cursor: pointer;
@@ -334,21 +334,21 @@
     .ui-picklist-item:not(.ui-state-highlight):hover {
         @include hover-element();
     }
-    
+
     .ui-picklist-droppoint-highlight {
         border-color: $stateHighlightBorderColor;
         background: $stateHighlightBgColor;
         color: darken($contentTextColor,1%);
-        
+
         a {
             color: darken($contentTextColor,1%);
         }
     }
-    
+
     .ui-picklist-highlight {
         border-color: $stateHighlightBorderColor;
         color: darken($contentTextColor,1%);
-        
+
         a {
             color: darken($contentTextColor,1%);
         }
@@ -359,27 +359,27 @@
     &.ui-treenode-dragover {
         border-color: $stateHighlightBorderColor;
     }
-    
+
     .ui-treenode-content {
         &.ui-treenode-selectable {
             .ui-treenode-label:not(.ui-state-highlight):hover {
                 @include hover-element();
             }
         }
-        
+
         &.ui-treenode-dragover {
             background: $stateActiveBgColor;
             color: $stateActiveTextColor;
         }
     }
-    
+
     &.ui-tree-horizontal {
         .ui-treenode-content.ui-treenode-selectable {
             .ui-treenode-label:not(.ui-state-highlight):hover {
                 background-color: inherit;
                 color: inherit;
             }
-            
+
             &:not(.ui-state-highlight):hover {
                 @include hover-element();
             }
@@ -425,8 +425,8 @@
 }
 
 .ui-tabview {
-    .ui-tabview-nav {        
-        li {            
+    .ui-tabview-nav {
+        li {
             &:not(.ui-state-active):not(.ui-state-disabled):hover {
                 @include hover-element();
             }
@@ -437,7 +437,17 @@
 .ui-dialog {
     .ui-dialog-titlebar-icon {
         color: $headerTextColor;
-        
+
+        &:hover {
+            @include hover-element();
+        }
+    }
+}
+
+.ui-sidebar {
+    .ui-sidebar-close {
+        color: $headerTextColor;
+
         &:hover {
             @include hover-element();
         }
@@ -472,7 +482,7 @@
                 border-color: transparent;
             }
         }
-        
+
         &.ui-menuitem-active {
             > .ui-menuitem-link {
                 @include hover-element();
@@ -501,23 +511,23 @@
         &:not(.ui-state-active):hover {
             @include hover-element();
             border-color: $stateDefaultBorderColor;
-            
+
             a {
                 color: $stateHoverTextColor;
             }
         }
-        
+
         &.ui-state-active {
             a {
                 color: $stateActiveTextColor;
             }
         }
     }
-    
+
     .ui-panelmenu-content {
         .ui-menuitem-link {
             color: $contentTextColor;
-            
+
             &:hover {
                 @include hover-element();
                 border-color: transparent;
@@ -530,18 +540,18 @@
     .ui-datepicker-header {
         a {
             color: $headerTextColor;
-            
+
             &:hover {
                 @include hover-element();
             }
         }
     }
-    
+
     .ui-datepicker-calendar {
         td:not(.ui-state-disabled) {
             a:hover {
                 @include hover-element();
-            }            
+            }
         }
     }
 }
@@ -554,7 +564,7 @@
                 @include icon_override("\f053");
             }
         }
-        
+
         .fc-next-button {
             .ui-icon-circle-triangle-e {
                 margin-top: .3em;
@@ -574,33 +584,33 @@
     .ui-organizationchart-line-down {
         background-color: darken($contentBorderColor, 10%);
     }
-    
+
     .ui-organizationchart-line-left {
         border-right: 1px solid darken($contentBorderColor, 10%);
     }
-    
+
     .ui-organizationchart-line-right {
-        
+
     }
-    
+
     .ui-organizationchart-line-top {
         border-top: 1px solid darken($contentBorderColor, 10%);
     }
-    
+
     .ui-organizationchart-node-content {
         border-color: darken($contentBorderColor, 10%);
     }
-    
+
     .ui-organizationchart-node-content .ui-node-toggler {
         color: darken($contentBorderColor, 10%);
     }
-} 
+}
 
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,
 p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
-p-calendar.ng-dirty.ng-invalid > .ui-inputtext,
+p-calendar.ng-dirty.ng-invalid > .ui-calendar > .ui-inputtext,
 p-chips.ng-dirty.ng-invalid > .ui-inputtext,
 p-inputmask.ng-dirty.ng-invalid > .ui-inputtext,
 p-checkbox.ng-dirty.ng-invalid .ui-chkbox-box,

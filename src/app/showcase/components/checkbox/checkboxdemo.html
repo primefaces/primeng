@@ -101,10 +101,15 @@ export class ModelComponent &#123;
 </pre>
 
         <h3>Model Driven Forms</h3>
-        <p>Checkbox can be used in a model driven form as well.</p>
+        <p>Checkbox can be used in a model driven form as well. In this case, due to an <a href="https://github.com/angular/angular/issues/17685">issue</a> in Angular bind the formControl instance 
+            instead of using formControlName.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-checkbox formControlName="agreed"&gt;&lt;/p-checkbox&gt;
+&lt;!-- Wrong --&gt;
+&lt;p-checkbox formControlName="cities"&gt;&lt;/p-checkbox&gt;
+
+&lt;!-- Correct --&gt;
+&lt;p-checkbox [formControl]="myFormGroup.get['cities']"&gt;&lt;/p-checkbox&gt;
 </code>
 </pre>
 

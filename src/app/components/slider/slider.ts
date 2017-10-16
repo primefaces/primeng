@@ -220,17 +220,17 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     handleStepChange(newValue: number, oldValue: number) {
         let diff = (newValue - oldValue);
-
-        if(diff < 0 && (-1 * diff) >= this.step / 2) {
-            newValue = oldValue - this.step;
-            this.updateValue(newValue);
-            this.updateHandleValue();
+        let val = oldValue;
+        
+        if(diff < 0) {
+            val = oldValue + Math.ceil((newValue - oldValue) / this.step) * this.step;
         }
-        else if(diff > 0 && diff >= this.step / 2) {
-            newValue = oldValue + this.step;
-            this.updateValue(newValue);
-            this.updateHandleValue();
+        else if(diff > 0) {
+            val = oldValue + Math.floor((newValue - oldValue) / this.step) * this.step;
         }
+        
+        this.updateValue(val);
+        this.updateHandleValue();
     }
     
     writeValue(value: any) : void {
@@ -284,9 +284,9 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     calculateHandleValue(event): number {
         if(this.orientation === 'horizontal')
-            return Math.floor(((event.pageX - this.initX) * 100) / (this.barWidth));
+            return ((event.pageX - this.initX) * 100) / (this.barWidth);
         else
-            return Math.floor((((this.initY + this.barHeight) - event.pageY) * 100) / (this.barHeight));
+            return(((this.initY + this.barHeight) - event.pageY) * 100) / (this.barHeight);
     }
     
     updateHandleValue(): void {

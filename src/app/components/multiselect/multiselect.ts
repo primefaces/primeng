@@ -39,7 +39,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                         </div>
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
-                        <input type="text" role="textbox" (input)="onFilter($event)"
+                        <input #filterInput type="text" role="textbox" (input)="onFilter($event)"
                                     class="ui-inputtext ui-widget ui-state-default ui-corner-all">
                         <span class="fa fa-fw fa-search"></span>
                     </div>
@@ -72,10 +72,6 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
     @Input() options: SelectItem[];
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Input() scrollHeight: string = '200px';
     
@@ -110,12 +106,24 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() selectedItemsLabel: string = '{0} items selected';
     
     @Input() showToggleAll: boolean = true;
+    
+    @Input() resetFilterOnHide: boolean = false;
         
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('panel') panelViewChild: ElementRef;
     
+    @ViewChild('filterInput') filterInputChild: ElementRef;
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+        
+    @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onPanelShow: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
     
     public value: any[];
     
@@ -227,6 +235,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     onItemClick(event, value) {
+        event.stopPropagation();
         let selectionIndex = this.findSelectionIndex(value);
         if(selectionIndex != -1)
             this.value = this.value.filter((val,i) => i!=selectionIndex);
@@ -292,11 +301,17 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.domHandler.relativePosition(this.panel, this.container);
 
         this.domHandler.fadeIn(this.panel, 250);
+        this.onPanelShow.emit();
     }
     
     hide() {
         this.overlayVisible = false;
         this.unbindDocumentClickListener();
+        if(this.resetFilterOnHide){
+            this.filterValue = null;
+            this.filterInputChild.nativeElement.value = null;
+        }
+        this.onPanelHide.emit();
     }
     
     close(event) {

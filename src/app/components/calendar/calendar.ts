@@ -72,7 +72,7 @@ export interface LocaleSettings {
                                 <a class="ui-state-default" href="#" *ngIf="date.otherMonth ? showOtherMonths : true" 
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
                                     (click)="onDateSelect($event,date)">
-                                    <span *ngIf="!dateTemplate">{{date.day}}</span>
+                                    <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
                                     <ng-template [pTemplateWrapper]="dateTemplate" [item]="date" *ngIf="dateTemplate"></ng-template>
                                 </a>
                             </td>
@@ -254,6 +254,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Output() onTodayClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onClearClick: EventEmitter<any> = new EventEmitter();
+     
+    @Output() onMonthChange: EventEmitter<any> = new EventEmitter();
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -555,6 +557,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.currentMonth--;
         }
         
+        this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonth(this.currentMonth, this.currentYear);
         event.preventDefault();
     }
@@ -577,6 +580,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             this.currentMonth++;
         }
         
+        this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonth(this.currentMonth, this.currentYear);
         event.preventDefault();
     }
@@ -704,7 +708,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 let startDate = this.value[0];
                 let endDate = this.value[1];
                 
-                if(!endDate && date.getTime() > startDate.getTime()) {
+                if(!endDate && date.getTime() >= startDate.getTime()) {
                     endDate = date;
                 }
                 else {
@@ -1122,6 +1126,11 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     updateUI() {
         let val = this.value||this.defaultDate||new Date();
+
+        if (Array.isArray(val)){
+            val = val[0];
+        }
+
         this.createMonth(val.getMonth(), val.getFullYear());
         
         if(this.showTime||this.timeOnly) {
@@ -1473,7 +1482,11 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 			} while (true);
 		}
 
-		date = this.daylightSavingAdjust(new Date(year, month - 1, day));
+        if (this.utc)
+            date = new Date(Date.UTC(year, month - 1, day));
+        else
+            date = this.daylightSavingAdjust(new Date(year, month - 1, day));
+
 		if(date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
 			throw "Invalid date"; // E.g. 31/02/00
 		}

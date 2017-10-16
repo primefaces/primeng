@@ -170,7 +170,7 @@ export class MyModel &#123;
                 and maxDate options.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" [minDate]="minDateValue" [maxDate]="maxDateValue" readonlyInput="readonlyInput"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -178,7 +178,7 @@ export class MyModel &#123;
             <p>To disable specific dates or days, set readonlyInput to true and to restrict selectable dates use disabledDates and/or disabledDays options.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-calendar [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[0,6}" readonlyInput="readonlyInput">&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" [disabledDates]="invalidDates" [disabledDays]="[0,6]" readonlyInput="readonlyInput"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -186,7 +186,7 @@ export class MyModel &#123;
             <p>Button bar displays today and clear buttons and enabled using showButtonBar property.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-calendar [(ngModel)]="dateValue" showButtonBar="true">&gt;&lt;/p-calendar&gt;
+&lt;p-calendar [(ngModel)]="dateValue" showButtonBar="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -572,6 +572,13 @@ export class MyModel &#123;
                             <td>event: Click event
                             </td>
                             <td>Callback to invoke when clear button is clicked.</td>
+                        </tr>
+                        <tr>
+                            <td>onMonthChange</td>
+                            <td>event.month: New month <br />
+                                event.year: New year
+                            </td>
+                            <td>Callback to invoke when a month is changed using the navigators.</td>
                         </tr>
                     </tbody>
                 </table>

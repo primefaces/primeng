@@ -128,17 +128,17 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     }
     
     pickHue(event: MouseEvent) {
-        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
+        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         this.value = this.validateHSB({
             h: Math.floor(360 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150),
-            s: 100,
-            b: 100
+            s: this.value.s,
+            b: this.value.b
         });
         
         this.updateColorSelector();
         this.updateUI();
         this.updateModel();
-        this.onChange.emit({originalEvent: event, value: this.value});
+        this.onChange.emit({originalEvent: event, value: this.getValueToUpdate()});
     }
     
     onColorMousedown(event: MouseEvent) {
@@ -155,7 +155,7 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     
     pickColor(event: MouseEvent) {
         let rect = this.colorSelectorViewChild.nativeElement.getBoundingClientRect();
-        let top = rect.top + document.body.scrollTop;
+        let top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         let left = rect.left + document.body.scrollLeft;
         let saturation = Math.floor(100 * (Math.max(0, Math.min(150, (event.pageX - left)))) / 150);
         let brightness = Math.floor(100 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150);

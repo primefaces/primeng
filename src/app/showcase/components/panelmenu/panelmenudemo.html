@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-panelMenu [model]="items" [style]="&#123;'width':'300px'&#125;"></p-panelMenu>
+    <p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="false"></p-panelMenu>
 </div>
 
 <div class="content-section documentation">
@@ -145,6 +145,12 @@ export class PanelMenuDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>multiple</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether multiple tabs can be activated at the same time or not.</td>
                         </tr>
                     </tbody>
                 </table>

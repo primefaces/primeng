@@ -12,13 +12,14 @@ import {RouterModule} from '@angular/router';
             <ul class="ui-tabmenu-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
                 <li *ngFor="let item of model" 
                     [ngClass]="{'ui-tabmenuitem ui-state-default ui-corner-top':true,'ui-state-disabled':item.disabled,
-                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item}">
+                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item,'ui-helper-hidden': item.visible === false}"
+                        [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}">
                     <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
                         [attr.target]="item.target" [attr.title]="item.title">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
-                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [routerLinkActive]="'ui-state-active'"  [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
+                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
                         [attr.target]="item.target" [attr.title]="item.title">
                         <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
@@ -32,7 +33,7 @@ import {RouterModule} from '@angular/router';
 export class TabMenu {
 
     @Input() model: MenuItem[];
-    
+
     @Input() activeItem: MenuItem;
 
     @Input() popup: boolean;
@@ -40,30 +41,24 @@ export class TabMenu {
     @Input() style: any;
 
     @Input() styleClass: string;
-                
-    ngOnInit() {
-        if(!this.activeItem && this.model && this.model.length) {
-            this.activeItem = this.model[0];
-        }
-    }
-    
+
     itemClick(event: Event, item: MenuItem) {
         if(item.disabled) {
             event.preventDefault();
             return;
         }
-        
+
         if(!item.url) {
             event.preventDefault();
         }
-        
-        if(item.command) {            
+
+        if(item.command) {
             item.command({
                 originalEvent: event,
                 item: item
             });
         }
-        
+
         this.activeItem = item;
     }
 }

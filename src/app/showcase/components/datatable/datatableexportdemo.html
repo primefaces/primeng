@@ -9,10 +9,11 @@
 
 <div class="content-section implementation">
     
-    <p-dataTable #dt [value]="cars" exportFilename="cars">
+    <p-dataTable #dt [value]="cars" exportFilename="cars" [(selection)]="selectedCars" selectionMode="multiple" [metaKeySelection]="false">
         <p-header>
             <div class="ui-helper-clearfix">
-                <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:left"></button>
+                <button type="button" pButton icon="fa-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left"></button>
+                <button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
             </div>
         </p-header>
         <p-column field="vin" header="Vin"></p-column>
@@ -35,6 +36,8 @@
 export class DataTableExportDemo implements OnInit &#123;
 
     cars: Car[];
+    
+    selectedCars: Car[];
 
     constructor(private carService: CarService) &#123; &#125;
 
@@ -54,10 +57,11 @@ export class DataTableExportDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dataTable #dt [value]="cars" exportFilename="cars"&gt;
+&lt;p-dataTable #dt [value]="cars" exportFilename="cars" [(selection)]="selectedCars" selectionMode="multiple" [metaKeySelection]="false"&gt;
     &lt;p-header&gt;
         &lt;div class="ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:left"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)" style="float:right"&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;

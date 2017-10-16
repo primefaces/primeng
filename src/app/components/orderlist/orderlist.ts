@@ -30,7 +30,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
-                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
+                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
                         </li>
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)" 
                             [ngClass]="{'ui-state-highlight': (i + 1 === dragOverItemIndex)}"></li>
@@ -122,12 +122,14 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
             let listItems = this.domHandler.find(this.listContainer, 'li.ui-state-highlight');
             let listItem;
             
-            if(this.movedUp)
-                listItem = listItems[0];
-            else
-                listItem = listItems[listItems.length - 1];
-            
-            this.domHandler.scrollInView(this.listContainer, listItem);
+            if(listItems.length > 0) {
+                if(this.movedUp)
+                    listItem = listItems[0];
+                else
+                    listItem = listItems[listItems.length - 1];
+                
+                this.domHandler.scrollInView(this.listContainer, listItem);
+            }
             this.movedUp = false;
             this.movedDown = false;
         }
@@ -333,6 +335,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         let dropIndex = (this.draggedItemIndex > index) ? index : (index === 0) ? 0 : index - 1;
         this.objectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
         this.dragOverItemIndex = null;
+        this.onReorder.emit(event);
     }
     
     onDragEnd(event: DragEvent) {

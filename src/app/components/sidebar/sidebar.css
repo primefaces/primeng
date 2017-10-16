@@ -1,0 +1,117 @@
+.ui-sidebar {
+    position: fixed;
+    padding: .5em 1em;
+    -webkit-transition: transform .3s;
+    transition: transform .3s;
+}
+
+.ui-sidebar-left {
+    top: 0;
+    left: 0;
+    width: 20em;
+    height: 100%;
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+
+.ui-sidebar-right {
+    top: 0;
+    right: 0;
+    width: 20em;
+    height: 100%;
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+.ui-sidebar-top {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10em;
+    -webkit-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%);
+}
+
+.ui-sidebar-bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10em;
+    -webkit-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+}
+
+.ui-sidebar-full {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    -webkit-transition: transform 0s;
+    transition: transform 0s;
+}
+
+.ui-sidebar-left.ui-sidebar-active,
+.ui-sidebar-right.ui-sidebar-active {
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0)
+}
+
+.ui-sidebar-left.ui-sidebar-sm,
+.ui-sidebar-right.ui-sidebar-sm {
+    width: 20em;
+}
+
+.ui-sidebar-left.ui-sidebar-md,
+.ui-sidebar-right.ui-sidebar-md {
+    width: 40em;
+}
+
+.ui-sidebar-left.ui-sidebar-lg,
+.ui-sidebar-right.ui-sidebar-lg {
+    width: 60em;
+}
+
+.ui-sidebar-top.ui-sidebar-active,
+.ui-sidebar-bottom.ui-sidebar-active {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0)
+}
+
+.ui-sidebar-top.ui-sidebar-sm,
+.ui-sidebar-bottom.ui-sidebar-sm {
+    height: 10em;
+}
+
+.ui-sidebar-top.ui-sidebar-md,
+.ui-sidebar-bottom.ui-sidebar-md {
+    height: 20em;
+}
+
+.ui-sidebar-top.ui-sidebar-lg,
+.ui-sidebar-bottom.ui-sidebar-lg {
+    height: 30em;
+}
+
+.ui-sidebar-mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.ui-sidebar-close {
+    float: right;
+}
+
+@media screen and (max-width: 64em) {
+    .ui-sidebar-left.ui-sidebar-lg,
+    .ui-sidebar-left.ui-sidebar-md, 
+    .ui-sidebar-right.ui-sidebar-lg,
+    .ui-sidebar-right.ui-sidebar-md {
+        width: 20em;
+    }
+}

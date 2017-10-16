@@ -122,10 +122,28 @@ export class PanelMenu extends BasePanelMenuItem {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    @Input() multiple: boolean = true;
     
     public animating: boolean;
                 
+    collapseAll() {
+    	for(let item of this.model) {
+    		if(item.expanded) {
+    			item.expanded = false;
+    		}
+    	}
+    }
+
     handleClick(event, item) {
+    	if(!this.multiple) {
+            for(let modelItem of this.model) {
+        		if(item !== modelItem && modelItem.expanded) {
+        			modelItem.expanded = false;
+        		}
+        	}
+    	}
+        
         this.animating = true;
         super.handleClick(event, item);
     }
