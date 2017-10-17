@@ -61,6 +61,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'password', loadChildren: './components/password/passworddemo.module#PasswordDemoModule'},
             {path: 'picklist', loadChildren: './components/picklist/picklistdemo.module#PickListDemoModule'},
             {path: 'progressbar', loadChildren: './components/progressbar/progressbardemo.module#ProgressBarDemoModule'},
+            {path: 'progressspinner', loadChildren: './components/progressspinner/progressspinnerdemo.module#ProgressSpinnerDemoModule'},
             {path: 'radiobutton', loadChildren: './components/radiobutton/radiobuttondemo.module#RadioButtonDemoModule'},
             {path: 'rating', loadChildren: './components/rating/ratingdemo.module#RatingDemoModule'},
             {path: 'responsive', loadChildren: './components/responsive/responsivedemo.module#ResponsiveDemoModule'},
