@@ -12,7 +12,7 @@
     }
 }
 
-.ui-progress-spinner-circle {
+.ui-progress-spinner-svg {
     animation: ui-progress-spinner-rotate 2s linear infinite;
     height: 100%;
     transform-origin: center center;
@@ -25,7 +25,7 @@
     margin: auto;
 }
 
-.ui-progress-spinner-path {
+.ui-progress-spinner-circle {
     stroke-dasharray: 1, 200;
     stroke-dashoffset: 0;
     animation: ui-progress-spinner-dash 1.5s ease-in-out infinite, ui-progress-spinner-color 6s ease-in-out infinite;

@@ -10,7 +10,7 @@
     <p-progressSpinner></p-progressSpinner>
 
     <h3>Custom</h3>
-    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="10" fill="#EEEEEE"></p-progressSpinner>
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
 </div>
 
 <div class="content-section documentation">
@@ -19,27 +19,41 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;ProgressBarModule&#125; from 'primeng/primeng';
+import &#123;ProgressSpinnerModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>ProgressBar requires a value between 0 and 100 to display the progress.</p>
+            <p>ProgressSpinner is defined using p-progressSpinner element.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-progressBar [value]="value"&gt;&lt;/p-progressBar&gt;
+&lt;p-progressSpinner&gt;&lt;/p-progressSpinner&gt;
 </code>
 </pre>
-
+            <h3>Colors</h3>
+            <p>Colors of the spinner can be changed by overriding the keyframes animation</p>
 <pre>
-<code class="language-typescript" pCode ngNonBindable>
-export class ModelComponent &#123;
-
-    value: number = 0;
-
+<code class="language-css" pCode ngNonBindable>
+@keyframes ui-progress-spinner-color &#123;
+    100%,
+    0% &#123;
+        stroke: #d62d20;
+    &#125;
+    40% &#123;
+        stroke: #0057e7;
+    &#125;
+    66% &#123;
+        stroke: #008744;
+    &#125;
+    80%,
+    90% &#123;
+        stroke: #ffa700;
+    &#125;
 &#125;
 </code>
 </pre>
+            
+
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -54,22 +68,22 @@ export class ModelComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>value</td>
-                            <td>number</td>
-                            <td>null</td>
-                            <td>Current value of the progress.</td>
-                        </tr>
-                        <tr>
-                            <td>showValue</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Show or hide progress bar value.</td>
-                        </tr>
-                        <tr>
-                            <td>unit</td>
+                            <td>strokeWidth</td>
                             <td>string</td>
-                            <td>%</td>
-                            <td>Unit sign appended to the value.</td>
+                            <td>2</td>
+                            <td>Width of the circle stroke.</td>
+                        </tr>
+                        <tr>
+                            <td>fill</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Color for the background of the circle.</td>
+                        </tr>
+                        <tr>
+                            <td>animationDuration</td>
+                            <td>string</td>
+                            <td>2s</td>
+                            <td>Duration of the rotate animation.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -87,16 +101,16 @@ export class ModelComponent &#123;
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ui-progressbar</td>
+                            <td>ui-progress-spinner</td>
                             <td>Container element.</td>
                         </tr>
                         <tr>
-                            <td>ui-progressbar-value</td>
-                            <td>Element whose width changes according to value.</td>
+                            <td>ui-progress-circle</td>
+                            <td>SVG element.</td>
                         </tr>
                         <tr>
-                            <td>ui-progressbar-label</td>
-                            <td>Label element that displays the current value.</td>
+                            <td>ui-progress-path</td>
+                            <td>Circle element.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -113,36 +127,11 @@ export class ModelComponent &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-growl [(value)]="msgs"&gt;&lt;/p-growl&gt;
+&lt;h3&gt;Basic&lt;/h3&gt;
+&lt;p-progressSpinner&gt;&lt;/p-progressSpinner&gt;
 
-&lt;h3 class="first"&gt;Dynamic&lt;/h3&gt;
-&lt;p-progressBar [value]="value"&gt;&lt;/p-progressBar&gt;
-
-&lt;h3&gt;Static&lt;/h3&gt;
-&lt;p-progressBar [value]="50"&gt;&lt;/p-progressBar&gt;
-</code>
-</pre>
-
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-export class ProgressBarDemo &#123;
-
-    value: number = 0;
-
-    msgs: Message[];
-
-    ngOnInit() &#123;
-        let interval = setInterval(() => &#123;
-            this.value = this.value + Math.floor(Math.random() * 10) + 1;
-            if(this.value >= 100) &#123;
-                this.value = 100;
-                this.msgs = [&#123;severity: 'info', summary: 'Success', detail: 'Process Completed'&#125;];
-                clearInterval(interval);
-            &#125;
-        &#125;, 2000);
-    &#125;
-
-&#125;
+&lt;h3&gt;Custom&lt;/h3&gt;
+&lt;p-progressSpinner [style]="&#123;width: '50px', height: '50px'&#125;" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"&gt;&lt;/p-progressSpinner&gt;
 </code>
 </pre>
         </p-tabPanel>
