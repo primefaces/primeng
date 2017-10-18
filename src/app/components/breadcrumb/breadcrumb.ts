@@ -9,15 +9,16 @@ import {RouterModule} from '@angular/router';
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'">
             <ul>
-                <li class="ui-breadcrumb-home fa fa-home" *ngIf="!home"></li>
-                <li class="ui-breadcrumb-home" *ngIf="home">
+                <li class="ui-breadcrumb-home fa fa-home" *ngIf="!home || (!home.icon && !home.url && !home.routerLink)"></li>
+                <li class="ui-breadcrumb-home {{icon}}" *ngIf="home && home.icon && !home.url && !home.routerLink"></li>
+                <li class="ui-breadcrumb-home" *ngIf="home && (home.url || home.routerLink)">
                     <a *ngIf="!home.routerLink" [href]="home.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, home)" 
                         [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target" [attr.title]="home.title">
-                        <span class="fa fa-home"></span>
+                        <span [class]="icon"></span>
                     </a>
                     <a *ngIf="home.routerLink" [routerLink]="home.routerLink" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="home.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link" (click)="itemClick($event, home)" 
                         [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target" [attr.title]="home.title">
-                        <span class="fa fa-home"></span>
+                        <span [class]="icon"></span>
                     </a>
                 </li>
                 <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="model"></li>
@@ -39,6 +40,14 @@ import {RouterModule} from '@angular/router';
     `
 })
 export class Breadcrumb {
+
+    get icon(): string {
+        if (this.home.icon) {
+            return 'fa ' + this.home.icon;
+        } else {
+            return 'fa fa-home';
+        }
+    }
 
     @Input() model: MenuItem[];
 
