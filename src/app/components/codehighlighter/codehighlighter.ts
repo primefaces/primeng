@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,OnInit} from '@angular/core';
+import {NgModule, Directive, ElementRef, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 declare var Prism: any;
@@ -7,9 +7,9 @@ declare var Prism: any;
     selector: '[pCode]'
 })
 export class CodeHighlighter implements OnInit {
-        
+
     constructor(public el: ElementRef) {}
-    
+
     ngOnInit() {
         Prism.highlightElement(this.el.nativeElement);
     }
