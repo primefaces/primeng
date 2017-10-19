@@ -1,13 +1,4 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
@@ -17,24 +8,28 @@ var Header = (function () {
     }
     return Header;
 }());
-Header = __decorate([
-    core_2.Component({
-        selector: 'p-header',
-        template: '<ng-content></ng-content>'
-    })
-], Header);
+Header.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-header',
+                template: '<ng-content></ng-content>'
+            },] },
+];
+/** @nocollapse */
+Header.ctorParameters = function () { return []; };
 exports.Header = Header;
 var Footer = (function () {
     function Footer() {
     }
     return Footer;
 }());
-Footer = __decorate([
-    core_2.Component({
-        selector: 'p-footer',
-        template: '<ng-content></ng-content>'
-    })
-], Footer);
+Footer.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-footer',
+                template: '<ng-content></ng-content>'
+            },] },
+];
+/** @nocollapse */
+Footer.ctorParameters = function () { return []; };
 exports.Footer = Footer;
 var PrimeTemplate = (function () {
     function PrimeTemplate(template) {
@@ -45,21 +40,20 @@ var PrimeTemplate = (function () {
     };
     return PrimeTemplate;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], PrimeTemplate.prototype, "type", void 0);
-__decorate([
-    core_1.Input('pTemplate'),
-    __metadata("design:type", String)
-], PrimeTemplate.prototype, "name", void 0);
-PrimeTemplate = __decorate([
-    core_1.Directive({
-        selector: '[pTemplate]',
-        host: {}
-    }),
-    __metadata("design:paramtypes", [core_1.TemplateRef])
-], PrimeTemplate);
+PrimeTemplate.decorators = [
+    { type: core_1.Directive, args: [{
+                selector: '[pTemplate]',
+                host: {}
+            },] },
+];
+/** @nocollapse */
+PrimeTemplate.ctorParameters = function () { return [
+    { type: core_1.TemplateRef, },
+]; };
+PrimeTemplate.propDecorators = {
+    'type': [{ type: core_1.Input },],
+    'name': [{ type: core_1.Input, args: ['pTemplate',] },],
+};
 exports.PrimeTemplate = PrimeTemplate;
 var TemplateWrapper = (function () {
     function TemplateWrapper(viewContainer) {
@@ -76,24 +70,20 @@ var TemplateWrapper = (function () {
     };
     return TemplateWrapper;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], TemplateWrapper.prototype, "item", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], TemplateWrapper.prototype, "index", void 0);
-__decorate([
-    core_1.Input('pTemplateWrapper'),
-    __metadata("design:type", core_1.TemplateRef)
-], TemplateWrapper.prototype, "templateRef", void 0);
-TemplateWrapper = __decorate([
-    core_1.Directive({
-        selector: '[pTemplateWrapper]'
-    }),
-    __metadata("design:paramtypes", [core_1.ViewContainerRef])
-], TemplateWrapper);
+TemplateWrapper.decorators = [
+    { type: core_1.Directive, args: [{
+                selector: '[pTemplateWrapper]'
+            },] },
+];
+/** @nocollapse */
+TemplateWrapper.ctorParameters = function () { return [
+    { type: core_1.ViewContainerRef, },
+]; };
+TemplateWrapper.propDecorators = {
+    'item': [{ type: core_1.Input },],
+    'index': [{ type: core_1.Input },],
+    'templateRef': [{ type: core_1.Input, args: ['pTemplateWrapper',] },],
+};
 exports.TemplateWrapper = TemplateWrapper;
 var Column = (function () {
     function Column() {
@@ -127,164 +117,94 @@ var Column = (function () {
     };
     return Column;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "field", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "colId", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "sortField", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "filterField", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "header", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "footer", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], Column.prototype, "sortable", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], Column.prototype, "editable", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], Column.prototype, "filter", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "filterMatchMode", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "filterType", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], Column.prototype, "rowspan", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], Column.prototype, "colspan", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], Column.prototype, "style", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "styleClass", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], Column.prototype, "hidden", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], Column.prototype, "expander", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "selectionMode", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], Column.prototype, "filterPlaceholder", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], Column.prototype, "filterMaxlength", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], Column.prototype, "frozen", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], Column.prototype, "sortFunction", void 0);
-__decorate([
-    core_1.ContentChildren(PrimeTemplate),
-    __metadata("design:type", core_1.QueryList)
-], Column.prototype, "templates", void 0);
-__decorate([
-    core_1.ContentChild(core_1.TemplateRef),
-    __metadata("design:type", core_1.TemplateRef)
-], Column.prototype, "template", void 0);
-Column = __decorate([
-    core_2.Component({
-        selector: 'p-column',
-        template: ""
-    })
-], Column);
+Column.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-column',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+Column.ctorParameters = function () { return []; };
+Column.propDecorators = {
+    'field': [{ type: core_1.Input },],
+    'colId': [{ type: core_1.Input },],
+    'sortField': [{ type: core_1.Input },],
+    'filterField': [{ type: core_1.Input },],
+    'header': [{ type: core_1.Input },],
+    'footer': [{ type: core_1.Input },],
+    'sortable': [{ type: core_1.Input },],
+    'disabled': [{ type: core_1.Input },],
+    'editable': [{ type: core_1.Input },],
+    'filter': [{ type: core_1.Input },],
+    'filterMatchMode': [{ type: core_1.Input },],
+    'filterType': [{ type: core_1.Input },],
+    'rowspan': [{ type: core_1.Input },],
+    'colspan': [{ type: core_1.Input },],
+    'style': [{ type: core_1.Input },],
+    'styleClass': [{ type: core_1.Input },],
+    'hidden': [{ type: core_1.Input },],
+    'expander': [{ type: core_1.Input },],
+    'selectionMode': [{ type: core_1.Input },],
+    'filterPlaceholder': [{ type: core_1.Input },],
+    'filterMaxlength': [{ type: core_1.Input },],
+    'frozen': [{ type: core_1.Input },],
+    'sortFunction': [{ type: core_1.Output },],
+    'templates': [{ type: core_1.ContentChildren, args: [PrimeTemplate,] },],
+    'template': [{ type: core_1.ContentChild, args: [core_1.TemplateRef,] },],
+};
 exports.Column = Column;
 var Row = (function () {
     function Row() {
     }
     return Row;
 }());
-__decorate([
-    core_1.ContentChildren(Column),
-    __metadata("design:type", core_1.QueryList)
-], Row.prototype, "columns", void 0);
-Row = __decorate([
-    core_2.Component({
-        selector: 'p-row',
-        template: ""
-    })
-], Row);
+Row.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-row',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+Row.ctorParameters = function () { return []; };
+Row.propDecorators = {
+    'columns': [{ type: core_1.ContentChildren, args: [Column,] },],
+};
 exports.Row = Row;
 var HeaderColumnGroup = (function () {
     function HeaderColumnGroup() {
     }
     return HeaderColumnGroup;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], HeaderColumnGroup.prototype, "frozen", void 0);
-__decorate([
-    core_1.ContentChildren(Row),
-    __metadata("design:type", core_1.QueryList)
-], HeaderColumnGroup.prototype, "rows", void 0);
-HeaderColumnGroup = __decorate([
-    core_2.Component({
-        selector: 'p-headerColumnGroup',
-        template: ""
-    })
-], HeaderColumnGroup);
+HeaderColumnGroup.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-headerColumnGroup',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+HeaderColumnGroup.ctorParameters = function () { return []; };
+HeaderColumnGroup.propDecorators = {
+    'frozen': [{ type: core_1.Input },],
+    'rows': [{ type: core_1.ContentChildren, args: [Row,] },],
+};
 exports.HeaderColumnGroup = HeaderColumnGroup;
 var FooterColumnGroup = (function () {
     function FooterColumnGroup() {
     }
     return FooterColumnGroup;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], FooterColumnGroup.prototype, "frozen", void 0);
-__decorate([
-    core_1.ContentChildren(Row),
-    __metadata("design:type", core_1.QueryList)
-], FooterColumnGroup.prototype, "rows", void 0);
-FooterColumnGroup = __decorate([
-    core_2.Component({
-        selector: 'p-footerColumnGroup',
-        template: ""
-    })
-], FooterColumnGroup);
+FooterColumnGroup.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-footerColumnGroup',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+FooterColumnGroup.ctorParameters = function () { return []; };
+FooterColumnGroup.propDecorators = {
+    'frozen': [{ type: core_1.Input },],
+    'rows': [{ type: core_1.ContentChildren, args: [Row,] },],
+};
 exports.FooterColumnGroup = FooterColumnGroup;
 var ColumnBodyTemplateLoader = (function () {
     function ColumnBodyTemplateLoader(viewContainer) {
@@ -310,25 +230,21 @@ var ColumnBodyTemplateLoader = (function () {
     };
     return ColumnBodyTemplateLoader;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], ColumnBodyTemplateLoader.prototype, "column", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], ColumnBodyTemplateLoader.prototype, "rowData", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], ColumnBodyTemplateLoader.prototype, "rowIndex", void 0);
-ColumnBodyTemplateLoader = __decorate([
-    core_2.Component({
-        selector: 'p-columnBodyTemplateLoader',
-        template: ""
-    }),
-    __metadata("design:paramtypes", [core_1.ViewContainerRef])
-], ColumnBodyTemplateLoader);
+ColumnBodyTemplateLoader.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-columnBodyTemplateLoader',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+ColumnBodyTemplateLoader.ctorParameters = function () { return [
+    { type: core_1.ViewContainerRef, },
+]; };
+ColumnBodyTemplateLoader.propDecorators = {
+    'column': [{ type: core_1.Input },],
+    'rowData': [{ type: core_1.Input },],
+    'rowIndex': [{ type: core_1.Input },],
+};
 exports.ColumnBodyTemplateLoader = ColumnBodyTemplateLoader;
 var ColumnHeaderTemplateLoader = (function () {
     function ColumnHeaderTemplateLoader(viewContainer) {
@@ -344,17 +260,19 @@ var ColumnHeaderTemplateLoader = (function () {
     };
     return ColumnHeaderTemplateLoader;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], ColumnHeaderTemplateLoader.prototype, "column", void 0);
-ColumnHeaderTemplateLoader = __decorate([
-    core_2.Component({
-        selector: 'p-columnHeaderTemplateLoader',
-        template: ""
-    }),
-    __metadata("design:paramtypes", [core_1.ViewContainerRef])
-], ColumnHeaderTemplateLoader);
+ColumnHeaderTemplateLoader.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-columnHeaderTemplateLoader',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+ColumnHeaderTemplateLoader.ctorParameters = function () { return [
+    { type: core_1.ViewContainerRef, },
+]; };
+ColumnHeaderTemplateLoader.propDecorators = {
+    'column': [{ type: core_1.Input },],
+};
 exports.ColumnHeaderTemplateLoader = ColumnHeaderTemplateLoader;
 var ColumnFooterTemplateLoader = (function () {
     function ColumnFooterTemplateLoader(viewContainer) {
@@ -370,17 +288,19 @@ var ColumnFooterTemplateLoader = (function () {
     };
     return ColumnFooterTemplateLoader;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], ColumnFooterTemplateLoader.prototype, "column", void 0);
-ColumnFooterTemplateLoader = __decorate([
-    core_2.Component({
-        selector: 'p-columnFooterTemplateLoader',
-        template: ""
-    }),
-    __metadata("design:paramtypes", [core_1.ViewContainerRef])
-], ColumnFooterTemplateLoader);
+ColumnFooterTemplateLoader.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-columnFooterTemplateLoader',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+ColumnFooterTemplateLoader.ctorParameters = function () { return [
+    { type: core_1.ViewContainerRef, },
+]; };
+ColumnFooterTemplateLoader.propDecorators = {
+    'column': [{ type: core_1.Input },],
+};
 exports.ColumnFooterTemplateLoader = ColumnFooterTemplateLoader;
 var ColumnFilterTemplateLoader = (function () {
     function ColumnFilterTemplateLoader(viewContainer) {
@@ -396,17 +316,19 @@ var ColumnFilterTemplateLoader = (function () {
     };
     return ColumnFilterTemplateLoader;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], ColumnFilterTemplateLoader.prototype, "column", void 0);
-ColumnFilterTemplateLoader = __decorate([
-    core_2.Component({
-        selector: 'p-columnFilterTemplateLoader',
-        template: ""
-    }),
-    __metadata("design:paramtypes", [core_1.ViewContainerRef])
-], ColumnFilterTemplateLoader);
+ColumnFilterTemplateLoader.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-columnFilterTemplateLoader',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+ColumnFilterTemplateLoader.ctorParameters = function () { return [
+    { type: core_1.ViewContainerRef, },
+]; };
+ColumnFilterTemplateLoader.propDecorators = {
+    'column': [{ type: core_1.Input },],
+};
 exports.ColumnFilterTemplateLoader = ColumnFilterTemplateLoader;
 var ColumnEditorTemplateLoader = (function () {
     function ColumnEditorTemplateLoader(viewContainer) {
@@ -424,25 +346,21 @@ var ColumnEditorTemplateLoader = (function () {
     };
     return ColumnEditorTemplateLoader;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], ColumnEditorTemplateLoader.prototype, "column", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], ColumnEditorTemplateLoader.prototype, "rowData", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], ColumnEditorTemplateLoader.prototype, "rowIndex", void 0);
-ColumnEditorTemplateLoader = __decorate([
-    core_2.Component({
-        selector: 'p-columnEditorTemplateLoader',
-        template: ""
-    }),
-    __metadata("design:paramtypes", [core_1.ViewContainerRef])
-], ColumnEditorTemplateLoader);
+ColumnEditorTemplateLoader.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-columnEditorTemplateLoader',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+ColumnEditorTemplateLoader.ctorParameters = function () { return [
+    { type: core_1.ViewContainerRef, },
+]; };
+ColumnEditorTemplateLoader.propDecorators = {
+    'column': [{ type: core_1.Input },],
+    'rowData': [{ type: core_1.Input },],
+    'rowIndex': [{ type: core_1.Input },],
+};
 exports.ColumnEditorTemplateLoader = ColumnEditorTemplateLoader;
 var TemplateLoader = (function () {
     function TemplateLoader(viewContainer) {
@@ -461,33 +379,34 @@ var TemplateLoader = (function () {
     };
     return TemplateLoader;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", core_1.TemplateRef)
-], TemplateLoader.prototype, "template", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], TemplateLoader.prototype, "data", void 0);
-TemplateLoader = __decorate([
-    core_2.Component({
-        selector: 'p-templateLoader',
-        template: ""
-    }),
-    __metadata("design:paramtypes", [core_1.ViewContainerRef])
-], TemplateLoader);
+TemplateLoader.decorators = [
+    { type: core_2.Component, args: [{
+                selector: 'p-templateLoader',
+                template: ""
+            },] },
+];
+/** @nocollapse */
+TemplateLoader.ctorParameters = function () { return [
+    { type: core_1.ViewContainerRef, },
+]; };
+TemplateLoader.propDecorators = {
+    'template': [{ type: core_1.Input },],
+    'data': [{ type: core_1.Input },],
+};
 exports.TemplateLoader = TemplateLoader;
 var SharedModule = (function () {
     function SharedModule() {
     }
     return SharedModule;
 }());
-SharedModule = __decorate([
-    core_1.NgModule({
-        imports: [common_1.CommonModule],
-        exports: [Header, Footer, Column, TemplateWrapper, ColumnHeaderTemplateLoader, ColumnBodyTemplateLoader, ColumnFooterTemplateLoader, ColumnFilterTemplateLoader, PrimeTemplate, TemplateLoader, Row, HeaderColumnGroup, FooterColumnGroup, ColumnEditorTemplateLoader],
-        declarations: [Header, Footer, Column, TemplateWrapper, ColumnHeaderTemplateLoader, ColumnBodyTemplateLoader, ColumnFooterTemplateLoader, ColumnFilterTemplateLoader, PrimeTemplate, TemplateLoader, Row, HeaderColumnGroup, FooterColumnGroup, ColumnEditorTemplateLoader]
-    })
-], SharedModule);
+SharedModule.decorators = [
+    { type: core_1.NgModule, args: [{
+                imports: [common_1.CommonModule],
+                exports: [Header, Footer, Column, TemplateWrapper, ColumnHeaderTemplateLoader, ColumnBodyTemplateLoader, ColumnFooterTemplateLoader, ColumnFilterTemplateLoader, PrimeTemplate, TemplateLoader, Row, HeaderColumnGroup, FooterColumnGroup, ColumnEditorTemplateLoader],
+                declarations: [Header, Footer, Column, TemplateWrapper, ColumnHeaderTemplateLoader, ColumnBodyTemplateLoader, ColumnFooterTemplateLoader, ColumnFilterTemplateLoader, PrimeTemplate, TemplateLoader, Row, HeaderColumnGroup, FooterColumnGroup, ColumnEditorTemplateLoader]
+            },] },
+];
+/** @nocollapse */
+SharedModule.ctorParameters = function () { return []; };
 exports.SharedModule = SharedModule;
 //# sourceMappingURL=shared.js.map
