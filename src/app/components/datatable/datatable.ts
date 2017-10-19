@@ -123,7 +123,7 @@ export class RowExpansionLoader implements OnInit, OnDestroy {
                 <input [attr.type]="col.filterType" class="ui-column-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.maxlength]="col.filterMaxlength" [attr.placeholder]="col.filterPlaceholder" *ngIf="col.filter&&!col.filterTemplate" [value]="dt.filters[col.filterField||col.field] ? dt.filters[col.filterField||col.field].value : ''"
                     (click)="dt.onFilterInputClick($event)" (input)="dt.onFilterKeyup($event.target.value, col.filterField||col.field, col.filterMatchMode)"/>
                 <p-columnFilterTemplateLoader [column]="col" *ngIf="col.filterTemplate"></p-columnFilterTemplateLoader>
-                <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="dt.toggleRowsWithCheckbox($event)" [checked]="dt.allSelected" [disabled]="dt.isEmpty()"></p-dtCheckbox>
+                <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="dt.toggleRowsWithCheckbox($event)" [checked]="dt.allSelected" [disabled]="dt.isEmpty() || col.disabled"></p-dtCheckbox>
             </th>
         </ng-template>
     `
@@ -202,7 +202,7 @@ export class ColumnFooters {
                             <span class="ui-row-toggler fa fa-fw ui-clickable" [ngClass]="dt.isRowExpanded(rowData) ? dt.expandedIcon : dt.collapsedIcon"></span>
                         </a>
                         <p-dtRadioButton *ngIf="col.selectionMode=='single'" (onClick)="dt.selectRowWithRadio($event, rowData)" [checked]="dt.isSelected(rowData)"></p-dtRadioButton>
-                        <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="dt.toggleRowWithCheckbox($event,rowData)" [checked]="dt.isSelected(rowData)" [disabled]="true"></p-dtCheckbox>
+                        <p-dtCheckbox *ngIf="col.selectionMode=='multiple'" (onChange)="dt.toggleRowWithCheckbox($event,rowData)" [checked]="dt.isSelected(rowData)" [disabled]="col.disabled"></p-dtCheckbox>
                     </td>
                 </ng-template>
             </tr>

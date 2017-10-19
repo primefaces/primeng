@@ -62,10 +62,10 @@
     </p-dataTable>
     
     <h3>Checkbox</h3>
-    <p>Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple".</p>
+    <p>Multiple selection can also be handled using checkboxes by enabling the selectionMode property of column as "multiple". <br/> Now Supports row selection <b>disabled</b></p>
     <p-dataTable [value]="cars" [(selection)]="selectedCars2" dataKey="vin">
         <p-header>Checkbox Selection</p-header>
-        <p-column [style]="&#123;'width':'38px'&#125;" selectionMode="multiple"></p-column>
+        <p-column [style]="&#123;'width':'38px'&#125;" selectionMode="multiple" [disabled]=false></p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>

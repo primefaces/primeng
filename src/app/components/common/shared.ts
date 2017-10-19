@@ -71,6 +71,7 @@ export class Column implements AfterContentInit{
     @Input() header: string;
     @Input() footer: string;
     @Input() sortable: any;
+    @Input() disabled: boolean;
     @Input() editable: boolean;
     @Input() filter: boolean;
     @Input() filterMatchMode: string;
