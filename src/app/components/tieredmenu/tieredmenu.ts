@@ -19,7 +19,7 @@ import {RouterModule} from '@angular/router';
                         <span class="ui-menuitem-icon fa fa-fw" *ngIf="child.icon" [ngClass]="child.icon"></span>
                         <span class="ui-menuitem-text">{{child.label}}</span>
                     </a>
-                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [routerLinkActive]="'ui-state-active'" 
+                    <a *ngIf="child.routerLink" [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'ui-state-active'" 
                         [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" [href]="child.url||'#'" 
                         class="ui-menuitem-link ui-corner-all" [attr.target]="child.target" [attr.title]="child.title"
                         [ngClass]="{'ui-state-disabled':child.disabled}" (click)="itemClick($event, child)">
