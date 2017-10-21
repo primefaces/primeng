@@ -86,6 +86,7 @@ export class Column implements AfterContentInit{
     @Input() filterMaxlength: number;
     @Input() frozen: boolean;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
+    @Output() filterFunction: EventEmitter<any> = new EventEmitter();
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     @ContentChild(TemplateRef) template: TemplateRef<any>;
     

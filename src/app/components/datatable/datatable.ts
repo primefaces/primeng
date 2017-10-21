@@ -1750,13 +1750,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     isFilterBlank(filter: any): boolean {
-        if(filter !== null && filter !== undefined) {
-            if((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0))
-                return true;
-            else
-                return false;
-        }
-        return true;
+        return filter === null && filter === undefined;
     }
 
     _filter() {
@@ -1788,7 +1782,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         dataFieldValue = this.resolveFieldData(this.value[i], filterField);
                         let filterConstraint = this.filterConstraints[filterMatchMode];
 
-                        if(!filterConstraint(dataFieldValue, filterValue)) {
+                        if (filterMatchMode === 'custom') {
+                            this.columns[0].filterFunction.emit({
+                                value: filterValue,
+                                field: filterField
+                            });
+                        } else if(!filterConstraint(dataFieldValue, filterValue)) {
                             localMatch = false;
                         }
 
