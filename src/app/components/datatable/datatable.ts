@@ -1271,8 +1271,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 });
             }
             
-            this._first = 0;
-
             if(this.hasFilter()) {
                 this._filter();
             }
