@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
@@ -71,6 +71,8 @@ export class Spinner implements OnInit,ControlValueAccessor {
     
     @Input() required: boolean;
             
+    @ViewChild('in') inputViewChild: ElementRef;
+
     value: number;
     
     valueAsString: string = '';
@@ -189,11 +191,17 @@ export class Spinner implements OnInit,ControlValueAccessor {
             this.spin(event, -1);
             event.preventDefault();
         }
+        else if(event.keyCode === 229) {
+            setTimeout(()=>{
+                this.formatValue();
+            },0)
+            event.preventDefault();
+        }
     }
     
     onInputKeyPress(event: KeyboardEvent) {
         let inputChar = String.fromCharCode(event.charCode);
-        if(!this.keyPattern.test(inputChar) && inputChar != this.decimalSeparator && event.keyCode != 9 && event.keyCode != 8 && event.keyCode != 37 && event.keyCode != 39 && event.keyCode != 46) {
+        if(!this.keyPattern.test(inputChar) && inputChar != this.decimalSeparator && event.keyCode != 9 && event.keyCode != 8 && event.keyCode != 13 && event.keyCode != 37 && event.keyCode != 39 && event.keyCode != 46) {
             event.preventDefault();
         }    
     }
@@ -258,10 +266,12 @@ export class Spinner implements OnInit,ControlValueAccessor {
             if(this.formatInput) {
                 textValue = textValue.replace(/\B(?=(\d{3})+(?!\d))/g, this.thousandSeparator);
             }
-            this.valueAsString = textValue;
+            if(this.inputViewChild.nativeElement.value !== textValue) {
+                this.inputViewChild.nativeElement.value = textValue;
+            }
         }
         else {
-            this.valueAsString = '';
+            this.inputViewChild.nativeElement.value = '';
         }
     }
     
