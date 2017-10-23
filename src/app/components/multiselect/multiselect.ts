@@ -19,7 +19,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
-                <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+                <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
@@ -120,6 +120,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
         
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -340,8 +342,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.selfClick = true;
     }
     
-    onFocus(event) {
+    onInputFocus(event) {
         this.focus = true;
+        this.onFocus.emit({originalEvent: event});
     }
     
     onInputBlur(event) {
