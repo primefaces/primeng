@@ -190,7 +190,7 @@ export class ColumnFooters {
                             <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + dt.first"></p-columnBodyTemplateLoader>
                         </span>
                         <div class="ui-cell-editor" *ngIf="col.editable">
-                            <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]" required="true"
+                            <input *ngIf="!col.editorTemplate" type="text" [(ngModel)]="rowData[col.field]"
                                 (keydown)="dt.onCellEditorKeydown($event, col, rowData, rowIndex)" (blur)="dt.onCellEditorBlur($event, col, rowData, rowIndex)"
                                 (input)="dt.onCellEditorInput($event, col, rowData, rowIndex)" (change)="dt.onCellEditorChange($event, col, rowData, rowIndex)"
                                 class="ui-inputtext ui-widget ui-state-default ui-corner-all"/>
