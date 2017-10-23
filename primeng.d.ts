@@ -56,6 +56,7 @@ export * from './components/schedule/schedule';
 export * from './components/selectbutton/selectbutton';
 export * from './components/slidemenu/slidemenu';
 export * from './components/slider/slider';
+export * from './components/sidebar/sidebar';
 export * from './components/spinner/spinner';
 export * from './components/splitbutton/splitbutton';
 export * from './components/steps/steps';
