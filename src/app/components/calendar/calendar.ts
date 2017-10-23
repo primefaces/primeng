@@ -1515,6 +1515,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         let date: Date = new Date();
         let dateMeta = {day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), today: true, selectable: true};
         
+        this.createMonth(dateMeta.month, dateMeta.year);
         this.onDateSelect(event, dateMeta);
         this.onTodayClick.emit(event);
     }
