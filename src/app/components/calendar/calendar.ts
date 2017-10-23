@@ -242,6 +242,10 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     @Input() todayButtonStyleClass: string = 'ui-button-secondary';
 
     @Input() clearButtonStyleClass: string = 'ui-button-secondary';
+    
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
 
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
@@ -833,13 +837,22 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     }
 
     isDateBetween(start, end, dateMeta) {
+
         if (start && end) {
             return start.getDate() < dateMeta.day && start.getMonth() <= dateMeta.month && start.getFullYear() <= dateMeta.year &&
                 end.getDate() > dateMeta.day && end.getMonth() >= dateMeta.month && end.getFullYear() >= dateMeta.year;
         }
         else {
             return false;
+
+        let between : boolean = false;
+        if(start && end) {
+            let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+            return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
+
         }
+        
+        return between;
     }
 
     isSingleSelection(): boolean {
@@ -1173,7 +1186,12 @@ export class Calendar implements AfterViewInit, AfterViewChecked, OnInit, OnDest
     showOverlay() {
         this.overlayVisible = true;
         this.overlayShown = true;
+
         this.overlayViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+
+        if(this.autoZIndex) {
+            this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
 
         this.bindDocumentClickListener();
     }

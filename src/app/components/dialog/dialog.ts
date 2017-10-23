@@ -89,6 +89,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() breakpoint: number = 640;
     
     @Input() blockScroll: boolean = false;
+    
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
         
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
@@ -171,7 +175,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     show() {
         this.executePostDisplayActions = true;
-        this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        this.moveOnTop();
         this.bindGlobalListeners();
         
         if(this.modal) {
@@ -285,7 +289,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     moveOnTop() {
-        this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        if(this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
+        
     }
     
     onCloseMouseDown(event: Event) {

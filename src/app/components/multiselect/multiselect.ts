@@ -19,13 +19,13 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
-                <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+                <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
             </div>
             <div [ngClass]="{'ui-multiselect-trigger ui-state-default ui-corner-right':true}">
-                <span class="fa fa-fw fa-caret-down ui-clickable"></span>
+                <span class="ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
             <div #panel [ngClass]="['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow', panelStyleClass||'']" [ngStyle]="panelStyle"
                 [style.display]="overlayVisible ? 'block' : 'none'" (click)="panelClick=true">
@@ -108,6 +108,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() showToggleAll: boolean = true;
     
     @Input() resetFilterOnHide: boolean = false;
+    
+    @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
         
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -118,6 +120,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
         
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+    
+    @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
     
@@ -338,8 +342,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.selfClick = true;
     }
     
-    onFocus(event) {
+    onInputFocus(event) {
         this.focus = true;
+        this.onFocus.emit({originalEvent: event});
     }
     
     onInputBlur(event) {

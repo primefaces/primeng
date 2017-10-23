@@ -62,6 +62,7 @@ __export(require("./components/schedule/schedule"));
 __export(require("./components/selectbutton/selectbutton"));
 __export(require("./components/slidemenu/slidemenu"));
 __export(require("./components/slider/slider"));
+__export(require("./components/sidebar/sidebar"));
 __export(require("./components/spinner/spinner"));
 __export(require("./components/splitbutton/splitbutton"));
 __export(require("./components/steps/steps"));

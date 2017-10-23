@@ -79,6 +79,12 @@ export class Column implements AfterContentInit{
     @Input() colspan: number;
     @Input() style: any;
     @Input() styleClass: string;
+    @Input() headerStyle: any;
+    @Input() headerStyleClass: string;
+    @Input() bodyStyle: any;
+    @Input() bodyStyleClass: string;
+    @Input() footerStyle: any;
+    @Input() footerStyleClass: string;
     @Input() hidden: boolean;
     @Input() expander: boolean;
     @Input() selectionMode: string;
