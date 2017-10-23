@@ -45,6 +45,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked {
         
     @Input() styleClass: string;
     
+    @Input() autoZIndex: boolean = true;
+    
     @Input() baseZIndex: number = 0;
         
     @ViewChild('container') containerViewChild: ElementRef;
@@ -112,7 +114,9 @@ export class Sidebar implements AfterViewInit, AfterViewChecked {
     
     show() {
         this.executePostDisplayActions = true;
-        this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        if(this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
         this.enableModality();
     }
     

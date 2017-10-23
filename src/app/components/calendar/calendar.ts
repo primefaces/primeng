@@ -240,6 +240,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() todayButtonStyleClass: string = 'ui-button-secondary';
     
     @Input() clearButtonStyleClass: string = 'ui-button-secondary';
+    
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
         
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
@@ -1160,7 +1164,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     showOverlay() {
         this.overlayVisible = true;
         this.overlayShown = true;
-        this.overlayViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        if(this.autoZIndex) {
+            this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
         
         this.bindDocumentClickListener();
     }
