@@ -18,8 +18,8 @@ import {Subscription}   from 'rxjs/Subscription';
             <span class="ui-messages-icon fa fa-fw fa-2x" [ngClass]="icon"></span>
             <ul>
                 <li *ngFor="let msg of value">
-                    <span class="ui-messages-summary" [innerHTML]="msg.summary"></span>
-                    <span class="ui-messages-detail" [innerHTML]="msg.detail"></span>
+                    <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
+                    <span *ngIf="msg.detail" class="ui-messages-detail" [innerHTML]="msg.detail"></span>
                 </li>
             </ul>
         </div>
