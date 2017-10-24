@@ -970,7 +970,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     set selection(val: any) {
         this._selection = val;
-        
+
+        console.log(this.preventSelectionKeysPropagation);
         if(this.dataKey && !this.preventSelectionKeysPropagation) {
             this.selectionKeys = {};
             if(this._selection) {
@@ -1652,14 +1653,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 
                 if(this.dataKey) {
                     this.selectionKeys[String(this.resolveFieldData(rowData, this.dataKey))] = 1;
+                    this.preventSelectionKeysPropagation = true;
                 }
             }
 
             this.contextMenu.show(event);
             this.onContextMenuSelect.emit({originalEvent: event, data: rowData});
         }
-        
-        this.preventSelectionKeysPropagation = true;
     }
 
     rowDblclick(event, rowData) {
