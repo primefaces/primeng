@@ -64,10 +64,3 @@
     top: 5px;
     right: 5px;
 }
-
-/* Message */
-.ui-message {
-    border: 1px solid;
-    margin: 0px .25em;
-    padding: .125em .25em;
-}
