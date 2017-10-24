@@ -888,18 +888,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
         this.initialized = true;
     }
-  
-  
-  
+    
     @Input() get multiSortMeta(): SortMeta[]{
         return this._multiSortMeta;
     }
   
     set multiSortMeta(val: SortMeta[]){
-      this._multiSortMeta = val;
-      if (this.sortMode === 'multiple') {
-        this.sortMultiple();
-      }
+        this._multiSortMeta = val;
+        if(this.sortMode === 'multiple') {
+            this.sortMultiple();
+        }
     }
 
     @Input() get sortField(): string{
@@ -907,26 +905,25 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     set sortField(val: string){
-      this._sortField = val;
-
-      if (this.sortMode === 'single') {
-        this.sortSingle();
-      }
+        this._sortField = val;
+        if(this.sortMode === 'single') {
+            this.sortSingle();
+        }
     }
 
     @Input() get sortOrder(): number {
       return this._sortOrder;
     }
     set sortOrder(val: number) {
-      this._sortOrder = val;
-      if (this.sortMode === 'single') {
-        this.sortSingle();
-      }
+        this._sortOrder = val;
+        if(this.sortMode === 'single') {
+            this.sortSingle();
+        }
     }
+    
     @Input() get value(): any[] {
         return this._value;
     }
-
     set value(val:any[]) {
         if(this.immutable) {
             this._value = val ? [...val] : null;
