@@ -83,7 +83,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     public sliderHandleClick: boolean;
     
-    public handleIndex: number;
+    public handleIndex: number = 0;
 
     public startHandleValue: any;
 
@@ -197,7 +197,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     setValueFromHandle(event: Event, handleValue: any) {
         let newValue = this.getValueFromHandle(handleValue);
-     
+
         if(this.range) {
             if(this.step) {
                 this.handleStepChange(newValue, this.values[this.handleIndex]);

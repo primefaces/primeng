@@ -85,7 +85,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     @Input() autoHighlight: boolean;
     
     @Input() forceSelection: boolean;
-    
+        
     @Input() type: string = 'text';
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
@@ -511,12 +511,12 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         
         if(this.forceSelection) {
             let valid = false;
-            let inputValue = event.target.value.toLowerCase().trim();
+            let inputValue = event.target.value.trim();
             
             if(this.suggestions)  {
                 for(let suggestion of this.suggestions) {
                     let itemValue = this.field ? this.objectUtils.resolveFieldData(suggestion, this.field) : suggestion;
-                    if(itemValue && inputValue === itemValue.toLowerCase()) {
+                    if(itemValue && inputValue === itemValue) {
                         valid = true;
                         break;
                     }

@@ -1,58 +1,63 @@
 <div class="content-section introduction">
-    <div>
-        <span class="feature-title">Listbox</span>
-        <span>Listbox is used to select one or more values from a list of items.</span>
-    </div>
+  <div>
+    <span class="feature-title">Listbox</span>
+    <span>Listbox is used to select one or more values from a list of items.</span>
+  </div>
 </div>
 
 <div class="content-section implementation">
-    <h3 class="first">Basic</h3>
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity"></p-listbox>
+  <h3 class="first">Basic</h3>
+  <p-listbox [options]="cities" [(ngModel)]="selectedCity" [style]="{'width':'200px'}"></p-listbox>
 
-    <p>Selected City: {{selectedCity}}</p>
+  <p>Selected City: {{selectedCity}}</p>
 
-    <h3>Advanced (Multiple, Checkbox and Filter)</h3>
-    <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter"></p-listbox>
-    <p>Selected Cities: <span *ngFor="let c of selectedCities" style="margin-right: 10px">{{c}}</span></p>
+  <h3>Advanced (Multiple, Checkbox and Filter)</h3>
+  <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter">
+    <p-header>
+      <i class="fa fa-car"></i>
+      List of Car
+    </p-header>
+  </p-listbox>
+  <p>Selected Cities: <span *ngFor="let c of selectedCities" style="margin-right: 10px">{{c}}</span></p>
 
-    <h3>Content</h3>
-    <p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px'}" [listStyle]="{'max-height':'250px'}">
-        <ng-template let-car pTemplate="item">
-            <div class="ui-helper-clearfix">
-                <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="display:inline-block;margin:5px 0 0 5px" width="48">
-                <span style="float:right;margin:20px 10px 0 0">{{car.value}}</span>
-            </div>
-        </ng-template>
-        <p-footer>
-            Selected: {{selectedCar||'none'}}
-        </p-footer>
-    </p-listbox>
-    
-    <br />
-    
-    <button type="button" (click)="selectedCar=null" pButton icon="fa-close" label="Clear Selected Car"></button>
+  <h3>Content</h3>
+  <p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px'}" [listStyle]="{'max-height':'250px'}">
+    <ng-template let-car pTemplate="item">
+      <div class="ui-helper-clearfix">
+        <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="display:inline-block;margin:5px 0 0 5px" width="48">
+        <span style="float:right;margin:20px 10px 0 0">{{car.value}}</span>
+      </div>
+    </ng-template>
+    <p-footer>
+      Selected: {{selectedCar||'none'}}
+    </p-footer>
+  </p-listbox>
+
+  <br />
+
+  <button type="button" (click)="selectedCar=null" pButton icon="fa-close" label="Clear Selected Car"></button>
 </div>
 
 <div class="content-section documentation">
-    <p-tabView effect="fade">
-        <p-tabPanel header="Documentation">
-            <h3>Import</h3>
-<pre>
+  <p-tabView effect="fade">
+    <p-tabPanel header="Documentation">
+      <h3>Import</h3>
+      <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;ListboxModule&#125; from 'primeng/primeng';
 </code>
 </pre>
 
-            <h3>Getting Started</h3>
-            <p>Two-way value binding is defined using ngModel and listbox requires a collection of options 
-                where each option should follow the SelectItem interface that defines label-value properties.</p>
-<pre>
+      <h3>Getting Started</h3>
+      <p>Two-way value binding is defined using ngModel and listbox requires a collection of options
+        where each option should follow the SelectItem interface that defines label-value properties.</p>
+      <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
-<pre>
+      <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng';
 
@@ -75,18 +80,18 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Selection</h3>
-            <p>Listbox allows selection of either single or multiple items whereas checkbox option displays a checkbox to indicate multiple selection. 
-                In single case, model should be a single object reference whereas in multiple case should be an array. Multiple items can either be selected
-                using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
-                devices metaKeySelection is turned off automatically.</p>
-<pre>
+      <h3>Selection</h3>
+      <p>Listbox allows selection of either single or multiple items whereas checkbox option displays a checkbox to indicate multiple selection.
+        In single case, model should be a single object reference whereas in multiple case should be an array. Multiple items can either be selected
+        using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+        devices metaKeySelection is turned off automatically.</p>
+      <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
-<pre>
+      <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng';
 
@@ -109,30 +114,34 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Filter</h3>
-            <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property. Default filtering
-            mode is "contains" and alternative is "startsWith" configuted by filterMode property.</p>
-<pre>
+      <h3>Filter</h3>
+      <p>Filtering allows searching items in the list using an input field at the header. In order to use filtering, enable filter property. Default filtering
+        mode is "contains" and alternative is "startsWith" configuted by filterMode property.</p>
+      <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" filter="filter"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
-            <h3>Model Driven Forms</h3>
-            <p>Listbox can be used in a model driven form as well.</p>
-<pre>
+      <h3>Model Driven Forms</h3>
+      <p>Listbox can be used in a model driven form as well.</p>
+      <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cities" formControlName="cities"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
-            <h3>Custom Content</h3>
-            <p>Label of an option is used as the display text of an item by default, for custom content support define a ng-template where 
-                the local ng-template variable refers to an option in the options collection. Additionally a custom footer can be provided
-            using p-footer element.</p>
-<pre>
+      <h3>Custom Content</h3>
+      <p>Label of an option is used as the display text of an item by default, for custom content support define a ng-template where
+        the local ng-template variable refers to an option in the options collection. Additionally a custom header and footer can be provided
+        using p-header and p-footer element.</p>
+      <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'190px'&#125;"&gt;
+    &lt;p-header&gt;
+      &lt;i class="fa fa-car"&gt;&lt;/i&gt;
+      List of Car
+    &lt;/p-header&gt;
     &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;img src="assets/showcase/images/demo/car/{{car.label}}.png" style="display:inline-block;margin:5px 0 0 5px" width="48"&gt;
@@ -146,7 +155,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-<pre>
+      <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/primeng'
 
@@ -173,175 +182,175 @@ export class MyModel &#123;
 </code>
 </pre>
 
-            <h3>Properties</h3>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Default</th>
-                        <th>Description</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>options</td>
-                            <td>array</td>
-                            <td>null</td>
-                            <td>An array of selectitems to display as the available options.</td>
-                        </tr>
-                        <tr>
-                            <td>multiple</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When specified, allows selecting multiple values.</td>
-                        </tr>
-                        <tr>
-                            <td>checkbox</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When specified, allows selecting items with checkboxes.</td>
-                        </tr>
-                        <tr>
-                            <td>filter</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When specified, displays a filter input at header.</td>
-                        </tr>
-                        <tr>
-                            <td>filterMode</td>
-                            <td>string</td>
-                            <td>contains</td>
-                            <td>Defines how the items are filtered, valid values are "contains" (default) and "startsWith".</td>
-                        </tr>
-                        <tr>
-                            <td>readonly</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When present, it specifies that the element value cannot be changed.</td>
-                        </tr>
-                        <tr>
-                            <td>disabled</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>When present, it specifies that the element should be disabled.</td>
-                        </tr>
-                        <tr>
-                            <td>style</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Inline style of the container.</td>
-                        </tr>
-                        <tr>
-                            <td>styleClass</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Style class of the container.</td>
-                        </tr>
-                        <tr>
-                            <td>style</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>Inline style of the list element.</td>
-                        </tr>
-                        <tr>
-                            <td>metaKeySelection</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
-                            can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
-                        </tr>
-                        <tr>
-                            <td>dataKey</td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>A property to uniquely identify a value in options.</td>
-                        </tr>
-                        <tr>
-                            <td>showToggleAll</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Whether header checkbox is shown in multiple mode.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <h3>Properties</h3>
+      <div class="doc-tablewrapper">
+        <table class="doc-table">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>options</td>
+            <td>array</td>
+            <td>null</td>
+            <td>An array of selectitems to display as the available options.</td>
+          </tr>
+          <tr>
+            <td>multiple</td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>When specified, allows selecting multiple values.</td>
+          </tr>
+          <tr>
+            <td>checkbox</td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>When specified, allows selecting items with checkboxes.</td>
+          </tr>
+          <tr>
+            <td>filter</td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>When specified, displays a filter input at header.</td>
+          </tr>
+          <tr>
+            <td>filterMode</td>
+            <td>string</td>
+            <td>contains</td>
+            <td>Defines how the items are filtered, valid values are "contains" (default) and "startsWith".</td>
+          </tr>
+          <tr>
+            <td>readonly</td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>When present, it specifies that the element value cannot be changed.</td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>When present, it specifies that the element should be disabled.</td>
+          </tr>
+          <tr>
+            <td>style</td>
+            <td>string</td>
+            <td>null</td>
+            <td>Inline style of the container.</td>
+          </tr>
+          <tr>
+            <td>styleClass</td>
+            <td>string</td>
+            <td>null</td>
+            <td>Style class of the container.</td>
+          </tr>
+          <tr>
+            <td>style</td>
+            <td>string</td>
+            <td>null</td>
+            <td>Inline style of the list element.</td>
+          </tr>
+          <tr>
+            <td>metaKeySelection</td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+              can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
+          </tr>
+          <tr>
+            <td>dataKey</td>
+            <td>string</td>
+            <td>null</td>
+            <td>A property to uniquely identify a value in options.</td>
+          </tr>
+          <tr>
+            <td>showToggleAll</td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Whether header checkbox is shown in multiple mode.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-            <h3>Events</h3>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Parameters</th>
-                        <th>Description</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>onChange</td>
-                            <td>event.originalEvent: browser event<br />
-                                event.value: single value or an array of values that are selected
-                            </td>
-                            <td>Callback to invoke when value of listbox changes.</td>
-                        </tr>
-                        <tr>
-                            <td>onDblClick</td>
-                            <td>event.originalEvent: browser event<br />
-                                event.value: Clicked selecte item
-                            </td>
-                            <td>Callback to invoke when an item is double clicked.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <h3>Events</h3>
+      <div class="doc-tablewrapper">
+        <table class="doc-table">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Parameters</th>
+            <th>Description</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>onChange</td>
+            <td>event.originalEvent: browser event<br />
+              event.value: single value or an array of values that are selected
+            </td>
+            <td>Callback to invoke when value of listbox changes.</td>
+          </tr>
+          <tr>
+            <td>onDblClick</td>
+            <td>event.originalEvent: browser event<br />
+              event.value: Clicked selecte item
+            </td>
+            <td>Callback to invoke when an item is double clicked.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-            <h3>Styling</h3>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
-            <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Element</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>ui-listbox</td>
-                            <td>Container element.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-listbox-list</td>
-                            <td>List container.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-listbox-item</td>
-                            <td>An item in the list.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-listbox-header</td>
-                            <td>Header element.</td>
-                        </tr>
-                        <tr>
-                            <td>ui-listbox-filter-container</td>
-                            <td>Container of filter input in header.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <h3>Styling</h3>
+      <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+      <div class="doc-tablewrapper">
+        <table class="doc-table">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Element</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>ui-listbox</td>
+            <td>Container element.</td>
+          </tr>
+          <tr>
+            <td>ui-listbox-list</td>
+            <td>List container.</td>
+          </tr>
+          <tr>
+            <td>ui-listbox-item</td>
+            <td>An item in the list.</td>
+          </tr>
+          <tr>
+            <td>ui-listbox-header</td>
+            <td>Header element.</td>
+          </tr>
+          <tr>
+            <td>ui-listbox-filter-container</td>
+            <td>Container of filter input in header.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-            <h3>Dependencies</h3>
-            <p>None.</p>
-        </p-tabPanel>
+      <h3>Dependencies</h3>
+      <p>None.</p>
+    </p-tabPanel>
 
-        <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/listbox" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
-                <span>View on GitHub</span>
-            </a>
-<pre>
+    <p-tabPanel header="Source">
+      <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/listbox" class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+      </a>
+      <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-listbox [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-listbox&gt;
@@ -349,7 +358,12 @@ export class MyModel &#123;
 &lt;p&gt;Selected City: {{selectedCity}}&lt;/p&gt;
 
 &lt;h3&gt;Advanced (Multiple, Checkbox and Filter)&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter"&gt;&lt;/p-listbox&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter"&gt;
+    &lt;p-header&gt;
+      &lt;i class="fa fa-car"&gt;&lt;/i&gt;
+      List of Car
+    &lt;/p-header&gt;
+&lt;/p-listbox&gt;
 &lt;p&gt;Selected Cities: &lt;span *ngFor="let c of selectedCities" style="margin-right: 10px"&gt;{{c}}&lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Content&lt;/h3&gt;
@@ -369,7 +383,7 @@ export class MyModel &#123;
 </code>
 </pre>
 
-<pre>
+      <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class ListboxDemo &#123;
 
@@ -406,6 +420,7 @@ export class ListboxDemo &#123;
 &#125;
 </code>
 </pre>
-        </p-tabPanel>
-    </p-tabView>
+    </p-tabPanel>
+  </p-tabView>
 </div>
+

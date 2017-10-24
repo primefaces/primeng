@@ -10,24 +10,19 @@
                 (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
     
     <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
-        [style]="{'overflow':'visible'}" [resizable]="false">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Title</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="start">Start</label></div>
-                <div class="ui-grid-col-8"><p-calendar [(ngModel)]="event.start" dateFormat="yy-mm-dd" dataType="string"></p-calendar></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="end">End</label></div>
-                <div class="ui-grid-col-8"><p-calendar [(ngModel)]="event.end" dateFormat="yy-mm-dd" dataType="string"></p-calendar></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="allday">All Day</label></div>
-                <div class="ui-grid-col-8"><p-checkbox [(ngModel)]="event.allDay" binary="checkbox"></p-checkbox></div>
-            </div>
+        [style]="{'overflow':'visible'}" [resizable]="false" [width]="300">
+        <div class="ui-g ui-fluid" *ngIf="event">
+            <div class="ui-g-4"><label for="vin">Title</label></div>
+            <div class="ui-g-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
+            
+            <div class="ui-g-4"><label for="start">Start</label></div>
+            <div class="ui-g-8"><p-calendar [(ngModel)]="event.start" dateFormat="yy-mm-dd" showTime="true"></p-calendar></div>
+            
+            <div class="ui-g-4"><label for="end">End</label></div>
+            <div class="ui-g-8"><p-calendar [(ngModel)]="event.end" dateFormat="yy-mm-dd" showTime="true">></p-calendar></div>
+            
+            <div class="ui-g-4"><label for="allday">All Day</label></div>
+            <div class="ui-g-8"><p-checkbox [(ngModel)]="event.allDay" binary="checkbox"></p-checkbox></div>
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
@@ -399,6 +394,11 @@ export class MyModel &#123;
                             <td><a href="https://fullcalendar.io/docs/text/timeFormat/">Read more</a></td>
                         </tr>
                         <tr>
+                            <td>navLinks</td>
+                            <td>string</td>
+                            <td><a href="https://fullcalendar.io/docs/mouse/navLinks/">Read more</a></td>
+                        </tr>
+                        <tr>
                             <td>options</td>
                             <td>Object</td>
                             <td>A configuration object to define properties of FullCalendar that do not have a corresponding option in schedule.</td>
@@ -593,24 +593,19 @@ export class MyModel &#123;
             (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"&gt;&lt;/p-schedule&gt;
 
 &lt;p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="&#123;'overflow':'visible'&#125;"
-    [style]="&#123;'overflow':'visible'&#125;" [resizable]="false"&gt;
-    &lt;div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event"&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;&lt;label for="vin"&gt;Title&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;input pInputText id="title" [(ngModel)]="event.title" /&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;&lt;label for="start"&gt;Start&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar [(ngModel)]="event.start" dateFormat="yy-mm-dd" dataType="string"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;&lt;label for="end"&gt;End&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar [(ngModel)]="event.end" dateFormat="yy-mm-dd" dataType="string"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;&lt;label for="allday"&gt;All Day&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-checkbox [(ngModel)]="event.allDay" binary="checkbox"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;/div&gt;
+    [style]="&#123;'overflow':'visible'&#125;" [resizable]="false" [width]="300"&gt;
+    &lt;div class="ui-g ui-fluid" *ngIf="event"&gt;
+        &lt;div class="ui-g-4"&gt;&lt;label for="vin"&gt;Title&lt;/label&gt;&lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;&lt;input pInputText id="title" [(ngModel)]="event.title" /&gt;&lt;/div&gt;
+        
+        &lt;div class="ui-g-4"&gt;&lt;label for="start"&gt;Start&lt;/label&gt;&lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;&lt;p-calendar [(ngModel)]="event.start" dateFormat="yy-mm-dd" showTime="true"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
+        
+        &lt;div class="ui-g-4"&gt;&lt;label for="end"&gt;End&lt;/label&gt;&lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;&lt;p-calendar [(ngModel)]="event.end" dateFormat="yy-mm-dd" showTime="true"&gt;&gt;&lt;/p-calendar&gt;&lt;/div&gt;
+        
+        &lt;div class="ui-g-4"&gt;&lt;label for="allday"&gt;All Day&lt;/label&gt;&lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;&lt;p-checkbox [(ngModel)]="event.allDay" binary="checkbox"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;p-footer&gt;
         &lt;div class="ui-dialog-buttonpane ui-helper-clearfix"&gt;
@@ -650,11 +645,9 @@ export class ScheduleDemo implements OnInit &#123;
     
     handleDayClick(event) &#123;
         this.event = new MyEvent();
-        this.event.start = event.date.format();
+        this.event.start = event.date.toDate();
+        this.event.end = event.date.toDate();
         this.dialogVisible = true;
-        
-        //trigger detection manually as somehow only moving the mouse quickly after click triggers the automatic detection
-        this.cd.detectChanges();
     &#125;
     
     handleEventClick(e) &#123;
