@@ -257,7 +257,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.focusViewChild.nativeElement.focus();
         
         this.hide();
-        event.stopPropagation();
     }
     
     selectItem(event, option) {
