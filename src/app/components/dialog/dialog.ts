@@ -9,11 +9,12 @@ import {Header,Footer,SharedModule} from '../common/shared';
     selector: 'p-dialog',
     template: `
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" [ngStyle]="style" [class]="styleClass"
-            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
+            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'"
+            role="dialog" [attr.aria-labelledby]="ariaLabelledBy">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
-                <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <span class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
+                <span [attr.id]="ariaLabelledBy" class="ui-dialog-title" *ngIf="header">{{header}}</span>
+                <span [attr.id]="ariaLabelledBy" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
                     <ng-content select="p-header"></ng-content>
                 </span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
@@ -45,6 +46,10 @@ import {Header,Footer,SharedModule} from '../common/shared';
     providers: [DomHandler]
 })
 export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
+
+    @Input() id: string;
+    
+    @Input() ariaLabelledBy: string;
 
     @Input() header: string;
 
@@ -89,6 +94,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() breakpoint: number = 640;
     
     @Input() blockScroll: boolean = false;
+    
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
         
     @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
@@ -171,7 +180,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     show() {
         this.executePostDisplayActions = true;
-        this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        this.moveOnTop();
         this.bindGlobalListeners();
         
         if(this.modal) {
@@ -253,7 +262,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
-            this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
+            let maskStyleClass = 'ui-widget-overlay ui-dialog-mask';
+            if(this.blockScroll) {
+                maskStyleClass += ' ui-dialog-mask-scrollblocker';
+            }
+            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
             
 			if(this.closable && this.dismissableMask) {
 	             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -271,7 +284,19 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.mask) {
             document.body.removeChild(this.mask);
             if(this.blockScroll) {
-                this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+                let bodyChildren = document.body.children;
+                let hasBlockerMasks: boolean;
+                for(let i = 0; i < bodyChildren.length; i++) {
+                    let bodyChild = bodyChildren[i];
+                    if(this.domHandler.hasClass(bodyChild, 'ui-dialog-mask-scrollblocker')) {
+                        hasBlockerMasks = true;
+                        break;
+                    }
+                }
+                
+                if(!hasBlockerMasks) {
+                    this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+                }
             }
             this.mask = null;
         }
@@ -285,7 +310,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     moveOnTop() {
-        this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        if(this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
+        
     }
     
     onCloseMouseDown(event: Event) {

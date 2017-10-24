@@ -6,7 +6,7 @@ export interface MenuItem {
     command?: (event?: any) => void;
     url?: string;
     routerLink?: any;
-    items?: MenuItem[];
+    items?: MenuItem[]|MenuItem[][];
     expanded?: boolean;
     disabled?: boolean;
     visible?: boolean;

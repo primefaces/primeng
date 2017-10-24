@@ -240,6 +240,10 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() todayButtonStyleClass: string = 'ui-button-secondary';
     
     @Input() clearButtonStyleClass: string = 'ui-button-secondary';
+    
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
         
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
@@ -823,13 +827,13 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     isDateBetween(start, end, dateMeta) {
+        let between : boolean = false;
         if(start && end) {
-            return start.getDate() < dateMeta.day && start.getMonth() <= dateMeta.month && start.getFullYear() <= dateMeta.year &&
-            end.getDate() > dateMeta.day && end.getMonth() >= dateMeta.month && end.getFullYear() >= dateMeta.year;
+            let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+            return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
-        else {
-            return false; 
-        }
+        
+        return between;
     }
     
     isSingleSelection(): boolean {
@@ -1160,7 +1164,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     showOverlay() {
         this.overlayVisible = true;
         this.overlayShown = true;
-        this.overlayViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        if(this.autoZIndex) {
+            this.overlayViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
         
         this.bindDocumentClickListener();
     }
@@ -1509,6 +1515,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         let date: Date = new Date();
         let dateMeta = {day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), today: true, selectable: true};
         
+        this.createMonth(dateMeta.month, dateMeta.year);
         this.onDateSelect(event, dateMeta);
         this.onTodayClick.emit(event);
     }

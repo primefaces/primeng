@@ -167,14 +167,29 @@ $inputGroupTextColor: #222222;
 .ui-slider-vertical .ui-slider-range-min { bottom: 0; }
 .ui-slider-vertical .ui-slider-range-max { top: 0; }
 
-.ui-progressbar .ui-progressbar-value {
-	 border: 1px solid #3f94e9; 
-     background: #8ec5fc;
+.ui-progressbar {
+    &.ui-progressbar-determinate {
+        .ui-progressbar-value {
+        	 border: 0 none;
+             background: #8ec5fc;
+        }
+        
+        .ui-progressbar .ui-progressbar-label {
+        	color: #222222;
+        }
+    }
+    
+    &.ui-progressbar-indeterminate {
+        background: #8ec5fc;
+        
+        .ui-progressbar-value {
+        	 border: 0 none;
+             background-color: $stateHighlightBgColor;
+        }
+    }
 }
 
-.ui-progressbar .ui-progressbar-label {
-	color: #222222;
-}
+
 
 .ui-widget-header .ui-button,		
 .ui-widget-content .ui-button,

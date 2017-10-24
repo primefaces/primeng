@@ -169,9 +169,11 @@ export class Carousel implements AfterViewChecked,AfterViewInit,OnDestroy{
     
     updateMobileDropdown() {
         this.mobileDropdownOptions = [];
-        for (let i = 0; i < this.value.length; i++) {
-            this.mobileDropdownOptions.push(i);
-        }
+        if(this.value && this.value.length) {
+            for (let i = 0; i < this.value.length; i++) {
+                this.mobileDropdownOptions.push(i);
+            }
+        } 
     }
     
     render() {
