@@ -1688,7 +1688,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     isSelected(rowData) {
-        if(rowData && this.selection) {
+        if(rowData && this.selection && this.selection.length) {
             if(this.dataKey) {
                 return this.selectionKeys[this.objectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
             }
