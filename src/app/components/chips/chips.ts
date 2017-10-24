@@ -163,7 +163,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
     addItem(event: Event, item: string): void {
         this.value = this.value||[];
         if(item && item.trim().length && (!this.max||this.max > item.length)) {
-            if(this.allowDuplicate || !this.value.includes(item)) {
+            if(this.allowDuplicate || this.value.indexOf(item) === -1) {
                 this.value = [...this.value, item];
                 this.onModelChange(this.value);
                 this.onAdd.emit({
