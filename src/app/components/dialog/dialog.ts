@@ -257,7 +257,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
-            this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
+            let maskStyleClass = 'ui-widget-overlay ui-dialog-mask';
+            if(this.blockScroll) {
+                maskStyleClass += ' ui-dialog-mask-scrollblocker';
+            }
+            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
             
 			if(this.closable && this.dismissableMask) {
 	             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -275,7 +279,19 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.mask) {
             document.body.removeChild(this.mask);
             if(this.blockScroll) {
-                this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+                let bodyChildren = document.body.children;
+                let hasBlockerMasks: boolean;
+                for(let i = 0; i < bodyChildren.length; i++) {
+                    let bodyChild = bodyChildren[i];
+                    if(this.domHandler.hasClass(bodyChild, 'ui-dialog-mask-scrollblocker')) {
+                        hasBlockerMasks = true;
+                        break;
+                    }
+                }
+                
+                if(!hasBlockerMasks) {
+                    this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+                }
             }
             this.mask = null;
         }
