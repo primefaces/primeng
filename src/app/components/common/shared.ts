@@ -78,6 +78,7 @@ export class Column implements AfterContentInit{
     @Input() excludeGlobalFilter: boolean;
     @Input() rowspan: number;
     @Input() colspan: number;
+    @Input() scope: string;
     @Input() style: any;
     @Input() styleClass: string;
     @Input() headerStyle: any;
