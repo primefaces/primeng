@@ -77,7 +77,7 @@ export class Column implements AfterContentInit{
     @Input() filterType: string = 'text';
     @Input() rowspan: number;
     @Input() colspan: number;
-	@Input() scope: string;
+    @Input() scope: string;
     @Input() style: any;
     @Input() styleClass: string;
     @Input() hidden: boolean;
