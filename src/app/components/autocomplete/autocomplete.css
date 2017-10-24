@@ -143,6 +143,7 @@
 }
 
 /** AutoComplete **/
+.ui-fluid p-autocomplete,
 .ui-fluid .ui-autocomplete,
 .ui-fluid .ui-autocomplete-input {
     width: 100%;
@@ -155,11 +156,4 @@
 
 .ui-fluid .ui-autocomplete .ui-autocomplete-dropdown.ui-button {
     width: 2em;
-}
-
-/* InputGroup */
-.ui-fluid .ui-inputgroup p-autocomplete {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
 }
