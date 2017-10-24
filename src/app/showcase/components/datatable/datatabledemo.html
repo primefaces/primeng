@@ -1036,10 +1036,7 @@ loadData(event: LazyLoadEvent) &#123;
 
             <h3>Loading Status</h3>
             <p>DataTable has a loading property, when enabled a spinner icon is displayed to indicate data load.
-                An optional loadingIcon property can be passed in case you'd like a different loading icon. Note that
-                when lazy loading is enabled, DataTable handles loading status itself so there is no need to use
-                the loading property as it is built-in for lazy loading case. If you prefer to use your own loader in lazy mode, set
-                enableLoader property to false.</p>
+                An optional loadingIcon property can be passed in case you'd like a different loading icon.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dataTable [value]="cars" [loading]="loading" loadingIcon="fa-spinner"&gt;
@@ -1437,12 +1434,6 @@ export class DataTableDemo implements OnInit &#123;
                             <td>string</td>
                             <td>fa-circle-o-notch</td>
                             <td>The icon to show while indicating data load is in progress.</td>
-                        </tr>
-                        <tr>
-                            <td>enableLoader</td>
-                            <td>boolean</td>
-                            <td>true</td>
-                            <td>Whether to use built-in loader in lazy mode.</td>
                         </tr>
                         <tr>
                             <td>rowTrackBy</td>

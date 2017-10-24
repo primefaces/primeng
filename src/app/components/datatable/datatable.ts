@@ -667,8 +667,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     @Input() loadingIcon: string = 'fa-circle-o-notch';
     
-    @Input() enableLoader: boolean = true;
-    
     @Input() virtualScrollDelay: number = 500;
   
     @Input() rowGroupExpandMode: string = 'multiple';
@@ -992,11 +990,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    handleDataChange() {
-        if(this.lazy && this.enableLoader) {
-            this.loading = false;
-        }
-        
+    handleDataChange() {        
         if(this.paginator) {
             this.updatePaginator();
         }
@@ -2386,11 +2380,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         return !this.dataToRender||(this.dataToRender.length == 0);
     }
 
-    createLazyLoadMetadata(): LazyLoadEvent {
-        if(this.enableLoader) {
-            this.loading = true;
-        }
-        
+    createLazyLoadMetadata(): LazyLoadEvent {        
         return {
             first: this.first,
             rows: this.virtualScroll ? this.rows * 2 : this.rows,
