@@ -335,6 +335,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     public rowHeight: number;
     
     public scrollTimeout: any;
+
+    public currentPage: number;
     
     ngAfterViewInit() {
         this.initScrolling();
@@ -407,10 +409,13 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
 
             if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
                 let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
-                this.onVirtualScroll.emit({
-                    page: page
-                });
-                this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+                if(this.currentPage != page) {
+                  this.currentPage = page;
+                  this.onVirtualScroll.emit({
+                      page: page
+                  });
+                  this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+                }
             }
         }
     }
