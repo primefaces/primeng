@@ -1102,10 +1102,15 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     updateTime() {
         let value = this.value ? new Date(this.value.getTime()) : new Date();
-        if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
-            value.setHours(this.currentHour + 12);
-        else
+        if(this.hourFormat == '12') {
+            if(this.currentHour === 12)
+                value.setHours(this.pm ? 12 : 0);
+            else
+                value.setHours(this.pm ? this.currentHour + 12 : this.currentHour);
+        }
+        else {
             value.setHours(this.currentHour);
+        }            
         
         value.setMinutes(this.currentMinute);
         value.setSeconds(this.currentSecond);
