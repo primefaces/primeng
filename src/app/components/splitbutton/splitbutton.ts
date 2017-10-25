@@ -22,7 +22,7 @@ import {RouterModule} from '@angular/router';
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
                         </a>
-                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink"
+                        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams"
                             class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                             <span [ngClass]="'ui-menuitem-icon fa fa-fw'" [class]="item.icon" *ngIf="item.icon"></span>
                             <span class="ui-menuitem-text">{{item.label}}</span>
