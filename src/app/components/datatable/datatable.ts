@@ -217,7 +217,7 @@ export class ColumnFooters {
             </tr>
         </ng-template>
 
-        <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row">
+        <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row" [style.visibility]="dt.loading ? 'hidden' : 'visible'">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
                 <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
                 <p-templateLoader [template]="dt.emptyMessageTemplate"></p-templateLoader>
@@ -998,7 +998,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    handleDataChange() {        
+    handleDataChange() {                
         if(this.paginator) {
             this.updatePaginator();
         }

@@ -120,6 +120,7 @@ export class DataTableScrollDemo implements OnInit &#123;
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
+        this.loading = true;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
         this.frozenCars = [
             &#123;"brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23"&#125;,
@@ -144,6 +145,7 @@ export class DataTableScrollDemo implements OnInit &#123;
     
     loadCarsLazy(event: LazyLoadEvent) &#123;
         this.loading = true;
+        
         //for demo purposes keep loading the same dataset 
         //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
         setTimeout(() => &#123;
@@ -190,7 +192,7 @@ export class DataTableScrollDemo implements OnInit &#123;
                 &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 38&#125;,
                 &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 39&#125;
             ];  
-        &#125;, 2500);    
+        &#125;, 2000);    
     &#125;
     
 &#125;
