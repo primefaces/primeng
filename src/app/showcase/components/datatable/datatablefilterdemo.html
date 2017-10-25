@@ -18,10 +18,10 @@
     <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
         <p-header>List of Cars</p-header>
         <p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"></p-column>
-        <p-column field="year" header="Year ({{yearFilter||'No Filter'}})" [filter]="true" filterMatchMode="equals">
+        <p-column field="year" header="Year ({{yearFilter||'No Filter'}})" [filter]="true" filterMatchMode="between">
             <ng-template pTemplate="filter" let-col>
-                <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"></i>
-                <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt, col)"></p-slider>
+                <i class="fa fa-close" (click)="yearFilter=[1970, 2010];dt.filter(yearFilter,col.field,col.filterMatchMode)"></i>
+                <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" [range]="true" (onChange)="onYearChange($event, dt, col)"></p-slider>
             </ng-template>
         </p-column>
         <p-column field="brand" header="Brand (Custom)" [filter]="true" filterMatchMode="equals">
@@ -49,20 +49,20 @@
 export class DataTableFilterDemo implements OnInit &#123;
 
     cars: Car[];
-    
+
     brands: SelectItem[];
-    
+
     colors: SelectItem[];
-    
+
     yearFilter: number;
-    
+
     yearTimeout: any;
-    
+
     constructor(private carService: CarService) &#123;&#125;
 
     ngOnInit() &#123;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
-        
+
         this.brands = [];
         this.brands.push(&#123;label: 'All Brands', value: null&#125;);
         this.brands.push(&#123;label: 'Audi', value: 'Audi'&#125;);
@@ -74,7 +74,7 @@ export class DataTableFilterDemo implements OnInit &#123;
         this.brands.push(&#123;label: 'Renault', value: 'Renault'&#125;);
         this.brands.push(&#123;label: 'VW', value: 'VW'&#125;);
         this.brands.push(&#123;label: 'Volvo', value: 'Volvo'&#125;);
-        
+
         this.colors = [];
         this.colors.push(&#123;label: 'White', value: 'White'&#125;);
         this.colors.push(&#123;label: 'Green', value: 'Green'&#125;);
@@ -86,19 +86,19 @@ export class DataTableFilterDemo implements OnInit &#123;
         this.colors.push(&#123;label: 'Orange', value: 'Orange'&#125;);
         this.colors.push(&#123;label: 'Blue', value: 'Blue'&#125;);
     &#125;
-    
+
     onYearChange(event, dt, col) &#123;
         if(this.yearTimeout) &#123;
             clearTimeout(this.yearTimeout);
         &#125;
-        
+
         this.yearTimeout = setTimeout(() => &#123;
             dt.filter(event.value, col.field, col.filterMatchMode);
         &#125;, 250);
     &#125;
 &#125;
 </code>
-</pre>            
+</pre>
         </p-tabPanel>
 
         <p-tabPanel header="datatablefilterdemo.html">

@@ -9,20 +9,20 @@ import {SelectItem} from '../../../components/common/api';
 export class DataTableFilterDemo implements OnInit {
 
     cars: Car[];
-    
+
     brands: SelectItem[];
-    
+
     colors: SelectItem[];
-    
-    yearFilter: number;
-    
+
+    yearFilter: number[] = [1970, 2010];
+
     yearTimeout: any;
-    
+
     constructor(private carService: CarService) {}
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
-        
+
         this.brands = [];
         this.brands.push({label: 'All Brands', value: null});
         this.brands.push({label: 'Audi', value: 'Audi'});
@@ -34,7 +34,7 @@ export class DataTableFilterDemo implements OnInit {
         this.brands.push({label: 'Renault', value: 'Renault'});
         this.brands.push({label: 'VW', value: 'VW'});
         this.brands.push({label: 'Volvo', value: 'Volvo'});
-        
+
         this.colors = [];
         this.colors.push({label: 'White', value: 'White'});
         this.colors.push({label: 'Green', value: 'Green'});
@@ -46,14 +46,15 @@ export class DataTableFilterDemo implements OnInit {
         this.colors.push({label: 'Orange', value: 'Orange'});
         this.colors.push({label: 'Blue', value: 'Blue'});
     }
-    
+
     onYearChange(event, dt, col) {
         if(this.yearTimeout) {
             clearTimeout(this.yearTimeout);
         }
-        
+
         this.yearTimeout = setTimeout(() => {
-            dt.filter(event.value, col.field, col.filterMatchMode);
+            let filterValue = {'start': this.yearFilter[0], 'end': this.yearFilter[1]};
+            dt.filter(filterValue, col.field, col.filterMatchMode);
         }, 250);
     }
 }
