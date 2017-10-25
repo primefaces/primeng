@@ -566,7 +566,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         if(this.multiple)
             this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
         else
-            this.filled = this.inputFieldValue && this.inputFieldValue != '';
+            this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');;
     }
     
     updateInputField() {
