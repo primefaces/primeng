@@ -506,7 +506,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         this.onModelTouched();
         this.onBlur.emit(event);
         
-        if(this.forceSelection) {
+        if(this.forceSelection && this.suggestions) {
             let valid = false;
             let inputValue = event.target.value.trim();
             
