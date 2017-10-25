@@ -212,7 +212,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
     
     ngDoCheck() {
-        let valueChanges = this.valueDiffer.diff(this.value);
+        let valueChanges = this.value ? this.valueDiffer.diff(this.value) : true;
         let optionChanges = this.optionsDiffer.diff(this.options);
         
         if(valueChanges||optionChanges) {
