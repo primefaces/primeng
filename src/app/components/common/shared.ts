@@ -61,7 +61,7 @@ export class TemplateWrapper implements OnInit, OnDestroy {
 
 @Component({
     selector: 'p-column',
-    template: ``
+    template: ''
 })
 export class Column implements AfterContentInit{
     @Input() field: string;
