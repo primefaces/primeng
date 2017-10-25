@@ -700,6 +700,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             date.setMinutes(this.currentMinute);
             date.setSeconds(this.currentSecond);
         }
+        
+        if(this.minDate && this.minDate > date) {
+            date = this.minDate;
+        }
+        
+        if(this.maxDate && this.maxDate < date) {
+            date = this.maxDate;
+        }
                 
         if(this.isSingleSelection()) {
             this.updateModel(date);
@@ -967,62 +975,129 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     incrementHour(event) {
         let newHour = this.currentHour + this.stepHour;
-        if(this.hourFormat == '24')
-            this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;        
-        else if(this.hourFormat == '12')
-            this.currentHour = (newHour >= 13) ? (newHour - 12) : newHour;
-        
-        this.updateTime();
-                
+
+        if(this.validateHour(newHour)) {
+            if(this.hourFormat == '24')
+                this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;        
+            else if(this.hourFormat == '12')
+                this.currentHour = (newHour >= 13) ? (newHour - 12) : newHour;
+            
+            this.updateTime();
+        }
+    
         event.preventDefault();
     }
     
     decrementHour(event) {
         let newHour = this.currentHour - this.stepHour;
-        if(this.hourFormat == '24')
-            this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;        
-        else if(this.hourFormat == '12')
-            this.currentHour = (newHour <= 0) ? (12 + newHour) : newHour;
-            
-        this.updateTime();
+        
+        if(this.validateHour(newHour)) {
+            if(this.hourFormat == '24')
+                this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;        
+            else if(this.hourFormat == '12')
+                this.currentHour = (newHour <= 0) ? (12 + newHour) : newHour;
+                
+            this.updateTime();
+        }
 
         event.preventDefault();
     }
     
+    validateHour(hour): boolean {
+        let valid: boolean = true;
+        let valueDateString = this.value ? this.value.toDateString() : null;
+        
+        if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
+            if(this.minDate.getHours() > hour) {
+                valid = false;
+            }
+        }
+        
+        if(this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
+            if(this.maxDate.getHours() < hour) {
+                valid = false;
+            }
+        }
+        
+        return valid;
+    }
+    
     incrementMinute(event) {
         let newMinute = this.currentMinute + this.stepMinute;
-        this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
-            
-        this.updateTime();
+        if(this.validateMinute(newMinute)) {
+            this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
+            this.updateTime();
+        }
                 
         event.preventDefault();
     }
     
     decrementMinute(event) {
         let newMinute = this.currentMinute - this.stepMinute;
-        this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
-            
-        this.updateTime();
-            
+        if(this.validateMinute(newMinute)) {
+            this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
+            this.updateTime();
+        }
+        
         event.preventDefault();
+    }
+    
+    validateMinute(minute): boolean {
+        let valid: boolean = true;
+        let valueDateString = this.value ? this.value.toDateString() : null;
+        
+        if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
+            if(this.minDate.getMinutes() > minute) {
+                valid = false;
+            }
+        }
+        
+        if(this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
+            if(this.maxDate.getMinutes() < minute) {
+                valid = false;
+            }
+        }
+        
+        return valid;
     }
     
     incrementSecond(event) {
         let newSecond = this.currentSecond + this.stepSecond;
-        this.currentSecond = (newSecond > 59) ? newSecond - 60 : newSecond;
-            
-        this.updateTime();
-                
+        if(this.validateSecond(newSecond)) {
+            this.currentSecond = (newSecond > 59) ? newSecond - 60 : newSecond;
+            this.updateTime();
+        }
+    
         event.preventDefault();
     }
     
     decrementSecond(event) {
         let newSecond = this.currentSecond - this.stepSecond;
-        this.currentSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
-            
-        this.updateTime();
-            
+        if(this.validateSecond(newSecond)) {
+            this.currentSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
+            this.updateTime();
+        }
+        
         event.preventDefault();
+    }
+    
+    validateSecond(second): boolean {
+        let valid: boolean = true;
+        let valueDateString = this.value ? this.value.toDateString() : null;
+        
+        if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
+            if(this.minDate.getSeconds() > second) {
+                valid = false;
+            }
+        }
+        
+        if(this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
+            if(this.maxDate.getSeconds() < second) {
+                valid = false;
+            }
+        }
+        
+        return valid;
     }
     
     updateTime() {
