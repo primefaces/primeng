@@ -1221,6 +1221,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             let hours = val.getHours();
             
             if(this.hourFormat == '12') {
+                this.pm = hours > 11;
+                
                 if(hours >= 12) {
                     this.currentHour = (hours == 12) ? 12 : hours - 12;
                 }
