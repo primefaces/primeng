@@ -41,7 +41,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 [style.display]="panelVisible ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event)">
+                    (keydown)="onKeydown($event)">
                     <span class="fa fa-search"></span>
                 </div>
                 <div #itemswrapper class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
@@ -117,6 +117,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() autofocus: boolean;
     
     @Input() resetFilterOnHide: boolean = false;
+
+    @Input() keydownEnable: boolean = true;
     
     @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
     
@@ -441,7 +443,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
     
     onKeydown(event) {
-        if(this.readonly) {
+        if(this.readonly || !this.keydownEnable) {
             return;
         }
         
