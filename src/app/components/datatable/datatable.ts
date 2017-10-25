@@ -163,7 +163,7 @@ export class ColumnFooters {
             <tr #rowGroupElement class="ui-widget-header ui-rowgroup-header"
                 *ngIf="dt.rowGroupMode=='subheader' && (rowIndex === 0||(dt.resolveFieldData(rowData,dt.groupField) !== dt.resolveFieldData(dt.dataToRender[rowIndex - 1], dt.groupField)))"
                 (click)="dt.onRowGroupClick($event)" [ngStyle]="{'cursor': dt.sortableRowGroup ? 'pointer' : 'auto'}">
-                <td [attr.colspan]="dt.visibleColumns().length">
+                <td [attr.colspan]="startCol === -1 ? dt.visibleColumns().length : endCol - startCol">
                     <a href="#" *ngIf="dt.expandableRowGroups" (click)="dt.toggleRowGroup($event,rowData)">
                         <span class="fa fa-fw" [ngClass]="dt.isRowGroupExpanded(rowData) ? dt.expandedIcon : dt.collapsedIcon"></span>
                     </a>
@@ -180,12 +180,13 @@ export class ColumnFooters {
                                 dt.isRowExpanded(rowData) ? 'ui-expanded-row': '',
                                 dt.getRowStyleClass(rowData,rowIndex)]">
                 <ng-template ngFor let-col [ngForOf]="columns" let-colIndex="index">
-                    <td #cell *ngIf="!dt.rowGroupMode || (dt.rowGroupMode == 'subheader') ||
-                        (dt.rowGroupMode=='rowspan' && ((dt.sortField==col.field && dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].index == rowIndex) || (dt.sortField!=col.field)))"
+                    <td #cell *ngIf="(!dt.rowGroupMode || (dt.rowGroupMode == 'subheader') ||
+                        (dt.rowGroupMode=='rowspan' && ((dt.sortField==col.field && dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].index == rowIndex) || (dt.sortField!=col.field))))"
                         [ngStyle]="col.bodyStyle||col.style" [class]="col.bodyStyleClass||col.styleClass" (click)="dt.switchCellToEditMode(cell,col,rowData)"
                         [ngClass]="{'ui-editable-column':col.editable,'ui-selection-column':col.selectionMode, 'ui-helper-hidden': col.hidden}"
                         [attr.rowspan]="(dt.rowGroupMode=='rowspan' && dt.sortField == col.field && dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].index == rowIndex) ? dt.rowGroupMetadata[dt.resolveFieldData(rowData,dt.sortField)].size : null">
                         <span class="ui-column-title" *ngIf="dt.responsive">{{col.header}}</span>
+                        <span class="ui-cell-loading" *ngIf="dt.virtualScrollCellLoadingText" style="display: none">{{dt.virtualScrollCellLoadingText}}</span>
                         <span class="ui-cell-data" *ngIf="!col.bodyTemplate && !col.expander && !col.selectionMode">{{dt.resolveFieldData(rowData,col.field)}}</span>
                         <span class="ui-cell-data" *ngIf="col.bodyTemplate">
                             <p-columnBodyTemplateLoader [column]="col" [rowData]="rowData" [rowIndex]="rowIndex + dt.first"></p-columnBodyTemplateLoader>
@@ -208,7 +209,7 @@ export class ColumnFooters {
                 </ng-template>
             </tr>
             <tr *ngIf="dt.expandableRows && dt.isRowExpanded(rowData)" class="ui-expanded-row-content">
-                <td [attr.colspan]="dt.visibleColumns().length">
+                <td [attr.colspan]="startCol === -1 ? dt.visibleColumns().length : endCol - startCol">
                     <p-rowExpansionLoader [rowData]="rowData" [rowIndex]="rowIndex" [template]="dt.rowExpansionTemplate"></p-rowExpansionLoader>
                 </td>
             </tr>
@@ -218,7 +219,7 @@ export class ColumnFooters {
         </ng-template>
 
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row">
-            <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
+            <td [attr.colspan]="startCol === -1 ? dt.visibleColumns().length : endCol - startCol" class="ui-datatable-emptymessage">
                 <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
                 <p-templateLoader [template]="dt.emptyMessageTemplate"></p-templateLoader>
             </td>
@@ -232,7 +233,12 @@ export class TableBody {
     @Input("pTableBody") columns: Column[];
     
     @Input() data: any[];
-    
+
+    @Input()  startCol: number = -1;
+
+    @Input()  endCol: number = -1;
+
+
     visibleColumns() {
         return this.columns ? this.columns.filter(c => !c.hidden): [];
     }
@@ -254,13 +260,14 @@ export class TableBody {
                 </table>
             </div>
         </div>
-        <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'width': width}">
+        <div #scrollBody class="ui-datatable-scrollable-body" [ngStyle]="{'max-width': dt.scrollWidth,'max-height':dt.scrollHeight}">
             <div #scrollTableWrapper class="ui-datatable-scrollable-table-wrapper" style="position:relative">
                 <table #scrollTable [class]="dt.tableStyleClass" [ngStyle]="dt.tableStyle" [ngClass]="{'ui-datatable-virtual-table':virtualScroll}" style="top:0px">
                     <colgroup class="ui-datatable-scrollable-colgroup">
-                        <col *ngFor="let col of columns" [ngStyle]="col.headerStyle||col.style" [ngClass]="{'ui-helper-hidden': col.hidden}"/>
+                        <col *ngFor="let col of columnsToRender" [ngStyle]="col.headerStyle||col.style" [ngClass]="{'ui-helper-hidden': col.hidden}"/>
                     </colgroup>
-                    <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columns" [data]="dt.dataToRender"></tbody>
+                    <tbody [ngClass]="{'ui-datatable-data ui-widget-content': true, 'ui-datatable-hoverable-rows': (dt.rowHover||dt.selectionMode)}" [pTableBody]="columnsToRender" [data]="dt.dataToRender"
+                        [startCol] = "startCol" [endCol] = "endCol"></tbody>
                 </table>
             </div>
         </div>
@@ -307,9 +314,27 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     @Input() width: string;
     
     @Input() virtualScroll: boolean;
-    
+
+    @Input() virtualHScroll: boolean;
+
     @Output() onVirtualScroll: EventEmitter<any> = new EventEmitter();
-    
+
+    @Output() onVirtualHScroll: EventEmitter<any> = new EventEmitter();
+
+    public columnsToRender: Column[];
+
+    public startCol: number = -1;
+
+    public endCol: number = -1;
+
+    public _startCol: number = -1;
+
+    public _endCol: number = -1;
+
+    public _colsWidth: number = -1;
+
+    public _scrollTableLeft: number = -1;
+
     public scrollBody: HTMLDivElement;
     
     public scrollHeader: HTMLDivElement;
@@ -335,9 +360,20 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     public rowHeight: number;
     
     public scrollTimeout: any;
-    
+
+    virtualHScrollTimer: any;
+
+    private oldVScrollValue: number = 0;
+
+    private oldHScrollValue: number = 0;
+
+    private dataHidden: boolean = false;
+
     ngAfterViewInit() {
         this.initScrolling();
+          // call after headers are rendered to calculate widths of data cells
+          // if horizontal virtual scrolling enabled
+          this.prepareCols(true);
     }
     
     ngAfterViewChecked() {
@@ -351,13 +387,16 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         if(!this.frozen) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    this.alignScrollBar();
+                  if (this.dt.virtualScrollCellLoadingText && this.dt.scrollFinished) {
+                    this.showCellsData();
+                  }
+                  this.alignScrollBar();
                 }, 1);
             });
         }
-    }
-    
-    initScrolling() {
+      }
+
+      initScrolling() {
         this.scrollHeader = <HTMLDivElement> this.scrollHeaderViewChild.nativeElement;
         this.scrollHeaderBox = <HTMLDivElement> this.scrollHeaderBoxViewChild.nativeElement;
         this.scrollBody = <HTMLDivElement> this.scrollBodyViewChild.nativeElement;
@@ -384,6 +423,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
     }
     
     onBodyScroll(event) {
+      this.dt.scrollFinished = false;
         let frozenView = this.el.nativeElement.previousElementSibling;
         if(frozenView) {
             var frozenScrollBody = this.domHandler.findSingle(frozenView, '.ui-datatable-scrollable-body');
@@ -397,21 +437,28 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
         if(frozenScrollBody) {
             frozenScrollBody.scrollTop = this.scrollBody.scrollTop;
         }
-        
-        if(this.virtualScroll) {
-            let viewport = this.domHandler.getOuterHeight(this.scrollBody);
-            let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
+
+        if (this.virtualHScroll && this.oldHScrollValue !== this.scrollBody.scrollLeft) {
+          this.oldHScrollValue = this.scrollBody.scrollLeft;
+          this.prepareCols();
+        }
+        if(this.virtualScroll && this.oldVScrollValue !== this.scrollBody.scrollTop) {
+          this.oldVScrollValue = this.scrollBody.scrollTop;
+          let viewport = this.domHandler.getOuterHeight(this.scrollBody);
+          let tableHeight = this.domHandler.getOuterHeight(this.scrollTable);
+
+          if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
+            this.hideCellsData();
+
             let pageHeight = this.rowHeight * this.dt.rows;
             let virtualTableHeight = this.domHandler.getOuterHeight(this.scrollTableWrapper);
             let pageCount = (virtualTableHeight / pageHeight)||1;
-
-            if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
-                let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
-                this.onVirtualScroll.emit({
-                    page: page
-                });
-                this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
-            }
+            let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
+            this.onVirtualScroll.emit({
+                  page: page
+            });
+            this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+          }
         }
     }
     
@@ -434,7 +481,101 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             }
         }
     }
-    
+
+
+    prepareCols(firstTime: boolean = false): void {
+      if(this.virtualHScroll) {
+        let virtualTableWidth = this.domHandler.getOuterWidth(this.scrollTableWrapper);
+        let viewportWidth = this.domHandler.getOuterWidth(this.scrollHeader);
+        if(this.scrollBody.scrollLeft + viewportWidth > virtualTableWidth) {
+          this.scrollBody.scrollLeft = this.domHandler.getOuterWidth(this.scrollHeaderBox) - viewportWidth;
+        }
+        let tableWidth = this.domHandler.getOuterWidth(this.scrollTable);
+
+        if(firstTime || this.scrollBody.scrollLeft + viewportWidth > parseFloat(this.scrollTable.style.left) + tableWidth || this.scrollBody.scrollLeft < parseFloat(this.scrollTable.style.left)) {
+          let th: any[] = this.domHandler.find(this.scrollHeaderBox, 'th');
+          this.hideCellsData();
+
+          this._startCol = 0;
+          this._endCol = 0;
+          this._colsWidth = 0;
+          this._scrollTableLeft = 0;
+          for(let i: number = 0; i < th.length; i++) {
+            this._colsWidth+= this.domHandler.getOuterWidth(th[i]);
+            if(this._colsWidth < this.scrollBody.scrollLeft) {
+              this._startCol++;
+              this._scrollTableLeft = this._colsWidth;
+            }
+            if(this._colsWidth < this.scrollBody.scrollLeft + viewportWidth) {
+              this._endCol++;
+            } else {
+              break;
+            }
+          }
+          this.scrollTable.style.left = this._scrollTableLeft + 'px';
+          if(this.virtualHScrollTimer) {
+              clearTimeout(this.virtualHScrollTimer);
+          }
+
+          this.virtualHScrollTimer = setTimeout(() => {
+            this.zone.run(() => {
+              this._endCol = Math.min(th.length, this._endCol + 10);
+              this.columnsToRender = this.columns.slice(this._startCol, this._endCol);
+              setTimeout(() => {
+                this.startCol = this._startCol;
+                this.endCol = this._endCol;
+                this.onVirtualHScroll.emit({
+                  startCol: this.startCol,
+                  endCol: this.endCol
+                });
+              }, 10);
+            });
+          }, this.dt.virtualScrollDelay);
+        }
+      } else {
+        this.columnsToRender = this.columns;
+      }
+      return;
+    }
+
+    private hideCellsData() {
+      if (!this.dt.virtualScrollCellLoadingText) {
+        return;
+      }
+      if (this.dataHidden) {
+        return;
+      }
+        let dc = this.domHandler.find(this.scrollTable, '.ui-cell-data');
+        for(let i = 0; i< dc.length; i++) {
+          this.renderer.setStyle(dc[i], 'display', 'none');
+        }
+        let dl = this.domHandler.find(this.scrollTable, '.ui-cell-loading');
+        for(let i = 0; i< dl.length; i++) {
+          this.renderer.removeStyle(dl[i], 'display');
+        }
+        this.dataHidden = true;
+      }
+
+      private showCellsData() {
+        if (!this.dt.virtualScrollCellLoadingText) {
+          return;
+        }
+        if (!this.dataHidden) {
+          return;
+        }
+        setTimeout(() => {
+          let dc = this.domHandler.find(this.scrollTable, '.ui-cell-data');
+          for(let i = 0; i< dc.length; i++) {
+            this.renderer.removeStyle(dc[i], 'display');
+          }
+          let dl = this.domHandler.find(this.scrollTable, '.ui-cell-loading');
+          for(let i = 0; i< dl.length; i++) {
+            this.renderer.setStyle(dl[i], 'display', 'none');
+          }
+          this.dataHidden = false;
+        }, 10);
+      }
+
     onHeaderScroll(event) {
         this.scrollHeader.scrollLeft = 0;
     }
@@ -496,7 +637,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                         [ngStyle]="{'width':this.frozenWidth}" class="ui-datatable-scrollable-view ui-datatable-frozen-view"></div>
                     <div [pScrollableView]="scrollableColumns" [ngStyle]="{'width':this.unfrozenWidth, 'left': this.frozenWidth}"
                         [headerColumnGroup]="scrollableHeaderColumnGroup" [footerColumnGroup]="scrollableFooterColumnGroup"
-                        class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" (onVirtualScroll)="onVirtualScroll($event)"
+                        class="ui-datatable-scrollable-view" [virtualScroll]="virtualScroll" [virtualHScroll]="virtualHScroll" (onVirtualScroll)="onVirtualScroll($event)" (onVirtualHScroll)="onVirtualHScroll($event)"
                         [ngClass]="{'ui-datatable-unfrozen-view': hasFrozenColumns()}"></div>
                 </div>
             </ng-template>
@@ -569,6 +710,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() scrollable: boolean;
     
     @Input() virtualScroll: boolean;
+
+    @Input() virtualHScroll: boolean;
+
+    @Input() virtualScrollCellLoadingText: string;
 
     @Input() scrollHeight: any;
 
@@ -700,6 +845,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     public page: number = 0;
 
+    public startCol: number = -1;
+
+    public endCol: number = -1;
+
     public filterTimeout: any;
 
     public filteredValue: any[];
@@ -779,7 +928,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     public preventSortPropagation: boolean;
     
     public preventRowClickPropagation: boolean;
-  
+
+    public scrollFinished: boolean = true;
+
     _multiSortMeta: SortMeta[];
     
     _sortField: string;
@@ -805,7 +956,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     initialized: boolean;
     
     virtualScrollTimer: any;
-    
+
+    virtualHScrollTimer: any;
+
     virtualScrollableTableWrapper: HTMLDivElement;
     
     editChanged: boolean;
@@ -868,6 +1021,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.totalRecordsChanged && this.virtualScroll && this.virtualScrollableTableWrapper && this.virtualScrollableTableWrapper.offsetParent) {
             let row = this.domHandler.findSingle(this.virtualScrollableTableWrapper,'tr.ui-widget-content');
             let rowHeight = this.domHandler.getOuterHeight(row);
+            if (!rowHeight) {
+              rowHeight = 28;
+            }
             this.virtualTableHeight = this._totalRecords * rowHeight;
             this.virtualScrollableTableWrapper.style.height = this.virtualTableHeight + 'px';
             this.totalRecordsChanged = false;
@@ -1156,11 +1312,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     this.onLazyLoad.emit(this.createLazyLoadMetadata());
                 else
                     this.updateDataToRender(this.filteredValue||this.value);
+                this.scrollFinished = true;
             }, this.virtualScrollDelay);
         });
     }
-    
-    onHeaderKeydown(event, column: Column) {
+
+    onVirtualHScroll(event) {
+      this.startCol = event.startCol;
+      this.endCol = event.endCol;
+
+      this.fixColumnWidths(true);
+
+      this.scrollFinished = true;
+    }
+
+  onHeaderKeydown(event, column: Column) {
         if(event.keyCode == 13) {
             this.sort(event, column);
             event.preventDefault();
@@ -2180,7 +2346,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                     
                     if(this.scrollable) {
                         let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
-                        let resizeColumnIndex = this.domHandler.index(this.resizeColumn);
+                        let resizeColumnIndex = this.domHandler.index(this.resizeColumn) - (this.startCol >= 0 ? this.startCol : 0);
                         colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
                         
                         if(nextColumn) {
@@ -2197,7 +2363,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 if(this.scrollable) {
                     this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box').children[0].style.width = containerWidth;
                     let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
-                    let resizeColumnIndex = this.domHandler.index(this.resizeColumn);
+                    let resizeColumnIndex = this.domHandler.index(this.resizeColumn) - (this.startCol >= 0 ? this.startCol : 0);
                     colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
                 }
                 else {
@@ -2216,8 +2382,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         this.domHandler.removeClass(this.el.nativeElement.children[0], 'ui-unselectable-text');
         this.unbindColumnResizeEvents();
     }
-    
-    fixColumnWidths() {
+
+    fixColumnWidths(hScroll: boolean = false) {
         let columns = this.domHandler.find(this.el.nativeElement, 'th.ui-resizable-column');
         let bodyCols;
         
@@ -2228,10 +2394,21 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.scrollable) {
             let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
             bodyCols = colGroup.children;
-            
-            if(bodyCols) {
+            if(this.virtualHScroll && hScroll) {
+              let header = this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-thead');
+              let width = this.domHandler.getOuterWidth(header);
+              this.virtualScrollableTableWrapper.style.width = width + 'px';
+            }
+            let tableWidth: number =0;
+            if(bodyCols &&  bodyCols.length > 0) {
                 for(let i = 0; i < columns.length; i++) {
+                  if (!this.virtualHScroll || i >=this.startCol && i <= this.endCol && bodyCols[i]) {
                     bodyCols[i].style.width = columns[i].offsetWidth + 'px';
+                    tableWidth += columns[i].offsetWidth;
+                  }
+                }
+                if (hScroll) {
+                  this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-virtual-table').style.width = tableWidth + 'px';
                 }
             }
         }
@@ -2370,6 +2547,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
 
     createLazyLoadMetadata(): LazyLoadEvent {        
         return {
+            startCol: this.startCol >=0 ? this.startCol: undefined,
+            endCol: this.endCol >=0 ? this.endCol: undefined,
             first: this.first,
             rows: this.virtualScroll ? this.rows * 2 : this.rows,
             sortField: this.sortField,
