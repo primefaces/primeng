@@ -506,7 +506,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         this.onModelTouched();
         this.onBlur.emit(event);
         
-        if(this.forceSelection) {
+        if(this.forceSelection && this.suggestions) {
             let valid = false;
             let inputValue = event.target.value.trim();
             
@@ -515,6 +515,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                     let itemValue = this.field ? this.objectUtils.resolveFieldData(suggestion, this.field) : suggestion;
                     if(itemValue && inputValue === itemValue) {
                         valid = true;
+                        this.selectItem(suggestion);
                         break;
                     }
                 }
