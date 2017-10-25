@@ -2523,8 +2523,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         //headers
         for(let i = 0; i < this.columns.length; i++) {
-            if(this.columns[i].field) {
-                csv += '"' + (this.columns[i].header || this.columns[i].field) + '"';
+            let column = this.columns[i];
+            if(column.exportable && column.field) {
+                csv += '"' + (column.header || column.field) + '"';
                 
                 if(i < (this.columns.length - 1)) {
                     csv += this.csvSeparator;
@@ -2536,8 +2537,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         data.forEach((record, i) => {
             csv += '\n';
             for(let i = 0; i < this.columns.length; i++) {
-                if(this.columns[i].field) {
-                    csv += '"' + this.resolveFieldData(record, this.columns[i].field) + '"';
+                let column = this.columns[i];
+                if(column.exportable && column.field) {
+                    csv += '"' + this.resolveFieldData(record, column.field) + '"';
                     
                     if(i < (this.columns.length - 1)) {
                         csv += this.csvSeparator;

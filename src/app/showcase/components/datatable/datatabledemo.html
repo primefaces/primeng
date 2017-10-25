@@ -215,6 +215,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>Style class of the column, can be override with headerStyleClass, bodyStyleClass and footerStyleClass.</td>
                         </tr>
                         <tr>
+                            <td>exportable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether the column is included during data export.</td>
+                        </tr>
+                        <tr>
                             <td>headerStyle</td>
                             <td>object</td>
                             <td>null</td>
@@ -912,6 +918,8 @@ export class DataTableDemo implements OnInit &#123;
 &lt;button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV(&#123;selectionOnly:true&#125;)"&gt;&lt;/button&gt;
 </code>
 </pre>
+            <p>In order to exclude a column from the csv, use [exportable]="false" on p-column.</p>
+
             <p>See the <a [routerLink]="['/datatable/export']">live example.</a></p>
 
             <h3>Scrolling</h3>

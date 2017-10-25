@@ -81,6 +81,7 @@ export class Column implements AfterContentInit{
     @Input() scope: string;
     @Input() style: any;
     @Input() styleClass: string;
+    @Input() exportable: boolean = true;
     @Input() headerStyle: any;
     @Input() headerStyleClass: string;
     @Input() bodyStyle: any;
