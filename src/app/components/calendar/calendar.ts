@@ -616,7 +616,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             }
         }
         
-        if(this.isSingleSelection()) {
+        if(!this.showTime && this.isSingleSelection()) {
             this.overlayVisible = false;
         }
 
