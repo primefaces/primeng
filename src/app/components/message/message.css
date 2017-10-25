@@ -1,0 +1,10 @@
+.ui-message {
+    border: 1px solid;
+    margin: 0px .25em;
+    padding: .25em .5em;
+    display: inline-block;
+}
+
+.ui-fluid .ui-message {
+    display: block;
+}

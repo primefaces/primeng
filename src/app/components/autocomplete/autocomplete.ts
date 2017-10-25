@@ -85,7 +85,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     @Input() autoHighlight: boolean;
     
     @Input() forceSelection: boolean;
-    
+        
     @Input() type: string = 'text';
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
@@ -162,8 +162,6 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     
     inputClick: boolean;
     
-    dropdownClick: boolean;
-
     inputKeyDown: boolean;
     
     noResults: boolean;
@@ -387,7 +385,6 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     
     handleDropdownClick(event) {
         this.focusInput();
-        this.dropdownClick = true;
         let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
         
         if(this.dropdownMode === 'blank')
@@ -509,15 +506,16 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         this.onModelTouched();
         this.onBlur.emit(event);
         
-        if(this.forceSelection) {
+        if(this.forceSelection && this.suggestions) {
             let valid = false;
-            let inputValue = event.target.value.toLowerCase().trim();
+            let inputValue = event.target.value.trim();
             
             if(this.suggestions)  {
                 for(let suggestion of this.suggestions) {
                     let itemValue = this.field ? this.objectUtils.resolveFieldData(suggestion, this.field) : suggestion;
-                    if(itemValue && inputValue === itemValue.toLowerCase()) {
+                    if(itemValue && inputValue === itemValue) {
                         valid = true;
+                        this.selectItem(suggestion);
                         break;
                     }
                 }
@@ -589,15 +587,19 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                     return;
                 }
                 
-                if(!this.inputClick && !this.dropdownClick) {
+                if(!this.inputClick && !this.isDropdownClick(event)) {
                     this.hide();
                 }
                     
                 this.inputClick = false;
-                this.dropdownClick = false;
                 this.cd.markForCheck();
             });
         }
+    }
+    
+    isDropdownClick(event) {
+        let target = event.target;
+        return this.domHandler.hasClass(target, 'ui-autocomplete-dropdown') || this.domHandler.hasClass(target.parentNode, 'ui-autocomplete-dropdown');
     }
     
     unbindDocumentClickListener() {

@@ -16,6 +16,8 @@ export class DataTableFilterDemo implements OnInit {
     
     yearFilter: number;
     
+    yearTimeout: any;
+    
     constructor(private carService: CarService) {}
 
     ngOnInit() {
@@ -43,5 +45,15 @@ export class DataTableFilterDemo implements OnInit {
         this.colors.push({label: 'Brown', value: 'Brown'});
         this.colors.push({label: 'Orange', value: 'Orange'});
         this.colors.push({label: 'Blue', value: 'Blue'});
+    }
+    
+    onYearChange(event, dt, col) {
+        if(this.yearTimeout) {
+            clearTimeout(this.yearTimeout);
+        }
+        
+        this.yearTimeout = setTimeout(() => {
+            dt.filter(event.value, col.field, col.filterMatchMode);
+        }, 250);
     }
 }

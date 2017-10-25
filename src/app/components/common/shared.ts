@@ -61,7 +61,7 @@ export class TemplateWrapper implements OnInit, OnDestroy {
 
 @Component({
     selector: 'p-column',
-    template: ``
+    template: ''
 })
 export class Column implements AfterContentInit{
     @Input() field: string;
@@ -75,10 +75,18 @@ export class Column implements AfterContentInit{
     @Input() filter: boolean;
     @Input() filterMatchMode: string;
     @Input() filterType: string = 'text';
+    @Input() excludeGlobalFilter: boolean;
     @Input() rowspan: number;
     @Input() colspan: number;
+    @Input() scope: string;
     @Input() style: any;
     @Input() styleClass: string;
+    @Input() headerStyle: any;
+    @Input() headerStyleClass: string;
+    @Input() bodyStyle: any;
+    @Input() bodyStyleClass: string;
+    @Input() footerStyle: any;
+    @Input() footerStyleClass: string;
     @Input() hidden: boolean;
     @Input() expander: boolean;
     @Input() selectionMode: string;

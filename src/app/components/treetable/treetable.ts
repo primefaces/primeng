@@ -10,7 +10,7 @@ import {DomHandler} from '../dom/domhandler';
     selector: '[pTreeRow]',
     template: `
         <div [class]="node.styleClass" [ngClass]="{'ui-treetable-row': true, 'ui-state-highlight':isSelected(),'ui-treetable-row-selectable':treeTable.selectionMode && node.selectable !== false}">
-            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.style" [class]="col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
+            <td *ngFor="let col of treeTable.columns; let i=index" [ngStyle]="col.bodyStyle||col.style" [class]="col.bodyStyleClass||col.styleClass" (click)="onRowClick($event)" (dblclick)="rowDblClick($event)" (touchend)="onRowTouchEnd()" (contextmenu)="onRowRightClick($event)">
                 <a href="#" *ngIf="i == treeTable.toggleColumnIndex" class="ui-treetable-toggler fa fa-fw ui-clickable" [ngClass]="node.expanded ? treeTable.expandedIcon : treeTable.collapsedIcon"
                     [ngStyle]="{'margin-left':level*16 + 'px','visibility': isLeaf() ? 'hidden' : 'visible'}"
                     (click)="toggle($event)"
@@ -116,7 +116,7 @@ export class UITreeRow implements OnInit {
                 <table #tbl class="ui-widget-content" [class]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead>
                         <tr class="ui-state-default">
-                            <th #headerCell *ngFor="let col of columns; let lastCol=last "  [ngStyle]="col.style" [class]="col.styleClass" 
+                            <th #headerCell *ngFor="let col of columns; let lastCol=last "  [ngStyle]="col.headerStyle||col.style" [class]="col.headerStyleClass||col.styleClass" 
                                 [ngClass]="'ui-state-default ui-unselectable-text'">
                                 <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>
                                 <span class="ui-column-title" *ngIf="col.headerTemplate">
@@ -127,7 +127,7 @@ export class UITreeRow implements OnInit {
                     </thead>
                     <tfoot *ngIf="hasFooter()">
                         <tr>
-                            <td *ngFor="let col of columns" [ngStyle]="col.style" [class]="col.styleClass" [ngClass]="{'ui-state-default':true}">
+                            <td *ngFor="let col of columns" [ngStyle]="col.footerStyle||col.style" [class]="col.footerStyleClass||col.styleClass" [ngClass]="{'ui-state-default':true}">
                                 <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
                                 <span class="ui-column-footer" *ngIf="col.footerTemplate">
                                     <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>

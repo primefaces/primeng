@@ -39,7 +39,8 @@ export class ScheduleDemo implements OnInit {
     
     handleDayClick(event) {
         this.event = new MyEvent();
-        this.event.start = event.date.format();
+        this.event.start = event.date.toDate();
+        this.event.end = event.date.toDate();
         this.dialogVisible = true;
     }
     

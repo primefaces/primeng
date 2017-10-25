@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 .ui-helper-hidden {
-    display: none;
+    display: none !important;
 }
 .ui-helper-hidden-accessible {
     border: 0;

@@ -83,7 +83,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
     
     public sliderHandleClick: boolean;
     
-    public handleIndex: number;
+    public handleIndex: number = 0;
 
     public startHandleValue: any;
 
@@ -174,11 +174,13 @@ export class Slider implements OnDestroy,ControlValueAccessor {
                 this.mouseupListener = this.renderer.listen('document', 'mouseup', (event) => {
                     if (this.dragging) {
                         this.dragging = false;
-                        if (this.range) {
-                            this.onSlideEnd.emit({originalEvent: event, values: this.values});
-                        } else {
-                            this.onSlideEnd.emit({originalEvent: event, value: this.value});
-                        }
+                        this.ngZone.run(() => {
+                            if (this.range) {
+                                this.onSlideEnd.emit({originalEvent: event, values: this.values});
+                            } else {
+                                this.onSlideEnd.emit({originalEvent: event, value: this.value});
+                            }
+                        });
                     }
                 });
             }
@@ -197,7 +199,7 @@ export class Slider implements OnDestroy,ControlValueAccessor {
 
     setValueFromHandle(event: Event, handleValue: any) {
         let newValue = this.getValueFromHandle(handleValue);
-     
+
         if(this.range) {
             if(this.step) {
                 this.handleStepChange(newValue, this.values[this.handleIndex]);
