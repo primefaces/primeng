@@ -15,7 +15,7 @@ import {RouterModule} from '@angular/router';
                         <span [ngClass]="home.icon||'fa fa-home'"></span>
                     </a>
                     <a *ngIf="home.routerLink" [routerLink]="home.routerLink" [queryParams]="home.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="home.routerLinkActiveOptions||{exact:false}" class="ui-menuitem-link" (click)="itemClick($event, home)" 
-                        [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target" [attr.title]="home.title"  [attr.id]="home.id">
+                        [ngClass]="{'ui-state-disabled':home.disabled}" [attr.target]="home.target" [attr.title]="home.title" [attr.id]="home.id">
                         <span class="fa fa-home"></span>
                     </a>
                 </li>
