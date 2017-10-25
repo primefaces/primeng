@@ -22,11 +22,21 @@
     <button type="button" pButton (click)="showViaService()" label="Use Service"></button>
     
     <h3>Inline Message CSS</h3>
-    <p>CSS helpers to display inline messages mostly within forms.</p>
+    <p>p-message component is used to display inline messages mostly within forms.</p>
     <p-message severity="info" text="PrimeNG Rocks"></p-message>
     <p-message severity="success" text="Record Saved"></p-message>  
     <p-message severity="warn" text="Are you sure?"></p-message>  
     <p-message severity="error" text="Field is required"></p-message>
+    
+    <div style="margin-top:30px">
+        <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid">
+        <p-message severity="error" text="Field is required"></p-message>
+    </div>
+    
+    <div style="margin-top:30px">
+        <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid">
+        <p-message severity="error"></p-message>
+    </div>
 </div>
 
 <div class="content-section documentation">
@@ -263,6 +273,15 @@ import &#123;MessageService&#125; from 'primeng/components/common/messageservice
 &lt;p-message severity="warn" text="Are you sure?"&gt;&lt;/p-message&gt;  
 &lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
 
+&lt;div style="margin-top:30px"&gt;
+    &lt;input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid"&gt;
+    &lt;p-message severity="error" text="Field is required"&gt;&lt;/p-message&gt;
+&lt;/div&gt;
+
+&lt;div style="margin-top:30px"&gt;
+    &lt;input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid"&gt;
+    &lt;p-message severity="error"&gt;&lt;/p-message&gt;
+&lt;/div>
 </code>
 </pre>
 
