@@ -4,6 +4,8 @@ import { FilterMetadata } from './filtermetadata';
 export interface LazyLoadEvent {
     first?: number;
     rows?: number;
+    startCol?: number;
+    endCol?: number;
     sortField?: string;
     sortOrder?: number;
     multiSortMeta?: SortMeta[];
