@@ -1270,8 +1270,6 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 });
             }
             
-            this._first = 0;
-
             if(this.hasFilter()) {
                 this._filter();
             }
@@ -2523,7 +2521,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         //headers
         for(let i = 0; i < this.columns.length; i++) {
-            if(this.columns[i].field) {
+            if(this.columns[i].field && this.columns[i].export) {
                 csv += '"' + (this.columns[i].header || this.columns[i].field) + '"';
                 
                 if(i < (this.columns.length - 1)) {
@@ -2536,7 +2534,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         data.forEach((record, i) => {
             csv += '\n';
             for(let i = 0; i < this.columns.length; i++) {
-                if(this.columns[i].field) {
+                if(this.columns[i].field && this.columns[i].export) {
                     csv += '"' + this.resolveFieldData(record, this.columns[i].field) + '"';
                     
                     if(i < (this.columns.length - 1)) {
