@@ -408,9 +408,11 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
                 let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
                 this.onVirtualScroll.emit({
-                    page: page
-                });
-                this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+                    page: page,
+                    callback: () => {
+                        this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+                    }
+                });                
             }
         }
     }
@@ -808,6 +810,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     virtualScrollableTableWrapper: HTMLDivElement;
     
+    virtualScrollCallback: Function;
+    
     editChanged: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
@@ -999,6 +1003,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this.updatePaginator();
         }
         
+        if(this.virtualScroll && this.virtualScrollCallback) {
+            this.virtualScrollCallback();
+        }
+        
         if(!this.lazy) {
             if(this.hasFilter()) {
                 this._filter();
@@ -1146,6 +1154,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     onVirtualScroll(event) {
         this._first = (event.page - 1) * this.rows;
+        this.virtualScrollCallback = event.callback;
+        
         this.zone.run(() => {
             if(this.virtualScrollTimer) {
                 clearTimeout(this.virtualScrollTimer);
@@ -2612,6 +2622,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         if(this.columnsSubscription) {
             this.columnsSubscription.unsubscribe();
+        }
+        
+        if(this.virtualScrollCallback) {
+            this.virtualScrollCallback = null;
         }
     }
 }
