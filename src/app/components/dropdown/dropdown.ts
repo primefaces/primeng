@@ -213,7 +213,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     set options(val: any[]) {
-        let opts = this.optionLabel ? this.generateSelectItems(val) : val;
+        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
@@ -224,18 +224,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
     }
     
-    generateSelectItems(val: any[]): SelectItem[] {
-        let selectItems: SelectItem[];
-        if(val && val.length) {
-            selectItems = [];
-            for(let item of val) {
-                selectItems.push({label: this.objectUtils.resolveFieldData(item, this.optionLabel), value: item});
-            }
-        }
-        
-        return selectItems;
-    }
-
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         this.panel = <HTMLDivElement> this.panelViewChild.nativeElement;
