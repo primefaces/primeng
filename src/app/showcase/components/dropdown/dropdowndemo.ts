@@ -40,7 +40,7 @@ export class DropdownDemo {
             {label: 'Mercedes', value: 'Mercedes'},
             {label: 'Renault', value: 'Renault'},
             {label: 'VW', value: 'VW'},
-            {label: 'Volvo', value: 'Volvo'},
+            {label: 'Volvo', value: 'Volvo'}
         ];
     }
 }
