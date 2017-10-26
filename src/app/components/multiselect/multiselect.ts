@@ -71,8 +71,6 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 })
 export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
 
-    @Input() options: SelectItem[];
-
     @Input() scrollHeight: string = '200px';
     
     @Input() defaultLabel: string = 'Choose';
@@ -110,6 +108,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() resetFilterOnHide: boolean = false;
     
     @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
+    
+    @Input() optionLabel: string;
         
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -161,9 +161,20 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     
     public itemTemplate: TemplateRef<any>;
     
+    _options: any[];
+    
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {
         this.valueDiffer = differs.find([]).create(null);
         this.optionsDiffer = differs.find([]).create(null);
+    }
+    
+    @Input() get options(): any[] {
+        return this._options;
+    }
+
+    set options(val: any[]) {
+        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
+        this._options = opts;
     }
     
     ngOnInit() {
