@@ -44,7 +44,7 @@ import &#123;DropdownModule&#125; from 'primeng/primeng';
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-dropdown&gt;
 
-&lt;p-dropdown [options]="cities2" [(ngModel)]="selectedCity2"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -169,7 +169,13 @@ export class MyModel &#123;
                             <td>options</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>An array of selectitems to display as the available options.</td>
+                            <td>An array of objects to display as the available options.</td>
+                        </tr>
+                        <tr>
+                            <td>optionLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
                         </tr>
                         <tr>
                             <td>name</td>
@@ -494,7 +500,7 @@ export class DropdownDemo &#123;
             &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
             &#123;label: 'Renault', value: 'Renault'&#125;,
             &#123;label: 'VW', value: 'VW'&#125;,
-            &#123;label: 'Volvo', value: 'Volvo'&#125;,
+            &#123;label: 'Volvo', value: 'Volvo'&#125;
         ];
     &#125;
 &#125;
