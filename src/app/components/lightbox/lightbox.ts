@@ -13,7 +13,7 @@ import {DomHandler} from '../dom/domhandler';
         <span [ngStyle]="style" [class]="styleClass" *ngIf="(type == 'content')" (click)="onLinkClick($event,content)">
             <ng-content select="a"></ng-content>
         </span>
-        <div class="ui-lightbox ui-widget ui-helper-hidden ui-corner-all ui-shadow" [style.display]="visible ? 'block' : 'none'" [style.zIndex]="zindex"
+        <div class="ui-lightbox ui-widget ui-corner-all ui-shadow" [style.display]="visible ? 'block' : 'none'" [style.zIndex]="zindex"
             [ngClass]="{'ui-lightbox-loading': loading}"
             [style.transitionProperty]="'all'" [style.transitionDuration]="effectDuration" [style.transitionTimingFunction]="easing" (click)="preventDocumentClickListener=true">
            <div class="ui-lightbox-content-wrapper">
