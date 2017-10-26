@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,
             forwardRef,ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
@@ -154,19 +154,12 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     public visibleOptions: SelectItem[];
     
     public filtered: boolean;
-        
-    public valueDiffer: any;
-    
-    public optionsDiffer: any;
-    
+            
     public itemTemplate: TemplateRef<any>;
     
     _options: any[];
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {
-        this.valueDiffer = differs.find([]).create(null);
-        this.optionsDiffer = differs.find([]).create(null);
-    }
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
     
     @Input() get options(): any[] {
         return this._options;
