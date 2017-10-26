@@ -51,7 +51,7 @@ export * from './components/panelmenu/panelmenu';
 export * from './components/password/password';
 export * from './components/picklist/picklist';
 export * from './components/progressbar/progressbar';
-export * from './components/progressbar/progressspinner';
+export * from './components/progressspinner/progressspinner';
 export * from './components/radiobutton/radiobutton';
 export * from './components/rating/rating';
 export * from './components/schedule/schedule';
