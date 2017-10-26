@@ -120,6 +120,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
     
+    @Input() optionLabel: string;
+    
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -142,9 +144,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public itemTemplate: TemplateRef<any>;
     
-    selectedOption: SelectItem;
+    selectedOption: any;
     
-    _options: SelectItem[];
+    _options: any[];
     
     value: any;
     
@@ -152,7 +154,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onModelTouched: Function = () => {};
 
-    optionsToDisplay: SelectItem[];
+    optionsToDisplay: any[];
     
     hover: boolean;
     
@@ -206,11 +208,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateSelectedOption(null);
     }
     
-    @Input() get options(): SelectItem[] {
+    @Input() get options(): any[] {
         return this._options;
     }
 
-    set options(opts:SelectItem[]) {
+    set options(val: any[]) {
+        let opts = this.optionLabel ? this.generateSelectItems(val) : val;
         this._options = opts;
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
@@ -219,6 +222,18 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if(this.filterValue && this.filterValue.length) {
             this.activateFilter();
         }
+    }
+    
+    generateSelectItems(val: any[]): SelectItem[] {
+        let selectItems: SelectItem[];
+        if(val && val.length) {
+            selectItems = [];
+            for(let item of val) {
+                selectItems.push({label: this.objectUtils.resolveFieldData(item, this.optionLabel), value: item});
+            }
+        }
+        
+        return selectItems;
     }
 
     ngAfterViewInit() {
