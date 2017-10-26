@@ -30,7 +30,7 @@ import {SelectItem} from '../common/selectitem';
                 <span class="fa fa-step-forward"></span>
             </a>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
-                (change)="onRppChange($event)" [lazy]="false" [autoWidth]="false"></p-dropdown>
+                (onChange)="onRppChange($event)" [lazy]="false" [autoWidth]="false"></p-dropdown>
         </div>
     `
 })
