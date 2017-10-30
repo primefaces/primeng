@@ -257,7 +257,7 @@ body {
 }
 
 #layout-sidebar .layout-menu > div {
-    width: auto;
+    width: 300px;
     padding: 20px 15px;
     overflow: hidden;
     background-color: #ffffff;
