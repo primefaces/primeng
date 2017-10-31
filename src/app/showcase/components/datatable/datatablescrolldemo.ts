@@ -10,18 +10,36 @@ import {FilterMetadata} from '../../../components/common/api';
 export class DataTableScrollDemo implements OnInit {
 
     cars: Car[];
-    
+
     frozenCars: Car[];
-    
+
     carsLarge: Car[];
-    
+
     totalRecords: number;
-    
+    colsCount: number = 700;
+
     sales: any[];
     
     loading: boolean;
 
-    constructor(private carService: CarService) { }
+    public testdata: any[];
+    public testdataLazy: any[];
+    public testfields: any[];
+
+    constructor(private carService: CarService) {
+      this.totalRecords = 250000;
+
+      this.fillFields();
+    }
+
+    fillFields() {
+      this.testfields = [];
+      let tmp = [];
+      for(let i = 0; i< this.colsCount; i++) {
+        tmp.push({header: "Field " + i, field: "field" + i, width: 200});
+      }
+      this.testfields = tmp;
+    }
 
     ngOnInit() {
         this.loading = true;
@@ -30,7 +48,7 @@ export class DataTableScrollDemo implements OnInit {
             {"brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23"},
             {"brand": "Chevrolet", "year": 2011, "color": "Black", "vin": "4525g23"}
         ];
-        
+
         this.sales = [
             {brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342'},
             {brand: 'Samsung', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122'},
@@ -43,10 +61,26 @@ export class DataTableScrollDemo implements OnInit {
             {brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'},
             {brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'}
         ];
-        
+
         this.totalRecords = 250000;
     }
-    
+
+    setColCount() {
+      this.fillFields();
+    }
+
+    loadBig(event: LazyLoadEvent) {
+      let tmpRows = [];
+      for(let j = 0; j < event.rows; j++) {
+        let row = {columnsList: []};
+        for(let i = 0; i < this.colsCount; i++) {
+          row["field" + i] = 'data' + (event.first + j) + '-' + i;
+        }
+        tmpRows.push(row);
+      }
+      this.testdataLazy = tmpRows;
+    }
+
     loadCarsLazy(event: LazyLoadEvent) {
         this.loading = true;
             

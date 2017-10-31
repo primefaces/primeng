@@ -4,7 +4,7 @@
     <div>
         <span class="feature-title">DataTable - Scroll</span>
         <span>Data scrolling with fixed header is available horizontally, vertically or both. ScrollHeight and ScrollWidth values can either
-        be fixed pixels or percentages. Virtual Scrolling mode is available to deal with large datasets by loading data on demand during scrolling. 
+        be fixed pixels or percentages. Virtual Scrolling mode is available to deal with large datasets by loading data on demand during scrolling.
         In additon certain columns and rows can be fixed as well. </span>
     </div>
 </div>
@@ -17,8 +17,8 @@
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
-    
-    <p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="{'margin-top':'30px'}" 
+
+    <p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="{'margin-top':'30px'}"
         [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)" [loading]="loading">
         <p-header>Virtual Scrolling - 250K Rows</p-header>
         <p-column field="vin" header="Vin"></p-column>
@@ -27,14 +27,42 @@
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
 
-    <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" scrollWidth="600px" [style]="{'margin-top':'30px'}">
+    <p-dataTable
+    scrollWidth="600px"
+    scrollHeight="200px"
+    scrollable="true"
+    selectionMode = "multiple"
+    [value]="testdataLazy"
+    reorderableColumns="true"
+    resizableColumns="true"
+    [totalRecords]="totalRecords"
+    columnResizeMode="expand"
+    [style]="{'margin-top':'30px'}"
+    [rows]="10" virtualScroll="true" virtualHScroll="true"
+    [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadBig($event)"
+    [virtualScrollCellLoadingText]="'...'"
+    >
+      <p-header>Virtual Scrolling  - 250K Rows {{colsCount}} cols, lazy load</p-header>
+      <p-column header="Id">
+        <ng-template pTemplate="body" let-index="rowIndex">
+            {{index}}
+        </ng-template>
+      </p-column>
+      <p-column *ngFor="let col of testfields; let i=index"
+                [header]="col.header"
+                [field]="col.field"
+                [style] = "{width: col.width + 'px'}">
+      </p-column>
+    </p-dataTable>
+
+<p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" scrollWidth="600px" [style]="{'margin-top':'30px'}">
         <p-header>Vertical and Horizontal</p-header>
         <p-column field="vin" header="Vin" [style]="{'width':'250px'}"></p-column>
         <p-column field="year" header="Year" [style]="{'width':'250px'}"></p-column>
         <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
         <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
     </p-dataTable>
-    
+
     <p-dataTable [value]="cars" [frozenValue]="frozenCars" scrollable="true" scrollHeight="200px" [style]="{'margin-top':'30px'}">
         <p-header>Frozen Rows</p-header>
         <p-column field="vin" header="Vin"></p-column>
@@ -42,7 +70,7 @@
         <p-column field="brand" header="Brand"></p-column>
         <p-column field="color" header="Color"></p-column>
     </p-dataTable>
-    
+
     <p-dataTable [value]="cars" scrollable="true" scrollHeight="200px" frozenWidth="200px" unfrozenWidth="600px" [style]="{'margin-top':'30px'}">
         <p-header>Frozen Columns</p-header>
         <p-column field="vin" header="Vin" [style]="{'width':'200px'}" frozen="true"></p-column>
@@ -53,7 +81,7 @@
         <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
         <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
     </p-dataTable>
-    
+
     <p-dataTable [value]="cars" [frozenValue]="frozenCars" scrollable="true" scrollHeight="200px" frozenWidth="200px" unfrozenWidth="600px" [style]="{'margin-top':'30px'}">
         <p-header>Frozen Rows and Columns</p-header>
         <p-column field="vin" header="Vin" [style]="{'width':'200px'}" frozen="true"></p-column>
@@ -64,7 +92,7 @@
         <p-column field="brand" header="Brand" [style]="{'width':'250px'}"></p-column>
         <p-column field="color" header="Color" [style]="{'width':'250px'}"></p-column>
     </p-dataTable>
-    
+
     <p-dataTable [value]="sales" scrollable="true" scrollHeight="200px" frozenWidth="300px" unfrozenWidth="400px" [style]="{'margin-top':'30px'}">
         <p-header>Column Group and Frozen Columss</p-header>
         <p-headerColumnGroup frozen="true">
@@ -72,7 +100,7 @@
                 <p-column header="Brand" rowspan="2"  [style]="{'width':'300px', height:'56px'}"></p-column>
             </p-row>
         </p-headerColumnGroup>
-        
+
         <p-headerColumnGroup>
             <p-row>
                 <p-column header="Last Year" colspan="2" [style]="{'width':'250px'}" ></p-column>
@@ -85,7 +113,7 @@
                 <p-column header="This Year" [style]="{'width':'125px'}"></p-column>
             </p-row>
         </p-headerColumnGroup>
-        
+
         <p-column field="brand" [style]="{'width':'200px'}" frozen="true"></p-column>
         <p-column field="lastYearSale" [style]="{'width':'125px'}"></p-column>
         <p-column field="thisYearSale" [style]="{'width':'125px'}"></p-column>
@@ -106,13 +134,13 @@
 export class DataTableScrollDemo implements OnInit &#123;
 
     cars: Car[];
-    
+
     frozenCars: Car[];
-    
+
     carsLarge: Car[];
-    
+
     totalRecords: number;
-    
+
     sales: any[];
     
     loading: boolean;
@@ -126,7 +154,7 @@ export class DataTableScrollDemo implements OnInit &#123;
             &#123;"brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23"&#125;,
             &#123;"brand": "Chevrolet", "year": 2011, "color": "Black", "vin": "4525g23"&#125;
         ];
-        
+
         this.sales = [
             &#123;brand: 'Apple', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342'&#125;,
             &#123;brand: 'Samsung', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122'&#125;,
@@ -139,10 +167,10 @@ export class DataTableScrollDemo implements OnInit &#123;
             &#123;brand: 'HTC', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232'&#125;,
             &#123;brand: 'Toshiba', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533'&#125;
         ];
-        
+
         this.totalRecords = 250000;
     &#125;
-    
+
     loadCarsLazy(event: LazyLoadEvent) &#123;
         this.loading = true;
         
@@ -215,7 +243,7 @@ export class DataTableScrollDemo implements OnInit &#123;
     &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 
-&lt;p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="&#123;'margin-top':'30px'&#125;" 
+&lt;p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="&#123;'margin-top':'30px'&#125;"
     [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)" [loading]="loading"&gt;
     &lt;p-header&gt;Virtual Scrolling - 250K Rows&lt;/p-header&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
@@ -269,7 +297,7 @@ export class DataTableScrollDemo implements OnInit &#123;
             &lt;p-column header="Brand" rowspan="2"  [style]="&#123;'width':'300px', height:'56px'}"&gt;&lt;/p-column&gt;
         &lt;/p-row&gt;
     &lt;/p-headerColumnGroup&gt;
-    
+
     &lt;p-headerColumnGroup&gt;
         &lt;p-row&gt;
             &lt;p-column header="Last Year" colspan="2" [style]="&#123;'width':'250px'}" &gt;&lt;/p-column&gt;
@@ -282,7 +310,7 @@ export class DataTableScrollDemo implements OnInit &#123;
             &lt;p-column header="This Year" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
         &lt;/p-row&gt;
     &lt;/p-headerColumnGroup&gt;
-    
+
     &lt;p-column field="brand" [style]="&#123;'width':'200px'&#125;" frozen="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="lastYearSale" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
     &lt;p-column field="thisYearSale" [style]="&#123;'width':'125px'&#125;"&gt;&lt;/p-column&gt;
