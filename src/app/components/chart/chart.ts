@@ -6,7 +6,7 @@ declare var Chart: any;
 @Component({
     selector: 'p-chart',
     template: `
-        <div>
+        <div [ngStyle]="{'height.px': height}">
             <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
         </div>
     `
