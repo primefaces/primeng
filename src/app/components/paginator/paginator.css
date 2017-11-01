@@ -25,6 +25,7 @@
 	margin-left: .063em;
 	margin-right: .063em;
 	text-decoration: none;
+    vertical-align: middle;
 }
 
 .ui-paginator .ui-paginator-page,
@@ -53,4 +54,9 @@
 
 .ui-paginator a.ui-state-disabled {
     outline: 0 none;
+}
+
+.ui-paginator .ui-dropdown {
+    min-width: 4em;
+    margin-left: .375em;
 }

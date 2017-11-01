@@ -217,7 +217,7 @@ export class ColumnFooters {
             </tr>
         </ng-template>
 
-        <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row">
+        <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row" [style.visibility]="dt.loading ? 'hidden' : 'visible'">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
                 <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
                 <p-templateLoader [template]="dt.emptyMessageTemplate"></p-templateLoader>
@@ -408,9 +408,11 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
                 let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
                 this.onVirtualScroll.emit({
-                    page: page
-                });
-                this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+                    page: page,
+                    callback: () => {
+                        this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+                    }
+                });                
             }
         }
     }
@@ -808,6 +810,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     virtualScrollableTableWrapper: HTMLDivElement;
     
+    virtualScrollCallback: Function;
+    
     editChanged: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
@@ -994,9 +998,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    handleDataChange() {        
+    handleDataChange() {                
         if(this.paginator) {
             this.updatePaginator();
+        }
+        
+        if(this.virtualScroll && this.virtualScrollCallback) {
+            this.virtualScrollCallback();
         }
         
         if(!this.lazy) {
@@ -1061,25 +1069,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     resolveFieldData(data: any, field: string): any {
-        if(data && field) {
-            if(field.indexOf('.') == -1) {
-                return data[field];
-            }
-            else {
-                let fields: string[] = field.split('.');
-                let value = data;
-                for(var i = 0, len = fields.length; i < len; ++i) {
-                    if (value == null) {
-                        return null;
-                    }
-                    value = value[fields[i]];
-                }
-                return value;
-            }
-        }
-        else {
-            return null;
-        }
+        return this.objectUtils.resolveFieldData(data, field);
     }
     
     updateRowGroupMetadata() {
@@ -1164,6 +1154,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     onVirtualScroll(event) {
         this._first = (event.page - 1) * this.rows;
+        this.virtualScrollCallback = event.callback;
+        
         this.zone.run(() => {
             if(this.virtualScrollTimer) {
                 clearTimeout(this.virtualScrollTimer);
@@ -1689,7 +1681,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     isSelected(rowData) {
-        if(rowData && this.selection && this.selection.length) {
+        if(rowData && this.selection) {
             if(this.dataKey) {
                 return this.selectionKeys[this.objectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
             }
@@ -2630,6 +2622,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         if(this.columnsSubscription) {
             this.columnsSubscription.unsubscribe();
+        }
+        
+        if(this.virtualScrollCallback) {
+            this.virtualScrollCallback = null;
         }
     }
 }

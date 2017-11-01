@@ -364,6 +364,9 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
             let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
             if(!this.panelVisible && hasFocus) {
                 this.panelVisible = true;
+                if(this.appendTo) {
+                    this.panelEL.nativeElement.style.minWidth = this.domHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
+                }
                 this.panelEL.nativeElement.style.zIndex = ++DomHandler.zindex;
                 this.domHandler.fadeIn(this.panelEL.nativeElement, 200);
                 this.bindDocumentClickListener();

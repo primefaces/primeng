@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,Input,Output,Renderer2,EventEmitter,IterableDiffers,
+import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,
             forwardRef,ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
@@ -69,9 +69,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     `,
     providers: [DomHandler,ObjectUtils,MULTISELECT_VALUE_ACCESSOR]
 })
-export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,DoCheck,OnDestroy,ControlValueAccessor {
-
-    @Input() options: SelectItem[];
+export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,ControlValueAccessor {
 
     @Input() scrollHeight: string = '200px';
     
@@ -110,6 +108,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() resetFilterOnHide: boolean = false;
     
     @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
+    
+    @Input() optionLabel: string;
         
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -154,16 +154,21 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     public visibleOptions: SelectItem[];
     
     public filtered: boolean;
-        
-    public valueDiffer: any;
-    
-    public optionsDiffer: any;
-    
+            
     public itemTemplate: TemplateRef<any>;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, differs: IterableDiffers, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {
-        this.valueDiffer = differs.find([]).create(null);
-        this.optionsDiffer = differs.find([]).create(null);
+    _options: any[];
+    
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
+    
+    @Input() get options(): any[] {
+        return this._options;
+    }
+
+    set options(val: any[]) {
+        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
+        this._options = opts;
+        this.updateLabel();
     }
     
     ngOnInit() {
@@ -210,16 +215,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.filtered = false;
         }
     }
-    
-    ngDoCheck() {
-        let valueChanges = this.value ? this.valueDiffer.diff(this.value) : true;
-        let optionChanges = this.optionsDiffer.diff(this.options);
         
-        if(valueChanges||optionChanges) {
-            this.updateLabel();
-        }
-    }
-    
     writeValue(value: any) : void {
         this.value = value;
         this.updateLabel();
@@ -247,6 +243,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
+        this.updateLabel();
     }   
     
     isSelected(value) {
@@ -281,9 +278,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 } 
             }
         }
+        
         checkbox.checked = !checkbox.checked;
         this.onModelChange(this.value);
         this.onChange.emit({originalEvent: event, value: this.value});
+        this.updateLabel();
     } 
     
     isAllChecked() {

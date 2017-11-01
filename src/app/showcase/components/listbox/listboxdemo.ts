@@ -1,39 +1,46 @@
 import {Component} from '@angular/core';
 import {SelectItem} from '../../../components/common/api';
 
+interface City {
+    name: string,
+    code: string
+}
+
 @Component({
     templateUrl: './listboxdemo.html'
 })
 export class ListboxDemo {
 
-    cities: SelectItem[];
+    cities: City[];
 
-    selectedCity: string;
+    selectedCity: City;
 
-    selectedCities: string[];
+    selectedCities: City[];
 
     cars: SelectItem[];
 
     selectedCar: string = 'BMW';
 
     constructor() {
-        this.cities = [];
-        this.cities.push({label:'New York', value:'New York'});
-        this.cities.push({label:'Rome', value:'Rome'});
-        this.cities.push({label:'London', value:'London'});
-        this.cities.push({label:'Istanbul', value:'Istanbul'});
-        this.cities.push({label:'Paris', value:'Paris'});
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
 
-        this.cars = [];
-        this.cars.push({label: 'Audi', value: 'Audi'});
-        this.cars.push({label: 'BMW', value: 'BMW'});
-        this.cars.push({label: 'Fiat', value: 'Fiat'});
-        this.cars.push({label: 'Ford', value: 'Ford'});
-        this.cars.push({label: 'Honda', value: 'Honda'});
-        this.cars.push({label: 'Jaguar', value: 'Jaguar'});
-        this.cars.push({label: 'Mercedes', value: 'Mercedes'});
-        this.cars.push({label: 'Renault', value: 'Renault'});
-        this.cars.push({label: 'VW', value: 'VW'});
-        this.cars.push({label: 'Volvo', value: 'Volvo'});
+        this.cars = [
+            {label: 'Audi', value: 'Audi'},
+            {label: 'BMW', value: 'BMW'},
+            {label: 'Fiat', value: 'Fiat'},
+            {label: 'Ford', value: 'Ford'},
+            {label: 'Honda', value: 'Honda'},
+            {label: 'Jaguar', value: 'Jaguar'},
+            {label: 'Mercedes', value: 'Mercedes'},
+            {label: 'Renault', value: 'Renault'},
+            {label: 'VW', value: 'VW'},
+            {label: 'Volvo', value: 'Volvo'}
+        ];
     }
 }

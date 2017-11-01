@@ -18,10 +18,13 @@ export class DataTableScrollDemo implements OnInit {
     totalRecords: number;
     
     sales: any[];
+    
+    loading: boolean;
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
+        this.loading = true;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
         this.frozenCars = [
             {"brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23"},
@@ -45,52 +48,54 @@ export class DataTableScrollDemo implements OnInit {
     }
     
     loadCarsLazy(event: LazyLoadEvent) {
+        this.loading = true;
+            
         //for demo purposes keep loading the same dataset 
         //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
         setTimeout(() => {
+            this.loading = false;
             this.carsLarge = [
-                {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
-                {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
-                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
-                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"},
-                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"},
-                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"},
-                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"},
-                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"},
-                {"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"},
-                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"},
-                {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
-                {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
-                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
-                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"},
-                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"},
-                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"},
-                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"},
-                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"},
-                {"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"},
-                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"},
-                {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
-                {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
-                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
-                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"},
-                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"},
-                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"},
-                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"},
-                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"},
-                {"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"},
-                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"},
-                {"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
-                {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
-                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
-                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"},
-                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"},
-                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"},
-                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"},
-                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"},
-                {"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"},
-                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"}
+                {"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first},
+                {"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 1},
+                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 2},
+                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 3},
+                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 4},
+                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 5},
+                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 6},
+                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 7},
+                {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 8},
+                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 9},
+                {"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 10},
+                {"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 11},
+                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 12},
+                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 13},
+                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 14},
+                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 15},
+                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 16},
+                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 17},
+                {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 18},
+                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 19},
+                {"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 20},
+                {"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 21},
+                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 22},
+                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 23},
+                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 24},
+                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 25},
+                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 26},
+                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 27},
+                {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 28},
+                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 29},
+                {"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 30},
+                {"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 31},
+                {"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 32},
+                {"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 33},
+                {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 34},
+                {"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 35},
+                {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 36},
+                {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 37},
+                {"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 38},
+                {"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 39}
             ];  
-        }, 250);
-            
+        }, 2000);    
     }
 }

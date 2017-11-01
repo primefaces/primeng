@@ -19,13 +19,8 @@
     </p-dataTable>
     
     <p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="{'margin-top':'30px'}" 
-        [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
+        [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)" [loading]="loading">
         <p-header>Virtual Scrolling - 250K Rows</p-header>
-        <p-column header="Id">
-            <ng-template pTemplate="body" let-index="rowIndex">
-                {{index}}
-            </ng-template>
-        </p-column>
         <p-column field="vin" header="Vin"></p-column>
         <p-column field="year" header="Year"></p-column>
         <p-column field="brand" header="Brand"></p-column>
@@ -119,10 +114,13 @@ export class DataTableScrollDemo implements OnInit &#123;
     totalRecords: number;
     
     sales: any[];
+    
+    loading: boolean;
 
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
+        this.loading = true;
         this.carService.getCarsMedium().then(cars => this.cars = cars);
         this.frozenCars = [
             &#123;"brand": "BMW", "year": 2013, "color": "Grey", "vin": "fh2uf23"&#125;,
@@ -146,55 +144,57 @@ export class DataTableScrollDemo implements OnInit &#123;
     &#125;
     
     loadCarsLazy(event: LazyLoadEvent) &#123;
+        this.loading = true;
+        
         //for demo purposes keep loading the same dataset 
-        //in a real production application, this data should come from server by building the query with LazyLoadEvent options   
-        
+        //in a real production application, this data should come from server by building the query with LazyLoadEvent options 
         setTimeout(() => &#123;
+            this.loading = false;
             this.carsLarge = [
-                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&#125;,
-                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&#125;,
-                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&#125;,
-                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&#125;,
-                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&#125;,
-                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&#125;,
-                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&#125;,
-                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&#125;,
-                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&#125;,
-                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&#125;,
-                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&#125;,
-                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&#125;,
-                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&#125;,
-                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&#125;,
-                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&#125;,
-                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&#125;,
-                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&#125;,
-                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&#125;,
-                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&#125;,
-                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&#125;,
-                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&#125;,
-                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&#125;,
-                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&#125;,
-                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&#125;,
-                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&#125;,
-                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&#125;,
-                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&#125;,
-                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&#125;,
-                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&#125;,
-                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&#125;,
-                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": "dsad231ff"&#125;,
-                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"&#125;,
-                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"&#125;,
-                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"&#125;,
-                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"&#125;,
-                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"&#125;,
-                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"&#125;,
-                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"&#125;,
-                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"&#125;,
-                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"&#125;
-            ];
-        &#125;, 250);
-        
+                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first&#125;,
+                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 1&#125;,
+                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 2&#125;,
+                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 3&#125;,
+                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 4&#125;,
+                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 5&#125;,
+                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 6&#125;,
+                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 7&#125;,
+                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 8&#125;,
+                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 9&#125;,
+                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 10&#125;,
+                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 11&#125;,
+                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 12&#125;,
+                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 13&#125;,
+                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 14&#125;,
+                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 15&#125;,
+                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 16&#125;,
+                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 17&#125;,
+                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 18&#125;,
+                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 19&#125;,
+                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 20&#125;,
+                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 21&#125;,
+                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 22&#125;,
+                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 23&#125;,
+                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 24&#125;,
+                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 25&#125;,
+                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 26&#125;,
+                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 27&#125;,
+                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 28&#125;,
+                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 29&#125;,
+                &#123;"brand": "VW", "year": 2012, "color": "Orange", "vin": event.first + 30&#125;,
+                &#123;"brand": "Audi", "year": 2011, "color": "Black", "vin": event.first + 31&#125;,
+                &#123;"brand": "Renault", "year": 2005, "color": "Gray", "vin": event.first + 32&#125;,
+                &#123;"brand": "BMW", "year": 2003, "color": "Blue", "vin": event.first + 33&#125;,
+                &#123;"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": event.first + 34&#125;,
+                &#123;"brand": "Volvo", "year": 2005, "color": "Black", "vin": event.first + 35&#125;,
+                &#123;"brand": "Honda", "year": 2012, "color": "Yellow", "vin": event.first + 36&#125;,
+                &#123;"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": event.first + 37&#125;,
+                &#123;"brand": "Ford", "year": 2000, "color": "Black", "vin": event.first + 38&#125;,
+                &#123;"brand": "Fiat", "year": 2013, "color": "Red", "vin": event.first + 39&#125;
+            ];  
+        &#125;, 2000);    
     &#125;
+    
 &#125;
 </code>
 </pre>
@@ -216,13 +216,8 @@ export class DataTableScrollDemo implements OnInit &#123;
 &lt;/p-dataTable&gt;
 
 &lt;p-dataTable [value]="carsLarge" scrollable="true" scrollHeight="200px" [rows]="20" virtualScroll="virtualScroll" [style]="&#123;'margin-top':'30px'&#125;" 
-    [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)"&gt;
+    [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)" [loading]="loading"&gt;
     &lt;p-header&gt;Virtual Scrolling - 250K Rows&lt;/p-header&gt;
-    &lt;p-column header="Id"&gt;
-        &lt;ng-template pTemplate="body" let-index="rowIndex"&gt;
-            &#123;&#123;index&#125;&#125;
-        &lt;/ng-template&gt;
-    &lt;/p-column&gt;
     &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;

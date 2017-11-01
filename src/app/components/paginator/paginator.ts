@@ -1,5 +1,8 @@
 import {NgModule,Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {DropdownModule} from '../dropdown/dropdown';
+import {SelectItem} from '../common/selectitem';
 
 @Component({
     selector: 'p-paginator',
@@ -26,9 +29,8 @@ import {CommonModule} from '@angular/common';
                     (click)="changePageToLast($event)" [ngClass]="{'ui-state-disabled':isLastPage()}" [tabindex]="isLastPage() ? -1 : null">
                 <span class="fa fa-step-forward"></span>
             </a>
-            <select class="ui-paginator-rpp-options ui-widget ui-state-default" *ngIf="rowsPerPageOptions" (change)="onRppChange($event)">
-                <option *ngFor="let opt of rowsPerPageOptions" [value]="opt" [selected]="rows == opt">{{opt}}</option>
-            </select>
+            <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
+                (onChange)="onRppChange($event)" [lazy]="false" [autoWidth]="false"></p-dropdown>
         </div>
     `
 })
@@ -42,17 +44,19 @@ export class Paginator {
 
     @Input() styleClass: string;
 
-    @Input() rowsPerPageOptions: number[];
-
     @Input() alwaysShow: boolean = true;
 
-    public pageLinks: number[];
+    pageLinks: number[];
 
-    public _totalRecords: number = 0;
+    _totalRecords: number = 0;
 
-    public _first: number = 0;
+    _first: number = 0;
 
-    public _rows: number = 0;
+    _rows: number = 0;
+    
+    _rowsPerPageOptions: number[];
+    
+    rowsPerPageItems: SelectItem[];
 
     @Input() get totalRecords(): number {
         return this._totalRecords;
@@ -79,6 +83,20 @@ export class Paginator {
     set rows(val:number) {
         this._rows = val;
         this.updatePageLinks();
+    }
+    
+    @Input() get rowsPerPageOptions(): number[] {
+        return this._rowsPerPageOptions;
+    }
+
+    set rowsPerPageOptions(val:number[]) {
+        this._rowsPerPageOptions = val;
+        if(this._rowsPerPageOptions) {
+            this.rowsPerPageItems = [];
+            for(let opt of this._rowsPerPageOptions) {
+                this.rowsPerPageItems.push({label: String(opt), value: opt});
+            }
+        }
     }
 
     isFirstPage() {
@@ -172,14 +190,13 @@ export class Paginator {
     }
 
     onRppChange(event) {
-        this.rows = this.rowsPerPageOptions[event.target.selectedIndex];
         this.changePage(this.getPage());
     }
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Paginator],
+    imports: [CommonModule,DropdownModule,FormsModule],
+    exports: [Paginator,DropdownModule,FormsModule],
     declarations: [Paginator]
 })
 export class PaginatorModule { }
