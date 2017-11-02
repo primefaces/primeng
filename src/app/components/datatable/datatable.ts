@@ -412,7 +412,7 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                     callback: () => {
                         this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
                     }
-                });                
+                });
             }
         }
     }
@@ -998,7 +998,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    handleDataChange() {                
+    handleDataChange() {
         if(this.paginator) {
             this.updatePaginator();
         }
@@ -1191,8 +1191,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(!column.sortable) {
             return;
         }
-        let targetNode = event.target.nodeName;
-        if((targetNode == 'TH' && this.domHandler.hasClass(event.target, 'ui-sortable-column')) || ((targetNode == 'SPAN' || targetNode == 'DIV') && !this.domHandler.hasClass(event.target, 'ui-clickable'))) {
+        let targetNode = event.target;
+        if(this.domHandler.hasClass(targetNode, 'ui-sortable-column') || this.domHandler.hasClass(targetNode, 'ui-column-title') || this.domHandler.hasClass(targetNode, 'ui-sortable-column-icon')) {
             if(!this.immutable) {
                 this.preventSortPropagation = true;
             }
@@ -2378,7 +2378,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         return !this.dataToRender||(this.dataToRender.length == 0);
     }
 
-    createLazyLoadMetadata(): LazyLoadEvent {        
+    createLazyLoadMetadata(): LazyLoadEvent {
         return {
             first: this.first,
             rows: this.virtualScroll ? this.rows * 2 : this.rows,
