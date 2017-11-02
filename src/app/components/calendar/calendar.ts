@@ -974,13 +974,20 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     incrementHour(event) {
-        let newHour = this.currentHour + this.stepHour;
+        const prevHour = this.currentHour;
+        const newHour = this.currentHour + this.stepHour;
 
         if(this.validateHour(newHour)) {
             if(this.hourFormat == '24')
                 this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;        
-            else if(this.hourFormat == '12')
+            else if(this.hourFormat == '12') {
+                // Before the AM/PM break, now after
+                if (prevHour < 12 && newHour > 11) {
+                    this.pm = !this.pm;
+                }
+
                 this.currentHour = (newHour >= 13) ? (newHour - 12) : newHour;
+            }
             
             this.updateTime();
         }
@@ -989,13 +996,18 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     decrementHour(event) {
-        let newHour = this.currentHour - this.stepHour;
+        const newHour = this.currentHour - this.stepHour;
         
         if(this.validateHour(newHour)) {
             if(this.hourFormat == '24')
                 this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;        
-            else if(this.hourFormat == '12')
+            else if(this.hourFormat == '12') {
+                // If we were at noon/midnight, then switch
+                if (this.currentHour === 12) {
+                    this.pm = !this.pm;
+                }
                 this.currentHour = (newHour <= 0) ? (12 + newHour) : newHour;
+            }
                 
             this.updateTime();
         }
