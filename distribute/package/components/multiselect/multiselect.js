@@ -1,13 +1,4 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
@@ -170,6 +161,17 @@ var MultiSelect = (function () {
             this.filterInputChild.nativeElement.value = null;
         }
         this.onPanelHide.emit();
+        /* Selected items to the top on Panel Hide */
+        var selectedOptions = [];
+        for (var j = 0; j < this.value.length; j++) {
+            for (var i = 0; i < this.options.length; i++) {
+                if (this.options[i].value == this.value[j]) {
+                    selectedOptions.push(this.options[i]);
+                    this.options.splice(i, 1);
+                }
+            }
+        }
+        this.options = selectedOptions.concat(this.options);
     };
     MultiSelect.prototype.close = function (event) {
         this.hide();
@@ -299,134 +301,65 @@ var MultiSelect = (function () {
     };
     return MultiSelect;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Array)
-], MultiSelect.prototype, "options", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], MultiSelect.prototype, "scrollHeight", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], MultiSelect.prototype, "defaultLabel", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], MultiSelect.prototype, "style", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], MultiSelect.prototype, "styleClass", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], MultiSelect.prototype, "panelStyle", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], MultiSelect.prototype, "panelStyleClass", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], MultiSelect.prototype, "inputId", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], MultiSelect.prototype, "disabled", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], MultiSelect.prototype, "filter", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], MultiSelect.prototype, "overlayVisible", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], MultiSelect.prototype, "tabindex", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], MultiSelect.prototype, "appendTo", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], MultiSelect.prototype, "dataKey", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], MultiSelect.prototype, "displaySelectedLabel", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Number)
-], MultiSelect.prototype, "maxSelectedLabels", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], MultiSelect.prototype, "selectedItemsLabel", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], MultiSelect.prototype, "showToggleAll", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], MultiSelect.prototype, "resetFilterOnHide", void 0);
-__decorate([
-    core_1.ViewChild('container'),
-    __metadata("design:type", core_1.ElementRef)
-], MultiSelect.prototype, "containerViewChild", void 0);
-__decorate([
-    core_1.ViewChild('panel'),
-    __metadata("design:type", core_1.ElementRef)
-], MultiSelect.prototype, "panelViewChild", void 0);
-__decorate([
-    core_1.ViewChild('filterInput'),
-    __metadata("design:type", core_1.ElementRef)
-], MultiSelect.prototype, "filterInputChild", void 0);
-__decorate([
-    core_1.ContentChildren(shared_1.PrimeTemplate),
-    __metadata("design:type", core_1.QueryList)
-], MultiSelect.prototype, "templates", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], MultiSelect.prototype, "onChange", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], MultiSelect.prototype, "onBlur", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], MultiSelect.prototype, "onPanelShow", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], MultiSelect.prototype, "onPanelHide", void 0);
-MultiSelect = __decorate([
-    core_1.Component({
-        selector: 'p-multiSelect',
-        template: "\n        <div #container [ngClass]=\"{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}\" [ngStyle]=\"style\" [class]=\"styleClass\"\n            (click)=\"onMouseclick($event,in)\">\n            <div class=\"ui-helper-hidden-accessible\">\n                <input #in type=\"text\" readonly=\"readonly\" [attr.id]=\"inputId\" (focus)=\"onFocus($event)\" (blur)=\"onInputBlur($event)\" [disabled]=\"disabled\" [attr.tabindex]=\"tabindex\">\n            </div>\n            <div class=\"ui-multiselect-label-container\" [title]=\"valuesAsString\">\n                <label class=\"ui-multiselect-label ui-corner-all\">{{valuesAsString}}</label>\n            </div>\n            <div [ngClass]=\"{'ui-multiselect-trigger ui-state-default ui-corner-right':true}\">\n                <span class=\"fa fa-fw fa-caret-down ui-clickable\"></span>\n            </div>\n            <div #panel [ngClass]=\"['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow', panelStyleClass||'']\" [ngStyle]=\"panelStyle\"\n                [style.display]=\"overlayVisible ? 'block' : 'none'\" (click)=\"panelClick=true\">\n                <div class=\"ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix\" [ngClass]=\"{'ui-multiselect-header-no-toggleall': !showToggleAll}\">\n                    <div class=\"ui-chkbox ui-widget\" *ngIf=\"showToggleAll\">\n                        <div class=\"ui-helper-hidden-accessible\">\n                            <input #cb type=\"checkbox\" readonly=\"readonly\" [checked]=\"isAllChecked()\">\n                        </div>\n                        <div class=\"ui-chkbox-box ui-widget ui-corner-all ui-state-default\" [ngClass]=\"{'ui-state-active':isAllChecked()}\" (click)=\"toggleAll($event,cb)\">\n                            <span class=\"ui-chkbox-icon ui-clickable\" [ngClass]=\"{'fa fa-check':isAllChecked()}\"></span>\n                        </div>\n                    </div>\n                    <div class=\"ui-multiselect-filter-container\" *ngIf=\"filter\">\n                        <input #filterInput type=\"text\" role=\"textbox\" (input)=\"onFilter($event)\"\n                                    class=\"ui-inputtext ui-widget ui-state-default ui-corner-all\">\n                        <span class=\"fa fa-fw fa-search\"></span>\n                    </div>\n                    <a class=\"ui-multiselect-close ui-corner-all\" href=\"#\" (click)=\"close($event)\">\n                        <span class=\"fa fa-close\"></span>\n                    </a>\n                </div>\n                <div class=\"ui-multiselect-items-wrapper\">\n                    <ul class=\"ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset\" [style.max-height]=\"scrollHeight||'auto'\">\n                        <li *ngFor=\"let option of options; let index = i\" class=\"ui-multiselect-item ui-corner-all\" (click)=\"onItemClick($event,option.value)\" \n                            [style.display]=\"isItemVisible(option) ? 'block' : 'none'\" [ngClass]=\"{'ui-state-highlight':isSelected(option.value)}\">\n                            <div class=\"ui-chkbox ui-widget\">\n                                <div class=\"ui-helper-hidden-accessible\">\n                                    <input type=\"checkbox\" readonly=\"readonly\" [checked]=\"isSelected(option.value)\">\n                                </div>\n                                <div class=\"ui-chkbox-box ui-widget ui-corner-all ui-state-default\" [ngClass]=\"{'ui-state-active':isSelected(option.value)}\">\n                                    <span class=\"ui-chkbox-icon ui-clickable\" [ngClass]=\"{'fa fa-check':isSelected(option.value)}\"></span>\n                                </div>\n                            </div>\n                            <label *ngIf=\"!itemTemplate\">{{option.label}}</label>\n                            <ng-template [pTemplateWrapper]=\"itemTemplate\" [item]=\"option\" [index]=\"i\" *ngIf=\"itemTemplate\"></ng-template>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </div>\n    ",
-        providers: [domhandler_1.DomHandler, objectutils_1.ObjectUtils, exports.MULTISELECT_VALUE_ACCESSOR]
-    }),
-    __metadata("design:paramtypes", [core_1.ElementRef, domhandler_1.DomHandler, core_1.Renderer2, core_1.IterableDiffers, objectutils_1.ObjectUtils, core_1.ChangeDetectorRef])
-], MultiSelect);
+MultiSelect.decorators = [
+    { type: core_1.Component, args: [{
+                selector: 'p-multiSelect',
+                template: "\n        <div #container [ngClass]=\"{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}\" [ngStyle]=\"style\" [class]=\"styleClass\"\n            (click)=\"onMouseclick($event,in)\">\n            <div class=\"ui-helper-hidden-accessible\">\n                <input #in type=\"text\" readonly=\"readonly\" [attr.id]=\"inputId\" (focus)=\"onFocus($event)\" (blur)=\"onInputBlur($event)\" [disabled]=\"disabled\" [attr.tabindex]=\"tabindex\">\n            </div>\n            <div class=\"ui-multiselect-label-container\" [title]=\"valuesAsString\">\n                <label class=\"ui-multiselect-label ui-corner-all\">{{valuesAsString}}</label>\n            </div>\n            <div [ngClass]=\"{'ui-multiselect-trigger ui-state-default ui-corner-right':true}\">\n                <span class=\"fa fa-fw fa-caret-down ui-clickable\"></span>\n            </div>\n            <div #panel [ngClass]=\"['ui-multiselect-panel ui-widget ui-widget-content ui-corner-all ui-shadow', panelStyleClass||'']\" [ngStyle]=\"panelStyle\"\n                [style.display]=\"overlayVisible ? 'block' : 'none'\" (click)=\"panelClick=true\">\n                <div class=\"ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix\" [ngClass]=\"{'ui-multiselect-header-no-toggleall': !showToggleAll}\">\n                    <div class=\"ui-chkbox ui-widget\" *ngIf=\"showToggleAll\">\n                        <div class=\"ui-helper-hidden-accessible\">\n                            <input #cb type=\"checkbox\" readonly=\"readonly\" [checked]=\"isAllChecked()\">\n                        </div>\n                        <div class=\"ui-chkbox-box ui-widget ui-corner-all ui-state-default\" [ngClass]=\"{'ui-state-active':isAllChecked()}\" (click)=\"toggleAll($event,cb)\">\n                            <span class=\"ui-chkbox-icon ui-clickable\" [ngClass]=\"{'fa fa-check':isAllChecked()}\"></span>\n                        </div>\n                    </div>\n                    <div class=\"ui-multiselect-filter-container\" *ngIf=\"filter\">\n                        <input #filterInput type=\"text\" role=\"textbox\" (input)=\"onFilter($event)\"\n                                    class=\"ui-inputtext ui-widget ui-state-default ui-corner-all\">\n                        <span class=\"fa fa-fw fa-search\"></span>\n                    </div>\n                    <a class=\"ui-multiselect-close ui-corner-all\" href=\"#\" (click)=\"close($event)\">\n                        <span class=\"fa fa-close\"></span>\n                    </a>\n                </div>\n                <div class=\"ui-multiselect-items-wrapper\">\n                    <ul class=\"ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset\" [style.max-height]=\"scrollHeight||'auto'\">\n                        <li *ngFor=\"let option of options; let index = i\" class=\"ui-multiselect-item ui-corner-all\" (click)=\"onItemClick($event,option.value)\" \n                            [style.display]=\"isItemVisible(option) ? 'block' : 'none'\" [ngClass]=\"{'ui-state-highlight':isSelected(option.value)}\">\n                            <div class=\"ui-chkbox ui-widget\">\n                                <div class=\"ui-helper-hidden-accessible\">\n                                    <input type=\"checkbox\" readonly=\"readonly\" [checked]=\"isSelected(option.value)\">\n                                </div>\n                                <div class=\"ui-chkbox-box ui-widget ui-corner-all ui-state-default\" [ngClass]=\"{'ui-state-active':isSelected(option.value)}\">\n                                    <span class=\"ui-chkbox-icon ui-clickable\" [ngClass]=\"{'fa fa-check':isSelected(option.value)}\"></span>\n                                </div>\n                            </div>\n                            <label *ngIf=\"!itemTemplate\">{{option.label}}</label>\n                            <ng-template [pTemplateWrapper]=\"itemTemplate\" [item]=\"option\" [index]=\"i\" *ngIf=\"itemTemplate\"></ng-template>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </div>\n    ",
+                providers: [domhandler_1.DomHandler, objectutils_1.ObjectUtils, exports.MULTISELECT_VALUE_ACCESSOR]
+            },] },
+];
+/** @nocollapse */
+MultiSelect.ctorParameters = function () { return [
+    { type: core_1.ElementRef, },
+    { type: domhandler_1.DomHandler, },
+    { type: core_1.Renderer2, },
+    { type: core_1.IterableDiffers, },
+    { type: objectutils_1.ObjectUtils, },
+    { type: core_1.ChangeDetectorRef, },
+]; };
+MultiSelect.propDecorators = {
+    'options': [{ type: core_1.Input },],
+    'scrollHeight': [{ type: core_1.Input },],
+    'defaultLabel': [{ type: core_1.Input },],
+    'style': [{ type: core_1.Input },],
+    'styleClass': [{ type: core_1.Input },],
+    'panelStyle': [{ type: core_1.Input },],
+    'panelStyleClass': [{ type: core_1.Input },],
+    'inputId': [{ type: core_1.Input },],
+    'disabled': [{ type: core_1.Input },],
+    'filter': [{ type: core_1.Input },],
+    'overlayVisible': [{ type: core_1.Input },],
+    'tabindex': [{ type: core_1.Input },],
+    'appendTo': [{ type: core_1.Input },],
+    'dataKey': [{ type: core_1.Input },],
+    'displaySelectedLabel': [{ type: core_1.Input },],
+    'maxSelectedLabels': [{ type: core_1.Input },],
+    'selectedItemsLabel': [{ type: core_1.Input },],
+    'showToggleAll': [{ type: core_1.Input },],
+    'resetFilterOnHide': [{ type: core_1.Input },],
+    'containerViewChild': [{ type: core_1.ViewChild, args: ['container',] },],
+    'panelViewChild': [{ type: core_1.ViewChild, args: ['panel',] },],
+    'filterInputChild': [{ type: core_1.ViewChild, args: ['filterInput',] },],
+    'templates': [{ type: core_1.ContentChildren, args: [shared_1.PrimeTemplate,] },],
+    'onChange': [{ type: core_1.Output },],
+    'onBlur': [{ type: core_1.Output },],
+    'onPanelShow': [{ type: core_1.Output },],
+    'onPanelHide': [{ type: core_1.Output },],
+};
 exports.MultiSelect = MultiSelect;
 var MultiSelectModule = (function () {
     function MultiSelectModule() {
     }
     return MultiSelectModule;
 }());
-MultiSelectModule = __decorate([
-    core_1.NgModule({
-        imports: [common_1.CommonModule, shared_1.SharedModule],
-        exports: [MultiSelect, shared_1.SharedModule],
-        declarations: [MultiSelect]
-    })
-], MultiSelectModule);
+MultiSelectModule.decorators = [
+    { type: core_1.NgModule, args: [{
+                imports: [common_1.CommonModule, shared_1.SharedModule],
+                exports: [MultiSelect, shared_1.SharedModule],
+                declarations: [MultiSelect]
+            },] },
+];
+/** @nocollapse */
+MultiSelectModule.ctorParameters = function () { return []; };
 exports.MultiSelectModule = MultiSelectModule;
 //# sourceMappingURL=multiselect.js.map
