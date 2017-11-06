@@ -1,3 +1,5 @@
+import {FilterState} from "./filterstateenum";
+
 export interface TreeNode {
     label?: string;
     data?: any;
@@ -14,4 +16,5 @@ export interface TreeNode {
     draggable?: boolean;
     droppable?: boolean;
     selectable?: boolean;
+    filterState?: FilterState;
 }

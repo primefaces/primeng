@@ -385,6 +385,35 @@
             }
         }
     }
+    &:not(.ui-tree-horizontal) {
+        .ui-treenode {
+            &.ui-treenode-filter-found {
+                > .ui-treenode-content {
+                    font-weight: bold;
+                }
+            }
+            &.ui-treenode-filter-on-path {
+                > .ui-treenode-content {
+                    opacity: 0.5;
+                }
+            }
+            &.ui-treenode-filter-not-found {
+                display: none;
+            }
+        }
+    }
+    &.ui-tree-horizontal{
+        .ui-treenode-filter-found > tbody > tr > .ui-treenode > .ui-treenode-content {
+            font-weight: bold;
+            opacity: 1;
+        }
+        .ui-treenode-filter-on-path > tbody > tr > .ui-treenode > .ui-treenode-content > *{
+            opacity: 0.7;
+        }
+        .ui-treenode-filter-not-found > tbody > tr > .ui-treenode > .ui-treenode-content > *{
+            opacity: 0.1;
+        }
+    }
 }
 
 .ui-treetable {
