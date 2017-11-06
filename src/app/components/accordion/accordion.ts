@@ -4,13 +4,15 @@ import {CommonModule} from '@angular/common';
 import {Header} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
 
+let idx: number = 0;
+
 @Component({
     selector: 'p-accordion',
     template: `
-        <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [ngStyle]="style" [class]="styleClass" role="presentation">
             <ng-content></ng-content>
         </div>
-    `,
+    `
 })
 export class Accordion implements BlockableUI {
     
@@ -66,16 +68,18 @@ export class Accordion implements BlockableUI {
 @Component({
     selector: 'p-accordionTab',
     template: `
-        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}"
-            (click)="toggle($event)">
-            <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
-            <a href="#" *ngIf="!hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">{{header}}</a>
-            <a href="#" *ngIf="hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">
-                <ng-content select="p-header"></ng-content>
+        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}">
+            <a href="#" [attr.id]="id" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="selected" (click)="toggle($event)" (keydown.space)="toggle($event)">
+                <span class="ui-accordion-toggle-icon fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
+                <ng-container *ngIf="!hasHeaderFacet">
+                    {{header}}
+                </ng-container>
+                <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
             </a>
         </div>
-        <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" (@tabContent.done)="onToggleDone($event)"
-            [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" role="tabpanel" [attr.aria-hidden]="!selected">
+        <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" (@tabContent.done)="onToggleDone($event)"
+            [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
+            role="region" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
             <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
                 <ng-content></ng-content>
             </div>
@@ -100,13 +104,15 @@ export class AccordionTab implements OnDestroy {
     @Input() selected: boolean;
 
     @Input() disabled: boolean;
-    
+        
     @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(Header) headerFacet: QueryList<AccordionTab>;
     
-    public animating: boolean;
+    animating: boolean;
     
+    id: string = `ui-panel-${idx++}`;
+        
     constructor(public accordion: Accordion) {
         this.accordion.addTab(this);
     }
