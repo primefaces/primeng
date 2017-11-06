@@ -29,6 +29,10 @@
     font-weight: bold;
 }
 
+.ui-progressbar-indeterminate {
+    height: .5em;
+}
+
 .ui-progressbar-indeterminate .ui-progressbar-value {
     border: 0 none;
 }
