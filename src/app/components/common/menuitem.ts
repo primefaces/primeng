@@ -19,4 +19,5 @@ export interface MenuItem {
     style?:any;
     styleClass?:string;
     title?: string;
+    id?: string;
 }
