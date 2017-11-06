@@ -6,7 +6,7 @@
     display: inline-block;
 }
 
-.ui-progress-spinner:before {
+.ui-progress-spinner::before {
     content: '';
     display: block;
     padding-top: 100%;

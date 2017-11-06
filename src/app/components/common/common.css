@@ -28,12 +28,12 @@
     font-size: 100%;
     list-style: none;
 }
-.ui-helper-clearfix:before,
-.ui-helper-clearfix:after {
+.ui-helper-clearfix::before,
+.ui-helper-clearfix::after {
     content: "";
     display: table;
 }
-.ui-helper-clearfix:after {
+.ui-helper-clearfix::after {
     clear: both;
 }
 .ui-helper-clearfix {

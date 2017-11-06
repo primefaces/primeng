@@ -46,6 +46,6 @@
     right: .5em;
 }
 
-.ui-rtl .ui-accordion .ui-accordion-header > .fa-caret-right:before {
+.ui-rtl .ui-accordion .ui-accordion-header > .fa-caret-right::before {
     content: '\f0d9';
 }
