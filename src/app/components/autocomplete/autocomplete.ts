@@ -339,7 +339,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
        });
     }
             
-    selectItem(option: any) {
+    selectItem(option: any, focus: boolean = true) {
         if(this.multiple) {
             this.multiInputEL.nativeElement.value = '';
             this.value = this.value||[];
@@ -356,7 +356,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         
         this.onSelect.emit(option);
         
-        this.focusInput();
+        if(focus)
+            this.focusInput();
     }
     
     show() {
@@ -518,7 +519,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                     let itemValue = this.field ? this.objectUtils.resolveFieldData(suggestion, this.field) : suggestion;
                     if(itemValue && inputValue === itemValue) {
                         valid = true;
-                        this.selectItem(suggestion);
+                        this.selectItem(suggestion, false);
                         break;
                     }
                 }
