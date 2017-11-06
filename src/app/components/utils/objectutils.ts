@@ -121,4 +121,40 @@ export class ObjectUtils {
         
         return selectItems;
     }
+    
+    insertIntoOrderedArray(item: any, index: number, arr: any[], sourceArr: any[]): void {
+        if(arr.length > 0) {
+            let injected = false;
+            for(let i = 0; i < arr.length; i++) {
+                let currentItemIndex = this.findIndexInList(arr[i], sourceArr);
+                if(currentItemIndex > index) {
+                    arr.splice(i, 0, item);
+                    injected = true;
+                    break;
+                }
+            }
+            
+            if(!injected) {
+                arr.push(item);
+            }
+        }
+        else {
+            arr.push(item);
+        }
+    }
+    
+    findIndexInList(item: any, list: any): number {
+        let index: number = -1;
+        
+        if(list) {
+            for(let i = 0; i < list.length; i++) {
+                if(list[i] == item) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        
+        return index;
+    }
 }

@@ -147,7 +147,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
                 
     onItemClick(event, item, index) {
-        let selectedIndex = this.findIndexInList(item, this.selectedItems);
+        let selectedIndex = this.objectUtils.findIndexInList(item, this.selectedItems);
         let selected = (selectedIndex != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
@@ -178,25 +178,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     
     selectItem(item, index) {
         this.selectedItems = this.selectedItems||[];
-        
-        if(this.selectedItems.length > 0) {
-            let injected = false;
-            for(let i = 0; i < this.selectedItems.length; i++) {
-                let currentItemIndex = this.findIndexInList(this.selectedItems[i], this.value);
-                if(currentItemIndex > index) {
-                    this.selectedItems.splice(i, 0, item);
-                    injected = true;
-                    break;
-                }
-            }
-            
-            if(!injected) {
-                this.selectedItems.push(item);
-            }
-        }
-        else {
-            this.selectedItems.push(item);
-        }
+        this.objectUtils.insertIntoOrderedArray(item, index, this.selectedItems, this.value);        
     }
         
     onFilterKeyup(event) {
@@ -232,29 +214,14 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     isSelected(item: any) {
-        return this.findIndexInList(item, this.selectedItems) != -1;
+        return this.objectUtils.findIndexInList(item, this.selectedItems) != -1;
     }
         
-    findIndexInList(item: any, list: any): number {
-        let index: number = -1;
-        
-        if(list) {
-            for(let i = 0; i < list.length; i++) {
-                if(list[i] == item) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-        
-        return index;
-    }
-
     moveUp(event,listElement) {
         if(this.selectedItems) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != 0) {
                     let movedItem = this.value[selectedItemIndex];
@@ -276,7 +243,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if(this.selectedItems) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != 0) {
                     let movedItem = this.value.splice(selectedItemIndex,1)[0];
@@ -297,7 +264,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if(this.selectedItems) {
             for(let i = this.selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = this.selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != (this.value.length - 1)) {
                     let movedItem = this.value[selectedItemIndex];
@@ -319,7 +286,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if(this.selectedItems) {
             for(let i = this.selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = this.selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != (this.value.length - 1)) {
                     let movedItem = this.value.splice(selectedItemIndex,1)[0];

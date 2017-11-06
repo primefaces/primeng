@@ -61,7 +61,20 @@ describe('ObjectUtils Suite', () => {
         let arr: string[] = ['New York', 'Istanbul', 'Paris', 'Barcelona', 'London'];
         objectUtils.reorderArray(arr, 3, 1);
         expect(arr).toEqual(['New York', 'Barcelona', 'Istanbul', 'Paris', 'London']);
+    });
+    
+    it('Should inject an item as indexed', () => {
+        let sourceArr: string[] = ['New York', 'Istanbul', 'Paris', 'Barcelona', 'London'];
+        let arr: string[] = [];
         
+        objectUtils.insertIntoOrderedArray('Istanbul', 1, arr, sourceArr);
+        expect(arr).toEqual(['Istanbul']);
+        
+        objectUtils.insertIntoOrderedArray('Paris', 2, arr, sourceArr);
+        objectUtils.insertIntoOrderedArray('New York', 0, arr, sourceArr);
+        objectUtils.insertIntoOrderedArray('London', 4, arr, sourceArr);
+        objectUtils.insertIntoOrderedArray('Barcelona', 3, arr, sourceArr);
+        expect(arr).toEqual(['New York', 'Istanbul', 'Paris', 'Barcelona', 'London']);
     });
 
 });
