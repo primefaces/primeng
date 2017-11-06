@@ -60,3 +60,7 @@
     min-width: 4em;
     margin-left: .375em;
 }
+
+.ui-fluid .ui-paginator .ui-dropdown {
+    width: auto;
+}
