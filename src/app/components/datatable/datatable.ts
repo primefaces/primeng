@@ -2533,7 +2533,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             for(let i = 0; i < this.columns.length; i++) {
                 let column = this.columns[i];
                 if(column.exportable && column.field) {
-                    csv += '"' + this.resolveFieldData(record, column.field) + '"';
+                    let cellData = this.resolveFieldData(record, column.field)||'';
+                    csv += '"' + cellData + '"';
                     
                     if(i < (this.columns.length - 1)) {
                         csv += this.csvSeparator;
