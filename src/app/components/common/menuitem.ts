@@ -7,7 +7,7 @@ export interface MenuItem {
     url?: string;
     routerLink?: any;
     queryParams?: { [k: string]: any };
-    items?: MenuItem[];
+    items?: MenuItem[]|MenuItem[][];
     expanded?: boolean;
     disabled?: boolean;
     visible?: boolean;
