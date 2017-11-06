@@ -19,7 +19,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         <div #container [ngClass]="{'ui-multiselect ui-widget ui-state-default ui-corner-all':true,'ui-state-focus':focus,'ui-state-disabled': disabled}" [ngStyle]="style" [class]="styleClass"
             (click)="onMouseclick($event,in)">
             <div class="ui-helper-hidden-accessible">
-                <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+                <input #in type="text" readonly="readonly" [attr.id]="inputId" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" [disabled]="disabled" [attr.tabindex]="tabindex" (keydown)="onInputKeydown($event)">
             </div>
             <div class="ui-multiselect-label-container" [title]="valuesAsString">
                 <label class="ui-multiselect-label ui-corner-all">{{valuesAsString}}</label>
@@ -53,9 +53,9 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                             [style.display]="isItemVisible(option) ? 'block' : 'none'" [ngClass]="{'ui-state-highlight':isSelected(option.value)}">
                             <div class="ui-chkbox ui-widget">
                                 <div class="ui-helper-hidden-accessible">
-                                    <input type="checkbox" readonly="readonly" [checked]="isSelected(option.value)">
+                                    <input #itemcb type="checkbox" readonly="readonly" [checked]="isSelected(option.value)" (focus)="focusedItemCheckbox=itemcb" (blur)="focusedItemCheckbox=null">
                                 </div>
-                                <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option.value)}">
+                                <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" [ngClass]="{'ui-state-active':isSelected(option.value), 'ui-state-focus': (focusedItemCheckbox === itemcb)}">
                                     <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':isSelected(option.value)}"></span>
                                 </div>
                             </div>
@@ -156,6 +156,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     public filtered: boolean;
             
     public itemTemplate: TemplateRef<any>;
+    
+    public focusedItemCheckbox: HTMLInputElement;
     
     _options: any[];
     
@@ -349,6 +351,25 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         this.focus = false;
         this.onBlur.emit({originalEvent: event});
         this.onModelTouched();
+    }
+    
+    onInputKeydown(event) {
+        switch(event.which) {
+            //down
+            case 40:
+                if(!this.overlayVisible && event.altKey) {
+                    this.show();
+                }
+                
+                event.preventDefault();
+            break;
+            
+            //escape and tab
+            case 27:
+            case 9:
+                this.hide();
+            break;
+        }
     }
     
     updateLabel() {
