@@ -27,7 +27,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}"></li>
                         <li class="ui-orderlist-item"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
-                            (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)"
+                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
@@ -76,7 +76,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     public itemTemplate: TemplateRef<any>;
         
     selectedItems: any[];
-    
+        
     movedUp: boolean;
     
     movedDown: boolean;
@@ -146,36 +146,59 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         }
     }
                 
-    onItemClick(event, item) {
-        let index = this.findIndexInList(item, this.selectedItems);
-        let selected = (index != -1);
+    onItemClick(event, item, index) {
+        let selectedIndex = this.findIndexInList(item, this.selectedItems);
+        let selected = (selectedIndex != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
         if(metaSelection) {
             let metaKey = (event.metaKey||event.ctrlKey);
             
             if(selected && metaKey) {
-                this.selectedItems.splice(index, 1);
+                this.selectedItems.splice(selectedIndex, 1);
             }
             else {
                 this.selectedItems = (metaKey) ? this.selectedItems||[] : [];            
-                this.selectedItems.push(item);
+                this.selectItem(item, index);
             }
         }
         else {
             if(selected) {
-                this.selectedItems.splice(index, 1);
+                this.selectedItems.splice(selectedIndex, 1);
             }
             else {
                 this.selectedItems = this.selectedItems||[];
-                this.selectedItems.push(item);
+                this.selectItem(item, index);
             }
         }
-
+        
         this.onSelectionChange.emit({originalEvent:event, value:this.selectedItems});
         this.itemTouched = false;
     }
     
+    selectItem(item, index) {
+        this.selectedItems = this.selectedItems||[];
+        
+        if(this.selectedItems.length > 0) {
+            let injected = false;
+            for(let i = 0; i < this.selectedItems.length; i++) {
+                let currentItemIndex = this.findIndexInList(this.selectedItems[i], this.value);
+                if(currentItemIndex > index) {
+                    this.selectedItems.splice(i, 0, item);
+                    injected = true;
+                    break;
+                }
+            }
+            
+            if(!injected) {
+                this.selectedItems.push(item);
+            }
+        }
+        else {
+            this.selectedItems.push(item);
+        }
+    }
+        
     onFilterKeyup(event) {
         this.filterValue = event.target.value.trim().toLowerCase();
         this.filter();
