@@ -17,7 +17,7 @@ export class ProgressBar {
     
     @Input() showValue: boolean = true;
     
-    @Input() style: object;
+    @Input() style: any;
     
     @Input() styleClass: string;
 
