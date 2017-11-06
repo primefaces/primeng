@@ -11,8 +11,8 @@ import {RouterModule} from '@angular/router';
     selector: 'p-splitButton',
     template: `
         <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass">
-            <button #defaultbtn type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" cornerStyleClass="ui-corner-left" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
-            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="fa-caret-down" cornerStyleClass="ui-corner-right" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
+            <button #defaultbtn type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-right': 'ui-corner-left'" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="fa-caret-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
             <div #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" [style.display]="menuVisible ? 'block' : 'none'"
                     [ngStyle]="menuStyle" [class]="menuStyleClass" [@overlayState]="menuVisible ? 'visible' : 'hidden'">
                 <ul class="ui-menu-list ui-helper-reset">
@@ -73,6 +73,8 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() tabindex: number;
     
     @Input() appendTo: any;
+    
+    @Input() dir: string;
     
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
     
