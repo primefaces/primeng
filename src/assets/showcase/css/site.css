@@ -188,7 +188,8 @@ body {
     top: 70px;
     height: 100%;
     background-color: #ffffff;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 300px;
 	-moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 	-webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
@@ -309,7 +310,7 @@ body {
 
 #layout-sidebar .layout-menu {
     overflow-y: auto;
-    height: calc(100% - 70px);
+    width: 300px;
 }
 
 #layout-content {
