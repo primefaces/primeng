@@ -4,6 +4,8 @@ import {CommonModule} from '@angular/common';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
 
+let idx: number = 0;
+
 @Component({
     selector: '[p-tabViewNav]',
     host:{
@@ -15,11 +17,10 @@ import {BlockableUI} from '../common/blockableui';
     },
     template: `
         <ng-template ngFor let-tab [ngForOf]="tabs">
-            <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="tab"
+            <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="presentation"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
-                (click)="clickTab($event,tab)" *ngIf="!tab.closed"
-                [attr.aria-expanded]="tab.selected" [attr.aria-selected]="tab.selected">
-                <a href="#">
+                (click)="clickTab($event,tab)" *ngIf="!tab.closed">
+                <a [attr.id]="tab.id + '-label'" href="#" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id">
                     <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                     <span class="ui-tabview-title">{{tab.header}}</span>
                     <span class="ui-tabview-right-icon fa" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
@@ -65,8 +66,8 @@ export class TabViewNav {
 @Component({
     selector: 'p-tabPanel',
     template: `
-        <div class="ui-tabview-panel ui-widget-content" [style.display]="selected ? 'block' : 'none'" 
-            role="tabpanel" [attr.aria-hidden]="!selected" *ngIf="!closed">
+        <div [attr.id]="id" class="ui-tabview-panel ui-widget-content" [style.display]="selected ? 'block' : 'none'" 
+            role="tabpanel" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id + '-label'" *ngIf="!closed">
             <ng-content></ng-content>
             <p-templateLoader [template]="contentTemplate" *ngIf="contentTemplate&&(cache ? loaded : selected)"></p-templateLoader>
         </div>
@@ -89,6 +90,8 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     @Input() rightIcon: string;
     
     @Input() cache: boolean = true;
+    
+    @Input() id: string = `ui-panel-${idx++}`;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
