@@ -5,16 +5,18 @@ import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {Header,Footer,SharedModule} from '../common/shared';
 
+let idx: number = 0;
+
 @Component({
     selector: 'p-dialog',
     template: `
         <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" [ngStyle]="style" [class]="styleClass"
             [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'"
-            role="dialog" [attr.aria-labelledby]="ariaLabelledBy">
+            role="dialog" [attr.aria-labelledby]="id + '-label'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
-                <span [attr.id]="ariaLabelledBy" class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <span [attr.id]="ariaLabelledBy" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
+                <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
+                <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
                     <ng-content select="p-header"></ng-content>
                 </span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
@@ -46,11 +48,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
     providers: [DomHandler]
 })
 export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
-
-    @Input() id: string;
     
-    @Input() ariaLabelledBy: string;
-
     @Input() header: string;
 
     @Input() draggable: boolean = true;
@@ -148,6 +146,8 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     executePostDisplayActions: boolean;
     
     initialized: boolean;
+    
+    id: string = `ui-dialog-${idx++}`;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public zone: NgZone) {}
     
