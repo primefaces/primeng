@@ -90,13 +90,9 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     @Input() rightIcon: string;
     
     @Input() cache: boolean = true;
-    
-    @Input() id: string = `ui-panel-${idx++}`;
-    
+        
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
-    public contentTemplate: TemplateRef<any>;
-    
+        
     constructor(public viewContainer: ViewContainerRef) {}
         
     closed: boolean;
@@ -106,6 +102,10 @@ export class TabPanel implements AfterContentInit,OnDestroy {
     _selected: boolean;
     
     loaded: boolean;
+    
+    id: string = `ui-tabpanel-${idx++}`;
+    
+    contentTemplate: TemplateRef<any>;
     
     ngAfterContentInit() {
         this.templates.forEach((item) => {

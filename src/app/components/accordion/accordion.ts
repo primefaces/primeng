@@ -111,7 +111,7 @@ export class AccordionTab implements OnDestroy {
     
     animating: boolean;
     
-    id: string = `ui-panel-${idx++}`;
+    id: string = `ui-accordiontab-${idx++}`;
         
     constructor(public accordion: Accordion) {
         this.accordion.addTab(this);
