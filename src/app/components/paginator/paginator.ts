@@ -1,8 +1,41 @@
-import {NgModule,Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from '@angular/core';
+import {
+    NgModule, Component, ElementRef, Input, Output, SimpleChange, EventEmitter, QueryList,
+    ContentChildren, AfterContentInit, TemplateRef, OnDestroy, EmbeddedViewRef, ViewContainerRef, OnChanges, OnInit
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DropdownModule} from '../dropdown/dropdown';
 import {SelectItem} from '../common/selectitem';
+import {PrimeTemplate} from "../common/shared";
+
+@Component({
+    selector: 'p-paginatorDetail',
+    template: ``
+})
+export class PaginatorDetail implements OnChanges, OnDestroy {
+
+    @Input() template: TemplateRef<any>;
+
+    @Input() state: any;
+
+    view: EmbeddedViewRef<any>;
+
+    constructor(public viewContainer: ViewContainerRef) {}
+
+    ngOnChanges() {
+        if (!!this.view) {
+            this.view.destroy();
+        }
+
+        this.view = this.viewContainer.createEmbeddedView(this.template, {
+            '\$implicit': this.state,
+        });
+    }
+
+    ngOnDestroy() {
+        this.view.destroy();
+    }
+}
 
 @Component({
     selector: 'p-paginator',
@@ -31,10 +64,11 @@ import {SelectItem} from '../common/selectitem';
             </a>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
                 (onChange)="onRppChange($event)" [lazy]="false" [autoWidth]="false"></p-dropdown>
+            <p-paginatorDetail *ngIf="paginatorDetail" [template]="paginatorDetailTemplate" [state]="state"></p-paginatorDetail>
         </div>
     `
 })
-export class Paginator {
+export class Paginator implements OnInit, AfterContentInit {
 
     @Input() pageLinkSize: number = 5;
 
@@ -45,6 +79,10 @@ export class Paginator {
     @Input() styleClass: string;
 
     @Input() alwaysShow: boolean = true;
+
+    @Input() paginatorDetail: boolean = false;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     pageLinks: number[];
 
@@ -57,6 +95,10 @@ export class Paginator {
     _rowsPerPageOptions: number[];
     
     rowsPerPageItems: SelectItem[];
+
+    paginatorDetailTemplate: TemplateRef<any>;
+
+    state: any;
 
     @Input() get totalRecords(): number {
         return this._totalRecords;
@@ -97,6 +139,25 @@ export class Paginator {
                 this.rowsPerPageItems.push({label: String(opt), value: opt});
             }
         }
+    }
+
+    ngOnInit() {
+        this.state = {
+            page: 0,
+            first: this.first,
+            rows: this.rows,
+            pageCount: this.getPageCount()
+        };
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'paginatordetail':
+                    this.paginatorDetailTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     isFirstPage() {
@@ -142,7 +203,7 @@ export class Paginator {
 
         if(p >= 0 && p < pc) {
             this.first = this.rows * p;
-            var state = {
+            this.state = {
                 page: p,
                 first: this.first,
                 rows: this.rows,
@@ -150,7 +211,7 @@ export class Paginator {
             };
             this.updatePageLinks();
 
-            this.onPageChange.emit(state);
+            this.onPageChange.emit(this.state);
         }
     }
 
@@ -197,6 +258,6 @@ export class Paginator {
 @NgModule({
     imports: [CommonModule,DropdownModule,FormsModule],
     exports: [Paginator,DropdownModule,FormsModule],
-    declarations: [Paginator]
+    declarations: [Paginator,PaginatorDetail]
 })
 export class PaginatorModule { }

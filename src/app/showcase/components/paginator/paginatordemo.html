@@ -6,7 +6,15 @@
 </div>
 
 <div class="content-section implementation ui-fluid">
+    <h3>Base</h3>
     <p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+
+    <h3>Detail</h3>
+    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]" [paginatorDetail]="true">
+        <ng-template let-state pTemplate="paginatordetail">
+            &nbsp;<span>Displaying {{ state.first + 1 }} - {{(state.page + 1) * state.rows }} of 120 records</span>
+        </ng-template>
+    </p-paginator>
 </div>
 
 <div class="content-section documentation">
@@ -110,6 +118,12 @@ import &#123;PaginatorModule&#125; from 'primeng/primeng';
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show it even there is only one page.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorDetail</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, displays a detailed page content</td>
                         </tr>
                     </tbody>
                 </table>
@@ -218,6 +232,12 @@ export class MyComponent &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"&gt;&lt;/p-paginator&gt;
+
+&lt;p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]" [paginatorDetail]="true"&gt;
+    &lt;ng-template let-state pTemplate="paginatordetail"&gt;
+        &nbsp;&lt;span&gt;Displaying {{ state.first + 1 }} - {{(state.page + 1) * state.rows }} of 120 records&lt;/span&gt;
+    &lt;/ng-template&gt;
+&lt;/p-paginator&gt;
 </code>
 </pre>
         </p-tabPanel>
