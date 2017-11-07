@@ -1,6 +1,6 @@
 import {
     NgModule, Component, ElementRef, Input, Output, SimpleChange, EventEmitter, QueryList,
-    ContentChildren, AfterContentInit, TemplateRef, OnDestroy, EmbeddedViewRef, ViewContainerRef, OnChanges
+    ContentChildren, AfterContentInit, TemplateRef, OnDestroy, EmbeddedViewRef, ViewContainerRef, OnChanges, OnInit
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -68,7 +68,7 @@ export class PaginatorDetail implements OnChanges, OnDestroy {
         </div>
     `
 })
-export class Paginator implements AfterContentInit {
+export class Paginator implements OnInit, AfterContentInit {
 
     @Input() pageLinkSize: number = 5;
 
@@ -141,7 +141,7 @@ export class Paginator implements AfterContentInit {
         }
     }
 
-    constructor() {
+    ngOnInit() {
         this.state = {
             page: 0,
             first: this.first,
