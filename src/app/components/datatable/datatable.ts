@@ -219,7 +219,7 @@ export class ColumnFooters {
 
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row" [style.visibility]="dt.loading ? 'hidden' : 'visible'">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
-                <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
+                <span *ngIf="!dt.emptyMessageTemplate"><div [innerHTML]=\"dt.emptyMessage\"></div></span>
                 <p-templateLoader [template]="dt.emptyMessageTemplate"></p-templateLoader>
             </td>
         </tr>
