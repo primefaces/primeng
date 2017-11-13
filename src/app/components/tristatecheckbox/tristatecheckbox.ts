@@ -20,15 +20,18 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 <span class="ui-chkbox-icon fa ui-clickable" [ngClass]="{'fa-check':value==true,'fa-close':value==false}"></span>
             </div>
         </div>
+        <label class="ui-chkbox-label" (click)="onClick($event,input)"
+               [ngClass]="{'ui-label-active':value!=null, 'ui-label-disabled':disabled, 'ui-label-focus':focus}"
+               *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR]
 })
 export class TriStateCheckbox implements ControlValueAccessor  {
-    
+
     constructor(private cd: ChangeDetectorRef) {}
 
     @Input() disabled: boolean;
-    
+
     @Input() name: string;
 
     @Input() tabindex: number;
@@ -38,17 +41,19 @@ export class TriStateCheckbox implements ControlValueAccessor  {
     @Input() style: any;
 
     @Input() styleClass: string;
-    
+
+    @Input() label: string;
+
     @Output() onChange: EventEmitter<any> = new EventEmitter();
-        
+
     focus: boolean;
 
     value: any;
 
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
+
     onClick(event: Event, input: HTMLInputElement) {
         if(!this.disabled) {
             this.toggle(event);
@@ -56,20 +61,20 @@ export class TriStateCheckbox implements ControlValueAccessor  {
             input.focus();
         }
     }
-    
+
     onKeydown(event: KeyboardEvent) {
         if(event.keyCode == 32) {
             event.preventDefault();
         }
     }
-    
+
     onKeyup(event: KeyboardEvent) {
         if(event.keyCode == 32) {
             this.toggle(event);
             event.preventDefault();
         }
     }
-    
+
     toggle(event: Event) {
         if(this.value == null || this.value == undefined)
             this.value = true;
@@ -77,23 +82,23 @@ export class TriStateCheckbox implements ControlValueAccessor  {
             this.value = false;
         else if(this.value == false)
             this.value = null;
-            
+
         this.onModelChange(this.value);
         this.onChange.emit({
             originalEvent: event,
             value: this.value
         })
     }
-    
+
     onFocus() {
         this.focus = true;
     }
-    
+
     onBlur() {
         this.focus = false;
         this.onModelTouched();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -106,7 +111,7 @@ export class TriStateCheckbox implements ControlValueAccessor  {
         this.value = value;
         this.cd.markForCheck();
     }
-    
+
     setDisabledState(disabled: boolean): void {
         this.disabled = disabled;
     }
