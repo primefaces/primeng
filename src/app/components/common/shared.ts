@@ -81,6 +81,7 @@ export class Column implements AfterContentInit{
     @Input() scope: string;
     @Input() style: any;
     @Input() styleClass: string;
+    @Input() cellStyleClass: Function;
     @Input() exportable: boolean = true;
     @Input() headerStyle: any;
     @Input() headerStyleClass: string;
@@ -133,6 +134,18 @@ export class Column implements AfterContentInit{
                 break;
             }
         });
+    }
+
+    getCellStyleClass(rowData: any, rowIndex: number) {
+        let styleClass = '';
+        if(this.cellStyleClass) {
+            let cellClass = this.cellStyleClass.call(this, rowData, rowIndex);
+            if(cellClass) {
+                styleClass += ' ' + cellClass;
+            }
+        }
+        
+        return styleClass;
     }
 }
 
