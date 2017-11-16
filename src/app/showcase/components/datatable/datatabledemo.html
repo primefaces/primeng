@@ -561,6 +561,24 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <p>Paginator accepts custom content for the left and the right side via named templates.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+    &lt;ng-template pTemplate="paginatorLeft"&gt;
+        &lt;button type="button" pButton icon="fa-refresh"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="paginatorRight"&gt;
+        &lt;button type="button" pButton icon="fa-cloud-upload"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
 
             <p>See the <a [routerLink]="['/datatable/paginator']">live example.</a></p>
 

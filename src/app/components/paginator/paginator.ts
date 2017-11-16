@@ -1,14 +1,18 @@
-import {NgModule,Component,ElementRef,Input,Output,SimpleChange,EventEmitter} from '@angular/core';
+import {NgModule,Component,ElementRef,Input,Output,SimpleChange,EventEmitter,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DropdownModule} from '../dropdown/dropdown';
 import {SelectItem} from '../common/selectitem';
+import {SharedModule} from '../common/shared';
 
 @Component({
     selector: 'p-paginator',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-paginator ui-widget ui-widget-header ui-unselectable-text'"
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-paginator ui-widget ui-widget-header ui-unselectable-text ui-helper-clearfix'"
             *ngIf="alwaysShow ? true : (pageLinks && pageLinks.length > 1)">
+            <div class="ui-paginator-left-content" *ngIf="templateLeft">
+                <p-templateLoader [template]="templateLeft"></p-templateLoader>
+            </div>
             <a href="#" class="ui-paginator-first ui-paginator-element ui-state-default ui-corner-all"
                     (click)="changePageToFirst($event)" [ngClass]="{'ui-state-disabled':isFirstPage()}" [tabindex]="isFirstPage() ? -1 : null">
                 <span class="fa fa-step-backward"></span>
@@ -31,6 +35,9 @@ import {SelectItem} from '../common/selectitem';
             </a>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
                 (onChange)="onRppChange($event)" [lazy]="false" [autoWidth]="false"></p-dropdown>
+            <div class="ui-paginator-right-content" *ngIf="templateRight">
+                <p-templateLoader [template]="templateRight"></p-templateLoader>
+            </div>
         </div>
     `
 })
@@ -45,6 +52,10 @@ export class Paginator {
     @Input() styleClass: string;
 
     @Input() alwaysShow: boolean = true;
+    
+    @Input() templateLeft: TemplateRef<any>;
+    
+    @Input() templateRight: TemplateRef<any>;
 
     pageLinks: number[];
 
@@ -195,8 +206,8 @@ export class Paginator {
 }
 
 @NgModule({
-    imports: [CommonModule,DropdownModule,FormsModule],
-    exports: [Paginator,DropdownModule,FormsModule],
+    imports: [CommonModule,DropdownModule,FormsModule,SharedModule],
+    exports: [Paginator,DropdownModule,FormsModule,SharedModule],
     declarations: [Paginator]
 })
 export class PaginatorModule { }

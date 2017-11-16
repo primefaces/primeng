@@ -12,6 +12,14 @@
     border-top:0 none;
 }
 
+.ui-paginator .ui-paginator-left-content {
+    float: left;    
+}
+
+.ui-paginator .ui-paginator-right-content {
+    float: right;    
+}
+
 .ui-paginator .ui-paginator-page,
 .ui-paginator .ui-paginator-pages,
 .ui-paginator .ui-paginator-next,
