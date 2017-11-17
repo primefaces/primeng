@@ -62,6 +62,8 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
 
     _images: any[];
 
+    _lastIndex: number = 0
+
     slideshowActive: boolean;
 
     public container: any;
@@ -182,21 +184,26 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
 
     prev() {
-        if(this.activeIndex !== 0) {
-            this.select(this.activeIndex - 1, true);
-            this.changeImage(this._images[this.activeIndex], this.activeIndex);
-        }
+      if (this.activeIndex !== 0) {
+        this.select(this.activeIndex - 1, true);
+      }
+      if (this._lastIndex !== this.activeIndex) {
+        this.changeImage(this._images[this.activeIndex], this.activeIndex);
+        this._lastIndex = this.activeIndex;
+      }
     }
 
     next() {
-        if(this.activeIndex !== (this.panels.length-1)) {
-            this.select(this.activeIndex + 1, true);
-        }
-        else {
-            this.select(0, false);
-            this.stripLeft = 0;
-        }
+      if (this.activeIndex !== (this.panels.length - 1)) {
+        this.select(this.activeIndex + 1, true);
+      } else {
+        this.select(0, false);
+        this.stripLeft = 0;
+      }
+      if (this._lastIndex !== this.activeIndex) {
         this.changeImage(this._images[this.activeIndex], this.activeIndex);
+        this._lastIndex = this.activeIndex;
+      }
     }
 
     select(index, reposition) {
