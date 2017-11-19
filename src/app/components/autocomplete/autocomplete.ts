@@ -355,6 +355,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         }
         
         this.onSelect.emit(option);
+        this.updateFilledState();
         
         if(focus) {
             this.focusInput();
