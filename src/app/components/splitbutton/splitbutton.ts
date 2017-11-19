@@ -75,6 +75,8 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() appendTo: any;
     
     @Input() dir: string;
+
+    @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('defaultbtn') buttonViewChild: ElementRef;
     
@@ -150,9 +152,9 @@ export class SplitButton implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     alignPanel() {
         if(this.appendTo)
-            this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.buttonViewChild.nativeElement);
+            this.domHandler.absolutePosition(this.overlayViewChild.nativeElement, this.containerViewChild.nativeElement);
         else
-            this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.buttonViewChild.nativeElement);
+            this.domHandler.relativePosition(this.overlayViewChild.nativeElement, this.containerViewChild.nativeElement);
     }
     
     bindDocumentClickListener() {
