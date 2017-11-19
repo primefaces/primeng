@@ -161,6 +161,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     filled: boolean;
     
     inputClick: boolean;
+
+    dropdownClick: boolean;
     
     inputKeyDown: boolean;
     
@@ -390,6 +392,10 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     }
     
     handleDropdownClick(event) {
+        if(this.documentClickListener) {
+            this.dropdownClick = true;
+        }
+
         this.focusInput();
         let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
         
@@ -593,21 +599,17 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                     return;
                 }
                 
-                if(!this.inputClick && !this.isDropdownClick(event)) {
+                if(!this.inputClick && !this.dropdownClick) {
                     this.hide();
                 }
                     
                 this.inputClick = false;
+                this.dropdownClick = false;
                 this.cd.markForCheck();
             });
         }
     }
-    
-    isDropdownClick(event) {
-        let target = event.target;
-        return this.domHandler.hasClass(target, 'ui-autocomplete-dropdown') || this.domHandler.hasClass(target.parentNode, 'ui-autocomplete-dropdown');
-    }
-    
+        
     unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();
