@@ -184,19 +184,19 @@
         padding-top: .4em;
     }
     
-    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-right:before {
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-right::before {
         content: "\f107";
     }
     
-    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-double-right:before {
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-double-right::before {
         content: "\f103";
     }
     
-    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-left:before {
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-left::before {
         content: "\f106";
     }
     
-    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-double-left:before {
+    .ui-picklist.ui-picklist-responsive .ui-picklist-buttons .fa-angle-double-left::before {
         content: "\f102";
     }
 }

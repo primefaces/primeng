@@ -58,6 +58,7 @@
 .ui-dropdown-panel {
     position: absolute;
     height: auto;
+    display: none;
 }
 
 .ui-dropdown-panel .ui-dropdown-items-wrapper {

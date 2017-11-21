@@ -29,11 +29,15 @@
     font-weight: bold;
 }
 
+.ui-progressbar-indeterminate {
+    height: .5em;
+}
+
 .ui-progressbar-indeterminate .ui-progressbar-value {
     border: 0 none;
 }
 
-.ui-progressbar-indeterminate .ui-progressbar-value:before {
+.ui-progressbar-indeterminate .ui-progressbar-value::before {
       content: '';
       position: absolute;
       background-color: inherit;
@@ -45,7 +49,7 @@
               animation: ui-progressbar-indeterminate-anim 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
 }
 
-.ui-progressbar-indeterminate .ui-progressbar-value:after {
+.ui-progressbar-indeterminate .ui-progressbar-value::after {
     content: '';
     position: absolute;
     background-color: inherit;

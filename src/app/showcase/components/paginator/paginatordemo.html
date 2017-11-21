@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<div class="content-section implementation">
+<div class="content-section implementation ui-fluid">
     <p-paginator rows="10" totalRecords="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
 </div>
 
@@ -110,6 +110,18 @@ import &#123;PaginatorModule&#125; from 'primeng/primeng';
                             <td>boolean</td>
                             <td>true</td>
                             <td>Whether to show it even there is only one page.</td>
+                        </tr>
+                        <tr>
+                            <td>templateLeft</td>
+                            <td>TemplateRef</td>
+                            <td>null</td>
+                            <td>Template instance to inject into the left side of the paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>templateRight</td>
+                            <td>TemplateRef</td>
+                            <td>null</td>
+                            <td>Template instance to inject into the right side of the paginator.</td>
                         </tr>
                     </tbody>
                 </table>

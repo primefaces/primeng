@@ -11,7 +11,9 @@ export class CodeHighlighter implements OnInit {
     constructor(public el: ElementRef) {}
     
     ngOnInit() {
-        Prism.highlightElement(this.el.nativeElement);
+        if(Prism) {
+            Prism.highlightElement(this.el.nativeElement);
+        }
     }
 }
 

@@ -4,12 +4,12 @@
     width: 100px;
     height: 100px;
     display: inline-block;
-    
-    &:before {
-        content: '';
-        display: block;
-        padding-top: 100%;
-    }
+}
+
+.ui-progress-spinner::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
 }
 
 .ui-progress-spinner-svg {

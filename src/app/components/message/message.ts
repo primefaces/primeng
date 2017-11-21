@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'p-message',
     template: `
-        <div aria-live="polite" class="ui-message ui-widget ui-corner-all" *ngIf="severity&&text"
+        <div aria-live="polite" class="ui-message ui-widget ui-corner-all" *ngIf="severity"
         [ngClass]="{'ui-messages-info': (severity === 'info'),
                 'ui-messages-warn': (severity === 'warn'),
                 'ui-messages-error': (severity === 'error'),
@@ -19,7 +19,7 @@ export class UIMessage {
     @Input() severity: string;
     
     @Input() text: string;
-    
+        
     get icon(): string {
         let icon: string = null;
         
