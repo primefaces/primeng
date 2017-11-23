@@ -31,6 +31,10 @@
     font-weight: bold;
 }
 
+.ui-autocomplete .ui-autocomplete-panel {
+    min-width: 100%;
+}
+
 .ui-autocomplete-panel {
     position: absolute;
     overflow: auto;
@@ -143,6 +147,7 @@
 }
 
 /** AutoComplete **/
+.ui-fluid p-autocomplete,
 .ui-fluid .ui-autocomplete,
 .ui-fluid .ui-autocomplete-input {
     width: 100%;

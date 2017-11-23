@@ -1,8 +1,8 @@
-import {NgModule,Component,ElementRef,Input,Output,AfterViewChecked,OnDestroy,EventEmitter,forwardRef,Renderer2,ViewChild,ChangeDetectorRef} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { NgModule, Component, ElementRef, Input, Output, AfterViewInit, AfterViewChecked, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -46,7 +46,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     ],
     providers: [DomHandler,COLORPICKER_VALUE_ACCESSOR]
 })
-export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDestroy{
+export class ColorPicker implements ControlValueAccessor, AfterViewInit, AfterViewChecked, OnDestroy{
 
     @Input() style: any;
 
@@ -108,6 +108,15 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
     
+    ngAfterViewInit() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.panelViewChild.nativeElement);
+            else
+                this.domHandler.appendChild(this.panelViewChild.nativeElement, this.appendTo);
+        }
+    }
+
     ngAfterViewChecked() {
         if(this.shown) {
             this.onShow();
@@ -483,6 +492,10 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     
     ngOnDestroy() {
         this.unbindDocumentClickListener();
+
+        if (this.appendTo) {
+            this.el.nativeElement.appendChild(this.panelViewChild.nativeElement);
+        }
     }
 }
 

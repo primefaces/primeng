@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     <h3 class="first">Value: {{value}}</h3>
-    <p-triStateCheckbox [(ngModel)]="value"></p-triStateCheckbox>
+    <p-triStateCheckbox [(ngModel)]="value" label="Status"></p-triStateCheckbox>
 </div>
 
 <div class="content-section documentation">
@@ -24,7 +24,7 @@ import &#123;TriStateCheckboxModule&#125; from 'primeng/primeng';
             <p>TriStateCheckbox is defined using p-triStateCheckbox element and requires a value binding via ngModel.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-triStateCheckbox [(ngModel)]="value"&gt;&lt;/p-triStateCheckbox&gt;
+&lt;p-triStateCheckbox [(ngModel)]="value" label="Item Label"&gt;&lt;/p-triStateCheckbox&gt;
 </code>
 </pre>
 
@@ -37,7 +37,7 @@ export class ModelComponent &#123;
 &#125;
 </code>
 </pre>
-            
+
             <h3>Model Driven Forms</h3>
             <p>TriStateCheckbox can be used in a model driven form as well.</p>
 <pre>
@@ -63,6 +63,12 @@ export class ModelComponent &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Name of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Label of the checkbox.</td>
                         </tr>
                         <tr>
                             <td>disabled</td>
@@ -161,7 +167,7 @@ export class ModelComponent &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first">Value: {{value}}&lt;/h3&gt;
-&lt;p-triStateCheckbox [(ngModel)]="value"&gt;&lt;/p-triStateCheckbox&gt;
+&lt;p-triStateCheckbox [(ngModel)]="value" label="status"&gt;&lt;/p-triStateCheckbox&gt;
 </code>
 </pre>
 
@@ -170,7 +176,7 @@ export class ModelComponent &#123;
 export class TriStateCheckboxDemo &#123;
 
     value: any;
-    
+
 &#125;
 </code>
 </pre>

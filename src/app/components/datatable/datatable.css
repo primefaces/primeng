@@ -74,9 +74,13 @@
 
 /* Scrollable */
 .ui-datatable-scrollable-body {
-    overflow:auto;
+    overflow: auto;
+    overflow-anchor: none;
+    min-height: 0%;
 }
-.ui-datatable-scrollable-header {
+
+.ui-datatable-scrollable-header,
+.ui-datatable-scrollable-footer {
     overflow: hidden;
 }
 
@@ -90,8 +94,9 @@
     font-weight: normal;
 }
 
-.ui-datatable .ui-datatable-scrollable-body  {
-    min-height: 0%;
+.ui-datatable-scrollable-body .ui-datatable-data,
+.ui-datatable-scrollable-body .ui-datatable-data > tr:first-child {
+    border-top-color: transparent;
 }
 
 .ui-datatable .ui-datatable-data tr.ui-state-hover,

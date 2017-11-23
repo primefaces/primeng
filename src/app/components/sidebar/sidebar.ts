@@ -1,4 +1,4 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2} from '@angular/core';
+import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
@@ -31,7 +31,7 @@ import {DomHandler} from '../dom/domhandler';
     ],
     providers: [DomHandler]
 })
-export class Sidebar implements AfterViewInit, AfterViewChecked {
+export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     
     @Input() position: string = 'left';
     
@@ -44,6 +44,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked {
     @Input() style: any;
         
     @Input() styleClass: string;
+    
+    @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
         
@@ -112,7 +114,9 @@ export class Sidebar implements AfterViewInit, AfterViewChecked {
     
     show() {
         this.executePostDisplayActions = true;
-        this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        if(this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
         this.enableModality();
     }
     

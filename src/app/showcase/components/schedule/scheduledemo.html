@@ -6,36 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-schedule [events]="events" [header]="header" defaultDate="2017-02-01" [eventLimit]="4" [editable]="true"
-                (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
-    
-    <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
-        [style]="{'overflow':'visible'}" [resizable]="false">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Title</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="start">Start</label></div>
-                <div class="ui-grid-col-8"><p-calendar [(ngModel)]="event.start" dateFormat="yy-mm-dd" dataType="string"></p-calendar></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="end">End</label></div>
-                <div class="ui-grid-col-8"><p-calendar [(ngModel)]="event.end" dateFormat="yy-mm-dd" dataType="string"></p-calendar></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="allday">All Day</label></div>
-                <div class="ui-grid-col-8"><p-checkbox [(ngModel)]="event.allDay" binary="checkbox"></p-checkbox></div>
-            </div>
-        </div>
-        <p-footer>
-            <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete" [disabled]="!event?.id"></button>
-                <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save" [disabled]="!event?.start"></button>
-            </div>
-        </p-footer>
-    </p-dialog>
+    <p-schedule [events]="events" [header]="header" defaultDate="2017-02-01" [eventLimit]="4" [editable]="true"></p-schedule>
 </div>
 
 <div class="content-section documentation">
@@ -399,6 +370,11 @@ export class MyModel &#123;
                             <td><a href="https://fullcalendar.io/docs/text/timeFormat/">Read more</a></td>
                         </tr>
                         <tr>
+                            <td>navLinks</td>
+                            <td>string</td>
+                            <td><a href="https://fullcalendar.io/docs/mouse/navLinks/">Read more</a></td>
+                        </tr>
+                        <tr>
                             <td>options</td>
                             <td>Object</td>
                             <td>A configuration object to define properties of FullCalendar that do not have a corresponding option in schedule.</td>
@@ -562,7 +538,7 @@ export class MyModel &#123;
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-schedule [events]="events" #fc&gt;&lt;/p-schedule&gt;
 
-&lt;button type="button" pButton (click)="back(fc)"&gt;&lt;/p-button&gt;
+&lt;button type="button" pButton (click)="back(fc)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
@@ -589,36 +565,7 @@ export class MyModel &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-schedule [events]="events" [header]="header" defaultDate="2017-02-01" [eventLimit]="4" [editable]="true"
-            (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"&gt;&lt;/p-schedule&gt;
-
-&lt;p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="&#123;'overflow':'visible'&#125;"
-    [style]="&#123;'overflow':'visible'&#125;" [resizable]="false"&gt;
-    &lt;div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event"&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;&lt;label for="vin"&gt;Title&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;input pInputText id="title" [(ngModel)]="event.title" /&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;&lt;label for="start"&gt;Start&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar [(ngModel)]="event.start" dateFormat="yy-mm-dd" dataType="string"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;&lt;label for="end"&gt;End&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-calendar [(ngModel)]="event.end" dateFormat="yy-mm-dd" dataType="string"&gt;&lt;/p-calendar&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="ui-grid-row"&gt;
-            &lt;div class="ui-grid-col-4"&gt;&lt;label for="allday"&gt;All Day&lt;/label&gt;&lt;/div&gt;
-            &lt;div class="ui-grid-col-8"&gt;&lt;p-checkbox [(ngModel)]="event.allDay" binary="checkbox"&gt;&lt;/p-checkbox&gt;&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;p-footer&gt;
-        &lt;div class="ui-dialog-buttonpane ui-helper-clearfix"&gt;
-            &lt;button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete" [disabled]="!event?.id"&gt;&lt;/button&gt;
-            &lt;button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save" [disabled]="!event?.start"&gt;&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/p-footer&gt;
-&lt;/p-dialog&gt;
+&lt;p-schedule [events]="events" [header]="header" defaultDate="2017-02-01" [eventLimit]="4" [editable]="true"&gt;&lt;/p-schedule&gt;
 </code>
 </pre>
 
@@ -627,94 +574,21 @@ export class MyModel &#123;
 export class ScheduleDemo implements OnInit &#123;
 
     events: any[];
-    
+
     header: any;
-    
-    event: MyEvent;
-    
-    dialogVisible: boolean = false;
-    
-    idGen: number = 100;
-    
-    constructor(private eventService: EventService, private cd: ChangeDetectorRef) &#123; &#125;
+            
+    constructor(private eventService: EventService) &#123; &#125;
 
     ngOnInit() &#123;
         this.eventService.getEvents().then(events => &#123;this.events = events;&#125;);
         
         this.header = &#123;
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
-		&#125;;
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        &#125;;
     &#125;
-    
-    handleDayClick(event) &#123;
-        this.event = new MyEvent();
-        this.event.start = event.date.format();
-        this.dialogVisible = true;
-        
-        //trigger detection manually as somehow only moving the mouse quickly after click triggers the automatic detection
-        this.cd.detectChanges();
-    &#125;
-    
-    handleEventClick(e) &#123;
-        this.event = new MyEvent();
-        this.event.title = e.calEvent.title;
-        
-        let start = e.calEvent.start;
-        let end = e.calEvent.end;
-        if(e.view.name === 'month') &#123;
-            start.stripTime();
-        &#125;
-        
-        if(end) &#123;
-            end.stripTime();
-            this.event.end = end.format();
-        &#125;
 
-        this.event.id = e.calEvent.id;
-        this.event.start = start.format();
-        this.event.allDay = e.calEvent.allDay;
-        this.dialogVisible = true;
-    &#125;
-    
-    saveEvent() &#123;
-        //update
-        if(this.event.id) &#123;
-            let index: number = this.findEventIndexById(this.event.id);
-            if(index >= 0) &#123;
-                this.events[index] = this.event;
-            &#125;
-        &#125;
-        //new
-        else &#123;
-            this.event.id = this.idGen++;
-            this.events.push(this.event);
-            this.event = null;
-        &#125;
-        
-        this.dialogVisible = false;
-    &#125;
-    
-    deleteEvent() &#123;
-        let index: number = this.findEventIndexById(this.event.id);
-        if(index >= 0) &#123;
-            this.events.splice(index, 1);
-        &#125;
-        this.dialogVisible = false;
-    &#125;
-    
-    findEventIndexById(id: number) &#123;
-        let index = -1;
-        for(let i = 0; i < this.events.length; i++) &#123;
-            if(id == this.events[i].id) &#123;
-                index = i;
-                break;
-            &#125;
-        &#125;
-        
-        return index;
-    &#125;
 &#125;
 
 export class MyEvent &#123;

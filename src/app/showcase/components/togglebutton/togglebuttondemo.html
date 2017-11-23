@@ -25,7 +25,7 @@ import &#123;ToggleButtonModule&#125; from 'primeng/primeng';
 
             <h3>Getting Started</h3>
             <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
-                    
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-toggleButton [(ngModel)]="checked"&gt;&lt;/p-toggleButton&gt;
@@ -62,10 +62,10 @@ export class ModelComponent &#123;
 </pre>
 
             <h3>Customization</h3>
-            <p>Icons and Labels can be customized using onLabel, offLabel, onIcon and OffIcon attributes.</p>
+            <p>Icons and Labels can be customized using onLabel, offLabel, onIcon and offIcon attributes.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-toggleButton onLabel="I confirm" offLabel="I reject" 
+&lt;p-toggleButton onLabel="I confirm" offLabel="I reject"
         onIcon="fa-check-square" offIcon="fa-square" [(ngModel)]="val"&gt;&lt;/p-toggleButton&gt;
 </code>
 </pre>
@@ -168,7 +168,7 @@ export class ModelComponent &#123;
  <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class ModelComponent &#123;
-    
+
     handleChange(e) &#123;
         var isChecked = e.checked;
     &#125;
@@ -225,7 +225,7 @@ export class ModelComponent &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class ToggleButtonDemo &#123;
-    
+
     checked1: boolean = false;
 
     checked2: boolean = true;

@@ -62,9 +62,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
   providers: [DomHandler,ObjectUtils,LISTBOX_VALUE_ACCESSOR]
 })
 export class Listbox implements AfterContentInit,ControlValueAccessor {
-  
-  @Input() options: SelectItem[];
-  
+    
   @Input() multiple: boolean;
   
   @Input() style: any;
@@ -88,6 +86,8 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
   @Input() dataKey: string;
   
   @Input() showToggleAll: boolean = true;
+  
+  @Input() optionLabel: string;
   
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   
@@ -117,7 +117,18 @@ export class Listbox implements AfterContentInit,ControlValueAccessor {
   
   public focus: boolean;
   
+  public _options: any[];
+  
   constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public cd: ChangeDetectorRef) {}
+  
+  @Input() get options(): any[] {
+      return this._options;
+  }
+
+  set options(val: any[]) {
+      let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
+      this._options = opts;
+  }
   
   ngAfterContentInit() {
     this.templates.forEach((item) => {

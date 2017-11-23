@@ -334,7 +334,8 @@ export class TreeDemoComponent implements OnInit &#123;
 
         <p>In multiple mode or checkbox mode, selection property should be an array. In multiple mode, items can either be selected
         using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
-        devices metaKeySelection is turned off automatically.</p>
+        devices metaKeySelection is turned off automatically. In checkbox mode, when inititing a tree with preselections, also set partialSelected
+        property on node so that minus icon can be displayed when necessary.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
     export class TreeDemoComponent implements OnInit &#123;
@@ -359,7 +360,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
-            <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned of by propapageSelectionDown and
+            <p>In checkbox mode, selections propagate up and down, if you prefer not to do so, propagation can be turned off by propagateSelectionDown and
             propagateSelectionUp properties.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -417,7 +418,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Multiple templates are supported by matching the type property of the TreeNode with the type of pTemplate. If a node as no type, 
+            <p>Multiple templates are supported by matching the type property of the TreeNode with the type of pTemplate. If a node has no type, 
             then default ng-template is used.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -525,7 +526,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
-            <p>Multiple tree can be used in a drag drop operation, in order to add constraints like rejecting drags from a certain tree but allow from another use draggableScope 
+            <p>Multiple trees can be used in a drag drop operation, in order to add constraints like rejecting drags from a certain tree but allow from another use draggableScope 
             and droppableScope properties which can be a string or an array. Following example uses 3 trees where second one only accepts drags from first tree and second one only
             accepts from second tree whereas first tree accepts drops from 3rd tree.</p>
 <pre>
@@ -603,7 +604,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
                             <td>Context menu instance.</td>
                         </tr>
                         <tr>
-                            <td>orientation</td>
+                            <td>layout</td>
                             <td>string</td>
                             <td>vertical</td>
                             <td>Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'.</td>

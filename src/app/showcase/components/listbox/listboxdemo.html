@@ -7,18 +7,18 @@
 
 <div class="content-section implementation">
   <h3 class="first">Basic</h3>
-  <p-listbox [options]="cities" [(ngModel)]="selectedCity" [style]="{'width':'200px'}"></p-listbox>
+  <p-listbox [options]="cities" [(ngModel)]="selectedCity" [style]="{'width':'200px'}" optionLabel="name"></p-listbox>
 
-  <p>Selected City: {{selectedCity}}</p>
+  <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
 
   <h3>Advanced (Multiple, Checkbox and Filter)</h3>
-  <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter">
+  <p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name">
     <p-header>
       <i class="fa fa-car"></i>
-      List of Car
+      Cars
     </p-header>
   </p-listbox>
-  <p>Selected Cities: <span *ngFor="let c of selectedCities" style="margin-right: 10px">{{c}}</span></p>
+  <p>Selected Cities: <span *ngFor="let c of selectedCities" style="margin-right: 10px">{{c.name}}</span></p>
 
   <h3>Content</h3>
   <p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="{'width':'190px'}" [listStyle]="{'max-height':'250px'}">
@@ -49,11 +49,15 @@ import &#123;ListboxModule&#125; from 'primeng/primeng';
 </pre>
 
       <h3>Getting Started</h3>
-      <p>Two-way value binding is defined using ngModel and listbox requires a collection of options
-        where each option should follow the SelectItem interface that defines label-value properties.</p>
+      <p>Listbox requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
+      instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how
+      the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
       <pre>
+
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-listbox&gt;
+&lt;p-listbox [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-listbox&gt;
+
+&lt;p-listbox [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-listbox&gt;
 </code>
 </pre>
 
@@ -63,17 +67,33 @@ import &#123;SelectItem&#125; from 'primeng/primeng';
 
 export class MyModel &#123;
 
-    cities: SelectItem[];
+    cities1: SelectItem[];
 
-    selectedCity: string;
+    cities2: City[];
+
+    selectedCity1: City;
+
+    selectedCity2: City;
 
     constructor() &#123;
-        this.cities = [];
-        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
-        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
-        this.cities.push(&#123;label:'London', value:'London'&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
-        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+        //SelectItem API with label-value pairs
+        this.cities1 = [
+            &#123;label:'Select City', value:null&#125;,
+            &#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;,
+            &#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;,
+            &#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;,
+            &#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;
+            &#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;
+        ];
+
+        //An array of cities
+        this.cities2 = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
     &#125;
 
 &#125;
@@ -102,12 +122,14 @@ export class MyModel &#123;
     selectedCities: string[];
 
     constructor() &#123;
-        this.cities = [];
-        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
-        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
-        this.cities.push(&#123;label:'London', value:'London'&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
-        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+        this.cities = [
+            &#123;label:'Select City', value:null&#125;,
+            &#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;,
+            &#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;,
+            &#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;,
+            &#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;
+            &#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;
+        ];
     &#125;
 
 &#125;
@@ -166,17 +188,18 @@ export class MyModel &#123;
     selectedCar: string;
 
     constructor() &#123;
-        this.cars = [];
-        this.cars.push(&#123;label: 'Audi', value: 'Audi'&#125;);
-        this.cars.push(&#123;label: 'BMW', value: 'BMW'&#125;);
-        this.cars.push(&#123;label: 'Fiat', value: 'Fiat'&#125;);
-        this.cars.push(&#123;label: 'Ford', value: 'Ford'&#125;);
-        this.cars.push(&#123;label: 'Honda', value: 'Honda'&#125;);
-        this.cars.push(&#123;label: 'Jaguar', value: 'Jaguar'&#125;);
-        this.cars.push(&#123;label: 'Mercedes', value: 'Mercedes'&#125;);
-        this.cars.push(&#123;label: 'Renault', value: 'Renault'&#125;);
-        this.cars.push(&#123;label: 'VW', value: 'VW'&#125;);
-        this.cars.push(&#123;label: 'Volvo', value: 'Volvo'&#125;);
+        this.cars = [
+            &#123;label: 'Audi', value: 'Audi'&#125;,
+            &#123;label: 'BMW', value: 'BMW'&#125;,
+            &#123;label: 'Fiat', value: 'Fiat'&#125;,
+            &#123;label: 'Ford', value: 'Ford'&#125;,
+            &#123;label: 'Honda', value: 'Honda'&#125;,
+            &#123;label: 'Jaguar', value: 'Jaguar'&#125;,
+            &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
+            &#123;label: 'Renault', value: 'Renault'&#125;,
+            &#123;label: 'VW', value: 'VW'&#125;,
+            &#123;label: 'Volvo', value: 'Volvo'&#125;
+        ];
     &#125;
 &#125;
 </code>
@@ -186,93 +209,99 @@ export class MyModel &#123;
       <div class="doc-tablewrapper">
         <table class="doc-table">
           <thead>
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Default</th>
-            <th>Description</th>
-          </tr>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>options</td>
-            <td>array</td>
-            <td>null</td>
-            <td>An array of selectitems to display as the available options.</td>
-          </tr>
-          <tr>
-            <td>multiple</td>
-            <td>boolean</td>
-            <td>false</td>
-            <td>When specified, allows selecting multiple values.</td>
-          </tr>
-          <tr>
-            <td>checkbox</td>
-            <td>boolean</td>
-            <td>false</td>
-            <td>When specified, allows selecting items with checkboxes.</td>
-          </tr>
-          <tr>
-            <td>filter</td>
-            <td>boolean</td>
-            <td>false</td>
-            <td>When specified, displays a filter input at header.</td>
-          </tr>
-          <tr>
-            <td>filterMode</td>
-            <td>string</td>
-            <td>contains</td>
-            <td>Defines how the items are filtered, valid values are "contains" (default) and "startsWith".</td>
-          </tr>
-          <tr>
-            <td>readonly</td>
-            <td>boolean</td>
-            <td>false</td>
-            <td>When present, it specifies that the element value cannot be changed.</td>
-          </tr>
-          <tr>
-            <td>disabled</td>
-            <td>boolean</td>
-            <td>false</td>
-            <td>When present, it specifies that the element should be disabled.</td>
-          </tr>
-          <tr>
-            <td>style</td>
-            <td>string</td>
-            <td>null</td>
-            <td>Inline style of the container.</td>
-          </tr>
-          <tr>
-            <td>styleClass</td>
-            <td>string</td>
-            <td>null</td>
-            <td>Style class of the container.</td>
-          </tr>
-          <tr>
-            <td>style</td>
-            <td>string</td>
-            <td>null</td>
-            <td>Inline style of the list element.</td>
-          </tr>
-          <tr>
-            <td>metaKeySelection</td>
-            <td>boolean</td>
-            <td>true</td>
-            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
-              can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
-          </tr>
-          <tr>
-            <td>dataKey</td>
-            <td>string</td>
-            <td>null</td>
-            <td>A property to uniquely identify a value in options.</td>
-          </tr>
-          <tr>
-            <td>showToggleAll</td>
-            <td>boolean</td>
-            <td>true</td>
-            <td>Whether header checkbox is shown in multiple mode.</td>
-          </tr>
+              <tr>
+                <td>options</td>
+                <td>array</td>
+                <td>null</td>
+                <td>An array of selectitems to display as the available options.</td>
+              </tr>
+              <tr>
+                  <td>optionLabel</td>
+                  <td>string</td>
+                  <td>null</td>
+                  <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
+              </tr>
+              <tr>
+                <td>multiple</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>When specified, allows selecting multiple values.</td>
+              </tr>
+              <tr>
+                <td>checkbox</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>When specified, allows selecting items with checkboxes.</td>
+              </tr>
+              <tr>
+                <td>filter</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>When specified, displays a filter input at header.</td>
+              </tr>
+              <tr>
+                <td>filterMode</td>
+                <td>string</td>
+                <td>contains</td>
+                <td>Defines how the items are filtered, valid values are "contains" (default) and "startsWith".</td>
+              </tr>
+              <tr>
+                <td>readonly</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>When present, it specifies that the element value cannot be changed.</td>
+              </tr>
+              <tr>
+                <td>disabled</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>When present, it specifies that the element should be disabled.</td>
+              </tr>
+              <tr>
+                <td>style</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Inline style of the container.</td>
+              </tr>
+              <tr>
+                <td>styleClass</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Style class of the container.</td>
+              </tr>
+              <tr>
+                <td>listStyle</td>
+                <td>string</td>
+                <td>null</td>
+                <td>Inline style of the list element.</td>
+              </tr>
+              <tr>
+                <td>metaKeySelection</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+                  can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
+              </tr>
+              <tr>
+                <td>dataKey</td>
+                <td>string</td>
+                <td>null</td>
+                <td>A property to uniquely identify a value in options.</td>
+              </tr>
+              <tr>
+                <td>showToggleAll</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Whether header checkbox is shown in multiple mode.</td>
+              </tr>
           </tbody>
         </table>
       </div>
@@ -352,31 +381,31 @@ export class MyModel &#123;
       </a>
       <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;h3 class="first"&gt;Single&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-listbox&gt;
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCity" [style]="&#123;'width':'200px'&#125;" optionLabel="name"&gt;&lt;/p-listbox&gt;
 
-&lt;p&gt;Selected City: {{selectedCity}}&lt;/p&gt;
+&lt;p&gt;Selected City: &#123;&#123;selectedCity ? selectedCity.name : 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Advanced (Multiple, Checkbox and Filter)&lt;/h3&gt;
-&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter"&gt;
-    &lt;p-header&gt;
-      &lt;i class="fa fa-car"&gt;&lt;/i&gt;
-      List of Car
-    &lt;/p-header&gt;
+&lt;p-listbox [options]="cities" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" optionLabel="name"&gt;
+  &lt;p-header&gt;
+    &lt;i class="fa fa-car"&gt;&lt;/i&gt;
+    Cars
+  &lt;/p-header&gt;
 &lt;/p-listbox&gt;
-&lt;p&gt;Selected Cities: &lt;span *ngFor="let c of selectedCities" style="margin-right: 10px"&gt;{{c}}&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Selected Cities: &lt;span *ngFor="let c of selectedCities" style="margin-right: 10px"&gt;&#123;&#123;c.name&#125;&#125;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h3&gt;Content&lt;/h3&gt;
 &lt;p-listbox [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'190px'&#125;" [listStyle]="&#123;'max-height':'250px'&#125;"&gt;
-    &lt;ng-template let-car pTemplate="item"&gt;
-        &lt;div class="ui-helper-clearfix"&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{car.label}}.png" style="display:inline-block;margin:5px 0 0 5px" width="48"&gt;
-            &lt;span style="float:right;margin:20px 10px 0 0"&gt;{{car.value}}&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/ng-template&gt;
-    &lt;p-footer&gt;
-        Selected: &#123;&#123;selectedCar||'none'&#125;&#125;
-    &lt;/p-footer&gt;
+  &lt;ng-template let-car pTemplate="item"&gt;
+    &lt;div class="ui-helper-clearfix"&gt;
+      &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="display:inline-block;margin:5px 0 0 5px" width="48"&gt;
+      &lt;span style="float:right;margin:20px 10px 0 0"&gt;&#123;&#123;car.value&#125;&#125;&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+  &lt;p-footer&gt;
+    Selected: &#123;&#123;selectedCar||'none'&#125;&#125;
+  &lt;/p-footer&gt;
 &lt;/p-listbox&gt;
 
 &lt;button type="button" (click)="selectedCar=null" pButton icon="fa-close" label="Clear Selected Car"&gt;&lt;/button&gt;
@@ -387,35 +416,37 @@ export class MyModel &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class ListboxDemo &#123;
 
-    cities: SelectItem[];
+    cities: City[];
 
-    selectedCity: string;
+    selectedCity: City;
 
-    selectedCities: string[];
+    selectedCities: City[];
 
     cars: SelectItem[];
 
     selectedCar: string = 'BMW';
 
     constructor() &#123;
-        this.cities = [];
-        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
-        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
-        this.cities.push(&#123;label:'London', value:'London'&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
-        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+        this.cities = [
+            &#123;name: 'New York', code: 'NY'&#125;,
+            &#123;name: 'Rome', code: 'RM'&#125;,
+            &#123;name: 'London', code: 'LDN'&#125;,
+            &#123;name: 'Istanbul', code: 'IST'&#125;,
+            &#123;name: 'Paris', code: 'PRS'&#125;
+        ];
 
-        this.cars = [];
-        this.cars.push(&#123;label: 'Audi', value: 'Audi'&#125;);
-        this.cars.push(&#123;label: 'BMW', value: 'BMW'&#125;);
-        this.cars.push(&#123;label: 'Fiat', value: 'Fiat'&#125;);
-        this.cars.push(&#123;label: 'Ford', value: 'Ford'&#125;);
-        this.cars.push(&#123;label: 'Honda', value: 'Honda'&#125;);
-        this.cars.push(&#123;label: 'Jaguar', value: 'Jaguar'&#125;);
-        this.cars.push(&#123;label: 'Mercedes', value: 'Mercedes'&#125;);
-        this.cars.push(&#123;label: 'Renault', value: 'Renault'&#125;);
-        this.cars.push(&#123;label: 'VW', value: 'VW'&#125;);
-        this.cars.push(&#123;label: 'Volvo', value: 'Volvo'&#125;);
+        this.cars = [
+            &#123;label: 'Audi', value: 'Audi'&#125;,
+            &#123;label: 'BMW', value: 'BMW'&#125;,
+            &#123;label: 'Fiat', value: 'Fiat'&#125;,
+            &#123;label: 'Ford', value: 'Ford'&#125;,
+            &#123;label: 'Honda', value: 'Honda'&#125;,
+            &#123;label: 'Jaguar', value: 'Jaguar'&#125;,
+            &#123;label: 'Mercedes', value: 'Mercedes'&#125;,
+            &#123;label: 'Renault', value: 'Renault'&#125;,
+            &#123;label: 'VW', value: 'VW'&#125;,
+            &#123;label: 'Volvo', value: 'Volvo'&#125;
+        ];
     &#125;
 &#125;
 </code>
