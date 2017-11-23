@@ -572,9 +572,9 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     
     updateFilledState() {
         if(this.multiple)
-            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
+            this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
         else
-            this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');;
+            this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');;
     }
     
     updateInputField() {
@@ -607,7 +607,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
 
     isDropdownClick(event) {
         let target = event.target;
-        return (target === this.dropdownButton.nativeElement || target.parentNode === this.dropdownButton.nativeElement);
+        return this.dropdownButton && (target === this.dropdownButton.nativeElement || target.parentNode === this.dropdownButton.nativeElement);
     }
         
     unbindDocumentClickListener() {
