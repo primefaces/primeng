@@ -181,7 +181,10 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         }
 
         this.select(this.domHandler.index(frame), false);
-        this.changeImage(this._images[this.activeIndex], this.activeIndex);
+        if (this._lastIndex !== this.activeIndex) {
+          this.changeImage(this._images[this.activeIndex], this.activeIndex);
+          this._lastIndex = this.activeIndex;
+        }
     }
 
     prev() {
