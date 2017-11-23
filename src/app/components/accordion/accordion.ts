@@ -14,9 +14,9 @@ let idx: number = 0;
         <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}">
             <a href="#" [attr.id]="id" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="selected" (click)="toggle($event)" (keydown.space)="toggle($event)">
                 <span class="ui-accordion-toggle-icon fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
-                <ng-container *ngIf="!hasHeaderFacet">
+                <span class="ui-accordion-header-text" *ngIf="!hasHeaderFacet">
                     {{header}}
-                </ng-container>
+                </span>
                 <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
             </a>
         </div>
