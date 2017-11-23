@@ -1399,7 +1399,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    clearSelectionRange() {
+    clearSelectionRange(event: MouseEvent) {
         let rangeStart, rangeEnd;
 
         if(this.rangeRowIndex > this.anchorRowIndex) {
@@ -1427,7 +1427,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    selectRange(rowIndex: number) {
+    selectRange(event: MouseEvent, rowIndex: number) {
         let rangeStart, rangeEnd;
         
         if(this.anchorRowIndex > rowIndex) {
@@ -1473,11 +1473,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(this.isMultipleSelectionMode() && event.shiftKey && this.anchorRowIndex != null) {
                 this.domHandler.clearSelection();
                 if(this.rangeRowIndex != null) {
-                    this.clearSelectionRange();
+                    this.clearSelectionRange(event);
                 }
                 
                 this.rangeRowIndex = index;
-                this.selectRange(index);
+                this.selectRange(event, index);
             }
             else {
                 let selected = this.isSelected(rowData);
