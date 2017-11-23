@@ -313,22 +313,41 @@ export class TemplateLoader implements OnInit, OnDestroy {
         
     @Input() template: TemplateRef<any>;
     
-    @Input() data: any;
+    _data: any;
             
     view: EmbeddedViewRef<any>;
     
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
+        this.render();
+    }
+    
+    render() {
+        if(this.view) {
+            this.view.destroy();
+        }
+        
         if(this.template) {
             this.view = this.viewContainer.createEmbeddedView(this.template, {
                 '\$implicit': this.data
             });
         }
     }
+    
+    @Input() get data(): any {
+        return this._data;
+    }
+
+    set data(val: any) {
+        this._data = val;
+        this.render();
+    }
 	
     ngOnDestroy() {
-		if (this.view) this.view.destroy();
+		if (this.view) {
+            this.view.destroy();
+        }
 	}
 }
 
