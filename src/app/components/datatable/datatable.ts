@@ -2548,7 +2548,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 let column = this.columns[i];
                 if(column.exportable && column.field) {
                     let cellData = this.resolveFieldData(record, column.field);
-                    if(cellData)
+                    
+                    if(cellData != null)
                         cellData = String(cellData).replace(/"/g, '""');
                     else
                         cellData = '';
