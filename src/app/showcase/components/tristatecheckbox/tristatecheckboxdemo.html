@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     <h3 class="first">Value: {{value}}</h3>
-    <p-triStateCheckbox [(ngModel)]="value" label="Item Label"></p-triStateCheckbox>
+    <p-triStateCheckbox [(ngModel)]="value" label="Status"></p-triStateCheckbox>
 </div>
 
 <div class="content-section documentation">
@@ -24,7 +24,7 @@ import &#123;TriStateCheckboxModule&#125; from 'primeng/primeng';
             <p>TriStateCheckbox is defined using p-triStateCheckbox element and requires a value binding via ngModel.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-triStateCheckbox [(ngModel)]="value" label="Item Label"></p-triStateCheckbox&gt;
+&lt;p-triStateCheckbox [(ngModel)]="value" label="Item Label"&gt;&lt;/p-triStateCheckbox&gt;
 </code>
 </pre>
 
@@ -167,7 +167,7 @@ export class ModelComponent &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first">Value: {{value}}&lt;/h3&gt;
-&lt;p-triStateCheckbox [(ngModel)]="value"&gt;&lt;/p-triStateCheckbox&gt;
+&lt;p-triStateCheckbox [(ngModel)]="value" label="status"&gt;&lt;/p-triStateCheckbox&gt;
 </code>
 </pre>
 
