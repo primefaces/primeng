@@ -678,7 +678,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
   
     @Input() rowGroupExpandMode: string = 'multiple';
     
-    @Output() valueChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+    @Output() onValueChange: EventEmitter<any[]> = new EventEmitter<any[]>();
     
     @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
     
@@ -954,7 +954,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             this._value = val;
         }
         
-        this.valueChange.emit(this.value);
+        this.onValueChange.emit(this.value);
     }
     
     @Input() get first(): number {
