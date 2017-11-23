@@ -606,8 +606,13 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     }
 
     isDropdownClick(event) {
-        let target = event.target;
-        return (target === this.dropdownButton.nativeElement || target.parentNode === this.dropdownButton.nativeElement);
+        if(this.dropdown) {
+            let target = event.target;
+            return (target === this.dropdownButton.nativeElement || target.parentNode === this.dropdownButton.nativeElement);
+        }
+        else {
+            return false;
+        }
     }
         
     unbindDocumentClickListener() {
