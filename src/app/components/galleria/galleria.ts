@@ -181,6 +181,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
         }
 
         this.select(this.domHandler.index(frame), false);
+        this.changeImage(this._images[this.activeIndex], this.activeIndex);
     }
 
     prev() {
@@ -240,7 +241,7 @@ export class Galleria implements AfterViewChecked,AfterViewInit,OnDestroy {
     }
 
     changeImage(image, i) {
-        this.onImageClicked.emit({image: image, index: i});
+        this.onImageChanged.emit({image: image, index: i});
     }
 
     ngOnDestroy() {
