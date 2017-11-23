@@ -20,6 +20,10 @@
     vertical-align: middle;
 }
 
+.ui-fieldset .ui-fieldset-legend-text {
+    vertical-align: middle;
+}
+
 .ui-fieldset .ui-fieldset-content-wrapper-overflown {
     overflow: hidden;
 } 
