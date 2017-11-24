@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Panel } from './panel';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('AppComponent', () => {
+describe('Panel', () => {
     
     let panel: Panel;
     let fixture: ComponentFixture<Panel>;
@@ -31,28 +31,28 @@ describe('AppComponent', () => {
     
     it('should not render toggle icon when not toggleable', () => {
         fixture.detectChanges();
-        const closeIcon = fixture.debugElement.query(By.css('.ui-panel-titlebar-toggler'));
-        expect(closeIcon).toBeNull();
+        const togglerEl = fixture.debugElement.query(By.css('.ui-panel-titlebar-toggler'));
+        expect(togglerEl).toBeNull();
     });
     
     it('should render toggle icon when toggleable', () => {
         panel.toggleable = true;
         fixture.detectChanges();
-        const closeIcon = fixture.debugElement.query(By.css('.ui-panel-titlebar-toggler'));
-        expect(closeIcon).not.toBeNull();
+        const togglerEl = fixture.debugElement.query(By.css('.ui-panel-titlebar-toggler'));
+        expect(togglerEl).not.toBeNull();
     });
     
     it('should toggle the panel when toggler is clicked', fakeAsync(() => {
         panel.toggleable = true;
         fixture.detectChanges();
-        const closeIcon = fixture.nativeElement.querySelector('.ui-panel-titlebar-toggler');
+        const togglerEl = fixture.nativeElement.querySelector('.ui-panel-titlebar-toggler');
         
-        closeIcon.click();
+        togglerEl.click();
         expect(panel.collapsed).toEqual(true);
         
         tick(500);
         
-        closeIcon.click();
+        togglerEl.click();
         expect(panel.collapsed).toEqual(false);
     }));
 
