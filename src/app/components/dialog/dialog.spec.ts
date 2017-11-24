@@ -41,24 +41,6 @@ describe('Dialog', () => {
         expect(resizeEl).not.toBeNull();
     });
 
-    it('should show the dialog when visible is true', () => {
-        spyOn(dialog, 'show');
-        dialog.visible = true;
-        fixture.detectChanges();
-        expect(fixture.debugElement.children[0].classes['ui-helper-hidden']).toEqual(false);
-        expect(dialog.show).toHaveBeenCalled();
-    });
-    
-    it('should call hide if visible is true and dialog gets hidden', () => {
-        dialog.visible = true;
-        fixture.detectChanges();
-        
-        spyOn(dialog, 'hide');
-        dialog.visible = false;
-        
-        expect(dialog.hide).toHaveBeenCalled();
-    });
-
     it('should be hidden by default', () => {
         fixture.detectChanges();
         expect(fixture.debugElement.children[0].classes['ui-helper-hidden']).toEqual(true);
@@ -73,6 +55,26 @@ describe('Dialog', () => {
     it('should add draggable class when dragging is enabled', () => {
         fixture.detectChanges();
         expect(fixture.debugElement.children[0].classes['ui-dialog-draggable']).toEqual(true);
+    });
+    
+    it('should show the dialog when visible is true', () => {
+        spyOn(dialog, 'show');
+        dialog.visible = true;
+        fixture.detectChanges();
+        expect(fixture.debugElement.children[0].classes['ui-helper-hidden']).toEqual(false);
+        expect(dialog.show).toHaveBeenCalled();
+    });
+    
+    it('should call hide if visible is true and dialog gets hidden', () => {
+        dialog.visible = true;
+        fixture.detectChanges();
+        
+        spyOn(dialog, 'hide');
+        dialog.visible = false;
+        fixture.detectChanges();
+        
+        expect(fixture.debugElement.children[0].classes['ui-helper-hidden']).toEqual(true);
+        expect(dialog.hide).toHaveBeenCalled();
     });
         
     it('should update visible as false binding when close icon is clicked', () => {
