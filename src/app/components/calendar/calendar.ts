@@ -528,8 +528,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     initTime(date: Date) {
-        this.pm = date.getHours() > 11;
-        if(this.showTime) {
+        this.pm = (!this.utc) ? (date.getHours() > 11) : (date.getUTCHours() > 11);
+        if(this.showTime && !this.utc) {
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
             
@@ -537,8 +537,15 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 this.currentHour = date.getHours() == 0 ? 12 : date.getHours() % 12;
             else
                 this.currentHour = date.getHours();
-        }
-        else if(this.timeOnly) {
+        } else if(this.showTime) {
+          this.currentMinute = date.getUTCMinutes();
+          this.currentSecond = date.getUTCSeconds();
+
+          if(this.hourFormat == '12')
+            this.currentHour = date.getUTCHours() == 0 ? 12 : date.getUTCHours() % 12;
+          else
+            this.currentHour = date.getUTCHours();
+        } else if(this.timeOnly) {
             this.currentMinute = 0;
             this.currentHour = 0;
             this.currentSecond = 0;
@@ -692,8 +699,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
             date = new Date(Date.UTC(dateMeta.year, dateMeta.month, dateMeta.day));
         else
             date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
-        
-        if(this.showTime) {
+
+        if(this.showTime && !this.utc) {
             if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
                 date.setHours(this.currentHour + 12);
             else
@@ -701,6 +708,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
 
             date.setMinutes(this.currentMinute);
             date.setSeconds(this.currentSecond);
+        } else if (this.showTime) {
+          if(this.hourFormat === '12' && this.pm && this.currentHour != 12)
+            date.setUTCHours(this.currentHour + 12);
+          else
+            date.setUTCHours(this.currentHour);
+
+          date.setUTCMinutes(this.currentMinute);
+          date.setUTCSeconds(this.currentSecond);
         }
         
         if(this.minDate && this.minDate > date) {
@@ -1115,17 +1130,29 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     updateTime() {
-        let value = this.value ? new Date(this.value.getTime()) : new Date();
-        if(this.hourFormat == '12') {
-            if(this.currentHour === 12)
-                value.setHours(this.pm ? 12 : 0);
-            else
-                value.setHours(this.pm ? this.currentHour + 12 : this.currentHour);
+      let value = this.value ? new Date(this.value.getTime()) : new Date();
+      if(!this.utc) {
+        if (this.hourFormat == '12') {
+          if (this.currentHour === 12)
+            value.setHours(this.pm ? 12 : 0);
+          else
+            value.setHours(this.pm ? this.currentHour + 12 : this.currentHour);
         }
         else {
-            value.setHours(this.currentHour);
-        }            
-        
+          value.setHours(this.currentHour);
+        }
+      } else {
+        if (this.hourFormat == '12') {
+          if (this.currentHour === 12)
+            value.setUTCHours(this.pm ? 12 : 0);
+          else
+            value.setUTCHours(this.pm ? this.currentHour + 12 : this.currentHour);
+        }
+        else {
+          value.setUTCHours(this.currentHour);
+        }
+      }
+
         value.setMinutes(this.currentMinute);
         value.setSeconds(this.currentSecond);
         this.updateModel(value);
@@ -1217,7 +1244,11 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         this.pm = (ampm === 'PM' || ampm === 'pm');
         let time = this.parseTime(timeString);
-        value.setHours(time.hour);
+        if(!this.utc) {
+          value.setHours(time.hour);
+        } else {
+          value.setUTCHours(time.hour);
+        }
         value.setMinutes(time.minute);
         value.setSeconds(time.second);
     }
@@ -1232,8 +1263,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         this.createMonth(val.getMonth(), val.getFullYear());
         
         if(this.showTime||this.timeOnly) {
-            let hours = val.getHours();
-            
+            let hours = (this.utc) ? val.getUTCHours : val.getHours();
+
             if(this.hourFormat == '12') {
                 this.pm = hours > 11;
                 
@@ -1245,7 +1276,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
                 }
             }
             else {
-                this.currentHour = val.getHours();
+                this.currentHour = (this.utc) ? val.getUTCHours() : val.getHours();
             }
             
             this.currentMinute = val.getMinutes();
@@ -1393,7 +1424,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         }
         
         let output = '';
-        let hours = date.getHours();
+        let hours = (this.utc) ? date.getUTCHours() : date.getHours();
         let minutes = date.getMinutes();
         let seconds = date.getSeconds();
         
@@ -1609,7 +1640,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         if(!date) {
             return null;
         }
-        date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
+        if(!this.utc) {
+          date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
+        }
         return date;
     }
     
