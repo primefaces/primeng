@@ -20,6 +20,14 @@
     float: right;    
 }
 
+.ui-paginator .ui-paginator-total-record {
+    display: inline-block;
+    padding: .450em .375em;
+    margin-left: .063em;
+	margin-right: .063em;
+    vertical-align: middle;
+}
+
 .ui-paginator .ui-paginator-page,
 .ui-paginator .ui-paginator-pages,
 .ui-paginator .ui-paginator-next,

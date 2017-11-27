@@ -35,6 +35,9 @@ import {SharedModule} from '../common/shared';
             </a>
             <p-dropdown [options]="rowsPerPageItems" [(ngModel)]="rows" *ngIf="rowsPerPageOptions" 
                 (onChange)="onRppChange($event)" [lazy]="false" [autoWidth]="false"></p-dropdown>
+            <div class="ui-paginator-total-record" *ngIf="showTotalItemCount">
+                Page {{paginatorState.page + 1}} of {{_totalRecords / (paginatorState.rows)}} ({{_totalRecords}} items) 
+            </div>
             <div class="ui-paginator-right-content" *ngIf="templateRight">
                 <p-templateLoader [template]="templateRight" [data]="paginatorState"></p-templateLoader>
             </div>
@@ -56,6 +59,8 @@ export class Paginator implements OnInit {
     @Input() templateLeft: TemplateRef<any>;
     
     @Input() templateRight: TemplateRef<any>;
+
+    @Input() showTotalItemCount: boolean = false;
 
     pageLinks: number[];
 
