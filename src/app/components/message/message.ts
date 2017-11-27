@@ -17,40 +17,36 @@ import {CommonModule} from '@angular/common';
 export class UIMessage {
 
     @Input() severity: string;
-    
+
     @Input() text: string;
-        
+
     get icon(): string {
         let icon: string = null;
-        
+
         if(this.severity) {
             switch(this.severity) {
                 case 'success':
                     icon = 'fa fa-check';
                 break;
-                
+
                 case 'info':
                     icon = 'fa fa-info-circle';
                 break;
-                
+
                 case 'error':
                     icon = 'fa fa-close';
                 break;
-                
+
                 case 'warn':
                     icon = 'fa fa-warning';
                 break;
-                
-                case 'success':
-                    icon = 'fa fa-check';
-                break;
-                
+
                 default:
                     icon = 'fa fa-info-circle';
                 break;
             }
         }
-        
+
         return icon;
     }
 }
