@@ -316,6 +316,18 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.filterInputChild.nativeElement.value = null;
         }
         this.onPanelHide.emit();
+
+        /* Selected items to the top on Panel Hide */
+        let selectedOptions:SelectItem[] = [];
+        for (let j = 0; j < this.value.length; j++) {
+            for (let i = 0; i < this.options.length; i++) {
+                if (this.options[i].value == this.value[j]) {
+                    selectedOptions.push(this.options[i]);
+                    this.options.splice(i, 1);
+                }
+            }
+        }
+        this.options = selectedOptions.concat(this.options);
     }
     
     close(event) {
