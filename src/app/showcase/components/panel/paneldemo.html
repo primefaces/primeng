@@ -9,23 +9,23 @@
     <p-growl [value]="msgs"></p-growl>
 
     <p-panel header="Godfather I" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
         kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
     </p-panel>
-        
+
     <p-panel>
         <p-header>
             <div class="ui-helper-clearfix">
                 <span class="ui-panel-title" style="display:inline-block;margin-top:.4em">Custom Header</span>
-                
+
                 <p-splitButton [style]="{'float':'right'}" label="Save" icon="fa-check" (onClick)="save()" [model]="items"></p-splitButton>
             </div>
         </p-header>
-        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
         kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
         <p-footer>
             <button pButton type="button" icon="fa-plus" label="New" class="ui-button-info"></button>
@@ -133,6 +133,12 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
                             <td>fa-minus</td>
                             <td>Collapsed icon of the toggle button.</td>
                         </tr>
+                        <tr>
+                          <td>showHeader</td>
+                          <td>boolean</td>
+                          <td>true</td>
+                          <td>Specifies if header of panel cannot be displayed.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -163,7 +169,7 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
                     </tbody>
                 </table>
             </div>
-            
+
             <h3>Styling</h3>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
             <div class="doc-tablewrapper">
@@ -208,15 +214,15 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
             <i class="fa fa-github"></i>
             <span>View on GitHub</span>
         </a>
-        
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
 
 &lt;p-panel header="Godfather I" [toggleable]="true" [style]="&#123;'margin-bottom':'20px'&#125;"&gt;
-    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
     kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
 &lt;/p-panel&gt;
 
@@ -224,13 +230,13 @@ import &#123;PanelModule&#125; from 'primeng/primeng';
     &lt;p-header&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px"&gt;Custom Header&lt;/span&gt;
-            
+
             &lt;p-splitButton [style]="&#123;'float':'right'&#125;" label="Save" icon="fa-check" (onClick)="save()" [model]="items"&gt;&lt;/p-splitButton&gt;
         &lt;/div&gt;
     &lt;/p-header&gt;
-    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
     kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
     &lt;p-footer&gt;
         &lt;button pButton type="button" icon="fa-plus" label="New" class="ui-button-info"&gt;&lt;/button&gt;

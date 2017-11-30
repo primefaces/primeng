@@ -89,6 +89,8 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
     
     @Input() dayRender: Function;
     
+    @Input() navLinks: boolean;
+    
     @Input() options: any;
     
     @Output() onDayClick: EventEmitter<any> = new EventEmitter();
@@ -172,6 +174,7 @@ export class Schedule implements DoCheck,OnDestroy,OnInit,OnChanges,AfterViewChe
             eventConstraint: this.eventConstraint,
             eventRender: this.eventRender,
             dayRender: this.dayRender,
+            navLinks: this.navLinks,
             dayClick: (date, jsEvent, view) => {
                 this.onDayClick.emit({
                     'date': date,

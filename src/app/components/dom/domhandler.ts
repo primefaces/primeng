@@ -186,7 +186,7 @@ export class DomHandler {
         let last = +new Date();
         let opacity = 0;
         let tick = function () {
-            opacity = +element.style.opacity + (new Date().getTime() - last) / duration;
+            opacity = +element.style.opacity.replace(",", ".") + (new Date().getTime() - last) / duration;
             element.style.opacity = opacity;
             last = +new Date();
 

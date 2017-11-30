@@ -1,0 +1,56 @@
+import { ElementRef, AfterViewInit, OnDestroy, AfterViewChecked, Renderer2, NgZone } from '@angular/core';
+import { DomHandler } from '../dom/domhandler';
+import { Confirmation } from '../common/confirmation';
+import { ConfirmationService } from '../common/confirmationservice';
+import { Subscription } from 'rxjs/Subscription';
+export declare class ConfirmDialog implements AfterViewInit, AfterViewChecked, OnDestroy {
+    el: ElementRef;
+    domHandler: DomHandler;
+    renderer: Renderer2;
+    private confirmationService;
+    zone: NgZone;
+    header: string;
+    icon: string;
+    message: string;
+    acceptIcon: string;
+    acceptLabel: string;
+    acceptVisible: boolean;
+    rejectIcon: string;
+    rejectLabel: string;
+    rejectVisible: boolean;
+    width: any;
+    height: any;
+    closeOnEscape: boolean;
+    rtl: boolean;
+    closable: boolean;
+    responsive: boolean;
+    appendTo: any;
+    key: string;
+    footer: any;
+    confirmation: Confirmation;
+    _visible: boolean;
+    documentEscapeListener: any;
+    documentResponsiveListener: any;
+    mask: any;
+    contentContainer: any;
+    positionInitialized: boolean;
+    subscription: Subscription;
+    executePostShowActions: boolean;
+    constructor(el: ElementRef, domHandler: DomHandler, renderer: Renderer2, confirmationService: ConfirmationService, zone: NgZone);
+    visible: boolean;
+    ngAfterViewInit(): void;
+    ngAfterViewChecked(): void;
+    center(): void;
+    enableModality(): void;
+    disableModality(): void;
+    close(event: Event): void;
+    hide(): void;
+    moveOnTop(): void;
+    bindGlobalListeners(): void;
+    unbindGlobalListeners(): void;
+    ngOnDestroy(): void;
+    accept(): void;
+    reject(): void;
+}
+export declare class ConfirmDialogModule {
+}

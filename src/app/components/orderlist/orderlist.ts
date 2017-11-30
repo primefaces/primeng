@@ -27,7 +27,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             [ngClass]="{'ui-state-highlight': (i === dragOverItemIndex)}"></li>
                         <li class="ui-orderlist-item"
                             [ngClass]="{'ui-state-highlight':isSelected(item)}" 
-                            (click)="onItemClick($event,item)" (touchend)="onItemTouchEnd($event)"
+                            (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
@@ -76,7 +76,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     public itemTemplate: TemplateRef<any>;
         
     selectedItems: any[];
-    
+        
     movedUp: boolean;
     
     movedDown: boolean;
@@ -146,36 +146,41 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         }
     }
                 
-    onItemClick(event, item) {
-        let index = this.findIndexInList(item, this.selectedItems);
-        let selected = (index != -1);
+    onItemClick(event, item, index) {
+        let selectedIndex = this.objectUtils.findIndexInList(item, this.selectedItems);
+        let selected = (selectedIndex != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
         
         if(metaSelection) {
             let metaKey = (event.metaKey||event.ctrlKey);
             
             if(selected && metaKey) {
-                this.selectedItems.splice(index, 1);
+                this.selectedItems.splice(selectedIndex, 1);
             }
             else {
                 this.selectedItems = (metaKey) ? this.selectedItems||[] : [];            
-                this.selectedItems.push(item);
+                this.selectItem(item, index);
             }
         }
         else {
             if(selected) {
-                this.selectedItems.splice(index, 1);
+                this.selectedItems.splice(selectedIndex, 1);
             }
             else {
                 this.selectedItems = this.selectedItems||[];
-                this.selectedItems.push(item);
+                this.selectItem(item, index);
             }
         }
-
+        
         this.onSelectionChange.emit({originalEvent:event, value:this.selectedItems});
         this.itemTouched = false;
     }
     
+    selectItem(item, index) {
+        this.selectedItems = this.selectedItems||[];
+        this.objectUtils.insertIntoOrderedArray(item, index, this.selectedItems, this.value);        
+    }
+        
     onFilterKeyup(event) {
         this.filterValue = event.target.value.trim().toLowerCase();
         this.filter();
@@ -209,29 +214,14 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
     }
     
     isSelected(item: any) {
-        return this.findIndexInList(item, this.selectedItems) != -1;
+        return this.objectUtils.findIndexInList(item, this.selectedItems) != -1;
     }
         
-    findIndexInList(item: any, list: any): number {
-        let index: number = -1;
-        
-        if(list) {
-            for(let i = 0; i < list.length; i++) {
-                if(list[i] == item) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-        
-        return index;
-    }
-
     moveUp(event,listElement) {
         if(this.selectedItems) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != 0) {
                     let movedItem = this.value[selectedItemIndex];
@@ -253,7 +243,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if(this.selectedItems) {
             for(let i = 0; i < this.selectedItems.length; i++) {
                 let selectedItem = this.selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != 0) {
                     let movedItem = this.value.splice(selectedItemIndex,1)[0];
@@ -274,7 +264,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if(this.selectedItems) {
             for(let i = this.selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = this.selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != (this.value.length - 1)) {
                     let movedItem = this.value[selectedItemIndex];
@@ -296,7 +286,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         if(this.selectedItems) {
             for(let i = this.selectedItems.length - 1; i >= 0; i--) {
                 let selectedItem = this.selectedItems[i];
-                let selectedItemIndex: number = this.findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = this.objectUtils.findIndexInList(selectedItem, this.value);
 
                 if(selectedItemIndex != (this.value.length - 1)) {
                     let movedItem = this.value.splice(selectedItemIndex,1)[0];
@@ -336,6 +326,7 @@ export class OrderList implements AfterViewChecked,AfterContentInit {
         this.objectUtils.reorderArray(this.value, this.draggedItemIndex, dropIndex);
         this.dragOverItemIndex = null;
         this.onReorder.emit(event);
+        event.preventDefault();
     }
     
     onDragEnd(event: DragEvent) {

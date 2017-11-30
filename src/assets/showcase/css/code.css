@@ -80,8 +80,8 @@ pre[class*="language-"] {
 	white-space: normal;
 }
 
-pre[class*="language-"]:before,
-pre[class*="language-"]:after {
+pre[class*="language-"]::before,
+pre[class*="language-"]::after {
 	content: '';
 	z-index: -2;
 	display: block;
@@ -98,8 +98,8 @@ pre[class*="language-"]:after {
 	transform: rotate(-2deg);
 }
 
-:not(pre) > code[class*="language-"]:after,
-pre[class*="language-"]:after {
+:not(pre) > code[class*="language-"]::after,
+pre[class*="language-"]::after {
 	right: 0.75em;
 	left: auto;
 	-webkit-transform: rotate(2deg);
@@ -188,8 +188,8 @@ pre[class*="language-"]:after {
 }
 
 @media screen and (max-width: 767px) {
-	pre[class*="language-"]:before,
-	pre[class*="language-"]:after {
+	pre[class*="language-"]::before,
+	pre[class*="language-"]::after {
 		bottom: 14px;
 		-webkit-box-shadow: none;
 		-moz-box-shadow: none;
@@ -199,9 +199,9 @@ pre[class*="language-"]:after {
 }
 
 /* Plugin styles */
-.token.tab:not(:empty):before,
-.token.cr:before,
-.token.lf:before {
+.token.tab:not(:empty)::before,
+.token.cr::before,
+.token.lf::before {
 	color: #e0d7d1;
 }
 

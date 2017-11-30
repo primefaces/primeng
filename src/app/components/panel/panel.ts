@@ -4,20 +4,23 @@ import {SharedModule,Footer} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 
+let idx: number = 0;
+
 @Component({
     selector: 'p-panel',
     template: `
-        <div [ngClass]="'ui-panel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+        <div [attr.id]="id" [ngClass]="'ui-panel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
+            <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all" *ngIf="showHeader">
                 <span class="ui-panel-title" *ngIf="header">{{header}}</span>
                 <ng-content select="p-header"></ng-content>
-                <a *ngIf="toggleable" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
-                    (click)="toggle($event)">
+                <a *ngIf="toggleable" [attr.id]="id + '-label'" class="ui-panel-titlebar-icon ui-panel-titlebar-toggler ui-corner-all ui-state-default" href="#"
+                    (click)="toggle($event)" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="!collapsed">
                     <span [class]="collapsed ? 'fa fa-fw ' + expandIcon : 'fa fa-fw ' + collapseIcon"></span>
                 </a>
             </div>
-            <div class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" (@panelContent.done)="onToggleDone($event)"
-                [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}">
+            <div [attr.id]="id + '-content'" class="ui-panel-content-wrapper" [@panelContent]="collapsed ? 'hidden' : 'visible'" (@panelContent.done)="onToggleDone($event)"
+                [ngClass]="{'ui-panel-content-wrapper-overflown': collapsed||animating}"
+                role="region" [attr.aria-hidden]="collapsed" [attr.aria-labelledby]="id + '-label'">
                 <div class="ui-panel-content ui-widget-content">
                     <ng-content></ng-content>
                 </div>
@@ -49,22 +52,26 @@ export class Panel implements BlockableUI {
     @Input() collapsed: boolean = false;
     
     @Input() style: any;
-        
+    
     @Input() styleClass: string;
     
     @Input() expandIcon: string = 'fa-plus';
     
     @Input() collapseIcon: string = 'fa-minus';
+  
+    @Input() showHeader: boolean = true;
     
     @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
 
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
-         
+    
     @ContentChild(Footer) footerFacet;
-        
-    public animating: boolean;
+    
+    animating: boolean;
+    
+    id: string = `ui-panel-${idx++}`;
     
     constructor(private el: ElementRef) {}
     
@@ -76,13 +83,13 @@ export class Panel implements BlockableUI {
         this.animating = true;
         this.onBeforeToggle.emit({originalEvent: event, collapsed: this.collapsed});
         
-        if(this.toggleable) {            
+        if(this.toggleable) {
             if(this.collapsed)
                 this.expand(event);
             else
                 this.collapse(event);
         }
-                        
+        
         event.preventDefault();
     }
     
@@ -102,7 +109,7 @@ export class Panel implements BlockableUI {
     
     onToggleDone(event: Event) {
         this.animating = false;
-        this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});  
+        this.onAfterToggle.emit({originalEvent: event, collapsed: this.collapsed});
     }
 
 }

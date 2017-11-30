@@ -50,7 +50,12 @@ export class Button implements AfterViewInit, OnDestroy {
             }
         }
         else {
-            styleClass = styleClass + ' ui-button-text-only';
+            if(this.label) {
+                styleClass = styleClass + ' ui-button-text-only';
+            }
+            else {
+                styleClass = styleClass + ' ui-button-text-empty';
+            }
         }
         
         return styleClass;

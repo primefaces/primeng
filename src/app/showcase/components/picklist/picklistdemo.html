@@ -7,7 +7,7 @@
 
 <div class="content-section implementation">
     
-    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" dragdrop="true"
+    <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" dragdrop="true" dragdropScope="cars"
         [responsive]="true" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" filterBy="brand" 
         sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand">
         <ng-template let-car pTemplate="item">
@@ -214,6 +214,12 @@ This dragdrop property also supports cross list actions.</p>
                             <td>null</td>
                             <td>Placeholder text on target filter input.</td>
                         </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the component should be disabled.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -330,7 +336,7 @@ This dragdrop property also supports cross list actions.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" filterBy="brand" 
-        dragdrop="true" sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;"&gt;
+        dragdrop="true" dragdropScope="cars" sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand" [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
