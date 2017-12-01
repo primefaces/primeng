@@ -331,7 +331,7 @@
 }
 
 .ui-picklist {
-    .ui-picklist-item:not(.ui-state-highlight):hover {
+    .ui-picklist-item:not(.ui-state-disabled):not(.ui-state-highlight):hover {
         @include hover-element();
     }
 

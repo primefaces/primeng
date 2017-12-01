@@ -1,5 +1,6 @@
 .ui-lightbox {
     position: fixed;
+    display: none;
 }
 
 .ui-lightbox-content-wrapper {

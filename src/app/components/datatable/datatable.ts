@@ -112,8 +112,9 @@ export class RowExpansionLoader implements OnInit, OnDestroy {
                 [ngClass]="{'ui-state-default ui-unselectable-text':true, 'ui-sortable-column': col.sortable, 'ui-state-active': dt.isSorted(col), 'ui-resizable-column': dt.resizableColumns, 'ui-selection-column':col.selectionMode,
                             'ui-helper-hidden': col.hidden}"
                 (dragstart)="dt.onColumnDragStart($event)" (dragleave)="dt.onColumnDragleave($event)" (drop)="dt.onColumnDrop($event)" (mousedown)="dt.onHeaderMousedown($event,headerCell)"
-                [attr.tabindex]="col.sortable ? tabindex : null" (keydown)="dt.onHeaderKeydown($event,col)">
-                <span class="ui-column-resizer ui-clickable" *ngIf="dt.resizableColumns && ((dt.columnResizeMode == 'fit' && !lastCol) || dt.columnResizeMode == 'expand')" (mousedown)="dt.initColumnResize($event)"></span>
+                [attr.tabindex]="col.sortable ? tabindex : null" (keydown)="dt.onHeaderKeydown($event,col)"
+                [attr.scope]="col.scope||(col.colspan ? 'colgroup' : 'col')">
+                <span class="ui-column-resizer ui-clickable" *ngIf="dt.resizableColumns && col.resizable && ((dt.columnResizeMode == 'fit' && !lastCol) || dt.columnResizeMode == 'expand')" (mousedown)="dt.initColumnResize($event)"></span>
                 <span class="ui-column-title" *ngIf="!col.selectionMode&&!col.headerTemplate">{{col.header}}</span>
                 <span class="ui-column-title" *ngIf="col.headerTemplate">
                     <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
@@ -216,7 +217,7 @@ export class ColumnFooters {
             </tr>
         </ng-template>
 
-        <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row">
+        <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row" [style.visibility]="dt.loading ? 'hidden' : 'visible'">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
                 <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
                 <p-templateLoader [template]="dt.emptyMessageTemplate"></p-templateLoader>
@@ -407,9 +408,11 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             if(this.scrollBody.scrollTop + viewport > parseFloat(this.scrollTable.style.top) + tableHeight || this.scrollBody.scrollTop < parseFloat(this.scrollTable.style.top)) {
                 let page = Math.floor((this.scrollBody.scrollTop * pageCount) / (this.scrollBody.scrollHeight)) + 1;
                 this.onVirtualScroll.emit({
-                    page: page
+                    page: page,
+                    callback: () => {
+                        this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
+                    }
                 });
-                this.scrollTable.style.top = ((page - 1) * pageHeight) + 'px';
             }
         }
     }
@@ -469,7 +472,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
                 <ng-content select="p-header"></ng-content>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"></p-paginator>
+                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead class="ui-datatable-thead">
@@ -501,7 +505,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             </ng-template>
             
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"></p-paginator>
+                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
             <div class="ui-datatable-footer ui-widget-header" *ngIf="footer">
                 <ng-content select="p-footer"></ng-content>
             </div>
@@ -765,6 +770,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     public emptyMessageTemplate: TemplateRef<any>;
     
+    public paginatorLeftTemplate: TemplateRef<any>;
+            
+    public paginatorRightTemplate: TemplateRef<any>;
+    
     public scrollBarWidth: number;
     
     public editorClick: boolean;
@@ -807,6 +816,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     virtualScrollableTableWrapper: HTMLDivElement;
     
+    virtualScrollCallback: Function;
+    
     editChanged: boolean;
     
     constructor(public el: ElementRef, public domHandler: DomHandler, public differs: IterableDiffers,
@@ -846,6 +857,14 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 
                 case 'emptymessage':
                     this.emptyMessageTemplate = item.template;
+                break;
+                
+                case 'paginatorLeft':
+                    this.paginatorLeftTemplate = item.template;
+                break;
+                
+                case 'paginatorRight':
+                    this.paginatorRightTemplate = item.template;
                 break;
             }
         });
@@ -993,9 +1012,13 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    handleDataChange() {        
+    handleDataChange() {
         if(this.paginator) {
             this.updatePaginator();
+        }
+        
+        if(this.virtualScroll && this.virtualScrollCallback) {
+            this.virtualScrollCallback();
         }
         
         if(!this.lazy) {
@@ -1060,25 +1083,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     resolveFieldData(data: any, field: string): any {
-        if(data && field) {
-            if(field.indexOf('.') == -1) {
-                return data[field];
-            }
-            else {
-                let fields: string[] = field.split('.');
-                let value = data;
-                for(var i = 0, len = fields.length; i < len; ++i) {
-                    if (value == null) {
-                        return null;
-                    }
-                    value = value[fields[i]];
-                }
-                return value;
-            }
-        }
-        else {
-            return null;
-        }
+        return this.objectUtils.resolveFieldData(data, field);
     }
     
     updateRowGroupMetadata() {
@@ -1163,6 +1168,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     
     onVirtualScroll(event) {
         this._first = (event.page - 1) * this.rows;
+        this.virtualScrollCallback = event.callback;
+        
         this.zone.run(() => {
             if(this.virtualScrollTimer) {
                 clearTimeout(this.virtualScrollTimer);
@@ -1198,8 +1205,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(!column.sortable) {
             return;
         }
-        let targetNode = event.target.nodeName;
-        if((targetNode == 'TH' && this.domHandler.hasClass(event.target, 'ui-sortable-column')) || ((targetNode == 'SPAN' || targetNode == 'DIV') && !this.domHandler.hasClass(event.target, 'ui-clickable'))) {
+        let targetNode = event.target;
+        if(this.domHandler.hasClass(targetNode, 'ui-sortable-column') || this.domHandler.hasClass(targetNode, 'ui-column-title') || this.domHandler.hasClass(targetNode, 'ui-sortable-column-icon')) {
             if(!this.immutable) {
                 this.preventSortPropagation = true;
             }
@@ -1392,7 +1399,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    clearSelectionRange() {
+    clearSelectionRange(event: MouseEvent) {
         let rangeStart, rangeEnd;
 
         if(this.rangeRowIndex > this.anchorRowIndex) {
@@ -1420,7 +1427,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         }
     }
     
-    selectRange(rowIndex: number) {
+    selectRange(event: MouseEvent, rowIndex: number) {
         let rangeStart, rangeEnd;
         
         if(this.anchorRowIndex > rowIndex) {
@@ -1466,11 +1473,11 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(this.isMultipleSelectionMode() && event.shiftKey && this.anchorRowIndex != null) {
                 this.domHandler.clearSelection();
                 if(this.rangeRowIndex != null) {
-                    this.clearSelectionRange();
+                    this.clearSelectionRange(event);
                 }
                 
                 this.rangeRowIndex = index;
-                this.selectRange(index);
+                this.selectRange(event, index);
             }
             else {
                 let selected = this.isSelected(rowData);
@@ -1532,10 +1539,12 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         if(selected) {
                             this._selection = null;
                             this.selectionKeys = {};
+                            this.selectionChange.emit(this.selection);
                             this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'row'});
                         }
                         else {
                             this._selection = rowData;
+                            this.selectionChange.emit(this.selection);
                             this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'row'});
                             if(dataKeyValue) {
                                 this.selectionKeys = {};
@@ -1688,7 +1697,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     isSelected(rowData) {
-        if(rowData && this.selection && this.selection.length) {
+        if(rowData && this.selection) {
             if(this.dataKey) {
                 return this.selectionKeys[this.objectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
             }
@@ -2385,7 +2394,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         return !this.dataToRender||(this.dataToRender.length == 0);
     }
 
-    createLazyLoadMetadata(): LazyLoadEvent {        
+    createLazyLoadMetadata(): LazyLoadEvent {
         return {
             first: this.first,
             rows: this.virtualScroll ? this.rows * 2 : this.rows,
@@ -2522,8 +2531,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         //headers
         for(let i = 0; i < this.columns.length; i++) {
-            if(this.columns[i].field) {
-                csv += '"' + (this.columns[i].header || this.columns[i].field) + '"';
+            let column = this.columns[i];
+            if(column.exportable && column.field) {
+                csv += '"' + (column.header || column.field) + '"';
                 
                 if(i < (this.columns.length - 1)) {
                     csv += this.csvSeparator;
@@ -2535,8 +2545,16 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         data.forEach((record, i) => {
             csv += '\n';
             for(let i = 0; i < this.columns.length; i++) {
-                if(this.columns[i].field) {
-                    csv += '"' + this.resolveFieldData(record, this.columns[i].field) + '"';
+                let column = this.columns[i];
+                if(column.exportable && column.field) {
+                    let cellData = this.resolveFieldData(record, column.field);
+                    
+                    if(cellData != null)
+                        cellData = String(cellData).replace(/"/g, '""');
+                    else
+                        cellData = '';
+                        
+                     csv += '"' + cellData + '"';
                     
                     if(i < (this.columns.length - 1)) {
                         csv += this.csvSeparator;
@@ -2627,6 +2645,10 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         if(this.columnsSubscription) {
             this.columnsSubscription.unsubscribe();
+        }
+        
+        if(this.virtualScrollCallback) {
+            this.virtualScrollCallback = null;
         }
     }
 }

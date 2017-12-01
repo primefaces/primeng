@@ -90,6 +90,7 @@
     padding: .25em;
     position: relative;
     text-align: left;
+    min-height: 2em;
 }
 
 .ui-multiselect-header .ui-chkbox {

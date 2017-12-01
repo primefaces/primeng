@@ -1,5 +1,6 @@
-import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,ElementRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {BlockableUI} from '../common/blockableui';
 
 @Component({
     selector: 'p-toolbar',
@@ -9,11 +10,17 @@ import {CommonModule} from '@angular/common';
         </div>
     `
 })
-export class Toolbar {
-    
+export class Toolbar implements BlockableUI {
+
     @Input() style: any;
-        
+
     @Input() styleClass: string;
+
+    constructor(private el: ElementRef) {}
+
+    getBlockableElement(): HTMLElement {
+      return this.el.nativeElement.children[0];
+    }
 
 }
 

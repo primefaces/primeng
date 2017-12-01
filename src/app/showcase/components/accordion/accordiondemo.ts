@@ -8,7 +8,7 @@ export class AccordionDemo {
 
     msgs: Message[];
     
-    index: number = 0;
+    index: number = -1;
 
     onTabClose(event) {
         this.msgs = [];
@@ -25,6 +25,6 @@ export class AccordionDemo {
     }
     
     openPrev() {
-        this.index = (this.index === 0) ? 3 : this.index - 1;
+        this.index = (this.index <= 0) ? 3 : this.index - 1;
     }
 }

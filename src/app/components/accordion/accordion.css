@@ -11,14 +11,7 @@
 
 .ui-accordion .ui-accordion-header a { 
     display: block; 
-    padding: .5em .5em .5em 2em; 
-}
-
-.ui-accordion .ui-accordion-header>.fa {
-    position: absolute; 
-    left: .5em; 
-    top: 50%; 
-    margin-top: -.5em; 
+    padding: .5em;
 }
 
 .ui-accordion .ui-accordion-content { 
@@ -46,6 +39,6 @@
     right: .5em;
 }
 
-.ui-rtl .ui-accordion .ui-accordion-header > .fa-caret-right:before {
+.ui-rtl .ui-accordion .ui-accordion-header > .fa-caret-right::before {
     content: '\f0d9';
 }

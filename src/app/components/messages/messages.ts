@@ -30,9 +30,9 @@ export class Messages implements OnDestroy {
     @Input() value: Message[];
 
     @Input() closable: boolean = true;
-    
+
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
-    
+
     subscription: Subscription;
 
     constructor(@Optional() public messageService: MessageService) {
@@ -65,7 +65,7 @@ export class Messages implements OnDestroy {
 
         event.preventDefault();
     }
-    
+
     get icon(): string {
         let icon: string = null;
         if(this.hasMessages()) {
@@ -74,32 +74,28 @@ export class Messages implements OnDestroy {
                 case 'success':
                     icon = 'fa-check';
                 break;
-                
+
                 case 'info':
                     icon = 'fa-info-circle';
                 break;
-                
+
                 case 'error':
                     icon = 'fa-close';
                 break;
-                
+
                 case 'warn':
                     icon = 'fa-warning';
                 break;
-                
-                case 'success':
-                    icon = 'fa-check';
-                break;
-                
+
                 default:
                     icon = 'fa-info-circle';
                 break;
             }
         }
-        
+
         return icon;
     }
-    
+
     ngOnDestroy() {
         if(this.subscription) {
             this.subscription.unsubscribe();

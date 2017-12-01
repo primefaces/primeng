@@ -54,3 +54,8 @@ gulpfile.js
 # System Files
 .DS_Store
 Thumbs.db
+
+# aot
+*.ngfactory.js
+*.ngfactory.js.map
+*.ngsummary.json
