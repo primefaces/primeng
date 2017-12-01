@@ -43,11 +43,12 @@
     list-style-type: none;
     margin: 0 0 0 .125em;
     padding: .25em .25em .25em 0;
+	width: 100%;
 }
 
 .ui-chips-input-token input {
     border: 0 none;
-    width: 10em;
+    width: 100%;
     outline: medium none;
     background-color: transparent;
     margin: 0;
