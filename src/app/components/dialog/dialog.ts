@@ -149,7 +149,9 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     id: string = `ui-dialog-${idx++}`;
                 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public zone: NgZone) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public zone: NgZone) {
+        renderer.listen("body", "mouseup", event => this.endDrag(event));
+    }
     
     @Input() get visible(): boolean {
         return this._visible;
