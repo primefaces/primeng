@@ -20,6 +20,11 @@
                 <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
             </div>
         </ng-template>
+        <ng-template pTemplate="emptyMessage">
+            <div style="padding: 5px; font-weight: bold;">
+                No matching brands found
+            </div>
+        </ng-template>
     </p-autoComplete>
     <span style="margin-left:50px">Brand: {{brand||'none'}}</span>
 
