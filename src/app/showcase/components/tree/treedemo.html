@@ -82,6 +82,13 @@
     <h3>Horizontal Tree</h3>
     <p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
     <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;</div>
+
+    <h3>Filtered Tree</h3>
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; width:18em; box-sizing: border-box">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input #gb type="text" pInputText size="30" placeholder="Filter">
+    </div>
+    <p-tree #filteringTree [value]="filesTree12" [filter]="gb"></p-tree>
 </div>
 
 <div class="content-section documentation">
@@ -640,6 +647,18 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
                             <td>fa-circle-o-notch</td>
                             <td>The icon to show while indicating data load is in progress.</td>
                         </tr>
+                        <tr>
+                            <td>globalFilter</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Reference of an input field to use as a global filter.</td>
+                        </tr>
+                        <tr>
+                            <td>filterDelay</td>
+                            <td>number</td>
+                            <td>300</td>
+                            <td>Delay in milliseconds before filtering the data.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -839,6 +858,13 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 &lt;h3&gt;Horizontal Tree&lt;/h3&gt;
 &lt;p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" &gt;&lt;/p-tree&gt;
 &lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile3 ? selectedFile3.label : 'none'&#125;&lt;/div&gt;
+
+&lt;h3&gt;Filtered Tree&lt;/h3&gt;
+&lt;div class=&quot;ui-widget-header&quot; style=&quot;padding:4px 10px;border-bottom: 0 none; width:18em; box-sizing: border-box&quot;&gt;
+  &lt;i class=&quot;fa fa-search&quot; style=&quot;margin:4px 4px 0 0&quot;&gt;&lt;/i&gt;
+  &lt;input #gb type=&quot;text&quot; pInputText size=&quot;30&quot; placeholder=&quot;Filter&quot;&gt;
+&lt;/div&gt;
+&lt;p-tree #filteringTree [value]=&quot;filesTree12&quot; [filter]=&quot;gb&quot;&gt;&lt;/p-tree&gt;
 </code>
 </pre>
 

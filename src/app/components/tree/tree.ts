@@ -1,5 +1,5 @@
 import {NgModule,Component,Input,AfterContentInit,OnDestroy,Output,EventEmitter,OnInit,EmbeddedViewRef,ViewContainerRef,
-    ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host} from '@angular/core';
+  ContentChildren,QueryList,TemplateRef,Inject,forwardRef,Host,Renderer2,AfterViewInit} from '@angular/core';
 import {Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeNode} from '../common/treenode';
@@ -7,6 +7,7 @@ import {SharedModule} from '../common/shared';
 import {PrimeTemplate} from '../common/shared';
 import {TreeDragDropService} from '../common/treedragdropservice';
 import {Subscription}   from 'rxjs/Subscription';
+import {FilterState} from '../common/filterstateenum';
 
 @Component({
     selector: 'p-treeNodeTemplateLoader',
@@ -39,7 +40,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
         <ng-template [ngIf]="node">
             <li *ngIf="tree.droppableNodes" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverPrev}"
             (drop)="onDropPoint($event,-1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,-1)" (dragleave)="onDropPointDragLeave($event)"></li>
-            <li *ngIf="!tree.horizontal" [ngClass]="['ui-treenode',node.styleClass||'', isLeaf() ? 'ui-treenode-leaf': '']">
+            <li *ngIf="!tree.horizontal" [ngClass]="['ui-treenode',node.styleClass||'', isLeaf() ? 'ui-treenode-leaf': '', filterClass() ]">
                 <div class="ui-treenode-content" (click)="onNodeClick($event)" (contextmenu)="onNodeRightClick($event)" (touchend)="onNodeTouchEnd()"
                     (drop)="onDropNode($event)" (dragover)="onDropNodeDragOver($event)" (dragenter)="onDropNodeDragEnter($event)" (dragleave)="onDropNodeDragLeave($event)"
                     [ngClass]="{'ui-treenode-selectable':tree.selectionMode && node.selectable !== false,'ui-treenode-dragover':draghoverNode, 'ui-treenode-content-selected':isSelected()}" [draggable]="tree.draggableNodes" (dragstart)="onDragStart($event)" (dragend)="onDragStop($event)">
@@ -64,7 +65,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
             </li>
             <li *ngIf="tree.droppableNodes&&lastChild" class="ui-treenode-droppoint" [ngClass]="{'ui-treenode-droppoint-active ui-state-highlight':draghoverNext}"
             (drop)="onDropPoint($event,1)" (dragover)="onDropPointDragOver($event)" (dragenter)="onDropPointDragEnter($event,1)" (dragleave)="onDropPointDragLeave($event)"></li>
-            <table *ngIf="tree.horizontal" [class]="node.styleClass">
+            <table *ngIf="tree.horizontal" [class]="node.styleClass" [ngClass]="{'ui-treenode-filter-found':this.node.filterState == 0, 'ui-treenode-filter-on-path':this.node.filterState==1, 'ui-treenode-filter-not-found':this.node.filterState==2}">
                 <tbody>
                     <tr>
                         <td class="ui-treenode-connector" *ngIf="!root">
@@ -128,12 +129,30 @@ export class UITreeNode implements OnInit {
     
     draghoverNext: boolean;
     
-    draghoverNode: boolean
+    draghoverNode: boolean;
     
     ngOnInit() {
         this.node.parent = this.parentNode;
     }
-        
+
+    filterClass(): string {
+        let filterClass: string;
+        switch (this.node.filterState) {
+            case FilterState.FOUND:
+                filterClass = 'ui-treenode-filter-found';
+                break;
+            case FilterState.ON_FOUND_PATH:
+                filterClass = 'ui-treenode-filter-on-path';
+                break;
+            case FilterState.NOT_FOUND:
+                filterClass = 'ui-treenode-filter-not-found';
+                break;
+            default:
+                filterClass = '';
+        }
+        return filterClass;
+    }
+    
     getIcon() {
         let icon: string;
         
@@ -338,7 +357,7 @@ export class UITreeNode implements OnInit {
         </div>
     `
 })
-export class Tree implements OnInit,AfterContentInit,OnDestroy {
+export class Tree implements OnInit,AfterViewInit,AfterContentInit,OnDestroy {
 
     @Input() value: TreeNode[];
         
@@ -385,7 +404,11 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
     @Input() loading: boolean;
 
     @Input() loadingIcon: string = 'fa-circle-o-notch';
-        
+    
+    @Input() filter: any;
+
+    @Input() filterDelay: number = 300;
+    
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     public templateMap: any;
@@ -408,7 +431,11 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
     
     public dragStopSubscription: Subscription;
     
-    constructor(@Optional() public dragDropService: TreeDragDropService) {}
+    filterFunction: any;
+    
+    filterTimeout: any;
+    
+    constructor(@Optional() public dragDropService: TreeDragDropService, public renderer: Renderer2) {}
     
     ngOnInit() {
         if(this.droppableNodes) {
@@ -433,6 +460,73 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy {
         }     
     }
     
+    ngAfterViewInit() {
+        if (this.filter) {
+            this.filterFunction = this.renderer.listen(this.filter, 'keyup', () => {
+                if (this.filterTimeout) {
+                    clearTimeout(this.filterTimeout);
+                }
+                this.filterTimeout = setTimeout(() => {
+                    this.filterTree();
+                    this.filterTimeout = null;
+                }, this.filterDelay);
+            });
+        }
+    }
+    
+    filterTree() {
+        const filterValue = this.filter.value;
+        if(!filterValue.trim()){
+            this.clearSearchState();
+            return;
+        }
+        
+        let searchNode = (node: TreeNode): boolean => {
+            let expandUp = false;
+            let index = node.label.indexOf(filterValue);
+            if (index >= 0) {
+                node.filterState = FilterState.FOUND;
+                expandUp = true;
+            }else{
+                node.filterState = FilterState.NOT_FOUND;
+                node.expanded = false;
+                expandUp = false;
+            }
+            
+            if (node.children) {
+                const childState = node.children.map(searchNode).find((childState: boolean) => childState);
+                if (childState) {
+                    if(node.filterState != FilterState.FOUND) node.filterState = FilterState.ON_FOUND_PATH;
+                    node.expanded = true;
+                    expandUp = true;
+                }
+            }
+            return expandUp;
+        };
+        
+        if(this.value) this.value.forEach(searchNode);
+    }
+    
+    clearSearchState() {
+        this.forAll((treeNode: TreeNode) => {
+            treeNode.filterState = null;
+        });
+    }
+    
+    forAll(doForEach: (treeNode: TreeNode) => any) {
+        this.forEach(this.value, doForEach);
+    }
+    
+    private forEach(nodes: TreeNode[], doForEach: (treeNode: TreeNode) => any) {
+        nodes.forEach((treeNode: TreeNode) => {
+            Promise.resolve(doForEach(treeNode)).then(() => {
+                if (treeNode.children) {
+                    this.forEach(treeNode.children, doForEach);
+                }
+            });
+        });
+    };
+
     get horizontal(): boolean {
         return this.layout == 'horizontal';
     }
