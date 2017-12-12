@@ -67,6 +67,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'responsive', loadChildren: './components/responsive/responsivedemo.module#ResponsiveDemoModule'},
             {path: 'rtl', loadChildren: './components/rtl/rtldemo.module#RTLDemoModule'},
             {path: 'schedule', loadChildren: './components/schedule/scheduledemo.module#ScheduleDemoModule'},
+            {path: 'scrollpanel', loadChildren: './components/scrollpanel/scrollpaneldemo.module#ScrollPanelDemoModule' },
             {path: 'selectbutton', loadChildren: './components/selectbutton/selectbuttondemo.module#SelectButtonDemoModule'},
             {path: 'sidebar', loadChildren: './components/sidebar/sidebardemo.module#SidebarDemoModule'},
             {path: 'slidemenu', loadChildren: './components/slidemenu/slidemenudemo.module#SlideMenuDemoModule'},
