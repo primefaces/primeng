@@ -1,0 +1,172 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Theming</span>
+        <span>Create your own PrimeNG experience</span>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <h3 style="margin-top:0px">Structural CSS</h3>
+    <p>These style classes define the skeleton of the components and include css properties such as margin, padding, display type, dimensions and positioning.
+    Refer to documentation of each component for the list of structural classes per component.</p>
+
+    <h3>Skinning CSS</h3>
+    <p>Skinning defines the look and feel properties like colors, border colors, background images.</p>
+
+    <div class="doc-tablewrapper">
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th>Style Class</th>
+                    <th>Applies</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ui-widget</td>
+                    <td>All PrimeNG components</td>
+                </tr>
+                <tr>
+                    <td>ui-widget-header</td>
+                    <td>Header section of a component</td>
+                </tr>
+                <tr>
+                    <td>ui-widget-content</td>
+                    <td>Content section of a component</td>
+                </tr>
+                <tr>
+                    <td>ui-state-default</td>
+                    <td>Default state of a clickable element</td>
+                </tr>
+                <tr>
+                    <td>ui-state-hover</td>
+                    <td>Hover state of a clickable element like mouse over</td>
+                </tr>
+                <tr>
+                    <td>ui-state-active</td>
+                    <td>Active state of a clickable element like mouse press</td>
+                </tr>
+                <tr>
+                    <td>ui-state-highlight</td>
+                    <td>Highlighed elements</td>
+                </tr>
+                <tr>
+                    <td>ui-state-disabled</td>
+                    <td>Disabled elements</td>
+                </tr>
+                <tr>
+                    <td>fa</td>
+                    <td>Icon elements based on font awesome</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>These classes are not aware of structural css like margins and paddings, mostly they only define colors. This clean separation brings great flexibility in theming because you don’t need to know each and every skinning selectors of components to change their style.</p>
+
+    <p>For example Panel component’s header section has the "ui-panel-titlebar" structural class, to change the color of a panel
+        header you don’t need to about this class as "ui-widget-header" defines colors for panel header. However if you only
+        want to customize the headers of all panel component you need to use the "ui-panel-titlebar" instead of the global "ui-widget-header".
+        Additionally to change the style of a particular panel header instead of of panels, use the styleClass property of the
+        panel instead.</p>
+   
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-panel styleClass="my-panel"&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-css" pCode ngNonBindable>
+.my-panel .ui-panel-titlebar &#123;
+    background: #000000 
+&#125;
+</code>
+</pre>
+
+    <p>If your css is added using styles or stylesUrl property of a component, it may not be applied due to ViewEncapsulation, in this case you may consider changing the ViewEncapsulation
+        of your component as "none".
+    </p>
+
+    <h3>Free Themes</h3>
+    <p>16 free themes are available for PrimeNG, these include the themeroller themes and our custom themes. ThemeSwitcher on the top right section
+        of the page dynamically changes the theme at demo pages. Themes are distributed along with PrimeNG itself. Free themes are based on a basic SASS structure whereas
+        premium themes offer far more advanced SASS integration with advanced customization options.</p>
+
+    <p>In order to create a custom theme based on the free themes structure, define the variables below and import the <a href="https://github.com/primefaces/primeng/blob/master/src/assets/components/themes/_theme.scss">_theme.scss</a>.</p>
+<pre>
+<code class="language-css" pCode ngNonBindable>
+$fontFamily: Lucida Grande, Lucida Sans, Arial, sans-serif;
+$fontSize: 1em;
+$borderRadius: 6px;
+$disabledOpacity: 0.35;
+
+//Header
+$headerBorderWidth: 1px;
+$headerBorderColor: #aed0ea;
+$headerBgColor: #deedf7;
+$headerTextColor: #222222;
+$headerFontWeight: bold;
+$headerIconTextColor: #222222;
+
+//Content
+$contentBorderWidth: 1px;
+$contentBorderColor: #dddddd;
+$contentBgColor: #f2f5f7;
+$contentTextColor: #362b36;
+
+//Default State
+$stateDefaultBorderWidth: 1px;
+$stateDefaultBorderColor: #aed0ea;
+$stateDefaultBgColor: #d7ebf9;
+$stateDefaultTextColor: #2779aa;
+
+//Active State
+$stateActiveBorderColor: #2694e8;
+$stateActiveBgColor: #3baae3;
+$stateActiveTextColor: #ffffff;
+
+//Highlight State
+$stateHighlightBorderColor: #f9dd34;
+$stateHighlightBgColor: #ffef8f;
+$stateHighlightTextColor: #363636;
+
+//Focus State
+$stateFocusBorderColor: #74b2e2;
+$stateFocusBgColor: #e4f1fb;
+$stateFocusTextColor: #0070a3;
+
+//Error State
+$stateErrorBorderColor: #cd0a0a;
+$stateErrorBgColor: #cd0a0a;
+$stateErrorTextColor: #ffffff;
+
+//Hover State
+$stateHoverBorderColor: #74b2e2;
+$stateHoverBgColor: #e4f1fb;
+$stateHoverTextColor: #0070a3;
+
+//Forms
+$inputBgColor: #ffffff;
+$inputTextColor: #222222;
+$invalidInputBorderColor: #cd0a0a;
+$inputGroupTextColor: #2779aa;
+
+@import '../_theme';
+</code>
+</pre>
+
+    <p>Premium themes have advanced sass customization, refer to documentation of each theme such as <a href="https://www.primefaces.org/serenity-ng/#/documentation">Serenity</a>.</p>
+
+    <p>Font-size of free themes use em to define the font size of the widgets using .ui-widget class. This is 1em by default and it is suggested to define a base font-size at the body element of your application to adjust the size of
+    components.</p>
+
+    <h3>Premium Layouts and Themes</h3>
+    <p>PrimeNG offers advanced sass based, fully customizable and easy to use <a href="http://www.primefaces.org/themes">premium themes and layouts</a> such as <b>Ultima</b>
+        as Angular CLI projects.</p>
+
+    <a href="http://www.primefaces.org/layouts/ultima">
+        <img alt="Ultima" src="http://www.primefaces.org/images/market/ultima/ultima_layout_biggest.png" style="width:100%"/> 
+    </a>
+
+</div>

@@ -1,0 +1,343 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Carousel</span>
+        <span>Carousel displays content using a slide effect featuring responsive mode, swipe support for touch enabled devices and various customization options.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+
+    <p-growl [value]="msgs"></p-growl>
+
+    <p-carousel headerText="Cars" [value]="cars">
+        <ng-template let-car pTemplate="item">
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12"><img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"></div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">Vin</div>
+                    <div class="ui-grid-col-6">{{car.vin}}</div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">Year</div>
+                    <div class="ui-grid-col-6">{{car.year}}</div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">Color</div>
+                    <div class="ui-grid-col-6">{{car.color}}</div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <button type="button" pButton icon="fa-search" (click)="selectCar(car)"></button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;CarouselModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Carousel requires a collection of items as its value and a ng-template content to display
+                where each item can be accessed using the implicit variable.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-carousel [value]="items"&gt;
+    &lt;ng-template let-item pTemplate="item"&gt;
+        Content to display
+    &lt;/ul&gt;
+&lt;/p-carousel&gt;
+</code>
+</pre>
+
+            <h3>Managing Data</h3>
+            <p>DataTable uses setter based checking to realize if the underlying data has changed to update the UI so your data changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array. For example, use slice instead of splice when removing an item 
+                or use spread operator instead of push method when adding an item.</p>
+
+            <h3>Limiting Visible Items</h3>
+            <p>Default number of visible items is 3, use numVisible option to customize this.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-carousel numVisible="1"&gt;
+</code>
+</pre>
+
+            <h3>Effects</h3>
+            <p>The easing function to use is "ease-out" by default and this can be customized using easing property. 
+                See <a href="http://www.w3schools.com/cssref/css3_pr_transition-timing-function.asp">here</a> for possible alternative values.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-carousel easing="easeOutStrong"&gt;
+</code>
+</pre>
+
+            <h3>SlideShow</h3>
+            <p>Carousel can display the contents in a slideshow, for this purpose autoPlayInterval and circular attributes are used.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-carousel circular="circular" autoplayInterval="3000"&gt;
+</code>
+</pre>
+
+            <h3>Responsive</h3>
+            <p>Responsive mode is enabled by default causing carousel to switch between small and large viewport depending on the breakpoint value which is 560 initially.</p>
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>Array of data to display.</td>
+                        </tr>
+                        <tr>
+                            <td>numVisible</td>
+                            <td>number</td>
+                            <td>3</td>
+                            <td>Number of visible items per page.</td>
+                        </tr>
+                        <tr>
+                            <td>firstVisible</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Index of the first visible item.</td>
+                        </tr>
+                        <tr>
+                            <td>headerText</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Text of the header section.</td>
+                        </tr>
+                        <tr>
+                            <td>effectDuration</td>
+                            <td>any</td>
+                            <td>500</td>
+                            <td>Duration of the scrolling animation in milliseconds or a predefined value like "slow", "normal" and "fast".</td>
+                        </tr>
+                        <tr>
+                            <td>circular</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines continuous scrolling.</td>
+                        </tr>
+                        <tr>
+                            <td>breakpoint</td>
+                            <td>number</td>
+                            <td>560</td>
+                            <td>Breakpoint value in pixels to switch between small and large viewport.</td>
+                        </tr>
+                        <tr>
+                            <td>responsive</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>When defined, causes carousel to adjust its width based on screen size.</td>
+                        </tr>
+                        <tr>
+                            <td>autoplayInterval</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Time in milliseconds to have carousel start scrolling automatically.</td>
+                        </tr>
+                        <tr>
+                            <td>easing</td>
+                            <td>string</td>
+                            <td>ease-out</td>
+                            <td>Easing animation to use for scrolling.</td>
+                        </tr>
+                        <tr>
+                            <td>pageLinks</td>
+                            <td>number</td>
+                            <td>3</td>
+                            <td>Number of maximum page links to display. If total page count exceeds this value a dropdown is displayed instead.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onPage</td>
+                            <td>event.page: New page index</td>
+                            <td>Callback to invoke on page change.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Element</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-carousel</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-header</td>
+                            <td>Header element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-header-title</td>
+                            <td>Header text.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-viewport</td>
+                            <td>Viewport containing the items.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-button</td>
+                            <td>Navigator button at header.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-next-button</td>
+                            <td>Next page button at header.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-prev-button</td>
+                            <td>Previous page button at header.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-page-links</td>
+                            <td>Page links container.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-page-link</td>
+                            <td>A page link.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-mobiledropdown</td>
+                            <td>Cancel icon.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-carousel-item</td>
+                            <td>Cancel icon.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/carousel" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+
+&lt;p-carousel headerText="Cars" [value]="cars"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="ui-grid ui-grid-responsive"&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-12"&gt;&lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-6"&gt;Vin&lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;{{car.vin}}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-6"&gt;Year&lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;{{car.year}}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-6"&gt;Color&lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;{{car.color}}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-12"&gt;
+                    &lt;button type="button" pButton icon="fa-search" (click)="selectCar(car)"&gt;&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-carousel&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class CarouselDemo &#123;
+
+    cars: Car[];
+
+    msgs: Message[];
+
+    constructor() &#123;
+        this.msgs = [];
+        this.cars = [
+            &#123;vin: 'r3278r2', year: 2010, brand: 'Audi', color: 'Black'&#125;,
+            &#123;vin: 'jhto2g2', year: 2015, brand: 'BMW', color: 'White'&#125;,
+            &#123;vin: 'h453w54', year: 2012, brand: 'Honda', color: 'Blue'&#125;,
+            &#123;vin: 'g43gwwg', year: 1998, brand: 'Renault', color: 'White'&#125;,
+            &#123;vin: 'gf45wg5', year: 2011, brand: 'VW', color: 'Red'&#125;,
+            &#123;vin: 'bhv5y5w', year: 2015, brand: 'Jaguar', color: 'Blue'&#125;,
+            &#123;vin: 'ybw5fsd', year: 2012, brand: 'Ford', color: 'Yellow'&#125;,
+            &#123;vin: '45665e5', year: 2011, brand: 'Mercedes', color: 'Brown'&#125;,
+            &#123;vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black'&#125;
+        ];
+    &#125;
+
+    selectCar(car: Car) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Car Selected', detail: 'Vin:' + car.vin&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

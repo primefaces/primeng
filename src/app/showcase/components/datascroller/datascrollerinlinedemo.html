@@ -1,0 +1,172 @@
+<datascroller-demos></datascroller-demos>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DataScroller - <span class="subitem">Inline</span></span>
+        <span>DataScroller can listen scroll event of itself rather than document in inline mode.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-dataScroller [value]="cars" [rows]="10" [inline]="true" scrollHeight="500px">
+        <p-header>
+            Scroll Down to to Load More
+        </p-header>
+        <ng-template let-car pTemplate="item">
+            <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i><img src="assets/showcase/images/demo/car/{{car.brand}}.png"></div>
+                    <div class="ui-grid-col-9">
+                        <div class="ui-grid ui-grid-responsive ui-fluid">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Vin: </div>
+                                <div class="ui-grid-col-10">{{car.vin}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Year: </div>
+                                <div class="ui-grid-col-10">{{car.year}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Brand: </div>
+                                <div class="ui-grid-col-10">{{car.brand}}</div>
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">Color: </div>
+                                <div class="ui-grid-col-10">{{car.color}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataScroller>
+        
+    <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12" style="text-align:center"><img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">Vin: </div>
+                <div class="ui-grid-col-8">{{selectedCar.vin}}</div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">Year: </div>
+                <div class="ui-grid-col-8">{{selectedCar.year}}</div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">Brand: </div>
+                <div class="ui-grid-col-8">{{selectedCar.brand}}</div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">Color: </div>
+                <div class="ui-grid-col-8">{{selectedCar.color}}</div>
+            </div>
+        </div>
+    </p-dialog>
+</div>
+
+<div class="content-section documentation">    
+    <p-tabView effect="fade">
+        <p-tabPanel header="datascrollerinlinedemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datascroller/datascrollerinlinedemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataScrollerInlineDemo implements OnInit &#123;
+
+    cars: Car[];
+    
+    selectedCar: Car;
+    
+    displayDialog: boolean;
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
+    &#125;
+    
+    selectCar(car: Car) &#123;
+        this.selectedCar = car;
+        this.displayDialog = true;
+    &#125;
+    
+    onDialogHide() &#123;
+        this.selectedCar = null;
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datascrollerinlinedemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datascroller/datascrollerinlinedemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataScroller [value]="cars" [rows]="10" [inline]="true" scrollHeight="500px"&gt;
+    &lt;p-header&gt;
+        Scroll Down to to Load More
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5"&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-3" style="text-align:center"&gt;&lt;i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer;float:left;margin-top:40px"&gt;&lt;/i&gt;&lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png"&gt;&lt;/div&gt;
+                &lt;div class="ui-grid-col-9"&gt;
+                    &lt;div class="ui-grid ui-grid-responsive ui-fluid"&gt;
+                        &lt;div class="ui-grid-row"&gt;
+                            &lt;div class="ui-grid-col-2"&gt;Vin: &lt;/div&gt;
+                            &lt;div class="ui-grid-col-10"&gt;{{car.vin}}&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class="ui-grid-row"&gt;
+                            &lt;div class="ui-grid-col-2"&gt;Year: &lt;/div&gt;
+                            &lt;div class="ui-grid-col-10"&gt;{{car.year}}&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class="ui-grid-row"&gt;
+                            &lt;div class="ui-grid-col-2"&gt;Brand: &lt;/div&gt;
+                            &lt;div class="ui-grid-col-10"&gt;{{car.brand}}&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class="ui-grid-row"&gt;
+                            &lt;div class="ui-grid-col-2"&gt;Color: &lt;/div&gt;
+                            &lt;div class="ui-grid-col-10"&gt;{{car.color}}&lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataScroller&gt;
+    
+&lt;p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()"&gt;
+    &lt;div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedCar" style="font-size:16px;text-align:center;padding:20px"&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-12" style="text-align:center"&gt;&lt;img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-4"&gt;Vin: &lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.vin}}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-4"&gt;Year: &lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.year}}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-4"&gt;Brand: &lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.brand}}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="ui-grid-row"&gt;
+            &lt;div class="ui-grid-col-4"&gt;Color: &lt;/div&gt;
+            &lt;div class="ui-grid-col-8"&gt;{{selectedCar.color}}&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/p-dialog&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

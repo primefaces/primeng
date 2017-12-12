@@ -1,0 +1,962 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">TreeTable</span>
+        <span>TreeTable is used to display hierarchical data in tabular format..</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-growl [value]="msgs"></p-growl>
+    
+    <p-treeTable [value]="files1">
+        <p-header>Basic</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+        
+    <p-treeTable [value]="files2" selectionMode="single" [(selection)]="selectedFile"
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="{'margin-top':'50px'}">
+        <p-header>Single Selection</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+    <p>Selected Node: {{selectedFile ? selectedFile.data.name : 'none'}}</p>
+        
+    <p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles"
+        (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="{'margin-top':'50px'}">
+        <p-header>Multiple Selection with MetaKey</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+    <p>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.data.name}} </span></p>
+    
+    <p-treeTable [value]="files4" selectionMode="checkbox" [(selection)]="selectedFiles2" [style]="{'margin-top':'50px'}">
+        <p-header>Checkbox Selection</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+    <p>Selected Nodes: <span *ngFor="let file of selectedFiles2">{{file.data.name}} </span></p>
+    
+    <p-treeTable [value]="files5" [style]="{'margin-top':'50px'}">
+        <p-header>Editable Cells with Templating</p-header>
+        <p-column field="name" header="Name">
+            <ng-template let-node="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="node.data.name" style="width:100%;border-width:0px 0px 1px 0px">
+            </ng-template>
+        </p-column>
+        <p-column field="size" header="Size">
+            <ng-template let-node="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="node.data.size" style="width:100%;border-width:0px 0px 1px 0px">
+            </ng-template>
+        </p-column>
+        <p-column field="type" header="Type">
+            <ng-template let-node="rowData" pTemplate="body">
+                <input type="text" [(ngModel)]="node.data.type" style="width:100%;border-width:0px 0px 1px 0px">
+            </ng-template>
+        </p-column>
+    </p-treeTable>
+    
+    <p-treeTable [value]="files6" selectionMode="single" [(selection)]="selectedFile2" [style]="{'margin-top':'50px'}" [contextMenu]="cm">
+        <p-header>Context Menu</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+            
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    
+    <p-treeTable [value]="lazyFiles" [style]="{'margin-top':'50px'}"
+        (onNodeExpand)="nodeExpand($event)">
+        <p-header>Lazy Loading</p-header>
+        <p-column field="name" header="Name"></p-column>
+        <p-column field="size" header="Size"></p-column>
+        <p-column field="type" header="Type"></p-column>
+    </p-treeTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;TreeTableModule,TreeNode,SharedModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>TreeTable component requires an array of TreeNode objects as its value. Let's begin with the TreeNode api.</p>
+            
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Label of the node.</td>
+                        </tr>
+                        <tr>
+                            <td>data</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Data represented by the node.</td>
+                        </tr>
+                        <tr>
+                            <td>icon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Icon of the node to display next to content. Not used by TreeTable.</td>
+                        </tr>
+                        <tr>
+                            <td>expandedIcon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Icon to use in expanded state. Not used by TreeTable.</td>
+                        </tr>
+                        <tr>
+                            <td>collapsedIcon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Icon to use in collapsed state. Not used by TreeTable.</td>
+                        </tr>
+                        <tr>
+                            <td>children</td>
+                            <td>TreeNode[]</td>
+                            <td>null</td>
+                            <td>An array of treenodes as children.</td>
+                        </tr>
+                        <tr>
+                            <td>leaf</td>
+                            <td>boolean</td>
+                            <td>null</td>
+                            <td>Specifies if the node has children. Used in lazy loading.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the node.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the node.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p>Most of the time, nodes will be loaded from a remote datasoure, here is an example NodeService that fetches the data from a json file.</p> 
+<pre>
+<code class="language-javascript" pCode ngNonBindable>
+@Injectable()
+export class NodeService &#123;
+    
+    constructor(private http: Http) &#123;&#125;
+
+    getFilesystem() &#123;
+        return this.http.get('showcase/resources/data/filesystem.json')
+                    .toPromise()
+                    .then(res => &lt;TreeNode[]&gt; res.json().data);
+    &#125;
+&#125;
+</code>
+</pre>
+        
+        <p>The filesystem.json file consists of sample data. In a real application, this should be a dynamic response generated from the remote call.</p>
+<pre>
+<code class="language-javascript" pCode ngNonBindable>
+&#123;
+    "data":
+    [  
+        &#123;  
+            "data":&#123;  
+                "name":"Documents",
+                "size":"75kb",
+                "type":"Folder"
+            &#125;,
+            "children":[
+                &#123;  
+                    "data":&#123;  
+                        "name":"Work",
+                        "size":"55kb",
+                        "type":"Folder"
+                    &#125;,
+                    "children":[  
+                        &#123;  
+                            "data":&#123;  
+                                "name":"Expenses.doc",
+                                "size":"30kb",
+                                "type":"Document"
+                            &#125;
+                        &#125;,
+                        &#123;  
+                            "data":&#123;  
+                                "name":"Resume.doc",
+                                "size":"25kb",
+                                "type":"Resume"
+                            &#125;
+                        &#125;
+                    ]
+                &#125;,
+                &#123;  
+                    "data":&#123;  
+                        "name":"Home",
+                        "size":"20kb",
+                        "type":"Folder"
+                    &#125;,
+                    "children":[  
+                        &#123;  
+                            "data":&#123;  
+                                "name":"Invoices",
+                                "size":"20kb",
+                                "type":"Text"
+                            &#125;
+                        &#125;
+                    ]
+                &#125;
+            ]
+        &#125;,
+        &#123;  
+            "data":&#123;  
+                "name":"Pictures",
+                "size":"150kb",
+                "type":"Folder"
+            &#125;,
+            "children":[  
+                &#123;  
+                    "data":&#123;  
+                        "name":"barcelona.jpg",
+                        "size":"90kb",
+                        "type":"Picture"
+                    &#125;
+                &#125;,
+                &#123;  
+                    "data":&#123;  
+                        "name":"primeui.png",
+                        "size":"30kb",
+                        "type":"Picture"
+                    &#125;
+                &#125;,
+                &#123;  
+                    "data":&#123;  
+                        "name":"optimus.jpg",
+                        "size":"30kb",
+                        "type":"Picture"
+                    &#125;
+                &#125;
+            ]
+        &#125;
+    ]
+&#125;
+</code>
+</pre>  
+
+        <p>The component that uses this service makes a call to getFiles() and assigns them back to files property that is bound to the tree.</p>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableDemoComponent implements OnInit &#123;
+    
+    files: TreeNode[];
+
+    constructor(private nodeService: NodeService) &#123;&#125;
+    
+    ngOnInit() &#123;
+        this.nodeService.getFileSystem().then(files => this.files = files);
+    &#125;
+
+&#125;
+</code>
+</pre>         
+                  
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files"&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+            <h3>Column Component</h3>
+            <p>TreeTable utilizes the following options defined by a column component.</p>
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>field</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Property of a row data.</td>
+                        </tr>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Header text of a column.</td>
+                        </tr>
+                        <tr>
+                            <td>footer</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Footer text of a column.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the column.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the column.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+</code>
+</pre>
+
+                <h3>Dynamic Colums</h3>
+                <p>Columns can be instantiated using an array as well by iterating with ngFor.</p>
+            <pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableDemoComponent implements OnInit &#123;
+
+    files: TreeNode[];
+
+    constructor(private nodeService: NodeService) &#123;&#125;
+    
+    ngOnInit() &#123;
+        this.nodeService.getFileSystem().then(files => this.files = files);
+
+        this.cols = [
+                &#123;field: 'name', header: 'Name'&#125;,
+                &#123;field: 'size', header: 'Size'&#125;,
+                &#123;field: 'type', header: 'Type'&#125;
+            ];
+        &#125;
+    &#125;
+&#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="cars"&gt;
+    &lt;p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+            <h3>Facets</h3>
+            <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Header&#125; from 'primeng/primeng';
+import &#123;Footer&#125; from 'primeng/primeng';
+</code>
+</pre>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files"&gt;
+    &lt;p-header&gt;List of Files&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+            <h3>Selection</h3>
+            <p>TreeTable supports three selection methods, single, multiple and checkbox. Selection is enabled by setting selectionMode property and providing a single TreeNode or
+            an array of TreeNodes to reference the selections depending on the selection mode. </p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableDemoComponent implements OnInit &#123;
+    
+    files: TreeNode[];
+    
+    selectedFile: TreeNode;
+
+    constructor(private nodeService: NodeService) &#123;&#125;
+    
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files = files);
+    &#125;
+
+&#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile"&gt;&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+<p>In multiple mode or checkbox mode, selection property should be an array. In multiple mode, items can either be selected
+using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
+devices metaKeySelection is turned off automatically. In checkbox mode, when inititing a tree with preselections, also set partialSelected
+property on node so that minus icon can be displayed when necessary.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+    export class TreeTableDemoComponent implements OnInit &#123;
+        
+        files: TreeNode[];
+        
+        selectedFiles: TreeNode[];
+
+        constructor(private nodeService: NodeService) &#123;&#125;
+        
+        ngOnInit() &#123;
+            this.nodeService.getFiles().then(files => this.files = files);
+        &#125;
+
+    &#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFiles"&gt;&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+            <p>TreeTable provides onNodeSelect and onNodeUnselect options as callbacks for selection feature.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)"&gt;&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableDemoComponent implements OnInit &#123;
+    
+    files: TreeNode[];
+    
+    selectedFiles: TreeNode[];
+
+    constructor(private nodeService: NodeService) &#123;&#125;
+    
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files = files);
+    &#125;
+    
+    nodeSelect(event) &#123;
+        //event.node = selected node
+    &#125;
+
+&#125;
+</code>
+</pre>
+
+            <p>Selection of a particular node can be disabled by setting the selectable property of the node to false.</p>
+            
+            <h3>ContextMenu</h3>
+            <p>TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a treetable, define a local template
+            variable for the menu and bind it to the contextMenu property of the treetable. This enables showing the menu whenever a row is right clicked.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"&gt;
+    &lt;p-header&gt;Context Menu&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableDemoComponent implements OnInit &#123;
+    
+    files: TreeNode[];
+    
+    selectedFile: TreeNode;
+
+    constructor(private nodeService: NodeService) &#123;&#125;
+    
+    ngOnInit() &#123;
+        this.nodeService.getFiles().then(files => this.files = files);
+        
+        this.items = [
+            &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)&#125;,
+            &#123;label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)&#125;
+        ];
+    &#125;
+    
+    viewNode(node: TreeNode) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: node.data.name&#125;);
+    &#125;
+
+    deleteNode(node: TreeNode) &#123;
+        node.parent.children = node.parent.children.filter( n => n.data !== node.data);
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Deleted', detail: node.data.name&#125;);
+    &#125;
+
+&#125;
+</code>
+</pre>
+                
+            <h3>Templating</h3>
+            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a ng-template inside a column that gets 
+                the column as an implicit variable and rowData as the node instance. Similarly, custom content can be placed at the header and footer of a column with templating.
+                Example below places an input field to create editable treenodes.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3&gt;ng-template&lt;/h3&gt;
+&lt;p-treeTable [value]="files"&gt;
+    &lt;p-column&gt;
+        &lt;ng-template let-col let-node="rowData" pTemplate="header"&gt;
+            &lt;button type="button" pButton label="Refresh"&gt;&lt;/button&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template let-col let-node="rowData" pTemplate="body"&gt;
+            &lt;input [(ngModel)]="node.data.name" type="text" style="width:100%"&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+            <h3>Lazy Loading</h3>
+            <p>Lazy loading is handy to deal with large datasets. Instead of loading the whole tree, nodes can be loaded at onNodeExpand event.
+            Important part of implementing lazy loading is defining leaf property of a node as false, this will instruct tree to display an arrow icon
+            to indicate there are children of this node although they are not loaded yet. When the lazy node is expanded, onNodeExpand is called
+            and a remote call can be made to add the children to the expanded node.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-treeTable [value]="files" (onNodeExpand)="loadNode($event)"&gt;&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableDemoComponent implements OnInit &#123;
+    
+    files: TreeNode[];
+    
+    selectedFiles: TreeNode[];
+
+    constructor(private nodeService: NodeService) &#123;&#125;
+    
+    ngOnInit() &#123;
+        //initial nodes
+        this.nodeService.getFiles().then(files => this.files = files);
+    &#125;
+    
+    loadNode(event) &#123;
+        if(event.node) &#123;
+            //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
+            this.nodeService.getLazyFilesystem().then(nodes => event.node.children = nodes);
+        &#125;
+    &#125;
+
+&#125;
+</code>
+</pre>
+
+            <p>Assume at ngOnInit treetable is initialized with a data like below that has nodes having no actual children but leaf property is set false.</p>
+<pre>
+<code class="language-javascript" pCode ngNonBindable>
+&#123;
+    "data":
+    [  
+        &#123;  
+            "data":&#123;  
+                "name":"Lazy Folder 0",
+                "size":"75kb",
+                "type":"Folder"
+            &#125;,
+            "leaf": false
+        &#125;,
+        &#123;  
+            "data":&#123;  
+                "name":"Lazy Folder 1",
+                "size":"150kb",
+                "type":"Folder"
+            &#125;,
+            "leaf": false
+        &#125;
+    ]
+&#125;
+</code>
+</pre>  
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of treenodes.</td>
+                        </tr>
+                         <tr>
+                            <td>labelExpand</td>
+                            <td>string</td>
+                            <td>Expand</td>
+                            <td>Tooltip and screenreader text for expand icon.</td>
+                        </tr>
+                         <tr>
+                            <td>labelCollapse</td>
+                            <td>string</td>
+                            <td>Collapse</td>
+                            <td>Tooltip and screenreader text for collapse icon.</td>
+                        </tr>
+                        <tr>
+                           <td>expandedIcon</td>
+                           <td>string</td>
+                           <td>fa-caret-down</td>
+                           <td>Icon to display on an expanded node.</td>
+                       </tr>
+                        <tr>
+                           <td>collapsedIcon</td>
+                           <td>string</td>
+                           <td>fa-caret-right</td>
+                           <td>Icon to display on an expanded node.</td>
+                       </tr>
+                        <tr>
+                            <td>selectionMode</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines the selection mode, valid values are "single", "multiple" and "checkbox".</td>
+                        </tr>
+                        <tr>
+                            <td>selection</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>A single treenode instance or an array to refer to the selections.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>metaKeySelection</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item
+                            can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.</td>
+                        </tr>
+                        <tr>
+                            <td>toggleColumnIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Index of the column that contains the toggler element.</td>
+                        </tr>
+                        <tr>
+                            <td>tableStyle</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the table element.</td>
+                        </tr>
+                        <tr>
+                            <td>tableStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the table element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onNodeSelect</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.node: Selected node instance.</td>
+                            <td>Callback to invoke when a node is selected.</td>
+                        </tr>
+                        <tr>
+                            <td>onNodeUnselect</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.node: Unselected node instance.</td>
+                            <td>Callback to invoke when a node is unselected.</td>
+                        </tr>
+                        <tr>
+                            <td>onNodeExpand</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.node: Expanded node instance.</td>
+                            <td>Callback to invoke when a node is expanded.</td>
+                        </tr>
+                        <tr>
+                            <td>onNodeCollapse</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.node: Collapsed node instance.</td>
+                            <td>Callback to invoke when a node is collapsed.</td>
+                        </tr>
+                        <tr>
+                            <td>onContextMenuSelect</td>
+                            <td>event.originalEvent: browser event <br>
+                                event.node: Selected node instance.</td>
+                            <td>Callback to invoke when a node is selected with right click.</td>
+                        </tr>
+                        <tr>
+                            <td>onRowDblclick</td>
+                            <td>event.originalEvent: Browser event <br>
+                                event.node: Selected node instance.</td>
+                            <td>Callback to invoke when a row is double clicked.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-treetable</td>
+                            <td>Main container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-treetable-header</td>
+                            <td>Header element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-treetable-tablewrapper</td>
+                            <td>Container of table</td>
+                        </tr>
+                        <tr>
+                            <td>ui-treetable-footer</td>
+                            <td>Footer element</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/treetable" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+
+&lt;p-treeTable [value]="files1"&gt;
+    &lt;p-header&gt;Basic&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+    
+&lt;p-treeTable [value]="files2" selectionMode="single" [(selection)]="selectedFile"
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;p-header&gt;Singe Selection&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+&lt;p&gt;Selected Node: &#123;&#123;selectedFile ? selectedFile.data.name : 'none'&#125;&#125;&lt;/p&gt;
+    
+&lt;p-treeTable [value]="files3" selectionMode="multiple" [(selection)]="selectedFiles" 
+    (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;p-header&gt;Multiple Selection&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+&lt;p&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;&#123;&#123;file.data.name&#125;&#125; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p-treeTable [value]="files4" selectionMode="checkbox" [(selection)]="selectedFiles2" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;p-header&gt;Checkbox Selection&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+&lt;p&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles2"&gt;&#123;&#123;file.data.name&#125;&#125; &lt;/span&gt;&lt;/p&gt;
+
+&lt;p-treeTable [value]="files5" [style]="&#123;'margin-top':'50px'&#125;"&gt;
+    &lt;p-header&gt;Editable Cells with Templating&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;
+        &lt;ng-template let-node="rowData" pTemplate="body"&gt;
+            &lt;input type="text" [(ngModel)]="node.data.name" style="width:100%;border-width:0px 0px 1px 0px"&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;
+        &lt;ng-template let-node="rowData" pTemplate="body"&gt;
+            &lt;input type="text" [(ngModel)]="node.data.size" style="width:100%;border-width:0px 0px 1px 0px"&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;
+        &lt;ng-template let-node="rowData" pTemplate="body"&gt;
+            &lt;input type="text" [(ngModel)]="node.data.type" style="width:100%;border-width:0px 0px 1px 0px"&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+
+&lt;p-treeTable [value]="files6" selectionMode="single" [(selection)]="selectedFile2" [style]="&#123;'margin-top':'50px'&#125;" [contextMenu]="cm"&gt;
+    &lt;p-header&gt;Context Menu&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+
+&lt;p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'50px'&#125;"
+    (onNodeExpand)="nodeExpand($event)"&gt;
+    &lt;p-header&gt;Lazy Loading&lt;/p-header&gt;
+    &lt;p-column field="name" header="Name"&gt;&lt;/p-column&gt;
+    &lt;p-column field="size" header="Size"&gt;&lt;/p-column&gt;
+    &lt;p-column field="type" header="Type"&gt;&lt;/p-column&gt;
+&lt;/p-treeTable&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TreeTableDemo implements OnInit &#123;
+    
+    msgs: Message[];
+    
+    files1: TreeNode[];
+    
+    files2: TreeNode[];
+    
+    files3: TreeNode[];
+    
+    files4: TreeNode[];
+    
+    files5: TreeNode[];
+    
+    files6: TreeNode[];
+            
+    lazyFiles: TreeNode[];
+        
+    selectedFile: TreeNode;
+    
+    selectedFile2: TreeNode;
+    
+    selectedFiles: TreeNode[];
+    
+    selectedFiles2: TreeNode[];
+    
+    items: MenuItem[];
+        
+    constructor(private nodeService: NodeService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.nodeService.getFilesystem().then(files => this.files1 = files);
+        this.nodeService.getFilesystem().then(files => this.files2 = files);
+        this.nodeService.getFilesystem().then(files => this.files3 = files);
+        this.nodeService.getFilesystem().then(files => this.files4 = files);
+        this.nodeService.getFilesystem().then(files => this.files5 = files);
+        this.nodeService.getFilesystem().then(files => this.files6 = files);
+        this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
+        
+        this.items = [
+            &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewNode(this.selectedFile2)&#125;,
+            &#123;label: 'Delete', icon: 'fa-close', command: (event) => this.deleteNode(this.selectedFile2)&#125;
+        ];
+    &#125;
+    
+    nodeSelect(event) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: event.node.data.name&#125;);
+    &#125;
+    
+    nodeUnselect(event) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.data.name&#125;);
+    &#125;
+    
+    nodeExpand(event) &#123;
+        if(event.node) &#123;
+            //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
+            this.nodeService.getLazyFilesystem().then(nodes => event.node.children = nodes);
+        &#125;
+    &#125;
+    
+    viewNode(node: TreeNode) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: node.data.name&#125;);
+    &#125;
+
+    deleteNode(node: TreeNode) &#123;
+        node.parent.children = node.parent.children.filter( n => n.data !== node.data);
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Node Deleted', detail: node.data.name&#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -1,0 +1,147 @@
+.ui-multiselect {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    cursor: pointer;
+}
+
+.ui-multiselect .ui-multiselect-trigger {
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    cursor: pointer;
+    width: 1.5em;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 .25em;
+}
+
+.ui-multiselect .ui-multiselect-trigger  .fa {
+    margin-top: .4em;
+    margin-left: -.125em;
+}
+
+.ui-multiselect .ui-multiselect-label-container  {
+    overflow: hidden;
+}
+
+.ui-multiselect .ui-multiselect-label  {
+    display: block;
+    padding: .25em 2em .25em .25em;
+    width: auto;
+    border: none;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ui-multiselect.ui-state-disabled .ui-multiselect-trigger,
+.ui-multiselect.ui-state-disabled .ui-multiselect-label {
+    cursor: auto
+}
+
+.ui-multiselect-panel {
+    padding: 0.2em;
+    position: absolute;
+    min-width: 12em;
+}
+
+.ui-multiselect .ui-multiselect-panel {
+    min-width: 100%;
+    display: none;
+}
+
+.ui-multiselect-panel .ui-multiselect-items-wrapper {
+    overflow: auto;
+    position: relative;
+    padding: 0.2em 0;
+}
+
+.ui-multiselect-panel .ui-multiselect-list {
+    border: 0 none;
+}
+
+.ui-multiselect-panel .ui-multiselect-item {
+    border: 0 none;
+    cursor: pointer;
+    font-weight: normal;
+    margin: 1px 0;
+    padding: .125em .25em;
+    text-align: left;
+    white-space: nowrap;
+    display: block;
+    position: relative;
+}
+
+.ui-multiselect-panel .ui-multiselect-item .ui-chkbox {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ui-multiselect-panel .ui-multiselect-item label {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ui-multiselect-header {
+    margin-bottom: 0.3em;
+    padding: .25em;
+    position: relative;
+    text-align: left;
+    min-height: 2em;
+}
+
+.ui-multiselect-header .ui-chkbox {
+    display: inline-block;
+    vertical-align: middle;
+    cursor:pointer;
+}
+
+.ui-multiselect-header .ui-multiselect-filter-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 65%;
+}
+
+.ui-multiselect-header.ui-multiselect-header-no-toggleall .ui-multiselect-filter-container {
+    width: 85%;
+}
+
+.ui-multiselect-header .ui-multiselect-filter-container .fa {
+    position: absolute;
+    top: .25em;
+    left: .125em;
+}
+            
+.ui-multiselect-header .ui-inputtext {
+    padding: .125em .125em .125em 1.25em;
+    width: 100%;
+}
+
+.ui-multiselect-header .ui-multiselect-close {
+    position: absolute;
+    right: .375em;
+    top: .375em;
+    display: block;
+    font-size: 1em;
+    border: 0 none;
+}
+
+.ui-multiselect-header a.ui-multiselect-all,
+.ui-multiselect-header a.ui-multiselect-none {
+    float:left;
+    margin-right: 10px;
+    display: block;
+}
+
+.ui-multiselect-header .ui-multiselect-close.ui-state-hover {
+    padding:0px;
+}
+
+.ui-fluid .ui-multiselect {
+    width: 100%;
+    box-sizing: border-box;
+}

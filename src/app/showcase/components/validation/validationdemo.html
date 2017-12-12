@@ -1,0 +1,249 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Validation</span>
+        <span>PrimeNG input components indicate validation errors automatically when their value is marked as invalid.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-growl [value]="msgs" sticky="sticky"></p-growl>
+
+    <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+        <p-panel header="Validate">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        First Name *:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText type="text" formControlName="firstname" placeholder="Required"/>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty">
+                            <i class="fa fa-close"></i>
+                            Firstname is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Last Name *:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText type="text" formControlName="lastname" placeholder="Required"/>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty">
+                            <i class="fa fa-close"></i>
+                            Lastname is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Password *:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText type="password" formControlName="password" placeholder="Required - Min(6)"/>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty">
+                            <i class="fa fa-close"></i>
+                            <span *ngIf="userform.controls['password'].errors['required']">Password is required</span>
+                            <span *ngIf="userform.controls['password'].errors['minlength']">Must be longer than 6 characters</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Description:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <textarea pInputTextarea type="text" formControlName="description"></textarea>
+                    </div>
+                    <div class="ui-grid-col-4"></div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Gender *:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <p-dropdown [options]="genders" formControlName="gender" [autoWidth]="false"></p-dropdown>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty">
+                            <i class="fa fa-close"></i>
+                            Gender is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2"></div>
+                    <div class="ui-grid-col-6">
+                        <button pButton type="submit" label="Submit" [disabled]="!userform.valid"></button>
+                    </div>
+                    <div class="ui-grid-col-4"></div>
+                </div>
+                <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+                    Form Submitted
+                    <br>
+                    {{diagnostic}}
+                </div>
+            </div>
+        </p-panel>
+    </form>
+</div>
+
+<div class="content-section documentation">
+    <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/validation" class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+    </a>
+
+    <p-tabView effect="fade">
+        <p-tabPanel header="validationdemo.ts">
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Component,OnInit&#125; from '@angular/core';
+import &#123;Validators,FormControl,FormGroup,FormBuilder&#125; from '@angular/forms';
+import &#123;Message,SelectItem&#125; from '../../../components/common/api';
+
+@Component(&#123;
+    templateUrl: 'showcase/demo/validation/validationdemo.html'
+&#125;)
+export class ValidationDemo implements OnInit &#123;
+
+    msgs: Message[] = [];
+
+    userform: FormGroup;
+
+    submitted: boolean;
+
+    genders: SelectItem[];
+
+    description: string;
+
+    constructor(private fb: FormBuilder) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.userform = this.fb.group(&#123;
+            'firstname': new FormControl('', Validators.required),
+            'lastname': new FormControl('', Validators.required),
+            'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+            'description': new FormControl(''),
+            'gender': new FormControl('', Validators.required)
+        &#125;);
+
+        this.genders = [];
+        this.genders.push(&#123;label:'Select Gender', value:''&#125;);
+        this.genders.push(&#123;label:'Male', value:'Male'&#125;);
+        this.genders.push(&#123;label:'Female', value:'Female'&#125;);
+    &#125;
+
+    onSubmit(value: string) &#123;
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'info', summary:'Success', detail:'Form Submitted'&#125;);
+    &#125;
+
+    get diagnostic() &#123; return JSON.stringify(this.userform.value); &#125;
+
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+
+        <p-tabPanel header="validationdemo.html">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-growl [value]="msgs" sticky="sticky"&gt;&lt;/p-growl&gt;
+
+&lt;form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)"&gt;
+    &lt;p-panel header="Validate"&gt;
+        &lt;div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-2"&gt;
+                    First Name *:
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;
+                    &lt;input pInputText type="text" formControlName="firstname" placeholder="Required"/&gt;
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-4"&gt;
+                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty"&gt;
+                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
+                        Firstname is required
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-2"&gt;
+                    Last Name *:
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;
+                    &lt;input pInputText type="text" formControlName="lastname" placeholder="Required"/&gt;
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-4"&gt;
+                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty"&gt;
+                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
+                        Lastname is required
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-2"&gt;
+                    Password *:
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;
+                    &lt;input pInputText type="password" formControlName="password" placeholder="Required - Min(6)"/&gt;
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-4"&gt;
+                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"&gt;
+                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
+                        &lt;span *ngIf="userform.controls['password'].errors['required']"&gt;Password is required&lt;/span&gt;
+                        &lt;span *ngIf="userform.controls['password'].errors['minlength']"&gt;Must be longer than 6 characters&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-2"&gt;
+                    Description:
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;
+                    &lt;textarea pInputTextarea type="text" formControlName="description"&gt;&lt;/textarea&gt;
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-4"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-2"&gt;
+                    Gender *:
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;
+                    &lt;p-dropdown [options]="genders" formControlName="gender" [autoWidth]="false"&gt;&lt;/p-dropdown&gt;
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-4"&gt;
+                    &lt;div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['gender'].valid&&userform.controls['gender'].dirty"&gt;
+                        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
+                        Gender is required
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-grid-row"&gt;
+                &lt;div class="ui-grid-col-2"&gt;&lt;/div&gt;
+                &lt;div class="ui-grid-col-6"&gt;
+                    &lt;button pButton type="submit" label="Submit" [disabled]="!userform.valid"&gt;&lt;/button&gt;
+                &lt;/div&gt;
+                &lt;div class="ui-grid-col-4"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div style="text-align:center;margin-top:20px" *ngIf="submitted"&gt;
+                Form Submitted
+                &lt;br&gt;
+                {{diagnostic}}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p-panel&gt;
+&lt;/form&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

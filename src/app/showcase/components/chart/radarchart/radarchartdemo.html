@@ -1,0 +1,66 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">RadarChart</span>
+        <span>A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-chart type="radar" [data]="data"></p-chart>
+</div>
+
+<div class="content-section documentation">
+    <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/chart/radarchart" class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+    </a>
+    
+    <p-tabView effect="fade">
+        <p-tabPanel header="radarchartdemo.ts">
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class RadarChartDemo &#123;
+
+    data: any;
+
+    constructor() &#123;
+        this.data = &#123;
+            labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
+            datasets: [
+                &#123;
+                    label: 'My First dataset',
+                    backgroundColor: 'rgba(179,181,198,0.2)',
+                    borderColor: 'rgba(179,181,198,1)',
+                    pointBackgroundColor: 'rgba(179,181,198,1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(179,181,198,1)',
+                    data: [65, 59, 90, 81, 56, 55, 40]
+                &#125;,
+                &#123;
+                    label: 'My Second dataset',
+                    backgroundColor: 'rgba(255,99,132,0.2)',
+                    borderColor: 'rgba(255,99,132,1)',
+                    pointBackgroundColor: 'rgba(255,99,132,1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(255,99,132,1)',
+                    data: [28, 48, 40, 19, 96, 27, 100]
+                &#125;
+            ]
+        &#125;;
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="radarchartdemo.html">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-chart type="radar" [data]="data"&gt;&lt;/p-chart&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -1,0 +1,59 @@
+<datatable-demos></datatable-demos>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DataTable</span>
+        <span>Columns can be reordered using drag drop by setting the reorderableColumns to true. onColReorder is a callback that is invoked when a column is reordered.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-dataTable [value]="cars" reorderableColumns="true">
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
+    </p-dataTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablecolreorderdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablecolreorderdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataTableColReorderDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablecolreorderdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablecolreorderdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars" reorderableColumns="true"&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

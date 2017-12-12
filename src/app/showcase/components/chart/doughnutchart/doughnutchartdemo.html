@@ -1,0 +1,58 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DoughnutChart</span>
+        <span>A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-chart type="doughnut" [data]="data"></p-chart>
+</div>
+
+<div class="content-section documentation">
+    <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/chart/doughnutchart" class="btn-viewsource" target="_blank">
+        <i class="fa fa-github"></i>
+        <span>View on GitHub</span>
+    </a>
+    
+    <p-tabView effect="fade">
+        <p-tabPanel header="doughnutchartdemo.ts">
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DoughnutChartDemo &#123;
+
+    data: any;
+
+    constructor() &#123;
+        this.data = &#123;
+            labels: ['A','B','C'],
+            datasets: [
+                &#123;
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ]
+                &#125;]    
+            &#125;;
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="doughnutchartdemo.html">
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-chart type="doughnut" [data]="data"&gt;&lt;/p-chart&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

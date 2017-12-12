@@ -1,0 +1,139 @@
+<datatable-demos></datatable-demos>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DataTable - Filter</span>
+        <span>Filtering is enabled by setting the filter property as true in column object. Default match mode is "startsWith" and this can be configured
+        using filterMatchMode property of column object that also accepts "contains", "endsWith", "equals" and "in". An optional global filter feature is available to search all fields with a keyword.
+        By default input fields are generated as filter elements and using templating any component can be used as a filter.
+    </span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+    </div>
+    <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-header>List of Cars</p-header>
+        <p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="year" header="Year ({{yearFilter||'No Filter'}})" [filter]="true" filterMatchMode="equals">
+            <ng-template pTemplate="filter" let-col>
+                <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"></i>
+                <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt, col)"></p-slider>
+            </ng-template>
+        </p-column>
+        <p-column field="brand" header="Brand (Custom)" [filter]="true" filterMatchMode="equals">
+            <ng-template pTemplate="filter" let-col>
+                <p-dropdown [options]="brands" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+            </ng-template>
+        </p-column>
+        <p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in">
+            <ng-template pTemplate="filter" let-col>
+                <p-multiSelect [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablefilterdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablefilterdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataTableFilterDemo implements OnInit &#123;
+
+    cars: Car[];
+    
+    brands: SelectItem[];
+    
+    colors: SelectItem[];
+    
+    yearFilter: number;
+    
+    yearTimeout: any;
+    
+    constructor(private carService: CarService) &#123;&#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
+        
+        this.brands = [];
+        this.brands.push(&#123;label: 'All Brands', value: null&#125;);
+        this.brands.push(&#123;label: 'Audi', value: 'Audi'&#125;);
+        this.brands.push(&#123;label: 'BMW', value: 'BMW'&#125;);
+        this.brands.push(&#123;label: 'Fiat', value: 'Fiat'&#125;);
+        this.brands.push(&#123;label: 'Honda', value: 'Honda'&#125;);
+        this.brands.push(&#123;label: 'Jaguar', value: 'Jaguar'&#125;);
+        this.brands.push(&#123;label: 'Mercedes', value: 'Mercedes'&#125;);
+        this.brands.push(&#123;label: 'Renault', value: 'Renault'&#125;);
+        this.brands.push(&#123;label: 'VW', value: 'VW'&#125;);
+        this.brands.push(&#123;label: 'Volvo', value: 'Volvo'&#125;);
+        
+        this.colors = [];
+        this.colors.push(&#123;label: 'White', value: 'White'&#125;);
+        this.colors.push(&#123;label: 'Green', value: 'Green'&#125;);
+        this.colors.push(&#123;label: 'Silver', value: 'Silver'&#125;);
+        this.colors.push(&#123;label: 'Black', value: 'Black'&#125;);
+        this.colors.push(&#123;label: 'Red', value: 'Red'&#125;);
+        this.colors.push(&#123;label: 'Maroon', value: 'Maroon'&#125;);
+        this.colors.push(&#123;label: 'Brown', value: 'Brown'&#125;);
+        this.colors.push(&#123;label: 'Orange', value: 'Orange'&#125;);
+        this.colors.push(&#123;label: 'Blue', value: 'Blue'&#125;);
+    &#125;
+    
+    onYearChange(event, dt, col) &#123;
+        if(this.yearTimeout) &#123;
+            clearTimeout(this.yearTimeout);
+        &#125;
+        
+        this.yearTimeout = setTimeout(() => &#123;
+            dt.filter(event.value, col.field, col.filterMatchMode);
+        &#125;, 250);
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablefilterdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablefilterdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none"&gt;
+    &lt;i class="fa fa-search" style="margin:4px 4px 0 0"&gt;&lt;/i&gt;
+    &lt;input #gb type="text" pInputText size="50" placeholder="Global Filter"&gt;
+&lt;/div&gt;
+&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-column field="vin" header="Vin (startsWith)" [filter]="true" filterPlaceholder="Search"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year (&#123;&#123;yearFilter||'No Filter'&#125;&#125;)" [filter]="true" filterMatchMode="equals"&gt;
+        &lt;ng-template pTemplate="filter" let-col&gt;
+            &lt;i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"&gt;&lt;/i&gt;
+            &lt;p-slider [style]="&#123;'width':'100%','margin-top':'8px'&#125;" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt, col)"&gt;&lt;/p-slider&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand (Custom)" [filter]="true" filterMatchMode="equals"&gt;
+        &lt;ng-template pTemplate="filter" let-col&gt;
+            &lt;p-dropdown [options]="brands" [style]="&#123;'width':'100%'&#125;" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-dropdown&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column field="color" header="Color (Custom)" [filter]="true" filterMatchMode="in"&gt;
+        &lt;ng-template pTemplate="filter" let-col&gt;
+            &lt;p-multiSelect [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"&gt;&lt;/p-multiSelect&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

@@ -1,0 +1,484 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Accordion</span>
+        <span>Accordion groups a collection of contents in tabs.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-growl [value]="msgs"></p-growl>
+    
+    <h3 class="first">Default</h3>
+    <p-accordion>
+        <p-accordionTab header="Godfather I" [selected]="true">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        </p-accordionTab>
+        <p-accordionTab header="Godfather II">
+            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+        </p-accordionTab>
+        <p-accordionTab header="Godfather III">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-accordionTab>
+    </p-accordion>
+
+    <h3>Multiple</h3>
+    <p-accordion [multiple]="true">
+        <p-accordionTab header="Godfather I">
+            The story begins  as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        </p-accordionTab>
+        <p-accordionTab header="Godfather II">
+            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+       </p-accordionTab>
+        <p-accordionTab header="Godfather III">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-accordionTab>
+    </p-accordion>
+    
+    <h3>Tab Change Event</h3>
+    <p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)">
+        <p-accordionTab header="Godfather I">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        </p-accordionTab>
+        <p-accordionTab header="Godfather II">
+            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+        </p-accordionTab>
+        <p-accordionTab header="Godfather III">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-accordionTab>
+        <p-accordionTab header="Godfather IV" [disabled]="true">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-accordionTab>
+    </p-accordion>
+    
+    <h3>Programmatic Change</h3>
+    <div style="margin-bottom: 1em">
+        <button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"></button>
+        <button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"></button>
+    </div>
+        
+    <p-accordion [activeIndex]="index">
+        <p-accordionTab header="Godfather I">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+        </p-accordionTab>
+        <p-accordionTab header="Godfather II">
+            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+        </p-accordionTab>
+        <p-accordionTab header="Godfather III">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-accordionTab>
+        <p-accordionTab header="Godfather IV">
+            After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+        </p-accordionTab>
+    </p-accordion>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header ="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;AccordionModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Accordion element consists of one or more p-accordionTab elements. Title of the tab is defined using header attribute.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-accordion&gt;
+    &lt;p-accordionTab header="Header 1"&gt;
+       Content 1
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 2"&gt;
+        Content 2
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 3"&gt;
+        Content 3    
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+</code>
+</pre>
+
+            <h3>Selected</h3>
+            <p>Visibility of the content is specified with the selected property that supports one or two-way binding.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-accordion&gt;
+    &lt;p-accordionTab header="Header 1" [selected]="true"&gt;
+       Content 1
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 2"&gt;
+        Content 2
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 3"&gt;
+        Content 3    
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+</code>
+</pre>
+
+        <h3>Multiple</h3>
+        <p>By default only one tab at a time can be active, enabling multiple property changes this behavior to allow multiple
+            tabs be active at the same time.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-accordion [multiple]="true"&gt;
+    &lt;p-accordionTab header="Header 1"&gt;
+        Content 1
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 2"&gt;
+        Content 2
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 3"&gt;
+        Content 3    
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+</code>
+</pre>
+
+        <h3>Disabled</h3>
+        <p>A tab can be disabled by setting the disabled property to true.</p>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-accordion&gt;
+    &lt;p-accordionTab header="Header 1" [disabled]="true"&gt;
+       Content 1
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 2"&gt;
+        Content 2
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 3"&gt;
+        Content 3    
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+</code>
+</pre>
+
+            <h3>Custom Content at Headers</h3>
+            <p>Custom content can be placed at an accordion header with header element.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;SharedModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-accordionTab&gt;
+    &lt;p-header&gt;
+        Header Content
+    &lt;/p-header&gt;
+    Body Content
+&lt;/p-accordionTab&gt;
+</code>
+</pre>
+
+            <h3>Programmatic Control</h3>
+            <p>Tabs can be controlled programmatically using activeIndex property, in single mode it should be a number and in multiple mode an array of numbers
+            that define the indexes of active tabs.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
+&lt;button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+        
+&lt;p-accordion [activeIndex]="index"&gt;
+    &lt;p-accordionTab header="Header 1"&gt;
+       Content 1
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 2"&gt;
+        Content 2
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Header 3"&gt;
+        Content 3    
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class AccordionDemo &#123;
+    
+    index: number = 0;
+
+    openNext() &#123;
+        this.index = (this.index === 2) ? 0 : this.index + 1;
+    &#125;
+    
+    openPrev() &#123;
+        this.index = (this.index === 0) ? 2 : this.index - 1;
+    &#125;
+&#125;
+</code>
+</pre>
+
+            <h3>Properties for Accordion</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>multiple</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, multiple tabs can be activated at the same time.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>false</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>lazy</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines whether the elements of an inactive panel are created on load or on demand when the panel gets selected.</td>
+                        </tr>
+                        <tr>
+                            <td>activeIndex</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Index of the active tab or an array of indexes to change selected tab programmatically.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Properties for AccordionTab</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Title of the tab.</td>
+                        </tr>
+                        <tr>
+                            <td>selected</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if the tab is active.</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines whether the tab can be selected.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onClose</td>
+                            <td>
+                                event.originalEvent: Click object<br>
+                                event.index: Index of the tab
+                            </td>
+                            <td>Callback to invoke when an active tab is collapsed by clicking on the header.</td>
+                        </tr>
+                        <tr>
+                            <td>onOpen</td>
+                            <td>
+                                event.originalEvent: Click object<br>
+                                event.index: Index of the tab
+                            </td>
+                            <td>Callback to invoke when a tab gets expanded.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-accordion (onOpen)="onTabOpen($event)"&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+onTabOpen(e) &#123;
+    var index = e.index;
+&#125;
+</code>
+</pre>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-accordion</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-accordion-header</td>
+                            <td>Header of a tab.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-accordion-content</td>
+                            <td>Content of a tab.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/accordion" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+
+&lt;h3 class="first"&gt;Default&lt;/h3&gt;
+&lt;p-accordion&gt;
+    &lt;p-accordionTab header="Godfather I" [selected]="true"&gt;
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather II"&gt;
+        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather III"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+
+&lt;h3&gt;Multiple&lt;/h3&gt;
+&lt;p-accordion [multiple]="true"&gt;
+    &lt;p-accordionTab header="Godfather I"&gt;
+        The story begins  as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather II"&gt;
+        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+   &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather III"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+
+&lt;h3&gt;Tab Change Event&lt;/h3&gt;
+&lt;p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)"&gt;
+    &lt;p-accordionTab header="Godfather I"&gt;
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather II"&gt;
+        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather III"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather IV" [disabled]="true"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+
+&lt;h3&gt;Programmatic Change&lt;/h3&gt;
+&lt;div style="margin-bottom: 1em"&gt;
+    &lt;button type="button" pButton icon="fa fa-chevron-up" (click)="openPrev()"&gt;&lt;/button&gt;
+    &lt;button type="button" pButton icon="fa fa-chevron-down" (click)="openNext()"&gt;&lt;/button&gt;
+&lt;/div&gt;
+    
+&lt;p-accordion [activeIndex]="index"&gt;
+    &lt;p-accordionTab header="Godfather I"&gt;
+        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather II"&gt;
+        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather III"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-accordionTab&gt;
+    &lt;p-accordionTab header="Godfather IV"&gt;
+        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+    &lt;/p-accordionTab&gt;
+&lt;/p-accordion&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Component&#125; from '@angular/core';
+import &#123;Message&#125; from '/components/common/api';
+
+@Component(&#123;
+    templateUrl: './accordiondemo.html'
+&#125;)
+export class AccordionDemo &#123;
+
+    msgs: Message[];
+    
+    index: number = -1;
+
+    onTabClose(event) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'info', summary:'Tab Closed', detail: 'Index: ' + event.index&#125;);
+    &#125;
+    
+    onTabOpen(event) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index&#125;);
+    &#125;
+    
+    openNext() &#123;
+        this.index = (this.index === 3) ? 0 : this.index + 1;
+    &#125;
+    
+    openPrev() &#123;
+        this.index = (this.index &lt;=0 ) ? 3 : this.index - 1;
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

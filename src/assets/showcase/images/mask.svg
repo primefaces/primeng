@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="114px" height="134px" viewBox="0 0 114 134" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>mask@3x</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ng-logo" fill-rule="nonzero" fill="#FFFFFF">
+            <g id="mask">
+                <g id="Group">
+                    <polygon id="Shape" points="47.417 60.122 6.819 44.987 0.673 19.068 32.881 25.512"></polygon>
+                    <polygon id="Shape" points="67.199 60.122 107.802 44.987 113.955 19.068 81.729 25.512"></polygon>
+                    <polygon id="Shape" points="34.083 23.115 13.55 19.068 27.485 0.637 45.018 0.637"></polygon>
+                    <polygon id="Shape" points="80.232 23.115 100.76 19.068 86.824 0.637 69.298 0.637"></polygon>
+                    <polygon id="Shape" points="77.891 27.886 63.376 65.743 67.719 94.476 46.146 94.476 51.037 65.702 36.478 27.886 45.92 0.637 68.24 0.637"></polygon>
+                    <polygon id="Shape" points="16.776 63.939 31.007 71.586 31.007 101.778 7.629 81.776 7.629 47.982 16.776 51.732"></polygon>
+                    <polygon id="Shape" points="97.388 63.939 83.152 71.586 83.152 101.778 106.536 81.776 106.536 47.982 97.388 51.732"></polygon>
+                    <polygon id="Shape" points="72.519 60.646 67.199 63.421 67.199 68.631 70.529 96.325 63.394 103.577 57.189 103.635 50.979 103.577 43.838 96.325 47.174 68.631 47.174 63.421 41.866 60.646 34.505 73.011 34.505 117.905 42.104 110.937 57.189 110.771 72.275 110.937 79.856 117.905 79.856 73.011"></polygon>
+                    <polygon id="Shape" points="67.048 133.991 47.186 133.991 40.23 126.84 47.186 119.687 67.048 119.687 74.23 126.84"></polygon>
+                    <polygon id="Shape" points="31.007 119.687 18.043 105.299 18.043 95.48 31.007 103.953"></polygon>
+                    <polygon id="Shape" points="82.788 119.687 95.741 105.299 95.741 95.48 82.788 103.953"></polygon>
+                    <polygon id="Shape" points="70.639 117.905 43.728 117.905 38.391 125.214 34.505 123.189 43.601 114.065 70.865 114.065 79.856 123.189 76.04 125.214"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

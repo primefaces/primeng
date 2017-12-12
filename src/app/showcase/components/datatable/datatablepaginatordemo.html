@@ -1,0 +1,74 @@
+<datatable-demos></datatable-demos>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DataTable - Paginator</span>
+        <span>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
+            of page links to display.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+        <p-header>List of Cars</p-header>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
+        <ng-template pTemplate="paginatorLeft">
+            <button type="button" pButton icon="fa-refresh"></button>
+        </ng-template>
+        <ng-template pTemplate="paginatorRight">
+            <button type="button" pButton icon="fa-cloud-upload"></button>
+        </ng-template>
+    </p-dataTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablepaginatordemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablepaginatordemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataTablePaginatorDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablepaginatordemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablepaginatordemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataTable [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+    &lt;ng-template pTemplate="paginatorLeft"&gt;
+        &lt;button type="button" pButton icon="fa-refresh"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="paginatorRight"&gt;
+        &lt;button type="button" pButton icon="fa-cloud-upload"&gt;&lt;/button&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

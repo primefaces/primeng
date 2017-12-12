@@ -1,0 +1,610 @@
+<div>
+    <div class="content-section introduction">
+        <div>
+            <span class="feature-title">Responsive</span>
+            <span>.ui-fluid style class provides fluid width to components for efficient use of space in screen.
+                This example demonstrates ui-fluid in combination with Grid CSS and the components having built-in responsive modes like datatable. Note that Grid CSS is not mandatory, any grid system 
+                can be used with ui-fluid.</span>
+        </div>
+    </div>
+
+    <div class="content-section implementation ui-fluid">
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    InputText
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" />
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Textarea
+                </div>
+                <div class="ui-g-8">
+                    <textarea pInputTextarea type="text"></textarea>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Calendar
+                </div>
+                <div class="ui-g-8">
+                    <p-calendar [(ngModel)]="date"></p-calendar>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Suggest
+                </div>
+                <div class="ui-g-8">
+                    <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+                    placeholder="Countries" [minLength]="1"></p-autoComplete>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Button
+                </div>
+                <div class="ui-g-8">
+                    <button pButton label="Save"type="button"></button>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    SplitButton
+                </div>
+                <div class="ui-g-8">
+                    <p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"></p-splitButton>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Dropdown
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [autoWidth]="false"></p-dropdown>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Password
+                </div>
+                <div class="ui-g-8">
+                    <input type="text" pPassword />
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Listbox
+                </div>
+                <div class="ui-g-8">
+                    <p-listbox [options]="options" [(ngModel)]="selectedOption"></p-listbox>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-4">
+                    Radio
+                </div>
+                <div class="ui-g-8">
+                    <div class="ui-g radiobuttons">
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 1" [(ngModel)]="val"></p-radioButton><label class="ui-widget">Option 1</label></div>
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" [(ngModel)]="val"></p-radioButton><label class="ui-widget">Option 2</label></div>
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" [(ngModel)]="val"></p-radioButton><label class="ui-widget">Option 3</label></div>
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 4" [(ngModel)]="val"></p-radioButton><label class="ui-widget">Option 4</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-2">
+                Dialog
+            </div>
+            <div class="ui-g-10">
+                <button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"></button>
+            </div>
+        </div>
+
+        <p-dialog header="Godfather 1" [(visible)]="display" [responsive]="true" [resizable]="false" [width]="300">
+            <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+                kind and benevolent to those who give respect,
+                but given to ruthless violence whenever anything stands against the good of the family.</p>
+        </p-dialog>
+
+        <p-panel header="Panel" [style]="{'margin-top':'20px'}">
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+            His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+            Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+            kind and benevolent to those who give respect,
+            but given to ruthless violence whenever anything stands against the good of the family.
+        </p-panel>
+
+        <p-dataTable [style]="{'margin-top':'20px'}" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true">
+            <p-header>Cars</p-header>
+            <p-column field="vin" header="Vin"></p-column>
+            <p-column field="year" header="Year"></p-column>
+            <p-column field="brand" header="Brand"></p-column>
+            <p-column field="color" header="Color"></p-column>
+        </p-dataTable>
+
+        <p-dataGrid [style]="{'margin-top':'20px','margin-bottom':'20px'}" [value]="cars" [paginator]="true" [rows]="20">
+            <p-header>
+                Datagrid
+            </p-header>
+            <ng-template let-car pTemplate="item">
+                <div style="padding:3px" class="ui-g-12 ui-md-3">
+                    <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
+                        <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
+                        <div class="car-detail">{{car.year}} - {{car.color}}</div>
+                        <hr class="ui-widget-content" style="border-top:0">
+                    </p-panel>
+                </div>
+            </ng-template>
+        </p-dataGrid>
+
+        <p-tree [value]="files" [style]="{'margin-top':'20px','margin-bottom':'20px'}"></p-tree>
+
+        <p-orderList [value]="cars" [listStyle]="{'height':'250px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}" [responsive]="true" header="Responsive Cars">
+            <ng-template let-car pTemplate="item">
+                <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+                <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
+            </ng-template>
+        </p-orderList>
+
+        <p-carousel headerText="Cars" [value]="cars2" [style]="{'margin-top':'20px','margin-bottom':'20px'}">
+            <ng-template let-car pTemplate="item">
+                <div class="ui-g" style="text-align:center">
+                    <div class="ui-g-12"><img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"></div>
+                    <div class="ui-g-6">Vin</div>
+                    <div class="ui-g-6">{{car.vin}}</div>
+                    
+                    <div class="ui-g-6">Year</div>
+                    <div class="ui-g-6">{{car.year}}</div>
+                    
+                    <div class="ui-g-6">Color</div>
+                    <div class="ui-g-6">{{car.color}}</div>
+                </div>
+            </ng-template>
+        </p-carousel>
+
+        <p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" 
+            [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [style]="{'margin-top':'20px','margin-bottom':'20px'}">
+            <ng-template let-car pTemplate="item">
+                <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+                <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
+            </ng-template>
+        </p-pickList>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-4">
+                <p-menu [model]="items1"></p-menu>
+            </div>
+            <div class="ui-g-12 ui-md-8">
+                <p-panelMenu [model]="items2"></p-panelMenu>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/responsive" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            InputText
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;input pInputText type="text" /&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Textarea
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;textarea pInputTextarea type="text"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Calendar
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;p-calendar [(ngModel)]="date"&gt;&lt;/p-calendar&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Suggest
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30"
+            placeholder="Countries" [minLength]="1"&gt;&lt;/p-autoComplete&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Button
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;button pButton label="Save"type="button"&gt;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            SplitButton
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;p-splitButton label="Save" icon="fa-check" [model]="splitMenuItems"&gt;&lt;/p-splitButton&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Dropdown
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [autoWidth]="false"&gt;&lt;/p-dropdown&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Password
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;input type="text" pPassword /&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Listbox
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;p-listbox [options]="options" [(ngModel)]="selectedOption"&gt;&lt;/p-listbox&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-6"&gt;
+        &lt;div class="ui-g-4"&gt;
+            Radio
+        &lt;/div&gt;
+        &lt;div class="ui-g-8"&gt;
+            &lt;div class="ui-g radiobuttons"&gt;
+                &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 1" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;label class="ui-widget"&gt;Option 1&lt;/label&gt;&lt;/div&gt;
+                &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 2" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;label class="ui-widget"&gt;Option 2&lt;/label&gt;&lt;/div&gt;
+                &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 3" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;label class="ui-widget"&gt;Option 3&lt;/label&gt;&lt;/div&gt;
+                &lt;div class="ui-g-12"&gt;&lt;p-radioButton name="group1" value="Option 4" [(ngModel)]="val"&gt;&lt;/p-radioButton&gt;&lt;label class="ui-widget"&gt;Option 4&lt;/label&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-2"&gt;
+        Dialog
+    &lt;/div&gt;
+    &lt;div class="ui-g-10"&gt;
+        &lt;button pButton label="Show" type="button" icon='fa-external-link' (click)="showDialog()"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p-dialog header="Godfather 1" [(visible)]="display" [responsive]="true" [resizable]="false" [width]="300"&gt;
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+        kind and benevolent to those who give respect,
+        but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
+&lt;/p-dialog&gt;
+
+&lt;p-panel header="Panel" [style]="&#123;'margin-top':'20px'&#125;"&gt;
+    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+    kind and benevolent to those who give respect,
+    but given to ruthless violence whenever anything stands against the good of the family.
+&lt;/p-panel&gt;
+
+&lt;p-dataTable [style]="&#123;'margin-top':'20px'&#125;" [value]="cars" [rows]="10" [paginator]="true" [pageLinks]="3" [responsive]="true"&gt;
+    &lt;p-header&gt;Cars&lt;/p-header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-dataGrid [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [value]="cars" [paginator]="true" [rows]="20"&gt;
+    &lt;p-header&gt;
+        Datagrid
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div style="padding:3px" class="ui-g-12 ui-md-3"&gt;
+            &lt;p-panel [header]="car.vin" [style]="&#123;'text-align':'center'&#125;"&gt;
+                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.gif"&gt;
+                &lt;div class="car-detail"&gt;&#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
+                &lt;hr class="ui-widget-content" style="border-top:0"&gt;
+            &lt;/p-panel&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataGrid&gt;
+
+&lt;p-tree [value]="files" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;"&gt;&lt;/p-tree&gt;
+
+&lt;p-orderList [value]="cars" [listStyle]="&#123;'height':'250px'&#125;" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;" [responsive]="true" header="Responsive Cars"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
+        &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-orderList&gt;
+
+&lt;p-carousel headerText="Cars" [value]="cars2" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="ui-g" style="text-align:center"&gt;
+            &lt;div class="ui-g-12"&gt;&lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"&gt;&lt;/div&gt;
+            &lt;div class="ui-g-6"&gt;Vin&lt;/div&gt;
+            &lt;div class="ui-g-6"&gt;{{car.vin}}&lt;/div&gt;
+            
+            &lt;div class="ui-g-6"&gt;Year&lt;/div&gt;
+            &lt;div class="ui-g-6"&gt;{{car.year}}&lt;/div&gt;
+            
+            &lt;div class="ui-g-6"&gt;Color&lt;/div&gt;
+            &lt;div class="ui-g-6"&gt;{{car.color}}&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-carousel&gt;
+
+&lt;p-pickList [source]="sourceCars" [target]="targetCars" sourceHeader="Available" targetHeader="Selected" [responsive]="true" 
+    [sourceStyle]="&#123;'height':'300px'&#125;" [targetStyle]="&#123;'height':'300px'&#125;" [style]="&#123;'margin-top':'20px','margin-bottom':'20px'&#125;"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.gif" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
+        &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;&#123;&#123;car.brand&#125;&#125; - &#123;&#123;car.year&#125;&#125; - &#123;&#123;car.color&#125;&#125;&lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-pickList&gt;
+&lt;div class="ui-g"&gt;
+    &lt;div class="ui-g-12 ui-md-4"&gt;
+        &lt;p-menu [model]="items1"&gt;&lt;/p-menu&gt;
+    &lt;/div&gt;
+    &lt;div class="ui-g-12 ui-md-8"&gt;
+        &lt;p-panelMenu [model]="items2"&gt;&lt;/p-panelMenu&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class ResponsiveDemo implements OnInit &#123;
+
+    cities: SelectItem[];
+
+    files: TreeNode[];
+
+    sourceCars: Car[];
+
+    targetCars: Car[];
+
+    data: any;
+
+    selectedCity: string;
+
+    val: string;
+
+    options: SelectItem[];
+
+    selectedOption: string;
+
+    display: boolean = false;
+
+    cars: Car[];
+
+    cars1: Car[];
+
+    cars2: Car[];
+
+    cars3: Car[];
+
+    date: string;
+
+    text: string;
+
+    filteredCountriesSingle: any[];
+    
+    items1: MenuItem[];
+    
+    items2: MenuItem[];
+    
+    splitMenuItems: MenuItem[];
+    
+    country: any;
+    
+    showDialog() &#123;
+        this.display = true;
+    &#125;
+
+    constructor(private carService: CarService, private countryService: CountryService, private nodeService: NodeService) &#123;
+        this.cars2 = [
+            &#123;vin: 'r3278r2', year: 2010, brand: 'Audi', color: 'Black'&#125;,
+            &#123;vin: 'jhto2g2', year: 2015, brand: 'BMW', color: 'White'&#125;,
+            &#123;vin: 'h453w54', year: 2012, brand: 'Honda', color: 'Blue'&#125;,
+            &#123;vin: 'g43gwwg', year: 1998, brand: 'Renault', color: 'White'&#125;,
+            &#123;vin: 'gf45wg5', year: 2011, brand: 'VW', color: 'Red'&#125;,
+            &#123;vin: 'bhv5y5w', year: 2015, brand: 'Jaguar', color: 'Blue'&#125;,
+            &#123;vin: 'ybw5fsd', year: 2012, brand: 'Ford', color: 'Yellow'&#125;,
+            &#123;vin: '45665e5', year: 2011, brand: 'Mercedes', color: 'Brown'&#125;,
+            &#123;vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black'&#125;
+        ];
+
+        this.cities = [];
+        this.cities.push(&#123;label:'Select Cities', value:'Select Cities'&#125;);
+        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
+        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
+        this.cities.push(&#123;label:'London', value:'London'&#125;);
+        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
+        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+
+        this.options = [];
+        this.options.push(&#123;label:'Option 1', value:'Option 1'&#125;);
+        this.options.push(&#123;label:'Option 2', value:'Option 2'&#125;);
+        this.options.push(&#123;label:'Option 3', value:'Option 3'&#125;);
+        this.options.push(&#123;label:'Option 4', value:'Option 4'&#125;);
+        this.options.push(&#123;label:'Option 5', value:'Option 5'&#125;);
+
+        this.data = &#123;
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                &#123;
+                    label: 'My First dataset',
+                    fillColor: 'rgba(220,220,220,0.2)',
+                    strokeColor: 'rgba(220,220,220,1)',
+                    pointColor: 'rgba(220,220,220,1)',
+                    pointStrokeColor: '#fff',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                &#125;,
+                &#123;
+                    label: 'My Second dataset',
+                    fillColor: 'rgba(151,187,205,0.2)',
+                    strokeColor: 'rgba(151,187,205,1)',
+                    pointColor: 'rgba(151,187,205,1)',
+                    pointStrokeColor: '#fff',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(151,187,205,1)',
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                &#125;
+            ]
+        &#125;
+    &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsMedium().then(cars => this.cars = cars);
+        this.nodeService.getFiles().then(files => this.files = files);
+        this.carService.getCarsSmall().then(cars1 => this.cars1 = cars1);
+        this.carService.getCarsSmall().then(cars3 => this.sourceCars = cars3);
+        this.targetCars = [];
+        
+        this.items1 = [&#123;
+            label: 'File',
+            items: [
+                &#123;label: 'New', icon: 'fa-plus'&#125;,
+                &#123;label: 'Open', icon: 'fa-download'&#125;
+            ]
+        &#125;,
+        &#123;
+            label: 'Edit',
+            items: [
+                &#123;label: 'Undo', icon: 'fa-refresh'&#125;,
+                &#123;label: 'Redo', icon: 'fa-repeat'&#125;
+            ]
+        &#125;];
+        
+        this.items2 = [
+            &#123;
+                label: 'File',
+                icon: 'fa-file-o',
+                items: [&#123;
+                        label: 'New', 
+                        icon: 'fa-plus',
+                        items: [
+                            &#123;label: 'Project'&#125;,
+                            &#123;label: 'Other'&#125;,
+                        ]
+                    &#125;,
+                    &#123;label: 'Open'&#125;,
+                    &#123;label: 'Quit'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Edit',
+                icon: 'fa-edit',
+                items: [
+                    &#123;label: 'Undo', icon: 'fa-mail-forward'&#125;,
+                    &#123;label: 'Redo', icon: 'fa-mail-reply'&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Help',
+                icon: 'fa-question',
+                items: [
+                    &#123;
+                        label: 'Contents'
+                    &#125;,
+                    &#123;
+                        label: 'Search', 
+                        icon: 'fa-search', 
+                        items: [
+                            &#123;
+                                label: 'Text', 
+                                items: [
+                                    &#123;
+                                        label: 'Workspace'
+                                    &#125;
+                                ]
+                            &#125;,
+                            &#123;
+                                label: 'File'
+                            &#125;
+                    ]&#125;
+                ]
+            &#125;,
+            &#123;
+                label: 'Actions',
+                icon: 'fa-gear',
+                items: [
+                    &#123;
+                        label: 'Edit',
+                        icon: 'fa-refresh',
+                        items: [
+                            &#123;label: 'Save', icon: 'fa-save'&#125;,
+                            &#123;label: 'Update', icon: 'fa-save'&#125;,
+                        ]
+                    &#125;,
+                    &#123;
+                        label: 'Other',
+                        icon: 'fa-phone',
+                        items: [
+                            &#123;label: 'Delete', icon: 'fa-minus'&#125;
+                        ]
+                    &#125;
+                ]
+            &#125;
+        ];
+        
+        this.splitMenuItems = [
+            &#123;label: 'Update', icon: 'fa-refresh'&#125;,
+            &#123;label: 'Delete', icon: 'fa-close'&#125;,
+            &#123;label: 'Angular.io', icon: 'fa-link', url: 'http://angular.io'&#125;,
+            &#123;label: 'Theming', icon: 'fa-paint-brush', routerLink: ['/theming']&#125;
+        ];
+    &#125;
+
+    filterCountrySingle(event) &#123;
+        let query = event.query;
+        this.countryService.getCountries().then(countries => &#123;
+            this.filteredCountriesSingle = this.filterCountry(query, countries);
+        &#125;);
+    &#125;
+
+    filterCountry(query, countries: any[]):any[] &#123;
+        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+        let filtered : any[] = [];
+        for(let i = 0; i < countries.length; i++) &#123;
+            let country = countries[i];
+            if(country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) &#123;
+                filtered.push(country);
+            &#125;
+        &#125;
+        return filtered;
+    &#125;
+
+&#125;
+</code>
+</pre>
+
+
+        </p-tabPanel>
+    </p-tabView>
+</div>

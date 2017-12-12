@@ -1,0 +1,427 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DataList</span>
+        <span>DataList displays data in list layout.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-dataList [value]="cars" [paginator]="true" [rows]="5">
+        <p-header>
+            List of Cars
+        </p-header>
+        <ng-template let-car pTemplate="item">
+            <div class="ui-g ui-fluid car-item">
+                <div class="ui-g-12 ui-md-3" style="text-align:center">
+                    <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
+                </div>
+                <div class="ui-g-12 ui-md-9 car-details">
+                    <div class="ui-g">
+                        <div class="ui-g-2 ui-sm-6">Vin: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car.vin}}</div>
+                        
+                        <div class="ui-g-2 ui-sm-6">Year: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car.year}}</div>
+                        
+                        <div class="ui-g-2 ui-sm-6">Brand: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car.brand}}</div>
+                        
+                        <div class="ui-g-2 ui-sm-6">Color: </div>
+                        <div class="ui-g-10 ui-sm-6">{{car.color}}</div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataList>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;DataListModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>DataList requires a collection of items as its value and a ng-template content to display
+                where each item can be accessed using the implicit variable.</p>
+                
+            <p>Throughout the samples, a car interface having vin, brand, year and color properties are 
+                used to define an object to be displayed by the datalist.  Cars are loaded by a CarService that 
+                connects to a server to fetch the cars with a Promise.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export interface Car &#123;
+    vin;
+    year;
+    brand;
+    color;
+&#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Injectable&#125; from 'angular2/core';
+import &#123;Http, Response&#125; from 'angular2/http';
+import &#123;Car&#125; from '../domain/car';
+    
+@Injectable()
+export class CarService &#123;
+    
+    constructor(private http: Http) &#123;&#125;
+
+    getCarsLarge() &#123;
+        return this.http.get('/showcase/resources/data/cars-large.json')
+                    .toPromise()
+                    .then(res => &lt;Car[]&gt; res.json().data)
+                    .then(data => &#123; return data; &#125;);
+    &#125;
+&#125;
+</code>
+</pre>
+        
+            <p>Here is a sample DataList that displays a list of cars.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataListDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsLarge().then(cars => this.cars = cars);
+    &#125;
+&#125;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataList [value]="cars"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Car content
+    &lt;/ng-template&gt;
+&lt;/p-dataList&gt;
+</code>
+</pre>
+
+            <p>Index of the row is available at the ng-template.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataList [value]="cars"&gt;
+    &lt;ng-template let-car let-i="index" pTemplate="item"&gt;
+        Car content for {{i}}
+    &lt;/ng-template&gt;
+&lt;/p-dataList&gt;
+</code>
+</pre>
+
+            <h3>Change Detection</h3>
+            <p>DataList either uses setter based checking or ngDoCheck to realize if the underlying data has changed to update the UI. This is configured using the immutable
+                property, when enabled (default) setter based detection is utilized so your data changes such as adding or removing a record 
+                should always create a new array reference instead of manipulating an existing array as Angular does not trigger setters if the reference does not change. 
+                For example, use slice instead of splice when removing an item or use spread operator instead of push method when adding an item. On the other hand, setting immutable property to false removes
+                this restriction by using ngDoCheck with IterableDiffers to listen changes without the need to create a new reference of data. Setter based method is faster however
+                both methods can be used depending on your preference.
+            </p>
+
+            <h3>Facets</h3>
+            <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;Header&#125; from 'primeng/primeng';
+import &#123;Footer&#125; from 'primeng/primeng';
+</code>
+</pre>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataList [value]="cars"&gt;
+    &lt;p-header&gt;List of Cars&lt;/p-header&gt;
+    &lt;p-footer&gt;Choose from the list.&lt;/p-footer&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Car content
+    &lt;/ng-template&gt;
+&lt;/p-dataList&gt;
+</code>
+</pre>
+            
+            <h3>Paginator</h3>
+            <p>Pagination is enabled by setting paginator property to true, rows attribute defines the number of rows per page and pageLinks specify the the number
+                of page links to display.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataList [value]="cars" [paginator]="true" [rows]="10"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Car content
+    &lt;/ng-template&gt;
+&lt;/p-dataList&gt;
+</code>
+</pre>
+    
+            <h3>Lazy Loading</h3>
+            <p>Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking
+             onLazyLoad callback everytime paging happens. To implement lazy loading,
+            enable lazy attribute and provide a method callback using onLazyLoad that actually loads the data from a remote datasource. onLazyLoad gets an event object 
+            that contains information about what to load. It is also important to assign the logical number of rows to totalRecords by doing a projection query for paginator configuration so that paginator 
+            displays the UI assuming there are actually records of totalRecords size although in reality they aren't as in lazy mode, only the records that are displayed on the current page exist.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataList [value]="cars" [paginator]="true" [rows]="9" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords"&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        Car content
+    &lt;/ng-template&gt;
+&lt;/p-dataList&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+loadData(event) &#123;
+    //event.first = First row offset
+    //event.rows = Number of rows per page
+&#125;
+</code>
+</pre>
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>value</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>An array of objects to display.</td>
+                        </tr>
+                        <tr>
+                            <td>rows</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of rows to display per page.</td>
+                        </tr>
+                        <tr>
+                            <td>paginator</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When specified as true, enables the pagination.</td>
+                        </tr>
+                        <tr>
+                            <td>totalRecords</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Number of total records, defaults to length of value when not defined.</td>
+                        </tr>
+                        <tr>
+                            <td>pageLinks</td>
+                            <td>number</td>
+                            <td>5</td>
+                            <td>Number of page links to display in paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>rowsPerPageOptions</td>
+                            <td>array</td>
+                            <td>null</td>
+                            <td>Array of integer values to display inside rows per page dropdown of paginator</td>
+                        </tr>
+                        <tr>
+                            <td>alwaysShowPaginator</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show it even there is only one page.</td>
+                        </tr>
+                        <tr>
+                            <td>lazy</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if data is loaded and interacted with in lazy manner.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorPosition</td>
+                            <td>string</td>
+                            <td>bottom</td>
+                            <td>Position of the paginator, options are "top","bottom" or "both".</td>
+                        </tr>
+                        <tr>
+                            <td>emptyMessage</td>
+                            <td>string</td>
+                            <td>No records found.</td>
+                            <td>Text to display when there is no data.</td>
+                        </tr>
+                        <tr>
+                            <td>trackBy</td>
+                            <td>Function</td>
+                            <td>null</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
+                        </tr>
+                        <tr>
+                            <td>immutable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Defines how the data should be manipulated.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollable</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Whether the content section is scrollable based on scrollHeight.</td>
+                        </tr>
+                        <tr>
+                            <td>scrollHeight</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Maximum height of the viewport in scrollable list.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameters</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onLazyLoad</td>
+                            <td>event.first = First row offset <br>
+                                event.rows = Number of rows per page <br></td>
+                            <td>Callback to invoke when paging, sorting or filtering happens in lazy mode.</td>
+                        </tr>
+                        <tr>
+                            <td>onPage</td>
+                            <td>event.first: Index of first record in page<br>
+                                event.rows: Number of rows on the page</td>
+                            <td>Callback to invoke when pagination occurs.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Element</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-datalist</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datalist-header</td>
+                            <td>Header section.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datalist-footer</td>
+                            <td>Footer section.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datalist-content</td>
+                            <td>Wrapper of item container.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datalist-data</td>
+                            <td>Item container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-datalist-emptymessage</td>
+                            <td>Element containing the empty message.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datalist" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dataList [value]="cars" [paginator]="true" [rows]="5"&gt;
+    &lt;p-header&gt;
+        List of Cars
+    &lt;/p-header&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
+        &lt;div class="ui-g ui-fluid car-item"&gt;
+            &lt;div class="ui-g-12 ui-md-3" style="text-align:center"&gt;
+                &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.brand&#125;&#125;.png"&gt;
+            &lt;/div&gt;
+            &lt;div class="ui-g-12 ui-md-9 car-details"&gt;
+                &lt;div class="ui-g"&gt;
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Vin: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car.vin&#125;&#125;&lt;/div&gt;
+                    
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Year: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car.year&#125;&#125;&lt;/div&gt;
+                    
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Brand: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car.brand&#125;&#125;&lt;/div&gt;
+                    
+                    &lt;div class="ui-g-2 ui-sm-6"&gt;Color: &lt;/div&gt;
+                    &lt;div class="ui-g-10 ui-sm-6"&gt;&#123;&#123;car.color&#125;&#125;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-dataList&gt;
+</code>
+</pre>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataListDemo implements OnInit &#123;
+
+    cars: Car[];
+        
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsLarge().then(cars => this.cars = cars);
+    &#125;
+&#125;
+</code>
+</pre>
+
+
+        </p-tabPanel>
+    </p-tabView>
+</div>

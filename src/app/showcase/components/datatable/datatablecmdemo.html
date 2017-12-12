@@ -1,0 +1,99 @@
+<datatable-demos></datatable-demos>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DataTable - <span class="subitem">ContextMenu</span></span>
+        <span>DataTable has exclusive integration with ContextMenu.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-growl [value]="msgs"></p-growl>
+
+    <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" [contextMenu]="cm">
+        <p-header>Right Click on Rows for ContextMenu</p-header>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
+    </p-dataTable>
+    
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablecmdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablecmdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataTableCMDemo implements OnInit &#123;
+
+    msgs: Message[];
+
+    cars: Car[];
+
+    selectedCar: Car;
+    
+    items: MenuItem[];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+        
+        this.items = [
+            &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewCar(this.selectedCar)&#125;,
+            &#123;label: 'Delete', icon: 'fa-close', command: (event) => this.deleteCar(this.selectedCar)&#125;
+        ];
+    &#125;
+
+    viewCar(car: Car) &#123;
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Car Selected', detail: car.vin + ' - ' + car.brand&#125;);
+    &#125;
+
+    deleteCar(car: Car) &#123;
+        let index = -1;
+        for(let i = 0; i < this.cars.length; i++) &#123;
+            if(this.cars[i].vin == car.vin) &#123;
+                index = i;
+                break;
+            &#125;
+        &#125;
+        this.cars.splice(index, 1);
+        
+        this.msgs = [];
+        this.msgs.push(&#123;severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand&#125;);
+    &#125;
+&#125;
+</code>
+</pre>            
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablecmdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablecmdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-growl [value]="msgs"&gt;&lt;/p-growl&gt;
+
+&lt;p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" [contextMenu]="cm"&gt;
+    &lt;p-header&gt;Right Click on Rows for ContextMenu&lt;/p-header&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-contextMenu #cm [model]="items"&gt;&lt;/p-contextMenu&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

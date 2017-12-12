@@ -1,0 +1,65 @@
+.splash-logo {
+    left: 50%;
+    top: 50%;
+    margin-left: -26px;
+    margin-top: -30px;
+    z-index: 2;
+    position: absolute;
+    width: 54px;
+}
+
+.splash-loader,
+.splash-loader:::before,
+.splash-loader:::after {
+  left: 50%;
+  top: 50%;
+  margin-left: -45px;
+  margin-top: -45px;
+  position: absolute;
+  vertical-align: middle;
+  background: #c3002f;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.splash-loader:::before {
+  content: "";
+  animation: bounce 1.5s infinite;
+}
+.splash-loader:::after {
+  content: "";
+  animation: bounce 1.5s -0.4s infinite;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    -webkit-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    -webkit-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.splash-screen {
+    background-color: #f3f3f3;
+    height: 100%;
+}

@@ -1,0 +1,315 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">OverlayPanel</span>
+        <span>OverlayPanel is a container component that can overlay other components on page.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Basic</h3>
+    <p>Click the button to show the panel.</p>
+    <button type="text" pButton label="Basic" (click)="op1.toggle($event)"></button>
+
+    <p-overlayPanel #op1>
+        <img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
+    </p-overlayPanel>
+    
+    <h3>Customized</h3>
+    <p>This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.</p>
+    <i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"></i>
+    
+    <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false">
+        <p-dataTable [value]="cars1" [style]="&#123;'width':'500px'&#125;">
+            <p-column field="vin" header="Vin" [sortable]="true"></p-column>
+            <p-column field="year" header="Year" [sortable]="true"></p-column>
+            <p-column field="brand" header="Brand" [sortable]="true"></p-column>
+            <p-column field="color" header="Color" [sortable]="true"></p-column>
+        </p-dataTable>
+    </p-overlayPanel>
+    
+    <h3>DataTable Integration</h3>
+    <p-dataTable [value]="cars2">
+        <p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo">
+            <ng-template let-car="rowData" pTemplate="body">
+                <button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"></button>
+            </ng-template>
+        </p-column>
+        <p-column field="vin" header="Vin"></p-column>
+        <p-column field="year" header="Year"></p-column>
+        <p-column field="brand" header="Brand"></p-column>
+        <p-column field="color" header="Color"></p-column>
+    </p-dataTable>
+    
+    <p-overlayPanel #op3>
+        <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" *ngIf="selectedCar"/>
+    </p-overlayPanel>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;OverlayPanelModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>OverlayPanel is defined using p-overlayPanel element and is displayed using the <i>show</i> or <i>toggle</i> method of a local ng-template variable.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-overlayPanel #op&gt;
+    Content
+&lt;/p-overlayPanel&gt;
+
+&lt;button type="text" pButton label="Basic" (click)="op.toggle($event)"&gt;&lt;/button&gt;
+</code>
+</pre>
+            <h3>Show and Hide</h3>
+            <p><i>show</i> method takes two parameters, first one is the event and it is mandatory. By default the target component to align the overlay is the event target, 
+            if you'd like to align it to another element, provide it as the second parameter. Similarly calling <i>hide()</i> hides the overlay panel and the <i>toggle</i> method 
+            toggles the visibility of the panel. In example below, clicking the button displays the overlayPanel aligned to the actualTarget div, not the button itself.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-overlayPanel #op&gt;
+    Content
+&lt;/p-overlayPanel&gt;
+
+&lt;button type="text" pButton label="Custom Target" (click)="op.show($event, actualTarget)"&gt;&lt;/button&gt;
+&lt;div #actualTarget&gt;&lt;/div&gt;
+</code>
+</pre>
+        
+        
+            <h3>Dismissable and CloseIcon</h3>
+            <p>Clicking outside the overlay hides the panel, setting dismissable to false disables this behavior. Additionally enablign showCloseIcon property 
+            displays a close icon at the top right corner to close the panel</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true"&gt;
+    Content
+&lt;/p-overlayPanel&gt;
+</code>
+</pre>
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>dismissable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Enables to hide the overlay when outside is clicked.</td>
+                        </tr>
+                        <tr>
+                            <td>showCloseIcon</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, displays a close icon at top right corner.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>appendTo</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Target element to attach the panel, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onBeforeShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke before overlay is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>onAfterShow</td>
+                            <td>-</td>
+                            <td>Callback to invoke after overlay is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>onBeforeHide</td>
+                            <td>-</td>
+                            <td>Callback to invoke before overlay is hidden.</td>
+                        </tr>
+                        <tr>
+                            <td>onAfterHide</td>
+                            <td>-</td>
+                            <td>Callback to invoke after overlay is hidden.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Methods</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>toggle</td>
+                            <td>event: browser event <br>
+                                target?: target element to align the panel, defaults to event.target
+                            </td>
+                            <td>Toggles the visibility of the panel.</td>
+                        </tr>
+                        <tr>
+                            <td>show</td>
+                            <td>event: browser event <br>
+                                target?: target element to align the panel to
+                            </td>
+                            <td>Displays the panel.</td>
+                        </tr>
+                        <tr>
+                            <td>hide</td>
+                            <td>-</td>
+                            <td>Hides the panel.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-overlaypanel</td>
+                            <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-overlaypanel-content</td>
+                            <td>Content of the panel.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-overlaypanel-close</td>
+                            <td>Close icon.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/overlaypanel" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Basic&lt;/h3&gt;
+&lt;p&gt;Click the button to show the panel.&lt;/p&gt;
+&lt;button type="text" pButton label="Basic" (click)="op1.toggle($event)"&gt;&lt;/button&gt;
+
+&lt;p-overlayPanel #op1&gt;
+    &lt;img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" /&gt;
+&lt;/p-overlayPanel&gt;
+
+&lt;h3&gt;Customized&lt;/h3&gt;
+&lt;p&gt;This OverlayPanel gets displayed on hover of the icon, is not dismissable and displays a close icon.&lt;/p&gt;
+&lt;i class="fa fa-search" (mouseenter)="op2.show($event)" style="font-size:24px"&gt;&lt;/i&gt;
+
+&lt;p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false"&gt;
+    &lt;p-dataTable [value]="cars1" [style]="&#123;'width':'500px'&#125;"&gt;
+        &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
+        &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
+        &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
+        &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;/p-dataTable&gt;
+&lt;/p-overlayPanel&gt;
+
+&lt;h3&gt;DataTable Integration&lt;/h3&gt;
+&lt;p-dataTable [value]="cars2"&gt;
+    &lt;p-column [style]="&#123;'width':'10%','text-align':'center'&#125;" header="Logo"&gt;
+        &lt;ng-template let-car="rowData" pTemplate="body"&gt;
+            &lt;button type="button" pButton (click)="selectCar($event,car,op3);" icon="fa-search"&gt;&lt;/button&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-column&gt;
+    &lt;p-column field="vin" header="Vin"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+
+&lt;p-overlayPanel #op3&gt;
+    &lt;img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png" *ngIf="selectedCar"/&gt;
+&lt;/p-overlayPanel&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class OverlayPanelDemo &#123;
+
+    cars1: Car[];
+    
+    cars2: Car[];
+    
+    selectedCar: Car;
+    
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars1 = cars);
+        this.carService.getCarsSmall().then(cars => this.cars2 = cars);
+    &#125;
+    
+    selectCar(event,car: Car, overlaypanel: OverlayPanel) &#123;
+        this.selectedCar = car;
+        overlaypanel.toggle(event);
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

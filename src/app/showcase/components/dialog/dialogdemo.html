@@ -1,0 +1,399 @@
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Dialog</span>
+        <span>Dialog is a container to display content in an overlay window.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-dialog header="Godfather I" [(visible)]="display" modal="modal" [responsive]="true" [width]="300" [minWidth]="200">
+        <span>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+           His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+           Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+           kind and benevolent to those who give respect,
+           but given to ruthless violence whenever anything stands against the good of the family.</span>
+           <p-footer>
+               <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
+               <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
+           </p-footer>
+    </p-dialog>
+
+    <button type="button" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="Documentation">
+            <h3>Import</h3>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+import &#123;DialogModule&#125; from 'primeng/primeng';
+</code>
+</pre>
+
+            <h3>Getting Started</h3>
+            <p>Dialog is used as a container and visibility is controlled with visible property.</p>
+                    
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog header="Title" [(visible)]="display"&gt;
+    Content
+&lt;/p-dialog&gt;
+
+&lt;button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class ModelComponent &#123;
+
+    display: boolean = false;
+
+    showDialog() &#123;
+        this.display = true;
+    &#125;
+
+&#125;
+</code>
+</pre>
+
+            <p>By default dialog is hidden and enabling the visible property displays the dialog. As visible supports
+            two-way binding, hiding the dialog with close button updates the visible state as false.</p>
+            
+            <h3>Width</h3>
+            <p>When the content of the dialog is fluid, dialog width may grow unexpectedly, in this case define a fixed width to the dialog
+                or the content.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog header="Title" [(visible)]="display" [width]="300"&gt;
+    Content
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
+            <h3>Header and Footer</h3>
+            <p>Header and Footer sections are useful to include custom content. Note that Header and Footer components should be imported and defined
+            at directives section of your component for this to work.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog [(visible)]="display"&gt;
+    &lt;p-header&gt;
+        Header content here
+    &lt;/p-header&gt;
+    Content
+    &lt;p-footer&gt;
+        //buttons
+    &lt;/p-footer&gt;
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
+            <h3>Overlays Inside</h3>
+            <p>When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can 
+            either append the overlay to the body or allow overflow in dialog.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog&gt;
+    &lt;p-dropdown appendTo="body"&gt;&lt;/p-dropdown&gt;
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog [contentStyle]="&#123;'overflow':'visible'&#125;"&gt;
+    &lt;p-dropdown&gt;&lt;/p-dropdown&gt;
+&lt;/p-dialog&gt;
+</code>
+</pre>
+
+            <h3>RTL Support</h3>
+            <p>RTL orientation is enabled by adding "ui-rtl" to an ancestor element of dialog in combination with standard dir="rtl" option.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;div class="ui-rtl" dir="rtl"&gt;
+    &lt;p-dialog [(visible)]="display"&gt;
+        &lt;p-header&gt;
+            Header content here
+        &lt;/p-header&gt;
+        Content
+        &lt;p-footer&gt;
+            Footer content here
+        &lt;/p-footer&gt;
+    &lt;/p-dialog&gt;
+&lt;/div&gt;
+</code>
+</pre>
+
+            <h3>Properties</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>header</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Title text of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>draggable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Enables dragging to change the position using header.</td>
+                        </tr>
+                        <tr>
+                            <td>resizable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Enables resizing of the content.</td>
+                        </tr>
+                        <tr>
+                            <td>minWidth</td>
+                            <td>number</td>
+                            <td>150</td>
+                            <td>Minimum width of a resizable dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>minHeight</td>
+                            <td>number</td>
+                            <td>150</td>
+                            <td>Minimum width of a resizable dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>width</td>
+                            <td>int</td>
+                            <td>300</td>
+                            <td>Width of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>height</td>
+                            <td>int</td>
+                            <td>auto</td>
+                            <td>Height of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>contentStyle</td>
+                            <td>object</td>
+                            <td>null</td>
+                            <td>Style of the content section.</td>
+                        </tr>
+                        <tr>
+                            <td>visible</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifies the visibility of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>modal</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Defines if background should be blocked when dialog is displayed.</td>
+                        </tr>
+                        <tr>
+                            <td>closeOnEscape</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Specifices if pressing escape key should hide the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>dismissableMask</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Specifices if clicking the modal background should hide the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>rtl</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled dialog is displayed in RTL direction.</td>
+                        </tr>
+                        <tr>
+                            <td>closable</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Adds a close icon to the header to hide the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>responsive</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>In responsive mode, dialog adjusts itself to screen width.</td>
+                        </tr>
+                        <tr>
+                            <td>breakpoint</td>
+                            <td>number</td>
+                            <td>640</td>
+                            <td>Maximum screen width to display the dialog with 100% width in responsive mode.</td>
+                        </tr>
+                        <tr>
+                            <td>appendTo</td>
+                            <td>any</td>
+                            <td>null</td>
+                            <td>Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the component.</td>
+                        </tr>
+                        <tr>
+                            <td>showHeader</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to show the header or not.</td>
+                        </tr>
+                        <tr>
+                            <td>positionLeft</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Left coordinate value of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>positionTop</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Top coordinate value of the dialog.</td>
+                        </tr>
+                        <tr>
+                            <td>baseZIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Base zIndex value to use in layering.</td>
+                        </tr>
+                        <tr>
+                            <td>autoZIndex</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to automatically manage layering.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Events</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onShow</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog is shown.</td>
+                        </tr>
+                        <tr>
+                            <td>onHide</td>
+                            <td>event: Event object</td>
+                            <td>Callback to invoke when dialog is hidden.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Styling</h3>
+            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Element</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ui-dialog</td>
+                            <td>Container element</td>
+                        </tr>
+                        <tr>
+                            <td>ui-dialog-titlebar</td>
+                            <td>Container of header.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-dialog-title</td>
+                            <td>Header element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-dialog-titlebar-icon</td>
+                            <td>Icon container inside header.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-dialog-titlebar-close</td>
+                            <td>Close icon element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-dialog-content</td>
+                            <td>Content element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-dialog-footer</td>
+                            <td>Footer element.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dependencies</h3>
+            <p>None.</p>
+        </p-tabPanel>
+
+        <p-tabPanel header="Source">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dialog" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-dialog header="Godfather I" [(visible)]="display" modal="modal" width="300" [responsive]="true"&gt;
+    &lt;p&gt;The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+       His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+       Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+       kind and benevolent to those who give respect, 
+       but given to ruthless violence whenever anything stands against the good of the family.&lt;/p&gt;
+        &lt;p-footer&gt;
+            &lt;button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"&gt;&lt;/button&gt;
+            &lt;button type="button" pButton icon="fa-close" (click)="display=false" label="No"&gt;&lt;/button&gt;
+        &lt;/p-footer&gt;
+&lt;/p-dialog&gt;
+
+&lt;button type="button" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"&gt;&lt;/button&gt;
+</code>
+</pre>
+
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DialogDemo &#123;
+
+    display: boolean = false;
+
+    showDialog() &#123;
+        this.display = true;
+    &#125;
+
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>

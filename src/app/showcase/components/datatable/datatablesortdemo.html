@@ -1,0 +1,95 @@
+<datatable-demos></datatable-demos>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">DataTable - <span class="orange">Sort</span></span>
+        <span>Simply enabling sortable property at column object is enough to make a column sortable. For multiple sorting
+        use metakey.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <h3 class="first">Single Column</h3>
+    <p-dataTable [value]="cars1" [sortField]="sortF" [sortOrder]="sortO" (onSort)="changeSort($event)">
+        <p-column field="vin" header="Vin" [sortable]="true"></p-column>
+        <p-column field="year" header="Year" [sortable]="true"></p-column>
+        <p-column field="brand" header="Brand" [sortable]="true"></p-column>
+        <p-column field="color" header="Color" [sortable]="true"></p-column>
+      <p-footer>
+        <button type="button" label="Sort by Year" (click)="changeSort($event)" pButton [ngStyle]="{'display':'flex'}"></button>
+      </p-footer>
+    </p-dataTable>
+
+    <h3>Multiple Columns</h3>
+    <p-dataTable [value]="cars2" sortMode="multiple">
+        <p-column field="vin" header="Vin" [sortable]="true"></p-column>
+        <p-column field="year" header="Year" [sortable]="true"></p-column>
+        <p-column field="brand" header="Brand" [sortable]="true"></p-column>
+        <p-column field="color" header="Color" [sortable]="true"></p-column>
+    </p-dataTable>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="datatablesortdemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablesortdemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class DataTableSortDemo implements OnInit &#123;
+
+    cars1: Car[];
+
+    cars2: Car[];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars1 = cars);
+        this.carService.getCarsSmall().then(cars => this.cars2 = cars);
+    &#125;
+
+    changeSort(event) &#123;
+        if (!event.order) &#123;
+          this.sortF = 'year';
+        &#125; else &#123;
+          this.sortF = event.field;
+        &#125;
+    &#125;
+&#125;
+</code>
+</pre>
+        </p-tabPanel>
+
+        <p-tabPanel header="datatablesortdemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/datatable/datatablesortdemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Single Column&lt;/h3&gt;
+&lt;p-dataTable [value]="cars1" [sortField]="sortF" [sortOrder]="sortO" (onSort)="changeSort($event)"&gt;
+    &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-footer&gt;
+      &lt;button type="button" label="Sort by Year" (click)="changeSort($event)" pButton&gt;&lt;/button&gt;
+    &lt;/p-footer&gt;
+&lt;/p-dataTable&gt;
+
+&lt;h3&gt;Multiple Columns&lt;/h3&gt;
+&lt;p-dataTable [value]="cars2" sortMode="multiple"&gt;
+    &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
+&lt;/p-dataTable&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
+</div>
