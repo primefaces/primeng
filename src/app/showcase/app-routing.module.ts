@@ -44,6 +44,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'inputtext', loadChildren: './components/inputtext/inputtextdemo.module#InputTextDemoModule'},
             {path: 'inputgroup', loadChildren: './components/inputgroup/inputgroupdemo.module#InputGroupDemoModule'},
             {path: 'inputtextarea', loadChildren: './components/inputtextarea/inputtextareademo.module#InputTextareaDemoModule'},
+            {path: 'keyfilter', loadChildren: './components/keyfilter/keyfilterdemo.module#KeyFilterDemoModule'},
             {path: 'lightbox', loadChildren: './components/lightbox/lightboxdemo.module#LightboxDemoModule'},
             {path: 'listbox', loadChildren: './components/listbox/listboxdemo.module#ListboxDemoModule'},
             {path: 'megamenu', loadChildren: './components/megamenu/megamenudemo.module#MegaMenuDemoModule'},
