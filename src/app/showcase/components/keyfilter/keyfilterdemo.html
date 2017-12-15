@@ -6,6 +6,7 @@
 </div>
 
 <div class="content-section implementation">
+    <h3>Filtering</h3>
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-4">
             <input type="text" pInputText pKeyFilter="int" placeholder="Integers">
@@ -32,6 +33,13 @@
             <input type="text" pInputText [pKeyFilter]="blockSpace" placeholder="Block space key">
         </div>
     </div>
+
+    <h3>Validation Mode</h3>
+    <form #form="ngForm">
+        <label for="cc" style="display:block;margin-bottom:4px">Credit Card</label>
+        <input id="cc" type="text" name="cc" [(ngModel)]="cc" pInputText [pKeyFilter]="ccRegex" [pValidateOnly]="true" placeholder="1234-1234-1234-1234">
+        <p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"></p-message>
+    </form>
 </div>
 
 <div class="content-section documentation">
@@ -138,7 +146,6 @@ export class KeyFilterDemo &#123;
 <code class="language-typescript" pCode ngNonBindable>
 export class KeyFilterDemo &#123;
 
-    blockSpecial: RegExp = /^[^&lt;&gt;#*!]+$/ blockSpace: RegExp = /[^\s]/; 
 
 &#125;
 </code>

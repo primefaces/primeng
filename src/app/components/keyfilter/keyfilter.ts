@@ -1,12 +1,19 @@
-import { NgModule, Directive, HostBinding, HostListener, Input } from '@angular/core';
+import { NgModule, Directive, ElementRef, HostBinding, HostListener, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from '../dom/domhandler';
+import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
+
+export const KEYFILTER_VALIDATOR: any = {
+    provide: NG_VALIDATORS,
+    useExisting: forwardRef(() => KeyFilter),
+    multi: true
+};
 
 @Directive({
     selector: '[pKeyFilter]',
-    providers: [DomHandler]
+    providers: [DomHandler, KEYFILTER_VALIDATOR]
 })
-export class KeyFilter {
+export class KeyFilter implements Validator {
 
     static DEFAULT_MASKS = {
         pint: /[\d]/,
@@ -40,11 +47,13 @@ export class KeyFilter {
         63275: 35  // end
     };
 
+    @Input() pValidateOnly: boolean;
+
     regex: RegExp;
 
     _pattern: any;
 
-    constructor(public domHandler: DomHandler) { }
+    constructor(public el: ElementRef, public domHandler: DomHandler) { }
 
     get pattern(): any {
         return this._pattern;
@@ -82,6 +91,10 @@ export class KeyFilter {
 
     @HostListener('keypress', ['$event'])
     onKeyPress(e: KeyboardEvent) {
+        if(this.pValidateOnly) {
+            return;
+        }
+        
         let browser = this.domHandler.getBrowser();
 
         if (e.ctrlKey || e.altKey) {
@@ -105,6 +118,15 @@ export class KeyFilter {
 
         if (!ok) {
             e.preventDefault();
+        }
+    }
+
+    validate(c: AbstractControl): { [key: string]: any } {
+        let value = this.el.nativeElement.value;
+        if (!this.regex.test(value)) {
+            return {
+                validatePattern: false
+            }
         }
     }
     

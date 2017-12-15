@@ -1,6 +1,8 @@
 import {NgModule}     from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {KeyFilterDemo} from './keyfilterdemo';
+import {FormsModule} from '@angular/forms';
+import {MessageModule} from '../../../components/message/message';
 import {KeyFilterDemoRoutingModule} from './keyfilterdemo-routing.module';
 import {KeyFilterModule} from '../../../components/keyfilter/keyfilter';
 import {InputTextModule} from '../../../components/inputtext/inputtext';
@@ -10,9 +12,11 @@ import {CodeHighlighterModule} from '../../../components/codehighlighter/codehig
 @NgModule({
 	imports: [
 		CommonModule,
+		FormsModule,
 		KeyFilterDemoRoutingModule,
 		KeyFilterModule,
-        InputTextModule,
+		InputTextModule,
+		MessageModule,
         TabViewModule,
         CodeHighlighterModule
 	],
