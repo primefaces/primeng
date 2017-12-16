@@ -12,7 +12,7 @@ import {DomHandler} from '../dom/domhandler';
         </div>
         <div #content class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
             <ul class="ui-datascroller-list">
-            <li *ngFor="let item of dataToRender;trackBy: trackBy">
+                <li *ngFor="let item of dataToRender;trackBy: trackBy">
                     <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                 </li>
             </ul>
@@ -68,11 +68,11 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
 
     contentElement: HTMLDivElement;
 
-   differ: any;
+    differ: any;
 
-   public isLoadComplete = true;
+    public isLoadComplete = true;
 
-   public isNoMoreData = false;
+    public isNoMoreData = false;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public domHandler: DomHandler, public differs: IterableDiffers) {
         this.differ = differs.find([]).create(null);
@@ -187,6 +187,7 @@ export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
                     let scrollTop = this.contentElement.scrollTop;
                     let scrollHeight = this.contentElement.scrollHeight;
                     let viewportHeight = this.contentElement.clientHeight;
+
                     if((scrollTop >= ((scrollHeight * this.buffer) - (viewportHeight)))) {
                         this.isLoadComplete = false;
                         this.load();
