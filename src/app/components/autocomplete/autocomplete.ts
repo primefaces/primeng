@@ -417,8 +417,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         let itemIndex = this.domHandler.index(item);
         let removedValue = this.value[itemIndex];
         this.value = this.value.filter((val, i) => i!=itemIndex);
-        this.onUnselect.emit(removedValue);
         this.onModelChange(this.value);
+        this.onUnselect.emit(removedValue);
     }
         
     onKeydown(event) {
