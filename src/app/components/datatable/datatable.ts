@@ -940,13 +940,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.dataKey && !this.preventSelectionKeysPropagation) {
             this.selectionKeys = {};
             if(this._selection) {
-                if (Array.isArray(this._selection)) {
-                    for(let data of this._selection) {
-                        this.selectionKeys[String(this.objectUtils.resolveFieldData(data, this.dataKey))] = 1;
-                    }
-                }
-                else {
-                    this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
+                for(let data of this._selection) {
+                    this.selectionKeys[String(this.objectUtils.resolveFieldData(data, this.dataKey))] = 1;
                 }
             }
         }
