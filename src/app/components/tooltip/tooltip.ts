@@ -176,10 +176,13 @@ export class Tooltip implements OnDestroy {
         }
         
         this.create();
-        this.align();
+
         if(this.tooltipStyleClass) {
             this.container.className = this.container.className + ' ' + this.tooltipStyleClass;
         }
+
+        this.align();
+
         this.domHandler.fadeIn(this.container, 250);
         if(this.tooltipZIndex === 'auto')
             this.container.style.zIndex = ++DomHandler.zindex;
@@ -263,7 +266,7 @@ export class Tooltip implements OnDestroy {
     
     alignRight() {
         this.preAlign();
-        this.container.className = 'ui-tooltip ui-widget ui-tooltip-right';
+        this.container.className = 'ui-tooltip ui-widget ui-tooltip-right ' + this.container.className;
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + this.domHandler.getOuterWidth(this.el.nativeElement);
         let top = hostOffset.top + (this.domHandler.getOuterHeight(this.el.nativeElement) - this.domHandler.getOuterHeight(this.container)) / 2;
@@ -273,7 +276,7 @@ export class Tooltip implements OnDestroy {
     
     alignLeft() {
         this.preAlign();
-        this.container.className = 'ui-tooltip ui-widget ui-tooltip-left';
+        this.container.className = 'ui-tooltip ui-widget ui-tooltip-left ' + this.container.className;
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left - this.domHandler.getOuterWidth(this.container);
         let top = hostOffset.top + (this.domHandler.getOuterHeight(this.el.nativeElement) - this.domHandler.getOuterHeight(this.container)) / 2;
@@ -283,7 +286,7 @@ export class Tooltip implements OnDestroy {
     
     alignTop() {
         this.preAlign();
-        this.container.className = 'ui-tooltip ui-widget ui-tooltip-top';
+        this.container.className = 'ui-tooltip ui-widget ui-tooltip-top ' + this.container.className;
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
         let top = hostOffset.top - this.domHandler.getOuterHeight(this.container);
@@ -293,7 +296,7 @@ export class Tooltip implements OnDestroy {
     
     alignBottom() {
         this.preAlign();
-        this.container.className = 'ui-tooltip ui-widget ui-tooltip-bottom';
+        this.container.className = 'ui-tooltip ui-widget ui-tooltip-bottom ' + this.container.className;
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
         let top = hostOffset.top + this.domHandler.getOuterHeight(this.el.nativeElement);
