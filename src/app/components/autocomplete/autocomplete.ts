@@ -32,7 +32,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             (keydown)="onKeydown($event)" (keyup)="onKeyup($event)" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" autocomplete="off" [ngStyle]="inputStyle" [class]="inputStyleClass">
                 </li>
             </ul
-            ><i *ngIf="loading" class="ui-autocomplete-loader fa fa-circle-o-notch fa-spin fa-fw"></i><button type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
+            ><i *ngIf="loading" class="ui-autocomplete-loader fa fa-circle-o-notch fa-spin fa-fw"></i><button #ddBtn type="button" pButton icon="fa-fw fa-caret-down" class="ui-autocomplete-dropdown" [disabled]="disabled"
                 (click)="handleDropdownClick($event)" *ngIf="dropdown"></button>
             <div #panel class="ui-autocomplete-panel ui-widget-content ui-corner-all ui-shadow" [style.display]="panelVisible ? 'block' : 'none'" [style.width]="appendTo ? 'auto' : '100%'" [style.max-height]="scrollHeight">
                 <ul class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" *ngIf="panelVisible">
@@ -85,7 +85,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     @Input() autoHighlight: boolean;
     
     @Input() forceSelection: boolean;
-    
+        
     @Input() type: string = 'text';
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
@@ -129,6 +129,8 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     @ViewChild('panel') panelEL: ElementRef;
     
     @ViewChild('multiContainer') multiContainerEL: ElementRef;
+
+    @ViewChild('ddBtn') dropdownButton: ElementRef;
         
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
@@ -162,8 +164,6 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     
     inputClick: boolean;
     
-    dropdownClick: boolean;
-
     inputKeyDown: boolean;
     
     noResults: boolean;
@@ -341,7 +341,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
        });
     }
             
-    selectItem(option: any) {
+    selectItem(option: any, focus: boolean = true) {
         if(this.multiple) {
             this.multiInputEL.nativeElement.value = '';
             this.value = this.value||[];
@@ -357,8 +357,11 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         }
         
         this.onSelect.emit(option);
+        this.updateFilledState();
         
-        this.focusInput();
+        if(focus) {
+            this.focusInput();
+        }    
     }
     
     show() {
@@ -366,6 +369,9 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
             let hasFocus = this.multiple ? document.activeElement == this.multiInputEL.nativeElement : document.activeElement == this.inputEL.nativeElement ;
             if(!this.panelVisible && hasFocus) {
                 this.panelVisible = true;
+                if(this.appendTo) {
+                    this.panelEL.nativeElement.style.minWidth = this.domHandler.getWidth(this.el.nativeElement.children[0]) + 'px';
+                }
                 this.panelEL.nativeElement.style.zIndex = ++DomHandler.zindex;
                 this.domHandler.fadeIn(this.panelEL.nativeElement, 200);
                 this.bindDocumentClickListener();
@@ -387,7 +393,6 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
     
     handleDropdownClick(event) {
         this.focusInput();
-        this.dropdownClick = true;
         let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
         
         if(this.dropdownMode === 'blank')
@@ -509,15 +514,16 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         this.onModelTouched();
         this.onBlur.emit(event);
         
-        if(this.forceSelection) {
+        if(this.forceSelection && this.suggestions) {
             let valid = false;
-            let inputValue = event.target.value.toLowerCase().trim();
+            let inputValue = event.target.value.trim();
             
             if(this.suggestions)  {
                 for(let suggestion of this.suggestions) {
                     let itemValue = this.field ? this.objectUtils.resolveFieldData(suggestion, this.field) : suggestion;
-                    if(itemValue && inputValue === itemValue.toLowerCase()) {
+                    if(itemValue && inputValue === itemValue) {
                         valid = true;
+                        this.selectItem(suggestion, false);
                         break;
                     }
                 }
@@ -568,7 +574,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         if(this.multiple)
             this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
         else
-            this.filled = this.inputFieldValue && this.inputFieldValue != '';
+            this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');;
     }
     
     updateInputField() {
@@ -589,17 +595,26 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
                     return;
                 }
                 
-                if(!this.inputClick && !this.dropdownClick) {
+                if(!this.inputClick && !this.isDropdownClick(event)) {
                     this.hide();
                 }
                     
                 this.inputClick = false;
-                this.dropdownClick = false;
                 this.cd.markForCheck();
             });
         }
     }
-    
+
+    isDropdownClick(event) {
+        if(this.dropdown) {
+            let target = event.target;
+            return (target === this.dropdownButton.nativeElement || target.parentNode === this.dropdownButton.nativeElement);
+        }
+        else {
+            return false;
+        }
+    }
+        
     unbindDocumentClickListener() {
         if(this.documentClickListener) {
             this.documentClickListener();

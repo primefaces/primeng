@@ -1,6 +1,7 @@
 import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
+import {ObjectUtils} from '../utils/objectutils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
@@ -22,11 +23,9 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    providers: [SELECTBUTTON_VALUE_ACCESSOR]
+    providers: [ObjectUtils,SELECTBUTTON_VALUE_ACCESSOR]
 })
 export class SelectButton implements ControlValueAccessor {
-
-    @Input() options: SelectItem[];
 
     @Input() tabindex: number;
 
@@ -38,6 +37,8 @@ export class SelectButton implements ControlValueAccessor {
 
     @Input() disabled: boolean;
     
+    @Input() optionLabel: string;
+    
     @Output() onOptionClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -46,9 +47,22 @@ export class SelectButton implements ControlValueAccessor {
     
     focusedItem: HTMLInputElement;
     
+    _options: any[];
+    
     onModelChange: Function = () => {};
     
     onModelTouched: Function = () => {};
+    
+    constructor(public objectUtils: ObjectUtils) {}
+    
+    @Input() get options(): any[] {
+        return this._options;
+    }
+
+    set options(val: any[]) {
+        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
+        this._options = opts;
+    }
     
     writeValue(value: any) : void {
         this.value = value;

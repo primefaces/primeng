@@ -15,13 +15,13 @@ import {RouterModule} from '@angular/router';
                         'ui-tabmenuitem-hasicon':item.icon,'ui-state-active':activeItem==item,'ui-helper-hidden': item.visible === false}"
                         [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}">
                     <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
-                        [attr.target]="item.target" [attr.title]="item.title">
-                        <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
+                        [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id">
+                        <span class="ui-menuitem-icon fa" [ngClass]="item.icon" *ngIf="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
-                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
+                    <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" class="ui-menuitem-link ui-corner-all" (click)="itemClick($event,item)"
                         [attr.target]="item.target" [attr.title]="item.title">
-                        <span class="ui-menuitem-icon fa" [ngClass]="item.icon"></span>
+                        <span class="ui-menuitem-icon fa" [ngClass]="item.icon" *ngIf="item.icon"></span>
                         <span class="ui-menuitem-text">{{item.label}}</span>
                     </a>
                 </li>

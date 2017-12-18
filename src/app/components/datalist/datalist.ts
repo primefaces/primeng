@@ -17,7 +17,7 @@ import {BlockableUI} from '../common/blockableui';
                 <div *ngIf="isEmpty()" class="ui-datalist-emptymessage">{{emptyMessage}}</div>
                 <ul class="ui-datalist-data">
                     <li *ngFor="let item of dataToRender;let i = index;trackBy: trackBy">
-                        <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
+                        <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i + first"></ng-template>
                     </li>
                 </ul>
             </div>

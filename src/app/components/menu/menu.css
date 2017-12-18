@@ -124,7 +124,7 @@
     text-indent: -9999999px;
 }
 
-.ui-menubar:not(.ui-megamenu-vertical) .ui-menubar-root-list > .ui-menu-separator:before {
+.ui-menubar:not(.ui-megamenu-vertical) .ui-menubar-root-list > .ui-menu-separator::before {
     content: 'ui-menu-separator';
 }
 
@@ -324,6 +324,6 @@
 }
 
 /** Fluid **/
-.ui-fluid .ui-menu {
+.ui-fluid .ui-menu:not(.ui-menu-dynamic) {
     width: 100%;
 }

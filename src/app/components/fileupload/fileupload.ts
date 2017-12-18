@@ -8,13 +8,14 @@ import {ProgressBarModule} from '../progressbar/progressbar';
 import {DomHandler} from '../dom/domhandler';
 import {Message} from '../common/message';
 import {PrimeTemplate,SharedModule} from '../common/shared';
+import {BlockableUI} from '../common/blockableui';
 
 @Component({
     selector: 'p-fileUpload',
     template: `
         <div [ngClass]="'ui-fileupload ui-widget'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
             <div class="ui-fileupload-buttonbar ui-widget-header ui-corner-top">
-                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton  [ngClass]="{'ui-state-focus': focus}" [attr.disabled]="disabled" > 
+                <span class="ui-fileupload-choose" [label]="chooseLabel" icon="fa-plus" pButton [ngClass]="{'ui-state-focus': focus}"> 
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled" (focus)="onFocus()" (blur)="onBlur()">
                 </span>
 
@@ -56,7 +57,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
     `,
     providers: [DomHandler]
 })
-export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestroy {
+export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestroy,BlockableUI {
 
     @Input() name: string;
 
@@ -145,10 +146,10 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     public toolbarTemplate: TemplateRef<any>;
 
     focus: boolean;
-    
+
     selfInputChange: boolean;
 
-    constructor(public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone){}
+    constructor(private el: ElementRef, public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone){}
 
     ngOnInit() {
         this.files = [];
@@ -198,7 +199,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         for(let i = 0; i < files.length; i++) {
             let file = files[i];
-            
+
             if(!this.isFileSelected(file)){
               if(this.validate(file)) {
                   if(this.isImage(file)) {
@@ -224,11 +225,11 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
             if((sFile.name + sFile.type + sFile.size) === (file.name + file.type+file.size)) {
                 return true;
             }
-        }   
-      
+        }
+
         return false;
     }
-    
+
     isIE11() {
         return !!window['MSInputMethodContext'] && !!document['documentMode'];
     }
@@ -360,7 +361,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
           if(this.isIE11()) {
                this.selfInputChange = true; //IE11 fix to prevent onFileChange trigger again
           }
-         
+
           this.advancedFileInput.nativeElement.value = '';
       }
     }
@@ -430,6 +431,10 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
         if(this.hasFiles()) {
             this.upload();
         }
+    }
+
+    getBlockableElement(): HTMLElement {
+      return this.el.nativeElement.children[0];
     }
 
     ngOnDestroy() {

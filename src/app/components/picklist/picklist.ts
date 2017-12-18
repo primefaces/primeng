@@ -11,10 +11,10 @@ import {ObjectUtils} from '../utils/objectutils';
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="{'ui-picklist ui-widget ui-helper-clearfix': true,'ui-picklist-responsive': responsive}">
             <div class="ui-picklist-source-controls ui-picklist-buttons" *ngIf="showSourceControls">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-up" [disabled]="disabled" (click)="moveUp(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-double-up" [disabled]="disabled" (click)="moveTop(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-down" [disabled]="disabled" (click)="moveDown(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-double-down" [disabled]="disabled" (click)="moveBottom(sourcelist,source,selectedItemsSource,onSourceReorder)"></button>
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-source-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showSourceControls}">
@@ -27,7 +27,7 @@ import {ObjectUtils} from '../utils/objectutils';
                     <ng-template ngFor let-item [ngForOf]="source" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, -1)" (drop)="onDrop($event, i, -1)" (dragleave)="onDragLeave($event, -1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexSource)}" [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"></li>
-                        <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource)}"
+                        <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsSource), 'ui-state-disabled': disabled}"
                             (click)="onItemClick($event,item,selectedItemsSource,onSourceSelect)" (dblclick)="onSourceItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, -1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, -1)" (dragend)="onDragEnd($event)">
@@ -40,10 +40,10 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-picklist-buttons">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-right" (click)="moveRight()"></button>
-                    <button type="button" pButton icon="fa-angle-double-right" (click)="moveAllRight()"></button>
-                    <button type="button" pButton icon="fa-angle-left" (click)="moveLeft()"></button>
-                    <button type="button" pButton icon="fa-angle-double-left" (click)="moveAllLeft()"></button>
+                    <button type="button" pButton icon="fa-angle-right" [disabled]="disabled" (click)="moveRight()"></button>
+                    <button type="button" pButton icon="fa-angle-double-right" [disabled]="disabled" (click)="moveAllRight()"></button>
+                    <button type="button" pButton icon="fa-angle-left" [disabled]="disabled" (click)="moveLeft()"></button>
+                    <button type="button" pButton icon="fa-angle-double-left" [disabled]="disabled" (click)="moveAllLeft()"></button>
                 </div>
             </div>
             <div class="ui-picklist-listwrapper ui-picklist-target-wrapper" [ngClass]="{'ui-picklist-listwrapper-nocontrols':!showTargetControls}">
@@ -56,7 +56,7 @@ import {ObjectUtils} from '../utils/objectutils';
                     <ng-template ngFor let-item [ngForOf]="target" let-i="index" let-l="last">
                         <li class="ui-picklist-droppoint" *ngIf="dragdrop" (dragover)="onDragOver($event, i, 1)" (drop)="onDrop($event, i, 1)" (dragleave)="onDragLeave($event, 1)" 
                         [ngClass]="{'ui-picklist-droppoint-highlight': (i === dragOverItemIndexTarget)}" [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"></li>
-                        <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget)}"
+                        <li [ngClass]="{'ui-picklist-item':true,'ui-state-highlight':isSelected(item,selectedItemsTarget), 'ui-state-disabled': disabled}"
                             (click)="onItemClick($event,item,selectedItemsTarget,onTargetSelect)" (dblclick)="onTargetItemDblClick()" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item, 1) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i, 1)" (dragend)="onDragEnd($event)">
@@ -69,10 +69,10 @@ import {ObjectUtils} from '../utils/objectutils';
             </div>
             <div class="ui-picklist-target-controls ui-picklist-buttons" *ngIf="showTargetControls">
                 <div class="ui-picklist-buttons-cell">
-                    <button type="button" pButton icon="fa-angle-up" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-double-up" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-down" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
-                    <button type="button" pButton icon="fa-angle-double-down" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-up" [disabled]="disabled" (click)="moveUp(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-double-up" [disabled]="disabled" (click)="moveTop(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-down" [disabled]="disabled" (click)="moveDown(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
+                    <button type="button" pButton icon="fa-angle-double-down" [disabled]="disabled" (click)="moveBottom(targetlist,target,selectedItemsTarget,onTargetReorder)"></button>
                 </div>
             </div>
         </div>
@@ -114,6 +114,8 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     @Input() sourceFilterPlaceholder: string;
     
     @Input() targetFilterPlaceholder: string;
+
+    @Input() disabled: boolean = false;
     
     @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
     
@@ -213,6 +215,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
     
     onItemClick(event, item: any, selectedItems: any[], callback: EventEmitter<any>) {
+        if(this.disabled) {
+            return;
+        }
+        
         let index = this.findIndexInSelection(item,selectedItems);
         let selected = (index != -1);
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
@@ -243,10 +249,18 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
     
     onSourceItemDblClick() {
+        if(this.disabled) {
+            return;
+        }
+        
         this.moveRight();
     }
     
     onTargetItemDblClick() {
+        if(this.disabled) {
+            return;
+        }
+        
         this.moveLeft();
     }
     
@@ -291,6 +305,10 @@ export class PickList implements AfterViewChecked,AfterContentInit {
     }
     
     onItemTouchEnd(event) {
+        if(this.disabled) {
+            return;
+        }
+        
         this.itemTouched = true;
     }
 

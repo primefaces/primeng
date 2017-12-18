@@ -61,7 +61,7 @@ export class TemplateWrapper implements OnInit, OnDestroy {
 
 @Component({
     selector: 'p-column',
-    template: ``
+    template: ''
 })
 export class Column implements AfterContentInit{
     @Input() field: string;
@@ -75,16 +75,26 @@ export class Column implements AfterContentInit{
     @Input() filter: boolean;
     @Input() filterMatchMode: string;
     @Input() filterType: string = 'text';
+    @Input() excludeGlobalFilter: boolean;
     @Input() rowspan: number;
     @Input() colspan: number;
+    @Input() scope: string;
     @Input() style: any;
     @Input() styleClass: string;
+    @Input() exportable: boolean = true;
+    @Input() headerStyle: any;
+    @Input() headerStyleClass: string;
+    @Input() bodyStyle: any;
+    @Input() bodyStyleClass: string;
+    @Input() footerStyle: any;
+    @Input() footerStyleClass: string;
     @Input() hidden: boolean;
     @Input() expander: boolean;
     @Input() selectionMode: string;
     @Input() filterPlaceholder: string;
     @Input() filterMaxlength: number;
     @Input() frozen: boolean;
+    @Input() resizable: boolean = true;
     @Output() sortFunction: EventEmitter<any> = new EventEmitter();
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     @ContentChild(TemplateRef) template: TemplateRef<any>;
@@ -303,22 +313,41 @@ export class TemplateLoader implements OnInit, OnDestroy {
         
     @Input() template: TemplateRef<any>;
     
-    @Input() data: any;
+    _data: any;
             
     view: EmbeddedViewRef<any>;
     
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
+        this.render();
+    }
+    
+    render() {
+        if(this.view) {
+            this.view.destroy();
+        }
+        
         if(this.template) {
             this.view = this.viewContainer.createEmbeddedView(this.template, {
                 '\$implicit': this.data
             });
         }
     }
+    
+    @Input() get data(): any {
+        return this._data;
+    }
+
+    set data(val: any) {
+        this._data = val;
+        this.render();
+    }
 	
     ngOnDestroy() {
-		if (this.view) this.view.destroy();
+		if (this.view) {
+            this.view.destroy();
+        }
 	}
 }
 

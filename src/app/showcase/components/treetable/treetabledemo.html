@@ -402,7 +402,7 @@ import &#123;Footer&#125; from 'primeng/primeng';
 
             <h3>Selection</h3>
             <p>TreeTable supports three selection methods, single, multiple and checkbox. Selection is enabled by setting selectionMode property and providing a single TreeNode or
-            an array of TreeNodes to reference the selections depending on the selection mode.</p>
+            an array of TreeNodes to reference the selections depending on the selection mode. </p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TreeTableDemoComponent implements OnInit &#123;
@@ -429,7 +429,8 @@ export class TreeTableDemoComponent implements OnInit &#123;
 
 <p>In multiple mode or checkbox mode, selection property should be an array. In multiple mode, items can either be selected
 using metaKey or toggled individually depending on the value of metaKeySelection property value which is true by default. On touch enabled
-devices metaKeySelection is turned off automatically.</p>
+devices metaKeySelection is turned off automatically. In checkbox mode, when inititing a tree with preselections, also set partialSelected
+property on node so that minus icon can be displayed when necessary.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
     export class TreeTableDemoComponent implements OnInit &#123;

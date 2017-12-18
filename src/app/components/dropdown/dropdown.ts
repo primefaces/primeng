@@ -21,7 +21,8 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             'ui-state-disabled':disabled,'ui-dropdown-open':panelVisible,'ui-state-focus':focus}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
             <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
-                <select [required]="required" name="options" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" tabindex="-1" aria-hidden="true">
+                <select [required]="required" [attr.name]="name" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" tabindex="-1" aria-hidden="true">
+                    <option *ngIf="placeholder">{{placeholder}}</option>
                     <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
                 </select>
             </div>
@@ -34,9 +35,9 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
                         (click)="onEditableInputClick($event)" (input)="onEditableInputChange($event)" (focus)="onEditableInputFocus($event)" (blur)="onInputBlur($event)">
             <div class="ui-dropdown-trigger ui-state-default ui-corner-right">
-                <span class="fa fa-fw fa-caret-down ui-clickable"></span>
+                <span class="ui-clickable" [ngClass]="dropdownIcon"></span>
             </div>
-            <div #panel [ngClass]="'ui-dropdown-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow'" [@panelState]="panelVisible ? 'visible' : 'hidden'"
+            <div #panel [ngClass]="'ui-dropdown-panel ui-widget-content ui-corner-all ui-shadow'" [@panelState]="panelVisible ? 'visible' : 'hidden'"
                 [style.display]="panelVisible ? 'block' : 'none'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                 <div *ngIf="filter" class="ui-dropdown-filter-container" (input)="onFilter($event)" (click)="$event.stopPropagation()">
                     <input #filter type="text" autocomplete="off" class="ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all" [attr.placeholder]="filterPlaceholder"
@@ -76,6 +77,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() scrollHeight: string = '200px';
 
     @Input() filter: boolean;
+    
+    @Input() name: string;
 
     @Input() style: any;
     
@@ -115,6 +118,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     @Input() resetFilterOnHide: boolean = false;
     
+    @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
+    
+    @Input() optionLabel: string;
+    
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
@@ -137,9 +144,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     public itemTemplate: TemplateRef<any>;
     
-    selectedOption: SelectItem;
+    selectedOption: any;
     
-    _options: SelectItem[];
+    _options: any[];
     
     value: any;
     
@@ -147,7 +154,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     
     onModelTouched: Function = () => {};
 
-    optionsToDisplay: SelectItem[];
+    optionsToDisplay: any[];
     
     hover: boolean;
     
@@ -201,11 +208,12 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.updateSelectedOption(null);
     }
     
-    @Input() get options(): SelectItem[] {
+    @Input() get options(): any[] {
         return this._options;
     }
 
-    set options(opts:SelectItem[]) {
+    set options(val: any[]) {
+        let opts = this.optionLabel ? this.objectUtils.generateSelectItems(val, this.optionLabel) : val;
         this._options = opts;
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
@@ -215,7 +223,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.activateFilter();
         }
     }
-
+    
     ngAfterViewInit() {
         this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
         this.panel = <HTMLDivElement> this.panelViewChild.nativeElement;
@@ -252,7 +260,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.focusViewChild.nativeElement.focus();
         
         this.hide();
-        event.stopPropagation();
     }
     
     selectItem(event, option) {

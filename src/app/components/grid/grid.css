@@ -5,13 +5,13 @@
     margin: 0;
 }
 
-.ui-grid:before,
-.ui-grid:after {
+.ui-grid::before,
+.ui-grid::after {
     content:"";
     display:table;
 }
 
-.ui-grid:after {
+.ui-grid::after {
     clear:both;
 }
 
@@ -24,7 +24,7 @@
     clear:both;
 }
 
-.ui-grid-row:after {
+.ui-grid-row::after {
     clear: both;
     content: "";
     display: table;
@@ -178,7 +178,7 @@
     flex-wrap: wrap;
 }
             
-.ui-g:after {
+.ui-g::after {
     clear: both;
     content: "";
     display: table;

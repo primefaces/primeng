@@ -27,8 +27,8 @@ import {Subscription}   from 'rxjs/Subscription';
                 <ng-content select="p-footer"></ng-content>
             </div>
             <div class="ui-dialog-footer ui-widget-content" *ngIf="!footer">
-                <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()" *ngIf="acceptVisible"></button>
-                <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" *ngIf="rejectVisible"></button>
+                <button type="button" pButton [icon]="acceptIcon" [label]="acceptLabel" (click)="accept()" [class]="acceptButtonStyleClass" *ngIf="acceptVisible"></button>
+                <button type="button" pButton [icon]="rejectIcon" [label]="rejectLabel" (click)="reject()" [class]="rejectButtonStyleClass" *ngIf="rejectVisible"></button>
             </div>
         </div>
     `,
@@ -65,6 +65,10 @@ export class ConfirmDialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() rejectLabel: string = 'No';
     
     @Input() rejectVisible: boolean = true;
+    
+    @Input() acceptButtonStyleClass: string;
+    
+    @Input() rejectButtonStyleClass: string;
         
     @Input() width: any;
 

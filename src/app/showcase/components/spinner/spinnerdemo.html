@@ -10,7 +10,7 @@
     <p-spinner size="30" [(ngModel)]="val1"></p-spinner>
 
     <h3>Min/Max</h3>
-    <p-spinner size="30" [(ngModel)]="val2" [min]="0" [max]="100"></p-spinner>
+    <p-spinner size="30" [(ngModel)]="val2" [min]="0" [max]="100"></p-spinner>{{val2}}
 
     <h3>Step</h3>
     <p-spinner size="30" [(ngModel)]="val3" [step]="0.25"></p-spinner>
@@ -100,13 +100,13 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
                         <tr>
                             <td>disabled</td>
                             <td>boolean</td>
-                            <td>false</td>
+                            <td>undefined</td>
                             <td>When present, it specifies that the element should be disabled.</td>
                         </tr>
                         <tr>
                             <td>readonly</td>
                             <td>boolean</td>
-                            <td>false</td>
+                            <td>undefined</td>
                             <td>When present, it specifies that the element should be read-only.</td>
                         </tr>
                         <tr>
