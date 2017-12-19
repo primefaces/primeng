@@ -80,12 +80,14 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     onMouseEnter(e: Event) {
-        if (this.hideTimeout) {
-            clearTimeout(this.hideTimeout);
-            this.remove();
-        }
+        if(!this.container) {
+            if (this.hideTimeout) {
+                clearTimeout(this.hideTimeout);
+                this.remove();
+            }
 
-        this.activate();
+            this.activate();
+        }
     }
     
     onMouseLeave(e: Event) {
