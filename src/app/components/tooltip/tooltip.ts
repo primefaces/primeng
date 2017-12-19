@@ -52,7 +52,7 @@ export class Tooltip implements OnDestroy {
     
     @HostListener('mouseenter', ['$event']) 
     onMouseEnter(e: Event) {
-        if(this.tooltipEvent === 'hover') {
+        if(this.tooltipEvent === 'hover' && !this.active) {
             if(this.hideTimeout) {
                 clearTimeout(this.hideTimeout);
                 this.destroy();
@@ -64,7 +64,7 @@ export class Tooltip implements OnDestroy {
     
     @HostListener('mouseleave', ['$event'])
     onMouseLeave(e: Event) {
-        if(this.tooltipEvent === 'hover') {
+        if(this.tooltipEvent === 'hover' && this.active) {
             this.deactivate(true);
         }
     }
