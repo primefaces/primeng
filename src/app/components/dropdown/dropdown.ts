@@ -53,6 +53,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
                             <ng-template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></ng-template>
                         </li>
+                        <li *ngIf="filter && optionsToDisplay && optionsToDisplay.length === 0">{{emptyFilterMessage}}</li>
                     </ul>
                 </div>
             </div>
@@ -121,6 +122,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
     
     @Input() optionLabel: string;
+
+    @Input() emptyFilterMessage: string = 'No results found';
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
