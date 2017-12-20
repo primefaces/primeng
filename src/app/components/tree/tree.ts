@@ -722,7 +722,11 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     }
 
     allowDrop(dragNode: TreeNode, dropNode: TreeNode, dragNodeScope: any): boolean {
-        if(this.isValidDragScope(dragNodeScope)) {
+        if(!dragNode) {
+            //prevent random html elements to be dragged
+            return false;
+        }
+        else if(this.isValidDragScope(dragNodeScope)) {
             let allow: boolean = true;
             if(dropNode) {
                 if(dragNode === dropNode) {
