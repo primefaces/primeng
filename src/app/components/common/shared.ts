@@ -36,18 +36,35 @@ export class PrimeTemplate {
     selector: '[pTemplateWrapper]'
 })
 export class TemplateWrapper implements OnInit, OnDestroy {
-    
-    @Input() item: any;
-    
+        
     @Input() index: number;
     
     @Input('pTemplateWrapper') templateRef: TemplateRef<any>;
     
     view: EmbeddedViewRef<any>;
+
+    _item: any;
     
     constructor(public viewContainer: ViewContainerRef) {}
     
     ngOnInit() {
+        this.render();
+    }
+
+    set item(item: any) {
+        this._item = item;
+
+        if(this.view) {
+            this.view.destroy();
+            this.render();
+        }
+    }
+
+    @Input() get item(): any {
+        return this._item;
+    }
+
+    render() {
         this.view = this.viewContainer.createEmbeddedView(this.templateRef, {
             '\$implicit': this.item,
             'index': this.index

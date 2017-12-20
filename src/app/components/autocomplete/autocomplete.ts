@@ -299,7 +299,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         }
 
         let value = (<HTMLInputElement> event.target).value;
-        if(!this.multiple) {
+        if(!this.multiple && !this.forceSelection) {
             this.onModelChange(value);
         }
         
@@ -358,6 +358,7 @@ export class AutoComplete implements AfterViewInit,AfterViewChecked,DoCheck,Cont
         
         this.onSelect.emit(option);
         this.updateFilledState();
+        this._suggestions = null;
         
         if(focus) {
             this.focusInput();

@@ -2197,8 +2197,9 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             if(this.columnResizeMode === 'fit') {
                 let nextColumn = this.resizeColumn.nextElementSibling;
                 let nextColumnWidth = nextColumn.offsetWidth - delta;
-                
-                if(newColumnWidth > 15 && nextColumnWidth > 15) {
+                let nextColumnMinWidth = nextColumn.style.minWidth||15;
+ 
+                if(newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                     this.resizeColumn.style.width = newColumnWidth + 'px';
                     if(nextColumn) {
                         nextColumn.style.width = nextColumnWidth + 'px';

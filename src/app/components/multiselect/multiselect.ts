@@ -244,7 +244,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.value = [...this.value||[],value];
         
         this.onModelChange(this.value);
-        this.onChange.emit({originalEvent: event, value: this.value});
+        this.onChange.emit({originalEvent: event, value: this.value, itemValue: value});
         this.updateLabel();
     }   
     

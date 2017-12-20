@@ -9,27 +9,36 @@ import {RouterModule} from '@angular/router';
     selector: 'p-megaMenu',
     template: `
         <div [class]="styleClass" [ngStyle]="style"
-            [ngClass]="{'ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-megamenu-vertical': orientation == 'vertical'}">
-            <ul class="ui-menu-list ui-helper-reset ui-menubar-root-list">
+            [ngClass]="{'ui-megamenu ui-widget ui-widget-content ui-corner-all':true,'ui-megamenu-horizontal': orientation == 'horizontal','ui-megamenu-vertical': orientation == 'vertical'}">
+            <ul class="ui-megamenu-root-list">
                 <ng-template ngFor let-category [ngForOf]="model">
                     <li *ngIf="category.separator" class="ui-menu-separator ui-widget-content">
-                    <li *ngIf="!category.separator" #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':category.items,'ui-menuitem-active':item==activeItem}"
+                    <li *ngIf="!category.separator" #item [ngClass]="{'ui-menuitem ui-corner-all':true,'ui-menuitem-active':item==activeItem}"
                         (mouseenter)="onItemMouseEnter($event, item, category)" (mouseleave)="onItemMouseLeave($event, item)">
-                        <a class="ui-menuitem-link ui-corner-all ui-submenu-link" [ngClass]="{'ui-state-disabled':category.disabled}">
-                            <span class="ui-menuitem-icon fa fa-fw" [ngClass]="category.icon"></span>
+   
+                        <a *ngIf="!category.routerLink" [href]="category.url||'#'" [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id" (click)="itemClick($event, category)"
+                            [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':category.disabled}" [ngStyle]="category.style" [class]="category.styleClass">
+                            <span class="ui-menuitem-icon fa fa-fw" *ngIf="category.icon" [ngClass]="category.icon"></span>
                             <span class="ui-menuitem-text">{{category.label}}</span>
-                            <span class="ui-submenu-icon fa fa-fw" [ngClass]="{'fa-caret-down':orientation=='horizontal','fa-caret-right':orientation=='vertical'}"></span>
+                            <span *ngIf="category.items" class="ui-submenu-icon fa fa-fw" [ngClass]="{'fa-caret-down':orientation=='horizontal','fa-caret-right':orientation=='vertical'}"></span>
                         </a>
-                        <div class="ui-megamenu-panel ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow">
+                        <a *ngIf="category.routerLink" [routerLink]="category.routerLink" [queryParams]="category.queryParams" [routerLinkActive]="'ui-state-active'" [routerLinkActiveOptions]="category.routerLinkActiveOptions||{exact:false}" 
+                            [attr.target]="category.target" [attr.title]="category.title" [attr.id]="category.id"
+                            (click)="itemClick($event, category)" [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass">
+                            <span class="ui-menuitem-icon fa fa-fw" *ngIf="category.icon" [ngClass]="category.icon"></span>
+                            <span class="ui-menuitem-text">{{category.label}}</span>
+                        </a>
+
+                        <div class="ui-megamenu-panel ui-widget-content ui-corner-all ui-shadow" *ngIf="category.items">
                             <div class="ui-g">
                                 <ng-template ngFor let-column [ngForOf]="category.items">
                                     <div [class]="getColumnClass(category)">
                                         <ng-template ngFor let-submenu [ngForOf]="column">
-                                            <ul class="ui-menu-list ui-helper-reset">
-                                                <li class="ui-widget-header ui-corner-all"><h3>{{submenu.label}}</h3></li>
+                                            <ul class="ui-megamenu-submenu">
+                                                <li class="ui-widget-header ui-megamenu-submenu-header ui-corner-all">{{submenu.label}}</li>
                                                 <ng-template ngFor let-item [ngForOf]="submenu.items">
                                                     <li *ngIf="item.separator" class="ui-menu-separator ui-widget-content">
-                                                    <li *ngIf="!item.separator" class="ui-menuitem ui-widget ui-corner-all">
+                                                    <li *ngIf="!item.separator" class="ui-menuitem ui-corner-all">
                                                         <a *ngIf="!item.routerLink" [href]="item.url||'#'" class="ui-menuitem-link ui-corner-all" [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
                                                             [ngClass]="{'ui-state-disabled':item.disabled}" (click)="itemClick($event, item)">
                                                             <span class="ui-menuitem-icon fa fa-fw" *ngIf="item.icon" [ngClass]="item.icon"></span>
@@ -52,7 +61,7 @@ import {RouterModule} from '@angular/router';
                         </div>
                     </li>
                 </ng-template>
-                <li class="ui-menuitem ui-menuitem-custom ui-widget ui-corner-all" *ngIf="orientation === 'horizontal'">
+                <li class="ui-menuitem ui-menuitem-custom ui-corner-all" *ngIf="orientation === 'horizontal'">
                     <ng-content></ng-content>
                 </li>
             </ul>
@@ -80,17 +89,20 @@ export class MegaMenu {
         }
         
         this.activeItem = item;
-        let submenu =  item.children[0].nextElementSibling;
-        if(submenu) {
-            submenu.style.zIndex = ++DomHandler.zindex;
 
-            if(this.orientation === 'horizontal')  {
-                submenu.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
-                submenu.style.left = '0px';
-            }
-            else if(this.orientation === 'vertical')  {
-                submenu.style.top = '0px';
-                submenu.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+        if(menuitem.items) {
+            let submenu = item.children[0].nextElementSibling;
+            if (submenu) {
+                submenu.style.zIndex = ++DomHandler.zindex;
+
+                if (this.orientation === 'horizontal') {
+                    submenu.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
+                    submenu.style.left = '0px';
+                }
+                else if (this.orientation === 'vertical') {
+                    submenu.style.top = '0px';
+                    submenu.style.left = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+                }
             }
         }
     }
