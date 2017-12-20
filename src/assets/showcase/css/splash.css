@@ -9,8 +9,8 @@
 }
 
 .splash-loader,
-.splash-loader::before,
-.splash-loader::after {
+.splash-loader:::before,
+.splash-loader:::after {
   left: 50%;
   top: 50%;
   margin-left: -45px;
@@ -24,11 +24,11 @@
   z-index: 1;
 }
 
-.splash-loader::before {
+.splash-loader:::before {
   content: "";
   animation: bounce 1.5s infinite;
 }
-.splash-loader::after {
+.splash-loader:::after {
   content: "";
   animation: bounce 1.5s -0.4s infinite;
 }

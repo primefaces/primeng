@@ -1,4 +1,4 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,OnDestroy,Input,Output,Renderer2,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,Renderer2,ViewChild,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,IterableDiffers} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {DomHandler} from '../dom/domhandler';
@@ -12,7 +12,7 @@ import {DomHandler} from '../dom/domhandler';
         </div>
         <div #content class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
             <ul class="ui-datascroller-list">
-                <li *ngFor="let item of dataToRender">
+                <li *ngFor="let item of dataToRender;trackBy: trackBy">
                     <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
                 </li>
             </ul>
@@ -24,7 +24,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class DataScroller implements AfterViewInit,OnDestroy {
+export class DataScroller implements AfterViewInit,DoCheck,OnDestroy {
 
     @Input() rows: number;
 
@@ -43,6 +43,10 @@ export class DataScroller implements AfterViewInit,OnDestroy {
     @Input() scrollHeight: any;
     
     @Input() loader: any;
+    
+    @Input() trackBy: Function = (index: number, item: any) => item;
+    
+    @Input() immutable: boolean = true;
     
     @ViewChild('content') contentViewChild: ElementRef;
         
@@ -64,7 +68,11 @@ export class DataScroller implements AfterViewInit,OnDestroy {
     
     contentElement: HTMLDivElement;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public domHandler: DomHandler) {}
+    differ: any;
+
+    constructor(public el: ElementRef, public renderer: Renderer2, public domHandler: DomHandler, public differs: IterableDiffers) {
+        this.differ = differs.find([]).create(null);
+    }
 
     ngAfterViewInit() {
         if(this.lazy) {
@@ -101,7 +109,10 @@ export class DataScroller implements AfterViewInit,OnDestroy {
 
     set value(val:any[]) {
         this._value = val;
-        this.handleDataChange();
+        
+        if(this.immutable) {
+            this.handleDataChange();
+        }
     }
     
     handleDataChange() {
@@ -109,6 +120,15 @@ export class DataScroller implements AfterViewInit,OnDestroy {
             this.dataToRender = this.value;
         else
             this.load();
+    }
+    
+    ngDoCheck() {
+        if(!this.immutable) {
+            let changes = this.differ.diff(this.value);
+            if(changes) {
+                this.handleDataChange();
+            }
+        }
     }
         
     load() {

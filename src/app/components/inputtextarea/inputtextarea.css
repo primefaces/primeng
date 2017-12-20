@@ -6,3 +6,10 @@
 .ui-fluid .ui-inputtextarea {
     width: 100%;
 }
+
+.ui-float-label textarea:focus ~ label,
+.ui-float-label textarea.ui-state-filled ~ label,
+.ui-float-label textarea:-webkit-autofill ~ label {
+  top:-.75em;
+  font-size:12px;
+}

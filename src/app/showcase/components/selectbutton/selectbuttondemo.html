@@ -31,11 +31,14 @@ import &#123;SelectButtonModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Two-way value binding is defined using ngModel and selectbutton requires a collection of options 
-                where each option should follow the SelectItem interface that defines label-value properties.</p>
+            <p>SelectButton requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
+            instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how 
+            the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-selectButton [options]="cities" [(ngModel)]="selectedCity"&gt;&lt;/p-selectButton&gt;
+&lt;p-selectButton [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-selectButton&gt;
+
+&lt;p-selectButton [options]="cities2" [(ngModel)]="selectedCity2" optionLabel="name"&gt;&lt;/p-selectButton&gt;
 </code>
 </pre>
 
@@ -45,17 +48,33 @@ import &#123;SelectItem&#125; from 'primeng/primeng';
 
 export class MyModel &#123;
 
-    cities: SelectItem[];
+    cities1: SelectItem[];
 
-    selectedCity: string;
+    cities2: City[];
+
+    selectedCity1: City;
+
+    selectedCity2: City;
 
     constructor() &#123;
-        this.cities = [];
-        this.cities.push(&#123;label:'New York', value:'New York'&#125;);
-        this.cities.push(&#123;label:'Rome', value:'Rome'&#125;);
-        this.cities.push(&#123;label:'London', value:'London'&#125;);
-        this.cities.push(&#123;label:'Istanbul', value:'Istanbul'&#125;);
-        this.cities.push(&#123;label:'Paris', value:'Paris'&#125;);
+      //SelectItem API with label-value pairs
+      this.cities1 = [
+          &#123;label:'Select City', value:null&#125;,
+          &#123;label:'New York', value:&#123;id:1, name: 'New York', code: 'NY'&#125;&#125;,
+          &#123;label:'Rome', value:&#123;id:2, name: 'Rome', code: 'RM'&#125;&#125;,
+          &#123;label:'London', value:&#123;id:3, name: 'London', code: 'LDN'&#125;&#125;,
+          &#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;
+          &#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;
+      ];
+      
+      //An array of cities
+      this.cities2 = [
+          &#123;name: 'New York', code: 'NY'&#125;,
+          &#123;name: 'Rome', code: 'RM'&#125;,
+          &#123;name: 'London', code: 'LDN'&#125;,
+          &#123;name: 'Istanbul', code: 'IST'&#125;,
+          &#123;name: 'Paris', code: 'PRS'&#125;
+      ];
     &#125;
 
 &#125;
@@ -121,6 +140,12 @@ export class MyModel &#123;
                             <td>An array of selectitems to display as the available options.</td>
                         </tr>
                         <tr>
+                            <td>optionLabel</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
+                        </tr>
+                        <tr>
                             <td>multiple</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -165,13 +190,21 @@ export class MyModel &#123;
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>onChange</td>
-                        <td>event.originalEvent: browser event<br />
-                            event.value: single value or an array of values that are selected
-                        </td>
-                        <td>Callback to invoke when value changes.</td>
-                    </tr>
+                        <tr>
+                            <td>onChange</td>
+                            <td>event.originalEvent: browser event<br />
+                                event.value: single value or an array of values that are selected
+                            </td>
+                            <td>Callback to invoke when value changes.</td>
+                        </tr>
+                        <tr>
+                            <td>onOptionClick</td>
+                            <td>event.originalEvent: browser event<br />
+                                event.option: SelectItem instance of the clicked button<br />
+                                event.index: Index of the clicked button
+                            </td>
+                            <td>Callback to invoke when a button is clicked.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

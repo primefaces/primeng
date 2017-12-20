@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl} from '@angular/forms';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -21,7 +21,9 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
             </div>
         </div>
-        <label class="ui-chkbox-label" (click)="onClick($event,cb,true)" *ngIf="label">{{label}}</label>
+        <label class="ui-chkbox-label" (click)="onClick($event,cb,true)" 
+                [ngClass]="{'ui-label-active':checked, 'ui-label-disabled':disabled, 'ui-label-focus':focused}"
+                *ngIf="label" [attr.for]="inputId">{{label}}</label>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR]
 })
@@ -44,6 +46,8 @@ export class Checkbox implements ControlValueAccessor {
     @Input() style: any;
 
     @Input() styleClass: string;
+    
+    @Input() formControl: FormControl;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
@@ -82,6 +86,10 @@ export class Checkbox implements ControlValueAccessor {
                 this.removeValue();
 
             this.onModelChange(this.model);
+            
+            if(this.formControl) {
+                this.formControl.setValue(this.model);
+            }
         }
         else {
             this.onModelChange(this.checked);

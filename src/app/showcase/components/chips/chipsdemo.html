@@ -141,6 +141,18 @@ export class MyModel &#123;
                             <td>null</td>
                             <td>Style class of the input field.</td>
                         </tr>
+                        <tr>
+                            <td>addOnTab</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to add an item on tab key press.</td>
+                        </tr>
+                        <tr>
+                            <td>addOnBlur</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Whether to add an item when the input loses focus.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -169,6 +181,16 @@ export class MyModel &#123;
                                 value: Added item value
                             </td>
                             <td>Callback to invoke when a value is removed.</td>
+                        </tr>
+                        <tr>
+                            <td>onFocus</td>
+                            <td>originalEvent: Browser event</td>
+                            <td>Callback to invoke when a input is focused.</td>
+                        </tr>
+                        <tr>
+                            <td>onBlur</td>
+                            <td>originalEvent: Browser event</td>
+                            <td>Callback to invoke when a input loses focus.</td>
                         </tr>
                     </tbody>
                 </table>

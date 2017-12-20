@@ -1,7 +1,10 @@
 .ui-listbox {
-    overflow:auto;
     padding: .25em;
     width: 10em;
+}
+
+.ui-listbox .ui-listbox-list-wrapper {
+    overflow:auto;
 }
 
 .ui-listbox .ui-listbox-list {
@@ -64,8 +67,6 @@
     width: 100%;
 }
 
-/* Fluid */
-.ui-fluid .ui-listbox .ui-listbox-filter-container,
-.ui-fluid .ui-listbox .ui-listbox-filter-container input {
-    width: calc(100% - 32px);
+.ui-listbox-footer {
+    padding: .125em .2em;
 }

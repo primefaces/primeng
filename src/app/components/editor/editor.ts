@@ -79,13 +79,13 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     @Input() placeholder: string;
     
-    @Input() readonly: boolean;
-    
     @Input() formats: string[];
     
     @Output() onInit: EventEmitter<any> = new EventEmitter();
     
     value: string;
+    
+    _readonly: boolean;
     
     onModelChange: Function = () => {};
     
@@ -114,22 +114,21 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         }
         
         this.quill.on('text-change', (delta, oldContents, source) => {
-            let html = editorElement.children[0].innerHTML;
-            let text = this.quill.getText();
-            if(html == '<p><br></p>') {
-                html = null;
-            }
+            if (source === 'user') {
+                let html = editorElement.children[0].innerHTML;
+                let text = this.quill.getText();
+                if (html == '<p><br></p>') {
+                    html = null;
+                }
 
-            this.onTextChange.emit({
-                htmlValue: html,
-                textValue: text,
-                delta: delta,
-                source: source
-            });
-            
-            this.onModelChange(html);
-
-            if(source === 'user') {
+                this.onTextChange.emit({
+                    htmlValue: html,
+                    textValue: text,
+                    delta: delta,
+                    source: source
+                });
+                
+                this.onModelChange(html);
                 this.onModelTouched();
             }
         });
@@ -168,6 +167,21 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
     
     getQuill() {
         return this.quill;
+    }
+    
+    @Input() get readonly(): boolean {
+        return this._readonly;
+    }
+
+    set readonly(val:boolean) {
+        this._readonly = val;
+        
+        if(this.quill) {
+            if(this._readonly)
+                this.quill.disable();
+            else
+                this.quill.enable();
+        }
     }
 }
 

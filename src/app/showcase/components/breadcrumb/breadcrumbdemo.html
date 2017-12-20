@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-breadcrumb [model]="items"></p-breadcrumb>
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 </div>
 
 <div class="content-section documentation">
@@ -32,15 +32,16 @@ export class BreadcrumbDemo implements OnInit &#123;
     private items: MenuItem[];
     
     ngOnInit() &#123;
-        this.items = [];
-        this.items.push(&#123;label:'Categories'&#125;);
-        this.items.push(&#123;label:'Sports'&#125;);
-        this.items.push(&#123;label:'Football'&#125;);
-        this.items.push(&#123;label:'Countries'&#125;);
-        this.items.push(&#123;label:'Spain'&#125;);
-        this.items.push(&#123;label:'F.C. Barcelona'&#125;);
-        this.items.push(&#123;label:'Squad'&#125;);
-        this.items.push(&#123;label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'&#125;);
+        this.items = [
+            &#123;label:'Categories'&#125;,
+            &#123;label:'Sports'&#125;,
+            &#123;label:'Football'&#125;,
+            &#123;label:'Countries'&#125;,
+            &#123;label:'Spain'&#125;,
+            &#123;label:'F.C. Barcelona'&#125;,
+            &#123;label:'Squad'&#125;,
+            &#123;label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'&#125;
+        ];
     &#125;
 &#125;
 </code>
@@ -137,17 +138,22 @@ export class BreadcrumbDemo implements OnInit &#123;
 export class BreadcrumbDemo implements OnInit &#123;
 
     items: MenuItem[];
-    
+
+    home: MenuItem;
+
     ngOnInit() &#123;
-        this.items = [];
-        this.items.push(&#123;label:'Categories'&#125;);
-        this.items.push(&#123;label:'Sports'&#125;);
-        this.items.push(&#123;label:'Football'&#125;);
-        this.items.push(&#123;label:'Countries'&#125;);
-        this.items.push(&#123;label:'Spain'&#125;);
-        this.items.push(&#123;label:'F.C. Barcelona'&#125;);
-        this.items.push(&#123;label:'Squad'&#125;);
-        this.items.push(&#123;label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'&#125;);
+        this.items = [
+            &#123;label:'Categories'&#125;,
+            &#123;label:'Sports'&#125;,
+            &#123;label:'Football'&#125;,
+            &#123;label:'Countries'&#125;,
+            &#123;label:'Spain'&#125;,
+            &#123;label:'F.C. Barcelona'&#125;,
+            &#123;label:'Squad'&#125;,
+            &#123;label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'&#125;
+        ];
+        
+        this.home = &#123;icon: 'fa fa-home'&#125;;
     &#125;
 &#125;
 </code>
@@ -155,7 +161,7 @@ export class BreadcrumbDemo implements OnInit &#123;
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-breadcrumb [model]="items"&gt;&lt;/p-breadcrumb&gt;
+&lt;p-breadcrumb [model]="items" [home]="home"&gt;&lt;/p-breadcrumb&gt;
 </code>
 </pre>
         </p-tabPanel>

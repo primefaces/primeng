@@ -1,4 +1,3 @@
-/** MultiSelect **/
 .ui-multiselect {
     display: inline-block;
     position: relative;
@@ -46,7 +45,12 @@
 .ui-multiselect-panel {
     padding: 0.2em;
     position: absolute;
-    min-width: 10em;
+    min-width: 12em;
+}
+
+.ui-multiselect .ui-multiselect-panel {
+    min-width: 100%;
+    display: none;
 }
 
 .ui-multiselect-panel .ui-multiselect-items-wrapper {
@@ -86,6 +90,7 @@
     padding: .25em;
     position: relative;
     text-align: left;
+    min-height: 2em;
 }
 
 .ui-multiselect-header .ui-chkbox {
@@ -99,6 +104,10 @@
     display: inline-block;
     vertical-align: middle;
     width: 65%;
+}
+
+.ui-multiselect-header.ui-multiselect-header-no-toggleall .ui-multiselect-filter-container {
+    width: 85%;
 }
 
 .ui-multiselect-header .ui-multiselect-filter-container .fa {

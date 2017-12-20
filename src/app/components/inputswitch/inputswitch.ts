@@ -89,7 +89,7 @@ export class InputSwitch implements ControlValueAccessor,AfterViewInit,AfterView
     }
     
     ngAfterViewChecked() {
-        if(this.container.offsetParent && !this.initialized) {
+        if(this.container && this.container.offsetParent && !this.initialized) {
             this.render();
         }
     }

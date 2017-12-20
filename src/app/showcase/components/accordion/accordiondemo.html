@@ -457,7 +457,7 @@ export class AccordionDemo &#123;
 
     msgs: Message[];
     
-    index: number = 0;
+    index: number = -1;
 
     onTabClose(event) &#123;
         this.msgs = [];
@@ -474,7 +474,7 @@ export class AccordionDemo &#123;
     &#125;
     
     openPrev() &#123;
-        this.index = (this.index === 0) ? 3 : this.index - 1;
+        this.index = (this.index &lt;=0 ) ? 3 : this.index - 1;
     &#125;
 &#125;
 </code>

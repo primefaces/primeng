@@ -1,12 +1,16 @@
 import {Component} from '@angular/core';
 import {Message} from '../../../components/common/api';
+import {MessageService} from '../../../components/common/messageservice';
 
 @Component({
-    templateUrl: './messagesdemo.html'
+    templateUrl: './messagesdemo.html',
+    providers: [MessageService]
 })
 export class MessagesDemo {
 
     msgs: Message[] = [];
+    
+    constructor(private messageService: MessageService) {}
     
     showSuccess() {
         this.msgs = [];
@@ -33,6 +37,10 @@ export class MessagesDemo {
         this.msgs.push({severity:'info', summary:'Message 1', detail:'PrimeNG rocks'});
         this.msgs.push({severity:'info', summary:'Message 2', detail:'PrimeUI rocks'});
         this.msgs.push({severity:'info', summary:'Message 3', detail:'PrimeFaces rocks'});
+    }
+    
+    showViaService() {
+        this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
     }
 
     clear() {

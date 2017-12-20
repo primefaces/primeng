@@ -1,8 +1,8 @@
-import {NgModule,Component,ElementRef,Input,Output,AfterViewChecked,OnDestroy,EventEmitter,forwardRef,Renderer2,ViewChild,ChangeDetectorRef} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { NgModule, Component, ElementRef, Input, Output, AfterViewInit, AfterViewChecked, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { DomHandler } from '../dom/domhandler';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -46,7 +46,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     ],
     providers: [DomHandler,COLORPICKER_VALUE_ACCESSOR]
 })
-export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDestroy{
+export class ColorPicker implements ControlValueAccessor, AfterViewInit, AfterViewChecked, OnDestroy{
 
     @Input() style: any;
 
@@ -108,6 +108,15 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
     
+    ngAfterViewInit() {
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
+                document.body.appendChild(this.panelViewChild.nativeElement);
+            else
+                this.domHandler.appendChild(this.panelViewChild.nativeElement, this.appendTo);
+        }
+    }
+
     ngAfterViewChecked() {
         if(this.shown) {
             this.onShow();
@@ -128,17 +137,17 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     }
     
     pickHue(event: MouseEvent) {
-        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + document.body.scrollTop;
+        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         this.value = this.validateHSB({
             h: Math.floor(360 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150),
-            s: 100,
-            b: 100
+            s: this.value.s,
+            b: this.value.b
         });
         
         this.updateColorSelector();
         this.updateUI();
         this.updateModel();
-        this.onChange.emit({originalEvent: event, value: this.value});
+        this.onChange.emit({originalEvent: event, value: this.getValueToUpdate()});
     }
     
     onColorMousedown(event: MouseEvent) {
@@ -155,7 +164,7 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     
     pickColor(event: MouseEvent) {
         let rect = this.colorSelectorViewChild.nativeElement.getBoundingClientRect();
-        let top = rect.top + document.body.scrollTop;
+        let top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
         let left = rect.left + document.body.scrollLeft;
         let saturation = Math.floor(100 * (Math.max(0, Math.min(150, (event.pageX - left)))) / 150);
         let brightness = Math.floor(100 * (150 - Math.max(0, Math.min(150, (event.pageY - top)))) / 150);
@@ -483,6 +492,10 @@ export class ColorPicker implements ControlValueAccessor, AfterViewChecked, OnDe
     
     ngOnDestroy() {
         this.unbindDocumentClickListener();
+
+        if (this.appendTo) {
+            this.el.nativeElement.appendChild(this.panelViewChild.nativeElement);
+        }
     }
 }
 

@@ -73,8 +73,8 @@
 }
 
 /* left and right*/
-.ui-tabview-left:after,
-.ui-tabview-right:after {
+.ui-tabview-left::after,
+.ui-tabview-right::after {
     clear:both;
     content: ".";
     display: block;

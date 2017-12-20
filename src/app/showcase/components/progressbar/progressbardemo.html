@@ -13,6 +13,9 @@
 
     <h3>Static</h3>
     <p-progressBar [value]="50"></p-progressBar>
+    
+    <h3>Indeterminate</h3>
+    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
 </div>
 
 <div class="content-section documentation">
@@ -26,7 +29,7 @@ import &#123;ProgressBarModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>ProgressBar requires a value between 0 and 100 to display the progress.</p>
+            <p>ProgressBar has two modes; "determinate" and "indeterminate". Former requires a value between 0 and 100 to display the progress.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-progressBar [value]="value"&gt;&lt;/p-progressBar&gt;
@@ -40,6 +43,13 @@ export class ModelComponent &#123;
     value: number = 0;
 
 &#125;
+</code>
+</pre>
+        
+            <p>Indeterminate has no such a requirement and is simple enabled using mode property.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-progressBar mode="indeterminate"&gt;&lt;/p-progressBar&gt;
 </code>
 </pre>
 
@@ -73,6 +83,12 @@ export class ModelComponent &#123;
                             <td>%</td>
                             <td>Unit sign appended to the value.</td>
                         </tr>
+                        <tr>
+                            <td>mode</td>
+                            <td>string</td>
+                            <td>determinate</td>
+                            <td>Defines the mode of the progress, valid values are "determinate" and "indeterminate".</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -91,6 +107,14 @@ export class ModelComponent &#123;
                         <tr>
                             <td>ui-progressbar</td>
                             <td>Container element.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-progressbar-determinate</td>
+                            <td>Container element of a determinate progressbar.</td>
+                        </tr>
+                        <tr>
+                            <td>ui-progressbar-indeterminate</td>
+                            <td>Container element of an indeterminate progressbar.</td>
                         </tr>
                         <tr>
                             <td>ui-progressbar-value</td>
@@ -122,6 +146,9 @@ export class ModelComponent &#123;
 
 &lt;h3&gt;Static&lt;/h3&gt;
 &lt;p-progressBar [value]="50"&gt;&lt;/p-progressBar&gt;
+
+&lt;h3&gt;Indeterminate&lt;/h3&gt;
+&lt;p-progressBar mode="indeterminate" [style]="&#123;'height': '6px'&#125;"&gt;&lt;/p-progressBar&gt;
 </code>
 </pre>
 

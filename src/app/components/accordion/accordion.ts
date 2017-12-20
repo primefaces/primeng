@@ -1,18 +1,129 @@
-import {NgModule,Component,ElementRef,AfterContentInit,OnDestroy,Input,Output,EventEmitter,ContentChildren,QueryList} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
-import {CommonModule} from '@angular/common';
-import {Header} from '../common/shared';
-import {BlockableUI} from '../common/blockableui';
+import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter, 
+    ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef} from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { Header } from '../common/shared';
+import { BlockableUI } from '../common/blockableui';
+import { Subscription } from 'rxjs/Subscription';
+
+let idx: number = 0;
+
+@Component({
+    selector: 'p-accordionTab',
+    template: `
+        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}">
+            <a href="#" [attr.id]="id" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="selected" (click)="toggle($event)" (keydown.space)="toggle($event)">
+                <span class="ui-accordion-toggle-icon fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
+                <span class="ui-accordion-header-text" *ngIf="!hasHeaderFacet">
+                    {{header}}
+                </span>
+                <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
+            </a>
+        </div>
+        <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" (@tabContent.done)="onToggleDone($event)"
+            [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
+            role="region" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
+            <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    `,
+    animations: [
+        trigger('tabContent', [
+            state('hidden', style({
+                height: '0'
+            })),
+            state('visible', style({
+                height: '*'
+            })),
+            transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+        ])
+    ]
+})
+export class AccordionTab implements OnDestroy {
+
+    @Input() header: string;
+
+    @Input() selected: boolean;
+
+    @Input() disabled: boolean;
+
+    @Output() selectedChange: EventEmitter<any> = new EventEmitter();
+
+    @ContentChildren(Header) headerFacet: QueryList<Header>;
+
+    animating: boolean;
+
+    id: string = `ui-accordiontab-${idx++}`;
+
+    constructor( @Inject(forwardRef(() => Accordion)) public accordion: Accordion) {}
+
+    toggle(event) {
+        if (this.disabled || this.animating) {
+            return false;
+        }
+
+        this.animating = true;
+        let index = this.findTabIndex();
+
+        if (this.selected) {
+            this.selected = false;
+            this.accordion.onClose.emit({ originalEvent: event, index: index });
+        }
+        else {
+            if (!this.accordion.multiple) {
+                for (var i = 0; i < this.accordion.tabs.length; i++) {
+                    this.accordion.tabs[i].selected = false;
+                    this.accordion.tabs[i].selectedChange.emit(false);
+                }
+            }
+
+            this.selected = true;
+            this.accordion.onOpen.emit({ originalEvent: event, index: index });
+        }
+
+        this.selectedChange.emit(this.selected);
+
+        event.preventDefault();
+    }
+
+    findTabIndex() {
+        let index = -1;
+        for (var i = 0; i < this.accordion.tabs.length; i++) {
+            if (this.accordion.tabs[i] == this) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    get lazy(): boolean {
+        return this.accordion.lazy;
+    }
+
+    get hasHeaderFacet(): boolean {
+        return this.headerFacet && this.headerFacet.length > 0;
+    }
+
+    onToggleDone(event: Event) {
+        this.animating = false;
+    }
+
+    ngOnDestroy() {
+        this.accordion.tabs.splice(this.findTabIndex(), 1);
+    }
+}
 
 @Component({
     selector: 'p-accordion',
     template: `
-        <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [ngStyle]="style" [class]="styleClass" role="presentation">
             <ng-content></ng-content>
         </div>
-    `,
+    `
 })
-export class Accordion implements BlockableUI {
+export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     
     @Input() multiple: boolean;
     
@@ -25,17 +136,30 @@ export class Accordion implements BlockableUI {
     @Input() styleClass: string;
     
     @Input() lazy: boolean;
+
+    @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
+
+    tabListSubscription: Subscription;
     
     private _activeIndex: any;
     
     public tabs: AccordionTab[] = [];
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
 
-    addTab(tab: AccordionTab) {
-        this.tabs.push(tab);
-    }   
-    
+    ngAfterContentInit() {
+        this.initTabs();
+
+        this.tabListSubscription = this.tabList.changes.subscribe(_ => {
+            this.initTabs();
+            this.changeDetector.markForCheck();
+        });
+    }
+
+    initTabs(): any {
+        this.tabs = this.tabList.toArray();
+    }
+      
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     } 
@@ -61,110 +185,11 @@ export class Accordion implements BlockableUI {
             }
         }
     }
-}
 
-@Component({
-    selector: 'p-accordionTab',
-    template: `
-        <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}"
-            (click)="toggle($event)">
-            <span class="fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
-            <a href="#" *ngIf="!hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">{{header}}</a>
-            <a href="#" *ngIf="hasHeaderFacet" role="tab" [attr.aria-expanded]="selected" [attr.aria-selected]="selected">
-                <ng-content select="p-header"></ng-content>
-            </a>
-        </div>
-        <div class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" (@tabContent.done)="onToggleDone($event)"
-            [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" role="tabpanel" [attr.aria-hidden]="!selected">
-            <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
-                <ng-content></ng-content>
-            </div>
-        </div>
-    `,
-    animations: [
-        trigger('tabContent', [
-            state('hidden', style({
-                height: '0'
-            })),
-            state('visible', style({
-                height: '*'
-            })),
-            transition('visible <=> hidden', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
-        ])
-    ]
-})
-export class AccordionTab implements OnDestroy {
-
-    @Input() header: string;
-
-    @Input() selected: boolean;
-
-    @Input() disabled: boolean;
-    
-    @Output() selectedChange: EventEmitter<any> = new EventEmitter();
-
-    @ContentChildren(Header) headerFacet: QueryList<AccordionTab>;
-    
-    public animating: boolean;
-    
-    constructor(public accordion: Accordion) {
-        this.accordion.addTab(this);
-    }
-
-    toggle(event) {
-        if(this.disabled || this.animating) {
-            return false;
-        }
-        
-        this.animating = true;
-        let index = this.findTabIndex();
-
-        if(this.selected) {
-            this.selected = false;
-            this.accordion.onClose.emit({originalEvent: event, index: index});
-        }
-        else {
-            if(!this.accordion.multiple) {
-                for(var i = 0; i < this.accordion.tabs.length; i++) {
-                    this.accordion.tabs[i].selected = false;
-                    this.accordion.tabs[i].selectedChange.emit(false);
-                }
-            }
-
-            this.selected = true;
-            this.accordion.onOpen.emit({originalEvent: event, index: index});
-        }
-        
-        this.selectedChange.emit(this.selected);
-        
-        event.preventDefault();
-    }
-
-    findTabIndex() {
-        let index = -1;
-        for(var i = 0; i < this.accordion.tabs.length; i++) {
-            if(this.accordion.tabs[i] == this) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-    
-    get lazy(): boolean {
-        return this.accordion.lazy;
-    }
-    
-    get hasHeaderFacet(): boolean {
-        return this.headerFacet && this.headerFacet.length > 0;
-    }
-    
-    onToggleDone(event: Event) {
-        this.animating = false;
-    }
-    
     ngOnDestroy() {
-        this.accordion.tabs.splice(this.findTabIndex(), 1);
+        if(this.tabListSubscription) {
+            this.tabListSubscription.unsubscribe();
+        }
     }
 }
 

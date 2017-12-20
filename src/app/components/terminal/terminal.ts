@@ -1,7 +1,9 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,Input,Output,EventEmitter,ElementRef} from '@angular/core';
+import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ElementRef} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
+import {TerminalService} from './terminalservice';
+import {Subscription}   from 'rxjs/Subscription';
 
 @Component({
     selector: 'p-terminal',
@@ -23,7 +25,7 @@ import {DomHandler} from '../dom/domhandler';
     `,
     providers: [DomHandler]
 })
-export class Terminal implements AfterViewInit,AfterViewChecked {
+export class Terminal implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     @Input() welcomeMessage: string;
 
@@ -32,11 +34,7 @@ export class Terminal implements AfterViewInit,AfterViewChecked {
     @Input() style: any;
         
     @Input() styleClass: string;
-    
-    @Output() responseChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() handler: EventEmitter<any> = new EventEmitter();
-        
+            
     commands: any[] = [];
     
     command: string;
@@ -45,7 +43,14 @@ export class Terminal implements AfterViewInit,AfterViewChecked {
     
     commandProcessed: boolean;
     
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    subscription: Subscription;
+    
+    constructor(public el: ElementRef, public domHandler: DomHandler, public terminalService: TerminalService) {
+        this.subscription = terminalService.responseHandler.subscribe(response => {
+            this.commands[this.commands.length - 1].response = response;
+            this.commandProcessed = true;
+        });
+    }
     
     ngAfterViewInit() {
         this.container = this.domHandler.find(this.el.nativeElement, '.ui-terminal')[0];
@@ -68,14 +73,20 @@ export class Terminal implements AfterViewInit,AfterViewChecked {
     
     handleCommand(event: KeyboardEvent) {
         if(event.keyCode == 13) {
-            this.commands.push({text: this.command});                    
-            this.handler.emit({originalEvent: event, command: this.command});
+            this.commands.push({text: this.command});
+            this.terminalService.sendCommand(this.command);
             this.command = '';
         }
     }
     
     focus(element: HTMLElement) {
         element.focus();
+    }
+    
+    ngOnDestroy() {
+        if(this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
     
 }

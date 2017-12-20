@@ -1,6 +1,10 @@
-import {NgModule,Component,ElementRef,Input,Output,EventEmitter,HostListener,AfterContentInit,ContentChildren,QueryList} from '@angular/core';
+import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,HostListener,AfterContentInit,
+        ContentChildren,ContentChild,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {SharedModule,PrimeTemplate} from '../common/shared';
 import {BlockableUI} from '../common/blockableui';
+
+let idx: number = 0;
 
 @Component({
     selector: '[p-tabViewNav]',
@@ -13,11 +17,10 @@ import {BlockableUI} from '../common/blockableui';
     },
     template: `
         <ng-template ngFor let-tab [ngForOf]="tabs">
-            <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="tab"
+            <li [class]="getDefaultHeaderClass(tab)" [ngStyle]="tab.headerStyle" role="presentation"
                 [ngClass]="{'ui-tabview-selected ui-state-active': tab.selected, 'ui-state-disabled': tab.disabled}"
-                (click)="clickTab($event,tab)" *ngIf="!tab.closed"
-                [attr.aria-expanded]="tab.selected" [attr.aria-selected]="tab.selected">
-                <a href="#">
+                (click)="clickTab($event,tab)" *ngIf="!tab.closed">
+                <a [attr.id]="tab.id + '-label'" href="#" role="tab" [attr.aria-selected]="tab.selected" [attr.aria-controls]="tab.id">
                     <span class="ui-tabview-left-icon fa" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
                     <span class="ui-tabview-title">{{tab.header}}</span>
                     <span class="ui-tabview-right-icon fa" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
@@ -63,17 +66,16 @@ export class TabViewNav {
 @Component({
     selector: 'p-tabPanel',
     template: `
-        <div class="ui-tabview-panel ui-widget-content" [style.display]="selected ? 'block' : 'none'" 
-            role="tabpanel" [attr.aria-hidden]="!selected" *ngIf="closed ? false : (lazy ? selected : true)">
+        <div [attr.id]="id" class="ui-tabview-panel ui-widget-content" [ngClass]="{'ui-helper-hidden': !selected}" 
+            role="tabpanel" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id + '-label'" *ngIf="!closed">
             <ng-content></ng-content>
+            <p-templateLoader [template]="contentTemplate" *ngIf="contentTemplate&&(cache ? loaded : selected)"></p-templateLoader>
         </div>
     `
 })
-export class TabPanel {
+export class TabPanel implements AfterContentInit,OnDestroy {
 
     @Input() header: string;
-
-    @Input() selected: boolean;
     
     @Input() disabled: boolean;
     
@@ -86,10 +88,51 @@ export class TabPanel {
     @Input() leftIcon: string;
     
     @Input() rightIcon: string;
-        
-    public closed: boolean;
     
-    public lazy: boolean;
+    @Input() cache: boolean = true;
+        
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+        
+    constructor(public viewContainer: ViewContainerRef) {}
+        
+    closed: boolean;
+        
+    view: EmbeddedViewRef<any>;
+    
+    _selected: boolean;
+    
+    loaded: boolean;
+    
+    id: string = `ui-tabpanel-${idx++}`;
+    
+    contentTemplate: TemplateRef<any>;
+    
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+                
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
+    }
+    
+    @Input() get selected(): boolean {
+        return this._selected;
+    }
+
+    set selected(val: boolean) {
+        this._selected = val;
+        this.loaded = true;
+    }
+    
+    ngOnDestroy() {
+        this.view = null;
+    }
 }
 
 @Component({
@@ -115,9 +158,7 @@ export class TabView implements AfterContentInit,BlockableUI {
     @Input() styleClass: string;
     
     @Input() controlClose: boolean;
-    
-    @Input() lazy: boolean;
-    
+        
     @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -128,9 +169,20 @@ export class TabView implements AfterContentInit,BlockableUI {
     
     tabs: TabPanel[];
     
-    private _activeIndex: number;
+    _activeIndex: number;
+    
+    _lazy: boolean;
 
     constructor(public el: ElementRef) {}
+    
+    @Input() get lazy(): boolean {
+        return this._lazy;
+    }
+
+    set lazy(val: boolean) {
+        this._lazy = val;
+        console.log('Lazy property of TabView is deprecated, use an ngTemplate inside a TabPanel instead for Lazy Loading');
+    }
     
     ngAfterContentInit() {
         this.initTabs();
@@ -141,11 +193,7 @@ export class TabView implements AfterContentInit,BlockableUI {
     }
     
     initTabs(): void {
-        this.tabs = this.tabPanels.toArray();
-        for(let tab of this.tabs) {
-            tab.lazy = this.lazy;
-        }
-        
+        this.tabs = this.tabPanels.toArray();        
         let selectedTab: TabPanel = this.findSelectedTab();
         if(!selectedTab && this.tabs.length) {
             if(this.activeIndex != null && this.tabs.length > this.activeIndex)
@@ -244,7 +292,7 @@ export class TabView implements AfterContentInit,BlockableUI {
     set activeIndex(val:number) {
         this._activeIndex = val;
         
-        if(this.tabs && this.tabs.length && this._activeIndex != null) {
+        if(this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
             this.findSelectedTab().selected = false;
             this.tabs[this._activeIndex].selected = true;
         }        
@@ -253,8 +301,8 @@ export class TabView implements AfterContentInit,BlockableUI {
 
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [TabView,TabPanel,TabViewNav],
+    imports: [CommonModule,SharedModule],
+    exports: [TabView,TabPanel,TabViewNav,SharedModule],
     declarations: [TabView,TabPanel,TabViewNav]
 })
 export class TabViewModule { }

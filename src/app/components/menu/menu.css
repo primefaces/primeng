@@ -124,7 +124,7 @@
     text-indent: -9999999px;
 }
 
-.ui-menubar:not(.ui-megamenu-vertical) .ui-menubar-root-list > .ui-menu-separator:before {
+.ui-menubar:not(.ui-megamenu-vertical) .ui-menubar-root-list > .ui-menu-separator::before {
     content: 'ui-menu-separator';
 }
 
@@ -235,6 +235,7 @@
 .ui-panelmenu .ui-panelmenu-header a {
     display: block;
     padding: .25em .5em;
+    text-decoration: none;
 }
 
 .ui-panelmenu span {
@@ -323,6 +324,6 @@
 }
 
 /** Fluid **/
-.ui-fluid .ui-menu {
+.ui-fluid .ui-menu:not(.ui-menu-dynamic) {
     width: 100%;
 }

@@ -33,8 +33,8 @@
     padding-right: 1.5em;
 }
 
-.ui-dropdown .ui-dropdown-item-empty,
-.ui-dropdown .ui-dropdown-label-empty {
+.ui-dropdown-item-empty,
+.ui-dropdown-label-empty {
     text-indent: -9999px;   
 }
 
@@ -58,6 +58,7 @@
 .ui-dropdown-panel {
     position: absolute;
     height: auto;
+    display: none;
 }
 
 .ui-dropdown-panel .ui-dropdown-items-wrapper {
@@ -93,6 +94,7 @@
     margin: 0;
     padding: 0.4em;
     display: inline-block;
+    width: 100%;
 }
 
 .ui-dropdown-panel .ui-dropdown-filter-container .fa {

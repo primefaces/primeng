@@ -22,27 +22,43 @@
 }
 
 .ui-messages-success {
-    color: #ffffff;
-    background-color: #4CAF50;
-    border-color: #4CAF50;
+    color: #2C832f;
+    background-color: #B4F0B6;
+    border-color: #B4F0B6;
+}
+
+.ui-messages-success .ui-messages-close {
+    color: #2C832f;
 }
 
 .ui-messages-info {
-    color: #ffffff;
-    background-color: #2196f3;
-    border-color: #2196f3;
+    color: #1765A3;
+    background-color: #BFE0FA;
+    border-color: #BFE0FA;
+}
+
+.ui-messages-info .ui-messages-close {
+    color: #1765A3;
 }
 
 .ui-messages-warn {
-    color: #ffffff;
-    background-color: #FFB300;
-    border-color: #FFB300;
+    color: #8A6714;
+    background-color: #FFE9B5;
+    border-color: #FFE9B5;
+}
+
+.ui-messages-warn .ui-messages-close {
+    color: #8A6714;
 }
 
 .ui-messages-error {
-    color: #ffffff;
-    background-color: #f44336;
-    border-color: #f44336;
+    color: #AB1A0F;
+    background-color: #FFCBC8;
+    border-color: #FFCBC8;
+}
+
+.ui-messages-error .ui-messages-close {
+    color: #AB1A0F;
 }
 
 .ui-messages ul {
@@ -58,16 +74,8 @@
 }
 
 .ui-messages .ui-messages-close {
-    color: #ffffff;
     cursor: pointer;
     position: absolute;
     top: 5px;
     right: 5px;
-}
-
-/* Message */
-.ui-message {
-    border: 1px solid;
-    margin: 0px .25em;
-    padding: .125em .25em;
 }

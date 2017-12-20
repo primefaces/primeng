@@ -1,18 +1,22 @@
-import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer2,ContentChild,ViewChild} from '@angular/core';
+import {NgModule,Component,ElementRef,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,Renderer2,
+        ContentChildren,QueryList,ViewChild,NgZone} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {Header,Footer,SharedModule} from '../common/shared';
 
+let idx: number = 0;
+
 @Component({
     selector: 'p-dialog',
     template: `
-        <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" [ngStyle]="style" [class]="styleClass"
-            [style.display]="visible ? 'block' : 'none'" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'">
+        <div #container [ngClass]="{'ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow':true,'ui-helper-hidden': !visible, 'ui-dialog-rtl':rtl,'ui-dialog-draggable':draggable}" 
+            [ngStyle]="style" [class]="styleClass" [style.width.px]="width" [style.height.px]="height" [style.minWidth.px]="minWidth" (mousedown)="moveOnTop()" [@dialogState]="visible ? 'visible' : 'hidden'"
+            role="dialog" [attr.aria-labelledby]="id + '-label'">
             <div #titlebar class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"
                 (mousedown)="initDrag($event)" (mouseup)="endDrag($event)" *ngIf="showHeader">
-                <span class="ui-dialog-title" *ngIf="header">{{header}}</span>
-                <span class="ui-dialog-title" *ngIf="headerFacet">
+                <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="header">{{header}}</span>
+                <span [attr.id]="id + '-label'" class="ui-dialog-title" *ngIf="headerFacet && headerFacet.first">
                     <ng-content select="p-header"></ng-content>
                 </span>
                 <a *ngIf="closable" [ngClass]="{'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all':true}" href="#" role="button" (click)="close($event)" (mousedown)="onCloseMouseDown($event)">
@@ -22,7 +26,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
             <div #content class="ui-dialog-content ui-widget-content" [ngStyle]="contentStyle">
                 <ng-content></ng-content>
             </div>
-            <div class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet">
+            <div class="ui-dialog-footer ui-widget-content" *ngIf="footerFacet && footerFacet.first">
                 <ng-content select="p-footer"></ng-content>
             </div>
             <div *ngIf="resizable" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"
@@ -44,7 +48,7 @@ import {Header,Footer,SharedModule} from '../common/shared';
     providers: [DomHandler]
 })
 export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
-
+    
     @Input() header: string;
 
     @Input() draggable: boolean = true;
@@ -88,11 +92,15 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     @Input() breakpoint: number = 640;
     
     @Input() blockScroll: boolean = false;
+    
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
         
-    @ContentChild(Header) headerFacet;
+    @ContentChildren(Header, {descendants: false}) headerFacet: QueryList<Header>;
     
-    @ContentChild(Footer) footerFacet;
-    
+    @ContentChildren(Footer, {descendants: false}) footerFacet: QueryList<Header>;
+            
     @ViewChild('container') containerViewChild: ElementRef;
     
     @ViewChild('titlebar') headerViewChild: ElementRef;
@@ -109,15 +117,15 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     
     dragging: boolean;
 
-    documentDragListener: Function;
+    documentDragListener: any;
     
     resizing: boolean;
 
-    documentResizeListener: Function;
+    documentResizeListener: any;
     
-    documentResizeEndListener: Function;
+    documentResizeEndListener: any;
     
-    documentResponsiveListener: Function;
+    documentResponsiveListener: any;
     
     documentEscapeListener: Function;
 	
@@ -138,8 +146,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     executePostDisplayActions: boolean;
     
     initialized: boolean;
+    
+    id: string = `ui-dialog-${idx++}`;
                 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2, public zone: NgZone) {}
     
     @Input() get visible(): boolean {
         return this._visible;
@@ -170,7 +180,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
 
     show() {
         this.executePostDisplayActions = true;
-        this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        this.moveOnTop();
         this.bindGlobalListeners();
         
         if(this.modal) {
@@ -252,7 +262,11 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
-            this.domHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-dialog-mask');
+            let maskStyleClass = 'ui-widget-overlay ui-dialog-mask';
+            if(this.blockScroll) {
+                maskStyleClass += ' ui-dialog-mask-scrollblocker';
+            }
+            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
             
 			if(this.closable && this.dismissableMask) {
 	             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -270,7 +284,19 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.mask) {
             document.body.removeChild(this.mask);
             if(this.blockScroll) {
-                this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+                let bodyChildren = document.body.children;
+                let hasBlockerMasks: boolean;
+                for(let i = 0; i < bodyChildren.length; i++) {
+                    let bodyChild = bodyChildren[i];
+                    if(this.domHandler.hasClass(bodyChild, 'ui-dialog-mask-scrollblocker')) {
+                        hasBlockerMasks = true;
+                        break;
+                    }
+                }
+                
+                if(!hasBlockerMasks) {
+                    this.domHandler.removeClass(document.body, 'ui-overflow-hidden');
+                }
             }
             this.mask = null;
         }
@@ -284,7 +310,10 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     moveOnTop() {
-        this.containerViewChild.nativeElement.style.zIndex = String(++DomHandler.zindex);
+        if(this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
+        
     }
     
     onCloseMouseDown(event: Event) {
@@ -301,6 +330,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.dragging = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
+            this.domHandler.addClass(document.body, 'ui-unselectable-text');
         }
     }
     
@@ -322,6 +352,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     endDrag(event: MouseEvent) {
         if(this.draggable) {
             this.dragging = false;
+            this.domHandler.removeClass(document.body, 'ui-unselectable-text');
         }
     }
     
@@ -331,6 +362,7 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
+            this.domHandler.addClass(document.body, 'ui-unselectable-text');
         }
     }
     
@@ -358,6 +390,13 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         }
     }
     
+    onResizeEnd(event: MouseEvent) {
+        if(this.resizing) {
+            this.resizing = false;
+            this.domHandler.removeClass(document.body, 'ui-unselectable-text');
+        }
+    } 
+    
     bindGlobalListeners() {
         if(this.draggable) {
             this.bindDocumentDragListener();
@@ -384,61 +423,64 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
     }
     
     bindDocumentDragListener() {
-        this.documentDragListener = this.renderer.listen('document', 'mousemove', (event) => {
-            this.onDrag(event);
+        this.zone.runOutsideAngular(() => {
+            this.documentDragListener = this.onDrag.bind(this);
+            window.document.addEventListener('mousemove', this.documentDragListener);
         });
     }
     
     unbindDocumentDragListener() {
         if(this.documentDragListener) {
-            this.documentDragListener();
+            window.document.removeEventListener('mousemove', this.documentDragListener);
             this.documentDragListener = null;
         }
     }
     
     bindDocumentResizeListeners() {
-        this.documentResizeListener = this.renderer.listen('document', 'mousemove', (event) => {
-            this.onResize(event);
-        });
-        
-        this.documentResizeEndListener = this.renderer.listen('document', 'mouseup', (event) => {
-            if(this.resizing) {
-                this.resizing = false;
-            }
+        this.zone.runOutsideAngular(() => {
+            this.documentResizeListener = this.onResize.bind(this);
+            this.documentResizeEndListener = this.onResizeEnd.bind(this);
+            window.document.addEventListener('mousemove', this.documentResizeListener);
+            window.document.addEventListener('mouseup', this.documentResizeEndListener);
         });
     }
     
     unbindDocumentResizeListeners() {
         if(this.documentResizeListener && this.documentResizeEndListener) {
-            this.documentResizeListener();
-            this.documentResizeEndListener();
+            window.document.removeEventListener('mouseup', this.documentResizeListener);
+            window.document.removeEventListener('mouseup', this.documentResizeEndListener);
             this.documentResizeListener = null;
             this.documentResizeEndListener = null;
         }
     }
     
     bindDocumentResponsiveListener() {
-        this.documentResponsiveListener = this.renderer.listen('window', 'resize', (event) => {
-            let viewport = this.domHandler.getViewport();
-            let width = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
-            if(viewport.width <= this.breakpoint) {
-                if(!this.preWidth) {
-                    this.preWidth = width;
-                }
-                this.containerViewChild.nativeElement.style.left = '0px';
-                this.containerViewChild.nativeElement.style.width = '100%';
-            }
-            else {
-                this.containerViewChild.nativeElement.style.width = this.preWidth + 'px';
-                this.positionOverlay();
-            }
+        this.zone.runOutsideAngular(() => {
+            this.documentResponsiveListener = this.onWindowResize.bind(this);
+            window.addEventListener('resize', this.documentResponsiveListener);
         });
     }
     
     unbindDocumentResponsiveListener() {
         if(this.documentResponsiveListener) {
-            this.documentResponsiveListener();
+            window.removeEventListener('resize', this.documentResponsiveListener);
             this.documentResponsiveListener = null;
+        }
+    }
+    
+    onWindowResize(event) {
+        let viewport = this.domHandler.getViewport();
+        let width = this.domHandler.getOuterWidth(this.containerViewChild.nativeElement);
+        if(viewport.width <= this.breakpoint) {
+            if(!this.preWidth) {
+                this.preWidth = width;
+            }
+            this.containerViewChild.nativeElement.style.left = '0px';
+            this.containerViewChild.nativeElement.style.width = '100%';
+        }
+        else {
+            this.containerViewChild.nativeElement.style.width = this.preWidth + 'px';
+            this.positionOverlay();
         }
     }
     

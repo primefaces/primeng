@@ -10,7 +10,7 @@
     <p-spinner size="30" [(ngModel)]="val1"></p-spinner>
 
     <h3>Min/Max</h3>
-    <p-spinner size="30" [(ngModel)]="val2" [min]="0" [max]="100"></p-spinner>
+    <p-spinner size="30" [(ngModel)]="val2" [min]="0" [max]="100"></p-spinner>{{val2}}
 
     <h3>Step</h3>
     <p-spinner size="30" [(ngModel)]="val3" [step]="0.25"></p-spinner>
@@ -100,13 +100,13 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
                         <tr>
                             <td>disabled</td>
                             <td>boolean</td>
-                            <td>false</td>
+                            <td>undefined</td>
                             <td>When present, it specifies that the element should be disabled.</td>
                         </tr>
                         <tr>
                             <td>readonly</td>
                             <td>boolean</td>
-                            <td>false</td>
+                            <td>undefined</td>
                             <td>When present, it specifies that the element should be read-only.</td>
                         </tr>
                         <tr>
@@ -157,6 +157,12 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
                             <td>text</td>
                             <td>Type of the input field.</td>
                         </tr>
+                        <tr>
+                            <td>required</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that an input field must be filled out before submitting the form.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -175,8 +181,13 @@ import &#123;SpinnerModule&#125; from 'primeng/primeng';
                         <tr>
                             <td>onBlur</td>
                             <td>event: Blur event</td>
-                            <td>Callback to invoke when autocomplete loses focus.</td>
-                        </tr>                        
+                            <td>Callback to invoke when input loses focus.</td>
+                        </tr>       
+                        <tr>
+                            <td>onFocus</td>
+                            <td>event: Browser event</td>
+                            <td>Callback to invoke when input gets focus.</td>
+                        </tr>                 
                         <tr>
                             <td>onChange</td>
                             <td>event: Change event</td>

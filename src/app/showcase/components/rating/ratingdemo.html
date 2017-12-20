@@ -25,6 +25,10 @@
     <h3>Disabled</h3> 
     <p-rating [ngModel]="val4" disabled="true" stars="10"></p-rating>
     <br />
+    
+    <h3>Custom Icons</h3> 
+    <p-rating [ngModel]="val5" iconOnClass="fa-circle" iconOffClass="fa-circle-o" iconCancelClass="fa-close"></p-rating>
+    <br />
 </div>
 
 <div class="content-section documentation">
@@ -110,6 +114,42 @@ export class ModelComponent &#123;
                                     <td>boolean</td>
                                     <td>false</td>
                                     <td>When present, changing the value is not possible.</td>
+                                </tr>
+                                <tr>
+                                    <td>iconOnClass</td>
+                                    <td>string</td>
+                                    <td>fa-star</td>
+                                    <td>Style class of the on icon.</td>
+                                </tr>
+                                <tr>
+                                    <td>iconOffClass</td>
+                                    <td>string</td>
+                                    <td>fa-star</td>
+                                    <td>Style class of the off icon.</td>
+                                </tr>
+                                <tr>
+                                    <td>iconCancelClass</td>
+                                    <td>string</td>
+                                    <td>fa-ban</td>
+                                    <td>Style class of the cancel icon.</td>
+                                </tr>
+                                <tr>
+                                    <td>iconOnStyle</td>
+                                    <td>object</td>
+                                    <td>null</td>
+                                    <td>Inline style of the on icon.</td>
+                                </tr>
+                                <tr>
+                                    <td>iconOffStyle</td>
+                                    <td>object</td>
+                                    <td>null</td>
+                                    <td>Inline style of the off icon.</td>
+                                </tr>
+                                <tr>
+                                    <td>iconCancelStyle</td>
+                                    <td>object</td>
+                                    <td>null</td>
+                                    <td>Inline style of the cancel icon.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -198,6 +238,9 @@ export class ModelComponent &#123;
 
 &lt;h3&gt;Disabled&lt;/h3&gt; 
 &lt;p-rating [ngModel]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
+
+&lt;h3>Custom Icons&lt;/h3&gt;
+&lt;p-rating [ngModel]="val5" iconOnClass="fa-circle" iconOffClass="fa-circle-o" iconCancelClass="fa-close"&gt;;&lt;/p-rating&gt;
 </code>
 </pre>
 
@@ -212,6 +255,8 @@ export class RatingDemo &#123;
     val3: number;
 
     val4: number = 5;
+
+    val5: number;
 
     msg: string;
 

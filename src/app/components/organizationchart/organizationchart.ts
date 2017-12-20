@@ -35,7 +35,7 @@ export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
 @Component({
     selector: '[pOrganizationChartNode]',
     template: `
-        <tr>
+        <tr *ngIf="node">
             <td [attr.colspan]="colspan">
                 <div class="ui-organizationchart-node-content ui-widget-content ui-corner-all {{node.styleClass}}" 
                     [ngClass]="{'ui-organizationchart-selectable-node': chart.selectionMode && node.selectable !== false,'ui-state-highlight':isSelected()}"
@@ -118,7 +118,7 @@ export class OrganizationChartNode {
     selector: 'p-organizationChart',
     template: `
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="'ui-organizationchart ui-widget'">
-            <table class="ui-organizationchart-table" pOrganizationChartNode [node]="root"></table>
+            <table class="ui-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
     `,
     providers: [DomHandler]

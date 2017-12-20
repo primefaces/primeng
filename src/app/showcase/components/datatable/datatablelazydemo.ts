@@ -14,7 +14,7 @@ export class DataTableLazyDemo implements OnInit {
     cars: Car[];
     
     totalRecords: number;
-
+    
     constructor(private carService: CarService) { }
 
     ngOnInit() {

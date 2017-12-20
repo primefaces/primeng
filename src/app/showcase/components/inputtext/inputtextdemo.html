@@ -9,6 +9,12 @@
     <h3 class="first">Basic</h3>
     <input id="input" type="text" size="30" pInputText [(ngModel)]="text"> 
     <span id="text">{{text}}</span>
+    
+    <h3>Float Label</h3>
+    <span class="ui-float-label">
+        <input id="float-input" type="text" size="30" pInputText> 
+        <label for="float-input">Username</label>
+    </span>
 
     <h3>Disabled</h3>
     <input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" />
@@ -60,6 +66,17 @@ import &#123;InputTextModule&#125; from 'primeng/primeng';
     &lt;span class="ui-inputgroup-addon"&gt;$&lt;/span&gt;  
     &lt;span class="ui-inputgroup-addon"&gt;.00&lt;/span&gt;      
 &lt;/div&gt;
+</code>
+</pre>
+
+            <h3>Float Label</h3>
+            <p>A floating label is implemented by wrapping the input and the label inside a container with .ui-float-label class.</p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;span class="ui-float-label"&gt;
+    &lt;input id="float-input" type="text" size="30" pInputText&gt; 
+    &lt;label for="float-input"&gt;Username&lt;/label&gt;
+&lt;/span&gt;
 </code>
 </pre>
 
@@ -116,7 +133,13 @@ import &#123;InputTextModule&#125; from 'primeng/primeng';
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
 &lt;input id="input" type="text" size="30" pInputText [(ngModel)]="text"&gt; 
-&lt;span id="text"&gt;&#123;text&#125;&#125;&lt;/span&gt;
+&lt;span id="text"&gt;&#123;&#123;text&#125;&#125;&lt;/span&gt;
+
+&lt;h3&gt;Float Label&lt;/h3&gt;
+&lt;span class="ui-float-label"&gt;
+    &lt;input id="float-input" type="text" size="30" pInputText&gt; 
+    &lt;label for="float-input"&gt;Username&lt;/label&gt;
+&lt;/span&gt;
 
 &lt;h3&gt;Disabled&lt;/h3&gt;
 &lt;input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" /&gt;

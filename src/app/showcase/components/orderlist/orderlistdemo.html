@@ -8,7 +8,7 @@
 <div class="content-section implementation">
     
     <p-orderList [value]="cars" [listStyle]="{'height':'350px'}" responsive="true" header="Cars" filterBy="brand" filterPlaceholder="Filter by brand"
-        dragdrop="true">
+        dragdrop="true" dragdropScope="cars">
         <ng-template let-car pTemplate="item">
             <div class="ui-helper-clearfix">
                 <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
@@ -247,7 +247,7 @@ export class MyComponent &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-orderList [value]="cars" [listStyle]="&#123;'height':'250px'&#125;" [responsive]="true" header="Cars" 
-    filter="filter" filterBy="brand" filterPlaceholder="Filter by brand" dragdrop="true"&gt;
+    filter="filter" filterBy="brand" filterPlaceholder="Filter by brand" dragdrop="true" dragdropScope="cars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix"&gt;
             &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
