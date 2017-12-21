@@ -1019,7 +1019,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     validateHour(hour): boolean {
         let valid: boolean = true;
-        let valueDateString = this.value ? this.value.toDateString() : null;
+        let value = this.value;
+        if(this.isRangeSelection()) {
+            value = this.value[1] || this.value[0];
+        }
+        if(this.isMultipleSelection()) {
+            value = this.value[this.value.length - 1];
+        }
+        let valueDateString = value ? value.toDateString() : null;
         
         if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
             if(this.minDate.getHours() > hour) {
@@ -1058,7 +1065,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     validateMinute(minute): boolean {
         let valid: boolean = true;
-        let valueDateString = this.value ? this.value.toDateString() : null;
+        let value = this.value;
+        if(this.isRangeSelection()) {
+            value = this.value[1] || this.value[0];
+        }
+        if(this.isMultipleSelection()) {
+            value = this.value[this.value.length - 1];
+        }
+        let valueDateString = value ? value.toDateString() : null;
         
         if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
             if(this.minDate.getMinutes() > minute) {
@@ -1097,7 +1111,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     validateSecond(second): boolean {
         let valid: boolean = true;
-        let valueDateString = this.value ? this.value.toDateString() : null;
+        let value = this.value;
+        if(this.isRangeSelection()) {
+            value = this.value[1] || this.value[0];
+        }
+        if(this.isMultipleSelection()) {
+            value = this.value[this.value.length - 1];
+        }
+        let valueDateString = value ? value.toDateString() : null;
         
         if(this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
             if(this.minDate.getSeconds() > second) {
@@ -1115,7 +1136,14 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     }
     
     updateTime() {
-        let value = this.value ? new Date(this.value.getTime()) : new Date();
+        let value = this.value;
+        if(this.isRangeSelection()) {
+            value = this.value[1] || this.value[0];
+        }
+        if(this.isMultipleSelection()) {
+            value = this.value[this.value.length - 1];
+        }
+        value = value ? new Date(value.getTime()) : new Date();
         if(this.hourFormat == '12') {
             if(this.currentHour === 12)
                 value.setHours(this.pm ? 12 : 0);
@@ -1128,6 +1156,16 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
         
         value.setMinutes(this.currentMinute);
         value.setSeconds(this.currentSecond);
+        if(this.isRangeSelection()) {
+            if(this.value[1]) {
+                value = [this.value[0], value];
+            } else {
+                value = [value, null];
+            }
+        }
+        if(this.isMultipleSelection()){
+            value = [...this.value.slice(0, -1), value];
+        }
         this.updateModel(value);
         this.onSelect.emit(value);
         this.updateInputfield();
