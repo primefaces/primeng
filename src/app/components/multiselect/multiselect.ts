@@ -40,7 +40,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                     </div>
                     <div class="ui-multiselect-filter-container" *ngIf="filter">
                         <input #filterInput type="text" role="textbox" (input)="onFilter($event)"
-                                    class="ui-inputtext ui-widget ui-state-default ui-corner-all">
+                                    class="ui-inputtext ui-widget ui-state-default ui-corner-all" [placeholder]="inputPlaceholder">
                         <span class="fa fa-fw fa-search"></span>
                     </div>
                     <a class="ui-multiselect-close ui-corner-all" href="#" (click)="close($event)">
@@ -110,6 +110,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Input() dropdownIcon: string = 'fa fa-fw fa-caret-down';
     
     @Input() optionLabel: string;
+
+    @Input() inputPlaceholder: string = 'Search';
         
     @ViewChild('container') containerViewChild: ElementRef;
     

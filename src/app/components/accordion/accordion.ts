@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter, 
+import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Output, EventEmitter,
     ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef} from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,7 @@ let idx: number = 0;
     template: `
         <div class="ui-accordion-header ui-state-default ui-corner-all" [ngClass]="{'ui-state-active': selected,'ui-state-disabled':disabled}">
             <a href="#" [attr.id]="id" [attr.aria-controls]="id + '-content'" role="tab" [attr.aria-expanded]="selected" (click)="toggle($event)" (keydown.space)="toggle($event)">
-                <span class="ui-accordion-toggle-icon fa fa-fw" [ngClass]="{'fa-caret-down': selected, 'fa-caret-right': !selected}"></span>
+                <span [class]="selected ? 'ui-accordion-toggle-icon fa fa-fw ' + closeIcon : 'ui-accordion-toggle-icon fa fa-fw ' + openIcon"></span>
                 <span class="ui-accordion-header-text" *ngIf="!hasHeaderFacet">
                     {{header}}
                 </span>
@@ -21,7 +21,7 @@ let idx: number = 0;
             </a>
         </div>
         <div [attr.id]="id + '-content'" class="ui-accordion-content-wrapper" [@tabContent]="selected ? 'visible' : 'hidden'" (@tabContent.done)="onToggleDone($event)"
-            [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}" 
+            [ngClass]="{'ui-accordion-content-wrapper-overflown': !selected||animating}"
             role="region" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id">
             <div class="ui-accordion-content ui-widget-content" *ngIf="lazy ? selected : true">
                 <ng-content></ng-content>
@@ -47,6 +47,10 @@ export class AccordionTab implements OnDestroy {
     @Input() selected: boolean;
 
     @Input() disabled: boolean;
+
+    @Input() openIcon: string = 'fa-caret-right';
+
+    @Input() closeIcon: string = 'fa-caret-down';
 
     @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
@@ -124,25 +128,25 @@ export class AccordionTab implements OnDestroy {
     `
 })
 export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
-    
+
     @Input() multiple: boolean;
-    
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @Output() onOpen: EventEmitter<any> = new EventEmitter();
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
-    
+
     @Input() lazy: boolean;
 
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 
     tabListSubscription: Subscription;
-    
+
     private _activeIndex: any;
-    
+
     public tabs: AccordionTab[] = [];
 
     constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
@@ -159,27 +163,27 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     initTabs(): any {
         this.tabs = this.tabList.toArray();
     }
-      
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
-    } 
-    
+    }
+
     @Input() get activeIndex(): any {
         return this._activeIndex;
     }
 
     set activeIndex(val: any) {
         this._activeIndex = val;
-        
+
         if(this.tabs && this.tabs.length && this._activeIndex != null) {
             for(let i = 0; i < this.tabs.length; i++) {
                 let selected = this.multiple ? this._activeIndex.includes(i) : (i === this._activeIndex);
                 let changed = selected !== this.tabs[i].selected;
-                
+
                 if(changed) {
                     this.tabs[i].animating = true;
                 }
-                
+
                 this.tabs[i].selected = selected;
                 this.tabs[i].selectedChange.emit(selected);
             }
