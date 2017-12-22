@@ -81,6 +81,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() scrollHeight: string = '200px';
 
     @Input() filter: boolean;
+	
+	@Input() filterMode: string = 'contains';
     
     @Input() name: string;
 
@@ -556,7 +558,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     activateFilter() {
         let searchFields: string[] = this.filterBy.split(',');
         if(this.options && this.options.length) {
-            this.optionsToDisplay = this.objectUtils.filter(this.options, searchFields, this.filterValue);
+            this.optionsToDisplay = this.objectUtils.filter(this.options, searchFields, this.filterValue, this.filterMode);
             this.optionsChanged = true;
         }
     }
