@@ -1949,7 +1949,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                 this.editingCell = cell;
                 this.onEditInit.emit({column: column, data: rowData});
                 this.domHandler.addClass(cell, 'ui-cell-editing');
-                let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input');
+                let focusable = this.domHandler.findSingle(cell, '.ui-cell-editor input, .ui-cell-editor textarea');
                 if(focusable) {
                     setTimeout(() => this.domHandler.invokeElementMethod(focusable, 'focus'), 50);
                 }
