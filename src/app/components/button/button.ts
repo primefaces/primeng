@@ -70,6 +70,17 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         
         if(this.initialized) {
             this.domHandler.findSingle(this.el.nativeElement, '.ui-button-text').textContent = this._label;
+
+            if(!this.icon) {
+                if (this._label) {
+                    this.domHandler.removeClass(this.el.nativeElement, 'ui-button-text-empty');
+                    this.domHandler.addClass(this.el.nativeElement, 'ui-button-text-only');
+                }
+                else {
+                    this.domHandler.addClass(this.el.nativeElement, 'ui-button-text-empty');
+                    this.domHandler.removeClass(this.el.nativeElement, 'ui-button-text-only');
+                }
+            }
         }
     }
     
