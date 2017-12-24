@@ -6,6 +6,18 @@
 </div>
 
 <div class="content-section implementation">
+    <h3>Button Component</h3>
+    <p-button (onClick)="count()" label="Click"></p-button>
+    
+    <p-button (onClick)="count()" icon="fa fa-fw fa-check" label="Click"></p-button>
+    
+    <p-button (onClick)="count()" icon="fa fa-fw fa-check" iconPos="right" label="Click"></p-button>
+    
+    <p-button (onClick)="count()" icon="fa fa-fw fa-close"></p-button>
+    
+    <p-button (onClick)="count()" icon="fa fa-fw fa-check" [disabled]="true" label="Disabled"></p-button>
+
+    <h3>Button Directive</h3>
     <button pButton type="button" (click)="count()" label="Click"></button>
 
     <button pButton type="button" (click)="count()" icon="fa-check" label="Click"></button>
@@ -45,20 +57,23 @@ import &#123;ButtonModule&#125; from 'primeng/primeng';
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Button is applied to a button element with pButton directive. Text of the button is defined using label property.</p>
+            <p>Button is either applies as a component using p-button element or a directive using pButton attribute. Directive enhances an existing button whereas 
+                p-button is an element on its own.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Click" &gt;&lt;/button&gt;
+&lt;p-button label="Click" &gt;&lt;/p-button&gt;
 </code>
 </pre>
 
             <h3>Events</h3>
-            <p>Events are defined using standard notation.</p>
+            <p>Events are defined using standard notation in pButton and with on* prefix at p-button.</p>
 
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;button pButton type="button" (click)="onclick()" label="Click"&gt;&lt;/button&gt;
+&lt;button pButton type="button" label="Click" (click)="handleClick($event)"&gt;&lt;/button&gt;
+&lt;p-button label="Click" (onClick)="handleClick($event)"&gt;&lt;/p-button&gt;
 </code>
 </pre>
 
@@ -66,7 +81,7 @@ import &#123;ButtonModule&#125; from 'primeng/primeng';
 <code class="language-typescript" pCode ngNonBindable>
 export class Model &#123;
 
-    onclick() &#123;
+    handleClick() &#123;
         //execute action
     &#125;
 
@@ -80,6 +95,7 @@ export class Model &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" icon="fa-check" iconPos="left"&gt;&lt;/button&gt;
+&lt;p-button label="Click" icon="fa-check" iconPos="left"&gt;&lt;/p-button&gt;
 </code>
 </pre>
 
@@ -96,10 +112,11 @@ export class Model &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;button pButton type="button" class="ui-button-info"&gt;&lt;/button&gt;
+&lt;p-button label="Click" styleClass="ui-button-info"&gt;&lt;/p-button&gt;
 </code>
 </pre>
 
-            <h3>Properties</h3>
+            <h3>Properties of pButton</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -134,6 +151,82 @@ export class Model &#123;
                             <td>string</td>
                             <td>ui-corner-all</td>
                             <td>Defines the cornering of the button, valid replacements are top, left, right and button such as ui-corner-top.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Properties of p-button</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>type</td>
+                            <td>string</td>
+                            <td>button</td>
+                            <td>Type of the button.</td>
+                        </tr>
+                        <tr>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Text of the button.</td>
+                        </tr>
+                        <tr>
+                            <td>icon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Name of the icon.</td>
+                        </tr>
+                        <tr>
+                            <td>iconPos</td>
+                            <td>string</td>
+                            <td>left</td>
+                            <td>Position of the icon, valid values are "left" and "right".</td>
+                        </tr>
+                        <tr>
+                            <td>disabled</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When present, it specifies that the component should be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>style</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Inline style of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the element.</td>
+                        </tr>
+                        <tr>
+                            <td>onClick</td>
+                            <td>event</td>
+                            <td>null</td>
+                            <td>Callback to execute when button is clicked.</td>
+                        </tr>
+                        <tr>
+                            <td>onFocus</td>
+                            <td>event</td>
+                            <td>null</td>
+                            <td>Callback to execute when button is focused.</td>
+                        </tr>
+                        <tr>
+                            <td>onBlur</td>
+                            <td>event</td>
+                            <td>null</td>
+                            <td>Callback to execute when button loses focus.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -176,29 +269,41 @@ export class Model &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-  &lt;button pButton type="button" (click)="count()" label="Click"&gt;&lt;/button&gt;
+&lt;h3&gt;Button Component&lt;/h3&gt;
+&lt;p-button (onClick)="count()" label="Click"&gt;&lt;/p-button&gt;
 
-  &lt;button pButton type="button" (click)="count()" icon="fa-check" label="Click"&gt;&lt;/button&gt;
+&lt;p-button (onClick)="count()" icon="fa fa-fw fa-check" label="Click"&gt;&lt;/p-button&gt;
 
-  &lt;button pButton type="button" (click)="count()" icon="fa-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
+&lt;p-button (onClick)="count()" icon="fa fa-fw fa-check" iconPos="right" label="Click"&gt;&lt;/p-button&gt;
 
-  &lt;button pButton type="button" (click)="count()" icon="fa-close"&gt;&lt;/button&gt;
+&lt;p-button (onClick)="count()" icon="fa fa-fw fa-close"&gt;&lt;/p-button&gt;
 
-  &lt;button pButton type="button" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
+&lt;p-button (onClick)="count()" icon="fa fa-fw fa-check" [disabled]="true" label="Disabled"&gt;&lt;/p-button&gt;
+
+&lt;h3&gt;Button Directive&lt;/h3&gt;
+&lt;button pButton type="button" (click)="count()" label="Click"&gt;&lt;/button&gt;
+
+&lt;button pButton type="button" (click)="count()" icon="fa-check" label="Click"&gt;&lt;/button&gt;
+
+&lt;button pButton type="button" (click)="count()" icon="fa-check" iconPos="right" label="Click"&gt;&lt;/button&gt;
+
+&lt;button pButton type="button" (click)="count()" icon="fa-close"&gt;&lt;/button&gt;
+
+&lt;button pButton type="button" (click)="count()" icon="fa-check" [disabled]="true" label="Disabled"&gt;&lt;/button&gt;
 
 &lt;h3&gt;Severity Buttons&lt;/h3&gt;
 
-  &lt;button pButton type="button" (click)="count()" label="Primary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" label="Primary"&gt;&lt;/button&gt;
 
-  &lt;button pButton type="button" (click)="count()" label="Secondary" class="ui-button-secondary"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" label="Secondary" class="ui-button-secondary"&gt;&lt;/button&gt;
 
-  &lt;button pButton type="button" (click)="count()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" label="Success" class="ui-button-success"&gt;&lt;/button&gt;
 
-  &lt;button pButton type="button" (click)="count()" label="Info"  class="ui-button-info"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" label="Info"  class="ui-button-info"&gt;&lt;/button&gt;
 
-  &lt;button pButton type="button" (click)="count()" label="Warning"  class="ui-button-warning"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" label="Warning"  class="ui-button-warning"&gt;&lt;/button&gt;
 
-  &lt;button pButton type="button" (click)="count()" label="Danger"  class="ui-button-danger"&gt;&lt;/button&gt;
+&lt;button pButton type="button" (click)="count()" label="Danger"  class="ui-button-danger"&gt;&lt;/button&gt;
 
 Number of clicks: {{clicks}}
 </code>

@@ -11,6 +11,10 @@
     overflow: visible; /* the overflow property removes extra width in IE */
 } 
 
+p-button {
+    display: inline-block; 
+}
+
 .ui-button-icon-only { 
     width: 2em;
 } 
