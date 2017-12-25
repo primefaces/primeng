@@ -7,12 +7,12 @@ import { BlockableUI } from '../common/blockableui';
     selector: 'p-card',
     template: `
         <div [ngClass]="'ui-card ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
-            <img class="ui-card-top-image" [src]="topImage" *ngIf="topImage">
+            <div class="ui-card-header" *ngIf="headerFacet">
+               <ng-content select="p-header"></ng-content>
+            </div>
             <div class="ui-card-body">
-                <div class="ui-card-title">
-                    <ng-content select="p-header"></ng-content>
-                    {{header}}
-                </div>
+                <div class="ui-card-title" *ngIf="title">{{title}}</div>
+                <div class="ui-card-subtitle" *ngIf="subtitle">{{subtitle}}</div>
                 <div class="ui-card-content">
                     <ng-content></ng-content>
                 </div>
@@ -25,17 +25,13 @@ import { BlockableUI } from '../common/blockableui';
 })
 export class Card implements BlockableUI {
 
-    @Input() header: string;
+    @Input() title: string;
 
-    @Input() footer: string;
+    @Input() subtitle: string;
 
     @Input() style: any;
 
     @Input() styleClass: string;
-
-    @Input() showHeader: boolean = true;
-
-    @Input() topImage: string;
 
     @ContentChild(Header) headerFacet;
 
