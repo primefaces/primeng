@@ -1,0 +1,25 @@
+.ui-card {
+
+}
+
+.ui-card-top-image {
+    width: 100%;
+}
+
+.ui-card-body {
+    padding: 1em;
+}
+
+.ui-card-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: .5em;
+}
+
+.ui-card-content {
+    line-height: 1.5;
+}
+
+.ui-card-footer {
+    padding-top: 1em;
+}

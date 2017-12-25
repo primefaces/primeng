@@ -125,6 +125,7 @@
             </a>
             <div [ngClass]="{'submenushow': (panelmenutitle.id == activeMenuId), 'submenuhide': (panelmenutitle.id != activeMenuId)}">
                 <a [routerLink]="['/accordion']" (click)="menuActive = false">&#9679; Accordion</a>
+                <a [routerLink]="['/card']" (click)="menuActive = false">&#9679; Card</a>
                 <a [routerLink]="['/fieldset']" (click)="menuActive = false">&#9679; Fieldset</a>
                 <a [routerLink]="['/panel']" (click)="menuActive = false">&#9679; Panel</a>
                 <a [routerLink]="['/scrollpanel']" (click)="menuActive = false">&#9679; ScrollPanel</a>
