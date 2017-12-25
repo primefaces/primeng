@@ -1,4 +1,4 @@
-import {NgModule,Directive,ElementRef,HostListener,Input,Output,EventEmitter} from '@angular/core';
+import {NgModule,Directive,OnDestroy,ElementRef,HostListener,Input,Output,EventEmitter,NgZone} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 
@@ -9,7 +9,7 @@ import {DomHandler} from '../dom/domhandler';
     },
     providers: [DomHandler]
 })
-export class Draggable {
+export class Draggable implements OnDestroy {
     
     @Input('pDraggable') scope: string;
         
@@ -23,10 +23,34 @@ export class Draggable {
     
     @Output() onDrag: EventEmitter<any> = new EventEmitter();
     
-    public handle: any;
+    handle: any;
+
+    dragListener: any;
         
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
     
+    bindDragListener() {
+        if(!this.dragListener) {
+            this.zone.runOutsideAngular(() => {
+                this.dragListener = this.drag.bind(this);
+                this.el.nativeElement.addEventListener('ondrag', this.dragListener);
+            });
+        }
+    }
+
+    unbindDragListener() {
+        if (this.dragListener) {
+            this.zone.runOutsideAngular(() => {
+                this.el.nativeElement.removeEventListener('ondrag', this.dragListener);
+                this.dragListener = null;
+            });
+        }
+    }
+
+    drag(event) {
+        this.onDrag.emit(event);
+    }
+
     @HostListener('dragstart', ['$event']) 
     dragStart(event) {
         if(this.allowDrag()) {
@@ -36,20 +60,18 @@ export class Draggable {
             event.dataTransfer.setData('text', this.scope);
             
             this.onDragStart.emit(event);
+
+            this.bindDragListener();
         }
         else {
             event.preventDefault();
         }
     }
-    
-    @HostListener('drag', ['$event']) 
-    drag(event) {
-        this.onDrag.emit(event);
-    }
-    
+
     @HostListener('dragend', ['$event']) 
     dragEnd(event) {
         this.onDragEnd.emit(event);
+        this.unbindDragListener();
     }
     
     @HostListener('mouseover', ['$event']) 
@@ -68,6 +90,10 @@ export class Draggable {
         else
             return true;
     }
+
+    ngOnDestroy() {
+        this.unbindDragListener();
+    }
     
 }
 
@@ -75,7 +101,7 @@ export class Draggable {
     selector: '[pDroppable]',
     providers: [DomHandler]
 })
-export class Droppable {
+export class Droppable implements OnDestroy {
     
     @Input('pDroppable') scope: string|string[];
         
@@ -89,7 +115,32 @@ export class Droppable {
     
     @Output() onDragOver: EventEmitter<any> = new EventEmitter();
 
-    constructor(public el: ElementRef, public domHandler: DomHandler) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+
+    dragOverListener: any;
+
+    bindDragOverListener() {
+        if (!this.dragOverListener) {
+            this.zone.runOutsideAngular(() => {
+                this.dragOverListener = this.dragOver.bind(this);
+                this.el.nativeElement.addEventListener('ondragover', this.dragOverListener);
+            });
+        }
+    }
+
+    unbindDragOverListener() {
+        if (this.dragOverListener) {
+            this.zone.runOutsideAngular(() => {
+                this.el.nativeElement.removeEventListener('ondragover', this.dragOverListener);
+                this.dragOverListener = null;
+            });
+        }
+    }
+
+    dragOver(event) {
+        event.preventDefault();
+        this.onDragOver.emit(event);
+    }
             
     @HostListener('drop', ['$event'])
     drop(event) {
@@ -116,13 +167,7 @@ export class Droppable {
                 
         this.onDragLeave.emit(event);
     }
-    
-    @HostListener('dragover', ['$event']) 
-    dragOver(event) {
-        event.preventDefault();
-        this.onDragOver.emit(event);
-    }
-    
+        
     allowDrop(event): boolean {
         let dragScope = event.dataTransfer.getData('text');
         if(typeof (this.scope) == "string" && dragScope == this.scope) {
@@ -136,6 +181,10 @@ export class Droppable {
             }
         }
         return false;
+    }
+
+    ngOnDestroy() {
+        this.unbindDragOverListener();
     }
 }
 
