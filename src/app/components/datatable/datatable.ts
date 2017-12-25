@@ -2257,7 +2257,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
             bodyCols = colGroup.children;
             
             if(bodyCols) {
-                for(let i = 0; i < columns.length; i++) {
+                for (let i = 0; i < bodyCols.length; i++) {
                     bodyCols[i].style.width = columns[i].offsetWidth + 'px';
                 }
             }
