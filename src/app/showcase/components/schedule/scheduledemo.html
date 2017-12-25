@@ -6,7 +6,53 @@
 </div>
 
 <div class="content-section implementation">
-    <p-schedule [events]="events" [header]="header" defaultDate="2017-02-01" [eventLimit]="4" [editable]="true"></p-schedule>
+    <p-schedule [events]="events" [header]="header" defaultDate="2017-02-01" [eventLimit]="4" [editable]="true" [eventRender]="eventRender" [defaultView]="defaultView" [timeFormat]="timeFormat" (onDayClick)="handleDayClick($event)"
+        (onEventClick)="handleEventClick($event)" (onEventResize)="handleEventResize($event)" (onEventDrop)="handleEventDrop($event)"></p-schedule>
+
+    <!-- Creation dialog -->
+    <p-dialog header="Creation" [(visible)]="creationDialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
+        [style]="{'overflow':'visible'}" [resizable]="false">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="title">Title</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <input pInputText id="title" [(ngModel)]="event.title" (keyup.enter)="createEvent()" />
+                </div>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton icon="fa-check" (click)="createEvent()" label="Add" [disabled]="!event?.title"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+
+    <!-- Modification dialog -->
+    <p-dialog header="" [(visible)]="modificationDialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
+        [style]="{'overflow':'visible'}" [resizable]="false">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="modificationDialogVisible">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-6">
+                    <label for="title">Title:</label>
+                </div>
+                <div class="ui-grid-col-2">
+                    <input pInputText id="title" [(ngModel)]="event.title" (keyup.enter)="modifyEvent()"
+                    />
+                </div>
+                <div class="ui-grid-col-4">
+                    <button type="button" pButton icon="fa-edit" (click)="modifyEvent()" label="Modifier" [disabled]="!event?.title"></button>
+                </div>
+            </div>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Remove event" [disabled]="!event?.id"></button>
+                </div>
+            </p-footer>
+        </div>
+    </p-dialog>
+
 </div>
 
 <div class="content-section documentation">
