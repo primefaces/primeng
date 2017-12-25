@@ -24,8 +24,7 @@ import {BlockableUI} from '../common/blockableui';
                 <input type="radio" [checked]="checked">
             </div>
             <div class="ui-radiobutton-box ui-widget ui-radiobutton-relative ui-state-default" (click)="handleClick($event)"
-                        (mouseenter)="hover=true" (mouseleave)="hover=false"
-                        [ngClass]="{'ui-state-hover':hover,'ui-state-active':checked}">
+                        [ngClass]="{'ui-state-active':checked}">
                 <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':checked}"></span>
             </div>
         </div>
@@ -52,8 +51,7 @@ export class DTRadioButton {
                 <input type="checkbox" [checked]="checked">
             </div>
             <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default" (click)="handleClick($event)"
-                        (mouseover)="hover=true" (mouseout)="hover=false"
-                        [ngClass]="{'ui-state-hover':hover&&!disabled,'ui-state-active':checked&&!disabled,'ui-state-disabled':disabled}">
+                        [ngClass]="{'ui-state-active':checked&&!disabled,'ui-state-disabled':disabled}">
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
             </div>
         </div>
