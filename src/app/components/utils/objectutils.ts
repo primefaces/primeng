@@ -3,15 +3,15 @@ import {SelectItem} from '../common/selectitem';
 
 @Injectable()
 export class ObjectUtils {
-    
+
     public equals(obj1: any, obj2: any, field?: string): boolean {
-        if(field)
+        if (field)
             return (this.resolveFieldData(obj1, field) === this.resolveFieldData(obj2, field));
         else
             return this.equalsByValue(obj1, obj2);
     }
-    
-    public equalsByValue(obj1: any, obj2: any): boolean {
+
+    public equalsByValue(obj1: any, obj2: any, visited?: any[]): boolean {
         if (obj1 == null && obj2 == null) {
             return true;
         }
@@ -20,21 +20,25 @@ export class ObjectUtils {
         }
 
         if (obj1 == obj2) {
-            delete obj1._$visited;
             return true;
         }
 
         if (typeof obj1 == 'object' && typeof obj2 == 'object') {
-            obj1._$visited = true;
+            if (visited) {
+                if (visited.includes(obj1)) return false;
+            } else {
+                visited = [];
+            }
+            visited.push(obj1);
+
             for (var p in obj1) {
-                if (p === "_$visited") continue;
                 if (obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) {
                     return false;
                 }
 
                 switch (typeof (obj1[p])) {
                     case 'object':
-                        if (obj1[p] && obj1[p]._$visited || !this.equals(obj1[p], obj2[p])) return false;
+                        if (!this.equalsByValue(obj1[p], obj2[p], visited)) return false;
                         break;
 
                     case 'function':
@@ -57,7 +61,7 @@ export class ObjectUtils {
 
         return false;
     }
-    
+
     resolveFieldData(data: any, field: string): any {
         if(data && field) {
             if(field.indexOf('.') == -1) {
@@ -79,12 +83,12 @@ export class ObjectUtils {
             return null;
         }
     }
-    
+
     filter(value: any[], fields: any[], filterValue: string) {
         let filteredItems: any[] = [];
-        
+
         if(value) {
-            for(let item of value) {                
+            for(let item of value) {
                 for(let field of fields) {
                     if(String(this.resolveFieldData(item, field)).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
                         filteredItems.push(item);
@@ -93,10 +97,10 @@ export class ObjectUtils {
                 }
             }
         }
-        
+
         return filteredItems;
     }
-    
+
     reorderArray(value: any[], from: number, to: number) {
         let target: number;
         if(value && (from !== to)) {
@@ -109,7 +113,7 @@ export class ObjectUtils {
             value.splice(to, 0, value.splice(from, 1)[0]);
         }
     }
-    
+
     generateSelectItems(val: any[], field: string): SelectItem[] {
         let selectItems: SelectItem[];
         if(val && val.length) {
@@ -118,10 +122,10 @@ export class ObjectUtils {
                 selectItems.push({label: this.resolveFieldData(item, field), value: item});
             }
         }
-        
+
         return selectItems;
     }
-    
+
     insertIntoOrderedArray(item: any, index: number, arr: any[], sourceArr: any[]): void {
         if(arr.length > 0) {
             let injected = false;
@@ -133,7 +137,7 @@ export class ObjectUtils {
                     break;
                 }
             }
-            
+
             if(!injected) {
                 arr.push(item);
             }
@@ -142,10 +146,10 @@ export class ObjectUtils {
             arr.push(item);
         }
     }
-    
+
     findIndexInList(item: any, list: any): number {
         let index: number = -1;
-        
+
         if(list) {
             for(let i = 0; i < list.length; i++) {
                 if(list[i] == item) {
@@ -154,7 +158,7 @@ export class ObjectUtils {
                 }
             }
         }
-        
+
         return index;
     }
 }
