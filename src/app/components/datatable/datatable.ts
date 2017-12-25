@@ -2198,22 +2198,28 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(columnWidth + delta > parseInt(minWidth)) {
             if(this.columnResizeMode === 'fit') {
                 let nextColumn = this.resizeColumn.nextElementSibling;
-                let nextColumnWidth = nextColumn.offsetWidth - delta;
-                let nextColumnMinWidth = nextColumn.style.minWidth||15;
- 
-                if(newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
-                    this.resizeColumn.style.width = newColumnWidth + 'px';
-                    if(nextColumn) {
-                        nextColumn.style.width = nextColumnWidth + 'px';
-                    }
-                    
-                    if(this.scrollable) {
-                        let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
-                        let resizeColumnIndex = this.domHandler.index(this.resizeColumn);
-                        colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
-                        
-                        if(nextColumn) {
-                            colGroup.children[resizeColumnIndex + 1].style.width = nextColumnWidth + 'px';
+                while (this.domHandler.hasClass(nextColumn, 'ui-helper-hidden')) {
+                    nextColumn = nextColumn.nextElementSibling;
+                }
+
+                if(nextColumn) {
+                    let nextColumnWidth = nextColumn.offsetWidth - delta;
+                    let nextColumnMinWidth = nextColumn.style.minWidth || 15;
+
+                    if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
+                        this.resizeColumn.style.width = newColumnWidth + 'px';
+                        if (nextColumn) {
+                            nextColumn.style.width = nextColumnWidth + 'px';
+                        }
+
+                        if (this.scrollable) {
+                            let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
+                            let resizeColumnIndex = this.domHandler.index(this.resizeColumn);
+                            colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
+
+                            if (nextColumn) {
+                                colGroup.children[resizeColumnIndex + 1].style.width = nextColumnWidth + 'px';
+                            }
                         }
                     }
                 }
