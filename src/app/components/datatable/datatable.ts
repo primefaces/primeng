@@ -477,8 +477,8 @@ export class ScrollableView implements AfterViewInit,AfterViewChecked,OnDestroy 
             <div class="ui-datatable-tablewrapper" *ngIf="!scrollable">
                 <table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                     <thead class="ui-datatable-thead">
-                        <tr *ngIf="!headerColumnGroups.first" class="ui-state-default" [pColumnHeaders]="columns"></tr>
-                        <ng-template [ngIf]="headerColumnGroups.first">
+                        <tr *ngIf="!headerColumnGroups || !headerColumnGroups.first" class="ui-state-default" [pColumnHeaders]="columns"></tr>
+                        <ng-template [ngIf]="headerColumnGroups && headerColumnGroups.first">
                             <tr *ngFor="let headerRow of headerColumnGroups.first.rows" class="ui-state-default" [pColumnHeaders]="headerRow.columns"></tr>
                         </ng-template>
                     </thead>
@@ -1164,6 +1164,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         if(this.rowGroupMode) {
             this.updateRowGroupMetadata();
         }
+
+        this.changeDetector.markForCheck();
     }
     
     onVirtualScroll(event) {
@@ -2375,7 +2377,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
     
     hasFooter() {
-        if(this.footerColumnGroups.first) {
+        if(this.footerColumnGroups && this.footerColumnGroups.first) {
             return true;
         }
         else {
