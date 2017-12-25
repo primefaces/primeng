@@ -174,8 +174,16 @@ export class Dialog implements AfterViewInit,AfterViewChecked,OnDestroy {
         if(this.executePostDisplayActions) {
             this.onShow.emit({});
             this.positionOverlay();
+            this.focus();
             this.executePostDisplayActions = false;
         } 
+    }
+
+    focus() {
+        let focusable = this.domHandler.findSingle(this.containerViewChild.nativeElement, 'button, input, textarea, select');
+        if(focusable) {
+            focusable.focus();
+        }
     }
 
     show() {
