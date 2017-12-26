@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10">
+    <p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selectedCar">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col">
@@ -15,11 +15,13 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
+            <tr [pSelectableRow]="rowData">
                 <td *ngFor="let col of columns">
                      {{rowData[col.field]}}
                 </td>
             </tr>
         </ng-template>
     </p-table>
+
+    {{selectedCar?.vin}}
 </div>

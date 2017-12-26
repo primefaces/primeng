@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, AfterViewInit, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList } from '@angular/core';
+import { NgModule, Component, HostListener, AfterViewInit, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -12,10 +12,10 @@ import { ObjectUtils } from '../utils/objectutils';
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"></p-paginator>
             <table>
-                <thead>
+                <thead #thead>
                     <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
                 </thead>
-                <tbody>
+                <tbody #tbody>
                     <ng-template ngFor let-rowData [ngForOf]="paginator ? (value | slice:first:(first + rows)) : value">
                         <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, columns: columns}"></ng-container>
                     </ng-template>
@@ -55,6 +55,26 @@ export class Table implements AfterContentInit {
 
     @Input() sortMode: string = 'single';
 
+    @Input() selectionMode: string;
+
+    @Input() selection: any;
+
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+
+    @Input() dataKey: string;
+
+    @Input() compareSelectionBy: string = 'deepEquals';
+
+    @Output() onRowClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
+
+    @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('tbody') theadViewChild: ElementRef;
+
+    @ViewChild('tbody') tbodyViewChild: ElementRef;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     _value: any[] = [];
@@ -62,8 +82,8 @@ export class Table implements AfterContentInit {
     headerTemplate: TemplateRef<any>;
 
     bodyTemplate: TemplateRef<any>;
-    
-    sortHeaderElement: Element;
+
+    selectionKeys: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
 
@@ -98,7 +118,6 @@ export class Table implements AfterContentInit {
         if(this.sortMode === 'single') {
             this.sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
             this.sortField = event.field;
-            this.sortHeaderElement = event.element;
             this.sortSingle();
         }
         else {
@@ -130,13 +149,96 @@ export class Table implements AfterContentInit {
             this.first = 0;
         }
     }
+
+    handleRowClick(event) {
+        let targetNode = (<HTMLElement> event.originalEvent.target).nodeName;
+        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || (this.domHandler.hasClass(event.originalEvent.target, 'ui-clickable'))) {
+            return;
+        }
+
+        this.onRowClick.emit({ originalEvent: event.originalEvent, data: event.rowData });
+
+        if(this.selectionMode) {
+            let rowData = event.rowData;
+            let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+            let selected = this.isSelected(rowData);
+
+            if (this.selectionMode === 'single') {
+                if (selected) {
+                    this.selection = null;
+                    this.selectionKeys = {};
+                    this.selectionChange.emit(this.selection);
+                    this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                }
+                else {
+                    this.selection = rowData;
+                    this.selectionChange.emit(this.selection);
+                    this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                    if (dataKeyValue) {
+                        this.selectionKeys = {};
+                        this.selectionKeys[dataKeyValue] = 1;
+                    }
+                }
+            }
+            else if (this.selectionMode === 'multiple') {
+                if (selected) {
+                    let selectionIndex = this.findIndexInSelection(rowData);
+                    this.selection = this.selection.filter((val, i) => i != selectionIndex);
+                    this.selectionChange.emit(this.selection);
+                    this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                    if (dataKeyValue) {
+                        delete this.selectionKeys[dataKeyValue];
+                    }
+                }
+                else {
+                    this.selection = this.selection ? [...this.selection, rowData] : [rowData];
+                    this.selectionChange.emit(this.selection);
+                    this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                    if (dataKeyValue) {
+                        this.selectionKeys[dataKeyValue] = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    isSelected(rowData) {
+        if (rowData && this.selection) {
+            if (this.dataKey) {
+                return this.selectionKeys[this.objectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
+            }
+            else {
+                if (this.selection instanceof Array)
+                    return this.findIndexInSelection(rowData) > -1;
+                else
+                    return this.equals(rowData, this.selection);
+            }
+        }
+
+        return false;
+    }
+
+    findIndexInSelection(rowData: any) {
+        let index: number = -1;
+        if (this.selection && this.selection.length) {
+            for (let i = 0; i < this.selection.length; i++) {
+                if (this.equals(rowData, this.selection[i])) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return index;
+    }
+
+    equals(data1, data2) {
+        return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
+    }
 }
 
 @Directive({
     selector: '[pSortableColumn]',
-    host: {
-        '[class.ui-sortable-column]': 'true'
-    },
     providers: [DomHandler]
 })
 export class SortableColumn implements AfterViewInit {
@@ -156,9 +258,10 @@ export class SortableColumn implements AfterViewInit {
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        if (this.dt.sortHeaderElement) {
-            this.domHandler.removeClass(this.dt.sortHeaderElement, 'ui-state-highlight');
-            this.domHandler.findSingle(this.dt.sortHeaderElement, '.ui-sortable-column-icon').className = 'ui-sortable-column-icon fa fa-fw fa-sort';
+        let sortedColumn = this.domHandler.findSingle(this.dt.theadViewChild.nativeElement, 'th.ui-state-highlight');
+        if (sortedColumn) {
+            this.domHandler.removeClass(sortedColumn, 'ui-state-highlight');
+            sortedColumn = 'ui-sortable-column-icon fa fa-fw fa-sort';
         }
 
         this.dt.sort({
@@ -181,9 +284,46 @@ export class SortableColumn implements AfterViewInit {
 
 }
 
+@Directive({
+    selector: '[pSelectableRow]',
+    providers: [DomHandler]
+})
+export class SelectableRow implements AfterViewInit {
+
+    @Input("pSelectableRow") data: any;
+
+    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler) { }
+
+    ngAfterViewInit() {
+        if(this.dt.isSelected(this.data)) {
+            this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
+        }
+    }
+
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        this.dt.handleRowClick({
+            originalEvent: event,
+            rowData: this.data
+        });
+        
+        if(this.domHandler.hasClass(this.el.nativeElement, 'ui-state-highlight')) {
+            this.domHandler.removeClass(this.el.nativeElement, 'ui-state-highlight');
+        }
+        else {
+            let selectedRow = this.domHandler.findSingle(this.dt.tbodyViewChild.nativeElement, 'tr.ui-state-highlight');
+            if(selectedRow) {
+                this.domHandler.removeClass(selectedRow, 'ui-state-highlight');
+            }
+            this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
+        }
+    }
+
+}
+
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn],
-    declarations: [Table,SortableColumn]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow],
+    declarations: [Table,SortableColumn,SelectableRow]
 })
 export class TableModule { }

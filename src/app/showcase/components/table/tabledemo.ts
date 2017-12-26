@@ -13,6 +13,8 @@ export class TableDemo implements OnInit {
 
     cols: any[];
 
+    selectedCar: Car;
+
     constructor(private carService: CarService) { }
 
     ngOnInit() {
