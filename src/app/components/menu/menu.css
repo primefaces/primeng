@@ -122,6 +122,7 @@
     border-width: 0 0 0 1px;
     width: 1px;
     text-indent: -9999999px;
+    overflow: hidden;
 }
 
 .ui-menubar:not(.ui-megamenu-vertical) .ui-menubar-root-list > .ui-menu-separator::before {
