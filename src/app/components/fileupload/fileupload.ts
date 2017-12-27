@@ -147,7 +147,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
 
     focus: boolean;
 
-    selfInputChange: boolean;
+    duplicateIEEvent: boolean;  // flag to recognize duplicate onchange event for file input
 
     constructor(private el: ElementRef, public domHandler: DomHandler, public sanitizer: DomSanitizer, public zone: NgZone){}
 
@@ -186,8 +186,8 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     }
 
     onFileSelect(event) {
-        if(this.isIE11() && this.selfInputChange) {
-            this.selfInputChange = false;
+        if(this.isIE11() && this.duplicateIEEvent) {
+            this.duplicateIEEvent = false;
             return;
         }
 
@@ -217,7 +217,11 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
             this.upload();
         }
 
-        this.clearInputElement();
+        if (this.isIE11()) {
+          this.clearIEInput();
+        } else {
+          this.clearInputElement();
+        }
     }
 
     isFileSelected(file: File): boolean{
@@ -357,12 +361,15 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     }
 
     clearInputElement() {
-      if(this.advancedFileInput && this.advancedFileInput.nativeElement) {
-          if(this.isIE11()) {
-               this.selfInputChange = true; //IE11 fix to prevent onFileChange trigger again
-          }
+      if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
+        this.advancedFileInput.nativeElement.value = '';
+      }
+    }
 
-          this.advancedFileInput.nativeElement.value = '';
+    clearIEInput() {
+      if (this.advancedFileInput && this.advancedFileInput.nativeElement) {
+        this.duplicateIEEvent = true; //IE11 fix to prevent onFileChange trigger again
+        this.advancedFileInput.nativeElement.value = '';
       }
     }
 
