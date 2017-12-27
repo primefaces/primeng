@@ -36,6 +36,7 @@
 .ui-dropdown-item-empty,
 .ui-dropdown-label-empty {
     text-indent: -9999px;   
+    overflow: hidden;
 }
 
 .ui-dropdown.ui-state-disabled .ui-dropdown-trigger,
