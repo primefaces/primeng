@@ -47,6 +47,7 @@ export class Fieldset implements BlockableUI {
 
     @Input() collapsed: boolean = false;
 
+    @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
     @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
 
     @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
@@ -80,10 +81,12 @@ export class Fieldset implements BlockableUI {
     
     expand(event) {
         this.collapsed = false;
+        this.collapsedChange.emit(this.collapsed);
     }
     
     collapse(event) {
         this.collapsed = true;
+        this.collapsedChange.emit(this.collapsed);
     }
     
     getBlockableElement(): HTMLElement {
