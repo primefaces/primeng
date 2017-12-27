@@ -1,0 +1,11 @@
+.ui-table table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.ui-table th,
+.ui-table td {
+    padding: .25em .5em;
+    border: 1px solid #d9d9d9;
+}

@@ -198,7 +198,8 @@ export class AutoCompleteDemo &#123;
 </code>
 </pre>
 
-            <p>In multiple mode, selected item can be customized using selectedItem ng-template.</p>
+            <p>In multiple mode, selected item can be customized using selectedItem ng-template. Note that this
+                template is not supported in single mode.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-autoComplete [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"&gt;

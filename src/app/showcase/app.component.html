@@ -3,11 +3,11 @@
         <a href="#" class="menu-button" (click)="onMenuButtonClick($event)">
             <i class="fa fa-bars"></i>
         </a>
-        
+
         <a href="#" class="logo" [routerLink]="['/']">
             <img alt="logo" src="assets/showcase/images/logo.png" />
         </a>
-        
+
         <ul class="topbar-menu">
             <li>
                 <a href="#" [routerLink]="['/setup']">GET STARTED</a>
@@ -53,7 +53,7 @@
             </li>
         </ul>
     </div>
-    
+
     <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
             <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === inputmenutitle.id ? null : inputmenutitle.id)">
@@ -108,6 +108,7 @@
                 <a [routerLink]="['/datalist']" (click)="menuActive = false">&#9679; DataList</a>
                 <a [routerLink]="['/datascroller']" (click)="menuActive = false">&#9679; DataScroller</a>
                 <a [routerLink]="['/datatable']" (click)="menuActive = false">&#9679; DataTable</a>
+                <a [routerLink]="['/table']" (click)="menuActive = false">&#9679; Table</a>
                 <a [routerLink]="['/organizationchart']" (click)="menuActive = false">&#9679; Org Chart</a>
                 <a [routerLink]="['/orderlist']" (click)="menuActive = false">&#9679; OrderList</a>
                 <a [routerLink]="['/gmap']" (click)="menuActive = false">&#9679; GMap</a>
@@ -125,6 +126,7 @@
             </a>
             <div [ngClass]="{'submenushow': (panelmenutitle.id == activeMenuId), 'submenuhide': (panelmenutitle.id != activeMenuId)}">
                 <a [routerLink]="['/accordion']" (click)="menuActive = false">&#9679; Accordion</a>
+                <a [routerLink]="['/card']" (click)="menuActive = false">&#9679; Card</a>
                 <a [routerLink]="['/fieldset']" (click)="menuActive = false">&#9679; Fieldset</a>
                 <a [routerLink]="['/panel']" (click)="menuActive = false">&#9679; Panel</a>
                 <a [routerLink]="['/scrollpanel']" (click)="menuActive = false">&#9679; ScrollPanel</a>
@@ -146,7 +148,7 @@
                 <a [routerLink]="['/overlaypanel']" (click)="menuActive = false">&#9679; OverlayPanel</a>
                 <a [routerLink]="['/tooltip']" (click)="menuActive = false">&#9679; Tooltip</a>
             </div>
-            
+
             <a id="menu_file" #filemenutitle [class.active-menuitem]="filemenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === filemenutitle.id ? null : filemenutitle.id)">
                 <img src="assets/showcase/images/icons/file-active.svg" class="layout-menu-icon-active"/>
                 <img src="assets/showcase/images/icons/file.svg" class="layout-menu-icon-inactive"/>
@@ -209,7 +211,7 @@
             <div [ngClass]="{'submenushow': (multimediamenutitle.id == activeMenuId), 'submenuhide': (multimediamenutitle.id != activeMenuId)}">
                 <a [routerLink]="['/galleria']" (click)="menuActive = false">&#9679; Galleria</a>
             </div>
-            
+
             <a id="menu_dnd" #dndmenutitle [class.active-menuitem]="dndmenutitle.id == activeMenuId"
                     (click)="activeMenuId = (activeMenuId === dndmenutitle.id ? null : dndmenutitle.id)">
                     <img src="assets/showcase/images/icons/dragdrop-active.svg" class="layout-menu-icon-active"/>
@@ -219,7 +221,7 @@
             <div [ngClass]="{'submenushow': (dndmenutitle.id == activeMenuId), 'submenuhide': (dndmenutitle.id != activeMenuId)}">
                 <a [routerLink]="['/dragdrop']" (click)="menuActive = false">&#9679; Drag&amp;Drop</a>
             </div>
-            
+
             <a id="menu_misc" #misctitle [class.active-menuitem]="misctitle.id == activeMenuId"
                     (click)="activeMenuId = (activeMenuId === misctitle.id ? null : misctitle.id)">
                     <img src="assets/showcase/images/icons/misc-active.svg" class="layout-menu-icon-active"/>
@@ -241,11 +243,20 @@
             </div>
         </div>
     </div>
-    
+
     <div class="layout-mask" *ngIf="menuActive">
     </div>
 
     <div id="layout-content">
+
+        <div class="notification-topbar" [@notificationTopbar]="notification ? 'visible' : 'hidden'">
+          <a href="#">
+            <img class="notification-topbar-image" src="assets/showcase/images/prime-showcases-notification-topbar-text.png" alt="Showcase Notification Topbar" />
+            <img class="notification-topbar-image-mobile" src="assets/showcase/images/prime-showcases-notification-topbar-text-mobile.png" alt="Showcase Notification Topbar" />
+            <i class="notification-topbar-close fa fa-lg fa-times-circle" (click)="closeNotification($event)"></i>
+          </a>
+        </div>
+
         <div>
             <router-outlet></router-outlet>
         </div>

@@ -323,10 +323,11 @@ export class UITreeNode implements OnInit {
             <div class="ui-tree-loading-content" *ngIf="loading">
                 <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
             </div>
-            <ul class="ui-tree-container">
+            <ul class="ui-tree-container" *ngIf="value">
                 <p-treeNode *ngFor="let node of value;let firstChild=first;let lastChild=last; let index=index" [node]="node" 
                 [firstChild]="firstChild" [lastChild]="lastChild" [index]="index"></p-treeNode>
             </ul>
+            <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
         </div>
         <div [ngClass]="{'ui-tree ui-tree-horizontal ui-widget ui-widget-content ui-corner-all':true,'ui-tree-selectable':selectionMode}"  [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
             <div class="ui-tree-loading ui-widget-overlay" *ngIf="loading"></div>
@@ -336,6 +337,7 @@ export class UITreeNode implements OnInit {
             <table *ngIf="value&&value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
             </table>
+            <div class="ui-tree-empty-message" *ngIf="!loading && !value">{{emptyMessage}}</div>
         </div>
     `
 })
@@ -386,6 +388,8 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     @Input() loading: boolean;
 
     @Input() loadingIcon: string = 'fa-circle-o-notch';
+
+    @Input() emptyMessage: string = 'No records found';
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -718,7 +722,11 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
     }
 
     allowDrop(dragNode: TreeNode, dropNode: TreeNode, dragNodeScope: any): boolean {
-        if(this.isValidDragScope(dragNodeScope)) {
+        if(!dragNode) {
+            //prevent random html elements to be dragged
+            return false;
+        }
+        else if(this.isValidDragScope(dragNodeScope)) {
             let allow: boolean = true;
             if(dropNode) {
                 if(dragNode === dropNode) {

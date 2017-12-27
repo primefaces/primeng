@@ -192,10 +192,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
         this.create();
         this.align();
-        if (this.tooltipStyleClass) {
-            this.container.className = this.container.className + ' ' + this.tooltipStyleClass;
-        }
         this.domHandler.fadeIn(this.container, 250);
+
         if (this.tooltipZIndex === 'auto')
             this.container.style.zIndex = ++DomHandler.zindex;
         else
@@ -277,8 +275,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     alignRight() {
-        this.preAlign();
-        this.container.className = 'ui-tooltip ui-widget ui-tooltip-right';
+        this.preAlign('right');
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + this.domHandler.getOuterWidth(this.el.nativeElement);
         let top = hostOffset.top + (this.domHandler.getOuterHeight(this.el.nativeElement) - this.domHandler.getOuterHeight(this.container)) / 2;
@@ -287,8 +284,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     alignLeft() {
-        this.preAlign();
-        this.container.className = 'ui-tooltip ui-widget ui-tooltip-left';
+        this.preAlign('left');
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left - this.domHandler.getOuterWidth(this.container);
         let top = hostOffset.top + (this.domHandler.getOuterHeight(this.el.nativeElement) - this.domHandler.getOuterHeight(this.container)) / 2;
@@ -297,8 +293,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     alignTop() {
-        this.preAlign();
-        this.container.className = 'ui-tooltip ui-widget ui-tooltip-top';
+        this.preAlign('top');
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
         let top = hostOffset.top - this.domHandler.getOuterHeight(this.container);
@@ -307,8 +302,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     alignBottom() {
-        this.preAlign();
-        this.container.className = 'ui-tooltip ui-widget ui-tooltip-bottom';
+        this.preAlign('bottom');
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
         let top = hostOffset.top + this.domHandler.getOuterHeight(this.el.nativeElement);
@@ -316,9 +310,12 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.style.top = top + 'px';
     }
 
-    preAlign() {
+    preAlign(position: string) {
         this.container.style.left = -999 + 'px';
         this.container.style.top = -999 + 'px';
+
+        let defaultClassName = 'ui-tooltip ui-widget ui-tooltip-' + position;
+        this.container.className = this.tooltipStyleClass ? defaultClassName + ' ' + this.tooltipStyleClass : defaultClassName;
     }
 
     isOutOfBounds(): boolean {

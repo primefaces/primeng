@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
             {path: 'button', loadChildren: './components/button/buttondemo.module#ButtonDemoModule'},
             {path: 'calendar', loadChildren: './components/calendar/calendardemo.module#CalendarDemoModule'},
             {path: 'captcha', loadChildren: './components/captcha/captchademo.module#CaptchaDemoModule'},
+            {path: 'card', loadChildren: './components/card/carddemo.module#CardDemoModule'},
             {path: 'carousel', loadChildren: './components/carousel/carouseldemo.module#CarouselDemoModule'},
             {path: 'chart', loadChildren: './components/chart/chartdemo.module#ChartDemoModule'},
             {path: 'checkbox', loadChildren: './components/checkbox/checkboxdemo.module#CheckboxDemoModule'},

@@ -1,0 +1,61 @@
+.ui-megamenu {
+    padding: .25em;
+}
+
+.ui-megamenu-root-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-megamenu-root-list > .ui-menuitem {
+    position: relative;
+}
+
+.ui-megamenu .ui-menuitem-link {
+    padding: .25em;
+    display: block;
+}
+
+.ui-megamenu-panel {
+    display: none;
+    position: absolute;
+}
+
+.ui-megamenu-panel .ui-menuitem {
+    margin: .125em 0;
+}
+
+.ui-megamenu-submenu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    min-width: 12.5em;
+}
+
+.ui-megamenu-submenu-header {
+    padding: .25em;
+}
+
+/* Horizontal */
+.ui-megamenu-horizontal .ui-megamenu-root-list > .ui-menuitem {
+    display: inline-block;
+}
+
+/* Vertical */
+.ui-megamenu-vertical .ui-megamenu-root-list > .ui-menuitem {
+    display: block;
+}
+
+.ui-megamenu-vertical .ui-megamenu-root-list > .ui-menuitem > .ui-menuitem-link {
+    position: relative;
+}
+
+.ui-megamenu-vertical .ui-megamenu-root-list > .ui-menuitem > .ui-menuitem-link > .ui-submenu-icon {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    top: 50%;
+    right: 0;
+    margin-top: -.5em;
+}
