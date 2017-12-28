@@ -10,7 +10,10 @@ import { FilterMetadata } from '../common/filtermetadata';
 @Component({
     selector: 'p-table',
     template: `
-        <div class="ui-table">
+        <div class="ui-table ui-widget">
+            <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
+                <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
+            </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"></p-paginator>
             <table>
@@ -69,8 +72,6 @@ export class Table implements AfterContentInit {
 
     @Input() compareSelectionBy: string = 'deepEquals';
 
-    @Input() globalFilter: any;
-
     @Input() public filters: { [s: string]: FilterMetadata; } = {};
 
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
@@ -99,6 +100,8 @@ export class Table implements AfterContentInit {
 
     bodyTemplate: TemplateRef<any>;
 
+    captionTemplate: TemplateRef<any>;
+
     selectionKeys: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
@@ -106,6 +109,10 @@ export class Table implements AfterContentInit {
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
+                case 'caption':
+                    this.captionTemplate = item.template;
+                    break;
+
                 case 'header':
                     this.headerTemplate = item.template;
                 break;
@@ -317,14 +324,14 @@ export class Table implements AfterContentInit {
         return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
     }
 
-    filter(value, field, matchMode) {
+    filter(value, columns, field, matchMode) {
         if (!this.isFilterBlank(value))
             this.filters[field] = { value: value, matchMode: matchMode };
         else if (this.filters[field])
             delete this.filters[field];
 
         if(this.hasFilter()) {
-            this._filter();
+            this._filter(columns);
         }
         else {
             this.filteredValue = null;
@@ -332,6 +339,11 @@ export class Table implements AfterContentInit {
                 this.totalRecords = this.value ? this.value.length : 0;
             }
         }
+    }
+
+    filterGlobal(value, columns, matchMode) {
+        this.filter(value, columns, 'global', matchMode);
+        this._filter(columns);
     }
 
     isFilterBlank(filter: any): boolean {
@@ -344,7 +356,7 @@ export class Table implements AfterContentInit {
         return true;
     }
 
-    _filter() {
+    _filter(columns) {
         this.first = 0;
 
         if (this.lazy) {
@@ -361,11 +373,14 @@ export class Table implements AfterContentInit {
                 let localMatch = true;
                 let globalMatch = false;
 
-                for (let prop in this.filters) {
-                    if (this.filters.hasOwnProperty(prop)) {
-                        let filterMeta = this.filters[prop];
-                        let filterField = prop;
+                for (let j = 0; j < columns.length; j++) {
+                    let col = columns[j];
+                    let filterMeta = this.filters[col.filterField || col.field];
+
+                    //local
+                    if (filterMeta) {
                         let filterValue = filterMeta.value;
+                        let filterField = col.filterField || col.field;
                         let filterMatchMode = filterMeta.matchMode || 'startsWith';
                         let dataFieldValue = this.objectUtils.resolveFieldData(this.value[i], filterField);
                         let filterConstraint = this.filterConstraints[filterMatchMode];
@@ -378,15 +393,15 @@ export class Table implements AfterContentInit {
                             break;
                         }
                     }
+
+                    //global
+                    if (this.filters['global'] && !globalMatch) {
+                        globalMatch = this.filterConstraints[this.filters['global'].matchMode](this.objectUtils.resolveFieldData(this.value[i], col.filterField || col.field), this.filters['global'].value);
+                    }
                 }
 
-                //global
-                /*if (!col.excludeGlobalFilter && this.globalFilter && !globalMatch) {
-                    globalMatch = this.filterConstraints['contains'](this.resolveFieldData(this.value[i], col.filterField || col.field), this.globalFilter.value);
-                }*/
-
                 let matches = localMatch;
-                if (this.globalFilter) {
+                if (this.filters['global']) {
                     matches = localMatch && globalMatch;
                 }
 
@@ -419,7 +434,7 @@ export class Table implements AfterContentInit {
             }
         }
 
-        return !empty || (this.globalFilter && this.globalFilter.value && this.globalFilter.value.trim().length);
+        return !empty;
     }
 
     filterConstraints = {
