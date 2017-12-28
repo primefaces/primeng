@@ -248,15 +248,6 @@
     </div>
 
     <div id="layout-content">
-
-        <div class="notification-topbar" [@notificationTopbar]="notification ? 'visible' : 'hidden'">
-          <a href="#">
-            <img class="notification-topbar-image" src="assets/showcase/images/prime-showcases-notification-topbar-text.png" alt="Showcase Notification Topbar" />
-            <img class="notification-topbar-image-mobile" src="assets/showcase/images/prime-showcases-notification-topbar-text-mobile.png" alt="Showcase Notification Topbar" />
-            <i class="notification-topbar-close fa fa-lg fa-times-circle" (click)="closeNotification()"></i>
-          </a>
-        </div>
-
         <div>
             <router-outlet></router-outlet>
         </div>

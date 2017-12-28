@@ -4,6 +4,7 @@ import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
 import { DomHandler } from '../dom/domhandler';
 import { ObjectUtils } from '../utils/objectutils';
+import { SortMeta } from '../common/sortmeta';
 
 @Component({
     selector: 'p-table',
@@ -55,6 +56,8 @@ export class Table implements AfterContentInit {
 
     @Input() sortMode: string = 'single';
 
+    @Input() multiSortMeta: SortMeta[] = [];
+
     @Input() selectionMode: string;
 
     @Input() selection: any;
@@ -71,7 +74,9 @@ export class Table implements AfterContentInit {
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('tbody') theadViewChild: ElementRef;
+    @Output() onSort: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('thead') theadViewChild: ElementRef;
 
     @ViewChild('tbody') tbodyViewChild: ElementRef;
 
@@ -115,14 +120,40 @@ export class Table implements AfterContentInit {
     }
 
     sort(event) {
+        let originalEvent = event.originalEvent;
+
         if(this.sortMode === 'single') {
             this.sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
             this.sortField = event.field;
             this.sortSingle();
         }
-        else {
+        if (this.sortMode === 'multiple') {
+            let metaKey = originalEvent.metaKey || originalEvent.ctrlKey;
+            let sortMeta = this.getSortMeta(event.field);
 
+            if (sortMeta) {
+                if (!metaKey) {
+                    this.multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
+                }
+                else {
+                    sortMeta.order = sortMeta.order * -1;
+                }
+            }
+            else {
+                if (!metaKey) {
+                    this.multiSortMeta = [];
+                }
+                this.multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
+            }
+            
+            this.sortMultiple();
         }
+
+        this.onSort.emit({
+            field: event.field,
+            order: event.sortOrder,
+            multisortmeta: this.multiSortMeta
+        });
     }
 
     sortSingle() {
@@ -148,6 +179,45 @@ export class Table implements AfterContentInit {
             
             this.first = 0;
         }
+    }
+
+    sortMultiple() {
+        if (this.value) {
+            this.value.sort((data1, data2) => {
+                return this.multisortField(data1, data2, this.multiSortMeta, 0);
+            });
+        }
+    }
+
+    multisortField(data1, data2, multiSortMeta, index) {
+        let value1 = this.objectUtils.resolveFieldData(data1, multiSortMeta[index].field);
+        let value2 = this.objectUtils.resolveFieldData(data2, multiSortMeta[index].field);
+        let result = null;
+
+        if (typeof value1 == 'string' || value1 instanceof String) {
+            if (value1.localeCompare && (value1 != value2)) {
+                return (multiSortMeta[index].order * value1.localeCompare(value2));
+            }
+        }
+        else {
+            result = (value1 < value2) ? -1 : 1;
+        }
+
+        if (value1 == value2) {
+            return (multiSortMeta.length - 1) > (index) ? (this.multisortField(data1, data2, multiSortMeta, index + 1)) : 0;
+        }
+
+        return (multiSortMeta[index].order * result);
+    }
+
+    getSortMeta(field: string) {
+        for (let i = 0; i < this.multiSortMeta.length; i++) {
+            if (this.multiSortMeta[i].field === field) {
+                return this.multiSortMeta[i];
+            }
+        }
+
+        return null;
     }
 
     handleRowClick(event) {
@@ -257,31 +327,47 @@ export class SortableColumn implements AfterViewInit {
     }
 
     @HostListener('click', ['$event'])
-    onClick(event: Event) {
-        let sortedColumn = this.domHandler.findSingle(this.dt.theadViewChild.nativeElement, 'th.ui-state-highlight');
-        if (sortedColumn) {
-            this.domHandler.removeClass(sortedColumn, 'ui-state-highlight');
-            sortedColumn = 'ui-sortable-column-icon fa fa-fw fa-sort';
+    onClick(event: MouseEvent) {
+        let metaKey = event.metaKey || event.ctrlKey;
+
+        if(this.dt.sortMode === 'single' || !metaKey) {
+            let sortedColumns = this.domHandler.find(this.dt.theadViewChild.nativeElement, 'th.ui-state-highlight');
+            if (sortedColumns.length) {
+                for(let i = 0 ; i < sortedColumns.length; i++) {
+                    this.domHandler.removeClass(sortedColumns[i], 'ui-state-highlight');
+                    let sortIcon = this.domHandler.findSingle(sortedColumns[i], '.ui-sortable-column-icon');
+                    sortIcon.className = 'ui-sortable-column-icon fa fa-fw fa-sort';
+                }
+            }
         }
 
         this.dt.sort({
             originalEvent: event,
-            field: this.column.field,
-            element: this.el.nativeElement
+            field: this.column.field
         });
 
-        if(this.dt.sortOrder === 1) {
+        let sortOrder;
+        if (this.dt.sortMode === 'single') {
+            sortOrder = this.dt.sortOrder;
+        }
+        else if (this.dt.sortMode === 'multiple') {
+            let sortMeta = this.dt.getSortMeta(this.column.field);
+            if(sortMeta) {
+                sortOrder = sortMeta.order;
+            }
+        }
+
+        if (sortOrder === 1) {
             this.domHandler.removeClass(this.icon, 'fa-sort-desc');
             this.domHandler.addClass(this.icon, 'fa-sort-asc');
         }
-        else if (this.dt.sortOrder === -1) {
+        else if (sortOrder === -1) {
             this.domHandler.removeClass(this.icon, 'fa-sort-asc');
             this.domHandler.addClass(this.icon, 'fa-sort-desc');
         }
 
         this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
     }
-
 }
 
 @Directive({
