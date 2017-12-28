@@ -18,16 +18,22 @@ import { FilterMetadata } from '../common/filtermetadata';
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"></p-paginator>
             <table>
                 <thead #thead>
-                    <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </thead>
+                <tfoot>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                </tfoot>
                 <tbody #tbody>
                     <ng-template ngFor let-rowData [ngForOf]="paginator ? (filteredValue||value | slice:first:(first + rows)) : filteredValue||value">
-                        <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, columns: columns}"></ng-container>
+                        <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData}"></ng-container>
                     </ng-template>
                 </tbody>
             </table>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"></p-paginator>
+            <div *ngIf="footerTemplate" class="ui-table-summary ui-widget-header">
+                <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
+            </div>
         </div>
     `,
     providers: [DomHandler, ObjectUtils]
@@ -102,6 +108,10 @@ export class Table implements AfterContentInit {
 
     captionTemplate: TemplateRef<any>;
 
+    footerTemplate: TemplateRef<any>;
+
+    summaryTemplate: TemplateRef<any>;
+
     selectionKeys: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
@@ -119,6 +129,14 @@ export class Table implements AfterContentInit {
 
                 case 'body':
                     this.bodyTemplate = item.template;
+                break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                break;
+
+                case 'summary':
+                    this.summaryTemplate = item.template;
                 break;
             }
         });

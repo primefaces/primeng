@@ -6,6 +6,7 @@ import { TablePageDemo } from './tablepagedemo';
 import { TableSortDemo } from './tablesortdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
 import { TableFilterDemo } from './tablefilterdemo';
+import { TableSectionsDemo } from './tablesectionsdemo';
 import { TableSubmenu } from './tablesubmenu';
 import { TableDemoRoutingModule } from './tabledemo-routing.module';
 import { TableModule } from '../../../components/table/table';
@@ -35,6 +36,7 @@ import { InputTextModule } from '../../../components/inputtext/inputtext';
 		TablePageDemo,
 		TableSortDemo,
 		TableSelectionDemo,
+		TableSectionsDemo,
 		TableFilterDemo
 	]
 })
