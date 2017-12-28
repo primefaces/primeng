@@ -25,7 +25,7 @@ import { FilterMetadata } from '../common/filtermetadata';
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </tfoot>
                 <tbody #tbody>
-                    <ng-template ngFor let-rowData [ngForOf]="paginator ? (filteredValue||value | slice:first:(first + rows)) : filteredValue||value">
+                    <ng-template ngFor let-rowData [ngForOf]="paginator ? (filteredValue||value | slice:first:(first + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
                         <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData}"></ng-container>
                     </ng-template>
                 </tbody>
@@ -74,6 +74,8 @@ export class Table implements AfterContentInit {
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() dataKey: string;
+
+    @Input() rowTrackBy: Function = (index: number, item: any) => item;
 
     @Input() lazy: boolean;
 
