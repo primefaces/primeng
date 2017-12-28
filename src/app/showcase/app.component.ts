@@ -54,7 +54,8 @@ export class AppComponent implements OnInit{
         event.preventDefault();
     }
     
-    closeNotification() {
+    closeNotification(event) {
       this.notification = false;
+      event.preventDefault();
     }
 }
