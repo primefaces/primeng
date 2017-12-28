@@ -17,6 +17,7 @@ import { FilterMetadata } from '../common/filtermetadata';
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"></p-paginator>
             <table>
+                <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
                 <thead #thead>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </thead>
@@ -112,6 +113,8 @@ export class Table implements AfterContentInit {
 
     summaryTemplate: TemplateRef<any>;
 
+    colGroupTemplate: TemplateRef<any>;
+
     selectionKeys: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
@@ -137,6 +140,10 @@ export class Table implements AfterContentInit {
 
                 case 'summary':
                     this.summaryTemplate = item.template;
+                break;
+
+                case 'colgroup':
+                    this.colGroupTemplate = item.template;
                 break;
             }
         });

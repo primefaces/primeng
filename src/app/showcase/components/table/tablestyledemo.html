@@ -9,6 +9,14 @@
 
 <div class="content-section implementation">
     <p-table [value]="cars">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col style="background-color:#FFD54F !important">
+            </colgroup>
+        </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th *ngFor="let col of columns">
