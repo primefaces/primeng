@@ -6,6 +6,7 @@ import { TableSortDemo } from './tablesortdemo';
 import { TableFilterDemo } from './tablefilterdemo';
 import { TableSelectionDemo } from './tableselectiondemo';
 import { TableSectionsDemo } from './tablesectionsdemo';
+import { TableStyleDemo } from './tablestyledemo';
 
 @NgModule({
 	imports: [
@@ -15,7 +16,8 @@ import { TableSectionsDemo } from './tablesectionsdemo';
 			{ path: 'sort', component: TableSortDemo },
 			{ path: 'selection', component: TableSelectionDemo },
 			{ path: 'filter', component: TableFilterDemo },
-			{ path: 'sections', component: TableSectionsDemo }
+			{ path: 'sections', component: TableSectionsDemo },
+			{ path: 'style', component: TableStyleDemo }
 		])
 	],
 	exports: [

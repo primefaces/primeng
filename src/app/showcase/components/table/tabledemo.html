@@ -11,13 +11,13 @@
     <p-table [value]="cars">
         <ng-template pTemplate="header">
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col">
+                <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
-            <tr [pSelectableRow]="rowData">
+            <tr>
                 <td *ngFor="let col of columns">
                      {{rowData[col.field]}}
                 </td>

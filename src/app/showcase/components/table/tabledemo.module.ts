@@ -8,6 +8,7 @@ import { TableSelectionDemo } from './tableselectiondemo';
 import { TableFilterDemo } from './tablefilterdemo';
 import { TableSectionsDemo } from './tablesectionsdemo';
 import { TableSubmenu } from './tablesubmenu';
+import { TableStyleDemo } from './tablestyledemo';
 import { TableDemoRoutingModule } from './tabledemo-routing.module';
 import { TableModule } from '../../../components/table/table';
 import { SliderModule } from '../../../components/slider/slider';
@@ -37,7 +38,8 @@ import { InputTextModule } from '../../../components/inputtext/inputtext';
 		TableSortDemo,
 		TableSelectionDemo,
 		TableSectionsDemo,
-		TableFilterDemo
+		TableFilterDemo,
+		TableStyleDemo
 	]
 })
 export class TableDemoModule { }
