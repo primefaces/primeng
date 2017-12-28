@@ -550,7 +550,7 @@ export class Table implements AfterContentInit {
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
-            globalFilter: this.globalFilter ? this.globalFilter.value : null,
+            globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
             multiSortMeta: this.multiSortMeta
         };
     }
