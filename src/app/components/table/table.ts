@@ -5,6 +5,7 @@ import { PaginatorModule } from '../paginator/paginator';
 import { DomHandler } from '../dom/domhandler';
 import { ObjectUtils } from '../utils/objectutils';
 import { SortMeta } from '../common/sortmeta';
+import { FilterMetadata } from '../common/filtermetadata';
 
 @Component({
     selector: 'p-table',
@@ -17,7 +18,7 @@ import { SortMeta } from '../common/sortmeta';
                     <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
                 </thead>
                 <tbody #tbody>
-                    <ng-template ngFor let-rowData [ngForOf]="paginator ? (value | slice:first:(first + rows)) : value">
+                    <ng-template ngFor let-rowData [ngForOf]="paginator ? (filteredValue||value | slice:first:(first + rows)) : filteredValue||value">
                         <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, columns: columns}"></ng-container>
                     </ng-template>
                 </tbody>
@@ -29,8 +30,6 @@ import { SortMeta } from '../common/sortmeta';
     providers: [DomHandler, ObjectUtils]
 })
 export class Table implements AfterContentInit {
-
-    @Input() columns: Column[];
 
     @Input() paginator: boolean;
 
@@ -66,7 +65,13 @@ export class Table implements AfterContentInit {
 
     @Input() dataKey: string;
 
+    @Input() lazy: boolean;
+
     @Input() compareSelectionBy: string = 'deepEquals';
+
+    @Input() globalFilter: any;
+
+    @Input() public filters: { [s: string]: FilterMetadata; } = {};
 
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
@@ -74,7 +79,11 @@ export class Table implements AfterContentInit {
 
     @Output() onRowUnselect: EventEmitter<any> = new EventEmitter();
 
+    @Output() onPage: EventEmitter<any> = new EventEmitter();
+
     @Output() onSort: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('thead') theadViewChild: ElementRef;
 
@@ -83,6 +92,8 @@ export class Table implements AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     _value: any[] = [];
+
+    filteredValue: any[];
 
     headerTemplate: TemplateRef<any>;
 
@@ -304,6 +315,229 @@ export class Table implements AfterContentInit {
 
     equals(data1, data2) {
         return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
+    }
+
+    filter(value, field, matchMode) {
+        if (!this.isFilterBlank(value))
+            this.filters[field] = { value: value, matchMode: matchMode };
+        else if (this.filters[field])
+            delete this.filters[field];
+
+        if(this.hasFilter()) {
+            this._filter();
+        }
+        else {
+            this.filteredValue = null;
+            if (this.paginator) {
+                this.totalRecords = this.value ? this.value.length : 0;
+            }
+        }
+    }
+
+    isFilterBlank(filter: any): boolean {
+        if (filter !== null && filter !== undefined) {
+            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0))
+                return true;
+            else
+                return false;
+        }
+        return true;
+    }
+
+    _filter() {
+        this.first = 0;
+
+        if (this.lazy) {
+            //this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+        else {
+            if (!this.value) {
+                return;
+            }
+
+            this.filteredValue = [];
+
+            for (let i = 0; i < this.value.length; i++) {
+                let localMatch = true;
+                let globalMatch = false;
+
+                for (let prop in this.filters) {
+                    if (this.filters.hasOwnProperty(prop)) {
+                        let filterMeta = this.filters[prop];
+                        let filterField = prop;
+                        let filterValue = filterMeta.value;
+                        let filterMatchMode = filterMeta.matchMode || 'startsWith';
+                        let dataFieldValue = this.objectUtils.resolveFieldData(this.value[i], filterField);
+                        let filterConstraint = this.filterConstraints[filterMatchMode];
+
+                        if (!filterConstraint(dataFieldValue, filterValue)) {
+                            localMatch = false;
+                        }
+
+                        if (!localMatch) {
+                            break;
+                        }
+                    }
+                }
+
+                //global
+                /*if (!col.excludeGlobalFilter && this.globalFilter && !globalMatch) {
+                    globalMatch = this.filterConstraints['contains'](this.resolveFieldData(this.value[i], col.filterField || col.field), this.globalFilter.value);
+                }*/
+
+                let matches = localMatch;
+                if (this.globalFilter) {
+                    matches = localMatch && globalMatch;
+                }
+
+                if (matches) {
+                    this.filteredValue.push(this.value[i]);
+                }
+            }
+
+            if (this.filteredValue.length === this.value.length) {
+                this.filteredValue = null;
+            }
+
+            if (this.paginator) {
+                this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
+            }
+        }
+
+        this.onFilter.emit({
+            filters: this.filters,
+            filteredValue: this.filteredValue || this.value
+        });
+    }
+
+    hasFilter() {
+        let empty = true;
+        for (let prop in this.filters) {
+            if (this.filters.hasOwnProperty(prop)) {
+                empty = false;
+                break;
+            }
+        }
+
+        return !empty || (this.globalFilter && this.globalFilter.value && this.globalFilter.value.trim().length);
+    }
+
+    filterConstraints = {
+
+        startsWith(value, filter): boolean {
+            if (filter === undefined || filter === null || filter.trim() === '') {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            let filterValue = filter.toLowerCase();
+            return value.toString().toLowerCase().slice(0, filterValue.length) === filterValue;
+        },
+
+        contains(value, filter): boolean {
+            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+        },
+
+        endsWith(value, filter): boolean {
+            if (filter === undefined || filter === null || filter.trim() === '') {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            let filterValue = filter.toString().toLowerCase();
+            return value.toString().toLowerCase().indexOf(filterValue, value.toString().length - filterValue.length) !== -1;
+        },
+
+        equals(value, filter): boolean {
+            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value.toString().toLowerCase() == filter.toString().toLowerCase();
+        },
+
+        notEquals(value, filter): boolean {
+            if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+                return false;
+            }
+
+            if (value === undefined || value === null) {
+                return true;
+            }
+
+            return value.toString().toLowerCase() != filter.toString().toLowerCase();
+        },
+
+        in(value, filter: any[]): boolean {
+            if (filter === undefined || filter === null || filter.length === 0) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            for (let i = 0; i < filter.length; i++) {
+                if (filter[i] === value)
+                    return true;
+            }
+
+            return false;
+        },
+
+        lt(value, filter): boolean {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value < filter;
+        },
+
+        gt(value, filter): boolean {
+            if (filter === undefined || filter === null) {
+                return true;
+            }
+
+            if (value === undefined || value === null) {
+                return false;
+            }
+
+            return value > filter;
+        }
+    }
+
+    createLazyLoadMetadata(): any {
+        return {
+            first: this.first,
+            rows: this.rows,
+            sortField: this.sortField,
+            sortOrder: this.sortOrder,
+            filters: this.filters,
+            globalFilter: this.globalFilter ? this.globalFilter.value : null,
+            multiSortMeta: this.multiSortMeta
+        };
     }
 }
 

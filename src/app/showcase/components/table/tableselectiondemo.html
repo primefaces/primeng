@@ -2,21 +2,21 @@
 
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Table</span>
+        <span class="feature-title">Table - Selection</span>
         <span>Table displays data in tabular format.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selectedCar">
-        <ng-template pTemplate="header" let-columns>
+    <p-table [value]="cars" selectionMode="single" [(selection)]="selectedCar">
+        <ng-template pTemplate="header">
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col">
+                <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <ng-template pTemplate="body" let-rowData>
             <tr [pSelectableRow]="rowData">
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}

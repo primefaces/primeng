@@ -3,20 +3,20 @@ import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 
 @Component({
-    templateUrl: './tabledemo.html'
+    templateUrl: './tablepagedemo.html'
 })
 export class TablePageDemo implements OnInit {
 
     cars: Car[];
 
-    cols: any[];
+    columns: any[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsMedium().then(cars => this.cars = cars);
 
-        this.cols = [
+        this.columns = [
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },
