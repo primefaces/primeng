@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, AfterViewInit, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild } from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, AfterViewInit, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -25,7 +25,7 @@ import { FilterMetadata } from '../common/filtermetadata';
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </tfoot>
                 <tbody #tbody>
-                    <ng-template ngFor let-rowData [ngForOf]="paginator ? (filteredValue||value | slice:first:(first + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
+                    <ng-template ngFor let-rowData [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
                         <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData}"></ng-container>
                     </ng-template>
                 </tbody>
@@ -39,7 +39,7 @@ import { FilterMetadata } from '../common/filtermetadata';
     `,
     providers: [DomHandler, ObjectUtils]
 })
-export class Table implements AfterContentInit {
+export class Table implements OnInit, AfterContentInit {
 
     @Input() paginator: boolean;
 
@@ -81,7 +81,7 @@ export class Table implements AfterContentInit {
 
     @Input() compareSelectionBy: string = 'deepEquals';
 
-    @Input() public filters: { [s: string]: FilterMetadata; } = {};
+    @Input() filters: { [s: string]: FilterMetadata; } = {};
 
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
@@ -94,6 +94,8 @@ export class Table implements AfterContentInit {
     @Output() onSort: EventEmitter<any> = new EventEmitter();
 
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
+
+    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('thead') theadViewChild: ElementRef;
 
@@ -120,6 +122,12 @@ export class Table implements AfterContentInit {
     selectionKeys: any;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
+
+    ngOnInit() {
+        if (this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -156,12 +164,21 @@ export class Table implements AfterContentInit {
     }
     set value(val: any[]) {
         this._value = val;
-        this.totalRecords = this._value ? this._value.length: 0;
+        this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
     }
 
     onPageChange(event) {
         this.first = event.first;
         this.rows = event.rows;
+
+        if (this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+
+        this.onPage.emit({
+            first: this.first,
+            rows: this.rows
+        });
     }
 
     sort(event) {
@@ -202,7 +219,12 @@ export class Table implements AfterContentInit {
     }
 
     sortSingle() {
-        if (this.value) {
+        this.first = 0;
+
+        if(this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+        else if (this.value) {
             this.value.sort((data1, data2) => {
                 let value1 = this.objectUtils.resolveFieldData(data1, this.sortField);
                 let value2 = this.objectUtils.resolveFieldData(data2, this.sortField);
@@ -221,13 +243,14 @@ export class Table implements AfterContentInit {
 
                 return (this.sortOrder * result);
             });
-            
-            this.first = 0;
         }
     }
 
     sortMultiple() {
-        if (this.value) {
+        if (this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
+        else if (this.value) {
             this.value.sort((data1, data2) => {
                 return this.multisortField(data1, data2, this.multiSortMeta, 0);
             });
@@ -387,7 +410,7 @@ export class Table implements AfterContentInit {
         this.first = 0;
 
         if (this.lazy) {
-            //this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else {
             if (!this.value) {

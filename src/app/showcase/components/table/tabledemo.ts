@@ -7,13 +7,9 @@ import { CarService } from '../../service/carservice';
 })
 export class TableDemo implements OnInit {
 
-    loading: boolean;
-
     cars: Car[];
 
     columns: any[];
-
-    selectedCar: Car;
 
     constructor(private carService: CarService) { }
 
