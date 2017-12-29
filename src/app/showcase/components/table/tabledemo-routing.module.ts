@@ -8,6 +8,7 @@ import { TableSelectionDemo } from './tableselectiondemo';
 import { TableSectionsDemo } from './tablesectionsdemo';
 import { TableStyleDemo } from './tablestyledemo';
 import { TableLazyDemo } from './tablelazydemo';
+import { TableExportDemo } from './tableexportdemo';
 
 @NgModule({
 	imports: [
@@ -19,7 +20,8 @@ import { TableLazyDemo } from './tablelazydemo';
 			{ path: 'filter', component: TableFilterDemo },
 			{ path: 'sections', component: TableSectionsDemo },
 			{ path: 'style', component: TableStyleDemo },
-			{ path: 'lazy', component: TableLazyDemo }
+			{ path: 'lazy', component: TableLazyDemo },
+			{ path: 'export', component: TableExportDemo }
 		])
 	],
 	exports: [

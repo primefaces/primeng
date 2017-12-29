@@ -32,7 +32,7 @@ import { FilterMetadata } from '../common/filtermetadata';
             </table>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"></p-paginator>
-            <div *ngIf="footerTemplate" class="ui-table-summary ui-widget-header">
+            <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
         </div>
@@ -80,6 +80,10 @@ export class Table implements OnInit, AfterContentInit {
     @Input() lazy: boolean;
 
     @Input() compareSelectionBy: string = 'deepEquals';
+
+    @Input() csvSeparator: string = ',';
+
+    @Input() exportFilename: string = 'download';
 
     @Input() filters: { [s: string]: FilterMetadata; } = {};
 
@@ -603,6 +607,73 @@ export class Table implements OnInit, AfterContentInit {
             globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
             multiSortMeta: this.multiSortMeta
         };
+    }
+
+    public exportCSV(columns, options?: any) {
+        let data = this.filteredValue || this.value;
+        let csv = '\ufeff';
+        debugger;
+
+        if (options && options.selectionOnly) {
+            data = this.selection || [];
+        }
+
+        //headers
+        for (let i = 0; i < columns.length; i++) {
+            let column = columns[i];
+            if (column.exportable !== false && column.field) {
+                csv += '"' + (column.header || column.field) + '"';
+
+                if (i < (columns.length - 1)) {
+                    csv += this.csvSeparator;
+                }
+            }
+        }
+
+        //body
+        data.forEach((record, i) => {
+            csv += '\n';
+            for (let i = 0; i < columns.length; i++) {
+                let column = columns[i];
+                if (column.exportable !== false && column.field) {
+                    let cellData = this.objectUtils.resolveFieldData(record, column.field);
+
+                    if (cellData != null)
+                        cellData = String(cellData).replace(/"/g, '""');
+                    else
+                        cellData = '';
+
+                    csv += '"' + cellData + '"';
+
+                    if (i < (columns.length - 1)) {
+                        csv += this.csvSeparator;
+                    }
+                }
+            }
+        });
+
+        let blob = new Blob([csv], {
+            type: 'text/csv;charset=utf-8;'
+        });
+
+        if (window.navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, this.exportFilename + '.csv');
+        }
+        else {
+            let link = document.createElement("a");
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            if (link.download !== undefined) {
+                link.setAttribute('href', URL.createObjectURL(blob));
+                link.setAttribute('download', this.exportFilename + '.csv');
+                link.click();
+            }
+            else {
+                csv = 'data:text/csv;charset=utf-8,' + csv;
+                window.open(encodeURI(csv));
+            }
+            document.body.removeChild(link);
+        }
     }
 }
 

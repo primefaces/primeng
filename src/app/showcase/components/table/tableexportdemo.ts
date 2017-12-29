@@ -3,17 +3,15 @@ import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
 
 @Component({
-    templateUrl: './tableselectiondemo.html'
+    templateUrl: './tableexportdemo.html'
 })
-export class TableSelectionDemo implements OnInit {
+export class TableExportDemo implements OnInit {
 
     cars: Car[];
 
+    selectedCars: Car[];
+
     columns: any[];
-
-    selectedCar: Car;
-
-    selectCars: Car[];
 
     constructor(private carService: CarService) { }
 
