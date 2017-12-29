@@ -19,6 +19,7 @@ import { GrowlModule } from '../../../components/growl/growl';
 import { ButtonModule } from '../../../components/button/button';
 import { DropdownModule } from '../../../components/dropdown/dropdown';
 import { InputTextModule } from '../../../components/inputtext/inputtext';
+import { TableColGroupDemo } from './tablecolgroupdemo';
 
 @NgModule({
 	imports: [
@@ -43,7 +44,8 @@ import { InputTextModule } from '../../../components/inputtext/inputtext';
 		TableFilterDemo,
 		TableStyleDemo,
 		TableLazyDemo,
-		TableExportDemo
+		TableExportDemo,
+		TableColGroupDemo
 	]
 })
 export class TableDemoModule { }

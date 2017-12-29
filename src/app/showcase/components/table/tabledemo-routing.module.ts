@@ -9,6 +9,7 @@ import { TableSectionsDemo } from './tablesectionsdemo';
 import { TableStyleDemo } from './tablestyledemo';
 import { TableLazyDemo } from './tablelazydemo';
 import { TableExportDemo } from './tableexportdemo';
+import { TableColGroupDemo } from './tablecolgroupdemo';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import { TableExportDemo } from './tableexportdemo';
 			{ path: 'sections', component: TableSectionsDemo },
 			{ path: 'style', component: TableStyleDemo },
 			{ path: 'lazy', component: TableLazyDemo },
-			{ path: 'export', component: TableExportDemo }
+			{ path: 'export', component: TableExportDemo },
+			{ path: 'colgroup', component: TableColGroupDemo }
 		])
 	],
 	exports: [
