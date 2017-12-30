@@ -72,6 +72,9 @@ import { FilterMetadata } from '../common/filtermetadata';
                                         <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
                                     </ng-container>
                                 </ng-template>
+                                <ng-template #collapsedrow>
+                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false}"></ng-container>
+                                </ng-template>
                             </ng-container>
                         </tbody>
                     </table>
@@ -85,11 +88,7 @@ import { FilterMetadata } from '../common/filtermetadata';
                     </table>
                 </div>
             </div>
-            
-            <ng-template #collapsedrow>
-                 <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false}"></ng-container>
-            </ng-template>
-            
+                        
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"></p-paginator>
             <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
