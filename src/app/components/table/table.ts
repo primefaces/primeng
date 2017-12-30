@@ -25,12 +25,23 @@ import { FilterMetadata } from '../common/filtermetadata';
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </tfoot>
                 <tbody #tbody>
-                    <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
-                        <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
-                        <ng-container *ngIf="expandedRowTemplate && isRowExpanded(rowData)">
-                            <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
-                        </ng-container>
-                    </ng-template>
+                    <ng-container *ngIf="!expandedRowTemplate">
+                         <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
+                            <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="expandedRowTemplate">
+                        <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
+                            <ng-container *ngIf="isRowExpanded(rowData); else collapsedrow">
+                                <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: true}"></ng-container>
+                                <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                            </ng-container>
+                            <ng-template #collapsedrow>
+                                <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false}"></ng-container>
+                            </ng-template>
+                        </ng-template>
+                    </ng-container>
+                   
                 </tbody>
             </table>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
@@ -851,32 +862,20 @@ export class SelectableRow implements AfterViewInit {
 
 }
 
-@Component({
-    selector: 'p-rowToggler',
-    template: `
-        <a href="#" (click)="toggle($event)">
-            <span [ngClass]="expanded ? dt.expandedRowIcon : dt.collapsedRowIcon"></span>
-        </a>
-    `
+@Directive({
+    selector: '[pRowToggler]'
 })
-export class RowToggler implements OnInit {
+export class RowToggler {
 
-    @Input() data: any;
-
-    expanded: boolean;
+    @Input('pRowToggler') data: any;
 
     constructor(public dt: Table) { }
 
-    ngOnInit() {
-        this.expanded = this.dt.expandedRows && this.dt.expandedRows.length && this.dt.isRowExpanded(this.data);
-    }
-
-    toggle(event: Event) {
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
         this.dt.toggleRow(this.data, event);
-        this.expanded = !this.expanded;
         event.preventDefault();
     }
-
 }
 
 @NgModule({

@@ -17,10 +17,12 @@
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-expanded="expanded">
             <tr>
                 <td>
-                    <p-rowToggler [data]="rowData"></p-rowToggler>
+                    <a href="#" [pRowToggler]="rowData">
+                        <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+                    </a>
                 </td>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
