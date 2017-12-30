@@ -21,6 +21,7 @@ import { DropdownModule } from '../../../components/dropdown/dropdown';
 import { InputTextModule } from '../../../components/inputtext/inputtext';
 import { TableColGroupDemo } from './tablecolgroupdemo';
 import { TableRowExpansionDemo } from './tablerowexpansiondemo';
+import { TableScrollDemo } from './tablescrolldemo';
 
 @NgModule({
 	imports: [
@@ -47,7 +48,8 @@ import { TableRowExpansionDemo } from './tablerowexpansiondemo';
 		TableLazyDemo,
 		TableExportDemo,
 		TableColGroupDemo,
-		TableRowExpansionDemo
+		TableRowExpansionDemo,
+		TableScrollDemo
 	]
 })
 export class TableDemoModule { }

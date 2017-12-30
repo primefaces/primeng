@@ -16,34 +16,80 @@ import { FilterMetadata } from '../common/filtermetadata';
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"></p-paginator>
-            <table>
-                <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
-                <thead #thead>
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                </thead>
-                <tfoot>
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-                </tfoot>
-                <tbody #tbody>
-                    <ng-container *ngIf="!expandedRowTemplate">
-                         <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
-                            <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
-                        </ng-template>
-                    </ng-container>
-                    <ng-container *ngIf="expandedRowTemplate">
-                        <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
-                            <ng-container *ngIf="isRowExpanded(rowData); else collapsedrow">
-                                <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: true}"></ng-container>
-                                <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
-                            </ng-container>
-                            <ng-template #collapsedrow>
-                                <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false}"></ng-container>
+            
+            <div class="ui-table-wrapper" *ngIf="!scrollable">
+                <table>
+                    <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
+                    <thead #thead>
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    </thead>
+                    <tfoot>
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    </tfoot>
+                    <tbody #tbody>
+                        <ng-container *ngIf="!expandedRowTemplate">
+                            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
+                                <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
                             </ng-template>
-                        </ng-template>
-                    </ng-container>
-                   
-                </tbody>
-            </table>
+                        </ng-container>
+                        <ng-container *ngIf="expandedRowTemplate">
+                            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
+                                <ng-container *ngIf="isRowExpanded(rowData); else collapsedrow">
+                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: true}"></ng-container>
+                                    <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                                </ng-container>
+                                <ng-template #collapsedrow>
+                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false}"></ng-container>
+                                </ng-template>
+                            </ng-template>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
+                <div class="ui-table-scrollable-header">
+                    <table>
+                        <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
+                        <thead #thead>
+                            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                        </thead>
+                    </table>
+                </div>
+                <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="scrollHeight">
+                    <table>
+                        <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
+                        <tbody #tbody>
+                            <ng-container *ngIf="!expandedRowTemplate">
+                                <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
+                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                                </ng-template>
+                            </ng-container>
+                            <ng-container *ngIf="expandedRowTemplate">
+                                <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
+                                    <ng-container *ngIf="isRowExpanded(rowData); else collapsedrow">
+                                        <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: true}"></ng-container>
+                                        <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                                    </ng-container>
+                                </ng-template>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+                <div #scrollFooter *ngIf="footerTemplate" class="ui-table-scrollable-footer">
+                    <table>
+                        <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
+                        <tfoot>
+                            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            
+            <ng-template #collapsedrow>
+                 <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false}"></ng-container>
+            </ng-template>
+            
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"></p-paginator>
             <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
@@ -108,6 +154,10 @@ export class Table implements OnInit, AfterContentInit {
     @Input() expandedRows: any[];
 
     @Input() rowExpandMode: string = 'multiple';
+
+    @Input() scrollable: boolean;
+
+    @Input() scrollHeight: string;
 
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
