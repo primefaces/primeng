@@ -10,6 +10,7 @@ import { TableStyleDemo } from './tablestyledemo';
 import { TableLazyDemo } from './tablelazydemo';
 import { TableExportDemo } from './tableexportdemo';
 import { TableColGroupDemo } from './tablecolgroupdemo';
+import { TableRowExpansionDemo } from './tablerowexpansiondemo';
 
 @NgModule({
 	imports: [
@@ -23,7 +24,8 @@ import { TableColGroupDemo } from './tablecolgroupdemo';
 			{ path: 'style', component: TableStyleDemo },
 			{ path: 'lazy', component: TableLazyDemo },
 			{ path: 'export', component: TableExportDemo },
-			{ path: 'colgroup', component: TableColGroupDemo }
+			{ path: 'colgroup', component: TableColGroupDemo },
+			{ path: 'rowexpansion', component: TableRowExpansionDemo }
 		])
 	],
 	exports: [

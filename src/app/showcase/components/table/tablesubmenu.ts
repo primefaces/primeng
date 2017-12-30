@@ -15,6 +15,7 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/table/lazy']">&#9679; Lazy</a></li>
                 <li><a [routerLink]="['/table/style']">&#9679; Style</a></li>
                 <li><a [routerLink]="['/table/export']">&#9679; Export</a></li>
+                <li><a [routerLink]="['/table/rowexpansion']">&#9679; Expand</a></li>
             </ul>
         </div>
     `

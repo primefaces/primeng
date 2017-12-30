@@ -27,6 +27,9 @@ import { FilterMetadata } from '../common/filtermetadata';
                 <tbody #tbody>
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
                         <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                        <ng-container *ngIf="expandedRowTemplate && isRowExpanded(rowData)">
+                            <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                        </ng-container>
                     </ng-template>
                 </tbody>
             </table>
@@ -87,6 +90,14 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() filters: { [s: string]: FilterMetadata; } = {};
 
+    @Input() expandedRowIcon: string = 'fa fa-fw fa-chevron-circle-down';
+
+    @Input() collapsedRowIcon: string = 'fa fa-fw fa-chevron-circle-right';
+
+    @Input() expandedRows: any[];
+
+    @Input() rowExpandMode: string = 'multiple';
+
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
@@ -100,6 +111,10 @@ export class Table implements OnInit, AfterContentInit {
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
+
+    @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
+
+    @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('thead') theadViewChild: ElementRef;
 
@@ -122,6 +137,8 @@ export class Table implements OnInit, AfterContentInit {
     summaryTemplate: TemplateRef<any>;
 
     colGroupTemplate: TemplateRef<any>;
+
+    expandedRowTemplate: TemplateRef<any>;
 
     selectionKeys: any;
 
@@ -158,6 +175,10 @@ export class Table implements OnInit, AfterContentInit {
 
                 case 'colgroup':
                     this.colGroupTemplate = item.template;
+                break;
+
+                case 'rowexpansion':
+                    this.expandedRowTemplate = item.template;
                 break;
             }
         });
@@ -675,6 +696,59 @@ export class Table implements OnInit, AfterContentInit {
             document.body.removeChild(link);
         }
     }
+
+    toggleRow(row: any, event?: Event) {
+        if (!this.expandedRows) {
+            this.expandedRows = [];
+        }
+
+        let expandedRowIndex = this.findExpandedRowIndex(row);
+
+        if (expandedRowIndex != -1) {
+            this.expandedRows.splice(expandedRowIndex, 1);
+            this.onRowCollapse.emit({
+                originalEvent: event,
+                data: row
+            });
+        }
+        else {
+            if (this.rowExpandMode === 'single') {
+                this.expandedRows = [];
+            }
+
+            this.expandedRows.push(row);
+            this.onRowExpand.emit({
+                originalEvent: event,
+                data: row
+            });
+        }
+
+        if (event) {
+            event.preventDefault();
+        }
+    }
+
+    findExpandedRowIndex(row: any): number {
+        let index = -1;
+        if (this.expandedRows) {
+            for (let i = 0; i < this.expandedRows.length; i++) {
+                if (this.expandedRows[i] == row) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
+    }
+
+    isRowExpanded(row: any): boolean {
+        if(this.expandedRows && this.expandedRows.length) {
+            return this.findExpandedRowIndex(row) != -1;
+        }
+        else {
+            return false;
+        }
+    }
 }
 
 @Directive({
@@ -777,9 +851,37 @@ export class SelectableRow implements AfterViewInit {
 
 }
 
+@Component({
+    selector: 'p-rowToggler',
+    template: `
+        <a href="#" (click)="toggle($event)">
+            <span [ngClass]="expanded ? dt.expandedRowIcon : dt.collapsedRowIcon"></span>
+        </a>
+    `
+})
+export class RowToggler implements OnInit {
+
+    @Input() data: any;
+
+    expanded: boolean;
+
+    constructor(public dt: Table) { }
+
+    ngOnInit() {
+        this.expanded = this.dt.expandedRows && this.dt.expandedRows.length && this.dt.isRowExpanded(this.data);
+    }
+
+    toggle(event: Event) {
+        this.dt.toggleRow(this.data, event);
+        this.expanded = !this.expanded;
+        event.preventDefault();
+    }
+
+}
+
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow],
-    declarations: [Table,SortableColumn,SelectableRow]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler]
 })
 export class TableModule { }
