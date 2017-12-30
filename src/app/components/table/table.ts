@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, AfterViewInit, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild } from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, AfterViewInit, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -10,7 +10,7 @@ import { FilterMetadata } from '../common/filtermetadata';
 @Component({
     selector: 'p-table',
     template: `
-        <div class="ui-table ui-widget">
+        <div class="ui-table ui-widget" [ngStyle]="style" [ngClass]="styleClass">
             <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
             </div>
@@ -48,7 +48,7 @@ import { FilterMetadata } from '../common/filtermetadata';
             </div>
 
             <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
-                <div class="ui-table-scrollable-header">
+                <div #scrollHeader class="ui-table-scrollable-header">
                     <table>
                         <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
                         <thead #thead>
@@ -57,7 +57,7 @@ import { FilterMetadata } from '../common/filtermetadata';
                     </table>
                 </div>
                 <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="scrollHeight">
-                    <table>
+                    <table #scrollTable>
                         <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
                         <tbody #tbody>
                             <ng-container *ngIf="!expandedRowTemplate">
@@ -98,7 +98,11 @@ import { FilterMetadata } from '../common/filtermetadata';
     `,
     providers: [DomHandler, ObjectUtils]
 })
-export class Table implements OnInit, AfterContentInit {
+export class Table implements OnInit, AfterContentInit, AfterViewInit {
+    
+    @Input() style: any;
+
+    @Input() styleClass: string;
 
     @Input() paginator: boolean;
 
@@ -180,6 +184,14 @@ export class Table implements OnInit, AfterContentInit {
 
     @ViewChild('tbody') tbodyViewChild: ElementRef;
 
+    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
+
+    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
+
+    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
+
+    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     _value: any[] = [];
@@ -202,7 +214,13 @@ export class Table implements OnInit, AfterContentInit {
 
     selectionKeys: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils) {}
+    headerScrollListener: Function;
+
+    bodyScrollListener: Function;
+
+    footerScrollListener: Function;
+
+    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone) {}
 
     ngOnInit() {
         if (this.lazy) {
@@ -242,6 +260,12 @@ export class Table implements OnInit, AfterContentInit {
                 break;
             }
         });
+    }
+
+    ngAfterViewInit() {
+        if(this.scrollable) {
+            this.initScrolling();
+        }
     }
 
     @Input() get value(): any[] {
@@ -791,6 +815,45 @@ export class Table implements OnInit, AfterContentInit {
     isRowExpanded(rowData: any): boolean {
         return this.expandedRowKeys[String(this.objectUtils.resolveFieldData(rowData, this.dataKey))] === 1;
     }
+
+    initScrolling() {
+        this.zone.runOutsideAngular(() => {
+            let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
+
+            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+                this.scrollHeaderViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                this.headerScrollListener = this.onHeaderScroll.bind(this);
+                this.scrollHeaderViewChild.nativeElement.addEventListener('scroll', this.onHeaderScroll.bind(this));
+            }
+
+            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+                this.scrollFooterViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                this.footerScrollListener = this.onFooterScroll.bind(this);
+                this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.onFooterScroll.bind(this));
+            }
+
+            this.bodyScrollListener = this.onBodyScroll.bind(this);            
+            this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.onBodyScroll.bind(this));
+        });
+    }
+
+    onHeaderScroll(event) {
+        this.scrollHeaderViewChild.nativeElement.scrollLeft = 0;
+    }
+
+    onFooterScroll(event) {
+        this.scrollFooterViewChild.nativeElement.scrollLeft = 0;
+    }
+
+    onBodyScroll(event) {
+        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+            this.scrollHeaderViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+        }
+
+        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+            this.scrollFooterViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+        }
+    }
 }
 
 @Directive({
@@ -889,8 +952,7 @@ export class SelectableRow implements AfterViewInit {
             }
             this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
         }
-    }
-    
+    }    
 
 }
 
