@@ -151,7 +151,7 @@ export class Table implements OnInit, AfterContentInit {
 
     @Input() collapsedRowIcon: string = 'fa fa-fw fa-chevron-circle-right';
 
-    @Input() expandedRows: any[];
+    @Input() expandedRowKeys: { [s: string]: number; } = {};
 
     @Input() rowExpandMode: string = 'multiple';
 
@@ -758,29 +758,29 @@ export class Table implements OnInit, AfterContentInit {
         }
     }
 
-    toggleRow(row: any, event?: Event) {
-        if (!this.expandedRows) {
-            this.expandedRows = [];
+    toggleRow(rowData: any, event?: Event) {        
+        if(!this.dataKey) {
+            throw new Error('dataKey must be defined to use row expansion');
         }
 
-        let expandedRowIndex = this.findExpandedRowIndex(row);
+        let dataKeyValue = String(this.objectUtils.resolveFieldData(rowData, this.dataKey));
 
-        if (expandedRowIndex != -1) {
-            this.expandedRows.splice(expandedRowIndex, 1);
+        if (this.expandedRowKeys[dataKeyValue] != null) {
+            delete this.expandedRowKeys[dataKeyValue];
             this.onRowCollapse.emit({
                 originalEvent: event,
-                data: row
+                data: rowData
             });
         }
         else {
             if (this.rowExpandMode === 'single') {
-                this.expandedRows = [];
+                this.expandedRowKeys = {};
             }
 
-            this.expandedRows.push(row);
+            this.expandedRowKeys[dataKeyValue] = 1;
             this.onRowExpand.emit({
                 originalEvent: event,
-                data: row
+                data: rowData
             });
         }
 
@@ -789,26 +789,8 @@ export class Table implements OnInit, AfterContentInit {
         }
     }
 
-    findExpandedRowIndex(row: any): number {
-        let index = -1;
-        if (this.expandedRows) {
-            for (let i = 0; i < this.expandedRows.length; i++) {
-                if (this.expandedRows[i] == row) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-        return index;
-    }
-
-    isRowExpanded(row: any): boolean {
-        if(this.expandedRows && this.expandedRows.length) {
-            return this.findExpandedRowIndex(row) != -1;
-        }
-        else {
-            return false;
-        }
+    isRowExpanded(rowData: any): boolean {
+        return this.expandedRowKeys[String(this.objectUtils.resolveFieldData(rowData, this.dataKey))] === 1;
     }
 }
 
@@ -909,6 +891,7 @@ export class SelectableRow implements AfterViewInit {
             this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
         }
     }
+    
 
 }
 

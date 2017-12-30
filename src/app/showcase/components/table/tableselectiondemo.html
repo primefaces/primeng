@@ -9,7 +9,7 @@
 
 <div class="content-section implementation">
     <h3 class="first">Single Row Selection</h3>
-    <p-table [value]="cars" selectionMode="single" [(selection)]="selectedCar">
+    <p-table [value]="cars" selectionMode="single" [(selection)]="selectedCar" dataKey="vin">
         <ng-template pTemplate="header">
             <tr>
                 <th *ngFor="let col of columns">
