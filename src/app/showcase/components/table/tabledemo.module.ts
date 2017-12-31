@@ -15,6 +15,7 @@ import { TableDemoRoutingModule } from './tabledemo-routing.module';
 import { TableModule } from '../../../components/table/table';
 import { SliderModule } from '../../../components/slider/slider';
 import { MultiSelectModule } from '../../../components/multiselect/multiselect';
+import { ContextMenuModule } from '../../../components/contextmenu/contextmenu';
 import { GrowlModule } from '../../../components/growl/growl';
 import { ButtonModule } from '../../../components/button/button';
 import { DialogModule } from '../../../components/dialog/dialog';
@@ -26,6 +27,8 @@ import { TableScrollDemo } from './tablescrolldemo';
 import { TableColToggleDemo } from './tablecoltoggledemo';
 import { TableCrudDemo } from './tablecruddemo';
 import { TableResponsiveDemo } from './tableresponsivedemo';
+import { TableContextMenuDemo } from './tablecontextmenudemo';
+
 
 @NgModule({
 	imports: [
@@ -36,6 +39,7 @@ import { TableResponsiveDemo } from './tableresponsivedemo';
 		SliderModule,
 		DialogModule,
 		MultiSelectModule,
+		ContextMenuModule,
 		DropdownModule,
 		ButtonModule,
 		GrowlModule,
@@ -57,7 +61,8 @@ import { TableResponsiveDemo } from './tableresponsivedemo';
 		TableScrollDemo,
 		TableColToggleDemo,
 		TableCrudDemo,
-		TableResponsiveDemo
+		TableResponsiveDemo,
+		TableContextMenuDemo
 	]
 })
 export class TableDemoModule { }

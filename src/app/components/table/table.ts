@@ -165,6 +165,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Input() responsive: boolean;
 
+    @Input() contextMenu: any;
+
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
@@ -182,6 +184,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @Output() onRowExpand: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowCollapse: EventEmitter<any> = new EventEmitter();
+
+    @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('thead') theadViewChild: ElementRef;
 
@@ -449,6 +453,33 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                     }
                 }
             }
+        }
+    }
+
+    handleRowRightClick(event) {
+        if (this.contextMenu) {
+            this.selectionKeys = this.selectionKeys||{};
+            let selectionIndex = this.findIndexInSelection(event.rowData);
+            let selected = selectionIndex != -1;
+            let dataKeyValue: string = this.dataKey ? String(this.objectUtils.resolveFieldData(event.rowData, this.dataKey)) : null;
+
+            if (!selected) {
+                if (this.isSingleSelectionMode()) {
+                    this.selection = event.rowData;
+                    this.selectionChange.emit(event.rowData);
+                }
+                else if (this.isMultipleSelectionMode()) {
+                    this.selection = [event.rowData];
+                    this.selectionChange.emit(this.selection);
+                }
+
+                if (this.dataKey) {
+                    this.selectionKeys[dataKeyValue] = 1;
+                }
+            }
+
+            this.contextMenu.show(event.originalEvent);
+            this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, data: event.rowData });
         }
     }
 
@@ -857,6 +888,14 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             this.scrollFooterViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
         }
     }
+
+    isSingleSelectionMode() {
+        return this.selectionMode === 'single';
+    }
+
+    isMultipleSelectionMode() {
+        return this.selectionMode === 'multiple';
+    }
 }
 
 @Directive({
@@ -960,6 +999,30 @@ export class SelectableRow implements AfterViewInit {
 }
 
 @Directive({
+    selector: '[pContextMenuRow]',
+    providers: [DomHandler]
+})
+export class ContextMenuRow {
+
+    @Input("pContextMenuRow") data: any;
+
+    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler) { }
+
+    @HostListener('contextmenu', ['$event'])
+    onClick(event: Event) {
+        this.dt.handleRowRightClick({
+            originalEvent: event,
+            rowData: this.data
+        });
+
+        this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
+
+        event.preventDefault();
+    }
+
+}
+
+@Directive({
     selector: '[pRowToggler]'
 })
 export class RowToggler {
@@ -977,7 +1040,7 @@ export class RowToggler {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow]
 })
 export class TableModule { }

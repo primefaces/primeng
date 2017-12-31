@@ -17,6 +17,7 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/table/style']">&#9679; Style</a></li>
                 <li><a [routerLink]="['/table/export']">&#9679; Export</a></li>
                 <li><a [routerLink]="['/table/rowexpansion']">&#9679; Expand</a></li>
+                <li><a [routerLink]="['/table/contextmenu']">&#9679; ContextMenu</a></li>
                 <li><a [routerLink]="['/table/coltoggle']">&#9679; ColToggle</a></li>
                 <li><a [routerLink]="['/table/responsive']">&#9679; Responsive</a></li>
                 <li><a [routerLink]="['/table/crud']">&#9679; Crud</a></li>
