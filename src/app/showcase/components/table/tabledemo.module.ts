@@ -22,6 +22,7 @@ import { InputTextModule } from '../../../components/inputtext/inputtext';
 import { TableColGroupDemo } from './tablecolgroupdemo';
 import { TableRowExpansionDemo } from './tablerowexpansiondemo';
 import { TableScrollDemo } from './tablescrolldemo';
+import { TableColToggleDemo } from './tablecoltoggledemo';
 
 @NgModule({
 	imports: [
@@ -49,7 +50,8 @@ import { TableScrollDemo } from './tablescrolldemo';
 		TableExportDemo,
 		TableColGroupDemo,
 		TableRowExpansionDemo,
-		TableScrollDemo
+		TableScrollDemo,
+		TableColToggleDemo
 	]
 })
 export class TableDemoModule { }
