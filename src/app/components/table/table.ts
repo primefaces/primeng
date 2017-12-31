@@ -10,7 +10,8 @@ import { FilterMetadata } from '../common/filtermetadata';
 @Component({
     selector: 'p-table',
     template: `
-        <div class="ui-table ui-widget" [ngStyle]="style" [ngClass]="styleClass">
+        <div [ngStyle]="style" [class]="styleClass" 
+            [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive}">
             <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
             </div>
@@ -161,6 +162,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @Input() scrollable: boolean;
 
     @Input() scrollHeight: string;
+
+    @Input() responsive: boolean;
 
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 

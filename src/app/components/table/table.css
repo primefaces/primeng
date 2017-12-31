@@ -18,3 +18,34 @@
 .ui-table-scrollable-body {
     overflow: auto;
 }
+
+.ui-table-responsive tbody td .ui-column-title {
+    display: none;
+}
+
+@media screen and (max-width: 40em) {
+    .ui-table-responsive thead th,
+    .ui-table-responsive tfoot td {
+        display: none !important;
+    }
+
+    .ui-table-responsive tbody > tr > td {
+        text-align: left;
+        display: block;
+        border: 0 none;
+        width: 100% !important;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		float: left;
+		clear: left;
+    }
+
+    .ui-table-responsive tbody td .ui-column-title {
+        padding: .4em;
+        min-width: 30%;
+        display: inline-block;
+        margin: -.4em 1em -.4em -.4em;
+        font-weight: bold;
+    }
+}

@@ -17,12 +17,15 @@ import { SliderModule } from '../../../components/slider/slider';
 import { MultiSelectModule } from '../../../components/multiselect/multiselect';
 import { GrowlModule } from '../../../components/growl/growl';
 import { ButtonModule } from '../../../components/button/button';
+import { DialogModule } from '../../../components/dialog/dialog';
 import { DropdownModule } from '../../../components/dropdown/dropdown';
 import { InputTextModule } from '../../../components/inputtext/inputtext';
 import { TableColGroupDemo } from './tablecolgroupdemo';
 import { TableRowExpansionDemo } from './tablerowexpansiondemo';
 import { TableScrollDemo } from './tablescrolldemo';
 import { TableColToggleDemo } from './tablecoltoggledemo';
+import { TableCrudDemo } from './tablecruddemo';
+import { TableResponsiveDemo } from './tableresponsivedemo';
 
 @NgModule({
 	imports: [
@@ -31,6 +34,7 @@ import { TableColToggleDemo } from './tablecoltoggledemo';
 		TableDemoRoutingModule,
 		TableModule,
 		SliderModule,
+		DialogModule,
 		MultiSelectModule,
 		DropdownModule,
 		ButtonModule,
@@ -51,7 +55,9 @@ import { TableColToggleDemo } from './tablecoltoggledemo';
 		TableColGroupDemo,
 		TableRowExpansionDemo,
 		TableScrollDemo,
-		TableColToggleDemo
+		TableColToggleDemo,
+		TableCrudDemo,
+		TableResponsiveDemo
 	]
 })
 export class TableDemoModule { }

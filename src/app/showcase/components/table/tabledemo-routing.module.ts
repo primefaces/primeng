@@ -13,6 +13,8 @@ import { TableColGroupDemo } from './tablecolgroupdemo';
 import { TableRowExpansionDemo } from './tablerowexpansiondemo';
 import { TableScrollDemo } from './tablescrolldemo';
 import { TableColToggleDemo } from './tablecoltoggledemo';
+import { TableCrudDemo } from './tablecruddemo';
+import { TableResponsiveDemo } from './tableresponsivedemo';
 
 @NgModule({
 	imports: [
@@ -29,7 +31,9 @@ import { TableColToggleDemo } from './tablecoltoggledemo';
 			{ path: 'colgroup', component: TableColGroupDemo },
 			{ path: 'rowexpansion', component: TableRowExpansionDemo },
 			{ path: 'scroll', component: TableScrollDemo },
-			{ path: 'coltoggle', component: TableColToggleDemo }
+			{ path: 'coltoggle', component: TableColToggleDemo },
+			{ path: 'crud', component: TableCrudDemo },
+			{ path: 'responsive', component: TableResponsiveDemo }
 		])
 	],
 	exports: [
