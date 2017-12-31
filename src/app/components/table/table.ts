@@ -464,8 +464,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         if (this.contextMenu) {
             this.contextMenuSelection = event.rowData;
             this.contextMenuSelectionChange.emit(event.rowData);
-            this.contextMenu.show(event.originalEvent);
             this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, data: event.rowData });
+            this.contextMenu.show(event.originalEvent);
         }
     }
 
