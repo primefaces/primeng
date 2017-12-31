@@ -19,6 +19,10 @@
     overflow: auto;
 }
 
+.ui-table .ui-contextmenu-selected {
+    background-color: #3c91f3;
+}
+
 .ui-table-responsive tbody td .ui-column-title {
     display: none;
 }

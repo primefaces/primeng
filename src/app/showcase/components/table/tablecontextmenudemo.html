@@ -10,7 +10,7 @@
 <div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
     
-    <p-table [value]="cars" selectionMode="single" [(selection)]="selectedCar" dataKey="vin" [contextMenu]="cm">
+    <p-table [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm">
         <ng-template pTemplate="header">
             <tr>
                 <th *ngFor="let col of columns">
@@ -19,7 +19,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
-            <tr [pSelectableRow]="rowData" [pContextMenuRow]="rowData">
+            <tr [pContextMenuRow]="rowData">
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                 </td>

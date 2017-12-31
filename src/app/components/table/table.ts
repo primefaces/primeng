@@ -137,6 +137,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
+    @Input() contextMenuSelection: any;
+
+    @Output() contextMenuSelectionChange: EventEmitter<any> = new EventEmitter();
+
     @Input() dataKey: string;
 
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
@@ -458,26 +462,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     handleRowRightClick(event) {
         if (this.contextMenu) {
-            this.selectionKeys = this.selectionKeys||{};
-            let selectionIndex = this.findIndexInSelection(event.rowData);
-            let selected = selectionIndex != -1;
-            let dataKeyValue: string = this.dataKey ? String(this.objectUtils.resolveFieldData(event.rowData, this.dataKey)) : null;
-
-            if (!selected) {
-                if (this.isSingleSelectionMode()) {
-                    this.selection = event.rowData;
-                    this.selectionChange.emit(event.rowData);
-                }
-                else if (this.isMultipleSelectionMode()) {
-                    this.selection = [event.rowData];
-                    this.selectionChange.emit(this.selection);
-                }
-
-                if (this.dataKey) {
-                    this.selectionKeys[dataKeyValue] = 1;
-                }
-            }
-
+            this.contextMenuSelection = event.rowData;
+            this.contextMenuSelectionChange.emit(event.rowData);
             this.contextMenu.show(event.originalEvent);
             this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, data: event.rowData });
         }
@@ -1009,13 +995,17 @@ export class ContextMenuRow {
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler) { }
 
     @HostListener('contextmenu', ['$event'])
-    onClick(event: Event) {
+    onContextMenu(event: Event) {
         this.dt.handleRowRightClick({
             originalEvent: event,
             rowData: this.data
         });
 
-        this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
+        let outlinedRow = this.domHandler.findSingle(this.dt.tbodyViewChild.nativeElement, 'tr.ui-contextmenu-selected');
+        if (outlinedRow) {
+            this.domHandler.removeClass(outlinedRow, 'ui-contextmenu-selected');
+        }
+        this.domHandler.addClass(this.el.nativeElement, 'ui-contextmenu-selected');
 
         event.preventDefault();
     }
