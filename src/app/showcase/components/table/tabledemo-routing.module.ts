@@ -17,6 +17,7 @@ import { TableCrudDemo } from './tablecruddemo';
 import { TableResponsiveDemo } from './tableresponsivedemo';
 import { TableContextMenuDemo } from './tablecontextmenudemo';
 import { TableColResizeDemo } from './tablecolresizedemo';
+import { TableColReorderDemo } from './tablecolreorderdemo';
 
 @NgModule({
 	imports: [
@@ -37,7 +38,8 @@ import { TableColResizeDemo } from './tablecolresizedemo';
 			{ path: 'crud', component: TableCrudDemo },
 			{ path: 'responsive', component: TableResponsiveDemo },
 			{ path: 'contextmenu', component: TableContextMenuDemo },
-			{ path: 'colresize', component: TableColResizeDemo }
+			{ path: 'colresize', component: TableColResizeDemo },
+			{ path: 'colreorder', component: TableColReorderDemo }
 		])
 	],
 	exports: [

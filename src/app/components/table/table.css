@@ -64,6 +64,13 @@
     display: none;
 }
 
+/* Reorder */
+.ui-table-reorder-indicator-up,
+.ui-table-reorder-indicator-down {
+    position: absolute;
+    display: none;
+}
+
 /* Responsive */
 .ui-table-responsive .ui-table-tbody > tr > td .ui-column-title {
     display: none;
