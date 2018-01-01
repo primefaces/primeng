@@ -539,14 +539,14 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
     }
 
-    filter(value, columns, field, matchMode) {
+    filter(value, field, matchMode) {
         if (!this.isFilterBlank(value))
             this.filters[field] = { value: value, matchMode: matchMode };
         else if (this.filters[field])
             delete this.filters[field];
 
         if(this.hasFilter()) {
-            this._filter(columns);
+            this._filter();
         }
         else {
             this.filteredValue = null;
@@ -556,9 +556,9 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         }
     }
 
-    filterGlobal(value, columns, matchMode) {
-        this.filter(value, columns, 'global', matchMode);
-        this._filter(columns);
+    filterGlobal(value, matchMode) {
+        this.filter(value, 'global', matchMode);
+        this._filter();
     }
 
     isFilterBlank(filter: any): boolean {
@@ -571,7 +571,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         return true;
     }
 
-    _filter(columns) {
+    _filter() {
         this.first = 0;
 
         if (this.lazy) {
@@ -588,8 +588,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                 let localMatch = true;
                 let globalMatch = false;
 
-                for (let j = 0; j < columns.length; j++) {
-                    let col = columns[j];
+                for (let j = 0; j < this.columns.length; j++) {
+                    let col = this.columns[j];
                     let filterMeta = this.filters[col.filterField || col.field];
 
                     //local
