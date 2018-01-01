@@ -263,8 +263,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     reorderIconHeight: number;
 
-    columnResizing: boolean;
-
     draggedColumn: any;
 
     dropPosition: number;
@@ -922,7 +920,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     }
 
     onColumnResizeBegin(event) {
-        this.columnResizing = true;
         let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
         this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
     }
@@ -938,7 +935,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     }
 
     onColumnResizeEnd(event, column) {
-        this.columnResizing = false;
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
         let columnWidth = column.offsetWidth;
         let newColumnWidth = columnWidth + delta;
@@ -997,7 +993,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     }
 
     onColumnDragStart(event, columnElement) {
-        if (this.columnResizing) {
+        if (this.domHandler.hasClass(event.target, 'ui-column-resizer')) {
             event.preventDefault();
             return;
         }
@@ -1005,7 +1001,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         this.reorderIconWidth = this.domHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild.nativeElement);
         this.reorderIconHeight = this.domHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild.nativeElement);
         this.draggedColumn = columnElement;
-        event.dataTransfer.setData('text', 'b'); // Firefox requires this to make dragging possible
+        event.dataTransfer.setData('text', 'b');    // For firefox
     }
 
     onColumnDragEnter(event, dropHeader) {
@@ -1018,8 +1014,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                 let targetLeft = dropHeaderOffset.left - containerOffset.left;
                 let targetTop = containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
-
-                
 
                 this.reorderIndicatorUpViewChild.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (this.reorderIconHeight - 1) + 'px';
                 this.reorderIndicatorDownViewChild.nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
@@ -1063,15 +1057,21 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             }
 
             if (allowDrop) {
-                //this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
-                //if (this.scrollable) {
-                //    this.initScrollableColumns();
-                //}
+                for(let col of this.columns) {
+                    console.log(col.header);
+                }
+                this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
+                for (let col of this.columns) {
+                    console.log(col.header);
+                }
+                /*if (this.scrollable) {
+                    this.initScrollableColumns();
+                }*/
 
                 this.onColReorder.emit({
                     dragIndex: dragIndex,
-                    dropIndex: dropIndex
-                    //,columns: this.columns
+                    dropIndex: dropIndex,
+                    columns: this.columns
                 });
             }
 
@@ -1313,8 +1313,6 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     dragLeaveListener: any;
 
-    dropListener: any;
-
     mouseDownListener: any;
 
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
@@ -1339,9 +1337,6 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
             this.dragLeaveListener = this.onDragLeave.bind(this);
             this.el.nativeElement.addEventListener('dragleave', this.dragLeaveListener);
-
-            this.dropListener = this.onDrop.bind(this);
-            this.el.nativeElement.addEventListener('drop', this.dropListener);
         });
     }
 
@@ -1370,11 +1365,6 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
             document.removeEventListener('dragleave', this.dragLeaveListener);
             this.dragLeaveListener = null;
         }
-
-        if (this.dropListener) {
-            document.removeEventListener('drop', this.dropListener);
-            this.dropListener = null;
-        }
     }
 
     onMouseDown(event) {
@@ -1400,6 +1390,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
         this.dt.onColumnDragLeave(event);
     }
 
+    @HostListener('drop', ['$event'])
     onDrop(event) {
         this.dt.onColumnDrop(event, this.el.nativeElement);
     }
