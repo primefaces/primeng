@@ -6,12 +6,13 @@ import { DomHandler } from '../dom/domhandler';
 import { ObjectUtils } from '../utils/objectutils';
 import { SortMeta } from '../common/sortmeta';
 import { FilterMetadata } from '../common/filtermetadata';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
     selector: 'p-table',
     template: `
-        <div [ngStyle]="style" [class]="styleClass" 
-            [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive}">
+        <div #container [ngStyle]="style" [class]="styleClass" 
+            [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns}">
             <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
             </div>
@@ -21,13 +22,13 @@ import { FilterMetadata } from '../common/filtermetadata';
             <div class="ui-table-wrapper" *ngIf="!scrollable">
                 <table>
                     <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
-                    <thead #thead>
+                    <thead #thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     </thead>
-                    <tfoot>
+                    <tfoot class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                     </tfoot>
-                    <tbody #tbody>
+                    <tbody #tbody class="ui-table-tbody">
                         <ng-container *ngIf="!expandedRowTemplate">
                             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
                                 <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
@@ -52,7 +53,7 @@ import { FilterMetadata } from '../common/filtermetadata';
                 <div #scrollHeader class="ui-table-scrollable-header">
                     <table>
                         <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
-                        <thead #thead>
+                        <thead #thead class="ui-table-thead">
                             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                         </thead>
                     </table>
@@ -60,7 +61,7 @@ import { FilterMetadata } from '../common/filtermetadata';
                 <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="scrollHeight">
                     <table #scrollTable>
                         <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
-                        <tbody #tbody>
+                        <tbody #tbody class="ui-table-tbody">
                             <ng-container *ngIf="!expandedRowTemplate">
                                 <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
                                     <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
@@ -83,7 +84,7 @@ import { FilterMetadata } from '../common/filtermetadata';
                 <div #scrollFooter *ngIf="footerTemplate" class="ui-table-scrollable-footer">
                     <table>
                         <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
-                        <tfoot>
+                        <tfoot class="ui-table-tfoot">
                             <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                         </tfoot>
                     </table>
@@ -95,6 +96,8 @@ import { FilterMetadata } from '../common/filtermetadata';
             <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
+
+            <div #resizeHelper class="ui-column-resizer-helper ui-state-highlight" style="display:none" *ngIf="resizableColumns"></div>
         </div>
     `,
     providers: [DomHandler, ObjectUtils]
@@ -170,6 +173,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @Input() responsive: boolean;
 
     @Input() contextMenu: any;
+    
+    @Input() resizableColumns: boolean;
+
+    @Input() columnResizeMode: string = 'fit';
 
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
@@ -191,6 +198,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Output() onContextMenuSelect: EventEmitter<any> = new EventEmitter();
 
+    @Output() onColResize: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('container') containerViewChild: ElementRef;
+
     @ViewChild('thead') theadViewChild: ElementRef;
 
     @ViewChild('tbody') tbodyViewChild: ElementRef;
@@ -202,6 +213,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
 
     @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
+
+    @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
@@ -230,6 +243,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     bodyScrollListener: Function;
 
     footerScrollListener: Function;
+
+    lastResizerHelperX: number;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone) {}
 
@@ -882,6 +897,79 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     isMultipleSelectionMode() {
         return this.selectionMode === 'multiple';
     }
+
+    onColumnResizeBegin(event) {
+        let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
+        this.lastResizerHelperX = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft);
+    }
+
+    onColumnResize(event) {
+        let containerLeft = this.domHandler.getOffset(this.containerViewChild.nativeElement).left;
+        this.domHandler.addClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+        this.resizeHelperViewChild.nativeElement.style.height = this.containerViewChild.nativeElement.offsetHeight + 'px';
+        this.resizeHelperViewChild.nativeElement.style.top = 0 + 'px';
+        this.resizeHelperViewChild.nativeElement.style.left = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft) + 'px';
+
+        this.resizeHelperViewChild.nativeElement.style.display = 'block';
+    }
+
+    onColumnResizeEnd(event, column) {
+        let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
+        let columnWidth = column.offsetWidth;
+        let newColumnWidth = columnWidth + delta;
+        let minWidth = column.style.minWidth || 15;
+
+        if (columnWidth + delta > parseInt(minWidth)) {
+            if (this.columnResizeMode === 'fit') {
+                let nextColumn = column.nextElementSibling;
+                while (!nextColumn.offsetParent) {
+                    nextColumn = nextColumn.nextElementSibling;
+                }
+
+                if (nextColumn) {
+                    let nextColumnWidth = nextColumn.offsetWidth - delta;
+                    let nextColumnMinWidth = nextColumn.style.minWidth || 15;
+
+                    if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
+                        column.style.width = newColumnWidth + 'px';
+                        if (nextColumn) {
+                            nextColumn.style.width = nextColumnWidth + 'px';
+                        }
+
+                        if (this.scrollable) {
+                            let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
+                            let resizeColumnIndex = this.domHandler.index(column);
+                            colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
+
+                            if (nextColumn) {
+                                colGroup.children[resizeColumnIndex + 1].style.width = nextColumnWidth + 'px';
+                            }
+                        }
+                    }
+                }
+            }
+            else if (this.columnResizeMode === 'expand') {
+                this.tbodyViewChild.nativeElement.parentElement.style.width = this.tbodyViewChild.nativeElement.parentElement.offsetWidth + delta + 'px';
+                column.style.width = newColumnWidth + 'px';
+                let containerWidth = this.tbodyViewChild.nativeElement.parentElement.style.width;
+
+                if (this.scrollable) {
+                    this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box').children[0].style.width = containerWidth;
+                    let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
+                    let resizeColumnIndex = this.domHandler.index(column);
+                    colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
+                }
+            }
+
+            this.onColResize.emit({
+                element: column,
+                delta: delta
+            });
+        }
+
+        this.resizeHelperViewChild.nativeElement.style.display = 'none';
+        this.domHandler.removeClass(this.containerViewChild.nativeElement, 'ui-unselectable-text');
+    }
 }
 
 @Directive({
@@ -1028,9 +1116,81 @@ export class RowToggler {
     }
 }
 
+@Directive({
+    selector: '[pResizableColumn]'
+})
+export class ResizableColumn implements AfterViewInit, OnDestroy {
+
+    resizer: HTMLSpanElement;
+
+    resizerMouseDownListener: any;
+
+    documentMouseMoveListener: any;
+
+    documentMouseUpListener: any;
+
+    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
+
+    ngAfterViewInit() {
+        this.domHandler.addClass(this.el.nativeElement, 'ui-resizable-column');
+        this.resizer = document.createElement('span');
+        this.resizer.className = 'ui-column-resizer ui-clickable';
+        this.el.nativeElement.appendChild(this.resizer);
+
+        this.zone.runOutsideAngular(() => {
+            this.resizerMouseDownListener = this.onMouseDown.bind(this);
+            this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
+        });
+    }
+
+    bindDocumentEvents() {
+        this.zone.runOutsideAngular(() => {
+            this.documentMouseMoveListener = this.onDocumentMouseMove.bind(this);
+            document.addEventListener('mousemove', this.documentMouseMoveListener);
+
+            this.documentMouseUpListener = this.onDocumentMouseUp.bind(this);
+            document.addEventListener('mouseup', this.documentMouseUpListener);
+        });
+    }
+
+    unbindDocumentEvents() {
+        if (this.documentMouseMoveListener) {
+            document.removeEventListener('mousemove', this.documentMouseMoveListener);
+            this.documentMouseMoveListener = null;
+        }
+
+        if (this.documentMouseUpListener) {
+            document.removeEventListener('mouseup', this.documentMouseUpListener);
+            this.documentMouseUpListener = null;
+        }
+    }
+
+    onMouseDown(event: Event) {
+        this.dt.onColumnResizeBegin(event);
+        this.bindDocumentEvents();
+    }
+
+    onDocumentMouseMove(event: Event) {
+        this.dt.onColumnResize(event);
+    }
+
+    onDocumentMouseUp(event: Event) {
+        this.dt.onColumnResizeEnd(event, this.el.nativeElement);
+        this.unbindDocumentEvents();
+    }
+
+    ngOnDestroy() {
+        if (this.resizerMouseDownListener) {
+            this.resizer.removeEventListener('mousedown', this.resizerMouseDownListener);
+        }
+        
+        this.unbindDocumentEvents();
+    }
+}
+
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn]
 })
 export class TableModule { }
