@@ -8,8 +8,8 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [value]="cars" dataKey="vin">
-        <ng-template pTemplate="header">
+    <p-table [columns]="cols" [value]="cars" dataKey="vin">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width: 2.25em"></th>
                 <th *ngFor="let col of columns">
@@ -17,7 +17,7 @@
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-expanded="expanded">
+        <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
             <tr>
                 <td>
                     <a href="#" [pRowToggler]="rowData">
@@ -29,7 +29,7 @@
                 </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="rowexpansion" let-rowData>
+        <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
             <tr>
                 <td [attr.colspan]="columns.length + 1">
                     <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">

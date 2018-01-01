@@ -8,21 +8,21 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [value]="cars">
+    <p-table [columns]="cols" [value]="cars">
         <ng-template pTemplate="caption">
             <div style="text-align:left">
-                <p-multiSelect [options]="columns" [(ngModel)]="selectedColumns" optionLabel="header"
+                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
                          selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect>
             </div>
         </ng-template>
-        <ng-template pTemplate="header">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of selectedColumns">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of selectedColumns">
                     {{rowData[col.field]}}

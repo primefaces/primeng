@@ -13,7 +13,7 @@ export class TableScrollDemo implements OnInit {
 
     cars3: Car[];
 
-    columns: any[];
+    cols: any[];
 
     constructor(private carService: CarService) { }
 
@@ -22,7 +22,7 @@ export class TableScrollDemo implements OnInit {
         this.carService.getCarsSmall().then(cars => this.cars2 = cars);
         this.carService.getCarsMedium().then(cars => this.cars3 = cars);
 
-        this.columns = [
+        this.cols = [
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },

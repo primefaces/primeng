@@ -8,15 +8,15 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15">
-        <ng-template pTemplate="header">
+    <p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}

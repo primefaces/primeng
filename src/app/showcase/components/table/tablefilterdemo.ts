@@ -10,7 +10,7 @@ export class TableFilterDemo implements OnInit {
 
     cars: Car[];
 
-    columns: any[];
+    cols: any[];
 
     brands: SelectItem[];
 
@@ -50,7 +50,7 @@ export class TableFilterDemo implements OnInit {
             { label: 'Blue', value: 'Blue' }
         ];
 
-        this.columns = [
+        this.cols = [
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },

@@ -11,7 +11,7 @@ export class TableSortDemo implements OnInit {
 
     cars2: Car[];
 
-    columns: any[];
+    cols: any[];
 
     constructor(private carService: CarService) { }
 
@@ -19,7 +19,7 @@ export class TableSortDemo implements OnInit {
         this.carService.getCarsSmall().then(cars => this.cars1 = cars);
         this.carService.getCarsSmall().then(cars => this.cars2 = cars);
 
-        this.columns = [
+        this.cols = [
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },

@@ -9,15 +9,15 @@
 
 <div class="content-section implementation">
     <h3 class="first">Fit Mode</h3>
-    <p-table [value]="cars" [resizableColumns]="true">
-        <ng-template pTemplate="header">
+    <p-table [columns]="cols" [value]="cars" [resizableColumns]="true">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" pResizableColumn>
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
@@ -27,15 +27,15 @@
     </p-table>
 
     <h3>Expand Mode</h3>
-    <p-table [value]="cars" [resizableColumns]="true" columnResizeMode="expand">
-        <ng-template pTemplate="header">
+    <p-table [columns]="cols" [value]="cars" [resizableColumns]="true" columnResizeMode="expand">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" pResizableColumn>
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}

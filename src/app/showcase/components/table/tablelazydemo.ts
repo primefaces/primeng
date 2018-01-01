@@ -15,7 +15,7 @@ export class TableLazyDemo implements OnInit {
 
     totalRecords: number;
 
-    columns: any[];
+    cols: any[];
 
     constructor(private carService: CarService) { }
 
@@ -26,7 +26,7 @@ export class TableLazyDemo implements OnInit {
             this.totalRecords = this.datasource.length;
         });
 
-        this.columns = [
+        this.cols = [
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },

@@ -11,14 +11,14 @@ export class TableExportDemo implements OnInit {
 
     selectedCars: Car[];
 
-    columns: any[];
+    cols: any[];
 
     constructor(private carService: CarService) { }
 
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
 
-        this.columns = [
+        this.cols = [
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },

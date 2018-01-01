@@ -9,15 +9,15 @@
 
 <div class="content-section implementation">
     <h3 class="first">Vertical</h3>
-    <p-table [value]="cars1" [scrollable]="true" scrollHeight="200px">
-        <ng-template pTemplate="header">
+    <p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="200px">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
@@ -27,20 +27,20 @@
     </p-table>
 
     <h3>Horizontal</h3>
-    <p-table [value]="cars2" [scrollable]="true" [style]="{width:'500px'}">
-        <ng-template pTemplate="colgroup">
+    <p-table [columns]="cols" [value]="cars2" [scrollable]="true" [style]="{width:'500px'}">
+        <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <col *ngFor="let col of columns" style="width:250px">
             </colgroup>
         </ng-template>
-        <ng-template pTemplate="header">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
@@ -50,20 +50,20 @@
     </p-table>
 
     <h3>Horizontal and Vertical</h3>
-    <p-table [value]="cars3" [scrollable]="true" [style]="{width:'500px'}" scrollHeight="200px">
-        <ng-template pTemplate="colgroup">
+    <p-table [columns]="cols" [value]="cars3" [scrollable]="true" [style]="{width:'500px'}" scrollHeight="200px">
+        <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <col *ngFor="let col of columns" style="width:250px">
             </colgroup>
         </ng-template>
-        <ng-template pTemplate="header">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}

@@ -9,7 +9,7 @@ export class TableColToggleDemo implements OnInit {
 
     cars: Car[];
 
-    columns: any[];
+    cols: any[];
 
     selectedColumns: any[];
 
@@ -18,13 +18,13 @@ export class TableColToggleDemo implements OnInit {
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
 
-        this.columns = [
+        this.cols = [
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },
             { field: 'color', header: 'Color' }
         ];
 
-        this.selectedColumns = this.columns;
+        this.selectedColumns = this.cols;
     }
 }

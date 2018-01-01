@@ -21,27 +21,27 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
             
             <div class="ui-table-wrapper" *ngIf="!scrollable">
                 <table>
-                    <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead #thead class="ui-table-thead">
-                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
                     <tfoot class="ui-table-tfoot">
-                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
                     <tbody #tbody class="ui-table-tbody">
                         <ng-container *ngIf="!expandedRowTemplate">
                             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
-                                <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                                <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
                             </ng-template>
                         </ng-container>
                         <ng-container *ngIf="expandedRowTemplate">
                             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
                                 <ng-container *ngIf="isRowExpanded(rowData); else collapsedrow">
-                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: true}"></ng-container>
-                                    <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns, expanded: true}"></ng-container>
+                                    <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
                                 </ng-container>
                                 <ng-template #collapsedrow>
-                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false}"></ng-container>
+                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false, columns: columns}"></ng-container>
                                 </ng-template>
                             </ng-template>
                         </ng-container>
@@ -52,30 +52,30 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
             <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
                 <div #scrollHeader class="ui-table-scrollable-header">
                     <table>
-                        <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                         <thead #thead class="ui-table-thead">
-                            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                            <ng-container *ngTemplateOutlet="headerTemplate; context {$implicit: columns}"></ng-container>
                         </thead>
                     </table>
                 </div>
                 <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="scrollHeight">
                     <table #scrollTable>
-                        <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                         <tbody #tbody class="ui-table-tbody">
                             <ng-container *ngIf="!expandedRowTemplate">
                                 <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
-                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
                                 </ng-template>
                             </ng-container>
                             <ng-container *ngIf="expandedRowTemplate">
                                 <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
                                     <ng-container *ngIf="isRowExpanded(rowData); else collapsedrow">
-                                        <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: true}"></ng-container>
-                                        <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
+                                        <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns, expanded: true}"></ng-container>
+                                        <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
                                     </ng-container>
-                                </ng-template>
-                                <ng-template #collapsedrow>
-                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false}"></ng-container>
+                                    <ng-template #collapsedrow>
+                                        <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false, columns: columns}"></ng-container>
+                                    </ng-template>
                                 </ng-template>
                             </ng-container>
                         </tbody>
@@ -83,9 +83,9 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
                 </div>
                 <div #scrollFooter *ngIf="footerTemplate" class="ui-table-scrollable-footer">
                     <table>
-                        <ng-container *ngTemplateOutlet="colGroupTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                         <tfoot class="ui-table-tfoot">
-                            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                            <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
                         </tfoot>
                     </table>
                 </div>
@@ -107,6 +107,8 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class Table implements OnInit, AfterContentInit, AfterViewInit {
     
+    @Input() columns: any[];
+
     @Input() style: any;
 
     @Input() styleClass: string;
@@ -770,7 +772,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         };
     }
 
-    public exportCSV(columns, options?: any) {
+    public exportCSV(options?: any) {
         let data = this.filteredValue || this.value;
         let csv = '\ufeff';
         debugger;
@@ -780,12 +782,12 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         }
 
         //headers
-        for (let i = 0; i < columns.length; i++) {
-            let column = columns[i];
+        for (let i = 0; i < this.columns.length; i++) {
+            let column = this.columns[i];
             if (column.exportable !== false && column.field) {
                 csv += '"' + (column.header || column.field) + '"';
 
-                if (i < (columns.length - 1)) {
+                if (i < (this.columns.length - 1)) {
                     csv += this.csvSeparator;
                 }
             }
@@ -794,8 +796,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         //body
         data.forEach((record, i) => {
             csv += '\n';
-            for (let i = 0; i < columns.length; i++) {
-                let column = columns[i];
+            for (let i = 0; i < this.columns.length; i++) {
+                let column = this.columns[i];
                 if (column.exportable !== false && column.field) {
                     let cellData = this.objectUtils.resolveFieldData(record, column.field);
 
@@ -806,7 +808,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
                     csv += '"' + cellData + '"';
 
-                    if (i < (columns.length - 1)) {
+                    if (i < (this.columns.length - 1)) {
                         csv += this.csvSeparator;
                     }
                 }

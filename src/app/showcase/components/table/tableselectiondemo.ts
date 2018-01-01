@@ -9,7 +9,7 @@ export class TableSelectionDemo implements OnInit {
 
     cars: Car[];
 
-    columns: any[];
+    cols: any[];
 
     selectedCar: Car;
 
@@ -20,7 +20,7 @@ export class TableSelectionDemo implements OnInit {
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
 
-        this.columns = [
+        this.cols = [
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },

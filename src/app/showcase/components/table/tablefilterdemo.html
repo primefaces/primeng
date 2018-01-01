@@ -8,12 +8,12 @@
 </div>
 
 <div class="content-section implementation ui-fluid">
-    <p-table #dt [value]="cars" [paginator]="true" [rows]="10">
+    <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10">
         <ng-template pTemplate="caption">
             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
             <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, columns, 'contains')" style="width:auto">
         </ng-template>
-        <ng-template pTemplate="header">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{col.header}}
@@ -32,7 +32,7 @@
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}

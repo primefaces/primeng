@@ -9,15 +9,15 @@
 
 <div class="content-section implementation">
     <h3 class="first">Single Sort</h3>
-    <p-table [value]="cars1">
-        <ng-template pTemplate="header">
+    <p-table [columns]="cols" [value]="cars1">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
@@ -27,15 +27,15 @@
     </p-table>
 
     <h3>Multi Sort</h3>
-    <p-table [value]="cars2" sortMode="multiple">
-        <ng-template pTemplate="header">
+    <p-table [columns]="cols" [value]="cars2" sortMode="multiple">
+        <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
