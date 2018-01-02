@@ -186,7 +186,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
     }
 
     onFileSelect(event) {
-        if(this.isIE11() && this.duplicateIEEvent) {
+        if(event.type !== 'drop' && this.isIE11() && this.duplicateIEEvent) {
             this.duplicateIEEvent = false;
             return;
         }
@@ -217,7 +217,7 @@ export class FileUpload implements OnInit,AfterViewInit,AfterContentInit,OnDestr
             this.upload();
         }
 
-        if (this.isIE11()) {
+        if (event.type !== 'drop' && this.isIE11()) {
           this.clearIEInput();
         } else {
           this.clearInputElement();
