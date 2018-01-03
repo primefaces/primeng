@@ -8,7 +8,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars">
+    <p-table [columns]="selectedColumns" [value]="cars">
         <ng-template pTemplate="caption">
             <div style="text-align:left">
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
@@ -17,14 +17,14 @@
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of selectedColumns">
+                <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-                <td *ngFor="let col of selectedColumns">
+                <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                 </td>
             </tr>

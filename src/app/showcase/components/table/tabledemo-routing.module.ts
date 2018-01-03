@@ -18,6 +18,7 @@ import { TableResponsiveDemo } from './tableresponsivedemo';
 import { TableContextMenuDemo } from './tablecontextmenudemo';
 import { TableColResizeDemo } from './tablecolresizedemo';
 import { TableColReorderDemo } from './tablecolreorderdemo';
+import { TableEditDemo } from './tableeditdemo';
 
 @NgModule({
 	imports: [
@@ -39,7 +40,8 @@ import { TableColReorderDemo } from './tablecolreorderdemo';
 			{ path: 'responsive', component: TableResponsiveDemo },
 			{ path: 'contextmenu', component: TableContextMenuDemo },
 			{ path: 'colresize', component: TableColResizeDemo },
-			{ path: 'colreorder', component: TableColReorderDemo }
+			{ path: 'colreorder', component: TableColReorderDemo },
+			{ path: 'edit', component: TableEditDemo }
 		])
 	],
 	exports: [

@@ -64,6 +64,15 @@
     display: none;
 }
 
+/* Edit */
+.ui-table .ui-table-tbody > tr > td.ui-editing-cell {
+    padding: 0;
+}
+
+.ui-table .ui-table-tbody > tr > td.ui-editing-cell p-celleditor >  * {
+    width: 100%;
+}
+
 /* Reorder */
 .ui-table-reorder-indicator-up,
 .ui-table-reorder-indicator-down {

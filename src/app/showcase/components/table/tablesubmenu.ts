@@ -13,6 +13,7 @@ import {Component} from '@angular/core';
                 <li><a [routerLink]="['/table/filter']">&#9679; Filter</a></li>
                 <li><a [routerLink]="['/table/colgroup']">&#9679; ColGroup</a></li>
                 <li><a [routerLink]="['/table/lazy']">&#9679; Lazy</a></li>
+                <li><a [routerLink]="['/table/edit']">&#9679; Edit</a></li>
                 <li><a [routerLink]="['/table/scroll']">&#9679; Scroll</a></li>
                 <li><a [routerLink]="['/table/rowexpansion']">&#9679; Expand</a></li>
                 <li><a [routerLink]="['/table/style']">&#9679; Style</a></li>

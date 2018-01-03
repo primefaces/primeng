@@ -1,4 +1,4 @@
-import { NgModule, Component, HostListener, OnInit, AfterViewInit, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone } from '@angular/core';
+import { NgModule, Component, HostListener, OnInit, AfterViewInit, Directive, AfterContentInit, Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, EmbeddedViewRef, ViewContainerRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Column, PrimeTemplate, SharedModule } from '../common/shared';
 import { PaginatorModule } from '../paginator/paginator';
@@ -209,6 +209,12 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Output() onColReorder: EventEmitter<any> = new EventEmitter();
 
+    @Output() onEditInit: EventEmitter<any> = new EventEmitter();
+
+    @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
+
+    @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('thead') theadViewChild: ElementRef;
@@ -266,6 +272,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     draggedColumn: any;
 
     dropPosition: number;
+
+    editingCell: Element;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone) {}
 
@@ -1398,11 +1406,205 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     ngOnDestroy() {
         this.unbindEvents();
     }
+
 }
+
+@Directive({
+    selector: '[pEditableColumn]'
+})
+export class EditableColumn implements AfterViewInit {
+
+    @Input("pEditableColumn") data: any;
+
+    @Input("pEditableColumnField") field: any;
+
+    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) {}
+
+    ngAfterViewInit() {
+        this.domHandler.addClass(this.el.nativeElement, 'ui-editable-column');
+    }
+
+    isValid() {
+        return (this.dt.editingCell && this.domHandler.find(this.dt.editingCell, '.ng-invalid.ng-dirty').length === 0);
+    }
+
+    @HostListener('click', ['$event'])
+    onClick(event: MouseEvent) {
+        if (this.dt.editingCell && this.dt.editingCell !== this.el.nativeElement) {
+            if (!this.isValid()) {
+                return;
+            }
+
+            this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+        } 
+        
+        this.dt.editingCell = this.el.nativeElement;
+        this.domHandler.addClass(this.el.nativeElement, 'ui-editing-cell');
+        this.dt.onEditInit.emit({ field: this.field, data: this.data});
+        this.zone.runOutsideAngular(() => {
+            setTimeout(() => {
+                let focusable = this.domHandler.findSingle(this.el.nativeElement, 'input, textarea');
+                if (focusable) {
+                    focusable.focus();
+                }
+            }, 50);
+        });
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        //enter
+        if (event.keyCode == 13) {
+            if (this.isValid()) {
+                this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                this.dt.editingCell = null;
+                this.dt.onEditComplete.emit({ field: this.field, data: this.data });
+            }
+
+            event.preventDefault();
+        }
+
+        //escape
+        else if (event.keyCode == 27) {
+            if (this.isValid()) {
+                this.domHandler.removeClass(this.dt.editingCell, 'ui-editing-cell');
+                this.dt.editingCell = null;
+                this.dt.onEditCancel.emit({ field: this.field, data: this.data });
+            }
+
+            event.preventDefault();
+        }
+
+        //tab
+        else if (event.keyCode == 9) {
+            if (event.shiftKey)
+                this.moveToPreviousCell(event);
+            else
+                this.moveToNextCell(event);
+        }
+    }
+
+    findCell(element) {
+        if (element) {
+            let cell = element;
+            while (cell && !this.domHandler.hasClass(cell, 'ui-editing-cell')) {
+                cell = cell.parentElement;
+            }
+
+            return cell;
+        }
+        else {
+            return null;
+        }
+    }
+
+    moveToPreviousCell(event: KeyboardEvent) {
+        let currentCell = this.findCell(event.target);
+        let row = currentCell.parentElement;
+        let targetCell = this.findPreviousEditableColumn(currentCell);
+
+        if (targetCell) {
+            this.domHandler.invokeElementMethod(targetCell, 'click');
+            event.preventDefault();
+        }
+    }
+
+    moveToNextCell(event: KeyboardEvent) {
+        let currentCell = this.findCell(event.target);
+        let row = currentCell.parentElement;
+        let targetCell = this.findNextEditableColumn(currentCell);
+
+        if (targetCell) {
+            this.domHandler.invokeElementMethod(targetCell, 'click');
+            event.preventDefault();
+        }
+    }
+
+    findPreviousEditableColumn(cell: Element) {
+        let prevCell = cell.previousElementSibling;
+
+        if (!prevCell) {
+            let previousRow = cell.parentElement.previousElementSibling;
+            if (previousRow) {
+                prevCell = previousRow.lastElementChild;
+            }
+        }
+
+        if (prevCell) {
+            if (this.domHandler.hasClass(prevCell, 'ui-editable-column'))
+                return prevCell;
+            else
+                return this.findPreviousEditableColumn(prevCell);
+        }
+        else {
+            return null;
+        }
+    }
+
+    findNextEditableColumn(cell: Element) {
+        let nextCell = cell.nextElementSibling;
+
+        if (!nextCell) {
+            let nextRow = cell.parentElement.nextElementSibling;
+            if (nextRow) {
+                nextCell = nextRow.firstElementChild;
+            }
+        }
+
+        if (nextCell) {
+            if (this.domHandler.hasClass(nextCell, 'ui-editable-column'))
+                return nextCell;
+            else
+                return this.findNextEditableColumn(nextCell);
+        }
+        else {
+            return null;
+        }
+    }
+
+}
+
+@Component({
+    selector: 'p-cellEditor',
+    template: `
+        <ng-container *ngIf="dt.editingCell === editableColumn.el.nativeElement">
+            <ng-container *ngTemplateOutlet="inputTemplate" ></ng-container>
+        </ng-container>
+        <ng-container *ngIf="!dt.editingCell || dt.editingCell !== editableColumn.el.nativeElement">
+            <ng-container *ngTemplateOutlet="outputTemplate" ></ng-container>
+        </ng-container>
+    `
+})
+export class CellEditor implements AfterContentInit {
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+
+    inputTemplate: TemplateRef<any>;
+
+    outputTemplate: TemplateRef<any>;
+
+    constructor(public dt: Table, public editableColumn: EditableColumn) { }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'input':
+                    this.inputTemplate = item.template;
+                    break;
+
+                case 'output':
+                    this.outputTemplate = item.template;
+                    break;
+            }
+        });
+    }
+    
+}
+
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor]
 })
 export class TableModule { }

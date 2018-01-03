@@ -30,6 +30,7 @@ import { TableResponsiveDemo } from './tableresponsivedemo';
 import { TableContextMenuDemo } from './tablecontextmenudemo';
 import { TableColResizeDemo } from './tablecolresizedemo';
 import { TableColReorderDemo } from './tablecolreorderdemo';
+import { TableEditDemo } from './tableeditdemo';
 
 @NgModule({
 	imports: [
@@ -65,7 +66,8 @@ import { TableColReorderDemo } from './tablecolreorderdemo';
 		TableResponsiveDemo,
 		TableContextMenuDemo,
 		TableColResizeDemo,
-		TableColReorderDemo
+		TableColReorderDemo,
+		TableEditDemo
 	]
 })
 export class TableDemoModule { }
