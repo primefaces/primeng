@@ -56,6 +56,11 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
                         <thead #thead class="ui-table-thead">
                             <ng-container *ngTemplateOutlet="headerTemplate; context {$implicit: columns}"></ng-container>
                         </thead>
+                        <tbody class="ui-table-tbody">
+                            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="frozenValue" [ngForTrackBy]="rowTrackBy">
+                                <ng-container *ngTemplateOutlet="frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
+                            </ng-template>
+                        </tbody>
                     </table>
                 </div>
                 <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="scrollHeight">
@@ -108,6 +113,8 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 export class Table implements OnInit, AfterContentInit, AfterViewInit {
     
     @Input() columns: any[];
+
+    @Input() frozenValue: any[];
 
     @Input() style: any;
 
@@ -247,6 +254,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     captionTemplate: TemplateRef<any>;
 
+    frozenRowsTemplate: TemplateRef<any>;
+
     footerTemplate: TemplateRef<any>;
 
     summaryTemplate: TemplateRef<any>;
@@ -313,6 +322,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                 case 'rowexpansion':
                     this.expandedRowTemplate = item.template;
                 break;
+
+                case 'frozenrows':
+                    this.frozenRowsTemplate = item.template;
+                    break;
             }
         });
     }

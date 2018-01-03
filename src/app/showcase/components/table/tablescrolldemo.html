@@ -71,4 +71,29 @@
             </tr>
         </ng-template>
     </p-table>
+
+    <h3>Frozen Rows</h3>
+    <p-table [columns]="cols" [value]="cars4" [frozenValue]="frozenCars" [scrollable]="true" scrollHeight="200px">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="frozenrows" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    <b>{{rowData[col.field]}}</b>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
