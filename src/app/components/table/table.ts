@@ -28,72 +28,13 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
                     <tfoot class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
-                    <tbody #tbody class="ui-table-tbody">
-                        <ng-container *ngIf="!expandedRowTemplate">
-                            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
-                                <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
-                            </ng-template>
-                        </ng-container>
-                        <ng-container *ngIf="expandedRowTemplate">
-                            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
-                                <ng-container *ngIf="isRowExpanded(rowData); else collapsedrow">
-                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns, expanded: true}"></ng-container>
-                                    <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
-                                </ng-container>
-                                <ng-template #collapsedrow>
-                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false, columns: columns}"></ng-container>
-                                </ng-template>
-                            </ng-template>
-                        </ng-container>
-                    </tbody>
+                    <tbody #tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
                 </table>
             </div>
 
             <div class="ui-table-scrollable-wrapper" *ngIf="scrollable">
-                <div #scrollHeader class="ui-table-scrollable-header">
-                    <table>
-                        <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
-                        <thead #thead class="ui-table-thead">
-                            <ng-container *ngTemplateOutlet="headerTemplate; context {$implicit: columns}"></ng-container>
-                        </thead>
-                        <tbody class="ui-table-tbody">
-                            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="frozenValue" [ngForTrackBy]="rowTrackBy">
-                                <ng-container *ngTemplateOutlet="frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
-                            </ng-template>
-                        </tbody>
-                    </table>
-                </div>
-                <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="scrollHeight">
-                    <table #scrollTable>
-                        <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
-                        <tbody #tbody class="ui-table-tbody">
-                            <ng-container *ngIf="!expandedRowTemplate">
-                                <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
-                                    <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
-                                </ng-template>
-                            </ng-container>
-                            <ng-container *ngIf="expandedRowTemplate">
-                                <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue||value | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : filteredValue||value" [ngForTrackBy]="rowTrackBy">
-                                    <ng-container *ngIf="isRowExpanded(rowData); else collapsedrow">
-                                        <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns, expanded: true}"></ng-container>
-                                        <ng-container *ngTemplateOutlet="expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
-                                    </ng-container>
-                                    <ng-template #collapsedrow>
-                                        <ng-container *ngTemplateOutlet="bodyTemplate; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false, columns: columns}"></ng-container>
-                                    </ng-template>
-                                </ng-template>
-                            </ng-container>
-                        </tbody>
-                    </table>
-                </div>
-                <div #scrollFooter *ngIf="footerTemplate" class="ui-table-scrollable-footer">
-                    <table>
-                        <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
-                        <tfoot class="ui-table-tfoot">
-                            <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
-                        </tfoot>
-                    </table>
-                </div>
+               <div class="ui-table-frozen-view" *ngIf="frozenColumns||frozenBodyTemplate" [pScrollableView]="frozenColumns" [frozen]="true" [ngStyle]="{width: frozenWidth}"></div>
+               <div [pScrollableView]="columns" [frozen]="false"></div>
             </div>
                         
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
@@ -110,9 +51,11 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
     `,
     providers: [DomHandler, ObjectUtils]
 })
-export class Table implements OnInit, AfterContentInit, AfterViewInit {
+export class Table implements OnInit, AfterContentInit {
     
     @Input() columns: any[];
+
+    @Input() frozenColumns: any[];
 
     @Input() frozenValue: any[];
 
@@ -182,6 +125,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Input() scrollHeight: string;
 
+    @Input() frozenWidth: string;
+
     @Input() responsive: boolean;
 
     @Input() contextMenu: any;
@@ -228,14 +173,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @ViewChild('tbody') tbodyViewChild: ElementRef;
 
-    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
-
-    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
-
-    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
-
-    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
-
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
 
     @ViewChild('reorderIndicatorUp') reorderIndicatorUpViewChild: ElementRef;
@@ -264,13 +201,15 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     expandedRowTemplate: TemplateRef<any>;
 
+    frozenHeaderTemplate: TemplateRef<any>;
+
+    frozenBodyTemplate: TemplateRef<any>;
+
+    frozenFooterTemplate: TemplateRef<any>;
+
+    frozenColGroupTemplate: TemplateRef<any>;
+
     selectionKeys: any;
-
-    headerScrollListener: Function;
-
-    bodyScrollListener: Function;
-
-    footerScrollListener: Function;
 
     lastResizerHelperX: number;
 
@@ -325,15 +264,25 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
                 case 'frozenrows':
                     this.frozenRowsTemplate = item.template;
-                    break;
+                break;
+
+                case 'frozenheader':
+                    this.frozenHeaderTemplate = item.template;
+                break;
+
+                case 'frozenbody':
+                    this.frozenBodyTemplate = item.template;
+                break;
+
+                case 'frozenfooter':
+                    this.frozenFooterTemplate = item.template;
+                break;
+
+                case 'frozencolgroup':
+                    this.frozenColGroupTemplate = item.template;
+                break;
             }
         });
-    }
-
-    ngAfterViewInit() {
-        if(this.scrollable) {
-            this.initScrolling();
-        }
     }
 
     @Input() get value(): any[] {
@@ -893,45 +842,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         return this.expandedRowKeys[String(this.objectUtils.resolveFieldData(rowData, this.dataKey))] === 1;
     }
 
-    initScrolling() {
-        this.zone.runOutsideAngular(() => {
-            let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
-
-            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-                this.scrollHeaderViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
-                this.headerScrollListener = this.onHeaderScroll.bind(this);
-                this.scrollHeaderViewChild.nativeElement.addEventListener('scroll', this.onHeaderScroll.bind(this));
-            }
-
-            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-                this.scrollFooterViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
-                this.footerScrollListener = this.onFooterScroll.bind(this);
-                this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.onFooterScroll.bind(this));
-            }
-
-            this.bodyScrollListener = this.onBodyScroll.bind(this);            
-            this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.onBodyScroll.bind(this));
-        });
-    }
-
-    onHeaderScroll(event) {
-        this.scrollHeaderViewChild.nativeElement.scrollLeft = 0;
-    }
-
-    onFooterScroll(event) {
-        this.scrollFooterViewChild.nativeElement.scrollLeft = 0;
-    }
-
-    onBodyScroll(event) {
-        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.scrollHeaderViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
-        }
-
-        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-            this.scrollFooterViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
-        }
-    }
-
     isSingleSelectionMode() {
         return this.selectionMode === 'single';
     }
@@ -1102,6 +1012,178 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             this.draggedColumn = null;
             this.dropPosition = null;
         }
+    }
+
+    ngOnDestroy() {
+        this.editingCell = null;
+    }
+}
+
+@Component({
+    selector: '[pTableBody]',
+    template: `
+        <ng-container *ngIf="!dt.expandedRowTemplate">
+            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.paginator ? (dt.filteredValue||dt.value | slice:(dt.lazy ? 0 : dt.first):((dt.lazy ? 0 : dt.first) + dt.rows)) : dt.filteredValue||dt.value" [ngForTrackBy]="dt.rowTrackBy">
+                <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
+            </ng-template>
+        </ng-container>
+        <ng-container *ngIf="dt.expandedRowTemplate">
+            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.paginator ? (dt.filteredValue||dt.value | slice:(dt.lazy ? 0 : dt.first):((dt.lazy ? 0 : dt.first) + dt.rows)) : dt.filteredValue||dt.value" [ngForTrackBy]="dt.rowTrackBy">
+                <ng-container *ngIf="dt.isRowExpanded(rowData); else collapsedrow">
+                    <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns, expanded: true}"></ng-container>
+                    <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
+                </ng-container>
+                <ng-template #collapsedrow>
+                    <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false, columns: columns}"></ng-container>
+                </ng-template>
+            </ng-template>
+        </ng-container>
+    `
+})
+export class TableBody {
+
+    @Input("pTableBody") columns: Column[];
+
+    @Input("pTableBodyTemplate") template: TemplateRef<any>;
+
+    constructor(public dt: Table) {}
+}
+
+@Component({
+    selector: '[pScrollableView]',
+    template: `
+        <div #scrollHeader class="ui-table-scrollable-header">
+            <div #scrollHeaderBox class="ui-table-scrollable-header-box">
+                <table>
+                    <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
+                    <thead #thead class="ui-table-thead">
+                        <ng-container *ngTemplateOutlet="frozen ? dt.frozenHeaderTemplate||dt.headerTemplate : dt.headerTemplate; context {$implicit: columns}"></ng-container>
+                    </thead>
+                    <tbody class="ui-table-tbody">
+                        <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="dt.frozenValue" [ngForTrackBy]="dt.rowTrackBy">
+                            <ng-container *ngTemplateOutlet="dt.frozenRowsTemplate; context: {$implicit: rowData, rowIndex: rowIndex, columns: columns}"></ng-container>
+                        </ng-template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="dt.scrollHeight">
+            <table #scrollTable>
+                <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
+                <tbody #tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
+            </table>
+        </div>
+        <div #scrollFooter *ngIf="footerTemplate" class="ui-table-scrollable-footer">
+            <div #scrollFooterBox class="ui-table-scrollable-footer-box">ü
+                <table>
+                    <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
+                    <tfoot class="ui-table-tfoot">
+                        <ng-container *ngTemplateOutlet="frozen ? dt.frozenFooterTemplate||dt.footerTemplate : dt.footerTemplate; context {$implicit: columns}"></ng-container>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    `
+})
+export class ScrollableView implements AfterViewInit,OnDestroy {
+
+    @Input("pScrollableView") columns: Column[];
+
+    @Input() frozen: boolean;
+
+    @ViewChild('scrollHeader') scrollHeaderViewChild: ElementRef;
+
+    @ViewChild('scrollHeaderBox') scrollHeaderBoxViewChild: ElementRef;
+
+    @ViewChild('scrollBody') scrollBodyViewChild: ElementRef;
+
+    @ViewChild('scrollTable') scrollTableViewChild: ElementRef;
+
+    @ViewChild('scrollFooter') scrollFooterViewChild: ElementRef;
+
+    @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
+
+    headerScrollListener: Function;
+
+    bodyScrollListener: Function;
+
+    footerScrollListener: Function;
+
+    frozenSiblingBody: Element;
+
+    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public zone: NgZone) { }
+
+    ngAfterViewInit() {
+        this.bindEvents();
+
+        if(!this.frozen) {
+            if (this.dt.frozenColumns || this.dt.frozenBodyTemplate) {
+                this.domHandler.addClass(this.el.nativeElement, 'ui-table-unfrozen-view');
+            }
+
+            if(this.dt.frozenWidth) {
+                this.el.nativeElement.style.left = this.dt.frozenWidth;
+                this.el.nativeElement.style.width = 'calc(100% - ' + this.dt.frozenWidth + ')';
+            }
+
+            let frozenView = this.el.nativeElement.previousElementSibling;
+            if (frozenView) {
+                this.frozenSiblingBody = this.domHandler.findSingle(frozenView, '.ui-table-scrollable-body');
+            }
+        }
+    }
+
+    bindEvents() {
+        this.zone.runOutsideAngular(() => {
+            let scrollBarWidth = this.domHandler.calculateScrollbarWidth();
+
+            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+                if(!this.frozen) {
+                    this.scrollHeaderBoxViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+                }
+                
+                this.headerScrollListener = this.onHeaderScroll.bind(this);
+                this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.onHeaderScroll.bind(this));
+            }
+
+            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+                if (!this.frozen) {
+                    this.scrollFooterViewChild.nativeElement.style.marginRight = scrollBarWidth + 'px';
+                }
+                
+                this.footerScrollListener = this.onFooterScroll.bind(this);
+                this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.onFooterScroll.bind(this));
+            }
+
+            this.bodyScrollListener = this.onBodyScroll.bind(this);
+            this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.onBodyScroll.bind(this));
+        });
+    }
+
+    onHeaderScroll(event) {
+        this.scrollHeaderViewChild.nativeElement.scrollLeft = 0;
+    }
+
+    onFooterScroll(event) {
+        this.scrollFooterViewChild.nativeElement.scrollLeft = 0;
+    }
+
+    onBodyScroll(event) {
+        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+            this.scrollHeaderBoxViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+        }
+
+        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+            this.scrollFooterBoxViewChild.nativeElement.style.marginLeft = -1 * this.scrollBodyViewChild.nativeElement.scrollLeft + 'px';
+        }
+
+        if (this.frozenSiblingBody) {
+            this.frozenSiblingBody.scrollTop = this.scrollBodyViewChild.nativeElement.scrollTop;
+        }
+    }
+
+    ngOnDestroy() {
+        this.frozenSiblingBody = null;
     }
 }
 
@@ -1618,6 +1700,6 @@ export class CellEditor implements AfterContentInit {
 @NgModule({
     imports: [CommonModule,PaginatorModule],
     exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor]
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView]
 })
 export class TableModule { }

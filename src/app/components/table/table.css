@@ -28,6 +28,16 @@
     background-color: #3c91f3;
 }
 
+/* Frozen Columns */
+.ui-table-frozen-view .ui-table-scrollable-body {
+    overflow: hidden;
+}
+
+.ui-table-unfrozen-view {
+    position: absolute;
+    top: 0px;
+}
+
 /* Resizable */
 .ui-table-resizable > .ui-table-wrapper {
     overflow-x: auto;

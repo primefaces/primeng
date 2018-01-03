@@ -96,4 +96,94 @@
             </tr>
         </ng-template>
     </p-table>
+
+    <h3>Frozen Columns</h3>
+    <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="cars5" [scrollable]="true" scrollHeight="200px" frozenWidth="200px">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" style="width:200px">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <h3>Frozen Columns and Frozen Rows</h3>
+    <p-table [columns]="scrollableCols" [frozenColumns]="frozenCols" [frozenValue]="frozenCars" [value]="cars5" [scrollable]="true" scrollHeight="200px" frozenWidth="200px">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" style="width:200px">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="frozenrows" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    <b>{{rowData[col.field]}}</b>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <h3>Frozen Column Groups</h3>
+    <p-table [value]="sales" [scrollable]="true" scrollHeight="150px" frozenWidth="200px">
+        <ng-template pTemplate="frozenheader">
+            <tr>
+                <th style="width:200px;height:84px">Brand</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="frozenbody" let-sale>
+            <tr>
+                <td>{{sale.brand}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th colspan="4">Sale Rate</th>
+            </tr>
+            <tr>
+                <th colspan="2">Sales</th>
+                <th colspan="2">Profits</th>
+            </tr>
+            <tr>
+                <th>Last Year</th>
+                <th>This Year</th>
+                <th>Last Year</th>
+                <th>This Year</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sale>
+            <tr>
+                <td>{{sale.lastYearSale}}</td>
+                <td>{{sale.thisYearSale}}</td>
+                <td>{{sale.lastYearProfit}}</td>
+                <td>{{sale.thisYearProfit}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
