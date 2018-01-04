@@ -6,63 +6,68 @@
 </div>
 
 <div class="content-section implementation">
-    <div class="ui-g ui-fluid">
+  <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-4">
             <h3>Basic</h3>
             <p-calendar [(ngModel)]="date1" tabindex="0" panelStyleClass="yooo"></p-calendar> {{date1|date}}
         </div>
-        
+
         <div class="ui-g-12 ui-md-4">
             <h3>Spanish</h3>
             <p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar> {{date2|date}}
         </div>
-        
+
         <div class="ui-g-12 ui-md-4">
             <h3>Icon</h3>
             <p-calendar [(ngModel)]="date3" [showIcon]="true"></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
         </div>
-        
+
         <div class="ui-g-12 ui-md-4">
             <h3>Min-Max</h3>
             <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" readonlyInput="true"></p-calendar> {{date4|date}}
         </div>
-        
+
         <div class="ui-g-12 ui-md-4">
             <h3>Disable Days</h3>
             <p-calendar [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]" readonlyInput="true"></p-calendar> {{date5|date}}
         </div>
-        
+
         <div class="ui-g-12 ui-md-4">
             <h3>Navigators</h3>
             <p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar> {{date6|date}}
         </div>
-        
-        <div class="ui-g-12 ui-md-4">
+
+      <div class="ui-g-12 ui-md-4">
             <h3>Time</h3>
             <p-calendar [(ngModel)]="date7" [showTime]="true"></p-calendar> {{date7}}
         </div>
-        
+
         <div class="ui-g-12 ui-md-4">
             <h3>Time Only</h3>
             <p-calendar [(ngModel)]="date8" [timeOnly]="true"></p-calendar>
         </div>
-        
+
+        <div class="ui-g-12 ui-md-4">
+            <h3>Time UTC</h3>
+            <p-calendar [(ngModel)]="date12" [showTime]="true" [utc]="true"></p-calendar>
+        </div>
+
         <div class="ui-g-12 ui-md-4">
             <h3>Multiple</h3>
             <p-calendar [(ngModel)]="dates" selectionMode="multiple" readonlyInput="true"></p-calendar>
         </div>
-        
+
         <div class="ui-g-12 ui-md-4">
             <h3>Range</h3>
             <p-calendar [(ngModel)]="rangeDates" selectionMode="range" readonlyInput="true"></p-calendar>
         </div>
-        
+
         <div class="ui-g-12 ui-md-4">
             <h3>Button Bar</h3>
             <p-calendar [(ngModel)]="date9" showButtonBar="true"></p-calendar>
         </div>
-        
-        <div class="ui-g-12 ui-md-4">
+
+      <div class="ui-g-12 ui-md-4">
             <h3>Date Template</h3>
             <p-calendar [(ngModel)]="date10">
                 <ng-template pTemplate="date" let-date>
@@ -71,9 +76,10 @@
             </p-calendar>
         </div>
     </div>
-    
+
     <h3>Inline</h3>
-    <p-calendar [(ngModel)]="date11" [inline]="true"></p-calendar> 
+    <p-calendar [(ngModel)]="date11" [inline]="true"></p-calendar>
+
 </div>
 
 <div class="content-section documentation">
@@ -100,7 +106,7 @@ import &#123;CalendarModule&#125; from 'primeng/primeng';
 export class MyModel &#123;
 
     value: Date;
-    
+
 &#125;
 </code>
 </pre>
@@ -201,9 +207,9 @@ export class MyModel &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class MyModel &#123;
-    
+
     en: any;
-    
+
     ngOnInit() &#123;
         this.en = &#123;
             firstDayOfWeek: 0,
@@ -244,7 +250,7 @@ export class MyModel &#123;
 &lt;/p-calendar&gt;
 </code>
 </pre>
-            
+
 
             <h3>Properties</h3>
             <div class="doc-tablewrapper">
@@ -413,7 +419,7 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>Whether the year should be rendered as a dropdown instead of text.</td>
-                        </tr>                        
+                        </tr>
                         <tr>
                             <td>yearRange</td>
                             <td>string</td>
@@ -641,57 +647,57 @@ export class MyModel &#123;
         &lt;h3&gt;Basic&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date1"&gt;&lt;/p-calendar&gt; &#123;&#123;date1|date&#125;&#125;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Spanish&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date2" [locale]="es" dateFormat="dd/mm/yy"&gt;&lt;/p-calendar&gt; &#123;&#123;date2|date&#125;&#125;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Icon&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date3" [showIcon]="true"&gt;&lt;/p-calendar&gt; &lt;span style="margin-left:35px"&gt;&#123;&#123;date3|date&#125;&#125;&lt;/span&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Min-Max&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" readonlyInput="true"&gt;&lt;/p-calendar&gt; &#123;&#123;date4|date&#125;&#125;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Disable Days&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date5" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]" readonlyInput="true"&gt;&lt;/p-calendar&gt; &#123;&#123;date5|date&#125;&#125;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Navigators&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"&gt;&lt;/p-calendar&gt; &#123;&#123;date6|date&#125;&#125;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Time&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date7" [showTime]="true"&gt;&lt;/p-calendar&gt; &#123;&#123;date7&#125;&#125;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Time Only &lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date8" [timeOnly]="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Multiple &lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="dates" selectionMode="multiple" readonlyInput="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Range&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="rangeDates" selectionMode="range" readonlyInput="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Button Bar&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date9" showButtonBar="true"&gt;&lt;/p-calendar&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-4"&gt;
         &lt;h3&gt;Date Template&lt;/h3&gt;
         &lt;p-calendar [(ngModel)]="date10"&gt;
@@ -703,7 +709,7 @@ export class MyModel &#123;
 &lt;/div&gt;
 
 &lt;h3&gt;Inline&lt;/h3&gt;
-&lt;p-calendar [(ngModel)]="date11" [inline]="true"&gt;&lt;/p-calendar&gt; 
+&lt;p-calendar [(ngModel)]="date11" [inline]="true"&gt;&lt;/p-calendar&gt;
 </code>
 </pre>
 
@@ -722,29 +728,29 @@ export class CalendarDemo &#123;
     date5: Date;
 
     date6: Date;
-    
+
     date7: Date;
-    
+
     date8: Date;
-    
+
     date9: Date;
-    
+
     date10: Date;
-    
+
     date11: Date;
-    
+
     dates: Date[];
-    
+
     rangeDates: Date[];
-    
+
     minDate: Date;
-    
+
     maxDate: Date;
-    
+
     es: any;
-    
+
     invalidDates: Array&lt;Date&gt;
-        
+
     ngOnInit() &#123;
         this.es = &#123;
             firstDayOfWeek: 1,
@@ -756,11 +762,11 @@ export class CalendarDemo &#123;
             today: 'Hoy',
             clear: 'Borrar'
         &#125;
-        
+
         this.tr = &#123;
             firstDayOfWeek : 1
         &#125;
-        
+
         let today = new Date();
         let month = today.getMonth();
         let year = today.getFullYear();
@@ -774,7 +780,7 @@ export class CalendarDemo &#123;
         this.maxDate = new Date();
         this.maxDate.setMonth(nextMonth);
         this.maxDate.setFullYear(nextYear);
-        
+
         let invalidDate = new Date();
         invalidDate.setDate(today.getDate() - 1);
         this.invalidDates = [today,invalidDate];
