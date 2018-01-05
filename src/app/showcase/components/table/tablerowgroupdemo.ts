@@ -14,7 +14,7 @@ export class TableRowGroupDemo implements OnInit {
     constructor(private carService: CarService) { }
 
     ngOnInit() {
-        this.carService.getCarsLarge().then(cars => {
+        this.carService.getCarsMedium().then(cars => {
             this.cars = cars;
             this.updateRowGroupMetaData();
         });
