@@ -298,6 +298,13 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     set value(val: any[]) {
         this._value = val;
         this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
+
+        if (!this.lazy) {
+            if (this.sortMode == 'single')
+                this.sortSingle();
+            else if (this.sortMode == 'multiple')
+                this.sortMultiple();
+        }
     }
 
     @Input() get sortField(): string {
