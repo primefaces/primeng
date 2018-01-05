@@ -79,15 +79,9 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Input() paginatorPosition: string = 'bottom';
 
-    @Input() sortField: string;
-
-    @Input() sortOrder: number = 1;
-
     @Input() defaultSortOrder: number = 1;
 
     @Input() sortMode: string = 'single';
-
-    @Input() multiSortMeta: SortMeta[] = [];
 
     @Input() selectionMode: string;
 
@@ -223,6 +217,12 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     tbodyElement: Element;
 
+    _multiSortMeta: SortMeta[];
+
+    _sortField: string;
+
+    _sortOrder: number = 1;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone) {}
 
     ngOnInit() {
@@ -300,6 +300,38 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
     }
 
+    @Input() get sortField(): string {
+        return this._sortField;
+    }
+
+    set sortField(val: string) {
+        this._sortField = val;
+        if (this.sortMode === 'single') {
+            this.sortSingle();
+        }
+    }
+
+    @Input() get sortOrder(): number {
+        return this._sortOrder;
+    }
+    set sortOrder(val: number) {
+        this._sortOrder = val;
+        if (this.sortMode === 'single') {
+            this.sortSingle();
+        }
+    }
+
+    @Input() get multiSortMeta(): SortMeta[] {
+        return this._multiSortMeta;
+    }
+
+    set multiSortMeta(val: SortMeta[]) {
+        this._multiSortMeta = val;
+        if (this.sortMode === 'multiple') {
+            this.sortMultiple();
+        }
+    }
+
     onPageChange(event) {
         this.first = event.first;
         this.rows = event.rows;
@@ -319,7 +351,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
         if(this.sortMode === 'single') {
             this.sortOrder = (this.sortField === event.field) ? this.sortOrder * -1 : this.defaultSortOrder;
-            this.sortField = event.field;
+            this._sortField = event.field;
             this.sortSingle();
         }
         if (this.sortMode === 'multiple') {
@@ -328,15 +360,15 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
             if (sortMeta) {
                 if (!metaKey) {
-                    this.multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
+                    this._multiSortMeta = [{ field: event.field, order: sortMeta.order * -1 }]
                 }
                 else {
                     sortMeta.order = sortMeta.order * -1;
                 }
             }
             else {
-                if (!metaKey) {
-                    this.multiSortMeta = [];
+                if (!metaKey || !this.multiSortMeta) {
+                    this._multiSortMeta = [];
                 }
                 this.multiSortMeta.push({ field: event.field, order: this.defaultSortOrder });
             }
@@ -412,12 +444,14 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     }
 
     getSortMeta(field: string) {
-        for (let i = 0; i < this.multiSortMeta.length; i++) {
-            if (this.multiSortMeta[i].field === field) {
-                return this.multiSortMeta[i];
+        if (this.multiSortMeta && this.multiSortMeta.length) {
+            for (let i = 0; i < this.multiSortMeta.length; i++) {
+                if (this.multiSortMeta[i].field === field) {
+                    return this.multiSortMeta[i];
+                }
             }
         }
-
+       
         return null;
     }
 
