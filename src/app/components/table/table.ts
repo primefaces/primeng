@@ -243,7 +243,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             switch (item.getType()) {
                 case 'caption':
                     this.captionTemplate = item.template;
-                    break;
+                break;
 
                 case 'header':
                     this.headerTemplate = item.template;
@@ -382,12 +382,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             
             this.sortMultiple();
         }
-
-        this.onSort.emit({
-            field: event.field,
-            order: event.sortOrder,
-            multisortmeta: this.multiSortMeta
-        });
     }
 
     sortSingle() {
@@ -416,6 +410,11 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                 return (this.sortOrder * result);
             });
         }
+
+        this.onSort.emit({
+            field: this.sortField,
+            order: this.sortOrder
+        });
     }
 
     sortMultiple() {
@@ -427,6 +426,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                 return this.multisortField(data1, data2, this.multiSortMeta, 0);
             });
         }
+
+        this.onSort.emit({
+            multisortmeta: this.multiSortMeta
+        });
     }
 
     multisortField(data1, data2, multiSortMeta, index) {
