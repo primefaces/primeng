@@ -28,7 +28,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
                     <tfoot class="ui-table-tfoot">
                         <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: columns}"></ng-container>
                     </tfoot>
-                    <tbody #tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
+                    <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="bodyTemplate"></tbody>
                 </table>
             </div>
 
@@ -51,7 +51,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
     `,
     providers: [DomHandler, ObjectUtils]
 })
-export class Table implements OnInit, AfterContentInit {
+export class Table implements OnInit, AfterContentInit, AfterViewInit {
     
     @Input() columns: any[];
 
@@ -171,8 +171,6 @@ export class Table implements OnInit, AfterContentInit {
 
     @ViewChild('thead') theadViewChild: ElementRef;
 
-    @ViewChild('tbody') tbodyViewChild: ElementRef;
-
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
 
     @ViewChild('reorderIndicatorUp') reorderIndicatorUpViewChild: ElementRef;
@@ -223,6 +221,8 @@ export class Table implements OnInit, AfterContentInit {
 
     editingCell: Element;
 
+    tbodyElement: Element;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone) {}
 
     ngOnInit() {
@@ -231,6 +231,13 @@ export class Table implements OnInit, AfterContentInit {
         }
     }
 
+    ngAfterViewInit() {
+        //ViewChild somehow does not work for tbody so get it from DOM
+        if(!this.scrollable) {
+            this.tbodyElement = this.domHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-tbody');
+        }
+    }
+ 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
@@ -901,9 +908,9 @@ export class Table implements OnInit, AfterContentInit {
                 }
             }
             else if (this.columnResizeMode === 'expand') {
-                this.tbodyViewChild.nativeElement.parentElement.style.width = this.tbodyViewChild.nativeElement.parentElement.offsetWidth + delta + 'px';
+                this.tbodyElement.parentElement.style.width = this.tbodyElement.parentElement.offsetWidth + delta + 'px';
                 column.style.width = newColumnWidth + 'px';
-                let containerWidth = this.tbodyViewChild.nativeElement.parentElement.style.width;
+                let containerWidth = this.tbodyElement.parentElement.style.width;
 
                 if (this.scrollable) {
                     this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box').children[0].style.width = containerWidth;
@@ -1016,6 +1023,7 @@ export class Table implements OnInit, AfterContentInit {
 
     ngOnDestroy() {
         this.editingCell = null;
+        this.tbodyElement = null;
     }
 }
 
@@ -1056,7 +1064,7 @@ export class TableBody {
             <div #scrollHeaderBox class="ui-table-scrollable-header-box">
                 <table>
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <thead #thead class="ui-table-thead">
+                    <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="frozen ? dt.frozenHeaderTemplate||dt.headerTemplate : dt.headerTemplate; context {$implicit: columns}"></ng-container>
                     </thead>
                     <tbody class="ui-table-tbody">
@@ -1070,7 +1078,7 @@ export class TableBody {
         <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="dt.scrollHeight">
             <table #scrollTable>
                 <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
-                <tbody #tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
+                <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
             </table>
         </div>
         <div #scrollFooter *ngIf="footerTemplate" class="ui-table-scrollable-footer">
@@ -1277,9 +1285,11 @@ export class SelectableRow implements AfterViewInit {
             this.domHandler.removeClass(this.el.nativeElement, 'ui-state-highlight');
         }
         else {
-            let selectedRow = this.domHandler.findSingle(this.dt.tbodyViewChild.nativeElement, 'tr.ui-state-highlight');
-            if(selectedRow) {
-                this.domHandler.removeClass(selectedRow, 'ui-state-highlight');
+            if(this.dt.selectionMode === 'single') {
+                let selectedRow = this.domHandler.findSingle(this.dt.tbodyElement, 'tr.ui-state-highlight');
+                if (selectedRow) {
+                    this.domHandler.removeClass(selectedRow, 'ui-state-highlight');
+                }
             }
             this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
         }
@@ -1304,7 +1314,7 @@ export class ContextMenuRow {
             rowData: this.data
         });
 
-        let outlinedRow = this.domHandler.findSingle(this.dt.tbodyViewChild.nativeElement, 'tr.ui-contextmenu-selected');
+        let outlinedRow = this.domHandler.findSingle(this.dt.tbodyElement, 'tr.ui-contextmenu-selected');
         if (outlinedRow) {
             this.domHandler.removeClass(outlinedRow, 'ui-contextmenu-selected');
         }
