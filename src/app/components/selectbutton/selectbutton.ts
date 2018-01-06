@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef} from '@angular/core';
+import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SelectItem} from '../common/selectitem';
 import {ObjectUtils} from '../utils/objectutils';
@@ -53,7 +53,7 @@ export class SelectButton implements ControlValueAccessor {
     
     onModelTouched: Function = () => {};
     
-    constructor(public objectUtils: ObjectUtils) {}
+    constructor(public objectUtils: ObjectUtils, private cd: ChangeDetectorRef) {}
     
     @Input() get options(): any[] {
         return this._options;
@@ -66,6 +66,7 @@ export class SelectButton implements ControlValueAccessor {
     
     writeValue(value: any) : void {
         this.value = value;
+        this.cd.markForCheck();
     }
     
     registerOnChange(fn: Function): void {

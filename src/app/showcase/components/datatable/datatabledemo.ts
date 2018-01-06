@@ -19,7 +19,7 @@ export class DataTableDemo implements OnInit {
     ngOnInit() {
         this.loading = true;
         setTimeout(() => {
-            this.carService.getCarsSmall().then(cars => this.cars = cars);
+            this.carService.getCarsHuge().then(cars => this.cars = cars);
             this.loading = false;
         }, 1000);
         

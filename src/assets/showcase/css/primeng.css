@@ -5,6 +5,7 @@
 @import '../../../app/components/breadcrumb/breadcrumb.css';
 @import '../../../app/components/button/button.css';
 @import '../../../app/components/calendar/calendar.css';
+@import '../../../app/components/card/card.css';
 @import '../../../app/components/carousel/carousel.css';
 @import '../../../app/components/checkbox/checkbox.css';
 @import '../../../app/components/chips/chips.css';
@@ -27,6 +28,7 @@
 @import '../../../app/components/lightbox/lightbox.css';
 @import '../../../app/components/listbox/listbox.css';
 @import '../../../app/components/menu/menu.css';
+@import '../../../app/components/megamenu/megamenu.css';
 @import '../../../app/components/message/message.css';
 @import '../../../app/components/messages/messages.css';
 @import '../../../app/components/multiselect/multiselect.css';
@@ -50,6 +52,7 @@
 @import '../../../app/components/steps/steps.css';
 @import '../../../app/components/tabmenu/tabmenu.css';
 @import '../../../app/components/tabview/tabview.css';
+@import '../../../app/components/table/table.css';
 @import '../../../app/components/terminal/terminal.css';
 @import '../../../app/components/toolbar/toolbar.css';
 @import '../../../app/components/tooltip/tooltip.css';

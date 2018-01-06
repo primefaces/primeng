@@ -1,0 +1,45 @@
+<table-submenu></table-submenu>
+
+<div class="content-section introduction">
+    <div>
+        <span class="feature-title">Table - Column Grouping</span>
+        <span>Table displays data in tabular format.</span>
+    </div>
+</div>
+
+<div class="content-section implementation">
+    <p-table [value]="sales">
+        <ng-template pTemplate="header">
+            <tr>
+                <th rowspan="3">Brand</th>
+                <th colspan="4">Sale Rate</th>
+            </tr>
+            <tr>
+                <th colspan="2">Sales</th>
+                <th colspan="2">Profits</th>
+            </tr>
+            <tr>
+                <th>Last Year</th>
+                <th>This Year</th>
+                <th>Last Year</th>
+                <th>This Year</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sale>
+            <tr>
+                <td>{{sale.brand}}</td>
+                <td>{{sale.lastYearSale}}</td>
+                <td>{{sale.thisYearSale}}</td>
+                <td>{{sale.lastYearProfit}}</td>
+                <td>{{sale.thisYearProfit}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td colspan="3">Totals</td>
+                <td>$506,202</td>
+                <td>$531,020</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

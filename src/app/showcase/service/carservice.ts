@@ -30,4 +30,11 @@ export class CarService {
       .then(res => <Car[]>res.data)
       .then(data => { return data; });
     }
+
+  getCarsHuge() {
+    return this.http.get<any>('assets/showcase/data/cars-huge.json')
+      .toPromise()
+      .then(res => <Car[]>res.data)
+      .then(data => { return data; });
+  }
 }

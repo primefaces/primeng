@@ -7,68 +7,68 @@
 
 <div class="content-section implementation">
     <p-growl [value]="msgs"></p-growl>
-    
+
     <h3 class="first">Basic</h3>
     <p-tree [value]="filesTree0"></p-tree>
-    
+
     <h3>Loader</h3>
     <p-tree [value]="filesTree1" [loading]="loading"></p-tree>
 
     <h3>Single Selection</h3>
-    <p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile" 
+    <p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile"
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
     <div style="margin-top:8px">Selected Node: {{selectedFile ? selectedFile.label : 'none'}}</div>
-    
+
     <h3>Multiple Selection with Metakey</h3>
-    <p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles" 
+    <p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles"
         (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
     <div>Selected Nodes: <span *ngFor="let file of selectedFiles">{{file.label}}</span></div>
-    
+
     <h3>Multiple Selection with Checkbox</h3>
     <p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"></p-tree>
     <div>Selected Nodes: <span *ngFor="let file of selectedFiles2">{{file.label}}</span></div>
 
     <h3>Lazy Loading</h3>
     <p-tree [value]="lazyFiles" (onNodeExpand)="nodeExpand($event)" [style]="{'max-height':'200px','overflow':'auto'}"></p-tree>
-    
+
     <h3>Template</h3>
     <p-tree [value]="filesTree5">
         <ng-template let-node pTemplate="default">
             <input [(ngModel)]="node.label" type="text" style="width:100%">
         </ng-template>
     </p-tree>
-    
+
     <h3>Context Menu</h3>
     <p-tree [value]="filesTree6" selectionMode="single" [(selection)]="selectedFile2" [contextMenu]="cm"></p-tree>
     <p-contextMenu #cm [model]="items"></p-contextMenu>
-    
+
     <h3>DragDrop</h3>
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 ui-md-3">
             <h4>Files</h4>
             <p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" dragdropScope="files"></p-tree>
         </div>
-        
+
         <div class="ui-g-12 ui-md-1" style="text-align:center">
             <i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"></i>
         </div>
-        
+
         <div class="ui-g-12 ui-md-3">
             <h4>Server 1</h4>
             <p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" dragdropScope="files"></p-tree>
         </div>
-        
+
         <div class="ui-g-12 ui-md-1" style="text-align:center">
             <i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"></i>
         </div>
-        
+
         <div class="ui-g-12 ui-md-3">
             <h4>Server 2</h4>
             <p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" dragdropScope="other"></p-tree>
         </div>
-        
+
         <div class="ui-g-12 ui-md-1">
-            
+
         </div>
     </div>
 
@@ -78,7 +78,7 @@
         <button pButton type="button" label="Expand all" (click)="expandAll()"></button>
         <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
     </div>
-    
+
     <h3>Horizontal Tree</h3>
     <p-tree [value]="filesTree11" layout="horizontal" selectionMode="single" [(selection)]="selectedFile3" ></p-tree>
     <div style="margin-top:8px">Selected Node: {{selectedFile3 ? selectedFile3.label : 'none'&#125;&#125;</div>
@@ -96,7 +96,7 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
 
             <h3>Getting Started</h3>
             <p>Tree component requires an array of TreeNode objects as its value. Let's begin with the TreeNode api. Note that all of the properties are optional.</p>
-            
+
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -204,16 +204,22 @@ import &#123;TreeModule,TreeNode&#125; from 'primeng/primeng';
                             <td>null</td>
                             <td>Used to disable selection of a particular node.</td>
                         </tr>
+                        <tr>
+                            <td>emptyMessage</td>
+                            <td>string</td>
+                            <td>No records found.</td>
+                            <td>Text to display when there is no data.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-            
-            <p>Most of the time, nodes will be loaded from a remote datasoure, here is an example NodeService that fetches the data from a json file.</p> 
+
+            <p>Most of the time, nodes will be loaded from a remote datasoure, here is an example NodeService that fetches the data from a json file.</p>
 <pre>
 <code class="language-javascript" pCode ngNonBindable>
 @Injectable()
 export class NodeService &#123;
-    
+
     constructor(private http: Http) &#123;&#125;
 
     getFiles() &#123;
@@ -224,12 +230,12 @@ export class NodeService &#123;
 &#125;
 </code>
 </pre>
-        
+
         <p>The files.json file consists of sample data. In a real application, this should be a dynamic response generated from the remote call.</p>
 <pre>
 <code class="language-javascript" pCode ngNonBindable>
 &#123;
-    "data": 
+    "data":
     [
         &#123;
             "label": "Documents",
@@ -280,26 +286,26 @@ export class NodeService &#123;
     ]
 &#125;
 </code>
-</pre>  
+</pre>
 
         <p>The component that uses this service makes a call to getFiles() and assigns them back to files property that is bound to the tree.</p>
 
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TreeDemoComponent implements OnInit &#123;
-    
+
     files: TreeNode[];
 
     constructor(private nodeService: NodeService) &#123;&#125;
-    
+
     ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files = files);
     &#125;
 
 &#125;
 </code>
-</pre>         
-                  
+</pre>
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files"&gt;&lt;/p-tree&gt;
@@ -312,13 +318,13 @@ export class TreeDemoComponent implements OnInit &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TreeDemoComponent implements OnInit &#123;
-    
+
     files: TreeNode[];
-    
+
     selectedFile: TreeNode;
 
     constructor(private nodeService: NodeService) &#123;&#125;
-    
+
     ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files = files);
     &#125;
@@ -339,13 +345,13 @@ export class TreeDemoComponent implements OnInit &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
     export class TreeDemoComponent implements OnInit &#123;
-        
+
         files: TreeNode[];
-        
+
         selectedFiles: TreeNode[];
 
         constructor(private nodeService: NodeService) &#123;&#125;
-        
+
         ngOnInit() &#123;
             this.nodeService.getFiles().then(files => this.files = files);
         &#125;
@@ -379,17 +385,17 @@ export class TreeDemoComponent implements OnInit &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TreeDemoComponent implements OnInit &#123;
-    
+
     files: TreeNode[];
-    
+
     selectedFiles: TreeNode[];
 
     constructor(private nodeService: NodeService) &#123;&#125;
-    
+
     ngOnInit() &#123;
         this.nodeService.getFiles().then(files => this.files = files);
     &#125;
-    
+
     nodeSelect(event) &#123;
         //event.node = selected node
     &#125;
@@ -403,9 +409,9 @@ export class TreeDemoComponent implements OnInit &#123;
             <h3>Icons</h3>
             <p>Icon of a treenode is defined using the icon property, if you need an icon depending on the expand or collapse state, use
                 expandedIcon and collapsedIcon instead.</p>
-                
+
             <h3>Templating</h3>
-            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a pTemplate that gets 
+            <p>By default label of a treenode is displayed inside a tree node, in case you need to place custom content define a pTemplate that gets
                 the treenode as an implicit variable. Example below places an input field to create editable treenodes.</p>
 
 <pre>
@@ -418,7 +424,7 @@ export class TreeDemoComponent implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Multiple templates are supported by matching the type property of the TreeNode with the type of pTemplate. If a node has no type, 
+            <p>Multiple templates are supported by matching the type property of the TreeNode with the type of pTemplate. If a node has no type,
             then default ng-template is used.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
@@ -457,18 +463,18 @@ export class TreeDemoComponent implements OnInit &#123;
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TreeDemoComponent implements OnInit &#123;
-    
+
     files: TreeNode[];
-    
+
     selectedFiles: TreeNode[];
 
     constructor(private nodeService: NodeService) &#123;&#125;
-    
+
     ngOnInit() &#123;
         //initial nodes
         this.nodeService.getFiles().then(files => this.files = files);
     &#125;
-    
+
     loadNode(event) &#123;
         if(event.node) &#123;
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
@@ -484,7 +490,7 @@ export class TreeDemoComponent implements OnInit &#123;
 <pre>
 <code class="language-javascript" pCode ngNonBindable>
 &#123;
-    "data": 
+    "data":
     [
         &#123;
             "label": "Lazy Node 0",
@@ -510,7 +516,7 @@ export class TreeDemoComponent implements OnInit &#123;
     ]
 &#125;
 </code>
-</pre>  
+</pre>
 
             <h3>Drag and Drop</h3>
             <p>Nodes can be reordered within a tree and also can be transferred between multiple trees. To enable dragging from a tree set draggableNodes to true and to allow
@@ -520,13 +526,13 @@ export class TreeDemoComponent implements OnInit &#123;
 import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 </code>
 </pre>
-        
+
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-tree [value]="files" draggableNodes="true" droppableNodes="true"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
-            <p>Multiple trees can be used in a drag drop operation, in order to add constraints like rejecting drags from a certain tree but allow from another use draggableScope 
+            <p>Multiple trees can be used in a drag drop operation, in order to add constraints like rejecting drags from a certain tree but allow from another use draggableScope
             and droppableScope properties which can be a string or an array. Following example uses 3 trees where second one only accepts drags from first tree and second one only
             accepts from second tree whereas first tree accepts drops from 3rd tree.</p>
 <pre>
@@ -545,7 +551,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 &lt;p-tree [value]="files" [loading]="loading"&gt;&lt;/p-tree&gt;
 </code>
 </pre>
-            
+
             <h3>Horizontal Orientation</h3>
             <p>Horizontal mode is the alternative option for orientation.</p>
 
@@ -691,7 +697,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
                                 event.dragNode: Dragged node instance <br>
                                 event.dropNode: Dropped node instance.
                                 event.index: Index of the dropped node within siblings.</td>
-                            <td>Callback to invoke when a node is selected with right click.</td>
+                            <td>Callback to invoke when a node is dropped.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -772,12 +778,12 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 &lt;p-tree [value]="filesTree1" [loading]="loading"&gt;&lt;/p-tree&gt;
 
 &lt;h3&gt;Single Selection&lt;/h3&gt;
-&lt;p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile" 
+&lt;p-tree [value]="filesTree2" selectionMode="single" [(selection)]="selectedFile"
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
 &lt;div style="margin-top:8px"&gt;Selected Node: &#123;selectedFile ? selectedFile.label : 'none'&#125;&lt;/div&gt;
 
 &lt;h3&gt;Multiple Selection with Metakey&lt;/h3&gt;
-&lt;p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles" 
+&lt;p-tree [value]="filesTree3" selectionMode="multiple" [(selection)]="selectedFiles"
     (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"&gt;&lt;/p-tree&gt;
 &lt;div&gt;Selected Nodes: &lt;span *ngFor="let file of selectedFiles"&gt;&#123;file.label&#125; &lt;/span&gt;&lt;/div&gt;
 
@@ -805,27 +811,27 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
         &lt;h4&gt;Files&lt;/h4&gt;
         &lt;p-tree [value]="filesTree7" draggableNodes="true" droppableNodes="true" dragdropScope="files"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-1" style="text-align:center"&gt;
         &lt;i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"&gt;&lt;/i&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-3"&gt;
         &lt;h4&gt;Server 1&lt;/h4&gt;
         &lt;p-tree [value]="filesTree8" draggableNodes="true" droppableNodes="true" dragdropScope="files"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-1" style="text-align:center"&gt;
         &lt;i class="fa fa-exchange" style="font-size:36px;margin-top: 28px;"&gt;&lt;/i&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-3"&gt;
         &lt;h4&gt;Server 2&lt;/h4&gt;
         &lt;p-tree [value]="filesTree9" draggableNodes="true" droppableNodes="true" dragdropScope="other"&gt;&lt;/p-tree&gt;
     &lt;/div&gt;
-    
+
     &lt;div class="ui-g-12 ui-md-1"&gt;
-        
+
     &lt;/div&gt;
 &lt;/div&gt;
 
@@ -845,7 +851,7 @@ import &#123;TreeDragDropService&#125; from 'primeng/primeng';
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class TreeDemo implements OnInit &#123;
-    
+
     msgs: Message[];
 
     @ViewChild('expandingTree')
@@ -862,23 +868,23 @@ export class TreeDemo implements OnInit &#123;
     filesTree9: TreeNode[];
     filesTree10: TreeNode[];
     filesTree11: TreeNode[];
-    
+
     lazyFiles: TreeNode[];
-    
+
     selectedFile: TreeNode;
-    
+
     selectedFile2: TreeNode;
-    
+
     selectedFile3: TreeNode;
-    
+
     selectedFiles: TreeNode[];
-    
+
     selectedFiles2: TreeNode[];
-    
+
     items: MenuItem[];
-    
+
     loading: boolean;
-        
+
     constructor(private nodeService: NodeService) &#123; &#125;
 
     ngOnInit() &#123;
@@ -919,18 +925,18 @@ export class TreeDemo implements OnInit &#123;
         &#125;);
 
         this.nodeService.getLazyFiles().then(files => this.lazyFiles = files);
-        
+
         this.items = [
             &#123;label: 'View', icon: 'fa-search', command: (event) => this.viewFile(this.selectedFile2)&#125;,
             &#123;label: 'Unselect', icon: 'fa-close', command: (event) => this.unselectFile()&#125;
         ];
     &#125;
-    
+
     nodeSelect(event) &#123;
         this.msgs = [];
         this.msgs.push(&#123;severity: 'info', summary: 'Node Selected', detail: event.node.label&#125;);
     &#125;
-    
+
     nodeUnselect(event) &#123;
         this.msgs = [];
         this.msgs.push(&#123;severity: 'info', summary: 'Node Unselected', detail: event.node.label&#125;);
@@ -940,19 +946,19 @@ export class TreeDemo implements OnInit &#123;
         this.msgs = [];
         this.msgs.push(&#123;severity: 'info', summary: 'Node Expanded', detail: event.node.label&#125;);
     &#125;
-    
+
     nodeExpand(event) &#123;
         if(event.node) &#123;
             //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
             this.nodeService.getLazyFiles().then(nodes => event.node.children = nodes);
         &#125;
     &#125;
-    
+
     viewFile(file: TreeNode) &#123;
         this.msgs = [];
         this.msgs.push(&#123;severity: 'info', summary: 'Node Selected with Right Click', detail: file.label&#125;);
     &#125;
-    
+
     unselectFile() &#123;
         this.selectedFile2 = null;
     &#125;
@@ -968,7 +974,7 @@ export class TreeDemo implements OnInit &#123;
             this.expandRecursive(node, false);
         &#125; );
     &#125;
-    
+
     private expandRecursive(node:TreeNode, isExpand:boolean)&#123;
         node.expanded = isExpand;
         if(node.children)&#123;

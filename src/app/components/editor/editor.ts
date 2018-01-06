@@ -114,22 +114,21 @@ export class Editor implements AfterViewInit,ControlValueAccessor {
         }
         
         this.quill.on('text-change', (delta, oldContents, source) => {
-            let html = editorElement.children[0].innerHTML;
-            let text = this.quill.getText();
-            if(html == '<p><br></p>') {
-                html = null;
-            }
+            if (source === 'user') {
+                let html = editorElement.children[0].innerHTML;
+                let text = this.quill.getText();
+                if (html == '<p><br></p>') {
+                    html = null;
+                }
 
-            this.onTextChange.emit({
-                htmlValue: html,
-                textValue: text,
-                delta: delta,
-                source: source
-            });
-            
-            this.onModelChange(html);
-
-            if(source === 'user') {
+                this.onTextChange.emit({
+                    htmlValue: html,
+                    textValue: text,
+                    delta: delta,
+                    source: source
+                });
+                
+                this.onModelChange(html);
                 this.onModelTouched();
             }
         });

@@ -1,0 +1,123 @@
+.ui-table {
+    position: relative;
+}
+
+.ui-table table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.ui-table .ui-table-thead > tr > th,
+.ui-table .ui-table-tbody > tr > td,
+.ui-table .ui-table-tfoot > tr > td {
+    padding: .25em .5em;
+    border: 1px solid #d9d9d9;
+}
+
+.ui-table-scrollable-header,
+.ui-table-scrollable-footer {
+    overflow: hidden;
+}
+
+.ui-table-scrollable-body {
+    overflow: auto;
+}
+
+.ui-table .ui-contextmenu-selected {
+    background-color: #3c91f3;
+}
+
+/* Frozen Columns */
+.ui-table-frozen-view .ui-table-scrollable-body {
+    overflow: hidden;
+}
+
+.ui-table-unfrozen-view {
+    position: absolute;
+    top: 0px;
+}
+
+/* Resizable */
+.ui-table-resizable > .ui-table-wrapper {
+    overflow-x: auto;
+}
+
+.ui-table-resizable .ui-table-thead > tr > th,
+.ui-table-resizable .ui-table-tfoot > tr > td,
+.ui-table-resizable .ui-table-data > tr > td {
+    overflow: hidden;
+}
+
+.ui-resizable-column {
+    background-clip: padding-box;
+    position: relative;
+}
+
+.ui-table .ui-column-resizer {
+    display: block;
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    margin: 0;
+    width: .5em;
+    height: 100%;
+    padding: 0px;
+    cursor:col-resize;
+    border: 1px solid transparent;
+}
+
+.ui-table .ui-column-resizer-helper {
+    width: 1px;
+    position: absolute;
+    z-index: 10;
+    display: none;
+}
+
+/* Edit */
+.ui-table .ui-table-tbody > tr > td.ui-editing-cell {
+    padding: 0;
+}
+
+.ui-table .ui-table-tbody > tr > td.ui-editing-cell p-celleditor >  * {
+    width: 100%;
+}
+
+/* Reorder */
+.ui-table-reorder-indicator-up,
+.ui-table-reorder-indicator-down {
+    position: absolute;
+    display: none;
+}
+
+/* Responsive */
+.ui-table-responsive .ui-table-tbody > tr > td .ui-column-title {
+    display: none;
+}
+
+@media screen and (max-width: 40em) {
+    .ui-table-responsive .ui-table-thead > tr > th,
+    .ui-table-responsive .ui-table-tfoot > tr > td {
+        display: none !important;
+    }
+
+    .ui-table-responsive .ui-table-tbody > tr > td {
+        text-align: left;
+        display: block;
+        border: 0 none;
+        width: 100% !important;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		float: left;
+		clear: left;
+    }
+
+    .ui-table-responsive .ui-table-tbody > tr > td .ui-column-title {
+        padding: .4em;
+        min-width: 30%;
+        display: inline-block;
+        margin: -.4em 1em -.4em -.4em;
+        font-weight: bold;
+    }
+}

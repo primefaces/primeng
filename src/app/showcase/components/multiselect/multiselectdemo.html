@@ -147,6 +147,12 @@ export class MyModel &#123;
                             <td>When specified, displays an input field to filter the items on keyup.</td>
                         </tr>
                         <tr>
+                            <td>filterPlaceHolder</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Defines placeholder of the filter input.</td>
+                        </tr>
+                        <tr>
                             <td>defaultLabel</td>
                             <td>string</td>
                             <td>Choose</td>
@@ -266,7 +272,8 @@ export class MyModel &#123;
                         <tr>
                             <td>onChange</td>
                             <td>event.originalEvent: browser event<br />
-                                event.value: Current selected values
+                                event.value: Current selected values<br />
+                                event.itemValue: Toggled item value
                             </td>
                             <td>Callback to invoke when value changes.</td>
                         </tr>
