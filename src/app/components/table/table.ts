@@ -119,6 +119,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Input() scrollHeight: string;
 
+    @Input() virtualScroll: boolean;
+
     @Input() frozenWidth: string;
 
     @Input() responsive: boolean;
@@ -130,6 +132,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @Input() columnResizeMode: string = 'fit';
 
     @Input() reorderableColumns: boolean;
+
+    @Input() virtualScrollDelay: number = 500;
 
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
@@ -160,6 +164,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
+
+    @Output() onVirtualScroll: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -222,6 +228,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     _sortField: string;
 
     _sortOrder: number = 1;
+
+    virtualScrollTimer: any;
+        
+    virtualScrollCallback: Function;
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone) {}
 
@@ -304,6 +314,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                 this.sortSingle();
             else if (this.sortMode == 'multiple')
                 this.sortMultiple();
+        }
+
+        if(this.virtualScroll && this.virtualScrollCallback) {
+            this.virtualScrollCallback();
         }
     }
 
@@ -782,7 +796,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
-            rows: this.rows,
+            rows: this.virtualScroll ? this.rows * 2: this.rows,
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
@@ -1065,6 +1079,21 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         }
     }
 
+    handleVirtualScroll(event) {
+        this.first = (event.page - 1) * this.rows;
+        this.virtualScrollCallback = event.callback;
+        
+        this.zone.run(() => {
+            if(this.virtualScrollTimer) {
+                clearTimeout(this.virtualScrollTimer);
+            }
+            
+            this.virtualScrollTimer = setTimeout(() => {
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            }, this.virtualScrollDelay);
+        });
+    }
+
     ngOnDestroy() {
         this.editingCell = null;
         this.tbodyElement = null;
@@ -1120,10 +1149,11 @@ export class TableBody {
             </div>
         </div>
         <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="dt.scrollHeight">
-            <table #scrollTable>
+            <table #scrollTable [ngClass]="{'ui-table-virtual-table': dt.virtualScroll}">
                 <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                 <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
             </table>
+            <div #virtualScroller class="ui-table-virtual-scroller"></div>
         </div>
         <div #scrollFooter *ngIf="footerTemplate" class="ui-table-scrollable-footer">
             <div #scrollFooterBox class="ui-table-scrollable-footer-box">ü
@@ -1155,6 +1185,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
     @ViewChild('scrollFooterBox') scrollFooterBoxViewChild: ElementRef;
 
+    @ViewChild('virtualScroller') virtualScrollerViewChild: ElementRef;
+
     headerScrollListener: Function;
 
     bodyScrollListener: Function;
@@ -1183,6 +1215,10 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 this.frozenSiblingBody = this.domHandler.findSingle(frozenView, '.ui-table-scrollable-body');
             }
         }
+
+        if(this.dt.virtualScroll) {
+            this.virtualScrollerViewChild.nativeElement.style.height = this.dt.totalRecords * 30 + 'px';
+        }
     }
 
     bindEvents() {
@@ -1195,7 +1231,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 }
                 
                 this.headerScrollListener = this.onHeaderScroll.bind(this);
-                this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.onHeaderScroll.bind(this));
+                this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
             }
 
             if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
@@ -1204,12 +1240,24 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 }
                 
                 this.footerScrollListener = this.onFooterScroll.bind(this);
-                this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.onFooterScroll.bind(this));
+                this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.footerScrollListener);
             }
 
             this.bodyScrollListener = this.onBodyScroll.bind(this);
-            this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.onBodyScroll.bind(this));
+            this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
         });
+    }
+
+    unbindEvents() {
+        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+            this.scrollHeaderBoxViewChild.nativeElement.removeEventListener('scroll', this.headerScrollListener);
+        }
+
+        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {            
+            this.scrollFooterViewChild.nativeElement.removeEventListener('scroll', this.footerScrollListener);
+        }
+
+        this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
     }
 
     onHeaderScroll(event) {
@@ -1232,9 +1280,31 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         if (this.frozenSiblingBody) {
             this.frozenSiblingBody.scrollTop = this.scrollBodyViewChild.nativeElement.scrollTop;
         }
+
+        if(this.dt.virtualScroll) {
+            let viewport = this.domHandler.getOuterHeight(this.scrollBodyViewChild.nativeElement);
+            let tableHeight = this.domHandler.getOuterHeight(this.scrollTableViewChild.nativeElement);
+            let pageHeight = 28 * this.dt.rows;
+            let virtualTableHeight = this.domHandler.getOuterHeight(this.virtualScrollerViewChild.nativeElement);
+            let pageCount = (virtualTableHeight / pageHeight)||1;
+            let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
+
+            if((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
+                console.log('time to load');
+                let page = Math.floor((this.scrollBodyViewChild.nativeElement.scrollTop * pageCount) / (this.scrollBodyViewChild.nativeElement.scrollHeight)) + 1;
+                this.dt.handleVirtualScroll({
+                    page: page,
+                    callback: () => {
+                        this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
+                    }
+                });
+            }
+        }
     }
 
     ngOnDestroy() {
+        this.unbindEvents();
+
         this.frozenSiblingBody = null;
     }
 }

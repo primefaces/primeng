@@ -15,6 +15,7 @@
     border: 1px solid #d9d9d9;
 }
 
+/* Scrollable */
 .ui-table-scrollable-header,
 .ui-table-scrollable-footer {
     overflow: hidden;
@@ -22,10 +23,11 @@
 
 .ui-table-scrollable-body {
     overflow: auto;
+    position: relative;
 }
 
-.ui-table .ui-contextmenu-selected {
-    background-color: #3c91f3;
+.ui-table-virtual-table {
+    position: absolute;
 }
 
 /* Frozen Columns */
@@ -36,6 +38,11 @@
 .ui-table-unfrozen-view {
     position: absolute;
     top: 0px;
+}
+
+/* ContextMenu */
+.ui-table .ui-contextmenu-selected {
+    background-color: #3c91f3;
 }
 
 /* Resizable */
