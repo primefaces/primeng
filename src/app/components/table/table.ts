@@ -13,6 +13,10 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
     template: `
         <div #container [ngStyle]="style" [class]="styleClass" 
             [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns}">
+            <div class="ui-table-loading ui-widget-overlay" *ngIf="loading"></div>
+            <div class="ui-table-loading-content" *ngIf="loading">
+                <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
+            </div>
             <div *ngIf="captionTemplate" class="ui-table-caption ui-widget-header">
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
             </div>
@@ -135,6 +139,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Input() virtualScrollDelay: number = 500;
 
+    @Input() loading: boolean;
+
+    @Input() loadingIcon: string = 'fa fa-spin fa-2x fa-circle-o-notch';
+
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
@@ -206,6 +214,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     frozenFooterTemplate: TemplateRef<any>;
 
     frozenColGroupTemplate: TemplateRef<any>;
+
+    emptyMessageTemplate: TemplateRef<any>;
 
     selectionKeys: any;
 
@@ -297,6 +307,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
                 case 'frozencolgroup':
                     this.frozenColGroupTemplate = item.template;
+                break;
+
+                case 'emptyMessage':
+                    this.emptyMessageTemplate = item.template;
                 break;
             }
         });
@@ -1094,6 +1108,11 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         });
     }
 
+    isEmpty() {
+        let data = this.filteredValue||this.value;
+        return data == null || data.length == 0;
+    }
+
     ngOnDestroy() {
         this.editingCell = null;
         this.tbodyElement = null;
@@ -1118,6 +1137,9 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                     <ng-container *ngTemplateOutlet="template; context: {$implicit: rowData, rowIndex: rowIndex, expanded: false, columns: columns}"></ng-container>
                 </ng-template>
             </ng-template>
+        </ng-container>
+        <ng-container *ngIf="dt.isEmpty()">
+            <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate; context: {$implicit: columns}"></ng-container>
         </ng-container>
     `
 })
