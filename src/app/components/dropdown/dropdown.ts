@@ -546,7 +546,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     activateFilter() {
         let searchFields: string[] = this.filterBy.split(',');
         if(this.options && this.options.length) {
-            this.optionsToDisplay = this.objectUtils.Dropdown(this.options, searchFields, this.filterValue, this.filterMode);
+            this.optionsToDisplay = this.objectUtils.filter(this.options, searchFields, this.filterValue, this.filterMode);
             this.optionsChanged = true;
         }
     }

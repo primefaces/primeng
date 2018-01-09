@@ -84,24 +84,7 @@ export class ObjectUtils {
         }
     }
 
-    filter(value: any[], fields: any[], filterValue: string) {
-        let filteredItems: any[] = [];
-
-        if(value) {
-            for(let item of value) {
-                for(let field of fields) {
-                    if(String(this.resolveFieldData(item, field)).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
-                        filteredItems.push(item);
-                        break;
-                    }
-                }
-            }
-        }
-
-        return filteredItems;
-    }
-	
-	filterDropdown(value: any[], fields: any[], filterValue: string, filterMode?: string) {
+	filter(value: any[], fields: any[], filterValue: string, filterMode?: string) {
         let filteredItems: any[] = [];
         if(value) {
             for(let item of value) {                
