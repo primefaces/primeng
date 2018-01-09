@@ -14,6 +14,10 @@
     white-space: nowrap;
 }
 
+.ui-tree-empty-message {
+    padding: .25em;
+}
+
 .ui-tree .ui-treenode-children {
     margin: 0;
     padding: 0 0 0 1em;

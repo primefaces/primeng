@@ -26,7 +26,7 @@ import &#123;MenuItem&#125; from 'primeng/primeng';            //api
 </code>
 </pre>
 
-    <p>Importing from primeng/primeng will load all other components as well, to only import a specific component pattern would result in a smaller bundle size.</p>
+    <p>Importing from primeng/primeng will load all other components as well, suggested way is to only import a specific component pattern would result in a smaller bundle size.</p>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
 //import &#123;ComponentModule&#125; from 'primeng/components/componentname/componentname';
@@ -40,7 +40,7 @@ import &#123;MenuItem&#125; from 'primeng/components/common/api';
     <h3>Dependencies</h3>
     <p>Majority of PrimeNG components (95%) are native and there are some exceptions having 3rd party dependencies. In addition, components require font-awesome for icons.</p>
 
-    <p>The css dependencies are as follows, note that font-awesome should be loaded before PrimeNG css and theme can be changed with your choice.</p>
+    <p>The css dependencies are as follows, font awesome, theme of your choice and structural css of components.</p>
 <pre>
 <code class="language-html" pCode ngNonBindable>
 &lt;link rel="stylesheet" type="text/css" href="YOUR_PATH/font-awesome.min.css" /&gt;
@@ -48,6 +48,18 @@ import &#123;MenuItem&#125; from 'primeng/components/common/api';
 &lt;link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" /&gt;
 </code>
 </pre>
+
+    <p>Compressed version of primeng.min.css is 25kb. Still if you'd like to save a few KBs, similar to importing a single module, you may import the related css only as well. For example, if you only
+        require AccordionModule do not import the primeng.min.css, instead use the accordion.css and common.css.
+    </p>
+<pre>
+<code class="language-html" pCode ngNonBindable>
+import 'primeng/resources/components/common/common.css';
+import 'primeng/resources/components/accordion/accordion.css';
+</code>
+</pre>
+
+    
 
     <p>Here is the list of components with 3rd party dependencies.</p>
 

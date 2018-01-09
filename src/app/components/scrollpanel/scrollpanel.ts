@@ -5,7 +5,7 @@ import { DomHandler } from '../dom/domhandler';
 @Component({
     selector: 'p-scrollPanel',
     template: `
-        <div #container [ngClass]="'ui-scrollpanel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass" [attr.dir]="dir">
+        <div #container [ngClass]="'ui-scrollpanel ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
             <div class="ui-scrollpanel-wrapper">
                 <div #content class="ui-scrollpanel-content">
                     <ng-content></ng-content>
@@ -21,8 +21,6 @@ export class ScrollPanel implements AfterViewInit, OnDestroy {
     @Input() style: any;
 
     @Input() styleClass: string;
-
-    @Input() dir: string;
     
     constructor(public el: ElementRef, public zone: NgZone, public domHandler: DomHandler) {}
 

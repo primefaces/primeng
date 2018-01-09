@@ -6,8 +6,8 @@ declare var Chart: any;
 @Component({
     selector: 'p-chart',
     template: `
-        <div>
-            <canvas [attr.width]="width" [attr.height]="height" (click)="onCanvasClick($event)"></canvas>
+        <div style="position:relative" [style.width]="width" [style.height]="height">
+            <canvas (click)="onCanvasClick($event)"></canvas>
         </div>
     `
 })
