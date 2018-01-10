@@ -43,7 +43,7 @@ describe('Dialog', () => {
 
     it('should be hidden by default', () => {
         fixture.detectChanges();
-        expect(fixture.debugElement.children[0].classes['ui-helper-hidden']).toEqual(true);
+        expect(fixture.debugElement.children[0].styles.display).toEqual('none');
     });
     
     it('should add rtl class when rtl is enabled', () => {
@@ -61,7 +61,7 @@ describe('Dialog', () => {
         spyOn(dialog, 'show');
         dialog.visible = true;
         fixture.detectChanges();
-        expect(fixture.debugElement.children[0].classes['ui-helper-hidden']).toEqual(false);
+        expect(fixture.debugElement.children[0].styles.display).toEqual('block');
         expect(dialog.show).toHaveBeenCalled();
     });
     
@@ -73,7 +73,7 @@ describe('Dialog', () => {
         dialog.visible = false;
         fixture.detectChanges();
         
-        expect(fixture.debugElement.children[0].classes['ui-helper-hidden']).toEqual(true);
+        expect(fixture.debugElement.children[0].styles.display).toEqual('none');
         expect(dialog.hide).toHaveBeenCalled();
     });
         
