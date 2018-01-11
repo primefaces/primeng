@@ -322,6 +322,34 @@ $inputGroupTextColor: #222222;
     }
 }
 
+/* TurboTable */
+.ui-table {
+    .ui-table-thead > tr > th,
+    .ui-table-tfoot > tr > td {
+        background: #ebedf0;
+        border-color: #d9d9d9;
+    }
+
+    .ui-sortable-column:not(.ui-state-highlight):hover {
+        background: #d3d5d8;
+        border-color: #d9d9d9;
+    }
+
+    .ui-table-tbody > tr:nth-child(even) {
+        background-color: #fafafb;
+
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+        }
+
+        &.ui-contextmenu-selected {
+            background-color: lighten($stateHighlightBgColor, 20%);
+            color: $stateHighlightTextColor;
+        }
+    }
+}
+
 /* Panel */
 .ui-panel.ui-widget {
     padding: 0;

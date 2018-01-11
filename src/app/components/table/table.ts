@@ -12,7 +12,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
     selector: 'p-table',
     template: `
         <div #container [ngStyle]="style" [class]="styleClass" 
-            [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns}">
+            [ngClass]="{'ui-table ui-widget': true, 'ui-table-responsive': responsive, 'ui-table-resizable': resizableColumns, 'ui-table-hoverable-rows': (rowHover||selectionMode)}">
             <div class="ui-table-loading ui-widget-overlay" *ngIf="loading"></div>
             <div class="ui-table-loading-content" *ngIf="loading">
                 <i [class]="'fa fa-spin fa-2x ' + loadingIcon"></i>
@@ -41,7 +41,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
                <div [pScrollableView]="columns" [frozen]="false"></div>
             </div>
                         
-            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
+            <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"></p-paginator>
             <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
@@ -142,6 +142,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @Input() loading: boolean;
 
     @Input() loadingIcon: string = 'fa fa-spin fa-2x fa-circle-o-notch';
+
+    @Input() rowHover: boolean;
 
     @Output() onRowClick: EventEmitter<any> = new EventEmitter();
 

@@ -587,10 +587,6 @@
         border-right: 1px solid darken($contentBorderColor, 10%);
     }
 
-    .ui-organizationchart-line-right {
-
-    }
-
     .ui-organizationchart-line-top {
         border-top: 1px solid darken($contentBorderColor, 10%);
     }
@@ -603,6 +599,55 @@
         color: darken($contentBorderColor, 10%);
     }
 }
+
+/* TurboTable */
+.ui-table {
+    .ui-table-thead > tr > th,
+    .ui-table-tfoot > tr > td {
+        background: $headerBgColor;
+        border:1px solid $headerBorderColor;
+    }
+
+    .ui-table-tbody > tr > td {
+        border:1px solid $contentBorderColor;
+    }
+
+    .ui-sortable-column {
+        &.ui-state-highlight {
+            background-color: $stateHighlightBgColor;
+            color: $stateHighlightTextColor;
+        }
+
+        &:not(.ui-state-highlight):hover {
+            background: $stateHoverBgColor;
+            color: $stateHoverTextColor;
+        }
+    }
+
+    &.ui-table-hoverable-rows {
+        .ui-table-tbody > tr:not(.ui-state-highlight):hover {
+            cursor: pointer;
+            background: $stateHoverBgColor;
+            color: $stateHoverTextColor;
+        }
+    }
+
+    /* ContextMenu */
+    .ui-contextmenu-selected {
+        background-color: lighten($stateHighlightBgColor, 20%);
+        color: $stateHighlightTextColor;
+    }
+    
+}
+
+@media ( max-width: 35em ) {
+    .ui-table-responsive .ui-table-tbody > tr {
+        border-top: 1px solid $contentBorderColor;
+        border-bottom: 1px solid $contentBorderColor;
+    }
+}
+
+
 
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,

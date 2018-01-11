@@ -26,7 +26,7 @@
         </ng-template>
     </p-table>
 
-    <h3 class="first">Virtual Scroll - 250K Rows</h3>
+    <h3>Virtual Scroll - 250K Rows</h3>
     <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)"
         [lazy]="true" [totalRecords]="totalRecords">
         <ng-template pTemplate="header" let-columns>

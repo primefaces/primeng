@@ -12,7 +12,35 @@
 .ui-table .ui-table-tbody > tr > td,
 .ui-table .ui-table-tfoot > tr > td {
     padding: .25em .5em;
-    border: 1px solid #d9d9d9;
+}
+
+.ui-table .ui-sortable-column {
+    cursor: pointer;
+}
+
+/* Sections */
+.ui-table-caption,
+.ui-table-summary {
+    padding: .25em .5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.ui-table-caption {
+    border-bottom: 0 none;
+}
+
+.ui-table-summary {
+    border-top: 0 none;
+}
+
+/* Paginator */
+.ui-table .ui-paginator-top {
+    border-bottom: 0 none;
+}
+
+.ui-table .ui-paginator-bottom {
+    border-top: 0 none;
 }
 
 /* Scrollable */
@@ -26,6 +54,10 @@
     position: relative;
 }
 
+.ui-table-scrollable-body > table > .ui-table-tbody > tr:first-child > td {
+    border-top: 0 none;
+} 
+
 .ui-table-virtual-table {
     position: absolute;
 }
@@ -35,14 +67,13 @@
     overflow: hidden;
 }
 
+.ui-table-frozen-view > .ui-table-scrollable-body > table > .ui-table-tbody > tr > td:last-child {
+    border-right: 0 none;
+}
+
 .ui-table-unfrozen-view {
     position: absolute;
     top: 0px;
-}
-
-/* ContextMenu */
-.ui-table .ui-contextmenu-selected {
-    background-color: #3c91f3;
 }
 
 /* Resizable */

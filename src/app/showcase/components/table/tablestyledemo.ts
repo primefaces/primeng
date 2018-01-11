@@ -6,13 +6,13 @@ import { CarService } from '../../service/carservice';
     templateUrl: './tablestyledemo.html',
     styles: [`
         .old-car {
-            background-color: rgb(92, 184, 92);
-            color: #ffffff;
+            background-color: rgb(92, 184, 92) !important;
+            color: #ffffff !important;
         }
 
          .very-old-car {
-            background-color: #20272a;
-            color: #ffffff;
+            background-color: #20272a !important;
+            color: #ffffff !important;
         }
     `
     ]

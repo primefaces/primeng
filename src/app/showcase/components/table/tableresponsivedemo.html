@@ -9,6 +9,9 @@
 
 <div class="content-section implementation">
     <p-table [columns]="cols" [value]="cars" [responsive]="true">
+        <ng-template pTemplate="caption">
+            List of Cars
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -23,6 +26,9 @@
                     {{rowData[col.field]}}
                 </td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            There are {{cars?.length}} cars
         </ng-template>
     </p-table>
 </div>
