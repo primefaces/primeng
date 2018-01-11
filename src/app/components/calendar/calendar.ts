@@ -246,6 +246,8 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     @Input() baseZIndex: number = 0;
 
     @Input() panelStyleClass: string;
+  
+    @Input() keepInvalid: boolean = false;
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
     
@@ -950,7 +952,9 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     onInputBlur(event: Event) {
         this.focus = false;
         this.onBlur.emit(event);
-        this.updateInputfield();
+        if(!this.keepInvalid) {
+            this.updateInputfield();
+        }
         this.onModelTouched();
     }
     
