@@ -107,6 +107,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Input() csvSeparator: string = ',';
 
+    @Input() csvLinebreak: string = '\n';
+
     @Input() exportFilename: string = 'download';
 
     @Input() filters: { [s: string]: FilterMetadata; } = {};
@@ -842,7 +844,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
         //body
         data.forEach((record, i) => {
-            csv += '\n';
+            csv += this.csvLinebreak;
             for (let i = 0; i < this.columns.length; i++) {
                 let column = this.columns[i];
                 if (column.exportable !== false && column.field) {
