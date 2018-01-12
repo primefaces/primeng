@@ -111,10 +111,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Input() filters: { [s: string]: FilterMetadata; } = {};
 
-    @Input() expandedRowIcon: string = 'fa fa-fw fa-chevron-circle-down';
-
-    @Input() collapsedRowIcon: string = 'fa fa-fw fa-chevron-circle-right';
-
     @Input() expandedRowKeys: { [s: string]: number; } = {};
 
     @Input() rowExpandMode: string = 'multiple';
@@ -124,6 +120,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @Input() scrollHeight: string;
 
     @Input() virtualScroll: boolean;
+
+    @Input() virtualScrollDelay: number = 500;
 
     @Input() frozenWidth: string;
 
@@ -136,8 +134,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @Input() columnResizeMode: string = 'fit';
 
     @Input() reorderableColumns: boolean;
-
-    @Input() virtualScrollDelay: number = 500;
 
     @Input() loading: boolean;
 
@@ -174,8 +170,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
 
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
-
-    @Output() onVirtualScroll: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -448,18 +442,21 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     }
 
     sortMultiple() {
-        if (this.lazy) {
-            this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-        else if (this.value) {
-            this.value.sort((data1, data2) => {
-                return this.multisortField(data1, data2, this.multiSortMeta, 0);
+        if(this.multiSortMeta) {
+            if (this.lazy) {
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            }
+            else if (this.value) {
+                this.value.sort((data1, data2) => {
+                    return this.multisortField(data1, data2, this.multiSortMeta, 0);
+                });
+            }
+                
+            this.onSort.emit({
+                multisortmeta: this.multiSortMeta
             });
         }
-
-        this.onSort.emit({
-            multisortmeta: this.multiSortMeta
-        });
+        
     }
 
     multisortField(data1, data2, multiSortMeta, index) {
@@ -1339,7 +1336,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 })
 export class SortableColumn implements AfterViewInit {
 
-    @Input("pSortableColumn") column: Column;
+    @Input("pSortableColumn") field: string;
 
     icon: HTMLSpanElement;
 
@@ -1369,7 +1366,7 @@ export class SortableColumn implements AfterViewInit {
 
         this.dt.sort({
             originalEvent: event,
-            field: this.column.field
+            field: this.field
         });
 
         let sortOrder;
@@ -1377,7 +1374,7 @@ export class SortableColumn implements AfterViewInit {
             sortOrder = this.dt.sortOrder;
         }
         else if (this.dt.sortMode === 'multiple') {
-            let sortMeta = this.dt.getSortMeta(this.column.field);
+            let sortMeta = this.dt.getSortMeta(this.field);
             if(sortMeta) {
                 sortOrder = sortMeta.order;
             }

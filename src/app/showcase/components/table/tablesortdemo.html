@@ -12,7 +12,7 @@
     <p-table [columns]="cols" [value]="cars1">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col">
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                     {{col.header}}
                 </th>
             </tr>
@@ -30,7 +30,7 @@
     <p-table [columns]="cols" [value]="cars2" sortMode="multiple">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col">
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                     {{col.header}}
                 </th>
             </tr>
