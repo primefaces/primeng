@@ -340,10 +340,9 @@ export class InputMask implements OnInit,OnDestroy,ControlValueAccessor {
             this.caret(pos.begin,pos.begin);
         } else {
             this.checkVal(true);
-            while (pos.begin < this.len && !this.tests[pos.begin - 1])
-                  pos.begin++;
+            const newPos = this.seekNext(pos.begin);
 
-			setTimeout(() => this.caret(pos.begin, pos.begin));
+			setTimeout(() => this.caret(newPos, newPos));
         }
 
         setTimeout(() => {
