@@ -2,8 +2,8 @@
 
 <div class="content-section introduction">
     <div>
-        <span class="feature-title">Table - Selection</span>
-        <span>Table displays data in tabular format.</span>
+        <span class="feature-title">Table - <span class="subitem">Selection</span></span>
+        <span>Single or Multiple rows can be selected depending on the selectionMode property.</span>
     </div>
 </div>
 
@@ -55,4 +55,100 @@
             </ul>
         </ng-template>
     </p-table>
+</div>
+
+<div class="content-section documentation">
+    <p-tabView effect="fade">
+        <p-tabPanel header="tableselectiondemo.ts">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableselectiondemo.ts" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-typescript" pCode ngNonBindable>
+export class TableSelectionDemo implements OnInit &#123;
+
+    cars: Car[];
+
+    cols: any[];
+
+    selectedCar: Car;
+
+    selectCars: Car[];
+
+    constructor(private carService: CarService) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.carService.getCarsSmall().then(cars => this.cars = cars);
+
+        this.cols = [
+            &#123; field: 'vin', header: 'Vin' &#125;,
+            &#123; field: 'year', header: 'Year' &#125;,
+            &#123; field: 'brand', header: 'Brand' &#125;,
+            &#123; field: 'color', header: 'Color' &#125;
+        ];
+    &#125;
+&#125;
+</code>
+</pre>   
+        </p-tabPanel>
+
+        <p-tabPanel header="tableselectiondemo.html">
+            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/table/tableselectiondemo.html" class="btn-viewsource" target="_blank">
+                <i class="fa fa-github"></i>
+                <span>View on GitHub</span>
+            </a>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;h3 class="first"&gt;Single Row Selection&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" dataKey="vin"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="summary"&gt;
+        &lt;div style="text-align: left"&gt;
+            Selected Car: &#123;&#123;selectedCar ? selectedCar.vin + ' - ' + selectedCar.brand + ' - ' + selectedCar.year + ' - ' + selectedCar.color: 'none'&#125;&#125;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+
+&lt;h3&gt;Multiple Row Selection&lt;/h3&gt;
+&lt;p-table [columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr [pSelectableRow]="rowData"&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="summary"&gt;
+        &lt;ul&gt;
+            &lt;li *ngFor="let car of selectedCars" style="text-align: left"&gt;
+                &#123;&#123;car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color&#125;&#125;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
+        </p-tabPanel>
+    </p-tabView>
 </div>
