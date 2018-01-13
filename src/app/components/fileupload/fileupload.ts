@@ -22,7 +22,7 @@ import {BlockableUI} from '../common/blockableui';
                 <button *ngIf="!auto&&showUploadButton" type="button" [label]="uploadLabel" icon="fa-upload" pButton (click)="upload()" [disabled]="!hasFiles()"></button>
                 <button *ngIf="!auto&&showCancelButton" type="button" [label]="cancelLabel" icon="fa-close" pButton (click)="clear()" [disabled]="!hasFiles()"></button>
             
-                <p-templateLoader [template]="toolbarTemplate"></p-templateLoader>
+                <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
             <div #content [ngClass]="{'ui-fileupload-content ui-widget-content ui-corner-bottom':true}" 
                 (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
@@ -43,7 +43,7 @@ import {BlockableUI} from '../common/blockableui';
                         <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
-                <p-templateLoader [template]="contentTemplate"></p-templateLoader>
+                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
         </div>
         <span class="ui-button ui-fileupload-choose ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" *ngIf="mode === 'basic'" 

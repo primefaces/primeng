@@ -30,7 +30,7 @@ import {ObjectUtils} from '../utils/objectutils';
                             (click)="onItemClick($event,item,i)" (touchend)="onItemTouchEnd($event)"
                             [style.display]="isItemVisible(item) ? 'block' : 'none'"
                             [draggable]="dragdrop" (dragstart)="onDragStart($event, i)" (dragend)="onDragEnd($event)">
-                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
                         </li>
                         <li class="ui-orderlist-droppoint" *ngIf="dragdrop && l" (dragover)="onDragOver($event, i + 1)" (drop)="onDrop($event, i + 1)" (dragleave)="onDragLeave($event)" 
                             [ngClass]="{'ui-state-highlight': (i + 1 === dragOverItemIndex)}"></li>

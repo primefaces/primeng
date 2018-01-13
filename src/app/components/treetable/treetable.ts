@@ -20,7 +20,7 @@ import {DomHandler} from '../dom/domhandler';
                     <span class="ui-chkbox-icon ui-clickable fa" 
                         [ngClass]="{'fa-check':isSelected(),'fa-minus':node.partialSelected}"></span></div></div
                 ><span *ngIf="!col.template">{{resolveFieldData(node.data,col.field)}}</span>
-                <p-columnBodyTemplateLoader [column]="col" [rowData]="node" *ngIf="col.template"></p-columnBodyTemplateLoader>
+                <ng-container *ngTemplateOutlet="col.template; context: {$implicit: col, rowData: node}"></ng-container>
             </td>
         </div>
         <div *ngIf="node.children && node.expanded" class="ui-treetable-row" style="display:table-row">
@@ -120,7 +120,7 @@ export class UITreeRow implements OnInit {
                                 [ngClass]="'ui-state-default ui-unselectable-text'">
                                 <span class="ui-column-title" *ngIf="!col.headerTemplate">{{col.header}}</span>
                                 <span class="ui-column-title" *ngIf="col.headerTemplate">
-                                    <p-columnHeaderTemplateLoader [column]="col"></p-columnHeaderTemplateLoader>
+                                    <ng-container *ngTemplateOutlet="col.headerTemplate; context: {$implicit: col}"></ng-container>
                                 </span>
                             </th>
                         </tr>
@@ -130,7 +130,7 @@ export class UITreeRow implements OnInit {
                             <td *ngFor="let col of columns" [ngStyle]="col.footerStyle||col.style" [class]="col.footerStyleClass||col.styleClass" [ngClass]="{'ui-state-default':true}">
                                 <span class="ui-column-footer" *ngIf="!col.footerTemplate">{{col.footer}}</span>
                                 <span class="ui-column-footer" *ngIf="col.footerTemplate">
-                                    <p-columnFooterTemplateLoader [column]="col"></p-columnFooterTemplateLoader>
+                                    <ng-container *ngTemplateOutlet="col.headerTemplate; context: {$implicit: col}"></ng-container>
                                 </span>
                             </td>
                         </tr>

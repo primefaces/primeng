@@ -59,7 +59,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
                                 </div>
                             </div>
                             <label *ngIf="!itemTemplate">{{option.label}}</label>
-                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="option" [index]="i" *ngIf="itemTemplate"></ng-template>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
                         </li>
                     </ul>
                 </div>

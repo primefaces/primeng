@@ -8,31 +8,6 @@ import {TreeNode} from '../common/treenode';
 import {PrimeTemplate} from '../common/shared';
 
 @Component({
-    selector: 'p-organizationChartNodeTemplateLoader',
-    template: ``
-})
-export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
-        
-    @Input() node: any;
-    
-    @Input() template: TemplateRef<any>;
-    
-    view: EmbeddedViewRef<any>;
-        
-    constructor(public viewContainer: ViewContainerRef) {}
-    
-    ngOnInit() {
-        this.view = this.viewContainer.createEmbeddedView(this.template, {
-            '\$implicit': this.node
-        });
-    }
-    
-    ngOnDestroy() {
-        this.view.destroy();
-    }
-}
-
-@Component({
     selector: '[pOrganizationChartNode]',
     template: `
         <tr *ngIf="node">
@@ -42,7 +17,7 @@ export class OrganizationChartNodeTemplateLoader implements OnInit, OnDestroy {
                     (click)="onNodeClick($event,node)">
                     <div *ngIf="!chart.getTemplateForNode(node)">{{node.label}}</div>
                     <div *ngIf="chart.getTemplateForNode(node)">
-                        <p-organizationChartNodeTemplateLoader [node]="node" [template]="chart.getTemplateForNode(node)"></p-organizationChartNodeTemplateLoader>
+                        <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                     </div>
                     <a *ngIf="!leaf" href="#" class="ui-node-toggler" (click)="toggleNode($event, node)">
                         <i class="fa ui-node-toggler-icon" [ngClass]="{'fa-chevron-down': node.expanded, 'fa-chevron-up': !node.expanded}"></i>
@@ -235,6 +210,6 @@ export class OrganizationChart implements AfterContentInit {
 @NgModule({
     imports: [CommonModule],
     exports: [OrganizationChart,SharedModule],
-    declarations: [OrganizationChart,OrganizationChartNode,OrganizationChartNodeTemplateLoader]
+    declarations: [OrganizationChart,OrganizationChartNode]
 })
 export class OrganizationChartModule { }

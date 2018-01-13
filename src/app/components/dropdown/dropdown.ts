@@ -32,7 +32,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             </div>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all':true,'ui-dropdown-label-empty':(label == null || label.length === 0)}" *ngIf="!editable && (label != null)">
                 <ng-container *ngIf="!selectedItemTemplate">{{label||'empty'}}</ng-container>
-                <ng-template [pTemplateWrapper]="selectedItemTemplate" [item]="selectedOption" *ngIf="selectedItemTemplate"></ng-template>
+                <ng-container *ngTemplateOutlet="selectedItemTemplate; context: {$implicit: selectedOption}"></ng-container>
             </label>
             <label [ngClass]="{'ui-dropdown-label ui-inputtext ui-corner-all ui-placeholder':true,'ui-dropdown-label-empty': (placeholder == null || placeholder.length === 0)}" *ngIf="!editable && (label == null)">{{placeholder||'empty'}}</label>
             <input #editableInput type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" class="ui-dropdown-label ui-inputtext ui-corner-all" *ngIf="editable" [disabled]="disabled" [attr.placeholder]="placeholder"
@@ -54,7 +54,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             'ui-dropdown-item-empty':!option.label||option.label.length === 0}"
                             (click)="onItemClick($event, option)">
                             <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
-                            <ng-template [pTemplateWrapper]="itemTemplate" [item]="option" *ngIf="itemTemplate"></ng-template>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option}"></ng-container>
                         </li>
                         <li *ngIf="filter && optionsToDisplay && optionsToDisplay.length === 0">{{emptyFilterMessage}}</li>
                     </ul>

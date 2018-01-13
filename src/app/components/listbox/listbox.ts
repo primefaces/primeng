@@ -50,7 +50,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
               </div>
             </div>
             <span *ngIf="!itemTemplate">{{option.label}}</span>
-            <ng-template *ngIf="itemTemplate" [pTemplateWrapper]="itemTemplate" [item]="option" [index]="i"></ng-template>
+            <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option, index: i}"></ng-container>
           </li>
         </ul>
       </div>

@@ -1822,10 +1822,10 @@ export class EditableColumn implements AfterViewInit {
     selector: 'p-cellEditor',
     template: `
         <ng-container *ngIf="dt.editingCell === editableColumn.el.nativeElement">
-            <ng-container *ngTemplateOutlet="inputTemplate" ></ng-container>
+            <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
         </ng-container>
         <ng-container *ngIf="!dt.editingCell || dt.editingCell !== editableColumn.el.nativeElement">
-            <ng-container *ngTemplateOutlet="outputTemplate" ></ng-container>
+            <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
         </ng-container>
     `
 })

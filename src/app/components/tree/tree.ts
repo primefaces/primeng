@@ -10,31 +10,6 @@ import {Subscription}   from 'rxjs/Subscription';
 import {BlockableUI} from '../common/blockableui';
 
 @Component({
-    selector: 'p-treeNodeTemplateLoader',
-    template: ``
-})
-export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
-
-    @Input() node: any;
-
-    @Input() template: TemplateRef<any>;
-
-    view: EmbeddedViewRef<any>;
-
-    constructor(public viewContainer: ViewContainerRef) {}
-
-    ngOnInit() {
-        this.view = this.viewContainer.createEmbeddedView(this.template, {
-            '\$implicit': this.node
-        });
-    }
-
-    ngOnDestroy() {
-        this.view.destroy();
-    }
-}
-
-@Component({
     selector: 'p-treeNode',
     template: `
         <ng-template [ngIf]="node">
@@ -54,7 +29,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
                         [ngClass]="{'ui-state-highlight':isSelected()}">
                             <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
                             <span *ngIf="tree.getTemplateForNode(node)">
-                                <p-treeNodeTemplateLoader [node]="node" [template]="tree.getTemplateForNode(node)"></p-treeNodeTemplateLoader>
+                                <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                             </span>
                     </span>
                 </div>
@@ -90,7 +65,7 @@ export class TreeNodeTemplateLoader implements OnInit, OnDestroy {
                                 ><span class="ui-treenode-label ui-corner-all">
                                         <span *ngIf="!tree.getTemplateForNode(node)">{{node.label}}</span>
                                         <span *ngIf="tree.getTemplateForNode(node)">
-                                            <p-treeNodeTemplateLoader [node]="node" [template]="tree.getTemplateForNode(node)"></p-treeNodeTemplateLoader>
+                                        <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: {$implicit: node}"></ng-container>
                                         </span>
                                 </span>
                             </div>
@@ -799,6 +774,6 @@ export class Tree implements OnInit,AfterContentInit,OnDestroy,BlockableUI {
 @NgModule({
     imports: [CommonModule],
     exports: [Tree,SharedModule],
-    declarations: [Tree,UITreeNode,TreeNodeTemplateLoader]
+    declarations: [Tree,UITreeNode]
 })
 export class TreeModule { }

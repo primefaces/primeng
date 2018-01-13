@@ -13,7 +13,7 @@ import {DomHandler} from '../dom/domhandler';
         <div #content class="ui-datascroller-content ui-widget-content" [ngStyle]="{'max-height': scrollHeight}">
             <ul class="ui-datascroller-list">
                 <li *ngFor="let item of dataToRender;trackBy: trackBy">
-                    <ng-template [pTemplateWrapper]="itemTemplate" [item]="item"></ng-template>
+                    <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
                 </li>
             </ul>
         </div>

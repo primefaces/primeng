@@ -69,7 +69,9 @@ export class TabViewNav {
         <div [attr.id]="id" class="ui-tabview-panel ui-widget-content" [ngClass]="{'ui-helper-hidden': !selected}" 
             role="tabpanel" [attr.aria-hidden]="!selected" [attr.aria-labelledby]="id + '-label'" *ngIf="!closed">
             <ng-content></ng-content>
-            <p-templateLoader [template]="contentTemplate" *ngIf="contentTemplate&&(cache ? loaded : selected)"></p-templateLoader>
+            <ng-template *ngIf="contentTemplate && (cache ? loaded : selected)">
+                <ng-container *ngTemplateOutlet="contentTemplate; context: {$implicit: columns}"></ng-container>
+            </ng-template>
         </div>
     `
 })

@@ -73,7 +73,7 @@ export interface LocaleSettings {
                                     [ngClass]="{'ui-state-active':isSelected(date), 'ui-state-highlight':date.today, 'ui-state-disabled':!date.selectable}"
                                     (click)="onDateSelect($event,date)">
                                     <ng-container *ngIf="!dateTemplate">{{date.day}}</ng-container>
-                                    <ng-template [pTemplateWrapper]="dateTemplate" [item]="date" *ngIf="dateTemplate"></ng-template>
+                                    <ng-container *ngTemplateOutlet="dateTemplate; context: {$implicit: date}"></ng-container>
                                 </a>
                             </td>
                         </tr>
