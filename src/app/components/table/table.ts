@@ -21,7 +21,8 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
                 <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-top" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"></p-paginator>
+                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition =='both')"
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
             
             <div class="ui-table-wrapper" *ngIf="!scrollable">
                 <table>
@@ -42,7 +43,8 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
             </div>
                         
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" styleClass="ui-paginator-bottom" [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"></p-paginator>
+                (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="rowsPerPageOptions" *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition =='both')"
+                [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
             <div *ngIf="summaryTemplate" class="ui-table-summary ui-widget-header">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
@@ -213,6 +215,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     emptyMessageTemplate: TemplateRef<any>;
 
+    paginatorLeftTemplate: TemplateRef<any>;
+
+    paginatorRightTemplate: TemplateRef<any>;
+
     selectionKeys: any;
 
     lastResizerHelperX: number;
@@ -307,6 +313,14 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
                 case 'emptyMessage':
                     this.emptyMessageTemplate = item.template;
+                break;
+
+                case 'paginatorleft':
+                    this.paginatorLeftTemplate = item.template;
+                break;
+
+                case 'paginatorright':
+                    this.paginatorRightTemplate = item.template;
                 break;
             }
         });

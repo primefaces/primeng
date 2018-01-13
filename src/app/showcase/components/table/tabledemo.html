@@ -297,8 +297,28 @@ export class DynamicColumnsDemo implements OnInit &#123;
                             <td>ColGroup element of the table to customize frozen columns.</td>
                         </tr>
                         <tr>
-                            <td>emptyMessage</td>
+                            <td>emptymessage</td>
                             <td>$implicit: Columns</td>
+                            <td>Content to display when there is no value to display.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorleft</td>
+                            <td>state: $implicit
+                                state.page: Current page<br />
+                                state.rows: Rows per page<br />
+                                state.first: Index of the first records<br />
+                                state.totalRecords: Number of total records<br />
+                            </td>
+                            <td>Content to display when there is no value to display.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorright</td>
+                            <td>state: $implicit
+                                state.page: Current page<br />
+                                state.rows: Rows per page<br />
+                                state.first: Index of the first records<br />
+                                state.totalRecords: Number of total records<br />
+                            </td>
                             <td>Content to display when there is no value to display.</td>
                         </tr>
                     </tbody>
@@ -623,7 +643,7 @@ export class DataTablePageDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Paginator templates get the paginator state as an implicit variable that provides the following properties</p>
+            <p>Paginator templates gets the paginator state as an implicit variable that provides the following properties</p>
             <ul>
                 <li>first</li>
                 <li>rows</li>
@@ -1632,7 +1652,7 @@ export class DataTableDemo implements OnInit &#123;
                             <td>first</td>
                             <td>number</td>
                             <td>0</td>
-                            <td>Index of the first row to be displayed. It supports two-way binding so that model value can be updated on pagination as well.</td>
+                            <td>Index of the first row to be displayed.</td>
                         </tr>                     
                         <tr>
                             <td>totalRecords</td>
