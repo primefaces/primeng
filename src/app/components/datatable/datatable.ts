@@ -140,7 +140,7 @@ export class ColumnFooters {
                         <span class="fa fa-fw" [ngClass]="dt.isRowGroupExpanded(rowData) ? dt.expandedIcon : dt.collapsedIcon"></span>
                     </a>
                     <span class="ui-rowgroup-header-name">
-                        <ng-container *ngTemplateOutlet="col.rowGroupHeaderTemplate; context: {$implicit: rowData}"></ng-container>
+                        <ng-container *ngTemplateOutlet="dt.rowGroupHeaderTemplate; context: {$implicit: rowData}"></ng-container>
                     </span>
                 </td>
             </tr>
@@ -192,7 +192,9 @@ export class ColumnFooters {
         <tr *ngIf="dt.isEmpty()" class="ui-widget-content ui-datatable-emptymessage-row" [style.visibility]="dt.loading ? 'hidden' : 'visible'">
             <td [attr.colspan]="dt.visibleColumns().length" class="ui-datatable-emptymessage">
                 <span *ngIf="!dt.emptyMessageTemplate">{{dt.emptyMessage}}</span>
-                <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate"></ng-container>
+                <ng-template *ngIf="dt.emptyMessageTemplate">
+                    <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate"></ng-container>
+                </ng-template>
             </td>
         </tr>
     `

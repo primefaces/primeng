@@ -344,6 +344,11 @@ body {
     color: #ffffff;
 }
 
+.content-section.introduction a {
+    color: #ffffff;
+    font-weight: 700;
+}
+
 .content-section:first-of-type > div > span {
     line-height: 1.5em;
 }
