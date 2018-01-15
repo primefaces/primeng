@@ -1474,6 +1474,7 @@ export class SortableColumn implements AfterViewInit {
         }
 
         this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
+        this.domHandler.clearSelection();
     }
 }
 
@@ -1496,6 +1497,7 @@ export class SelectableRow {
             originalEvent: event,
             rowData: this.data
         });
+        this.domHandler.clearSelection();
     }    
 
 }
