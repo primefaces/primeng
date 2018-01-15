@@ -1031,13 +1031,18 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                         }
 
                         if (this.scrollable) {
-                            let colGroup = this.domHandler.findSingle(this.el.nativeElement, 'colgroup.ui-datatable-scrollable-colgroup');
-                            let resizeColumnIndex = this.domHandler.index(column);
-                            colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
+                            let scrollableTable = this.domHandler.findSingle(this.el.nativeElement, 'table.ui-table-scrollable-body-table');
+                            let colGroup = scrollableTable.children[0].nodeName === 'COLGROUP' ? scrollableTable.children[0] : null;
 
-                            if (nextColumn) {
-                                colGroup.children[resizeColumnIndex + 1].style.width = nextColumnWidth + 'px';
+                            if(colGroup) {
+                                let resizeColumnIndex = this.domHandler.index(column);
+                                colGroup.children[resizeColumnIndex].style.width = newColumnWidth + 'px';
+    
+                                if (nextColumn) {
+                                    colGroup.children[resizeColumnIndex + 1].style.width = nextColumnWidth + 'px';
+                                }
                             }
+                            
                         }
                     }
                 }
@@ -1225,7 +1230,7 @@ export class TableBody {
             </div>
         </div>
         <div #scrollBody class="ui-table-scrollable-body">
-            <table #scrollTable [ngClass]="{'ui-table-virtual-table': dt.virtualScroll}">
+            <table #scrollTable [ngClass]="{'ui-table-virtual-table': dt.virtualScroll}" class="ui-table-scrollable-body-table">
                 <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                 <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
             </table>
