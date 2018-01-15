@@ -8,12 +8,11 @@ import {RouterModule} from '@angular/router';
 @Component({
     selector: 'p-contextMenuSub',
     template: `
-        <ul [ngClass]="{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}" class="ui-menu-list"
-            (click)="listClick($event)">
+        <ul [ngClass]="{'ui-widget-content ui-corner-all ui-submenu-list ui-shadow':!root}" class="ui-menu-list" (click)="listClick($event)">
             <ng-template ngFor let-child [ngForOf]="(root ? item : item.items)">
                 <li *ngIf="child.separator" class="ui-menu-separator ui-widget-content">
-                <li *ngIf="!child.separator" #item [ngClass]="{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}"
-                    (mouseenter)="onItemMouseEnter($event,item,child)" (mouseleave)="onItemMouseLeave($event,item)" [style.display]="child.visible === false ? 'none' : 'block'">
+                <li *ngIf="!child.separator" #item [ngClass]="{'ui-menuitem ui-corner-all':true,'ui-menuitem-active':item==activeItem}"
+                    (mouseenter)="onItemMouseEnter($event,item,child)" (mouseleave)="onItemMouseLeave($event,item)">
                     <a *ngIf="!child.routerLink" [href]="child.url||'#'" [attr.target]="child.target" [attr.title]="child.title" [attr.id]="child.id" (click)="itemClick($event, child)"
                         [ngClass]="{'ui-menuitem-link ui-corner-all':true,'ui-state-disabled':child.disabled}" [ngStyle]="child.style" [class]="child.styleClass">
                         <span class="ui-submenu-icon fa fa-fw fa-caret-right" *ngIf="child.items"></span>
@@ -118,8 +117,8 @@ export class ContextMenuSub {
 @Component({
     selector: 'p-contextMenu',
     template: `
-        <div #container [ngClass]="'ui-contextmenu ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-dynamic ui-shadow'" 
-            [class]="styleClass" [ngStyle]="style" [style.display]="visible ? 'block' : 'none'">
+        <div #container [ngClass]="'ui-contextmenu ui-widget ui-widget-content ui-corner-all ui-shadow'" 
+            [class]="styleClass" [ngStyle]="style">
             <p-contextMenuSub [item]="model" root="root"></p-contextMenuSub>
         </div>
     `,
@@ -138,13 +137,13 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     @Input() styleClass: string;
     
     @Input() appendTo: any;
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
     
     @ViewChild('container') containerViewChild: ElementRef;
-    
-    container: HTMLDivElement;
-    
-    visible: boolean;
-            
+                    
     documentClickListener: any;
     
     rightClickListener: any;
@@ -152,8 +151,6 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
 
     ngAfterViewInit() {
-        this.container = <HTMLDivElement> this.containerViewChild.nativeElement;
-                
         if(this.global) {
             this.rightClickListener = this.renderer.listen('document', 'contextmenu', (event) => {
                 this.show(event);
@@ -170,16 +167,17 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         
         if(this.appendTo) {
             if(this.appendTo === 'body')
-                document.body.appendChild(this.container);
+                document.body.appendChild( this.containerViewChild.nativeElement);
             else
-                this.domHandler.appendChild(this.container, this.appendTo);
+                this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
         
     show(event?: MouseEvent) {
         this.position(event);
-        this.visible = true;
-        this.domHandler.fadeIn(this.container, 250);
+        this.moveOnTop();
+        this.containerViewChild.nativeElement.style.display = 'block';
+        this.domHandler.fadeIn(this.containerViewChild.nativeElement, 250);
         this.bindDocumentClickListener();
         
         if(event) {
@@ -188,12 +186,18 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
     }
     
     hide() {
-        this.visible = false;
+        this.containerViewChild.nativeElement.style.display = 'none';
         this.unbindDocumentClickListener();
+    }
+
+    moveOnTop() {
+        if(this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
     }
     
     toggle(event?: MouseEvent) {
-        if(this.visible)
+        if(this.containerViewChild.nativeElement.offsetParent)
             this.hide();
         else
             this.show(event);
@@ -203,8 +207,8 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         if(event) {
             let left = event.pageX + 1;
             let top = event.pageY + 1;
-            let width = this.container.offsetParent ? this.container.offsetWidth: this.domHandler.getHiddenElementOuterWidth(this.container);
-            let height = this.container.offsetParent ? this.container.offsetHeight: this.domHandler.getHiddenElementOuterHeight(this.container);
+            let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth: this.domHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
+            let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight: this.domHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
             let viewport = this.domHandler.getViewport();
             
             //flip
@@ -227,15 +231,15 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
                 top = document.body.scrollTop;
             }
                 
-            this.container.style.left = left + 'px';
-            this.container.style.top = top + 'px';
+            this.containerViewChild.nativeElement.style.left = left + 'px';
+            this.containerViewChild.nativeElement.style.top = top + 'px';
         }
     }
     
     bindDocumentClickListener() {
         if(!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen('document', 'click', (event) => {
-                if (this.visible && event.button !== 2) {
+                if (this.containerViewChild.nativeElement.offsetParent && event.button !== 2) {
                     this.hide();
                 }
             });
@@ -257,7 +261,7 @@ export class ContextMenu implements AfterViewInit,OnDestroy {
         }
                 
         if(this.appendTo) {
-            this.el.nativeElement.appendChild(this.container);
+            this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
         }
     }
 

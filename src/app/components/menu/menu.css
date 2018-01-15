@@ -1,5 +1,5 @@
 .ui-menu {
-    min-width: 12.5em;
+    width: 12.5em;
     padding: .25em;
 }
 
@@ -12,7 +12,7 @@
     border-width: 1px 0 0 0;
 }
 
-.ui-menu .ui-menu-list {
+.ui-menu ul {
     list-style: none;
     margin: 0;
     padding: 0;

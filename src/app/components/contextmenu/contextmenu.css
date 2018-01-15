@@ -1,0 +1,44 @@
+.ui-contextmenu {
+    width: 12.5em;
+    padding: .25em;
+    position: absolute;
+    display: none;
+}
+
+.ui-contextmenu .ui-menu-separator {
+    border-width: 1px 0 0 0;
+}
+
+.ui-contextmenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ui-contextmenu .ui-submenu-list {
+    display: none;
+    position: absolute;
+    width: 12.5em;
+    padding: .25em;
+}
+
+.ui-contextmenu .ui-menuitem-link {
+    padding: .25em;
+    display: block;
+    position: relative;
+}
+
+.ui-contextmenu .ui-menuitem {
+    position: relative;
+}
+
+.ui-contextmenu .ui-menuitem-link .ui-submenu-icon {
+    position: absolute;
+    margin-top: -.5em;
+    right: 0;
+    top: 50%;
+}
+
+.ui-contextmenu .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
+    display: block !important;
+}

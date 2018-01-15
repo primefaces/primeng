@@ -10,6 +10,7 @@
 @import '../../../app/components/checkbox/checkbox.css';
 @import '../../../app/components/chips/chips.css';
 @import '../../../app/components/colorpicker/colorpicker.css';
+@import '../../../app/components/contextmenu/contextmenu.css';
 @import '../../../app/components/datagrid/datagrid.css';
 @import '../../../app/components/datalist/datalist.css';
 @import '../../../app/components/datascroller/datascroller.css';
@@ -54,6 +55,7 @@
 @import '../../../app/components/tabview/tabview.css';
 @import '../../../app/components/table/table.css';
 @import '../../../app/components/terminal/terminal.css';
+@import '../../../app/components/tieredmenu/tieredmenu.css';
 @import '../../../app/components/toolbar/toolbar.css';
 @import '../../../app/components/tooltip/tooltip.css';
 @import '../../../app/components/tree/tree.css';

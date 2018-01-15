@@ -32,7 +32,7 @@ export class MenuItemContent {
     template: `
         <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all':true, 'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
-            <ul class="ui-menu-list">
+            <ul>
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-menu-separator ui-widget-content" *ngIf="submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}"></li>
                     <li class="ui-submenu-header ui-widget-header ui-corner-all" *ngIf="!submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}">{{submenu.label}}</li>
