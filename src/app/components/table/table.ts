@@ -1291,6 +1291,9 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                 this.frozenSiblingBody = this.domHandler.findSingle(frozenView, '.ui-table-scrollable-body');
             }
         }
+        else {
+            this.scrollBodyViewChild.nativeElement.style.paddingBottom = this.domHandler.calculateScrollbarWidth() + 'px';
+        }
 
         if(this.dt.virtualScroll) {
             this.virtualScrollerViewChild.nativeElement.style.height = this.dt.totalRecords * 30 + 'px';
