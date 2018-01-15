@@ -29,6 +29,7 @@
     padding: .25em;
     display: block;
     position: relative;
+    text-decoration: none;
 }
 
 .ui-tieredmenu .ui-menuitem {

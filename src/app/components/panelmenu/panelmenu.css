@@ -18,6 +18,7 @@
 .ui-panelmenu .ui-panelmenu-header-link {
     padding: .5em;
     display: block;
+    text-decoration: none;
 }
 
 .ui-panelmenu .ui-menuitem-icon {
@@ -49,4 +50,5 @@
 .ui-panelmenu .ui-menuitem-link {
     padding: .25em;
     display: block;
+    text-decoration: none;
 }

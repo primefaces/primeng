@@ -15,6 +15,7 @@
 .ui-megamenu .ui-menuitem-link {
     padding: .25em;
     display: block;
+    text-decoration: none;
 }
 
 .ui-megamenu-panel {
