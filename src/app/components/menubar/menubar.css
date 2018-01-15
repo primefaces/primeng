@@ -21,6 +21,7 @@
 }
 
 .ui-menubar .ui-menubar-root-list {
+    display: inline-block;
 }
 
 .ui-menubar .ui-menubar-root-list > .ui-menuitem {
