@@ -8,14 +8,18 @@
 <div class="content-section implementation">
     <h3 class="first">With AutoDisplay</h3>
     <p-menubar [model]="items">
-        <input type="text" pInputText placeholder="Search">
-        <button pButton label="Logout" icon="fa-sign-out"></button>
+        <div>
+            <input type="text" pInputText placeholder="Search">
+            <button pButton label="Logout" icon="fa-sign-out"></button>
+        </div>
     </p-menubar>
 
     <h3>Without AutoDisplay</h3>
     <p-menubar [model]="items" [autoDisplay]="false">
-      <input type="text" pInputText placeholder="Search">
-      <button pButton label="Logout" icon="fa-sign-out"></button>
+        <div>
+            <input type="text" pInputText placeholder="Search">
+            <button pButton label="Logout" icon="fa-sign-out"></button>
+        </div>
     </p-menubar>
 </div>
 
@@ -179,12 +183,16 @@ export class MenubarDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-menubar [model]="items"&gt;
-    &lt;input type="text" pInputText placeholder="Search"&gt;
-    &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+    &lt;div&gt;
+        &lt;input type="text" pInputText placeholder="Search"&gt;
+        &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+    &lt;/div&gt;
 &lt;/p-menubar&gt;
 &lt;p-menubar [model]="items" [autoDisplay]="false"&gt;
-    &lt;input type="text" pInputText placeholder="Search"&gt;
-    &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+    &lt;div&gt;
+        &lt;input type="text" pInputText placeholder="Search"&gt;
+        &lt;button pButton label="Logout" icon="fa-sign-out"&gt;&lt;/button&gt;
+    &lt;/div&gt;
 &lt;/p-menubar&gt;
 </code>
 </pre>
