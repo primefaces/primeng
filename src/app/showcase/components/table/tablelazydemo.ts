@@ -46,7 +46,6 @@ export class TableLazyDemo implements OnInit {
         setTimeout(() => {
             if (this.datasource) {
                 this.cars = this.datasource.slice(event.first, (event.first + event.rows));
-                console.log('x');
             }
         }, 250);
     }
