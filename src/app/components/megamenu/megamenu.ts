@@ -78,6 +78,10 @@ export class MegaMenu {
     @Input() styleClass: string;
     
     @Input() orientation: string = 'horizontal';
+
+    @Input() autoZIndex: boolean = true;
+
+    @Input() baseZIndex: number = 0;
     
     activeItem: any;
                 
@@ -93,7 +97,9 @@ export class MegaMenu {
         if(menuitem.items) {
             let submenu = item.children[0].nextElementSibling;
             if (submenu) {
-                submenu.style.zIndex = ++DomHandler.zindex;
+                if (this.autoZIndex) {
+                    submenu.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+                }
 
                 if (this.orientation === 'horizontal') {
                     submenu.style.top = this.domHandler.getOuterHeight(item.children[0]) + 'px';

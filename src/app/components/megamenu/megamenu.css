@@ -20,6 +20,11 @@
 .ui-megamenu-panel {
     display: none;
     position: absolute;
+    width: auto;
+}
+
+.ui-megamenu-root-list > .ui-menuitem-active > .ui-megamenu-panel {
+    display: block;
 }
 
 .ui-megamenu-panel .ui-menuitem {
@@ -30,7 +35,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    min-width: 12.5em;
+    width: 12.5em;
 }
 
 .ui-megamenu-submenu-header {
@@ -43,6 +48,10 @@
 }
 
 /* Vertical */
+.ui-megamenu-vertical {
+    width: 12.5em;
+}
+
 .ui-megamenu-vertical .ui-megamenu-root-list > .ui-menuitem {
     display: block;
 }
@@ -58,4 +67,9 @@
     top: 50%;
     right: 0;
     margin-top: -.5em;
+}
+
+.ui-megamenu .ui-g {
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
 }
