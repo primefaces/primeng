@@ -23,6 +23,10 @@
     margin: .125em 0;
 }
 
+.ui-menu .ui-menuitem {
+    margin: .125em 0;
+}
+
 .ui-menu .ui-menuitem-link {
     padding: .25em;
     display: block;

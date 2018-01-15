@@ -33,6 +33,7 @@
 
 .ui-tieredmenu .ui-menuitem {
     position: relative;
+    margin: .125em 0;
 }
 
 .ui-tieredmenu .ui-menuitem-link .ui-submenu-icon {

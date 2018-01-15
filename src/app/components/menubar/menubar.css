@@ -44,6 +44,10 @@
     padding: .25em;
 }
 
+.ui-menubar .ui-submenu-list .ui-menuitem {
+    margin: .125em 0;
+}
+
 .ui-menubar .ui-submenu-list .ui-menuitem-link .ui-submenu-icon {
     position: absolute;
     margin-top: -.5em;
