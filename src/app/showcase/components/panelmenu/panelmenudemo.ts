@@ -17,13 +17,13 @@ export class PanelMenuDemo {
                         label: 'New', 
                         icon: 'fa-plus',
                         items: [
-                            {label: 'Project'},
-                            {label: 'Other'},
+                            {label: 'Project', icon: 'fa-lock'},
+                            {label: 'Other', icon: 'fa-list'}
                         ]
                     },
-                    {label: 'Open'},
+                    {label: 'Open', icon: 'fa-external-link'},
                     {separator: true},
-                    {label: 'Quit'}
+                    {label: 'Quit', icon: 'fa-close'}
                 ]
             },
             {
@@ -39,7 +39,8 @@ export class PanelMenuDemo {
                 icon: 'fa-question',
                 items: [
                     {
-                        label: 'Contents'
+                        label: 'Contents',
+                        icon: 'fa-bars'
                     },
                     {
                         label: 'Search', 
@@ -54,7 +55,8 @@ export class PanelMenuDemo {
                                 ]
                             },
                             {
-                                label: 'File'
+                                label: 'File',
+                                icon: 'fa-file',
                             }
                     ]}
                 ]
