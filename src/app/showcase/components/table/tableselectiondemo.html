@@ -28,7 +28,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div style="text-align: left">
-                Selected Car: {{selectedCar ? selectedCar.vin + ' - ' + selectedCar.brand + ' - ' + selectedCar.year + ' - ' + selectedCar.color: 'none'}}
+                Selected Car: {{selectedCar1 ? selectedCar1.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'}}
             </div>
         </ng-template>
     </p-table>
@@ -182,7 +182,7 @@ export class TableSelectionDemo implements OnInit &#123;
     &lt;/ng-template&gt;
     &lt;ng-template pTemplate="summary"&gt;
         &lt;div style="text-align: left"&gt;
-            Selected Car: &#123;&#123;selectedCar ? selectedCar.vin + ' - ' + selectedCar.brand + ' - ' + selectedCar.year + ' - ' + selectedCar.color: 'none'&#125;&#125;
+            Selected Car: &#123;&#123;selectedCar1 ? selectedCar.vin + ' - ' + selectedCar1.brand + ' - ' + selectedCar1.year + ' - ' + selectedCar1.color: 'none'&#125;&#125;
         &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-table&gt;
