@@ -91,8 +91,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Input() selectionMode: string;
 
-    @Input() selection: any;
-
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     @Input() contextMenuSelection: any;
@@ -245,6 +243,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         
     virtualScrollCallback: Function;
 
+    preventSelectionKeysUpdate: boolean;
+
+    _selection: any;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone) {}
 
     ngOnInit() {
@@ -375,6 +377,29 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         if (this.sortMode === 'multiple') {
             this.sortMultiple();
         }
+    }
+
+    @Input() get selection(): any {
+        return this._selection;
+    }
+
+    set selection(val: any) {
+        this._selection = val;
+
+        if(this.dataKey && !this.preventSelectionKeysUpdate) {
+            this.selectionKeys = {};
+            if(this._selection) {
+                if(Array.isArray(this._selection)) {
+                    for(let data of this._selection) {
+                        this.selectionKeys[String(this.objectUtils.resolveFieldData(data, this.dataKey))] = 1;
+                    }
+                }
+                else {
+                    this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
+                }
+            }
+        }
+        this.preventSelectionKeysUpdate = false;
     }
 
     updateTotalRecords() {
@@ -525,13 +550,13 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
             if (this.selectionMode === 'single') {
                 if (selected) {
-                    this.selection = null;
+                    this._selection = null;
                     this.selectionKeys = {};
                     this.selectionChange.emit(this.selection);
                     this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
                 }
                 else {
-                    this.selection = rowData;
+                    this._selection = rowData;
                     this.selectionChange.emit(this.selection);
                     this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
                     if (dataKeyValue) {
@@ -543,7 +568,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             else if (this.selectionMode === 'multiple') {
                 if (selected) {
                     let selectionIndex = this.findIndexInSelection(rowData);
-                    this.selection = this.selection.filter((val, i) => i != selectionIndex);
+                    this._selection = this.selection.filter((val, i) => i != selectionIndex);
                     this.selectionChange.emit(this.selection);
                     this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
                     if (dataKeyValue) {
@@ -551,7 +576,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                     }
                 }
                 else {
-                    this.selection = this.selection ? [...this.selection, rowData] : [rowData];
+                    this._selection = this.selection ? [...this.selection, rowData] : [rowData];
                     this.selectionChange.emit(this.selection);
                     this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
                     if (dataKeyValue) {
@@ -559,6 +584,9 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                     }
                 }
             }
+
+            //prevent unncessary syncing keys at selection setter
+            this.preventSelectionKeysUpdate = true;
         }
     }
 
@@ -1441,19 +1469,16 @@ export class SortableColumn implements AfterViewInit {
 
 @Directive({
     selector: '[pSelectableRow]',
-    providers: [DomHandler]
+    providers: [DomHandler],
+    host: {
+        '[class.ui-state-highlight]': 'dt.isSelected(data)',
+    }
 })
-export class SelectableRow implements AfterViewInit {
+export class SelectableRow {
 
     @Input("pSelectableRow") data: any;
 
     constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler) { }
-
-    ngAfterViewInit() {
-        if(this.dt.isSelected(this.data)) {
-            this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
-        }
-    }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -1461,19 +1486,6 @@ export class SelectableRow implements AfterViewInit {
             originalEvent: event,
             rowData: this.data
         });
-        
-        if(this.domHandler.hasClass(this.el.nativeElement, 'ui-state-highlight')) {
-            this.domHandler.removeClass(this.el.nativeElement, 'ui-state-highlight');
-        }
-        else {
-            if(this.dt.selectionMode === 'single') {
-                let selectedRow = this.domHandler.findSingle(this.dt.tbodyElement, 'tr.ui-state-highlight');
-                if (selectedRow) {
-                    this.domHandler.removeClass(selectedRow, 'ui-state-highlight');
-                }
-            }
-            this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
-        }
     }    
 
 }
