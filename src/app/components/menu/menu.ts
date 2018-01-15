@@ -30,12 +30,12 @@ export class MenuItemContent {
 @Component({
     selector: 'p-menu',
     template: `
-        <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-menu-dynamic ui-shadow':popup}" 
+        <div #container [ngClass]="{'ui-menu ui-widget ui-widget-content ui-corner-all':true, 'ui-menu-dynamic ui-shadow':popup}" 
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true">
-            <ul class="ui-menu-list ui-helper-reset">
+            <ul class="ui-menu-list">
                 <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
                     <li class="ui-menu-separator ui-widget-content" *ngIf="submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}"></li>
-                    <li class="ui-widget-header ui-corner-all" *ngIf="!submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}"><h3>{{submenu.label}}</h3></li>
+                    <li class="ui-submenu-header ui-widget-header ui-corner-all" *ngIf="!submenu.separator" [ngClass]="{'ui-helper-hidden': submenu.visible === false}">{{submenu.label}}</li>
                     <ng-template ngFor let-item [ngForOf]="submenu.items">
                         <li class="ui-menu-separator ui-widget-content" *ngIf="item.separator" [ngClass]="{'ui-helper-hidden': (item.visible === false || submenu.visible === false)}"></li>
                         <li class="ui-menuitem ui-widget ui-corner-all" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'ui-helper-hidden': (item.visible === false || submenu.visible === false)}"></li>
@@ -62,6 +62,10 @@ export class Menu implements AfterViewInit,OnDestroy {
     @Input() styleClass: string;
     
     @Input() appendTo: any;
+
+    @Input() autoZIndex: boolean = true;
+    
+    @Input() baseZIndex: number = 0;
     
     @ViewChild('container') containerViewChild: ElementRef;
     
@@ -113,10 +117,17 @@ export class Menu implements AfterViewInit,OnDestroy {
     show(event) {
         let target = event.currentTarget;
         this.onResizeTarget = event.currentTarget;
+        this.moveOnTop();
         this.container.style.display = 'block';
         this.domHandler.absolutePosition(this.container, target);
         this.domHandler.fadeIn(this.container, 250);
         this.preventDocumentDefault = true;
+    }
+
+    moveOnTop() {
+        if(this.autoZIndex) {
+            this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
+        }
     }
     
     hide() {

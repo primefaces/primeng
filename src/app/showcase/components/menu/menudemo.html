@@ -7,10 +7,10 @@
 
 <div class="content-section implementation">
     <h3 class="first">Basic</h3>
-    <p-menu [model]="items"></p-menu>
+    <p-menu [model]="items" [style]="{width: '12em'}"></p-menu>
 
     <h3>Popup</h3>
-    <p-menu #menu popup="popup" [model]="items"></p-menu>
+    <p-menu #menu popup="popup" [model]="items" [style]="{width: '12em'}"></p-menu>
     <button type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"></button>
 </div>
 
@@ -132,6 +132,18 @@ export class MenuDemo &#123;
                             <td>null</td>
                             <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
                         </tr>
+                        <tr>
+                            <td>baseZIndex</td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Base zIndex value to use in layering.</td>
+                        </tr>
+                        <tr>
+                            <td>autoZIndex</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether to automatically manage layering.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -213,10 +225,10 @@ export class MenuDemo &#123;
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Basic&lt;/h3&gt;
-&lt;p-menu [model]="items"&gt;&lt;/p-menu&gt;
+&lt;p-menu [model]="items" [style]="&#123;width: '12em'&#125;"&gt;&lt;/p-menu&gt;
 
 &lt;h3&gt;Popup&lt;/h3&gt;
-&lt;p-menu #menu popup="popup" [model]="items"&gt;&lt;/p-menu&gt;
+&lt;p-menu #menu popup="popup" [model]="items" [style]="&#123;width: '12em'&#125;"&gt;&lt;/p-menu&gt;
 &lt;button type="button" pButton icon="fa fa-list" label="Show" (click)="menu.toggle($event)"&gt;&lt;/button&gt;
 </code>
 </pre>
