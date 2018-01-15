@@ -1100,16 +1100,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             }
 
             if (allowDrop) {
-                for(let col of this.columns) {
-                    console.log(col.header);
-                }
                 this.objectUtils.reorderArray(this.columns, dragIndex, dropIndex);
-                for (let col of this.columns) {
-                    console.log(col.header);
-                }
-                /*if (this.scrollable) {
-                    this.initScrollableColumns();
-                }*/
 
                 this.onColReorder.emit({
                     dragIndex: dragIndex,
