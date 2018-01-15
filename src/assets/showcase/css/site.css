@@ -394,22 +394,33 @@ body {
     color: #5C666A;
 }
 
-.SubSubMenu {
+.content-submenu {
+    background-image: linear-gradient(to left, #2bc0ec, #1b81d7);
     padding: 15px 30px;
+    border-bottom: 1px solid #1b81d7;
 }
-.SubSubMenu ul {
+.content-submenu ul {
     margin: 0;
     padding: 0;
     width: 100%;
 }
-.SubSubMenu ul li {
+.content-submenu ul li {
     list-style: none;
     width: 20%;
     float: left;
     margin-top: 5px;
 }
-.SubSubMenu ul li a:hover {
-    color: #229be0
+.content-submenu ul li a {
+    color: #ffffff;
+    display: block;
+    width: 90%;
+    border: 1px solid transparent;
+    transition: border-color .3s;
+    padding: 6px 12px;
+    border-radius: 3px;
+}
+.content-submenu ul li a:hover {
+    border: 1px solid #ffffff;
 }
 
 /* Documentation Section */
@@ -642,7 +653,7 @@ body {
         padding-top: 2em;
     }
 
-    .SubSubMenu ul li {
+    .content-submenu ul li {
         width: 50%;
     }
 }

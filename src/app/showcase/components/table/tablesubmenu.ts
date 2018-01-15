@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
     selector: 'table-submenu',
     template: `
-        <div class="content-section SubSubMenu ui-helper-clearfix">
+        <div class="content-section content-submenu ui-helper-clearfix">
             <ul>
                 <li><a [routerLink]="['/table']">&#9679; Documentation</a></li>
                 <li><a [routerLink]="['/table/sections']">&#9679; Sections</a></li>
