@@ -1179,7 +1179,7 @@ export class TableBody {
 @Component({
     selector: '[pScrollableView]',
     template: `
-        <div #scrollHeader class="ui-table-scrollable-header">
+        <div #scrollHeader class="ui-table-scrollable-header ui-widget-header">
             <div #scrollHeaderBox class="ui-table-scrollable-header-box">
                 <table>
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
@@ -1201,7 +1201,7 @@ export class TableBody {
             </table>
             <div #virtualScroller class="ui-table-virtual-scroller"></div>
         </div>
-        <div #scrollFooter *ngIf="footerTemplate" class="ui-table-scrollable-footer">
+        <div #scrollFooter *ngIf="footerTemplate" class="ui-table-scrollable-footer ui-widget-header">
             <div #scrollFooterBox class="ui-table-scrollable-footer-box">ü
                 <table>
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>

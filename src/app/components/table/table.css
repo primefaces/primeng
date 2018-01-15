@@ -47,6 +47,7 @@
 .ui-table-scrollable-header,
 .ui-table-scrollable-footer {
     overflow: hidden;
+    border: 0 none;
 }
 
 .ui-table-scrollable-body {
