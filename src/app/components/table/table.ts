@@ -331,7 +331,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     }
     set value(val: any[]) {
         this._value = val;
-        this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
+        this.updateTotalRecords();
 
         if (!this.lazy) {
             if (this.sortMode == 'single')
@@ -375,6 +375,10 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         if (this.sortMode === 'multiple') {
             this.sortMultiple();
         }
+    }
+
+    updateTotalRecords() {
+        this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
     }
 
     onPageChange(event) {
@@ -830,6 +834,22 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             globalFilter: this.filters && this.filters['global'] ? this.filters['global'].value : null,
             multiSortMeta: this.multiSortMeta
         };
+    }
+
+    public reset() {
+        this._sortField = null;
+        this._sortOrder = 1;
+        this._multiSortMeta = null;
+        
+        this.filteredValue = null;
+        this.filters = {};
+        
+        this.first = 0;
+        this.updateTotalRecords();
+        
+        if(this.lazy) {
+            this.onLazyLoad.emit(this.createLazyLoadMetadata());
+        }
     }
 
     public exportCSV(options?: any) {
