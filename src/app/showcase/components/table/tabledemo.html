@@ -1200,7 +1200,7 @@ export class DataTableDemo implements OnInit &#123;
             <h3>Scrolling</h3>
             <p>DataTable supports both horizontal and vertical scrolling as well as frozen columns and rows.</p>
 
-            <p>Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling</p>
+            <p>Additionally, virtualScroll mode enables dealing with large datasets by loading data on demand during scrolling.</p>
 
             <p>Sample below uses vertical scrolling where headers are fixed and data is scrollable.</p>
 <pre>
@@ -1308,7 +1308,7 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
-            <p>Certain columns can be made fixed where others remain scrollable, there are to ways to implement this functionality, either
+            <p>Particular columns can be made fixed where others remain scrollable, there are to ways to implement this functionality, either
                 define a frozenColumns property if your frozen columns are dynamic or use frozenbody template. The width of the frozen section also
                 must be defined with frozenWidth property. Templates including header, body and footer apply to the frozen section as well, however
                 if require different content for the frozen section use frozenheader, frozenbody and frozenfooter instead. First example below uses
@@ -1380,7 +1380,7 @@ export class DataTableDemo implements OnInit &#123;
             <p>When frozen columns are enabled, frozen and scrollable cells may have content with varying height which leads to misalignment. To avoid a performance hit, Table avoids expensive calculations
                 to align the row heights as it can be easily done with CSS manually.</p>
 <pre>
-<code class="language-markup" pCode ngNonBindable>
+<code class="language-css" pCode ngNonBindable>
 .ui-table .ui-table-frozen-view .ui-table-tbody > tr > td,
 .ui-table .ui-table-unfrozen-view .ui-table-tbody > tr > td &#123;
     height: 24px !important;
@@ -1388,6 +1388,31 @@ export class DataTableDemo implements OnInit &#123;
 </code>
 </pre>
 
+            <p>Virtual Scrolling is used with lazy loading to fetch data on demand during scrolling. For smooth scrolling twice the amount of rows property is loaded
+                on a lazy load event. In addition, to avoid performance problems row height is not calculated automatically and should be provided using virtualRowHeight 
+                property which defaults to 27px. Note that variable row height is not supported due to the nature of the virtual scrolling behavior.
+            </p>
+<pre>
+<code class="language-markup" pCode ngNonBindable>
+&lt;p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" [rows]="20" scrollHeight="200px" 
+    [virtualScroll]="true" (onLazyLoad)="loadDataOnScroll($event)" [lazy]="true" [totalRecords]="totalRecords"&gt;
+    &lt;ng-template pTemplate="header" let-columns&gt;
+        &lt;tr&gt;
+            &lt;th *ngFor="let col of columns"&gt;
+                &#123;&#123;col.header&#125;&#125;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate="body" let-rowData let-columns="columns"&gt;
+        &lt;tr&gt;
+            &lt;td *ngFor="let col of columns"&gt;
+                &#123;&#123;rowData[col.field]&#125;&#125;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/ng-template&gt;
+&lt;/p-table&gt;
+</code>
+</pre>
             <p>See the <a [routerLink]="['/table/scroll']">live example.</a></p>
 
             <h3>Lazy Loading</h3>
@@ -1815,6 +1840,12 @@ export class DataTableDemo implements OnInit &#123;
                             <td>number</td>
                             <td>500</td>
                             <td>Delay in virtual scroll before doing a call to lazy load.</td>
+                        </tr>
+                        <tr>
+                            <td>virtualRowHeight</td>
+                            <td>number</td>
+                            <td>27</td>
+                            <td>Height of a row to use in calculations of virtual scrolling.</td>
                         </tr>
                         <tr>
                             <td>frozenWidth</td>

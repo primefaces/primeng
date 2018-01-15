@@ -123,6 +123,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @Input() virtualScrollDelay: number = 500;
 
+    @Input() virtualRowHeight: number = 27;
+
     @Input() frozenWidth: string;
 
     @Input() responsive: boolean;
@@ -1296,7 +1298,7 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
         }
 
         if(this.dt.virtualScroll) {
-            this.virtualScrollerViewChild.nativeElement.style.height = this.dt.totalRecords * 30 + 'px';
+            this.virtualScrollerViewChild.nativeElement.style.height = this.dt.totalRecords * this.dt.virtualRowHeight + 'px';
         }
     }
 
