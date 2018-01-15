@@ -45,10 +45,17 @@ export class ContextMenuSub {
     activeItem: any;
 
     containerLeft: any;
+
+    hideTimeout: any;
                 
     onItemMouseEnter(event, item, menuitem) {
         if(menuitem.disabled) {
             return;
+        }
+
+        if(this.hideTimeout) {
+            clearTimeout(this.hideTimeout);
+            this.hideTimeout = null;
         }
         
         this.activeItem = item;
@@ -61,7 +68,9 @@ export class ContextMenuSub {
     }
     
     onItemMouseLeave(event, link) {
-        this.activeItem = null;
+        this.hideTimeout = setTimeout(() => {
+            this.activeItem = null;
+        }, 1000);
     }
     
     itemClick(event, item: MenuItem) {

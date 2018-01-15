@@ -47,10 +47,17 @@ export class TieredMenuSub {
     constructor(public domHandler: DomHandler) {}
     
     activeItem: HTMLLIElement;
+
+    hideTimeout: any;
                 
     onItemMouseEnter(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if(menuitem.disabled) {
             return;
+        }
+
+        if(this.hideTimeout) {
+            clearTimeout(this.hideTimeout);
+            this.hideTimeout = null;
         }
         
         this.activeItem = item;
@@ -68,7 +75,9 @@ export class TieredMenuSub {
     }
     
     onItemMouseLeave(event: Event) {
-        this.activeItem = null;
+        this.hideTimeout = setTimeout(() => {
+            this.activeItem = null;
+        }, 1000);
     }
     
     itemClick(event: Event, item: MenuItem) {

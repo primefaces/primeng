@@ -51,9 +51,11 @@ export class MenubarSub implements OnDestroy {
 
     menuClick: boolean;
 
-    constructor(public domHandler: DomHandler) { }
-
     activeItem: any;
+
+    hideTimeout: any;
+
+    constructor(public domHandler: DomHandler) { }
 
     onItemMenuClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if (!this.autoDisplay) {
@@ -104,6 +106,11 @@ export class MenubarSub implements OnDestroy {
                 return;
             }
 
+            if(this.hideTimeout) {
+                clearTimeout(this.hideTimeout);
+                this.hideTimeout = null;
+            }
+
             this.activeItem = item;
             let nextElement = <HTMLLIElement>item.children[0].nextElementSibling;
             if (nextElement) {
@@ -124,7 +131,9 @@ export class MenubarSub implements OnDestroy {
 
     onItemMouseLeave(event: Event) {
         if (this.autoDisplay) {
-            this.activeItem = null;
+            this.hideTimeout = setTimeout(() => {
+                this.activeItem = null;
+            }, 1000);
         }
     }
 

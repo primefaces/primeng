@@ -84,12 +84,19 @@ export class MegaMenu {
     @Input() baseZIndex: number = 0;
     
     activeItem: any;
+
+    hideTimeout: any;
                 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer2) {}
     
     onItemMouseEnter(event, item, menuitem: MenuItem) {
         if(menuitem.disabled) {
             return;
+        }
+
+        if(this.hideTimeout) {
+            clearTimeout(this.hideTimeout);
+            this.hideTimeout = null;
         }
         
         this.activeItem = item;
@@ -114,7 +121,9 @@ export class MegaMenu {
     }
     
     onItemMouseLeave(event, link) {
-        this.activeItem = null;
+        this.hideTimeout = setTimeout(() => {
+            this.activeItem = null;
+        }, 1000);
     }
     
     itemClick(event, item: MenuItem) {
