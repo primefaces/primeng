@@ -9,7 +9,8 @@
 </div>
 
 <div class="content-section implementation">
-    <p-table [columns]="cols" [value]="cars" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecords">
+    <p-table [columns]="cols" [value]="cars" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" 
+        [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -46,6 +47,8 @@ export class TableLazyDemo implements OnInit &#123;
 
     cols: any[];
 
+    loading: boolean;
+
     constructor(private carService: CarService) &#123; &#125;
 
     ngOnInit() &#123;
@@ -61,9 +64,13 @@ export class TableLazyDemo implements OnInit &#123;
             &#123; field: 'brand', header: 'Brand' &#125;,
             &#123; field: 'color', header: 'Color' &#125;
         ];
+
+        this.loading = true;
     &#125;
 
     loadCarsLazy(event: LazyLoadEvent) &#123;
+        this.loading = true;
+
         //in a real application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
@@ -75,8 +82,9 @@ export class TableLazyDemo implements OnInit &#123;
         setTimeout(() => &#123;
             if (this.datasource) &#123;
                 this.cars = this.datasource.slice(event.first, (event.first + event.rows));
+                this.loading = false;
             &#125;
-        &#125;, 250);
+        &#125;, 1000);
     &#125;
 &#125;
 </code>
@@ -90,7 +98,8 @@ export class TableLazyDemo implements OnInit &#123;
             </a>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-table [columns]="cols" [value]="cars" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecords"&gt;
+&lt;p-table [columns]="cols" [value]="cars" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [paginator]="true" 
+    [rows]="10" [totalRecords]="totalRecords" [loading]="loading"&gt;
     &lt;ng-template pTemplate="header" let-columns&gt;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns"&gt;

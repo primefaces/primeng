@@ -82,6 +82,7 @@ export class TableScrollDemo implements OnInit {
         ];
 
         this.totalRecords = 250000;
+        this.loading = true;
     }
 
     loadDataOnScroll(event: LazyLoadEvent) {      
