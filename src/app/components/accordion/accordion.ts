@@ -2,7 +2,7 @@ import { NgModule, Component, ElementRef, AfterContentInit, OnDestroy, Input, Ou
     ContentChildren, QueryList, ChangeDetectorRef, Inject, forwardRef} from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Header } from '../common/shared';
+import { SharedModule, Header } from '../common/shared';
 import { BlockableUI } from '../common/blockableui';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -199,7 +199,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
 @NgModule({
     imports: [CommonModule],
-    exports: [Accordion,AccordionTab],
+    exports: [Accordion,AccordionTab,SharedModule],
     declarations: [Accordion,AccordionTab]
 })
 export class AccordionModule { }

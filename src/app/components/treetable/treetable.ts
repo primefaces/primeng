@@ -442,7 +442,7 @@ export class TreeTable implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule],
+    imports: [CommonModule],
     exports: [TreeTable,SharedModule],
     declarations: [TreeTable,UITreeRow]
 })

@@ -200,7 +200,7 @@ export class DataList implements AfterViewInit,AfterContentInit,DoCheck,Blockabl
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,PaginatorModule],
+    imports: [CommonModule,PaginatorModule],
     exports: [DataList,SharedModule],
     declarations: [DataList]
 })

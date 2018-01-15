@@ -84,7 +84,8 @@
             <h3>Import</h3>
 <pre>
 <code class="language-typescript" pCode ngNonBindable>
-import &#123;TreeTableModule,TreeNode,SharedModule&#125; from 'primeng/primeng';
+import &#123;TreeTableModule&#125; from 'primeng/treetable';
+import &#123;TreeNode&#125; from 'primeng/api';
 </code>
 </pre>
 
@@ -382,12 +383,6 @@ export class TreeTableDemoComponent implements OnInit &#123;
 
             <h3>Facets</h3>
             <p>Header and Footer are the two sections aka facets that are capable of displaying custom content.</p>
-<pre>
-<code class="language-typescript" pCode ngNonBindable>
-import &#123;Header&#125; from 'primeng/primeng';
-import &#123;Footer&#125; from 'primeng/primeng';
-</code>
-</pre>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-treeTable [value]="files"&gt;
