@@ -1203,7 +1203,7 @@ export class TableBody {
                 </table>
             </div>
         </div>
-        <div #scrollBody class="ui-table-scrollable-body" [style.maxHeight]="dt.scrollHeight">
+        <div #scrollBody class="ui-table-scrollable-body">
             <table #scrollTable [ngClass]="{'ui-table-virtual-table': dt.virtualScroll}">
                 <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                 <tbody class="ui-table-tbody" [pTableBody]="columns" [pTableBodyTemplate]="frozen ? dt.frozenBodyTemplate||dt.bodyTemplate : dt.bodyTemplate"></tbody>
@@ -1254,6 +1254,8 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
     ngAfterViewInit() {
         this.bindEvents();
+
+        this.setScrollHeight();
 
         if(!this.frozen) {
             if (this.dt.frozenColumns || this.dt.frozenBodyTemplate) {
@@ -1345,7 +1347,6 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
             let scrollBodyTop = this.scrollTableViewChild.nativeElement.style.top||'0';
 
             if((this.scrollBodyViewChild.nativeElement.scrollTop + viewport > parseFloat(scrollBodyTop) + tableHeight) || (this.scrollBodyViewChild.nativeElement.scrollTop < parseFloat(scrollBodyTop))) {
-                console.log('time to load');
                 let page = Math.floor((this.scrollBodyViewChild.nativeElement.scrollTop * pageCount) / (this.scrollBodyViewChild.nativeElement.scrollHeight)) + 1;
                 this.dt.handleVirtualScroll({
                     page: page,
@@ -1353,6 +1354,26 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
                         this.scrollTableViewChild.nativeElement.style.top = ((page - 1) * pageHeight) + 'px';
                     }
                 });
+            }
+        }
+    }
+
+    setScrollHeight() {
+        if(this.dt.scrollHeight) {
+            if(this.dt.scrollHeight.indexOf('%') !== -1) {
+                this.scrollBodyViewChild.nativeElement.style.visibility = 'hidden';
+                this.scrollBodyViewChild.nativeElement.style.height = '100px';     //temporary height to calculate static height
+                let containerHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.children[0]);
+                let relativeHeight = this.domHandler.getOuterHeight(this.dt.el.nativeElement.parentElement) * parseInt(this.dt.scrollHeight) / 100;
+                let staticHeight = containerHeight - 100;   //total height of headers, footers, paginators
+                let scrollBodyHeight = (relativeHeight - staticHeight);
+                
+                this.scrollBodyViewChild.nativeElement.style.height = 'auto';
+                this.scrollBodyViewChild.nativeElement.style.maxHeight = scrollBodyHeight + 'px';
+                this.scrollBodyViewChild.nativeElement.style.visibility = 'visible';
+            }
+            else {
+                this.scrollBodyViewChild.nativeElement.style.maxHeight = this.dt.scrollHeight;
             }
         }
     }
