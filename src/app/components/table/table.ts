@@ -219,7 +219,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     paginatorRightTemplate: TemplateRef<any>;
 
-    selectionKeys: any;
+    selectionKeys: any = {};  
 
     lastResizerHelperX: number;
 
