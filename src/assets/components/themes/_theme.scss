@@ -606,6 +606,7 @@
     .ui-table-tfoot > tr > td {
         background: $headerBgColor;
         border:1px solid $headerBorderColor;
+        color: $headerTextColor;
     }
 
     .ui-table-tbody > tr > td {
