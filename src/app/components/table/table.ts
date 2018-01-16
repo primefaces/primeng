@@ -16,11 +16,17 @@ import { Observable } from 'rxjs/Observable';
 export class TableService {
 
     private sortSource = new Subject<SortMeta|SortMeta[]>();
+    private selectionSource = new Subject();
 
     sortSource$ = this.sortSource.asObservable();
+    selectionSource$ = this.selectionSource.asObservable();
 
     onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
+    }
+
+    onSelectionChange() {
+        this.selectionSource.next();
     }
 }
 
@@ -416,6 +422,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                     this.selectionKeys[String(this.objectUtils.resolveFieldData(this._selection, this.dataKey))] = 1;
                 }
             }
+            this.tableService.onSelectionChange();
         }
         this.preventSelectionKeysUpdate = false;
     }
@@ -626,6 +633,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
             //prevent unncessary syncing keys at selection setter
             this.preventSelectionKeysUpdate = true;
+            this.tableService.onSelectionChange();
         }
     }
 
@@ -1489,7 +1497,6 @@ export class SortableColumn implements OnInit, OnDestroy {
         });
 
         this.domHandler.clearSelection();
-        this.sorted = true;
     }
 
     ngOnDestroy() {
@@ -1548,14 +1555,26 @@ export class SortIcon implements OnInit, OnDestroy {
     selector: '[pSelectableRow]',
     providers: [DomHandler],
     host: {
-        '[class.ui-state-highlight]': 'dt.isSelected(data)'
+        '[class.ui-state-highlight]': 'selected'
     }
 })
-export class SelectableRow {
+export class SelectableRow implements OnInit, OnDestroy {
 
     @Input("pSelectableRow") data: any;
 
-    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler) { }
+    selected: boolean;
+
+    subscription: Subscription;
+
+    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public tableService: TableService) {
+        this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
+            this.selected = this.dt.isSelected(this.data);
+        });
+     }
+
+     ngOnInit() {
+        this.selected = this.dt.isSelected(this.data);
+    }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -1565,6 +1584,12 @@ export class SelectableRow {
         });
         this.domHandler.clearSelection();
     }    
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
 
 }
 
