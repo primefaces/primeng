@@ -304,6 +304,16 @@ body {
     color: #6d7879;
 }
 
+#layout-sidebar .layout-menu > div a .menuitem-badge {
+    background: linear-gradient(-180deg, #60E17A 0%, #49BD61 100%);
+    padding: 2px 4px;
+    vertical-align: middle;
+    border-radius: 3px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 12px;
+}
+
 #layout-sidebar .layout-menu > div a:hover {
     background-color: #eeeeee;
 }
@@ -880,7 +890,7 @@ a {
 }
 
 .home .whouses .ui-g > div {
-    padding: 1em .5em;
+    padding: 1em 2em;
 }
 
 .home .whouses img {
