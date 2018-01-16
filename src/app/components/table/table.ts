@@ -55,7 +55,7 @@ export class TableService {
             <div class="ui-table-wrapper" *ngIf="!scrollable">
                 <table #table>
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
-                    <thead #thead class="ui-table-thead">
+                    <thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
                     </thead>
                     <tfoot class="ui-table-tfoot">
@@ -202,8 +202,6 @@ export class Table implements OnInit, AfterContentInit {
     @Output() onEditCancel: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef;
-
-    @ViewChild('thead') theadViewChild: ElementRef;
 
     @ViewChild('resizeHelper') resizeHelperViewChild: ElementRef;
 
