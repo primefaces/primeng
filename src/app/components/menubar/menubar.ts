@@ -50,12 +50,14 @@ export class MenubarSub implements OnDestroy {
     documentClickListener: any;
 
     menuClick: boolean;
+  
+    menuHoverActive: boolean = false;
 
     activeItem: any;
 
     hideTimeout: any;
 
-    constructor(public domHandler: DomHandler) { }
+    constructor(public domHandler: DomHandler, public renderer: Renderer2) { }
 
     onItemMenuClick(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
         if (!this.autoDisplay) {
@@ -83,25 +85,25 @@ export class MenubarSub implements OnDestroy {
             }
 
             this.menuClick = true;
+            this.menuHoverActive = true;
             this.bindEventListener();
         }
     }
 
     bindEventListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = (event) => {
+            this.documentClickListener = this.renderer.listen('document', 'click',(event) => {
                 if (!this.menuClick) {
                     this.activeItem = null;
+                    this.menuHoverActive = false;
                 }
                 this.menuClick = false;
-            };
-
-            document.addEventListener('click', this.documentClickListener);
+            });
         }
     }
 
     onItemMouseEnter(event: Event, item: HTMLLIElement, menuitem: MenuItem) {
-        if (this.autoDisplay) {
+        if (this.autoDisplay || (!this.autoDisplay && this.root && this.menuHoverActive)) {
             if (menuitem.disabled) {
                 return;
             }
@@ -164,9 +166,10 @@ export class MenubarSub implements OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
-        }
+      if(this.documentClickListener) {
+        this.documentClickListener();
+        this.documentClickListener = null;
+      }
 
     }
 
