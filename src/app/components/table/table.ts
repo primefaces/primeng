@@ -1482,7 +1482,7 @@ export class SortableColumn implements AfterViewInit {
     selector: '[pSelectableRow]',
     providers: [DomHandler],
     host: {
-        '[class.ui-state-highlight]': 'dt.isSelected(data)',
+        '[class.ui-state-highlight]': 'dt.isSelected(data)'
     }
 })
 export class SelectableRow {
