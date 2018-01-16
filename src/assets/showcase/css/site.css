@@ -894,7 +894,7 @@ a {
 }
 
 .home .whouses img {
-    height: 30px;
+    height: 42px;
 }
 
 .home .testimonials .ui-g > div {
@@ -923,12 +923,17 @@ a {
 }
 
 .home .testimonials h3 {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .home .testimonials p {
     font-size: 14px;
     line-height: 1.5;
+    font-style: italic;
+}
+
+.home .testimonials i {
+    font-style: normal;
 }
 
 /* Book */
