@@ -17,9 +17,11 @@ export class TableService {
 
     private sortSource = new Subject<SortMeta|SortMeta[]>();
     private selectionSource = new Subject();
+    private contextMenuSource = new Subject<any>();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
+    contextMenuSource$ = this.contextMenuSource.asObservable();
 
     onSort(sortMeta: SortMeta|SortMeta[]) {
         this.sortSource.next(sortMeta);
@@ -27,6 +29,10 @@ export class TableService {
 
     onSelectionChange() {
         this.selectionSource.next();
+    }
+
+    onContextMenu(data: any) {
+        this.contextMenuSource.next(data);
     }
 }
 
@@ -47,7 +53,7 @@ export class TableService {
                 [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"></p-paginator>
             
             <div class="ui-table-wrapper" *ngIf="!scrollable">
-                <table>
+                <table #table>
                     <ng-container *ngTemplateOutlet="colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <thead #thead class="ui-table-thead">
                         <ng-container *ngTemplateOutlet="headerTemplate; context: {$implicit: columns}"></ng-container>
@@ -79,7 +85,7 @@ export class TableService {
     `,
     providers: [DomHandler, ObjectUtils, TableService]
 })
-export class Table implements OnInit, AfterContentInit, AfterViewInit {
+export class Table implements OnInit, AfterContentInit {
     
     @Input() columns: any[];
 
@@ -205,6 +211,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     @ViewChild('reorderIndicatorDown') reorderIndicatorDownViewChild: ElementRef;
 
+    @ViewChild('table') tableViewChild: ElementRef;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     _value: any[] = [];
@@ -255,8 +263,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     editingCell: Element;
 
-    tbodyElement: Element;
-
     _multiSortMeta: SortMeta[];
 
     _sortField: string;
@@ -276,13 +282,6 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
     ngOnInit() {
         if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
-        }
-    }
-
-    ngAfterViewInit() {
-        //ViewChild somehow does not work for tbody so get it from DOM
-        if(!this.scrollable) {
-            this.tbodyElement = this.domHandler.findSingle(this.containerViewChild.nativeElement, '.ui-table-tbody');
         }
     }
  
@@ -643,6 +642,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             this.contextMenuSelectionChange.emit(event.rowData);
             this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, data: event.rowData });
             this.contextMenu.show(event.originalEvent);
+            this.tableService.onContextMenu(event.rowData);
         }
     }
 
@@ -1093,9 +1093,9 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
                 }
             }
             else if (this.columnResizeMode === 'expand') {
-                this.tbodyElement.parentElement.style.width = this.tbodyElement.parentElement.offsetWidth + delta + 'px';
+                this.tableViewChild.nativeElement.style.width = this.tableViewChild.nativeElement.offsetWidth + delta + 'px';
                 column.style.width = newColumnWidth + 'px';
-                let containerWidth = this.tbodyElement.parentElement.style.width;
+                let containerWidth = this.tableViewChild.nativeElement.style.width;
 
                 if (this.scrollable) {
                     this.domHandler.findSingle(this.el.nativeElement, '.ui-datatable-scrollable-header-box').children[0].style.width = containerWidth;
@@ -1566,13 +1566,13 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription;
 
-    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler, public tableService: TableService) {
+    constructor(public dt: Table, public domHandler: DomHandler, public tableService: TableService) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.selected = this.dt.isSelected(this.data);
         });
-     }
+    }
 
-     ngOnInit() {
+    ngOnInit() {
         this.selected = this.dt.isSelected(this.data);
     }
 
@@ -1595,13 +1595,23 @@ export class SelectableRow implements OnInit, OnDestroy {
 
 @Directive({
     selector: '[pContextMenuRow]',
-    providers: [DomHandler]
+    host: {
+        '[class.ui-contextmenu-selected]': 'selected'
+    }
 })
 export class ContextMenuRow {
 
     @Input("pContextMenuRow") data: any;
 
-    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler) { }
+    selected: boolean;
+
+    subscription: Subscription;
+
+    constructor(public dt: Table, public tableService: TableService) {
+        this.subscription = this.dt.tableService.contextMenuSource$.subscribe((data) => {
+            this.selected = this.dt.equals(this.data, data);
+        });
+    }
 
     @HostListener('contextmenu', ['$event'])
     onContextMenu(event: Event) {
@@ -1610,13 +1620,13 @@ export class ContextMenuRow {
             rowData: this.data
         });
 
-        let outlinedRow = this.domHandler.findSingle(this.dt.tbodyElement, 'tr.ui-contextmenu-selected');
-        if (outlinedRow) {
-            this.domHandler.removeClass(outlinedRow, 'ui-contextmenu-selected');
-        }
-        this.domHandler.addClass(this.el.nativeElement, 'ui-contextmenu-selected');
-
         event.preventDefault();
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
 }
