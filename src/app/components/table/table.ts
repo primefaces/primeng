@@ -1217,7 +1217,6 @@ export class Table implements OnInit, AfterContentInit {
 
     ngOnDestroy() {
         this.editingCell = null;
-        this.tbodyElement = null;
     }
 }
 
