@@ -352,7 +352,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     set minDate(date: Date) {
         this._minDate = date;
-        if(this.currentMonth && this.currentYear) {
+        if(this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
@@ -363,7 +363,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     set maxDate(date: Date) {
         this._maxDate = date;
-        if(this.currentMonth && this.currentYear) {
+        if(this.currentMonth != undefined && this.currentMonth != null  && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
@@ -374,7 +374,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     set disabledDates(disabledDates: Date[]) {
         this._disabledDates = disabledDates;
-        if(this.currentMonth && this.currentYear) {
+        if(this.currentMonth != undefined && this.currentMonth != null  && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
@@ -385,7 +385,7 @@ export class Calendar implements AfterViewInit,AfterViewChecked,OnInit,OnDestroy
     
     set disabledDays(disabledDays: number[]) {
         this._disabledDays = disabledDays;
-        if(this.currentMonth && this.currentYear) {
+        if(this.currentMonth != undefined && this.currentMonth != null  && this.currentYear) {
             this.createMonth(this.currentMonth, this.currentYear);
         }
     }
