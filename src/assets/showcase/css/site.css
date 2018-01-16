@@ -897,6 +897,12 @@ a {
     height: 42px;
 }
 
+.home .testimonials {
+    border-top: 1px solid #4c5254;
+    padding-top: 20px;
+    margin-top: 30px;
+}
+
 .home .testimonials .ui-g > div {
     margin-left: -1px;
     margin-top: -1px;
@@ -907,29 +913,23 @@ a {
     background-color: #283134;
 }
 
-.home .testimonials {
-    border-top: 1px solid #4c5254;
-    padding-top: 20px;
-    margin-top: 30px;
-}
-
-.home .testimonials hr {
-  width: 40px;
-  color: #4c5254;
-}
-
-.home .testimonials img {
-    padding-top: 10px;
+.home .testimonials p {
+    font-size: 14px;
+    line-height: 1.5;
+    font-style: italic;
 }
 
 .home .testimonials h3 {
     margin-bottom: 10px;
 }
 
-.home .testimonials p {
-    font-size: 14px;
-    line-height: 1.5;
-    font-style: italic;
+.home .testimonials img {
+    padding-top: 10px;
+}
+
+.home .testimonials hr {
+  width: 40px;
+  color: #4c5254;
 }
 
 .home .testimonials i {
