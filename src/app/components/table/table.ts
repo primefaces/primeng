@@ -7,6 +7,22 @@ import { ObjectUtils } from '../utils/objectutils';
 import { SortMeta } from '../common/sortmeta';
 import { FilterMetadata } from '../common/filtermetadata';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+
+@Injectable()
+export class TableService {
+
+    private sortSource = new Subject<SortMeta|SortMeta[]>();
+
+    sortSource$ = this.sortSource.asObservable();
+
+    onSort(sortMeta: SortMeta|SortMeta[]) {
+        this.sortSource.next(sortMeta);
+    }
+}
 
 @Component({
     selector: 'p-table',
@@ -55,7 +71,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
             <span #reorderIndicatorDown class="fa fa-arrow-up ui-table-reorder-indicator-down" *ngIf="reorderableColumns"></span>
         </div>
     `,
-    providers: [DomHandler, ObjectUtils]
+    providers: [DomHandler, ObjectUtils, TableService]
 })
 export class Table implements OnInit, AfterContentInit, AfterViewInit {
     
@@ -249,7 +265,7 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
 
     _selection: any;
 
-    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone) {}
+    constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
     ngOnInit() {
         if (this.lazy) {
@@ -480,10 +496,13 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             });
         }
 
-        this.onSort.emit({
+        let sortMeta: SortMeta = {
             field: this.sortField,
             order: this.sortOrder
-        });
+        };
+
+        this.onSort.emit(sortMeta);
+        this.tableService.onSort(sortMeta);
     }
 
     sortMultiple() {
@@ -500,8 +519,8 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
             this.onSort.emit({
                 multisortmeta: this.multiSortMeta
             });
+            this.tableService.onSort(this.multiSortMeta);
         }
-        
     }
 
     multisortField(data1, data2, multiSortMeta, index) {
@@ -535,6 +554,24 @@ export class Table implements OnInit, AfterContentInit, AfterViewInit {
         }
        
         return null;
+    }
+
+    isSorted(field: string) {            
+        if(this.sortMode === 'single') {
+            return (this.sortField && this.sortField === field);
+        }
+        else if(this.sortMode === 'multiple') {
+            let sorted = false;
+            if(this.multiSortMeta) {
+                for(let i = 0; i < this.multiSortMeta.length; i++) {
+                    if(this.multiSortMeta[i].field == field) {
+                        sorted = true;
+                        break;
+                    }
+                }
+            }
+            return sorted;
+        }
     }
 
     handleRowClick(event) {
@@ -1416,65 +1453,94 @@ export class ScrollableView implements AfterViewInit,OnDestroy {
 
 @Directive({
     selector: '[pSortableColumn]',
-    providers: [DomHandler]
+    providers: [DomHandler],
+    host: {
+        '[class.ui-sortable-column]': 'true',
+        '[class.ui-state-highlight]': 'sorted'
+    }
 })
-export class SortableColumn implements AfterViewInit {
+export class SortableColumn implements OnInit, OnDestroy {
 
     @Input("pSortableColumn") field: string;
 
-    icon: HTMLSpanElement;
+    sorted: boolean;
+        
+    subscription: Subscription;
 
-    constructor(public dt: Table, public el: ElementRef, public domHandler: DomHandler) { }
+    constructor(public dt: Table, public domHandler: DomHandler) { 
+        this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
+            this.updateSortState();
+        });
+    }
 
-    ngAfterViewInit() {
-        this.domHandler.addClass(this.el.nativeElement, 'ui-sortable-column');
-        this.icon = document.createElement('span');
-        this.icon.className = 'ui-sortable-column-icon fa fa-fw fa-sort';
-        this.el.nativeElement.appendChild(this.icon);
+    ngOnInit() {
+        this.updateSortState();
+    }
+
+    updateSortState() {
+        this.sorted = this.dt.isSorted(this.field);
     }
 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
-        let metaKey = event.metaKey || event.ctrlKey;
-
-        if(this.dt.sortMode === 'single' || !metaKey) {
-            let sortedColumns = this.domHandler.find(this.dt.theadViewChild.nativeElement, 'th.ui-state-highlight');
-            if (sortedColumns.length) {
-                for(let i = 0 ; i < sortedColumns.length; i++) {
-                    this.domHandler.removeClass(sortedColumns[i], 'ui-state-highlight');
-                    let sortIcon = this.domHandler.findSingle(sortedColumns[i], '.ui-sortable-column-icon');
-                    sortIcon.className = 'ui-sortable-column-icon fa fa-fw fa-sort';
-                }
-            }
-        }
-
         this.dt.sort({
             originalEvent: event,
             field: this.field
         });
 
-        let sortOrder;
+        this.domHandler.clearSelection();
+        this.sorted = true;
+    }
+
+    ngOnDestroy() {
+        if(this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+}
+
+
+@Component({
+    selector: 'p-sortIcon',
+    template: `
+        <span class="ui-sortable-column-icon fa fa-fw fa-sort" [ngClass]="{'fa-sort-asc': sortOrder === 1, 'fa-sort-desc': sortOrder === -1}"></span>
+    `
+})
+export class SortIcon implements OnInit, OnDestroy {
+
+    @Input() field: string;
+
+    subscription: Subscription;
+
+    sortOrder: number;
+
+    sorted: boolean;
+
+    constructor(public dt: Table) {
+        this.subscription = this.dt.tableService.sortSource$.subscribe(sortMeta => {
+            this.updateSortState();
+        });
+    }
+
+    ngOnInit() {
+        this.updateSortState();
+    }
+
+    updateSortState() {
         if (this.dt.sortMode === 'single') {
-            sortOrder = this.dt.sortOrder;
+            this.sortOrder = this.dt.isSorted(this.field) ? this.dt.sortOrder : 0;
         }
         else if (this.dt.sortMode === 'multiple') {
             let sortMeta = this.dt.getSortMeta(this.field);
-            if(sortMeta) {
-                sortOrder = sortMeta.order;
-            }
+            this.sortOrder = sortMeta ? sortMeta.order: 0;
         }
+    }
 
-        if (sortOrder === 1) {
-            this.domHandler.removeClass(this.icon, 'fa-sort-desc');
-            this.domHandler.addClass(this.icon, 'fa-sort-asc');
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
-        else if (sortOrder === -1) {
-            this.domHandler.removeClass(this.icon, 'fa-sort-asc');
-            this.domHandler.addClass(this.icon, 'fa-sort-desc');
-        }
-
-        this.domHandler.addClass(this.el.nativeElement, 'ui-state-highlight');
-        this.domHandler.clearSelection();
     }
 }
 
@@ -1914,7 +1980,7 @@ export class CellEditor implements AfterContentInit {
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon]
 })
 export class TableModule { }

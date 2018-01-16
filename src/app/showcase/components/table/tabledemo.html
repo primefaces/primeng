@@ -654,7 +654,7 @@ export class DataTablePageDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/page']">live example.</a></p>
 
             <h3>Sorting</h3>
-            <p>A column can be made sortable by adding the pSortableColumn directive whose value is the sort field property.</p>
+            <p>A column can be made sortable by adding the pSortableColumn directive whose value is the field to sort against and a sort indicator via p-sortIcon component.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table [columns]="cols" [value]="cars1"&gt;
@@ -662,6 +662,7 @@ export class DataTablePageDemo implements OnInit &#123;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
                 &#123;&#123;col.header&#125;&#125;
+                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;

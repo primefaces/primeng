@@ -9,11 +9,13 @@
 
 <div class="content-section implementation">
     <h3 class="first">Single Sort</h3>
+
     <p-table [columns]="cols" [value]="cars1">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                     {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>
             </tr>
         </ng-template>
@@ -32,6 +34,7 @@
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                     {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>
             </tr>
         </ng-template>
@@ -94,6 +97,7 @@ export class TableSortDemo implements OnInit &#123;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
                 &#123;&#123;col.header&#125;&#125;
+                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
@@ -112,6 +116,7 @@ export class TableSortDemo implements OnInit &#123;
         &lt;tr&gt;
             &lt;th *ngFor="let col of columns" [pSortableColumn]="col.field"&gt;
                 &#123;&#123;col.header&#125;&#125;
+                &lt;p-sortIcon [field]="col.field"&gt;&lt;/p-sortIcon&gt;
             &lt;/th&gt;
         &lt;/tr&gt;
     &lt;/ng-template&gt;
