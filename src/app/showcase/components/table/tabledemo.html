@@ -3,7 +3,7 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">TurboTable - <span class="subitem">Beta</span></span>
-        <span>Table is the successor of p-dataTable with a lightning fast performance and excellent level of control over the presentation. p-table is called as TurboTable in order to differantiate if from the deprecated p-dataTable.
+        <span>Table is the successor of p-dataTable with a lightning fast performance (at least 10x faster) and excellent level of control over the presentation. p-table is called as TurboTable in order to differantiate if from the deprecated p-dataTable.
         </span>
     </div>
 </div>
@@ -21,10 +21,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-car>
             <tr>
-                <td>&#123;&#123;car.vin&#125;&#125;</td>
-                <td>&#123;&#123;car.year&#125;&#125;</td>
-                <td>&#123;&#123;car.brand&#125;&#125;</td>
-                <td>&#123;&#123;car.color&#125;&#125;</td>
+                <td>{{car.vin}}</td>
+                <td>{{car.year}}</td>
+                <td>{{car.brand}}</td>
+                <td>{{car.color}}</td>
             </tr>
         </ng-template>
     </p-table>
