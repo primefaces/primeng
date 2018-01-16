@@ -945,11 +945,11 @@ a {
 }
 
 .home .book .ui-g-12:last-child {
-    text-align: right;
+    text-align: center;
 }
 
 .home .book .ui-g-12:first-child {
-    text-align: center;
+    text-align: left;
 }
 
 .home .book img {
