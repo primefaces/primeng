@@ -41,6 +41,7 @@ npm-debug.log
 testem.log
 /typings
 .gitignore
+exports
 
 # config
 .angular-cli.json
