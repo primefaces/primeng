@@ -575,6 +575,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     @Input() contextMenu: any;
     
     @Input() csvSeparator: string = ',';
+
+    @Input() csvLinebreak: string = '\n';
     
     @Input() exportFilename: string = 'download';
     
@@ -2526,7 +2528,7 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
         
         //body
         data.forEach((record, i) => {
-            csv += '\n';
+            csv += this.csvLinebreak;
             for(let i = 0; i < this.columns.length; i++) {
                 let column = this.columns[i];
                 if(column.exportable && column.field) {
