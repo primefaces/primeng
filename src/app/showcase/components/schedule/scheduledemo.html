@@ -159,32 +159,10 @@ export class MyModel &#123;
 
             <h3>Localization</h3>
             <p>Localization for different languages and formats is defined by binding the settings object to the locale property. 
-                Following is a schedule with Spanish month names.</p>
+                Following is a schedule with Spanish month names. The locale file should also be included in your project, read more at <a href="https://fullcalendar.io/docs/text/locale/">here</a>.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-schedule [events]="events" locale="es"&gt;&lt;/p-schedule&gt;
-</code>
-</pre>
-            <p>Visit the <a href="https://fullcalendar.io/docs/text/locale/">fullcalendar documentation</a> to get the available locales.</p>
-            <p>Activating fullcalendar i18n functionalities requires installing jquery-datepicker and loading the locale definitions for the target language</p>
-            <ul><li>Install jquery-datepicker module:</li></ul>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-npm i jquery-datepicker --save
-</code>
-</pre>
-            <ul><li>Add required scripts in .angular-cli.json in the "scripts" section:</li>
-            <ul><li>Between moment.js and fullcalendar.js:</li></ul></ul>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-"../node_modules/moment/locale/es.js",
-"../node_modules/jquery-datepicker/jquery-datepicker.min.js",
-</code>
-</pre>
-            <ul><ul><li>After fullcalendar.js:</li></ul></ul>
-<pre>
-<code class="language-markup" pCode ngNonBindable>
-"../node_modules/fullcalendar/dist/locale/es.js",
 </code>
 </pre>
 
