@@ -312,6 +312,8 @@ body {
     color: #ffffff;
     font-weight: bold;
     font-size: 11px;
+    position: relative;
+    top: -2px;
 }
 
 #layout-sidebar .layout-menu > div a:hover {
