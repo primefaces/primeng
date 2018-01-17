@@ -434,7 +434,7 @@ body {
 .content-submenu ul li a:hover {
     border: 1px solid #ffffff;
     color: #ffffff;
-    
+
 }
 
 /* Documentation Section */
@@ -896,7 +896,7 @@ a {
 }
 
 .home .whouses img {
-    height: 30px;
+    height: 42px;
 }
 
 .home .testimonials {
@@ -905,13 +905,37 @@ a {
     margin-top: 30px;
 }
 
-.home .testimonials h3 {
-    margin-bottom: 10px;
+.home .testimonials .ui-g > div {
+    margin-left: -1px;
+    margin-top: -1px;
+    border: 1px solid #333D41;
+}
+
+.home .testimonials .ui-g > div:nth-child(2n) {
+    background-color: #283134;
 }
 
 .home .testimonials p {
     font-size: 14px;
     line-height: 1.5;
+    font-style: italic;
+}
+
+.home .testimonials h3 {
+    margin-bottom: 10px;
+}
+
+.home .testimonials img {
+    padding-top: 10px;
+}
+
+.home .testimonials hr {
+  width: 40px;
+  color: #4c5254;
+}
+
+.home .testimonials i {
+    font-style: normal;
 }
 
 /* Book */
@@ -923,11 +947,11 @@ a {
 }
 
 .home .book .ui-g-12:last-child {
-    text-align: right;
+    text-align: center;
 }
 
 .home .book .ui-g-12:first-child {
-    text-align: center;
+    text-align: left;
 }
 
 .home .book img {
@@ -1052,4 +1076,3 @@ a {
     display: block;
   }
 }
-
