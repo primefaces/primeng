@@ -23,19 +23,11 @@ describe('Checkbox', () => {
     });
 
     it('should check the input on click', () => {
-        const boxEl = fixture.nativeElement.querySelector('.ui-checkbox-box');
+        const boxEl = fixture.nativeElement.querySelector('.ui-chkbox-box');
         boxEl.click();
         fixture.detectChanges();
 
         const input = fixture.nativeElement.querySelector('input');
         expect(input.checked).toBe(true);
-    });
-
-    it('should display active state initially when checked by default', () => {
-        checkbox.checked = true;
-        fixture.detectChanges();
-
-        const boxEl = fixture.nativeElement.querySelector('.ui-checkbox-box');
-        expect(boxEl.class).toContain('ui-state-active');
     });
 });
