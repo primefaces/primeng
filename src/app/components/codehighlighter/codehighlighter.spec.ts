@@ -11,7 +11,7 @@ describe('CodeHighlighter', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [
         CodeHighlighter

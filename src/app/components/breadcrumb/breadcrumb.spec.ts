@@ -2,6 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Breadcrumb } from './breadcrumb';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {RouterModule} from '@angular/router';
 
 describe('Breadcrumb', () => {
   
@@ -11,7 +12,8 @@ describe('Breadcrumb', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        RouterModule
       ],
       declarations: [
         Breadcrumb
