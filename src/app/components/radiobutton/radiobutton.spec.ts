@@ -4,33 +4,38 @@ import { RadioButton } from './radiobutton';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('RadioButton', () => {
-  
-  let radiobutton: RadioButton;
-  let fixture: ComponentFixture<RadioButton>;
-  
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        NoopAnimationsModule
-      ],
-      declarations: [
-        RadioButton
-      ]
-    });
-    
-    fixture = TestBed.createComponent(RadioButton);
-    radiobutton = fixture.componentInstance;
-  });
-  it('Should display the fa-circle', () => {
-    const radioEl = fixture.nativeElement.querySelector('.ui-radiobutton-icon');
-    radioEl.click();
-    fixture.detectChanges();
-   });
 
-   it('Should display the default checked', () => {
-      radiobutton.checked = true;
-      const radioChecked = fixture.nativeElement.querySelector('.ui-state-active');
-      expect(radiobutton.checked).toBe(true);
-      fixture.detectChanges();
-   });
+    let radiobutton: RadioButton;
+    let fixture: ComponentFixture<RadioButton>;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                NoopAnimationsModule
+            ],
+            declarations: [
+                RadioButton
+            ]
+        });
+
+        fixture = TestBed.createComponent(RadioButton);
+        radiobutton = fixture.componentInstance;
+    });
+
+    it('should check the input on click', () => {
+        const boxEl = fixture.nativeElement.querySelector('.ui-radiobutton-box');
+        boxEl.click();
+        fixture.detectChanges();
+
+        const input = fixture.nativeElement.querySelector('input');
+        expect(input.checked).toBe(true);
+    });
+
+    it('should display active state initially when checked by default', () => {
+        radiobutton.checked = true;
+        fixture.detectChanges();
+
+        const boxEl = fixture.nativeElement.querySelector('.ui-radiobutton-box');
+        expect(boxEl.class).toContain('ui-state-active');
+    });
 });
