@@ -21,4 +21,10 @@ describe('Checkbox', () => {
     fixture = TestBed.createComponent(Checkbox);
     checkbox = fixture.componentInstance;
   });
+  it('Should display the default checked ', () => {
+    checkbox.checked = true;
+    const checkboxChecked = fixture.nativeElement.querySelector('.ui-state-active');
+    expect(checkbox.checked).toBe(true);
+    fixture.detectChanges();
+    });
 });
