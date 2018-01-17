@@ -21,4 +21,10 @@ describe('Checkbox', () => {
     fixture = TestBed.createComponent(Checkbox);
     checkbox = fixture.componentInstance;
   });
+  it('Should display the fa-check', () => {
+     
+    const checkFa = fixture.nativeElement.querySelector('.ui-chkbox-icon');
+    checkFa.click();
+    fixture.detectChanges();
+   });
 });
