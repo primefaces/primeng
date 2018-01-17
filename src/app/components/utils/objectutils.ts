@@ -84,20 +84,34 @@ export class ObjectUtils {
         }
     }
 
-    filter(value: any[], fields: any[], filterValue: string) {
+    filter(value: any[], fields: any[], filterValue: string, filterMode?: string) {
         let filteredItems: any[] = [];
-
+        
         if(value) {
             for(let item of value) {
                 for(let field of fields) {
-                    if(String(this.resolveFieldData(item, field)).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
-                        filteredItems.push(item);
-                        break;
+                    if (filterMode) {
+                        if (filterMode === 'startsWith') {
+                            if(String(this.resolveFieldData(item, field)).toLowerCase().indexOf(filterValue.toLowerCase()) === 0) {
+                                filteredItems.push(item);
+                                break;
+                              }
+                        } else if (filterMode === 'contains') {
+                            if(String(this.resolveFieldData(item, field)).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
+                                filteredItems.push(item);
+                                break;
+                            }
+                        }
+                    } else {
+                        if(String(this.resolveFieldData(item, field)).toLowerCase().indexOf(filterValue.toLowerCase()) > -1) {
+                            filteredItems.push(item);
+                            break;
+                        }
                     }
                 }
             }
         }
-
+        
         return filteredItems;
     }
 
