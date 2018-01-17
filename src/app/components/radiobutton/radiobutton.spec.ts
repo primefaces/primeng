@@ -21,4 +21,16 @@ describe('RadioButton', () => {
     fixture = TestBed.createComponent(RadioButton);
     radiobutton = fixture.componentInstance;
   });
+  it('Should display the fa-circle', () => {
+    const radioEl = fixture.nativeElement.querySelector('.ui-radiobutton-icon');
+    radioEl.click();
+    fixture.detectChanges();
+   });
+
+   it('Should display the default checked', () => {
+      radiobutton.checked = true;
+      const radioChecked = fixture.nativeElement.querySelector('.ui-state-active');
+      expect(radiobutton.checked).toBe(true);
+      fixture.detectChanges();
+   });
 });
