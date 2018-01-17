@@ -30,13 +30,21 @@ describe('ToggleButton', () => {
   });
   
   it('should display the ON label when clicked', () => {
-    toggleButton.offLabel = 'PrimeNG ToggleButton = YES';
+    toggleButton.onLabel = 'PrimeNG ToggleButton = YES';
     fixture.detectChanges();
     const clickEl = fixture.nativeElement.querySelector('.ui-togglebutton')
     
     clickEl.click();
+    fixture.detectChanges();
     
     const labelEl = fixture.debugElement.query(By.css('.ui-button-text'));
     expect(labelEl.nativeElement.textContent).toContain('PrimeNG ToggleButton = YES')
   });
+  it('Should display the default checked', () => {
+    toggleButton.checked = true;
+    toggleButton.onLabel = 'I confirm';
+    const toggleBtnChecked = fixture.nativeElement.querySelector('.ui-button-text');
+    expect(toggleButton.checked).toBe(true);
+    fixture.detectChanges();
+    });
 });
