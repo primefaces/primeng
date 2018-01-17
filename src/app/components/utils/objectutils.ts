@@ -25,7 +25,7 @@ export class ObjectUtils {
 
         if (typeof obj1 == 'object' && typeof obj2 == 'object') {
             if (visited) {
-                if (visited.includes(obj1)) return false;
+                if (visited.indexOf(obj1) !== -1) return false;
             } else {
                 visited = [];
             }
