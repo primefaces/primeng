@@ -1279,7 +1279,7 @@ export class TableBody {
             <div #virtualScroller class="ui-table-virtual-scroller"></div>
         </div>
         <div #scrollFooter *ngIf="dt.footerTemplate" class="ui-table-scrollable-footer ui-widget-header">
-            <div #scrollFooterBox class="ui-table-scrollable-footer-box">ü
+            <div #scrollFooterBox class="ui-table-scrollable-footer-box">
                 <table>
                     <ng-container *ngTemplateOutlet="frozen ? dt.frozenColGroupTemplate||dt.colGroupTemplate : dt.colGroupTemplate; context {$implicit: columns}"></ng-container>
                     <tfoot class="ui-table-tfoot">
