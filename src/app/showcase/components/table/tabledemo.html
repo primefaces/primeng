@@ -1168,7 +1168,9 @@ export class DataTableDemo implements OnInit &#123;
             <p>See the <a [routerLink]="['/table/colreorder']">live example.</a></p>
 
             <h3>Data Export</h3>
-            <p>Table can export its data in CSV format using exportCSV() method. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true.</p>
+            <p>Table can export its data in CSV format using exportCSV() method. By default whole data is exported, if you'd like to export only the selection then pass a config object with selectionOnly property as true. Note that
+                columns should be dynamic for export functionality to work.
+            </p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-table #tt[columns]="cols" [value]="cars" selectionMode="multiple" [(selection)]="selectedCars"&gt;
