@@ -674,6 +674,27 @@ export class Table implements OnInit, AfterContentInit {
         return index;
     }
 
+    selectRowWithRadio(event: Event, rowData:any) {
+        if(this.selection != rowData) {
+            this._selection = rowData;
+            this.selectionChange.emit(this.selection);
+            this.onRowSelect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
+            
+            if(this.dataKey) {
+                this.selectionKeys = {};
+                this.selectionKeys[String(this.objectUtils.resolveFieldData(rowData, this.dataKey))] = 1;
+            }
+        }
+        else {
+            this._selection = null;
+            this.selectionChange.emit(this.selection);
+            this.onRowUnselect.emit({originalEvent: event, data: rowData, type: 'radiobutton'});
+        }
+        
+        this.preventSelectionKeysUpdate = true;
+        this.tableService.onSelectionChange();
+    }
+
     equals(data1, data2) {
         return this.compareSelectionBy === 'equals' ? (data1 === data2) : this.objectUtils.equals(data1, data2, this.dataKey);
     }
@@ -928,7 +949,6 @@ export class Table implements OnInit, AfterContentInit {
     public exportCSV(options?: any) {
         let data = this.filteredValue || this.value;
         let csv = '\ufeff';
-        debugger;
 
         if (options && options.selectionOnly) {
             data = this.selection || [];
@@ -2009,10 +2029,67 @@ export class CellEditor implements AfterContentInit {
     
 }
 
+@Component({
+    selector: 'p-tableRadioButton',
+    template: `
+        <div class="ui-radiobutton ui-widget" (click)="onClick()">
+            <div class="ui-helper-hidden-accessible">
+                <input type="radio" [attr.name]="name"
+                    [checked]="selected" (change)="onChange($event)" (focus)="onFocus($event)" (blur)="onBlur($event)">
+            </div>
+            <div #box [ngClass]="{'ui-radiobutton-box ui-widget ui-state-default':true,
+                'ui-state-active':selected, 'ui-state-disabled':disabled}">
+                <span class="ui-radiobutton-icon ui-clickable" [ngClass]="{'fa fa-circle':selected}"></span>
+            </div>
+        </div>
+    `
+})
+export class TableRadioButton  {
+
+    @Input() disabled: boolean;
+
+    @Input() value: any;
+
+    @ViewChild('box') boxViewChild: ElementRef;
+
+    selected: boolean;
+
+    subscription: Subscription;
+
+    constructor(public dt: Table, public domHandler: DomHandler, public tableService: TableService) {
+        this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
+            this.selected = this.dt.isSelected(this.value);
+        });
+    }
+
+    ngOnInit() {
+        this.selected = this.dt.isSelected(this.value);
+    }
+
+    onClick(event: Event) {
+        this.dt.selectRowWithRadio(event, this.value);
+    }
+
+    onFocus() {
+        this.domHandler.addClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    onBlur() {
+        this.domHandler.removeClass(this.boxViewChild.nativeElement, 'ui-state-focus');
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+   
+}
+
 
 @NgModule({
     imports: [CommonModule,PaginatorModule],
-    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon],
-    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon]
+    exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton],
+    declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton]
 })
 export class TableModule { }
