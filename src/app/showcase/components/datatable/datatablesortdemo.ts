@@ -29,4 +29,9 @@ export class DataTableSortDemo implements OnInit {
           this.sortF = event.field;
         }
     }
+
+    compareColors(color1, color2) {
+        const colorOrder = [ 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'White', 'Gray', 'Black' ];
+        return colorOrder.indexOf(color1) - colorOrder.indexOf(color2);
+    }
 }

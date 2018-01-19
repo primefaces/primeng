@@ -14,7 +14,7 @@
         <p-column field="vin" header="Vin" [sortable]="true"></p-column>
         <p-column field="year" header="Year" [sortable]="true"></p-column>
         <p-column field="brand" header="Brand" [sortable]="true"></p-column>
-        <p-column field="color" header="Color" [sortable]="true"></p-column>
+        <p-column field="color" header="Color" [sortable]="true" [compareFunction]="compareColors"></p-column>
       <p-footer>
         <button type="button" label="Sort by Year" (click)="changeSort($event)" pButton [ngStyle]="{'display':'flex'}"></button>
       </p-footer>
@@ -25,7 +25,7 @@
         <p-column field="vin" header="Vin" [sortable]="true"></p-column>
         <p-column field="year" header="Year" [sortable]="true"></p-column>
         <p-column field="brand" header="Brand" [sortable]="true"></p-column>
-        <p-column field="color" header="Color" [sortable]="true"></p-column>
+        <p-column field="color" header="Color" [sortable]="true" [compareFunction]="compareColors"></p-column>
     </p-dataTable>
 </div>
 
@@ -58,6 +58,11 @@ export class DataTableSortDemo implements OnInit &#123;
           this.sortF = event.field;
         &#125;
     &#125;
+
+    compareColors(color1, color2) &#123;
+        const colorOrder = [ 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'White', 'Gray', 'Black' ];
+        return colorOrder.indexOf(color1) - colorOrder.indexOf(color2);
+    &#125;
 &#125;
 </code>
 </pre>
@@ -75,7 +80,7 @@ export class DataTableSortDemo implements OnInit &#123;
     &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
-    &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [sortable]="true" [compareFunction]="compareColor"&gt;&lt;/p-column&gt;
     &lt;p-footer&gt;
       &lt;button type="button" label="Sort by Year" (click)="changeSort($event)" pButton&gt;&lt;/button&gt;
     &lt;/p-footer&gt;
@@ -86,7 +91,7 @@ export class DataTableSortDemo implements OnInit &#123;
     &lt;p-column field="vin" header="Vin" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="year" header="Year" [sortable]="true"&gt;&lt;/p-column&gt;
     &lt;p-column field="brand" header="Brand" [sortable]="true"&gt;&lt;/p-column&gt;
-    &lt;p-column field="color" header="Color" [sortable]="true"&gt;&lt;/p-column&gt;
+    &lt;p-column field="color" header="Color" [sortable]="true" [compareFunction]="compareColor"&gt;&lt;/p-column&gt;
 &lt;/p-dataTable&gt;
 </code>
 </pre>
