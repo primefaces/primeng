@@ -277,6 +277,10 @@ export class Table implements OnInit, AfterContentInit {
 
     _selection: any;
 
+    anchorRowIndex: number;
+    
+    rangeRowIndex: number;
+
     constructor(public el: ElementRef, public domHandler: DomHandler, public objectUtils: ObjectUtils, public zone: NgZone, public tableService: TableService) {}
 
     ngOnInit() {
@@ -593,44 +597,57 @@ export class Table implements OnInit, AfterContentInit {
         this.onRowClick.emit({ originalEvent: event.originalEvent, data: event.rowData });
 
         if(this.selectionMode) {
-            let rowData = event.rowData;
-            let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowData, this.dataKey)) : null;
-            let selected = this.isSelected(rowData);
             this.preventSelectionSetterPropagation = true;
-
-            if (this.selectionMode === 'single') {
-                if (selected) {
-                    this._selection = null;
-                    this.selectionKeys = {};
-                    this.selectionChange.emit(this.selection);
-                    this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+            if(this.isMultipleSelectionMode() && event.originalEvent.shiftKey && this.anchorRowIndex != null) {
+                this.domHandler.clearSelection();
+                if(this.rangeRowIndex != null) {
+                    this.clearSelectionRange(event.originalEvent);
                 }
-                else {
-                    this._selection = rowData;
-                    this.selectionChange.emit(this.selection);
-                    this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
-                    if (dataKeyValue) {
-                        this.selectionKeys = {};
-                        this.selectionKeys[dataKeyValue] = 1;
-                    }
-                }
+                
+                this.rangeRowIndex = event.rowIndex;
+                this.selectRange(event.originalEvent, event.rowIndex);
             }
-            else if (this.selectionMode === 'multiple') {
-                if (selected) {
-                    let selectionIndex = this.findIndexInSelection(rowData);
-                    this._selection = this.selection.filter((val, i) => i != selectionIndex);
-                    this.selectionChange.emit(this.selection);
-                    this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
-                    if (dataKeyValue) {
-                        delete this.selectionKeys[dataKeyValue];
+            else {
+                let rowData = event.rowData;
+                let dataKeyValue = this.dataKey ? String(this.objectUtils.resolveFieldData(rowData, this.dataKey)) : null;
+                let selected = this.isSelected(rowData);
+                this.anchorRowIndex = event.rowIndex;
+                this.rangeRowIndex = event.rowIndex;
+
+                if (this.selectionMode === 'single') {
+                    if (selected) {
+                        this._selection = null;
+                        this.selectionKeys = {};
+                        this.selectionChange.emit(this.selection);
+                        this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                    }
+                    else {
+                        this._selection = rowData;
+                        this.selectionChange.emit(this.selection);
+                        this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                        if (dataKeyValue) {
+                            this.selectionKeys = {};
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                 }
-                else {
-                    this._selection = this.selection ? [...this.selection, rowData] : [rowData];
-                    this.selectionChange.emit(this.selection);
-                    this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
-                    if (dataKeyValue) {
-                        this.selectionKeys[dataKeyValue] = 1;
+                else if (this.selectionMode === 'multiple') {
+                    if (selected) {
+                        let selectionIndex = this.findIndexInSelection(rowData);
+                        this._selection = this.selection.filter((val, i) => i != selectionIndex);
+                        this.selectionChange.emit(this.selection);
+                        this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                        if (dataKeyValue) {
+                            delete this.selectionKeys[dataKeyValue];
+                        }
+                    }
+                    else {
+                        this._selection = this.selection ? [...this.selection, rowData] : [rowData];
+                        this.selectionChange.emit(this.selection);
+                        this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
+                        if (dataKeyValue) {
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                 }
             }
@@ -646,6 +663,62 @@ export class Table implements OnInit, AfterContentInit {
             this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, data: event.rowData });
             this.contextMenu.show(event.originalEvent);
             this.tableService.onContextMenu(event.rowData);
+        }
+    }
+
+    selectRange(event: MouseEvent, rowIndex: number) {
+        let rangeStart, rangeEnd;
+        
+        if(this.anchorRowIndex > rowIndex) {
+            rangeStart = rowIndex;
+            rangeEnd = this.anchorRowIndex;
+        }
+        else if(this.anchorRowIndex < rowIndex) {
+            rangeStart = this.anchorRowIndex;
+            rangeEnd = rowIndex;
+        }
+        else {
+            rangeStart = rowIndex;
+            rangeEnd = rowIndex;
+        }
+        
+        for(let i = rangeStart; i <= rangeEnd; i++) {
+            let rangeRowData = this.value[i];
+            this._selection = [...this.selection, rangeRowData];
+            this.selectionChange.emit(this.selection);
+            let dataKeyValue: string = this.dataKey ? String(this.objectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
+            if(dataKeyValue) {
+                this.selectionKeys[dataKeyValue] = 1;
+            }
+            this.onRowSelect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
+        }
+    }
+
+    clearSelectionRange(event: MouseEvent) {
+        let rangeStart, rangeEnd;
+
+        if(this.rangeRowIndex > this.anchorRowIndex) {
+            rangeStart = this.anchorRowIndex;
+            rangeEnd = this.rangeRowIndex;
+        }
+        else if(this.rangeRowIndex < this.anchorRowIndex) {
+            rangeStart = this.rangeRowIndex;
+            rangeEnd = this.anchorRowIndex;
+        }
+        else {
+            rangeStart = this.rangeRowIndex;
+            rangeEnd = this.rangeRowIndex;
+        }
+        
+        for(let i = rangeStart; i <= rangeEnd; i++) {
+            let rangeRowData = this.value[i];
+            let selectionIndex = this.findIndexInSelection(rangeRowData);
+            this._selection = this.selection.filter((val,i) => i!=selectionIndex);
+            let dataKeyValue: string = this.dataKey ? String(this.objectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
+            if(dataKeyValue) {
+                delete this.selectionKeys[dataKeyValue];
+            }
+            this.onRowUnselect.emit({originalEvent: event, data: rangeRowData, type: 'row'});
         }
     }
 
@@ -1621,6 +1694,8 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     @Input("pSelectableRow") data: any;
 
+    @Input("pSelectableRowIndex") index: number;
+
     selected: boolean;
 
     subscription: Subscription;
@@ -1639,7 +1714,8 @@ export class SelectableRow implements OnInit, OnDestroy {
     onClick(event: Event) {
         this.dt.handleRowClick({
             originalEvent: event,
-            rowData: this.data
+            rowData: this.data,
+            rowIndex: this.index
         });
         this.domHandler.clearSelection();
     }    
