@@ -2190,10 +2190,10 @@ export class TableCheckbox  {
     template: `
         <div class="ui-chkbox ui-widget" (click)="onClick($event, cb.checked)">
             <div class="ui-helper-hidden-accessible">
-                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)">
+                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus($event)" (blur)="onBlur($event)" [disabled]="!dt.value || dt.value.length === 0">
             </div>
             <div #box [ngClass]="{'ui-chkbox-box ui-widget ui-state-default':true,
-                'ui-state-active':checked, 'ui-state-disabled':disabled}">
+                'ui-state-active':checked, 'ui-state-disabled': (!dt.value || dt.value.length === 0)}">
                 <span class="ui-chkbox-icon ui-clickable" [ngClass]="{'fa fa-check':checked}"></span>
             </div>
         </div>
@@ -2220,7 +2220,10 @@ export class TableHeaderCheckbox  {
     }
 
     onClick(event: Event, checked) {
-        this.dt.toggleRowsWithCheckbox(event, !checked);
+        if(this.dt.value && this.dt.value.length > 0) {
+            this.dt.toggleRowsWithCheckbox(event, !checked);
+        }
+        
         this.domHandler.clearSelection();
     }
 
