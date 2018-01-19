@@ -1243,6 +1243,8 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
                         result = 1;
                     else if (value1 == null && value2 == null)
                         result = 0;
+                    else if (this.sortColumn.compareFunction)
+                        result = this.sortColumn.compareFunction(value1, value2);
                     else if (typeof value1 === 'string' && typeof value2 === 'string')
                         result = value1.localeCompare(value2);
                     else
@@ -1273,10 +1275,17 @@ export class DataTable implements AfterViewChecked,AfterViewInit,AfterContentIni
     }
 
     multisortField(data1,data2,multiSortMeta,index) {
+        const column = this.columns.find(col => col.field === multiSortMeta[index].field);
         let value1 = this.resolveFieldData(data1, multiSortMeta[index].field);
         let value2 = this.resolveFieldData(data2, multiSortMeta[index].field);
         let result = null;
 
+        if (column.compareFunction) {
+            const compareResult = column.compareFunction(value1, value2);
+            if (compareResult !== 0) {
+                return multiSortMeta[index].order * compareResult;
+            }
+        }
         if (typeof value1 == 'string' || value1 instanceof String) {
             if (value1.localeCompare && (value1 != value2)) {
                 return (multiSortMeta[index].order * value1.localeCompare(value2));

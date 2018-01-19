@@ -41,6 +41,7 @@ export class Column implements AfterContentInit{
     @Input() field: string;
     @Input() colId: string;
     @Input() sortField: string;
+    @Input() compareFunction: (a: any, b: any) => number;
     @Input() filterField: string;
     @Input() header: string;
     @Input() footer: string;
